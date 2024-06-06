@@ -10,25 +10,31 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const isES = locale === 'es'
 
   const titles = {
-    es: "Capacidades Técnicas N3uralia | Arquitectura Agentica en Producción",
-    en: "N3uralia Capabilities | Agentic Architecture in Production",
+    es: "Capacidades tecnicas N3uralia | Arquitectura agentica en produccion",
+    en: "N3uralia capabilities | Agentic architecture in production",
   }
 
   const descriptions = {
-    es: "6 pilares técnicos: arquitectura agentica, living agents, orquestación multi-agente, inteligencia conversacional, síntesis de conocimiento.",
-    en: "6 technical pillars: agentic architecture, living agents, multi-agent coordination, conversational intelligence, knowledge synthesis.",
+    es: "Seis pilares tecnicos: arquitectura agentica, living agents, coordinacion multiagente, inteligencia conversacional y sistemas de conocimiento.",
+    en: "Six technical pillars: agentic architecture, living agents, multi-agent coordination, conversational intelligence, and knowledge systems.",
   }
 
   return {
-    title: titles[locale as keyof typeof titles],
-    description: descriptions[locale as keyof typeof descriptions],
+    title: titles[locale],
+    description: descriptions[locale],
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/capabilities`,
+      languages: {
+        es: "https://n3uralia.com/es/capabilities",
+        en: "https://n3uralia.com/en/capabilities",
+      },
+    },
   }
 }
 
 export default function CapabilitiesPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  return <CapabilitiesPageClient locale={locale as 'es' | 'en'} />
+  return <CapabilitiesPageClient locale={locale} />
 }

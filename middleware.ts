@@ -1,49 +1,38 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from "next/server"
 
-// i18n configuration
-const LOCALES = ['es', 'en']
-const DEFAULT_LOCALE = 'es'
+const LOCALES = ["es", "en"]
+const DEFAULT_LOCALE = "es"
 
-// Protected API routes that require authentication
 const PROTECTED_API_ROUTES = [
-  '/api/living-agents/evolution',
-  '/api/living-agents/interactions',
-  '/api/vibe-selling/compose',
-  '/api/analytics',
-  '/api/heatmap',
-  '/api/conversions',
+  "/api/living-agents/evolution",
+  "/api/living-agents/interactions",
+  "/api/vibe-selling/compose",
+  "/api/analytics",
+  "/api/conversions",
+  "/api/heatmap",
 ]
 
-// Public API routes (no auth needed)
 const PUBLIC_API_ROUTES = [
-  '/api/health',
-  '/api/chat',
-  '/api/deployment-status',
-  '/api/email/test',
-  '/api/send-email',
+  "/api/health",
+  "/api/chat",
+  "/api/deployment-status",
+  "/api/email/test",
+  "/api/send-email",
 ]
 
-// Rate limiting cache (in-memory for single instance, should use Redis in production)
 const rateLimitCache = new Map<string, { count: number; resetTime: number }>()
 
-// Configuration
-const RATE_LIMIT_WINDOW_MS = 60 * 1000 // 1 minute
-const RATE_LIMIT_MAX_REQUESTS = 100 // requests per minute
+const RATE_LIMIT_WINDOW_MS = 60 * 1000
+const RATE_LIMIT_MAX_REQUESTS = 100
 
-/**
- * Get client IP address
- */
 function getClientIp(request: NextRequest): string {
   return (
-    request.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
-    request.headers.get('x-real-ip') ||
-    'unknown'
+    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown"
   )
 }
 
-/**
- * Check rate limit
- */
 function checkRateLimit(clientIp: string): boolean {
   const now = Date.now()
   const data = rateLimitCache.get(clientIp)
@@ -61,16 +50,13 @@ function checkRateLimit(clientIp: string): boolean {
   return true
 }
 
-/**
- * Validate environment variables
- */
 function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
   const errors: string[] = []
   const requiredVars = [
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
-    'SUPABASE_SERVICE_ROLE_KEY',
-    'OPENAI_API_KEY',
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "OPENAI_API_KEY",
   ]
 
   for (const varName of requiredVars) {
@@ -85,159 +71,158 @@ function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
   }
 }
 
-/**
- * Get locale from request
- */
 function getLocale(pathname: string): string | null {
-  const parts = pathname.split('/')
+  const parts = pathname.split("/")
   if (parts.length > 1 && LOCALES.includes(parts[1])) {
     return parts[1]
   }
   return null
 }
 
-export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+function buildRequestHeaders(request: NextRequest, locale: string) {
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set("x-n3uralia-locale", locale)
+  return requestHeaders
+}
 
-  // Skip middleware for static assets, public files
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.startsWith('/public') ||
-    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
-  ) {
-    return NextResponse.next()
-  }
+function addSecurityHeaders(response: NextResponse) {
+  response.headers.set("X-Content-Type-Options", "nosniff")
+  response.headers.set("X-Frame-Options", "SAMEORIGIN")
+  response.headers.set("X-XSS-Protection", "1; mode=block")
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
+  response.headers.set("Permissions-Policy", "geolocation=(), microphone=(), camera=()")
 
-  // Handle locale routing for non-API routes
-  if (!pathname.startsWith('/api')) {
-    const locale = getLocale(pathname)
-
-    if (!locale) {
-      // Get preferred locale from Accept-Language header
-      const acceptLanguage = request.headers.get('accept-language') || ''
-      const preferredLocale = acceptLanguage
-        .split(',')
-        [0]
-        .split('-')
-        [0]
-        .toLowerCase()
-
-      const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
-
-      // Redirect to locale-prefixed path
-      request.nextUrl.pathname = `/${validLocale}${pathname}`
-      return NextResponse.redirect(request.nextUrl)
-    }
-  }
-
-  // Rate limiting for all requests
-  const clientIp = getClientIp(request)
-  if (!checkRateLimit(clientIp)) {
-    return NextResponse.json(
-      {
-        error: 'Too many requests. Please try again later.',
-        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
-      },
-      { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
+  if (process.env.NODE_ENV === "production") {
+    response.headers.set(
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains; preload",
     )
   }
 
-  // Validate environment variables (ALL environments)
-  const envValidation = validateEnvironmentVariables()
-  if (!envValidation.valid) {
-    console.error('[MIDDLEWARE] Environment validation failed:', envValidation.errors)
-    return NextResponse.json(
-      {
-        error: 'Server configuration error',
-        timestamp: new Date().toISOString(),
-        details: process.env.NODE_ENV === 'development' ? envValidation.errors : undefined,
-      },
-      { status: 503 }
-    )
-  }
-
-  // Check if route is protected API
-  const isProtectedRoute = PROTECTED_API_ROUTES.some((route) => pathname.startsWith(route))
-  const isPublicRoute = PUBLIC_API_ROUTES.some((route) => pathname.startsWith(route))
-
-  if (isProtectedRoute && !isPublicRoute) {
-    // Get auth token from header
-    const authHeader = request.headers.get('authorization')
-    const token = authHeader?.replace('Bearer ', '')
-
-    if (!token) {
-      return NextResponse.json(
-        { error: 'Unauthorized. Missing authentication token.' },
-        { status: 401 }
-      )
-    }
-
-    // Validate token against Supabase
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/user`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '',
-        },
-      })
-
-      if (!response.ok) {
-        return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 })
-      }
-
-      const user = await response.json()
-
-      // Add user to request headers for use in API routes
-      const requestHeaders = new Headers(request.headers)
-      requestHeaders.set('x-user-id', user.id)
-      requestHeaders.set('x-user-email', user.email)
-
-      return NextResponse.next({
-        request: {
-          headers: requestHeaders,
-        },
-      })
-    } catch (error) {
-      console.error('[MIDDLEWARE] Token validation error:', error)
-      return NextResponse.json(
-        { error: 'Failed to validate authentication token' },
-        { status: 500 }
-      )
-    }
-  }
-
-  // Add security headers to all responses
-  const response = NextResponse.next()
-
-  response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
-  response.headers.set('X-XSS-Protection', '1; mode=block')
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()')
-  
-  // HSTS: Force HTTPS in production
-  if (process.env.NODE_ENV === 'production') {
-    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
-  }
-
-  // Complete Content Security Policy
   response.headers.set(
-    'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    "Content-Security-Policy",
+    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
   )
 
   return response
 }
 
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/public") ||
+    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
+  ) {
+    return NextResponse.next()
+  }
+
+  if (!pathname.startsWith("/api")) {
+    const locale = getLocale(pathname)
+
+    if (!locale) {
+      const acceptLanguage = request.headers.get("accept-language") || ""
+      const preferredLocale = acceptLanguage
+        .split(",")[0]
+        .split("-")[0]
+        .toLowerCase()
+
+      const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
+      request.nextUrl.pathname = `/${validLocale}${pathname}`
+      return NextResponse.redirect(request.nextUrl)
+    }
+  }
+
+  const clientIp = getClientIp(request)
+  if (!checkRateLimit(clientIp)) {
+    return NextResponse.json(
+      {
+        error: "Too many requests. Please try again later.",
+        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
+      },
+      { status: 429, headers: { "Retry-After": String(RATE_LIMIT_WINDOW_MS / 1000) } },
+    )
+  }
+
+  if (pathname.startsWith("/api")) {
+    const envValidation = validateEnvironmentVariables()
+    if (!envValidation.valid) {
+      console.error("[MIDDLEWARE] Environment validation failed:", envValidation.errors)
+      return NextResponse.json(
+        {
+          error: "Server configuration error",
+          timestamp: new Date().toISOString(),
+          details: process.env.NODE_ENV === "development" ? envValidation.errors : undefined,
+        },
+        { status: 503 },
+      )
+    }
+  }
+
+  const locale = getLocale(pathname) ?? DEFAULT_LOCALE
+  const requestHeaders = buildRequestHeaders(request, locale)
+
+  const isProtectedRoute = PROTECTED_API_ROUTES.some((route) => pathname.startsWith(route))
+  const isPublicRoute = PUBLIC_API_ROUTES.some((route) => pathname.startsWith(route))
+  const isPublicTrackingWrite =
+    request.method === "POST" &&
+    (pathname.startsWith("/api/analytics") || pathname.startsWith("/api/conversions"))
+
+  if (isProtectedRoute && !isPublicRoute && !isPublicTrackingWrite) {
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Unauthorized. Missing authentication token." },
+        { status: 401 },
+      )
+    }
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "",
+        },
+      })
+
+      if (!response.ok) {
+        return NextResponse.json({ error: "Invalid or expired token" }, { status: 401 })
+      }
+
+      const user = await response.json()
+      requestHeaders.set("x-user-id", user.id)
+      requestHeaders.set("x-user-email", user.email)
+
+      const protectedResponse = NextResponse.next({
+        request: {
+          headers: requestHeaders,
+        },
+      })
+
+      return addSecurityHeaders(protectedResponse)
+    } catch (error) {
+      console.error("[MIDDLEWARE] Token validation error:", error)
+      return NextResponse.json(
+        { error: "Failed to validate authentication token" },
+        { status: 500 },
+      )
+    }
+  }
+
+  const response = NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  })
+
+  return addSecurityHeaders(response)
+}
+
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
-    '/((?!_next/static|_next/image|favicon.ico|public).*)',
+    "/((?!_next/static|_next/image|favicon.ico|public).*)",
   ],
 }

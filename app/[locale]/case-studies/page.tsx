@@ -1,108 +1,184 @@
 import type { Metadata } from "next"
-import type { Locale } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
-import { CASE_STUDIES, t2 } from "@/content/caseStudies"
-import { Nav } from "@/components/Nav"
-import { Footer } from "@/components/Footer"
-import { Section } from "@/components/Section"
-import { CaseStudyCard } from "@/components/CaseStudyCard"
+import Link from "next/link"
+import { ArrowRight, CheckCircle2, FolderKanban, Sparkles } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 
 interface PageProps {
-  params: { locale: string }
+  params: {
+    locale: string
+  }
 }
 
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Casos de exito | N3uralia",
+    metadataDescription:
+      "Casos de exito de N3uralia: agricultura, educacion, hospitality y otros sistemas donde IA, software e integraciones ya estan en produccion.",
+    title: "Casos donde la arquitectura ya se volvio operacion",
+    subtitle:
+      "Estos casos muestran algo simple: cuando el sistema esta bien pensado, la IA deja de verse como experimento y empieza a mover trabajo real.",
+    cases: [
+      {
+        title: "Ecosuelolab",
+        summary:
+          "Monitoreo agricola con alertas, automatizacion y una capa de respuesta pensada para operar con continuidad.",
+        points: ["Monitoreo y alertas", "Integraciones reales", "Operacion tecnica"],
+        href: "/case-studies/ecosuelolab",
+      },
+      {
+        title: "Despega Tu Carrera",
+        summary:
+          "Producto full-stack con experiencia guiada por IA y una base preparada para crecer sin rehacer todo.",
+        points: ["Producto digital", "IA aplicada", "Escala progresiva"],
+        href: "/case-studies/despega-tu-carrera",
+      },
+      {
+        title: "Blackswan Facility Core",
+        summary:
+          "Software operativo para hospitality, coordinacion entre equipos y una mejor capa de respuesta diaria.",
+        points: ["Hospitality ops", "Coordinacion", "Software operativo"],
+        href: "/case-studies/blackswan-facility-core",
+      },
+    ],
+    ctaTitle: "Si quieres que el siguiente caso sea el tuyo, partamos por el problema correcto",
+    primaryCta: "Hablar con N3uralia",
+    secondaryCta: "Ver soluciones",
+  },
+  en: {
+    metadataTitle: "Case studies | N3uralia",
+    metadataDescription:
+      "N3uralia case studies across agriculture, education, hospitality, and other systems where AI, software, and integrations are already in production.",
+    title: "Cases where architecture already became operations",
+    subtitle:
+      "These cases show one simple thing: when the system is designed well, AI stops looking like an experiment and starts moving real work.",
+    cases: [
+      {
+        title: "Ecosuelolab",
+        summary:
+          "Agricultural monitoring with alerts, automation, and a response layer designed for continuous operation.",
+        points: ["Monitoring and alerts", "Real integrations", "Technical operations"],
+        href: "/case-studies/ecosuelolab",
+      },
+      {
+        title: "Despega Tu Carrera",
+        summary:
+          "A full-stack product with an AI-guided experience and a base ready to grow without rebuilding everything.",
+        points: ["Digital product", "Applied AI", "Progressive scale"],
+        href: "/case-studies/despega-tu-carrera",
+      },
+      {
+        title: "Blackswan Facility Core",
+        summary:
+          "Operational software for hospitality, better coordination across teams, and a stronger daily response layer.",
+        points: ["Hospitality ops", "Coordination", "Operational software"],
+        href: "/case-studies/blackswan-facility-core",
+      },
+    ],
+    ctaTitle: "If you want the next case to be yours, start with the right problem",
+    primaryCta: "Talk to N3uralia",
+    secondaryCta: "View solutions",
+  },
+} as const
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
-  const d = getDict(locale)
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return {
-    title: `${d.caseStudies.title} | N3uralia`,
-    description: d.caseStudies.subtitle,
+    title: page.metadataTitle,
+    description: page.metadataDescription,
     alternates: {
       canonical: `https://n3uralia.com/${locale}/case-studies`,
       languages: {
-        es: `https://n3uralia.com/es/case-studies`,
-        en: `https://n3uralia.com/en/case-studies`,
+        es: "https://n3uralia.com/es/case-studies",
+        en: "https://n3uralia.com/en/case-studies",
       },
     },
   }
 }
 
 export default function CaseStudiesPage({ params }: PageProps) {
-  const locale = params.locale as Locale
-  const d = getDict(locale)
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
     <>
-      <Nav locale={locale} />
-      <main style={{ minHeight: "100vh" }}>
-        <Section title={d.caseStudies.title} subtitle={d.caseStudies.subtitle}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "24px", marginTop: "32px" }}>
-            {CASE_STUDIES.map((caseStudy) => (
-              <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} locale={locale} />
-            ))}
-          </div>
-        </Section>
-      </main>
-      <Footer locale={locale} />
-    </>
-  )
-}
+      <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="container mx-auto max-w-4xl text-center">
+              <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6">{page.title}</h1>
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
+            </div>
+          </section>
+        </SectionBackground>
 
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-2">
-                        {isES ? "Desafío" : "Challenge"}
-                      </p>
-                      <p className="text-sm">
-                        {isES ? study.challengeES : study.challengeEN}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-2">
-                        {isES ? "Solución" : "Solution"}
-                      </p>
-                      <p className="text-sm">
-                        {isES ? study.solutionES : study.solutionEN}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-3">
-                        {isES ? "Resultados" : "Results"}
-                      </p>
-                      <div className="grid grid-cols-3 gap-2">
-                        {study.results.map((result, idx) => (
-                          <div key={idx} className="text-center">
-                            <p className="font-bold text-lg text-primary">{result.metric}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {isES ? result.labelES : result.labelEN}
-                            </p>
-                          </div>
-                        ))}
+        <section className="py-24 px-4 border-b border-border">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {page.cases.map((item) => (
+                <Link
+                  key={item.title}
+                  href={href(locale, item.href)}
+                  className="rounded-lg border border-border bg-card p-8 hover:border-primary/40 transition-colors group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                    <FolderKanban className="w-6 h-6 text-primary" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-6 leading-relaxed">{item.summary}</p>
+                  <div className="space-y-3 mb-6">
+                    {item.points.map((point) => (
+                      <div key={point} className="flex items-start gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{point}</span>
                       </div>
-                    </div>
-
-                    <div className="flex gap-2 flex-wrap">
-                      {(isES ? study.tagsES : study.tagsEN).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
+                    ))}
                   </div>
-
-                  <div className="mt-6 flex items-center text-primary group-hover:translate-x-1 transition-transform">
-                    {isES ? "Ver caso completo" : "View full case"}
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                  <div className="inline-flex items-center gap-2 text-primary text-sm font-semibold">
+                    {locale === "es" ? "Ver caso" : "View case"}
+                    <ArrowRight className="w-4 h-4" />
                   </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 px-4">
+          <div className="container mx-auto max-w-3xl text-center">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
+              <Sparkles className="w-7 h-7 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-8">{page.ctaTitle}</h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={href(locale, "/contact")}
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              >
+                {page.primaryCta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href={href(locale, "/soluciones")}
+                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+              >
+                {page.secondaryCta}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </>
   )
 }

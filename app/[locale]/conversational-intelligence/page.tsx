@@ -1,316 +1,307 @@
 import type { Metadata } from "next"
-import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
-import { ArrowRight, Zap, Users, BarChart3, Workflow, Shield, TrendingUp } from "lucide-react"
+import { ArrowRight, BarChart3, Shield, TrendingUp, Users, Workflow, Zap } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 
-export const metadata: Metadata = {
-  title: "Conversational Intelligence Systems | N3uralia - Revenue + Operations + Agents",
-  description:
-    "N3uralia Conversational Intelligence Systems transforman conversaciones en infraestructura operativa. Agentes conversacionales integrados en adquisición, operaciones y revenue con atribución real. B2B, Turismo, Eventos, Manufactura.",
-  keywords:
-    "conversational intelligence, conversational agents, sistemas conversacionales, revenue operations, customer intelligence, conversational AI, B2B automation, turismo, eventos, glamping, agentes conversacionales, n3uralia",
-  alternates: {
-    canonical: "https://n3uralia.com/conversational-intelligence",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function ConversationalIntelligencePage() {
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Conversational intelligence | N3uralia",
+    metadataDescription:
+      "Sistemas conversacionales para revenue, operaciones y servicio. IA integrada con memoria, trazabilidad y software real para equipos en Chile y LATAM.",
+    badge: "Conversational intelligence",
+    title: "Conversaciones que mueven revenue y operacion",
+    subtitle:
+      "No se trata de responder mensajes mas rapido. Se trata de convertir conversaciones en una capa operativa conectada con CRM, software interno, equipos y decisiones reales.",
+    differentiatorsTitle: "Que la hace distinta",
+    differentiators: [
+      {
+        title: "No es solo un canal",
+        description:
+          "La conversacion se conecta con tu operacion, no queda flotando en un inbox aislado.",
+        icon: Workflow,
+      },
+      {
+        title: "Atribucion real",
+        description:
+          "Cada conversacion puede medirse como lead, reserva, venta, ticket o accion operativa.",
+        icon: TrendingUp,
+      },
+      {
+        title: "Modo hibrido",
+        description:
+          "El sistema resuelve lo rutinario y escala lo sensible al equipo correcto en el momento correcto.",
+        icon: Users,
+      },
+    ],
+    useCasesTitle: "Donde suele pegar fuerte",
+    useCases: [
+      "Ventas B2B con calificacion, seguimiento y handoff comercial.",
+      "Turismo y hospitality con reservas, consultas y coordinacion operativa.",
+      "Eventos y experiencias con ventas, dudas y post-evento automatizado.",
+      "Operaciones de soporte donde una conversacion activa tareas, validaciones o alertas.",
+    ],
+    architectureTitle: "De mensaje a accion",
+    architecture: [
+      {
+        title: "Entrada",
+        description: "WhatsApp, web, email u otro canal donde ya llegan conversaciones reales.",
+      },
+      {
+        title: "Comprension",
+        description: "El sistema entiende contexto, historial e intencion antes de responder o actuar.",
+      },
+      {
+        title: "Decision",
+        description: "Define si responder, escalar, actualizar sistemas o activar otro flujo.",
+      },
+      {
+        title: "Accion",
+        description: "Crea tareas, actualiza CRM, dispara automatizaciones o registra eventos medibles.",
+      },
+    ],
+    capabilityTitle: "Capacidades core",
+    capabilities: [
+      {
+        title: "Memoria y contexto",
+        description: "Responde mejor porque recuerda que paso antes y no empieza de cero cada vez.",
+        icon: Zap,
+      },
+      {
+        title: "Integracion con negocio",
+        description: "Conversacion conectada con CRM, procesos internos y software operativo.",
+        icon: BarChart3,
+      },
+      {
+        title: "Gobernanza",
+        description: "Logs, reglas, revisiones y trazabilidad para operar con mas confianza.",
+        icon: Shield,
+      },
+    ],
+    ctaTitle: "Si tus conversaciones ya son parte del negocio, tratemoslas como infraestructura",
+    ctaSubtitle:
+      "Podemos ayudarte a convertir una capa caotica de mensajes en una capa clara de revenue, servicio y operacion.",
+    primaryCta: "Solicitar demo",
+    secondaryCta: "Ver metodologia",
+  },
+  en: {
+    metadataTitle: "Conversational intelligence | N3uralia",
+    metadataDescription:
+      "Conversational systems for revenue, operations, and service. AI integrated with memory, traceability, and real software for teams in Chile and LATAM.",
+    badge: "Conversational intelligence",
+    title: "Conversations that move revenue and operations",
+    subtitle:
+      "This is not about replying faster. It is about turning conversations into an operational layer connected to CRM, internal software, teams, and real decisions.",
+    differentiatorsTitle: "What makes it different",
+    differentiators: [
+      {
+        title: "Not just a channel",
+        description:
+          "The conversation is connected to your operation instead of floating inside an isolated inbox.",
+        icon: Workflow,
+      },
+      {
+        title: "Real attribution",
+        description:
+          "Each conversation can be measured as a lead, reservation, sale, ticket, or operational action.",
+        icon: TrendingUp,
+      },
+      {
+        title: "Hybrid mode",
+        description:
+          "The system resolves routine work and escalates sensitive moments to the right team at the right time.",
+        icon: Users,
+      },
+    ],
+    useCasesTitle: "Where it usually hits hard",
+    useCases: [
+      "B2B sales with qualification, follow-up, and commercial handoff.",
+      "Tourism and hospitality with reservations, inquiries, and operational coordination.",
+      "Events and experiences with sales, questions, and post-event automation.",
+      "Support operations where a conversation triggers tasks, validations, or alerts.",
+    ],
+    architectureTitle: "From message to action",
+    architecture: [
+      {
+        title: "Input",
+        description: "WhatsApp, web, email, or any channel where real conversations already happen.",
+      },
+      {
+        title: "Understanding",
+        description: "The system reads context, history, and intent before it responds or acts.",
+      },
+      {
+        title: "Decision",
+        description: "It decides whether to answer, escalate, update systems, or trigger another flow.",
+      },
+      {
+        title: "Action",
+        description: "It creates tasks, updates CRM, triggers automations, or records measurable events.",
+      },
+    ],
+    capabilityTitle: "Core capabilities",
+    capabilities: [
+      {
+        title: "Memory and context",
+        description: "It responds better because it remembers what happened before instead of starting from zero.",
+        icon: Zap,
+      },
+      {
+        title: "Business integration",
+        description: "Conversation connected to CRM, internal processes, and operational software.",
+        icon: BarChart3,
+      },
+      {
+        title: "Governance",
+        description: "Logs, rules, reviews, and traceability for stronger operational confidence.",
+        icon: Shield,
+      },
+    ],
+    ctaTitle: "If conversations are already part of the business, treat them like infrastructure",
+    ctaSubtitle:
+      "We can help turn a chaotic messaging layer into a clear revenue, service, and operations layer.",
+    primaryCta: "Request demo",
+    secondaryCta: "View methodology",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return {
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/conversational-intelligence`,
+      languages: {
+        es: "https://n3uralia.com/es/conversational-intelligence",
+        en: "https://n3uralia.com/en/conversational-intelligence",
+      },
+    },
+  }
+}
+
+export default function ConversationalIntelligencePage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
   return (
     <>
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background pt-20">
         <SectionBackground section="hero" className="border-b border-border">
-        {/* Hero */}
-        <section className="py-20 border-b border-border px-4 pt-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">Conversational Intelligence</span>
+          <section className="py-20 px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-primary">{page.badge}</span>
+              </div>
+              <h1 className="text-4xl sm:text-6xl font-bold mb-6 text-foreground">{page.title}</h1>
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
             </div>
-            <h1 className="h1-light mb-6">
-              Conversaciones que Generan Revenue & Operación
-            </h1>
-            <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              N3uralia Conversational Intelligence Systems transforman conversaciones en infraestructura operativa. 
-              No automatizamos respuestas. Integramos agentes conversacionales dentro de tus flujos reales de adquisición, 
-              operación y revenue, con memoria persistente, atribución completa y control empresarial.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                Solicitar Demo
-              </Link>
-              <Link href="/capabilities" className="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors">
-                Ver Arquitectura
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
         </SectionBackground>
 
-        <SectionBackground section="capabilities" className="border-b border-border">
-        {/* What Makes It Different */}
-        <section className="py-24 bg-background px-4 border-b border-border">
+        <section className="py-24 px-4 border-b border-border">
           <div className="max-w-6xl mx-auto">
-            <h2 className="h2-light mb-12 text-center">Por Qué Es Diferente</h2>
+            <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
+              {page.differentiatorsTitle}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Not Just Channel */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Workflow className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-4">No es un canal</h3>
-                <p className="text-muted-foreground mb-6">
-                  Es capa de inteligencia conectada a tu CRM, ERP, dashboards, agentes internos y operaciones. 
-                  Cada conversación alimenta tu infraestructura completa.
-                </p>
-              </div>
-
-              {/* Revenue Attribution */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <TrendingUp className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-4">Atribución Real de Revenue</h3>
-                <p className="text-muted-foreground mb-6">
-                  Cada conversación se convierte en: lead calificado, pipeline entry, evento de negocio, métrica. 
-                  Sabes exactamente qué conversa genera qué resultado.
-                </p>
-              </div>
-
-              {/* Human + Agent */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-4">Modo Híbrido: Humano + Agente</h3>
-                <p className="text-muted-foreground mb-6">
-                  No reemplazamos equipos. Los amplificamos. El agente maneja lo rutinario, escalea lo estratégico, 
-                  tu equipo cierra. Mejor conversión, mejor experiencia, mejor rentabilidad.
-                </p>
-              </div>
+              {page.differentiators.map((item) => {
+                const Icon = item.icon
+                return (
+                  <div key={item.title} className="border border-border rounded-lg p-8 bg-card">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-foreground mb-4">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
-        </SectionBackground>
 
         <SectionBackground section="solutions" className="border-b border-border">
-        {/* Use Cases by Vertical */}
-        <section className="py-24 bg-muted/30 px-4 border-b border-border">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="h2-light mb-12 text-center">Diseñado para Multi-Vertical con Playbooks Reales</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* B2B Mediano */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <h3 className="text-xl font-semibold text-foreground mb-4">B2B Mediano (Core)</h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Lead qualification automatizada + handoff a sales</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Propostas automáticas basadas en perfil del cliente</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Seguimiento post-reunión y pipeline management</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Integración total con CRM + ERP existentes</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Turismo / Glamping */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Turismo & Glamping</h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Consultas 24/7 con información en tiempo real</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Reservas directas desde chat (conexión a booking engine)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Upsell inteligente de experiencias + servicios adicionales</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Post-reserva: confirmaciones, tips, coordenadas de llegada</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Eventos Inmersivos */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Eventos Inmersivos</h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Venta de entradas con personalización (VIP, grupos, pases)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Experiencias complementarias (afterparty, merchandise, transport)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Engagement durante evento (chats en tiempo real)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Post-evento: feedback, invitación a futuras ediciones</span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Manufactura / Operaciones */}
-              <div className="border border-border rounded-lg p-8 bg-card">
-                <h3 className="text-xl font-semibold text-foreground mb-4">Manufactura & Supply Chain</h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Órdenes de compra + confirmaciones automáticas</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Status de producción en tiempo real vía chat</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Alertas de problemas + escalado a equipos correctos</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span>Coordinación cross-team: logística, calidad, entregas</span>
-                  </li>
-                </ul>
+          <section className="py-24 px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl font-bold mb-10 text-center text-foreground">{page.useCasesTitle}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {page.useCases.map((item) => (
+                  <div key={item} className="border border-border rounded-lg p-6 bg-card">
+                    <p className="text-sm text-muted-foreground">{item}</p>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
         </SectionBackground>
 
         <SectionBackground section="blog" className="border-b border-border">
-        {/* Architecture Flow */}
-        <section className="py-24 bg-background px-4 border-b border-border">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="h2-light mb-12 text-center">Arquitectura: De Conversación a Acción</h2>
-            <div className="bg-muted/30 border border-border rounded-lg p-8 md:p-12">
-              <div className="space-y-4 text-muted-foreground">
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold text-primary">1</div>
-                  <div>
-                    <p className="font-semibold text-foreground">Cliente escribe</p>
-                    <p className="text-sm">(WhatsApp, web, email, SMS)</p>
+          <section className="py-24 px-4">
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl font-bold mb-12 text-center text-foreground">{page.architectureTitle}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {page.architecture.map((item, index) => (
+                  <div key={item.title} className="border border-border rounded-lg p-8 bg-card">
+                    <div className="text-primary font-bold text-sm mb-3">0{index + 1}</div>
+                    <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground">{item.description}</p>
                   </div>
-                </div>
-                <div className="flex justify-center">
-                  <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold text-primary">2</div>
-                  <div>
-                    <p className="font-semibold text-foreground">Conversational Agent entiende</p>
-                    <p className="text-sm">(Procesamiento de lenguaje natural + contexto)</p>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold text-primary">3</div>
-                  <div>
-                    <p className="font-semibold text-foreground">Intention Detection + Routing</p>
-                    <p className="text-sm">¿Es venta? ¿Support? ¿Operación? ¿Escalado?</p>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold text-primary">4</div>
-                  <div>
-                    <p className="font-semibold text-foreground">Acciones automáticas en tus sistemas</p>
-                    <p className="text-sm">CRM update → Pipeline entry → Order creation → Automation trigger</p>
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <ArrowRight className="w-6 h-6 text-muted-foreground rotate-90" />
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="text-2xl font-bold text-primary">5</div>
-                  <div>
-                    <p className="font-semibold text-foreground">Data stored + Feedback loop</p>
-                    <p className="text-sm">Cada decisión queda registrada. El agente aprende. Tu equipo optimiza.</p>
-                  </div>
-                </div>
+                ))}
               </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-24 px-4 border-b border-border">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold mb-12 text-center text-foreground">{page.capabilityTitle}</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {page.capabilities.map((item) => {
+                const Icon = item.icon
+                return (
+                  <div key={item.title} className="border border-border rounded-lg p-6 bg-card">
+                    <Icon className="w-8 h-8 text-primary mb-4" />
+                    <h3 className="text-lg font-semibold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </section>
-        </SectionBackground>
 
-        <SectionBackground section="hero">
-        {/* Key Capabilities */}
-        <section className="py-24 bg-muted/30 px-4 border-b border-border">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="h2-light mb-12 text-center">Capacidades Core</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <Zap className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Conversaciones Inteligentes</h3>
-                <p className="text-sm text-muted-foreground">Entiende contexto, mantiene memoria, personaliza respuestas. No templates.</p>
-              </div>
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <BarChart3 className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Revenue Attribution</h3>
-                <p className="text-sm text-muted-foreground">Sigue cada conversación de inicio a cierre. Sabes qué genera revenue.</p>
-              </div>
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <Workflow className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Integración Total</h3>
-                <p className="text-sm text-muted-foreground">Conecta con CRM, ERP, webhooks, APIs. Tu stack funciona unificado.</p>
-              </div>
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <Users className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Modo Híbrido</h3>
-                <p className="text-sm text-muted-foreground">Agent maneja lo rutinario. Humanos manejan lo estratégico. Mejor UX.</p>
-              </div>
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <TrendingUp className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Optimización Continua</h3>
-                <p className="text-sm text-muted-foreground">Machine learning feedback. El agente mejora cada día. Tú defines el goal.</p>
-              </div>
-              <div className="border border-border rounded-lg p-6 bg-card">
-                <Shield className="w-8 h-8 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-3">Control Total</h3>
-                <p className="text-sm text-muted-foreground">Auditoría completa. Cada decisión del agente queda registrada. Governance asegurado.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-        </SectionBackground>
-
-        {/* CTA */}
-        <section className="py-24 bg-background px-4">
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="h2-light mb-6">¿Listo para transformar tus conversaciones?</h2>
-            <p className="body-lg text-muted-foreground mb-8">
-              Conversational Intelligence Systems no es una herramienta. Es infraestructura. 
-              Comienza con un piloto en una vertical, valida resultados, escala a operaciones completas.
-            </p>
+            <h2 className="text-3xl font-bold mb-6 text-foreground">{page.ctaTitle}</h2>
+            <p className="body-lg text-muted-foreground mb-8">{page.ctaSubtitle}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-                Solicitar Demo <ArrowRight className="w-4 h-4 ml-2" />
+              <Link
+                href={href(locale, "/contact")}
+                className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+              >
+                {page.primaryCta}
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
-              <Link href="/como-trabajamos" className="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors">
-                Ver Metodología
+              <Link
+                href={href(locale, "/como-trabajamos")}
+                className="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+              >
+                {page.secondaryCta}
               </Link>
             </div>
           </div>

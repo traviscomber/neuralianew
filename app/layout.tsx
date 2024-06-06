@@ -1,75 +1,55 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Montserrat } from "next/font/google"
+import { headers } from "next/headers"
+import { Montserrat } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import Navigation from "@/components/navigation"
-import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
+import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
 import { StructuredCitations } from "@/components/structured-citations"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  variable: "--font-inter",
-})
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
   preload: true,
   variable: "--font-montserrat",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400"],
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile",
+  metadataBase: new URL("https://n3uralia.com"),
+  title: "N3uralia",
   description:
-    "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM. IA en producción desde día uno.",
-  keywords:
-    "sistemas agenticos, IA en producción, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack, IA aplicada, transformación digital, agentic AI, multi-agent systems, agentes autónomos, AI orchestration",
+    "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
-  alternates: {
-    canonical: "https://n3uralia.com",
-    languages: {
-      "es-CL": "https://n3uralia.com",
-      "es": "https://n3uralia.com",
-      "en": "https://n3uralia.com",
-      "en-US": "https://n3uralia.com",
-    },
-  },
   openGraph: {
-    title: "N3uralia - AI Agents & Sistemas Agenticos en Producción",
-    description: "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration. Multi-agent systems that work with you. Agentes de IA listos para producción.",
+    title: "N3uralia",
+    description:
+      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
     type: "website",
-    locale: "es_CL",
-    localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
-    siteName: "N3uralia | Neuralia",
+    siteName: "N3uralia",
     images: [
       {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - Sistemas Agenticos en Producción",
+        alt: "N3uralia",
         type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia - AI Agents in Production",
-    description: "Agentic AI systems for enterprise. N3uralia AI agents, agentes de IA, multi-agent orchestration, production-ready architecture.",
+    title: "N3uralia",
+    description:
+      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
     creator: "@n3uralia",
     site: "@n3uralia",
   },
   robots: {
     index: true,
     follow: true,
-    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -77,12 +57,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
-    bingbot: {
-      index: true,
-      follow: true,
-    },
   },
-  generator: "v0.app",
   referrer: "strict-origin-when-cross-origin",
   category: "technology",
 }
@@ -95,24 +70,22 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const headerStore = await headers()
+  const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
+
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <StructuredData />
         <StructuredCitations />
       </head>
-      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navigation />
-          {children}
-          <ScrollToTop />
-          <FloatingChatWidget />
-        </ThemeProvider>
+      <body className={`${montserrat.variable} antialiased`}>
+        <AnalyticsProvider>{children}</AnalyticsProvider>
       </body>
     </html>
   )

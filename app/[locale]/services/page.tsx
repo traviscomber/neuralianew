@@ -1,207 +1,244 @@
 import type { Metadata } from "next"
-import { Badge } from "@/components/ui/badge"
-import { Bot, Workflow, Building2 } from "lucide-react"
+import Link from "next/link"
+import { Bot, Building2, Workflow, ArrowRight, CheckCircle2 } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 
-export const metadata: Metadata = {
-  title: "Servicios N3uralia (Neuralia) | Agentes IA, Automatización, Full-Stack",
-  description: "N3uralia (Neuralia) ofrece agentes en producción, automatización inteligente y plataformas full-stack. Soluciones IA personalizadas para empresas chilenas.",
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-const services = [
-  {
-    icon: Bot,
-    title: "Agentes en Producción",
-    description:
-      "IA que trabaja dentro de tu infraestructura. Resuelve problemas reales en paralelo. Integración total con tus sistemas. Sin APIs externas, sin dependencias.",
-    features: ["Multi-agente coordinado", "Integración nativa", "Escalabilidad", "24/7 operativo"],
-    benefits: [
-      "Resuelve problemas en paralelo",
-      "Sin latencia de APIs externas",
-      "Tu stack, tu control",
-      "Confiabilidad empresarial",
-    ],
-    href: "/ai-agent-development",
-  },
-  {
-    icon: Workflow,
-    title: "Automatización que Funciona",
-    description:
-      "Procesos que ejecutan solos dentro de tu workflow. No fake automation. Integración real con tus bases de datos, APIs y servicios.",
-    features: ["Workflows reales", "Integración total", "Monitoreo continuo", "Alertas inteligentes"],
-    benefits: [
-      "Tareas manuales = automatizadas",
-      "Precisión al 99.99%",
-      "Horas ahorradas documentadas",
-      "ROI medible en semanas",
-    ],
-    href: "/process-automation",
-  },
-  {
-    icon: Building2,
-    title: "Plataformas Full-Stack",
-    description:
-      "Backend + IA integrados desde el arquitecto. No templates. No compromisos. Infraestructura que escala. Código limpio. Deploy listo.",
-    features: ["Desarrollo full-stack", "Arquitectura productiva", "Seguridad empresarial", "DevOps incluido"],
-    benefits: [
-      "Construido para tu caso específico",
-      "Sin deuda técnica inicial",
-      "Deploy en semanas",
-      "Escalable a millones de requests",
-    ],
-    href: "/enterprise-integration",
-  },
-]
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
 
-const processSteps = [
-  {
-    step: "1",
-    title: "Diagnosis Técnico",
-    description:
-      "Evaluamos tu stack, tus pain points, qué necesita IA. Sin fluff. Propuesta concreta.",
+const content = {
+  es: {
+    metadataTitle: "Servicios | N3uralia",
+    metadataDescription:
+      "Servicios de N3uralia: sistemas de IA, automatizacion y software full-stack para equipos en Chile y LATAM.",
+    badge: "Servicios N3uralia",
+    title: "Lo que construimos para equipos que quieren salir del piloto eterno",
+    subtitle:
+      "Trabajamos en tres frentes: sistemas de IA en produccion, automatizacion conectada a negocio y software full-stack para operaciones que necesitan una base mas fuerte.",
+    cards: [
+      {
+        title: "Sistemas de IA en produccion",
+        description:
+          "Agentes, memoria, flujos y control operacional para equipos que necesitan algo mas serio que un experimento.",
+        icon: Bot,
+        bullets: [
+          "Arquitectura aplicada",
+          "Integracion con sistemas",
+          "Guardrails y monitoreo",
+        ],
+      },
+      {
+        title: "Automatizacion operacional",
+        description:
+          "Procesos que dejan de depender de seguimiento manual y empiezan a correr con reglas, contexto y trazabilidad.",
+        icon: Workflow,
+        bullets: [
+          "Workflows reales",
+          "Menos friccion humana",
+          "Impacto medible",
+        ],
+      },
+      {
+        title: "Software full-stack",
+        description:
+          "Productos, paneles, APIs e integraciones cuando el problema no se resuelve solo con una capa de IA.",
+        icon: Building2,
+        bullets: [
+          "Backend y frontend",
+          "Infraestructura y despliegue",
+          "Base lista para escalar",
+        ],
+      },
+    ],
+    processTitle: "Como lo aterrizamos",
+    process: [
+      "Diagnostico tecnico y de negocio.",
+      "Arquitectura y plan de entrega.",
+      "Construccion por iteraciones visibles.",
+      "Validacion y handoff operacional.",
+    ],
+    ctaTitle: "Si ya sabes que el problema importa, podemos ayudarte a construir la respuesta",
+    ctaSubtitle:
+      "No hace falta partir por todo. Podemos definir si conviene un piloto, una integracion o un sistema completo.",
+    primaryCta: "Hablar con el equipo",
+    secondaryCta: "Ver soluciones",
   },
-  {
-    step: "2",
-    title: "Arquitectura + Diseño",
-    description: "Diseño de sistema que funciona dentro de tu infraestructura. Code review completo. Aprobación antes de desarrollar.",
+  en: {
+    metadataTitle: "Services | N3uralia",
+    metadataDescription:
+      "N3uralia services: production AI systems, automation, and full-stack software for teams in Chile and LATAM.",
+    badge: "N3uralia services",
+    title: "What we build for teams that want to move past the endless pilot",
+    subtitle:
+      "We work across three fronts: production AI systems, business-connected automation, and full-stack software for operations that need a stronger technical base.",
+    cards: [
+      {
+        title: "Production AI systems",
+        description:
+          "Agents, memory, flows, and operational control for teams that need something more serious than an experiment.",
+        icon: Bot,
+        bullets: [
+          "Applied architecture",
+          "System integrations",
+          "Guardrails and monitoring",
+        ],
+      },
+      {
+        title: "Operational automation",
+        description:
+          "Processes that stop depending on manual follow-up and begin running with rules, context, and traceability.",
+        icon: Workflow,
+        bullets: [
+          "Real workflows",
+          "Less human friction",
+          "Measurable impact",
+        ],
+      },
+      {
+        title: "Full-stack software",
+        description:
+          "Products, dashboards, APIs, and integrations when the problem cannot be solved by an AI layer alone.",
+        icon: Building2,
+        bullets: [
+          "Backend and frontend",
+          "Infrastructure and deployment",
+          "A base ready to scale",
+        ],
+      },
+    ],
+    processTitle: "How we make it real",
+    process: [
+      "Technical and business diagnosis.",
+      "Architecture and delivery plan.",
+      "Visible iterative build.",
+      "Validation and operational handoff.",
+    ],
+    ctaTitle: "If you already know the problem matters, we can help build the answer",
+    ctaSubtitle:
+      "You do not need to start with everything. We can define whether the right move is a pilot, an integration, or a full system.",
+    primaryCta: "Talk to the team",
+    secondaryCta: "View solutions",
   },
-  {
-    step: "3",
-    title: "Desarrollo + Testing",
-    description:
-      "Construcción iterativa con testing continuo. Integración temprana con tus sistemas. Sin sorpresas en producción.",
-  },
-  {
-    step: "4",
-    title: "Deploy + Operación",
-    description: "Lanzamiento a producción. Monitoreo 24/7. Optimización continua. Estamos aquí si algo falla.",
-  },
-]
+} as const
 
-export default function ServicesPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return {
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/services`,
+      languages: {
+        es: "https://n3uralia.com/es/services",
+        en: "https://n3uralia.com/en/services",
+      },
+    },
+  }
+}
+
+export default function ServicesPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
   return (
     <>
-      <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-20 pt-32 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <Badge
-              variant="secondary"
-              className="mb-4 px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20"
-            >
-              Qué Ofrecemos
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">Lo Que Construimos Para Ti</h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              No vendemos soluciones genéricas. Construimos lo que tu negocio necesita: sistemas inteligentes que funcionan, que escalan, y que crecen contigo.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Grid */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            {services.map((service, i) => {
-              const Icon = service.icon
-              return (
-                <div key={i} className="border border-border p-8 rounded-lg hover:border-primary/60 transition-all bg-card">
-                  <Icon className="w-10 h-10 text-primary mb-6" />
-                  <h3 className="text-xl font-bold text-foreground mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{service.description}</p>
-                  <ul className="space-y-2 mb-8">
-                    {service.features.map((f, j) => (
-                      <li key={j} className="text-sm text-muted-foreground flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-primary rounded-full" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
-                  <ul className="space-y-2">
-                    {service.benefits.map((b, j) => (
-                      <li key={j} className="text-sm text-primary flex items-center gap-2">
-                        <span className="text-primary">✓</span>
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Cómo Trabajamos</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">No creemos en soluciones de caja. Creemos en asociaciones que funcionan.</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {processSteps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6">
-                  {step.step}
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-4">{step.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+      <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="container mx-auto px-4 max-w-4xl text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-primary">{page.badge}</span>
               </div>
-            ))}
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">{page.title}</h1>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-20 px-4 border-b border-border">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-8">
+              {page.cards.map((card) => {
+                const Icon = card.icon
+                return (
+                  <div
+                    key={card.title}
+                    className="border border-border p-8 rounded-lg hover:border-primary/60 transition-all bg-card"
+                  >
+                    <Icon className="w-10 h-10 text-primary mb-6" />
+                    <h2 className="text-xl font-semibold text-foreground mb-4">{card.title}</h2>
+                    <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{card.description}</p>
+                    <div className="space-y-3">
+                      {card.bullets.map((bullet) => (
+                        <div key={bullet} className="text-sm text-muted-foreground flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                          {bullet}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-card border-t border-border">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-12">¿Por Qué N3uralia?</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">Somos ingenieros, no consultores. Entregamos código que funciona, sistemas que escalan, resultados que importan.</p>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-background border-t border-border">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Preguntas Frecuentes</h2>
-          <div className="space-y-6">
-            {[
-              {
-                q: "¿Cuánto tiempo toma implementar una solución?",
-                a: "Diagnosis en 1 semana, arquitectura en 2, desarrollo iterativo de 4-8 semanas, deployment en 1. Según complejidad.",
-              },
-              {
-                q: "¿Necesito cambiar mi infraestructura existente?",
-                a: "No. Nuestras soluciones se integran con lo que ya tienes. Trabajamos con tu stack, no contra él.",
-              },
-              {
-                q: "¿Qué soporte ofrecen después del deploy?",
-                a: "Monitoreo 24/7, optimización continua, alertas proactivas, y soporte técnico de escala. Locales en Chile.",
-              },
-            ].map((item, i) => (
-              <div key={i} className="border border-border p-6 rounded-lg">
-                <h3 className="font-bold text-foreground mb-3">{item.q}</h3>
-                <p className="text-muted-foreground text-sm">{item.a}</p>
+        <SectionBackground section="workflow" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">{page.processTitle}</h2>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Contact Section */}
-      <section className="py-20 bg-card border-t border-border">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-6">¿Listo para comenzar?</h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">Hablemos sobre tu caso específico. Sin presión, sin BS.</p>
-          <a href="/contact" className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            Contactar Equipo
-          </a>
-        </div>
-      </section>
-      </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                {page.process.map((step, index) => (
+                  <div key={step} className="border border-border rounded-lg p-6 bg-card flex gap-4">
+                    <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      0{index + 1}
+                    </div>
+                    <p className="text-muted-foreground">{step}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-20 px-4">
+          <div className="container mx-auto px-4 text-center max-w-3xl">
+            <h2 className="text-3xl font-bold text-foreground mb-6">{page.ctaTitle}</h2>
+            <p className="text-muted-foreground mb-8">{page.ctaSubtitle}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={href(locale, "/contact")}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+              >
+                {page.primaryCta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href={href(locale, "/soluciones")}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+              >
+                {page.secondaryCta}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </>
   )
 }
