@@ -20,6 +20,9 @@ import {
   Brain,
   Target,
   Shield,
+  Mic,
+  MicOff,
+  Square,
 } from "lucide-react"
 
 interface Message {
@@ -58,6 +61,13 @@ export default function NeuralIALanding() {
   const [isTyping, setIsTyping] = useState(false)
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+
+  // Simplified Speech-to-Text states
+  const [isRecording, setIsRecording] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
+  const [recognition, setRecognition] = useState<any>(null)
+  const [interimTranscript, setInterimTranscript] = useState("")
+
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const categories = [
@@ -155,6 +165,66 @@ export default function NeuralIALanding() {
     marketing: "Marketing & Content",
     data: "Data Analysis",
   }
+
+  // Simplified Speech Recognition Setup
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+      if (SpeechRecognition) {
+        setSpeechSupported(true)
+        const recognitionInstance = new SpeechRecognition()
+
+        // Simple configuration for direct input
+        recognitionInstance.continuous = true
+        recognitionInstance.interimResults = true
+        recognitionInstance.lang = "en-US"
+        recognitionInstance.maxAlternatives = 1
+
+        recognitionInstance.onstart = () => {
+          console.log("Speech recognition started")
+          setIsRecording(true)
+          setInterimTranscript("")
+        }
+
+        recognitionInstance.onresult = (event: any) => {
+          let interim = ""
+          let final = ""
+
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript
+            if (event.results[i].isFinal) {
+              final += transcript
+            } else {
+              interim += transcript
+            }
+          }
+
+          setInterimTranscript(interim)
+
+          if (final) {
+            // Add final transcript to the input field
+            setUserInput((prev) => prev + final)
+            setInterimTranscript("")
+          }
+        }
+
+        recognitionInstance.onerror = (event: any) => {
+          console.error("Speech recognition error:", event.error)
+          setIsRecording(false)
+          setInterimTranscript("")
+        }
+
+        recognitionInstance.onend = () => {
+          console.log("Speech recognition ended")
+          setIsRecording(false)
+          setInterimTranscript("")
+        }
+
+        setRecognition(recognitionInstance)
+      }
+    }
+  }, [])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -262,11 +332,42 @@ export default function NeuralIALanding() {
   }
 
   const handleSendMessage = async () => {
-    if (userInput.trim()) {
-      const messageToSend = userInput.trim()
+    const messageToSend = userInput.trim()
+    if (messageToSend) {
       setUserInput("")
+      setInterimTranscript("")
       addUserMessage(messageToSend)
       await sendToAI(messageToSend)
+    }
+  }
+
+  const startRecording = () => {
+    if (recognition && speechSupported) {
+      console.log("Starting recording...")
+      setInterimTranscript("")
+
+      try {
+        recognition.start()
+      } catch (error) {
+        console.error("Failed to start recognition:", error)
+      }
+    }
+  }
+
+  const stopRecording = () => {
+    if (recognition) {
+      console.log("Stopping recording...")
+      recognition.stop()
+      setIsRecording(false)
+      setInterimTranscript("")
+    }
+  }
+
+  const toggleRecording = () => {
+    if (isRecording) {
+      stopRecording()
+    } else {
+      startRecording()
     }
   }
 
@@ -276,13 +377,36 @@ export default function NeuralIALanding() {
 
   return (
     <div className="min-h-screen bg-black relative">
-      {/* Animated background elements - now covers entire site */}
+      {/* Animated background elements - slower and more random */}
       <div className="fixed inset-0 overflow-hidden z-0">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-screen filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400 rounded-full mix-blend-screen filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-300 rounded-full mix-blend-screen filter blur-xl opacity-10 animate-pulse delay-2000"></div>
-        <div className="absolute top-1/4 right-1/4 w-60 h-60 bg-cyan-600 rounded-full mix-blend-screen filter blur-xl opacity-15 animate-pulse delay-3000"></div>
-        <div className="absolute bottom-1/4 left-1/4 w-60 h-60 bg-cyan-200 rounded-full mix-blend-screen filter blur-xl opacity-15 animate-pulse delay-4000"></div>
+        <div
+          className="absolute -top-40 -right-40 w-80 h-80 bg-cyan-500 rounded-full mix-blend-screen filter blur-xl opacity-10 animate-pulse"
+          style={{ animationDuration: "4s", animationDelay: "0.3s" }}
+        ></div>
+        <div
+          className="absolute -bottom-40 -left-40 w-80 h-80 bg-cyan-400 rounded-full mix-blend-screen filter blur-xl opacity-10 animate-pulse"
+          style={{ animationDuration: "5.5s", animationDelay: "1.7s" }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-300 rounded-full mix-blend-screen filter blur-xl opacity-5 animate-pulse"
+          style={{ animationDuration: "6.2s", animationDelay: "2.9s" }}
+        ></div>
+        <div
+          className="absolute top-1/4 right-1/4 w-60 h-60 bg-cyan-600 rounded-full mix-blend-screen filter blur-xl opacity-7 animate-pulse"
+          style={{ animationDuration: "4.8s", animationDelay: "0.8s" }}
+        ></div>
+        <div
+          className="absolute bottom-1/4 left-1/4 w-60 h-60 bg-cyan-200 rounded-full mix-blend-screen filter blur-xl opacity-7 animate-pulse"
+          style={{ animationDuration: "5.1s", animationDelay: "3.4s" }}
+        ></div>
+        <div
+          className="absolute top-3/4 right-1/3 w-40 h-40 bg-cyan-500 rounded-full mix-blend-screen filter blur-xl opacity-6 animate-pulse"
+          style={{ animationDuration: "7s", animationDelay: "1.2s" }}
+        ></div>
+        <div
+          className="absolute bottom-1/3 left-2/3 w-50 h-50 bg-cyan-300 rounded-full mix-blend-screen filter blur-xl opacity-8 animate-pulse"
+          style={{ animationDuration: "4.3s", animationDelay: "2.1s" }}
+        ></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-5 py-5 z-10">
@@ -309,12 +433,12 @@ export default function NeuralIALanding() {
           </Button>
         </header>
 
-        {/* Main Content */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-10 shadow-2xl mb-8 border border-cyan-500/20">
+        {/* Main Content - Now with 60% opacity background */}
+        <div className="backdrop-blur-sm rounded-3xl p-10 shadow-2xl mb-8 bg-black/60">
           {/* How It Works Section */}
           <section className="mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4 text-center">How It Works</h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-4 text-center">How It Works</h2>
+            <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
               Get your custom AI agent up and running in minutes, not months
             </p>
 
@@ -365,8 +489,8 @@ export default function NeuralIALanding() {
 
           {/* Proven Results Section */}
           <section className="mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4 text-center">Proven Results</h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-4 text-center">Proven Results</h2>
+            <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
               Real metrics from businesses using NeuralIA AI agents
             </p>
 
@@ -389,8 +513,8 @@ export default function NeuralIALanding() {
 
           {/* Enhanced Categories Section */}
           <section className="mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4 text-center">What Can We Build For You?</h2>
-            <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+            <h2 className="text-4xl font-bold text-white mb-4 text-center">What Can We Build For You?</h2>
+            <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
               Choose from our proven AI agent categories, each with real-world results
             </p>
 
@@ -440,8 +564,8 @@ export default function NeuralIALanding() {
 
           {/* Social Proof Section */}
           <section className="mb-16">
-            <h2 className="text-4xl font-bold text-black mb-4 text-center">Trusted by Industry Leaders</h2>
-            <p className="text-xl text-gray-600 text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4 text-center">Trusted by Industry Leaders</h2>
+            <p className="text-xl text-gray-300 text-center mb-12">
               See how businesses like yours are transforming with NeuralIA
             </p>
 
@@ -566,7 +690,7 @@ export default function NeuralIALanding() {
 
       {/* Enhanced Chatbot Container */}
       {chatOpen && (
-        <div className="fixed bottom-32 right-8 w-96 h-[600px] bg-white rounded-3xl shadow-2xl flex flex-col z-40 border border-cyan-500/20 overflow-hidden">
+        <div className="fixed bottom-32 right-8 w-96 h-[600px] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col z-40 border border-cyan-500/20 overflow-hidden">
           {/* Enhanced Chat Header */}
           <div className="bg-black text-white p-6 rounded-t-3xl relative overflow-hidden border-b border-cyan-500/20">
             <div className="relative z-10">
@@ -583,6 +707,14 @@ export default function NeuralIALanding() {
                 </div>
               </div>
               <p className="text-sm opacity-90">Let's find the perfect AI solution for you!</p>
+
+              {/* Speech Recognition Status */}
+              {speechSupported && (
+                <div className="mt-2 text-xs opacity-75 flex items-center gap-2">
+                  <Mic className="w-3 h-3" />
+                  <span>Voice input available • Click mic to speak</span>
+                </div>
+              )}
             </div>
             <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full -translate-y-16 translate-x-16"></div>
           </div>
@@ -628,6 +760,47 @@ export default function NeuralIALanding() {
               </div>
             )}
 
+            {/* Simplified Live Speech Recognition Display */}
+            {isRecording && (
+              <div className="max-w-[90%] p-4 rounded-2xl bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-300 relative shadow-lg">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-cyan-700 font-semibold">Voice Input Active</span>
+                  <div className="flex space-x-1">
+                    <div className="w-1 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
+                    <div className="w-1 h-6 bg-cyan-500 rounded-full animate-pulse delay-75"></div>
+                    <div className="w-1 h-3 bg-cyan-500 rounded-full animate-pulse delay-150"></div>
+                    <div className="w-1 h-5 bg-cyan-500 rounded-full animate-pulse delay-225"></div>
+                    <div className="w-1 h-4 bg-cyan-500 rounded-full animate-pulse delay-300"></div>
+                  </div>
+                </div>
+
+                <div className="min-h-[40px] p-3 bg-white rounded-lg border border-cyan-200 mb-3">
+                  <div className="text-sm text-gray-800">
+                    {interimTranscript ? (
+                      <span className="text-cyan-600 italic">{interimTranscript}</span>
+                    ) : (
+                      <span className="text-gray-400">Listening... speak now</span>
+                    )}
+                    <span className="inline-block w-1 h-4 bg-cyan-500 ml-1 animate-pulse"></span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-cyan-600">Speech will be added to your message</div>
+                  <Button
+                    onClick={stopRecording}
+                    size="sm"
+                    variant="outline"
+                    className="border-red-300 text-red-600 hover:bg-red-50 text-xs px-3 py-1 h-7 bg-transparent"
+                  >
+                    <Square className="w-3 h-3 mr-1" />
+                    Stop
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {quickOptions.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-4">
                 {quickOptions.map((option, index) => (
@@ -647,26 +820,50 @@ export default function NeuralIALanding() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Enhanced Input */}
-          <div className="p-6 bg-white rounded-b-3xl border-t border-gray-100">
+          {/* Simplified Input with Voice Input */}
+          <div className="p-6 bg-white/95 backdrop-blur-sm rounded-b-3xl border-t border-gray-100">
             <div className="flex gap-3 items-end">
               <div className="flex-1 relative">
                 <input
-                  value={userInput}
-                  onChange={(e) => setUserInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && !isSending && handleSendMessage()}
-                  placeholder={isSending ? "AI is typing..." : "Type your message..."}
-                  className="rounded-full border-gray-300 pr-12 py-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                  value={userInput + (isRecording ? interimTranscript : "")}
+                  onChange={(e) => !isRecording && setUserInput(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && !isSending && !isRecording && handleSendMessage()}
+                  placeholder={
+                    isRecording
+                      ? "Listening... (click mic to stop)"
+                      : isSending
+                        ? "AI is typing..."
+                        : "Type your message or use voice..."
+                  }
+                  className="w-full rounded-full border-gray-300 pr-12 py-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                   disabled={isSending}
+                  readOnly={isRecording}
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">
-                  {userInput.length}/500
+                  {(userInput + (isRecording ? interimTranscript : "")).length}/500
                 </div>
               </div>
+
+              {/* Simplified Speech-to-Text Button */}
+              {speechSupported && (
+                <Button
+                  onClick={toggleRecording}
+                  className={`w-12 h-12 rounded-full p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
+                    isRecording
+                      ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
+                      : "bg-gray-100 hover:bg-gray-200 text-gray-600"
+                  }`}
+                  disabled={isSending}
+                  title={isRecording ? "Stop voice input" : "Start voice input"}
+                >
+                  {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                </Button>
+              )}
+
               <Button
                 onClick={handleSendMessage}
                 className="w-12 h-12 rounded-full bg-cyan-500 hover:bg-cyan-600 text-black p-0 shadow-lg transform hover:scale-105 transition-all duration-200"
-                disabled={isSending || !userInput.trim()}
+                disabled={isSending || !userInput.trim() || isRecording}
               >
                 <Send className="w-5 h-5" />
               </Button>
@@ -675,6 +872,13 @@ export default function NeuralIALanding() {
             <div className="flex items-center justify-center mt-3 text-xs text-gray-500">
               <Shield className="w-3 h-3 mr-1" />
               Your data is encrypted and secure
+              {speechSupported && (
+                <>
+                  <span className="mx-2">•</span>
+                  <Mic className="w-3 h-3 mr-1" />
+                  {isRecording ? "Voice input active" : "Voice input ready"}
+                </>
+              )}
             </div>
           </div>
         </div>
