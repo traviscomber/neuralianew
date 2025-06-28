@@ -1,11 +1,8 @@
 "use client"
 
 import { useEffect } from "react"
-
 import { useRef } from "react"
-
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -139,10 +136,15 @@ export default function NeuralIALanding() {
   ]
 
   const roiMetrics = [
-    { label: "Average ROI", value: "340%", change: "+15%", icon: <TrendingUp className="w-5 h-5" /> },
-    { label: "Time Saved", value: "25hrs/week", change: "+8hrs", icon: <Clock className="w-5 h-5" /> },
-    { label: "Cost Reduction", value: "60%", change: "+12%", icon: <Target className="w-5 h-5" /> },
-    { label: "Customer Satisfaction", value: "94%", change: "+18%", icon: <CheckCircle className="w-5 h-5" /> },
+    { label: "Average ROI", value: "340%", change: "+15% this month", icon: <TrendingUp className="w-5 h-5" /> },
+    { label: "Time Saved", value: "25hrs/week", change: "+8hrs this month", icon: <Clock className="w-5 h-5" /> },
+    { label: "Cost Reduction", value: "60%", change: "+12% this month", icon: <Target className="w-5 h-5" /> },
+    {
+      label: "Customer Satisfaction",
+      value: "94%",
+      change: "+18% this month",
+      icon: <CheckCircle className="w-5 h-5" />,
+    },
   ]
 
   const categoryNames: { [key: string]: string } = {
@@ -299,20 +301,6 @@ export default function NeuralIALanding() {
             Your AI Agent Factory - Transforming Business with Smart Automation
           </p>
 
-          {/* ROI Metrics Bar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-            {roiMetrics.map((metric, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-cyan-500/20">
-                <div className="flex items-center justify-center gap-2 mb-2 text-cyan-400">
-                  {metric.icon}
-                  <span className="text-sm opacity-80">{metric.label}</span>
-                </div>
-                <div className="text-2xl font-bold text-white">{metric.value}</div>
-                <div className="text-cyan-400 text-sm">{metric.change} this month</div>
-              </div>
-            ))}
-          </div>
-
           <Button
             onClick={openChat}
             className="bg-cyan-500 hover:bg-cyan-600 text-black font-bold py-4 px-8 rounded-full text-lg transform hover:scale-105 transition-all duration-300 shadow-2xl"
@@ -323,7 +311,7 @@ export default function NeuralIALanding() {
 
         {/* Main Content */}
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-10 shadow-2xl mb-8 border border-cyan-500/20">
-          {/* Enhanced How It Works Section */}
+          {/* How It Works Section */}
           <section className="mb-16">
             <h2 className="text-4xl font-bold text-black mb-4 text-center">How It Works</h2>
             <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
@@ -370,6 +358,30 @@ export default function NeuralIALanding() {
                   {index < 2 && (
                     <ArrowRight className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-cyan-500/50 hidden md:block" />
                   )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Proven Results Section */}
+          <section className="mb-16">
+            <h2 className="text-4xl font-bold text-black mb-4 text-center">Proven Results</h2>
+            <p className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto">
+              Real metrics from businesses using NeuralIA AI agents
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {roiMetrics.map((metric, index) => (
+                <div
+                  key={index}
+                  className="bg-black text-white rounded-2xl p-6 border border-cyan-500/20 transform hover:-translate-y-2 transition-all duration-300 shadow-xl group"
+                >
+                  <div className="flex items-center gap-3 mb-4 text-cyan-400">
+                    {metric.icon}
+                    <span className="text-sm font-medium opacity-80">{metric.label}</span>
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">{metric.value}</div>
+                  <div className="text-cyan-400 text-sm">{metric.change}</div>
                 </div>
               ))}
             </div>
