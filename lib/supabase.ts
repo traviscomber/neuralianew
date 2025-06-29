@@ -2,69 +2,18 @@
 
 import { createBrowserClient } from "@supabase/ssr"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
 export function createClient() {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn("Missing Supabase environment variables")
-    // Return a mock client for development
-    return {
-      auth: {
-        getUser: () => Promise.resolve({ data: { user: null }, error: null }),
-        getSession: () => Promise.resolve({ data: { session: null }, error: null }),
-        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
-        signOut: () => Promise.resolve({ error: null }),
-        signInWithPassword: () => Promise.resolve({ data: null, error: null }),
-        signUp: () => Promise.resolve({ data: null, error: null }),
-        resetPasswordForEmail: () => Promise.resolve({ data: null, error: null }),
-        updateUser: () => Promise.resolve({ data: null, error: null }),
-      },
-      from: () => ({
-        select: () => ({
-          eq: () => ({
-            single: () => Promise.resolve({ data: null, error: null }),
-            order: () => Promise.resolve({ data: [], error: null }),
-          }),
-          order: () => Promise.resolve({ data: [], error: null }),
-        }),
-        insert: () => ({
-          select: () => ({
-            single: () => Promise.resolve({ data: null, error: null }),
-          }),
-        }),
-        update: () => ({
-          eq: () => ({
-            select: () => ({
-              single: () => Promise.resolve({ data: null, error: null }),
-            }),
-          }),
-        }),
-        delete: () => ({
-          eq: () => Promise.resolve({ error: null }),
-        }),
-      }),
-    } as any
-  }
-
-  return createBrowserClient(supabaseUrl, supabaseAnonKey)
+  return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 }
 
-// Singleton client with proper error handling
-let _browserClient: ReturnType<typeof createClient> | null = null
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = (() => {
-  if (typeof window === "undefined") {
-    // Server-side: return mock to prevent SSR issues
-    return createClient()
-  }
+// Export the singleton so other modules can do:
+//   import { supabase } from "@/lib/supabase"
+export const supabase = createClient()
 
-  if (!_browserClient) {
-    _browserClient = createClient()
-  }
-  return _browserClient
-})()
-
+// If someone prefers a default import, export it as default too.
 export default supabase
 
 // Types
@@ -82,6 +31,19 @@ export interface Profile {
   updated_at: string
 }
 
+export interface UserPreferences {
+  id: string
+  user_id: string
+  preferred_name?: string
+  communication_style: "professional" | "casual" | "friendly"
+  timezone?: string
+  language: string
+  notification_preferences: Record<string, any>
+  agent_preferences: Record<string, any>
+  created_at: string
+  updated_at: string
+}
+
 export interface ChatConversation {
   id: string
   user_id: string
@@ -94,6 +56,36 @@ export interface ChatConversation {
   }>
   created_at: string
   updated_at: string
+}
+
+export interface OrchestratorConversation {
+  id: string
+  user_id: string
+  conversation_title: string
+  messages: Array<{
+    id: string
+    role: "user" | "assistant"
+    content: string
+    timestamp: string
+    data_extracted?: Record<string, any>
+  }>
+  company_data: {
+    company_name?: string
+    industry?: string
+    size?: string
+    goals?: string[]
+    challenges?: string[]
+    vision?: string
+    values?: string[]
+    target_market?: string
+    revenue_model?: string
+    key_metrics?: string[]
+    current_tools?: string[]
+    pain_points?: string[]
+    priorities?: string[]
+  }
+  last_updated: string
+  created_at: string
 }
 
 export interface AIAgent {
@@ -166,6 +158,62 @@ export const db = {
     },
   },
 
+  preferences: {
+    async get(userId: string) {
+      try {
+        const { data, error } = await supabase.from("user_preferences").select("*").eq("user_id", userId).single()
+        if (error && error.code !== "PGRST116") throw error
+        return data as UserPreferences | null
+      } catch (error) {
+        console.error("Error fetching user preferences:", error)
+        return null
+      }
+    },
+
+    async getOrCreate(userId: string) {
+      try {
+        const { data, error } = await supabase.rpc("get_or_create_user_preferences", { p_user_id: userId })
+        if (error) throw error
+        return data as UserPreferences
+      } catch (error) {
+        console.error("Error getting or creating user preferences:", error)
+        throw error
+      }
+    },
+
+    async update(userId: string, updates: Partial<UserPreferences>) {
+      try {
+        const { data, error } = await supabase
+          .from("user_preferences")
+          .update(updates)
+          .eq("user_id", userId)
+          .select()
+          .single()
+        if (error) throw error
+        return data as UserPreferences
+      } catch (error) {
+        console.error("Error updating user preferences:", error)
+        throw error
+      }
+    },
+
+    async updatePreferredName(userId: string, preferredName: string) {
+      try {
+        const { data, error } = await supabase
+          .from("user_preferences")
+          .update({ preferred_name: preferredName })
+          .eq("user_id", userId)
+          .select()
+          .single()
+        if (error) throw error
+        return data as UserPreferences
+      } catch (error) {
+        console.error("Error updating preferred name:", error)
+        throw error
+      }
+    },
+  },
+
   conversations: {
     async get(userId: string, solutionType?: string) {
       try {
@@ -206,6 +254,92 @@ export const db = {
         return data as ChatConversation
       } catch (error) {
         console.error("Error updating conversation:", error)
+        throw error
+      }
+    },
+  },
+
+  orchestrator: {
+    async getConversation(userId: string) {
+      try {
+        const { data, error } = await supabase
+          .from("orchestrator_conversations")
+          .select("*")
+          .eq("user_id", userId)
+          .order("last_updated", { ascending: false })
+          .limit(1)
+          .single()
+
+        if (error && error.code !== "PGRST116") throw error
+        return data as OrchestratorConversation | null
+      } catch (error) {
+        console.error("Error fetching orchestrator conversation:", error)
+        return null
+      }
+    },
+
+    async createConversation(userId: string) {
+      try {
+        const initialMessage = {
+          id: Date.now().toString(),
+          role: "assistant" as const,
+          content: `Hello! I'm your Central Orchestrator. I'm here to learn about your company and help optimize all your AI agents based on your specific business needs.
+
+Let's start with some basic information about your company. Could you tell me:
+
+1. **Company Name & Industry**: What's your company name and what industry are you in?
+2. **Company Size**: How many employees do you have?
+3. **Primary Goals**: What are your main business objectives for this year?
+
+Feel free to share as much detail as you'd like - the more I know about your business, the better I can coordinate your AI agents to serve your specific needs.`,
+          timestamp: new Date().toISOString(),
+        }
+
+        const { data, error } = await supabase
+          .from("orchestrator_conversations")
+          .insert({
+            user_id: userId,
+            conversation_title: "Company Setup & Configuration",
+            messages: [initialMessage],
+            company_data: {},
+          })
+          .select()
+          .single()
+
+        if (error) throw error
+        return data as OrchestratorConversation
+      } catch (error) {
+        console.error("Error creating orchestrator conversation:", error)
+        throw error
+      }
+    },
+
+    async addMessage(conversationId: string, message: any) {
+      try {
+        const { data, error } = await supabase.rpc("add_orchestrator_message", {
+          conversation_id: conversationId,
+          message_data: message,
+        })
+
+        if (error) throw error
+        return data as OrchestratorConversation
+      } catch (error) {
+        console.error("Error adding orchestrator message:", error)
+        throw error
+      }
+    },
+
+    async updateCompanyData(conversationId: string, companyData: Record<string, any>) {
+      try {
+        const { data, error } = await supabase.rpc("update_company_data", {
+          conversation_id: conversationId,
+          new_data: companyData,
+        })
+
+        if (error) throw error
+        return data as OrchestratorConversation
+      } catch (error) {
+        console.error("Error updating company data:", error)
         throw error
       }
     },

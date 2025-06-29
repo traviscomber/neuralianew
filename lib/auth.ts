@@ -2,7 +2,7 @@
 
 import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
+import { createClient } from "@/lib/supabase"
 
 export async function createSupabaseServerClient() {
   const cookieStore = await cookies()
@@ -25,66 +25,36 @@ export async function createSupabaseServerClient() {
   })
 }
 
-export async function signUp(email: string, password: string, name?: string) {
-  const supabase = await createSupabaseServerClient()
-
+export async function signUp(email: string, password: string) {
+  const supabase = createClient()
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: {
-      data: {
-        name: name || "",
-      },
-    },
   })
-
-  if (error) {
-    return { error }
-  }
-
-  return { data }
+  return { data, error }
 }
 
 export async function signIn(email: string, password: string) {
-  const supabase = await createSupabaseServerClient()
-
+  const supabase = createClient()
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   })
-
-  if (error) {
-    return { error }
-  }
-
-  // Don't redirect here - let the component handle it
-  return { data }
+  return { data, error }
 }
 
 export async function signOut() {
-  const supabase = await createSupabaseServerClient()
-
+  const supabase = createClient()
   const { error } = await supabase.auth.signOut()
-
-  if (error) {
-    return { error }
-  }
-
-  redirect("/")
+  return { error }
 }
 
 export async function resetPassword(email: string) {
-  const supabase = await createSupabaseServerClient()
-
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  const supabase = createClient()
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
   })
-
-  if (error) {
-    return { error }
-  }
-
-  return { data }
+  if (error) throw error
 }
 
 export async function updatePassword(password: string) {

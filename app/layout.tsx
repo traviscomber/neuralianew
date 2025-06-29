@@ -3,16 +3,25 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/hooks/use-auth"
-import { Toaster } from "@/components/ui/sonner"
 import { CartProvider } from "@/hooks/use-cart"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NeuralIA - AI-Powered Business Solutions",
+  title: "NeuralIA - AI Agents & Systems Platform",
   description:
-    "Transform your business with intelligent AI agents that work 24/7 to automate workflows, enhance customer service, and drive unprecedented growth.",
+    "Deploy intelligent AI agents and systems in 24-48 hours. Transform your business with cutting-edge artificial intelligence.",
+  keywords: ["AI", "artificial intelligence", "agents", "automation", "business", "SaaS"],
+  authors: [{ name: "NeuralIA Team" }],
+  creator: "NeuralIA",
+  publisher: "NeuralIA",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
     generator: 'v0.dev'
 }
 
