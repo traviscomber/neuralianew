@@ -260,26 +260,37 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
     }
 
     setMessages((prev) => [...prev, userMessage])
+    const currentInput = input.trim()
     setInput("")
     setIsLoading(true)
     setQuestionCount((prev) => prev + 1)
 
     try {
+      // Build conversation history in OpenAI format
+      const conversationHistory = messages
+        .filter((m) => m.sender !== "bot" || m.id !== "1") // Exclude welcome message
+        .map((m) => ({
+          role: m.sender === "user" ? "user" : "assistant",
+          content: m.content,
+        }))
+
+      const payload = {
+        messages: [...conversationHistory, { role: "user", content: currentInput }],
+        chatType: currentChatType,
+        agentId: specificAgent,
+      }
+
+      console.log("Sending payload:", payload)
+
       const response = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: input.trim(),
-          chatType: currentChatType,
-          specificAgent: specificAgent,
-          conversationHistory: messages.map((m) => ({
-            role: m.sender === "user" ? "user" : "assistant",
-            content: m.content,
-          })),
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       })
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
 
       const data = await response.json()
 
@@ -325,6 +336,10 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
     window.open(`https://wa.me/1234567890?text=${message}`, "_blank")
   }
 
+  const handleClose = () => {
+    onClose()
+  }
+
   const isQuestionLimitReached = questionCount >= 5 && currentChatType === "general" && !specificAgent
   const showQuestionLimit = currentChatType === "general" && !specificAgent
   const isUnlimitedChat = specificAgent === "customer-service" || specificAgent
@@ -350,8 +365,8 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
                   : "Unlimited Chat"}
             </Badge>
           </div>
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
-            <X className="h-4 w-4" onClick={onClose} />
+          <Button variant="ghost" size="sm" className="text-white hover:bg-white/20" onClick={handleClose}>
+            <X className="h-4 w-4" />
           </Button>
         </CardHeader>
 
@@ -389,7 +404,7 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
                     {message.sender === "bot" && <Bot className="h-4 w-4 mt-0.5 flex-shrink-0" />}
                     {message.sender === "user" && <User className="h-4 w-4 mt-0.5 flex-shrink-0" />}
                     <div className="flex-1">
-                      <p className="text-sm">{message.content}</p>
+                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                     </div>
                   </div>
                 </div>

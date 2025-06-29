@@ -1,38 +1,75 @@
 "use client"
 
-import { createBrowserClient, type SupabaseClient } from "@supabase/ssr"
+import { createBrowserClient } from "@supabase/ssr"
 
-/**
- * Environment variables (must be present at build&sol;runtime).
- */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  // eslint-disable-next-line no-console
-  console.error("Supabase env vars missing. Verify NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.")
+  console.error("Missing Supabase environment variables")
 }
 
-/**
- * Factory – creates a fresh Supabase browser client.
- * Apps that need their own isolated client can import { createClient }.
- */
 export function createClient() {
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error("Missing Supabase environment variables")
+  }
+
   return createBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
-/**
- * Singleton – most components can just import { supabase }.
- */
-let _browserClient: SupabaseClient | null = null
-export const supabase: SupabaseClient = _browserClient ?? (_browserClient = createClient())
+// Singleton client
+let _browserClient: ReturnType<typeof createClient> | null = null
 
-/**
- * Default export kept for backward-compat.
- */
+export const supabase = (() => {
+  if (typeof window === "undefined") {
+    // Server-side: return a mock object to prevent errors
+    return {
+      auth: {
+        getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+        getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+        signOut: () => Promise.resolve({ error: null }),
+        signInWithPassword: () => Promise.resolve({ data: null, error: null }),
+        signUp: () => Promise.resolve({ data: null, error: null }),
+        resetPasswordForEmail: () => Promise.resolve({ data: null, error: null }),
+        updateUser: () => Promise.resolve({ data: null, error: null }),
+      },
+      from: () => ({
+        select: () => ({
+          eq: () => ({
+            single: () => Promise.resolve({ data: null, error: null }),
+            order: () => Promise.resolve({ data: [], error: null }),
+          }),
+          order: () => Promise.resolve({ data: [], error: null }),
+        }),
+        insert: () => ({
+          select: () => ({
+            single: () => Promise.resolve({ data: null, error: null }),
+          }),
+        }),
+        update: () => ({
+          eq: () => ({
+            select: () => ({
+              single: () => Promise.resolve({ data: null, error: null }),
+            }),
+          }),
+        }),
+        delete: () => ({
+          eq: () => Promise.resolve({ error: null }),
+        }),
+      }),
+    } as any
+  }
+
+  if (!_browserClient) {
+    _browserClient = createClient()
+  }
+  return _browserClient
+})()
+
 export default supabase
 
-// Types for our database tables
+// Types
 export interface Profile {
   id: string
   email: string
@@ -94,115 +131,185 @@ export interface UserSession {
   created_at: string
 }
 
-// Helper functions for database operations
+// Database helpers with error handling
 export const db = {
   profiles: {
     async get(userId: string) {
-      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single()
-      if (error) throw error
-      return data as Profile
+      try {
+        const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single()
+        if (error) throw error
+        return data as Profile
+      } catch (error) {
+        console.error("Error fetching profile:", error)
+        throw error
+      }
     },
 
     async update(userId: string, updates: Partial<Profile>) {
-      const { data, error } = await supabase.from("profiles").update(updates).eq("id", userId).select().single()
-      if (error) throw error
-      return data as Profile
+      try {
+        const { data, error } = await supabase.from("profiles").update(updates).eq("id", userId).select().single()
+        if (error) throw error
+        return data as Profile
+      } catch (error) {
+        console.error("Error updating profile:", error)
+        throw error
+      }
     },
 
     async create(profile: Omit<Profile, "created_at" | "updated_at">) {
-      const { data, error } = await supabase.from("profiles").insert(profile).select().single()
-      if (error) throw error
-      return data as Profile
+      try {
+        const { data, error } = await supabase.from("profiles").insert(profile).select().single()
+        if (error) throw error
+        return data as Profile
+      } catch (error) {
+        console.error("Error creating profile:", error)
+        throw error
+      }
     },
   },
 
   conversations: {
     async get(userId: string, solutionType?: string) {
-      let query = supabase
-        .from("chat_conversations")
-        .select("*")
-        .eq("user_id", userId)
-        .order("updated_at", { ascending: false })
+      try {
+        let query = supabase
+          .from("chat_conversations")
+          .select("*")
+          .eq("user_id", userId)
+          .order("updated_at", { ascending: false })
 
-      if (solutionType) {
-        query = query.eq("solution_type", solutionType)
+        if (solutionType) {
+          query = query.eq("solution_type", solutionType)
+        }
+
+        const { data, error } = await query
+        if (error) throw error
+        return data as ChatConversation[]
+      } catch (error) {
+        console.error("Error fetching conversations:", error)
+        throw error
       }
-
-      const { data, error } = await query
-      if (error) throw error
-      return data as ChatConversation[]
     },
 
     async create(conversation: Omit<ChatConversation, "id" | "created_at" | "updated_at">) {
-      const { data, error } = await supabase.from("chat_conversations").insert(conversation).select().single()
-      if (error) throw error
-      return data as ChatConversation
+      try {
+        const { data, error } = await supabase.from("chat_conversations").insert(conversation).select().single()
+        if (error) throw error
+        return data as ChatConversation
+      } catch (error) {
+        console.error("Error creating conversation:", error)
+        throw error
+      }
     },
 
     async update(id: string, updates: Partial<ChatConversation>) {
-      const { data, error } = await supabase.from("chat_conversations").update(updates).eq("id", id).select().single()
-      if (error) throw error
-      return data as ChatConversation
+      try {
+        const { data, error } = await supabase.from("chat_conversations").update(updates).eq("id", id).select().single()
+        if (error) throw error
+        return data as ChatConversation
+      } catch (error) {
+        console.error("Error updating conversation:", error)
+        throw error
+      }
     },
   },
 
   agents: {
     async list(userId: string) {
-      const { data, error } = await supabase
-        .from("ai_agents")
-        .select("*")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false })
+      try {
+        const { data, error } = await supabase
+          .from("ai_agents")
+          .select("*")
+          .eq("user_id", userId)
+          .order("created_at", { ascending: false })
 
-      if (error) throw error
-      return data as AIAgent[]
+        if (error) throw error
+        return data as AIAgent[]
+      } catch (error) {
+        console.error("Error fetching agents:", error)
+        throw error
+      }
     },
 
     async create(agent: Omit<AIAgent, "id" | "created_at" | "updated_at">) {
-      const { data, error } = await supabase.from("ai_agents").insert(agent).select().single()
-      if (error) throw error
-      return data as AIAgent
+      try {
+        const { data, error } = await supabase.from("ai_agents").insert(agent).select().single()
+        if (error) throw error
+        return data as AIAgent
+      } catch (error) {
+        console.error("Error creating agent:", error)
+        throw error
+      }
     },
 
     async update(id: string, updates: Partial<AIAgent>) {
-      const { data, error } = await supabase.from("ai_agents").update(updates).eq("id", id).select().single()
-      if (error) throw error
-      return data as AIAgent
+      try {
+        const { data, error } = await supabase.from("ai_agents").update(updates).eq("id", id).select().single()
+        if (error) throw error
+        return data as AIAgent
+      } catch (error) {
+        console.error("Error updating agent:", error)
+        throw error
+      }
     },
 
     async delete(id: string) {
-      const { error } = await supabase.from("ai_agents").delete().eq("id", id)
-      if (error) throw error
+      try {
+        const { error } = await supabase.from("ai_agents").delete().eq("id", id)
+        if (error) throw error
+      } catch (error) {
+        console.error("Error deleting agent:", error)
+        throw error
+      }
     },
   },
 
   systems: {
     async list(userId: string) {
-      const { data, error } = await supabase
-        .from("ai_systems")
-        .select("*")
-        .eq("user_id", userId)
-        .order("created_at", { ascending: false })
+      try {
+        const { data, error } = await supabase
+          .from("ai_systems")
+          .select("*")
+          .eq("user_id", userId)
+          .order("created_at", { ascending: false })
 
-      if (error) throw error
-      return data as AISystem[]
+        if (error) throw error
+        return data as AISystem[]
+      } catch (error) {
+        console.error("Error fetching systems:", error)
+        throw error
+      }
     },
 
     async create(system: Omit<AISystem, "id" | "created_at" | "updated_at">) {
-      const { data, error } = await supabase.from("ai_systems").insert(system).select().single()
-      if (error) throw error
-      return data as AISystem
+      try {
+        const { data, error } = await supabase.from("ai_systems").insert(system).select().single()
+        if (error) throw error
+        return data as AISystem
+      } catch (error) {
+        console.error("Error creating system:", error)
+        throw error
+      }
     },
 
     async update(id: string, updates: Partial<AISystem>) {
-      const { data, error } = await supabase.from("ai_systems").update(updates).eq("id", id).select().single()
-      if (error) throw error
-      return data as AISystem
+      try {
+        const { data, error } = await supabase.from("ai_systems").update(updates).eq("id", id).select().single()
+        if (error) throw error
+        return data as AISystem
+      } catch (error) {
+        console.error("Error updating system:", error)
+        throw error
+      }
     },
 
     async delete(id: string) {
-      const { error } = await supabase.from("ai_systems").delete().eq("id", id)
-      if (error) throw error
+      try {
+        const { error } = await supabase.from("ai_systems").delete().eq("id", id)
+        if (error) throw error
+      } catch (error) {
+        console.error("Error deleting system:", error)
+        throw error
+      }
     },
   },
 }
