@@ -54,7 +54,7 @@ export default function NeuralIALanding() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [chatOpen, setChatOpen] = useState(false)
-  const [showManualForm, setShowManualForm] = useState(false)
+  const [showAgentConfig, setShowAgentConfig] = useState(false)
   const [solutionType, setSolutionType] = useState<"agent" | "system" | null>(null)
   const [messages, setMessages] = useState<Message[]>([])
   const [quickOptions, setQuickOptions] = useState<QuickOption[]>([])
@@ -83,6 +83,9 @@ export default function NeuralIALanding() {
     website: null,
     dataCollected: false,
   })
+
+  // Add after the existing state declarations
+  const [chatMode, setChatMode] = useState<"consultant" | "agent" | "system">("consultant")
 
   const categories = [
     {
@@ -190,9 +193,16 @@ export default function NeuralIALanding() {
   }, [])
 
   const handleCreateAgent = () => {
-    // Open chat and start with excitement
+    // Show agent configuration modal instead of opening chat directly
+    setShowAgentConfig(true)
     setSolutionType("agent")
+  }
+
+  const handlePreConfiguredAgent = (agentType?: string) => {
+    // Open chat with pre-configured agent context
+    setChatMode("agent")
     setChatOpen(true)
+    setShowAgentConfig(false)
 
     // Reset conversation state
     setConversationState({
@@ -205,12 +215,64 @@ export default function NeuralIALanding() {
       dataCollected: false,
     })
 
-    // Start with excitement and data collection
+    const agentMessage = agentType
+      ? `I want to create a ${agentType} for my business. Please help me configure this pre-built agent.`
+      : "I want to use one of your pre-configured agents. Please show me the available options and help me choose the best one for my business."
+
+    setMessages([
+      {
+        type: "bot",
+        content: agentType
+          ? `Excellent choice! 🚀 You've selected the ${agentType}. This is one of our most popular pre-configured agents.\n\nI'll help you customize this agent for your specific business needs. Let me gather some information to ensure it's perfectly tailored for you.\n\nFirst, what's your company name? This helps me provide personalized recommendations.`
+          : "Perfect! 🚀 I'll help you choose from our pre-configured agents and customize it for your business.\n\nOur pre-configured agents are ready-to-deploy solutions that have been optimized for specific business functions. Each one can be customized to match your exact needs.\n\nLet's start with your company name so I can provide personalized recommendations.",
+        timestamp: new Date(),
+      },
+    ])
+
+    // Set initial quick options
+    setTimeout(() => {
+      setQuickOptions([
+        {
+          text: "TechCorp Inc",
+          action: "My company is TechCorp Inc",
+          icon: <Building className="w-4 h-4" />,
+        },
+        {
+          text: "StartupXYZ",
+          action: "My company is StartupXYZ",
+          icon: <Building className="w-4 h-4" />,
+        },
+        {
+          text: "Other Company",
+          action: "Let me type my company name",
+          icon: <FileText className="w-4 h-4" />,
+        },
+      ])
+    }, 1000)
+  }
+
+  const handleCustomAgent = () => {
+    // Open chat with custom agent context
+    setChatMode("agent")
+    setChatOpen(true)
+    setShowAgentConfig(false)
+
+    // Reset conversation state
+    setConversationState({
+      questionsAsked: 0,
+      industry: null,
+      bonusEarned: false,
+      conversationEnded: false,
+      companyName: null,
+      website: null,
+      dataCollected: false,
+    })
+
     setMessages([
       {
         type: "bot",
         content:
-          "Excellent choice! 🚀 You're about to create a powerful AI Agent that will transform how your business operates.\n\nI'll gather some key information to design the perfect agent for your specific needs. This analysis will help me show you exactly how an AI agent can drive measurable results for your company.\n\nLet's start with your company name - I want to provide you with a personalized consultation.",
+          "Fantastic! 🚀 You've chosen to build a completely custom AI Agent from scratch. This means unlimited possibilities!\n\nI'll work with you to design an agent that's perfectly tailored to your unique business requirements. We can create specialized capabilities, custom workflows, and unique integrations that no pre-built solution can offer.\n\nLet's start by understanding your business. What's your company name?",
         timestamp: new Date(),
       },
     ])
@@ -238,28 +300,50 @@ export default function NeuralIALanding() {
   }
 
   const handleCreateSystem = () => {
-    // Open chat and send initial message for System
-    setSolutionType("system")
+    setChatMode("system")
     setChatOpen(true)
+    setSolutionType("system")
 
-    const initialMessage =
-      "I want to create a full-stack AI System with complete data interactions, AI-powered dashboards, and intelligent insights for my business."
+    // Reset conversation state
+    setConversationState({
+      questionsAsked: 0,
+      industry: null,
+      bonusEarned: false,
+      conversationEnded: false,
+      companyName: null,
+      website: null,
+      dataCollected: false,
+    })
 
-    // Reset conversation and add the initial message
     setMessages([
       {
         type: "bot",
         content:
-          "Hi! I'm your AI System Consultant. I'll help you build a complete AI-powered system with data integration and intelligent dashboards.",
+          "Welcome to the AI System Builder! 🚀\n\nI'm here to help you create a complete AI-powered system with data integration, intelligent dashboards, and advanced analytics capabilities.\n\nLet's start by understanding your business requirements. What's your company name?",
         timestamp: new Date(),
       },
     ])
 
-    // Add user message and send to AI
+    // Set initial quick options
     setTimeout(() => {
-      addUserMessage(initialMessage)
-      sendToAI(initialMessage)
-    }, 500)
+      setQuickOptions([
+        {
+          text: "TechCorp Inc",
+          action: "My company is TechCorp Inc",
+          icon: <Building className="w-4 h-4" />,
+        },
+        {
+          text: "StartupXYZ",
+          action: "My company is StartupXYZ",
+          icon: <Building className="w-4 h-4" />,
+        },
+        {
+          text: "Other Company",
+          action: "Let me type my company name",
+          icon: <FileText className="w-4 h-4" />,
+        },
+      ])
+    }, 1000)
   }
 
   const simulateAnalysis = async (companyName: string, website?: string) => {
@@ -405,7 +489,7 @@ export default function NeuralIALanding() {
         body: JSON.stringify({
           messages: conversationHistory,
           conversationState: conversationState,
-          solutionType: solutionType,
+          chatMode: chatMode,
         }),
       })
 
@@ -636,7 +720,7 @@ export default function NeuralIALanding() {
       addUserMessage(messageToSend)
 
       // Check if we're collecting company data
-      if (!conversationState.companyName && solutionType === "agent") {
+      if (!conversationState.companyName && (solutionType === "agent" || solutionType === "system")) {
         // This is company name
         setConversationState((prev) => ({ ...prev, companyName: messageToSend }))
 
@@ -661,7 +745,11 @@ export default function NeuralIALanding() {
         return
       }
 
-      if (conversationState.companyName && !conversationState.dataCollected && solutionType === "agent") {
+      if (
+        conversationState.companyName &&
+        !conversationState.dataCollected &&
+        (solutionType === "agent" || solutionType === "system")
+      ) {
         // This is website
         const website =
           messageToSend.toLowerCase().includes("no") || messageToSend.toLowerCase().includes("don't")
@@ -712,6 +800,42 @@ export default function NeuralIALanding() {
 
   const openChat = () => {
     setChatOpen(true)
+    if (messages.length === 0) {
+      setChatMode("consultant")
+      setMessages([
+        {
+          type: "bot",
+          content:
+            "Hi! I'm your NeuralIA AI Consultant! 👋\n\nI'm here to answer any questions you have about NeuralIA, our AI solutions, capabilities, pricing, and how we can transform your business.\n\nWhat would you like to know about our AI solutions?",
+          timestamp: new Date(),
+        },
+      ])
+
+      setTimeout(() => {
+        setQuickOptions([
+          {
+            text: "What is NeuralIA?",
+            action: "What is NeuralIA and what do you do?",
+            icon: <MessageCircle className="w-4 h-4" />,
+          },
+          {
+            text: "AI Agent vs System",
+            action: "What's the difference between AI Agent and AI System?",
+            icon: <Settings className="w-4 h-4" />,
+          },
+          {
+            text: "Pricing & Timeline",
+            action: "What are your pricing and implementation timelines?",
+            icon: <Clock className="w-4 h-4" />,
+          },
+          {
+            text: "Build Solution",
+            action: "I want to build an AI solution for my business",
+            icon: <Rocket className="w-4 h-4" />,
+          },
+        ])
+      }, 1000)
+    }
   }
 
   return (
@@ -814,15 +938,97 @@ export default function NeuralIALanding() {
               </h2>
 
               <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Whether you need a conversational AI coach or a complete data-driven system, we have the perfect
-                solution for your business needs.
+                Build a custom AI agent from scratch, choose from our Neural Fleet of pre-configured agents, or create a
+                complete AI-powered system for your business.
               </p>
             </div>
           </div>
 
-          {/* Two Main Options */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-20">
-            {/* Agent Option */}
+          {/* Demo Video Section */}
+          <div className="mb-16">
+            <div
+              className={`transform transition-all duration-1000 delay-400 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+            >
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-4">See How It Works</h3>
+                <p className="text-gray-300 max-w-2xl mx-auto">
+                  Watch how our AI solutions transform businesses in just 60 seconds
+                </p>
+              </div>
+
+              <div className="max-w-4xl mx-auto relative">
+                <div className="relative bg-black/60 backdrop-blur-sm rounded-3xl p-8 border border-cyan-500/20 overflow-hidden">
+                  {/* Video Container */}
+                  <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-cyan-500/30">
+                    {/* Video Placeholder */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <img
+                        src="/placeholder.svg?height=400&width=700&text=NeuralIA+Demo+Video"
+                        alt="NeuralIA Demo Video"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/10 transition-all duration-300 cursor-pointer group">
+                      <div className="w-20 h-20 bg-cyan-500 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-all duration-300">
+                        <div className="w-0 h-0 border-l-8 border-l-white border-t-6 border-t-transparent border-b-6 border-b-transparent ml-1"></div>
+                      </div>
+                    </div>
+
+                    {/* Video Stats Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                      <div className="bg-black/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-cyan-500/30">
+                        <div className="text-cyan-400 text-xs font-semibold">Live Demo</div>
+                        <div className="text-white text-sm">60 seconds</div>
+                      </div>
+                      <div className="bg-black/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-cyan-500/30">
+                        <div className="text-cyan-400 text-xs font-semibold">Success Rate</div>
+                        <div className="text-white text-sm">98.5%</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Video Features */}
+                  <div className="grid md:grid-cols-3 gap-6 mt-8">
+                    {[
+                      {
+                        icon: <MessageCircle className="w-6 h-6" />,
+                        title: "Real Conversations",
+                        description: "See actual AI agents handling customer inquiries",
+                      },
+                      {
+                        icon: <BarChart3 className="w-6 h-6" />,
+                        title: "Live Analytics",
+                        description: "Watch real-time performance metrics and insights",
+                      },
+                      {
+                        icon: <Rocket className="w-6 h-6" />,
+                        title: "Quick Setup",
+                        description: "From concept to deployment in under 48 hours",
+                      },
+                    ].map((feature, index) => (
+                      <div key={index} className="text-center">
+                        <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 text-cyan-400">
+                          {feature.icon}
+                        </div>
+                        <h4 className="text-white font-semibold mb-2">{feature.title}</h4>
+                        <p className="text-gray-300 text-sm">{feature.description}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Floating elements */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-cyan-400/20 rounded-full animate-pulse" />
+                  <div className="absolute bottom-8 left-4 w-6 h-6 bg-blue-400/20 rounded-full animate-pulse delay-1000" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Three Main Options */}
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
+            {/* AI Agent from Scratch */}
             <div
               className={`transform transition-all duration-1000 delay-500 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
             >
@@ -833,21 +1039,21 @@ export default function NeuralIALanding() {
                 <CardContent className="p-8 relative z-10 h-full flex flex-col">
                   <div className="text-center mb-8">
                     <div className="w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <MessageCircle className="w-10 h-10 text-white" />
+                      <Settings className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">AI Agent</h3>
+                    <h3 className="text-3xl font-bold text-white mb-4">AI Agent from Scratch</h3>
                     <p className="text-gray-300 text-lg leading-relaxed">
-                      Conversational AI coach and expert tailored to your specific needs. No data handling - pure
-                      intelligent conversation.
+                      Build a completely custom AI agent tailored to your unique business requirements with unlimited
+                      possibilities.
                     </p>
                   </div>
 
                   <div className="space-y-4 mb-8 flex-1">
                     {[
-                      { icon: <Bot className="w-5 h-5" />, text: "Personalized AI Coach" },
-                      { icon: <MessageCircle className="w-5 h-5" />, text: "Natural Conversations" },
-                      { icon: <Brain className="w-5 h-5" />, text: "Domain Expertise" },
-                      { icon: <Users className="w-5 h-5" />, text: "Customer-Focused" },
+                      { icon: <Brain className="w-5 h-5" />, text: "Unlimited Customization" },
+                      { icon: <Settings className="w-5 h-5" />, text: "Unique Business Logic" },
+                      { icon: <Target className="w-5 h-5" />, text: "Expert Consultation" },
+                      { icon: <Rocket className="w-5 h-5" />, text: "Built for Your Needs" },
                     ].map((feature, index) => (
                       <div key={index} className="flex items-center gap-3 text-gray-300">
                         <div className="text-cyan-400">{feature.icon}</div>
@@ -857,10 +1063,10 @@ export default function NeuralIALanding() {
                   </div>
 
                   <Button
-                    onClick={handleCreateAgent}
+                    onClick={handleCustomAgent}
                     className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
                   >
-                    Create Agent
+                    Build from Scratch
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </CardContent>
@@ -868,6 +1074,55 @@ export default function NeuralIALanding() {
                 {/* Floating elements */}
                 <div className="absolute top-4 right-4 w-8 h-8 bg-cyan-400/20 rounded-full animate-pulse" />
                 <div className="absolute bottom-8 left-4 w-6 h-6 bg-blue-400/20 rounded-full animate-pulse delay-1000" />
+              </Card>
+            </div>
+
+            {/* AI Agent from Neural Fleet */}
+            <div
+              className={`transform transition-all duration-1000 delay-600 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+            >
+              <Card className="relative group h-full bg-black/70 border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                {/* Animated background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <CardContent className="p-8 relative z-10 h-full flex flex-col">
+                  <div className="text-center mb-8">
+                    <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <Bot className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-white mb-4">AI Agent from Neural Fleet</h3>
+                    <p className="text-gray-300 text-lg leading-relaxed">
+                      Choose from our pre-configured AI agents optimized for specific business functions and ready to
+                      deploy.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4 mb-8 flex-1">
+                    {[
+                      { icon: <Zap className="w-5 h-5" />, text: "Deploy in 24 Hours" },
+                      { icon: <CheckCircle className="w-5 h-5" />, text: "Industry-Tested Templates" },
+                      { icon: <Users className="w-5 h-5" />, text: "Proven Success Stories" },
+                      { icon: <Settings className="w-5 h-5" />, text: "Customizable Features" },
+                    ].map((feature, index) => (
+                      <div key={index} className="flex items-center gap-3 text-gray-300">
+                        <div className="text-emerald-400">{feature.icon}</div>
+                        <span>{feature.text}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <Button
+                    onClick={handleCreateAgent}
+                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
+                  >
+                    Browse Neural Fleet
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </CardContent>
+
+                {/* Floating elements */}
+                <div className="absolute top-4 right-4 w-8 h-8 bg-emerald-400/20 rounded-full animate-pulse delay-300" />
+                <div className="absolute bottom-8 left-4 w-6 h-6 bg-teal-400/20 rounded-full animate-pulse delay-1200" />
               </Card>
             </div>
 
@@ -923,107 +1178,6 @@ export default function NeuralIALanding() {
 
           {/* Original Landing Page Content */}
           <div className="backdrop-blur-sm rounded-3xl p-10 shadow-2xl mb-8 bg-black/60">
-            {/* How It Works Section */}
-            <section className="mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4 text-center">How We Build Your Solution</h2>
-              <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
-                From concept to deployment in 24-48 hours
-              </p>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    number: "1",
-                    title: "Choose Solution Type",
-                    description: "Select between conversational AI Agent or full AI System",
-                    icon: <Target className="w-8 h-8" />,
-                    time: "5 minutes",
-                  },
-                  {
-                    number: "2",
-                    title: "Customize & Configure",
-                    description: "Our experts configure your solution with your specific requirements",
-                    icon: <Settings className="w-8 h-8" />,
-                    time: "24 hours",
-                  },
-                  {
-                    number: "3",
-                    title: "Deploy & Launch",
-                    description: "Your solution goes live and starts working 24/7 for your business",
-                    icon: <Rocket className="w-8 h-8" />,
-                    time: "Instant",
-                  },
-                ].map((step, index) => (
-                  <div
-                    key={index}
-                    className="relative text-center p-8 bg-black text-white rounded-2xl transform hover:-translate-y-2 transition-all duration-300 shadow-xl group border border-cyan-500/20"
-                  >
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-cyan-500 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg shadow-lg">
-                      {step.number}
-                    </div>
-
-                    <div className="mb-4 flex justify-center text-cyan-400">{step.icon}</div>
-                    <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
-                    <p className="mb-4 text-gray-300">{step.description}</p>
-                    <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30">{step.time}</Badge>
-
-                    {index < 2 && (
-                      <ArrowRight className="absolute -right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 text-cyan-500/50 hidden md:block" />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* Enhanced Categories Section with Agent Focus */}
-            <section className="mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4 text-center">Explore Our AI Capabilities</h2>
-              <p className="text-xl text-gray-300 text-center mb-12 max-w-3xl mx-auto">
-                Discover the specific AI solutions we can build for your business needs
-              </p>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {categories.map((category) => (
-                  <Card
-                    key={category.id}
-                    className={`cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl bg-black text-white border-cyan-500/20 relative overflow-hidden group ${
-                      selectedCategory === category.id ? "scale-105 shadow-2xl ring-4 ring-cyan-500/50" : ""
-                    }`}
-                    onClick={() => handleCategorySelect(category.id)}
-                    onMouseEnter={() => setHoveredCategory(category.id)}
-                    onMouseLeave={() => setHoveredCategory(null)}
-                  >
-                    <CardContent className="p-6 relative z-10">
-                      <div className="text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                        {category.icon}
-                      </div>
-                      <h3 className="text-xl font-semibold mb-3">{category.title}</h3>
-                      <p className="text-sm opacity-90 mb-4 text-gray-300">{category.description}</p>
-
-                      {/* Agent Capability Highlight */}
-                      <div className="mb-4 p-3 bg-blue-500/20 rounded-lg border border-blue-500/30">
-                        <div className="flex items-center gap-2 text-blue-400">
-                          <Bot className="w-4 h-4" />
-                          <span className="font-semibold text-sm">{category.capability}</span>
-                        </div>
-                      </div>
-
-                      {hoveredCategory === category.id && (
-                        <div className="absolute inset-0 bg-cyan-500/10 flex items-center justify-center">
-                          <Button className="bg-cyan-500 text-black hover:bg-cyan-600">
-                            Learn More <ArrowRight className="ml-2 w-4 h-4" />
-                          </Button>
-                        </div>
-                      )}
-                    </CardContent>
-
-                    {/* Animated background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </Card>
-                ))}
-              </div>
-            </section>
-
             {/* Social Proof Section with Agent Focus */}
             <section className="mb-16">
               <h2 className="text-4xl font-bold text-white mb-4 text-center">Success Stories</h2>
@@ -1097,7 +1251,7 @@ export default function NeuralIALanding() {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                   <Button
-                    onClick={openChat}
+                    onClick={handleCustomAgent}
                     className="bg-cyan-500 text-black hover:bg-cyan-600 font-bold py-4 px-8 rounded-full text-lg transform hover:scale-105 transition-all duration-300 shadow-xl"
                   >
                     Start Building Now <Rocket className="ml-2 w-5 h-5" />
@@ -1117,11 +1271,11 @@ export default function NeuralIALanding() {
                     <span>24-48hr deployment</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-yellow-400" />
+                    <Zap className="w-4 h-4 text-yellow-400" />
                     <span>Works 24/7</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-blue-400" />
+                    <Shield className="w-4 h-4 text-blue-400" />
                     <span>Full support included</span>
                   </div>
                 </div>
@@ -1173,6 +1327,484 @@ export default function NeuralIALanding() {
         />
       </div>
 
+      {/* Agent Configuration Modal */}
+      {showAgentConfig && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+          <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/30">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">Configure Your AI Agent</h2>
+                <p className="text-gray-300">Choose how you want to build your AI agent</p>
+              </div>
+              <Button
+                onClick={() => setShowAgentConfig(false)}
+                variant="outline"
+                size="sm"
+                className="border-gray-600 text-gray-400 hover:bg-gray-800"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            {/* Main Choice: Pre-configured vs Custom */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              {/* Pre-configured Agents */}
+              <Card className="relative group bg-black/70 border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <CardContent className="p-8 relative z-10">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Bot className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">Pre-Configured Agents</h3>
+                    <p className="text-gray-300">Ready-to-deploy agents optimized for specific business functions</p>
+                  </div>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-cyan-400" />
+                      <span>Deploy in 24 hours</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-cyan-400" />
+                      <span>Industry-tested templates</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-cyan-400" />
+                      <span>Customizable features</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => handlePreConfiguredAgent()}
+                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl"
+                  >
+                    Browse Configurations
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Custom Agent */}
+              <Card className="relative group bg-black/70 border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <CardContent className="p-8 relative z-10">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                      <Settings className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">Build From Scratch</h3>
+                    <p className="text-gray-300">
+                      Create a completely custom agent tailored to your unique requirements
+                    </p>
+                  </div>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-purple-400" />
+                      <span>Unlimited customization</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-purple-400" />
+                      <span>Unique business logic</span>
+                    </div>
+                    <div className="flex items-center gap-3 text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-purple-400" />
+                      <span>Expert consultation</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={handleCustomAgent}
+                    className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-3 rounded-xl"
+                  >
+                    Start Custom Build
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Pre-configured Agent Types - Categorized */}
+            <div className="mb-8">
+              <h3 className="text-2xl font-bold text-white mb-8 text-center">Pre-Configured Agent Types</h3>
+
+              {/* Office Category */}
+              <div className="mb-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                    <Building className="w-5 h-5 text-white" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-white">Office & Operations</h4>
+                  <div className="flex-1 h-px bg-gradient-to-r from-blue-500/50 to-transparent"></div>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      icon: "👥",
+                      title: "HR Recruitment Agent",
+                      description: "Automated candidate screening and interview scheduling",
+                      features: ["Resume screening", "Interview scheduling", "Candidate tracking"],
+                      color: "from-orange-500 to-red-500",
+                      deployTime: "24 hours",
+                    },
+                    {
+                      icon: "⚙️",
+                      title: "Operations Agent",
+                      description: "Business process automation and workflow management",
+                      features: ["Process automation", "Task scheduling", "System integration"],
+                      color: "from-gray-600 to-gray-800",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "📋",
+                      title: "Executive Assistant Agent",
+                      description: "Calendar management, email handling, and administrative tasks",
+                      features: ["Calendar scheduling", "Email management", "Task prioritization"],
+                      color: "from-indigo-500 to-purple-500",
+                      deployTime: "24 hours",
+                    },
+                    {
+                      icon: "📊",
+                      title: "Project Management Agent",
+                      description: "Task tracking, deadline management, and team coordination",
+                      features: ["Task assignment", "Progress tracking", "Team notifications"],
+                      color: "from-green-500 to-emerald-500",
+                      deployTime: "36 hours",
+                    },
+                    {
+                      icon: "💰",
+                      title: "Finance & Accounting Agent",
+                      description: "Invoice processing, expense tracking, and financial reporting",
+                      features: ["Invoice automation", "Expense tracking", "Financial reports"],
+                      color: "from-yellow-500 to-orange-500",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "🔧",
+                      title: "IT Support Agent",
+                      description: "Technical troubleshooting and system maintenance guidance",
+                      features: ["Ticket routing", "System diagnostics", "User support"],
+                      color: "from-slate-500 to-gray-600",
+                      deployTime: "36 hours",
+                    },
+                  ].map((agent, index) => (
+                    <Card
+                      key={index}
+                      className="group relative bg-black/70 border-white/10 hover:border-cyan-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
+                      onClick={() => handlePreConfiguredAgent(agent.title)}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <CardContent className="p-6 relative z-10">
+                        <div className="text-center mb-4">
+                          <div
+                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
+                          >
+                            {agent.icon}
+                          </div>
+                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
+                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
+                        </div>
+
+                        <div className="space-y-2 mb-4">
+                          {agent.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
+                              <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
+                              <span>{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-xs">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {agent.deployTime}
+                          </Badge>
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-xs px-3 py-1 h-7"
+                          >
+                            Configure
+                            <ArrowRight className="ml-1 w-3 h-3" />
+                          </Button>
+                        </div>
+                      </CardContent>
+
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-cyan-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Experts Category */}
+              <div className="mb-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <Brain className="w-5 h-5 text-white" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-white">Expert Consultants</h4>
+                  <div className="flex-1 h-px bg-gradient-to-r from-purple-500/50 to-transparent"></div>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      icon: "⚖️",
+                      title: "Legal Advisor Agent",
+                      description: "Contract review, compliance guidance, and legal research",
+                      features: ["Contract analysis", "Compliance checks", "Legal research"],
+                      color: "from-blue-600 to-indigo-600",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "📈",
+                      title: "Marketing Strategist Agent",
+                      description: "Campaign planning, content strategy, and market analysis",
+                      features: ["Campaign optimization", "Content planning", "Market insights"],
+                      color: "from-pink-500 to-rose-500",
+                      deployTime: "36 hours",
+                    },
+                    {
+                      icon: "📊",
+                      title: "Business Analyst Agent",
+                      description: "Data analysis, performance metrics, and strategic insights",
+                      features: ["Data visualization", "Performance tracking", "Strategic planning"],
+                      color: "from-emerald-500 to-teal-500",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "🔬",
+                      title: "Technical Consultant Agent",
+                      description: "Architecture guidance, code review, and technical decisions",
+                      features: ["Code analysis", "Architecture review", "Tech recommendations"],
+                      color: "from-cyan-500 to-blue-500",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "🏭",
+                      title: "Industry Expert Agent",
+                      description: "Sector-specific knowledge and best practices guidance",
+                      features: ["Industry insights", "Best practices", "Trend analysis"],
+                      color: "from-violet-500 to-purple-500",
+                      deployTime: "72 hours",
+                    },
+                    {
+                      icon: "🛡️",
+                      title: "Compliance Officer Agent",
+                      description: "Regulatory compliance, audit preparation, and risk assessment",
+                      features: ["Compliance monitoring", "Risk assessment", "Audit support"],
+                      color: "from-red-500 to-pink-500",
+                      deployTime: "48 hours",
+                    },
+                  ].map((agent, index) => (
+                    <Card
+                      key={index}
+                      className="group relative bg-black/70 border-white/10 hover:border-purple-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
+                      onClick={() => handlePreConfiguredAgent(agent.title)}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <CardContent className="p-6 relative z-10">
+                        <div className="text-center mb-4">
+                          <div
+                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
+                          >
+                            {agent.icon}
+                          </div>
+                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
+                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
+                        </div>
+
+                        <div className="space-y-2 mb-4">
+                          {agent.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
+                              <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                              <span>{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {agent.deployTime}
+                          </Badge>
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white text-xs px-3 py-1 h-7"
+                          >
+                            Configure
+                            <ArrowRight className="ml-1 w-3 h-3" />
+                          </Button>
+                        </div>
+                      </CardContent>
+
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-purple-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Card>
+                  ))}
+                </div>
+              </div>
+
+              {/* Service Category */}
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+                    <Users className="w-5 h-5 text-white" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-white">Customer Service</h4>
+                  <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      icon: "💬",
+                      title: "Customer Support Agent",
+                      description: "24/7 customer service with unlimited concurrent conversations",
+                      features: ["Multi-language support", "Ticket routing", "Knowledge base integration"],
+                      color: "from-blue-500 to-cyan-500",
+                      deployTime: "24 hours",
+                    },
+                    {
+                      icon: "💰",
+                      title: "Sales Assistant Agent",
+                      description: "Lead qualification and sales conversation automation",
+                      features: ["Lead scoring", "CRM integration", "Meeting booking"],
+                      color: "from-emerald-500 to-teal-500",
+                      deployTime: "24 hours",
+                    },
+                    {
+                      icon: "📅",
+                      title: "Booking & Scheduling Agent",
+                      description: "Appointment booking, calendar management, and availability tracking",
+                      features: ["Calendar integration", "Automated booking", "Reminder notifications"],
+                      color: "from-indigo-500 to-blue-500",
+                      deployTime: "24 hours",
+                    },
+                    {
+                      icon: "🔧",
+                      title: "Technical Support Agent",
+                      description: "Product troubleshooting and technical issue resolution",
+                      features: ["Issue diagnosis", "Solution guidance", "Escalation management"],
+                      color: "from-orange-500 to-red-500",
+                      deployTime: "36 hours",
+                    },
+                    {
+                      icon: "🏨",
+                      title: "Concierge Service Agent",
+                      description: "Premium customer assistance and personalized recommendations",
+                      features: ["Personal assistance", "Recommendations", "VIP support"],
+                      color: "from-purple-500 to-pink-500",
+                      deployTime: "48 hours",
+                    },
+                    {
+                      icon: "📦",
+                      title: "Order Management Agent",
+                      description: "Order processing, tracking, and fulfillment coordination",
+                      features: ["Order processing", "Shipment tracking", "Return handling"],
+                      color: "from-green-500 to-emerald-500",
+                      deployTime: "36 hours",
+                    },
+                  ].map((agent, index) => (
+                    <Card
+                      key={index}
+                      className="group relative bg-black/70 border-white/10 hover:border-emerald-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
+                      onClick={() => handlePreConfiguredAgent(agent.title)}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                      <CardContent className="p-6 relative z-10">
+                        <div className="text-center mb-4">
+                          <div
+                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
+                          >
+                            {agent.icon}
+                          </div>
+                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
+                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
+                        </div>
+
+                        <div className="space-y-2 mb-4">
+                          {agent.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
+                              <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+                              <span>{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-xs">
+                            <Clock className="w-3 h-3 mr-1" />
+                            {agent.deployTime}
+                          </Badge>
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs px-3 py-1 h-7"
+                          >
+                            Configure
+                            <ArrowRight className="ml-1 w-3 h-3" />
+                          </Button>
+                        </div>
+                      </CardContent>
+
+                      <div className="absolute top-2 right-2 w-4 h-4 bg-emerald-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Configuration Process */}
+            <div className="bg-black/40 rounded-2xl p-8 border border-cyan-500/20">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center">Configuration Process</h3>
+              <div className="grid md:grid-cols-4 gap-6">
+                {[
+                  {
+                    step: "1",
+                    title: "Select Type",
+                    description: "Choose from pre-configured agents or start from scratch",
+                    icon: <Target className="w-6 h-6" />,
+                  },
+                  {
+                    step: "2",
+                    title: "Customize",
+                    description: "Tailor features, integrations, and behavior to your needs",
+                    icon: <Settings className="w-6 h-6" />,
+                  },
+                  {
+                    step: "3",
+                    title: "Test & Train",
+                    description: "We test your agent and train it with your specific data",
+                    icon: <Brain className="w-6 h-6" />,
+                  },
+                  {
+                    step: "4",
+                    title: "Deploy",
+                    description: "Your agent goes live and starts working 24/7",
+                    icon: <Rocket className="w-6 h-6" />,
+                  },
+                ].map((step, index) => (
+                  <div key={index} className="text-center relative">
+                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold">
+                      {step.step}
+                    </div>
+                    <div className="mb-3 flex justify-center text-cyan-400">{step.icon}</div>
+                    <h4 className="text-lg font-semibold text-white mb-2">{step.title}</h4>
+                    <p className="text-sm text-gray-300">{step.description}</p>
+
+                    {index < 3 && (
+                      <ArrowRight className="absolute -right-3 top-6 w-6 h-6 text-cyan-500/50 hidden md:block" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Enhanced Chat Toggle Button */}
       <div className="fixed bottom-8 right-8 z-50">
         {!chatOpen && (
@@ -1197,70 +1829,76 @@ export default function NeuralIALanding() {
       {chatOpen && (
         <div
           className={`fixed bottom-32 right-8 w-96 h-[600px] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col z-40 overflow-hidden ${
-            solutionType === "agent"
+            chatMode === "agent"
               ? "border border-cyan-500/30"
-              : solutionType === "system"
+              : chatMode === "system"
                 ? "border border-purple-500/30"
-                : "border border-cyan-500/20"
+                : "border border-emerald-500/30"
           }`}
         >
           {/* Enhanced Chat Header */}
           <div
             className={`text-white p-6 rounded-t-3xl relative overflow-hidden border-b ${
-              solutionType === "agent"
+              chatMode === "agent"
                 ? "bg-gradient-to-r from-cyan-500 to-blue-600 border-cyan-500/20"
-                : solutionType === "system"
+                : chatMode === "system"
                   ? "bg-gradient-to-r from-purple-500 to-pink-600 border-purple-500/20"
-                  : "bg-black border-cyan-500/20"
+                  : "bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-500/20"
             }`}
           >
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-2">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center border ${
-                    solutionType === "agent"
+                    chatMode === "agent"
                       ? "bg-cyan-400/20 border-cyan-300/30"
-                      : solutionType === "system"
+                      : chatMode === "system"
                         ? "bg-purple-400/20 border-purple-300/30"
-                        : "bg-cyan-500/20 border-cyan-500/30"
+                        : "bg-emerald-400/20 border-emerald-300/30"
                   }`}
                 >
-                  {solutionType === "agent" ? (
+                  {chatMode === "agent" ? (
                     <MessageCircle className="w-5 h-5 text-white" />
-                  ) : solutionType === "system" ? (
+                  ) : chatMode === "system" ? (
                     <BarChart3 className="w-5 h-5 text-white" />
                   ) : (
-                    "🤖"
+                    <Brain className="w-5 h-5 text-white" />
                   )}
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">
-                    {solutionType === "agent"
+                    {chatMode === "agent"
                       ? "AI Agent Builder"
-                      : solutionType === "system"
+                      : chatMode === "system"
                         ? "AI System Builder"
-                        : "AI Solution Builder"}
+                        : "NeuralIA AI Consultant"}
                   </h3>
                   <div className="flex items-center gap-2 text-sm opacity-90">
                     <div
                       className={`w-2 h-2 rounded-full animate-pulse ${
-                        solutionType === "agent"
+                        chatMode === "agent"
                           ? "bg-cyan-300"
-                          : solutionType === "system"
+                          : chatMode === "system"
                             ? "bg-purple-300"
-                            : "bg-cyan-400"
+                            : "bg-emerald-300"
                       }`}
                     ></div>
-                    <span>Online • Ready to build</span>
+                    <span>
+                      {chatMode === "agent"
+                        ? "Online • Ready to build agents"
+                        : chatMode === "system"
+                          ? "Online • Ready to build systems"
+                          : "Online • Ready to help"}
+                    </span>
                   </div>
                 </div>
               </div>
               <p className="text-sm opacity-90">
-                {solutionType === "agent"
+                {chatMode === "agent"
                   ? "Let's build the perfect AI agent for your business!"
-                  : solutionType === "system"
+                  : chatMode === "system"
                     ? "Let's build a complete AI system for your business!"
-                    : "Let's build the perfect AI solution for your business!"}
+                    : "Ask me anything about NeuralIA and our AI solutions!"}
               </p>
 
               {/* Company Info Display */}
@@ -1268,11 +1906,11 @@ export default function NeuralIALanding() {
                 <div className="mt-3 flex items-center gap-2 text-xs">
                   <Building
                     className={`w-3 h-3 ${
-                      solutionType === "agent"
+                      chatMode === "agent"
                         ? "text-cyan-300"
-                        : solutionType === "system"
+                        : chatMode === "system"
                           ? "text-purple-300"
-                          : "text-cyan-400"
+                          : "text-emerald-300"
                     }`}
                   />
                   <span className="opacity-75">{conversationState.companyName}</span>
@@ -1281,11 +1919,11 @@ export default function NeuralIALanding() {
                       <span className="opacity-50">•</span>
                       <Globe
                         className={`w-3 h-3 ${
-                          solutionType === "agent"
+                          chatMode === "agent"
                             ? "text-cyan-300"
-                            : solutionType === "system"
+                            : chatMode === "system"
                               ? "text-purple-300"
-                              : "text-cyan-400"
+                              : "text-emerald-300"
                         }`}
                       />
                       <span className="opacity-75">{conversationState.website}</span>
@@ -1304,11 +1942,11 @@ export default function NeuralIALanding() {
             </div>
             <div
               className={`absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-16 translate-x-16 ${
-                solutionType === "agent"
+                chatMode === "agent"
                   ? "bg-cyan-400/10"
-                  : solutionType === "system"
+                  : chatMode === "system"
                     ? "bg-purple-400/10"
-                    : "bg-cyan-500/10"
+                    : "bg-emerald-400/10"
               }`}
             ></div>
           </div>
@@ -1442,7 +2080,7 @@ export default function NeuralIALanding() {
                       ? "Listening... (click mic to stop)"
                       : isSending
                         ? "Building solution..."
-                        : solutionType === "agent" && !conversationState.dataCollected
+                        : (solutionType === "agent" || solutionType === "system") && !conversationState.dataCollected
                           ? "Type your company name or website..."
                           : "Ask about our AI capabilities..."
                   }
@@ -1473,12 +2111,12 @@ export default function NeuralIALanding() {
 
               <Button
                 onClick={handleSendMessage}
-                className={`w-12 h-12 rounded-full text-black p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
-                  solutionType === "agent"
+                className={`w-12 h-12 rounded-full text-white p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
+                  chatMode === "agent"
                     ? "bg-cyan-500 hover:bg-cyan-600"
-                    : solutionType === "system"
+                    : chatMode === "system"
                       ? "bg-purple-500 hover:bg-purple-600"
-                      : "bg-cyan-500 hover:bg-cyan-600"
+                      : "bg-emerald-500 hover:bg-emerald-600"
                 }`}
                 disabled={isSending || !userInput.trim() || isRecording || isAnalyzing}
               >
