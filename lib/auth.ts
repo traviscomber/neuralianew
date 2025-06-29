@@ -1,46 +1,32 @@
 "use server"
 
 import { createServerClient } from "@supabase/ssr"
-import { createClient } from "./supabase"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-// Server-side Supabase client for Server Actions
-function createServerSupabaseClient() {
+function createClient() {
   const cookieStore = cookies()
 
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
     cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
+      getAll() {
+        return cookieStore.getAll()
       },
-      set(name: string, value: string, options: any) {
-        cookieStore.set({ name, value, ...options })
-      },
-      remove(name: string, options: any) {
-        cookieStore.set({ name, value: "", ...options })
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => cookieStore.set(name, value, options))
+        } catch {
+          // The `setAll` method was called from a Server Component.
+          // This can be ignored if you have middleware refreshing
+          // user sessions.
+        }
       },
     },
   })
 }
 
-export async function signIn(email: string, password: string) {
-  const supabase = createServerSupabaseClient()
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  })
-
-  if (error) {
-    throw new Error(error.message)
-  }
-
-  redirect("/dashboard")
-}
-
 export async function signUp(email: string, password: string) {
-  const supabase = createServerSupabaseClient()
+  const supabase = createClient()
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -54,11 +40,26 @@ export async function signUp(email: string, password: string) {
     throw new Error(error.message)
   }
 
-  return { data, error: null }
+  return data
+}
+
+export async function signIn(email: string, password: string) {
+  const supabase = createClient()
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  redirect("/dashboard")
 }
 
 export async function signOut() {
-  const supabase = createServerSupabaseClient()
+  const supabase = createClient()
 
   const { error } = await supabase.auth.signOut()
 
@@ -72,7 +73,7 @@ export async function signOut() {
 export async function resetPassword(email: string) {
   const supabase = createClient()
 
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
   })
 
@@ -80,13 +81,13 @@ export async function resetPassword(email: string) {
     throw new Error(error.message)
   }
 
-  return { data, error: null }
+  return { message: "Password reset email sent" }
 }
 
 export async function updatePassword(password: string) {
-  const supabase = createServerSupabaseClient()
+  const supabase = createClient()
 
-  const { data, error } = await supabase.auth.updateUser({
+  const { error } = await supabase.auth.updateUser({
     password,
   })
 
@@ -98,7 +99,7 @@ export async function updatePassword(password: string) {
 }
 
 export async function getUser() {
-  const supabase = createServerSupabaseClient()
+  const supabase = createClient()
 
   const {
     data: { user },
@@ -113,7 +114,7 @@ export async function getUser() {
 }
 
 export async function getSession() {
-  const supabase = createServerSupabaseClient()
+  const supabase = createClient()
 
   const {
     data: { session },

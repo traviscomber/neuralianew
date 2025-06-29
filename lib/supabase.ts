@@ -17,7 +17,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
  * Factory – creates a fresh Supabase browser client.
  * Apps that need their own isolated client can import { createClient }.
  */
-export function createClient(): SupabaseClient {
+export function createClient() {
   return createBrowserClient(supabaseUrl, supabaseAnonKey)
 }
 
