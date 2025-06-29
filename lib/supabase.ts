@@ -5,24 +5,10 @@ import { createBrowserClient } from "@supabase/ssr"
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error("Missing Supabase environment variables")
-}
-
 export function createClient() {
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Missing Supabase environment variables")
-  }
-
-  return createBrowserClient(supabaseUrl, supabaseAnonKey)
-}
-
-// Singleton client
-let _browserClient: ReturnType<typeof createClient> | null = null
-
-export const supabase = (() => {
-  if (typeof window === "undefined") {
-    // Server-side: return a mock object to prevent errors
+    console.warn("Missing Supabase environment variables")
+    // Return a mock client for development
     return {
       auth: {
         getUser: () => Promise.resolve({ data: { user: null }, error: null }),
@@ -59,6 +45,18 @@ export const supabase = (() => {
         }),
       }),
     } as any
+  }
+
+  return createBrowserClient(supabaseUrl, supabaseAnonKey)
+}
+
+// Singleton client with proper error handling
+let _browserClient: ReturnType<typeof createClient> | null = null
+
+export const supabase = (() => {
+  if (typeof window === "undefined") {
+    // Server-side: return mock to prevent SSR issues
+    return createClient()
   }
 
   if (!_browserClient) {

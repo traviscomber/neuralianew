@@ -33,11 +33,11 @@ interface Message {
 interface ChatWidgetProps {
   isOpen: boolean
   onClose: () => void
-  chatType: "agent" | "system" | "general"
+  chatType?: "agent" | "system" | "general"
   specificAgent?: string | null
 }
 
-export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWidgetProps) {
+export function ChatWidget({ isOpen, onClose, chatType = "general", specificAgent = null }: ChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -84,6 +84,10 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
           return "👋 Hi there! I'm your Technical Support Agent. I achieve 95% first-call resolution and resolve issues 70% faster than traditional support. What technical challenge can I help you solve today? From troubleshooting to system integration - I'm here to help!"
         case "customer-service":
           return "👋 Hi! I'm your Customer Service Agent. I help businesses find their perfect AI solution. What's your biggest challenge right now? I can get you the right AI agent deployed in 24-48 hours! 🚀"
+        case "analytics":
+          return "📊 Hello! I'm your Analytics Agent. I specialize in data analysis, reporting, and business insights. I can help you understand your metrics, create custom reports, and identify growth opportunities. What data would you like to explore today?"
+        case "marketing":
+          return "🚀 Hi! I'm your Marketing Agent. I help optimize campaigns, generate leads, and improve conversion rates. Whether you need content ideas, audience insights, or campaign strategies - I'm here to boost your marketing performance!"
         default:
           return "👋 Hi! I'm your specialized AI agent. How can I help you today?"
       }
@@ -105,13 +109,17 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
     if (agent) {
       switch (agent) {
         case "sales-coach":
-          return "Ask me about Sales Coach Agent capabilities..."
+          return "Ask me about sales strategies, objection handling, or deal optimization..."
         case "hr-advisory":
-          return "Ask me about HR Advisory Agent features..."
+          return "Ask me about HR policies, employee benefits, or compliance matters..."
         case "technical-support":
-          return "Ask me about Technical Support Agent solutions..."
+          return "Describe your technical issue or ask about system integration..."
         case "customer-service":
-          return "Tell me about your business challenge..."
+          return "Tell me about your business challenge or AI needs..."
+        case "analytics":
+          return "Ask me about data analysis, reports, or business metrics..."
+        case "marketing":
+          return "Ask me about campaigns, lead generation, or marketing strategies..."
         default:
           return "Ask me anything about this agent..."
       }
@@ -140,6 +148,10 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
           return <Cog className="h-4 w-4" />
         case "customer-service":
           return <HeadphonesIcon className="h-4 w-4" />
+        case "analytics":
+          return <BarChart3 className="h-4 w-4" />
+        case "marketing":
+          return <MessageSquare className="h-4 w-4" />
         default:
           return <Bot className="h-4 w-4" />
       }
@@ -168,6 +180,10 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
           return "Technical Support Agent"
         case "customer-service":
           return "Customer Service Agent"
+        case "analytics":
+          return "Analytics Agent"
+        case "marketing":
+          return "Marketing Agent"
         default:
           return "AI Agent"
       }
@@ -196,21 +212,33 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
           }
         case "hr-advisory":
           return {
+            header: "bg-orange-600 text-white",
+            badge: "bg-orange-100 text-orange-700",
+            button: "bg-orange-600 hover:bg-orange-700",
+          }
+        case "technical-support":
+          return {
             header: "bg-purple-600 text-white",
             badge: "bg-purple-100 text-purple-700",
             button: "bg-purple-600 hover:bg-purple-700",
           }
-        case "technical-support":
+        case "customer-service":
           return {
             header: "bg-blue-600 text-white",
             badge: "bg-blue-100 text-blue-700",
             button: "bg-blue-600 hover:bg-blue-700",
           }
-        case "customer-service":
+        case "analytics":
           return {
-            header: "bg-orange-600 text-white",
-            badge: "bg-orange-100 text-orange-700",
-            button: "bg-orange-600 hover:bg-orange-700",
+            header: "bg-indigo-600 text-white",
+            badge: "bg-indigo-100 text-indigo-700",
+            button: "bg-indigo-600 hover:bg-indigo-700",
+          }
+        case "marketing":
+          return {
+            header: "bg-pink-600 text-white",
+            badge: "bg-pink-100 text-pink-700",
+            button: "bg-pink-600 hover:bg-pink-700",
           }
         default:
           return {
@@ -342,7 +370,7 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
 
   const isQuestionLimitReached = questionCount >= 5 && currentChatType === "general" && !specificAgent
   const showQuestionLimit = currentChatType === "general" && !specificAgent
-  const isUnlimitedChat = specificAgent === "customer-service" || specificAgent
+  const isUnlimitedChat = specificAgent || currentChatType !== "general"
 
   const colorClasses = getColorClasses(currentChatType, specificAgent)
 
@@ -422,110 +450,6 @@ export function ChatWidget({ isOpen, onClose, chatType, specificAgent }: ChatWid
             )}
             <div ref={messagesEndRef} />
           </div>
-
-          {/* Quick Actions */}
-          {messages.length <= 1 && (
-            <div className="flex-shrink-0 mb-4">
-              <div className="flex flex-wrap gap-2">
-                {currentChatType === "agent" && !specificAgent && (
-                  <>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("Tell me about Sales Coach agents")}
-                      className="text-xs"
-                    >
-                      Sales Coach
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("How do HR Advisory agents work?")}
-                      className="text-xs"
-                    >
-                      HR Advisory
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("What can Technical Support agents do?")}
-                      className="text-xs"
-                    >
-                      Tech Support
-                    </Button>
-                  </>
-                )}
-                {currentChatType === "system" && (
-                  <>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("How does workflow automation work?")}
-                      className="text-xs"
-                    >
-                      Workflow Automation
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("Tell me about data integration")}
-                      className="text-xs"
-                    >
-                      Data Integration
-                    </Button>
-                  </>
-                )}
-                {currentChatType === "general" && (
-                  <>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("What is Neural Fleet?")}
-                      className="text-xs"
-                    >
-                      Neural Fleet
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("How fast is deployment?")}
-                      className="text-xs"
-                    >
-                      Deployment Time
-                    </Button>
-                  </>
-                )}
-                {specificAgent === "customer-service" && (
-                  <>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("What AI solutions do you offer?")}
-                      className="text-xs"
-                    >
-                      AI Solutions
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("How quickly can you deploy?")}
-                      className="text-xs"
-                    >
-                      Deployment Speed
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleQuickAction("What's the ROI I can expect?")}
-                      className="text-xs"
-                    >
-                      ROI & Pricing
-                    </Button>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
 
           {/* Question Limit Warning */}
           {isQuestionLimitReached && (

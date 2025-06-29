@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,6 +23,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [error, setError] = useState("")
   const [success, setSuccess] = useState("")
   const [activeTab, setActiveTab] = useState("signin")
+  const router = useRouter()
 
   const [signInData, setSignInData] = useState({
     email: "",
@@ -49,6 +51,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
       } else {
         onClose()
         setSignInData({ email: "", password: "" })
+        // Redirect to dashboard after successful login
+        router.push("/dashboard")
+        router.refresh()
       }
     } catch (err: any) {
       setError(err.message || "Failed to sign in")

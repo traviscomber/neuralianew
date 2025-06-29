@@ -4,8 +4,8 @@ import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-function createClient() {
-  const cookieStore = cookies()
+export async function createSupabaseServerClient() {
+  const cookieStore = await cookies()
 
   return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
     cookies: {
@@ -25,26 +25,28 @@ function createClient() {
   })
 }
 
-export async function signUp(email: string, password: string) {
-  const supabase = createClient()
+export async function signUp(email: string, password: string, name?: string) {
+  const supabase = await createSupabaseServerClient()
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      data: {
+        name: name || "",
+      },
     },
   })
 
   if (error) {
-    throw new Error(error.message)
+    return { error }
   }
 
-  return data
+  return { data }
 }
 
 export async function signIn(email: string, password: string) {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -52,54 +54,55 @@ export async function signIn(email: string, password: string) {
   })
 
   if (error) {
-    throw new Error(error.message)
+    return { error }
   }
 
-  redirect("/dashboard")
+  // Don't redirect here - let the component handle it
+  return { data }
 }
 
 export async function signOut() {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    throw new Error(error.message)
+    return { error }
   }
 
   redirect("/")
 }
 
 export async function resetPassword(email: string) {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
   })
 
   if (error) {
-    throw new Error(error.message)
+    return { error }
   }
 
-  return { message: "Password reset email sent" }
+  return { data }
 }
 
 export async function updatePassword(password: string) {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
-  const { error } = await supabase.auth.updateUser({
+  const { data, error } = await supabase.auth.updateUser({
     password,
   })
 
   if (error) {
-    throw new Error(error.message)
+    return { error }
   }
 
-  redirect("/dashboard")
+  return { data }
 }
 
 export async function getUser() {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
   const {
     data: { user },
@@ -107,14 +110,14 @@ export async function getUser() {
   } = await supabase.auth.getUser()
 
   if (error) {
-    return null
+    return { user: null, error }
   }
 
-  return user
+  return { user, error: null }
 }
 
 export async function getSession() {
-  const supabase = createClient()
+  const supabase = await createSupabaseServerClient()
 
   const {
     data: { session },
@@ -122,8 +125,8 @@ export async function getSession() {
   } = await supabase.auth.getSession()
 
   if (error) {
-    return null
+    return { session: null, error }
   }
 
-  return session
+  return { session, error: null }
 }
