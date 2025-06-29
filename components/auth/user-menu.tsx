@@ -11,45 +11,36 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { User, Settings, LogOut } from "lucide-react"
-import { createClient } from "@/lib/supabase"
-import { useRouter } from "next/navigation"
+import { signOut } from "@/lib/auth"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 interface UserMenuProps {
-  user?: {
-    id: string
-    email?: string
-    user_metadata?: {
-      full_name?: string
-      avatar_url?: string
-    }
-  }
+  user: SupabaseUser
 }
 
-export function UserMenu({ user }: UserMenuProps = {}) {
-  const router = useRouter()
-  const supabase = createClient()
-
+export function UserMenu({ user }: UserMenuProps) {
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.refresh()
+    try {
+      await signOut()
+    } catch (error) {
+      console.error("Error signing out:", error)
+    }
   }
 
-  const displayName = user?.user_metadata?.full_name || user?.email || "User"
-  const avatarUrl = user?.user_metadata?.avatar_url
+  const displayName = user.user_metadata?.full_name || user.email?.split("@")[0] || "User"
+  const initials = displayName
+    .split(" ")
+    .map((n: string) => n[0])
+    .join("")
+    .toUpperCase()
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={avatarUrl || "/placeholder.svg"} alt={displayName} />
-            <AvatarFallback>
-              {displayName
-                .split(" ")
-                .map((n) => n[0])
-                .join("")
-                .toUpperCase()}
-            </AvatarFallback>
+            <AvatarImage src={user.user_metadata?.avatar_url || "/placeholder.svg"} alt={displayName} />
+            <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
@@ -57,7 +48,7 @@ export function UserMenu({ user }: UserMenuProps = {}) {
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{displayName}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
+            <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
