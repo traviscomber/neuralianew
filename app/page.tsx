@@ -1,7 +1,5 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
-
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -24,7 +22,6 @@ import {
   Target,
   Shield,
   Mic,
-  MicOff,
   Square,
   Rocket,
   Building,
@@ -33,6 +30,12 @@ import {
   MessageSquare,
   Search,
   Loader2,
+  Star,
+  Award,
+  Briefcase,
+  Phone,
+  Mail,
+  MapPin,
 } from "lucide-react"
 import type React from "react"
 import { useRef } from "react"
@@ -161,13 +164,13 @@ export default function NeuralIALanding() {
       metrics: { before: "6 weeks hiring", after: "1 week hiring", improvement: "1000 resumes in 10min" },
     },
     {
-      name: "Emily Watson",
-      company: "InnovateCorp",
-      role: "HR Manager",
+      name: "David Kim",
+      company: "DataCorp",
+      role: "CTO",
       content:
-        "Our HR Agent screens 1,000 resumes in 10 minutes and conducts initial interviews. What used to take our team 6 weeks now happens in 1 week. Incredible efficiency!",
+        "Our AI System processes millions of data points and provides real-time insights. What used to take our analysts days now happens in minutes. Revolutionary technology!",
       avatar: "/placeholder-user.jpg",
-      metrics: { before: "6 weeks hiring", after: "1 week hiring", improvement: "1000 resumes in 10min" },
+      metrics: { before: "Days of analysis", after: "Minutes of processing", improvement: "Million+ data points" },
     },
   ]
 
@@ -179,6 +182,43 @@ export default function NeuralIALanding() {
     marketing: "Marketing Agent",
     data: "Data Analysis Agent",
   }
+
+  // Use cases data
+  const useCases = [
+    {
+      industry: "E-commerce",
+      icon: "🛒",
+      title: "24/7 Customer Support",
+      description:
+        "Handle unlimited customer inquiries, process returns, and provide product recommendations instantly.",
+      results: ["95% faster response time", "24/7 availability", "Unlimited concurrent chats"],
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      industry: "Healthcare",
+      icon: "🏥",
+      title: "Patient Scheduling & Support",
+      description: "Automate appointment booking, patient inquiries, and follow-up care coordination.",
+      results: ["80% reduction in wait times", "HIPAA compliant", "Automated follow-ups"],
+      color: "from-emerald-500 to-teal-500",
+    },
+    {
+      industry: "Real Estate",
+      icon: "🏠",
+      title: "Lead Qualification & Tours",
+      description: "Qualify prospects, schedule property tours, and provide instant property information.",
+      results: ["10x more leads processed", "Automated tour booking", "24/7 lead capture"],
+      color: "from-orange-500 to-red-500",
+    },
+    {
+      industry: "Finance",
+      icon: "💳",
+      title: "Client Advisory & Support",
+      description: "Provide financial guidance, process applications, and handle client inquiries securely.",
+      results: ["Secure data handling", "Instant application processing", "Personalized advice"],
+      color: "from-purple-500 to-pink-500",
+    },
+  ]
 
   // Simplified Speech Recognition Setup
   useEffect(() => {
@@ -894,1254 +934,1216 @@ export default function NeuralIALanding() {
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-        <header className="container mx-auto px-6 py-8">
-          <div className="flex items-center justify-center">
-            <div
-              className={`transform transition-all duration-1000 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <div className="flex items-center gap-3">
-                <div className="relative">
-                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <Brain className="w-7 h-7 text-white animate-pulse" />
+        {/* SECTION 1: INTRO WITH VIDEO */}
+        <section className="min-h-screen flex flex-col">
+          {/* Header */}
+          <header className="container mx-auto px-6 py-8">
+            <div className="flex items-center justify-center">
+              <div
+                className={`transform transition-all duration-1000 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                      <Brain className="w-7 h-7 text-white animate-pulse" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full animate-ping" />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-emerald-400 rounded-full animate-ping" />
-                </div>
-                <div>
-                  <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                    NeuralIA
-                  </h1>
-                  <p className="text-sm text-gray-400">AI-Powered Solutions</p>
+                  <div>
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                      NeuralIA
+                    </h1>
+                    <p className="text-sm text-gray-400">AI-Powered Solutions</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-        {/* Hero Section */}
-        <main className="flex-1 container mx-auto px-6 py-16">
-          <div className="text-center mb-16">
-            <div
-              className={`transform transition-all duration-1000 delay-300 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-cyan-500/30">
-                <Sparkles className="w-5 h-5 text-cyan-400 animate-spin" style={{ animationDuration: "3s" }} />
-                <span className="text-white font-medium">Choose Your AI Solution</span>
-              </div>
+          {/* Hero Section */}
+          <div className="flex-1 container mx-auto px-6 py-16 flex flex-col justify-center">
+            <div className="text-center mb-16">
+              <div
+                className={`transform transition-all duration-1000 delay-300 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+              >
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-cyan-500/30">
+                  <Sparkles className="w-5 h-5 text-cyan-400 animate-spin" style={{ animationDuration: "3s" }} />
+                  <span className="text-white font-medium">Transform Your Business with AI</span>
+                </div>
 
-              <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                Build Your Perfect
-                <br />
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  AI Solution
-                </span>
-              </h2>
+                <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                  Build Your Perfect
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                    AI Solution
+                  </span>
+                </h2>
 
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Build a custom AI agent from scratch, choose from our Neural Fleet of pre-configured agents, or create a
-                complete AI-powered system for your business.
-              </p>
-            </div>
-          </div>
-
-          {/* Demo Video Section */}
-          <div className="mb-16">
-            <div
-              className={`transform transition-all duration-1000 delay-400 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-4">See How It Works</h3>
-                <p className="text-gray-300 max-w-2xl mx-auto">
-                  Watch how our AI solutions transform businesses in just 60 seconds
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+                  From custom AI agents to complete systems - we build intelligent solutions that work 24/7, handle
+                  unlimited tasks, and transform how your business operates.
                 </p>
               </div>
+            </div>
 
-              <div className="max-w-4xl mx-auto relative">
-                <div className="relative bg-black/60 backdrop-blur-sm rounded-3xl p-8 border border-cyan-500/20 overflow-hidden">
-                  {/* Video Container */}
-                  <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-cyan-500/30">
-                    {/* Video Placeholder */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <img
-                        src="/placeholder.svg?height=400&width=700&text=NeuralIA+Demo+Video"
-                        alt="NeuralIA Demo Video"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+            {/* Demo Video Section */}
+            <div className="mb-16">
+              <div
+                className={`transform transition-all duration-1000 delay-400 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
+              >
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-white mb-4">See AI in Action</h3>
+                  <p className="text-gray-300 max-w-2xl mx-auto text-lg">
+                    Watch real AI agents handling customer inquiries, processing leads, and delivering results in
+                    real-time
+                  </p>
+                </div>
 
-                    {/* Play Button Overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/10 transition-all duration-300 cursor-pointer group">
-                      <div className="w-20 h-20 bg-cyan-500 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-all duration-300">
-                        <div className="w-0 h-0 border-l-8 border-l-white border-t-6 border-t-transparent border-b-6 border-b-transparent ml-1"></div>
+                <div className="max-w-5xl mx-auto relative">
+                  <div className="relative bg-black/60 backdrop-blur-sm rounded-3xl p-8 border border-cyan-500/20 overflow-hidden">
+                    {/* Video Container */}
+                    <div className="relative aspect-video bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border border-cyan-500/30">
+                      {/* Video Placeholder */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <img
+                          src="/placeholder.svg?height=500&width=900&text=Live+AI+Demo+-+Real+Conversations"
+                          alt="NeuralIA Live Demo"
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    </div>
 
-                    {/* Video Stats Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                      <div className="bg-black/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-cyan-500/30">
-                        <div className="text-cyan-400 text-xs font-semibold">Live Demo</div>
-                        <div className="text-white text-sm">60 seconds</div>
-                      </div>
-                      <div className="bg-black/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-cyan-500/30">
-                        <div className="text-cyan-400 text-xs font-semibold">Success Rate</div>
-                        <div className="text-white text-sm">98.5%</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Video Features */}
-                  <div className="grid md:grid-cols-3 gap-6 mt-8">
-                    {[
-                      {
-                        icon: <MessageCircle className="w-6 h-6" />,
-                        title: "Real Conversations",
-                        description: "See actual AI agents handling customer inquiries",
-                      },
-                      {
-                        icon: <BarChart3 className="w-6 h-6" />,
-                        title: "Live Analytics",
-                        description: "Watch real-time performance metrics and insights",
-                      },
-                      {
-                        icon: <Rocket className="w-6 h-6" />,
-                        title: "Quick Setup",
-                        description: "From concept to deployment in under 48 hours",
-                      },
-                    ].map((feature, index) => (
-                      <div key={index} className="text-center">
-                        <div className="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 text-cyan-400">
-                          {feature.icon}
+                      {/* Play Button Overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/10 transition-all duration-300 cursor-pointer group">
+                        <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl transform group-hover:scale-110 transition-all duration-300">
+                          <div className="w-0 h-0 border-l-10 border-l-white border-t-8 border-t-transparent border-b-8 border-b-transparent ml-1"></div>
                         </div>
-                        <h4 className="text-white font-semibold mb-2">{feature.title}</h4>
-                        <p className="text-gray-300 text-sm">{feature.description}</p>
                       </div>
-                    ))}
+
+                      {/* Live Stats Overlay */}
+                      <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
+                        <div className="bg-black/90 backdrop-blur-sm rounded-xl px-4 py-3 border border-cyan-500/30">
+                          <div className="text-cyan-400 text-sm font-semibold">Live Demo</div>
+                          <div className="text-white text-lg font-bold">Real Conversations</div>
+                        </div>
+                        <div className="bg-black/90 backdrop-blur-sm rounded-xl px-4 py-3 border border-emerald-500/30">
+                          <div className="text-emerald-400 text-sm font-semibold">Success Rate</div>
+                          <div className="text-white text-lg font-bold">98.5%</div>
+                        </div>
+                        <div className="bg-black/90 backdrop-blur-sm rounded-xl px-4 py-3 border border-purple-500/30">
+                          <div className="text-purple-400 text-sm font-semibold">Response Time</div>
+                          <div className="text-white text-lg font-bold">1.8s</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Video Features */}
+                    <div className="grid md:grid-cols-3 gap-8 mt-10">
+                      {[
+                        {
+                          icon: <MessageCircle className="w-8 h-8" />,
+                          title: "Real AI Conversations",
+                          description:
+                            "Watch actual AI agents handling complex customer inquiries with human-like responses",
+                        },
+                        {
+                          icon: <BarChart3 className="w-8 h-8" />,
+                          title: "Live Performance Metrics",
+                          description:
+                            "See real-time analytics showing response times, resolution rates, and customer satisfaction",
+                        },
+                        {
+                          icon: <Rocket className="w-8 h-8" />,
+                          title: "Rapid Deployment",
+                          description: "From initial consultation to live deployment in just 24-48 hours",
+                        },
+                      ].map((feature, index) => (
+                        <div key={index} className="text-center">
+                          <div className="w-16 h-16 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-cyan-400 border border-cyan-500/30">
+                            {feature.icon}
+                          </div>
+                          <h4 className="text-white font-bold text-lg mb-3">{feature.title}</h4>
+                          <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Floating elements */}
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-cyan-400/20 rounded-full animate-pulse" />
+                    <div className="absolute bottom-8 left-4 w-6 h-6 bg-blue-400/20 rounded-full animate-pulse delay-1000" />
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 2: BUILD AGENTS */}
+        <section className="min-h-screen bg-gradient-to-br from-slate-800 to-slate-900 py-20">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 bg-cyan-500/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-cyan-500/30">
+                <Settings className="w-5 h-5 text-cyan-400" />
+                <span className="text-cyan-400 font-medium">Choose Your Path</span>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6">How Do You Want to Build?</h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Three powerful ways to create your AI solution - from completely custom builds to ready-to-deploy
+                systems
+              </p>
+            </div>
+
+            {/* Three Main Build Options */}
+            <div className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {/* AI Agent from Scratch */}
+              <div className="group">
+                <Card className="relative h-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                  {/* Animated background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <CardContent className="p-10 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-24 h-24 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <Settings className="w-12 h-12 text-white" />
+                      </div>
+                      <h3 className="text-3xl font-bold text-white mb-4">Custom AI Agent</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        Build a completely custom AI agent from scratch, tailored to your unique business requirements
+                        with unlimited possibilities.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 mb-8 flex-1">
+                      {[
+                        {
+                          icon: <Brain className="w-6 h-6" />,
+                          text: "Unlimited Customization",
+                          desc: "Any workflow, any integration",
+                        },
+                        {
+                          icon: <Target className="w-6 h-6" />,
+                          text: "Unique Business Logic",
+                          desc: "Built for your specific needs",
+                        },
+                        {
+                          icon: <Users className="w-6 h-6" />,
+                          text: "Expert Consultation",
+                          desc: "Dedicated AI specialists",
+                        },
+                        {
+                          icon: <Rocket className="w-6 h-6" />,
+                          text: "Future-Proof Design",
+                          desc: "Scales with your business",
+                        },
+                      ].map((feature, index) => (
+                        <div
+                          key={index}
+                          className="flex items-start gap-4 p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/20"
+                        >
+                          <div className="text-cyan-400 mt-1">{feature.icon}</div>
+                          <div>
+                            <div className="text-white font-semibold">{feature.text}</div>
+                            <div className="text-gray-400 text-sm">{feature.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="text-center mb-6">
+                      <div className="text-cyan-400 text-sm font-semibold">Timeline</div>
+                      <div className="text-white text-2xl font-bold">3-7 Days</div>
+                    </div>
+
+                    <Button
+                      onClick={handleCustomAgent}
+                      className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
+                    >
+                      Start Custom Build
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
 
                   {/* Floating elements */}
                   <div className="absolute top-4 right-4 w-8 h-8 bg-cyan-400/20 rounded-full animate-pulse" />
                   <div className="absolute bottom-8 left-4 w-6 h-6 bg-blue-400/20 rounded-full animate-pulse delay-1000" />
-                </div>
+                </Card>
+              </div>
+
+              {/* AI Agent from Neural Fleet */}
+              <div className="group">
+                <Card className="relative h-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-emerald-500/30 hover:border-emerald-400/60 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                  {/* Animated background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <CardContent className="p-10 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-24 h-24 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <Bot className="w-12 h-12 text-white" />
+                      </div>
+                      <h3 className="text-3xl font-bold text-white mb-4">Neural Fleet Agent</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        Choose from our pre-configured AI agents optimized for specific business functions and ready to
+                        deploy instantly.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 mb-8 flex-1">
+                      {[
+                        {
+                          icon: <Zap className="w-6 h-6" />,
+                          text: "Deploy in 24 Hours",
+                          desc: "Ready-to-use templates",
+                        },
+                        {
+                          icon: <Award className="w-6 h-6" />,
+                          text: "Industry-Tested",
+                          desc: "Proven success across sectors",
+                        },
+                        {
+                          icon: <CheckCircle className="w-6 h-6" />,
+                          text: "Pre-Optimized",
+                          desc: "Best practices built-in",
+                        },
+                        {
+                          icon: <Settings className="w-6 h-6" />,
+                          text: "Customizable",
+                          desc: "Adapt to your brand & needs",
+                        },
+                      ].map((feature, index) => (
+                        <div
+                          key={index}
+                          className="flex items-start gap-4 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20"
+                        >
+                          <div className="text-emerald-400 mt-1">{feature.icon}</div>
+                          <div>
+                            <div className="text-white font-semibold">{feature.text}</div>
+                            <div className="text-gray-400 text-sm">{feature.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="text-center mb-6">
+                      <div className="text-emerald-400 text-sm font-semibold">Timeline</div>
+                      <div className="text-white text-2xl font-bold">24-48 Hours</div>
+                    </div>
+
+                    <Button
+                      onClick={handleCreateAgent}
+                      className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
+                    >
+                      Browse Neural Fleet
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
+
+                  {/* Floating elements */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-emerald-400/20 rounded-full animate-pulse delay-300" />
+                  <div className="absolute bottom-8 left-4 w-6 h-6 bg-teal-400/20 rounded-full animate-pulse delay-1200" />
+                </Card>
+              </div>
+
+              {/* AI System */}
+              <div className="group">
+                <Card className="relative h-full bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-purple-500/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+                  {/* Animated background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <CardContent className="p-10 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-24 h-24 bg-gradient-to-r from-purple-500 to-pink-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <BarChart3 className="w-12 h-12 text-white" />
+                      </div>
+                      <h3 className="text-3xl font-bold text-white mb-4">Complete AI System</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        Full-stack AI-powered systems with data integration, intelligent dashboards, and advanced
+                        analytics capabilities.
+                      </p>
+                    </div>
+
+                    <div className="space-y-4 mb-8 flex-1">
+                      {[
+                        {
+                          icon: <Database className="w-6 h-6" />,
+                          text: "Full Data Integration",
+                          desc: "Connect all your systems",
+                        },
+                        {
+                          icon: <BarChart3 className="w-6 h-6" />,
+                          text: "AI Dashboards",
+                          desc: "Intelligent insights & reports",
+                        },
+                        {
+                          icon: <TrendingUp className="w-6 h-6" />,
+                          text: "Predictive Analytics",
+                          desc: "Forecast trends & outcomes",
+                        },
+                        {
+                          icon: <Shield className="w-6 h-6" />,
+                          text: "Enterprise Security",
+                          desc: "Bank-level data protection",
+                        },
+                      ].map((feature, index) => (
+                        <div
+                          key={index}
+                          className="flex items-start gap-4 p-3 rounded-lg bg-purple-500/5 border border-purple-500/20"
+                        >
+                          <div className="text-purple-400 mt-1">{feature.icon}</div>
+                          <div>
+                            <div className="text-white font-semibold">{feature.text}</div>
+                            <div className="text-gray-400 text-sm">{feature.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="text-center mb-6">
+                      <div className="text-purple-400 text-sm font-semibold">Timeline</div>
+                      <div className="text-white text-2xl font-bold">1-2 Weeks</div>
+                    </div>
+
+                    <Button
+                      onClick={handleCreateSystem}
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
+                    >
+                      Build AI System
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </CardContent>
+
+                  {/* Floating elements */}
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse delay-500" />
+                  <div className="absolute bottom-8 left-4 w-6 h-6 bg-pink-400/20 rounded-full animate-pulse delay-1500" />
+                </Card>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Three Main Options */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-20">
-            {/* AI Agent from Scratch */}
-            <div
-              className={`transform transition-all duration-1000 delay-500 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <Card className="relative group h-full bg-black/70 border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <CardContent className="p-8 relative z-10 h-full flex flex-col">
-                  <div className="text-center mb-8">
-                    <div className="w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Settings className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">AI Agent from Scratch</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Build a completely custom AI agent tailored to your unique business requirements with unlimited
-                      possibilities.
-                    </p>
-                  </div>
-
-                  <div className="space-y-4 mb-8 flex-1">
-                    {[
-                      { icon: <Brain className="w-5 h-5" />, text: "Unlimited Customization" },
-                      { icon: <Settings className="w-5 h-5" />, text: "Unique Business Logic" },
-                      { icon: <Target className="w-5 h-5" />, text: "Expert Consultation" },
-                      { icon: <Rocket className="w-5 h-5" />, text: "Built for Your Needs" },
-                    ].map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3 text-gray-300">
-                        <div className="text-cyan-400">{feature.icon}</div>
-                        <span>{feature.text}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Button
-                    onClick={handleCustomAgent}
-                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
-                  >
-                    Build from Scratch
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-cyan-400/20 rounded-full animate-pulse" />
-                <div className="absolute bottom-8 left-4 w-6 h-6 bg-blue-400/20 rounded-full animate-pulse delay-1000" />
-              </Card>
+        {/* SECTION 3: BEST SOLUTIONS */}
+        <section className="min-h-screen bg-gradient-to-br from-gray-900 to-black py-20">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 bg-yellow-500/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-yellow-500/30">
+                <Star className="w-5 h-5 text-yellow-400" />
+                <span className="text-yellow-400 font-medium">Top Performers</span>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6">Our Best AI Solutions</h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Meet our champion AI agents - proven solutions delivering exceptional results across thousands of
+                businesses worldwide
+              </p>
             </div>
 
-            {/* AI Agent from Neural Fleet */}
-            <div
-              className={`transform transition-all duration-1000 delay-600 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <Card className="relative group h-full bg-black/70 border-emerald-500/20 hover:border-emerald-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <CardContent className="p-8 relative z-10 h-full flex flex-col">
-                  <div className="text-center mb-8">
-                    <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Bot className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">AI Agent from Neural Fleet</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Choose from our pre-configured AI agents optimized for specific business functions and ready to
-                      deploy.
-                    </p>
+            <div className="grid lg:grid-cols-3 gap-10 max-w-7xl mx-auto">
+              {/* Customer Service Champion */}
+              <div className="group relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <Card className="relative h-full bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 rounded-3xl overflow-hidden">
+                  <div className="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+                    <Star className="w-4 h-4" />
+                    #1 Choice
                   </div>
 
-                  <div className="space-y-4 mb-8 flex-1">
-                    {[
-                      { icon: <Zap className="w-5 h-5" />, text: "Deploy in 24 Hours" },
-                      { icon: <CheckCircle className="w-5 h-5" />, text: "Industry-Tested Templates" },
-                      { icon: <Users className="w-5 h-5" />, text: "Proven Success Stories" },
-                      { icon: <Settings className="w-5 h-5" />, text: "Customizable Features" },
-                    ].map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3 text-gray-300">
-                        <div className="text-emerald-400">{feature.icon}</div>
-                        <span>{feature.text}</span>
+                  <CardContent className="p-8 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-2xl">
+                        💬
                       </div>
-                    ))}
-                  </div>
-
-                  <Button
-                    onClick={handleCreateAgent}
-                    className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-emerald-500/25"
-                  >
-                    Browse Neural Fleet
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-emerald-400/20 rounded-full animate-pulse delay-300" />
-                <div className="absolute bottom-8 left-4 w-6 h-6 bg-teal-400/20 rounded-full animate-pulse delay-1200" />
-              </Card>
-            </div>
-
-            {/* System Option */}
-            <div
-              className={`transform transition-all duration-1000 delay-700 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-            >
-              <Card className="relative group h-full bg-black/70 border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
-                {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <CardContent className="p-8 relative z-10 h-full flex flex-col">
-                  <div className="text-center mb-8">
-                    <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <BarChart3 className="w-10 h-10 text-white" />
+                      <h3 className="text-3xl font-bold text-white mb-4">Customer Service Champion</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        The ultimate 24/7 customer support solution that handles unlimited conversations with human-like
+                        intelligence and never gets tired.
+                      </p>
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">AI System</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Full-stack portals with complete data interactions, AI-powered dashboards, and intelligent
-                      insights.
-                    </p>
-                  </div>
 
-                  <div className="space-y-4 mb-8 flex-1">
-                    {[
-                      { icon: <Database className="w-5 h-5" />, text: "Full Data Integration" },
-                      { icon: <BarChart3 className="w-5 h-5" />, text: "AI Dashboards" },
-                      { icon: <TrendingUp className="w-5 h-5" />, text: "Smart Insights" },
-                      { icon: <Settings className="w-5 h-5" />, text: "Complete Portals" },
-                    ].map((feature, index) => (
-                      <div key={index} className="flex items-center gap-3 text-gray-300">
-                        <div className="text-purple-400">{feature.icon}</div>
-                        <span>{feature.text}</span>
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl p-4 border border-yellow-500/20 text-center">
+                        <div className="text-3xl font-bold text-yellow-400 mb-1">2000+</div>
+                        <div className="text-sm text-gray-300">Daily Inquiries</div>
                       </div>
-                    ))}
+                      <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl p-4 border border-yellow-500/20 text-center">
+                        <div className="text-3xl font-bold text-yellow-400 mb-1">1.8s</div>
+                        <div className="text-sm text-gray-300">Response Time</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl p-4 border border-yellow-500/20 text-center">
+                        <div className="text-3xl font-bold text-yellow-400 mb-1">98%</div>
+                        <div className="text-sm text-gray-300">Satisfaction</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-xl p-4 border border-yellow-500/20 text-center">
+                        <div className="text-3xl font-bold text-yellow-400 mb-1">24/7</div>
+                        <div className="text-sm text-gray-300">Availability</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 mb-8 flex-1">
+                      {[
+                        "Handles unlimited simultaneous conversations",
+                        "Multi-language support (50+ languages)",
+                        "Integrates with all major platforms",
+                        "Learns from every interaction",
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3 text-gray-300">
+                          <CheckCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button
+                      onClick={() => handlePreConfiguredAgent("Customer Support Agent")}
+                      className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-black font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
+                    >
+                      Deploy Champion Agent
+                      <Rocket className="ml-2 w-5 h-5" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Sales Powerhouse */}
+              <div className="group relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 via-teal-500 to-cyan-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <Card className="relative h-full bg-gradient-to-br from-gray-900 to-black border border-emerald-500/30 rounded-3xl overflow-hidden">
+                  <div className="absolute top-4 right-4 bg-emerald-500 text-black px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+                    <TrendingUp className="w-4 h-4" />
+                    Top ROI
                   </div>
 
-                  <Button
-                    onClick={handleCreateSystem}
-                    className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
-                  >
-                    Create System
-                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
+                  <CardContent className="p-8 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-2xl">
+                        💰
+                      </div>
+                      <h3 className="text-3xl font-bold text-white mb-4">Sales Powerhouse</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        The ultimate sales machine that qualifies leads, nurtures prospects, and closes deals while you
+                        sleep.
+                      </p>
+                    </div>
 
-                {/* Floating elements */}
-                <div className="absolute top-4 right-4 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse delay-500" />
-                <div className="absolute bottom-8 left-4 w-6 h-6 bg-pink-400/20 rounded-full animate-pulse delay-1500" />
-              </Card>
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20 text-center">
+                        <div className="text-3xl font-bold text-emerald-400 mb-1">500+</div>
+                        <div className="text-sm text-gray-300">Leads/Day</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20 text-center">
+                        <div className="text-3xl font-bold text-emerald-400 mb-1">40%</div>
+                        <div className="text-sm text-gray-300">Higher Conversion</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20 text-center">
+                        <div className="text-3xl font-bold text-emerald-400 mb-1">24/7</div>
+                        <div className="text-sm text-gray-300">Lead Nurturing</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl p-4 border border-emerald-500/20 text-center">
+                        <div className="text-3xl font-bold text-emerald-400 mb-1">3x</div>
+                        <div className="text-sm text-gray-300">More Qualified</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 mb-8 flex-1">
+                      {[
+                        "Qualifies leads using your exact criteria",
+                        "Books meetings automatically",
+                        "Handles objections like a pro",
+                        "Integrates with all major CRMs",
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3 text-gray-300">
+                          <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button
+                      onClick={() => handlePreConfiguredAgent("Sales Assistant Agent")}
+                      className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-black font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
+                    >
+                      Deploy Sales Agent
+                      <Target className="ml-2 w-5 h-5" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* HR Genius */}
+              <div className="group relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <Card className="relative h-full bg-gradient-to-br from-gray-900 to-black border border-purple-500/30 rounded-3xl overflow-hidden">
+                  <div className="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+                    <Users className="w-4 h-4" />
+                    HR Favorite
+                  </div>
+
+                  <CardContent className="p-8 relative z-10 h-full flex flex-col">
+                    <div className="text-center mb-8">
+                      <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-2xl">
+                        👥
+                      </div>
+                      <h3 className="text-3xl font-bold text-white mb-4">HR Genius</h3>
+                      <p className="text-gray-300 text-lg leading-relaxed">
+                        The smartest hiring assistant that screens thousands of candidates and finds your perfect match
+                        in minutes.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20 text-center">
+                        <div className="text-3xl font-bold text-purple-400 mb-1">1000</div>
+                        <div className="text-sm text-gray-300">Resumes/10min</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20 text-center">
+                        <div className="text-3xl font-bold text-purple-400 mb-1">85%</div>
+                        <div className="text-sm text-gray-300">Faster Hiring</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20 text-center">
+                        <div className="text-3xl font-bold text-purple-400 mb-1">60%</div>
+                        <div className="text-sm text-gray-300">Better Matches</div>
+                      </div>
+                      <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl p-4 border border-purple-500/20 text-center">
+                        <div className="text-3xl font-bold text-purple-400 mb-1">24/7</div>
+                        <div className="text-sm text-gray-300">Screening</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3 mb-8 flex-1">
+                      {[
+                        "Screens resumes with precision",
+                        "Conducts initial interviews",
+                        "Ranks candidates automatically",
+                        "Handles employee inquiries",
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3 text-gray-300">
+                          <CheckCircle className="w-5 h-5 text-purple-400 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button
+                      onClick={() => handlePreConfiguredAgent("HR Recruitment Agent")}
+                      className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-4 rounded-xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg"
+                    >
+                      Deploy HR Agent
+                      <Briefcase className="ml-2 w-5 h-5" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* Original Landing Page Content */}
-          <div className="backdrop-blur-sm rounded-3xl p-10 shadow-2xl mb-8 bg-black/60">
-            {/* Social Proof Section with Agent Focus */}
-            <section className="mb-16">
-              <h2 className="text-4xl font-bold text-white mb-4 text-center">Success Stories</h2>
-              <p className="text-xl text-gray-300 text-center mb-12">
-                See how our AI solutions are transforming businesses every day
-              </p>
+        {/* SECTION 4: SUCCESS STORIES & USE CASES */}
+        <section className="min-h-screen bg-gradient-to-br from-slate-900 to-purple-900 py-20">
+          <div className="container mx-auto px-6">
+            {/* Success Stories */}
+            <div className="mb-20">
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center gap-2 bg-emerald-500/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-emerald-500/30">
+                  <Award className="w-5 h-5 text-emerald-400" />
+                  <span className="text-emerald-400 font-medium">Real Results</span>
+                </div>
+                <h2 className="text-5xl font-bold text-white mb-6">Success Stories</h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  See how businesses like yours are transforming their operations with NeuralIA AI solutions
+                </p>
+              </div>
 
-              <div className="bg-black rounded-2xl p-8 relative overflow-hidden border border-cyan-500/20">
-                <div className="relative z-10">
-                  <div className="flex items-center justify-center mb-6">
-                    <div className="flex space-x-2">
+              {/* Testimonial Carousel */}
+              <div className="max-w-6xl mx-auto">
+                <div className="relative bg-gradient-to-br from-slate-800/50 to-purple-900/50 backdrop-blur-sm rounded-3xl p-12 border border-emerald-500/20 overflow-hidden">
+                  {/* Background decoration */}
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-emerald-400/10 to-teal-600/10 rounded-full blur-3xl" />
+                  <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-br from-purple-400/10 to-pink-600/10 rounded-full blur-3xl" />
+
+                  <div className="relative z-10">
+                    <div className="text-center mb-8">
+                      <div className="flex justify-center mb-6">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-8 h-8 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      <blockquote className="text-2xl md:text-3xl text-white font-medium leading-relaxed mb-8 max-w-4xl mx-auto">
+                        "{testimonials[currentTestimonial].content}"
+                      </blockquote>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                      <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                          {testimonials[currentTestimonial].name.charAt(0)}
+                        </div>
+                        <div>
+                          <div className="text-white font-bold text-lg">{testimonials[currentTestimonial].name}</div>
+                          <div className="text-emerald-400 font-semibold">{testimonials[currentTestimonial].role}</div>
+                          <div className="text-gray-400">{testimonials[currentTestimonial].company}</div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-6 text-center">
+                        <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+                          <div className="text-emerald-400 text-sm font-semibold mb-1">Before</div>
+                          <div className="text-white font-bold">{testimonials[currentTestimonial].metrics.before}</div>
+                        </div>
+                        <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+                          <div className="text-emerald-400 text-sm font-semibold mb-1">After</div>
+                          <div className="text-white font-bold">{testimonials[currentTestimonial].metrics.after}</div>
+                        </div>
+                        <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+                          <div className="text-emerald-400 text-sm font-semibold mb-1">Result</div>
+                          <div className="text-white font-bold">
+                            {testimonials[currentTestimonial].metrics.improvement}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Testimonial indicators */}
+                    <div className="flex justify-center gap-3 mt-8">
                       {testimonials.map((_, index) => (
-                        <div
+                        <button
                           key={index}
+                          onClick={() => setCurrentTestimonial(index)}
                           className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                            index === currentTestimonial ? "bg-cyan-500 w-8" : "bg-gray-600"
+                            index === currentTestimonial ? "bg-emerald-400 scale-125" : "bg-gray-600 hover:bg-gray-500"
                           }`}
                         />
                       ))}
                     </div>
                   </div>
-
-                  <div className="text-center max-w-4xl mx-auto">
-                    <div className="text-6xl text-cyan-500 mb-4">"</div>
-                    <p className="text-xl text-white mb-6 leading-relaxed">
-                      {testimonials[currentTestimonial].content}
-                    </p>
-
-                    <div className="flex items-center justify-center gap-4 mb-6">
-                      <img
-                        src={testimonials[currentTestimonial].avatar || "/placeholder.svg"}
-                        alt={testimonials[currentTestimonial].name}
-                        className="w-16 h-16 rounded-full border-4 border-cyan-500 shadow-lg"
-                      />
-                      <div className="text-left">
-                        <div className="font-semibold text-white">{testimonials[currentTestimonial].name}</div>
-                        <div className="text-cyan-400">{testimonials[currentTestimonial].role}</div>
-                        <div className="text-gray-400">{testimonials[currentTestimonial].company}</div>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-                      {Object.entries(testimonials[currentTestimonial].metrics).map(([key, value]) => (
-                        <div key={key} className="text-center">
-                          <div className="text-sm text-gray-400 capitalize">{key}</div>
-                          <div className="font-bold text-cyan-400">{value}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
-
-                <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/20 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-cyan-400/20 rounded-full translate-y-12 -translate-x-12 opacity-50"></div>
               </div>
-            </section>
+            </div>
 
-            {/* Enhanced CTA Section */}
-            <section className="bg-black text-white p-12 rounded-2xl text-center relative overflow-hidden border border-cyan-500/20">
-              <div className="relative z-10">
-                <div className="inline-flex items-center gap-2 bg-cyan-500/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-cyan-500/30">
-                  <Shield className="w-4 h-4 text-cyan-400" />
-                  <span className="text-sm font-medium">Solution ready in 24-48 hours</span>
+            {/* Use Cases */}
+            <div>
+              <div className="text-center mb-16">
+                <div className="inline-flex items-center gap-2 bg-purple-500/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-purple-500/30">
+                  <Briefcase className="w-5 h-5 text-purple-400" />
+                  <span className="text-purple-400 font-medium">Industry Applications</span>
                 </div>
-
-                <h2 className="text-4xl font-bold mb-4">Ready to Build Your AI Solution?</h2>
-                <p className="text-xl mb-8 max-w-2xl mx-auto text-gray-300">
-                  Join thousands of companies using our AI solutions to automate tasks, serve customers, and grow their
-                  business 24/7.
+                <h2 className="text-5xl font-bold text-white mb-6">Use Cases Across Industries</h2>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                  Discover how AI agents are revolutionizing operations across different sectors
                 </p>
+              </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-                  <Button
-                    onClick={handleCustomAgent}
-                    className="bg-cyan-500 text-black hover:bg-cyan-600 font-bold py-4 px-8 rounded-full text-lg transform hover:scale-105 transition-all duration-300 shadow-xl"
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                {useCases.map((useCase, index) => (
+                  <Card
+                    key={index}
+                    className="group relative h-full bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden"
                   >
-                    Start Building Now <Rocket className="ml-2 w-5 h-5" />
-                  </Button>
-                  <Button
-                    onClick={openWhatsApp}
-                    variant="outline"
-                    className="border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 bg-transparent"
-                  >
-                    Contact Specialist <MessageSquare className="ml-2 w-5 h-5" />
-                  </Button>
-                </div>
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${useCase.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
+                    />
 
-                <div className="flex items-center justify-center gap-8 text-sm opacity-90">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-400" />
-                    <span>24-48hr deployment</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-yellow-400" />
-                    <span>Works 24/7</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Shield className="w-4 h-4 text-blue-400" />
-                    <span>Full support included</span>
-                  </div>
-                </div>
-              </div>
+                    <CardContent className="p-8 relative z-10 h-full flex flex-col">
+                      <div className="text-center mb-6">
+                        <div className="text-5xl mb-4">{useCase.icon}</div>
+                        <div className="text-purple-400 text-sm font-semibold mb-2">{useCase.industry}</div>
+                        <h3 className="text-xl font-bold text-white mb-3">{useCase.title}</h3>
+                        <p className="text-gray-300 text-sm leading-relaxed">{useCase.description}</p>
+                      </div>
 
-              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full -translate-y-32 translate-x-32"></div>
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-400/10 rounded-full translate-y-24 -translate-x-24"></div>
-            </section>
-          </div>
+                      <div className="space-y-3 flex-1">
+                        {useCase.results.map((result, resultIndex) => (
+                          <div key={resultIndex} className="flex items-center gap-3 text-sm">
+                            <CheckCircle className="w-4 h-4 text-purple-400 flex-shrink-0" />
+                            <span className="text-gray-300">{result}</span>
+                          </div>
+                        ))}
+                      </div>
 
-          {/* Bottom Section */}
-          <div
-            className={`text-center mt-16 transform transition-all duration-1000 delay-1000 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
-          >
-            <div className="inline-flex items-center gap-8 text-gray-400">
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-emerald-400" />
-                <span>24/7 Support</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-yellow-400" />
-                <span>Instant Deployment</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-400" />
-                <span>Enterprise Security</span>
+                      <Button
+                        onClick={openChat}
+                        className="w-full mt-6 bg-gradient-to-r from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 text-purple-400 border border-purple-500/30 hover:border-purple-400/50 font-semibold py-3 rounded-xl transition-all duration-300"
+                      >
+                        Learn More
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>
-        </main>
+        </section>
 
-        {/* Footer */}
-        <footer className="container mx-auto px-6 py-8 text-center text-gray-500">
-          <p>&copy; 2024 NeuralIA. Powering the future with AI.</p>
-        </footer>
-      </div>
+        {/* SECTION 5: CONTACT */}
+        <section className="min-h-screen bg-gradient-to-br from-black to-slate-900 py-20">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 bg-cyan-500/10 backdrop-blur-sm rounded-full px-6 py-3 mb-8 border border-cyan-500/30">
+                <MessageCircle className="w-5 h-5 text-cyan-400" />
+                <span className="text-cyan-400 font-medium">Get Started Today</span>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6">Ready to Transform Your Business?</h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Join thousands of businesses already using NeuralIA AI solutions. Start your transformation today.
+              </p>
+            </div>
 
-      {/* Animated grid overlay */}
-      <div className="fixed inset-0 pointer-events-none opacity-5">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
-            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
-          `,
-            backgroundSize: "50px 50px",
-          }}
-        />
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Contact Options */}
+                <div className="space-y-8">
+                  <div>
+                    <h3 className="text-3xl font-bold text-white mb-6">Get Your AI Solution</h3>
+                    <p className="text-gray-300 text-lg leading-relaxed mb-8">
+                      Our AI specialists are ready to help you build the perfect solution for your business. Choose how
+                      you'd like to get started:
+                    </p>
+                  </div>
+
+                  <div className="space-y-6">
+                    {/* WhatsApp Contact */}
+                    <div className="group">
+                      <Button
+                        onClick={openWhatsApp}
+                        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-6 rounded-2xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-green-500/25 flex items-center justify-center gap-4"
+                      >
+                        <MessageCircle className="w-6 h-6" />
+                        <div className="text-left">
+                          <div className="font-bold">WhatsApp Consultation</div>
+                          <div className="text-sm opacity-90">Instant response from AI specialists</div>
+                        </div>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+
+                    {/* AI Chat */}
+                    <div className="group">
+                      <Button
+                        onClick={openChat}
+                        className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-6 rounded-2xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 flex items-center justify-center gap-4"
+                      >
+                        <Bot className="w-6 h-6" />
+                        <div className="text-left">
+                          <div className="font-bold">AI Consultant Chat</div>
+                          <div className="text-sm opacity-90">Get answers about our solutions</div>
+                        </div>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+
+                    {/* Build Now */}
+                    <div className="group">
+                      <Button
+                        onClick={handleCreateAgent}
+                        className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-6 rounded-2xl text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 flex items-center justify-center gap-4"
+                      >
+                        <Rocket className="w-6 h-6" />
+                        <div className="text-left">
+                          <div className="font-bold">Start Building Now</div>
+                          <div className="text-sm opacity-90">Begin your AI solution journey</div>
+                        </div>
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Contact Info */}
+                  <div className="bg-gradient-to-r from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-2xl p-8 border border-cyan-500/20">
+                    <h4 className="text-white font-bold text-xl mb-6">Contact Information</h4>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <Phone className="w-5 h-5 text-cyan-400" />
+                        <span>+56 9 4094 6660</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <Mail className="w-5 h-5 text-cyan-400" />
+                        <span>hello@neuralia.ai</span>
+                      </div>
+                      <div className="flex items-center gap-4 text-gray-300">
+                        <MapPin className="w-5 h-5 text-cyan-400" />
+                        <span>Global AI Solutions</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Visual Element */}
+                <div className="relative">
+                  <div className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm rounded-3xl p-12 border border-cyan-500/20 overflow-hidden">
+                    {/* Background decoration */}
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-400/10 to-blue-600/10 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-br from-purple-400/10 to-pink-600/10 rounded-full blur-3xl" />
+
+                    <div className="relative z-10 text-center">
+                      <div className="w-32 h-32 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+                        <Brain className="w-16 h-16 text-white animate-pulse" />
+                      </div>
+
+                      <h4 className="text-3xl font-bold text-white mb-6">Why Choose NeuralIA?</h4>
+
+                      <div className="space-y-6 text-left">
+                        {[
+                          {
+                            icon: <Zap className="w-6 h-6" />,
+                            title: "Rapid Deployment",
+                            desc: "24-48 hours to live solution",
+                          },
+                          {
+                            icon: <Shield className="w-6 h-6" />,
+                            title: "Enterprise Security",
+                            desc: "Bank-level data protection",
+                          },
+                          {
+                            icon: <Users className="w-6 h-6" />,
+                            title: "Expert Support",
+                            desc: "Dedicated AI specialists",
+                          },
+                          {
+                            icon: <TrendingUp className="w-6 h-6" />,
+                            title: "Proven Results",
+                            desc: "Thousands of successful deployments",
+                          },
+                        ].map((feature, index) => (
+                          <div
+                            key={index}
+                            className="flex items-start gap-4 p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20"
+                          >
+                            <div className="text-cyan-400 mt-1">{feature.icon}</div>
+                            <div>
+                              <div className="text-white font-semibold mb-1">{feature.title}</div>
+                              <div className="text-gray-400 text-sm">{feature.desc}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* Agent Configuration Modal */}
       {showAgentConfig && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-black/90 backdrop-blur-sm rounded-3xl p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/30">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-2">Configure Your AI Agent</h2>
-                <p className="text-gray-300">Choose how you want to build your AI agent</p>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-cyan-500/30 relative">
+            <button
+              onClick={() => setShowAgentConfig(false)}
+              className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                <Bot className="w-10 h-10 text-white" />
               </div>
-              <Button
-                onClick={() => setShowAgentConfig(false)}
-                variant="outline"
-                size="sm"
-                className="border-gray-600 text-gray-400 hover:bg-gray-800"
-              >
-                <X className="w-4 h-4" />
-              </Button>
+              <h2 className="text-4xl font-bold text-white mb-4">Choose Your Agent Type</h2>
+              <p className="text-gray-300 text-lg">
+                Select from our pre-configured agents or build a completely custom solution
+              </p>
             </div>
 
-            {/* Main Choice: Pre-configured vs Custom */}
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
               {/* Pre-configured Agents */}
-              <Card className="relative group bg-black/70 border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                  <Zap className="w-6 h-6 text-emerald-400" />
+                  Pre-Configured Agents
+                </h3>
+                <p className="text-gray-300 mb-6">Ready-to-deploy agents optimized for specific business functions</p>
 
-                <CardContent className="p-8 relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Bot className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Pre-Configured Agents</h3>
-                    <p className="text-gray-300">Ready-to-deploy agents optimized for specific business functions</p>
-                  </div>
+                <div className="space-y-4">
+                  {categories.slice(0, 3).map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => handlePreConfiguredAgent(category.title)}
+                      className="w-full p-4 bg-gradient-to-r from-emerald-500/10 to-teal-600/10 border border-emerald-500/30 rounded-xl hover:border-emerald-400/50 transition-all duration-300 text-left group"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="text-3xl">{category.icon}</div>
+                        <div>
+                          <div className="text-white font-semibold group-hover:text-emerald-400 transition-colors">
+                            {category.title}
+                          </div>
+                          <div className="text-gray-400 text-sm">{category.capability}</div>
+                        </div>
+                        <ArrowRight className="w-5 h-5 text-emerald-400 ml-auto group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </button>
+                  ))}
+                </div>
 
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-cyan-400" />
-                      <span>Deploy in 24 hours</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-cyan-400" />
-                      <span>Industry-tested templates</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-cyan-400" />
-                      <span>Customizable features</span>
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={() => handlePreConfiguredAgent()}
-                    className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-3 rounded-xl"
-                  >
-                    Browse Configurations
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </CardContent>
-              </Card>
+                <Button
+                  onClick={() => handlePreConfiguredAgent()}
+                  className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold py-4 rounded-xl"
+                >
+                  View All Pre-Configured Agents
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </div>
 
               {/* Custom Agent */}
-              <Card className="relative group bg-black/70 border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="space-y-6">
+                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                  <Settings className="w-6 h-6 text-cyan-400" />
+                  Custom Agent
+                </h3>
+                <p className="text-gray-300 mb-6">
+                  Build a completely custom agent tailored to your unique requirements
+                </p>
 
-                <CardContent className="p-8 relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      <Settings className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Build From Scratch</h3>
-                    <p className="text-gray-300">
-                      Create a completely custom agent tailored to your unique requirements
-                    </p>
-                  </div>
-
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-purple-400" />
-                      <span>Unlimited customization</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-purple-400" />
-                      <span>Unique business logic</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-purple-400" />
-                      <span>Expert consultation</span>
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={handleCustomAgent}
-                    className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold py-3 rounded-xl"
-                  >
-                    Start Custom Build
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Pre-configured Agent Types - Categorized */}
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold text-white mb-8 text-center">Pre-Configured Agent Types</h3>
-
-              {/* Office Category */}
-              <div className="mb-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                    <Building className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-white">Office & Operations</h4>
-                  <div className="flex-1 h-px bg-gradient-to-r from-blue-500/50 to-transparent"></div>
-                </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="space-y-4">
                   {[
                     {
-                      icon: "👥",
-                      title: "HR Recruitment Agent",
-                      description: "Automated candidate screening and interview scheduling",
-                      features: ["Resume screening", "Interview scheduling", "Candidate tracking"],
-                      color: "from-orange-500 to-red-500",
-                      deployTime: "24 hours",
+                      icon: <Brain className="w-6 h-6" />,
+                      title: "Unlimited Customization",
+                      desc: "Any workflow, any integration",
                     },
                     {
-                      icon: "⚙️",
-                      title: "Operations Agent",
-                      description: "Business process automation and workflow management",
-                      features: ["Process automation", "Task scheduling", "System integration"],
-                      color: "from-gray-600 to-gray-800",
-                      deployTime: "48 hours",
+                      icon: <Target className="w-6 h-6" />,
+                      title: "Unique Business Logic",
+                      desc: "Built for your specific needs",
                     },
                     {
-                      icon: "📋",
-                      title: "Executive Assistant Agent",
-                      description: "Calendar management, email handling, and administrative tasks",
-                      features: ["Calendar scheduling", "Email management", "Task prioritization"],
-                      color: "from-indigo-500 to-purple-500",
-                      deployTime: "24 hours",
+                      icon: <Users className="w-6 h-6" />,
+                      title: "Expert Consultation",
+                      desc: "Dedicated AI specialists",
                     },
                     {
-                      icon: "📊",
-                      title: "Project Management Agent",
-                      description: "Task tracking, deadline management, and team coordination",
-                      features: ["Task assignment", "Progress tracking", "Team notifications"],
-                      color: "from-green-500 to-emerald-500",
-                      deployTime: "36 hours",
+                      icon: <Rocket className="w-6 h-6" />,
+                      title: "Future-Proof Design",
+                      desc: "Scales with your business",
                     },
-                    {
-                      icon: "💰",
-                      title: "Finance & Accounting Agent",
-                      description: "Invoice processing, expense tracking, and financial reporting",
-                      features: ["Invoice automation", "Expense tracking", "Financial reports"],
-                      color: "from-yellow-500 to-orange-500",
-                      deployTime: "48 hours",
-                    },
-                    {
-                      icon: "🔧",
-                      title: "IT Support Agent",
-                      description: "Technical troubleshooting and system maintenance guidance",
-                      features: ["Ticket routing", "System diagnostics", "User support"],
-                      color: "from-slate-500 to-gray-600",
-                      deployTime: "36 hours",
-                    },
-                  ].map((agent, index) => (
-                    <Card
+                  ].map((feature, index) => (
+                    <div
                       key={index}
-                      className="group relative bg-black/70 border-white/10 hover:border-cyan-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
-                      onClick={() => handlePreConfiguredAgent(agent.title)}
+                      className="flex items-start gap-4 p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <CardContent className="p-6 relative z-10">
-                        <div className="text-center mb-4">
-                          <div
-                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
-                          >
-                            {agent.icon}
-                          </div>
-                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
-                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          {agent.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
-                              <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full"></div>
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                          <Badge className="bg-cyan-500/20 text-cyan-400 border-cyan-500/30 text-xs">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {agent.deployTime}
-                          </Badge>
-                          <Button
-                            size="sm"
-                            className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-xs px-3 py-1 h-7"
-                          >
-                            Configure
-                            <ArrowRight className="ml-1 w-3 h-3" />
-                          </Button>
-                        </div>
-                      </CardContent>
-
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-cyan-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Card>
+                      <div className="text-cyan-400 mt-1">{feature.icon}</div>
+                      <div>
+                        <div className="text-white font-semibold">{feature.title}</div>
+                        <div className="text-gray-400 text-sm">{feature.desc}</div>
+                      </div>
+                    </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Experts Category */}
-              <div className="mb-10">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                    <Brain className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-white">Expert Consultants</h4>
-                  <div className="flex-1 h-px bg-gradient-to-r from-purple-500/50 to-transparent"></div>
-                </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    {
-                      icon: "⚖️",
-                      title: "Legal Advisor Agent",
-                      description: "Contract review, compliance guidance, and legal research",
-                      features: ["Contract analysis", "Compliance checks", "Legal research"],
-                      color: "from-blue-600 to-indigo-600",
-                      deployTime: "48 hours",
-                    },
-                    {
-                      icon: "📈",
-                      title: "Marketing Strategist Agent",
-                      description: "Campaign planning, content strategy, and market analysis",
-                      features: ["Campaign optimization", "Content planning", "Market insights"],
-                      color: "from-pink-500 to-rose-500",
-                      deployTime: "36 hours",
-                    },
-                    {
-                      icon: "📊",
-                      title: "Business Analyst Agent",
-                      description: "Data analysis, performance metrics, and strategic insights",
-                      features: ["Data visualization", "Performance tracking", "Strategic planning"],
-                      color: "from-emerald-500 to-teal-500",
-                      deployTime: "48 hours",
-                    },
-                    {
-                      icon: "🔬",
-                      title: "Technical Consultant Agent",
-                      description: "Architecture guidance, code review, and technical decisions",
-                      features: ["Code analysis", "Architecture review", "Tech recommendations"],
-                      color: "from-cyan-500 to-blue-500",
-                      deployTime: "48 hours",
-                    },
-                    {
-                      icon: "🏭",
-                      title: "Industry Expert Agent",
-                      description: "Sector-specific knowledge and best practices guidance",
-                      features: ["Industry insights", "Best practices", "Trend analysis"],
-                      color: "from-violet-500 to-purple-500",
-                      deployTime: "72 hours",
-                    },
-                    {
-                      icon: "🛡️",
-                      title: "Compliance Officer Agent",
-                      description: "Regulatory compliance, audit preparation, and risk assessment",
-                      features: ["Compliance monitoring", "Risk assessment", "Audit support"],
-                      color: "from-red-500 to-pink-500",
-                      deployTime: "48 hours",
-                    },
-                  ].map((agent, index) => (
-                    <Card
-                      key={index}
-                      className="group relative bg-black/70 border-white/10 hover:border-purple-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
-                      onClick={() => handlePreConfiguredAgent(agent.title)}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <CardContent className="p-6 relative z-10">
-                        <div className="text-center mb-4">
-                          <div
-                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
-                          >
-                            {agent.icon}
-                          </div>
-                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
-                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          {agent.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
-                              <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                          <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {agent.deployTime}
-                          </Badge>
-                          <Button
-                            size="sm"
-                            className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white text-xs px-3 py-1 h-7"
-                          >
-                            Configure
-                            <ArrowRight className="ml-1 w-3 h-3" />
-                          </Button>
-                        </div>
-                      </CardContent>
-
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-purple-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Card>
-                  ))}
-                </div>
-              </div>
-
-              {/* Service Category */}
-              <div className="mb-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
-                    <Users className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="text-xl font-semibold text-white">Customer Service</h4>
-                  <div className="flex-1 h-px bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
-                </div>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[
-                    {
-                      icon: "💬",
-                      title: "Customer Support Agent",
-                      description: "24/7 customer service with unlimited concurrent conversations",
-                      features: ["Multi-language support", "Ticket routing", "Knowledge base integration"],
-                      color: "from-blue-500 to-cyan-500",
-                      deployTime: "24 hours",
-                    },
-                    {
-                      icon: "💰",
-                      title: "Sales Assistant Agent",
-                      description: "Lead qualification and sales conversation automation",
-                      features: ["Lead scoring", "CRM integration", "Meeting booking"],
-                      color: "from-emerald-500 to-teal-500",
-                      deployTime: "24 hours",
-                    },
-                    {
-                      icon: "📅",
-                      title: "Booking & Scheduling Agent",
-                      description: "Appointment booking, calendar management, and availability tracking",
-                      features: ["Calendar integration", "Automated booking", "Reminder notifications"],
-                      color: "from-indigo-500 to-blue-500",
-                      deployTime: "24 hours",
-                    },
-                    {
-                      icon: "🔧",
-                      title: "Technical Support Agent",
-                      description: "Product troubleshooting and technical issue resolution",
-                      features: ["Issue diagnosis", "Solution guidance", "Escalation management"],
-                      color: "from-orange-500 to-red-500",
-                      deployTime: "36 hours",
-                    },
-                    {
-                      icon: "🏨",
-                      title: "Concierge Service Agent",
-                      description: "Premium customer assistance and personalized recommendations",
-                      features: ["Personal assistance", "Recommendations", "VIP support"],
-                      color: "from-purple-500 to-pink-500",
-                      deployTime: "48 hours",
-                    },
-                    {
-                      icon: "📦",
-                      title: "Order Management Agent",
-                      description: "Order processing, tracking, and fulfillment coordination",
-                      features: ["Order processing", "Shipment tracking", "Return handling"],
-                      color: "from-green-500 to-emerald-500",
-                      deployTime: "36 hours",
-                    },
-                  ].map((agent, index) => (
-                    <Card
-                      key={index}
-                      className="group relative bg-black/70 border-white/10 hover:border-emerald-400/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm overflow-hidden cursor-pointer"
-                      onClick={() => handlePreConfiguredAgent(agent.title)}
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <CardContent className="p-6 relative z-10">
-                        <div className="text-center mb-4">
-                          <div
-                            className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center mx-auto mb-3 text-2xl`}
-                          >
-                            {agent.icon}
-                          </div>
-                          <h4 className="text-lg font-semibold text-white mb-2">{agent.title}</h4>
-                          <p className="text-sm text-gray-300 mb-4">{agent.description}</p>
-                        </div>
-
-                        <div className="space-y-2 mb-4">
-                          {agent.features.map((feature, idx) => (
-                            <div key={idx} className="flex items-center gap-2 text-xs text-gray-400">
-                              <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between">
-                          <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30 text-xs">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {agent.deployTime}
-                          </Badge>
-                          <Button
-                            size="sm"
-                            className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white text-xs px-3 py-1 h-7"
-                          >
-                            Configure
-                            <ArrowRight className="ml-1 w-3 h-3" />
-                          </Button>
-                        </div>
-                      </CardContent>
-
-                      <div className="absolute top-2 right-2 w-4 h-4 bg-emerald-400/20 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </Card>
-                  ))}
-                </div>
+                <Button
+                  onClick={handleCustomAgent}
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 rounded-xl"
+                >
+                  Build Custom Agent
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
               </div>
             </div>
 
-            {/* Configuration Process */}
-            <div className="bg-black/40 rounded-2xl p-8 border border-cyan-500/20">
-              <h3 className="text-2xl font-bold text-white mb-6 text-center">Configuration Process</h3>
-              <div className="grid md:grid-cols-4 gap-6">
-                {[
-                  {
-                    step: "1",
-                    title: "Select Type",
-                    description: "Choose from pre-configured agents or start from scratch",
-                    icon: <Target className="w-6 h-6" />,
-                  },
-                  {
-                    step: "2",
-                    title: "Customize",
-                    description: "Tailor features, integrations, and behavior to your needs",
-                    icon: <Settings className="w-6 h-6" />,
-                  },
-                  {
-                    step: "3",
-                    title: "Test & Train",
-                    description: "We test your agent and train it with your specific data",
-                    icon: <Brain className="w-6 h-6" />,
-                  },
-                  {
-                    step: "4",
-                    title: "Deploy",
-                    description: "Your agent goes live and starts working 24/7",
-                    icon: <Rocket className="w-6 h-6" />,
-                  },
-                ].map((step, index) => (
-                  <div key={index} className="text-center relative">
-                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-bold">
-                      {step.step}
-                    </div>
-                    <div className="mb-3 flex justify-center text-cyan-400">{step.icon}</div>
-                    <h4 className="text-lg font-semibold text-white mb-2">{step.title}</h4>
-                    <p className="text-sm text-gray-300">{step.description}</p>
+            <div className="text-center">
+              <p className="text-gray-400 text-sm">
+                Not sure which option is right for you?{" "}
+                <button onClick={openChat} className="text-cyan-400 hover:text-cyan-300 underline">
+                  Chat with our AI consultant
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
-                    {index < 3 && (
-                      <ArrowRight className="absolute -right-3 top-6 w-6 h-6 text-cyan-500/50 hidden md:block" />
+      {/* Chat Interface */}
+      {chatOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl w-full max-w-4xl h-[80vh] flex flex-col border border-cyan-500/30 overflow-hidden">
+            {/* Chat Header */}
+            <div className="bg-gradient-to-r from-cyan-500/20 to-blue-600/20 p-6 border-b border-cyan-500/30">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center">
+                    {chatMode === "consultant" ? (
+                      <MessageCircle className="w-6 h-6 text-white" />
+                    ) : chatMode === "agent" ? (
+                      <Bot className="w-6 h-6 text-white" />
+                    ) : (
+                      <BarChart3 className="w-6 h-6 text-white" />
                     )}
                   </div>
-                ))}
+                  <div>
+                    <h3 className="text-white font-bold text-xl">
+                      {chatMode === "consultant"
+                        ? "NeuralIA AI Consultant"
+                        : chatMode === "agent"
+                          ? "AI Agent Builder"
+                          : "AI System Builder"}
+                    </h3>
+                    <p className="text-cyan-400 text-sm">
+                      {chatMode === "consultant"
+                        ? "Ask me anything about NeuralIA"
+                        : chatMode === "agent"
+                          ? "Let's build your perfect AI agent"
+                          : "Let's create your AI system"}
+                    </p>
+                  </div>
+                </div>
+                <button onClick={() => setChatOpen(false)} className="text-gray-400 hover:text-white transition-colors">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              {messages.map((message, index) => (
+                <div
+                  key={index}
+                  className={`flex gap-4 ${message.type === "user" ? "justify-end" : "justify-start"} ${
+                    message.type === "analysis" ? "justify-center" : ""
+                  }`}
+                >
+                  {message.type === "analysis" ? (
+                    <div className="max-w-md mx-auto">
+                      <div className="bg-gradient-to-r from-purple-500/20 to-pink-600/20 border border-purple-500/30 rounded-2xl p-6 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                          {isAnalyzing ? (
+                            <Loader2 className="w-8 h-8 text-white animate-spin" />
+                          ) : (
+                            <CheckCircle className="w-8 h-8 text-white" />
+                          )}
+                        </div>
+                        <div className="text-white whitespace-pre-line">{message.content}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {message.type === "bot" && (
+                        <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          {chatMode === "consultant" ? (
+                            <MessageCircle className="w-5 h-5 text-white" />
+                          ) : chatMode === "agent" ? (
+                            <Bot className="w-5 h-5 text-white" />
+                          ) : (
+                            <BarChart3 className="w-5 h-5 text-white" />
+                          )}
+                        </div>
+                      )}
+                      <div
+                        className={`max-w-md p-4 rounded-2xl ${
+                          message.type === "user"
+                            ? "bg-gradient-to-r from-emerald-500 to-teal-600 text-white ml-auto"
+                            : "bg-slate-700/50 text-white border border-cyan-500/20"
+                        }`}
+                      >
+                        <div className="whitespace-pre-line">{message.content}</div>
+                        <div className="text-xs opacity-70 mt-2">
+                          {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </div>
+                      </div>
+                      {message.type === "user" && (
+                        <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <Users className="w-5 h-5 text-white" />
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
+
+              {isTyping && (
+                <div className="flex gap-4 justify-start">
+                  <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                    {chatMode === "consultant" ? (
+                      <MessageCircle className="w-5 h-5 text-white" />
+                    ) : chatMode === "agent" ? (
+                      <Bot className="w-5 h-5 text-white" />
+                    ) : (
+                      <BarChart3 className="w-5 h-5 text-white" />
+                    )}
+                  </div>
+                  <div className="bg-slate-700/50 border border-cyan-500/20 rounded-2xl p-4">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" />
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce delay-100" />
+                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce delay-200" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Quick Options */}
+            {quickOptions.length > 0 && (
+              <div className="px-6 pb-4">
+                <div className="flex flex-wrap gap-2">
+                  {quickOptions.map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleQuickResponse(option.action)}
+                      className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 hover:from-cyan-500/30 hover:to-blue-600/30 border border-cyan-500/30 hover:border-cyan-400/50 text-cyan-400 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105"
+                    >
+                      {option.icon}
+                      {option.text}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Input Area */}
+            <div className="p-6 border-t border-cyan-500/30 bg-gradient-to-r from-slate-800/50 to-slate-900/50">
+              <div className="flex gap-4 items-end">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={userInput + interimTranscript}
+                    onChange={(e) => setUserInput(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && !isSending && handleSendMessage()}
+                    placeholder="Type your message..."
+                    className="w-full bg-slate-700/50 border border-cyan-500/30 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400/50 focus:ring-2 focus:ring-cyan-400/20"
+                    disabled={isSending}
+                  />
+                  {interimTranscript && (
+                    <div className="absolute bottom-full left-0 right-0 bg-slate-600/90 text-gray-300 px-4 py-2 rounded-t-xl text-sm">
+                      Listening: {interimTranscript}
+                    </div>
+                  )}
+                </div>
+
+                {/* Voice Input Button */}
+                {speechSupported && (
+                  <button
+                    onClick={toggleRecording}
+                    disabled={isSending}
+                    className={`p-3 rounded-xl transition-all duration-300 ${
+                      isRecording
+                        ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
+                        : "bg-gradient-to-r from-purple-500/20 to-pink-600/20 hover:from-purple-500/30 hover:to-pink-600/30 border border-purple-500/30 hover:border-purple-400/50 text-purple-400"
+                    }`}
+                  >
+                    {isRecording ? <Square className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
+                  </button>
+                )}
+
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!userInput.trim() || isSending}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 disabled:from-gray-600 disabled:to-gray-700 text-white p-3 rounded-xl transition-all duration-300 hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed"
+                >
+                  {isSending ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Enhanced Chat Toggle Button */}
-      <div className="fixed bottom-8 right-8 z-50">
-        {!chatOpen && (
-          <div className="absolute -top-12 right-0 bg-black text-cyan-400 px-3 py-1 rounded-lg text-sm whitespace-nowrap animate-bounce border border-cyan-500/30">
-            🤖 Build Your Solution
-          </div>
-        )}
-        <Button
-          onClick={() => setChatOpen(!chatOpen)}
-          className="w-16 h-16 rounded-full bg-cyan-500 hover:bg-cyan-600 text-black shadow-2xl transform hover:scale-110 transition-all duration-300 relative"
+      {/* Floating Chat Button */}
+      {!chatOpen && (
+        <button
+          onClick={openChat}
+          className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white rounded-full shadow-2xl hover:shadow-cyan-500/25 flex items-center justify-center transition-all duration-300 hover:scale-110 z-40 animate-pulse"
         >
-          {chatOpen ? <X className="w-6 h-6" /> : <Bot className="w-6 h-6" />}
-          {!chatOpen && (
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-400 rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-black rounded-full animate-pulse"></div>
-            </div>
-          )}
-        </Button>
-      </div>
-
-      {/* Enhanced Chatbot Container */}
-      {chatOpen && (
-        <div
-          className={`fixed bottom-32 right-8 w-96 h-[600px] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col z-40 overflow-hidden ${
-            chatMode === "agent"
-              ? "border border-cyan-500/30"
-              : chatMode === "system"
-                ? "border border-purple-500/30"
-                : "border border-emerald-500/30"
-          }`}
-        >
-          {/* Enhanced Chat Header */}
-          <div
-            className={`text-white p-6 rounded-t-3xl relative overflow-hidden border-b ${
-              chatMode === "agent"
-                ? "bg-gradient-to-r from-cyan-500 to-blue-600 border-cyan-500/20"
-                : chatMode === "system"
-                  ? "bg-gradient-to-r from-purple-500 to-pink-600 border-purple-500/20"
-                  : "bg-gradient-to-r from-emerald-500 to-teal-600 border-emerald-500/20"
-            }`}
-          >
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-2">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center border ${
-                    chatMode === "agent"
-                      ? "bg-cyan-400/20 border-cyan-300/30"
-                      : chatMode === "system"
-                        ? "bg-purple-400/20 border-purple-300/30"
-                        : "bg-emerald-400/20 border-emerald-300/30"
-                  }`}
-                >
-                  {chatMode === "agent" ? (
-                    <MessageCircle className="w-5 h-5 text-white" />
-                  ) : chatMode === "system" ? (
-                    <BarChart3 className="w-5 h-5 text-white" />
-                  ) : (
-                    <Brain className="w-5 h-5 text-white" />
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">
-                    {chatMode === "agent"
-                      ? "AI Agent Builder"
-                      : chatMode === "system"
-                        ? "AI System Builder"
-                        : "NeuralIA AI Consultant"}
-                  </h3>
-                  <div className="flex items-center gap-2 text-sm opacity-90">
-                    <div
-                      className={`w-2 h-2 rounded-full animate-pulse ${
-                        chatMode === "agent"
-                          ? "bg-cyan-300"
-                          : chatMode === "system"
-                            ? "bg-purple-300"
-                            : "bg-emerald-300"
-                      }`}
-                    ></div>
-                    <span>
-                      {chatMode === "agent"
-                        ? "Online • Ready to build agents"
-                        : chatMode === "system"
-                          ? "Online • Ready to build systems"
-                          : "Online • Ready to help"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <p className="text-sm opacity-90">
-                {chatMode === "agent"
-                  ? "Let's build the perfect AI agent for your business!"
-                  : chatMode === "system"
-                    ? "Let's build a complete AI system for your business!"
-                    : "Ask me anything about NeuralIA and our AI solutions!"}
-              </p>
-
-              {/* Company Info Display */}
-              {conversationState.companyName && (
-                <div className="mt-3 flex items-center gap-2 text-xs">
-                  <Building
-                    className={`w-3 h-3 ${
-                      chatMode === "agent"
-                        ? "text-cyan-300"
-                        : chatMode === "system"
-                          ? "text-purple-300"
-                          : "text-emerald-300"
-                    }`}
-                  />
-                  <span className="opacity-75">{conversationState.companyName}</span>
-                  {conversationState.website && (
-                    <>
-                      <span className="opacity-50">•</span>
-                      <Globe
-                        className={`w-3 h-3 ${
-                          chatMode === "agent"
-                            ? "text-cyan-300"
-                            : chatMode === "system"
-                              ? "text-purple-300"
-                              : "text-emerald-300"
-                        }`}
-                      />
-                      <span className="opacity-75">{conversationState.website}</span>
-                    </>
-                  )}
-                </div>
-              )}
-
-              {/* Speech Recognition Status */}
-              {speechSupported && (
-                <div className="mt-2 text-xs opacity-75 flex items-center gap-2">
-                  <Mic className="w-3 h-3" />
-                  <span>Voice input available • Click mic to speak</span>
-                </div>
-              )}
-            </div>
-            <div
-              className={`absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-16 translate-x-16 ${
-                chatMode === "agent"
-                  ? "bg-cyan-400/10"
-                  : chatMode === "system"
-                    ? "bg-purple-400/10"
-                    : "bg-emerald-400/10"
-              }`}
-            ></div>
-          </div>
-
-          {/* Enhanced Messages */}
-          <div className="flex-1 p-6 overflow-y-auto bg-gray-50 space-y-4">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`max-w-[80%] p-4 rounded-2xl relative ${
-                  message.type === "bot"
-                    ? "bg-white text-gray-800 shadow-sm border border-gray-100"
-                    : message.type === "analysis"
-                      ? "bg-gradient-to-r from-cyan-50 to-blue-50 text-gray-800 shadow-sm border border-cyan-200 max-w-[90%]"
-                      : "bg-black text-white ml-auto shadow-lg border border-cyan-500/20"
-                }`}
-              >
-                {message.type === "analysis" && (
-                  <div className="flex items-center gap-2 mb-2">
-                    <Search className="w-4 h-4 text-cyan-600 animate-pulse" />
-                    <span className="text-sm font-semibold text-cyan-700">AI Analysis in Progress</span>
-                    {isAnalyzing && <Loader2 className="w-4 h-4 text-cyan-600 animate-spin" />}
-                  </div>
-                )}
-
-                <div className="text-sm whitespace-pre-line">{message.content}</div>
-                <div
-                  className={`text-xs mt-2 opacity-60 ${
-                    message.type === "bot" || message.type === "analysis" ? "text-gray-500" : "text-gray-300"
-                  }`}
-                >
-                  {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                </div>
-
-                {message.type === "bot" && (
-                  <div className="absolute -left-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-white"></div>
-                )}
-                {message.type === "analysis" && (
-                  <div className="absolute -left-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-cyan-50"></div>
-                )}
-                {message.type === "user" && (
-                  <div className="absolute -right-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-black"></div>
-                )}
-              </div>
-            ))}
-
-            {isTyping && (
-              <div className="max-w-[80%] p-4 rounded-2xl bg-white text-gray-800 shadow-sm border border-gray-100 relative">
-                <div className="flex items-center gap-2">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce delay-100"></div>
-                    <div className="w-2 h-2 bg-cyan-500 rounded-full animate-bounce delay-200"></div>
-                  </div>
-                  <span className="text-sm text-gray-500">Building solution specs...</span>
-                </div>
-                <div className="absolute -left-2 top-4 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-white"></div>
-              </div>
-            )}
-
-            {/* Simplified Live Speech Recognition Display */}
-            {isRecording && (
-              <div className="max-w-[90%] p-4 rounded-2xl bg-gradient-to-r from-cyan-50 to-blue-50 border-2 border-cyan-300 relative shadow-lg">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-cyan-700 font-semibold">Voice Input Active</span>
-                  <div className="flex space-x-1">
-                    <div className="w-1 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
-                    <div className="w-1 h-6 bg-cyan-500 rounded-full animate-pulse delay-75"></div>
-                    <div className="w-1 h-3 bg-cyan-500 rounded-full animate-pulse delay-150"></div>
-                    <div className="w-1 h-5 bg-cyan-500 rounded-full animate-pulse delay-225"></div>
-                    <div className="w-1 h-4 bg-cyan-500 rounded-full animate-pulse delay-300"></div>
-                  </div>
-                </div>
-
-                <div className="min-h-[40px] p-3 bg-white rounded-lg border border-cyan-200 mb-3">
-                  <div className="text-sm text-gray-800">
-                    {interimTranscript ? (
-                      <span className="text-cyan-600 italic">{interimTranscript}</span>
-                    ) : (
-                      <span className="text-gray-400">Listening... speak now</span>
-                    )}
-                    <span className="inline-block w-1 h-4 bg-cyan-500 ml-1 animate-pulse"></span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="text-xs text-cyan-600">Speech will be added to your message</div>
-                  <Button
-                    onClick={stopRecording}
-                    size="sm"
-                    variant="outline"
-                    className="border-red-300 text-red-600 hover:bg-red-50 text-xs px-3 py-1 h-7 bg-transparent"
-                  >
-                    <Square className="w-3 h-3 mr-1" />
-                    Stop
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            {quickOptions.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-4">
-                {quickOptions.map((option, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => handleQuickResponse(option.action)}
-                    variant="outline"
-                    size="sm"
-                    className="bg-white hover:bg-cyan-50 border-cyan-200 text-cyan-700 hover:text-cyan-800 rounded-full text-xs flex items-center gap-2 transition-all duration-200 hover:scale-105"
-                  >
-                    {option.icon}
-                    {option.text}
-                  </Button>
-                ))}
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Simplified Input with Voice Input */}
-          <div className="p-6 bg-white/95 backdrop-blur-sm rounded-b-3xl border-t border-gray-100">
-            <div className="flex gap-3 items-end">
-              <div className="flex-1 relative">
-                <input
-                  value={userInput + (isRecording ? interimTranscript : "")}
-                  onChange={(e) => !isRecording && setUserInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && !isSending && !isRecording && handleSendMessage()}
-                  placeholder={
-                    isRecording
-                      ? "Listening... (click mic to stop)"
-                      : isSending
-                        ? "Building solution..."
-                        : (solutionType === "agent" || solutionType === "system") && !conversationState.dataCollected
-                          ? "Type your company name or website..."
-                          : "Ask about our AI capabilities..."
-                  }
-                  className="w-full rounded-full border-gray-300 pr-12 py-3 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
-                  disabled={isSending || isAnalyzing}
-                  readOnly={isRecording}
-                />
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">
-                  {(userInput + (isRecording ? interimTranscript : "")).length}/500
-                </div>
-              </div>
-
-              {/* Simplified Speech-to-Text Button */}
-              {speechSupported && (
-                <Button
-                  onClick={toggleRecording}
-                  className={`w-12 h-12 rounded-full p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
-                    isRecording
-                      ? "bg-red-500 hover:bg-red-600 text-white animate-pulse"
-                      : "bg-gray-100 hover:bg-gray-200 text-gray-600"
-                  }`}
-                  disabled={isSending || isAnalyzing}
-                  title={isRecording ? "Stop voice input" : "Start voice input"}
-                >
-                  {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-                </Button>
-              )}
-
-              <Button
-                onClick={handleSendMessage}
-                className={`w-12 h-12 rounded-full text-white p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
-                  chatMode === "agent"
-                    ? "bg-cyan-500 hover:bg-cyan-600"
-                    : chatMode === "system"
-                      ? "bg-purple-500 hover:bg-purple-600"
-                      : "bg-emerald-500 hover:bg-emerald-600"
-                }`}
-                disabled={isSending || !userInput.trim() || isRecording || isAnalyzing}
-              >
-                <Send className="w-5 h-5" />
-              </Button>
-            </div>
-
-            <div className="flex items-center justify-center mt-3 text-xs text-gray-500">
-              <Shield className="w-3 h-3 mr-1" />
-              Your data is encrypted and secure
-              {speechSupported && (
-                <>
-                  <span className="mx-2">•</span>
-                  <Mic className="w-3 h-3 mr-1" />
-                  {isRecording ? "Voice input active" : "Voice input ready"}
-                </>
-              )}
-              <span className="mx-2">•</span>
-              <MessageSquare className="w-3 h-3 mr-1" />
-              <button onClick={openWhatsApp} className="text-cyan-600 hover:text-cyan-700 underline">
-                WhatsApp Support
-              </button>
-            </div>
-          </div>
-        </div>
+          <MessageCircle className="w-8 h-8" />
+        </button>
       )}
     </div>
   )
