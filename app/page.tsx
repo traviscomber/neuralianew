@@ -157,6 +157,15 @@ export default function NeuralIALanding() {
       avatar: "/placeholder-user.jpg",
       metrics: { before: "6 weeks hiring", after: "1 week hiring", improvement: "1000 resumes in 10min" },
     },
+    {
+      name: "Emily Watson",
+      company: "InnovateCorp",
+      role: "HR Manager",
+      content:
+        "Our HR Agent screens 1,000 resumes in 10 minutes and conducts initial interviews. What used to take our team 6 weeks now happens in 1 week. Incredible efficiency!",
+      avatar: "/placeholder-user.jpg",
+      metrics: { before: "6 weeks hiring", after: "1 week hiring", improvement: "1000 resumes in 10min" },
+    },
   ]
 
   const categoryNames: { [key: string]: string } = {
@@ -817,9 +826,9 @@ export default function NeuralIALanding() {
             <div
               className={`transform transition-all duration-1000 delay-500 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
             >
-              <Card className="relative group h-full bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+              <Card className="relative group h-full bg-black/70 border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
                 {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <CardContent className="p-8 relative z-10 h-full flex flex-col">
                   <div className="text-center mb-8">
@@ -866,9 +875,9 @@ export default function NeuralIALanding() {
             <div
               className={`transform transition-all duration-1000 delay-700 ${isLoaded ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
             >
-              <Card className="relative group h-full bg-gradient-to-br from-slate-800/50 to-slate-900/50 border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
+              <Card className="relative group h-full bg-black/70 border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 hover:scale-105 backdrop-blur-sm overflow-hidden">
                 {/* Animated background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <CardContent className="p-8 relative z-10 h-full flex flex-col">
                   <div className="text-center mb-8">
@@ -1104,15 +1113,15 @@ export default function NeuralIALanding() {
 
                 <div className="flex items-center justify-center gap-8 text-sm opacity-90">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-cyan-400" />
+                    <CheckCircle className="w-4 h-4 text-emerald-400" />
                     <span>24-48hr deployment</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-cyan-400" />
+                    <CheckCircle className="w-4 h-4 text-yellow-400" />
                     <span>Works 24/7</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-cyan-400" />
+                    <CheckCircle className="w-4 h-4 text-blue-400" />
                     <span>Full support included</span>
                   </div>
                 </div>
@@ -1186,13 +1195,43 @@ export default function NeuralIALanding() {
 
       {/* Enhanced Chatbot Container */}
       {chatOpen && (
-        <div className="fixed bottom-32 right-8 w-96 h-[600px] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col z-40 border border-cyan-500/20 overflow-hidden">
+        <div
+          className={`fixed bottom-32 right-8 w-96 h-[600px] bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl flex flex-col z-40 overflow-hidden ${
+            solutionType === "agent"
+              ? "border border-cyan-500/30"
+              : solutionType === "system"
+                ? "border border-purple-500/30"
+                : "border border-cyan-500/20"
+          }`}
+        >
           {/* Enhanced Chat Header */}
-          <div className="bg-black text-white p-6 rounded-t-3xl relative overflow-hidden border-b border-cyan-500/20">
+          <div
+            className={`text-white p-6 rounded-t-3xl relative overflow-hidden border-b ${
+              solutionType === "agent"
+                ? "bg-gradient-to-r from-cyan-500 to-blue-600 border-cyan-500/20"
+                : solutionType === "system"
+                  ? "bg-gradient-to-r from-purple-500 to-pink-600 border-purple-500/20"
+                  : "bg-black border-cyan-500/20"
+            }`}
+          >
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 bg-cyan-500/20 rounded-full flex items-center justify-center border border-cyan-500/30">
-                  🤖
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center border ${
+                    solutionType === "agent"
+                      ? "bg-cyan-400/20 border-cyan-300/30"
+                      : solutionType === "system"
+                        ? "bg-purple-400/20 border-purple-300/30"
+                        : "bg-cyan-500/20 border-cyan-500/30"
+                  }`}
+                >
+                  {solutionType === "agent" ? (
+                    <MessageCircle className="w-5 h-5 text-white" />
+                  ) : solutionType === "system" ? (
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  ) : (
+                    "🤖"
+                  )}
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">
@@ -1203,7 +1242,15 @@ export default function NeuralIALanding() {
                         : "AI Solution Builder"}
                   </h3>
                   <div className="flex items-center gap-2 text-sm opacity-90">
-                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                    <div
+                      className={`w-2 h-2 rounded-full animate-pulse ${
+                        solutionType === "agent"
+                          ? "bg-cyan-300"
+                          : solutionType === "system"
+                            ? "bg-purple-300"
+                            : "bg-cyan-400"
+                      }`}
+                    ></div>
                     <span>Online • Ready to build</span>
                   </div>
                 </div>
@@ -1219,12 +1266,28 @@ export default function NeuralIALanding() {
               {/* Company Info Display */}
               {conversationState.companyName && (
                 <div className="mt-3 flex items-center gap-2 text-xs">
-                  <Building className="w-3 h-3 text-cyan-400" />
+                  <Building
+                    className={`w-3 h-3 ${
+                      solutionType === "agent"
+                        ? "text-cyan-300"
+                        : solutionType === "system"
+                          ? "text-purple-300"
+                          : "text-cyan-400"
+                    }`}
+                  />
                   <span className="opacity-75">{conversationState.companyName}</span>
                   {conversationState.website && (
                     <>
                       <span className="opacity-50">•</span>
-                      <Globe className="w-3 h-3 text-cyan-400" />
+                      <Globe
+                        className={`w-3 h-3 ${
+                          solutionType === "agent"
+                            ? "text-cyan-300"
+                            : solutionType === "system"
+                              ? "text-purple-300"
+                              : "text-cyan-400"
+                        }`}
+                      />
                       <span className="opacity-75">{conversationState.website}</span>
                     </>
                   )}
@@ -1239,7 +1302,15 @@ export default function NeuralIALanding() {
                 </div>
               )}
             </div>
-            <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full -translate-y-16 translate-x-16"></div>
+            <div
+              className={`absolute top-0 right-0 w-32 h-32 rounded-full -translate-y-16 translate-x-16 ${
+                solutionType === "agent"
+                  ? "bg-cyan-400/10"
+                  : solutionType === "system"
+                    ? "bg-purple-400/10"
+                    : "bg-cyan-500/10"
+              }`}
+            ></div>
           </div>
 
           {/* Enhanced Messages */}
@@ -1402,7 +1473,13 @@ export default function NeuralIALanding() {
 
               <Button
                 onClick={handleSendMessage}
-                className="w-12 h-12 rounded-full bg-cyan-500 hover:bg-cyan-600 text-black p-0 shadow-lg transform hover:scale-105 transition-all duration-200"
+                className={`w-12 h-12 rounded-full text-black p-0 shadow-lg transform hover:scale-105 transition-all duration-200 ${
+                  solutionType === "agent"
+                    ? "bg-cyan-500 hover:bg-cyan-600"
+                    : solutionType === "system"
+                      ? "bg-purple-500 hover:bg-purple-600"
+                      : "bg-cyan-500 hover:bg-cyan-600"
+                }`}
                 disabled={isSending || !userInput.trim() || isRecording || isAnalyzing}
               >
                 <Send className="w-5 h-5" />
