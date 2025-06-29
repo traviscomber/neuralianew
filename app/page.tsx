@@ -1,38 +1,40 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Menu,
+  ArrowRight,
+  Play,
+  CheckCircle,
+  Star,
+  Users,
+  TrendingUp,
+  Zap,
+  MessageSquare,
+  Bot,
+  Cog,
+  BarChart3,
+  HeadphonesIcon,
+} from "lucide-react"
 import { AuthModal } from "@/components/auth/auth-modal"
 import { UserMenu } from "@/components/auth/user-menu"
-import { ChatWidget } from "@/components/chat/chat-widget"
 import { useAuth } from "@/hooks/use-auth"
-import {
-  Brain,
-  CheckCircle,
-  Cog,
-  HeadphonesIcon,
-  Menu,
-  MessageSquare,
-  Play,
-  Sparkles,
-  Star,
-  TrendingUp,
-  Users,
-  X,
-  Zap,
-} from "lucide-react"
+import { ChatWidget } from "@/components/chat/chat-widget"
 
 export default function LandingPage() {
-  const [showAuthModal, setShowAuthModal] = useState(false)
-  const [showChatWidget, setShowChatWidget] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [isCustomerServiceOpen, setIsCustomerServiceOpen] = useState(false)
   const [chatType, setChatType] = useState<"agent" | "system" | "general">("general")
   const [specificAgent, setSpecificAgent] = useState<string | null>(null)
-  const [showCustomerService, setShowCustomerService] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { user, loading } = useAuth()
+  const solutionsRef = useRef<HTMLElement>(null)
 
   // Animated background particles
   useEffect(() => {
@@ -54,6 +56,7 @@ export default function LandingPage() {
       opacity: number
     }> = []
 
+    // Create particles
     for (let i = 0; i < 50; i++) {
       particles.push({
         x: Math.random() * canvas.width,
@@ -67,6 +70,7 @@ export default function LandingPage() {
 
     function animate() {
       if (!ctx || !canvas) return
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particles.forEach((particle) => {
@@ -97,647 +101,767 @@ export default function LandingPage() {
   }, [])
 
   const handleSignIn = () => {
-    setShowAuthModal(true)
+    setIsAuthModalOpen(true)
   }
 
-  const handleChatOpen = (type: "agent" | "system" | "general") => {
-    setChatType(type)
+  const handleTalkToExpert = () => {
+    setChatType("general")
     setSpecificAgent(null)
-    setShowChatWidget(true)
-  }
-
-  const handleSpecificAgentClick = (agentName: string) => {
-    setChatType("agent")
-    setSpecificAgent(agentName)
-    setShowChatWidget(true)
+    setIsChatOpen(true)
   }
 
   const handleCustomerServiceChat = () => {
-    setShowCustomerService(true)
+    setIsCustomerServiceOpen(true)
+  }
+
+  const handleSolutionClick = (type: "agent" | "system" | "general") => {
+    setChatType(type)
+    setSpecificAgent(null)
+    setIsChatOpen(true)
+  }
+
+  const handleAgentClick = (agentType: string) => {
+    setChatType("agent")
+    setSpecificAgent(agentType)
+    setIsChatOpen(true)
+  }
+
+  const scrollToSolutions = () => {
+    solutionsRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
       {/* Animated Background */}
-      <canvas id="particles" className="absolute inset-0 pointer-events-none" />
+      <canvas id="particles" className="absolute inset-0 pointer-events-none" style={{ zIndex: 1 }} />
 
-      {/* Navigation */}
-      <nav className="relative z-10 bg-white/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">NeuralIA</span>
-            </div>
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Navigation */}
+        <nav className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center h-16">
+              {/* Logo */}
+              <div className="flex items-center">
+                <div className="flex-shrink-0 flex items-center">
+                  <Bot className="h-8 w-8 text-blue-600" />
+                  <span className="ml-2 text-xl font-bold text-gray-900">NeuralIA</span>
+                </div>
+              </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Features
-              </a>
-              <a href="#agents" className="text-gray-700 hover:text-blue-600 transition-colors">
-                AI Agents
-              </a>
-              <a href="#solutions" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Solutions
-              </a>
-              <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-                Testimonials
-              </a>
-            </div>
+              {/* Desktop Navigation */}
+              <div className="hidden md:block">
+                <div className="ml-10 flex items-baseline space-x-4">
+                  <a
+                    href="#solutions"
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                  >
+                    Solutions
+                  </a>
+                  <a
+                    href="#demo"
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                  >
+                    Demo
+                  </a>
+                  <a
+                    href="#testimonials"
+                    className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                  >
+                    Testimonials
+                  </a>
+                </div>
+              </div>
 
-            {/* Desktop Auth */}
-            <div className="hidden md:flex items-center space-x-4">
-              {loading ? (
-                <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-              ) : user ? (
-                <UserMenu />
-              ) : (
-                <Button variant="ghost" onClick={handleSignIn}>
-                  Sign In
-                </Button>
-              )}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </Button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-gray-200">
-              <div className="flex flex-col space-y-4">
-                <a href="#features" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Features
-                </a>
-                <a href="#agents" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  AI Agents
-                </a>
-                <a href="#solutions" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Solutions
-                </a>
-                <a href="#testimonials" className="text-gray-700 hover:text-blue-600 transition-colors">
-                  Testimonials
-                </a>
+              {/* Desktop Auth */}
+              <div className="hidden md:flex items-center space-x-4">
                 {loading ? (
-                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-8 h-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
                 ) : user ? (
-                  <UserMenu />
+                  <UserMenu user={user} />
                 ) : (
-                  <Button variant="ghost" onClick={handleSignIn} className="justify-start">
+                  <Button onClick={handleSignIn} variant="outline">
                     Sign In
                   </Button>
                 )}
               </div>
-            </div>
-          )}
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="relative z-10 pt-20 pb-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
-              <Sparkles className="mr-2 h-4 w-4" />
-              Revolutionary AI Technology
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
-              Transform Your Business with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI Agents
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Deploy intelligent AI agents in 24-48 hours. Get expert guidance, automate workflows, and scale your
-              operations with our Neural Fleet templates and custom solutions.
+              {/* Mobile menu button */}
+              <div className="md:hidden">
+                <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                  <SheetTrigger asChild>
+                    <Button variant="ghost" size="sm">
+                      <Menu className="h-6 w-6" />
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                    <div className="flex flex-col space-y-4 mt-4">
+                      <a
+                        href="#solutions"
+                        className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Solutions
+                      </a>
+                      <a
+                        href="#demo"
+                        className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Demo
+                      </a>
+                      <a
+                        href="#testimonials"
+                        className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Testimonials
+                      </a>
+                      <div className="border-t pt-4">
+                        {loading ? (
+                          <div className="w-8 h-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent" />
+                        ) : user ? (
+                          <UserMenu user={user} />
+                        ) : (
+                          <Button onClick={handleSignIn} className="w-full">
+                            Sign In
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  </SheetContent>
+                </Sheet>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <section className="relative py-20 sm:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <Badge variant="secondary" className="mb-4">
+                🚀 AI-Powered Business Solutions
+              </Badge>
+              <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6">
+                Transform Your Business with
+                <span className="text-blue-600 block">Neural AI Agents</span>
+              </h1>
+              <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Deploy intelligent AI agents that work 24/7 to automate your workflows, enhance customer service, and
+                drive unprecedented growth.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" onClick={handleTalkToExpert} className="text-lg px-8 py-3">
+                  Talk to Expert
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button size="lg" variant="outline" className="text-lg px-8 py-3 bg-transparent">
+                  <Play className="mr-2 h-5 w-5" />
+                  Watch Demo
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Demo Video Section */}
+        <section id="demo" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">See NeuralIA in Action</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Watch how our AI agents transform business operations in real-time
+              </p>
+            </div>
+            <div className="relative max-w-4xl mx-auto">
+              <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                <Button size="lg" className="text-lg px-8 py-4">
+                  <Play className="mr-2 h-6 w-6" />
+                  Play Demo Video
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Featured AI Agents Section */}
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <Badge variant="secondary" className="mb-4">
+                🤖 Featured AI Agents
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Ready-to-Deploy AI Specialists</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Choose from our library of pre-trained AI agents, each specialized for specific business functions
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Sales Coach Agent */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-blue-200"
+                onClick={() => handleAgentClick("sales-coach")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-green-100 rounded-lg">
+                      <TrendingUp className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Sales Coach Agent</h3>
+                      <Badge variant="secondary" className="text-xs">
+                        Sales Expert
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    AI-powered sales coaching that improves close rates by 40% and shortens sales cycles by 25%.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Deal strategy optimization
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Objection handling scripts
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Performance analytics
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-blue-700 transition-colors">
+                    Chat Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* HR Advisory Agent */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-blue-200"
+                onClick={() => handleAgentClick("hr-advisory")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-purple-100 rounded-lg">
+                      <Users className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">HR Advisory Agent</h3>
+                      <Badge variant="secondary" className="text-xs">
+                        HR Expert
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    24/7 HR support that reduces escalations by 60% and improves employee satisfaction by 45%.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Policy guidance & compliance
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Employee relations support
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Performance management
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-blue-700 transition-colors">
+                    Chat Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Technical Support Agent */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-blue-200"
+                onClick={() => handleAgentClick("technical-support")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-blue-100 rounded-lg">
+                      <Cog className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Technical Support Agent</h3>
+                      <Badge variant="secondary" className="text-xs">
+                        Tech Expert
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Advanced technical support with 95% first-call resolution and 70% faster resolution times.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      System troubleshooting
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Integration support
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Documentation & guides
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-blue-700 transition-colors">
+                    Chat Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Configuration Process */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Simple 3-Step Process</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Get your AI agents up and running in minutes, not months
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">1. Choose Your Agent</h3>
+                <p className="text-gray-600">
+                  Select from our library of pre-trained AI agents or request a custom solution
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Cog className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">2. Configure & Train</h3>
+                <p className="text-gray-600">
+                  Our team customizes the agent with your data, processes, and brand voice
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Zap className="h-8 w-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">3. Deploy & Scale</h3>
+                <p className="text-gray-600">Launch your AI agent and watch it transform your business operations</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Solutions Section */}
+        <section ref={solutionsRef} id="solutions" className="py-20 bg-gradient-to-br from-slate-50 to-blue-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <Badge variant="secondary" className="mb-4">
+                🎯 Best AI Solutions
+              </Badge>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Choose Your AI Solution</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                From conversational agents to complex automation systems, we have the perfect AI solution for your needs
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Agent Mode */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-green-200 bg-green-50/50"
+                onClick={() => handleSolutionClick("agent")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-green-100 rounded-lg">
+                      <Bot className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">Agent Mode</h3>
+                      <Badge variant="secondary" className="text-xs bg-green-100 text-green-700">
+                        Conversational AI
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Create expert AI coaches and advisors that provide personalized guidance and support to your team
+                    and customers.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Sales Coach Templates
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      HR Advisory Agents
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Customer Success Coaches
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Technical Support Experts
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-green-700 bg-green-600 transition-colors">
+                    Start Agent Chat
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* System Mode */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-purple-200 bg-purple-50/50"
+                onClick={() => handleSolutionClick("system")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-purple-100 rounded-lg">
+                      <Cog className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">System Mode</h3>
+                      <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700">
+                        Workflow Automation
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Deploy intelligent automation systems that handle complex workflows, data processing, and business
+                    operations.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Process Automation
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Data Integration
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Smart Workflows
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Custom Integrations
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-purple-700 bg-purple-600 transition-colors">
+                    Explore Systems
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* General Mode */}
+              <Card
+                className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 border-blue-200 bg-blue-50/50"
+                onClick={() => handleSolutionClick("general")}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-blue-100 rounded-lg">
+                      <BarChart3 className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="text-lg font-semibold text-gray-900">General Mode</h3>
+                      <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
+                        Custom Solutions
+                      </Badge>
+                    </div>
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    Get a custom AI solution tailored to your specific business needs with our Neural Fleet templates
+                    and rapid deployment.
+                  </p>
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Neural Fleet Templates
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      24-48hr Deployment
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Custom Training
+                    </div>
+                    <div className="flex items-center text-sm text-gray-600">
+                      <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                      Full Support
+                    </div>
+                  </div>
+                  <Button className="w-full group-hover:bg-blue-700 transition-colors">
+                    Get Custom Solution
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof */}
+        <section id="testimonials" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Join thousands of companies that have transformed their operations with NeuralIA
+              </p>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
+                <div className="text-gray-600">Active Deployments</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">95%</div>
+                <div className="text-gray-600">Customer Satisfaction</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">24/7</div>
+                <div className="text-gray-600">AI Agent Uptime</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">48hr</div>
+                <div className="text-gray-600">Average Deployment</div>
+              </div>
+            </div>
+
+            {/* Testimonials */}
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    "NeuralIA's sales coach agent increased our close rate by 40% in just 3 months. The ROI has been
+                    incredible."
+                  </p>
+                  <div className="flex items-center">
+                    <Avatar className="h-10 w-10 mr-3">
+                      <AvatarImage src="/placeholder-user.jpg" />
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-semibold text-gray-900">John Davis</div>
+                      <div className="text-sm text-gray-600">VP Sales, TechCorp</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    "The HR advisory agent has transformed our employee support. 60% reduction in escalations and
+                    happier staff."
+                  </p>
+                  <div className="flex items-center">
+                    <Avatar className="h-10 w-10 mr-3">
+                      <AvatarImage src="/placeholder-user.jpg" />
+                      <AvatarFallback>SM</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-semibold text-gray-900">Sarah Miller</div>
+                      <div className="text-sm text-gray-600">CHRO, InnovateCo</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-gray-600 mb-4">
+                    "Our technical support agent achieves 95% first-call resolution. Customer satisfaction has never
+                    been higher."
+                  </p>
+                  <div className="flex items-center">
+                    <Avatar className="h-10 w-10 mr-3">
+                      <AvatarImage src="/placeholder-user.jpg" />
+                      <AvatarFallback>MJ</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-semibold text-gray-900">Mike Johnson</div>
+                      <div className="text-sm text-gray-600">CTO, DataFlow</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to Transform Your Business?</h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+              Join the AI revolution and deploy your first intelligent agent in 24-48 hours
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" onClick={handleCustomerServiceChat} className="text-lg px-8 py-4">
-                <MessageSquare className="mr-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                onClick={handleTalkToExpert}
+                className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3"
+              >
                 Talk to Expert
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-transparent">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-3 bg-transparent"
+              >
                 <Play className="mr-2 h-5 w-5" />
                 Watch Demo
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Features Section */}
-      <section id="features" className="relative z-10 py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Why Choose NeuralIA?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our AI solutions are designed to integrate seamlessly with your existing workflows and deliver immediate
-              value.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                <CardTitle>Lightning Fast Deployment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Get your AI agents up and running in 24-48 hours with our Neural Fleet templates. No lengthy
-                  development cycles.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Brain className="h-12 w-12 text-purple-600 mx-auto mb-4" />
-                <CardTitle>Advanced AI Technology</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Powered by cutting-edge machine learning models that understand context, learn from interactions, and
-                  improve over time.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                <CardTitle>Proven ROI</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Our clients see 300-500% ROI within 6 months. Reduce costs, increase efficiency, and scale without
-                  additional headcount.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured AI Agents Section */}
-      <section id="agents" className="relative z-10 py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Featured AI Agents</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose from our Neural Fleet templates or build custom agents tailored to your specific needs.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Sales Coach Agent */}
-            <Card
-              className="relative hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
-              onClick={() => handleSpecificAgentClick("Sales Coach Agent")}
-            >
-              <div className="absolute -top-3 -right-3">
-                <Badge className="bg-green-500 text-white">
-                  <TrendingUp className="mr-1 h-3 w-3" />
-                  High ROI
-                </Badge>
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-4 gap-8">
+              <div>
+                <div className="flex items-center mb-4">
+                  <Bot className="h-8 w-8 text-blue-400" />
+                  <span className="ml-2 text-xl font-bold">NeuralIA</span>
+                </div>
+                <p className="text-gray-400">Transforming businesses with intelligent AI agents that work 24/7.</p>
               </div>
-              <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors">
-                  <TrendingUp className="h-8 w-8 text-blue-600" />
-                </div>
-                <CardTitle className="text-xl">Sales Coach Agent</CardTitle>
-                <CardDescription className="text-blue-600 font-medium">Sales Strategy</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 mb-4">
-                  Expert sales guidance and deal closing strategies available 24/7. Boost your team's close rates by
-                  40%.
-                </p>
-                <div className="flex items-center justify-center text-sm text-gray-500 mb-4">
-                  <span className="mr-2">⚡ 24/7 Available</span>
-                  <span>• 24-48hr Deploy</span>
-                </div>
-                <Button
-                  className="w-full"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSpecificAgentClick("Sales Coach Agent")
-                  }}
-                  variant="outline"
-                >
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Chat Now
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* HR Advisory Agent */}
-            <Card
-              className="relative hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
-              onClick={() => handleSpecificAgentClick("HR Advisory Agent")}
-            >
-              <div className="absolute -top-3 -right-3">
-                <Badge className="bg-purple-500 text-white">
-                  <Users className="mr-1 h-3 w-3" />
-                  Team Favorite
-                </Badge>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Solutions</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Agent Mode
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      System Mode
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Custom Solutions
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors">
-                  <Users className="h-8 w-8 text-purple-600" />
-                </div>
-                <CardTitle className="text-xl">HR Advisory Agent</CardTitle>
-                <CardDescription className="text-purple-600 font-medium">Human Resources</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 mb-4">
-                  Employee relations and policy guidance available 24/7 for managers and HR teams.
-                </p>
-                <div className="flex items-center justify-center text-sm text-gray-500 mb-4">
-                  <span className="mr-2">⚡ 24/7 Available</span>
-                  <span>• 24-48hr Deploy</span>
-                </div>
-                <Button
-                  className="w-full"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSpecificAgentClick("HR Advisory Agent")
-                  }}
-                  variant="outline"
-                >
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Chat Now
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Technical Support Agent */}
-            <Card
-              className="relative hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
-              onClick={() => handleSpecificAgentClick("Technical Support Agent")}
-            >
-              <div className="absolute -top-3 -right-3">
-                <Badge className="bg-orange-500 text-white">
-                  <Zap className="mr-1 h-3 w-3" />
-                  Instant Help
-                </Badge>
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Company</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Contact
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <CardHeader className="text-center pb-4">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors">
-                  <Cog className="h-8 w-8 text-orange-600" />
-                </div>
-                <CardTitle className="text-xl">Technical Support Agent</CardTitle>
-                <CardDescription className="text-orange-600 font-medium">Technical Support</CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <p className="text-gray-600 mb-4">
-                  Instant troubleshooting and technical guidance with 95% first-call resolution rate.
-                </p>
-                <div className="flex items-center justify-center text-sm text-gray-500 mb-4">
-                  <span className="mr-2">⚡ 24/7 Available</span>
-                  <span>• 24-48hr Deploy</span>
-                </div>
-                <Button
-                  className="w-full"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    handleSpecificAgentClick("Technical Support Agent")
-                  }}
-                  variant="outline"
-                >
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  Chat Now
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Solutions Section */}
-      <section id="solutions" className="relative z-10 py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your AI Solution</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From quick-deploy templates to custom enterprise solutions, we have the perfect AI solution for your
-              business needs.
-            </p>
-          </div>
-
-          <Tabs defaultValue="agents" className="max-w-4xl mx-auto">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="agents">AI Agents</TabsTrigger>
-              <TabsTrigger value="systems">AI Systems</TabsTrigger>
-              <TabsTrigger value="custom">Custom Solutions</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="agents" className="space-y-6">
-              <Card className="p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-start space-x-6">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Users className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Conversational AI Agents</h3>
-                    <p className="text-gray-600 mb-4">
-                      Deploy expert AI agents that provide 24/7 guidance and coaching to your team. Perfect for sales,
-                      HR, customer service, and technical support.
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">24/7 Available</Badge>
-                      <Badge variant="secondary">Expert Knowledge</Badge>
-                      <Badge variant="secondary">Quick Deploy</Badge>
-                      <Badge variant="secondary">Scalable</Badge>
-                    </div>
-                    <Button onClick={() => handleChatOpen("agent")} className="w-full sm:w-auto">
-                      <MessageSquare className="mr-2 h-4 w-4" />
-                      Chat with Expert
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="systems" className="space-y-6">
-              <Card className="p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-start space-x-6">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Cog className="h-8 w-8 text-purple-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">AI Workflow Systems</h3>
-                    <p className="text-gray-600 mb-4">
-                      Automate complex workflows with intelligent data processing and decision-making. Perfect for
-                      operations, finance, and enterprise processes.
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">Workflow Automation</Badge>
-                      <Badge variant="secondary">Data Processing</Badge>
-                      <Badge variant="secondary">Integration Ready</Badge>
-                      <Badge variant="secondary">Enterprise Scale</Badge>
-                    </div>
-                    <Button onClick={() => handleChatOpen("system")} className="w-full sm:w-auto">
-                      <Cog className="mr-2 h-4 w-4" />
-                      Explore Systems
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="custom" className="space-y-6">
-              <Card className="p-8 hover:shadow-lg transition-shadow">
-                <div className="flex items-start space-x-6">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="h-8 w-8 text-green-600" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Custom AI Solutions</h3>
-                    <p className="text-gray-600 mb-4">
-                      Tailored AI implementations designed specifically for your industry, processes, and unique
-                      requirements. Full customization and integration support.
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="secondary">Fully Custom</Badge>
-                      <Badge variant="secondary">Industry Specific</Badge>
-                      <Badge variant="secondary">Full Integration</Badge>
-                      <Badge variant="secondary">Dedicated Support</Badge>
-                    </div>
-                    <Button onClick={() => handleChatOpen("general")} className="w-full sm:w-auto">
-                      <Sparkles className="mr-2 h-4 w-4" />
-                      Discuss Custom Solution
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      {/* Social Proof Section */}
-      <section id="testimonials" className="relative z-10 py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Trusted by Industry Leaders</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See how businesses like yours are transforming their operations with NeuralIA's AI solutions.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Support</h3>
+                <ul className="space-y-2 text-gray-400">
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Documentation
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Help Center
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="hover:text-white transition-colors">
+                      Status
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <p className="text-gray-600 mb-4">
-                "NeuralIA's Sales Coach Agent increased our close rate by 40% in just 3 months. The 24/7 availability
-                means our team always has expert guidance."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-blue-600 font-semibold">JD</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">John Davis</p>
-                  <p className="text-sm text-gray-500">VP Sales, TechCorp</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">
-                "The HR Advisory Agent has been a game-changer for our management team. Policy questions are answered
-                instantly, and employee issues are resolved faster."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-purple-600 font-semibold">SM</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Sarah Martinez</p>
-                  <p className="text-sm text-gray-500">HR Director, Global Solutions</p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-6 hover:shadow-lg transition-shadow">
-              <div className="flex items-center mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-600 mb-4">
-                "Our Technical Support Agent achieved 95% first-call resolution. Customer satisfaction is up 60% and our
-                support team is more efficient than ever."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
-                  <span className="text-orange-600 font-semibold">MR</span>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-900">Mike Rodriguez</p>
-                  <p className="text-sm text-gray-500">CTO, Innovation Hub</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative z-10 py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Ready to Transform Your Business?</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of businesses already using NeuralIA's AI solutions. Get started with our Neural Fleet
-            templates in just 24-48 hours.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={handleCustomerServiceChat}
-              className="text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
-            >
-              <MessageSquare className="mr-2 h-5 w-5" />
-              Talk to Expert
-            </Button>
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
-              <Play className="mr-2 h-5 w-5" />
-              Watch Demo
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative z-10 bg-gray-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <Brain className="h-8 w-8 text-blue-400" />
-                <span className="text-xl font-bold">NeuralIA</span>
-              </div>
-              <p className="text-gray-400">
-                Transforming businesses with intelligent AI agents and automation solutions.
-              </p>
             </div>
-            <div>
-              <h3 className="font-semibold mb-4">Solutions</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    AI Agents
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    AI Systems
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Neural Fleet
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Custom Solutions
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Blog
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Terms of Service
-                  </a>
-                </li>
-              </ul>
+            <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+              <p>&copy; 2024 NeuralIA. All rights reserved.</p>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 NeuralIA. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
 
       {/* Customer Service Chat Bubble */}
-      {!showCustomerService && (
+      {!isCustomerServiceOpen && (
         <Button
           onClick={handleCustomerServiceChat}
           className="fixed bottom-6 right-6 h-16 w-16 rounded-full shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 z-40 animate-pulse"
           size="icon"
         >
-          <HeadphonesIcon className="h-8 w-8" />
+          <HeadphonesIcon className="h-8 w-8 text-white" />
         </Button>
       )}
 
-      {/* Modals */}
-      {showAuthModal && <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />}
-      {showChatWidget && (
-        <ChatWidget initialType={chatType} specificAgent={specificAgent} onClose={() => setShowChatWidget(false)} />
-      )}
-      {showCustomerService && (
-        <ChatWidget initialType="agent" onClose={() => setShowCustomerService(false)} isCustomerService={true} />
-      )}
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+
+      {/* Chat Widget */}
+      <ChatWidget
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+        chatType={chatType}
+        specificAgent={specificAgent}
+      />
+
+      {/* Customer Service Chat Widget */}
+      <ChatWidget
+        isOpen={isCustomerServiceOpen}
+        onClose={() => setIsCustomerServiceOpen(false)}
+        chatType="agent"
+        specificAgent="customer-service"
+      />
     </div>
   )
 }

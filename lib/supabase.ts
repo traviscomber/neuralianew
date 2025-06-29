@@ -1,12 +1,36 @@
-import { createBrowserClient } from "@supabase/ssr"
+"use client"
 
-// Export the createClient function that other files expect
-export function createClient() {
-  return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+import { createBrowserClient, type SupabaseClient } from "@supabase/ssr"
+
+/**
+ * Environment variables (must be present at build&sol;runtime).
+ */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  // eslint-disable-next-line no-console
+  console.error("Supabase env vars missing. Verify NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.")
 }
 
-// Pre-instantiated client for convenience
-const supabase = createClient()
+/**
+ * Factory – creates a fresh Supabase browser client.
+ * Apps that need their own isolated client can import { createClient }.
+ */
+export function createClient(): SupabaseClient {
+  return createBrowserClient(supabaseUrl, supabaseAnonKey)
+}
+
+/**
+ * Singleton – most components can just import { supabase }.
+ */
+let _browserClient: SupabaseClient | null = null
+export const supabase: SupabaseClient = _browserClient ?? (_browserClient = createClient())
+
+/**
+ * Default export kept for backward-compat.
+ */
+export default supabase
 
 // Types for our database tables
 export interface Profile {
