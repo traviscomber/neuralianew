@@ -1,10 +1,30 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js"
 
+/**
+ * ---------------------------------------------------------------------
+ * Supabase singleton for the browser / server.
+ * ---------------------------------------------------------------------
+ */
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.")
+}
 
+/**
+ * Typed helper if you generated types from your DB.
+ * Replace `any` with the generated Database interface if available.
+ */
+export type TypedSupabaseClient = SupabaseClient<any>
+
+export const supabase: TypedSupabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey)
+
+/**
+ * ---------------------------------------------------------------------
+ * dbHelpers – utility functions used across the app
+ * ---------------------------------------------------------------------
+ */
 export const dbHelpers = {
   supabase,
 
@@ -15,11 +35,10 @@ export const dbHelpers = {
       console.error("Error fetching AI agents:", error)
       return []
     }
-
     return data || []
   },
 
-  async deployAgent(userId: string, agentId: string, configuration: any) {
+  async deployAgent(userId: string, agentId: string, configuration: Record<string, unknown>) {
     const { data, error } = await supabase
       .from("deployed_agents")
       .insert({
@@ -33,37 +52,25 @@ export const dbHelpers = {
       .select()
       .single()
 
-    if (error) {
-      throw error
-    }
-
+    if (error) throw error
     return data
   },
 
-  async updateDeploymentStatus(deploymentId: string, status: string, progress?: number) {
-    const updateData: any = {
-      deployment_status: status,
-    }
+  async updateDeploymentStatus(deploymentId: string, status: string, progress?: number | null) {
+    const updates: Record<string, unknown> = { deployment_status: status }
+    if (typeof progress === "number") updates.deployment_progress = progress
+    if (status === "active") updates.activated_at = new Date().toISOString()
 
-    if (progress !== undefined) {
-      updateData.deployment_progress = progress
-    }
+    const { error } = await supabase.from("deployed_agents").update(updates).eq("id", deploymentId)
 
-    if (status === "active") {
-      updateData.activated_at = new Date().toISOString()
-    }
-
-    const { error } = await supabase.from("deployed_agents").update(updateData).eq("id", deploymentId)
-
-    if (error) {
-      throw error
-    }
+    if (error) throw error
   },
 
   async getUserDeployedAgents(userId: string) {
     const { data, error } = await supabase
       .from("deployed_agents")
-      .select(`
+      .select(
+        `
         *,
         ai_agents (
           id,
@@ -73,7 +80,8 @@ export const dbHelpers = {
           capabilities,
           pricing
         )
-      `)
+      `,
+      )
       .eq("user_id", userId)
       .eq("deployment_status", "active")
 
@@ -81,11 +89,10 @@ export const dbHelpers = {
       console.error("Error fetching deployed agents:", error)
       return []
     }
-
     return data || []
   },
 
-  async saveConversation(userId: string, agentType: string, messages: any[]) {
+  async saveConversation(userId: string, agentType: string, messages: Array<{ role: string; content: string }>) {
     const { data, error } = await supabase
       .from("chat_conversations")
       .insert({
@@ -98,10 +105,7 @@ export const dbHelpers = {
       .select()
       .single()
 
-    if (error) {
-      throw error
-    }
-
+    if (error) throw error
     return data
   },
 
@@ -118,11 +122,10 @@ export const dbHelpers = {
       console.error("Error fetching conversation history:", error)
       return []
     }
-
     return data || []
   },
 
-  async updateUserPreferences(userId: string, preferences: any) {
+  async updateUserPreferences(userId: string, preferences: Record<string, unknown>) {
     const { data, error } = await supabase
       .from("user_preferences")
       .upsert({
@@ -133,10 +136,7 @@ export const dbHelpers = {
       .select()
       .single()
 
-    if (error) {
-      throw error
-    }
-
+    if (error) throw error
     return data
   },
 
@@ -147,12 +147,20 @@ export const dbHelpers = {
       console.error("Error fetching user preferences:", error)
       return null
     }
-
     return data
   },
 }
 
-// Re-export createClient for compatibility with other modules
-export { createClient }
+/**
+ * ---------------------------------------------------------------------
+ * createClient helper
+ *  – returns a brand-new Supabase client.
+ *  – Useful for tests, edge functions, or to avoid cookie coupling.
+ * ---------------------------------------------------------------------
+ */
+export function createClient(): TypedSupabaseClient {
+  return createSupabaseClient(supabaseUrl, supabaseAnonKey)
+}
 
+/** Default export keeps existing import paths working */
 export default supabase
