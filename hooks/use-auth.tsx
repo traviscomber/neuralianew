@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import { supabase } from "@/lib/supabase"
+import { supabase } from "@/lib/supabase-browser"
 import type { User } from "@supabase/supabase-js"
 
 interface Profile {
@@ -93,7 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     getInitialSession()
 
-    // Listen for auth changes - this is handled by Supabase
+    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -116,7 +116,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     try {
-      // Supabase handles the sign out
       const { error } = await supabase.auth.signOut()
       if (error) throw error
 

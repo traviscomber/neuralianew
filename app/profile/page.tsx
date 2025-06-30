@@ -8,14 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Switch } from "@/components/ui/switch"
-import { User, Building2, CreditCard, Bell, Save } from "lucide-react"
+import { User, Building2, Bell, Save } from "lucide-react"
 import { supabase } from "@/lib/supabase"
 import { toast } from "@/hooks/use-toast"
+import { SubscriptionManager } from "@/components/billing/subscription-manager"
 
 export default function ProfilePage() {
   const { user, profile } = useAuth()
@@ -276,52 +275,7 @@ export default function ProfilePage() {
           </TabsContent>
 
           <TabsContent value="billing" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  Subscription & Billing
-                </CardTitle>
-                <CardDescription>Manage your subscription plan and billing information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between p-4 border rounded-lg">
-                  <div>
-                    <h3 className="font-semibold">Current Plan</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {profile?.subscription_plan ? (
-                        <Badge variant="secondary" className="capitalize">
-                          {profile.subscription_plan}
-                        </Badge>
-                      ) : (
-                        "Free Plan"
-                      )}
-                    </p>
-                  </div>
-                  <Button variant="outline">Upgrade Plan</Button>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-4">
-                  <h3 className="font-semibold">Usage Statistics</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-blue-600">{profile?.total_agents || 0}</div>
-                      <div className="text-sm text-muted-foreground">AI Agents</div>
-                    </div>
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-green-600">{profile?.total_systems || 0}</div>
-                      <div className="text-sm text-muted-foreground">AI Systems</div>
-                    </div>
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-purple-600">{profile?.total_conversations || 0}</div>
-                      <div className="text-sm text-muted-foreground">Conversations</div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <SubscriptionManager />
           </TabsContent>
 
           <TabsContent value="preferences" className="space-y-6">

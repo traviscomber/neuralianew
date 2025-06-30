@@ -1,76 +1,40 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { OpenAI } from "openai"
-import { createClient } from "@/lib/supabase-server"
-
-// Initialize OpenAI with server-side API key
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-})
+import { generateText } from "ai"
+import { openai } from "@ai-sdk/openai"
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages, agentType, userId } = await request.json()
+    const { message, agentType } = await request.json()
 
-    // Verify user authentication
-    const supabase = createClient()
-    const {
-      data: { user },
-      error: authError,
-    } = await supabase.auth.getUser()
-
-    if (authError || !user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    const systemPrompts: { [key: string]: string } = {
+      "ceo-neural-agent":
+        "You are a CEO Neural Agent, an executive-level AI with C-suite intelligence. Provide strategic, high-level business insights and coordinate cross-functional decisions.",
+      "hr-advisory":
+        "You are an HR Advisory Expert specializing in human resources, employee relations, policy development, and workforce management.",
+      "sales-coach":
+        "You are a Sales Performance Coach expert in deal strategy, pipeline optimization, and revenue acceleration.",
+      "customer-service": "You are a Customer Experience Expert focused on omnichannel support and service excellence.",
+      "technical-support":
+        "You are a Technical Systems Expert specializing in system architecture, troubleshooting, and infrastructure optimization.",
+      marketing:
+        "You are a Marketing Strategy Expert covering campaign development, multi-channel optimization, and growth marketing.",
+      analytics:
+        "You are a Data Intelligence Expert providing predictive insights, statistical modeling, and business intelligence.",
     }
 
-    // Validate required fields
-    if (!messages || !Array.isArray(messages)) {
-      return NextResponse.json({ error: "Messages array is required" }, { status: 400 })
-    }
+    const systemPrompt = systemPrompts[agentType || "ceo-neural-agent"] || systemPrompts["ceo-neural-agent"]
 
-    // Get agent-specific system prompt
-    const systemPrompt = getSystemPrompt(agentType)
-
-    // Create chat completion
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4",
-      messages: [{ role: "system", content: systemPrompt }, ...messages],
+    const { text } = await generateText({
+      model: openai("gpt-4"),
+      system: systemPrompt,
+      prompt: message,
+      maxTokens: 500,
       temperature: 0.7,
-      max_tokens: 1000,
     })
 
-    const response = completion.choices[0]?.message?.content
-
-    if (!response) {
-      return NextResponse.json({ error: "No response generated" }, { status: 500 })
-    }
-
-    // Store conversation in database
-    await supabase.from("chat_conversations").insert({
-      user_id: user.id,
-      chat_type: agentType || "general",
-      messages: [...messages, { role: "assistant", content: response }],
-      title: messages[0]?.content?.substring(0, 50) + "..." || "New Conversation",
-    })
-
-    return NextResponse.json({ response })
+    return NextResponse.json({ response: text })
   } catch (error) {
     console.error("Chat API error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Failed to process chat message" }, { status: 500 })
   }
-}
-
-function getSystemPrompt(agentType: string): string {
-  const prompts: Record<string, string> = {
-    "ceo-neural-agent": "You are a CEO Neural Agent, providing strategic business guidance and leadership insights.",
-    "hr-advisory":
-      "You are an HR Advisory Agent, helping with human resources, employee relations, and workplace policies.",
-    "sales-coach":
-      "You are a Sales Coach Agent, providing sales training, techniques, and performance improvement strategies.",
-    "technical-support": "You are a Technical Support Agent, helping users with technical issues and troubleshooting.",
-    "customer-service":
-      "You are a Customer Service Agent, providing excellent customer support and resolving inquiries.",
-    default: "You are a helpful AI assistant, providing accurate and helpful responses to user queries.",
-  }
-
-  return prompts[agentType] || prompts.default
 }
