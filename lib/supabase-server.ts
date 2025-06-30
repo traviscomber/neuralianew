@@ -1,29 +1,14 @@
-import { createClient } from "@supabase/supabase-js"
-import { cookies } from "next/headers"
+/**
+ * Server-side Supabase client (compatibility wrapper).
+ *
+ * Keeps `@/lib/supabase-server` import paths working while ensuring
+ * we only rely on the single implementation held in `@/lib/supabase`.
+ */
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+import { createServerClient as _createServerClient } from "@/lib/supabase"
 
-export const createServerClient = () => {
-  const cookieStore = cookies()
+// Named export
+export const createServerClient = _createServerClient
 
-  return createClient(supabaseUrl, supabaseServiceKey, {
-    auth: {
-      persistSession: false,
-    },
-  })
-}
-
-export const createServerComponentClient = () => {
-  const cookieStore = cookies()
-
-  return createClient(supabaseUrl, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
-      },
-    },
-  })
-}
-
-export default createServerClient
+// Default export (if someone does `import createServerClient from ...`)
+export default _createServerClient

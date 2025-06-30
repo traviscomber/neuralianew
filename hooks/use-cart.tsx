@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 import { useAuth } from "./use-auth"
-import { supabase } from "@/lib/supabase-browser"
+import { createClient } from "@/lib/supabase"
 import { toast } from "@/hooks/use-toast"
 
 interface CartItem {
@@ -32,12 +32,14 @@ interface DeployedAgent {
 }
 
 interface CartContextType {
-  // Legacy API for CartModal compatibility
+  // Legacy API for compatibility
   items: CartItem[]
-  updateQuantity: (id: string, quantity: number) => void
+  addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void
   removeItem: (id: string) => void
-  total: number
-  deployAgents: () => Promise<void>
+  updateQuantity: (id: string, quantity: number) => void
+  clearCart: () => void
+  getTotalPrice: () => number
+  getTotalItems: () => number
 
   // New API
   cartItems: CartItem[]
@@ -63,6 +65,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [deployedAgents, setDeployedAgents] = useState<DeployedAgent[]>([])
   const [isDeploying, setIsDeploying] = useState(false)
   const [notifications, setNotifications] = useState<any[]>([])
+  const supabase = createClient()
 
   const loadUserAgents = async () => {
     // Always include Central Orchestrator
@@ -131,30 +134,65 @@ export function CartProvider({ children }: { children: ReactNode }) {
     loadUserAgents()
   }, [user])
 
-  const addToCart = (agent: any) => {
+  // Legacy API functions
+  const addItem = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
+    const newItem: CartItem = {
+      ...item,
+      type: item.type || item.id,
+      description: item.description || "",
+      features: item.features || [],
+      icon: item.icon || "🤖",
+      color: item.color || "bg-blue-600",
+      quantity: item.quantity || 1,
+    }
+
     setCartItems((prev) => {
-      const existing = prev.find((item) => item.id === agent.id)
+      const existing = prev.find((cartItem) => cartItem.id === newItem.id)
       if (existing) {
-        return prev.map((item) => (item.id === agent.id ? { ...item, quantity: item.quantity + 1 } : item))
+        return prev.map((cartItem) =>
+          cartItem.id === newItem.id ? { ...cartItem, quantity: cartItem.quantity + newItem.quantity } : cartItem,
+        )
       }
-      return [...prev, { ...agent, quantity: 1 }]
+      return [...prev, newItem]
     })
+
     toast({
       title: "Added to cart",
-      description: `${agent.name} has been added to your cart.`,
+      description: `${newItem.name} has been added to your cart.`,
     })
   }
 
-  const removeFromCart = (agentId: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== agentId))
+  const removeItem = (id: string) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id))
   }
 
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(id)
+      removeItem(id)
       return
     }
     setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)))
+  }
+
+  const clearCart = () => {
+    setCartItems([])
+  }
+
+  const getTotalPrice = () => {
+    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  }
+
+  const getTotalItems = () => {
+    return cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  }
+
+  // New API functions
+  const addToCart = (agent: any) => {
+    addItem(agent)
+  }
+
+  const removeFromCart = (agentId: string) => {
+    removeItem(agentId)
   }
 
   const deployAgent = async (agent: any) => {
@@ -206,12 +244,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  const deployAgents = async () => {
-    for (const item of cartItems) {
-      await deployAgent(item)
-    }
-  }
-
   const isAgentInCart = (agentId: string) => {
     return cartItems.some((item) => item.id === agentId)
   }
@@ -228,18 +260,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setNotifications((prev) => prev.filter((n) => n.id !== id))
   }
 
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0)
+  const itemCount = getTotalItems()
 
   return (
     <CartContext.Provider
       value={{
         // Legacy API
         items: cartItems,
+        addItem,
+        removeItem,
         updateQuantity,
-        removeItem: removeFromCart,
-        total,
-        deployAgents,
+        clearCart,
+        getTotalPrice,
+        getTotalItems,
 
         // New API
         cartItems,

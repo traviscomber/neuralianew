@@ -3,15 +3,15 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Brain, Mail, Lock, User, AlertCircle, CheckCircle } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
+import { Loader2, Mail, Lock, AlertCircle } from "lucide-react"
+import { createClient } from "@/lib/supabase"
 
 interface AuthModalProps {
   isOpen: boolean
@@ -19,96 +19,114 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [name, setName] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
-  const { signIn, signUp } = useAuth()
+  const [error, setError] = useState<string | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
+  const supabase = createClient()
 
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setIsLoading(true)
-    setError("")
-    setSuccess("")
+    setError(null)
+
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
     try {
-      await signIn(email, password)
-      setSuccess("Successfully signed in!")
-      setTimeout(() => {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (error) {
+        setError(error.message)
+      } else {
         onClose()
-        setEmail("")
-        setPassword("")
-        setName("")
-        setSuccess("")
-      }, 1000)
-    } catch (error: any) {
-      setError(error.message || "Failed to sign in")
+      }
+    } catch (err) {
+      setError("An unexpected error occurred")
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     setIsLoading(true)
-    setError("")
-    setSuccess("")
+    setError(null)
+    setMessage(null)
+
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
     try {
-      await signUp(email, password, name)
-      setSuccess("Account created successfully! Please check your email to verify your account.")
-      setTimeout(() => {
-        onClose()
-        setEmail("")
-        setPassword("")
-        setName("")
-        setSuccess("")
-      }, 3000)
-    } catch (error: any) {
-      setError(error.message || "Failed to create account")
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      })
+
+      if (error) {
+        setError(error.message)
+      } else {
+        setMessage("Check your email for the confirmation link!")
+      }
+    } catch (err) {
+      setError("An unexpected error occurred")
     } finally {
       setIsLoading(false)
     }
   }
 
-  const resetForm = () => {
-    setEmail("")
-    setPassword("")
-    setName("")
-    setError("")
-    setSuccess("")
+  const handleResetPassword = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsLoading(true)
+    setError(null)
+    setMessage(null)
+
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get("email") as string
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+
+      if (error) {
+        setError(error.message)
+      } else {
+        setMessage("Check your email for the password reset link!")
+      }
+    } catch (err) {
+      setError("An unexpected error occurred")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="p-3 bg-blue-100 rounded-full">
-              <Brain className="h-8 w-8 text-blue-600" />
-            </div>
-          </div>
-          <DialogTitle className="text-2xl">Welcome to NeuralIA</DialogTitle>
-          <DialogDescription>
-            Sign in to your account or create a new one to get started with AI agents
-          </DialogDescription>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Welcome to Neuralia</DialogTitle>
+          <DialogDescription>Sign in to your account or create a new one to get started.</DialogDescription>
         </DialogHeader>
 
-        <Tabs defaultValue="signin" className="w-full" onValueChange={resetForm}>
-          <TabsList className="grid w-full grid-cols-2">
+        <Tabs defaultValue="signin" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="signin">Sign In</TabsTrigger>
             <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsTrigger value="reset">Reset</TabsTrigger>
           </TabsList>
 
           <TabsContent value="signin">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Sign In</CardTitle>
-                <CardDescription>Enter your credentials to access your account</CardDescription>
+                <CardTitle>Sign In</CardTitle>
+                <CardDescription>Enter your email and password to sign in to your account.</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="signin-email">Email</Label>
@@ -116,10 +134,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="signin-email"
+                        name="email"
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         className="pl-10"
                         required
                       />
@@ -131,39 +148,23 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="signin-password"
+                        name="password"
                         type="password"
                         placeholder="Enter your password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                         className="pl-10"
                         required
                       />
                     </div>
                   </div>
-
                   {error && (
                     <Alert variant="destructive">
                       <AlertCircle className="h-4 w-4" />
                       <AlertDescription>{error}</AlertDescription>
                     </Alert>
                   )}
-
-                  {success && (
-                    <Alert className="border-green-200 bg-green-50">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <AlertDescription className="text-green-800">{success}</AlertDescription>
-                    </Alert>
-                  )}
-
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Signing In...
-                      </>
-                    ) : (
-                      "Sign In"
-                    )}
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Sign In
                   </Button>
                 </form>
               </CardContent>
@@ -173,36 +174,20 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
           <TabsContent value="signup">
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Create Account</CardTitle>
-                <CardDescription>Create a new account to start using NeuralIA</CardDescription>
+                <CardTitle>Create Account</CardTitle>
+                <CardDescription>Create a new account to get started with Neuralia.</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
                 <form onSubmit={handleSignUp} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-name">Full Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        placeholder="Enter your full name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="pl-10"
-                        required
-                      />
-                    </div>
-                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="signup-email">Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="signup-email"
+                        name="email"
                         type="email"
                         placeholder="Enter your email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
                         className="pl-10"
                         required
                       />
@@ -214,41 +199,73 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="signup-password"
+                        name="password"
                         type="password"
                         placeholder="Create a password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
                         className="pl-10"
                         required
                         minLength={6}
                       />
                     </div>
-                    <p className="text-xs text-gray-500">Password must be at least 6 characters long</p>
                   </div>
-
                   {error && (
                     <Alert variant="destructive">
                       <AlertCircle className="h-4 w-4" />
                       <AlertDescription>{error}</AlertDescription>
                     </Alert>
                   )}
-
-                  {success && (
-                    <Alert className="border-green-200 bg-green-50">
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                      <AlertDescription className="text-green-800">{success}</AlertDescription>
+                  {message && (
+                    <Alert>
+                      <Mail className="h-4 w-4" />
+                      <AlertDescription>{message}</AlertDescription>
                     </Alert>
                   )}
-
                   <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                        Creating Account...
-                      </>
-                    ) : (
-                      "Create Account"
-                    )}
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Create Account
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="reset">
+            <Card>
+              <CardHeader>
+                <CardTitle>Reset Password</CardTitle>
+                <CardDescription>Enter your email to receive a password reset link.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <form onSubmit={handleResetPassword} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="reset-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="reset-email"
+                        name="email"
+                        type="email"
+                        placeholder="Enter your email"
+                        className="pl-10"
+                        required
+                      />
+                    </div>
+                  </div>
+                  {error && (
+                    <Alert variant="destructive">
+                      <AlertCircle className="h-4 w-4" />
+                      <AlertDescription>{error}</AlertDescription>
+                    </Alert>
+                  )}
+                  {message && (
+                    <Alert>
+                      <Mail className="h-4 w-4" />
+                      <AlertDescription>{message}</AlertDescription>
+                    </Alert>
+                  )}
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Send Reset Link
                   </Button>
                 </form>
               </CardContent>

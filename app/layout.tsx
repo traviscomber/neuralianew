@@ -6,22 +6,13 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { AuthProvider } from "@/hooks/use-auth"
 import { CartProvider } from "@/hooks/use-cart"
+import { ErrorBoundary } from "@/components/system/error-boundary"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NeuralIA - AI Agents & Systems Platform",
-  description:
-    "Deploy intelligent AI agents and systems in 24-48 hours. Transform your business with cutting-edge artificial intelligence.",
-  keywords: ["AI", "artificial intelligence", "agents", "automation", "business", "SaaS"],
-  authors: [{ name: "NeuralIA Team" }],
-  creator: "NeuralIA",
-  publisher: "NeuralIA",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  title: "Neuralia - AI Agent Deployment Platform",
+  description: "Deploy specialized AI agents instantly to your infrastructure",
     generator: 'v0.dev'
 }
 
@@ -33,14 +24,16 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <AuthProvider>
-            <CartProvider>
-              {children}
-              <Toaster />
-            </CartProvider>
-          </AuthProvider>
-        </ThemeProvider>
+        <ErrorBoundary>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            <AuthProvider>
+              <CartProvider>
+                {children}
+                <Toaster />
+              </CartProvider>
+            </AuthProvider>
+          </ThemeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   )

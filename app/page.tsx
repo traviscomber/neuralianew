@@ -32,6 +32,7 @@ import {
   Shield,
   Sparkles,
   Crown,
+  LogIn,
 } from "lucide-react"
 
 interface Agent {
@@ -179,7 +180,7 @@ const agentTypes: Agent[] = [
 const sortedAgentTypes = agentTypes.sort((a, b) => (a.priority || 999) - (b.priority || 999))
 
 export default function HomePage() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const {
     cartItems = [],
     deployedAgents = [],
@@ -189,7 +190,7 @@ export default function HomePage() {
     isAgentInCart,
     isAgentDeployed,
     isAgentDeploying,
-    itemCount = 0,
+    getTotalItems,
     notifications = [],
     dismissNotification,
   } = useCart()
@@ -271,6 +272,8 @@ export default function HomePage() {
     )
   }
 
+  const totalCartItems = getTotalItems()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Notifications */}
@@ -324,13 +327,22 @@ export default function HomePage() {
             <div className="flex items-center space-x-4">
               <Button variant="outline" size="sm" onClick={() => setIsCartModalOpen(true)} className="relative">
                 <ShoppingCart className="h-4 w-4" />
-                {itemCount > 0 && (
+                {totalCartItems > 0 && (
                   <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
-                    {itemCount}
+                    {totalCartItems}
                   </Badge>
                 )}
               </Button>
-              {user ? <UserMenu /> : <Button onClick={() => setIsAuthModalOpen(true)}>Sign In</Button>}
+              {loading ? (
+                <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse" />
+              ) : user ? (
+                <UserMenu user={user} />
+              ) : (
+                <Button onClick={() => setIsAuthModalOpen(true)}>
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Sign In
+                </Button>
+              )}
             </div>
           </div>
         </div>

@@ -1,67 +1,60 @@
-import { createClient as createSupabaseClient, type SupabaseClient } from "@supabase/supabase-js"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 
-/**
- * ---------------------------------------------------------------------
- * Supabase singleton for the browser / server.
- * ---------------------------------------------------------------------
- */
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-  throw new Error(
-    "Supabase environment variables NEXT_PUBLIC_SUPABASE_URL and " + "NEXT_PUBLIC_SUPABASE_ANON_KEY must be set.",
-  )
+// Singleton pattern for browser client
+let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null
+
+export function createClient() {
+  if (!supabaseInstance) {
+    supabaseInstance = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+      },
+    })
+  }
+  return supabaseInstance
 }
 
-/**
- * Typed helper if you generated types from your DB.
- * Replace `any` with the generated Database interface if available.
- */
-export type TypedSupabaseClient = SupabaseClient<any>
+// Server-side client with service role key
+export function createServerClient() {
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!serviceRoleKey) {
+    throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY")
+  }
 
-/**
- * Factory – returns a **fresh** client.  Useful inside Server Actions or
- * short-lived scripts where you do _not_ want to reuse the singleton.
- */
-export function createClient(): SupabaseClient {
-  return createSupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
 }
 
-/**
- * Shared singleton – import `supabase` for the common case where you only need
- * one client instance (e.g. in React Client Components).
- */
-export const supabase: SupabaseClient = createClient()
+// Export the singleton instance directly
+export const supabase = createClient()
 
-/**
- * ---------------------------------------------------------------------
- * dbHelpers – utility functions used across the app
- * ---------------------------------------------------------------------
- */
+// Database helper functions
 export const dbHelpers = {
-  supabase,
-
   async getAIAgents() {
-    const { data, error } = await supabase.from("ai_agents").select("*").order("created_at", { ascending: false })
-
-    if (error) {
-      console.error("Error fetching AI agents:", error)
-      return []
-    }
-    return data || []
+    const { data, error } = await createClient().from("ai_agents").select("*")
+    if (error) throw error
+    return data
   },
 
-  async deployAgent(userId: string, agentId: string, configuration: Record<string, unknown>) {
-    const { data, error } = await supabase
-      .from("deployed_agents")
+  async deployAgent(userId: string, agentId: string, configuration: any) {
+    const { data, error } = await createClient()
+      .from("ai_agents")
       .insert({
         user_id: userId,
-        agent_id: agentId,
-        deployment_status: "deploying",
-        deployment_progress: 0,
+        agent_type: agentId,
+        name: configuration.name,
+        description: configuration.description,
         configuration,
-        deployed_at: new Date().toISOString(),
+        status: "active",
       })
       .select()
       .single()
@@ -70,81 +63,63 @@ export const dbHelpers = {
     return data
   },
 
-  async updateDeploymentStatus(deploymentId: string, status: string, progress?: number | null) {
-    const updates: Record<string, unknown> = { deployment_status: status }
-    if (typeof progress === "number") updates.deployment_progress = progress
-    if (status === "active") updates.activated_at = new Date().toISOString()
-
-    const { error } = await supabase.from("deployed_agents").update(updates).eq("id", deploymentId)
+  async updateDeploymentStatus(deploymentId: string, status: string, progress?: number) {
+    const { data, error } = await createClient()
+      .from("ai_agents")
+      .update({ status, ...(progress && { progress }) })
+      .eq("id", deploymentId)
+      .select()
+      .single()
 
     if (error) throw error
+    return data
   },
 
   async getUserDeployedAgents(userId: string) {
-    const { data, error } = await supabase
-      .from("deployed_agents")
-      .select(
-        `
-        *,
-        ai_agents (
-          id,
-          name,
-          type,
-          description,
-          capabilities,
-          pricing
-        )
-      `,
-      )
+    const { data, error } = await createClient()
+      .from("ai_agents")
+      .select("*")
       .eq("user_id", userId)
-      .eq("deployment_status", "active")
-
-    if (error) {
-      console.error("Error fetching deployed agents:", error)
-      return []
-    }
-    return data || []
-  },
-
-  async saveConversation(userId: string, agentType: string, messages: Array<{ role: string; content: string }>) {
-    const { data, error } = await supabase
-      .from("chat_conversations")
-      .insert({
-        user_id: userId,
-        agent_type: agentType,
-        messages,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-      .select()
-      .single()
+      .eq("status", "active")
 
     if (error) throw error
     return data
   },
 
-  async getConversationHistory(userId: string, agentType: string, limit = 10) {
-    const { data, error } = await supabase
+  async saveConversation(userId: string, agentType: string, messages: any[]) {
+    const conversations = messages.map((msg) => ({
+      user_id: userId,
+      agent_type: agentType,
+      user_message: msg.sender === "user" ? msg.content : null,
+      agent_response: msg.sender === "agent" ? msg.content : null,
+      created_at: msg.timestamp,
+    }))
+
+    const { data, error } = await createClient().from("chat_conversations").insert(conversations).select()
+
+    if (error) throw error
+    return data
+  },
+
+  async getConversationHistory(userId: string, agentType: string, limit = 50) {
+    const { data, error } = await createClient()
       .from("chat_conversations")
       .select("*")
       .eq("user_id", userId)
       .eq("agent_type", agentType)
-      .order("updated_at", { ascending: false })
+      .order("created_at", { ascending: false })
       .limit(limit)
 
-    if (error) {
-      console.error("Error fetching conversation history:", error)
-      return []
-    }
-    return data || []
+    if (error) throw error
+    return data
   },
 
-  async updateUserPreferences(userId: string, preferences: Record<string, unknown>) {
-    const { data, error } = await supabase
+  async updateUserPreferences(userId: string, preferences: any) {
+    const { data, error } = await createClient()
       .from("user_preferences")
       .upsert({
         user_id: userId,
-        preferences,
+        ...preferences,
         updated_at: new Date().toISOString(),
       })
       .select()
@@ -155,15 +130,33 @@ export const dbHelpers = {
   },
 
   async getUserPreferences(userId: string) {
-    const { data, error } = await supabase.from("user_preferences").select("*").eq("user_id", userId).single()
+    const { data, error } = await createClient().from("user_preferences").select("*").eq("user_id", userId).single()
 
-    if (error && error.code !== "PGRST116") {
-      console.error("Error fetching user preferences:", error)
-      return null
-    }
+    if (error && error.code !== "PGRST116") throw error
     return data
   },
-}
 
-/** Default export keeps existing import paths working */
-export default supabase
+  async getProfile(userId: string) {
+    const { data, error } = await createClient().from("profiles").select("*").eq("id", userId).single()
+
+    if (error && error.code !== "PGRST116") throw error
+    return data
+  },
+
+  async createProfile(userId: string, email: string, data: any = {}) {
+    const { data: profile, error } = await createClient()
+      .from("profiles")
+      .insert({
+        id: userId,
+        email,
+        ...data,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return profile
+  },
+}
