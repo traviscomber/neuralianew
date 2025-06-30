@@ -1,5 +1,4 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js"
-import { createBrowserClient as createSSRClient } from "@supabase/ssr"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -40,7 +39,7 @@ export function createServerClient() {
 }
 
 // Create a single supabase client for interacting with your database
-export const supabase = createSSRClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey)
 
 // Database helper functions that work with Supabase Auth
 export const dbHelpers = {
