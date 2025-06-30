@@ -75,6 +75,21 @@ CREATE INDEX idx_user_analytics_user_id ON public.user_analytics(user_id);
 CREATE INDEX idx_user_analytics_period ON public.user_analytics(period_type, period_start);
 CREATE INDEX idx_user_analytics_created_at ON public.user_analytics(created_at);
 
+-- Create function to update updated_at timestamp
+CREATE OR REPLACE FUNCTION update_user_analytics_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger to automatically update updated_at
+CREATE TRIGGER trigger_update_user_analytics_updated_at
+    BEFORE UPDATE ON public.user_analytics
+    FOR EACH ROW
+    EXECUTE FUNCTION update_user_analytics_updated_at();
+
 -- Grant permissions
 GRANT ALL ON public.user_analytics TO authenticated;
 GRANT ALL ON public.user_analytics TO service_role;

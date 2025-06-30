@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,7 +17,6 @@ import { useCart } from "@/hooks/use-cart"
 import {
   ShoppingCart,
   MessageSquare,
-  Eye,
   Plus,
   Zap,
   Clock,
@@ -227,7 +228,11 @@ export default function HomePage() {
     setIsChatOpen(true)
   }
 
-  const handleViewDetails = (agent: Agent) => {
+  const handleCardClick = (agent: Agent, event: React.MouseEvent) => {
+    // Prevent opening details if clicking on buttons
+    if ((event.target as HTMLElement).closest("button")) {
+      return
+    }
     setSelectedAgent(agent)
     setIsAgentDetailsOpen(true)
   }
@@ -461,9 +466,10 @@ export default function HomePage() {
               return (
                 <Card
                   key={agent.id}
-                  className={`relative group hover:shadow-xl transition-all duration-300 border-0 shadow-lg ${
+                  className={`relative group hover:shadow-xl transition-all duration-300 border-0 shadow-lg cursor-pointer ${
                     isCEO ? "ring-2 ring-purple-200 bg-gradient-to-br from-purple-50 to-indigo-50" : ""
                   }`}
+                  onClick={(e) => handleCardClick(agent, e)}
                 >
                   {isCEO && (
                     <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
@@ -532,14 +538,6 @@ export default function HomePage() {
                           </div>
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleViewDetails(agent)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
                     </div>
                     <CardDescription className={`text-sm leading-relaxed ${isCEO ? "text-purple-700" : ""}`}>
                       {agent.description}

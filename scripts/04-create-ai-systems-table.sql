@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS public.ai_systems;
 
 CREATE TABLE public.ai_systems (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
     
     -- System Details
     name TEXT NOT NULL,
@@ -79,6 +79,12 @@ CREATE INDEX ai_systems_user_id_idx ON public.ai_systems(user_id);
 CREATE INDEX ai_systems_type_idx ON public.ai_systems(type);
 CREATE INDEX ai_systems_status_idx ON public.ai_systems(status);
 CREATE INDEX ai_systems_deployment_status_idx ON public.ai_systems(deployment_status);
+
+-- Create trigger for updating updated_at timestamp
+CREATE TRIGGER update_ai_systems_updated_at
+    BEFORE UPDATE ON public.ai_systems
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
 
 -- Grant permissions
 GRANT ALL ON public.ai_systems TO authenticated;

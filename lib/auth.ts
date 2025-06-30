@@ -1,172 +1,87 @@
-import { supabase } from "@/lib/supabase"
+import { createClient } from "@/lib/supabase-browser"
 
-export interface User {
-  id: string
-  email: string
-  user_metadata?: {
-    full_name?: string
-    avatar_url?: string
+// Get the site URL for redirects
+function getSiteUrl(): string {
+  // Check for production site URL first
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL
   }
-  app_metadata?: {
-    provider?: string
-    providers?: string[]
-  }
-}
 
-export interface AuthState {
-  user: User | null
-  loading: boolean
-  error: string | null
+  // Check for Vercel URL
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+  }
+
+  // Fallback to localhost for development
+  return "http://localhost:3000"
 }
 
 export const authService = {
-  async signUp(email: string, password: string, metadata?: any) {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: metadata,
-        },
-      })
+  async signUp(email: string, password: string, userData?: any) {
+    const supabase = createClient()
 
-      if (error) throw error
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${getSiteUrl()}/auth/callback`,
+        data: userData,
+      },
+    })
 
-      return { user: data.user, session: data.session, error: null }
-    } catch (error: any) {
-      return { user: null, session: null, error: error.message }
-    }
+    if (error) throw error
+    return data
   },
 
   async signIn(email: string, password: string) {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+    const supabase = createClient()
 
-      if (error) throw error
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
 
-      return { user: data.user, session: data.session, error: null }
-    } catch (error: any) {
-      return { user: null, session: null, error: error.message }
-    }
-  },
-
-  async signInWithProvider(provider: "google" | "github" | "discord") {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider,
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
-      })
-
-      if (error) throw error
-
-      return { error: null }
-    } catch (error: any) {
-      return { error: error.message }
-    }
+    if (error) throw error
+    return data
   },
 
   async signOut() {
-    try {
-      const { error } = await supabase.auth.signOut()
-      if (error) throw error
-      return { error: null }
-    } catch (error: any) {
-      return { error: error.message }
-    }
+    const supabase = createClient()
+
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
   },
 
   async resetPassword(email: string) {
-    try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/reset-password`,
-      })
+    const supabase = createClient()
 
-      if (error) throw error
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${getSiteUrl()}/reset-password`,
+    })
 
-      return { error: null }
-    } catch (error: any) {
-      return { error: error.message }
-    }
+    if (error) throw error
   },
 
   async updatePassword(password: string) {
-    try {
-      const { error } = await supabase.auth.updateUser({
-        password,
-      })
+    const supabase = createClient()
 
-      if (error) throw error
+    const { error } = await supabase.auth.updateUser({
+      password,
+    })
 
-      return { error: null }
-    } catch (error: any) {
-      return { error: error.message }
-    }
+    if (error) throw error
   },
 
-  async updateProfile(updates: any) {
-    try {
-      const { error } = await supabase.auth.updateUser({
-        data: updates,
-      })
+  async signInWithProvider(provider: "google" | "github") {
+    const supabase = createClient()
 
-      if (error) throw error
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${getSiteUrl()}/auth/callback`,
+      },
+    })
 
-      return { error: null }
-    } catch (error: any) {
-      return { error: error.message }
-    }
-  },
-
-  async getCurrentUser() {
-    try {
-      const {
-        data: { user },
-        error,
-      } = await supabase.auth.getUser()
-
-      if (error) throw error
-
-      return { user, error: null }
-    } catch (error: any) {
-      return { user: null, error: error.message }
-    }
-  },
-
-  async getCurrentSession() {
-    try {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession()
-
-      if (error) throw error
-
-      return { session, error: null }
-    } catch (error: any) {
-      return { session: null, error: error.message }
-    }
-  },
-
-  onAuthStateChange(callback: (event: string, session: any) => void) {
-    return supabase.auth.onAuthStateChange(callback)
-  },
-
-  async refreshSession() {
-    try {
-      const { data, error } = await supabase.auth.refreshSession()
-
-      if (error) throw error
-
-      return { session: data.session, error: null }
-    } catch (error: any) {
-      return { session: null, error: error.message }
-    }
+    if (error) throw error
   },
 }
-
-export default authService

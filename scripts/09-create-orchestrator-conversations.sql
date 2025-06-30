@@ -42,3 +42,12 @@ CREATE TRIGGER handle_orchestrator_conversations_updated_at
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS orchestrator_conversations_user_id_idx ON public.orchestrator_conversations(user_id);
 CREATE INDEX IF NOT EXISTS orchestrator_conversations_created_at_idx ON public.orchestrator_conversations(created_at DESC);
+
+-- Grant permissions
+GRANT ALL ON public.orchestrator_conversations TO authenticated;
+GRANT ALL ON public.orchestrator_conversations TO service_role;
+
+-- Add comments for documentation
+COMMENT ON TABLE public.orchestrator_conversations IS 'Stores Central Orchestrator chat conversations and company profile data';
+COMMENT ON COLUMN public.orchestrator_conversations.messages IS 'JSONB array of chat messages between user and orchestrator';
+COMMENT ON COLUMN public.orchestrator_conversations.company_data IS 'JSONB object containing extracted company information (name, industry, size, goals, challenges)';

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS public.ai_agents;
 
 CREATE TABLE public.ai_agents (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
     
     -- Agent Details
     name TEXT NOT NULL,
@@ -78,6 +78,12 @@ CREATE INDEX ai_agents_user_id_idx ON public.ai_agents(user_id);
 CREATE INDEX ai_agents_type_idx ON public.ai_agents(type);
 CREATE INDEX ai_agents_status_idx ON public.ai_agents(status);
 CREATE INDEX ai_agents_deployment_status_idx ON public.ai_agents(deployment_status);
+
+-- Create trigger for updating updated_at timestamp
+CREATE TRIGGER update_ai_agents_updated_at
+    BEFORE UPDATE ON public.ai_agents
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
 
 -- Grant permissions
 GRANT ALL ON public.ai_agents TO authenticated;
