@@ -1,8 +1,15 @@
-import { createServerClient, type CookieOptions } from "@supabase/ssr"
 import { cookies } from "next/headers"
+import { createServerClient, type CookieOptions, type SupabaseClient } from "@supabase/ssr"
 
-// Function to create a server client for Supabase
-export function createSupabaseServerClient() {
+/**
+ * Returns a cookie-aware Supabase server client.
+ * Works in Route Handlers, Server Components, and Server Actions.
+ *
+ * Exports:
+ *  • createServerClientWithCookies – canonical helper
+ *  • createClient       – alias (for legacy imports)
+ */
+export function createServerClientWithCookies(): SupabaseClient<any, "public", any> {
   const cookieStore = cookies()
 
   return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
@@ -11,40 +18,15 @@ export function createSupabaseServerClient() {
         return cookieStore.get(name)?.value
       },
       set(name: string, value: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value, ...options })
-        } catch (error) {
-          // The `set` method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
+        cookieStore.set({ name, value, ...options })
       },
       remove(name: string, options: CookieOptions) {
-        try {
-          cookieStore.set({ name, value: "", ...options })
-        } catch (error) {
-          // The `delete` method was called from a Server Component.
-          // This can be ignored if you have middleware refreshing
-          // user sessions.
-        }
+        cookieStore.delete({ name, ...options })
       },
     },
   })
 }
 
-// Service role client for admin operations
-export function createServiceRoleClient() {
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, {
-    cookies: {
-      get() {
-        return undefined
-      },
-      set() {},
-      remove() {},
-    },
-  })
-}
-
-// Export both names for compatibility
-export const createClient = createSupabaseServerClient
-export default createSupabaseServerClient
+// named exports expected by the rest of the code-base
+export const createClient = createServerClientWithCookies
+export default createServerClientWithCookies

@@ -3,6 +3,9 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/hooks/use-auth"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -12,56 +15,40 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { User, Settings, LogOut } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { useRouter } from "next/navigation"
-import type { User as SupabaseUser } from "@supabase/supabase-js"
+import { User, Settings, LogOut, Loader2 } from "lucide-react"
 
-interface UserMenuProps {
-  user: SupabaseUser
-}
-
-export function UserMenu({ user }: UserMenuProps) {
-  const { signOut } = useAuth()
+export function UserMenu() {
+  const { user, profile, signOut } = useAuth()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  const [isSigningOut, setIsSigningOut] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+
+  if (!user) return null
 
   const handleSignOut = async (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
 
-    console.log("Sign out clicked") // Debug log
+    console.log("Sign out clicked")
+    setIsSigningOut(true)
+    setIsOpen(false)
 
     try {
-      setIsLoading(true)
-      console.log("Calling signOut...") // Debug log
-
       await signOut()
-
-      console.log("Sign out successful, redirecting...") // Debug log
-
-      // Close the dropdown
-      setIsOpen(false)
-
-      // Redirect to home page after sign out
+      console.log("Sign out successful, redirecting...")
       router.push("/")
-
-      // Force a page refresh to clear any cached state
-      setTimeout(() => {
-        window.location.reload()
-      }, 100)
+      router.refresh()
     } catch (error) {
-      console.error("Error signing out:", error)
+      console.error("Sign out error:", error)
     } finally {
-      setIsLoading(false)
+      setIsSigningOut(false)
     }
   }
 
   const handleProfileClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    console.log("Profile clicked")
     setIsOpen(false)
     router.push("/profile")
   }
@@ -69,27 +56,36 @@ export function UserMenu({ user }: UserMenuProps) {
   const handleSettingsClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
+    console.log("Settings clicked")
     setIsOpen(false)
     router.push("/settings")
   }
 
-  const getInitials = (email: string) => {
-    return email
-      .split("@")[0]
-      .split(".")
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase()
-      .slice(0, 2)
+  const getInitials = (name: string | null | undefined, email: string | undefined) => {
+    if (name) {
+      return name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    }
+    if (email) {
+      return email[0].toUpperCase()
+    }
+    return "U"
   }
+
+  const displayName = profile?.full_name || user.email?.split("@")[0] || "User"
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-full" onClick={() => setIsOpen(!isOpen)}>
-          <Avatar className="h-10 w-10">
-            <AvatarFallback className="bg-blue-600 text-white font-medium">
-              {getInitials(user.email || "U")}
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={profile?.avatar_url || ""} alt={displayName} />
+            <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-sm font-semibold">
+              {getInitials(profile?.full_name, user?.email)}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -97,28 +93,27 @@ export function UserMenu({ user }: UserMenuProps) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Account</p>
+            <p className="text-sm font-medium leading-none">{displayName}</p>
             <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer" onClick={handleProfileClick} onSelect={(e) => e.preventDefault()}>
+        <DropdownMenuItem onClick={handleProfileClick} className="cursor-pointer">
           <User className="mr-2 h-4 w-4" />
           <span>Profile</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer" onClick={handleSettingsClick} onSelect={(e) => e.preventDefault()}>
+        <DropdownMenuItem onClick={handleSettingsClick} className="cursor-pointer">
           <Settings className="mr-2 h-4 w-4" />
           <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
-          className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
           onClick={handleSignOut}
-          onSelect={(e) => e.preventDefault()}
-          disabled={isLoading}
+          disabled={isSigningOut}
+          className="cursor-pointer text-red-600 focus:text-red-600"
         >
-          <LogOut className="mr-2 h-4 w-4" />
-          <span>{isLoading ? "Signing out..." : "Log out"}</span>
+          {isSigningOut ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogOut className="mr-2 h-4 w-4" />}
+          <span>{isSigningOut ? "Signing out..." : "Log out"}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

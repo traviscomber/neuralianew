@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS deployed_agents (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-    agent_id TEXT NOT NULL, -- matches the agent type/id from the frontend
+    agent_id TEXT NOT NULL,
     agent_type TEXT NOT NULL CHECK (agent_type IN (
         'ceo-neural-agent',
         'hr-advisory', 
@@ -14,24 +14,23 @@ CREATE TABLE IF NOT EXISTS deployed_agents (
     )),
     name TEXT NOT NULL,
     description TEXT,
-    icon TEXT,
-    color TEXT,
     status TEXT NOT NULL DEFAULT 'deploying' CHECK (status IN ('deploying', 'active', 'inactive', 'error')),
     deployment_url TEXT,
     configuration JSONB DEFAULT '{}',
-    performance_metrics JSONB DEFAULT '{}',
-    uptime TEXT DEFAULT '99.9%',
-    last_active TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    deployed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    performance_metrics JSONB DEFAULT '{"conversations": 0, "messages": 0, "avgResponseTime": 0, "satisfaction": 0}',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_deployed_agents_user_id ON deployed_agents(user_id);
 CREATE INDEX IF NOT EXISTS idx_deployed_agents_agent_type ON deployed_agents(agent_type);
 CREATE INDEX IF NOT EXISTS idx_deployed_agents_status ON deployed_agents(status);
-CREATE INDEX IF NOT EXISTS idx_deployed_agents_deployed_at ON deployed_agents(deployed_at DESC);
+CREATE INDEX IF NOT EXISTS idx_deployed_agents_created_at ON deployed_agents(created_at DESC);
+
+-- Add unique constraint to prevent duplicate deployments
+CREATE UNIQUE INDEX IF NOT EXISTS idx_deployed_agents_user_agent 
+ON deployed_agents(user_id, agent_id);
 
 -- Enable Row Level Security
 ALTER TABLE deployed_agents ENABLE ROW LEVEL SECURITY;
@@ -50,18 +49,26 @@ CREATE POLICY "Users can delete their own deployed agents" ON deployed_agents
     FOR DELETE USING (auth.uid() = user_id);
 
 -- Create trigger for updating updated_at timestamp
-CREATE TRIGGER update_deployed_agents_updated_at
+CREATE OR REPLACE FUNCTION update_deployed_agents_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_deployed_agents_updated_at
     BEFORE UPDATE ON deployed_agents
     FOR EACH ROW
-    EXECUTE FUNCTION handle_updated_at();
+    EXECUTE FUNCTION update_deployed_agents_updated_at();
 
 -- Grant permissions
 GRANT ALL ON deployed_agents TO authenticated;
 GRANT ALL ON deployed_agents TO service_role;
 
 -- Add comments for documentation
-COMMENT ON TABLE deployed_agents IS 'Stores information about AI agents that users have deployed';
-COMMENT ON COLUMN deployed_agents.agent_id IS 'Unique identifier matching the frontend agent configuration';
-COMMENT ON COLUMN deployed_agents.configuration IS 'JSON configuration specific to this deployed agent';
-COMMENT ON COLUMN deployed_agents.performance_metrics IS 'JSON object storing performance data and analytics';
-COMMENT ON COLUMN deployed_agents.uptime IS 'String representation of agent uptime percentage';
+COMMENT ON TABLE deployed_agents IS 'Stores information about AI agents deployed by users';
+COMMENT ON COLUMN deployed_agents.agent_id IS 'Unique identifier for the agent type';
+COMMENT ON COLUMN deployed_agents.agent_type IS 'Type of AI agent (ceo-neural-agent, hr-advisory, etc.)';
+COMMENT ON COLUMN deployed_agents.configuration IS 'Agent configuration including model settings and prompts';
+COMMENT ON COLUMN deployed_agents.performance_metrics IS 'Performance metrics like conversation count and satisfaction';

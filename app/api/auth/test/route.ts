@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server"
-import { createServiceRoleClient } from "@/lib/supabase-server"
+import { createClient } from "@/lib/supabase-server"
 
 export async function GET() {
   try {
-    const supabase = createServiceRoleClient()
+    const supabase = createClient()
 
     // Test 1: Basic connection
     const { data: connectionTest, error: connectionError } = await supabase.from("profiles").select("count").limit(1)
@@ -16,17 +16,27 @@ export async function GET() {
       })
     }
 
-    // Test 2: Check if tables exist
-    const tables = ["profiles", "ai_agents", "chat_conversations", "user_analytics"]
-    const tableTests = []
+    // Test 2: Check if all required tables exist
+    const tables = [
+      "profiles",
+      "ai_agents",
+      "ai_systems",
+      "chat_conversations",
+      "user_analytics",
+      "orchestrator_conversations",
+      "deployed_agents",
+      "user_preferences",
+      "error_reports",
+    ]
 
+    const tableTests = []
     for (const table of tables) {
       try {
         const { error } = await supabase.from(table).select("*").limit(1)
         tableTests.push({
           table,
           exists: !error,
-          error: error?.message || null,
+          error: error?.message,
         })
       } catch (err) {
         tableTests.push({
@@ -38,30 +48,28 @@ export async function GET() {
     }
 
     // Test 3: Environment variables
-    const envVars = {
-      NEXT_PUBLIC_SUPABASE_URL: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-      SUPABASE_ANON_KEY: !!process.env.SUPABASE_ANON_KEY,
-      SUPABASE_SERVICE_ROLE_KEY: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
-      NEXT_PUBLIC_SITE_URL: !!process.env.NEXT_PUBLIC_SITE_URL,
+    const envCheck = {
+      supabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      supabaseAnonKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      supabaseServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      openaiKey: !!process.env.OPENAI_API_KEY,
+      siteUrl: !!process.env.NEXT_PUBLIC_SITE_URL,
     }
 
     return NextResponse.json({
       success: true,
       timestamp: new Date().toISOString(),
       tests: {
-        connection: { success: true, message: "Database connection successful" },
+        connection: { success: true, message: "Database connected successfully" },
         tables: tableTests,
-        environment: envVars,
+        environment: envCheck,
       },
     })
   } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Test failed",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 },
-    )
+    return NextResponse.json({
+      success: false,
+      error: "Server error",
+      details: error instanceof Error ? error.message : "Unknown error",
+    })
   }
 }
