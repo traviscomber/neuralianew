@@ -93,7 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     getInitialSession()
 
-    // Listen for auth changes
+    // Listen for auth changes - this is handled by Supabase
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -116,6 +116,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     try {
+      // Supabase handles the sign out
       const { error } = await supabase.auth.signOut()
       if (error) throw error
 

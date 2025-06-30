@@ -39,7 +39,16 @@ export function createServerClient() {
 }
 
 // Create a single supabase client for interacting with your database
-export const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
+
+// Helper function to create a client (for compatibility)
+export const createBrowserClient = () => supabase
 
 // Database helper functions that work with Supabase Auth
 export const dbHelpers = {
