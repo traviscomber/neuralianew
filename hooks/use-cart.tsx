@@ -1,158 +1,115 @@
 "use client"
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react"
-import { supabase } from "@/lib/supabase-browser"
-import { toast } from "sonner"
-import { v4 as uuid } from "uuid"
+import { createContext, useContext, useState, type ReactNode } from "react"
 
-type Agent = {
+interface Agent {
   id: string
   name: string
+  description: string
+  category: string
   price: number
-  [key: string]: any
+  image: string
+  features: string[]
+  rating: number
+  reviews: number
 }
 
-type Notification = { id: string; message: string; type: "success" | "error" | "info" }
+interface CartItem extends Agent {
+  quantity: number
+}
 
-interface CartCtx {
-  cartItems: Agent[]
-  deployedAgents: Agent[]
-  notifications: Notification[]
-  /* helpers */
-  getTotalItems: () => number
-  getTotalPrice: () => number
-  isAgentInCart: (id: string) => boolean
-  isAgentDeployed: (id: string) => boolean
-  isAgentDeploying: (id: string) => boolean
-  isDeploying: boolean
-  /* mutations */
-  addToCart: (a: Agent) => void
-  deployAgent: (a: Agent) => Promise<void>
+interface CartContextType {
+  items: CartItem[]
+  cartItems: CartItem[]
+  addToCart: (agent: Agent) => void
+  removeFromCart: (agentId: string) => void
+  updateQuantity: (agentId: string, quantity: number) => void
   clearCart: () => void
-  dismissNotification: (id: string) => void
+  getTotalPrice: () => number
+  getTotalItems: () => number
+  isAgentInCart: (agentId: string) => boolean
+  isAgentDeployed: (agentId: string) => boolean
+  isAgentDeploying: (agentId: string) => boolean
 }
 
-const CartContext = createContext<CartCtx | undefined>(undefined)
+const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [cart, setCart] = useState<Agent[]>([])
-  const [deployed, setDeployed] = useState<Agent[]>([])
-  const [deployingIds, setDeploying] = useState<Set<string>>(new Set())
-  const [notis, setNotis] = useState<Notification[]>([])
-
-  /* ---------- notification helpers ---------- */
-  const notify = useCallback(
-    (n: Omit<Notification, "id">) => {
-      const id = uuid()
-      setNotis((p) => [...p, { ...n, id }])
-      toast[n.type](n.message)
-    },
-    [setNotis],
-  )
-  const dismissNotification = (id: string) => setNotis((p) => p.filter((n) => n.id !== id))
-
-  /* --------------- cart helpers -------------- */
-  const getTotalItems = useCallback(() => cart.length, [cart])
-  const getTotalPrice = useCallback(() => cart.reduce((sum, a) => sum + (a.price ?? 0), 0), [cart])
-
-  const isAgentInCart = useCallback((id: string) => cart.some((a) => a.id === id), [cart])
-  const isAgentDeployed = useCallback((id: string) => deployed.some((a) => a.id === id), [deployed])
-  const isAgentDeploying = useCallback((id: string) => deployingIds.has(id), [deployingIds])
+  const [items, setItems] = useState<CartItem[]>([])
+  const [deployedAgents, setDeployedAgents] = useState<Set<string>>(new Set())
+  const [deployingAgents, setDeployingAgents] = useState<Set<string>>(new Set())
 
   const addToCart = (agent: Agent) => {
-    setCart((p) => (p.find((a) => a.id === agent.id) ? p : [...p, agent]))
-    notify({ type: "info", message: `${agent.name} added to cart` })
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === agent.id)
+      if (existingItem) {
+        return prevItems.map((item) => (item.id === agent.id ? { ...item, quantity: item.quantity + 1 } : item))
+      }
+      return [...prevItems, { ...agent, quantity: 1 }]
+    })
+  }
+
+  const removeFromCart = (agentId: string) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== agentId))
+  }
+
+  const updateQuantity = (agentId: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeFromCart(agentId)
+      return
+    }
+    setItems((prevItems) => prevItems.map((item) => (item.id === agentId ? { ...item, quantity } : item)))
   }
 
   const clearCart = () => {
-    setCart([])
-    notify({ type: "info", message: "Cart cleared" })
+    setItems([])
   }
 
-  /* ---------------- deploy logic ------------- */
-  const deployAgent = useCallback(
-    async (agent: Agent) => {
-      if (deployingIds.has(agent.id)) return
-      setDeploying((p) => new Set(p).add(agent.id))
+  const getTotalPrice = () => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0)
+  }
 
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession()
-        if (!session?.access_token) throw new Error("Auth session missing")
+  const getTotalItems = () => {
+    return items.reduce((total, item) => total + item.quantity, 0)
+  }
 
-        const res = await fetch("/api/agents/deploy", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session.access_token}`,
-          },
-          body: JSON.stringify({ agent }),
-        })
+  const isAgentInCart = (agentId: string) => {
+    return items.some((item) => item.id === agentId)
+  }
 
-        let payload: any = {}
-        try {
-          payload = await res.json()
-        } catch {
-          payload = { error: await res.text() } /* plain-text fallback */
-        }
+  const isAgentDeployed = (agentId: string) => {
+    return deployedAgents.has(agentId)
+  }
 
-        if (!res.ok) throw new Error(payload.error ?? "Unknown error")
+  const isAgentDeploying = (agentId: string) => {
+    return deployingAgents.has(agentId)
+  }
 
-        /* success */
-        setDeployed((p) => [...p, agent])
-        setCart((p) => p.filter((a) => a.id !== agent.id))
-        notify({ type: "success", message: `${agent.name} deployed!` })
-      } catch (err: any) {
-        console.error("deployAgent error →", err)
-        notify({ type: "error", message: err.message })
-      } finally {
-        setDeploying((p) => {
-          const next = new Set(p)
-          next.delete(agent.id)
-          return next
-        })
-      }
-    },
-    [deployingIds, notify],
+  return (
+    <CartContext.Provider
+      value={{
+        items,
+        cartItems: items,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        getTotalPrice,
+        getTotalItems,
+        isAgentInCart,
+        isAgentDeployed,
+        isAgentDeploying,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
   )
-
-  /* --------------- exposed value ------------- */
-  const value = useMemo<CartCtx>(
-    () => ({
-      cartItems: cart,
-      deployedAgents: deployed,
-      notifications: notis,
-      isDeploying: deployingIds.size > 0,
-      getTotalItems,
-      getTotalPrice,
-      isAgentInCart,
-      isAgentDeployed,
-      isAgentDeploying,
-      addToCart,
-      deployAgent,
-      clearCart,
-      dismissNotification,
-    }),
-    [
-      cart,
-      deployed,
-      notis,
-      deployingIds,
-      getTotalItems,
-      getTotalPrice,
-      isAgentInCart,
-      isAgentDeployed,
-      isAgentDeploying,
-      deployAgent,
-    ],
-  )
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
 export function useCart() {
-  const ctx = useContext(CartContext)
-  if (!ctx) throw new Error("useCart must be used within CartProvider")
-  return ctx
+  const context = useContext(CartContext)
+  if (context === undefined) {
+    throw new Error("useCart must be used within a CartProvider")
+  }
+  return context
 }

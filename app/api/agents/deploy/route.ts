@@ -1,40 +1,100 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { createServerClient } from "@supabase/ssr"
+import { cookies } from "next/headers"
 
-const supabase = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
-
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    /* ------------------- auth ------------------- */
-    const auth = req.headers.get("authorization") ?? ""
-    if (!auth.startsWith("Bearer ")) return json({ error: "Unauthorized" }, 401)
+    // Create Supabase client with proper cookie handling
+    const cookieStore = cookies()
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: any) {
+            cookieStore.set({ name, value, ...options })
+          },
+          remove(name: string, options: any) {
+            cookieStore.set({ name, value: "", ...options })
+          },
+        },
+      },
+    )
 
-    const token = auth.slice(7)
-    const { data: userData, error: authError } = await supabase.auth.getUser(token)
-    if (authError || !userData.user) return json({ error: "Unauthorized" }, 401)
+    // Get the current user from session
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser()
 
-    /* -------------- parse body safely ----------- */
-    let body: any = {}
-    try {
-      body = await req.json()
-    } catch {
-      return json({ error: "Invalid JSON body" }, 400)
+    if (authError || !user) {
+      console.error("Auth error:", authError)
+      return NextResponse.json({ error: "Unauthorized - Please sign in again" }, { status: 401 })
     }
-    const agent = body.agent
-    if (!agent?.id) return json({ error: "Missing agent" }, 400)
 
-    /* ------------- pretend deployment ---------- */
-    // In prod you'd insert into DB or kick off a job.
-    console.log(`Deployed agent ${agent.id} for user ${userData.user.id}`)
+    const body = await request.json()
+    const { agentId, agentType, name, description, configuration } = body
 
-    return json({ success: true })
-  } catch (err: any) {
-    console.error("API /agents/deploy error:", err)
-    return json({ error: "Internal server error" }, 500)
+    if (!agentId || !agentType || !name) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // Check if agent is already deployed for this user
+    const { data: existingAgent } = await supabase
+      .from("deployed_agents")
+      .select("id, status")
+      .eq("user_id", user.id)
+      .eq("agent_id", agentId)
+      .maybeSingle()
+
+    if (existingAgent) {
+      if (existingAgent.status === "active") {
+        return NextResponse.json({ error: "Agent already deployed" }, { status: 400 })
+      } else if (existingAgent.status === "deploying") {
+        return NextResponse.json({ error: "Agent is currently deploying" }, { status: 400 })
+      }
+    }
+
+    // Create deployment record with "active" status (simulating instant deployment)
+    const deploymentData = {
+      user_id: user.id,
+      agent_id: agentId,
+      agent_type: agentType,
+      name,
+      description: description || "",
+      status: "active" as const,
+      deployment_url: `https://neuralia.ai/agents/${agentId}`,
+      configuration: configuration || {},
+      performance_metrics: {
+        uptime: "100%",
+        response_time: "< 1s",
+        success_rate: "99.9%",
+        last_health_check: new Date().toISOString(),
+      },
+    }
+
+    const { data: deployedAgent, error: insertError } = await supabase
+      .from("deployed_agents")
+      .insert(deploymentData)
+      .select()
+      .single()
+
+    if (insertError) {
+      console.error("Database insert error:", insertError)
+      return NextResponse.json({ error: "Failed to create deployment record" }, { status: 500 })
+    }
+
+    // Return success response
+    return NextResponse.json({
+      success: true,
+      agent: deployedAgent,
+      message: "Agent deployed successfully",
+    })
+  } catch (error) {
+    console.error("Deployment error:", error)
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
-}
-
-/* helper – always return valid JSON */
-function json(payload: Record<string, unknown>, status = 200) {
-  return NextResponse.json(payload, { status })
 }

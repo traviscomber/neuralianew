@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle, Plus, Zap, MessageSquare, Clock } from "lucide-react"
+import { CheckCircle, Plus, Zap, MessageSquare } from "lucide-react"
 
 interface AgentDetailsModalProps {
   isOpen: boolean
@@ -16,53 +16,50 @@ interface AgentDetailsModalProps {
   isDeploying: boolean
 }
 
-// Mock agent data - in a real app, this would come from props or API
-const getAgentDetails = (agentId: string) => {
-  const agents: { [key: string]: any } = {
-    "ceo-neural-agent": {
-      id: "ceo-neural-agent",
-      name: "CEO Neural Agent",
-      description:
-        "Executive-level AI orchestrator that manages all business operations with C-suite intelligence and strategic oversight",
-      price: 0,
-      features: [
-        "Executive Strategic Planning",
-        "Cross-Functional Orchestration",
-        "Performance Optimization",
-        "Risk Management & Decision Support",
-        "Strategic Decision Making",
-        "Business Intelligence Analysis",
-      ],
-      capabilities: [
-        "Analyze complex business scenarios",
-        "Coordinate multiple departments",
-        "Provide executive-level insights",
-        "Risk assessment and mitigation",
-        "Strategic planning and execution",
-      ],
-    },
-    "hr-advisory": {
-      id: "hr-advisory",
-      name: "HR Advisory Expert",
-      description:
-        "Comprehensive human resources expertise covering policy development, employee relations, and strategic workforce management",
-      price: 299,
-      features: [
-        "Employee Relations Management",
-        "Policy Development & Compliance",
-        "Performance Management",
-        "Talent Strategy",
-      ],
-      capabilities: [
-        "Handle employee disputes",
-        "Develop HR policies",
-        "Manage performance reviews",
-        "Recruitment strategies",
-      ],
-    },
-  }
-
-  return agents[agentId] || null
+// Mock agent data - in real app this would come from props or API
+const agentDetails = {
+  "ceo-neural-agent": {
+    id: "ceo-neural-agent",
+    name: "CEO Neural Agent",
+    description:
+      "Executive-level AI orchestrator that manages all business operations with C-suite intelligence and strategic oversight",
+    price: 0,
+    features: [
+      "Executive Strategic Planning",
+      "Cross-Functional Orchestration",
+      "Performance Optimization",
+      "Risk Management & Decision Support",
+      "Board-Level Reporting",
+      "Strategic Vision Development",
+    ],
+    capabilities: [
+      "Advanced decision-making algorithms",
+      "Multi-departmental coordination",
+      "Real-time performance analytics",
+      "Predictive business modeling",
+    ],
+  },
+  "hr-advisory": {
+    id: "hr-advisory",
+    name: "HR Advisory Expert",
+    description:
+      "Comprehensive human resources expertise covering policy development, employee relations, and strategic workforce management",
+    price: 299,
+    features: [
+      "Employee Relations Management",
+      "Policy Development & Compliance",
+      "Performance Management",
+      "Talent Strategy",
+      "Compensation Analysis",
+      "Training & Development",
+    ],
+    capabilities: [
+      "HR policy automation",
+      "Employee sentiment analysis",
+      "Compliance monitoring",
+      "Talent acquisition optimization",
+    ],
+  },
 }
 
 export function AgentDetailsModal({
@@ -75,22 +72,9 @@ export function AgentDetailsModal({
   isDeployed,
   isDeploying,
 }: AgentDetailsModalProps) {
-  const agent = getAgentDetails(agentId)
+  const agent = agentDetails[agentId as keyof typeof agentDetails]
 
   if (!agent) return null
-
-  const handleAction = () => {
-    if (isDeployed) {
-      // Handle chat action
-      return
-    }
-
-    if (isInCart) {
-      onDeployAgent(agent)
-    } else {
-      onAddToCart(agent)
-    }
-  }
 
   const getActionButton = () => {
     if (isDeployed) {
@@ -105,7 +89,6 @@ export function AgentDetailsModal({
     if (isDeploying) {
       return (
         <Button disabled className="w-full">
-          <Clock className="mr-2 h-4 w-4" />
           Deploying...
         </Button>
       )
@@ -113,7 +96,7 @@ export function AgentDetailsModal({
 
     if (isInCart) {
       return (
-        <Button onClick={handleAction} className="w-full">
+        <Button onClick={() => onDeployAgent(agent)} className="w-full">
           <Zap className="mr-2 h-4 w-4" />
           Deploy Now
         </Button>
@@ -121,7 +104,7 @@ export function AgentDetailsModal({
     }
 
     return (
-      <Button onClick={handleAction} className="w-full">
+      <Button onClick={() => onAddToCart(agent)} className="w-full">
         <Plus className="mr-2 h-4 w-4" />
         Add to Cart
       </Button>
@@ -143,7 +126,7 @@ export function AgentDetailsModal({
           <div>
             <h3 className="font-semibold mb-3">Key Features</h3>
             <div className="grid grid-cols-1 gap-2">
-              {agent.features.map((feature: string, index: number) => (
+              {agent.features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
                   <span className="text-sm">{feature}</span>
@@ -152,27 +135,22 @@ export function AgentDetailsModal({
             </div>
           </div>
 
-          {agent.capabilities && (
-            <div>
-              <h3 className="font-semibold mb-3">Capabilities</h3>
-              <div className="grid grid-cols-1 gap-2">
-                {agent.capabilities.map((capability: string, index: number) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <CheckCircle className="h-4 w-4 text-blue-500 flex-shrink-0" />
-                    <span className="text-sm">{capability}</span>
-                  </div>
-                ))}
-              </div>
+          <div>
+            <h3 className="font-semibold mb-3">Core Capabilities</h3>
+            <div className="grid grid-cols-1 gap-2">
+              {agent.capabilities.map((capability, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <CheckCircle className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                  <span className="text-sm">{capability}</span>
+                </div>
+              ))}
             </div>
-          )}
+          </div>
 
           <div className="border-t pt-4">
             <div className="flex justify-between items-center mb-4">
-              <span className="text-lg font-semibold">Price: {agent.price === 0 ? "Free" : `$${agent.price}`}</span>
-              {isInCart && <Badge variant="outline">In Cart</Badge>}
-              {isDeployed && <Badge className="bg-green-100 text-green-800">Active</Badge>}
+              <span className="text-lg font-semibold">{agent.price === 0 ? "Free" : `$${agent.price}`}</span>
             </div>
-
             {getActionButton()}
           </div>
         </div>

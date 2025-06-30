@@ -1,22 +1,17 @@
-/**
- * Browser-side Supabase client (singleton)
- * ---------------------------------------
- *  - `createClient()`  → returns the singleton
- *  - `supabase`        → ready-made default export
- */
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
-import type { SupabaseClient } from "@supabase/supabase-js"
+import { createBrowserClient } from "@supabase/ssr"
 
-let browserClient: SupabaseClient | undefined
+// Create a single instance to avoid multiple GoTrueClient instances
+const supabaseClient = createBrowserClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+)
 
-export function createClient(): SupabaseClient {
-  if (!browserClient) {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
-    const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    browserClient = createSupabaseClient(url, anon)
-  }
-  return browserClient
+export function createClient() {
+  return supabaseClient
 }
 
-/* convenience singleton */
-export const supabase = createClient()
+// Export the client instance for direct use
+export const supabase = supabaseClient
+
+// Default export
+export default supabaseClient

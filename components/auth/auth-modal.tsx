@@ -4,11 +4,11 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { supabase } from "@/lib/supabase"
+import { useAuth } from "@/hooks/use-auth"
 import { toast } from "@/hooks/use-toast"
 
 interface AuthModalProps {
@@ -17,64 +17,61 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const { signIn, signUp } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
 
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      })
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
-      if (error) throw error
+    const { error } = await signIn(email, password)
 
-      toast({
-        title: "Check your email",
-        description: "We've sent you a confirmation link.",
-      })
-      onClose()
-    } catch (error: any) {
+    if (error) {
       toast({
         title: "Error",
-        description: error.message,
+        description: error,
         variant: "destructive",
       })
-    } finally {
-      setIsLoading(false)
+    } else {
+      toast({
+        title: "Success",
+        description: "You have been signed in successfully.",
+      })
+      onClose()
     }
+
+    setIsLoading(false)
   }
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsLoading(true)
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
-      if (error) throw error
+    const { error } = await signUp(email, password)
 
-      toast({
-        title: "Welcome back!",
-        description: "You've been signed in successfully.",
-      })
-      onClose()
-    } catch (error: any) {
+    if (error) {
       toast({
         title: "Error",
-        description: error.message,
+        description: error,
         variant: "destructive",
       })
-    } finally {
-      setIsLoading(false)
+    } else {
+      toast({
+        title: "Success",
+        description: "Please check your email to confirm your account.",
+      })
+      onClose()
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -93,23 +90,15 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="signin-email">Email</Label>
-                <Input
-                  id="signin-email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <Input id="signin-email" name="email" type="email" placeholder="Enter your email" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signin-password">Password</Label>
                 <Input
                   id="signin-password"
+                  name="password"
                   type="password"
                   placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -122,28 +111,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="signup-email">Email</Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <Input id="signup-email" name="email" type="email" placeholder="Enter your email" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
-                <Input
-                  id="signup-password"
-                  type="password"
-                  placeholder="Create a password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+                <Input id="signup-password" name="password" type="password" placeholder="Create a password" required />
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Creating account..." : "Create Account"}
+                {isLoading ? "Creating account..." : "Sign Up"}
               </Button>
             </form>
           </TabsContent>
