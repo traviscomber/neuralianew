@@ -4,14 +4,14 @@ import type React from "react"
 
 import { createContext, useContext, useEffect, useState } from "react"
 import type { User } from "@supabase/supabase-js"
-import { createClient } from "@/lib/supabase"
-import { db } from "@/lib/supabase"
+import { supabase } from "@/lib/supabase"
+import { toast } from "@/hooks/use-toast"
 
 interface AuthContextType {
   user: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string, name?: string) => Promise<void>
+  signUp: (email: string, password: string) => Promise<void>
   signOut: () => Promise<void>
   resetPassword: (email: string) => Promise<void>
 }
@@ -21,19 +21,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createClient()
 
   useEffect(() => {
     // Get initial session
-    const getInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
-    }
-
-    getInitialSession()
+    })
 
     // Listen for auth changes
     const {
@@ -42,22 +36,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(session?.user ?? null)
       setLoading(false)
 
-      // Create profile on sign up
-      if (event === "SIGNED_UP" && session?.user) {
-        try {
-          await db.profiles.create({
-            id: session.user.id,
-            email: session.user.email!,
-            name: session.user.user_metadata?.name || "",
-          })
-        } catch (error) {
-          console.error("Error creating profile:", error)
-        }
+      if (event === "SIGNED_IN") {
+        toast({
+          title: "Welcome back!",
+          description: "You have been signed in successfully.",
+        })
+      } else if (event === "SIGNED_OUT") {
+        toast({
+          title: "Signed out",
+          description: "You have been signed out successfully.",
+        })
       }
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase.auth])
+  }, [])
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -66,29 +59,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (error) {
+      toast({
+        title: "Error signing in",
+        description: error.message,
+        variant: "destructive",
+      })
       throw error
     }
   }
 
-  const signUp = async (email: string, password: string, name?: string) => {
+  const signUp = async (email: string, password: string) => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: {
-          name: name || "",
-        },
-      },
     })
 
     if (error) {
+      toast({
+        title: "Error signing up",
+        description: error.message,
+        variant: "destructive",
+      })
       throw error
     }
+
+    toast({
+      title: "Check your email",
+      description: "We've sent you a confirmation link.",
+    })
   }
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
+
     if (error) {
+      toast({
+        title: "Error signing out",
+        description: error.message,
+        variant: "destructive",
+      })
       throw error
     }
   }
@@ -99,8 +108,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     if (error) {
+      toast({
+        title: "Error resetting password",
+        description: error.message,
+        variant: "destructive",
+      })
       throw error
     }
+
+    toast({
+      title: "Check your email",
+      description: "We've sent you a password reset link.",
+    })
   }
 
   const value = {

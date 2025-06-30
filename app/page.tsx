@@ -4,176 +4,271 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+import { Separator } from "@/components/ui/separator"
+import { AuthModal } from "@/components/auth/auth-modal"
+import { UserMenu } from "@/components/auth/user-menu"
+import { CartModal } from "@/components/cart/cart-modal"
+import { ChatWidget } from "@/components/chat/chat-widget"
+import { AgentDetailsModal } from "@/components/agent-details-modal"
+import { useAuth } from "@/hooks/use-auth"
+import { useCart } from "@/hooks/use-cart"
 import {
-  Brain,
-  CheckCircle,
+  ShoppingCart,
   MessageSquare,
-  Sparkles,
-  Users,
+  Eye,
+  Plus,
   Zap,
+  Clock,
+  CheckCircle,
+  Brain,
+  Users,
   BarChart3,
   Megaphone,
   Headphones,
   Target,
   Wrench,
-  ShoppingCart,
-  Play,
+  Star,
   TrendingUp,
+  Shield,
+  Sparkles,
+  Crown,
 } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { useCart } from "@/hooks/use-cart"
-import { CartModal } from "@/components/cart/cart-modal"
-import { AuthModal } from "@/components/auth/auth-modal"
-import { ChatWidget } from "@/components/chat/chat-widget"
 
-const agentTypes = [
+interface Agent {
+  id: string
+  type: string
+  name: string
+  description: string
+  price: number
+  features: string[]
+  icon: string
+  color: string
+  category?: string
+  priority?: number
+}
+
+const iconMap = {
+  brain: Brain,
+  users: Users,
+  "bar-chart-3": BarChart3,
+  megaphone: Megaphone,
+  headphones: Headphones,
+  target: Target,
+  wrench: Wrench,
+}
+
+const agentTypes: Agent[] = [
+  {
+    id: "ceo-neural-agent",
+    type: "ceo-neural-agent",
+    name: "CEO Neural Agent",
+    description:
+      "Executive-level AI orchestrator that manages all business operations with C-suite intelligence and strategic oversight",
+    icon: "brain",
+    price: 0,
+    features: [
+      "Executive Strategic Planning",
+      "Cross-Functional Orchestration",
+      "Performance Optimization",
+      "Risk Management & Decision Support",
+    ],
+    color: "bg-gradient-to-r from-purple-600 to-indigo-600",
+    category: "Executive Core",
+    priority: 1,
+  },
   {
     id: "hr-advisory",
-    name: "HR Advisory Agent",
-    description: "24/7 HR expert for policies, benefits, and employee queries",
-    icon: Users,
+    type: "hr-advisory",
+    name: "HR Advisory Expert",
+    description:
+      "Comprehensive human resources expertise covering policy development, employee relations, and strategic workforce management",
+    icon: "users",
     price: 299,
-    features: ["Policy Guidance", "Benefits Support", "Compliance Help", "Employee Relations"],
+    features: [
+      "Employee Relations Management",
+      "Policy Development & Compliance",
+      "Performance Management",
+      "Talent Strategy",
+    ],
     color: "bg-blue-600",
-    setupTime: "24-48 hours",
-    roi: "60% reduction in HR escalations",
+    category: "HR",
+    priority: 2,
   },
   {
     id: "sales-coach",
-    name: "Sales Coach Agent",
-    description: "AI sales expert to boost team performance and close rates",
-    icon: Target,
+    type: "sales-coach",
+    name: "Sales Performance Coach",
+    description:
+      "Advanced sales methodology expert specializing in deal strategy, pipeline optimization, and revenue acceleration",
+    icon: "target",
     price: 399,
-    features: ["Deal Strategy", "Objection Handling", "Pipeline Management", "Team Coaching"],
-    color: "bg-green-600",
-    setupTime: "24-48 hours",
-    roi: "40% higher close rates",
+    features: [
+      "Deal Strategy Optimization",
+      "Advanced Sales Methodologies",
+      "Pipeline Management",
+      "Revenue Forecasting",
+    ],
+    color: "bg-red-600",
+    category: "Sales",
+    priority: 3,
   },
   {
     id: "customer-service",
-    name: "Customer Service Agent",
-    description: "Instant customer support with 95% resolution rate",
-    icon: Headphones,
+    type: "customer-service",
+    name: "Customer Experience Expert",
+    description: "Omnichannel customer service specialist focused on satisfaction optimization and service excellence",
+    icon: "headphones",
     price: 249,
-    features: ["24/7 Support", "Multi-channel", "Escalation Handling", "Knowledge Base"],
-    color: "bg-purple-600",
-    setupTime: "24-48 hours",
-    roi: "300% faster response times",
+    features: [
+      "Omnichannel Support Strategy",
+      "Customer Journey Optimization",
+      "Service Quality Management",
+      "Retention Strategies",
+    ],
+    color: "bg-teal-600",
+    category: "Support",
+    priority: 4,
   },
   {
     id: "technical-support",
-    name: "Technical Support Agent",
-    description: "Expert technical troubleshooting and system guidance",
-    icon: Wrench,
+    type: "technical-support",
+    name: "Technical Systems Expert",
+    description:
+      "Advanced technical specialist for system architecture, troubleshooting, and infrastructure optimization",
+    icon: "wrench",
     price: 349,
-    features: ["System Diagnostics", "Troubleshooting", "Integration Help", "Documentation"],
-    color: "bg-red-600",
-    setupTime: "24-48 hours",
-    roi: "70% faster resolution",
+    features: [
+      "System Architecture Analysis",
+      "Advanced Troubleshooting",
+      "Infrastructure Optimization",
+      "Security Assessment",
+    ],
+    color: "bg-indigo-600",
+    category: "Technical",
+    priority: 5,
   },
   {
     id: "marketing",
-    name: "Marketing Agent",
-    description: "Strategic marketing guidance and campaign optimization",
-    icon: Megaphone,
+    type: "marketing",
+    name: "Marketing Strategy Expert",
+    description:
+      "Comprehensive marketing intelligence covering strategy development, campaign optimization, and growth acceleration",
+    icon: "megaphone",
     price: 329,
-    features: ["Campaign Strategy", "Lead Generation", "Content Planning", "Performance Analysis"],
+    features: ["Strategic Campaign Development", "Multi-Channel Optimization", "Brand Positioning", "Growth Marketing"],
     color: "bg-orange-600",
-    setupTime: "24-48 hours",
-    roi: "45% increase in leads",
+    category: "Marketing",
+    priority: 6,
   },
   {
     id: "analytics",
-    name: "Analytics Agent",
-    description: "Data insights and business intelligence expert",
-    icon: BarChart3,
+    type: "analytics",
+    name: "Data Intelligence Expert",
+    description:
+      "Advanced analytics specialist providing predictive insights, statistical modeling, and business intelligence",
+    icon: "bar-chart-3",
     price: 379,
-    features: ["Data Analysis", "Report Generation", "Trend Identification", "KPI Tracking"],
-    color: "bg-indigo-600",
-    setupTime: "24-48 hours",
-    roi: "40% better decision making",
+    features: ["Predictive Analytics", "Statistical Modeling", "Business Intelligence", "Data Visualization"],
+    color: "bg-green-600",
+    category: "Analytics",
+    priority: 7,
   },
 ]
 
-const systemTypes = [
-  {
-    id: "workflow-automation",
-    name: "Workflow Automation System",
-    description: "Complete business process automation",
-    icon: Zap,
-    price: 599,
-    features: ["Process Mapping", "Task Automation", "Integration Hub", "Performance Monitoring"],
-    color: "bg-yellow-600",
-    setupTime: "1-2 weeks",
-    roi: "80% time savings",
-  },
-  {
-    id: "data-intelligence",
-    name: "Data Intelligence System",
-    description: "Advanced analytics and business intelligence platform",
-    icon: Brain,
-    price: 799,
-    features: ["Real-time Analytics", "Predictive Modeling", "Custom Dashboards", "Data Integration"],
-    color: "bg-cyan-600",
-    setupTime: "2-3 weeks",
-    roi: "300-500% ROI",
-  },
-]
+// Sort agents by priority (CEO Neural Agent first)
+const sortedAgentTypes = agentTypes.sort((a, b) => (a.priority || 999) - (b.priority || 999))
 
 export default function HomePage() {
-  const [showCartModal, setShowCartModal] = useState(false)
-  const [showAuthModal, setShowAuthModal] = useState(false)
-  const [showChatWidget, setShowChatWidget] = useState(false)
-  const [chatType, setChatType] = useState<"agent" | "system" | "general">("general")
-  const [specificAgent, setSpecificAgent] = useState<string | null>(null)
   const { user } = useAuth()
   const {
-    items,
-    addItem,
-    deployItems,
+    cartItems = [],
+    deployedAgents = [],
+    addToCart,
+    deployAgent,
     isDeploying,
-    deploymentProgress,
-    deployedAgents,
-    notifications,
+    isAgentInCart,
+    isAgentDeployed,
+    isAgentDeploying,
+    itemCount = 0,
+    notifications = [],
     dismissNotification,
-    // Legacy compatibility
-    state,
-    itemCount,
-    deployingAgents,
   } = useCart()
 
-  const handleAddToCart = (item: any) => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false)
+  const [isChatOpen, setIsChatOpen] = useState(false)
+  const [specificAgent, setSpecificAgent] = useState<string | null>(null)
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null)
+  const [isAgentDetailsOpen, setIsAgentDetailsOpen] = useState(false)
+
+  const handleAddToCart = (agent: Agent) => {
     if (!user) {
-      setShowAuthModal(true)
+      setIsAuthModalOpen(true)
       return
     }
-    addItem(item)
+    addToCart(agent)
   }
 
-  const handleDeploy = async () => {
+  const handleDeploy = async (agent: Agent) => {
     if (!user) {
-      setShowAuthModal(true)
+      setIsAuthModalOpen(true)
       return
     }
-    await deployItems()
+    await deployAgent(agent)
   }
 
-  const handleChatWithAgent = (agentId: string) => {
-    setSpecificAgent(agentId)
-    setChatType("agent")
-    setShowChatWidget(true)
+  const handleChat = (agentType: string) => {
+    if (!user) {
+      setIsAuthModalOpen(true)
+      return
+    }
+    setSpecificAgent(agentType)
+    setIsChatOpen(true)
   }
 
-  const handleChatWithSystem = () => {
-    setChatType("system")
-    setShowChatWidget(true)
+  const handleViewDetails = (agent: Agent) => {
+    setSelectedAgent(agent)
+    setIsAgentDetailsOpen(true)
   }
 
-  const handleGeneralChat = () => {
-    setChatType("general")
-    setSpecificAgent(null)
-    setShowChatWidget(true)
+  const getActionButton = (agent: Agent) => {
+    const inCart = isAgentInCart(agent.id)
+    const deployed = isAgentDeployed(agent.id)
+    const deploying = isAgentDeploying(agent.id)
+
+    if (deployed) {
+      return (
+        <Button onClick={() => handleChat(agent.type)} className="w-full">
+          <MessageSquare className="mr-2 h-4 w-4" />
+          Chat Now
+        </Button>
+      )
+    }
+
+    if (deploying) {
+      return (
+        <Button disabled className="w-full">
+          <Clock className="mr-2 h-4 w-4" />
+          Deploying...
+        </Button>
+      )
+    }
+
+    if (inCart) {
+      return (
+        <Button onClick={() => handleDeploy(agent)} className="w-full">
+          <Zap className="mr-2 h-4 w-4" />
+          Deploy Now
+        </Button>
+      )
+    }
+
+    return (
+      <Button onClick={() => handleAddToCart(agent)} className="w-full">
+        <Plus className="mr-2 h-4 w-4" />
+        Add to Cart
+      </Button>
+    )
   }
 
   return (
@@ -212,28 +307,30 @@ export default function HomePage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Brain className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-gray-900">NeuralIA</span>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <Brain className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Neuralia
+                </h1>
+              </div>
+              <Badge variant="secondary" className="hidden sm:inline-flex">
+                <Sparkles className="mr-1 h-3 w-3" />
+                AI-Powered Business Solutions
+              </Badge>
             </div>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" onClick={handleGeneralChat}>
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Chat
+              <Button variant="outline" size="sm" onClick={() => setIsCartModalOpen(true)} className="relative">
+                <ShoppingCart className="h-4 w-4" />
+                {itemCount > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
+                    {itemCount}
+                  </Badge>
+                )}
               </Button>
-              {user && (
-                <Button variant="outline" onClick={() => setShowCartModal(true)} className="relative">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Cart ({itemCount || 0})
-                </Button>
-              )}
-              {user ? (
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-600">Welcome, {user.email}</span>
-                </div>
-              ) : (
-                <Button onClick={() => setShowAuthModal(true)}>Sign In</Button>
-              )}
+              {user ? <UserMenu /> : <Button onClick={() => setIsAuthModalOpen(true)}>Sign In</Button>}
             </div>
           </div>
         </div>
@@ -243,37 +340,42 @@ export default function HomePage() {
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-              Transform Your Business with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI Agents
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Deploy intelligent AI agents that work 24/7 to handle customer service, sales, HR, and more. Get
-              expert-level performance with 300% faster response times.
+            <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
+              Transform Your Business with AI Experts
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Deploy specialized AI experts led by your CEO Neural Agent - the strategic orchestrator that coordinates
+              all business operations with executive-level intelligence and deep domain expertise.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={handleGeneralChat} className="bg-blue-600 hover:bg-blue-700">
-                <Play className="mr-2 h-5 w-5" />
-                Try Demo Chat
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => setShowCartModal(true)}>
-                <Sparkles className="mr-2 h-5 w-5" />
-                View Solutions
-              </Button>
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <Badge variant="outline" className="px-4 py-2">
+                <Crown className="mr-2 h-4 w-4" />
+                CEO-Level Intelligence
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2">
+                <TrendingUp className="mr-2 h-4 w-4" />
+                Strategic Orchestration
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2">
+                <Shield className="mr-2 h-4 w-4" />
+                Enterprise Security
+              </Badge>
+              <Badge variant="outline" className="px-4 py-2">
+                <Star className="mr-2 h-4 w-4" />
+                Domain Expertise
+              </Badge>
             </div>
           </div>
         </div>
       </section>
 
       {/* Deployed Agents Section */}
-      {deployedAgents.length > 0 && (
+      {deployedAgents.length > 1 && (
         <section className="py-16 px-4 bg-white">
           <div className="container mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Your AI Workforce</h2>
-              <p className="text-gray-600">Your deployed agents are ready to help</p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Your AI Executive Team</h2>
+              <p className="text-gray-600">Your deployed experts are ready to help</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {deployedAgents.map((agent) => (
@@ -283,11 +385,19 @@ export default function HomePage() {
                       <div className="flex items-center space-x-2">
                         <div className="text-2xl">{agent.icon}</div>
                         <div>
-                          <CardTitle className="text-lg">{agent.name}</CardTitle>
+                          <CardTitle className="text-lg flex items-center">
+                            {agent.name}
+                            {agent.type === "ceo-neural-agent" && <Crown className="ml-2 h-4 w-4 text-yellow-500" />}
+                          </CardTitle>
                           <CardDescription>{agent.description}</CardDescription>
                         </div>
                       </div>
-                      <Badge variant={agent.status === "active" ? "default" : "secondary"}>{agent.status}</Badge>
+                      <div className="flex flex-col items-end space-y-1">
+                        <Badge variant={agent.status === "active" ? "default" : "secondary"}>{agent.status}</Badge>
+                        {agent.type === "ceo-neural-agent" && (
+                          <Badge className="bg-purple-100 text-purple-800 border-purple-200 text-xs">CEO</Badge>
+                        )}
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -302,11 +412,11 @@ export default function HomePage() {
                       </div>
                       <Button
                         className="w-full"
-                        onClick={() => handleChatWithAgent(agent.id)}
+                        onClick={() => handleChat(agent.type)}
                         disabled={agent.status !== "active"}
                       >
                         <MessageSquare className="mr-2 h-4 w-4" />
-                        Chat Now
+                        Chat with Expert
                       </Button>
                     </div>
                   </CardContent>
@@ -317,104 +427,136 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Deployment Progress */}
-      {deployingAgents && deployingAgents.length > 0 && (
-        <section className="py-8 px-4 bg-blue-50">
-          <div className="container mx-auto">
-            <h3 className="text-xl font-semibold text-center mb-6">Deploying Your AI Agents</h3>
-            <div className="space-y-4 max-w-2xl mx-auto">
-              {deployingAgents.map((agent) => (
-                <Card key={agent.id}>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">{agent.name}</span>
-                      <span className="text-sm text-gray-500 capitalize">{agent.status}</span>
-                    </div>
-                    <Progress value={agent.progress} className="h-2" />
-                    <p className="text-xs text-gray-500 mt-1">{agent.progress}% complete</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* AI Agents Section */}
+      {/* Agents Grid */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">AI Agents</h2>
-            <p className="text-gray-600">24/7 conversational experts for every business function</p>
+            <h3 className="text-3xl font-bold mb-4">Choose Your AI Executive Team</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Led by the CEO Neural Agent, each expert brings deep domain knowledge and executive-level intelligence.
+              Deploy individually or build your complete AI leadership team.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {agentTypes.map((agent) => {
-              const Icon = agent.icon
-              const isInCart = items.some((item) => item.id === agent.id)
-              const isDeployed = deployedAgents.some((deployed) => deployed.id === agent.id)
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedAgentTypes.map((agent) => {
+              const IconComponent = iconMap[agent.icon as keyof typeof iconMap] || Brain
+              const inCart = isAgentInCart(agent.id)
+              const deployed = isAgentDeployed(agent.id)
+              const deploying = isAgentDeploying(agent.id)
+              const isCEO = agent.type === "ceo-neural-agent"
 
               return (
-                <Card key={agent.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg ${agent.color}`}>
-                        <Icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg">{agent.name}</CardTitle>
-                        <CardDescription>{agent.description}</CardDescription>
-                      </div>
+                <Card
+                  key={agent.id}
+                  className={`relative group hover:shadow-xl transition-all duration-300 border-0 shadow-lg ${
+                    isCEO ? "ring-2 ring-purple-200 bg-gradient-to-br from-purple-50 to-indigo-50" : ""
+                  }`}
+                >
+                  {isCEO && (
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+                      <Badge className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-3 py-1">
+                        <Crown className="mr-1 h-3 w-3" />
+                        CEO & Orchestrator
+                      </Badge>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold">${agent.price}</span>
-                        <Badge variant="outline">{agent.setupTime}</Badge>
-                      </div>
-                      <div className="space-y-2">
-                        {agent.features.map((feature, index) => (
-                          <div key={index} className="flex items-center space-x-2">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            <span className="text-sm">{feature}</span>
+                  )}
+
+                  {deployed && !isCEO && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="bg-green-100 text-green-800">
+                        <CheckCircle className="mr-1 h-3 w-3" />
+                        Active
+                      </Badge>
+                    </div>
+                  )}
+                  {deploying && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="bg-blue-100 text-blue-800">
+                        <Clock className="mr-1 h-3 w-3" />
+                        Deploying
+                      </Badge>
+                    </div>
+                  )}
+                  {inCart && !deployed && !deploying && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge className="bg-orange-100 text-orange-800">
+                        <ShoppingCart className="mr-1 h-3 w-3" />
+                        In Cart
+                      </Badge>
+                    </div>
+                  )}
+
+                  <CardHeader className={`pb-4 ${isCEO ? "pt-8" : ""}`}>
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center space-x-3">
+                        <div
+                          className={`p-3 rounded-lg ${agent.color} group-hover:scale-110 transition-transform ${
+                            isCEO ? "shadow-lg" : ""
+                          }`}
+                        >
+                          <IconComponent className="h-6 w-6 text-white" />
+                        </div>
+                        <div>
+                          <CardTitle className={`text-lg flex items-center ${isCEO ? "text-purple-800" : ""}`}>
+                            {agent.name}
+                            {isCEO && <Crown className="ml-2 h-4 w-4 text-purple-600" />}
+                          </CardTitle>
+                          <div className="flex items-center space-x-2 mt-1">
+                            {agent.category && (
+                              <Badge
+                                variant="outline"
+                                className={`text-xs ${isCEO ? "border-purple-300 text-purple-700" : ""}`}
+                              >
+                                {agent.category}
+                              </Badge>
+                            )}
+                            <Badge
+                              variant="secondary"
+                              className={`text-xs ${isCEO ? "bg-purple-100 text-purple-800" : ""}`}
+                            >
+                              {isCEO ? "Executive Level" : "Expert Level"}
+                            </Badge>
                           </div>
-                        ))}
-                      </div>
-                      <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="flex items-center space-x-2">
-                          <TrendingUp className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-800">{agent.roi}</span>
                         </div>
                       </div>
-                      <div className="flex space-x-2">
-                        {isDeployed ? (
-                          <Button className="flex-1" onClick={() => handleChatWithAgent(agent.id)}>
-                            <MessageSquare className="mr-2 h-4 w-4" />
-                            Chat Now
-                          </Button>
-                        ) : (
-                          <Button
-                            className="flex-1"
-                            onClick={() =>
-                              handleAddToCart({
-                                id: agent.id,
-                                name: agent.name,
-                                type: "agent",
-                                price: agent.price,
-                                description: agent.description,
-                                features: agent.features,
-                                category: agent.name.split(" ")[0],
-                                icon: agent.icon.name,
-                                setupTime: agent.setupTime,
-                                roi: agent.roi,
-                              })
-                            }
-                            disabled={isInCart}
-                          >
-                            {isInCart ? "In Cart" : "Add to Cart"}
-                          </Button>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleViewDetails(agent)}
+                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                    </div>
+                    <CardDescription className={`text-sm leading-relaxed ${isCEO ? "text-purple-700" : ""}`}>
+                      {agent.description}
+                    </CardDescription>
+                  </CardHeader>
+
+                  <CardContent className="pt-0">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        {agent.features.slice(0, 3).map((feature, index) => (
+                          <div key={index} className="flex items-center space-x-2 text-sm">
+                            <CheckCircle
+                              className={`h-3 w-3 flex-shrink-0 ${isCEO ? "text-purple-500" : "text-green-500"}`}
+                            />
+                            <span className={`${isCEO ? "text-purple-700" : "text-gray-600"}`}>{feature}</span>
+                          </div>
+                        ))}
+                        {agent.features.length > 3 && (
+                          <div className={`text-xs pl-5 ${isCEO ? "text-purple-600" : "text-gray-500"}`}>
+                            +{agent.features.length - 3} more capabilities
+                          </div>
                         )}
-                        <Button variant="outline" size="icon" onClick={() => handleChatWithAgent(agent.id)}>
+                      </div>
+
+                      <Separator />
+
+                      <div className="flex space-x-2">
+                        <div className="flex-1">{getActionButton(agent)}</div>
+                        <Button variant="outline" size="sm" onClick={() => handleChat(agent.type)} disabled={!user}>
                           <MessageSquare className="h-4 w-4" />
                         </Button>
                       </div>
@@ -427,123 +569,75 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AI Systems Section */}
+      {/* Features Section */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">AI Systems</h2>
-            <p className="text-gray-600">Complete workflow automation and business intelligence</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {systemTypes.map((system) => {
-              const Icon = system.icon
-              const isInCart = items.some((item) => item.id === system.id)
-
-              return (
-                <Card key={system.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-3 rounded-lg ${system.color}`}>
-                        <Icon className="h-8 w-8 text-white" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-xl">{system.name}</CardTitle>
-                        <CardDescription className="text-base">{system.description}</CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-3xl font-bold">${system.price}</span>
-                        <Badge variant="outline">{system.setupTime}</Badge>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        {system.features.map((feature, index) => (
-                          <div key={index} className="flex items-center space-x-2">
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                            <span className="text-sm">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="bg-green-50 p-3 rounded-lg">
-                        <div className="flex items-center space-x-2">
-                          <TrendingUp className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-medium text-green-800">{system.roi}</span>
-                        </div>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button
-                          className="flex-1"
-                          onClick={() =>
-                            handleAddToCart({
-                              id: system.id,
-                              name: system.name,
-                              type: "system",
-                              price: system.price,
-                              description: system.description,
-                              features: system.features,
-                              category: system.name.split(" ")[0],
-                              icon: system.icon.name,
-                              setupTime: system.setupTime,
-                              roi: system.roi,
-                            })
-                          }
-                          disabled={isInCart}
-                        >
-                          {isInCart ? "In Cart" : "Add to Cart"}
-                        </Button>
-                        <Button variant="outline" size="icon" onClick={handleChatWithSystem}>
-                          <MessageSquare className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto text-center">
-          <div className="max-w-3xl mx-auto text-white">
-            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join thousands of companies using AI agents to automate workflows, improve customer service, and boost
-              productivity.
+            <h3 className="text-3xl font-bold mb-4">Why Choose Neuralia AI Experts?</h3>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Led by the CEO Neural Agent, our AI experts provide executive-level intelligence with deep domain
+              expertise, designed to integrate seamlessly into your business operations.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" onClick={() => setShowCartModal(true)}>
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                View Cart ({itemCount || 0})
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="text-white border-white hover:bg-white hover:text-blue-600 bg-transparent"
-                onClick={handleGeneralChat}
-              >
-                <MessageSquare className="mr-2 h-5 w-5" />
-                Chat with AI
-              </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Crown className="h-8 w-8 text-purple-600" />
+              </div>
+              <h4 className="text-xl font-semibold mb-2">Executive-Level Intelligence</h4>
+              <p className="text-gray-600">
+                Led by the CEO Neural Agent with C-suite experience, each expert brings executive-level strategic
+                thinking to your business.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-green-600" />
+              </div>
+              <h4 className="text-xl font-semibold mb-2">Enterprise Security</h4>
+              <p className="text-gray-600">
+                Built with enterprise-grade security, compliance, and data protection standards from day one.
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="h-8 w-8 text-blue-600" />
+              </div>
+              <h4 className="text-xl font-semibold mb-2">Strategic Orchestration</h4>
+              <p className="text-gray-600">
+                The CEO Neural Agent coordinates all experts to ensure optimal business outcomes and strategic
+                alignment.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Modals */}
-      <CartModal isOpen={showCartModal} onClose={() => setShowCartModal(false)} />
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+      <CartModal isOpen={isCartModalOpen} onClose={() => setIsCartModalOpen(false)} />
+      <AgentDetailsModal
+        isOpen={isAgentDetailsOpen}
+        onClose={() => setIsAgentDetailsOpen(false)}
+        agentId={selectedAgent?.id || ""}
+        onAddToCart={handleAddToCart}
+        onDeployAgent={handleDeploy}
+        isInCart={selectedAgent ? isAgentInCart(selectedAgent.id) : false}
+        isDeployed={selectedAgent ? isAgentDeployed(selectedAgent.id) : false}
+        isDeploying={selectedAgent ? isAgentDeploying(selectedAgent.id) : false}
+      />
 
       {/* Chat Widget */}
-      {showChatWidget && (
+      {isChatOpen && (
         <ChatWidget
-          isOpen={showChatWidget}
-          onClose={() => setShowChatWidget(false)}
-          chatType={chatType}
+          isOpen={isChatOpen}
+          onClose={() => {
+            setIsChatOpen(false)
+            setSpecificAgent(null)
+          }}
           specificAgent={specificAgent}
         />
       )}
