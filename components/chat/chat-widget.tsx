@@ -4,9 +4,10 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { MessageSquare, Send } from "lucide-react"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Send } from "lucide-react"
 
 interface ChatWidgetProps {
   isOpen: boolean
@@ -14,17 +15,37 @@ interface ChatWidgetProps {
   specificAgent?: string | null
 }
 
+interface Message {
+  id: string
+  content: string
+  sender: "user" | "agent"
+  timestamp: Date
+}
+
 export function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) {
-  const [message, setMessage] = useState("")
-  const [messages, setMessages] = useState<Array<{ role: "user" | "assistant"; content: string }>>([])
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "1",
+      content: `Hello! I'm your ${specificAgent || "AI"} agent. How can I help you today?`,
+      sender: "agent",
+      timestamp: new Date(),
+    },
+  ])
+  const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSendMessage = async () => {
-    if (!message.trim()) return
+  const sendMessage = async () => {
+    if (!input.trim()) return
 
-    const userMessage = message
-    setMessage("")
-    setMessages((prev) => [...prev, { role: "user", content: userMessage }])
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: input,
+      sender: "user",
+      timestamp: new Date(),
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+    setInput("")
     setIsLoading(true)
 
     try {
@@ -34,22 +55,30 @@ export function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) 
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: userMessage,
+          message: input,
           agentType: specificAgent,
         }),
       })
 
       const data = await response.json()
 
-      if (data.response) {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.response }])
+      const agentMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: data.message || "I'm sorry, I couldn't process that request.",
+        sender: "agent",
+        timestamp: new Date(),
       }
+
+      setMessages((prev) => [...prev, agentMessage])
     } catch (error) {
       console.error("Chat error:", error)
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "Sorry, I encountered an error. Please try again." },
-      ])
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "I'm sorry, there was an error processing your message.",
+        sender: "agent",
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, errorMessage])
     } finally {
       setIsLoading(false)
     }
@@ -58,7 +87,7 @@ export function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      sendMessage()
     }
   }
 
@@ -66,60 +95,43 @@ export function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) 
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px] h-[600px] flex flex-col">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <MessageSquare className="h-5 w-5" />
-            Chat with{" "}
-            {specificAgent ? specificAgent.replace("-", " ").replace(/\b\w/g, (l) => l.toUpperCase()) : "AI Agent"}
-          </DialogTitle>
+          <DialogTitle>Chat with {specificAgent || "AI Agent"}</DialogTitle>
+          <DialogDescription>Ask questions and get expert assistance from your AI agent.</DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto space-y-4 p-4 border rounded-lg bg-gray-50">
-          {messages.length === 0 ? (
-            <div className="text-center text-gray-500 py-8">
-              <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-              <p>Start a conversation with your AI agent</p>
-            </div>
-          ) : (
-            messages.map((msg, index) => (
-              <div key={index} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+        <ScrollArea className="flex-1 pr-4">
+          <div className="space-y-4">
+            {messages.map((message) => (
+              <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
-                    msg.role === "user" ? "bg-blue-600 text-white" : "bg-white border shadow-sm"
+                  className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                    message.sender === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                   }`}
                 >
-                  {msg.content}
+                  <p className="text-sm">{message.content}</p>
+                  <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
                 </div>
               </div>
-            ))
-          )}
-          {isLoading && (
-            <div className="flex justify-start">
-              <div className="bg-white border shadow-sm p-3 rounded-lg">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.1s" }}
-                  ></div>
-                  <div
-                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.2s" }}
-                  ></div>
+            ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-muted rounded-lg px-4 py-2">
+                  <p className="text-sm">Thinking...</p>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        </ScrollArea>
 
-        <div className="flex gap-2 pt-4">
+        <div className="flex space-x-2 pt-4">
           <Input
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Type your message..."
             disabled={isLoading}
           />
-          <Button onClick={handleSendMessage} disabled={isLoading || !message.trim()}>
+          <Button onClick={sendMessage} disabled={isLoading || !input.trim()}>
             <Send className="h-4 w-4" />
           </Button>
         </div>
