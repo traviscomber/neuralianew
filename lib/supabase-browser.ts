@@ -1,17 +1,11 @@
 import { createBrowserClient } from "@supabase/ssr"
 
-// Create a single instance to avoid multiple GoTrueClient instances
-const supabaseClient = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-)
-
 export function createClient() {
-  return supabaseClient
+  return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
 }
 
-// Export the client instance for direct use
-export const supabase = supabaseClient
+// Legacy export for compatibility
+export const supabase = createClient()
 
 // Default export
-export default supabaseClient
+export default createClient()

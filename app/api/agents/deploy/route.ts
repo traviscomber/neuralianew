@@ -4,7 +4,11 @@ import { cookies } from "next/headers"
 
 export async function POST(request: NextRequest) {
   try {
-    // Create Supabase client with proper cookie handling
+    // Get the authorization header
+    const authHeader = request.headers.get("authorization")
+    const accessToken = authHeader?.replace("Bearer ", "")
+
+    // Create Supabase client with the access token
     const cookieStore = cookies()
     const supabase = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -21,20 +25,24 @@ export async function POST(request: NextRequest) {
             cookieStore.set({ name, value: "", ...options })
           },
         },
+        global: {
+          headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+        },
       },
     )
 
-    // Get the current user from session
+    // Get the current user
     const {
       data: { user },
-      error: authError,
+      error: userError,
     } = await supabase.auth.getUser()
 
-    if (authError || !user) {
-      console.error("Auth error:", authError)
-      return NextResponse.json({ error: "Unauthorized - Please sign in again" }, { status: 401 })
+    if (userError || !user) {
+      console.error("Auth error:", userError)
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    // Parse the request body
     const body = await request.json()
     const { agentId, agentType, name, description, configuration } = body
 
@@ -42,52 +50,47 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Check if agent is already deployed for this user
+    // Check if agent is already deployed
     const { data: existingAgent } = await supabase
       .from("deployed_agents")
-      .select("id, status")
+      .select("id")
       .eq("user_id", user.id)
       .eq("agent_id", agentId)
-      .maybeSingle()
+      .single()
 
     if (existingAgent) {
-      if (existingAgent.status === "active") {
-        return NextResponse.json({ error: "Agent already deployed" }, { status: 400 })
-      } else if (existingAgent.status === "deploying") {
-        return NextResponse.json({ error: "Agent is currently deploying" }, { status: 400 })
-      }
+      return NextResponse.json({ error: "Agent already deployed" }, { status: 409 })
     }
 
-    // Create deployment record with "active" status (simulating instant deployment)
+    // Create deployment record
     const deploymentData = {
       user_id: user.id,
       agent_id: agentId,
       agent_type: agentType,
       name,
-      description: description || "",
+      description,
       status: "active" as const,
-      deployment_url: `https://neuralia.ai/agents/${agentId}`,
+      deployment_url: `https://neuralia.ai/chat/${agentType}`,
       configuration: configuration || {},
       performance_metrics: {
-        uptime: "100%",
-        response_time: "< 1s",
-        success_rate: "99.9%",
-        last_health_check: new Date().toISOString(),
+        conversations: 0,
+        messages: 0,
+        avgResponseTime: 0,
+        satisfaction: 0,
       },
     }
 
-    const { data: deployedAgent, error: insertError } = await supabase
+    const { data: deployedAgent, error: deployError } = await supabase
       .from("deployed_agents")
       .insert(deploymentData)
       .select()
       .single()
 
-    if (insertError) {
-      console.error("Database insert error:", insertError)
-      return NextResponse.json({ error: "Failed to create deployment record" }, { status: 500 })
+    if (deployError) {
+      console.error("Deploy error:", deployError)
+      return NextResponse.json({ error: "Failed to deploy agent" }, { status: 500 })
     }
 
-    // Return success response
     return NextResponse.json({
       success: true,
       agent: deployedAgent,

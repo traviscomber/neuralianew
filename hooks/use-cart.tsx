@@ -73,15 +73,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setDeployedAgents([])
 
     if (!user) {
-      console.log("No user, skipping agent load")
       return
     }
 
     try {
-      // Use the single Supabase client instance
-      const { supabase } = await import("@/lib/supabase-browser")
-
-      console.log("Loading agents for user:", user.id)
+      // Use the browser Supabase client
+      const { createClient } = await import("@/lib/supabase-browser")
+      const supabase = createClient()
 
       // Use created_at instead of deployed_at since that's the actual column name
       const { data, error } = await supabase
@@ -96,42 +94,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
 
       console.log("Loaded deployed agents:", data)
-
-      // Transform data to include computed fields for display
-      const transformedData = (data || []).map((agent) => ({
-        ...agent,
-        uptime: agent.performance_metrics?.uptime || "100%",
-        last_active: agent.updated_at ? new Date(agent.updated_at).toLocaleString() : "Just now",
-        icon: getAgentIcon(agent.agent_type),
-      }))
-
-      setDeployedAgents(transformedData)
+      setDeployedAgents(data || [])
     } catch (err) {
       console.error("Error loading deployed agents:", err)
       // Don't show toast for initial load failures
     }
   }
 
-  const getAgentIcon = (agentType: string) => {
-    const iconMap: { [key: string]: string } = {
-      "ceo-neural-agent": "🧠",
-      "hr-advisory": "👥",
-      "sales-coach": "🎯",
-      "customer-service": "🎧",
-      "technical-support": "🔧",
-      marketing: "📢",
-      analytics: "📊",
-    }
-    return iconMap[agentType] || "🤖"
-  }
-
   useEffect(() => {
     if (user) {
-      console.log("User changed, loading agents:", user.email)
       loadUserAgents()
-    } else {
-      console.log("No user, clearing agents")
-      setDeployedAgents([])
     }
   }, [user])
 
@@ -209,13 +181,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsDeploying(true)
 
     try {
-      console.log("Deploying agent:", agent.name, "for user:", user.email)
+      // Try to obtain an access token (optional – cookies still work)
+      const { supabase } = await import("@/lib/supabase-browser")
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      const accessToken = session?.access_token ?? null
 
       const response = await fetch("/api/agents/deploy", {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
+          ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
         },
         body: JSON.stringify({
           agentId: agent.id,
@@ -233,7 +210,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       })
 
       const data = await response.json()
-      console.log("Deploy response:", response.status, data)
 
       if (response.ok) {
         // Reload deployed agents to get the latest data
