@@ -7,9 +7,9 @@
 
 import { createServerClient as _createServerClient } from "@/lib/supabase"
 
-/** Named exports */
+// Named exports
 export const createServerClient = _createServerClient
-export const createClient = _createServerClient // <-- Added line
+export const createClient = _createServerClient
 
-/** Default export (for `import createServerClient from ...`) */
+// Default export (if someone does `import createServerClient from ...`)
 export default _createServerClient
