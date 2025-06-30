@@ -5,11 +5,13 @@ import { createClient as createSupabaseClient, type SupabaseClient } from "@supa
  * Supabase singleton for the browser / server.
  * ---------------------------------------------------------------------
  */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.")
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  throw new Error(
+    "Supabase environment variables NEXT_PUBLIC_SUPABASE_URL and " + "NEXT_PUBLIC_SUPABASE_ANON_KEY must be set.",
+  )
 }
 
 /**
@@ -18,7 +20,19 @@ if (!supabaseUrl || !supabaseAnonKey) {
  */
 export type TypedSupabaseClient = SupabaseClient<any>
 
-export const supabase: TypedSupabaseClient = createSupabaseClient(supabaseUrl, supabaseAnonKey)
+/**
+ * Factory – returns a **fresh** client.  Useful inside Server Actions or
+ * short-lived scripts where you do _not_ want to reuse the singleton.
+ */
+export function createClient(): SupabaseClient {
+  return createSupabaseClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+}
+
+/**
+ * Shared singleton – import `supabase` for the common case where you only need
+ * one client instance (e.g. in React Client Components).
+ */
+export const supabase: SupabaseClient = createClient()
 
 /**
  * ---------------------------------------------------------------------
@@ -149,17 +163,6 @@ export const dbHelpers = {
     }
     return data
   },
-}
-
-/**
- * ---------------------------------------------------------------------
- * createClient helper
- *  – returns a brand-new Supabase client.
- *  – Useful for tests, edge functions, or to avoid cookie coupling.
- * ---------------------------------------------------------------------
- */
-export function createClient(): TypedSupabaseClient {
-  return createSupabaseClient(supabaseUrl, supabaseAnonKey)
 }
 
 /** Default export keeps existing import paths working */
