@@ -402,7 +402,7 @@ export default function HomePage() {
   }
 
   // Filter deployed agents for current user only
-  const userDeployedAgents = user ? deployedAgents.filter((agent) => agent.userId === user.id) : []
+  const userDeployedAgents = user ? deployedAgents.filter((agent) => agent.user_id === user.id) : []
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -536,7 +536,7 @@ export default function HomePage() {
                     <div className="flex items-center space-x-3">
                       <div className="relative">
                         <img
-                          src={agent.avatar || "/placeholder.svg?height=50&width=50&query=neural+ai+agent"}
+                          src="/placeholder.svg?height=50&width=50"
                           alt={agent.name}
                           className="w-12 h-12 rounded-full border-2 border-purple-500/50"
                         />
@@ -545,13 +545,13 @@ export default function HomePage() {
                       <div className="flex-1">
                         <CardTitle className="text-lg text-white">{agent.name}</CardTitle>
                         <div className="flex items-center space-x-2">
-                          {agent.status === "trial" ? (
+                          {agent.status === "deploying" ? (
                             <Badge
                               variant="secondary"
                               className="bg-orange-500/20 text-orange-300 border-orange-500/30"
                             >
                               <Clock className="w-3 h-3 mr-1" />
-                              Neural Trial: {getTimeRemaining(agent.expiresAt)}
+                              Neural Deploying
                             </Badge>
                           ) : (
                             <Badge variant="secondary" className="bg-green-500/20 text-green-300 border-green-500/30">
@@ -570,7 +570,7 @@ export default function HomePage() {
                         <Brain className="mr-2 h-4 w-4" />
                         Neural Chat
                       </Button>
-                      {agent.status === "trial" && (
+                      {agent.status === "deploying" && (
                         <Button
                           size="sm"
                           variant="outline"

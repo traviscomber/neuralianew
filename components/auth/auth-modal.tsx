@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -71,6 +71,9 @@ export function AuthModal({ open, onOpenChange }: AuthModalProps) {
             </div>
             Neural Access Portal
           </DialogTitle>
+          <DialogDescription className="text-gray-400 text-center">
+            Sign in or create an account to access advanced neural networks
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="signin" className="w-full">

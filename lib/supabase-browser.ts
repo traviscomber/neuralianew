@@ -1,20 +1,22 @@
 /**
- * Browser-side Supabase client (compatibility wrapper).
+ * Thin re-export so code that imports `lib/supabase-browser` continues to work
+ * without creating a second Supabase client instance.
  *
- * Many files were written to import `@/lib/supabase-browser`.
- * To avoid multiple GoTrueClient instances we delegate everything to
- * the *single* shared client defined in `@/lib/supabase`.
+ * All logic and the actual singleton live in `lib/supabase.ts`.
  */
 
-import { createClient, supabase } from "./supabase"
-import { dbHelpers } from "@/lib/supabase"
+import supabaseDefault from "./supabase"
 
-// Named export expected by legacy code
-export { createClient, supabase }
+/**
+ * Named export expected by the rest of the codebase.
+ *
+ * Example usage elsewhere:
+ *   import { supabase } from '@/lib/supabase-browser'
+ */
+export const supabase = supabaseDefault
 
-// In case something still calls `createClient()` directly
-// Default export keeps import supabase from "@/lib/supabase-browser" working
-export default supabase
-
-// Re-export the singleton client and helpers to avoid multiple GoTrueClient instances
-export { dbHelpers }
+/**
+ * Default export for backward compatibility (if anything does
+ * `import supabase from '@/lib/supabase-browser'`).
+ */
+export default supabaseDefault

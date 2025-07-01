@@ -16,7 +16,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env
 
 /** Throw early if something is missing. */
 if (!supabaseUrl || !supabaseAnonKey) {
-  // NOTE: we guard with typeof window so the browser bundle won’t crash
+  // NOTE: we guard with typeof window so the browser bundle won't crash
   if (typeof window === "undefined") {
     throw new Error(
       "Supabase environment variables are not set. " +
@@ -96,7 +96,7 @@ export const dbHelpers = {
       .from("deployed_agents")
       .select("*")
       .eq("user_id", userId)
-      .order("deployed_at", { ascending: false })
+      .order("created_at", { ascending: false })
 
     if (error) throw error
     return data
@@ -104,21 +104,16 @@ export const dbHelpers = {
 
   /** Insert a new deployed agent row and return it. */
   async deployAgent(userId: string, agentData: any) {
-    const now = new Date()
-    const fiveDays = 5 * 24 * 60 * 60 * 1000
-
     const { data, error } = await getClient()
       .from("deployed_agents")
       .insert({
         user_id: userId,
         agent_id: agentData.id,
         agent_name: agentData.name,
-        agent_description: agentData.description,
+        agent_description: agentData.description || null,
         agent_type: agentData.category,
         status: "trial",
-        deployed_at: now.toISOString(),
-        expires_at: new Date(now.getTime() + fiveDays).toISOString(),
-        metadata: agentData,
+        deployment_date: new Date().toISOString(),
       })
       .select()
       .single()
@@ -126,6 +121,9 @@ export const dbHelpers = {
     if (error) throw error
     return data
   },
+
+  /** Get the Supabase client for direct use */
+  getClient,
 }
 
 /** Default export kept for backward compatibility. */

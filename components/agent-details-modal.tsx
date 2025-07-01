@@ -1,6 +1,6 @@
 "use client"
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -61,6 +61,9 @@ export function AgentDetailsModal({ agent, open, onOpenChange, onAddToCart }: Ag
             </div>
             {agent.name}
           </DialogTitle>
+          <DialogDescription className="text-gray-400">
+            Detailed specifications and capabilities of this neural network agent
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-8">
