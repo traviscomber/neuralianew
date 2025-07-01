@@ -1,19 +1,18 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useAuth } from "@/hooks/use-auth"
+import { useCart } from "@/hooks/use-cart"
 import {
-  MessageSquare,
   Send,
-  User,
   X,
+  User,
+  Crown,
   Brain,
   Users,
   Target,
@@ -21,10 +20,9 @@ import {
   Wrench,
   Megaphone,
   BarChart3,
-  Minimize2,
+  AlertCircle,
+  Zap,
 } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { useCart } from "@/hooks/use-cart"
 
 interface Message {
   id: string
@@ -41,345 +39,498 @@ interface ChatWidgetProps {
 }
 
 const agentConfigs = {
-  "central-orchestrator": {
-    name: "Central Orchestrator",
-    icon: Brain,
-    color: "bg-purple-600",
-    description: "Strategic AI coordinator",
-  },
   "ceo-neural-agent": {
     name: "CEO Neural Agent",
-    icon: Brain,
-    color: "bg-purple-600",
+    icon: Crown,
+    color: "text-purple-600",
+    bgColor: "bg-purple-50",
     description: "Executive-level AI orchestrator",
   },
   "hr-advisory": {
     name: "HR Advisory Expert",
     icon: Users,
-    color: "bg-blue-600",
-    description: "Human resources expertise",
+    color: "text-blue-600",
+    bgColor: "bg-blue-50",
+    description: "Human resources specialist",
   },
   "sales-coach": {
     name: "Sales Performance Coach",
     icon: Target,
-    color: "bg-red-600",
+    color: "text-red-600",
+    bgColor: "bg-red-50",
     description: "Sales methodology expert",
   },
   "customer-service": {
     name: "Customer Experience Expert",
     icon: Headphones,
-    color: "bg-teal-600",
+    color: "text-teal-600",
+    bgColor: "bg-teal-50",
     description: "Customer service specialist",
   },
   "technical-support": {
     name: "Technical Systems Expert",
     icon: Wrench,
-    color: "bg-indigo-600",
+    color: "text-indigo-600",
+    bgColor: "bg-indigo-50",
     description: "Technical specialist",
   },
   marketing: {
     name: "Marketing Strategy Expert",
     icon: Megaphone,
-    color: "bg-orange-600",
+    color: "text-orange-600",
+    bgColor: "bg-orange-50",
     description: "Marketing intelligence",
   },
   analytics: {
     name: "Data Intelligence Expert",
     icon: BarChart3,
-    color: "bg-green-600",
+    color: "text-green-600",
+    bgColor: "bg-green-50",
     description: "Analytics specialist",
+  },
+  orchestrator: {
+    name: "AI Orchestrator",
+    icon: Brain,
+    color: "text-purple-600",
+    bgColor: "bg-purple-50",
+    description: "Central coordination hub",
   },
 }
 
 export function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) {
   const { user } = useAuth()
-  const { deployedAgents } = useCart()
-  const [messages, setMessages] = useState<Record<string, Message[]>>({})
+  const { deployedAgents = [] } = useCart()
+  const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState("central-orchestrator")
-  const [isMinimized, setIsMinimized] = useState(false)
+  const [activeTab, setActiveTab] = useState("orchestrator")
+  const [messageCount, setMessageCount] = useState<Record<string, number>>({})
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  // Set active tab when specific agent is provided
-  useEffect(() => {
-    if (specificAgent && agentConfigs[specificAgent as keyof typeof agentConfigs]) {
-      setActiveTab(specificAgent)
-    }
-  }, [specificAgent])
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  // Message limits
+  const MESSAGE_LIMITS = {
+    loggedOut: 3,
+    loggedIn: 10,
+    deployed: Number.POSITIVE_INFINITY,
   }
 
   useEffect(() => {
-    scrollToBottom()
-  }, [messages, activeTab])
-
-  const getAgentResponse = async (userMessage: string, agentType: string): Promise<string> => {
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000))
-
-    const responses = {
-      "central-orchestrator": [
-        "I'm analyzing your request and coordinating with the appropriate specialists. How can I help optimize your business operations today?",
-        "As your strategic coordinator, I can help you integrate multiple AI agents for maximum efficiency. What's your primary business challenge?",
-        "I'm here to orchestrate your AI ecosystem. Let me connect you with the right specialists or provide strategic guidance.",
-      ],
-      "ceo-neural-agent": [
-        "From an executive perspective, I recommend focusing on strategic initiatives that drive long-term value. What are your key business objectives?",
-        "As your CEO-level AI, I can help with strategic planning, risk assessment, and cross-functional coordination. What decisions are you facing?",
-        "Let's discuss your business strategy. I can provide C-suite level insights and coordinate with other departments.",
-      ],
-      "hr-advisory": [
-        "I can help with employee relations, policy development, and talent management. What HR challenge are you facing?",
-        "From an HR perspective, I recommend focusing on employee engagement and development. How can I assist with your workforce needs?",
-        "I'm here to help with all HR matters - from recruitment to performance management. What would you like to discuss?",
-      ],
-      "sales-coach": [
-        "Let's optimize your sales process! I can help with deal strategy, pipeline management, and revenue forecasting. What's your current challenge?",
-        "I'm here to boost your sales performance. Whether it's lead qualification or closing techniques, I can provide expert guidance.",
-        "Sales success requires the right methodology. I can help you implement proven strategies to accelerate your revenue growth.",
-      ],
-      "customer-service": [
-        "Excellent customer service is key to retention. I can help optimize your support processes and improve customer satisfaction. What's your main concern?",
-        "I'm here to help enhance your customer experience. From support strategies to service quality, how can I assist?",
-        "Customer satisfaction drives business growth. Let's discuss how to improve your service delivery and customer relationships.",
-      ],
-      "technical-support": [
-        "I can help with system architecture, troubleshooting, and infrastructure optimization. What technical challenge are you facing?",
-        "From a technical perspective, I recommend focusing on scalability and security. What systems need attention?",
-        "I'm here to solve your technical challenges. Whether it's infrastructure or security, I can provide expert guidance.",
-      ],
-      marketing: [
-        "Great marketing drives growth! I can help with campaign strategy, brand positioning, and multi-channel optimization. What's your marketing goal?",
-        "I'm here to accelerate your marketing efforts. From content strategy to growth marketing, how can I help?",
-        "Marketing success requires strategic thinking. Let's discuss how to optimize your campaigns and reach your target audience.",
-      ],
-      analytics: [
-        "Data-driven decisions lead to better outcomes. I can help with predictive analytics, statistical modeling, and business intelligence. What insights do you need?",
-        "I'm here to help you understand your data. From visualization to predictive modeling, what analytics challenge are you facing?",
-        "Analytics unlock business value. Let's discuss how to leverage your data for strategic advantage and operational efficiency.",
-      ],
+    if (specificAgent && deployedAgents.some((agent) => agent.type === specificAgent)) {
+      setActiveTab(specificAgent)
+    } else if (specificAgent) {
+      setActiveTab("orchestrator")
     }
+  }, [specificAgent, deployedAgents])
 
-    const agentResponses = responses[agentType as keyof typeof responses] || responses["central-orchestrator"]
-    return agentResponses[Math.floor(Math.random() * agentResponses.length)]
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
+
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      // Add welcome message
+      const welcomeMessage: Message = {
+        id: "welcome",
+        content: getWelcomeMessage(activeTab),
+        sender: "agent",
+        timestamp: new Date(),
+        agentType: activeTab,
+      }
+      setMessages([welcomeMessage])
+    }
+  }, [isOpen, activeTab])
+
+  const getWelcomeMessage = (agentType: string) => {
+    const config = agentConfigs[agentType as keyof typeof agentConfigs]
+    if (!config) return "Hello! How can I assist you today?"
+
+    switch (agentType) {
+      case "ceo-neural-agent":
+        return "Welcome! I'm your CEO Neural Agent. I provide executive-level strategic guidance and coordinate all business operations. How can I help optimize your business strategy today?"
+      case "hr-advisory":
+        return "Hello! I'm your HR Advisory Expert. I specialize in employee relations, policy development, and talent strategy. What HR challenge can I help you with?"
+      case "sales-coach":
+        return "Hi there! I'm your Sales Performance Coach. I focus on deal strategy, pipeline optimization, and revenue acceleration. What sales challenge are you facing?"
+      case "customer-service":
+        return "Welcome! I'm your Customer Experience Expert. I help with omnichannel support strategies and customer satisfaction optimization. How can I improve your customer experience?"
+      case "technical-support":
+        return "Hello! I'm your Technical Systems Expert. I provide system architecture analysis, troubleshooting, and infrastructure optimization. What technical challenge can I solve?"
+      case "marketing":
+        return "Hi! I'm your Marketing Strategy Expert. I specialize in campaign development, brand positioning, and growth marketing. What marketing goals are you working on?"
+      case "analytics":
+        return "Welcome! I'm your Data Intelligence Expert. I provide predictive analytics, statistical modeling, and business intelligence. What data insights do you need?"
+      default:
+        return "Hello! I'm the AI Orchestrator. I coordinate between all your AI experts and provide general assistance. How can I help you today?"
+    }
+  }
+
+  const getMessageLimit = (agentType: string) => {
+    if (!user) return MESSAGE_LIMITS.loggedOut
+    if (deployedAgents.some((agent) => agent.type === agentType)) return MESSAGE_LIMITS.deployed
+    return MESSAGE_LIMITS.loggedIn
+  }
+
+  const getCurrentMessageCount = (agentType: string) => {
+    return messageCount[agentType] || 0
+  }
+
+  const canSendMessage = (agentType: string) => {
+    const limit = getMessageLimit(agentType)
+    const count = getCurrentMessageCount(agentType)
+    return count < limit
   }
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return
+
+    const limit = getMessageLimit(activeTab)
+    const count = getCurrentMessageCount(activeTab)
+
+    if (count >= limit) {
+      return
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
       content: inputValue,
       sender: "user",
       timestamp: new Date(),
+      agentType: activeTab,
     }
 
-    setMessages((prev) => ({
-      ...prev,
-      [activeTab]: [...(prev[activeTab] || []), userMessage],
-    }))
-
+    setMessages((prev) => [...prev, userMessage])
     setInputValue("")
     setIsLoading(true)
 
+    // Update message count
+    setMessageCount((prev) => ({
+      ...prev,
+      [activeTab]: (prev[activeTab] || 0) + 1,
+    }))
+
     try {
-      const agentResponse = await getAgentResponse(inputValue, activeTab)
-      const agentMessage: Message = {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000))
+
+      const agentResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: agentResponse,
+        content: generateAgentResponse(inputValue, activeTab),
         sender: "agent",
         timestamp: new Date(),
         agentType: activeTab,
       }
 
-      setMessages((prev) => ({
-        ...prev,
-        [activeTab]: [...(prev[activeTab] || []), agentMessage],
-      }))
+      setMessages((prev) => [...prev, agentResponse])
     } catch (error) {
-      console.error("Error getting agent response:", error)
+      console.error("Error sending message:", error)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
+  const generateAgentResponse = (userInput: string, agentType: string) => {
+    const responses = {
+      "ceo-neural-agent": [
+        "From a strategic perspective, I recommend focusing on operational efficiency and market positioning. Let me analyze the key factors...",
+        "Based on executive best practices, here's my strategic assessment of your situation...",
+        "I'll coordinate with our specialist teams to provide you with comprehensive insights on this matter...",
+      ],
+      "hr-advisory": [
+        "From an HR perspective, this requires careful consideration of employee relations and policy compliance...",
+        "I recommend implementing a structured approach that aligns with best practices in talent management...",
+        "Let me provide you with HR strategies that have proven effective in similar situations...",
+      ],
+      "sales-coach": [
+        "This is a great opportunity to optimize your sales approach. Here's my recommended strategy...",
+        "Based on proven sales methodologies, I suggest focusing on these key areas...",
+        "Let me share some advanced techniques that can significantly improve your conversion rates...",
+      ],
+      "customer-service": [
+        "Excellent customer experience starts with understanding your customers' journey. Here's what I recommend...",
+        "I can help you implement omnichannel strategies that will enhance customer satisfaction...",
+        "Based on customer service best practices, here's how you can improve this situation...",
+      ],
+      "technical-support": [
+        "From a technical architecture standpoint, I see several optimization opportunities...",
+        "Let me analyze the system requirements and provide you with a robust solution...",
+        "Here's my technical assessment and recommended implementation approach...",
+      ],
+      marketing: [
+        "This presents an interesting marketing challenge. Here's my strategic recommendation...",
+        "Based on current market trends and consumer behavior, I suggest this approach...",
+        "Let me help you develop a comprehensive marketing strategy for this initiative...",
+      ],
+      analytics: [
+        "The data suggests several interesting patterns. Let me break down the key insights...",
+        "Based on statistical analysis, here are the most significant trends I'm observing...",
+        "I can provide predictive modeling to help you make data-driven decisions on this matter...",
+      ],
+      orchestrator: [
+        "I'll coordinate with the appropriate specialists to give you the most comprehensive answer...",
+        "Based on cross-functional analysis, here's what our expert team recommends...",
+        "Let me connect you with the right expertise while providing an integrated perspective...",
+      ],
+    }
+
+    const agentResponses = responses[agentType as keyof typeof responses] || responses.orchestrator
+    return agentResponses[Math.floor(Math.random() * agentResponses.length)]
+  }
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value)
+    // Add welcome message for new tab if no messages exist for this agent
+    const hasMessagesForAgent = messages.some((msg) => msg.agentType === value)
+    if (!hasMessagesForAgent) {
+      const welcomeMessage: Message = {
+        id: `welcome-${value}`,
+        content: getWelcomeMessage(value),
+        sender: "agent",
+        timestamp: new Date(),
+        agentType: value,
+      }
+      setMessages((prev) => [...prev, welcomeMessage])
     }
   }
 
-  const getAvailableAgents = () => {
-    const availableAgents = ["central-orchestrator"]
+  if (!isOpen) return null
 
-    if (user) {
-      deployedAgents.forEach((agent) => {
-        if (agent.type !== "central-orchestrator" && agentConfigs[agent.type as keyof typeof agentConfigs]) {
-          availableAgents.push(agent.type)
-        }
-      })
-    }
-
-    return availableAgents
-  }
-
-  const availableAgents = getAvailableAgents()
-  const currentMessages = messages[activeTab] || []
-  const currentAgent = agentConfigs[activeTab as keyof typeof agentConfigs] || agentConfigs["central-orchestrator"]
-  const IconComponent = currentAgent.icon
-
-  if (isMinimized) {
-    return (
-      <div className="fixed bottom-4 right-4 z-50">
-        <Button onClick={() => setIsMinimized(false)} className="h-12 w-12 rounded-full shadow-lg" size="sm">
-          <MessageSquare className="h-5 w-5" />
-        </Button>
-      </div>
-    )
-  }
+  const availableAgents = ["orchestrator", ...deployedAgents.map((agent) => agent.type)]
+  const currentConfig = agentConfigs[activeTab as keyof typeof agentConfigs] || agentConfigs.orchestrator
+  const IconComponent = currentConfig.icon
+  const currentMessages = messages.filter((msg) => msg.agentType === activeTab)
+  const messageLimit = getMessageLimit(activeTab)
+  const currentCount = getCurrentMessageCount(activeTab)
+  const canSend = canSendMessage(activeTab)
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] h-[600px] flex flex-col p-0">
-        <DialogHeader className="px-6 py-4 border-b">
-          <div className="flex items-center justify-between">
-            <DialogTitle className="flex items-center gap-2">
-              <MessageSquare className="h-5 w-5" />
-              AI Chat Assistant
-            </DialogTitle>
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setIsMinimized(true)}>
-                <Minimize2 className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="sm" onClick={onClose}>
-                <X className="h-4 w-4" />
-              </Button>
+    <div className="fixed bottom-4 right-4 w-96 h-[600px] bg-white rounded-lg shadow-2xl border z-50 flex flex-col">
+      {/* Header */}
+      <div className={`${currentConfig.bgColor} p-4 rounded-t-lg border-b`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <IconComponent className={`h-5 w-5 ${currentConfig.color}`} />
+            <div>
+              <h3 className="font-semibold text-gray-900">{currentConfig.name}</h3>
+              <p className="text-xs text-gray-600">{currentConfig.description}</p>
             </div>
           </div>
-        </DialogHeader>
+          <Button variant="ghost" size="sm" onClick={onClose}>
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
 
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 flex flex-col">
-            <div className="px-4 py-2 border-b">
-              <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-                {availableAgents.slice(0, 4).map((agentType) => {
-                  const config = agentConfigs[agentType as keyof typeof agentConfigs]
-                  const AgentIcon = config.icon
-                  return (
-                    <TabsTrigger key={agentType} value={agentType} className="text-xs">
-                      <AgentIcon className="h-3 w-3 mr-1" />
-                      {config.name.split(" ")[0]}
-                    </TabsTrigger>
-                  )
-                })}
-              </TabsList>
-            </div>
+        {/* Message limit indicator */}
+        {messageLimit !== Number.POSITIVE_INFINITY && (
+          <div className="mt-2 flex items-center justify-between text-xs">
+            <span className="text-gray-600">
+              Messages: {currentCount}/{messageLimit}
+            </span>
+            {!user && (
+              <Badge variant="outline" className="text-xs">
+                Sign in for more
+              </Badge>
+            )}
+            {user && !deployedAgents.some((agent) => agent.type === activeTab) && activeTab !== "orchestrator" && (
+              <Badge variant="outline" className="text-xs">
+                <Zap className="mr-1 h-3 w-3" />
+                Deploy for unlimited
+              </Badge>
+            )}
+          </div>
+        )}
+      </div>
 
-            {availableAgents.map((agentType) => (
-              <TabsContent key={agentType} value={agentType} className="flex-1 flex flex-col m-0">
-                <div className="px-4 py-2 border-b bg-gray-50">
-                  <div className="flex items-center gap-2">
-                    <div className={`p-2 rounded-lg ${currentAgent.color}`}>
-                      <IconComponent className="h-4 w-4 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-sm">{currentAgent.name}</h3>
-                      <p className="text-xs text-gray-500">{currentAgent.description}</p>
-                    </div>
-                    <Badge variant="secondary" className="ml-auto">
-                      {agentType === "central-orchestrator" ? "Always Available" : "Deployed"}
-                    </Badge>
-                  </div>
-                </div>
+      {/* Tabs */}
+      {availableAgents.length > 1 && (
+        <Tabs value={activeTab} onValueChange={handleTabChange} className="flex-1 flex flex-col">
+          <TabsList className="grid grid-cols-2 m-2">
+            <TabsTrigger value="orchestrator" className="text-xs">
+              Orchestrator
+            </TabsTrigger>
+            {deployedAgents.length > 0 && (
+              <TabsTrigger value={deployedAgents[0].type} className="text-xs">
+                {agentConfigs[deployedAgents[0].type as keyof typeof agentConfigs]?.name.split(" ")[0] || "Agent"}
+              </TabsTrigger>
+            )}
+          </TabsList>
 
-                <ScrollArea className="flex-1 px-4">
-                  <div className="space-y-4 py-4">
-                    {currentMessages.length === 0 && (
-                      <div className="text-center text-gray-500 py-8">
-                        <IconComponent className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-                        <p className="text-sm">Start a conversation with {currentAgent.name}</p>
-                      </div>
-                    )}
-
-                    {currentMessages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex gap-3 ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                      >
+          <TabsContent value={activeTab} className="flex-1 flex flex-col m-0 p-0">
+            {/* Messages */}
+            <ScrollArea className="flex-1 p-4">
+              <div className="space-y-4">
+                {currentMessages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-lg p-3 ${
+                        message.sender === "user"
+                          ? "bg-blue-600 text-white"
+                          : `${currentConfig.bgColor} text-gray-900 border`
+                      }`}
+                    >
+                      <div className="flex items-start space-x-2">
                         {message.sender === "agent" && (
-                          <div className={`p-2 rounded-lg ${currentAgent.color} flex-shrink-0`}>
-                            <IconComponent className="h-4 w-4 text-white" />
-                          </div>
+                          <IconComponent className={`h-4 w-4 mt-0.5 ${currentConfig.color}`} />
                         )}
-                        <div
-                          className={`max-w-[80%] p-3 rounded-lg ${
-                            message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
-                          }`}
-                        >
+                        {message.sender === "user" && <User className="h-4 w-4 mt-0.5 text-white" />}
+                        <div className="flex-1">
                           <p className="text-sm">{message.content}</p>
-                          <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
-                        </div>
-                        {message.sender === "user" && (
-                          <div className="p-2 rounded-lg bg-blue-600 flex-shrink-0">
-                            <User className="h-4 w-4 text-white" />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-
-                    {isLoading && (
-                      <div className="flex gap-3 justify-start">
-                        <div className={`p-2 rounded-lg ${currentAgent.color} flex-shrink-0`}>
-                          <IconComponent className="h-4 w-4 text-white" />
-                        </div>
-                        <div className="bg-gray-100 p-3 rounded-lg">
-                          <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                            <div
-                              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.1s" }}
-                            ></div>
-                            <div
-                              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.2s" }}
-                            ></div>
-                          </div>
+                          <p
+                            className={`text-xs mt-1 ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}
+                          >
+                            {message.timestamp.toLocaleTimeString()}
+                          </p>
                         </div>
                       </div>
-                    )}
-                    <div ref={messagesEndRef} />
+                    </div>
                   </div>
-                </ScrollArea>
+                ))}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className={`${currentConfig.bgColor} rounded-lg p-3 border`}>
+                      <div className="flex items-center space-x-2">
+                        <IconComponent className={`h-4 w-4 ${currentConfig.color}`} />
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+            </ScrollArea>
 
-                <div className="p-4 border-t">
-                  <div className="flex gap-2">
-                    <Input
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder={`Message ${currentAgent.name}...`}
-                      disabled={isLoading}
-                      className="flex-1"
-                    />
-                    <Button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()}>
-                      <Send className="h-4 w-4" />
-                    </Button>
+            {/* Input */}
+            <div className="p-4 border-t">
+              {!canSend ? (
+                <div className="text-center py-2">
+                  <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-2">
+                    <AlertCircle className="h-4 w-4" />
+                    <span>Message limit reached</span>
                   </div>
-                  {!user && (
-                    <p className="text-xs text-gray-500 mt-2">
-                      Sign in to access all deployed agents and save conversation history.
-                    </p>
+                  {!user ? (
+                    <p className="text-xs text-gray-500">Sign in to continue chatting</p>
+                  ) : (
+                    <p className="text-xs text-gray-500">Deploy this agent for unlimited messages</p>
                   )}
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+              ) : (
+                <div className="flex space-x-2">
+                  <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={`Message ${currentConfig.name}...`}
+                    onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                    disabled={isLoading}
+                    className="flex-1"
+                  />
+                  <Button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()} size="sm">
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </div>
+          </TabsContent>
+        </Tabs>
+      )}
+
+      {/* Single agent view */}
+      {availableAgents.length === 1 && (
+        <div className="flex-1 flex flex-col">
+          {/* Messages */}
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
+              {currentMessages.map((message) => (
+                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
+                  <div
+                    className={`max-w-[80%] rounded-lg p-3 ${
+                      message.sender === "user"
+                        ? "bg-blue-600 text-white"
+                        : `${currentConfig.bgColor} text-gray-900 border`
+                    }`}
+                  >
+                    <div className="flex items-start space-x-2">
+                      {message.sender === "agent" && (
+                        <IconComponent className={`h-4 w-4 mt-0.5 ${currentConfig.color}`} />
+                      )}
+                      {message.sender === "user" && <User className="h-4 w-4 mt-0.5 text-white" />}
+                      <div className="flex-1">
+                        <p className="text-sm">{message.content}</p>
+                        <p className={`text-xs mt-1 ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}>
+                          {message.timestamp.toLocaleTimeString()}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <div className={`${currentConfig.bgColor} rounded-lg p-3 border`}>
+                    <div className="flex items-center space-x-2">
+                      <IconComponent className={`h-4 w-4 ${currentConfig.color}`} />
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+          </ScrollArea>
+
+          {/* Input */}
+          <div className="p-4 border-t">
+            {!canSend ? (
+              <div className="text-center py-2">
+                <div className="flex items-center justify-center space-x-2 text-sm text-gray-500 mb-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>Message limit reached</span>
+                </div>
+                {!user ? (
+                  <p className="text-xs text-gray-500">Sign in to continue chatting</p>
+                ) : (
+                  <p className="text-xs text-gray-500">Deploy this agent for unlimited messages</p>
+                )}
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder={`Message ${currentConfig.name}...`}
+                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                  disabled={isLoading}
+                  className="flex-1"
+                />
+                <Button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()} size="sm">
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      )}
+    </div>
   )
 }

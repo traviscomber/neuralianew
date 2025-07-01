@@ -1,397 +1,309 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useAuth } from "@/hooks/use-auth"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { User, Building2, CreditCard, Bell, Save } from "lucide-react"
-import { supabase } from "@/lib/supabase"
-import { toast } from "@/hooks/use-toast"
+import { useAuth } from "@/hooks/use-auth"
+import { useToast } from "@/hooks/use-toast"
+import {
+  User,
+  Mail,
+  Calendar,
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  ArrowLeft,
+  LayoutDashboard,
+  Settings,
+  Save,
+} from "lucide-react"
 
 export default function ProfilePage() {
-  const { user, profile } = useAuth()
-  const [loading, setLoading] = useState(false)
+  const { user, loading, updateProfile } = useAuth()
+  const router = useRouter()
+  const { toast } = useToast()
+  const [isEditing, setIsEditing] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [formData, setFormData] = useState({
-    name: "",
-    company_name: "",
-    company_size: "",
-    industry: "",
-    bio: "",
-    website: "",
+    full_name: "",
     phone: "",
-    location: "",
-    timezone: "",
-  })
-
-  const [preferences, setPreferences] = useState({
-    email_notifications: true,
-    marketing_emails: false,
-    security_alerts: true,
-    weekly_reports: true,
   })
 
   useEffect(() => {
-    if (profile) {
+    if (!loading && !user) {
+      router.push("/")
+      return
+    }
+
+    if (user) {
       setFormData({
-        name: profile.name || "",
-        company_name: profile.company_name || "",
-        company_size: profile.company_size || "",
-        industry: profile.industry || "",
-        bio: "",
-        website: "",
-        phone: "",
-        location: "",
-        timezone: "",
+        full_name: user.user_metadata?.full_name || "",
+        phone: user.user_metadata?.phone || "",
       })
     }
-  }, [profile])
+  }, [user, loading, router])
 
   const handleSave = async () => {
     if (!user) return
 
-    setLoading(true)
+    setIsSaving(true)
     try {
-      const { error } = await supabase
-        .from("profiles")
-        .update({
-          name: formData.name,
-          company_name: formData.company_name,
-          company_size: formData.company_size,
-          industry: formData.industry,
-          updated_at: new Date().toISOString(),
+      const { error } = await updateProfile(formData)
+      if (error) {
+        toast({
+          title: "Error",
+          description: "Failed to update profile. Please try again.",
+          variant: "destructive",
         })
-        .eq("id", user.id)
-
-      if (error) throw error
-
-      toast({
-        title: "Profile updated",
-        description: "Your profile has been successfully updated.",
-      })
+      } else {
+        toast({
+          title: "Success",
+          description: "Profile updated successfully!",
+        })
+        setIsEditing(false)
+      }
     } catch (error) {
-      console.error("Error updating profile:", error)
+      console.error("Profile update error:", error)
       toast({
         title: "Error",
-        description: "Failed to update profile. Please try again.",
+        description: "An unexpected error occurred.",
         variant: "destructive",
       })
     } finally {
-      setLoading(false)
+      setIsSaving(false)
     }
   }
 
-  const getInitials = (name: string | null | undefined, email: string | undefined) => {
-    if (name) {
-      return name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
-        .toUpperCase()
-        .slice(0, 2)
+  const handleCancel = () => {
+    if (user) {
+      setFormData({
+        full_name: user.user_metadata?.full_name || "",
+        phone: user.user_metadata?.phone || "",
+      })
     }
-    if (email) {
-      return email[0].toUpperCase()
-    }
-    return "U"
+    setIsEditing(false)
   }
 
-  if (!user) {
+  if (loading) {
     return (
-      <div className="container mx-auto py-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
         <div className="text-center">
-          <p>Please sign in to view your profile.</p>
+          <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <User className="h-8 w-8 text-white animate-pulse" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">Loading Profile...</h2>
         </div>
       </div>
     )
   }
 
+  if (!user) {
+    return null
+  }
+
+  const createdAt = new Date(user.created_at).toLocaleDateString()
+  const lastSignIn = user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleDateString() : "Never"
+  const isEmailVerified = user.email_confirmed_at !== null
+
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Profile Settings</h1>
-          <p className="text-muted-foreground">Manage your account settings and preferences</p>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" onClick={() => router.back()}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back
+              </Button>
+              <h1 className="text-2xl font-bold text-gray-900">Profile Settings</h1>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" onClick={() => router.push("/dashboard")}>
+                <LayoutDashboard className="h-4 w-4 mr-2" />
+                Dashboard
+              </Button>
+            </div>
+          </div>
         </div>
+      </header>
 
-        <Tabs defaultValue="profile" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-            <TabsTrigger value="company">Company</TabsTrigger>
-            <TabsTrigger value="billing">Billing</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="profile" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  Personal Information
-                </CardTitle>
-                <CardDescription>Update your personal details and profile information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center gap-6">
-                  <Avatar className="h-20 w-20">
-                    <AvatarImage src={profile?.avatar_url || ""} />
-                    <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-white text-lg font-semibold">
-                      {getInitials(profile?.name, user?.email)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="space-y-2">
-                    <Button variant="outline" size="sm">
-                      Change Avatar
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* Profile Information */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center">
+                    <User className="mr-2 h-5 w-5" />
+                    Profile Information
+                  </CardTitle>
+                  <CardDescription>Manage your personal information and preferences</CardDescription>
+                </div>
+                {!isEditing ? (
+                  <Button onClick={() => setIsEditing(true)}>
+                    <Settings className="mr-2 h-4 w-4" />
+                    Edit Profile
+                  </Button>
+                ) : (
+                  <div className="flex space-x-2">
+                    <Button variant="outline" onClick={handleCancel} disabled={isSaving}>
+                      Cancel
                     </Button>
-                    <p className="text-sm text-muted-foreground">JPG, GIF or PNG. 1MB max.</p>
+                    <Button onClick={handleSave} disabled={isSaving}>
+                      <Save className="mr-2 h-4 w-4" />
+                      {isSaving ? "Saving..." : "Save Changes"}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="full_name">Full Name</Label>
+                  {isEditing ? (
+                    <Input
+                      id="full_name"
+                      value={formData.full_name}
+                      onChange={(e) => setFormData({ ...formData, full_name: e.target.value })}
+                      placeholder="Enter your full name"
+                    />
+                  ) : (
+                    <div className="p-3 bg-gray-50 rounded-md">{user.user_metadata?.full_name || "Not set"}</div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address</Label>
+                  <div className="p-3 bg-gray-50 rounded-md flex items-center justify-between">
+                    <span>{user.email}</span>
+                    {isEmailVerified ? (
+                      <Badge className="bg-green-100 text-green-800">
+                        <CheckCircle className="mr-1 h-3 w-3" />
+                        Verified
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary">
+                        <AlertCircle className="mr-1 h-3 w-3" />
+                        Unverified
+                      </Badge>
+                    )}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Enter your full name"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" value={user.email || ""} disabled className="bg-muted" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Phone Number</Label>
+                  {isEditing ? (
                     <Input
                       id="phone"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="Enter your phone number"
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="location">Location</Label>
-                    <Input
-                      id="location"
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Enter your location"
-                    />
-                  </div>
+                  ) : (
+                    <div className="p-3 bg-gray-50 rounded-md">{user.user_metadata?.phone || "Not set"}</div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="bio">Bio</Label>
-                  <Textarea
-                    id="bio"
-                    value={formData.bio}
-                    onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                    placeholder="Tell us about yourself"
-                    rows={3}
-                  />
+                  <Label>User ID</Label>
+                  <div className="p-3 bg-gray-50 rounded-md font-mono text-sm">{user.id}</div>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              </div>
+            </CardContent>
+          </Card>
 
-          <TabsContent value="company" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5" />
-                  Company Information
-                </CardTitle>
-                <CardDescription>Manage your company details and business information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="company_name">Company Name</Label>
-                    <Input
-                      id="company_name"
-                      value={formData.company_name}
-                      onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
-                      placeholder="Enter company name"
-                    />
+          {/* Account Security */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <Shield className="mr-2 h-5 w-5" />
+                Account Security
+              </CardTitle>
+              <CardDescription>Security information and verification status</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Mail className="h-5 w-5 text-gray-500" />
+                      <div>
+                        <p className="font-medium">Email Verification</p>
+                        <p className="text-sm text-gray-500">
+                          {isEmailVerified ? "Your email is verified" : "Email not verified"}
+                        </p>
+                      </div>
+                    </div>
+                    {isEmailVerified ? (
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                    ) : (
+                      <AlertCircle className="h-5 w-5 text-orange-500" />
+                    )}
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="website">Website</Label>
-                    <Input
-                      id="website"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                      placeholder="https://example.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="company_size">Company Size</Label>
-                    <Select
-                      value={formData.company_size}
-                      onValueChange={(value) => setFormData({ ...formData, company_size: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select company size" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="1-10">1-10 employees</SelectItem>
-                        <SelectItem value="11-50">11-50 employees</SelectItem>
-                        <SelectItem value="51-200">51-200 employees</SelectItem>
-                        <SelectItem value="201-500">201-500 employees</SelectItem>
-                        <SelectItem value="500+">500+ employees</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="industry">Industry</Label>
-                    <Select
-                      value={formData.industry}
-                      onValueChange={(value) => setFormData({ ...formData, industry: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select industry" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="technology">Technology</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="finance">Finance</SelectItem>
-                        <SelectItem value="education">Education</SelectItem>
-                        <SelectItem value="retail">Retail</SelectItem>
-                        <SelectItem value="manufacturing">Manufacturing</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
+
+                  <div className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <Shield className="h-5 w-5 text-gray-500" />
+                      <div>
+                        <p className="font-medium">Account Type</p>
+                        <p className="text-sm text-gray-500">Standard User Account</p>
+                      </div>
+                    </div>
+                    <Badge variant="outline">Active</Badge>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="billing" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <CreditCard className="h-5 w-5" />
-                  Subscription & Billing
-                </CardTitle>
-                <CardDescription>Manage your subscription plan and billing information</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-center justify-between p-4 border rounded-lg">
-                  <div>
-                    <h3 className="font-semibold">Current Plan</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {profile?.subscription_plan ? (
-                        <Badge variant="secondary" className="capitalize">
-                          {profile.subscription_plan}
-                        </Badge>
-                      ) : (
-                        "Free Plan"
-                      )}
-                    </p>
-                  </div>
-                  <Button variant="outline">Upgrade Plan</Button>
-                </div>
-
-                <Separator />
 
                 <div className="space-y-4">
-                  <h3 className="font-semibold">Usage Statistics</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-blue-600">{profile?.total_agents || 0}</div>
-                      <div className="text-sm text-muted-foreground">AI Agents</div>
+                  <div className="p-4 border rounded-lg">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <Calendar className="h-5 w-5 text-gray-500" />
+                      <p className="font-medium">Account Created</p>
                     </div>
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-green-600">{profile?.total_systems || 0}</div>
-                      <div className="text-sm text-muted-foreground">AI Systems</div>
+                    <p className="text-sm text-gray-600">{createdAt}</p>
+                  </div>
+
+                  <div className="p-4 border rounded-lg">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <User className="h-5 w-5 text-gray-500" />
+                      <p className="font-medium">Last Sign In</p>
                     </div>
-                    <div className="p-4 border rounded-lg text-center">
-                      <div className="text-2xl font-bold text-purple-600">{profile?.total_conversations || 0}</div>
-                      <div className="text-sm text-muted-foreground">Conversations</div>
-                    </div>
+                    <p className="text-sm text-gray-600">{lastSignIn}</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              </div>
+            </CardContent>
+          </Card>
 
-          <TabsContent value="preferences" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Bell className="h-5 w-5" />
-                  Notification Preferences
-                </CardTitle>
-                <CardDescription>Configure how you want to receive notifications</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Email Notifications</Label>
-                      <p className="text-sm text-muted-foreground">Receive notifications about your account activity</p>
-                    </div>
-                    <Switch
-                      checked={preferences.email_notifications}
-                      onCheckedChange={(checked) => setPreferences({ ...preferences, email_notifications: checked })}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Marketing Emails</Label>
-                      <p className="text-sm text-muted-foreground">Receive emails about new features and updates</p>
-                    </div>
-                    <Switch
-                      checked={preferences.marketing_emails}
-                      onCheckedChange={(checked) => setPreferences({ ...preferences, marketing_emails: checked })}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Security Alerts</Label>
-                      <p className="text-sm text-muted-foreground">Get notified about security-related activities</p>
-                    </div>
-                    <Switch
-                      checked={preferences.security_alerts}
-                      onCheckedChange={(checked) => setPreferences({ ...preferences, security_alerts: checked })}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="space-y-0.5">
-                      <Label>Weekly Reports</Label>
-                      <p className="text-sm text-muted-foreground">Receive weekly usage and performance reports</p>
-                    </div>
-                    <Switch
-                      checked={preferences.weekly_reports}
-                      onCheckedChange={(checked) => setPreferences({ ...preferences, weekly_reports: checked })}
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        <div className="flex justify-end pt-6">
-          <Button onClick={handleSave} disabled={loading} className="min-w-[120px]">
-            {loading ? (
-              "Saving..."
-            ) : (
-              <>
-                <Save className="mr-2 h-4 w-4" />
-                Save Changes
-              </>
-            )}
-          </Button>
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+              <CardDescription>Common account management tasks</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Button variant="outline" onClick={() => router.push("/dashboard")} className="justify-start">
+                  <LayoutDashboard className="mr-2 h-4 w-4" />
+                  Go to Dashboard
+                </Button>
+                <Button variant="outline" className="justify-start bg-transparent">
+                  <Shield className="mr-2 h-4 w-4" />
+                  Security Settings
+                </Button>
+                <Button variant="outline" className="justify-start bg-transparent">
+                  <Settings className="mr-2 h-4 w-4" />
+                  Account Settings
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

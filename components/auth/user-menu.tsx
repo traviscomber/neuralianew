@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { User, Settings, LogOut } from "lucide-react"
+import { User, Settings, LogOut, LayoutDashboard } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
@@ -21,17 +22,27 @@ interface UserMenuProps {
 
 export function UserMenu({ user }: UserMenuProps) {
   const { signOut } = useAuth()
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSignOut = async () => {
     try {
       setIsLoading(true)
       await signOut()
+      router.push("/")
     } catch (error) {
       console.error("Error signing out:", error)
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleProfile = () => {
+    router.push("/profile")
+  }
+
+  const handleDashboard = () => {
+    router.push("/dashboard")
   }
 
   const getInitials = (email: string) => {
@@ -43,6 +54,8 @@ export function UserMenu({ user }: UserMenuProps) {
       .toUpperCase()
       .slice(0, 2)
   }
+
+  const displayName = user.user_metadata?.full_name || user.email?.split("@")[0] || "User"
 
   return (
     <DropdownMenu>
@@ -58,12 +71,16 @@ export function UserMenu({ user }: UserMenuProps) {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">Account</p>
+            <p className="text-sm font-medium leading-none">{displayName}</p>
             <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
+        <DropdownMenuItem className="cursor-pointer" onClick={handleDashboard}>
+          <LayoutDashboard className="mr-2 h-4 w-4" />
+          <span>Dashboard</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={handleProfile}>
           <User className="mr-2 h-4 w-4" />
           <span>Profile</span>
         </DropdownMenuItem>

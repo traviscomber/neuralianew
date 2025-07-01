@@ -1,7 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -183,7 +182,6 @@ const sortedAgentTypes = agentTypes.sort((a, b) => (a.priority || 999) - (b.prio
 
 export default function HomePage() {
   const { user, loading } = useAuth()
-  const router = useRouter()
   const {
     cartItems = [],
     deployedAgents = [],
@@ -204,13 +202,6 @@ export default function HomePage() {
   const [specificAgent, setSpecificAgent] = useState<string | null>(null)
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null)
   const [isAgentDetailsOpen, setIsAgentDetailsOpen] = useState(false)
-
-  // Redirect to dashboard if user is logged in
-  useEffect(() => {
-    if (user && !loading) {
-      router.push("/dashboard")
-    }
-  }, [user, loading, router])
 
   const handleAddToCart = (agent: Agent) => {
     if (!user) {
@@ -411,6 +402,64 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Deployed Agents Section */}
+      {deployedAgents.length > 1 && (
+        <section className="py-16 px-4 bg-white">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">Your AI Executive Team</h2>
+              <p className="text-gray-600">Your deployed experts are ready to help</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {deployedAgents.map((agent) => (
+                <Card key={agent.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="text-2xl">{agent.icon}</div>
+                        <div>
+                          <CardTitle className="text-lg flex items-center">
+                            {agent.name}
+                            {agent.type === "ceo-neural-agent" && <Crown className="ml-2 h-4 w-4 text-yellow-500" />}
+                          </CardTitle>
+                          <CardDescription>{agent.description}</CardDescription>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end space-y-1">
+                        <Badge variant={agent.status === "active" ? "default" : "secondary"}>{agent.status}</Badge>
+                        {agent.type === "ceo-neural-agent" && (
+                          <Badge className="bg-purple-100 text-purple-800 border-purple-200 text-xs">CEO</Badge>
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Uptime:</span>
+                        <span className="font-medium">{agent.uptime}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-500">Last Active:</span>
+                        <span className="font-medium">{agent.lastActive}</span>
+                      </div>
+                      <Button
+                        className="w-full"
+                        onClick={() => handleChat(agent.type)}
+                        disabled={agent.status !== "active"}
+                      >
+                        <MessageSquare className="mr-2 h-4 w-4" />
+                        Chat with Expert
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Agents Grid */}
       <section className="py-16 px-4">

@@ -4,48 +4,50 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   CheckCircle,
-  Clock,
+  Crown,
   Star,
-  Users,
   Zap,
-  Shield,
-  TrendingUp,
+  Plus,
+  MessageSquare,
+  Clock,
+  ShoppingCart,
   Brain,
+  Users,
   Target,
   Headphones,
   Wrench,
   Megaphone,
   BarChart3,
-  Plus,
-  Crown,
+  Building2,
+  TrendingUp,
+  Shield,
+  Award,
 } from "lucide-react"
 
 interface AgentDetailsModalProps {
   isOpen: boolean
   onClose: () => void
   agentId: string
-  onAddToCart?: (agent: any) => void
-  onDeployAgent?: (agent: any) => void
-  isInCart?: boolean
-  isDeployed?: boolean
-  isDeploying?: boolean
+  onAddToCart: (agent: any) => void
+  onDeployAgent: (agent: any) => void
+  isInCart: boolean
+  isDeployed: boolean
+  isDeploying: boolean
 }
 
 const agentDetails = {
   "ceo-neural-agent": {
     name: "CEO Neural Agent",
-    description:
-      "Executive-level AI orchestrator that manages all business operations with C-suite intelligence and strategic oversight",
-    price: 0,
-    icon: Brain,
+    description: "Executive-level AI orchestrator that manages all business operations with C-suite intelligence",
+    icon: Crown,
     color: "bg-gradient-to-r from-purple-600 to-indigo-600",
+    price: 0,
     category: "Executive Core",
-    complexity: "Executive Level",
-    deploymentTime: "Instant",
+    level: "Executive Level",
     features: [
       "Executive Strategic Planning",
       "Cross-Functional Orchestration",
@@ -56,171 +58,186 @@ const agentDetails = {
       "Crisis Management",
       "Innovation Strategy",
     ],
-    advancedCapabilities: [
-      "Multi-dimensional strategic analysis with real-time market intelligence",
-      "Autonomous decision-making framework with risk assessment protocols",
-      "Integrated business intelligence with predictive modeling capabilities",
-      "Executive dashboard with KPI monitoring and alert systems",
-      "Stakeholder communication automation with personalized messaging",
-      "Crisis response protocols with escalation management",
+    capabilities: [
+      "Strategic Vision Development",
+      "Organizational Alignment",
+      "Executive Decision Making",
+      "Leadership Coaching",
+      "Change Management",
+      "Corporate Governance",
+      "Investor Relations",
+      "Merger & Acquisition Strategy",
     ],
     perfectFor: [
-      "C-suite executives seeking strategic AI coordination",
-      "Growing companies needing executive-level oversight",
-      "Organizations requiring integrated business intelligence",
-      "Companies implementing digital transformation initiatives",
-      "Businesses needing crisis management capabilities",
+      "C-Suite Executives",
+      "Business Owners",
+      "Strategic Planners",
+      "Board Members",
+      "Management Consultants",
+      "Investment Advisors",
     ],
     industries: [
-      "Technology & Software",
+      "Technology",
+      "Healthcare",
       "Financial Services",
-      "Healthcare & Life Sciences",
-      "Manufacturing & Industrial",
-      "Professional Services",
+      "Manufacturing",
       "Retail & E-commerce",
+      "Professional Services",
+      "Real Estate",
+      "Energy & Utilities",
     ],
   },
   "hr-advisory": {
     name: "HR Advisory Expert",
     description:
-      "Comprehensive human resources expertise covering policy development, employee relations, and strategic workforce management",
-    price: 299,
+      "Comprehensive human resources expertise covering policy development and strategic workforce management",
     icon: Users,
     color: "bg-blue-600",
+    price: 299,
     category: "Human Resources",
-    complexity: "Expert Level",
-    deploymentTime: "24-48 hours",
+    level: "Expert Level",
     features: [
       "Employee Relations Management",
       "Policy Development & Compliance",
       "Performance Management",
       "Talent Strategy",
-      "Recruitment & Onboarding",
+      "Compensation & Benefits",
       "Training & Development",
-      "Compensation Analysis",
-      "Employee Engagement",
+      "Diversity & Inclusion",
+      "HR Analytics",
     ],
-    advancedCapabilities: [
-      "AI-powered talent acquisition with predictive candidate matching",
-      "Automated performance review cycles with bias detection",
-      "Real-time employee sentiment analysis and engagement tracking",
-      "Compliance monitoring with regulatory update notifications",
-      "Personalized career development pathways with skill gap analysis",
-      "Predictive turnover modeling with retention strategy recommendations",
+    capabilities: [
+      "Recruitment & Selection",
+      "Employee Engagement",
+      "Conflict Resolution",
+      "Legal Compliance",
+      "Organizational Development",
+      "Succession Planning",
+      "Culture Transformation",
+      "HR Technology Implementation",
     ],
     perfectFor: [
-      "HR departments seeking to modernize processes",
-      "Growing companies scaling their workforce",
-      "Organizations focused on employee experience",
-      "Companies needing compliance management",
-      "Businesses implementing performance management systems",
+      "HR Directors",
+      "People Operations Teams",
+      "Talent Acquisition Specialists",
+      "Employee Relations Managers",
+      "Compensation Analysts",
+      "Training Coordinators",
     ],
     industries: [
-      "Technology & Software",
-      "Healthcare & Life Sciences",
+      "Technology",
+      "Healthcare",
       "Financial Services",
-      "Professional Services",
-      "Manufacturing & Industrial",
-      "Education & Training",
+      "Manufacturing",
+      "Education",
+      "Government",
+      "Non-Profit",
+      "Hospitality",
     ],
   },
   "sales-coach": {
     name: "Sales Performance Coach",
-    description:
-      "Advanced sales methodology expert specializing in deal strategy, pipeline optimization, and revenue acceleration",
-    price: 399,
+    description: "Advanced sales methodology expert specializing in deal strategy and revenue acceleration",
     icon: Target,
     color: "bg-red-600",
-    category: "Sales & Revenue",
-    complexity: "Expert Level",
-    deploymentTime: "24-48 hours",
+    price: 399,
+    category: "Sales",
+    level: "Expert Level",
     features: [
       "Deal Strategy Optimization",
       "Advanced Sales Methodologies",
       "Pipeline Management",
       "Revenue Forecasting",
-      "Lead Qualification",
-      "Sales Training & Coaching",
-      "CRM Integration",
-      "Performance Analytics",
+      "Sales Team Training",
+      "Customer Relationship Management",
+      "Negotiation Strategies",
+      "Sales Analytics",
     ],
-    advancedCapabilities: [
-      "AI-driven deal scoring with win probability analysis",
-      "Automated sales sequence optimization with A/B testing",
-      "Real-time competitive intelligence and positioning guidance",
-      "Predictive revenue forecasting with scenario modeling",
-      "Personalized coaching recommendations based on performance data",
-      "Advanced pipeline analytics with bottleneck identification",
+    capabilities: [
+      "Lead Generation",
+      "Qualification Frameworks",
+      "Objection Handling",
+      "Closing Techniques",
+      "Account Management",
+      "Territory Planning",
+      "Sales Process Design",
+      "Performance Coaching",
     ],
     perfectFor: [
-      "Sales teams looking to increase conversion rates",
-      "Organizations scaling their sales operations",
-      "Companies implementing new sales methodologies",
-      "Businesses needing revenue predictability",
-      "Sales managers seeking data-driven insights",
+      "Sales Directors",
+      "Account Executives",
+      "Sales Development Reps",
+      "Business Development Managers",
+      "Channel Partners",
+      "Sales Operations Teams",
     ],
     industries: [
-      "Technology & Software",
+      "Technology",
+      "SaaS",
       "Financial Services",
-      "Real Estate & Construction",
-      "Manufacturing & Industrial",
+      "Real Estate",
+      "Manufacturing",
+      "Healthcare",
+      "Telecommunications",
       "Professional Services",
-      "Healthcare & Life Sciences",
     ],
   },
   "customer-service": {
     name: "Customer Experience Expert",
     description: "Omnichannel customer service specialist focused on satisfaction optimization and service excellence",
-    price: 249,
     icon: Headphones,
     color: "bg-teal-600",
+    price: 249,
     category: "Customer Support",
-    complexity: "Intermediate Level",
-    deploymentTime: "12-24 hours",
+    level: "Expert Level",
     features: [
       "Omnichannel Support Strategy",
       "Customer Journey Optimization",
       "Service Quality Management",
       "Retention Strategies",
-      "Ticket Management",
-      "Knowledge Base Optimization",
-      "Customer Feedback Analysis",
       "Support Team Training",
+      "Escalation Management",
+      "Customer Feedback Analysis",
+      "Service Level Optimization",
     ],
-    advancedCapabilities: [
-      "AI-powered sentiment analysis with real-time escalation triggers",
-      "Automated ticket routing with intelligent priority assignment",
-      "Predictive customer churn modeling with intervention strategies",
-      "Multi-language support with cultural context awareness",
-      "Self-service optimization with dynamic content recommendations",
-      "Customer satisfaction prediction with proactive outreach",
+    capabilities: [
+      "Multi-Channel Integration",
+      "Response Time Optimization",
+      "Customer Satisfaction Measurement",
+      "Support Process Design",
+      "Knowledge Base Management",
+      "Self-Service Solutions",
+      "Customer Success Programs",
+      "Complaint Resolution",
     ],
     perfectFor: [
-      "Customer service teams seeking efficiency gains",
-      "Companies focused on customer retention",
-      "Organizations implementing omnichannel support",
-      "Businesses needing 24/7 service capabilities",
-      "Companies scaling their support operations",
+      "Customer Success Managers",
+      "Support Team Leaders",
+      "Service Operations Managers",
+      "Customer Experience Directors",
+      "Quality Assurance Teams",
+      "Training Coordinators",
     ],
     industries: [
-      "Retail & E-commerce",
-      "Technology & Software",
-      "Financial Services",
-      "Healthcare & Life Sciences",
-      "Travel & Hospitality",
+      "E-commerce",
+      "SaaS",
       "Telecommunications",
+      "Financial Services",
+      "Healthcare",
+      "Travel & Hospitality",
+      "Retail",
+      "Technology",
     ],
   },
   "technical-support": {
     name: "Technical Systems Expert",
     description:
       "Advanced technical specialist for system architecture, troubleshooting, and infrastructure optimization",
-    price: 349,
     icon: Wrench,
     color: "bg-indigo-600",
-    category: "Technical Operations",
-    complexity: "Expert Level",
-    deploymentTime: "48-72 hours",
+    price: 349,
+    category: "Technical",
+    level: "Expert Level",
     features: [
       "System Architecture Analysis",
       "Advanced Troubleshooting",
@@ -228,119 +245,130 @@ const agentDetails = {
       "Security Assessment",
       "Performance Monitoring",
       "Disaster Recovery Planning",
-      "Technology Stack Evaluation",
-      "DevOps Integration",
+      "Technology Integration",
+      "Technical Documentation",
     ],
-    advancedCapabilities: [
-      "Automated system health monitoring with predictive failure detection",
-      "AI-driven root cause analysis with resolution recommendations",
-      "Infrastructure optimization with cost-performance modeling",
-      "Security vulnerability assessment with automated patching",
-      "Performance bottleneck identification with scaling recommendations",
-      "Disaster recovery simulation with business continuity planning",
+    capabilities: [
+      "Network Design",
+      "Database Optimization",
+      "Cloud Migration",
+      "DevOps Implementation",
+      "Security Auditing",
+      "Capacity Planning",
+      "Automation Strategies",
+      "Technical Training",
     ],
     perfectFor: [
-      "IT departments managing complex infrastructure",
-      "Companies undergoing digital transformation",
-      "Organizations needing security expertise",
-      "Businesses scaling their technical operations",
-      "Teams implementing DevOps practices",
+      "IT Directors",
+      "System Administrators",
+      "DevOps Engineers",
+      "Technical Architects",
+      "Security Specialists",
+      "Infrastructure Teams",
     ],
     industries: [
-      "Technology & Software",
+      "Technology",
       "Financial Services",
-      "Healthcare & Life Sciences",
-      "Manufacturing & Industrial",
-      "Government & Public Sector",
+      "Healthcare",
+      "Manufacturing",
+      "Government",
+      "Education",
       "Telecommunications",
+      "Energy",
     ],
   },
   marketing: {
     name: "Marketing Strategy Expert",
-    description:
-      "Comprehensive marketing intelligence covering strategy development, campaign optimization, and growth acceleration",
-    price: 329,
+    description: "Comprehensive marketing intelligence covering strategy development and growth acceleration",
     icon: Megaphone,
     color: "bg-orange-600",
-    category: "Marketing & Growth",
-    complexity: "Expert Level",
-    deploymentTime: "24-48 hours",
+    price: 329,
+    category: "Marketing",
+    level: "Expert Level",
     features: [
       "Strategic Campaign Development",
       "Multi-Channel Optimization",
       "Brand Positioning",
       "Growth Marketing",
       "Content Strategy",
-      "SEO & SEM Management",
-      "Social Media Strategy",
+      "Digital Marketing",
+      "Market Research",
       "Marketing Analytics",
     ],
-    advancedCapabilities: [
-      "AI-powered audience segmentation with behavioral prediction",
-      "Automated campaign optimization with real-time budget allocation",
-      "Content generation with brand voice consistency",
-      "Predictive customer lifetime value modeling",
-      "Cross-channel attribution analysis with ROI optimization",
-      "Competitive intelligence with market positioning insights",
+    capabilities: [
+      "Customer Segmentation",
+      "Competitive Analysis",
+      "Marketing Automation",
+      "Social Media Strategy",
+      "SEO/SEM Optimization",
+      "Email Marketing",
+      "Conversion Optimization",
+      "ROI Measurement",
     ],
     perfectFor: [
-      "Marketing teams seeking data-driven strategies",
-      "Companies launching new products or services",
-      "Organizations scaling their marketing efforts",
-      "Businesses needing brand positioning guidance",
-      "Teams implementing growth marketing tactics",
+      "Marketing Directors",
+      "Digital Marketing Managers",
+      "Brand Managers",
+      "Growth Marketers",
+      "Content Strategists",
+      "Marketing Analysts",
     ],
     industries: [
-      "Retail & E-commerce",
-      "Technology & Software",
-      "Healthcare & Life Sciences",
+      "E-commerce",
+      "SaaS",
+      "Consumer Goods",
+      "Healthcare",
       "Financial Services",
-      "Travel & Hospitality",
-      "Professional Services",
+      "Real Estate",
+      "Education",
+      "Entertainment",
     ],
   },
   analytics: {
     name: "Data Intelligence Expert",
-    description:
-      "Advanced analytics specialist providing predictive insights, statistical modeling, and business intelligence",
-    price: 379,
+    description: "Advanced analytics specialist providing predictive insights and business intelligence",
     icon: BarChart3,
     color: "bg-green-600",
-    category: "Data & Analytics",
-    complexity: "Expert Level",
-    deploymentTime: "48-72 hours",
+    price: 379,
+    category: "Analytics",
+    level: "Expert Level",
     features: [
       "Predictive Analytics",
       "Statistical Modeling",
       "Business Intelligence",
       "Data Visualization",
-      "Machine Learning Implementation",
-      "Data Pipeline Optimization",
-      "KPI Dashboard Creation",
-      "Advanced Reporting",
+      "Machine Learning",
+      "Data Mining",
+      "Performance Metrics",
+      "Reporting Automation",
     ],
-    advancedCapabilities: [
-      "Real-time predictive modeling with automated model retraining",
-      "Advanced statistical analysis with causal inference capabilities",
-      "Custom machine learning pipeline development and deployment",
-      "Interactive dashboard creation with drill-down capabilities",
-      "Automated anomaly detection with alert systems",
-      "Data quality monitoring with cleansing recommendations",
+    capabilities: [
+      "Data Pipeline Design",
+      "Advanced Analytics",
+      "Dashboard Creation",
+      "Trend Analysis",
+      "Forecasting Models",
+      "A/B Testing",
+      "Customer Analytics",
+      "Operational Intelligence",
     ],
     perfectFor: [
-      "Data teams seeking advanced analytics capabilities",
-      "Companies implementing data-driven decision making",
-      "Organizations needing predictive insights",
-      "Businesses scaling their analytics operations",
-      "Teams building machine learning solutions",
+      "Data Scientists",
+      "Business Analysts",
+      "Analytics Managers",
+      "BI Developers",
+      "Research Teams",
+      "Strategy Analysts",
     ],
     industries: [
+      "Technology",
       "Financial Services",
-      "Technology & Software",
-      "Healthcare & Life Sciences",
-      "Retail & E-commerce",
-      "Manufacturing & Industrial",
-      "Government & Public Sector",
+      "Healthcare",
+      "Retail",
+      "Manufacturing",
+      "Media & Entertainment",
+      "Government",
+      "Sports & Gaming",
     ],
   },
 }
@@ -351,9 +379,9 @@ export function AgentDetailsModal({
   agentId,
   onAddToCart,
   onDeployAgent,
-  isInCart = false,
-  isDeployed = false,
-  isDeploying = false,
+  isInCart,
+  isDeployed,
+  isDeploying,
 }: AgentDetailsModalProps) {
   const agent = agentDetails[agentId as keyof typeof agentDetails]
 
@@ -364,171 +392,280 @@ export function AgentDetailsModal({
   const IconComponent = agent.icon
   const isCEO = agentId === "ceo-neural-agent"
 
-  const handleAddToCart = () => {
-    if (onAddToCart) {
-      onAddToCart({
-        id: agentId,
-        type: agentId,
-        name: agent.name,
-        description: agent.description,
-        price: agent.price,
-        features: agent.features,
-        icon: agent.icon,
-        color: agent.color,
-      })
+  const handleAction = () => {
+    if (isDeployed) {
+      // Open chat
+      return
+    }
+    if (isInCart) {
+      onDeployAgent(agent)
+    } else {
+      onAddToCart(agent)
     }
   }
 
-  const handleDeploy = () => {
-    if (onDeployAgent) {
-      onDeployAgent({
-        id: agentId,
-        type: agentId,
-        name: agent.name,
-        description: agent.description,
-        price: agent.price,
-        features: agent.features,
-        icon: agent.icon,
-        color: agent.color,
-      })
+  const getActionButton = () => {
+    if (isDeployed) {
+      return (
+        <Button className="w-full">
+          <MessageSquare className="mr-2 h-4 w-4" />
+          Chat Now
+        </Button>
+      )
     }
+
+    if (isDeploying) {
+      return (
+        <Button disabled className="w-full">
+          <Clock className="mr-2 h-4 w-4" />
+          Deploying...
+        </Button>
+      )
+    }
+
+    if (isInCart) {
+      return (
+        <Button onClick={handleAction} className="w-full">
+          <Zap className="mr-2 h-4 w-4" />
+          Deploy Now
+        </Button>
+      )
+    }
+
+    return (
+      <Button onClick={handleAction} className="w-full">
+        <Plus className="mr-2 h-4 w-4" />
+        Add to Cart
+      </Button>
+    )
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] max-h-[90vh]">
+      <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center space-x-3">
             <div className={`p-3 rounded-lg ${agent.color}`}>
               <IconComponent className="h-6 w-6 text-white" />
             </div>
             <div>
-              <DialogTitle className="flex items-center gap-2">
+              <DialogTitle className="flex items-center text-xl">
                 {agent.name}
-                {isCEO && <Crown className="h-5 w-5 text-yellow-500" />}
+                {isCEO && <Crown className="ml-2 h-5 w-5 text-purple-600" />}
               </DialogTitle>
-              <DialogDescription>{agent.description}</DialogDescription>
+              <DialogDescription className="text-base">{agent.description}</DialogDescription>
             </div>
+          </div>
+          <div className="flex items-center space-x-2 mt-2">
+            <Badge variant="outline" className={isCEO ? "border-purple-300 text-purple-700" : ""}>
+              {agent.category}
+            </Badge>
+            <Badge variant="secondary" className={isCEO ? "bg-purple-100 text-purple-800" : ""}>
+              {agent.level}
+            </Badge>
+            {isCEO && (
+              <Badge className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                <Crown className="mr-1 h-3 w-3" />
+                CEO & Orchestrator
+              </Badge>
+            )}
           </div>
         </DialogHeader>
 
-        <ScrollArea className="max-h-[60vh] pr-4">
-          <div className="space-y-6">
-            {/* Overview */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="capabilities">Capabilities</TabsTrigger>
+            <TabsTrigger value="industries">Industries</TabsTrigger>
+            <TabsTrigger value="pricing">Pricing</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card>
-                <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">${agent.price}</div>
-                  <div className="text-sm text-gray-500">One-time setup</div>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Star className="mr-2 h-5 w-5 text-yellow-500" />
+                    Core Features
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {agent.features.slice(0, 6).map((feature, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <CheckCircle className={`h-4 w-4 ${isCEO ? "text-purple-500" : "text-green-500"}`} />
+                        <span className="text-sm">{feature}</span>
+                      </div>
+                    ))}
+                    {agent.features.length > 6 && (
+                      <div className="text-xs text-gray-500 pl-6">+{agent.features.length - 6} more features</div>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
+
               <Card>
-                <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-green-600">
-                    <Clock className="h-6 w-6 mx-auto" />
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Users className="mr-2 h-5 w-5 text-blue-500" />
+                    Perfect For
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    {agent.perfectFor.map((role, index) => (
+                      <div key={index} className="flex items-center space-x-2">
+                        <Award className="h-4 w-4 text-blue-500" />
+                        <span className="text-sm">{role}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div className="text-sm text-gray-500">{agent.deploymentTime}</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-purple-600">
-                    <Star className="h-6 w-6 mx-auto" />
-                  </div>
-                  <div className="text-sm text-gray-500">{agent.complexity}</div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-orange-600">
-                    <Shield className="h-6 w-6 mx-auto" />
-                  </div>
-                  <div className="text-sm text-gray-500">Enterprise</div>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Core Features */}
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Core Features</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {agent.features.map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <CheckCircle className={`h-4 w-4 ${isCEO ? "text-purple-500" : "text-green-500"}`} />
-                    <span className="text-sm">{feature}</span>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Building2 className="mr-2 h-5 w-5 text-gray-600" />
+                  Main Industry Sectors
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {agent.industries.map((industry, index) => (
+                    <Badge key={index} variant="outline" className="justify-center py-2">
+                      {industry}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="capabilities" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Brain className="mr-2 h-5 w-5 text-purple-500" />
+                  Advanced Capabilities
+                </CardTitle>
+                <CardDescription>Comprehensive expertise and specialized skills</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {agent.capabilities.map((capability, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg">
+                      <TrendingUp className={`h-4 w-4 ${isCEO ? "text-purple-500" : "text-blue-500"}`} />
+                      <span className="text-sm font-medium">{capability}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="industries" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Building2 className="mr-2 h-5 w-5 text-gray-600" />
+                  Industry Expertise
+                </CardTitle>
+                <CardDescription>Specialized knowledge across key business sectors</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {agent.industries.map((industry, index) => (
+                    <div key={index} className="flex items-center space-x-3 p-4 border rounded-lg hover:bg-gray-50">
+                      <Building2 className="h-5 w-5 text-gray-500" />
+                      <div>
+                        <h4 className="font-medium">{industry}</h4>
+                        <p className="text-xs text-gray-500">Specialized expertise and best practices</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="pricing" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Shield className="mr-2 h-5 w-5 text-green-500" />
+                  Pricing & Deployment
+                </CardTitle>
+                <CardDescription>Transparent pricing with enterprise-grade features</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-gray-900 mb-2">
+                    {agent.price === 0 ? "Free" : `$${agent.price}`}
+                    {agent.price > 0 && <span className="text-lg text-gray-500">/month</span>}
                   </div>
-                ))}
-              </div>
-            </div>
+                  {isCEO && (
+                    <Badge className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white mb-4">
+                      <Crown className="mr-1 h-3 w-3" />
+                      Executive Tier - Always Free
+                    </Badge>
+                  )}
+                </div>
 
-            {/* Main Industry Sectors */}
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Main Industry Sectors</h3>
-              <div className="flex flex-wrap gap-2">
-                {agent.industries.map((industry, index) => (
-                  <Badge key={index} variant="outline" className={isCEO ? "border-purple-300 text-purple-700" : ""}>
-                    {industry}
-                  </Badge>
-                ))}
-              </div>
-            </div>
+                <Separator />
 
-            {/* Advanced Capabilities */}
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Advanced Capabilities</h3>
-              <div className="space-y-3">
-                {agent.advancedCapabilities.map((capability, index) => (
-                  <div key={index} className="flex items-start space-x-2">
-                    <Zap className={`h-4 w-4 mt-0.5 ${isCEO ? "text-purple-500" : "text-blue-500"}`} />
-                    <span className="text-sm text-gray-700">{capability}</span>
+                <div className="space-y-4">
+                  <h4 className="font-semibold">What's Included:</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">24/7 Availability</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">Unlimited Conversations</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">Real-time Insights</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">Enterprise Security</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">API Integration</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-sm">Custom Training</span>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* Perfect For */}
-            <div>
-              <h3 className="text-lg font-semibold mb-3">Perfect For</h3>
-              <div className="space-y-2">
-                {agent.perfectFor.map((useCase, index) => (
-                  <div key={index} className="flex items-start space-x-2">
-                    <TrendingUp className={`h-4 w-4 mt-0.5 ${isCEO ? "text-purple-500" : "text-green-500"}`} />
-                    <span className="text-sm text-gray-700">{useCase}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </ScrollArea>
+                <Separator />
 
-        <Separator />
-
-        <div className="flex space-x-3">
-          {isDeployed ? (
-            <Button className="flex-1" disabled>
-              <CheckCircle className="mr-2 h-4 w-4" />
-              Deployed
-            </Button>
-          ) : isDeploying ? (
-            <Button className="flex-1" disabled>
-              <Clock className="mr-2 h-4 w-4" />
-              Deploying...
-            </Button>
-          ) : isInCart ? (
-            <Button onClick={handleDeploy} className="flex-1">
-              <Zap className="mr-2 h-4 w-4" />
-              Deploy Now
-            </Button>
-          ) : (
-            <Button onClick={handleAddToCart} className="flex-1">
-              <Plus className="mr-2 h-4 w-4" />
-              Add to Cart
-            </Button>
-          )}
-          <Button variant="outline" onClick={onClose}>
-            Close
-          </Button>
-        </div>
+                <div className="flex space-x-3">
+                  {getActionButton()}
+                  {isInCart && (
+                    <Badge className="bg-orange-100 text-orange-800 px-3 py-1">
+                      <ShoppingCart className="mr-1 h-3 w-3" />
+                      In Cart
+                    </Badge>
+                  )}
+                  {isDeployed && (
+                    <Badge className="bg-green-100 text-green-800 px-3 py-1">
+                      <CheckCircle className="mr-1 h-3 w-3" />
+                      Deployed
+                    </Badge>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </DialogContent>
     </Dialog>
   )

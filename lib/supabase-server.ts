@@ -1,15 +1,7 @@
-/**
- * Server-side Supabase client (compatibility wrapper).
- *
- * Keeps `@/lib/supabase-server` import paths working while ensuring
- * we only rely on the single implementation held in `@/lib/supabase`.
- */
+import { createServerClient } from "./supabase"
 
-import { createServerClient as _createServerClient, supabase, createClient, dbHelpers } from "@/lib/supabase"
+// Server-side Supabase client wrapper for compatibility
 
-// Named export
-export const createServerClient = _createServerClient
-export { supabase, createClient, dbHelpers }
-
-// Default export (if someone does `import createServerClient from ...`)
-export default supabase
+// Re-export the server client
+export { createServerClient }
+export default createServerClient
