@@ -5,10 +5,11 @@
  * we only rely on the single implementation held in `@/lib/supabase`.
  */
 
-import { createServerClient as _createServerClient } from "@/lib/supabase"
+import { createServerClient as _createServerClient, supabase, createClient, dbHelpers } from "@/lib/supabase"
 
 // Named export
 export const createServerClient = _createServerClient
+export { supabase, createClient, dbHelpers }
 
 // Default export (if someone does `import createServerClient from ...`)
-export default _createServerClient
+export default supabase

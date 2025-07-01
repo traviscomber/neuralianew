@@ -6,7 +6,7 @@
  * the *single* shared client defined in `@/lib/supabase`.
  */
 
-import { supabase as supabaseSingleton, createClient as createClientSingleton } from "@/lib/supabase"
+import { supabase as supabaseSingleton, createClient as createClientSingleton, dbHelpers } from "@/lib/supabase"
 
 // Named export expected by legacy code
 export const supabase = supabaseSingleton
@@ -16,3 +16,6 @@ export const createClient = () => createClientSingleton()
 
 // Default export keeps import supabase from "@/lib/supabase-browser" working
 export default supabaseSingleton
+
+// Re-export the singleton client to avoid multiple GoTrueClient instances
+export { dbHelpers }
