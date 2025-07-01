@@ -1,278 +1,290 @@
 "use client"
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react"
-import { supabase } from "@/lib/supabase"
-import { useToast } from "@/hooks/use-toast"
+import { createContext, useContext, useEffect, useState, useMemo, type ReactNode } from "react"
+import { dbService } from "@/lib/database"
 import { useAuth } from "@/hooks/use-auth"
+import { useToast } from "@/hooks/use-toast"
 
-//
-// ─── TYPES ──────────────────────────────────────────────────────────────────────
-//
-
-export type CartItem = {
+export interface CartItem {
   id: string
   name: string
   description: string
   price: number
+  quantity?: number
   category?: string
   icon?: string
 }
 
-export type DeployedAgentRow = {
-  id: number
-  agent_id: string
+export interface DeployedAgent {
+  id: string
   user_id: string
-  /* NEW → matches NOT-NULL db column */
+  agent_id: string
   name: string
-  /* existing/optional cols */
-  agent_description: string | null
-  agent_type: string
-  icon: string | null
-  status: "deploying" | "active" | "paused" | "error"
+  agent_name?: string
+  agent_description?: string
+  agent_type?: string
+  icon?: string
+  status: "deploying" | "active" | "trial" | "expired"
   created_at: string
+  expires_at?: string
+  trial_ends_at?: string // 5-day trial expiration
+  is_trial: boolean
 }
 
-type CartContextValue = {
-  /* cart */
+interface CartContextType {
   items: CartItem[]
+  deployedAgents: DeployedAgent[]
   addToCart: (item: CartItem) => void
   removeFromCart: (id: string) => void
   clearCart: () => void
   getTotalItems: () => number
   getTotalPrice: () => number
-  /* deployments */
-  deployedAgents: DeployedAgentRow[]
-  deployAgent: (item: CartItem) => Promise<void>
   deployAgents: () => Promise<void>
-  upgradeAgent: (rowId: number) => Promise<void>
+  upgradeAgent: (agentId: string) => Promise<void>
   isAgentDeployed: (agentId: string) => boolean
   isAgentDeploying: (agentId: string) => boolean
+  isAgentOnTrial: (agentId: string) => boolean
+  getTrialTimeRemaining: (agentId: string) => string
 }
 
-const CartContext = createContext<CartContextValue | null>(null)
-
-//
-// ─── PROVIDER ───────────────────────────────────────────────────────────────────
-//
+const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<CartItem[]>([])
+  const [deployedAgents, setDeployedAgents] = useState<DeployedAgent[]>([])
   const { user } = useAuth()
   const { toast } = useToast()
 
-  // ── Cart items persisted in localStorage ──────────────────────
-  const [items, setItems] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return []
-    try {
-      const stored = localStorage.getItem("neuralia-cart")
-      return stored ? (JSON.parse(stored) as CartItem[]) : []
-    } catch {
-      return []
-    }
-  })
-
-  // ── Deployed agents fetched from Supabase ─────────────────────
-  const [deployedAgents, setDeployedAgents] = useState<DeployedAgentRow[]>([])
-
-  // Persist cart to localStorage whenever it changes
+  // Load deployed agents when user changes
   useEffect(() => {
-    try {
-      localStorage.setItem("neuralia-cart", JSON.stringify(items))
-    } catch {
-      /* ignore */
-    }
-  }, [items])
-
-  // Fetch deployed agents for the signed-in user
-  useEffect(() => {
-    if (!user) {
+    if (user) {
+      loadDeployedAgents()
+    } else {
       setDeployedAgents([])
-      return
     }
-    ;(async () => {
-      const { data, error } = await supabase
-        .from("deployed_agents")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-
-      if (!error && data) setDeployedAgents(data as DeployedAgentRow[])
-    })()
   }, [user])
 
-  // ── Cart helpers ──────────────────────────────────────────────
-  const addToCart = useCallback(
-    (item: CartItem) => {
-      setItems((prev) => {
-        if (prev.some((i) => i.id === item.id)) return prev
-        return [...prev, item]
-      })
-      toast({
-        title: "Added to cart",
-        description: item.name,
-      })
-    },
-    [toast],
-  )
+  // Check for expired trials every minute
+  useEffect(() => {
+    const interval = setInterval(() => {
+      checkExpiredTrials()
+    }, 60000) // Check every minute
 
-  const removeFromCart = useCallback((id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id))
-  }, [])
+    return () => clearInterval(interval)
+  }, [deployedAgents])
 
-  const clearCart = useCallback(() => setItems([]), [])
+  const loadDeployedAgents = async () => {
+    if (!user) return
 
-  const getTotalItems = useCallback(() => items.length, [items])
-
-  const getTotalPrice = useCallback(() => items.reduce((sum, it) => sum + it.price, 0), [items])
-
-  // ── Deployment helpers ────────────────────────────────────────
-  const buildPayload = (item: CartItem) => ({
-    user_id: user!.id,
-    agent_id: item.id,
-    /* supply the NOT-NULL “name” column */
-    name: item.name,
-    /* keep optional cols if they exist, they’re ignored otherwise */
-    agent_description: item.description || null,
-    agent_type: item.category || "general",
-    icon: item.icon || "🤖",
-    status: "deploying" as const,
-  })
-
-  const deployAgent = useCallback(
-    async (item: CartItem) => {
-      if (!user) {
-        toast({ title: "Please sign in first", variant: "destructive" })
-        return
-      }
-
-      const { data, error } = await supabase.from("deployed_agents").insert(buildPayload(item)).select().single()
-
-      if (error) {
-        console.error("deployAgent error:", error)
-        toast({
-          title: "Deployment failed",
-          description: error.message,
-          variant: "destructive",
-        })
-        return
-      }
-
-      setDeployedAgents((prev) => [data as DeployedAgentRow, ...prev])
-      toast({
-        title: "Deployment started",
-        description: `${item.name} is spinning up`,
-      })
-    },
-    [user, toast],
-  )
-
-  const deployAgents = useCallback(async () => {
-    if (!user) {
-      toast({ title: "Please sign in first", variant: "destructive" })
-      return
+    try {
+      const agents = await dbService.getUserDeployedAgents(user.id)
+      const mappedAgents: DeployedAgent[] = agents.map((agent: any) => ({
+        id: agent.id,
+        user_id: agent.user_id,
+        agent_id: agent.agent_id,
+        name: agent.name || agent.agent_name || "Unnamed Agent",
+        agent_name: agent.agent_name,
+        agent_description: agent.agent_description,
+        agent_type: agent.agent_type,
+        icon: agent.icon || "🤖",
+        status: determineAgentStatus(agent),
+        created_at: agent.created_at,
+        expires_at: agent.expires_at,
+        trial_ends_at: agent.trial_ends_at,
+        is_trial: agent.is_trial || false,
+      }))
+      setDeployedAgents(mappedAgents)
+    } catch (error) {
+      console.error("Failed to load deployed agents:", error)
     }
-    if (items.length === 0) {
-      toast({ title: "Cart is empty", description: "Add an agent first" })
-      return
+  }
+
+  const determineAgentStatus = (agent: any): "deploying" | "active" | "trial" | "expired" => {
+    const now = new Date()
+
+    // Check if trial has expired
+    if (agent.trial_ends_at && new Date(agent.trial_ends_at) < now) {
+      return "expired"
     }
 
-    const payload = items.map(buildPayload)
-    const { data, error } = await supabase.from("deployed_agents").insert(payload).select()
+    // Check if it's still on trial
+    if (agent.is_trial && agent.trial_ends_at && new Date(agent.trial_ends_at) > now) {
+      return "trial"
+    }
 
-    if (error) {
+    // Check if it's still deploying
+    if (agent.status === "deploying") {
+      return "deploying"
+    }
+
+    return "active"
+  }
+
+  const checkExpiredTrials = () => {
+    const now = new Date()
+    setDeployedAgents((prev) =>
+      prev.map((agent) => {
+        if (agent.trial_ends_at && new Date(agent.trial_ends_at) < now && agent.status === "trial") {
+          return { ...agent, status: "expired" as const }
+        }
+        return agent
+      }),
+    )
+  }
+
+  const addToCart = (item: CartItem) => {
+    setItems((prev) => {
+      const existing = prev.find((i) => i.id === item.id)
+      if (existing) {
+        return prev.map((i) => (i.id === item.id ? { ...i, quantity: (i.quantity || 1) + 1 } : i))
+      }
+      return [...prev, { ...item, quantity: 1 }]
+    })
+
+    toast({
+      title: "Added to Neural Cart",
+      description: `${item.name} has been added to your neural deployment queue.`,
+    })
+  }
+
+  const removeFromCart = (id: string) => {
+    setItems((prev) => prev.filter((item) => item.id !== id))
+  }
+
+  const clearCart = () => {
+    setItems([])
+  }
+
+  const getTotalItems = useMemo(() => {
+    return () => items.reduce((total, item) => total + (item.quantity || 1), 0)
+  }, [items])
+
+  const getTotalPrice = useMemo(() => {
+    return () => items.reduce((total, item) => total + item.price * (item.quantity || 1), 0)
+  }, [items])
+
+  const deployAgents = async () => {
+    if (!user || items.length === 0) return
+
+    try {
+      const now = new Date()
+      const trialEndsAt = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
+
+      const deploymentPromises = items.map(async (item) => {
+        const payload = {
+          user_id: user.id,
+          agent_id: item.id,
+          name: item.name,
+          agent_name: item.name,
+          agent_description: item.description,
+          agent_type: item.category || "neural-network",
+          icon: item.icon || "🤖",
+          status: "trial",
+          is_trial: true,
+          trial_ends_at: trialEndsAt.toISOString(),
+          created_at: now.toISOString(),
+        }
+
+        return dbService.deployAgent(user.id, item.id, payload)
+      })
+
+      await Promise.all(deploymentPromises)
+
+      toast({
+        title: "Neural Agents Deployed!",
+        description: `${items.length} neural agents are now active with 5-day free trial.`,
+      })
+
+      clearCart()
+      await loadDeployedAgents()
+    } catch (error) {
       console.error("deployAgents error:", error)
       toast({
-        title: "Deployment failed",
-        description: error.message,
+        title: "Deployment Failed",
+        description: "Failed to deploy neural agents. Please try again.",
         variant: "destructive",
       })
-      return
     }
+  }
 
-    setDeployedAgents((prev) => [...(data as DeployedAgentRow[]), ...prev])
-    clearCart()
-    toast({
-      title: "Deployment started",
-      description: "Your agents are spinning up",
-    })
-  }, [user, items, toast, clearCart])
+  const upgradeAgent = async (agentId: string) => {
+    if (!user) return
 
-  const upgradeAgent = useCallback(
-    async (rowId: number) => {
-      const { data, error } = await supabase
-        .from("deployed_agents")
-        .update({ status: "active" })
-        .eq("id", rowId)
-        .select()
-        .single()
+    try {
+      // This would integrate with USDT payment processing
+      // For now, we'll simulate the upgrade
+      toast({
+        title: "Upgrade Required",
+        description: "Send USDT to TQn9Y2khEsLMG73Zyy56JdKHD8rQQzaUvr to upgrade this neural agent.",
+      })
+    } catch (error) {
+      console.error("upgradeAgent error:", error)
+      toast({
+        title: "Upgrade Failed",
+        description: "Failed to upgrade agent. Please try again.",
+        variant: "destructive",
+      })
+    }
+  }
 
-      if (error) {
-        console.error("upgradeAgent error:", error)
-        toast({
-          title: "Upgrade failed",
-          description: error.message,
-          variant: "destructive",
-        })
-        return
-      }
+  const isAgentDeployed = (agentId: string): boolean => {
+    return deployedAgents.some((agent) => agent.agent_id === agentId)
+  }
 
-      setDeployedAgents((prev) => prev.map((r) => (r.id === rowId ? { ...r, status: "active" } : r)))
-      toast({ title: "Agent upgraded", description: "Now active" })
-    },
-    [toast],
+  const isAgentDeploying = (agentId: string): boolean => {
+    return deployedAgents.some((agent) => agent.agent_id === agentId && agent.status === "deploying")
+  }
+
+  const isAgentOnTrial = (agentId: string): boolean => {
+    return deployedAgents.some((agent) => agent.agent_id === agentId && agent.status === "trial")
+  }
+
+  const getTrialTimeRemaining = (agentId: string): string => {
+    const agent = deployedAgents.find((a) => a.agent_id === agentId)
+    if (!agent || !agent.trial_ends_at) return ""
+
+    const now = new Date()
+    const trialEnd = new Date(agent.trial_ends_at)
+    const diff = trialEnd.getTime() - now.getTime()
+
+    if (diff <= 0) return "Expired"
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+
+    if (days > 0) return `${days}d ${hours}h remaining`
+    if (hours > 0) return `${hours}h ${minutes}m remaining`
+    return `${minutes}m remaining`
+  }
+
+  return (
+    <CartContext.Provider
+      value={{
+        items,
+        deployedAgents,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        getTotalItems,
+        getTotalPrice,
+        deployAgents,
+        upgradeAgent,
+        isAgentDeployed,
+        isAgentDeploying,
+        isAgentOnTrial,
+        getTrialTimeRemaining,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
   )
-
-  // ── Convenience look-ups for UI ───────────────────────────────
-  const isAgentDeployed = useCallback(
-    (agentId: string) => deployedAgents.some((d) => d.agent_id === agentId && d.status === "active"),
-    [deployedAgents],
-  )
-
-  const isAgentDeploying = useCallback(
-    (agentId: string) => deployedAgents.some((d) => d.agent_id === agentId && d.status === "deploying"),
-    [deployedAgents],
-  )
-
-  // ── Memoised context value ────────────────────────────────────
-  const value = useMemo<CartContextValue>(
-    () => ({
-      items,
-      addToCart,
-      removeFromCart,
-      clearCart,
-      getTotalItems,
-      getTotalPrice,
-      deployedAgents,
-      deployAgent,
-      deployAgents,
-      upgradeAgent,
-      isAgentDeployed,
-      isAgentDeploying,
-    }),
-    [
-      items,
-      deployedAgents,
-      addToCart,
-      removeFromCart,
-      clearCart,
-      getTotalItems,
-      getTotalPrice,
-      deployAgent,
-      deployAgents,
-      upgradeAgent,
-      isAgentDeployed,
-      isAgentDeploying,
-    ],
-  )
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
-//
-// ─── HOOK ───────────────────────────────────────────────────────
-//
-
-export const useCart = () => {
-  const ctx = useContext(CartContext)
-  if (!ctx) throw new Error("useCart must be used within a CartProvider")
-  return ctx
+export function useCart() {
+  const context = useContext(CartContext)
+  if (context === undefined) {
+    throw new Error("useCart must be used within a CartProvider")
+  }
+  return context
 }
