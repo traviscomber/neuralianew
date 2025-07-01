@@ -1,161 +1,132 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+/* --------------------------------------------------------------------------
+   Central Supabase helper
+   --------------------------------------------------------------------------
+   ‣ createClient()          – returns a new browser-side Supabase client
+   ‣ supabase (singleton)    – default browser client (use on the client only)
+   ‣ createServerClient()    – re-exported from ./supabase-server for server /
+                                route-handler usage
+   -------------------------------------------------------------------------- */
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { createClient as supabaseCreateClient } from "@supabase/supabase-js"
+import type { Database } from "@/types/supabase"
 
-// Singleton pattern for browser client
-let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null
+/** Resolve credentials from env – works both client & server side. */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ""
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ""
 
-export function createClient() {
-  if (!supabaseInstance) {
-    supabaseInstance = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-      },
-    })
+/** Throw early if something is missing. */
+if (!supabaseUrl || !supabaseAnonKey) {
+  // NOTE: we guard with typeof window so the browser bundle won’t crash
+  if (typeof window === "undefined") {
+    throw new Error(
+      "Supabase environment variables are not set. " +
+        "Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist.",
+    )
   }
-  return supabaseInstance
 }
 
-// Server-side client with service role key
-export function createServerClient() {
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!serviceRoleKey) {
-    throw new Error("Missing SUPABASE_SERVICE_ROLE_KEY")
-  }
-
-  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+/**
+ * Create a **new** Supabase client.
+ * Use this when you explicitly need a fresh client (e.g. per request).
+ */
+export function createClient() {
+  return supabaseCreateClient<Database>(supabaseUrl, supabaseAnonKey, {
     auth: {
-      persistSession: false,
-      autoRefreshToken: false,
+      persistSession: true,
+      autoRefreshToken: true,
     },
   })
 }
 
-// Export the singleton instance directly
-export const supabase = createClient()
+/**
+ * Browser-side singleton so most components can just:
+ *   import { supabase } from "@/lib/supabase"
+ */
+let _browserClient: ReturnType<typeof createClient> | undefined = undefined
 
-// Database helper functions
+export const supabase =
+  typeof window !== "undefined"
+    ? (_browserClient ??= createClient())
+    : // On the server we force the caller to create their own client
+      (undefined as never)
+
+/**
+ * Server-side helper for Route Handlers / Server Actions.
+ * It prefers the Service-Role key (never shipped to the browser), falling
+ * back to the anon key when the SR key is not available.
+ *
+ * Usage (server only):
+ *   const supabase = createServerClient()
+ */
+export function createServerClient() {
+  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
+  return supabaseCreateClient<Database>(supabaseUrl, serviceRole || supabaseAnonKey, {
+    auth: {
+      // Server code usually handles its own cookies; no persistence needed
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+    global: {
+      // Helpful header for debugging – removed in client bundle tree-shake
+      headers: { "X-Client-Environment": "server" },
+    },
+  })
+}
+
+function getClient() {
+  // In the browser use the shared singleton, on the server use a fresh client
+  return typeof window !== "undefined" ? supabase : createServerClient()
+}
+
+/** ---------------------------------------------------------------
+ *  High-level helpers that the rest of the app relies on
+ *  ------------------------------------------------------------- */
 export const dbHelpers = {
+  /** Return all AI agents (newest first). */
   async getAIAgents() {
-    const { data, error } = await supabase.from("ai_agents").select("*")
-    if (error) throw error
-    return data
-  },
-
-  async deployAgent(userId: string, agentId: string, configuration: any) {
-    const { data, error } = await supabase
-      .from("ai_agents")
-      .insert({
-        user_id: userId,
-        agent_type: agentId,
-        name: configuration.name,
-        description: configuration.description,
-        configuration,
-        status: "active",
-      })
-      .select()
-      .single()
+    const { data, error } = await getClient().from("ai_agents").select("*").order("created_at", { ascending: false })
 
     if (error) throw error
     return data
   },
 
-  async updateDeploymentStatus(deploymentId: string, status: string, progress?: number) {
-    const { data, error } = await supabase
-      .from("ai_agents")
-      .update({ status, ...(progress && { progress }) })
-      .eq("id", deploymentId)
-      .select()
-      .single()
-
-    if (error) throw error
-    return data
-  },
-
+  /** Return agents the given user has deployed (newest first). */
   async getUserDeployedAgents(userId: string) {
-    const { data, error } = await supabase.from("ai_agents").select("*").eq("user_id", userId).eq("status", "active")
-
-    if (error) throw error
-    return data
-  },
-
-  async saveConversation(userId: string, agentType: string, messages: any[]) {
-    const conversations = messages.map((msg) => ({
-      user_id: userId,
-      agent_type: agentType,
-      user_message: msg.sender === "user" ? msg.content : null,
-      agent_response: msg.sender === "agent" ? msg.content : null,
-      created_at: msg.timestamp,
-    }))
-
-    const { data, error } = await supabase.from("chat_conversations").insert(conversations).select()
-
-    if (error) throw error
-    return data
-  },
-
-  async getConversationHistory(userId: string, agentType: string, limit = 50) {
-    const { data, error } = await supabase
-      .from("chat_conversations")
+    const { data, error } = await getClient()
+      .from("deployed_agents")
       .select("*")
       .eq("user_id", userId)
-      .eq("agent_type", agentType)
-      .order("created_at", { ascending: false })
-      .limit(limit)
+      .order("deployed_at", { ascending: false })
 
     if (error) throw error
     return data
   },
 
-  async updateUserPreferences(userId: string, preferences: any) {
-    const { data, error } = await supabase
-      .from("user_preferences")
-      .upsert({
-        user_id: userId,
-        ...preferences,
-        updated_at: new Date().toISOString(),
-      })
-      .select()
-      .single()
+  /** Insert a new deployed agent row and return it. */
+  async deployAgent(userId: string, agentData: any) {
+    const now = new Date()
+    const fiveDays = 5 * 24 * 60 * 60 * 1000
 
-    if (error) throw error
-    return data
-  },
-
-  async getUserPreferences(userId: string) {
-    const { data, error } = await supabase.from("user_preferences").select("*").eq("user_id", userId).single()
-
-    if (error && error.code !== "PGRST116") throw error
-    return data
-  },
-
-  async getProfile(userId: string) {
-    const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single()
-
-    if (error && error.code !== "PGRST116") throw error
-    return data
-  },
-
-  async createProfile(userId: string, email: string, data: any = {}) {
-    const { data: profile, error } = await supabase
-      .from("profiles")
+    const { data, error } = await getClient()
+      .from("deployed_agents")
       .insert({
-        id: userId,
-        email,
-        ...data,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        user_id: userId,
+        agent_id: agentData.id,
+        agent_name: agentData.name,
+        agent_description: agentData.description,
+        agent_type: agentData.category,
+        status: "trial",
+        deployed_at: now.toISOString(),
+        expires_at: new Date(now.getTime() + fiveDays).toISOString(),
+        metadata: agentData,
       })
       .select()
       .single()
 
     if (error) throw error
-    return profile
+    return data
   },
 }
 
-// Re-export for compatibility
-export { supabase as default }
+/** Default export kept for backward compatibility. */
+export default supabase

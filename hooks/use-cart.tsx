@@ -1,293 +1,184 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
-import { useAuth } from "./use-auth"
-import { createClient } from "@/lib/supabase"
 import { toast } from "@/hooks/use-toast"
+import { useAuth } from "@/hooks/use-auth"
+import { supabase } from "@/lib/supabase-browser"
 
-interface CartItem {
+export interface CartItem {
   id: string
-  type: string
   name: string
   description: string
   price: number
-  features: string[]
-  icon: string
-  color: string
-  quantity: number
+  category: string
 }
 
 interface DeployedAgent {
   id: string
-  type: string
   name: string
   description: string
-  status: "deploying" | "active" | "inactive"
-  deployedAt: string
-  uptime: string
-  lastActive: string
-  isOrchestrator?: boolean
-  icon?: string
-  progress?: number
+  avatar?: string
+  expertise?: string[]
+  pricing?: string
+  price?: number
+  rating?: number
+  reviews?: number
+  status: string
+  userId: string
+  agent_id: string
+  deployed_at: string
 }
 
-interface CartContextType {
-  // Legacy API for compatibility
+interface CartCtx {
   items: CartItem[]
-  addItem: (item: Omit<CartItem, "quantity"> & { quantity?: number }) => void
-  removeItem: (id: string) => void
-  updateQuantity: (id: string, quantity: number) => void
-  clearCart: () => void
-  getTotalPrice: () => number
-  getTotalItems: () => number
-
-  // New API
-  cartItems: CartItem[]
   deployedAgents: DeployedAgent[]
-  addToCart: (agent: any) => void
-  removeFromCart: (agentId: string) => void
-  deployAgent: (agent: any) => Promise<void>
-  isDeploying: boolean
-  isAgentInCart: (agentId: string) => boolean
-  isAgentDeployed: (agentId: string) => boolean
-  isAgentDeploying: (agentId: string) => boolean
-  loadUserAgents: () => Promise<void>
-  itemCount: number
-  notifications: any[]
-  dismissNotification: (id: string) => void
+  addToCart: (item: CartItem) => void
+  removeFromCart: (id: string) => void
+  clearCart: () => void
+  deployAgent: (agent: CartItem) => Promise<void>
+  upgradeAgent: (agentId: string) => void
+  getTotalItems: () => number
+  getTotalPrice: () => number
+  loadDeployedAgents: () => Promise<void>
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined)
+const CartContext = createContext<CartCtx | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const { user } = useAuth()
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [items, setItems] = useState<CartItem[]>([])
   const [deployedAgents, setDeployedAgents] = useState<DeployedAgent[]>([])
-  const [isDeploying, setIsDeploying] = useState(false)
-  const [notifications, setNotifications] = useState<any[]>([])
-  const supabase = createClient()
+  const { user } = useAuth()
 
-  const loadUserAgents = async () => {
-    // Always include Central Orchestrator
-    const baseAgents: DeployedAgent[] = [
-      {
-        id: "central-orchestrator",
-        type: "central-orchestrator",
-        name: "Central Orchestrator",
-        description: "Your strategic AI coordinator",
-        status: "active",
-        deployedAt: new Date().toISOString(),
-        uptime: "100%",
-        lastActive: "Just now",
-        isOrchestrator: true,
-        icon: "🧠",
-      },
-    ]
-
-    if (!user) {
-      setDeployedAgents(baseAgents)
-      return
+  useEffect(() => {
+    if (user) {
+      loadDeployedAgents()
+    } else {
+      setDeployedAgents([])
     }
+  }, [user])
+
+  const loadDeployedAgents = async () => {
+    if (!user) return
 
     try {
-      const { data, error } = await supabase.from("ai_agents").select("*").eq("user_id", user.id).eq("status", "active")
+      const { data, error } = await supabase.from("deployed_agents").select("*").eq("user_id", user.id)
 
       if (error) {
-        console.error("Error loading user agents:", error)
-        setDeployedAgents(baseAgents)
+        console.error("Error loading deployed agents:", error)
         return
       }
 
-      const userAgents: DeployedAgent[] = (data || []).map((agent) => ({
-        id: agent.id,
-        type: agent.agent_type || agent.type || agent.id,
-        name: agent.name,
-        description: agent.description,
-        status: "active",
-        deployedAt: agent.created_at,
-        uptime: "100%",
-        lastActive: "Just now",
-        icon: getAgentIcon(agent.agent_type || agent.type || agent.id),
-      }))
-
-      setDeployedAgents([...baseAgents, ...userAgents])
-    } catch (error) {
-      console.error("Error loading user agents:", error)
-      setDeployedAgents(baseAgents)
-    }
-  }
-
-  const getAgentIcon = (agentType: string): string => {
-    const icons: Record<string, string> = {
-      "central-orchestrator": "🧠",
-      "hr-advisory": "👥",
-      "customer-service": "🎧",
-      "sales-coach": "🎯",
-      marketing: "📢",
-      analytics: "📊",
-      "technical-support": "🔧",
-    }
-    return icons[agentType] || "🤖"
-  }
-
-  useEffect(() => {
-    loadUserAgents()
-  }, [user])
-
-  // Legacy API functions
-  const addItem = (item: Omit<CartItem, "quantity"> & { quantity?: number }) => {
-    const newItem: CartItem = {
-      ...item,
-      type: item.type || item.id,
-      description: item.description || "",
-      features: item.features || [],
-      icon: item.icon || "🤖",
-      color: item.color || "bg-blue-600",
-      quantity: item.quantity || 1,
-    }
-
-    setCartItems((prev) => {
-      const existing = prev.find((cartItem) => cartItem.id === newItem.id)
-      if (existing) {
-        return prev.map((cartItem) =>
-          cartItem.id === newItem.id ? { ...cartItem, quantity: cartItem.quantity + newItem.quantity } : cartItem,
-        )
+      if (data) {
+        setDeployedAgents(data as DeployedAgent[])
       }
-      return [...prev, newItem]
-    })
-
-    toast({
-      title: "Added to cart",
-      description: `${newItem.name} has been added to your cart.`,
-    })
-  }
-
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id))
-  }
-
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(id)
-      return
+    } catch (error) {
+      console.error("Error loading deployed agents:", error)
     }
-    setCartItems((prev) => prev.map((item) => (item.id === id ? { ...item, quantity } : item)))
+  }
+
+  const addToCart = (item: CartItem) => {
+    setItems((prev) => {
+      const exists = prev.find((i) => i.id === item.id)
+      if (exists) {
+        toast({
+          title: "Already in cart",
+          description: `${item.name} is already in your cart.`,
+        })
+        return prev
+      }
+
+      toast({
+        title: "Added to cart",
+        description: `${item.name} has been added to your cart.`,
+      })
+
+      return [...prev, item]
+    })
+  }
+
+  const removeFromCart = (id: string) => {
+    setItems((prev) => prev.filter((item) => item.id !== id))
   }
 
   const clearCart = () => {
-    setCartItems([])
+    setItems([])
   }
 
-  const getTotalPrice = () => {
-    return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  }
-
-  const getTotalItems = () => {
-    return cartItems.reduce((sum, item) => sum + item.quantity, 0)
-  }
-
-  // New API functions
-  const addToCart = (agent: any) => {
-    addItem(agent)
-  }
-
-  const removeFromCart = (agentId: string) => {
-    removeItem(agentId)
-  }
-
-  const deployAgent = async (agent: any) => {
+  const deployAgent = async (agent: CartItem) => {
     if (!user) {
       toast({
-        title: "Authentication required",
-        description: "Please sign in to deploy agents.",
+        title: "Not authenticated",
+        description: "You must be signed in to deploy agents.",
         variant: "destructive",
       })
       return
     }
 
-    setIsDeploying(true)
     try {
-      // Simulate deployment
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      const { data, error } = await supabase
+        .from("deployed_agents")
+        .insert([
+          {
+            user_id: user.id,
+            agent_id: agent.id,
+            agent_name: agent.name,
+            agent_description: agent.description,
+            agent_type: agent.category,
+            status: "active",
+            deployed_at: new Date().toISOString(),
+          },
+        ])
+        .select()
 
-      // Add to deployed agents
-      const newAgent: DeployedAgent = {
-        id: agent.id,
-        type: agent.id,
-        name: agent.name,
-        description: agent.description,
-        status: "active",
-        deployedAt: new Date().toISOString(),
-        uptime: "100%",
-        lastActive: "Just now",
-        icon: getAgentIcon(agent.id),
+      if (error) {
+        console.error("Error deploying agent:", error)
+        toast({
+          title: "Deployment failed",
+          description: "There was an error deploying the agent. Please try again.",
+          variant: "destructive",
+        })
+        return
       }
 
-      setDeployedAgents((prev) => [...prev, newAgent])
-
-      // Remove from cart after successful deployment
-      removeFromCart(agent.id)
-
-      toast({
-        title: "Agent deployed successfully",
-        description: `${agent.name} is now active and ready to use.`,
-      })
+      if (data && data.length > 0) {
+        setDeployedAgents((prev) => [...prev, data[0] as DeployedAgent])
+        setItems((prev) => prev.filter((item) => item.id !== agent.id))
+        toast({
+          title: "Agent deployed",
+          description: `${agent.name} has been successfully deployed.`,
+        })
+      }
     } catch (error) {
-      console.error("Deployment error:", error)
+      console.error("Error deploying agent:", error)
       toast({
         title: "Deployment failed",
         description: "There was an error deploying the agent. Please try again.",
         variant: "destructive",
       })
-    } finally {
-      setIsDeploying(false)
     }
   }
 
-  const isAgentInCart = (agentId: string) => {
-    return cartItems.some((item) => item.id === agentId)
+  const upgradeAgent = (agentId: string) => {
+    setDeployedAgents((prev) => prev.map((agent) => (agent.id === agentId ? { ...agent, status: "active" } : agent)))
   }
 
-  const isAgentDeployed = (agentId: string) => {
-    return deployedAgents.some((agent) => agent.type === agentId && agent.status === "active")
-  }
+  const getTotalItems = () => items.length
 
-  const isAgentDeploying = (agentId: string) => {
-    return deployedAgents.some((agent) => agent.type === agentId && agent.status === "deploying")
-  }
-
-  const dismissNotification = (id: string) => {
-    setNotifications((prev) => prev.filter((n) => n.id !== id))
-  }
-
-  const itemCount = getTotalItems()
+  const getTotalPrice = () => items.reduce((total, item) => total + item.price, 0)
 
   return (
     <CartContext.Provider
       value={{
-        // Legacy API
-        items: cartItems,
-        addItem,
-        removeItem,
-        updateQuantity,
-        clearCart,
-        getTotalPrice,
-        getTotalItems,
-
-        // New API
-        cartItems,
+        items,
         deployedAgents,
         addToCart,
         removeFromCart,
+        clearCart,
         deployAgent,
-        isDeploying,
-        isAgentInCart,
-        isAgentDeployed,
-        isAgentDeploying,
-        loadUserAgents,
-        itemCount,
-        notifications,
-        dismissNotification,
+        upgradeAgent,
+        getTotalItems,
+        getTotalPrice,
+        loadDeployedAgents,
       }}
     >
       {children}
@@ -295,10 +186,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useCart() {
-  const context = useContext(CartContext)
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
-  }
-  return context
+export const useCart = () => {
+  const ctx = useContext(CartContext)
+  if (!ctx) throw new Error("useCart must be inside CartProvider")
+  return ctx
 }

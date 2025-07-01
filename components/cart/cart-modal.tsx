@@ -1,218 +1,172 @@
 "use client"
 
-import { useState } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/hooks/use-cart"
 import { useAuth } from "@/hooks/use-auth"
-import { ShoppingCart, Trash2, Zap, Plus, Minus, Crown, CheckCircle } from "lucide-react"
+import { Brain, Trash2, ShoppingCart, Zap, Clock, CreditCard, Cpu } from "lucide-react"
 
 interface CartModalProps {
-  isOpen: boolean
-  onClose: () => void
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
 
-export function CartModal({ isOpen, onClose }: CartModalProps) {
+export function CartModal({ open, onOpenChange }: CartModalProps) {
+  const { items, removeFromCart, clearCart, getTotalPrice, deployAgents } = useCart()
   const { user } = useAuth()
-  const {
-    cartItems = [],
-    removeFromCart,
-    updateQuantity,
-    deployAgent,
-    isDeploying,
-    getTotalPrice,
-    getTotalItems,
-    clearCart,
-  } = useCart()
-  const [deployingItems, setDeployingItems] = useState<Set<string>>(new Set())
 
-  const handleDeploy = async (item: any) => {
-    if (!user) return
-
-    setDeployingItems((prev) => new Set(prev).add(item.id))
-    try {
-      await deployAgent(item)
-    } finally {
-      setDeployingItems((prev) => {
-        const newSet = new Set(prev)
-        newSet.delete(item.id)
-        return newSet
-      })
+  const handleDeploy = () => {
+    if (!user) {
+      alert("Please sign in to deploy neural networks")
+      return
     }
-  }
-
-  const handleDeployAll = async () => {
-    if (!user || cartItems.length === 0) return
-
-    for (const item of cartItems) {
-      await handleDeploy(item)
-    }
-  }
-
-  const totalPrice = getTotalPrice()
-  const totalItems = getTotalItems()
-
-  if (!user) {
-    return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Sign In Required</DialogTitle>
-            <DialogDescription>Please sign in to view your cart and deploy AI agents.</DialogDescription>
-          </DialogHeader>
-          <div className="flex justify-center py-4">
-            <Button onClick={onClose}>Close</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-    )
+    deployAgents()
+    onOpenChange(false)
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-2xl max-h-[80vh] overflow-y-auto bg-black/95 border-purple-500/30 text-white">
         <DialogHeader>
-          <DialogTitle className="flex items-center">
-            <ShoppingCart className="mr-2 h-5 w-5" />
-            Your AI Agent Cart ({totalItems} {totalItems === 1 ? "item" : "items"})
+          <DialogTitle className="flex items-center gap-3 text-2xl">
+            <div className="relative">
+              <ShoppingCart className="h-6 w-6 text-purple-400" />
+              <div className="absolute inset-0 h-6 w-6 bg-purple-400/20 rounded-full animate-pulse"></div>
+            </div>
+            Neural Network Cart
+            {items.length > 0 && (
+              <Badge className="bg-purple-600">
+                {items.length} Neural {items.length === 1 ? "Agent" : "Agents"}
+              </Badge>
+            )}
           </DialogTitle>
-          <DialogDescription>Review and deploy your selected AI experts</DialogDescription>
         </DialogHeader>
 
-        {cartItems.length === 0 ? (
-          <div className="text-center py-8">
-            <ShoppingCart className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Your cart is empty</h3>
-            <p className="text-gray-500 mb-4">Add some AI experts to get started</p>
-            <Button onClick={onClose}>Browse Agents</Button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {/* Cart Items */}
-            <div className="space-y-3">
-              {cartItems.map((item) => {
-                const isItemDeploying = deployingItems.has(item.id)
-                const isCEO = item.type === "ceo-neural-agent"
-
-                return (
-                  <Card key={item.id} className={isCEO ? "border-purple-200 bg-purple-50/50" : ""}>
-                    <CardContent className="p-4">
+        <div className="space-y-6">
+          {items.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="relative mx-auto mb-4">
+                <Brain className="h-16 w-16 text-gray-600 mx-auto" />
+                <div className="absolute inset-0 h-16 w-16 bg-purple-400/10 rounded-full animate-pulse mx-auto"></div>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-gray-300">No Neural Networks Selected</h3>
+              <p className="text-gray-400">Add some advanced AI agents to your cart to get started</p>
+            </div>
+          ) : (
+            <>
+              {/* Cart Items */}
+              <div className="space-y-4">
+                {items.map((item) => (
+                  <Card key={item.id} className="bg-purple-500/10 border-purple-500/30">
+                    <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className={`p-2 rounded-lg ${item.color || "bg-gray-500"}`}>
-                            <div className="h-5 w-5 text-white">
-                              {isCEO ? <Crown className="h-5 w-5" /> : <CheckCircle className="h-5 w-5" />}
-                            </div>
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <Brain className="h-8 w-8 text-purple-400" />
+                            <div className="absolute inset-0 h-8 w-8 bg-purple-400/20 rounded-full animate-pulse"></div>
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-medium flex items-center">
-                              {item.name}
-                              {isCEO && <Crown className="ml-2 h-4 w-4 text-purple-600" />}
-                            </h4>
-                            <p className="text-sm text-gray-500">{item.description}</p>
-                            {item.category && (
-                              <Badge variant="outline" className="mt-1 text-xs">
-                                {item.category}
-                              </Badge>
-                            )}
+                            <CardTitle className="text-lg">{item.name}</CardTitle>
+                            <Badge variant="outline" className="border-purple-500/50 text-purple-300 text-xs">
+                              {item.category}
+                            </Badge>
                           </div>
                         </div>
-
-                        <div className="flex items-center space-x-3">
-                          <div className="flex items-center space-x-2">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => updateQuantity(item.id, Math.max(1, (item.quantity || 1) - 1))}
-                              disabled={isItemDeploying}
-                            >
-                              <Minus className="h-3 w-3" />
-                            </Button>
-                            <span className="w-8 text-center">{item.quantity || 1}</span>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
-                              disabled={isItemDeploying}
-                            >
-                              <Plus className="h-3 w-3" />
-                            </Button>
-                          </div>
-
-                          <div className="text-right">
-                            <p className="font-medium">${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</p>
-                            {item.quantity && item.quantity > 1 && (
-                              <p className="text-xs text-gray-500">${item.price}/each</p>
-                            )}
-                          </div>
-
-                          <div className="flex space-x-2">
-                            <Button
-                              size="sm"
-                              onClick={() => handleDeploy(item)}
-                              disabled={isItemDeploying || isDeploying}
-                            >
-                              {isItemDeploying ? (
-                                "Deploying..."
-                              ) : (
-                                <>
-                                  <Zap className="mr-1 h-3 w-3" />
-                                  Deploy
-                                </>
-                              )}
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => removeFromCart(item.id)}
-                              disabled={isItemDeploying}
-                            >
-                              <Trash2 className="h-3 w-3" />
-                            </Button>
-                          </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-gray-300 mb-3">{item.description}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Clock className="h-4 w-4 text-green-400" />
+                          <span className="text-sm text-green-400">5 Days Free Trial</span>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-lg font-bold text-white">${item.price} USDT</div>
+                          <div className="text-xs text-gray-400">after trial</div>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
-                )
-              })}
-            </div>
-
-            <Separator />
-
-            {/* Cart Summary */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-lg font-medium">Total</span>
-                <span className="text-2xl font-bold">${totalPrice.toFixed(2)}</span>
+                ))}
               </div>
 
-              <div className="flex space-x-3">
-                <Button onClick={handleDeployAll} className="flex-1" disabled={isDeploying || cartItems.length === 0}>
-                  {isDeploying ? (
-                    "Deploying..."
-                  ) : (
-                    <>
-                      <Zap className="mr-2 h-4 w-4" />
-                      Deploy All ({totalItems})
-                    </>
-                  )}
-                </Button>
-                <Button variant="outline" onClick={clearCart} disabled={isDeploying || cartItems.length === 0}>
-                  Clear Cart
-                </Button>
+              <Separator className="bg-purple-500/20" />
+
+              {/* Total and Actions */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-lg">
+                  <span className="text-gray-300">Total after trials:</span>
+                  <span className="font-bold text-2xl text-white">${getTotalPrice()} USDT</span>
+                </div>
+
+                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Zap className="h-4 w-4 text-green-400" />
+                    <span className="font-semibold text-green-400">Neural Trial Benefits</span>
+                  </div>
+                  <ul className="text-sm text-gray-300 space-y-1">
+                    <li>• Full access to all neural network parameters</li>
+                    <li>• Unlimited processing power for 5 days</li>
+                    <li>• Advanced quantum algorithms included</li>
+                    <li>• Enterprise-grade security and encryption</li>
+                  </ul>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={clearCart}
+                    className="flex-1 border-red-500/50 text-red-400 hover:bg-red-500/10 bg-transparent"
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Clear Cart
+                  </Button>
+                  <Button
+                    onClick={handleDeploy}
+                    className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg"
+                    disabled={!user}
+                  >
+                    <Cpu className="mr-2 h-5 w-5" />
+                    {user ? "Deploy Neural Networks" : "Sign In to Deploy"}
+                  </Button>
+                </div>
+
+                {!user && (
+                  <div className="text-center text-sm text-gray-400">Sign in to deploy your neural network agents</div>
+                )}
               </div>
 
-              <p className="text-xs text-gray-500 text-center">
-                Agents will be deployed to your dashboard and ready for use immediately
-              </p>
-            </div>
-          </div>
-        )}
+              {/* USDT Payment Info */}
+              <div className="bg-black/40 border border-purple-500/20 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <CreditCard className="h-4 w-4 text-purple-400" />
+                  <span className="font-semibold text-purple-300">USDT Upgrade Information</span>
+                </div>
+                <p className="text-sm text-gray-300 mb-2">
+                  After your 5-day free trial, upgrade any neural network with USDT payment for unlimited access.
+                </p>
+                <div className="text-xs text-purple-300">
+                  Payment Address: TQn9Y2khEsLMG73Zyy56JdKHD8rQQzaUvr (TRC20)
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   )
 }
+
+export default CartModal
