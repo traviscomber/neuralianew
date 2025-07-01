@@ -40,6 +40,10 @@ interface CartCtx {
   getTotalItems: () => number
   getTotalPrice: () => number
   loadDeployedAgents: () => Promise<void>
+  // NEW ↓
+  isDeploying: boolean
+  isAgentDeployed: (agentId: string) => boolean
+  isAgentDeploying: (agentId: string) => boolean
 }
 
 const CartContext = createContext<CartCtx | undefined>(undefined)
@@ -47,7 +51,16 @@ const CartContext = createContext<CartCtx | undefined>(undefined)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [deployedAgents, setDeployedAgents] = useState<DeployedAgent[]>([])
+  const [deployingAgents, setDeployingAgents] = useState<string[]>([])
   const { user } = useAuth()
+
+  // --- helper booleans used by Dashboard UI ------------------------------
+  const isDeploying = deployingAgents.length > 0
+
+  const isAgentDeploying = (agentId: string) => deployingAgents.includes(agentId)
+
+  const isAgentDeployed = (agentId: string) =>
+    deployedAgents.some((agent) => agent.agent_id === agentId || agent.id === agentId)
 
   useEffect(() => {
     if (user) {
@@ -114,6 +127,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return
     }
 
+    // mark as deploying
+    setDeployingAgents((prev) => [...prev, agent.id])
+
     try {
       const { data, error } = await supabase
         .from("deployed_agents")
@@ -129,32 +145,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
           },
         ])
         .select()
+        .single()
 
-      if (error) {
-        console.error("Error deploying agent:", error)
-        toast({
-          title: "Deployment failed",
-          description: "There was an error deploying the agent. Please try again.",
-          variant: "destructive",
-        })
-        return
-      }
+      if (error) throw error
 
-      if (data && data.length > 0) {
-        setDeployedAgents((prev) => [...prev, data[0] as DeployedAgent])
-        setItems((prev) => prev.filter((item) => item.id !== agent.id))
-        toast({
-          title: "Agent deployed",
-          description: `${agent.name} has been successfully deployed.`,
-        })
-      }
-    } catch (error) {
-      console.error("Error deploying agent:", error)
+      setDeployedAgents((prev) => [...prev, data as DeployedAgent])
+      setItems((prev) => prev.filter((item) => item.id !== agent.id))
+      toast({ title: "Agent deployed", description: `${agent.name} has been successfully deployed.` })
+    } catch (err) {
+      console.error("Error deploying agent:", err)
       toast({
         title: "Deployment failed",
-        description: "There was an error deploying the agent. Please try again.",
+        description: "There was an error deploying the agent.",
         variant: "destructive",
       })
+    } finally {
+      // remove from deploying list
+      setDeployingAgents((prev) => prev.filter((id) => id !== agent.id))
     }
   }
 
@@ -179,6 +186,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
         getTotalItems,
         getTotalPrice,
         loadDeployedAgents,
+        // NEW ↓
+        isDeploying,
+        isAgentDeployed,
+        isAgentDeploying,
       }}
     >
       {children}
