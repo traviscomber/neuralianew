@@ -15,26 +15,38 @@ export type CartItem = {
   description: string
   price: number
   category?: string
+  icon?: string
 }
 
 export type DeployedAgentRow = {
   id: number
   agent_id: string
   user_id: string
+  /* NEW → matches NOT-NULL db column */
+  name: string
+  /* existing/optional cols */
+  agent_description: string | null
   agent_type: string
-  status: "deploying" | "active" | "inactive" | "error"
+  icon: string | null
+  status: "deploying" | "active" | "paused" | "error"
   created_at: string
 }
 
 type CartContextValue = {
+  /* cart */
   items: CartItem[]
-  deployedAgents: DeployedAgentRow[]
   addToCart: (item: CartItem) => void
   removeFromCart: (id: string) => void
   clearCart: () => void
   getTotalItems: () => number
+  getTotalPrice: () => number
+  /* deployments */
+  deployedAgents: DeployedAgentRow[]
+  deployAgent: (item: CartItem) => Promise<void>
   deployAgents: () => Promise<void>
-  upgradeAgent: (id: number) => Promise<void>
+  upgradeAgent: (rowId: number) => Promise<void>
+  isAgentDeployed: (agentId: string) => boolean
+  isAgentDeploying: (agentId: string) => boolean
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
@@ -44,9 +56,10 @@ const CartContext = createContext<CartContextValue | null>(null)
 //
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const { toast } = useToast()
   const { user } = useAuth()
+  const { toast } = useToast()
 
+  // ── Cart items persisted in localStorage ──────────────────────
   const [items, setItems] = useState<CartItem[]>(() => {
     if (typeof window === "undefined") return []
     try {
@@ -57,9 +70,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   })
 
+  // ── Deployed agents fetched from Supabase ─────────────────────
   const [deployedAgents, setDeployedAgents] = useState<DeployedAgentRow[]>([])
 
-  // ── Local-storage sync ────────────────────────────────────────
+  // Persist cart to localStorage whenever it changes
   useEffect(() => {
     try {
       localStorage.setItem("neuralia-cart", JSON.stringify(items))
@@ -68,7 +82,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items])
 
-  // ── Load deployed agents for the signed-in user ───────────────
+  // Fetch deployed agents for the signed-in user
   useEffect(() => {
     if (!user) {
       setDeployedAgents([])
@@ -76,12 +90,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
     ;(async () => {
       const { data, error } = await supabase
-        .from<DeployedAgentRow>("deployed_agents")
+        .from("deployed_agents")
         .select("*")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
 
-      if (!error && data) setDeployedAgents(data)
+      if (!error && data) setDeployedAgents(data as DeployedAgentRow[])
     })()
   }, [user])
 
@@ -89,17 +103,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const addToCart = useCallback(
     (item: CartItem) => {
       setItems((prev) => {
-        // prevent duplicates
         if (prev.some((i) => i.id === item.id)) return prev
         return [...prev, item]
       })
-      // Defer toast to avoid update-during-render warnings
-      setTimeout(() => {
-        toast({
-          title: "Added to cart",
-          description: item.name,
-        })
-      }, 0)
+      toast({
+        title: "Added to cart",
+        description: item.name,
+      })
     },
     [toast],
   )
@@ -112,61 +122,80 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const getTotalItems = useCallback(() => items.length, [items])
 
-  // ── Deploy agents ─────────────────────────────────────────────
-  const deployAgents = useCallback(async () => {
-    if (!user) {
-      setTimeout(() => {
-        toast({
-          title: "Please sign in first",
-          variant: "destructive",
-        })
-      }, 0)
-      return
-    }
+  const getTotalPrice = useCallback(() => items.reduce((sum, it) => sum + it.price, 0), [items])
 
-    if (items.length === 0) {
-      setTimeout(() => {
-        toast({
-          title: "Cart is empty",
-          description: "Add an agent to deploy",
-        })
-      }, 0)
-      return
-    }
+  // ── Deployment helpers ────────────────────────────────────────
+  const buildPayload = (item: CartItem) => ({
+    user_id: user!.id,
+    agent_id: item.id,
+    /* supply the NOT-NULL “name” column */
+    name: item.name,
+    /* keep optional cols if they exist, they’re ignored otherwise */
+    agent_description: item.description || null,
+    agent_type: item.category || "general",
+    icon: item.icon || "🤖",
+    status: "deploying" as const,
+  })
 
-    const payload = items.map((item) => ({
-      agent_id: item.id,
-      user_id: user.id,
-      agent_type: item.category || "general",
-      status: "deploying" as const,
-    }))
+  const deployAgent = useCallback(
+    async (item: CartItem) => {
+      if (!user) {
+        toast({ title: "Please sign in first", variant: "destructive" })
+        return
+      }
 
-    const { data, error } = await supabase.from("deployed_agents").insert(payload).select()
+      const { data, error } = await supabase.from("deployed_agents").insert(buildPayload(item)).select().single()
 
-    if (error) {
-      console.error("deployAgents error:", error)
-      setTimeout(() => {
+      if (error) {
+        console.error("deployAgent error:", error)
         toast({
           title: "Deployment failed",
           description: error.message,
           variant: "destructive",
         })
-      }, 0)
+        return
+      }
+
+      setDeployedAgents((prev) => [data as DeployedAgentRow, ...prev])
+      toast({
+        title: "Deployment started",
+        description: `${item.name} is spinning up`,
+      })
+    },
+    [user, toast],
+  )
+
+  const deployAgents = useCallback(async () => {
+    if (!user) {
+      toast({ title: "Please sign in first", variant: "destructive" })
+      return
+    }
+    if (items.length === 0) {
+      toast({ title: "Cart is empty", description: "Add an agent first" })
       return
     }
 
-    // Success – refresh list & clear cart
-    setDeployedAgents((prev) => [...data, ...prev])
-    clearCart()
-    setTimeout(() => {
+    const payload = items.map(buildPayload)
+    const { data, error } = await supabase.from("deployed_agents").insert(payload).select()
+
+    if (error) {
+      console.error("deployAgents error:", error)
       toast({
-        title: "Deployment started",
-        description: "Your neural agents are now deploying",
+        title: "Deployment failed",
+        description: error.message,
+        variant: "destructive",
       })
-    }, 0)
+      return
+    }
+
+    setDeployedAgents((prev) => [...(data as DeployedAgentRow[]), ...prev])
+    clearCart()
+    toast({
+      title: "Deployment started",
+      description: "Your agents are spinning up",
+    })
   }, [user, items, toast, clearCart])
 
-  // ── Upgrade agent (deploying → active) ────────────────────────
   const upgradeAgent = useCallback(
     async (rowId: number) => {
       const { data, error } = await supabase
@@ -174,43 +203,65 @@ export function CartProvider({ children }: { children: ReactNode }) {
         .update({ status: "active" })
         .eq("id", rowId)
         .select()
+        .single()
 
       if (error) {
         console.error("upgradeAgent error:", error)
-        setTimeout(() => {
-          toast({
-            title: "Upgrade failed",
-            description: error.message,
-            variant: "destructive",
-          })
-        }, 0)
+        toast({
+          title: "Upgrade failed",
+          description: error.message,
+          variant: "destructive",
+        })
         return
       }
 
-      setDeployedAgents((prev) => prev.map((row) => (row.id === rowId ? { ...row, status: "active" } : row)))
-      setTimeout(() => {
-        toast({
-          title: "Agent upgraded",
-          description: "Status set to active",
-        })
-      }, 0)
+      setDeployedAgents((prev) => prev.map((r) => (r.id === rowId ? { ...r, status: "active" } : r)))
+      toast({ title: "Agent upgraded", description: "Now active" })
     },
     [toast],
+  )
+
+  // ── Convenience look-ups for UI ───────────────────────────────
+  const isAgentDeployed = useCallback(
+    (agentId: string) => deployedAgents.some((d) => d.agent_id === agentId && d.status === "active"),
+    [deployedAgents],
+  )
+
+  const isAgentDeploying = useCallback(
+    (agentId: string) => deployedAgents.some((d) => d.agent_id === agentId && d.status === "deploying"),
+    [deployedAgents],
   )
 
   // ── Memoised context value ────────────────────────────────────
   const value = useMemo<CartContextValue>(
     () => ({
       items,
+      addToCart,
+      removeFromCart,
+      clearCart,
+      getTotalItems,
+      getTotalPrice,
+      deployedAgents,
+      deployAgent,
+      deployAgents,
+      upgradeAgent,
+      isAgentDeployed,
+      isAgentDeploying,
+    }),
+    [
+      items,
       deployedAgents,
       addToCart,
       removeFromCart,
       clearCart,
       getTotalItems,
+      getTotalPrice,
+      deployAgent,
       deployAgents,
       upgradeAgent,
-    }),
-    [items, deployedAgents, addToCart, removeFromCart, clearCart, getTotalItems, deployAgents, upgradeAgent],
+      isAgentDeployed,
+      isAgentDeploying,
+    ],
   )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
