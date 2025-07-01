@@ -44,13 +44,3 @@ CREATE TRIGGER update_user_preferences_updated_at
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_user_preferences_user_id ON user_preferences(user_id);
 CREATE INDEX IF NOT EXISTS idx_user_preferences_created_at ON user_preferences(created_at);
-
--- Grant permissions
-GRANT ALL ON user_preferences TO authenticated;
-GRANT ALL ON user_preferences TO service_role;
-
--- Add comments for documentation
-COMMENT ON TABLE user_preferences IS 'Stores user preferences for personalized experience';
-COMMENT ON COLUMN user_preferences.preferred_name IS 'User preferred name for personalized interactions';
-COMMENT ON COLUMN user_preferences.communication_style IS 'Preferred communication style for AI agents';
-COMMENT ON COLUMN user_preferences.agent_preferences IS 'JSON object storing agent-specific preferences';

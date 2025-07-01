@@ -1,115 +1,187 @@
 "use client"
 
-import { createContext, useContext, useState, type ReactNode } from "react"
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { toast } from "@/hooks/use-toast"
 
-interface Agent {
+/* -------------------------------------------------------------------------- */
+/*  Types                                                                     */
+/* -------------------------------------------------------------------------- */
+
+export interface CartItem {
   id: string
   name: string
-  description: string
-  category: string
+  type: string
   price: number
-  image: string
-  features: string[]
-  rating: number
-  reviews: number
-}
-
-interface CartItem extends Agent {
-  quantity: number
+  description?: string
 }
 
 interface CartContextType {
+  /* cart helpers ---------------------------------------------------------- */
   items: CartItem[]
-  cartItems: CartItem[]
-  addToCart: (agent: Agent) => void
-  removeFromCart: (agentId: string) => void
-  updateQuantity: (agentId: string, quantity: number) => void
+  addToCart: (item: CartItem) => void
+  removeFromCart: (id: string) => void
   clearCart: () => void
   getTotalPrice: () => number
   getTotalItems: () => number
-  isAgentInCart: (agentId: string) => boolean
-  isAgentDeployed: (agentId: string) => boolean
-  isAgentDeploying: (agentId: string) => boolean
+  isAgentInCart: (id: string) => boolean
+
+  /* deployment helpers ---------------------------------------------------- */
+  deployedAgents: string[]
+  deployingAgents: string[]
+  isDeploying: boolean
+  isAgentDeployed: (id: string) => boolean
+  isAgentDeploying: (id: string) => boolean
+  deployAgent: (item: CartItem) => Promise<boolean>
+  deployAllAgents: () => Promise<boolean>
 }
+
+/* -------------------------------------------------------------------------- */
+/*  Context                                                                   */
+/* -------------------------------------------------------------------------- */
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
-  const [deployedAgents, setDeployedAgents] = useState<Set<string>>(new Set())
-  const [deployingAgents, setDeployingAgents] = useState<Set<string>>(new Set())
+/* -------------------------------------------------------------------------- */
+/*  Provider                                                                  */
+/* -------------------------------------------------------------------------- */
 
-  const addToCart = (agent: Agent) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === agent.id)
-      if (existingItem) {
-        return prevItems.map((item) => (item.id === agent.id ? { ...item, quantity: item.quantity + 1 } : item))
+export function CartProvider({ children }: { children: ReactNode }) {
+  /* Cart ------------------------------------------------------------------ */
+  const [items, setItems] = useState<CartItem[]>([])
+
+  /* Deployment ------------------------------------------------------------ */
+  const [deployedAgents, setDeployedAgents] = useState<string[]>([])
+  const [deployingAgents, setDeployingAgents] = useState<string[]>([])
+  const [isDeploying, setIsDeploying] = useState(false)
+
+  /* ---------------------------------------------------------------------- */
+  /*  Local-storage persistence                                             */
+  /* ---------------------------------------------------------------------- */
+
+  useEffect(() => {
+    const stored = localStorage.getItem("neuralia-cart")
+    if (stored) {
+      try {
+        setItems(JSON.parse(stored))
+      } catch {
+        /* ignore corrupted payload */
+        /* eslint-disable-line no-empty */
       }
-      return [...prevItems, { ...agent, quantity: 1 }]
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("neuralia-cart", JSON.stringify(items))
+  }, [items])
+
+  /* ---------------------------------------------------------------------- */
+  /*  Cart helper implementations                                           */
+  /* ---------------------------------------------------------------------- */
+
+  const addToCart = (item: CartItem) => {
+    setItems((prev) => {
+      if (prev.find((i) => i.id === item.id)) {
+        toast({ title: "Already in cart", description: `${item.name} is already in your cart.` })
+        return prev
+      }
+      toast({ title: "Added to cart", description: `${item.name} has been added to your cart.` })
+      return [...prev, item]
     })
   }
 
-  const removeFromCart = (agentId: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== agentId))
-  }
-
-  const updateQuantity = (agentId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(agentId)
-      return
-    }
-    setItems((prevItems) => prevItems.map((item) => (item.id === agentId ? { ...item, quantity } : item)))
+  const removeFromCart = (id: string) => {
+    setItems((prev) => prev.filter((i) => i.id !== id))
   }
 
   const clearCart = () => {
     setItems([])
+    toast({ title: "Cart cleared", description: "All items have been removed from your cart." })
   }
 
-  const getTotalPrice = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0)
+  const getTotalPrice = () => items.reduce((sum, i) => sum + i.price, 0)
+  const getTotalItems = () => items.length
+  const isAgentInCart = (id: string) => items.some((i) => i.id === id)
+
+  /* ---------------------------------------------------------------------- */
+  /*  Deployment helpers (stubbed logic)                                    */
+  /* ---------------------------------------------------------------------- */
+
+  const isAgentDeployed = (id: string) => deployedAgents.includes(id)
+  const isAgentDeploying = (id: string) => deployingAgents.includes(id)
+
+  const deployAgent = async (item: CartItem) => {
+    try {
+      setDeployingAgents((prev) => [...prev, item.id])
+      setIsDeploying(true)
+
+      /* TODO: replace with real deployment call */
+      await new Promise((res) => setTimeout(res, 2000))
+
+      setDeployedAgents((prev) => [...prev, item.id])
+      toast({ title: "Agent deployed", description: `${item.name} is now live.` })
+      return true
+    } catch (err) {
+      console.error("Deployment error:", err)
+      toast({ title: "Deployment failed", description: "Please try again.", variant: "destructive" })
+      return false
+    } finally {
+      setDeployingAgents((prev) => prev.filter((id) => id !== item.id))
+      setIsDeploying(false)
+    }
   }
 
-  const getTotalItems = () => {
-    return items.reduce((total, item) => total + item.quantity, 0)
+  const deployAllAgents = async () => {
+    if (items.length === 0) return true
+    setDeployingAgents(items.map((i) => i.id))
+    setIsDeploying(true)
+    try {
+      /* Simulate bulk deploy */
+      await new Promise((res) => setTimeout(res, 3000))
+      setDeployedAgents((prev) => [...prev, ...items.map((i) => i.id)])
+      toast({ title: "All agents deployed", description: "Your AI team is live." })
+      clearCart()
+      return true
+    } catch (err) {
+      console.error(err)
+      toast({ title: "Bulk deploy failed", description: "Please try again.", variant: "destructive" })
+      return false
+    } finally {
+      setDeployingAgents([])
+      setIsDeploying(false)
+    }
   }
 
-  const isAgentInCart = (agentId: string) => {
-    return items.some((item) => item.id === agentId)
+  /* ---------------------------------------------------------------------- */
+
+  const value: CartContextType = {
+    /* cart */
+    items,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    getTotalPrice,
+    getTotalItems,
+    isAgentInCart,
+
+    /* deployment */
+    deployedAgents,
+    deployingAgents,
+    isDeploying,
+    isAgentDeployed,
+    isAgentDeploying,
+    deployAgent,
+    deployAllAgents,
   }
 
-  const isAgentDeployed = (agentId: string) => {
-    return deployedAgents.has(agentId)
-  }
-
-  const isAgentDeploying = (agentId: string) => {
-    return deployingAgents.has(agentId)
-  }
-
-  return (
-    <CartContext.Provider
-      value={{
-        items,
-        cartItems: items,
-        addToCart,
-        removeFromCart,
-        updateQuantity,
-        clearCart,
-        getTotalPrice,
-        getTotalItems,
-        isAgentInCart,
-        isAgentDeployed,
-        isAgentDeploying,
-      }}
-    >
-      {children}
-    </CartContext.Provider>
-  )
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
+/* -------------------------------------------------------------------------- */
+/*  Hook                                                                      */
+/* -------------------------------------------------------------------------- */
+
 export function useCart() {
-  const context = useContext(CartContext)
-  if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider")
-  }
-  return context
+  const ctx = useContext(CartContext)
+  if (!ctx) throw new Error("useCart must be used within a CartProvider")
+  return ctx
 }

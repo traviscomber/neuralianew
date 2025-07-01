@@ -13,7 +13,7 @@ SELECT
     hastriggers
 FROM pg_tables 
 WHERE schemaname = 'public' 
-    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY tablename;
 
 -- Check table structures and column details
@@ -28,7 +28,7 @@ SELECT
     character_maximum_length
 FROM information_schema.columns 
 WHERE table_schema = 'public' 
-    AND table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY table_name, ordinal_position;
 
 -- Check foreign key relationships
@@ -49,7 +49,7 @@ JOIN information_schema.constraint_column_usage AS ccu
     AND ccu.table_schema = tc.table_schema
 WHERE tc.constraint_type = 'FOREIGN KEY'
     AND tc.table_schema = 'public'
-    AND tc.table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND tc.table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY tc.table_name;
 
 -- Check indexes
@@ -62,7 +62,7 @@ SELECT
     indexdef
 FROM pg_indexes
 WHERE schemaname = 'public'
-    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY tablename, indexname;
 
 -- Check RLS policies
@@ -79,7 +79,7 @@ SELECT
     with_check
 FROM pg_policies
 WHERE schemaname = 'public'
-    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND tablename IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY tablename, policyname;
 
 -- Check triggers
@@ -94,7 +94,7 @@ SELECT
     action_statement
 FROM information_schema.triggers
 WHERE trigger_schema = 'public'
-    AND event_object_table IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND event_object_table IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY event_object_table, trigger_name;
 
 -- Check functions
@@ -107,7 +107,7 @@ SELECT
     routine_definition
 FROM information_schema.routines
 WHERE routine_schema = 'public'
-    AND routine_name IN ('handle_new_user', 'handle_updated_at', 'update_user_analytics', 'is_admin')
+    AND routine_name IN ('handle_new_user', 'handle_updated_at', 'update_user_analytics')
 ORDER BY routine_name;
 
 -- Check table constraints
@@ -122,7 +122,7 @@ FROM information_schema.table_constraints tc
 LEFT JOIN information_schema.check_constraints cc
     ON tc.constraint_name = cc.constraint_name
 WHERE tc.table_schema = 'public'
-    AND tc.table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics', 'orchestrator_conversations', 'deployed_agents', 'user_preferences', 'error_reports')
+    AND tc.table_name IN ('profiles', 'ai_agents', 'ai_systems', 'chat_conversations', 'user_analytics')
 ORDER BY tc.table_name, tc.constraint_type, tc.constraint_name;
 
 -- Test data insertion capabilities (dry run)
@@ -169,12 +169,4 @@ UNION ALL
 SELECT 'chat_conversations' as table_name, COUNT(*) as record_count FROM public.chat_conversations
 UNION ALL
 SELECT 'user_analytics' as table_name, COUNT(*) as record_count FROM public.user_analytics
-UNION ALL
-SELECT 'orchestrator_conversations' as table_name, COUNT(*) as record_count FROM public.orchestrator_conversations
-UNION ALL
-SELECT 'deployed_agents' as table_name, COUNT(*) as record_count FROM public.deployed_agents
-UNION ALL
-SELECT 'user_preferences' as table_name, COUNT(*) as record_count FROM public.user_preferences
-UNION ALL
-SELECT 'error_reports' as table_name, COUNT(*) as record_count FROM public.error_reports
 ORDER BY table_name;

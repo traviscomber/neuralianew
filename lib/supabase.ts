@@ -3,10 +3,6 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Missing Supabase environment variables")
-}
-
 // Singleton pattern for browser client
 let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null
 
@@ -38,19 +34,19 @@ export function createServerClient() {
   })
 }
 
-// Create a single supabase client for interacting with your database
-export const supabase = createSupabaseClient(supabaseUrl, supabaseAnonKey)
+// Export the singleton instance directly
+export const supabase = createClient()
 
-// Database helper functions that work with Supabase Auth
+// Database helper functions
 export const dbHelpers = {
   async getAIAgents() {
-    const { data, error } = await supabase.from("ai_agents").select("*")
+    const { data, error } = await createClient().from("ai_agents").select("*")
     if (error) throw error
     return data
   },
 
   async deployAgent(userId: string, agentId: string, configuration: any) {
-    const { data, error } = await supabase
+    const { data, error } = await createClient()
       .from("ai_agents")
       .insert({
         user_id: userId,
@@ -68,7 +64,7 @@ export const dbHelpers = {
   },
 
   async updateDeploymentStatus(deploymentId: string, status: string, progress?: number) {
-    const { data, error } = await supabase
+    const { data, error } = await createClient()
       .from("ai_agents")
       .update({ status, ...(progress && { progress }) })
       .eq("id", deploymentId)
@@ -80,7 +76,11 @@ export const dbHelpers = {
   },
 
   async getUserDeployedAgents(userId: string) {
-    const { data, error } = await supabase.from("ai_agents").select("*").eq("user_id", userId).eq("status", "active")
+    const { data, error } = await createClient()
+      .from("ai_agents")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("status", "active")
 
     if (error) throw error
     return data
@@ -95,14 +95,14 @@ export const dbHelpers = {
       created_at: msg.timestamp,
     }))
 
-    const { data, error } = await supabase.from("chat_conversations").insert(conversations).select()
+    const { data, error } = await createClient().from("chat_conversations").insert(conversations).select()
 
     if (error) throw error
     return data
   },
 
   async getConversationHistory(userId: string, agentType: string, limit = 50) {
-    const { data, error } = await supabase
+    const { data, error } = await createClient()
       .from("chat_conversations")
       .select("*")
       .eq("user_id", userId)
@@ -115,7 +115,7 @@ export const dbHelpers = {
   },
 
   async updateUserPreferences(userId: string, preferences: any) {
-    const { data, error } = await supabase
+    const { data, error } = await createClient()
       .from("user_preferences")
       .upsert({
         user_id: userId,
@@ -130,21 +130,21 @@ export const dbHelpers = {
   },
 
   async getUserPreferences(userId: string) {
-    const { data, error } = await supabase.from("user_preferences").select("*").eq("user_id", userId).single()
+    const { data, error } = await createClient().from("user_preferences").select("*").eq("user_id", userId).single()
 
     if (error && error.code !== "PGRST116") throw error
     return data
   },
 
   async getProfile(userId: string) {
-    const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single()
+    const { data, error } = await createClient().from("profiles").select("*").eq("id", userId).single()
 
     if (error && error.code !== "PGRST116") throw error
     return data
   },
 
   async createProfile(userId: string, email: string, data: any = {}) {
-    const { data: profile, error } = await supabase
+    const { data: profile, error } = await createClient()
       .from("profiles")
       .insert({
         id: userId,
@@ -160,5 +160,3 @@ export const dbHelpers = {
     return profile
   },
 }
-
-export default supabase

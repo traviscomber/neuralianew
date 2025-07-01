@@ -1,17 +1,18 @@
-import { createBrowserClient } from "@supabase/ssr"
+/**
+ * Browser-side Supabase client (compatibility wrapper).
+ *
+ * Many files were written to import `@/lib/supabase-browser`.
+ * To avoid multiple GoTrueClient instances we delegate everything to
+ * the *single* shared client defined in `@/lib/supabase`.
+ */
 
-// Create a single instance to avoid multiple GoTrueClient instances
-const supabaseClient = createBrowserClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-)
+import { supabase as supabaseSingleton, createClient as createClientSingleton } from "@/lib/supabase"
 
-export function createClient() {
-  return supabaseClient
-}
+// Named export expected by legacy code
+export const supabase = supabaseSingleton
 
-// Export the client instance for direct use
-export const supabase = supabaseClient
+// In case something still calls `createClient()` directly
+export const createClient = () => createClientSingleton()
 
-// Default export
-export default supabaseClient
+// Default export keeps import supabase from "@/lib/supabase-browser" working
+export default supabaseSingleton

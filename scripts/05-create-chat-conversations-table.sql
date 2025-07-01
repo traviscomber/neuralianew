@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS public.chat_conversations;
 
 CREATE TABLE public.chat_conversations (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
     
     -- Conversation Details
     chat_type TEXT NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE public.chat_conversations (
 
 -- Add CHECK constraints after table creation
 ALTER TABLE public.chat_conversations ADD CONSTRAINT chat_conversations_chat_type_check 
-    CHECK (chat_type IN ('agent', 'system', 'general', 'ceo-neural-agent', 'hr-advisory', 'sales-coach', 'customer-service', 'technical-support', 'marketing', 'analytics'));
+    CHECK (chat_type IN ('agent', 'system', 'general'));
 
 ALTER TABLE public.chat_conversations ADD CONSTRAINT chat_conversations_satisfaction_rating_check 
     CHECK (satisfaction_rating >= 1 AND satisfaction_rating <= 5);
@@ -56,13 +56,6 @@ CREATE POLICY "Users can update own conversations" ON public.chat_conversations
 CREATE INDEX chat_conversations_user_id_idx ON public.chat_conversations(user_id);
 CREATE INDEX chat_conversations_chat_type_idx ON public.chat_conversations(chat_type);
 CREATE INDEX chat_conversations_started_at_idx ON public.chat_conversations(started_at);
-CREATE INDEX chat_conversations_specific_agent_idx ON public.chat_conversations(specific_agent);
-
--- Create trigger for updating updated_at timestamp
-CREATE TRIGGER update_chat_conversations_updated_at
-    BEFORE UPDATE ON public.chat_conversations
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
 
 -- Grant permissions
 GRANT ALL ON public.chat_conversations TO authenticated;

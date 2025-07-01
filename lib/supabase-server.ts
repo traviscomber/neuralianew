@@ -1,32 +1,14 @@
-import { cookies } from "next/headers"
-import { createServerClient, type CookieOptions, type SupabaseClient } from "@supabase/ssr"
-
 /**
- * Returns a cookie-aware Supabase server client.
- * Works in Route Handlers, Server Components, and Server Actions.
+ * Server-side Supabase client (compatibility wrapper).
  *
- * Exports:
- *  • createServerClientWithCookies – canonical helper
- *  • createClient       – alias (for legacy imports)
+ * Keeps `@/lib/supabase-server` import paths working while ensuring
+ * we only rely on the single implementation held in `@/lib/supabase`.
  */
-export function createServerClientWithCookies(): SupabaseClient<any, "public", any> {
-  const cookieStore = cookies()
 
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
-      },
-      set(name: string, value: string, options: CookieOptions) {
-        cookieStore.set({ name, value, ...options })
-      },
-      remove(name: string, options: CookieOptions) {
-        cookieStore.delete({ name, ...options })
-      },
-    },
-  })
-}
+import { createServerClient as _createServerClient } from "@/lib/supabase"
 
-// named exports expected by the rest of the code-base
-export const createClient = createServerClientWithCookies
-export default createServerClientWithCookies
+// Named export
+export const createServerClient = _createServerClient
+
+// Default export (if someone does `import createServerClient from ...`)
+export default _createServerClient
