@@ -8,16 +8,20 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Note: auth.users table is managed by Supabase and cannot be modified directly
 -- We can only reference it in our custom tables
 
--- Create a public function to get the current user's ID (alternative to auth.uid())
-CREATE OR REPLACE FUNCTION public.get_current_user_id() RETURNS uuid
-    LANGUAGE sql STABLE SECURITY DEFINER
+-- Create a function to get the current user's ID
+CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid
+    LANGUAGE sql STABLE
     AS $$
-  select auth.uid()
+  select 
+    coalesce(
+        nullif(current_setting('request.jwt.claim.sub', true), ''),
+        (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub')
+    )::uuid
 $$;
 
--- Create a public function to get the current user's role (alternative to auth.role())
-CREATE OR REPLACE FUNCTION public.get_current_user_role() RETURNS text
-    LANGUAGE sql STABLE SECURITY DEFINER
+-- Create a function to get the current user's role
+CREATE OR REPLACE FUNCTION auth.role() RETURNS text
+    LANGUAGE sql STABLE
     AS $$
   select 
     coalesce(

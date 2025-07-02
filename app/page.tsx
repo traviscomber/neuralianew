@@ -48,7 +48,6 @@ const neuralAgents = [
     reviews: 847,
     price: 299,
     category: "Executive Neural Network",
-    icon: "🧠",
     neuralSpecs: {
       parameters: "175B",
       architecture: "Transformer + Reinforcement Learning",
@@ -85,7 +84,6 @@ const neuralAgents = [
     reviews: 623,
     price: 189,
     category: "Human Resources AI",
-    icon: "👥",
     neuralSpecs: {
       parameters: "87B",
       architecture: "GPT-4 + Behavioral Analysis",
@@ -122,7 +120,6 @@ const neuralAgents = [
     reviews: 1024,
     price: 249,
     category: "Sales Intelligence AI",
-    icon: "💰",
     neuralSpecs: {
       parameters: "120B",
       architecture: "Transformer + Reinforcement Learning",
@@ -159,7 +156,6 @@ const neuralAgents = [
     reviews: 756,
     price: 219,
     category: "Marketing Intelligence AI",
-    icon: "📈",
     neuralSpecs: {
       parameters: "95B",
       architecture: "Multi-modal Transformer",
@@ -196,7 +192,6 @@ const neuralAgents = [
     reviews: 445,
     price: 179,
     category: "Operations Intelligence AI",
-    icon: "⚙️",
     neuralSpecs: {
       parameters: "72B",
       architecture: "Convolutional + Recurrent Neural Networks",
@@ -233,7 +228,6 @@ const neuralAgents = [
     reviews: 592,
     price: 279,
     category: "Financial Intelligence AI",
-    icon: "💹",
     neuralSpecs: {
       parameters: "140B",
       architecture: "Quantum-inspired Neural Networks",
@@ -270,7 +264,6 @@ const neuralAgents = [
     reviews: 1156,
     price: 159,
     category: "Customer Experience AI",
-    icon: "🎧",
     neuralSpecs: {
       parameters: "65B",
       architecture: "Transformer + Emotion Recognition",
@@ -307,7 +300,6 @@ const neuralAgents = [
     reviews: 378,
     price: 239,
     category: "Data Science AI",
-    icon: "📊",
     neuralSpecs: {
       parameters: "110B",
       architecture: "AutoML + Deep Learning",
@@ -341,7 +333,6 @@ type Agent = {
   expiresAt?: Date
   userId?: string
   category?: string
-  icon?: string
   neuralSpecs?: {
     parameters: string
     architecture: string
@@ -359,7 +350,7 @@ export default function HomePage() {
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null)
   const [agents, setAgents] = useState<Agent[]>(neuralAgents)
   const { user } = useAuth()
-  const { addToCart, deployedAgents, getTotalItems, upgradeAgent, isAgentOnTrial, getTrialTimeRemaining } = useCart()
+  const { addToCart, deployedAgents, getTotalItems, upgradeAgent } = useCart()
 
   useEffect(() => {
     // Try to load agents from database, fallback to neural agents data
@@ -383,7 +374,6 @@ export default function HomePage() {
       description: agent.description,
       price: agent.price || 299,
       category: agent.category || "Neural Network AI",
-      icon: agent.icon || "🤖",
     }
     addToCart(cartItem)
   }
@@ -398,6 +388,17 @@ export default function HomePage() {
 
   const handleChatClick = () => {
     setChatWidgetOpen(true)
+  }
+
+  const getTimeRemaining = (expiresAt: Date) => {
+    const now = new Date()
+    const diff = expiresAt.getTime() - now.getTime()
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+
+    if (days > 0) return `${days}d ${hours}h`
+    if (hours > 0) return `${hours}h`
+    return "Expired"
   }
 
   // Filter deployed agents for current user only
@@ -534,9 +535,11 @@ export default function HomePage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-center space-x-3">
                       <div className="relative">
-                        <div className="w-12 h-12 rounded-full border-2 border-purple-500/50 flex items-center justify-center text-2xl bg-purple-500/10">
-                          {agent.icon || "🤖"}
-                        </div>
+                        <img
+                          src="/placeholder.svg?height=50&width=50"
+                          alt={agent.name}
+                          className="w-12 h-12 rounded-full border-2 border-purple-500/50"
+                        />
                         <div className="absolute inset-0 w-12 h-12 bg-purple-400/20 rounded-full animate-pulse"></div>
                       </div>
                       <div className="flex-1">
@@ -550,42 +553,24 @@ export default function HomePage() {
                               <Clock className="w-3 h-3 mr-1" />
                               Neural Deploying
                             </Badge>
-                          ) : agent.status === "trial" ? (
-                            <Badge variant="secondary" className="bg-green-500/20 text-green-300 border-green-500/30">
-                              <Zap className="w-3 h-3 mr-1" />
-                              Free Trial
-                            </Badge>
-                          ) : agent.status === "expired" ? (
-                            <Badge variant="secondary" className="bg-red-500/20 text-red-300 border-red-500/30">
-                              <Clock className="w-3 h-3 mr-1" />
-                              Trial Expired
-                            </Badge>
                           ) : (
-                            <Badge variant="secondary" className="bg-blue-500/20 text-blue-300 border-blue-500/30">
+                            <Badge variant="secondary" className="bg-green-500/20 text-green-300 border-green-500/30">
                               <Zap className="w-3 h-3 mr-1" />
                               Neural Active
                             </Badge>
                           )}
                         </div>
-                        {isAgentOnTrial(agent.agent_id) && (
-                          <div className="text-xs text-green-400 mt-1">{getTrialTimeRemaining(agent.agent_id)}</div>
-                        )}
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-300 mb-3">{agent.agent_description || agent.name}</p>
+                    <p className="text-sm text-gray-300 mb-3">{agent.description}</p>
                     <div className="flex space-x-2">
-                      <Button
-                        size="sm"
-                        className="flex-1 bg-purple-600 hover:bg-purple-700"
-                        onClick={handleChatClick}
-                        disabled={agent.status === "expired"}
-                      >
+                      <Button size="sm" className="flex-1 bg-purple-600 hover:bg-purple-700" onClick={handleChatClick}>
                         <Brain className="mr-2 h-4 w-4" />
                         Neural Chat
                       </Button>
-                      {(agent.status === "trial" || agent.status === "expired") && (
+                      {agent.status === "deploying" && (
                         <Button
                           size="sm"
                           variant="outline"
@@ -636,9 +621,11 @@ export default function HomePage() {
 
                 <CardHeader className="text-center pb-4">
                   <div className="relative mx-auto mb-4">
-                    <div className="w-20 h-20 rounded-full mx-auto border-2 border-purple-500/50 flex items-center justify-center text-4xl bg-purple-500/10">
-                      {agent.icon || "🤖"}
-                    </div>
+                    <img
+                      src={agent.avatar || "/placeholder.svg"}
+                      alt={agent.name}
+                      className="w-20 h-20 rounded-full mx-auto border-2 border-purple-500/50"
+                    />
                     <div className="absolute inset-0 w-20 h-20 bg-purple-400/20 rounded-full animate-pulse mx-auto"></div>
                   </div>
 
