@@ -1,10 +1,5 @@
 /* --------------------------------------------------------------------------
-   Central Supabase helper
-   --------------------------------------------------------------------------
-   ‣ createClient()          – returns a new browser-side Supabase client
-   ‣ supabase (singleton)    – default browser client (use on the client only)
-   ‣ createServerClient()    – re-exported from ./supabase-server for server /
-                                route-handler usage
+   Central Supabase helper with proper singleton pattern
    -------------------------------------------------------------------------- */
 
 import { createClient as supabaseCreateClient } from "@supabase/supabase-js"
@@ -16,7 +11,6 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env
 
 /** Throw early if something is missing. */
 if (!supabaseUrl || !supabaseAnonKey) {
-  // NOTE: we guard with typeof window so the browser bundle won't crash
   if (typeof window === "undefined") {
     throw new Error(
       "Supabase environment variables are not set. " +
@@ -24,6 +18,10 @@ if (!supabaseUrl || !supabaseAnonKey) {
     )
   }
 }
+
+/** Global singleton instances */
+let _browserClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
+let _serverClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
 
 /**
  * Create a **new** Supabase client.
@@ -39,43 +37,48 @@ export function createClient() {
 }
 
 /**
- * Browser-side singleton so most components can just:
- *   import { supabase } from "@/lib/supabase"
+ * Get the singleton browser client
  */
-let _browserClient: ReturnType<typeof createClient> | undefined = undefined
+function getBrowserClient() {
+  if (typeof window === "undefined") {
+    throw new Error("getBrowserClient() can only be called on the client side")
+  }
 
-export const supabase =
-  typeof window !== "undefined"
-    ? (_browserClient ??= createClient())
-    : // On the server we force the caller to create their own client
-      (undefined as never)
+  if (!_browserClient) {
+    _browserClient = createClient()
+  }
+
+  return _browserClient
+}
 
 /**
  * Server-side helper for Route Handlers / Server Actions.
- * It prefers the Service-Role key (never shipped to the browser), falling
- * back to the anon key when the SR key is not available.
- *
- * Usage (server only):
- *   const supabase = createServerClient()
  */
 export function createServerClient() {
   const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
-  return supabaseCreateClient<Database>(supabaseUrl, serviceRole || supabaseAnonKey, {
-    auth: {
-      // Server code usually handles its own cookies; no persistence needed
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-    global: {
-      // Helpful header for debugging – removed in client bundle tree-shake
-      headers: { "X-Client-Environment": "server" },
-    },
-  })
+
+  if (!_serverClient) {
+    _serverClient = supabaseCreateClient<Database>(supabaseUrl, serviceRole || supabaseAnonKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+      global: {
+        headers: { "X-Client-Environment": "server" },
+      },
+    })
+  }
+
+  return _serverClient
 }
 
+/**
+ * Main export - returns the appropriate client based on environment
+ */
+export const supabase = typeof window !== "undefined" ? getBrowserClient() : createServerClient()
+
 function getClient() {
-  // In the browser use the shared singleton, on the server use a fresh client
-  return typeof window !== "undefined" ? supabase : createServerClient()
+  return typeof window !== "undefined" ? getBrowserClient() : createServerClient()
 }
 
 /** ---------------------------------------------------------------
@@ -114,6 +117,8 @@ export const dbHelpers = {
         agent_type: agentData.category,
         status: "trial",
         deployment_date: new Date().toISOString(),
+        trial_start_date: new Date().toISOString(),
+        trial_end_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days from now
       })
       .select()
       .single()

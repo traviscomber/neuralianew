@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { useAuth } from "@/hooks/use-auth"
 import { useToast } from "@/hooks/use-toast"
+import { useCart } from "@/hooks/use-cart"
 import {
   User,
   Mail,
@@ -20,10 +21,13 @@ import {
   LayoutDashboard,
   Settings,
   Save,
+  Zap,
+  Clock,
 } from "lucide-react"
 
 export default function ProfilePage() {
   const { user, loading, updateProfile } = useAuth()
+  const { deployAgent, isAgentDeployed, isAgentDeploying } = useCart()
   const router = useRouter()
   const { toast } = useToast()
   const [isEditing, setIsEditing] = useState(false)
@@ -32,6 +36,42 @@ export default function ProfilePage() {
     full_name: "",
     phone: "",
   })
+
+  // Available agents for deployment
+  const availableAgents = [
+    {
+      id: "financial-advisor",
+      name: "Financial Strategy Expert",
+      description: "Advanced financial planning, investment strategy, and risk management specialist",
+      icon: "💰",
+      price: 449,
+      category: "Finance",
+    },
+    {
+      id: "legal-counsel",
+      name: "Legal Advisory Expert",
+      description: "Corporate legal expertise covering compliance, contracts, and regulatory matters",
+      icon: "⚖️",
+      price: 499,
+      category: "Legal",
+    },
+    {
+      id: "operations-manager",
+      name: "Operations Excellence Expert",
+      description: "Process optimization, supply chain management, and operational efficiency specialist",
+      icon: "⚙️",
+      price: 379,
+      category: "Operations",
+    },
+    {
+      id: "innovation-strategist",
+      name: "Innovation & R&D Expert",
+      description: "Product development, innovation strategy, and technology advancement specialist",
+      icon: "🚀",
+      price: 429,
+      category: "Innovation",
+    },
+  ]
 
   useEffect(() => {
     if (!loading && !user) {
@@ -86,6 +126,23 @@ export default function ProfilePage() {
       })
     }
     setIsEditing(false)
+  }
+
+  const handleDeployAgent = async (agent: any) => {
+    try {
+      await deployAgent(agent)
+      toast({
+        title: "Deployment Started",
+        description: `${agent.name} is being deployed with a 5-day free trial.`,
+      })
+    } catch (error) {
+      console.error("Deploy error:", error)
+      toast({
+        title: "Deployment Failed",
+        description: "Failed to deploy agent. Please try again.",
+        variant: "destructive",
+      })
+    }
   }
 
   if (loading) {
@@ -277,6 +334,65 @@ export default function ProfilePage() {
                     <p className="text-sm text-gray-600">{lastSignIn}</p>
                   </div>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Deploy Neural Agents */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Deploy Neural Agents</CardTitle>
+              <CardDescription>Start your 5-day free trial with any of our AI experts</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {availableAgents.map((agent) => {
+                  const deployed = isAgentDeployed(agent.id)
+                  const deploying = isAgentDeploying(agent.id)
+
+                  return (
+                    <Card key={agent.id} className="hover:shadow-lg transition-shadow">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="text-2xl">{agent.icon}</div>
+                          <div>
+                            <CardTitle className="text-lg">{agent.name}</CardTitle>
+                            <Badge variant="outline" className="text-xs mt-1">
+                              {agent.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <CardDescription className="text-sm leading-relaxed">{agent.description}</CardDescription>
+                      </CardHeader>
+
+                      <CardContent className="pt-0">
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <div className="text-lg font-bold">${agent.price}</div>
+                            <div className="text-xs text-gray-500">one-time</div>
+                          </div>
+
+                          {deployed ? (
+                            <Button className="w-full" disabled>
+                              <CheckCircle className="mr-2 h-4 w-4" />
+                              Already Deployed
+                            </Button>
+                          ) : deploying ? (
+                            <Button disabled className="w-full">
+                              <Clock className="mr-2 h-4 w-4" />
+                              Deploying...
+                            </Button>
+                          ) : (
+                            <Button onClick={() => handleDeployAgent(agent)} className="w-full">
+                              <Zap className="mr-2 h-4 w-4" />
+                              Start 5-Day Trial
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
               </div>
             </CardContent>
           </Card>

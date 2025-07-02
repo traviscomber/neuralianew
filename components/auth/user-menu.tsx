@@ -17,13 +17,18 @@ import { useAuth } from "@/hooks/use-auth"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 interface UserMenuProps {
-  user: SupabaseUser
+  user?: SupabaseUser | null
 }
 
 export function UserMenu({ user }: UserMenuProps) {
   const { signOut } = useAuth()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+
+  // If no session yet, render nothing (or replace with a Sign-In button if desired)
+  if (!user) {
+    return null
+  }
 
   const handleSignOut = async () => {
     try {
