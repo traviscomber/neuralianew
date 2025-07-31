@@ -1,149 +1,105 @@
 import { supabase } from "./supabase"
-
-interface AuthUser {
-  id: string
-  email: string
-  name?: string
-}
-
-interface AuthResponse {
-  success: boolean
-  user?: AuthUser
-  error?: string
-}
+import type { AuthError, User } from "@supabase/supabase-js"
 
 export const authService = {
-  /**
-   * Iniciar sesión con email y contraseña
-   */
-  async signIn(email: string, password: string): Promise<AuthResponse> {
-    console.log("🔐 Intentando iniciar sesión:", email)
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.trim().toLowerCase(),
-        password,
-      })
-
-      if (error) {
-        console.error("❌ Error de autenticación:", error.message)
-        return {
-          success: false,
-          error: error.message === "Invalid login credentials" ? "Credenciales incorrectas" : error.message,
-        }
-      }
-
-      if (!data.user) {
-        return {
-          success: false,
-          error: "No se pudo obtener información del usuario",
-        }
-      }
-
-      console.log("✅ Sesión iniciada:", data.user.email)
-
-      // Crear/actualizar perfil automáticamente
-      await supabase.from("profiles").upsert({
-        id: data.user.id,
-        email: data.user.email,
-        full_name: data.user.user_metadata?.full_name || data.user.email?.split("@")[0],
-        updated_at: new Date().toISOString(),
-      })
-
-      return {
-        success: true,
-        user: {
-          id: data.user.id,
-          email: data.user.email!,
-          name: data.user.user_metadata?.full_name || data.user.email?.split("@")[0],
-        },
-      }
-    } catch (error) {
-      console.error("❌ Error inesperado en signIn:", error)
-      return {
-        success: false,
-        error: "Error de conexión. Intenta de nuevo.",
-      }
-    }
-  },
-
-  /**
-   * Registrar nuevo usuario
-   */
-  async signUp(email: string, password: string, fullName?: string): Promise<AuthResponse> {
-    console.log("🔐 Registrando usuario:", email)
-
+  async signUp(email: string, password: string, metadata?: any) {
     try {
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim().toLowerCase(),
+        email,
         password,
         options: {
-          data: {
-            full_name: fullName || email.split("@")[0],
-          },
+          data: metadata || {},
         },
       })
-
-      if (error) {
-        console.error("❌ Error de registro:", error.message)
-        return {
-          success: false,
-          error: error.message,
-        }
-      }
-
-      if (!data.user) {
-        return {
-          success: false,
-          error: "No se pudo crear el usuario",
-        }
-      }
-
-      console.log("✅ Usuario registrado:", data.user.email)
-
-      return {
-        success: true,
-        user: {
-          id: data.user.id,
-          email: data.user.email!,
-          name: fullName || data.user.email?.split("@")[0],
-        },
-      }
+      return { data, error }
     } catch (error) {
-      console.error("❌ Error inesperado en signUp:", error)
-      return {
-        success: false,
-        error: "Error de conexión. Intenta de nuevo.",
-      }
+      console.error("Sign up error:", error)
+      return { data: null, error: error as AuthError }
     }
   },
 
-  /**
-   * Cerrar sesión
-   */
-  async signOut(): Promise<void> {
-    console.log("🔐 Cerrando sesión...")
-    await supabase.auth.signOut()
+  async signIn(email: string, password: string) {
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+      return { data, error }
+    } catch (error) {
+      console.error("Sign in error:", error)
+      return { data: null, error: error as AuthError }
+    }
   },
 
-  /**
-   * Obtener usuario actual
-   */
-  async getCurrentUser(): Promise<AuthUser | null> {
+  async signInWithProvider(provider: "google" | "github" | "discord") {
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      })
+      return { data, error }
+    } catch (error) {
+      console.error("OAuth sign in error:", error)
+      return { data: null, error: error as AuthError }
+    }
+  },
+
+  async signOut() {
+    try {
+      const { error } = await supabase.auth.signOut()
+      return { error }
+    } catch (error) {
+      console.error("Sign out error:", error)
+      return { error: error as AuthError }
+    }
+  },
+
+  async resetPassword(email: string) {
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+      return { data, error }
+    } catch (error) {
+      console.error("Reset password error:", error)
+      return { data: null, error: error as AuthError }
+    }
+  },
+
+  async updatePassword(password: string) {
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        password,
+      })
+      return { data, error }
+    } catch (error) {
+      console.error("Update password error:", error)
+      return { data: null, error: error as AuthError }
+    }
+  },
+
+  async updateProfile(updates: any) {
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        data: updates,
+      })
+      return { data, error }
+    } catch (error) {
+      console.error("Update profile error:", error)
+      return { data: null, error: error as AuthError }
+    }
+  },
+
+  async getCurrentUser(): Promise<User | null> {
     try {
       const {
         data: { user },
       } = await supabase.auth.getUser()
-
-      if (!user) return null
-
-      return {
-        id: user.id,
-        email: user.email!,
-        name: user.user_metadata?.full_name || user.email?.split("@")[0],
-      }
+      return user
     } catch (error) {
-      console.error("❌ Error obteniendo usuario:", error)
+      console.error("Get current user error:", error)
       return null
     }
   },

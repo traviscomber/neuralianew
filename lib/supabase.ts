@@ -1,149 +1,135 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
-import { createServerClient as createSupabaseServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
+/* --------------------------------------------------------------------------
+   Central Supabase helper with proper singleton pattern
+   -------------------------------------------------------------------------- */
+
+import { createClient as supabaseCreateClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
-// Environment validation
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+/** Resolve credentials from env – works both client & server side. */
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ""
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ""
 
+/** Throw early if something is missing. */
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Missing Supabase environment variables")
-}
-
-// Prevent service role key from being exposed to client
-if (typeof window !== "undefined" && supabaseAnonKey?.includes("service_role")) {
-  throw new Error("🚨 Service role key detected in browser! Check your environment variables.")
-}
-
-// Browser client (singleton)
-let browserClient: ReturnType<typeof createSupabaseClient<Database>> | null = null
-
-export function createClient() {
   if (typeof window === "undefined") {
-    // Server-side: create a new client each time
-    return createSupabaseClient<Database>(supabaseUrl!, supabaseAnonKey!)
+    throw new Error(
+      "Supabase environment variables are not set. " +
+        "Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist.",
+    )
+  }
+}
+
+/** Global singleton instances */
+let _browserClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
+let _serverClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
+
+/**
+ * Create a **new** Supabase client.
+ * Use this when you explicitly need a fresh client (e.g. per request).
+ */
+export function createClient() {
+  return supabaseCreateClient<Database>(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+    },
+  })
+}
+
+/**
+ * Get the singleton browser client
+ */
+function getBrowserClient() {
+  if (typeof window === "undefined") {
+    throw new Error("getBrowserClient() can only be called on the client side")
   }
 
-  // Browser-side: use singleton
-  if (!browserClient) {
-    browserClient = createSupabaseClient<Database>(supabaseUrl!, supabaseAnonKey!, {
+  if (!_browserClient) {
+    _browserClient = createClient()
+  }
+
+  return _browserClient
+}
+
+/**
+ * Server-side helper for Route Handlers / Server Actions.
+ */
+export function createServerClient() {
+  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!_serverClient) {
+    _serverClient = supabaseCreateClient<Database>(supabaseUrl, serviceRole || supabaseAnonKey, {
       auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-        flowType: "pkce",
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+      global: {
+        headers: { "X-Client-Environment": "server" },
       },
     })
   }
 
-  return browserClient
+  return _serverClient
 }
 
-// Server client with cookies (for SSR/API routes)
-export function createServerClient() {
-  const cookieStore = cookies()
+/**
+ * Main export - returns the appropriate client based on environment
+ */
+export const supabase = typeof window !== "undefined" ? getBrowserClient() : createServerClient()
 
-  return createSupabaseServerClient<Database>(supabaseUrl!, supabaseAnonKey!, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
-      },
-      set(name: string, value: string, options: any) {
-        cookieStore.set({ name, value, ...options })
-      },
-      remove(name: string, options: any) {
-        cookieStore.set({ name, value: "", ...options })
-      },
-    },
-  })
+function getClient() {
+  return typeof window !== "undefined" ? getBrowserClient() : createServerClient()
 }
 
-// Service role client (for privileged operations)
-export function createServiceClient() {
-  if (!supabaseServiceKey) {
-    throw new Error("Service role key not available")
-  }
-
-  return createSupabaseClient<Database>(supabaseUrl!, supabaseServiceKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  })
-}
-
-// Default browser client export
-export const supabase = createClient()
-
-// Database helpers using service client
+/** ---------------------------------------------------------------
+ *  High-level helpers that the rest of the app relies on
+ *  ------------------------------------------------------------- */
 export const dbHelpers = {
+  /** Return all AI agents (newest first). */
   async getAIAgents() {
-    const client = createServiceClient()
-    const { data, error } = await client.from("ai_agents").select("*").order("created_at", { ascending: false })
+    const { data, error } = await getClient().from("ai_agents").select("*").order("created_at", { ascending: false })
 
     if (error) throw error
     return data
   },
 
-  async deployAgent(userId: string, agent: any) {
-    const client = createServiceClient()
-
-    const trialEnd = new Date()
-    trialEnd.setDate(trialEnd.getDate() + 5) // 5-day trial
-
-    const { data, error } = await client
-      .from("deployed_agents")
-      .insert({
-        user_id: userId,
-        agent_id: agent.id,
-        agent_name: agent.name,
-        agent_description: agent.description,
-        agent_type: agent.type,
-        icon: agent.icon || "🤖",
-        status: "trial",
-        trial_start: new Date().toISOString(),
-        trial_end: trialEnd.toISOString(),
-        configuration: {},
-        deployed_at: new Date().toISOString(),
-      })
-      .select()
-      .single()
-
-    if (error) throw error
-    return data
-  },
-
+  /** Return agents the given user has deployed (newest first). */
   async getUserDeployedAgents(userId: string) {
-    const client = createServiceClient()
-    const { data, error } = await client
+    const { data, error } = await getClient()
       .from("deployed_agents")
       .select("*")
       .eq("user_id", userId)
-      .order("deployed_at", { ascending: false })
+      .order("created_at", { ascending: false })
 
     if (error) throw error
     return data
   },
 
-  async createUserProfile(userId: string, email: string) {
-    const client = createServiceClient()
-    const { data, error } = await client
-      .from("profiles")
+  /** Insert a new deployed agent row and return it. */
+  async deployAgent(userId: string, agentData: any) {
+    const { data, error } = await getClient()
+      .from("deployed_agents")
       .insert({
-        id: userId,
-        email: email,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        user_id: userId,
+        agent_id: agentData.id,
+        agent_name: agentData.name,
+        agent_description: agentData.description || null,
+        agent_type: agentData.category,
+        status: "trial",
+        deployment_date: new Date().toISOString(),
+        trial_start_date: new Date().toISOString(),
+        trial_end_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days from now
       })
       .select()
       .single()
 
-    if (error && error.code !== "23505") {
-      // Ignore duplicate key errors
-      throw error
-    }
+    if (error) throw error
     return data
   },
+
+  /** Get the Supabase client for direct use */
+  getClient,
 }
+
+/** Default export kept for backward compatibility. */
+export default supabase

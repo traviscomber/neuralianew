@@ -2,10 +2,9 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/hooks/use-auth"
 import { AuthModal } from "./auth-modal"
 import { UserMenu } from "./user-menu"
-import { LogIn } from "lucide-react"
+import { useAuth } from "@/hooks/use-auth"
 
 export function AuthButton() {
   const { user, loading } = useAuth()
@@ -13,9 +12,9 @@ export function AuthButton() {
 
   if (loading) {
     return (
-      <div className="flex items-center space-x-2">
-        <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-600 border-t-transparent"></div>
-      </div>
+      <Button variant="ghost" disabled>
+        Loading...
+      </Button>
     )
   }
 
@@ -27,9 +26,8 @@ export function AuthButton() {
     <>
       <Button
         onClick={() => setShowAuthModal(true)}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
       >
-        <LogIn className="mr-2 h-4 w-4" />
         Sign In
       </Button>
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />

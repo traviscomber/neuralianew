@@ -1,376 +1,242 @@
 "use client"
 
-import React from "react"
+import type React from "react"
 
 import { useState } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useToast } from "@/hooks/use-toast"
-import { authService } from "@/lib/auth"
-import { Loader2, Eye, EyeOff } from "lucide-react"
+import { useAuth } from "@/hooks/use-auth"
+import { Brain, Mail, Lock, User, Zap } from "lucide-react"
 
 interface AuthModalProps {
-  isOpen: boolean
-  onClose: () => void
-  onSuccess?: () => void
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }
 
-export function AuthModal({ isOpen, onClose, onSuccess }: AuthModalProps) {
-  const [isLoading, setIsLoading] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
-  const [connectionStatus, setConnectionStatus] = useState<"checking" | "connected" | "error">("checking")
-  const { toast } = useToast()
-
-  // Estados del formulario
-  const [signInData, setSignInData] = useState({ email: "", password: "" })
-  const [signUpData, setSignUpData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    fullName: "",
-  })
-
-  // Verificar conexión cuando se abre el modal
-  React.useEffect(() => {
-    if (isOpen) {
-      checkConnection()
-    }
-  }, [isOpen])
-
-  const checkConnection = async () => {
-    try {
-      setConnectionStatus("checking")
-      console.log("🔍 Verificando conexión con Supabase...")
-
-      const result = await authService.checkConnection()
-      if (result.success) {
-        setConnectionStatus("connected")
-        console.log("✅ Conexión con Supabase exitosa")
-      } else {
-        setConnectionStatus("error")
-        console.error("❌ Error de conexión:", result.error)
-      }
-    } catch (error) {
-      setConnectionStatus("error")
-      console.error("❌ Error verificando conexión:", error)
-    }
-  }
+export function AuthModal({ open, onOpenChange }: AuthModalProps) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
+  const [loading, setLoading] = useState(false)
+  const { signIn, signUp } = useAuth()
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!email || !password) return
 
-    if (connectionStatus !== "connected") {
-      toast({
-        title: "Error de conexión",
-        description: "No se puede conectar con el servidor. Intenta más tarde.",
-        variant: "destructive",
-      })
-      return
-    }
-
-    setIsLoading(true)
-    console.log("🔐 Iniciando proceso de sign in...")
-
+    setLoading(true)
     try {
-      // Sanitizar email
-      const email = signInData.email.trim().toLowerCase()
-      const password = signInData.password
-
-      console.log("📧 Email sanitizado:", email)
-      console.log("🔑 Intentando autenticación...")
-
-      const result = await authService.signIn(email, password)
-
-      if (result.success) {
-        console.log("✅ Sign in exitoso:", result.user?.email)
-        toast({
-          title: "¡Bienvenido!",
-          description: "Has iniciado sesión correctamente.",
-        })
-        onSuccess?.()
-        onClose()
-      } else {
-        console.warn("⚠️ Sign in falló:", result.error)
-
-        // Manejar errores específicos
-        if (result.error === "Invalid login credentials") {
-          toast({
-            title: "Credenciales incorrectas",
-            description: "El email o contraseña son incorrectos. Verifica tus datos.",
-            variant: "destructive",
-          })
-        } else if (result.error === "Email not confirmed") {
-          toast({
-            title: "Email no confirmado",
-            description: "Revisa tu email y confirma tu cuenta antes de iniciar sesión.",
-            variant: "destructive",
-          })
-        } else {
-          toast({
-            title: "Error de autenticación",
-            description: result.error || "No se pudo iniciar sesión. Intenta nuevamente.",
-            variant: "destructive",
-          })
-        }
-      }
+      await signIn(email, password)
+      onOpenChange(false)
+      setEmail("")
+      setPassword("")
     } catch (error) {
-      console.error("🚨 Error inesperado en sign in:", error)
-      toast({
-        title: "Error inesperado",
-        description: "Ocurrió un error inesperado. Intenta más tarde.",
-        variant: "destructive",
-      })
+      console.error("Sign in error:", error)
+      alert("Sign in failed. Please check your credentials.")
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
   }
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!email || !password || !name) return
 
-    if (connectionStatus !== "connected") {
-      toast({
-        title: "Error de conexión",
-        description: "No se puede conectar con el servidor. Intenta más tarde.",
-        variant: "destructive",
-      })
-      return
-    }
-
-    // Validaciones
-    if (signUpData.password !== signUpData.confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Las contraseñas no coinciden.",
-        variant: "destructive",
-      })
-      return
-    }
-
-    if (signUpData.password.length < 6) {
-      toast({
-        title: "Error",
-        description: "La contraseña debe tener al menos 6 caracteres.",
-        variant: "destructive",
-      })
-      return
-    }
-
-    setIsLoading(true)
-    console.log("📝 Iniciando proceso de registro...")
-
+    setLoading(true)
     try {
-      // Sanitizar datos
-      const email = signUpData.email.trim().toLowerCase()
-      const password = signUpData.password
-      const fullName = signUpData.fullName.trim()
-
-      console.log("📧 Email sanitizado:", email)
-      console.log("👤 Nombre completo:", fullName)
-
-      const result = await authService.signUp(email, password, { fullName })
-
-      if (result.success) {
-        console.log("✅ Registro exitoso:", result.user?.email)
-        toast({
-          title: "¡Registro exitoso!",
-          description: "Revisa tu email para confirmar tu cuenta.",
-        })
-        onClose()
-      } else {
-        console.warn("⚠️ Registro falló:", result.error)
-        toast({
-          title: "Error en el registro",
-          description: result.error || "No se pudo crear la cuenta. Intenta nuevamente.",
-          variant: "destructive",
-        })
-      }
+      await signUp(email, password, name)
+      onOpenChange(false)
+      setEmail("")
+      setPassword("")
+      setName("")
     } catch (error) {
-      console.error("🚨 Error inesperado en registro:", error)
-      toast({
-        title: "Error inesperado",
-        description: "Ocurrió un error inesperado. Intenta más tarde.",
-        variant: "destructive",
-      })
+      console.error("Sign up error:", error)
+      alert("Sign up failed. Please try again.")
     } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const ConnectionIndicator = () => {
-    switch (connectionStatus) {
-      case "checking":
-        return (
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-            <Loader2 className="h-4 w-4 animate-spin" />
-            Verificando conexión...
-          </div>
-        )
-      case "connected":
-        return (
-          <div className="flex items-center gap-2 text-sm text-green-600 mb-4">
-            <div className="h-2 w-2 bg-green-500 rounded-full" />
-            Conectado al servidor
-          </div>
-        )
-      case "error":
-        return (
-          <div className="flex items-center gap-2 text-sm text-red-600 mb-4">
-            <div className="h-2 w-2 bg-red-500 rounded-full" />
-            Error de conexión
-            <Button variant="ghost" size="sm" onClick={checkConnection} className="h-auto p-1 text-xs">
-              Reintentar
-            </Button>
-          </div>
-        )
+      setLoading(false)
     }
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-md bg-black/95 border-purple-500/30 text-white">
         <DialogHeader>
-          <DialogTitle>Acceder a Neuralia</DialogTitle>
+          <DialogTitle className="flex items-center gap-3 text-2xl text-center justify-center">
+            <div className="relative">
+              <Brain className="h-8 w-8 text-purple-400" />
+              <div className="absolute inset-0 h-8 w-8 bg-purple-400/20 rounded-full animate-pulse"></div>
+            </div>
+            Neural Access Portal
+          </DialogTitle>
+          <DialogDescription className="text-gray-400 text-center">
+            Sign in or create an account to access advanced neural networks
+          </DialogDescription>
         </DialogHeader>
 
-        <ConnectionIndicator />
-
         <Tabs defaultValue="signin" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signin">Iniciar Sesión</TabsTrigger>
-            <TabsTrigger value="signup">Registrarse</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 bg-purple-500/20">
+            <TabsTrigger value="signin" className="data-[state=active]:bg-purple-600">
+              Neural Sign In
+            </TabsTrigger>
+            <TabsTrigger value="signup" className="data-[state=active]:bg-purple-600">
+              Neural Access
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="signin" className="space-y-4">
+            <div className="text-center mb-4">
+              <p className="text-gray-300">Access your neural network dashboard</p>
+            </div>
+
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signin-email">Email</Label>
-                <Input
-                  id="signin-email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  value={signInData.email}
-                  onChange={(e) => setSignInData((prev) => ({ ...prev, email: e.target.value }))}
-                  required
-                  disabled={isLoading || connectionStatus !== "connected"}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signin-password">Contraseña</Label>
+                <Label htmlFor="signin-email" className="text-purple-300">
+                  Neural ID (Email)
+                </Label>
                 <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
                   <Input
-                    id="signin-password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Tu contraseña"
-                    value={signInData.password}
-                    onChange={(e) => setSignInData((prev) => ({ ...prev, password: e.target.value }))}
+                    id="signin-email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
                     required
-                    disabled={isLoading || connectionStatus !== "connected"}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                    disabled={isLoading}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
                 </div>
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading || connectionStatus !== "connected"}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Iniciando sesión...
-                  </>
+
+              <div className="space-y-2">
+                <Label htmlFor="signin-password" className="text-purple-300">
+                  Neural Key (Password)
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Input
+                    id="signin-password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    required
+                  />
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Accessing Neural Network...
+                  </div>
                 ) : (
-                  "Iniciar Sesión"
+                  <>
+                    <Zap className="mr-2 h-4 w-4" />
+                    Access Neural Dashboard
+                  </>
                 )}
               </Button>
             </form>
           </TabsContent>
 
           <TabsContent value="signup" className="space-y-4">
+            <div className="text-center mb-4">
+              <p className="text-gray-300">Create your neural network account</p>
+            </div>
+
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signup-name">Nombre completo</Label>
-                <Input
-                  id="signup-name"
-                  type="text"
-                  placeholder="Tu nombre completo"
-                  value={signUpData.fullName}
-                  onChange={(e) => setSignUpData((prev) => ({ ...prev, fullName: e.target.value }))}
-                  required
-                  disabled={isLoading || connectionStatus !== "connected"}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signup-email">Email</Label>
-                <Input
-                  id="signup-email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  value={signUpData.email}
-                  onChange={(e) => setSignUpData((prev) => ({ ...prev, email: e.target.value }))}
-                  required
-                  disabled={isLoading || connectionStatus !== "connected"}
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="signup-password">Contraseña</Label>
+                <Label htmlFor="signup-name" className="text-purple-300">
+                  Neural Identity (Name)
+                </Label>
                 <div className="relative">
+                  <User className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
                   <Input
-                    id="signup-password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Mínimo 6 caracteres"
-                    value={signUpData.password}
-                    onChange={(e) => setSignUpData((prev) => ({ ...prev, password: e.target.value }))}
+                    id="signup-name"
+                    type="text"
+                    placeholder="Your Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
                     required
-                    disabled={isLoading || connectionStatus !== "connected"}
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                    onClick={() => setShowPassword(!showPassword)}
-                    disabled={isLoading}
-                  >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                  </Button>
                 </div>
               </div>
+
               <div className="space-y-2">
-                <Label htmlFor="signup-confirm">Confirmar contraseña</Label>
-                <Input
-                  id="signup-confirm"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Confirma tu contraseña"
-                  value={signUpData.confirmPassword}
-                  onChange={(e) => setSignUpData((prev) => ({ ...prev, confirmPassword: e.target.value }))}
-                  required
-                  disabled={isLoading || connectionStatus !== "connected"}
-                />
+                <Label htmlFor="signup-email" className="text-purple-300">
+                  Neural ID (Email)
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Input
+                    id="signup-email"
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    required
+                  />
+                </div>
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading || connectionStatus !== "connected"}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creando cuenta...
-                  </>
+
+              <div className="space-y-2">
+                <Label htmlFor="signup-password" className="text-purple-300">
+                  Neural Key (Password)
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Input
+                    id="signup-password"
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    required
+                  />
+                </div>
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                disabled={loading}
+              >
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    Initializing Neural Network...
+                  </div>
                 ) : (
-                  "Crear Cuenta"
+                  <>
+                    <Brain className="mr-2 h-4 w-4" />
+                    Initialize Neural Access
+                  </>
                 )}
               </Button>
             </form>
+
+            <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3">
+              <p className="text-xs text-gray-300 text-center">
+                By creating an account, you gain access to advanced neural networks with 5-day free trials
+              </p>
+            </div>
           </TabsContent>
         </Tabs>
       </DialogContent>
     </Dialog>
   )
 }
+
+export default AuthModal

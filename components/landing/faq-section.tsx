@@ -3,8 +3,46 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, Brain, Shield, CreditCard, Zap, Users, MessageCircle } from "lucide-react"
+import { ChevronDown, Brain, Shield, CreditCard, Zap, Users, Clock } from "lucide-react"
+
+const faqs = [
+  {
+    icon: Brain,
+    question: "What exactly are 'Neural AI Executives'?",
+    answer:
+      "Neural AI Executives are specialized AI agents trained on millions of executive decision-making patterns from Fortune 500 companies. Each agent combines advanced transformer neural networks (175B+ parameters) with quantum-inspired algorithms to provide strategic insights, automate complex decisions, and execute business functions at an executive level. Think of them as having a world-class CEO, CMO, or CTO available 24/7 for your business.",
+  },
+  {
+    icon: Clock,
+    question: "How does the 5-day free trial work?",
+    answer:
+      "Your 5-day free trial gives you complete access to all neural network capabilities with no limitations. Simply deploy any agent and start using it immediately. You'll get full executive-level insights, unlimited queries, and access to all premium features. After 5 days, you can upgrade with USDT payment to continue unlimited access, or the agent will pause until upgraded.",
+  },
+  {
+    icon: CreditCard,
+    question: "Why do you only accept USDT payments?",
+    answer:
+      "We use USDT (Tether) for several strategic reasons: 1) Instant global transactions without banking delays, 2) Lower fees than traditional payment processors, 3) Enhanced privacy and security for enterprise clients, 4) Seamless integration with our decentralized neural network infrastructure. USDT is stable, widely accepted, and allows us to serve clients worldwide without geographic payment restrictions.",
+  },
+  {
+    icon: Zap,
+    question: "How is this different from ChatGPT or other AI tools?",
+    answer:
+      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized business decision-makers. They're trained specifically on executive decision patterns, have access to real-time business data, can execute complex multi-step strategies, and integrate directly with your business tools. Think ChatGPT for conversations vs. our agents for running your business operations.",
+  },
+  {
+    icon: Users,
+    question: "Can these agents integrate with my existing business tools?",
+    answer:
+      "Yes! Our Neural AI Executives integrate natively with 200+ business tools including Salesforce, HubSpot, Slack, Microsoft Teams, Google Workspace, Zoom, Notion, and most major CRM, ERP, and communication platforms. They can read your data, generate reports, send communications, and execute decisions across your entire tech stack.",
+  },
+  {
+    icon: Shield,
+    question: "How secure is my business data?",
+    answer:
+      "Security is our top priority. We're SOC 2 Type II certified, ISO 27001 compliant, and GDPR compliant. All data is encrypted end-to-end, processed in secure cloud environments, and never stored permanently. Our neural networks run in isolated containers with zero-trust architecture. We also offer on-premise deployment for enterprise clients with the highest security requirements.",
+  },
+]
 
 export function FAQSection() {
   const [openItems, setOpenItems] = useState<string[]>([])
@@ -13,88 +51,42 @@ export function FAQSection() {
     setOpenItems((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]))
   }
 
-  const faqs = [
-    {
-      id: "what-are-neural-executives",
-      icon: Brain,
-      question: "What are Neural AI Executives?",
-      answer:
-        "Neural AI Executives are advanced AI systems trained on 175B parameters using quantum-inspired algorithms. They simulate C-suite executive thinking patterns, providing strategic decision-making, leadership insights, and business intelligence. Unlike ChatGPT, they're specifically designed for executive-level business functions with specialized training on corporate strategy, financial planning, and operational excellence.",
-    },
-    {
-      id: "how-trial-works",
-      icon: Zap,
-      question: "How does the 5-day free trial work?",
-      answer:
-        "Simply deploy any AI executive and get full access for 5 days at no cost. During the trial, you can chat with your agent, receive strategic insights, and test all capabilities. No credit card required upfront. After 5 days, upgrade with USDT payment to continue using your neural executive, or the agent will be deactivated.",
-    },
-    {
-      id: "why-usdt-only",
-      icon: CreditCard,
-      question: "Why do you only accept USDT payments?",
-      answer:
-        "We use USDT (Tether) for instant global transactions, lower fees, and enhanced privacy. USDT provides stability against market volatility while enabling seamless international payments. For enterprise clients requiring traditional payment methods, contact our team at hello@neuralia.ai for custom arrangements.",
-    },
-    {
-      id: "vs-chatgpt",
-      icon: Users,
-      question: "How is this different from ChatGPT?",
-      answer:
-        "While ChatGPT is a general-purpose AI, our Neural Executives are specialized for C-suite functions. They're trained on executive decision patterns, corporate strategy frameworks, and business intelligence. Each agent has persistent memory of your business context, provides role-specific insights, and maintains executive-level conversation depth that general AI cannot match.",
-    },
-    {
-      id: "integration",
-      icon: Shield,
-      question: "How do I integrate with my existing systems?",
-      answer:
-        "Neural Executives work through our secure chat interface initially. For enterprise clients, we offer API integrations, Slack/Teams bots, and custom integrations with your CRM, ERP, or business intelligence tools. All integrations maintain SOC 2 and ISO 27001 compliance with end-to-end encryption.",
-    },
-    {
-      id: "security",
-      icon: Shield,
-      question: "Is my business data secure?",
-      answer:
-        "Absolutely. We maintain SOC 2 Type II and ISO 27001 certifications. All conversations are encrypted end-to-end, data is never used for training other models, and we offer on-premise deployment for enterprise clients. Your business intelligence remains completely confidential and is never shared or accessed by unauthorized parties.",
-    },
-  ]
-
   return (
-    <section id="faq" className="py-20 px-4 bg-white/50">
-      <div className="container mx-auto max-w-4xl">
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600">Everything you need to know about Neural AI Executives</p>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Everything you need to know about Neural AI Executives and how they can transform your business operations.
+          </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq) => {
+        <div className="max-w-4xl mx-auto space-y-4">
+          {faqs.map((faq, index) => {
             const Icon = faq.icon
-            const isOpen = openItems.includes(faq.id)
+            const isOpen = openItems.includes(index.toString())
 
             return (
-              <Card key={faq.id} className="border-0 shadow-md">
+              <Card key={index} className="border-2 hover:border-blue-200 transition-colors">
                 <Collapsible>
-                  <CollapsibleTrigger asChild>
-                    <CardHeader
-                      className="cursor-pointer hover:bg-gray-50 transition-colors"
-                      onClick={() => toggleItem(faq.id)}
-                    >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                            <Icon className="h-5 w-5 text-white" />
-                          </div>
-                          <CardTitle className="text-left text-lg">{faq.question}</CardTitle>
+                  <CollapsibleTrigger className="w-full" onClick={() => toggleItem(index.toString())}>
+                    <CardHeader className="flex flex-row items-center space-y-0 pb-4">
+                      <div className="flex items-center space-x-4 flex-1 text-left">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Icon className="h-5 w-5 text-white" />
                         </div>
-                        <ChevronDown
-                          className={`h-5 w-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                        />
+                        <CardTitle className="text-lg font-semibold text-gray-900">{faq.question}</CardTitle>
                       </div>
+                      <ChevronDown
+                        className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      />
                     </CardHeader>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <CardContent className="pt-0">
-                      <p className="text-gray-600 leading-relaxed pl-13">{faq.answer}</p>
+                      <p className="text-gray-600 leading-relaxed pl-14">{faq.answer}</p>
                     </CardContent>
                   </CollapsibleContent>
                 </Collapsible>
@@ -104,23 +96,15 @@ export function FAQSection() {
         </div>
 
         <div className="text-center mt-12">
-          <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-0">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Still have questions?</h3>
-              <p className="text-gray-600 mb-4">
-                Our team is here to help you understand how Neural AI Executives can transform your business.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <Button variant="outline">Email: hello@neuralia.ai</Button>
-                <Button variant="outline">Telegram: @neuralia_support</Button>
-              </div>
-            </CardContent>
-          </Card>
+          <p className="text-gray-600 mb-4">Still have questions?</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="mailto:hello@neuralia.ai" className="text-blue-600 hover:text-blue-700 font-medium">
+              Email: hello@neuralia.ai
+            </a>
+            <a href="https://t.me/neuralia_support" className="text-blue-600 hover:text-blue-700 font-medium">
+              Telegram: @neuralia_support
+            </a>
+          </div>
         </div>
       </div>
     </section>

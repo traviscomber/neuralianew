@@ -2,253 +2,209 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
-import { X, Send, Minimize2, Maximize2 } from "lucide-react"
+import { Brain, Send, User, Cpu, Zap } from "lucide-react"
+
+interface ChatWidgetProps {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+  isOpen?: boolean
+  onClose?: () => void
+}
 
 interface Message {
   id: string
   content: string
-  sender: "user" | "agent"
+  sender: "user" | "neural"
   timestamp: Date
+  processingTime?: number
 }
 
-interface DeployedAgent {
-  id: string
-  user_id: string
-  agent_id: string
-  name: string
-  agent_name?: string
-  description?: string
-  agent_description?: string
-  agent_type?: string
-  icon?: string
-  status: string
-  trial_start?: string
-  trial_end?: string
-}
-
-interface ChatWidgetProps {
-  agent: DeployedAgent | null
-  onClose: () => void
-}
-
-export function ChatWidget({ agent, onClose }: ChatWidgetProps) {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [inputValue, setInputValue] = useState("")
-  const [isMinimized, setIsMinimized] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  useEffect(() => {
-    if (agent && messages.length === 0) {
-      const welcomeMessage: Message = {
-        id: "welcome",
-        content: `Hello! I'm ${agent.agent_name || agent.name}, your ${
-          agent.agent_description || agent.description || "AI assistant"
-        }. How can I help you today?`,
-        sender: "agent",
-        timestamp: new Date(),
-      }
-      setMessages([welcomeMessage])
-    }
-  }, [agent, messages.length])
-
-  // Don't render if no agent
-  if (!agent) {
-    return null
-  }
-
-  const handleSendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      content: inputValue.trim(),
-      sender: "user",
+export function ChatWidget({ open, onOpenChange, isOpen, onClose }: ChatWidgetProps) {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: "1",
+      content:
+        "Neural network initialized. I am your advanced AI executive assistant powered by 175B parameters and quantum-inspired algorithms. How may I assist you with strategic decision-making today?",
+      sender: "neural",
       timestamp: new Date(),
-    }
+      processingTime: 0.023,
+    },
+  ])
+  const [input, setInput] = useState("")
+  const [isProcessing, setIsProcessing] = useState(false)
 
-    setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
-    setIsLoading(true)
+  const isDialogOpen = open ?? isOpen ?? false
+  const handleOpenChange = onOpenChange ?? ((open: boolean) => !open && onClose?.())
 
-    // Simulate AI response (replace with actual API call)
-    setTimeout(
-      () => {
-        const agentResponse: Message = {
-          id: (Date.now() + 1).toString(),
-          content: generateAgentResponse(inputValue, agent),
-          sender: "agent",
-          timestamp: new Date(),
-        }
-        setMessages((prev) => [...prev, agentResponse])
-        setIsLoading(false)
-      },
-      1000 + Math.random() * 2000,
-    )
-  }
-
-  const generateAgentResponse = (userInput: string, agent: DeployedAgent): string => {
-    const input = userInput.toLowerCase()
-    const agentName = agent.agent_name || agent.name
-    const agentType = agent.agent_type || "executive"
-
-    // Context-aware responses based on agent type
-    if (agentType.includes("ceo") || agentType.includes("executive")) {
-      if (input.includes("strategy") || input.includes("vision")) {
-        return `As your ${agentName}, I recommend focusing on three key strategic pillars: market expansion, operational excellence, and innovation leadership. Let's discuss how to align these with your current business objectives.`
-      }
-      if (input.includes("team") || input.includes("leadership")) {
-        return `Leadership is about empowering others to achieve extraordinary results. I suggest implementing a structured leadership development program and establishing clear communication channels across all levels.`
-      }
-      if (input.includes("growth") || input.includes("revenue")) {
-        return `For sustainable growth, we need to analyze your current market position, identify untapped opportunities, and develop a comprehensive expansion strategy. What's your current revenue target?`
-      }
-    }
-
-    if (agentType.includes("cmo") || agentType.includes("marketing")) {
-      if (input.includes("marketing") || input.includes("campaign")) {
-        return `Let's create a data-driven marketing strategy. I recommend starting with customer segmentation analysis, then developing targeted campaigns across digital channels. What's your primary target audience?`
-      }
-      if (input.includes("brand") || input.includes("awareness")) {
-        return `Brand building requires consistent messaging and strategic positioning. I suggest conducting a brand audit and developing a comprehensive brand strategy that resonates with your target market.`
-      }
-    }
-
-    if (agentType.includes("cto") || agentType.includes("technology")) {
-      if (input.includes("tech") || input.includes("system")) {
-        return `From a technology perspective, I recommend evaluating your current infrastructure, identifying scalability bottlenecks, and implementing modern solutions that support your business growth.`
-      }
-      if (input.includes("ai") || input.includes("automation")) {
-        return `AI and automation can significantly improve efficiency. Let's assess your current processes and identify opportunities for intelligent automation that can reduce costs and improve accuracy.`
-      }
-    }
-
-    // General responses
+  const generateNeuralResponse = (userInput: string): string => {
     const responses = [
-      `That's an excellent question. Based on my experience as ${agentName}, I'd recommend taking a strategic approach to this challenge.`,
-      `I understand your concern. Let me share some insights that could help you navigate this situation effectively.`,
-      `This is a common challenge I've helped many executives address. Here's my recommended approach...`,
-      `Great point! As your ${agentName}, I believe we should consider multiple perspectives on this issue.`,
-      `I appreciate you bringing this up. Let's break this down into actionable steps you can implement immediately.`,
+      "Neural analysis complete. Based on my training on 50M+ executive decisions, I recommend implementing a multi-layered approach with 97.8% success probability.",
+      "Processing through transformer architecture... My quantum-inspired algorithms suggest optimizing your current strategy with advanced predictive modeling.",
+      "Neural network activated. Analyzing market patterns through deep learning models indicates a strategic opportunity with high confidence intervals.",
+      "Advanced AI processing complete. My reinforcement learning algorithms have identified optimal pathways for your business objectives.",
+      "Quantum neural computation finished. Cross-referencing 15M+ similar scenarios suggests implementing data-driven decision frameworks.",
+      "Deep learning analysis indicates significant optimization potential. My neural networks recommend strategic pivoting based on predictive analytics.",
     ]
 
     return responses[Math.floor(Math.random() * responses.length)]
   }
 
+  const handleSend = async () => {
+    if (!input.trim() || isProcessing) return
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: input,
+      sender: "user",
+      timestamp: new Date(),
+    }
+
+    setMessages((prev) => [...prev, userMessage])
+    setInput("")
+    setIsProcessing(true)
+
+    // Simulate neural processing time
+    const processingTime = Math.random() * 2 + 0.5 // 0.5-2.5 seconds
+
+    setTimeout(() => {
+      const neuralMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: generateNeuralResponse(input),
+        sender: "neural",
+        timestamp: new Date(),
+        processingTime: Math.random() * 0.1 + 0.02, // 0.02-0.12 seconds
+      }
+      setMessages((prev) => [...prev, neuralMessage])
+      setIsProcessing(false)
+    }, processingTime * 1000)
+  }
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      handleSend()
     }
   }
 
-  // Safe access to agent properties
-  const agentIcon = agent?.icon || "🤖"
-  const agentName = agent?.agent_name || agent?.name || "AI Agent"
-  const agentStatus = agent?.status || "active"
-  const isTrialActive = agentStatus === "trial"
-
   return (
-    <Card className="fixed bottom-4 right-4 w-96 h-[500px] shadow-2xl z-50 flex flex-col">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
-        <div className="flex items-center space-x-2">
-          <span className="text-xl">{agentIcon}</span>
-          <div>
-            <CardTitle className="text-sm font-medium">{agentName}</CardTitle>
-            {isTrialActive && (
-              <Badge variant="secondary" className="text-xs mt-1 bg-white/20 text-white">
-                Trial Active
-              </Badge>
-            )}
-          </div>
-        </div>
-        <div className="flex items-center space-x-1">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsMinimized(!isMinimized)}
-            className="h-6 w-6 p-0 text-white hover:bg-white/20"
-          >
-            {isMinimized ? <Maximize2 className="h-3 w-3" /> : <Minimize2 className="h-3 w-3" />}
-          </Button>
-          <Button variant="ghost" size="sm" onClick={onClose} className="h-6 w-6 p-0 text-white hover:bg-white/20">
-            <X className="h-3 w-3" />
-          </Button>
-        </div>
-      </CardHeader>
+    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-lg h-[600px] flex flex-col bg-black/95 border-purple-500/30 text-white">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-3">
+            <div className="relative">
+              <Brain className="h-6 w-6 text-purple-400" />
+              <div className="absolute inset-0 h-6 w-6 bg-purple-400/20 rounded-full animate-pulse"></div>
+            </div>
+            Neural AI Assistant
+            <Badge variant="outline" className="border-purple-500/50 text-purple-300 text-xs">
+              <Cpu className="h-3 w-3 mr-1" />
+              175B Parameters
+            </Badge>
+          </DialogTitle>
+        </DialogHeader>
 
-      {!isMinimized && (
-        <>
-          <CardContent className="flex-1 p-0">
-            <ScrollArea className="h-full p-4">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`max-w-[80%] rounded-lg px-3 py-2 text-sm ${
-                        message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900 border"
-                      }`}
-                    >
-                      {message.content}
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-gray-100 rounded-lg px-3 py-2 text-sm border">
-                      <div className="flex space-x-1">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        ></div>
-                        <div
-                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        ></div>
+        <div className="flex-1 flex flex-col space-y-4">
+          <ScrollArea className="flex-1 pr-4">
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex items-start gap-3 ${message.sender === "user" ? "flex-row-reverse" : ""}`}
+                >
+                  <div className="flex-shrink-0">
+                    {message.sender === "neural" ? (
+                      <div className="relative">
+                        <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                          <Brain className="h-4 w-4 text-white" />
+                        </div>
+                        <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
                       </div>
+                    ) : (
+                      <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                        <User className="h-4 w-4 text-white" />
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className={`max-w-[80%] p-4 rounded-lg ${
+                      message.sender === "user"
+                        ? "bg-blue-600 text-white"
+                        : "bg-purple-500/20 border border-purple-500/30 text-gray-100"
+                    }`}
+                  >
+                    <p className="text-sm leading-relaxed">{message.content}</p>
+                    {message.sender === "neural" && message.processingTime && (
+                      <div className="flex items-center gap-2 mt-2 text-xs text-purple-300">
+                        <Zap className="h-3 w-3" />
+                        Neural processing: {message.processingTime.toFixed(3)}s
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+              {isProcessing && (
+                <div className="flex items-start gap-3">
+                  <div className="relative">
+                    <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center">
+                      <Brain className="h-4 w-4 text-white" />
+                    </div>
+                    <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
+                  </div>
+                  <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg p-4">
+                    <div className="flex items-center gap-2 text-sm text-purple-300">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" />
+                        <div
+                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        />
+                      </div>
+                      Neural network processing...
                     </div>
                   </div>
-                )}
-                <div ref={messagesEndRef} />
-              </div>
-            </ScrollArea>
-          </CardContent>
+                </div>
+              )}
+            </div>
+          </ScrollArea>
 
-          <div className="p-4 border-t">
-            <div className="flex space-x-2">
+          <div className="space-y-2">
+            <div className="flex gap-2">
               <Input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                placeholder="Ask your neural AI assistant..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder={`Message ${agentName}...`}
-                disabled={isLoading}
-                className="flex-1"
+                className="flex-1 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                disabled={isProcessing}
               />
-              <Button onClick={handleSendMessage} disabled={isLoading || !inputValue.trim()} size="sm">
+              <Button
+                onClick={handleSend}
+                size="sm"
+                disabled={!input.trim() || isProcessing}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
+            <div className="text-xs text-gray-400 text-center">
+              Powered by advanced neural networks with quantum-inspired algorithms
+            </div>
           </div>
-        </>
-      )}
-    </Card>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
+
+export default ChatWidget

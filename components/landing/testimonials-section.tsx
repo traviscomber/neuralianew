@@ -1,189 +1,215 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, TrendingUp, DollarSign, Clock, Users, BarChart3 } from "lucide-react"
+import { Star, TrendingUp, Users, DollarSign } from "lucide-react"
+
+const testimonials = [
+  {
+    name: "Sarah Chen",
+    role: "CEO",
+    company: "TechFlow Solutions",
+    industry: "SaaS",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "The CEO Neural Orchestrator transformed our strategic planning process. We went from quarterly strategy sessions to real-time strategic adjustments. Our revenue increased 340% in 6 months.",
+    metrics: {
+      roi: "340%",
+      timeSaved: "25 hrs/week",
+      improvement: "Revenue Growth",
+    },
+  },
+  {
+    name: "Marcus Rodriguez",
+    role: "Founder & CTO",
+    company: "DataVault Inc",
+    industry: "Fintech",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "Our CTO Innovation Architect identified 3 critical security vulnerabilities and optimized our infrastructure, saving us $2.3M in potential losses. The technical insights are phenomenal.",
+    metrics: {
+      roi: "2300%",
+      timeSaved: "40 hrs/week",
+      improvement: "Security & Performance",
+    },
+  },
+  {
+    name: "Jennifer Walsh",
+    role: "VP Marketing",
+    company: "GrowthLab",
+    industry: "E-commerce",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "The CMO Growth Engine revolutionized our marketing strategy. Lead quality improved 97%, conversion rates doubled, and our customer acquisition cost dropped by 60%. It's like having a world-class CMO 24/7.",
+    metrics: {
+      roi: "180%",
+      timeSaved: "30 hrs/week",
+      improvement: "Lead Quality & Conversions",
+    },
+  },
+  {
+    name: "David Kim",
+    role: "Managing Director",
+    company: "Apex Consulting",
+    industry: "Professional Services",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "We deployed all three Neural AI Executives across our portfolio companies. The strategic insights and operational efficiency gains have been extraordinary. Our portfolio performance improved 280% year-over-year.",
+    metrics: {
+      roi: "280%",
+      timeSaved: "60 hrs/week",
+      improvement: "Portfolio Performance",
+    },
+  },
+  {
+    name: "Lisa Thompson",
+    role: "COO",
+    company: "MedTech Innovations",
+    industry: "Healthcare",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "The operational insights from our Neural AI Executive helped us streamline 15 critical processes, reduce costs by 45%, and improve patient satisfaction scores to 98%. Absolutely game-changing.",
+    metrics: {
+      roi: "450%",
+      timeSaved: "35 hrs/week",
+      improvement: "Operational Efficiency",
+    },
+  },
+  {
+    name: "Robert Chang",
+    role: "President",
+    company: "Global Manufacturing Corp",
+    industry: "Manufacturing",
+    avatar: "/placeholder.svg?height=60&width=60",
+    rating: 5,
+    quote:
+      "Our supply chain optimization improved 65% within 30 days of deployment. The Neural AI Executive identified bottlenecks we didn't even know existed and provided actionable solutions immediately.",
+    metrics: {
+      roi: "220%",
+      timeSaved: "50 hrs/week",
+      improvement: "Supply Chain Optimization",
+    },
+  },
+]
+
+const overallStats = [
+  {
+    icon: TrendingUp,
+    value: "340%",
+    label: "Average ROI Increase",
+    description: "Within 90 days of deployment",
+  },
+  {
+    icon: Users,
+    value: "500+",
+    label: "Enterprise Clients",
+    description: "Including 50+ Fortune 500 companies",
+  },
+  {
+    icon: DollarSign,
+    value: "$50M+",
+    label: "Cost Savings Generated",
+    description: "Across all client deployments",
+  },
+]
 
 export function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "CEO",
-      company: "TechFlow Dynamics",
-      industry: "SaaS",
-      content:
-        "Our CEO Neural Orchestrator helped us pivot our entire business strategy in just 48 hours. The strategic insights were incredibly detailed and actionable. We've seen a 340% increase in quarterly revenue since implementation.",
-      metric: "340% Revenue Increase",
-      icon: TrendingUp,
-      rating: 5,
-    },
-    {
-      name: "Marcus Rodriguez",
-      role: "CMO",
-      company: "GrowthLab Inc",
-      industry: "Marketing Agency",
-      content:
-        "The CMO Growth Engine revolutionized our client acquisition process. It identified market opportunities we completely missed and automated our entire lead nurturing sequence. Our conversion rates jumped from 2.3% to 8.7%.",
-      metric: "278% Conversion Boost",
-      icon: BarChart3,
-      rating: 5,
-    },
-    {
-      name: "Dr. Emily Watson",
-      role: "CTO",
-      company: "Neural Dynamics",
-      industry: "AI Research",
-      content:
-        "As someone who builds AI systems, I was skeptical. But the CTO Innovation Architect's technical recommendations were spot-on. It helped us reduce our development cycles by 85% and identified critical architecture improvements.",
-      metric: "85% Faster Development",
-      icon: Clock,
-      rating: 5,
-    },
-    {
-      name: "James Park",
-      role: "CFO",
-      company: "FinanceFirst Corp",
-      industry: "Financial Services",
-      content:
-        "The Financial Strategy Expert saved us $2.3M in the first quarter alone by optimizing our investment portfolio and identifying cost reduction opportunities. The ROI analysis capabilities are phenomenal.",
-      metric: "$2.3M Cost Savings",
-      icon: DollarSign,
-      rating: 5,
-    },
-    {
-      name: "Lisa Thompson",
-      role: "COO",
-      company: "LogiChain Solutions",
-      industry: "Supply Chain",
-      content:
-        "Our Operations Excellence Expert streamlined our entire supply chain process. We reduced operational costs by 31% and improved delivery times by 45%. The process optimization recommendations were incredibly detailed.",
-      metric: "31% Cost Reduction",
-      icon: TrendingUp,
-      rating: 5,
-    },
-    {
-      name: "Robert Kim",
-      role: "General Counsel",
-      company: "LegalTech Innovations",
-      industry: "Legal Technology",
-      content:
-        "The Legal Advisory Expert helped us navigate complex compliance requirements across 12 jurisdictions. It identified potential legal risks we hadn't considered and streamlined our contract review process by 67%.",
-      metric: "67% Faster Reviews",
-      icon: Users,
-      rating: 5,
-    },
-  ]
-
-  const overallStats = [
-    { label: "Average ROI Increase", value: "340%", icon: TrendingUp },
-    { label: "Enterprise Clients", value: "500+", icon: Users },
-    { label: "Total Cost Savings", value: "$50M+", icon: DollarSign },
-    { label: "Decision Accuracy", value: "97%", icon: BarChart3 },
-  ]
-
   return (
-    <section id="testimonials" className="py-20 px-4">
-      <div className="container mx-auto">
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Trusted by Industry Leaders</h2>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Trusted by Industry Leaders
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how Neural AI Executives are transforming businesses across industries with measurable results.
+            See how Neural AI Executives are transforming businesses across industries with measurable results and
+            unprecedented ROI.
           </p>
         </div>
 
         {/* Overall Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
-          {overallStats.map((stat) => {
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {overallStats.map((stat, index) => {
             const Icon = stat.icon
             return (
-              <Card
-                key={stat.label}
-                className="text-center border-0 shadow-lg bg-gradient-to-br from-blue-50 to-purple-50"
-              >
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-600 mb-2">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </CardContent>
-              </Card>
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-lg font-semibold text-gray-700 mb-1">{stat.label}</div>
+                <div className="text-sm text-gray-500">{stat.description}</div>
+              </div>
             )
           })}
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => {
-            const Icon = testimonial.icon
-            return (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-1">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <Badge variant="outline" className="text-xs">
-                      {testimonial.industry}
-                    </Badge>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <Card key={index} className="h-full hover:shadow-lg transition-shadow border-2 hover:border-blue-200">
+              <CardHeader className="pb-4">
+                <div className="flex items-center space-x-4 mb-4">
+                  <img
+                    src={testimonial.avatar || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full bg-gray-200"
+                  />
+                  <div className="flex-1">
+                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    <div className="text-sm font-medium text-blue-600">{testimonial.company}</div>
                   </div>
+                  <Badge variant="outline" className="text-xs">
+                    {testimonial.industry}
+                  </Badge>
+                </div>
 
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                      {testimonial.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                      <CardDescription>
-                        {testimonial.role} at {testimonial.company}
-                      </CardDescription>
+                {/* Rating */}
+                <div className="flex items-center space-x-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+              </CardHeader>
+
+              <CardContent className="pt-0">
+                <blockquote className="text-gray-700 leading-relaxed mb-6 italic">"{testimonial.quote}"</blockquote>
+
+                {/* Metrics */}
+                <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-green-600">{testimonial.metrics.roi}</div>
+                    <div className="text-xs text-gray-600">ROI Increase</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-blue-600">{testimonial.metrics.timeSaved}</div>
+                    <div className="text-xs text-gray-600">Time Saved</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-xs font-medium text-purple-600 leading-tight">
+                      {testimonial.metrics.improvement}
                     </div>
                   </div>
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  <p className="text-gray-600 leading-relaxed text-sm">"{testimonial.content}"</p>
-
-                  <div className="flex items-center justify-between pt-3 border-t">
-                    <div className="flex items-center space-x-2">
-                      <Icon className="h-4 w-4 text-green-600" />
-                      <span className="text-sm font-semibold text-green-600">{testimonial.metric}</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <div className="text-center mt-12">
-          <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-0 max-w-2xl mx-auto">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Join 500+ Successful Companies</h3>
-              <p className="text-gray-600 mb-6">
-                Start your 5-day free trial and experience the power of Neural AI Executives for your business.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <TrendingUp className="mr-2 h-4 w-4 text-green-500" />
-                  Average 340% ROI increase
-                </div>
-                <div className="flex items-center">
-                  <Clock className="mr-2 h-4 w-4 text-blue-500" />
-                  Deploy in under 60 seconds
-                </div>
-                <div className="flex items-center">
-                  <Users className="mr-2 h-4 w-4 text-purple-500" />
-                  No setup or training required
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <p className="text-gray-600 mb-4">Join 500+ companies already using Neural AI Executives</p>
+          <div className="flex justify-center items-center space-x-8 opacity-60">
+            <div className="text-2xl font-bold text-gray-400">Microsoft</div>
+            <div className="text-2xl font-bold text-gray-400">Salesforce</div>
+            <div className="text-2xl font-bold text-gray-400">Adobe</div>
+            <div className="text-2xl font-bold text-gray-400">Shopify</div>
+          </div>
         </div>
       </div>
     </section>
