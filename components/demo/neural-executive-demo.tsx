@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   MessageCircle,
   Send,
@@ -29,6 +30,8 @@ import {
   Globe,
   UserCheck,
   Loader2,
+  MapPin,
+  Flag,
 } from "lucide-react"
 
 interface Message {
@@ -49,6 +52,8 @@ interface Message {
 interface UserProfile {
   name: string
   website?: string
+  country?: string
+  region?: string
   websiteAnalysis?: {
     title?: string
     description?: string
@@ -57,6 +62,14 @@ interface UserProfile {
     keyFeatures?: string[]
     targetAudience?: string
     competitors?: string[]
+    detectedCountry?: string
+  }
+  locationData?: {
+    country: string
+    countryCode: string
+    region: string
+    city?: string
+    detectionMethod: "ip" | "domain" | "user_input"
   }
 }
 
@@ -65,6 +78,59 @@ interface NeuralExecutiveDemoProps {
   onToggle?: () => void
 }
 
+const COUNTRIES = [
+  { code: "CL", name: "Chile", region: "South America" },
+  { code: "AR", name: "Argentina", region: "South America" },
+  { code: "BR", name: "Brazil", region: "South America" },
+  { code: "CO", name: "Colombia", region: "South America" },
+  { code: "PE", name: "Peru", region: "South America" },
+  { code: "UY", name: "Uruguay", region: "South America" },
+  { code: "EC", name: "Ecuador", region: "South America" },
+  { code: "BO", name: "Bolivia", region: "South America" },
+  { code: "PY", name: "Paraguay", region: "South America" },
+  { code: "VE", name: "Venezuela", region: "South America" },
+  { code: "US", name: "United States", region: "North America" },
+  { code: "CA", name: "Canada", region: "North America" },
+  { code: "MX", name: "Mexico", region: "North America" },
+  { code: "GB", name: "United Kingdom", region: "Europe" },
+  { code: "DE", name: "Germany", region: "Europe" },
+  { code: "FR", name: "France", region: "Europe" },
+  { code: "ES", name: "Spain", region: "Europe" },
+  { code: "IT", name: "Italy", region: "Europe" },
+  { code: "NL", name: "Netherlands", region: "Europe" },
+  { code: "SE", name: "Sweden", region: "Europe" },
+  { code: "NO", name: "Norway", region: "Europe" },
+  { code: "DK", name: "Denmark", region: "Europe" },
+  { code: "FI", name: "Finland", region: "Europe" },
+  { code: "CH", name: "Switzerland", region: "Europe" },
+  { code: "AT", name: "Austria", region: "Europe" },
+  { code: "BE", name: "Belgium", region: "Europe" },
+  { code: "AU", name: "Australia", region: "Oceania" },
+  { code: "NZ", name: "New Zealand", region: "Oceania" },
+  { code: "JP", name: "Japan", region: "Asia" },
+  { code: "KR", name: "South Korea", region: "Asia" },
+  { code: "CN", name: "China", region: "Asia" },
+  { code: "IN", name: "India", region: "Asia" },
+  { code: "SG", name: "Singapore", region: "Asia" },
+  { code: "HK", name: "Hong Kong", region: "Asia" },
+  { code: "TW", name: "Taiwan", region: "Asia" },
+  { code: "TH", name: "Thailand", region: "Asia" },
+  { code: "MY", name: "Malaysia", region: "Asia" },
+  { code: "ID", name: "Indonesia", region: "Asia" },
+  { code: "PH", name: "Philippines", region: "Asia" },
+  { code: "VN", name: "Vietnam", region: "Asia" },
+  { code: "ZA", name: "South Africa", region: "Africa" },
+  { code: "NG", name: "Nigeria", region: "Africa" },
+  { code: "KE", name: "Kenya", region: "Africa" },
+  { code: "EG", name: "Egypt", region: "Africa" },
+  { code: "AE", name: "United Arab Emirates", region: "Middle East" },
+  { code: "SA", name: "Saudi Arabia", region: "Middle East" },
+  { code: "IL", name: "Israel", region: "Middle East" },
+  { code: "TR", name: "Turkey", region: "Europe/Asia" },
+  { code: "RU", name: "Russia", region: "Europe/Asia" },
+]
+
+// Enhanced EXECUTIVE_CONFIGS with Chilean-specific questions and insights
 const EXECUTIVE_CONFIGS = {
   ceo: {
     name: "CEO Neural Orchestrator",
@@ -82,6 +148,31 @@ const EXECUTIVE_CONFIGS = {
       "What's our 5-year strategic vision?",
       "How do we pivot during economic uncertainty?",
     ],
+    regionalQuestions: {
+      "South America": [
+        "¿Cómo navegamos la volatilidad del peso chileno en nuestro planning financiero?",
+        "¿Cuál es nuestra estrategia para expandirnos a través de la Alianza del Pacífico?",
+        "¿Cómo construimos relaciones gubernamentales efectivas en Chile?",
+        "¿Deberíamos considerar la minería como sector de oportunidad?",
+        "¿Cómo manejamos los ciclos estacionales del negocio chileno?",
+        "¿Cuál es nuestra estrategia para el mercado de energías renovables?",
+      ],
+      "North America": [
+        "How do we scale across US states with different regulations?",
+        "What's our strategy for the competitive VC landscape?",
+        "How should we approach the Canadian market expansion?",
+      ],
+      Europe: [
+        "How do we navigate post-Brexit market changes?",
+        "What's our GDPR compliance strategy for expansion?",
+        "How do we build consensus across European subsidiaries?",
+      ],
+      Asia: [
+        "How do we build guanxi relationships in China?",
+        "What's our mobile-first strategy for Southeast Asia?",
+        "How do we navigate government relations in this region?",
+      ],
+    },
     contextualQuestions: {
       strategy: [
         "What's our market expansion strategy?",
@@ -121,6 +212,31 @@ const EXECUTIVE_CONFIGS = {
       "How do we increase customer lifetime value?",
       "What's our brand positioning strategy?",
     ],
+    regionalQuestions: {
+      "South America": [
+        "¿Cómo optimizamos nuestras campañas para el mercado chileno en Facebook e Instagram?",
+        "¿Cuál es nuestra estrategia de WhatsApp Business para PyMEs chilenas?",
+        "¿Cómo integramos Transbank y otros medios de pago locales?",
+        "¿Deberíamos invertir en marketing tradicional (TV, radio) en Chile?",
+        "¿Cómo adaptamos nuestro messaging para la cultura chilena?",
+        "¿Cuál es nuestra estrategia para Fiestas Patrias y temporada alta?",
+      ],
+      "North America": [
+        "How do we optimize for the US consumer market?",
+        "What's our strategy for Super Bowl advertising?",
+        "How do we leverage influencer marketing effectively?",
+      ],
+      Europe: [
+        "How do we create culturally sensitive campaigns across EU?",
+        "What's our strategy for GDPR-compliant marketing?",
+        "How do we build brand trust in privacy-conscious markets?",
+      ],
+      Asia: [
+        "How do we succeed with mobile-first marketing?",
+        "What's our strategy for social commerce platforms?",
+        "How do we adapt messaging for collectivist cultures?",
+      ],
+    },
     contextualQuestions: {
       acquisition: [
         "How do we optimize our paid advertising?",
@@ -160,6 +276,31 @@ const EXECUTIVE_CONFIGS = {
       "How do we implement zero-trust security?",
       "What's our technical debt reduction plan?",
     ],
+    regionalQuestions: {
+      "South America": [
+        "¿Cómo aprovechamos la región AWS Santiago para residencia de datos?",
+        "¿Cuál es nuestra estrategia de integración con APIs bancarias chilenas?",
+        "¿Cómo implementamos la Ley de Protección de Datos Personales?",
+        "¿Deberíamos considerar soluciones de pago locales como Khipu o Flow?",
+        "¿Cómo optimizamos para la conectividad variable en regiones?",
+        "¿Cuál es nuestra estrategia para el talento tech chileno?",
+      ],
+      "North America": [
+        "How do we comply with state-specific data laws?",
+        "What's our strategy for Silicon Valley talent competition?",
+        "How do we leverage US cloud infrastructure advantages?",
+      ],
+      Europe: [
+        "How do we ensure GDPR-compliant architecture?",
+        "What's our strategy for data sovereignty requirements?",
+        "How do we implement right-to-be-forgotten functionality?",
+      ],
+      Asia: [
+        "How do we handle data localization requirements?",
+        "What's our strategy for mobile-first architecture?",
+        "How do we navigate government tech regulations?",
+      ],
+    },
     contextualQuestions: {
       architecture: [
         "How do we design for scalability?",
@@ -185,6 +326,85 @@ const EXECUTIVE_CONFIGS = {
   },
 }
 
+// Update the getContextualQuestions function to prioritize Chilean questions
+const getContextualQuestions = (
+  lastMessage: string,
+  executive: "ceo" | "cmo" | "cto",
+  userProfile?: UserProfile,
+): string[] => {
+  const config = EXECUTIVE_CONFIGS[executive]
+  const lowerMessage = lastMessage.toLowerCase()
+
+  // First try to get Chilean/South American regional questions if user is from Chile
+  if (userProfile?.locationData?.countryCode === "CL" && config.regionalQuestions?.["South America"]) {
+    const chileanQuestions = config.regionalQuestions["South America"]
+    if (chileanQuestions.length > 0) {
+      return chileanQuestions.slice(0, 3)
+    }
+  }
+
+  // Then try other regional questions if user has location data
+  if (userProfile?.locationData?.region && config.regionalQuestions?.[userProfile.locationData.region]) {
+    const regionalQuestions = config.regionalQuestions[userProfile.locationData.region]
+    if (regionalQuestions.length > 0) {
+      return regionalQuestions.slice(0, 3)
+    }
+  }
+
+  // Then fall back to contextual questions based on message content
+  if (executive === "ceo") {
+    if (lowerMessage.includes("strategy") || lowerMessage.includes("market") || lowerMessage.includes("competitive")) {
+      return config.contextualQuestions.strategy
+    }
+    if (lowerMessage.includes("crisis") || lowerMessage.includes("problem") || lowerMessage.includes("issue")) {
+      return config.contextualQuestions.crisis
+    }
+    if (lowerMessage.includes("growth") || lowerMessage.includes("expand") || lowerMessage.includes("scale")) {
+      return config.contextualQuestions.growth
+    }
+    if (lowerMessage.includes("team") || lowerMessage.includes("culture") || lowerMessage.includes("leadership")) {
+      return config.contextualQuestions.leadership
+    }
+  } else if (executive === "cmo") {
+    if (lowerMessage.includes("acquisition") || lowerMessage.includes("customer") || lowerMessage.includes("lead")) {
+      return config.contextualQuestions.acquisition
+    }
+    if (lowerMessage.includes("retention") || lowerMessage.includes("churn") || lowerMessage.includes("loyalty")) {
+      return config.contextualQuestions.retention
+    }
+    if (lowerMessage.includes("brand") || lowerMessage.includes("awareness") || lowerMessage.includes("social")) {
+      return config.contextualQuestions.branding
+    }
+    if (lowerMessage.includes("roi") || lowerMessage.includes("analytics") || lowerMessage.includes("measure")) {
+      return config.contextualQuestions.analytics
+    }
+  } else if (executive === "cto") {
+    if (lowerMessage.includes("architecture") || lowerMessage.includes("design") || lowerMessage.includes("system")) {
+      return config.contextualQuestions.architecture
+    }
+    if (
+      lowerMessage.includes("security") ||
+      lowerMessage.includes("compliance") ||
+      lowerMessage.includes("protection")
+    ) {
+      return config.contextualQuestions.security
+    }
+    if (
+      lowerMessage.includes("innovation") ||
+      lowerMessage.includes("technology") ||
+      lowerMessage.includes("research")
+    ) {
+      return config.contextualQuestions.innovation
+    }
+    if (lowerMessage.includes("operations") || lowerMessage.includes("devops") || lowerMessage.includes("monitoring")) {
+      return config.contextualQuestions.operations
+    }
+  }
+
+  // Default to sample questions if no context matches
+  return config.sampleQuestions.slice(0, 3)
+}
+
 export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiveDemoProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
@@ -196,8 +416,11 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
   const [showQuestionSuggestions, setShowQuestionSuggestions] = useState(true)
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
-  const [profileForm, setProfileForm] = useState({ name: "", website: "" })
+  const [profileForm, setProfileForm] = useState({ name: "", website: "", country: "CL" }) // Default to Chile
   const [isAnalyzingWebsite, setIsAnalyzingWebsite] = useState(false)
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false)
+  const [detectedLocation, setDetectedLocation] = useState<any>(null)
+  const [showCountrySelect, setShowCountrySelect] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -212,14 +435,95 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     // Show profile modal when switching to chat mode for the first time
     if (demoMode === "chat" && !userProfile) {
       setShowProfileModal(true)
+      detectUserLocation()
     }
   }, [demoMode, userProfile])
+
+  const detectUserLocation = async () => {
+    try {
+      setIsDetectingLocation(true)
+
+      // Try to get location from IP
+      const response = await fetch("/api/detect-location")
+      if (response.ok) {
+        const locationData = await response.json()
+        setDetectedLocation(locationData)
+
+        // Auto-fill country if detected, otherwise default to Chile
+        if (locationData.countryCode) {
+          setProfileForm((prev) => ({ ...prev, country: locationData.countryCode }))
+        }
+      }
+    } catch (error) {
+      console.error("Location detection error:", error)
+      // Keep Chile as default
+    } finally {
+      setIsDetectingLocation(false)
+    }
+  }
+
+  const getCountryFromDomain = (url: string): string | null => {
+    try {
+      const domain = new URL(url).hostname.toLowerCase()
+
+      // Common country-specific TLDs with focus on Latin America
+      const countryTlds: { [key: string]: string } = {
+        ".cl": "CL",
+        ".com.cl": "CL",
+        ".ar": "AR",
+        ".com.ar": "AR",
+        ".br": "BR",
+        ".com.br": "BR",
+        ".co": "CO",
+        ".com.co": "CO",
+        ".pe": "PE",
+        ".com.pe": "PE",
+        ".mx": "MX",
+        ".com.mx": "MX",
+        ".uy": "UY",
+        ".com.uy": "UY",
+        ".ec": "EC",
+        ".com.ec": "EC",
+        ".bo": "BO",
+        ".com.bo": "BO",
+        ".py": "PY",
+        ".com.py": "PY",
+        ".ve": "VE",
+        ".com.ve": "VE",
+        ".uk": "GB",
+        ".co.uk": "GB",
+        ".de": "DE",
+        ".fr": "FR",
+        ".es": "ES",
+        ".it": "IT",
+        ".nl": "NL",
+        ".au": "AU",
+        ".com.au": "AU",
+        ".jp": "JP",
+        ".kr": "KR",
+        ".cn": "CN",
+        ".in": "IN",
+      }
+
+      for (const [tld, countryCode] of Object.entries(countryTlds)) {
+        if (domain.endsWith(tld)) {
+          return countryCode
+        }
+      }
+
+      return null
+    } catch (error) {
+      return null
+    }
+  }
 
   const analyzeWebsite = async (url: string) => {
     try {
       setIsAnalyzingWebsite(true)
 
-      // Simple website analysis - in a real implementation, you'd use a proper web scraping service
+      // Detect country from domain
+      const detectedCountry = getCountryFromDomain(url)
+
       const response = await fetch(`/api/analyze-website`, {
         method: "POST",
         headers: {
@@ -230,7 +534,10 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
       if (response.ok) {
         const analysis = await response.json()
-        return analysis
+        return {
+          ...analysis,
+          detectedCountry,
+        }
       } else {
         // Fallback analysis based on domain
         const domain = new URL(url).hostname
@@ -242,11 +549,11 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           keyFeatures: ["Professional Services", "Digital Solutions"],
           targetAudience: "Business Professionals",
           competitors: ["Industry Leaders"],
+          detectedCountry,
         }
       }
     } catch (error) {
       console.error("Website analysis error:", error)
-      // Return basic analysis
       return {
         title: "Business Website",
         description: "Professional business website",
@@ -255,6 +562,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
         keyFeatures: ["Professional Services"],
         targetAudience: "Business Clients",
         competitors: ["Market Competitors"],
+        detectedCountry: null,
       }
     } finally {
       setIsAnalyzingWebsite(false)
@@ -265,35 +573,81 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     if (!profileForm.name.trim()) return
 
     let websiteAnalysis = undefined
+    let finalCountry = profileForm.country
+
     if (profileForm.website.trim()) {
       try {
         const url = profileForm.website.startsWith("http") ? profileForm.website : `https://${profileForm.website}`
         websiteAnalysis = await analyzeWebsite(url)
+
+        // Use website-detected country if user hasn't selected one
+        if (!finalCountry && websiteAnalysis.detectedCountry) {
+          finalCountry = websiteAnalysis.detectedCountry
+        }
       } catch (error) {
         console.error("Error analyzing website:", error)
       }
     }
 
+    // Use IP-detected country if still no country
+    if (!finalCountry && detectedLocation?.countryCode) {
+      finalCountry = detectedLocation.countryCode
+    }
+
+    // Default to Chile if still no country
+    if (!finalCountry) {
+      finalCountry = "CL"
+    }
+
+    const selectedCountry = COUNTRIES.find((c) => c.code === finalCountry)
+    const locationData = {
+      country: selectedCountry?.name || "Chile",
+      countryCode: finalCountry,
+      region: selectedCountry?.region || "South America",
+      city: detectedLocation?.city,
+      detectionMethod: profileForm.country ? "user_input" : websiteAnalysis?.detectedCountry ? "domain" : "ip",
+    }
+
     const profile: UserProfile = {
       name: profileForm.name.trim(),
       website: profileForm.website.trim() || undefined,
+      country: selectedCountry?.name,
+      region: selectedCountry?.region,
       websiteAnalysis,
+      locationData,
     }
 
     setUserProfile(profile)
     setShowProfileModal(false)
+    setShowCountrySelect(false)
 
-    // Initialize chat with personalized welcome message
+    // Initialize chat with personalized welcome message in Spanish for Chilean users
     const config = EXECUTIVE_CONFIGS[activeExecutive]
-    const personalizedWelcome = `👋 Hello ${profile.name}! I'm the ${config.name}. ${
-      profile.websiteAnalysis
-        ? `I've analyzed your website "${profile.websiteAnalysis.title}" and see you're in the ${profile.websiteAnalysis.industry} industry. `
-        : ""
-    }I bring 25+ years of ${activeExecutive.toUpperCase()} expertise from Fortune 500 companies. ${
-      profile.websiteAnalysis
-        ? `Based on your business focus on ${profile.websiteAnalysis.keyFeatures?.join(", ")}, I can provide targeted strategic guidance. `
-        : ""
-    }What business challenge can I help you solve?`
+    const isChilean = finalCountry === "CL"
+
+    const locationContext = profile.locationData
+      ? `${isChilean ? "Veo que estás ubicado en" : "I see you're based in"} ${profile.locationData.country}${profile.locationData.region ? ` (${profile.locationData.region})` : ""}. `
+      : ""
+
+    const personalizedWelcome = isChilean
+      ? `👋 ¡Hola ${profile.name}! Soy el ${config.name}. ${locationContext}${
+          profile.websiteAnalysis
+            ? `He analizado tu sitio web "${profile.websiteAnalysis.title}" y veo que estás en la industria ${profile.websiteAnalysis.industry}. `
+            : ""
+        }Traigo 25+ años de experiencia ${activeExecutive.toUpperCase()} de empresas Fortune 500, con profundo conocimiento de los mercados latinoamericanos y chilenos. ${
+          profile.websiteAnalysis
+            ? `Basado en tu enfoque empresarial en ${profile.websiteAnalysis.keyFeatures?.join(", ")}, puedo proporcionar orientación estratégica específica para el mercado chileno. `
+            : `Puedo proporcionar orientación estratégica adaptada al entorno empresarial chileno. `
+        }¿Qué desafío empresarial puedo ayudarte a resolver?`
+      : `👋 Hello ${profile.name}! I'm the ${config.name}. ${locationContext}${
+          profile.websiteAnalysis
+            ? `I've analyzed your website "${profile.websiteAnalysis.title}" and see you're in the ${profile.websiteAnalysis.industry} industry. `
+            : ""
+        }I bring 25+ years of ${activeExecutive.toUpperCase()} expertise from Fortune 500 companies, with deep knowledge of ${profile.locationData?.region || "global"} markets. ${
+          profile.websiteAnalysis
+            ? `Based on your business focus on ${profile.websiteAnalysis.keyFeatures?.join(", ")}, I can provide targeted strategic guidance for the ${profile.locationData?.country || "local"} market. `
+            : `I can provide strategic guidance tailored to the ${profile.locationData?.country || "local"} business environment. `
+        }What business challenge can I help you solve?`
 
     const welcomeMessage: Message = {
       id: `welcome-${activeExecutive}`,
@@ -309,6 +663,8 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           `${config.expertise[0]} specialist`,
           `${config.expertise[1]} expert`,
           profile.websiteAnalysis ? `${profile.websiteAnalysis.industry} industry knowledge` : "Fortune 500 experience",
+          `${profile.locationData?.region || "Global"} market expertise`,
+          isChilean ? "Chilean market specialist" : "Regional market knowledge",
         ],
       },
     }
@@ -318,91 +674,15 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     setShowQuestionSuggestions(true)
   }
 
-  const getContextualQuestions = (lastMessage: string, executive: "ceo" | "cmo" | "cto"): string[] => {
-    const config = EXECUTIVE_CONFIGS[executive]
-    const lowerMessage = lastMessage.toLowerCase()
-
-    // Determine context based on keywords in the message
-    if (executive === "ceo") {
-      if (
-        lowerMessage.includes("strategy") ||
-        lowerMessage.includes("market") ||
-        lowerMessage.includes("competitive")
-      ) {
-        return config.contextualQuestions.strategy
-      }
-      if (lowerMessage.includes("crisis") || lowerMessage.includes("problem") || lowerMessage.includes("issue")) {
-        return config.contextualQuestions.crisis
-      }
-      if (lowerMessage.includes("growth") || lowerMessage.includes("expand") || lowerMessage.includes("scale")) {
-        return config.contextualQuestions.growth
-      }
-      if (lowerMessage.includes("team") || lowerMessage.includes("culture") || lowerMessage.includes("leadership")) {
-        return config.contextualQuestions.leadership
-      }
-    } else if (executive === "cmo") {
-      if (lowerMessage.includes("acquisition") || lowerMessage.includes("customer") || lowerMessage.includes("lead")) {
-        return config.contextualQuestions.acquisition
-      }
-      if (lowerMessage.includes("retention") || lowerMessage.includes("churn") || lowerMessage.includes("loyalty")) {
-        return config.contextualQuestions.retention
-      }
-      if (lowerMessage.includes("brand") || lowerMessage.includes("awareness") || lowerMessage.includes("social")) {
-        return config.contextualQuestions.branding
-      }
-      if (lowerMessage.includes("roi") || lowerMessage.includes("analytics") || lowerMessage.includes("measure")) {
-        return config.contextualQuestions.analytics
-      }
-    } else if (executive === "cto") {
-      if (lowerMessage.includes("architecture") || lowerMessage.includes("design") || lowerMessage.includes("system")) {
-        return config.contextualQuestions.architecture
-      }
-      if (
-        lowerMessage.includes("security") ||
-        lowerMessage.includes("compliance") ||
-        lowerMessage.includes("protection")
-      ) {
-        return config.contextualQuestions.security
-      }
-      if (
-        lowerMessage.includes("innovation") ||
-        lowerMessage.includes("technology") ||
-        lowerMessage.includes("research")
-      ) {
-        return config.contextualQuestions.innovation
-      }
-      if (
-        lowerMessage.includes("operations") ||
-        lowerMessage.includes("devops") ||
-        lowerMessage.includes("monitoring")
-      ) {
-        return config.contextualQuestions.operations
-      }
-    }
-
-    // Default to sample questions if no context matches
-    return config.sampleQuestions.slice(0, 3)
-  }
-
   const generateExecutiveResponse = async (userInput: string, executive: "ceo" | "cmo" | "cto"): Promise<Message> => {
     try {
-      // Build enhanced context with user profile and website analysis
-      let enhancedContext = ""
-      if (userProfile) {
-        enhancedContext += `User Profile: Name is ${userProfile.name}.`
-        if (userProfile.websiteAnalysis) {
-          enhancedContext += ` Their business: ${userProfile.websiteAnalysis.title} in ${userProfile.websiteAnalysis.industry} industry, focusing on ${userProfile.websiteAnalysis.keyFeatures?.join(", ")}. Target audience: ${userProfile.websiteAnalysis.targetAudience}. Business type: ${userProfile.websiteAnalysis.businessType}.`
-        }
-        enhancedContext += " Provide personalized, industry-specific advice."
-      }
-
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          message: `${enhancedContext}\n\nUser Question: ${userInput}`,
+          message: userInput,
           agentType: executive === "ceo" ? "ceo-neural-agent" : executive === "cmo" ? "marketing" : "technical-support",
           conversationHistory: messages.filter((m) => m.agentType === executive),
           userProfile,
@@ -419,25 +699,56 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       // Generate insights and recommendations based on the response and user profile
       const insights = []
       const recommendations = []
+      const isChilean = userProfile?.locationData?.countryCode === "CL"
 
       if (executive === "ceo") {
         insights.push("Strategic Impact Analysis", "Risk Assessment", "Market Positioning")
         if (userProfile?.websiteAnalysis?.industry) {
           insights.push(`${userProfile.websiteAnalysis.industry} Industry Expertise`)
         }
-        recommendations.push("Implement in Q1 2024", "Allocate strategic budget", "Form cross-functional team")
+        if (userProfile?.locationData?.country) {
+          insights.push(`${userProfile.locationData.country} Market Knowledge`)
+        }
+        if (isChilean) {
+          insights.push("Chilean Regulatory Environment", "Pacific Alliance Opportunities")
+        }
+        recommendations.push(
+          isChilean ? "Implementar en Q1 2024" : "Implement in Q1 2024",
+          isChilean ? "Asignar presupuesto estratégico" : "Allocate strategic budget",
+          isChilean ? "Formar equipo multifuncional" : "Form cross-functional team",
+        )
       } else if (executive === "cmo") {
         insights.push("Customer Behavior Analysis", "Channel Performance", "ROI Projection")
         if (userProfile?.websiteAnalysis?.targetAudience) {
           insights.push(`${userProfile.websiteAnalysis.targetAudience} Targeting`)
         }
-        recommendations.push("A/B test for 2 weeks", "Increase budget by 30%", "Focus on target demographics")
+        if (userProfile?.locationData?.region) {
+          insights.push(`${userProfile.locationData.region} Regional Strategy`)
+        }
+        if (isChilean) {
+          insights.push("Chilean Digital Landscape", "Local Payment Integration")
+        }
+        recommendations.push(
+          isChilean ? "Testear A/B por 2 semanas" : "A/B test for 2 weeks",
+          isChilean ? "Aumentar presupuesto 30%" : "Increase budget by 30%",
+          isChilean ? "Enfocar en demografía local" : "Focus on local demographics",
+        )
       } else {
         insights.push("Technical Feasibility", "Security Assessment", "Scalability Analysis")
         if (userProfile?.websiteAnalysis?.businessType) {
           insights.push(`${userProfile.websiteAnalysis.businessType} Architecture`)
         }
-        recommendations.push("Use microservices architecture", "Implement in 3 phases", "Ensure 99.9% uptime")
+        if (userProfile?.locationData?.country) {
+          insights.push(`${userProfile.locationData.country} Compliance Standards`)
+        }
+        if (isChilean) {
+          insights.push("AWS Santiago Region", "Chilean Data Protection Laws")
+        }
+        recommendations.push(
+          isChilean ? "Usar arquitectura de microservicios" : "Use microservices architecture",
+          isChilean ? "Implementar en 3 fases" : "Implement in 3 phases",
+          isChilean ? "Asegurar cumplimiento local" : "Ensure local compliance",
+        )
       }
 
       return {
@@ -458,8 +769,12 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       console.error("Error getting executive response:", error)
 
       const config = EXECUTIVE_CONFIGS[executive]
+      const isChilean = userProfile?.locationData?.countryCode === "CL"
+
       const personalizedFallback = userProfile
-        ? `I apologize for the brief interruption, ${userProfile.name}. As your ${config.name}, I'm back online and ready to provide strategic guidance${userProfile.websiteAnalysis ? ` tailored to your ${userProfile.websiteAnalysis.industry} business` : ""}. Let me address your question with my full executive expertise.`
+        ? isChilean
+          ? `Disculpe la breve interrupción, ${userProfile.name}. Como su ${config.name}, estoy de vuelta en línea y listo para brindar orientación estratégica${userProfile.websiteAnalysis ? ` adaptada a su negocio ${userProfile.websiteAnalysis.industry}` : ""}${userProfile.locationData ? ` en el mercado ${userProfile.locationData.country}` : ""}. Permíteme abordar su pregunta con toda mi experiencia ejecutiva.`
+          : `I apologize for the brief interruption, ${userProfile.name}. As your ${config.name}, I'm back online and ready to provide strategic guidance${userProfile.websiteAnalysis ? ` tailored to your ${userProfile.websiteAnalysis.industry} business` : ""}${userProfile.locationData ? ` in the ${userProfile.locationData.country} market` : ""}. Let me address your question with my full executive expertise.`
         : `I apologize for the brief interruption. As your ${config.name}, I'm back online and ready to provide strategic guidance. Let me address your question with my full executive expertise.`
 
       return {
@@ -522,11 +837,13 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
   const currentConfig = EXECUTIVE_CONFIGS[activeExecutive]
   const IconComponent = currentConfig.icon
 
-  // Get contextual questions based on the last agent message
+  // Update the contextualQuestions usage in the component
   const lastAgentMessage = messages.filter((m) => m.sender === "agent").pop()
   const contextualQuestions = lastAgentMessage
-    ? getContextualQuestions(lastAgentMessage.content, activeExecutive)
-    : currentConfig.sampleQuestions.slice(0, 3)
+    ? getContextualQuestions(lastAgentMessage.content, activeExecutive, userProfile)
+    : userProfile?.locationData?.countryCode === "CL" && currentConfig.regionalQuestions?.["South America"]
+      ? currentConfig.regionalQuestions["South America"].slice(0, 3)
+      : currentConfig.sampleQuestions.slice(0, 3)
 
   if (!isOpen) {
     return (
@@ -539,7 +856,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
         </Button>
         <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-500 rounded-full animate-bounce"></div>
         <div className="absolute -top-12 -left-8 bg-black text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          🚀 Try our Neural Executives LIVE!
+          🇨🇱 Ejecutivos IA para Chile!
         </div>
       </div>
     )
@@ -553,21 +870,22 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           <DialogHeader>
             <DialogTitle className="flex items-center text-xl">
               <UserCheck className="mr-2 h-6 w-6 text-purple-600" />
-              Let's Personalize Your Executive Experience
+              Personalicemos tu Experiencia Ejecutiva
             </DialogTitle>
             <DialogDescription>
-              Help us provide tailored strategic advice by sharing your name and optionally your website for analysis.
+              Ayúdanos a brindar asesoramiento estratégico personalizado compartiendo tu información. Detectaremos tu
+              ubicación y analizaremos tu sitio web para mejor contexto.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="name" className="text-base font-medium">
-                Your Name *
+                Tu Nombre *
               </Label>
               <Input
                 id="name"
-                placeholder="Enter your name..."
+                placeholder="Ingresa tu nombre..."
                 value={profileForm.name}
                 onChange={(e) => setProfileForm({ ...profileForm, name: e.target.value })}
                 className="text-base"
@@ -578,18 +896,68 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
             <div className="space-y-2">
               <Label htmlFor="website" className="text-base font-medium flex items-center">
                 <Globe className="mr-1 h-4 w-4" />
-                Your Website (Optional)
+                Tu Sitio Web (Opcional)
               </Label>
               <Input
                 id="website"
-                placeholder="https://yourcompany.com or yourcompany.com"
+                placeholder="https://tuempresa.cl o tuempresa.cl"
                 value={profileForm.website}
                 onChange={(e) => setProfileForm({ ...profileForm, website: e.target.value })}
                 className="text-base"
               />
               <p className="text-sm text-gray-500">
-                We'll analyze your website to provide industry-specific strategic advice.
+                Analizaremos tu sitio web y detectaremos tu país desde el dominio.
               </p>
+            </div>
+
+            {/* Location Detection Status */}
+            <div className="space-y-2">
+              <Label className="text-base font-medium flex items-center">
+                <MapPin className="mr-1 h-4 w-4" />
+                Tu Ubicación
+              </Label>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                {isDetectingLocation ? (
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Detectando tu ubicación...
+                  </div>
+                ) : detectedLocation ? (
+                  <div className="space-y-2">
+                    <div className="flex items-center text-sm text-green-600">
+                      <Flag className="mr-2 h-4 w-4" />
+                      Detectado: {detectedLocation.country}
+                      {detectedLocation.region && ` (${detectedLocation.region})`}
+                      {detectedLocation.city && `, ${detectedLocation.city}`}
+                    </div>
+                    <div className="text-xs text-gray-500">Método de detección: Geolocalización IP</div>
+                  </div>
+                ) : (
+                  <div className="text-sm text-gray-500">No se pudo detectar la ubicación automáticamente</div>
+                )}
+              </div>
+
+              {/* Manual Country Selection */}
+              <div className="space-y-2">
+                <Label htmlFor="country" className="text-sm font-medium">
+                  Seleccionar País
+                </Label>
+                <Select
+                  value={profileForm.country}
+                  onValueChange={(value) => setProfileForm({ ...profileForm, country: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona tu país..." />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-60">
+                    {COUNTRIES.map((country) => (
+                      <SelectItem key={country.code} value={country.code}>
+                        {country.name} ({country.region})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <div className="flex justify-end space-x-3 pt-4">
@@ -601,10 +969,10 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                 {isAnalyzingWebsite ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Analyzing Website...
+                    Analizando Sitio Web...
                   </>
                 ) : (
-                  "Start Executive Chat"
+                  "Iniciar Chat Ejecutivo"
                 )}
               </Button>
             </div>
@@ -630,11 +998,18 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                 <div>
                   <CardTitle className="text-lg font-semibold">
                     Neural Executive Demo
-                    {userProfile && <span className="text-sm font-normal ml-2">• {userProfile.name}</span>}
+                    {userProfile && (
+                      <span className="text-sm font-normal ml-2">
+                        • {userProfile.name}
+                        {userProfile.locationData && (
+                          <span className="ml-1">🇨🇱 {userProfile.locationData.country}</span>
+                        )}
+                      </span>
+                    )}
                   </CardTitle>
                   <div className="flex items-center space-x-2 text-sm text-white/90">
                     <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                    <span>Live Demo • Real AI Executives • Personalized</span>
+                    <span>Demo en Vivo • Ejecutivos IA Reales • Mercado Chileno</span>
                   </div>
                 </div>
               </div>
@@ -660,8 +1035,8 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
               <div className="p-4 border-b bg-gray-50">
                 <Tabs value={demoMode} onValueChange={(value) => setDemoMode(value as "chat" | "showcase")}>
                   <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="showcase">Executive Showcase</TabsTrigger>
-                    <TabsTrigger value="chat">Live Chat Demo</TabsTrigger>
+                    <TabsTrigger value="showcase">Showcase Ejecutivos</TabsTrigger>
+                    <TabsTrigger value="chat">Demo Chat en Vivo</TabsTrigger>
                   </TabsList>
                 </Tabs>
               </div>
@@ -670,8 +1045,8 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                 // Showcase Mode
                 <div className="flex-1 p-4 space-y-4">
                   <div className="text-center mb-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Meet Your Neural AI Executives</h3>
-                    <p className="text-gray-600">Each executive brings 25+ years of Fortune 500 experience</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Conoce tus Ejecutivos IA Neurales</h3>
+                    <p className="text-gray-600">Cada ejecutivo trae 25+ años de experiencia Fortune 500</p>
                   </div>
 
                   <Tabs
@@ -708,7 +1083,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                           </CardHeader>
                           <CardContent className="space-y-4">
                             <div>
-                              <h4 className="font-semibold text-gray-900 mb-2">Core Expertise:</h4>
+                              <h4 className="font-semibold text-gray-900 mb-2">Experiencia Principal:</h4>
                               <div className="grid grid-cols-2 gap-2">
                                 {config.expertise.map((skill, index) => (
                                   <Badge key={index} variant="secondary" className="text-xs">
@@ -719,9 +1094,12 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                             </div>
 
                             <div>
-                              <h4 className="font-semibold text-gray-900 mb-2">Try These Questions:</h4>
+                              <h4 className="font-semibold text-gray-900 mb-2">Prueba estas Preguntas:</h4>
                               <div className="space-y-2">
-                                {config.sampleQuestions.slice(0, 2).map((question, index) => (
+                                {(key === "ceo" && config.regionalQuestions?.["South America"]
+                                  ? config.regionalQuestions["South America"].slice(0, 2)
+                                  : config.sampleQuestions.slice(0, 2)
+                                ).map((question, index) => (
                                   <Button
                                     key={index}
                                     variant="outline"
@@ -732,7 +1110,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                                     }}
                                     className="w-full text-left justify-start text-xs h-auto py-2 px-3"
                                   >
-                                    "{question}"
+                                    "{question.length > 60 ? question.substring(0, 60) + "..." : question}"
                                   </Button>
                                 ))}
                               </div>
@@ -743,7 +1121,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                               className={`w-full bg-gradient-to-r ${config.color} hover:opacity-90`}
                             >
                               <MessageCircle className="h-4 w-4 mr-2" />
-                              Chat with {key.toUpperCase()} Now
+                              Chatear con {key.toUpperCase()} Ahora
                             </Button>
                           </CardContent>
                         </Card>
@@ -763,6 +1141,11 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                         {userProfile?.websiteAnalysis && (
                           <Badge variant="secondary" className="text-xs">
                             {userProfile.websiteAnalysis.industry}
+                          </Badge>
+                        )}
+                        {userProfile?.locationData && (
+                          <Badge variant="outline" className="text-xs">
+                            🇨🇱 {userProfile.locationData.country}
                           </Badge>
                         )}
                       </div>
@@ -820,7 +1203,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                                     <Zap className="h-3 w-3 text-green-500" />
                                     <span>{message.metadata.processingTime?.toFixed(2)}s</span>
                                     <CheckCircle className="h-3 w-3 text-green-500" />
-                                    <span>{Math.round((message.metadata.confidence || 0) * 100)}% confident</span>
+                                    <span>{Math.round((message.metadata.confidence || 0) * 100)}% confianza</span>
                                   </div>
 
                                   {/* Insights */}
@@ -828,7 +1211,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                                     <div className="space-y-1">
                                       <div className="flex items-center space-x-1">
                                         <Lightbulb className="h-3 w-3 text-yellow-500" />
-                                        <span className="text-xs font-semibold text-gray-700">Key Insights:</span>
+                                        <span className="text-xs font-semibold text-gray-700">Insights Clave:</span>
                                       </div>
                                       <div className="flex flex-wrap gap-1">
                                         {message.metadata.insights.map((insight, index) => (
@@ -845,7 +1228,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                                     <div className="space-y-1">
                                       <div className="flex items-center space-x-1">
                                         <BarChart3 className="h-3 w-3 text-blue-500" />
-                                        <span className="text-xs font-semibold text-gray-700">Recommendations:</span>
+                                        <span className="text-xs font-semibold text-gray-700">Recomendaciones:</span>
                                       </div>
                                       <div className="space-y-1">
                                         {message.metadata.recommendations.map((rec, index) => (
@@ -904,7 +1287,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                           <Sparkles className="h-4 w-4 text-purple-600" />
-                          <span className="text-sm font-semibold text-gray-700">Continue the conversation:</span>
+                          <span className="text-sm font-semibold text-gray-700">Continúa la conversación:</span>
                         </div>
                         <Button
                           variant="ghost"
@@ -925,7 +1308,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                             className="text-left justify-start text-xs h-auto py-2 px-3 bg-white hover:bg-purple-50 border-purple-200"
                           >
                             <ArrowRight className="h-3 w-3 mr-2 text-purple-600" />
-                            {question}
+                            {question.length > 50 ? question.substring(0, 50) + "..." : question}
                           </Button>
                         ))}
                       </div>
@@ -935,9 +1318,9 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                   {/* Initial Sample Questions */}
                   {messages.length <= 1 && (
                     <div className="px-4 py-2 border-t bg-gray-50">
-                      <div className="text-xs font-semibold text-gray-700 mb-2">Try these executive questions:</div>
+                      <div className="text-xs font-semibold text-gray-700 mb-2">Prueba estas preguntas ejecutivas:</div>
                       <div className="flex flex-wrap gap-1">
-                        {currentConfig.sampleQuestions.slice(0, 2).map((question, index) => (
+                        {contextualQuestions.slice(0, 2).map((question, index) => (
                           <Button
                             key={index}
                             variant="outline"
@@ -959,7 +1342,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        placeholder={`Ask the ${currentConfig.name} anything...`}
+                        placeholder={`Pregúntale al ${currentConfig.name} cualquier cosa...`}
                         className="flex-1 border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
                         disabled={isTyping}
                       />
@@ -972,7 +1355,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       </Button>
                     </div>
                     <div className="text-xs text-gray-500 mt-2 text-center">
-                      🚀 Personalized Neural Executive Demo • Real AI • Industry-Specific Advice
+                      🇨🇱 Demo Neural Executive Chileno • IA Real • Experiencia Empresarial Regional
                     </div>
                   </div>
                 </>

@@ -8,87 +8,210 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 })
     }
 
-    // In a real implementation, you would use a proper web scraping service
-    // For now, we'll provide a mock analysis based on the domain
-    const domain = new URL(url).hostname.toLowerCase()
+    // Parse the URL to extract domain information
+    const parsedUrl = new URL(url.startsWith("http") ? url : `https://${url}`)
+    const domain = parsedUrl.hostname.toLowerCase()
 
-    // Mock analysis based on common domain patterns
-    let analysis = {
-      title: `${domain} Website`,
-      description: "Professional business website",
-      industry: "Technology",
-      businessType: "B2B",
-      keyFeatures: ["Professional Services", "Digital Solutions"],
-      targetAudience: "Business Professionals",
-      competitors: ["Industry Leaders"],
+    // Detect country from domain TLD
+    const getCountryFromDomain = (domain: string): string | null => {
+      const countryTlds: { [key: string]: string } = {
+        ".uk": "GB",
+        ".co.uk": "GB",
+        ".org.uk": "GB",
+        ".de": "DE",
+        ".fr": "FR",
+        ".es": "ES",
+        ".it": "IT",
+        ".nl": "NL",
+        ".se": "SE",
+        ".no": "NO",
+        ".dk": "DK",
+        ".fi": "FI",
+        ".ch": "CH",
+        ".at": "AT",
+        ".be": "BE",
+        ".au": "AU",
+        ".com.au": "AU",
+        ".co.nz": "NZ",
+        ".jp": "JP",
+        ".kr": "KR",
+        ".cn": "CN",
+        ".in": "IN",
+        ".sg": "SG",
+        ".hk": "HK",
+        ".tw": "TW",
+        ".th": "TH",
+        ".my": "MY",
+        ".id": "ID",
+        ".ph": "PH",
+        ".vn": "VN",
+        ".br": "BR",
+        ".com.br": "BR",
+        ".ar": "AR",
+        ".cl": "CL",
+        ".co": "CO",
+        ".mx": "MX",
+        ".za": "ZA",
+        ".co.za": "ZA",
+        ".ng": "NG",
+        ".ke": "KE",
+        ".eg": "EG",
+        ".ae": "AE",
+        ".sa": "SA",
+        ".il": "IL",
+        ".tr": "TR",
+        ".ru": "RU",
+      }
+
+      for (const [tld, countryCode] of Object.entries(countryTlds)) {
+        if (domain.endsWith(tld)) {
+          return countryCode
+        }
+      }
+      return null
     }
 
-    // Simple domain-based analysis
-    if (domain.includes("shop") || domain.includes("store") || domain.includes("ecommerce")) {
-      analysis = {
-        title: `${domain} E-commerce Store`,
-        description: "Online retail platform",
-        industry: "E-commerce",
-        businessType: "B2C",
-        keyFeatures: ["Online Shopping", "Product Catalog", "Payment Processing"],
-        targetAudience: "Online Consumers",
-        competitors: ["Amazon", "Shopify Stores"],
+    const detectedCountry = getCountryFromDomain(domain)
+
+    // Industry detection based on domain keywords and common patterns
+    const detectIndustry = (domain: string): string => {
+      const industryKeywords: { [key: string]: string[] } = {
+        Technology: ["tech", "software", "app", "digital", "cloud", "ai", "data", "cyber", "dev", "code"],
+        Healthcare: ["health", "medical", "pharma", "bio", "clinic", "hospital", "care", "wellness"],
+        Finance: ["bank", "finance", "invest", "capital", "fund", "trading", "crypto", "fintech"],
+        "E-commerce": ["shop", "store", "market", "buy", "sell", "commerce", "retail", "cart"],
+        Education: ["edu", "school", "university", "learn", "course", "training", "academy"],
+        "Real Estate": ["real", "estate", "property", "home", "house", "rent", "mortgage"],
+        Manufacturing: ["manufacturing", "factory", "industrial", "production", "supply"],
+        Consulting: ["consulting", "advisory", "strategy", "solutions", "services"],
+        Media: ["media", "news", "blog", "content", "publishing", "creative"],
+        Travel: ["travel", "hotel", "booking", "tourism", "vacation", "flight"],
       }
-    } else if (domain.includes("tech") || domain.includes("software") || domain.includes("app")) {
-      analysis = {
-        title: `${domain} Technology Company`,
-        description: "Technology and software solutions",
-        industry: "Technology",
-        businessType: "B2B",
-        keyFeatures: ["Software Development", "Technical Solutions", "Innovation"],
-        targetAudience: "Tech-Savvy Businesses",
-        competitors: ["Tech Giants", "Software Companies"],
+
+      for (const [industry, keywords] of Object.entries(industryKeywords)) {
+        if (keywords.some((keyword) => domain.includes(keyword))) {
+          return industry
+        }
       }
-    } else if (domain.includes("health") || domain.includes("medical") || domain.includes("care")) {
-      analysis = {
-        title: `${domain} Healthcare Services`,
-        description: "Healthcare and medical services",
-        industry: "Healthcare",
-        businessType: "B2C",
-        keyFeatures: ["Medical Services", "Patient Care", "Health Solutions"],
-        targetAudience: "Patients and Healthcare Seekers",
-        competitors: ["Healthcare Providers", "Medical Centers"],
-      }
-    } else if (domain.includes("finance") || domain.includes("bank") || domain.includes("invest")) {
-      analysis = {
-        title: `${domain} Financial Services`,
-        description: "Financial and investment services",
-        industry: "Finance",
-        businessType: "B2B/B2C",
-        keyFeatures: ["Financial Planning", "Investment Services", "Banking Solutions"],
-        targetAudience: "Investors and Financial Clients",
-        competitors: ["Financial Institutions", "Investment Firms"],
-      }
-    } else if (domain.includes("edu") || domain.includes("learn") || domain.includes("course")) {
-      analysis = {
-        title: `${domain} Educational Platform`,
-        description: "Education and learning services",
-        industry: "Education",
-        businessType: "B2C",
-        keyFeatures: ["Online Learning", "Educational Content", "Skill Development"],
-        targetAudience: "Students and Learners",
-        competitors: ["Educational Platforms", "Online Universities"],
-      }
+      return "Business Services"
+    }
+
+    // Business type detection
+    const detectBusinessType = (domain: string): string => {
+      const b2bIndicators = [
+        "enterprise",
+        "business",
+        "corporate",
+        "solutions",
+        "services",
+        "consulting",
+        "software",
+        "saas",
+        "platform",
+      ]
+      const b2cIndicators = ["shop", "store", "buy", "consumer", "retail", "personal", "individual", "home"]
+
+      const isB2B = b2bIndicators.some((indicator) => domain.includes(indicator))
+      const isB2C = b2cIndicators.some((indicator) => domain.includes(indicator))
+
+      if (isB2B && isB2C) return "B2B/B2C"
+      if (isB2B) return "B2B"
+      if (isB2C) return "B2C"
+      return "B2B" // Default assumption
+    }
+
+    const industry = detectIndustry(domain)
+    const businessType = detectBusinessType(domain)
+
+    // Generate analysis based on domain and detected patterns
+    const analysis = {
+      title: `${domain.split(".")[0].charAt(0).toUpperCase() + domain.split(".")[0].slice(1)} ${businessType === "B2B" ? "Solutions" : businessType === "B2C" ? "Store" : "Platform"}`,
+      description: `Professional ${industry.toLowerCase()} ${businessType.toLowerCase()} platform`,
+      industry: industry,
+      businessType: businessType,
+      keyFeatures: getKeyFeatures(industry, businessType),
+      targetAudience: getTargetAudience(industry, businessType),
+      competitors: getCompetitors(industry),
+      detectedCountry: detectedCountry,
     }
 
     return NextResponse.json(analysis)
   } catch (error) {
     console.error("Website analysis error:", error)
 
-    // Return basic fallback analysis
     return NextResponse.json({
       title: "Business Website",
-      description: "Professional business website",
+      description: "Professional business platform",
       industry: "Business Services",
       businessType: "B2B",
-      keyFeatures: ["Professional Services"],
-      targetAudience: "Business Clients",
-      competitors: ["Market Competitors"],
+      keyFeatures: ["Professional Services", "Business Solutions"],
+      targetAudience: "Business Professionals",
+      competitors: ["Industry Leaders"],
+      detectedCountry: null,
     })
   }
+}
+
+function getKeyFeatures(industry: string, businessType: string): string[] {
+  const featureMap: { [key: string]: string[] } = {
+    Technology: ["Software Development", "Cloud Solutions", "AI/ML Services", "Digital Transformation"],
+    Healthcare: ["Patient Care", "Medical Services", "Health Technology", "Wellness Programs"],
+    Finance: ["Financial Services", "Investment Management", "Risk Assessment", "Digital Banking"],
+    "E-commerce": ["Online Retail", "Payment Processing", "Inventory Management", "Customer Experience"],
+    Education: ["Learning Management", "Course Development", "Student Services", "Educational Technology"],
+    "Real Estate": ["Property Management", "Real Estate Services", "Market Analysis", "Investment Advisory"],
+    Manufacturing: ["Production Management", "Supply Chain", "Quality Control", "Industrial Solutions"],
+    Consulting: ["Strategic Advisory", "Business Consulting", "Process Optimization", "Change Management"],
+    Media: ["Content Creation", "Digital Publishing", "Media Distribution", "Creative Services"],
+    Travel: ["Travel Planning", "Booking Services", "Tourism Management", "Hospitality Solutions"],
+  }
+
+  return featureMap[industry] || ["Professional Services", "Business Solutions", "Customer Support", "Digital Platform"]
+}
+
+function getTargetAudience(industry: string, businessType: string): string {
+  if (businessType === "B2C") {
+    const audienceMap: { [key: string]: string } = {
+      Technology: "Tech-Savvy Consumers",
+      Healthcare: "Patients and Families",
+      Finance: "Individual Investors",
+      "E-commerce": "Online Shoppers",
+      Education: "Students and Learners",
+      "Real Estate": "Home Buyers and Sellers",
+      Media: "Content Consumers",
+      Travel: "Travelers and Tourists",
+    }
+    return audienceMap[industry] || "General Consumers"
+  } else {
+    const audienceMap: { [key: string]: string } = {
+      Technology: "Enterprise IT Decision Makers",
+      Healthcare: "Healthcare Organizations",
+      Finance: "Financial Institutions",
+      "E-commerce": "Retail Businesses",
+      Education: "Educational Institutions",
+      "Real Estate": "Real Estate Professionals",
+      Manufacturing: "Manufacturing Companies",
+      Consulting: "Business Leaders",
+      Media: "Media Companies",
+      Travel: "Travel Industry Partners",
+    }
+    return audienceMap[industry] || "Business Professionals"
+  }
+}
+
+function getCompetitors(industry: string): string[] {
+  const competitorMap: { [key: string]: string[] } = {
+    Technology: ["Microsoft", "Google", "Amazon", "Salesforce"],
+    Healthcare: ["Epic Systems", "Cerner", "Teladoc", "UnitedHealth"],
+    Finance: ["JPMorgan Chase", "Goldman Sachs", "Stripe", "Square"],
+    "E-commerce": ["Amazon", "Shopify", "WooCommerce", "BigCommerce"],
+    Education: ["Coursera", "Udemy", "Khan Academy", "Blackboard"],
+    "Real Estate": ["Zillow", "Realtor.com", "Redfin", "CoStar"],
+    Manufacturing: ["Siemens", "GE", "Honeywell", "3M"],
+    Consulting: ["McKinsey", "Deloitte", "Accenture", "PwC"],
+    Media: ["Netflix", "Disney", "Warner Bros", "Spotify"],
+    Travel: ["Expedia", "Booking.com", "Airbnb", "TripAdvisor"],
+  }
+
+  return competitorMap[industry] || ["Industry Leaders", "Market Competitors", "Established Players"]
 }
