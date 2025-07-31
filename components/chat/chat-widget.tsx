@@ -2,450 +2,365 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
-import { X, Send, Sparkles, Clock, User } from "lucide-react"
+import { useState, useEffect } from "react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { AuthModal } from "@/components/auth/auth-modal"
+import { Badge } from "@/components/ui/badge"
+import { Brain, Send, User, Cpu, Zap, Crown, TrendingUp, Lock, Sparkles, MessageCircle } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
+
+interface ChatWidgetProps {
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+  isOpen?: boolean
+  onClose?: () => void
+  agent?: {
+    id: string
+    name: string
+    icon: string
+    description: string
+  }
+  maxQuestions?: number
+  onAuthRequired?: () => void
+}
 
 interface Message {
   id: string
   content: string
-  sender: "user" | "agent"
+  sender: "user" | "neural"
   timestamp: Date
-  agentType?: string
+  processingTime?: number
 }
 
-interface ChatWidgetProps {
-  isOpen: boolean
-  onClose: () => void
-  specificAgent?: string | null
-}
-
-const agentConfigs = {
-  "ceo-neural-agent": {
-    name: "CEO Neural Agent",
-    icon: "👔",
-    color: "from-blue-600 to-purple-600",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
-    description: "Strategic leadership and executive decision-making",
-    insights: ["Market Analysis", "Strategic Planning", "Leadership"],
-    recommendations: ["Growth Strategy", "Risk Management"],
-  },
-  "cmo-neural-agent": {
-    name: "CMO Neural Agent",
-    icon: "📈",
-    color: "from-pink-600 to-rose-600",
-    bgColor: "bg-pink-50",
-    borderColor: "border-pink-200",
-    description: "Marketing strategy and brand management",
-    insights: ["Brand Strategy", "Customer Insights", "Campaign ROI"],
-    recommendations: ["Digital Marketing", "Brand Positioning"],
-  },
-  "cto-neural-agent": {
-    name: "CTO Neural Agent",
-    icon: "⚡",
-    color: "from-emerald-600 to-teal-600",
-    bgColor: "bg-emerald-50",
-    borderColor: "border-emerald-200",
-    description: "Technology strategy and innovation leadership",
-    insights: ["Tech Stack", "Innovation", "Architecture"],
-    recommendations: ["Cloud Strategy", "AI Integration"],
-  },
-  "financial-advisor": {
-    name: "Financial Strategy Expert",
-    icon: "💰",
-    color: "from-emerald-600 to-green-600",
-    bgColor: "bg-emerald-50",
-    borderColor: "border-emerald-200",
-    description: "Financial planning and investment strategy",
-    insights: ["Financial Planning", "Investment Strategy", "Risk Assessment"],
-    recommendations: ["Budget Optimization", "Portfolio Management"],
-  },
-  "legal-counsel": {
-    name: "Legal Advisory Expert",
-    icon: "⚖️",
-    color: "from-slate-600 to-gray-600",
-    bgColor: "bg-slate-50",
-    borderColor: "border-slate-200",
-    description: "Legal expertise and compliance guidance",
-    insights: ["Contract Review", "Compliance", "Legal Research"],
-    recommendations: ["Risk Mitigation", "Regulatory Compliance"],
-  },
-  "operations-manager": {
-    name: "Operations Excellence Expert",
-    icon: "⚙️",
-    color: "from-amber-600 to-orange-600",
-    bgColor: "bg-amber-50",
-    borderColor: "border-amber-200",
-    description: "Process optimization and operational efficiency",
-    insights: ["Process Optimization", "Supply Chain", "Quality Control"],
-    recommendations: ["Efficiency Analysis", "Cost Reduction"],
-  },
-  "innovation-strategist": {
-    name: "Innovation & R&D Expert",
-    icon: "🚀",
-    color: "from-violet-600 to-purple-600",
-    bgColor: "bg-violet-50",
-    borderColor: "border-violet-200",
-    description: "Innovation strategy and product development",
-    insights: ["Product Development", "Innovation Strategy", "Technology Assessment"],
-    recommendations: ["Market Research", "R&D Planning"],
-  },
-}
-
-function ChatWidget({ isOpen, onClose, specificAgent }: ChatWidgetProps) {
-  const { user } = useAuth()
+export function ChatWidget({
+  open,
+  onOpenChange,
+  isOpen,
+  onClose,
+  agent,
+  maxQuestions = Number.POSITIVE_INFINITY,
+  onAuthRequired,
+}: ChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([])
-  const [inputValue, setInputValue] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
+  const [input, setInput] = useState("")
+  const [isProcessing, setIsProcessing] = useState(false)
   const [questionCount, setQuestionCount] = useState(0)
-  const [showAuthModal, setShowAuthModal] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { user } = useAuth()
 
-  const currentAgent =
-    specificAgent && agentConfigs[specificAgent as keyof typeof agentConfigs]
-      ? agentConfigs[specificAgent as keyof typeof agentConfigs]
-      : agentConfigs["ceo-neural-agent"]
+  const isDialogOpen = open ?? isOpen ?? false
+  const handleOpenChange = onOpenChange ?? ((open: boolean) => !open && onClose?.())
 
-  const maxFreeQuestions = 3
-  const isTrialUser = !user
-  const questionsRemaining = Math.max(0, maxFreeQuestions - questionCount)
-
+  // Reset messages when agent changes
   useEffect(() => {
-    if (isOpen && messages.length === 0) {
-      const welcomeMessage: Message = {
-        id: "welcome",
-        content: `Hello! I'm your ${currentAgent.name}. I'm here to help you with ${currentAgent.description.toLowerCase()}. ${
-          isTrialUser
-            ? `You have ${maxFreeQuestions} free questions to explore my capabilities. What would you like to know?`
-            : "How can I assist you today?"
+    if (agent && isDialogOpen) {
+      const initialMessage: Message = {
+        id: `welcome-${agent.id}`,
+        content: `Hello! I'm the ${agent.name} AI. I'm here to demonstrate my capabilities. Ask me anything about ${agent.name.toLowerCase()} strategy, and I'll provide detailed insights based on my neural network training.${
+          maxQuestions < Number.POSITIVE_INFINITY && !user
+            ? ` You have ${maxQuestions} free questions to explore my capabilities.`
+            : ""
         }`,
-        sender: "agent",
+        sender: "neural",
         timestamp: new Date(),
-        agentType: specificAgent || "ceo-neural-agent",
+        processingTime: 0.023,
       }
-      setMessages([welcomeMessage])
+      setMessages([initialMessage])
+      setQuestionCount(0)
+    } else if (!agent && isDialogOpen) {
+      // Default general assistant message
+      const defaultMessage: Message = {
+        id: "1",
+        content:
+          "Neural network initialized. I am your advanced AI executive assistant powered by 175B parameters and quantum-inspired algorithms. How may I assist you with strategic decision-making today?",
+        sender: "neural",
+        timestamp: new Date(),
+        processingTime: 0.023,
+      }
+      setMessages([defaultMessage])
+      setQuestionCount(0)
     }
-  }, [isOpen, currentAgent, isTrialUser, specificAgent])
+  }, [agent, isDialogOpen, maxQuestions, user]) // Updated dependency list
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [messages])
-
-  const getAgentResponse = (userMessage: string, agentType: string) => {
-    const responses = {
-      "ceo-neural-agent": [
-        "From a strategic perspective, this requires careful analysis of market dynamics and competitive positioning.",
-        "As CEO, I'd recommend focusing on sustainable growth while maintaining operational excellence.",
-        "This decision should align with our long-term vision and stakeholder value creation.",
-        "Let's consider the strategic implications and potential ROI of this initiative.",
-        "Market leadership requires bold decisions backed by data-driven insights.",
-      ],
-      "cmo-neural-agent": [
-        "From a marketing standpoint, we need to understand our target audience's pain points and motivations.",
-        "Brand positioning is crucial here - we should differentiate ourselves through authentic storytelling.",
-        "Customer acquisition costs and lifetime value metrics will guide our campaign strategy.",
-        "Multi-channel marketing approach would maximize reach and engagement.",
-        "Data-driven personalization can significantly improve conversion rates.",
-      ],
-      "cto-neural-agent": [
-        "From a technical architecture perspective, scalability and security should be our primary concerns.",
-        "We should evaluate cloud-native solutions that offer flexibility and cost optimization.",
-        "API-first design will enable better integration and future-proofing of our systems.",
-        "Implementing DevOps practices will accelerate our development lifecycle.",
-        "AI and machine learning integration could provide significant competitive advantages.",
-      ],
-      "financial-advisor": [
-        "From a financial planning perspective, we need to assess risk tolerance and investment timeline.",
-        "Diversification across asset classes will help optimize risk-adjusted returns.",
-        "Cash flow analysis indicates we should prioritize liquidity management.",
-        "Tax-efficient strategies could significantly impact your net returns.",
-        "Regular portfolio rebalancing ensures alignment with your financial goals.",
-      ],
-      "legal-counsel": [
-        "From a legal standpoint, we need to ensure full compliance with applicable regulations.",
-        "Contract terms should clearly define responsibilities and liability limitations.",
-        "Intellectual property protection is crucial for maintaining competitive advantage.",
-        "Risk mitigation strategies should be implemented across all business operations.",
-        "Regular legal audits help identify and address potential compliance issues.",
-      ],
-      "operations-manager": [
-        "From an operational efficiency perspective, we should streamline processes and eliminate waste.",
-        "Supply chain optimization can significantly reduce costs and improve delivery times.",
-        "Quality control measures ensure consistent product/service excellence.",
-        "Performance metrics and KPIs will help track operational improvements.",
-        "Automation opportunities could enhance productivity and reduce human error.",
-      ],
-      "innovation-strategist": [
-        "From an innovation perspective, we should focus on emerging technologies and market trends.",
-        "R&D investment should align with long-term strategic objectives and market opportunities.",
-        "Customer feedback and market research will guide product development priorities.",
-        "Agile development methodologies enable faster time-to-market and iteration.",
-        "Strategic partnerships can accelerate innovation and market penetration.",
-      ],
+  const getAgentIcon = () => {
+    if (!agent) return Brain
+    switch (agent.id) {
+      case "ceo-neural-orchestrator":
+        return Crown
+      case "cmo-growth-engine":
+        return TrendingUp
+      case "cto-innovation-architect":
+        return Zap
+      default:
+        return Brain
     }
-
-    const agentResponses = responses[agentType as keyof typeof responses] || responses["ceo-neural-agent"]
-    return agentResponses[Math.floor(Math.random() * agentResponses.length)]
   }
 
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return
+  const getAgentColor = () => {
+    if (!agent) return "from-purple-600 to-pink-600"
+    switch (agent.id) {
+      case "ceo-neural-orchestrator":
+        return "from-purple-600 to-indigo-600"
+      case "cmo-growth-engine":
+        return "from-green-600 to-emerald-600"
+      case "cto-innovation-architect":
+        return "from-blue-600 to-cyan-600"
+      default:
+        return "from-purple-600 to-pink-600"
+    }
+  }
 
-    if (isTrialUser && questionCount >= maxFreeQuestions) {
-      setShowAuthModal(true)
+  const agentResponses = {
+    "ceo-neural-orchestrator": [
+      "Based on my analysis of Fortune 500 strategic patterns, I recommend implementing a three-phase market expansion strategy. First, conduct comprehensive competitive intelligence using my integrated market analysis tools. Second, establish strategic partnerships in your target markets leveraging my stakeholder communication frameworks. Third, deploy data-driven resource allocation using my executive decision trees. This approach has shown 340% ROI improvement in similar deployments.",
+      "My neural network has processed 50M+ executive decisions and identifies a critical opportunity in your operational efficiency. I suggest implementing my crisis management protocols to proactively address potential market disruptions. Additionally, my board presentation generation tools can help you communicate strategic initiatives more effectively to stakeholders. The quantum-inspired algorithms I use can predict market shifts with 97% accuracy.",
+      "Strategic leadership requires balancing multiple variables simultaneously. My 175B parameter network excels at synthesizing complex business scenarios into actionable insights. I recommend leveraging my vision setting frameworks to align your organization's objectives with market opportunities. My real-time market data integration ensures your strategic decisions are based on the most current intelligence available.",
+    ],
+    "cmo-growth-engine": [
+      "My consumer psychology models indicate significant optimization potential in your customer acquisition funnel. I recommend implementing advanced segmentation strategies using my multi-channel attribution system. Based on analysis of 15M+ marketing campaigns, I can increase your conversion rates by 40% through personalized customer experiences and predictive lifetime value modeling. My A/B testing frameworks will continuously optimize performance.",
+      "Growth hacking requires deep understanding of consumer behavior patterns. My neural network has analyzed successful campaigns across 200+ industries, identifying key psychological triggers that drive engagement. I suggest implementing my content strategy planning tools combined with influencer matching algorithms to maximize reach and ROI. The creative brief generation system I use can produce campaign concepts in under 3 seconds.",
+      "Marketing attribution is complex, but my advanced algorithms can track customer journeys across all touchpoints. I recommend deploying my ROI analysis tools to optimize marketing spend efficiency. My brand positioning frameworks, trained on successful brand strategies, can help differentiate your offering in competitive markets. The conversion optimization system I use has improved performance metrics by an average of 35%.",
+    ],
+    "cto-innovation-architect": [
+      "My technical architecture analysis reveals several optimization opportunities in your current infrastructure. I recommend implementing cloud migration strategies using my proven frameworks, which have successfully guided 1000+ enterprise transformations. My security vulnerability scanning capabilities can proactively identify and mitigate risks before they impact operations. The DevOps best practices I've learned from top tech companies can reduce deployment times by 60%.",
+      "Innovation requires balancing cutting-edge technology with practical implementation. My 200B parameter network specializes in technology roadmap planning, having analyzed successful digital transformations across industries. I suggest leveraging my API design frameworks and performance optimization algorithms to enhance system efficiency. My vendor evaluation tools can help you select the best technology partners for your specific needs.",
+      "Technical leadership involves making complex architectural decisions under uncertainty. My neural framework has processed thousands of system design patterns and can recommend optimal solutions for your specific requirements. I recommend implementing my team structure optimization tools to improve development velocity. The innovation metrics I track can help measure and improve your R&D investments' effectiveness.",
+    ],
+  }
+
+  const generateNeuralResponse = (userInput: string): string => {
+    if (agent && agent.id in agentResponses) {
+      const responses = agentResponses[agent.id as keyof typeof agentResponses]
+      const responseIndex = Math.min(questionCount, responses.length - 1)
+      return responses[responseIndex]
+    }
+
+    // Default responses for general assistant
+    const defaultResponses = [
+      "Neural analysis complete. Based on my training on 50M+ executive decisions, I recommend implementing a multi-layered approach with 97.8% success probability.",
+      "Processing through transformer architecture... My quantum-inspired algorithms suggest optimizing your current strategy with advanced predictive modeling.",
+      "Neural network activated. Analyzing market patterns through deep learning models indicates a strategic opportunity with high confidence intervals.",
+      "Advanced AI processing complete. My reinforcement learning algorithms have identified optimal pathways for your business objectives.",
+      "Quantum neural computation finished. Cross-referencing 15M+ similar scenarios suggests implementing data-driven decision frameworks.",
+      "Deep learning analysis indicates significant optimization potential. My neural networks recommend strategic pivoting based on predictive analytics.",
+    ]
+
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)]
+  }
+
+  const handleSend = async () => {
+    if (!input.trim() || isProcessing) return
+
+    // Check if user has exceeded free questions and is not logged in
+    if (questionCount >= maxQuestions && !user && onAuthRequired) {
+      onAuthRequired()
       return
     }
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: inputValue,
+      content: input,
       sender: "user",
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
-    setIsTyping(true)
+    setInput("")
+    setIsProcessing(true)
+    setQuestionCount((prev) => prev + 1)
 
-    if (isTrialUser) {
-      setQuestionCount((prev) => prev + 1)
-    }
+    // Simulate neural processing time
+    const processingTime = Math.random() * 2 + 0.5 // 0.5-2.5 seconds
 
-    // Simulate agent response
     setTimeout(() => {
-      const agentResponse: Message = {
+      const neuralMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: getAgentResponse(inputValue, specificAgent || "ceo-neural-agent"),
-        sender: "agent",
+        content: generateNeuralResponse(input),
+        sender: "neural",
         timestamp: new Date(),
-        agentType: specificAgent || "ceo-neural-agent",
+        processingTime: Math.random() * 0.1 + 0.02, // 0.02-0.12 seconds
       }
-      setMessages((prev) => [...prev, agentResponse])
-      setIsTyping(false)
-    }, 1500)
+      setMessages((prev) => [...prev, neuralMessage])
+      setIsProcessing(false)
+    }, processingTime * 1000)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      handleSend()
     }
   }
 
-  const quickReplies = [
-    "What are your key capabilities?",
-    "How can you help my business?",
-    "What's your strategic approach?",
-  ]
-
-  if (!isOpen) return null
+  const IconComponent = getAgentIcon()
+  const colorClass = getAgentColor()
+  const questionsRemaining = Math.max(0, maxQuestions - questionCount)
+  const hasQuestionLimit = maxQuestions < Number.POSITIVE_INFINITY && !user
 
   return (
-    <>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="p-0 gap-0 max-w-lg w-full h-[min(600px,90vh)] max-h-[90vh] flex flex-col">
-          {/* Header */}
-          <div className={`${currentAgent.bgColor} ${currentAgent.borderColor} border-b p-4 flex-shrink-0`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
+    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
+      <DialogContent className="w-full max-w-lg max-h-[90vh] h-[min(600px,90vh)] flex flex-col bg-black/95 border-purple-500/30 text-white p-0 gap-0 overflow-hidden">
+        <DialogHeader className="flex-shrink-0 p-4 pb-3 border-b border-purple-500/20">
+          <DialogTitle className="flex items-center gap-3">
+            <div className="relative flex-shrink-0">
+              <div className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}>
+                <IconComponent className="h-4 w-4 text-white" />
+              </div>
+              <div className="absolute inset-0 h-8 w-8 bg-purple-400/20 rounded-full animate-pulse"></div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-lg truncate">{agent ? `${agent.name} AI` : "Neural AI Assistant"}</div>
+              {agent && <div className="text-sm text-gray-400 font-normal truncate">{agent.description}</div>}
+            </div>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {hasQuestionLimit && (
+                <Badge variant="outline" className="border-yellow-500/50 text-yellow-300 text-xs">
+                  <MessageCircle className="h-3 w-3 mr-1" />
+                  {questionsRemaining}
+                </Badge>
+              )}
+              <Badge variant="outline" className="border-purple-500/50 text-purple-300 text-xs hidden sm:flex">
+                <Cpu className="h-3 w-3 mr-1" />
+                175B
+              </Badge>
+            </div>
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+          <ScrollArea className="flex-1 px-4 py-2">
+            <div className="space-y-4 pb-4">
+              {messages.map((message) => (
                 <div
-                  className={`w-10 h-10 rounded-full bg-gradient-to-r ${currentAgent.color} flex items-center justify-center text-white text-lg`}
+                  key={message.id}
+                  className={`flex items-start gap-3 ${message.sender === "user" ? "flex-row-reverse" : ""}`}
                 >
-                  {currentAgent.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">{currentAgent.name}</h3>
-                  <p className="text-sm text-gray-600">{currentAgent.description}</p>
-                </div>
-              </div>
-              <Button variant="ghost" size="sm" onClick={onClose}>
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* Trial Status */}
-            {isTrialUser && (
-              <div className="mt-3 flex items-center justify-between">
-                <Badge variant="outline" className="text-xs">
-                  <Clock className="mr-1 h-3 w-3" />
-                  Free Trial: {questionsRemaining} questions left
-                </Badge>
-                <div className="flex space-x-1">
-                  {Array.from({ length: maxFreeQuestions }).map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-2 h-2 rounded-full ${i < questionCount ? "bg-blue-500" : "bg-gray-200"}`}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Insights & Recommendations */}
-            <div className="mt-3 flex flex-wrap gap-1">
-              {currentAgent.insights.slice(0, 2).map((insight, index) => (
-                <Badge key={index} variant="secondary" className="text-xs hidden sm:inline-flex">
-                  <Sparkles className="mr-1 h-2 w-2" />
-                  {insight}
-                </Badge>
-              ))}
-              {currentAgent.recommendations.slice(0, 1).map((rec, index) => (
-                <Badge key={index} variant="outline" className="text-xs hidden md:inline-flex">
-                  {rec}
-                </Badge>
-              ))}
-            </div>
-          </div>
-
-          {/* Messages */}
-          <div className="flex-1 min-h-0 flex flex-col">
-            <ScrollArea className="flex-1 p-4">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`flex items-start space-x-2 max-w-[80%] ${
-                        message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""
-                      }`}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                          message.sender === "user"
-                            ? "bg-blue-500 text-white"
-                            : `bg-gradient-to-r ${currentAgent.color} text-white`
-                        }`}
-                      >
-                        {message.sender === "user" ? (
-                          <User className="h-4 w-4" />
-                        ) : (
-                          <span className="text-sm">{currentAgent.icon}</span>
-                        )}
-                      </div>
-                      <div
-                        className={`rounded-lg px-3 py-2 break-words ${
-                          message.sender === "user"
-                            ? "bg-blue-500 text-white"
-                            : `${currentAgent.bgColor} ${currentAgent.borderColor} border text-gray-900`
-                        }`}
-                      >
-                        <p className="text-sm">{message.content}</p>
-                        <p className="text-xs opacity-70 mt-1">
-                          {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="flex items-start space-x-2">
-                      <div
-                        className={`w-8 h-8 rounded-full bg-gradient-to-r ${currentAgent.color} flex items-center justify-center text-white`}
-                      >
-                        <span className="text-sm">{currentAgent.icon}</span>
-                      </div>
-                      <div
-                        className={`${currentAgent.bgColor} ${currentAgent.borderColor} border rounded-lg px-3 py-2`}
-                      >
-                        <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.1s" }}
-                          ></div>
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.2s" }}
-                          ></div>
+                  <div className="flex-shrink-0">
+                    {message.sender === "neural" ? (
+                      <div className="relative">
+                        <div
+                          className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}
+                        >
+                          <IconComponent className="h-4 w-4 text-white" />
                         </div>
+                        <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                        <User className="h-4 w-4 text-white" />
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <div ref={messagesEndRef} />
-            </ScrollArea>
-
-            {/* Quick Replies */}
-            {messages.length <= 1 && (
-              <>
-                <Separator />
-                <div className="p-3">
-                  <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
-                  <div className="flex flex-wrap gap-2">
-                    {quickReplies.slice(0, 2).map((reply, index) => (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        size="sm"
-                        className="text-xs h-7 bg-transparent"
-                        onClick={() => setInputValue(reply)}
-                      >
-                        {reply}
-                      </Button>
-                    ))}
+                  <div
+                    className={`max-w-[calc(100%-3rem)] p-3 rounded-lg ${
+                      message.sender === "user"
+                        ? "bg-blue-600 text-white"
+                        : "bg-purple-500/20 border border-purple-500/30 text-gray-100"
+                    }`}
+                  >
+                    <p className="text-sm leading-relaxed break-words">{message.content}</p>
+                    {message.sender === "neural" && message.processingTime && (
+                      <div className="flex items-center gap-2 mt-2 text-xs text-purple-300">
+                        <Zap className="h-3 w-3" />
+                        Neural processing: {message.processingTime.toFixed(3)}s
+                      </div>
+                    )}
                   </div>
                 </div>
-              </>
-            )}
+              ))}
 
-            {/* Input */}
-            <div className={`border-t p-4 flex-shrink-0 ${currentAgent.bgColor}`}>
-              <div className="flex space-x-2">
-                <Input
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={
-                    isTrialUser && questionCount >= maxFreeQuestions
-                      ? "Sign up to continue chatting..."
-                      : "Ask me anything..."
-                  }
-                  disabled={isTrialUser && questionCount >= maxFreeQuestions}
-                  className="flex-1"
-                />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!inputValue.trim() || (isTrialUser && questionCount >= maxFreeQuestions)}
-                  className={`bg-gradient-to-r ${currentAgent.color} hover:opacity-90`}
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
-              </div>
+              {isProcessing && (
+                <div className="flex items-start gap-3">
+                  <div className="relative">
+                    <div
+                      className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}
+                    >
+                      <IconComponent className="h-4 w-4 text-white" />
+                    </div>
+                    <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
+                  </div>
+                  <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg p-3">
+                    <div className="flex items-center gap-2 text-sm text-purple-300">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" />
+                        <div
+                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        />
+                      </div>
+                      Neural network processing...
+                    </div>
+                  </div>
+                </div>
+              )}
 
-              {isTrialUser && questionCount >= maxFreeQuestions && (
-                <div className="mt-2 text-center">
-                  <p className="text-xs text-gray-600 mb-2">You've reached your free question limit</p>
+              {/* Free trial limit reached message */}
+              {hasQuestionLimit && questionCount >= maxQuestions && (
+                <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-500/30 rounded-lg p-4">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Lock className="h-5 w-5 text-yellow-400 flex-shrink-0" />
+                    <span className="font-semibold text-yellow-300">Free Trial Limit Reached</span>
+                  </div>
+                  <p className="text-sm text-gray-300 mb-3">
+                    You've used all {maxQuestions} free questions with this agent! Sign up to continue exploring the
+                    full capabilities of our Neural AI Executives.
+                  </p>
                   <Button
-                    size="sm"
-                    onClick={() => setShowAuthModal(true)}
-                    className={`bg-gradient-to-r ${currentAgent.color} hover:opacity-90`}
+                    onClick={onAuthRequired}
+                    className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white w-full sm:w-auto"
                   >
-                    Sign Up for Unlimited Access
+                    <Sparkles className="h-4 w-4 mr-2" />
+                    Sign Up for Full Access
                   </Button>
                 </div>
               )}
             </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </ScrollArea>
 
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
-    </>
+          <div className="flex-shrink-0 p-4 pt-2 border-t border-purple-500/20">
+            <div className="space-y-2">
+              <div className="flex gap-2">
+                <Input
+                  placeholder={
+                    hasQuestionLimit && questionCount >= maxQuestions
+                      ? "Sign up to continue..."
+                      : agent
+                        ? `Ask ${agent.name}...`
+                        : "Ask your AI assistant..."
+                  }
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  className="flex-1 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400 text-sm"
+                  disabled={isProcessing || (hasQuestionLimit && questionCount >= maxQuestions)}
+                />
+                <Button
+                  onClick={handleSend}
+                  size="sm"
+                  disabled={!input.trim() || isProcessing || (hasQuestionLimit && questionCount >= maxQuestions)}
+                  className={`bg-gradient-to-r ${colorClass} hover:opacity-80 flex-shrink-0`}
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="text-xs text-gray-400 text-center">
+                {user
+                  ? "Unlimited access - Full Neural AI Executive capabilities"
+                  : hasQuestionLimit
+                    ? `Free trial: ${questionsRemaining} questions remaining`
+                    : "Powered by advanced neural networks"}
+              </div>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   )
 }
 
-export { ChatWidget }
 export default ChatWidget

@@ -328,8 +328,15 @@ export default function HomePage() {
 
   // Función unificada para abrir el chat con un agente específico
   const handleTryAgentDemo = (agent: (typeof agents)[0]) => {
-    setChatAgent(agent)
-    setShowChatWidget(true)
+    // Close any existing chat first
+    setShowChatWidget(false)
+    setChatAgent(null)
+
+    // Small delay to ensure state is reset, then open with new agent
+    setTimeout(() => {
+      setChatAgent(agent)
+      setShowChatWidget(true)
+    }, 100)
   }
 
   const handleAuthRequired = () => {
