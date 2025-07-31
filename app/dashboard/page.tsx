@@ -1,10 +1,22 @@
+import { redirect } from "next/navigation"
+import { createServerClient } from "@/lib/supabase-server"
+import DashboardClient from "./dashboard-client"
+
 export const metadata = {
   title: "Dashboard | Neuralia",
   description: "Manage your AI executive team and deploy new experts.",
 }
 
-import DashboardClientPage from "./dashboard-client"
+export default async function DashboardPage() {
+  const supabase = createServerClient()
 
-export default function DashboardPage() {
-  return <DashboardClientPage />
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect("/")
+  }
+
+  return <DashboardClient />
 }

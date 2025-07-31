@@ -1,144 +1,154 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Linkedin, Twitter, Github } from "lucide-react"
-
-const teamMembers = [
-  {
-    name: "Dr. Alex Chen",
-    role: "Co-Founder & CEO",
-    bio: "Former Principal Research Scientist at Google DeepMind, led the team that developed breakthrough neural architectures for strategic decision-making. PhD in Computer Science from Stanford, published 40+ papers on AI and neural networks.",
-    avatar: "/placeholder.svg?height=120&width=120",
-    background: "Google DeepMind, Stanford PhD",
-    expertise: ["Neural Architecture", "Strategic AI", "Deep Learning"],
-    social: {
-      linkedin: "https://linkedin.com/in/alexchen",
-      twitter: "https://twitter.com/alexchen_ai",
-    },
-  },
-  {
-    name: "Sarah Rodriguez",
-    role: "Co-Founder & CTO",
-    bio: "Former Senior Principal Engineer at Microsoft Azure AI, architected large-scale AI systems serving 100M+ users. Led the quantum-inspired algorithms research that powers our neural executives. MS Computer Science from MIT.",
-    avatar: "/placeholder.svg?height=120&width=120",
-    background: "Microsoft Azure AI, MIT MS",
-    expertise: ["Quantum Computing", "Distributed Systems", "AI Infrastructure"],
-    social: {
-      linkedin: "https://linkedin.com/in/sarahrodriguez",
-      github: "https://github.com/srodriguez",
-    },
-  },
-  {
-    name: "Marcus Kim",
-    role: "Co-Founder & Chief AI Officer",
-    bio: "Former Director of AI at Tesla Autopilot, specialized in real-time decision-making systems. Pioneered the executive decision pattern recognition algorithms. PhD in Machine Learning from Carnegie Mellon.",
-    avatar: "/placeholder.svg?height=120&width=120",
-    background: "Tesla Autopilot, Carnegie Mellon PhD",
-    expertise: ["Autonomous Systems", "Real-time AI", "Pattern Recognition"],
-    social: {
-      linkedin: "https://linkedin.com/in/marcuskim",
-      twitter: "https://twitter.com/marcus_ai",
-    },
-  },
-  {
-    name: "Dr. Jennifer Walsh",
-    role: "VP of Product",
-    bio: "Former Product Lead at OpenAI, managed the development of GPT-4 enterprise features. MBA from Wharton, extensive experience in AI product strategy and enterprise deployment. Expert in AI-human collaboration.",
-    avatar: "/placeholder.svg?height=120&width=120",
-    background: "OpenAI, Wharton MBA",
-    expertise: ["AI Product Strategy", "Enterprise AI", "User Experience"],
-    social: {
-      linkedin: "https://linkedin.com/in/jenniferwalsh",
-      twitter: "https://twitter.com/jen_ai_product",
-    },
-  },
-]
-
-const companyInfo = {
-  founded: "2023",
-  funding: "Series A - $25M",
-  investors: ["Andreessen Horowitz", "Sequoia Capital", "Google Ventures"],
-  employees: "45+ AI researchers and engineers",
-  headquarters: "San Francisco, CA",
-  mission: "To democratize executive-level AI intelligence for businesses worldwide",
-}
+import { Button } from "@/components/ui/button"
+import { Linkedin, Twitter, Github, MapPin, Users, TrendingUp, Award } from "lucide-react"
 
 export function TeamSection() {
+  const founders = [
+    {
+      name: "Dr. Alex Chen",
+      role: "CEO & Co-Founder",
+      background: "Former Google DeepMind Principal Researcher",
+      education: "PhD Computer Science, Stanford University",
+      expertise: "Neural Architecture, Quantum Computing, AI Safety",
+      image: "AC",
+      description:
+        "Led breakthrough research in quantum-inspired neural networks at DeepMind. Published 47 papers on AI consciousness and decision-making algorithms.",
+      social: {
+        linkedin: "#",
+        twitter: "#",
+      },
+    },
+    {
+      name: "Sarah Rodriguez",
+      role: "CTO & Co-Founder",
+      background: "Former Microsoft AI Platform Lead",
+      education: "MS Computer Science, MIT",
+      expertise: "Distributed Systems, MLOps, Enterprise AI",
+      image: "SR",
+      description:
+        "Built Microsoft's enterprise AI infrastructure serving 100M+ users. Expert in scaling neural networks for business applications.",
+      social: {
+        linkedin: "#",
+        github: "#",
+      },
+    },
+    {
+      name: "Dr. Marcus Kim",
+      role: "Chief AI Officer",
+      background: "Former Tesla Autopilot Neural Networks Lead",
+      education: "PhD Machine Learning, Carnegie Mellon",
+      expertise: "Autonomous Systems, Real-time AI, Neural Optimization",
+      image: "MK",
+      description:
+        "Developed Tesla's neural decision-making systems. Pioneer in real-time AI inference and autonomous agent behavior.",
+      social: {
+        linkedin: "#",
+        twitter: "#",
+      },
+    },
+    {
+      name: "Jennifer Park",
+      role: "Chief Business Officer",
+      background: "Former OpenAI Business Development VP",
+      education: "MBA, Wharton School",
+      expertise: "AI Commercialization, Enterprise Sales, Strategic Partnerships",
+      image: "JP",
+      description:
+        "Led OpenAI's enterprise partnerships and scaled revenue from $10M to $1B+. Expert in AI product-market fit and executive relationship building.",
+      social: {
+        linkedin: "#",
+        twitter: "#",
+      },
+    },
+  ]
+
+  const companyStats = [
+    { label: "Series A Funding", value: "$25M", icon: TrendingUp },
+    { label: "Team Members", value: "47", icon: Users },
+    { label: "Patents Filed", value: "23", icon: Award },
+    { label: "Enterprise Clients", value: "500+", icon: Users },
+  ]
+
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="container mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Meet the Neural AI Pioneers
-          </h2>
+          <h2 className="text-4xl font-bold mb-4">Meet the Neural Pioneers</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our team combines decades of experience from Google DeepMind, Microsoft, Tesla, and OpenAI to bring you the
-            most advanced AI executives ever created.
+            Our team combines decades of experience from the world's leading AI companies to bring you the future of
+            executive intelligence.
           </p>
         </div>
 
-        {/* Team Members */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {teamMembers.map((member, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow border-2 hover:border-blue-200">
-              <CardHeader className="text-center pb-4">
-                <img
-                  src={member.avatar || "/placeholder.svg"}
-                  alt={member.name}
-                  className="w-24 h-24 rounded-full mx-auto mb-4 bg-gray-200"
-                />
-                <CardTitle className="text-xl mb-2">{member.name}</CardTitle>
-                <Badge className="bg-blue-100 text-blue-700 mb-4">{member.role}</Badge>
-                <div className="text-sm text-gray-600 font-medium">{member.background}</div>
-              </CardHeader>
+        {/* Company Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+          {companyStats.map((stat) => {
+            const Icon = stat.icon
+            return (
+              <Card key={stat.label} className="text-center border-0 shadow-md bg-white">
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-6 w-6 text-white" />
+                  </div>
+                  <div className="text-2xl font-bold text-blue-600 mb-2">{stat.value}</div>
+                  <div className="text-sm text-gray-600">{stat.label}</div>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
 
-              <CardContent>
-                <p className="text-gray-700 leading-relaxed mb-4">{member.bio}</p>
-
-                {/* Expertise */}
-                <div className="mb-4">
-                  <div className="text-sm font-semibold text-gray-900 mb-2">Expertise:</div>
-                  <div className="flex flex-wrap gap-2">
-                    {member.expertise.map((skill, skillIndex) => (
-                      <Badge key={skillIndex} variant="outline" className="text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
+        {/* Team Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {founders.map((founder, index) => (
+            <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-white">
+              <CardHeader className="pb-4">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    {founder.image}
+                  </div>
+                  <div className="flex-1">
+                    <CardTitle className="text-xl">{founder.name}</CardTitle>
+                    <CardDescription className="text-blue-600 font-medium">{founder.role}</CardDescription>
                   </div>
                 </div>
+              </CardHeader>
 
-                {/* Social Links */}
-                <div className="flex space-x-4">
-                  {member.social.linkedin && (
-                    <a
-                      href={member.social.linkedin}
-                      className="text-blue-600 hover:text-blue-700"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Badge variant="outline" className="text-xs">
+                    {founder.background}
+                  </Badge>
+                  <Badge variant="outline" className="text-xs ml-2">
+                    {founder.education}
+                  </Badge>
+                </div>
+
+                <p className="text-gray-600 text-sm leading-relaxed">{founder.description}</p>
+
+                <div className="space-y-2">
+                  <div className="text-sm font-medium text-gray-700">Expertise:</div>
+                  <div className="text-sm text-gray-600">{founder.expertise}</div>
+                </div>
+
+                <div className="flex space-x-2 pt-2">
+                  {founder.social.linkedin && (
+                    <Button variant="outline" size="sm">
+                      <Linkedin className="h-4 w-4" />
+                    </Button>
                   )}
-                  {member.social.twitter && (
-                    <a
-                      href={member.social.twitter}
-                      className="text-blue-600 hover:text-blue-700"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Twitter className="h-5 w-5" />
-                    </a>
+                  {founder.social.twitter && (
+                    <Button variant="outline" size="sm">
+                      <Twitter className="h-4 w-4" />
+                    </Button>
                   )}
-                  {member.social.github && (
-                    <a
-                      href={member.social.github}
-                      className="text-blue-600 hover:text-blue-700"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-5 w-5" />
-                    </a>
+                  {founder.social.github && (
+                    <Button variant="outline" size="sm">
+                      <Github className="h-4 w-4" />
+                    </Button>
                   )}
                 </div>
               </CardContent>
@@ -147,63 +157,33 @@ export function TeamSection() {
         </div>
 
         {/* Company Info */}
-        <Card className="max-w-4xl mx-auto border-2 border-blue-200 bg-white">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl mb-4">About Neuralia</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-4">Company Overview</h4>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <span className="font-medium">Founded:</span> {companyInfo.founded}
-                  </div>
-                  <div>
-                    <span className="font-medium">Funding:</span> {companyInfo.funding}
-                  </div>
-                  <div>
-                    <span className="font-medium">Team Size:</span> {companyInfo.employees}
-                  </div>
-                  <div>
-                    <span className="font-medium">Headquarters:</span> {companyInfo.headquarters}
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-4">Backed by Leading VCs</h4>
-                <div className="space-y-2">
-                  {companyInfo.investors.map((investor, index) => (
-                    <Badge key={index} variant="outline" className="mr-2 mb-2">
-                      {investor}
-                    </Badge>
-                  ))}
-                </div>
-                <div className="mt-4">
-                  <h5 className="font-medium text-gray-900 mb-2">Our Mission</h5>
-                  <p className="text-sm text-gray-600 leading-relaxed">{companyInfo.mission}</p>
-                </div>
-              </div>
-            </div>
+        <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+          <CardContent className="p-8 text-center">
+            <div className="max-w-3xl mx-auto">
+              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+              <p className="text-lg mb-6 text-blue-100">
+                To democratize executive-level AI intelligence and empower every business with neural decision-making
+                capabilities. We believe that advanced AI should augment human leadership, not replace it.
+              </p>
 
-            <div className="mt-8 pt-8 border-t text-center">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">500+</div>
-                  <div className="text-gray-600">Enterprise Clients</div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                <div className="text-center">
+                  <div className="text-2xl font-bold mb-2">2021</div>
+                  <div className="text-blue-100">Founded in San Francisco</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">99.9%</div>
-                  <div className="text-gray-600">Uptime SLA</div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold mb-2">$25M</div>
+                  <div className="text-blue-100">Series A led by Andreessen Horowitz</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">24/7</div>
-                  <div className="text-gray-600">Support</div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold mb-2">99.9%</div>
+                  <div className="text-blue-100">Uptime SLA guarantee</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">SOC 2</div>
-                  <div className="text-gray-600">Certified</div>
-                </div>
+              </div>
+
+              <div className="flex items-center justify-center mt-6 text-blue-100">
+                <MapPin className="mr-2 h-4 w-4" />
+                <span>Headquarters: San Francisco, CA • Remote-first team across 12 countries</span>
               </div>
             </div>
           </CardContent>

@@ -2,56 +2,81 @@
 
 import type React from "react"
 import { createContext, useContext, useState, useEffect } from "react"
-import { useAuth } from "./use-auth"
-import { supabase } from "@/lib/supabase"
-import { useToast } from "./use-toast"
+import { useToast } from "@/hooks/use-toast"
+import { useAuth } from "@/hooks/use-auth"
 
-interface CartItem {
+// Tipos
+interface Agent {
   id: string
   name: string
+  description: string
+  category: string
+  type: string
   price: number
-  type: "agent" | "upgrade"
+  icon: string
+  features?: string[]
 }
 
 interface DeployedAgent {
   id: string
   user_id: string
   agent_id: string
+  name: string
   agent_name: string
-  agent_icon: string
-  status: "deploying" | "active" | "trial" | "expired"
+  description: string
+  agent_description: string
+  agent_type: string
+  icon: string
+  status: "trial" | "active" | "expired"
   deployment_date: string
-  trial_start_date?: string
-  trial_end_date?: string
+  trial_start?: string
+  trial_end?: string
   created_at: string
 }
 
 interface CartContextType {
-  cartItems: CartItem[]
-  deployedAgents: DeployedAgent[]
-  loading: boolean
-  addToCart: (item: CartItem) => void
-  removeFromCart: (id: string) => void
+  // Cart functionality
+  cartItems: Agent[]
+  addToCart: (agent: Agent) => void
+  removeFromCart: (agentId: string) => void
   clearCart: () => void
   getTotalPrice: () => number
-  deployAgent: (agentId: string) => Promise<void>
-  upgradeAgent: (agentId: string) => Promise<void>
-  isAgentDeployed: (agentId: string) => boolean
-  isAgentDeploying: (agentId: string) => boolean
-  getAgentStatus: (agentId: string) => string | null
+
+  // Deployment functionality
+  deployedAgents: DeployedAgent[]
+  deployAgent: (agent: Agent) => Promise<void>
   refreshDeployedAgents: () => Promise<void>
+  isDeploying: boolean
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [cartItems, setCartItems] = useState<Agent[]>([])
   const [deployedAgents, setDeployedAgents] = useState<DeployedAgent[]>([])
-  const [loading, setLoading] = useState(false)
-  const { user } = useAuth()
+  const [isDeploying, setIsDeploying] = useState(false)
   const { toast } = useToast()
+  const { user } = useAuth()
 
-  // Load deployed agents when user changes
+  // Cargar carrito desde localStorage
+  useEffect(() => {
+    const savedCart = localStorage.getItem("neuralia-cart")
+    if (savedCart) {
+      try {
+        setCartItems(JSON.parse(savedCart))
+      } catch (error) {
+        console.error("Error cargando carrito:", error)
+        localStorage.removeItem("neuralia-cart")
+      }
+    }
+  }, [])
+
+  // Guardar carrito en localStorage
+  useEffect(() => {
+    localStorage.setItem("neuralia-cart", JSON.stringify(cartItems))
+  }, [cartItems])
+
+  // Cargar agentes desplegados cuando el usuario cambia
   useEffect(() => {
     if (user) {
       refreshDeployedAgents()
@@ -60,196 +85,182 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user])
 
-  const refreshDeployedAgents = async () => {
-    if (!user) return
-
-    try {
-      setLoading(true)
-      const { data, error } = await supabase
-        .from("deployed_agents")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-
-      if (error) throw error
-      setDeployedAgents(data || [])
-    } catch (error) {
-      console.error("Error fetching deployed agents:", error)
-      toast({
-        title: "Error",
-        description: "Failed to load deployed agents",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const addToCart = (item: CartItem) => {
+  // Funciones del carrito
+  const addToCart = (agent: Agent) => {
     setCartItems((prev) => {
-      const exists = prev.find((i) => i.id === item.id)
+      const exists = prev.find((item) => item.id === agent.id)
       if (exists) {
         toast({
-          title: "Already in cart",
-          description: `${item.name} is already in your cart`,
+          title: "Ya está en el carrito",
+          description: `${agent.name} ya está en tu carrito.`,
         })
         return prev
       }
 
       toast({
-        title: "Added to cart",
-        description: `${item.name} has been added to your cart`,
+        title: "Agregado al carrito",
+        description: `${agent.name} se agregó a tu carrito.`,
       })
-      return [...prev, item]
+
+      return [...prev, agent]
     })
   }
 
-  const removeFromCart = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id))
-    toast({
-      title: "Removed from cart",
-      description: "Item has been removed from your cart",
+  const removeFromCart = (agentId: string) => {
+    setCartItems((prev) => {
+      const agent = prev.find((item) => item.id === agentId)
+      if (agent) {
+        toast({
+          title: "Removido del carrito",
+          description: `${agent.name} se removió de tu carrito.`,
+        })
+      }
+      return prev.filter((item) => item.id !== agentId)
     })
   }
 
   const clearCart = () => {
     setCartItems([])
+    toast({
+      title: "Carrito limpiado",
+      description: "Se removieron todos los agentes del carrito.",
+    })
   }
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price, 0)
   }
 
-  const deployAgent = async (agentId: string) => {
+  // Función para refrescar agentes desplegados
+  const refreshDeployedAgents = async () => {
+    if (!user) {
+      console.log("👤 No hay usuario autenticado")
+      return
+    }
+
+    try {
+      console.log("🔄 Refrescando agentes desplegados para usuario:", user.email)
+
+      const response = await fetch("/api/deployed-agents", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+      }
+
+      const data = await response.json()
+      console.log("📦 Agentes desplegados recibidos:", data)
+
+      setDeployedAgents(data.agents || [])
+    } catch (error) {
+      console.error("❌ Error refrescando agentes desplegados:", error)
+      toast({
+        title: "Error",
+        description: "No se pudieron cargar los agentes desplegados.",
+        variant: "destructive",
+      })
+    }
+  }
+
+  // Función para desplegar agente
+  const deployAgent = async (agent: Agent) => {
     if (!user) {
       toast({
-        title: "Authentication required",
-        description: "Please sign in to deploy agents",
+        title: "Error",
+        description: "Debes iniciar sesión para desplegar agentes.",
         variant: "destructive",
       })
       return
     }
 
-    try {
-      setLoading(true)
+    // Validar datos del agente
+    if (!agent || !agent.id || !agent.name) {
+      console.error("❌ Datos de agente inválidos:", agent)
+      toast({
+        title: "Error",
+        description: "Datos del agente inválidos.",
+        variant: "destructive",
+      })
+      return
+    }
 
-      // Find the agent details
-      const cartItem = cartItems.find((item) => item.id === agentId)
-      if (!cartItem) {
-        throw new Error("Agent not found in cart")
+    // Verificar si ya está desplegado
+    const alreadyDeployed = deployedAgents.find((deployed) => deployed.agent_id === agent.id)
+    if (alreadyDeployed) {
+      toast({
+        title: "Ya desplegado",
+        description: `${agent.name} ya está desplegado en tu cuenta.`,
+        variant: "destructive",
+      })
+      return
+    }
+
+    setIsDeploying(true)
+    console.log("🚀 Desplegando agente:", agent.name)
+    console.log("📊 Datos del agente:", agent)
+
+    try {
+      const response = await fetch("/api/deploy-agent", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ agent }),
+      })
+
+      console.log("📡 Respuesta del servidor:", response.status, response.statusText)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: "Error desconocido" }))
+        throw new Error(errorData.error || `HTTP ${response.status}`)
       }
 
-      // Calculate trial dates
-      const now = new Date()
-      const trialEnd = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000) // 5 days from now
+      const result = await response.json()
+      console.log("✅ Agente desplegado exitosamente:", result)
 
-      // Insert into deployed_agents table
-      const { error } = await supabase.from("deployed_agents").insert({
-        user_id: user.id,
-        agent_id: agentId,
-        agent_name: cartItem.name,
-        agent_icon: getAgentIcon(agentId),
-        status: "trial",
-        deployment_date: now.toISOString(),
-        trial_start_date: now.toISOString(),
-        trial_end_date: trialEnd.toISOString(),
+      toast({
+        title: "¡Agente desplegado!",
+        description: `${agent.name} se desplegó con un trial de 5 días.`,
       })
 
-      if (error) throw error
+      // Remover del carrito si estaba ahí
+      removeFromCart(agent.id)
 
-      // Remove from cart
-      removeFromCart(agentId)
-
-      // Refresh deployed agents
+      // Refrescar lista de agentes desplegados
       await refreshDeployedAgents()
 
-      toast({
-        title: "Agent deployed!",
-        description: `${cartItem.name} is now active with a 5-day free trial`,
-      })
+      // Disparar evento personalizado para actualizar otros componentes
+      window.dispatchEvent(
+        new CustomEvent("agentDeployed", {
+          detail: { agent, deployedAgent: result.deployedAgent },
+        }),
+      )
     } catch (error) {
-      console.error("Error deploying agent:", error)
+      console.error("❌ Error desplegando agente:", error)
       toast({
-        title: "Deployment failed",
-        description: "Failed to deploy agent. Please try again.",
+        title: "Error en el despliegue",
+        description: error instanceof Error ? error.message : "No se pudo desplegar el agente.",
         variant: "destructive",
       })
     } finally {
-      setLoading(false)
+      setIsDeploying(false)
     }
   }
 
-  const upgradeAgent = async (agentId: string) => {
-    if (!user) return
-
-    try {
-      setLoading(true)
-
-      const { error } = await supabase
-        .from("deployed_agents")
-        .update({
-          status: "active",
-          trial_end_date: null,
-        })
-        .eq("user_id", user.id)
-        .eq("agent_id", agentId)
-
-      if (error) throw error
-
-      await refreshDeployedAgents()
-
-      toast({
-        title: "Agent upgraded!",
-        description: "Your agent is now fully activated",
-      })
-    } catch (error) {
-      console.error("Error upgrading agent:", error)
-      toast({
-        title: "Upgrade failed",
-        description: "Failed to upgrade agent. Please try again.",
-        variant: "destructive",
-      })
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const isAgentDeployed = (agentId: string) => {
-    return deployedAgents.some((agent) => agent.agent_id === agentId)
-  }
-
-  const isAgentDeploying = (agentId: string) => {
-    return deployedAgents.some((agent) => agent.agent_id === agentId && agent.status === "deploying")
-  }
-
-  const getAgentStatus = (agentId: string) => {
-    const agent = deployedAgents.find((agent) => agent.agent_id === agentId)
-    return agent?.status || null
-  }
-
-  const getAgentIcon = (agentId: string) => {
-    const iconMap: Record<string, string> = {
-      "ceo-neural-orchestrator": "🧠",
-      "cmo-growth-engine": "📈",
-      "cto-innovation-architect": "⚡",
-    }
-    return iconMap[agentId] || "🤖"
-  }
-
-  const value = {
+  const value: CartContextType = {
     cartItems,
-    deployedAgents,
-    loading,
     addToCart,
     removeFromCart,
     clearCart,
     getTotalPrice,
+    deployedAgents,
     deployAgent,
-    upgradeAgent,
-    isAgentDeployed,
-    isAgentDeploying,
-    getAgentStatus,
     refreshDeployedAgents,
+    isDeploying,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
@@ -262,3 +273,6 @@ export function useCart() {
   }
   return context
 }
+
+// Export both named and default for compatibility
+export default useCart

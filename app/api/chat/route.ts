@@ -124,6 +124,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Message and agent type are required" }, { status: 400 })
     }
 
+    // Verify OpenAI API key is available server-side
+    if (!process.env.OPENAI_API_KEY) {
+      console.error("OPENAI_API_KEY not found in server environment")
+      return NextResponse.json({ error: "OpenAI API key not configured" }, { status: 500 })
+    }
+
     // Get the appropriate system prompt
     const systemPrompt = AGENT_PROMPTS[agentType as keyof typeof AGENT_PROMPTS] || AGENT_PROMPTS["ceo-neural-agent"]
 
@@ -160,7 +166,7 @@ export async function POST(request: NextRequest) {
       content: message,
     })
 
-    // Generate response using OpenAI
+    // Generate response using OpenAI (server-side only)
     const { text } = await generateText({
       model: openai("gpt-4o"),
       messages: contextMessages,
