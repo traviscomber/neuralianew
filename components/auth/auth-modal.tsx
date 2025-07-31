@@ -3,240 +3,296 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Loader2, Mail, Lock, User, Sparkles } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
-import { Brain, Mail, Lock, User, Zap } from "lucide-react"
 
 interface AuthModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  isOpen: boolean
+  onClose: () => void
+  defaultTab?: "signin" | "signup"
 }
 
-export function AuthModal({ open, onOpenChange }: AuthModalProps) {
+export function AuthModal({ isOpen, onClose, defaultTab = "signin" }: AuthModalProps) {
+  const [activeTab, setActiveTab] = useState(defaultTab)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [name, setName] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [loading, setLoading] = useState(false)
-  const { signIn, signUp } = useAuth()
+  const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
+
+  const { signIn, signUp, resetPassword } = useAuth()
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email || !password) return
-
     setLoading(true)
-    try {
-      await signIn(email, password)
-      onOpenChange(false)
-      setEmail("")
-      setPassword("")
-    } catch (error) {
-      console.error("Sign in error:", error)
-      alert("Sign in failed. Please check your credentials.")
-    } finally {
-      setLoading(false)
+    setError("")
+
+    const { error } = await signIn(email, password)
+
+    if (error) {
+      setError(error.message)
+    } else {
+      setSuccess("Successfully signed in!")
+      setTimeout(() => {
+        onClose()
+        resetForm()
+      }, 1000)
     }
+
+    setLoading(false)
   }
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email || !password || !name) return
-
     setLoading(true)
-    try {
-      await signUp(email, password, name)
-      onOpenChange(false)
-      setEmail("")
-      setPassword("")
-      setName("")
-    } catch (error) {
-      console.error("Sign up error:", error)
-      alert("Sign up failed. Please try again.")
-    } finally {
+    setError("")
+
+    if (password !== confirmPassword) {
+      setError("Passwords don't match")
       setLoading(false)
+      return
     }
+
+    const { error } = await signUp(email, password)
+
+    if (error) {
+      setError(error.message)
+    } else {
+      setSuccess("Check your email for the confirmation link!")
+      setTimeout(() => {
+        onClose()
+        resetForm()
+      }, 2000)
+    }
+
+    setLoading(false)
+  }
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError("")
+
+    const { error } = await resetPassword(email)
+
+    if (error) {
+      setError(error.message)
+    } else {
+      setSuccess("Password reset email sent!")
+      setTimeout(() => {
+        setActiveTab("signin")
+        setSuccess("")
+      }, 2000)
+    }
+
+    setLoading(false)
+  }
+
+  const resetForm = () => {
+    setEmail("")
+    setPassword("")
+    setConfirmPassword("")
+    setError("")
+    setSuccess("")
+    setLoading(false)
+  }
+
+  const handleClose = () => {
+    resetForm()
+    onClose()
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md bg-black/95 border-purple-500/30 text-white">
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-2xl text-center justify-center">
-            <div className="relative">
-              <Brain className="h-8 w-8 text-purple-400" />
-              <div className="absolute inset-0 h-8 w-8 bg-purple-400/20 rounded-full animate-pulse"></div>
-            </div>
-            Neural Access Portal
+          <DialogTitle className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-purple-600" />
+            Welcome to Neuralia
           </DialogTitle>
-          <DialogDescription className="text-gray-400 text-center">
-            Sign in or create an account to access advanced neural networks
-          </DialogDescription>
         </DialogHeader>
 
-        <Tabs defaultValue="signin" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-purple-500/20">
-            <TabsTrigger value="signin" className="data-[state=active]:bg-purple-600">
-              Neural Sign In
-            </TabsTrigger>
-            <TabsTrigger value="signup" className="data-[state=active]:bg-purple-600">
-              Neural Access
-            </TabsTrigger>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="signin">Sign In</TabsTrigger>
+            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+            <TabsTrigger value="reset">Reset</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="signin" className="space-y-4">
-            <div className="text-center mb-4">
-              <p className="text-gray-300">Access your neural network dashboard</p>
-            </div>
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
 
+          {success && (
+            <Alert className="border-green-200 bg-green-50 text-green-800">
+              <AlertDescription>{success}</AlertDescription>
+            </Alert>
+          )}
+
+          <TabsContent value="signin" className="space-y-4">
             <form onSubmit={handleSignIn} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signin-email" className="text-purple-300">
-                  Neural ID (Email)
-                </Label>
+                <Label htmlFor="signin-email">Email</Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="signin-email"
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    className="pl-10"
                     required
                   />
                 </div>
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="signin-password" className="text-purple-300">
-                  Neural Key (Password)
-                </Label>
+                <Label htmlFor="signin-password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="signin-password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    className="pl-10"
                     required
                   />
                 </div>
               </div>
-
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
                 disabled={loading}
               >
                 {loading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Accessing Neural Network...
-                  </div>
-                ) : (
                   <>
-                    <Zap className="mr-2 h-4 w-4" />
-                    Access Neural Dashboard
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing In...
                   </>
+                ) : (
+                  "Sign In"
                 )}
               </Button>
             </form>
           </TabsContent>
 
           <TabsContent value="signup" className="space-y-4">
-            <div className="text-center mb-4">
-              <p className="text-gray-300">Create your neural network account</p>
-            </div>
-
             <form onSubmit={handleSignUp} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="signup-name" className="text-purple-300">
-                  Neural Identity (Name)
-                </Label>
+                <Label htmlFor="signup-email">Email</Label>
                 <div className="relative">
-                  <User className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
-                  <Input
-                    id="signup-name"
-                    type="text"
-                    placeholder="Your Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="signup-email" className="text-purple-300">
-                  Neural ID (Email)
-                </Label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="signup-email"
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    className="pl-10"
                     required
                   />
                 </div>
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="signup-password" className="text-purple-300">
-                  Neural Key (Password)
-                </Label>
+                <Label htmlFor="signup-password">Password</Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 h-4 w-4 text-purple-400" />
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                   <Input
                     id="signup-password"
                     type="password"
-                    placeholder="••••••••"
+                    placeholder="Create a password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400"
+                    className="pl-10"
                     required
                   />
                 </div>
               </div>
-
+              <div className="space-y-2">
+                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="confirm-password"
+                    type="password"
+                    placeholder="Confirm your password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
+              </div>
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
                 disabled={loading}
               >
                 {loading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    Initializing Neural Network...
-                  </div>
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Creating Account...
+                  </>
                 ) : (
                   <>
-                    <Brain className="mr-2 h-4 w-4" />
-                    Initialize Neural Access
+                    <User className="mr-2 h-4 w-4" />
+                    Create Account
                   </>
                 )}
               </Button>
             </form>
+          </TabsContent>
 
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3">
-              <p className="text-xs text-gray-300 text-center">
-                By creating an account, you gain access to advanced neural networks with 5-day free trials
-              </p>
-            </div>
+          <TabsContent value="reset" className="space-y-4">
+            <form onSubmit={handleResetPassword} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="reset-email">Email</Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="reset-email"
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10"
+                    required
+                  />
+                </div>
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending Reset Email...
+                  </>
+                ) : (
+                  "Send Reset Email"
+                )}
+              </Button>
+            </form>
           </TabsContent>
         </Tabs>
+
+        <div className="text-center text-sm text-gray-600">
+          <p>By signing up, you agree to our Terms of Service and Privacy Policy</p>
+        </div>
       </DialogContent>
     </Dialog>
   )
 }
-
-export default AuthModal

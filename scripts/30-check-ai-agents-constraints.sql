@@ -1,4 +1,4 @@
--- Check current AI agents table structure and constraints
+-- Check AI agents table structure and constraints
 SELECT 
     table_name,
     column_name,
@@ -6,7 +6,7 @@ SELECT
     is_nullable,
     column_default
 FROM information_schema.columns 
-WHERE table_name = 'ai_agents' 
+WHERE table_name = 'ai_agents'
 ORDER BY ordinal_position;
 
 -- Check constraints on ai_agents table
@@ -32,13 +32,11 @@ SELECT
 FROM pg_indexes 
 WHERE tablename = 'ai_agents';
 
--- Sample data from ai_agents table
+-- Verify sample data exists
 SELECT 
     id,
     name,
-    description,
     agent_type,
-    created_at,
-    updated_at
+    created_at
 FROM ai_agents 
 LIMIT 5;

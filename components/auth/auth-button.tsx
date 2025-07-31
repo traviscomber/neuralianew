@@ -7,12 +7,12 @@ import { UserMenu } from "./user-menu"
 import { useAuth } from "@/hooks/use-auth"
 
 export function AuthButton() {
-  const { user, loading } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
+  const { user, loading } = useAuth()
 
   if (loading) {
     return (
-      <Button variant="ghost" disabled>
+      <Button variant="outline" disabled>
         Loading...
       </Button>
     )
@@ -24,12 +24,7 @@ export function AuthButton() {
 
   return (
     <>
-      <Button
-        onClick={() => setShowAuthModal(true)}
-        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-      >
-        Sign In
-      </Button>
+      <Button onClick={() => setShowAuthModal(true)}>Sign In</Button>
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </>
   )

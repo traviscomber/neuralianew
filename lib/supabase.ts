@@ -6,18 +6,8 @@ import { createClient as supabaseCreateClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
 /** Resolve credentials from env – works both client & server side. */
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || ""
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || ""
-
-/** Throw early if something is missing. */
-if (!supabaseUrl || !supabaseAnonKey) {
-  if (typeof window === "undefined") {
-    throw new Error(
-      "Supabase environment variables are not set. " +
-        "Ensure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY exist.",
-    )
-  }
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 /** Global singleton instances */
 let _browserClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
