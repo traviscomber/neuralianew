@@ -10,6 +10,7 @@ import { CartModal } from "@/components/cart/cart-modal"
 import { AgentDetailsModal } from "@/components/agent-details-modal"
 import { ChatWidget } from "@/components/chat/chat-widget"
 import { CustomerServiceChat } from "@/components/chat/customer-service-chat"
+import { NeuralExecutiveDemo } from "@/components/demo/neural-executive-demo"
 import { FAQSection } from "@/components/landing/faq-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { TeamSection } from "@/components/landing/team-section"
@@ -115,6 +116,7 @@ export default function HomePage() {
   const [showCart, setShowCart] = useState(false)
   const [selectedAgent, setSelectedAgent] = useState<(typeof agents)[0] | null>(null)
   const [showCustomerChat, setShowCustomerChat] = useState(false)
+  const [showExecutiveDemo, setShowExecutiveDemo] = useState(false)
   const { addToCart, cartItems } = useCart()
   const { user } = useAuth()
 
@@ -128,11 +130,7 @@ export default function HomePage() {
   }
 
   const handleTryDemo = () => {
-    // Scroll to chat widget or open demo
-    const chatWidget = document.getElementById("chat-widget")
-    if (chatWidget) {
-      chatWidget.scrollIntoView({ behavior: "smooth" })
-    }
+    setShowExecutiveDemo(true)
   }
 
   return (
@@ -167,6 +165,13 @@ export default function HomePage() {
               >
                 Need Help?
               </button>
+              <button
+                onClick={() => setShowExecutiveDemo(true)}
+                className="text-purple-600 hover:text-purple-700 transition-colors font-medium flex items-center space-x-1"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>Live Demo</span>
+              </button>
             </nav>
 
             <div className="flex items-center space-x-4">
@@ -190,7 +195,7 @@ export default function HomePage() {
           <div className="text-center max-w-4xl mx-auto">
             <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200">
               <Sparkles className="h-3 w-3 mr-1" />
-              Now with 5-Day Free Trial
+              Now with 5-Day Free Trial + Live Demo
             </Badge>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent leading-tight">
@@ -205,11 +210,11 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 text-lg"
                 onClick={handleTryDemo}
               >
                 <Play className="h-5 w-5 mr-2" />
-                Try Neural Demo
+                Try Live Demo
               </Button>
               <Button
                 size="lg"
@@ -354,6 +359,9 @@ export default function HomePage() {
 
       {/* Customer Service Chat */}
       <CustomerServiceChat isOpen={showCustomerChat} onToggle={() => setShowCustomerChat(!showCustomerChat)} />
+
+      {/* Neural Executive Demo */}
+      <NeuralExecutiveDemo isOpen={showExecutiveDemo} onToggle={() => setShowExecutiveDemo(!showExecutiveDemo)} />
 
       {/* Modals */}
       <CartModal isOpen={showCart} onClose={() => setShowCart(false)} />
