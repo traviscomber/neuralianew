@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Brain,
   MessageSquare,
@@ -32,6 +32,18 @@ export default function DashboardClient() {
 
   const [isChatOpen, setIsChatOpen] = useState(false)
   const [specificAgent, setSpecificAgent] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
+
+  // Ensure component is mounted before accessing hooks
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Provide default values during SSR
+  const safeDeployedAgents = mounted ? deployedAgents : []
+  const safeIsAgentDeployed = mounted ? isAgentDeployed : () => false
+  const safeIsAgentDeploying = mounted ? isAgentDeploying : () => false
+  const safeDeployAgent = mounted ? deployAgent : async () => {}
 
   /* -------------------------------------------------------------------------- */
   /*                              Available agents                              */
@@ -89,7 +101,21 @@ export default function DashboardClient() {
   }
 
   const handleDeployAgent = async (agent: any) => {
-    await deployAgent(agent)
+    await safeDeployAgent(agent)
+  }
+
+  // Don't render until mounted to avoid hydration issues
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+          </div>
+          <p className="text-gray-600">Loading your neural dashboard...</p>
+        </div>
+      </div>
+    )
   }
 
   /* -------------------------------------------------------------------------- */
@@ -114,7 +140,7 @@ export default function DashboardClient() {
             <div className="flex items-center space-x-4">
               <Badge variant="outline" className="px-3 py-1">
                 <Activity className="mr-1 h-3 w-3" />
-                {deployedAgents.length} Active Agents
+                {safeDeployedAgents.length} Active Agents
               </Badge>
               <Button variant="outline" size="sm">
                 <Settings className="h-4 w-4" />
@@ -141,7 +167,7 @@ export default function DashboardClient() {
               <Brain className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{deployedAgents.length}</div>
+              <div className="text-2xl font-bold">{safeDeployedAgents.length}</div>
               <p className="text-xs text-muted-foreground">AI experts deployed</p>
             </CardContent>
           </Card>
@@ -181,7 +207,7 @@ export default function DashboardClient() {
         </div>
 
         {/* Deployed Agents Section */}
-        {deployedAgents.length > 0 && (
+        {safeDeployedAgents.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold">Your AI Executive Team</h3>
@@ -192,7 +218,7 @@ export default function DashboardClient() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {deployedAgents.map((agent) => (
+              {safeDeployedAgents.map((agent) => (
                 <Card key={agent.id} className="hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -257,8 +283,8 @@ export default function DashboardClient() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {availableAgents.map((agent) => {
-              const deployed = isAgentDeployed(agent.id)
-              const deploying = isAgentDeploying(agent.id)
+              const deployed = safeIsAgentDeployed(agent.id)
+              const deploying = safeIsAgentDeploying(agent.id)
 
               return (
                 <Card key={agent.id} className="hover:shadow-lg transition-shadow relative">
