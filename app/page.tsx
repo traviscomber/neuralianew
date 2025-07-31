@@ -9,6 +9,7 @@ import { AuthButton } from "@/components/auth/auth-button"
 import { CartModal } from "@/components/cart/cart-modal"
 import { AgentDetailsModal } from "@/components/agent-details-modal"
 import { ChatWidget } from "@/components/chat/chat-widget"
+import { CustomerServiceChat } from "@/components/chat/customer-service-chat"
 import { FAQSection } from "@/components/landing/faq-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { TeamSection } from "@/components/landing/team-section"
@@ -113,6 +114,7 @@ const heroStats = [
 export default function HomePage() {
   const [showCart, setShowCart] = useState(false)
   const [selectedAgent, setSelectedAgent] = useState<(typeof agents)[0] | null>(null)
+  const [showCustomerChat, setShowCustomerChat] = useState(false)
   const { addToCart, cartItems } = useCart()
   const { user } = useAuth()
 
@@ -159,6 +161,12 @@ export default function HomePage() {
               <a href="#team" className="text-gray-600 hover:text-gray-900 transition-colors">
                 Team
               </a>
+              <button
+                onClick={() => setShowCustomerChat(true)}
+                className="text-blue-600 hover:text-blue-700 transition-colors font-medium"
+              >
+                Need Help?
+              </button>
             </nav>
 
             <div className="flex items-center space-x-4">
@@ -343,6 +351,9 @@ export default function HomePage() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Customer Service Chat */}
+      <CustomerServiceChat isOpen={showCustomerChat} onToggle={() => setShowCustomerChat(!showCustomerChat)} />
 
       {/* Modals */}
       <CartModal isOpen={showCart} onClose={() => setShowCart(false)} />
