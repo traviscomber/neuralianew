@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -41,7 +41,6 @@ export function OrchestratorChat({ isOpen, onClose }: OrchestratorChatProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [companyData, setCompanyData] = useState<CompanyData>({})
   const [conversationId, setConversationId] = useState<string | null>(null)
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   // Load conversation on open
   useEffect(() => {
@@ -49,13 +48,6 @@ export function OrchestratorChat({ isOpen, onClose }: OrchestratorChatProps) {
       loadConversation()
     }
   }, [isOpen, user])
-
-  // Auto-scroll to bottom when new messages arrive
-  useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
-    }
-  }, [messages])
 
   const loadConversation = async () => {
     if (!user) return
@@ -83,7 +75,7 @@ export function OrchestratorChat({ isOpen, onClose }: OrchestratorChatProps) {
         const welcomeMessage: Message = {
           id: "1",
           content:
-            "Hello! I'm your Central Orchestrator. I'll help coordinate all your AI agents and learn about your business. To get started, could you tell me about your company? What's your business name and what industry are you in?",
+            "Hello! I'm your Neural Director. I'll help coordinate all your AI agents and learn about your business. To get started, could you tell me about your company? What's your business name and what industry are you in?",
           sender: "assistant",
           timestamp: new Date(),
         }
@@ -324,22 +316,22 @@ I'll ensure all your deployed agents work together effectively to support your b
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-6xl h-[80vh] p-0">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="flex items-center gap-2 text-purple-600">
             <Bot className="h-6 w-6" />
-            Central Orchestrator
+            Neural Director
           </DialogTitle>
           <DialogDescription className="sr-only">
-            Chat with the Central Orchestrator to set up your business profile and coordinate AI agents
+            Chat with the Neural Director to set up your business profile and coordinate AI agents
           </DialogDescription>
         </DialogHeader>
 
         <div className="flex h-full">
           {/* Chat Area */}
           <div className="flex-1 flex flex-col">
-            <ScrollArea className="flex-1 p-6" ref={scrollAreaRef}>
+            <ScrollArea className="flex-1 p-6">
               <div className="space-y-4">
                 {messages.map((message) => (
                   <div
@@ -363,7 +355,7 @@ I'll ensure all your deployed agents work together effectively to support your b
                           message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-900"
                         }`}
                       >
-                        <p className="text-sm">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                         <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
                       </div>
                     </div>

@@ -36,7 +36,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 const agents = [
   {
     id: "orchestrator",
-    name: "Neural Orchestrator",
+    name: "Neural Director",
     role: "Central Command & Coordination",
     description:
       "Master AI that coordinates all executives, delegates tasks, and provides unified strategic oversight across all business functions.",
@@ -54,7 +54,7 @@ const agents = [
     ],
     responses: {
       greeting:
-        "I am the Neural Orchestrator, your central command system that coordinates all AI executives to deliver comprehensive business solutions.",
+        "I am the Neural Director, your central command system that coordinates all AI executives to deliver comprehensive business solutions.",
       capabilities: [
         "Multi-agent coordination and task delegation",
         "Cross-functional strategic planning",
@@ -174,7 +174,7 @@ const useCases = [
     id: "orchestrated-transformation",
     title: "Complete Digital Transformation",
     description:
-      "Neural Orchestrator coordinates CEO, CMO, and CTO to deliver a unified digital transformation strategy across all business functions.",
+      "Neural Director coordinates CEO, CMO, and CTO to deliver a unified digital transformation strategy across all business functions.",
     icon: <Network className="h-6 w-6 text-indigo-600" />,
     industry: ["Enterprise", "Digital Transformation"],
     benefits: [
@@ -368,13 +368,13 @@ export default function HomePage() {
           <div className="mb-8">
             <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
               <Sparkles className="h-3 w-3 mr-1" />
-              Now Available: Neural Orchestrator + Executive Team
+              Now Available: Neural Director + Executive Team
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
               Neural AI Executive Suite
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-              Deploy a complete AI C-suite with Neural Orchestrator coordination. Get strategic insights, coordinated
+              Deploy a complete AI C-suite with Neural Director coordination. Get strategic insights, coordinated
               execution, and unified business transformation 24/7.
             </p>
           </div>
@@ -426,7 +426,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Complete AI Executive Suite</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Neural Orchestrator coordinates your entire C-suite team, ensuring unified strategy and seamless execution
+              Neural Director coordinates your entire C-suite team, ensuring unified strategy and seamless execution
               across all business functions.
             </p>
           </div>
@@ -503,25 +503,24 @@ export default function HomePage() {
                     onClick={() => handleTryAgentDemo(agent)}
                   >
                     <MessageCircle className="h-4 w-4 mr-2" />
-                    {index === 0 ? "Try Neural Orchestrator" : "Try Interactive Demo"}
+                    {index === 0 ? "Try Neural Director" : "Try Interactive Demo"}
                   </Button>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          {/* Orchestrator Guided Questions Section */}
+          {/* Director Guided Questions Section */}
           {demoMode === "showcase" && (
             <div className="mt-12">
               <Card className="border-2 bg-gradient-to-r from-indigo-50 to-purple-50">
                 <CardHeader>
                   <div className="flex items-center justify-center space-x-3 mb-4">
                     <Network className="h-8 w-8 text-indigo-600" />
-                    <CardTitle className="text-2xl text-gray-900">Try Neural Orchestrator Coordination</CardTitle>
+                    <CardTitle className="text-2xl text-gray-900">Try Neural Director Coordination</CardTitle>
                   </div>
                   <p className="text-center text-gray-600 max-w-3xl mx-auto">
-                    Experience how the Neural Orchestrator coordinates CEO, CMO, and CTO for complex business
-                    initiatives
+                    Experience how the Neural Director coordinates CEO, CMO, and CTO for complex business initiatives
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -609,7 +608,7 @@ export default function HomePage() {
                       }}
                     >
                       <Network className="h-5 w-5 mr-2" />
-                      Start Neural Orchestrator Chat
+                      Start Neural Director Chat
                     </Button>
                   </div>
                 </CardContent>
@@ -626,7 +625,7 @@ export default function HomePage() {
                   <h3 className="text-2xl font-bold text-gray-900">Executive Coordination Matrix</h3>
                 </div>
                 <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
-                  See how the Neural Orchestrator coordinates all executives across key business functions for unified
+                  See how the Neural Director coordinates all executives across key business functions for unified
                   strategic execution.
                 </p>
                 <Button
@@ -667,7 +666,7 @@ export default function HomePage() {
                   <thead>
                     <tr className="border-b-2 border-gray-200">
                       <th className="text-left p-4 font-bold text-gray-900">Business Function</th>
-                      <th className="text-center p-4 font-bold text-indigo-600">Neural Orchestrator</th>
+                      <th className="text-center p-4 font-bold text-indigo-600">Neural Director</th>
                       <th className="text-center p-4 font-bold text-purple-600">CEO</th>
                       <th className="text-center p-4 font-bold text-green-600">CMO</th>
                       <th className="text-center p-4 font-bold text-orange-600">CTO</th>
@@ -780,7 +779,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Orchestrated Success Stories</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See how the Neural Orchestrator coordinates executive teams to deliver unified strategies and measurable
+              See how the Neural Director coordinates executive teams to deliver unified strategies and measurable
               results across complex business initiatives.
             </p>
           </div>
@@ -852,7 +851,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Deploy Your AI Executive Suite?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Start with the Neural Orchestrator and complete C-suite team. Experience coordinated AI leadership that
+            Start with the Neural Director and complete C-suite team. Experience coordinated AI leadership that
             transforms your business.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -871,7 +870,7 @@ export default function HomePage() {
               onClick={() => handleTryAgentDemo(agents[0])}
             >
               <MessageCircle className="h-5 w-5 mr-2" />
-              Try Neural Orchestrator
+              Try Neural Director
             </Button>
           </div>
         </div>

@@ -59,7 +59,7 @@ interface ChatWidgetProps {
   maxQuestions?: number
 }
 
-const getOrchestratorResponse = (
+const getDirectorResponse = (
   userMessage: string,
 ): { content: string; delegatedTo?: string[]; orchestrationLevel: "coordination" | "delegation" | "synthesis" } => {
   const message = userMessage.toLowerCase()
@@ -138,7 +138,7 @@ const getOrchestratorResponse = (
 
   return {
     content:
-      "🧠 **NEURAL ORCHESTRATOR READY FOR COORDINATION** \n\nAs your central command system, I coordinate all AI executives to deliver comprehensive business solutions:\n\n**COORDINATION CAPABILITIES:**\n• Delegate complex initiatives across CEO, CMO, and CTO\n• Synthesize specialized insights from all executives\n• Orchestrate unified strategic recommendations\n• Manage cross-functional project execution\n• Provide integrated business intelligence\n\n**EXECUTIVE TEAM READY:**\n• **CEO:** Strategic leadership and decision-making\n• **CMO:** Marketing strategy and growth optimization  \n• **CTO:** Technology innovation and digital transformation\n\nWhat complex business challenge would you like me to coordinate across the entire executive team?",
+      "🧠 **NEURAL DIRECTOR READY FOR COORDINATION** \n\nAs your central command system, I coordinate all AI executives to deliver comprehensive business solutions:\n\n**COORDINATION CAPABILITIES:**\n• Delegate complex initiatives across CEO, CMO, and CTO\n• Synthesize specialized insights from all executives\n• Orchestrate unified strategic recommendations\n• Manage cross-functional project execution\n• Provide integrated business intelligence\n\n**EXECUTIVE TEAM READY:**\n• **CEO:** Strategic leadership and decision-making\n• **CMO:** Marketing strategy and growth optimization  \n• **CTO:** Technology innovation and digital transformation\n\nWhat complex business challenge would you like me to coordinate across the entire executive team?",
     orchestrationLevel: "coordination",
   }
 }
@@ -147,7 +147,7 @@ const getAgentResponses = (agent: Agent, userMessage: string): string => {
   const message = userMessage.toLowerCase()
 
   if (agent.id === "orchestrator") {
-    const response = getOrchestratorResponse(userMessage)
+    const response = getDirectorResponse(userMessage)
     return response.content
   }
 
@@ -244,16 +244,16 @@ export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWid
       let agentResponse: Message
 
       if (agent.id === "orchestrator") {
-        const orchestratorResponse = getOrchestratorResponse(inputValue)
+        const directorResponse = getDirectorResponse(inputValue)
         agentResponse = {
           id: `agent-${Date.now()}`,
-          content: orchestratorResponse.content,
+          content: directorResponse.content,
           sender: "agent",
           timestamp: new Date(),
           agentName: agent.name,
           agentRole: agent.role,
-          delegatedTo: orchestratorResponse.delegatedTo,
-          orchestrationLevel: orchestratorResponse.orchestrationLevel,
+          delegatedTo: directorResponse.delegatedTo,
+          orchestrationLevel: directorResponse.orchestrationLevel,
         }
       } else {
         agentResponse = {
