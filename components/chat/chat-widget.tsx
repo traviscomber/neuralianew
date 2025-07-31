@@ -2,361 +2,493 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Send, User, Cpu, Zap, Crown, TrendingUp, Lock, Sparkles, MessageCircle } from "lucide-react"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Send,
+  X,
+  Crown,
+  TrendingUp,
+  Zap,
+  MessageCircle,
+  Sparkles,
+  Brain,
+  Users,
+  Network,
+  Command,
+  Settings,
+} from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
-
-interface ChatWidgetProps {
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
-  isOpen?: boolean
-  onClose?: () => void
-  agent?: {
-    id: string
-    name: string
-    icon: string
-    description: string
-  }
-  maxQuestions?: number
-  onAuthRequired?: () => void
-}
 
 interface Message {
   id: string
   content: string
-  sender: "user" | "neural"
+  sender: "user" | "agent"
   timestamp: Date
-  processingTime?: number
+  agentName?: string
+  agentRole?: string
+  delegatedTo?: string[]
+  orchestrationLevel?: "coordination" | "delegation" | "synthesis"
 }
 
-export function ChatWidget({
-  open,
-  onOpenChange,
-  isOpen,
-  onClose,
-  agent,
-  maxQuestions = Number.POSITIVE_INFINITY,
-  onAuthRequired,
-}: ChatWidgetProps) {
+interface Agent {
+  id: string
+  name: string
+  role: string
+  description: string
+  icon: React.ReactNode
+  color: string
+  gradient: string
+  expertise: string[]
+  responses: {
+    greeting: string
+    capabilities: string[]
+    sampleQuestions: string[]
+  }
+}
+
+interface ChatWidgetProps {
+  agent: Agent | null
+  isOpen: boolean
+  onClose: () => void
+  maxQuestions?: number
+}
+
+const getOrchestratorResponse = (
+  userMessage: string,
+): { content: string; delegatedTo?: string[]; orchestrationLevel: "coordination" | "delegation" | "synthesis" } => {
+  const message = userMessage.toLowerCase()
+
+  if (message.includes("digital transformation") || message.includes("transformation strategy")) {
+    return {
+      content:
+        "🎯 **COORDINATING DIGITAL TRANSFORMATION ACROSS ALL EXECUTIVES** \n\nI'm orchestrating a comprehensive digital transformation strategy:\n\n**CEO DELEGATION:** Strategic vision, change management, stakeholder alignment, and organizational restructuring to support digital initiatives.\n\n**CMO DELEGATION:** Customer experience transformation, digital marketing strategy, brand positioning in digital channels, and customer journey optimization.\n\n**CTO DELEGATION:** Technical architecture, system integration, cybersecurity framework, and infrastructure modernization.\n\n**MY COORDINATION:** I'm synthesizing their inputs into a unified 18-month roadmap with integrated milestones, cross-functional dependencies, and unified success metrics. This ensures strategic alignment, customer-centric execution, and technical excellence working in harmony.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "coordination",
+    }
+  }
+
+  if (message.includes("market expansion") || message.includes("expansion strategy")) {
+    return {
+      content:
+        "🌍 **ORCHESTRATING MARKET EXPANSION ACROSS EXECUTIVE TEAM** \n\nI'm coordinating a multi-perspective market expansion approach:\n\n**CEO FOCUS:** Market entry strategy, competitive positioning, regulatory analysis, partnership opportunities, and risk assessment framework.\n\n**CMO FOCUS:** Target audience research, localized marketing strategies, brand adaptation, customer acquisition channels, and market penetration tactics.\n\n**CTO FOCUS:** Technical infrastructure for new markets, localization requirements, scalability planning, and compliance systems.\n\n**UNIFIED ORCHESTRATION:** I'm synthesizing their expertise into a coordinated go-to-market strategy with synchronized execution timelines, integrated resource allocation, and cross-functional success metrics.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "coordination",
+    }
+  }
+
+  if (message.includes("product launch") || message.includes("launch strategy")) {
+    return {
+      content:
+        "🚀 **DELEGATING PRODUCT LAUNCH ACROSS ALL EXECUTIVES** \n\nI'm orchestrating a comprehensive product launch with clear executive responsibilities:\n\n**CEO RESPONSIBILITIES:** Strategic positioning, investor communications, partnership negotiations, competitive differentiation, and executive stakeholder management.\n\n**CMO RESPONSIBILITIES:** Launch campaign development, customer segmentation, pricing strategy, brand messaging, PR coordination, and customer acquisition funnels.\n\n**CTO RESPONSIBILITIES:** Product readiness, technical support infrastructure, performance monitoring, security protocols, and scalability preparation.\n\n**ORCHESTRATED TIMELINE:** I'm coordinating a 90-day launch sequence with integrated checkpoints, cross-functional dependencies, and unified success tracking across all executive domains.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "delegation",
+    }
+  }
+
+  if (message.includes("crisis management") || message.includes("crisis plan")) {
+    return {
+      content:
+        "🛡️ **SYNTHESIZING UNIFIED CRISIS MANAGEMENT PLAN** \n\nI'm coordinating all executives for comprehensive crisis response:\n\n**CEO CRISIS ROLE:** Strategic decision-making, stakeholder communications, media relations, organizational stability, and recovery planning.\n\n**CMO CRISIS ROLE:** Brand protection, customer communications, reputation management, crisis messaging, and customer retention strategies.\n\n**CTO CRISIS ROLE:** System stability, data protection, technical continuity, cybersecurity response, and infrastructure resilience.\n\n**INTEGRATED RESPONSE:** I'm synthesizing their crisis protocols into a unified command structure with real-time coordination, escalation procedures, and cross-functional crisis communication channels.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "synthesis",
+    }
+  }
+
+  if (message.includes("competitive analysis") || message.includes("competition")) {
+    return {
+      content:
+        "🔍 **COORDINATING COMPREHENSIVE COMPETITIVE ANALYSIS** \n\nI'm orchestrating multi-dimensional competitive intelligence:\n\n**CEO ANALYSIS:** Strategic positioning, market share analysis, competitive threats, acquisition opportunities, and strategic response planning.\n\n**CMO ANALYSIS:** Brand positioning comparison, marketing strategy analysis, customer perception studies, pricing analysis, and competitive messaging.\n\n**CTO ANALYSIS:** Technology stack comparison, innovation assessment, technical capabilities analysis, and competitive technical advantages.\n\n**SYNTHESIZED INTELLIGENCE:** I'm integrating their analyses into unified competitive intelligence with strategic recommendations, tactical responses, and coordinated competitive positioning across all business functions.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "coordination",
+    }
+  }
+
+  if (message.includes("customer retention") || message.includes("retention strategy")) {
+    return {
+      content:
+        "💎 **ORCHESTRATING CUSTOMER RETENTION ACROSS ALL EXECUTIVES** \n\nI'm coordinating a comprehensive customer retention strategy:\n\n**CEO CONTRIBUTION:** Customer success strategy, retention metrics, customer lifetime value optimization, and executive customer relationship management.\n\n**CMO CONTRIBUTION:** Customer journey optimization, loyalty programs, personalized marketing, retention campaigns, and customer experience enhancement.\n\n**CTO CONTRIBUTION:** Customer data analytics, retention prediction models, automated engagement systems, and technical customer support optimization.\n\n**UNIFIED EXECUTION:** I'm synthesizing their approaches into an integrated retention framework with coordinated touchpoints, unified customer data, and cross-functional retention metrics.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "coordination",
+    }
+  }
+
+  if (message.includes("coordinate") || message.includes("all executives") || message.includes("team")) {
+    return {
+      content:
+        "🎼 **COORDINATING ALL EXECUTIVES FOR UNIFIED STRATEGY** \n\nI'm orchestrating comprehensive executive collaboration:\n\n**CEO COORDINATION:** Strategic framework development, organizational alignment, stakeholder management, and executive decision-making processes.\n\n**CMO COORDINATION:** Market-driven insights, customer-centric strategies, brand alignment, and growth optimization initiatives.\n\n**CTO COORDINATION:** Technical feasibility assessment, innovation integration, system architecture, and digital transformation capabilities.\n\n**ORCHESTRATED OUTCOME:** I'm synthesizing their specialized expertise into unified strategic recommendations with integrated execution plans, cross-functional accountability, and coordinated success metrics.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "coordination",
+    }
+  }
+
+  if (message.includes("delegate") || message.includes("assign") || message.includes("distribute")) {
+    return {
+      content:
+        "📋 **DELEGATING COMPLEX INITIATIVE ACROSS EXECUTIVE TEAM** \n\nI'm analyzing this initiative and distributing responsibilities:\n\n**CEO DELEGATION:** Strategic oversight, stakeholder alignment, organizational change management, and executive-level decision authority.\n\n**CMO DELEGATION:** Market analysis, customer impact assessment, brand implications, and customer communication strategies.\n\n**CTO DELEGATION:** Technical implementation, system requirements, security considerations, and infrastructure planning.\n\n**COORDINATION FRAMEWORK:** I'm maintaining oversight with integrated project management, cross-functional communication protocols, and unified progress tracking across all executive domains.",
+      delegatedTo: ["CEO", "CMO", "CTO"],
+      orchestrationLevel: "delegation",
+    }
+  }
+
+  return {
+    content:
+      "🧠 **NEURAL ORCHESTRATOR READY FOR COORDINATION** \n\nAs your central command system, I coordinate all AI executives to deliver comprehensive business solutions:\n\n**COORDINATION CAPABILITIES:**\n• Delegate complex initiatives across CEO, CMO, and CTO\n• Synthesize specialized insights from all executives\n• Orchestrate unified strategic recommendations\n• Manage cross-functional project execution\n• Provide integrated business intelligence\n\n**EXECUTIVE TEAM READY:**\n• **CEO:** Strategic leadership and decision-making\n• **CMO:** Marketing strategy and growth optimization  \n• **CTO:** Technology innovation and digital transformation\n\nWhat complex business challenge would you like me to coordinate across the entire executive team?",
+    orchestrationLevel: "coordination",
+  }
+}
+
+const getAgentResponses = (agent: Agent, userMessage: string): string => {
+  const message = userMessage.toLowerCase()
+
+  if (agent.id === "orchestrator") {
+    const response = getOrchestratorResponse(userMessage)
+    return response.content
+  }
+
+  if (agent.id === "ceo") {
+    if (message.includes("strategy") || message.includes("strategic")) {
+      return "As your Chief Executive Officer, I focus on strategic vision and execution. I can help you develop comprehensive business strategies, analyze market opportunities, assess competitive positioning, and make critical executive decisions. My approach combines data-driven insights with strategic foresight to drive sustainable growth and competitive advantage."
+    }
+    if (message.includes("market") || message.includes("expansion")) {
+      return "Market expansion requires careful strategic planning. I analyze market dynamics, competitive landscapes, regulatory environments, and growth opportunities. For international expansion, I evaluate market entry strategies, partnership opportunities, risk assessment, and resource allocation to ensure successful market penetration."
+    }
+    if (message.includes("leadership") || message.includes("team")) {
+      return "Effective leadership is about vision, execution, and people. I help develop leadership strategies, organizational structures, talent acquisition plans, and performance management systems. Building high-performing teams requires clear communication, strategic alignment, and fostering a culture of innovation and accountability."
+    }
+    return "As your AI Chief Executive Officer, I provide strategic leadership and executive decision-making support. I can help with business strategy, market analysis, organizational development, and strategic planning. What specific executive challenge would you like to discuss?"
+  }
+
+  if (agent.id === "cmo") {
+    if (message.includes("marketing") || message.includes("campaign")) {
+      return "As your Chief Marketing Officer, I specialize in comprehensive marketing strategies that drive growth. I can develop integrated marketing campaigns, optimize customer acquisition funnels, enhance brand positioning, and implement data-driven marketing automation. My focus is on maximizing ROI while building sustainable customer relationships."
+    }
+    if (message.includes("brand") || message.includes("branding")) {
+      return "Brand strategy is fundamental to market success. I help develop compelling brand narratives, visual identity systems, brand positioning frameworks, and brand experience strategies. Effective branding creates emotional connections with customers, differentiates from competitors, and builds long-term brand equity."
+    }
+    if (message.includes("growth") || message.includes("customer")) {
+      return "Customer-centric growth strategies are my specialty. I analyze customer journeys, optimize conversion funnels, implement retention strategies, and develop personalized marketing experiences. By understanding customer behavior and preferences, we can create targeted campaigns that drive sustainable growth."
+    }
+    return "As your AI Chief Marketing Officer, I drive growth through strategic marketing initiatives. I can help with brand strategy, customer acquisition, digital marketing, campaign optimization, and growth hacking. What marketing challenge can I help you solve?"
+  }
+
+  if (agent.id === "cto") {
+    if (message.includes("technology") || message.includes("tech")) {
+      return "As your Chief Technology Officer, I focus on technology strategy and innovation. I can help architect scalable systems, evaluate emerging technologies, implement digital transformation initiatives, and build robust technical infrastructures. My approach balances innovation with operational excellence and security."
+    }
+    if (message.includes("security") || message.includes("cybersecurity")) {
+      return "Cybersecurity is critical in today's digital landscape. I develop comprehensive security frameworks, implement zero-trust architectures, conduct security assessments, and establish incident response protocols. My approach includes both preventive measures and rapid response capabilities to protect your digital assets."
+    }
+    if (message.includes("innovation") || message.includes("ai")) {
+      return "Innovation drives competitive advantage. I help evaluate emerging technologies like AI, blockchain, IoT, and cloud computing. I can develop innovation strategies, assess technology adoption roadmaps, and implement cutting-edge solutions that transform business operations and create new value propositions."
+    }
+    return "As your AI Chief Technology Officer, I provide technical leadership and innovation strategy. I can help with technology architecture, digital transformation, cybersecurity, AI implementation, and technical team building. What technology challenge would you like to explore?"
+  }
+
+  return "I'm here to help with your business challenges. Could you provide more specific details about what you'd like to discuss?"
+}
+
+export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([])
-  const [input, setInput] = useState("")
-  const [isProcessing, setIsProcessing] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
   const [questionCount, setQuestionCount] = useState(0)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
   const { user } = useAuth()
 
-  const isDialogOpen = open ?? isOpen ?? false
-  const handleOpenChange = onOpenChange ?? ((open: boolean) => !open && onClose?.())
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
 
-  // Reset messages when agent changes
   useEffect(() => {
-    if (agent && isDialogOpen) {
+    scrollToBottom()
+  }, [messages])
+
+  useEffect(() => {
+    if (agent && isOpen) {
+      const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "there"
       const initialMessage: Message = {
-        id: `welcome-${agent.id}`,
-        content: `Hello! I'm the ${agent.name} AI. I'm here to demonstrate my capabilities. Ask me anything about ${agent.name.toLowerCase()} strategy, and I'll provide detailed insights based on my neural network training.${
-          maxQuestions < Number.POSITIVE_INFINITY && !user
-            ? ` You have ${maxQuestions} free questions to explore my capabilities.`
-            : ""
-        }`,
-        sender: "neural",
+        id: `welcome-${agent.id}-${Date.now()}`,
+        content: `Hello ${userName}! I'm the ${agent.name} AI Executive. ${agent.responses.greeting}`,
+        sender: "agent",
         timestamp: new Date(),
-        processingTime: 0.023,
+        agentName: agent.name,
+        agentRole: agent.role,
       }
       setMessages([initialMessage])
       setQuestionCount(0)
-    } else if (!agent && isDialogOpen) {
-      // Default general assistant message
-      const defaultMessage: Message = {
-        id: "1",
-        content:
-          "Neural network initialized. I am your advanced AI executive assistant powered by 175B parameters and quantum-inspired algorithms. How may I assist you with strategic decision-making today?",
-        sender: "neural",
-        timestamp: new Date(),
-        processingTime: 0.023,
-      }
-      setMessages([defaultMessage])
-      setQuestionCount(0)
     }
-  }, [agent, isDialogOpen, maxQuestions, user]) // Updated dependency list
+  }, [agent, isOpen, maxQuestions, user])
 
-  const getAgentIcon = () => {
-    if (!agent) return Brain
-    switch (agent.id) {
-      case "ceo-neural-orchestrator":
-        return Crown
-      case "cmo-growth-engine":
-        return TrendingUp
-      case "cto-innovation-architect":
-        return Zap
-      default:
-        return Brain
-    }
-  }
-
-  const getAgentColor = () => {
-    if (!agent) return "from-purple-600 to-pink-600"
-    switch (agent.id) {
-      case "ceo-neural-orchestrator":
-        return "from-purple-600 to-indigo-600"
-      case "cmo-growth-engine":
-        return "from-green-600 to-emerald-600"
-      case "cto-innovation-architect":
-        return "from-blue-600 to-cyan-600"
-      default:
-        return "from-purple-600 to-pink-600"
-    }
-  }
-
-  const agentResponses = {
-    "ceo-neural-orchestrator": [
-      "Based on my analysis of Fortune 500 strategic patterns, I recommend implementing a three-phase market expansion strategy. First, conduct comprehensive competitive intelligence using my integrated market analysis tools. Second, establish strategic partnerships in your target markets leveraging my stakeholder communication frameworks. Third, deploy data-driven resource allocation using my executive decision trees. This approach has shown 340% ROI improvement in similar deployments.",
-      "My neural network has processed 50M+ executive decisions and identifies a critical opportunity in your operational efficiency. I suggest implementing my crisis management protocols to proactively address potential market disruptions. Additionally, my board presentation generation tools can help you communicate strategic initiatives more effectively to stakeholders. The quantum-inspired algorithms I use can predict market shifts with 97% accuracy.",
-      "Strategic leadership requires balancing multiple variables simultaneously. My 175B parameter network excels at synthesizing complex business scenarios into actionable insights. I recommend leveraging my vision setting frameworks to align your organization's objectives with market opportunities. My real-time market data integration ensures your strategic decisions are based on the most current intelligence available.",
-    ],
-    "cmo-growth-engine": [
-      "My consumer psychology models indicate significant optimization potential in your customer acquisition funnel. I recommend implementing advanced segmentation strategies using my multi-channel attribution system. Based on analysis of 15M+ marketing campaigns, I can increase your conversion rates by 40% through personalized customer experiences and predictive lifetime value modeling. My A/B testing frameworks will continuously optimize performance.",
-      "Growth hacking requires deep understanding of consumer behavior patterns. My neural network has analyzed successful campaigns across 200+ industries, identifying key psychological triggers that drive engagement. I suggest implementing my content strategy planning tools combined with influencer matching algorithms to maximize reach and ROI. The creative brief generation system I use can produce campaign concepts in under 3 seconds.",
-      "Marketing attribution is complex, but my advanced algorithms can track customer journeys across all touchpoints. I recommend deploying my ROI analysis tools to optimize marketing spend efficiency. My brand positioning frameworks, trained on successful brand strategies, can help differentiate your offering in competitive markets. The conversion optimization system I use has improved performance metrics by an average of 35%.",
-    ],
-    "cto-innovation-architect": [
-      "My technical architecture analysis reveals several optimization opportunities in your current infrastructure. I recommend implementing cloud migration strategies using my proven frameworks, which have successfully guided 1000+ enterprise transformations. My security vulnerability scanning capabilities can proactively identify and mitigate risks before they impact operations. The DevOps best practices I've learned from top tech companies can reduce deployment times by 60%.",
-      "Innovation requires balancing cutting-edge technology with practical implementation. My 200B parameter network specializes in technology roadmap planning, having analyzed successful digital transformations across industries. I suggest leveraging my API design frameworks and performance optimization algorithms to enhance system efficiency. My vendor evaluation tools can help you select the best technology partners for your specific needs.",
-      "Technical leadership involves making complex architectural decisions under uncertainty. My neural framework has processed thousands of system design patterns and can recommend optimal solutions for your specific requirements. I recommend implementing my team structure optimization tools to improve development velocity. The innovation metrics I track can help measure and improve your R&D investments' effectiveness.",
-    ],
-  }
-
-  const generateNeuralResponse = (userInput: string): string => {
-    if (agent && agent.id in agentResponses) {
-      const responses = agentResponses[agent.id as keyof typeof agentResponses]
-      const responseIndex = Math.min(questionCount, responses.length - 1)
-      return responses[responseIndex]
-    }
-
-    // Default responses for general assistant
-    const defaultResponses = [
-      "Neural analysis complete. Based on my training on 50M+ executive decisions, I recommend implementing a multi-layered approach with 97.8% success probability.",
-      "Processing through transformer architecture... My quantum-inspired algorithms suggest optimizing your current strategy with advanced predictive modeling.",
-      "Neural network activated. Analyzing market patterns through deep learning models indicates a strategic opportunity with high confidence intervals.",
-      "Advanced AI processing complete. My reinforcement learning algorithms have identified optimal pathways for your business objectives.",
-      "Quantum neural computation finished. Cross-referencing 15M+ similar scenarios suggests implementing data-driven decision frameworks.",
-      "Deep learning analysis indicates significant optimization potential. My neural networks recommend strategic pivoting based on predictive analytics.",
-    ]
-
-    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)]
-  }
-
-  const handleSend = async () => {
-    if (!input.trim() || isProcessing) return
-
-    // Check if user has exceeded free questions and is not logged in
-    if (questionCount >= maxQuestions && !user && onAuthRequired) {
-      onAuthRequired()
-      return
-    }
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || !agent || questionCount >= maxQuestions) return
 
     const userMessage: Message = {
-      id: Date.now().toString(),
-      content: input,
+      id: `user-${Date.now()}`,
+      content: inputValue,
       sender: "user",
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInput("")
-    setIsProcessing(true)
+    setInputValue("")
+    setIsTyping(true)
     setQuestionCount((prev) => prev + 1)
 
-    // Simulate neural processing time
-    const processingTime = Math.random() * 2 + 0.5 // 0.5-2.5 seconds
-
     setTimeout(() => {
-      const neuralMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: generateNeuralResponse(input),
-        sender: "neural",
-        timestamp: new Date(),
-        processingTime: Math.random() * 0.1 + 0.02, // 0.02-0.12 seconds
+      let agentResponse: Message
+
+      if (agent.id === "orchestrator") {
+        const orchestratorResponse = getOrchestratorResponse(inputValue)
+        agentResponse = {
+          id: `agent-${Date.now()}`,
+          content: orchestratorResponse.content,
+          sender: "agent",
+          timestamp: new Date(),
+          agentName: agent.name,
+          agentRole: agent.role,
+          delegatedTo: orchestratorResponse.delegatedTo,
+          orchestrationLevel: orchestratorResponse.orchestrationLevel,
+        }
+      } else {
+        agentResponse = {
+          id: `agent-${Date.now()}`,
+          content: getAgentResponses(agent, inputValue),
+          sender: "agent",
+          timestamp: new Date(),
+          agentName: agent.name,
+          agentRole: agent.role,
+        }
       }
-      setMessages((prev) => [...prev, neuralMessage])
-      setIsProcessing(false)
-    }, processingTime * 1000)
+
+      setMessages((prev) => [...prev, agentResponse])
+      setIsTyping(false)
+    }, 1500)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSend()
+      handleSendMessage()
     }
   }
 
-  const IconComponent = getAgentIcon()
-  const colorClass = getAgentColor()
-  const questionsRemaining = Math.max(0, maxQuestions - questionCount)
-  const hasQuestionLimit = maxQuestions < Number.POSITIVE_INFINITY && !user
+  if (!agent) return null
+
+  const getAgentIcon = () => {
+    switch (agent.id) {
+      case "orchestrator":
+        return <Network className="h-5 w-5" />
+      case "ceo":
+        return <Crown className="h-5 w-5" />
+      case "cmo":
+        return <TrendingUp className="h-5 w-5" />
+      case "cto":
+        return <Zap className="h-5 w-5" />
+      default:
+        return <Brain className="h-5 w-5" />
+    }
+  }
+
+  const remainingQuestions = maxQuestions - questionCount
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="w-full max-w-lg max-h-[90vh] h-[min(600px,90vh)] flex flex-col bg-black/95 border-purple-500/30 text-white p-0 gap-0 overflow-hidden">
-        <DialogHeader className="flex-shrink-0 p-4 pb-3 border-b border-purple-500/20">
-          <DialogTitle className="flex items-center gap-3">
-            <div className="relative flex-shrink-0">
-              <div className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}>
-                <IconComponent className="h-4 w-4 text-white" />
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl h-[700px] p-0 overflow-hidden">
+        <DialogHeader className={`p-4 bg-gradient-to-r ${agent.gradient} text-white`}>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Avatar className="h-12 w-12 bg-white/20">
+                <AvatarFallback className="bg-transparent text-white">{getAgentIcon()}</AvatarFallback>
+              </Avatar>
+              <div>
+                <DialogTitle className="text-white text-xl">{agent.name}</DialogTitle>
+                <p className="text-white/90 text-sm">{agent.role}</p>
+                {agent.id === "orchestrator" && (
+                  <div className="flex items-center space-x-2 mt-1">
+                    <Command className="h-3 w-3 text-white/80" />
+                    <span className="text-xs text-white/80">Coordinates CEO • CMO • CTO</span>
+                  </div>
+                )}
               </div>
-              <div className="absolute inset-0 h-8 w-8 bg-purple-400/20 rounded-full animate-pulse"></div>
             </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-lg truncate">{agent ? `${agent.name} AI` : "Neural AI Assistant"}</div>
-              {agent && <div className="text-sm text-gray-400 font-normal truncate">{agent.description}</div>}
-            </div>
-            <div className="flex items-center gap-2 flex-shrink-0">
-              {hasQuestionLimit && (
-                <Badge variant="outline" className="border-yellow-500/50 text-yellow-300 text-xs">
-                  <MessageCircle className="h-3 w-3 mr-1" />
-                  {questionsRemaining}
-                </Badge>
-              )}
-              <Badge variant="outline" className="border-purple-500/50 text-purple-300 text-xs hidden sm:flex">
-                <Cpu className="h-3 w-3 mr-1" />
-                175B
+            <div className="flex items-center space-x-2">
+              <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                <MessageCircle className="h-3 w-3 mr-1" />
+                {remainingQuestions} questions left
               </Badge>
+              <Button variant="ghost" size="sm" onClick={onClose} className="text-white hover:bg-white/20">
+                <X className="h-4 w-4" />
+              </Button>
             </div>
-          </DialogTitle>
+          </div>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-          <ScrollArea className="flex-1 px-4 py-2">
-            <div className="space-y-4 pb-4">
+        <div className="flex-1 flex flex-col h-full">
+          <ScrollArea className="flex-1 p-4">
+            <div className="space-y-4">
               {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex items-start gap-3 ${message.sender === "user" ? "flex-row-reverse" : ""}`}
-                >
-                  <div className="flex-shrink-0">
-                    {message.sender === "neural" ? (
-                      <div className="relative">
-                        <div
-                          className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}
-                        >
-                          <IconComponent className="h-4 w-4 text-white" />
-                        </div>
-                        <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
-                      </div>
-                    ) : (
-                      <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                        <User className="h-4 w-4 text-white" />
-                      </div>
-                    )}
-                  </div>
+                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[calc(100%-3rem)] p-3 rounded-lg ${
-                      message.sender === "user"
-                        ? "bg-blue-600 text-white"
-                        : "bg-purple-500/20 border border-purple-500/30 text-gray-100"
+                    className={`max-w-[85%] rounded-lg p-4 ${
+                      message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                     }`}
                   >
-                    <p className="text-sm leading-relaxed break-words">{message.content}</p>
-                    {message.sender === "neural" && message.processingTime && (
-                      <div className="flex items-center gap-2 mt-2 text-xs text-purple-300">
-                        <Zap className="h-3 w-3" />
-                        Neural processing: {message.processingTime.toFixed(3)}s
+                    {message.sender === "agent" && (
+                      <div className="flex items-center space-x-2 mb-3">
+                        <div
+                          className={`w-6 h-6 rounded-full bg-gradient-to-r ${agent.gradient} flex items-center justify-center`}
+                        >
+                          <div className="text-white text-xs">{getAgentIcon()}</div>
+                        </div>
+                        <span className="text-xs font-medium text-gray-600">{message.agentName}</span>
+                        {message.orchestrationLevel && (
+                          <Badge variant="outline" className="text-xs">
+                            {message.orchestrationLevel}
+                          </Badge>
+                        )}
                       </div>
                     )}
+
+                    <p className="text-sm leading-relaxed mb-2">{message.content}</p>
+
+                    {message.delegatedTo && message.delegatedTo.length > 0 && (
+                      <div className="mt-3 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
+                        <div className="flex items-center space-x-2 mb-2">
+                          <Settings className="h-4 w-4 text-indigo-600" />
+                          <span className="text-xs font-semibold text-indigo-800">Executive Coordination</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {message.delegatedTo.map((exec) => (
+                            <Badge key={exec} variant="secondary" className="text-xs bg-indigo-100 text-indigo-700">
+                              {exec} Engaged
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <p className="text-xs opacity-70 mt-2">
+                      {message.timestamp.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
                   </div>
                 </div>
               ))}
 
-              {isProcessing && (
-                <div className="flex items-start gap-3">
-                  <div className="relative">
-                    <div
-                      className={`w-8 h-8 bg-gradient-to-r ${colorClass} rounded-full flex items-center justify-center`}
-                    >
-                      <IconComponent className="h-4 w-4 text-white" />
-                    </div>
-                    <div className="absolute inset-0 w-8 h-8 bg-purple-400/20 rounded-full animate-pulse"></div>
-                  </div>
-                  <div className="bg-purple-500/20 border border-purple-500/30 rounded-lg p-3">
-                    <div className="flex items-center gap-2 text-sm text-purple-300">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" />
-                        <div
-                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.1s" }}
-                        />
-                        <div
-                          className="w-2 h-2 bg-purple-400 rounded-full animate-bounce"
-                          style={{ animationDelay: "0.2s" }}
-                        />
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-gray-100 rounded-lg p-4 max-w-[85%]">
+                    <div className="flex items-center space-x-2 mb-2">
+                      <div
+                        className={`w-6 h-6 rounded-full bg-gradient-to-r ${agent.gradient} flex items-center justify-center`}
+                      >
+                        <div className="text-white text-xs">{getAgentIcon()}</div>
                       </div>
-                      Neural network processing...
+                      <span className="text-xs font-medium text-gray-600">
+                        {agent.id === "orchestrator" ? "Coordinating executives..." : `${agent.name} is analyzing...`}
+                      </span>
+                    </div>
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.1s" }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      ></div>
                     </div>
                   </div>
-                </div>
-              )}
-
-              {/* Free trial limit reached message */}
-              {hasQuestionLimit && questionCount >= maxQuestions && (
-                <div className="bg-gradient-to-r from-yellow-600/20 to-orange-600/20 border border-yellow-500/30 rounded-lg p-4">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Lock className="h-5 w-5 text-yellow-400 flex-shrink-0" />
-                    <span className="font-semibold text-yellow-300">Free Trial Limit Reached</span>
-                  </div>
-                  <p className="text-sm text-gray-300 mb-3">
-                    You've used all {maxQuestions} free questions with this agent! Sign up to continue exploring the
-                    full capabilities of our Neural AI Executives.
-                  </p>
-                  <Button
-                    onClick={onAuthRequired}
-                    className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white w-full sm:w-auto"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    Sign Up for Full Access
-                  </Button>
                 </div>
               )}
             </div>
+            <div ref={messagesEndRef} />
           </ScrollArea>
 
-          <div className="flex-shrink-0 p-4 pt-2 border-t border-purple-500/20">
-            <div className="space-y-2">
-              <div className="flex gap-2">
+          {/* Suggested Questions Section - Only show for orchestrator and when no user messages yet */}
+          {agent.id === "orchestrator" && messages.length === 1 && questionCount === 0 && (
+            <div className="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-200">
+              <div className="flex items-center space-x-2 mb-3">
+                <Command className="h-4 w-4 text-indigo-600" />
+                <span className="text-sm font-semibold text-indigo-800">Try These Coordination Examples:</span>
+              </div>
+              <div className="grid gap-2">
+                {agent.responses.sampleQuestions.map((question, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    size="sm"
+                    className="text-left justify-start text-xs h-auto py-2 px-3 bg-white hover:bg-indigo-50 hover:border-indigo-300 border-indigo-200"
+                    onClick={() => {
+                      setInputValue(question)
+                      setTimeout(() => handleSendMessage(), 100)
+                    }}
+                  >
+                    <MessageCircle className="h-3 w-3 mr-2 text-indigo-600 flex-shrink-0" />
+                    <span className="truncate">{question}</span>
+                  </Button>
+                ))}
+              </div>
+              <p className="text-xs text-indigo-600 mt-2 text-center">
+                Click any question to see how I coordinate CEO, CMO, and CTO
+              </p>
+            </div>
+          )}
+
+          {questionCount >= maxQuestions ? (
+            <div className="p-4 bg-gray-50 border-t">
+              <div className="text-center space-y-3">
+                <div className="flex items-center justify-center space-x-2 text-gray-600">
+                  <Sparkles className="h-5 w-5" />
+                  <span className="font-medium">Demo Complete!</span>
+                </div>
+                <p className="text-sm text-gray-600">You've reached the maximum number of questions for this demo.</p>
+                <Button className={`bg-gradient-to-r ${agent.gradient} hover:opacity-90`} onClick={onClose}>
+                  <Users className="h-4 w-4 mr-2" />
+                  Get Full Access
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="p-4 border-t bg-white">
+              <div className="flex space-x-2">
                 <Input
-                  placeholder={
-                    hasQuestionLimit && questionCount >= maxQuestions
-                      ? "Sign up to continue..."
-                      : agent
-                        ? `Ask ${agent.name}...`
-                        : "Ask your AI assistant..."
-                  }
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="flex-1 bg-black/50 border-purple-500/30 text-white placeholder:text-gray-400 text-sm"
-                  disabled={isProcessing || (hasQuestionLimit && questionCount >= maxQuestions)}
+                  placeholder={
+                    agent.id === "orchestrator"
+                      ? "Ask me to coordinate any complex business initiative..."
+                      : `Ask ${agent.name} anything...`
+                  }
+                  disabled={isTyping}
+                  className="flex-1"
                 />
                 <Button
-                  onClick={handleSend}
-                  size="sm"
-                  disabled={!input.trim() || isProcessing || (hasQuestionLimit && questionCount >= maxQuestions)}
-                  className={`bg-gradient-to-r ${colorClass} hover:opacity-80 flex-shrink-0`}
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || isTyping}
+                  className={`bg-gradient-to-r ${agent.gradient} hover:opacity-90`}
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="text-xs text-gray-400 text-center">
-                {user
-                  ? "Unlimited access - Full Neural AI Executive capabilities"
-                  : hasQuestionLimit
-                    ? `Free trial: ${questionsRemaining} questions remaining`
-                    : "Powered by advanced neural networks"}
+              <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
+                <span>
+                  {agent.id === "orchestrator" ? "Press Enter to coordinate executives" : "Press Enter to send"}
+                </span>
+                <span>{remainingQuestions} questions remaining</span>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

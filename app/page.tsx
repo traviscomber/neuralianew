@@ -5,804 +5,893 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
+  Crown,
+  TrendingUp,
+  Zap,
+  CheckCircle,
+  Globe,
+  Shield,
   Sparkles,
-  ArrowRight,
+  Target,
+  MessageCircle,
   Play,
   ChevronDown,
   ChevronUp,
-  Building2,
-  TrendingUp,
-  Shield,
-  Zap,
+  Building,
+  Network,
+  Command,
+  Settings,
+  BarChart3,
+  Layers,
   Users,
-  Target,
-  MessageCircle,
-  Crown,
 } from "lucide-react"
-import { AuthButton } from "@/components/auth/auth-button"
-import { CartModal } from "@/components/cart/cart-modal"
-import { AgentDetailsModal } from "@/components/agent-details-modal"
-import { ChatWidget } from "@/components/chat/chat-widget"
-import { CustomerServiceChat } from "@/components/chat/customer-service-chat"
-import { NeuralExecutiveDemo } from "@/components/demo/neural-executive-demo"
-import { FAQSection } from "@/components/landing/faq-section"
-import { Footer } from "@/components/landing/footer"
-import { useCart } from "@/hooks/use-cart"
-import { useAuth } from "@/hooks/use-auth"
 import { AuthModal } from "@/components/auth/auth-modal"
+import { useAuth } from "@/hooks/use-auth"
+import { ChatWidget } from "@/components/chat/chat-widget"
+import { FAQSection } from "@/components/landing/faq-section"
+import { TestimonialsSection } from "@/components/landing/testimonials-section"
+import { Footer } from "@/components/landing/footer"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 const agents = [
   {
-    id: "ceo-neural-orchestrator",
+    id: "orchestrator",
+    name: "Neural Orchestrator",
+    role: "Central Command & Coordination",
+    description:
+      "Master AI that coordinates all executives, delegates tasks, and provides unified strategic oversight across all business functions.",
+    icon: <Network className="h-6 w-6" />,
+    color: "from-indigo-600 to-purple-700",
+    gradient: "from-indigo-600 to-purple-700",
+    expertise: ["Multi-Agent Coordination", "Strategic Orchestration", "Task Delegation", "Executive Synthesis"],
+    capabilities: [
+      "Coordinates all C-suite AI executives in unified strategies",
+      "Delegates complex tasks across CEO, CMO, and CTO agents",
+      "Synthesizes insights from multiple executive perspectives",
+      "Manages cross-functional projects and initiatives",
+      "Provides unified strategic oversight and decision-making",
+      "Orchestrates real-time collaboration between AI executives",
+    ],
+    responses: {
+      greeting:
+        "I am the Neural Orchestrator, your central command system that coordinates all AI executives to deliver comprehensive business solutions.",
+      capabilities: [
+        "Multi-agent coordination and task delegation",
+        "Cross-functional strategic planning",
+        "Executive team synthesis and alignment",
+        "Complex project orchestration",
+      ],
+      sampleQuestions: [
+        "Coordinate a complete digital transformation strategy across all executives",
+        "How should CEO, CMO, and CTO work together on our market expansion?",
+        "Delegate our product launch across the executive team with clear responsibilities",
+        "Synthesize a unified crisis management plan using all three executives",
+        "Coordinate a comprehensive competitive analysis across all business functions",
+        "How can all executives collaborate on our customer retention strategy?",
+      ],
+    },
+  },
+  {
+    id: "ceo",
     name: "Chief Executive Officer",
-    displayName: "CEO Neural Orchestrator",
-    icon: "🧠",
-    price: 299,
-    category: "Executive Leadership",
-    rating: 4.9,
-    reviews: 847,
-    description: "Strategic leadership and executive decision-making AI trained on Fortune 500 CEO patterns",
+    role: "Strategic Leadership & Vision",
+    description: "Strategic planning, market analysis, executive decision-making, and organizational leadership.",
+    icon: <Crown className="h-6 w-6" />,
+    color: "from-purple-600 to-blue-600",
+    gradient: "from-purple-600 to-blue-600",
+    expertise: ["Strategic Planning", "Market Analysis", "Leadership", "Business Development"],
     capabilities: [
-      "Strategic Planning & Vision Setting",
-      "Market Analysis & Competitive Intelligence",
-      "Executive Decision Trees",
-      "Board Presentation Generation",
-      "Crisis Management Protocols",
-      "Stakeholder Communication",
+      "Comprehensive strategic planning and execution",
+      "Market opportunity analysis and competitive intelligence",
+      "Executive decision-making and risk assessment",
+      "Organizational development and leadership coaching",
+      "Merger & acquisition strategy and due diligence",
+      "Stakeholder management and investor relations",
     ],
-    metrics: {
-      accuracy: "97%",
-      responseTime: "< 2s",
-      satisfaction: "4.9/5",
-    },
-    features: [
-      "175B parameter neural network",
-      "Real-time market data integration",
-      "Executive communication templates",
-      "Strategic framework library",
-      "Risk assessment algorithms",
-      "Performance dashboard",
-    ],
-    expertise: [
-      "Strategic Planning",
-      "Leadership Development",
-      "Crisis Management",
-      "Board Relations",
-      "Stakeholder Management",
-      "Vision Setting",
-    ],
-    neuralSpecs: {
-      parameters: "175B",
-      architecture: "Transformer-based Executive Neural Network",
-      trainingData: "Fortune 500 CEO decisions, board minutes, strategic plans",
-      processingSpeed: "< 2 seconds",
-      accuracy: "97%",
+    responses: {
+      greeting: "I provide strategic leadership and executive decision-making support to drive your business forward.",
+      capabilities: [
+        "Strategic planning and execution",
+        "Market analysis and competitive intelligence",
+        "Executive decision-making",
+        "Organizational development",
+      ],
+      sampleQuestions: [
+        "What's our market expansion strategy?",
+        "How should we approach this acquisition?",
+        "What are the key strategic priorities?",
+      ],
     },
   },
   {
-    id: "cmo-growth-engine",
+    id: "cmo",
     name: "Chief Marketing Officer",
-    displayName: "CMO Growth Engine",
-    icon: "📈",
-    price: 299,
-    category: "Marketing & Growth",
-    rating: 4.8,
-    reviews: 623,
-    description: "Marketing strategy and growth optimization AI with deep consumer psychology understanding",
+    role: "Growth & Customer Acquisition",
+    description: "Marketing strategy, brand development, customer acquisition, and growth optimization.",
+    icon: <TrendingUp className="h-6 w-6" />,
+    color: "from-green-600 to-teal-600",
+    gradient: "from-green-600 to-teal-600",
+    expertise: ["Marketing Strategy", "Brand Development", "Customer Acquisition", "Growth Hacking"],
     capabilities: [
-      "Customer Segmentation & Personas",
-      "Campaign Strategy & Optimization",
-      "Brand Positioning & Messaging",
-      "Growth Hacking Frameworks",
-      "Content Strategy & Planning",
-      "ROI Analysis & Attribution",
+      "Comprehensive marketing strategy and campaign development",
+      "Brand positioning and identity development",
+      "Customer acquisition and retention optimization",
+      "Digital marketing and social media strategy",
+      "Marketing automation and funnel optimization",
+      "Performance analytics and ROI optimization",
     ],
-    metrics: {
-      accuracy: "94%",
-      responseTime: "< 3s",
-      satisfaction: "4.8/5",
-    },
-    features: [
-      "Consumer psychology models",
-      "Multi-channel attribution",
-      "A/B testing frameworks",
-      "Creative brief generation",
-      "Influencer matching algorithms",
-      "Conversion optimization",
-    ],
-    expertise: [
-      "Digital Marketing",
-      "Brand Strategy",
-      "Growth Hacking",
-      "Customer Analytics",
-      "Content Marketing",
-      "Performance Marketing",
-    ],
-    neuralSpecs: {
-      parameters: "150B",
-      architecture: "Multi-modal Marketing Intelligence Network",
-      trainingData: "Marketing campaigns, consumer behavior, brand strategies",
-      processingSpeed: "< 3 seconds",
-      accuracy: "94%",
+    responses: {
+      greeting: "I drive growth through strategic marketing initiatives and customer-centric approaches.",
+      capabilities: [
+        "Marketing strategy and campaigns",
+        "Brand development and positioning",
+        "Customer acquisition optimization",
+        "Digital marketing automation",
+      ],
+      sampleQuestions: [
+        "How can we improve our conversion rates?",
+        "What's the best customer acquisition strategy?",
+        "How should we position our brand?",
+      ],
     },
   },
   {
-    id: "cto-innovation-architect",
+    id: "cto",
     name: "Chief Technology Officer",
-    displayName: "CTO Innovation Architect",
-    icon: "⚡",
-    price: 299,
-    category: "Technology & Innovation",
-    rating: 4.9,
-    reviews: 734,
-    description: "Technology strategy and innovation AI with cutting-edge engineering expertise",
+    role: "Innovation & Technical Excellence",
+    description: "Technology strategy, system architecture, innovation, and digital transformation.",
+    icon: <Zap className="h-6 w-6" />,
+    color: "from-orange-600 to-red-600",
+    gradient: "from-orange-600 to-red-600",
+    expertise: ["Technology Strategy", "System Architecture", "Innovation", "Cybersecurity"],
     capabilities: [
-      "Technology Roadmap Planning",
-      "Architecture Design & Review",
-      "Innovation Strategy & R&D",
-      "Team Structure & Hiring",
-      "Security & Compliance",
-      "Vendor Evaluation & Selection",
+      "Technology strategy and digital transformation",
+      "System architecture and scalability planning",
+      "Cybersecurity and risk management",
+      "Innovation and emerging technology adoption",
+      "Technical team building and development",
+      "Infrastructure optimization and cloud strategy",
     ],
-    metrics: {
-      accuracy: "96%",
-      responseTime: "< 2s",
-      satisfaction: "4.9/5",
-    },
-    features: [
-      "Technical architecture patterns",
-      "Security vulnerability scanning",
-      "Performance optimization",
-      "Cloud migration strategies",
-      "API design frameworks",
-      "DevOps best practices",
-    ],
-    expertise: [
-      "Cloud Architecture",
-      "DevOps & CI/CD",
-      "Cybersecurity",
-      "Innovation Management",
-      "Technical Leadership",
-      "System Design",
-    ],
-    neuralSpecs: {
-      parameters: "200B",
-      architecture: "Technical Innovation Neural Framework",
-      trainingData: "Technical documentation, architecture patterns, innovation cases",
-      processingSpeed: "< 2 seconds",
-      accuracy: "96%",
+    responses: {
+      greeting: "I provide technical leadership and innovation strategy to transform your technology landscape.",
+      capabilities: [
+        "Technology strategy and architecture",
+        "Digital transformation initiatives",
+        "Cybersecurity and compliance",
+        "Innovation and emerging tech adoption",
+      ],
+      sampleQuestions: [
+        "What's our technology roadmap?",
+        "How can we improve our security posture?",
+        "What emerging technologies should we adopt?",
+      ],
     },
   },
-]
-
-const heroStats = [
-  { value: "2,847", label: "Active Deployments" },
-  { value: "340%", label: "Avg ROI Increase" },
-  { value: "99.9%", label: "Uptime SLA" },
-  { value: "< 2s", label: "Response Time" },
 ]
 
 const useCases = [
   {
-    id: "strategic-planning",
-    icon: Building2,
-    title: "Strategic Planning",
+    id: "orchestrated-transformation",
+    title: "Complete Digital Transformation",
     description:
-      "Transform your strategic planning process with AI-powered market analysis, competitive intelligence, and scenario modeling.",
+      "Neural Orchestrator coordinates CEO, CMO, and CTO to deliver a unified digital transformation strategy across all business functions.",
+    icon: <Network className="h-6 w-6 text-indigo-600" />,
+    industry: ["Enterprise", "Digital Transformation"],
     benefits: [
-      "Reduce planning cycles by 60%",
-      "Identify market opportunities faster",
-      "Generate data-driven strategic frameworks",
-      "Optimize resource allocation decisions",
+      "Unified strategy across all executive functions",
+      "Coordinated implementation with clear accountability",
+      "Real-time collaboration between AI executives",
+      "Comprehensive change management and execution",
     ],
-    industries: ["Fortune 500", "Consulting", "Private Equity"],
-    metrics: {
-      efficiency: "60%",
-      accuracy: "94%",
-      satisfaction: "4.8/5",
-    },
+    results:
+      "Achieved 40% faster transformation timeline with 95% cross-functional alignment and $2.3M cost savings through coordinated execution.",
   },
   {
-    id: "growth-optimization",
-    icon: TrendingUp,
-    title: "Growth Optimization",
+    id: "startup-scaling",
+    title: "Startup Scaling Strategy",
     description:
-      "Accelerate growth with AI-driven customer segmentation, campaign optimization, and conversion rate improvements.",
+      "A tech startup needed to scale from 10 to 100 employees while maintaining culture and operational efficiency.",
+    icon: <Target className="h-6 w-6 text-purple-600" />,
+    industry: ["Technology", "Startups"],
     benefits: [
-      "Increase conversion rates by 40%",
-      "Optimize marketing spend efficiency",
-      "Personalize customer experiences",
-      "Predict customer lifetime value",
+      "Developed scalable organizational structure",
+      "Implemented efficient hiring and onboarding processes",
+      "Created performance management systems",
+      "Established company culture and values framework",
     ],
-    industries: ["E-commerce", "SaaS", "Digital Marketing"],
-    metrics: {
-      efficiency: "40%",
-      accuracy: "92%",
-      satisfaction: "4.7/5",
-    },
+    results:
+      "Successfully scaled to 100+ employees with 95% employee satisfaction and 40% faster time-to-productivity for new hires.",
   },
   {
-    id: "risk-management",
-    icon: Shield,
-    title: "Risk Management",
-    description:
-      "Proactively identify and mitigate business risks with AI-powered threat detection and scenario analysis.",
+    id: "market-expansion",
+    title: "International Market Expansion",
+    description: "A manufacturing company wanted to expand into three new international markets within 18 months.",
+    icon: <Globe className="h-6 w-6 text-blue-600" />,
+    industry: ["Manufacturing", "International"],
     benefits: [
-      "Detect risks 3x faster",
-      "Reduce compliance violations",
-      "Automate risk assessment workflows",
-      "Generate regulatory reports",
+      "Comprehensive market analysis and entry strategies",
+      "Regulatory compliance and legal framework setup",
+      "Local partnership identification and negotiation",
+      "Supply chain optimization for global operations",
     ],
-    industries: ["Financial Services", "Healthcare", "Manufacturing"],
-    metrics: {
-      efficiency: "300%",
-      accuracy: "96%",
-      satisfaction: "4.9/5",
-    },
+    results:
+      "Successfully entered all three markets ahead of schedule, achieving $12M in new revenue within the first year.",
   },
   {
-    id: "innovation-strategy",
-    icon: Zap,
-    title: "Innovation Strategy",
-    description: "Drive innovation with AI-assisted R&D planning, technology roadmapping, and competitive analysis.",
+    id: "digital-transformation",
+    title: "Digital Transformation Initiative",
+    description: "A traditional retail chain needed to modernize operations and compete with e-commerce giants.",
+    icon: <Zap className="h-6 w-6 text-orange-600" />,
+    industry: ["Retail", "E-commerce"],
     benefits: [
-      "Accelerate product development",
-      "Identify emerging technologies",
-      "Optimize R&D investments",
-      "Track innovation metrics",
+      "Omnichannel customer experience development",
+      "Legacy system modernization and integration",
+      "Data analytics and customer insights platform",
+      "Staff training and change management programs",
     ],
-    industries: ["Technology", "Pharmaceuticals", "Automotive"],
-    metrics: {
-      efficiency: "45%",
-      accuracy: "93%",
-      satisfaction: "4.6/5",
-    },
+    results:
+      "Increased online sales by 300%, improved customer satisfaction by 45%, and reduced operational costs by 25%.",
   },
   {
-    id: "team-optimization",
-    icon: Users,
-    title: "Team Optimization",
-    description:
-      "Enhance team performance with AI-driven hiring recommendations, skill gap analysis, and organizational design.",
+    id: "crisis-management",
+    title: "Crisis Management & Recovery",
+    description: "A hospitality company needed to navigate the pandemic crisis and develop a recovery strategy.",
+    icon: <Shield className="h-6 w-6 text-green-600" />,
+    industry: ["Hospitality", "Crisis Management"],
     benefits: [
-      "Improve hiring success rates",
-      "Reduce employee turnover",
-      "Optimize team structures",
-      "Identify skill development needs",
+      "Crisis response planning and execution",
+      "Cost optimization and cash flow management",
+      "New revenue stream development",
+      "Health and safety protocol implementation",
     ],
-    industries: ["HR Services", "Consulting", "Technology"],
-    metrics: {
-      efficiency: "35%",
-      accuracy: "89%",
-      satisfaction: "4.5/5",
-    },
+    results:
+      "Reduced losses by 60% during crisis period and achieved full recovery 8 months ahead of industry average.",
   },
   {
-    id: "performance-analytics",
-    icon: Target,
-    title: "Performance Analytics",
+    id: "merger-acquisition",
+    title: "Merger & Acquisition Strategy",
     description:
-      "Maximize business performance with AI-powered KPI tracking, predictive analytics, and actionable insights.",
+      "A financial services firm needed to evaluate and execute a strategic acquisition to expand market share.",
+    icon: <Building className="h-6 w-6 text-indigo-600" />,
+    industry: ["Financial Services", "M&A"],
     benefits: [
-      "Increase operational efficiency",
-      "Predict performance trends",
-      "Automate reporting processes",
-      "Generate actionable recommendations",
+      "Target identification and due diligence",
+      "Valuation analysis and negotiation strategy",
+      "Integration planning and execution",
+      "Synergy realization and performance tracking",
     ],
-    industries: ["Operations", "Finance", "Executive Leadership"],
-    metrics: {
-      efficiency: "50%",
-      accuracy: "95%",
-      satisfaction: "4.8/5",
-    },
+    results:
+      "Completed acquisition 20% below initial budget and achieved 150% of projected synergies within 12 months.",
+  },
+]
+
+const matrixCapabilities = [
+  {
+    category: "Strategic Planning",
+    orchestrator: "Coordinates unified strategic vision",
+    ceo: "Develops strategic frameworks",
+    cmo: "Aligns marketing strategy",
+    cto: "Provides technology roadmap",
+    integration: "Unified strategic execution plan",
+  },
+  {
+    category: "Market Analysis",
+    orchestrator: "Synthesizes multi-perspective insights",
+    ceo: "Competitive intelligence & positioning",
+    cmo: "Customer behavior & market trends",
+    cto: "Technology adoption & digital trends",
+    integration: "Comprehensive market intelligence",
+  },
+  {
+    category: "Digital Transformation",
+    orchestrator: "Manages transformation orchestration",
+    ceo: "Change management & leadership",
+    cmo: "Customer experience transformation",
+    cto: "Technical architecture & implementation",
+    integration: "End-to-end digital transformation",
+  },
+  {
+    category: "Growth Optimization",
+    orchestrator: "Coordinates growth initiatives",
+    ceo: "Strategic growth planning",
+    cmo: "Customer acquisition & retention",
+    cto: "Scalable technology infrastructure",
+    integration: "Accelerated sustainable growth",
+  },
+  {
+    category: "Risk Management",
+    orchestrator: "Holistic risk assessment",
+    ceo: "Strategic & operational risks",
+    cmo: "Brand & market risks",
+    cto: "Technology & security risks",
+    integration: "Comprehensive risk mitigation",
+  },
+  {
+    category: "Innovation Strategy",
+    orchestrator: "Innovation portfolio management",
+    ceo: "Innovation investment strategy",
+    cmo: "Market-driven innovation",
+    cto: "Technology innovation & R&D",
+    integration: "Systematic innovation pipeline",
   },
 ]
 
 export default function HomePage() {
-  const [showCart, setShowCart] = useState(false)
-  const [selectedAgent, setSelectedAgent] = useState<(typeof agents)[0] | null>(null)
-  const [showCustomerChat, setShowCustomerChat] = useState(false)
-  const [showExecutiveDemo, setShowExecutiveDemo] = useState(false)
-  const [expandedCards, setExpandedCards] = useState<string[]>([])
-  const [expandedUseCases, setExpandedUseCases] = useState<string[]>([])
-  const { addToCart, cartItems } = useCart()
-  const { user } = useAuth()
-
-  // Estados para el chat unificado
-  const [chatAgent, setChatAgent] = useState<(typeof agents)[0] | null>(null)
-  const [showChatWidget, setShowChatWidget] = useState(false)
   const [showAuthModal, setShowAuthModal] = useState(false)
+  const [showChatWidget, setShowChatWidget] = useState(false)
+  const [chatAgent, setChatAgent] = useState<(typeof agents)[0] | null>(null)
+  const [expandedCapabilities, setExpandedCapabilities] = useState<string[]>([])
+  const [expandedUseCases, setExpandedUseCases] = useState<string[]>([])
+  const [showMatrix, setShowMatrix] = useState(false)
+  const { user } = useAuth()
+  const [demoMode, setDemoMode] = useState<"showcase" | "chat">("showcase")
+  const [activeExecutive, setActiveExecutive] = useState<string | null>(null)
 
-  const handleAddToCart = (agent: (typeof agents)[0]) => {
-    addToCart({
-      id: agent.id,
-      name: agent.name,
-      price: agent.price,
-      type: "agent",
-    })
-  }
-
-  const handleTryDemo = () => {
-    setShowExecutiveDemo(true)
-  }
-
-  // Función unificada para abrir el chat con un agente específico
   const handleTryAgentDemo = (agent: (typeof agents)[0]) => {
-    // Close any existing chat first
     setShowChatWidget(false)
     setChatAgent(null)
-
-    // Small delay to ensure state is reset, then open with new agent
     setTimeout(() => {
       setChatAgent(agent)
       setShowChatWidget(true)
     }, 100)
   }
 
-  const handleAuthRequired = () => {
-    setShowAuthModal(true)
+  const toggleCapabilities = (agentId: string) => {
+    setExpandedCapabilities((prev) =>
+      prev.includes(agentId) ? prev.filter((id) => id !== agentId) : [...prev, agentId],
+    )
   }
 
-  const toggleCardExpansion = (agentId: string) => {
-    setExpandedCards((prev) => (prev.includes(agentId) ? prev.filter((id) => id !== agentId) : [...prev, agentId]))
-  }
-
-  const toggleUseCaseExpansion = (useCaseId: string) => {
+  const toggleUseCase = (useCaseId: string) => {
     setExpandedUseCases((prev) =>
       prev.includes(useCaseId) ? prev.filter((id) => id !== useCaseId) : [...prev, useCaseId],
     )
   }
 
+  const handleSampleQuestion = (question: string) => {
+    if (chatAgent) {
+      // Assuming ChatWidget can handle a prop to set the initial question
+      // You might need to adjust this based on your ChatWidget implementation
+      // chatAgent.setInitialQuestion(question); // Example: if ChatWidget has a method to set the question
+      // Or, you can pass the question as a prop when ChatWidget is rendered
+      // <ChatWidget agent={chatAgent} initialQuestion={question} ... />
+      console.log("Sample question:", question)
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg"></div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Neuralia
-              </span>
-            </div>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#agents" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Agents
-              </a>
-              <a href="#use-cases" className="text-gray-600 hover:text-gray-900 transition-colors">
-                Use Cases
-              </a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900 transition-colors">
-                FAQ
-              </a>
-              <button
-                onClick={() => setShowCustomerChat(true)}
-                className="text-blue-600 hover:text-blue-700 transition-colors font-medium"
-              >
-                Need Help?
-              </button>
-              <button
-                onClick={() => setShowExecutiveDemo(true)}
-                className="text-purple-600 hover:text-purple-700 transition-colors font-medium flex items-center space-x-1"
-              >
-                <Sparkles className="h-4 w-4" />
-                <span>Live Demo</span>
-              </button>
-            </nav>
-
-            <div className="flex items-center space-x-4">
-              <Button variant="outline" onClick={() => setShowCart(true)} className="relative">
-                Cart
-                {cartItems.length > 0 && (
-                  <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
-                    {cartItems.length}
-                  </Badge>
-                )}
-              </Button>
-              <AuthButton />
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-200">
+      <section className="relative py-20 px-4 text-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10" />
+        <div className="relative max-w-6xl mx-auto">
+          <div className="mb-8">
+            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
               <Sparkles className="h-3 w-3 mr-1" />
-              Try 3 Free Questions Per Agent + Live Demo
+              Now Available: Neural Orchestrator + Executive Team
             </Badge>
-
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent leading-tight">
-              Deploy Neural AI Executives
+            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+              Neural AI Executive Suite
             </h1>
-
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Specialized AI agents that think, strategize, and execute like world-class business leaders. Get
-              executive-level insights powered by quantum-inspired algorithms and 175B parameters.
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+              Deploy a complete AI C-suite with Neural Orchestrator coordination. Get strategic insights, coordinated
+              execution, and unified business transformation 24/7.
             </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 text-lg"
-                onClick={handleTryDemo}
-              >
-                <Play className="h-5 w-5 mr-2" />
-                Try Live Demo
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="px-8 py-4 text-lg border-2 bg-transparent"
-                onClick={() => document.getElementById("agents")?.scrollIntoView({ behavior: "smooth" })}
-              >
-                View Agents
-                <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-lg px-8 py-6"
+              onClick={() => setShowAuthModal(true)}
+            >
+              <Play className="h-5 w-5 mr-2" />
+              Start 5-Day Free Trial
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="text-lg px-8 py-6 border-2 bg-transparent"
+              onClick={() => setShowMatrix(true)}
+            >
+              <Layers className="h-5 w-5 mr-2" />
+              View Executive Matrix
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">24/7</div>
+              <div className="text-gray-600">Always Available</div>
             </div>
-
-            {/* Hero Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {heroStats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </div>
-              ))}
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">4</div>
+              <div className="text-gray-600">AI Executives</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">100+</div>
+              <div className="text-gray-600">Business Functions</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-gray-900">5 Days</div>
+              <div className="text-gray-600">Free Trial</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Agents Section */}
-      <section id="agents" className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      {/* AI Executives Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Neural AI Executives
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Complete AI Executive Suite</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose your specialized AI executive. Each agent is trained on executive decision-making patterns from
-              Fortune 500 companies and optimized for specific business functions.
+              Neural Orchestrator coordinates your entire C-suite team, ensuring unified strategy and seamless execution
+              across all business functions.
             </p>
-            <div className="mt-6">
-              <Badge className="bg-green-100 text-green-700 text-sm px-4 py-2">
-                <MessageCircle className="h-4 w-4 mr-2" />
-                Try 3 free questions with each agent before signing up
-              </Badge>
-            </div>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
-            {agents.map((agent) => {
-              const isExpanded = expandedCards.includes(agent.id)
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {agents.map((agent, index) => (
+              <Card
+                key={agent.id}
+                className={`relative overflow-hidden border-2 hover:border-blue-200 transition-all duration-300 group ${
+                  index === 0 ? "md:col-span-2 lg:col-span-4" : ""
+                }`}
+              >
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${agent.color} opacity-5 group-hover:opacity-10 transition-opacity`}
+                />
 
-              return (
-                <Card
-                  key={agent.id}
-                  className="border-2 hover:border-blue-200 transition-all duration-200 hover:shadow-lg group"
-                >
-                  {/* Compact Header - Always Visible */}
-                  <CardHeader className="text-center pb-4">
-                    <div className="text-4xl mb-4">{agent.icon}</div>
-                    <CardTitle className="text-xl mb-2">{agent.name}</CardTitle>
-                    <p className="text-gray-600 text-sm leading-relaxed">{agent.description}</p>
-
-                    {/* Metrics */}
-                    <div className="flex justify-center gap-4 mt-4 text-xs">
-                      <div className="text-center">
-                        <div className="font-bold text-green-600">{agent.metrics.accuracy}</div>
-                        <div className="text-gray-500">Accuracy</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-blue-600">{agent.metrics.responseTime}</div>
-                        <div className="text-gray-500">Response</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-purple-600">{agent.metrics.satisfaction}</div>
-                        <div className="text-gray-500">Rating</div>
-                      </div>
+                <CardHeader className="relative">
+                  <div className={`flex items-center space-x-3 mb-4 ${index === 0 ? "justify-center" : ""}`}>
+                    <div
+                      className={`w-12 h-12 rounded-lg bg-gradient-to-r ${agent.color} flex items-center justify-center text-white`}
+                    >
+                      {agent.icon}
                     </div>
-                  </CardHeader>
+                    <div className={index === 0 ? "text-center" : ""}>
+                      <CardTitle className={`text-lg ${index === 0 ? "text-xl" : ""}`}>{agent.name}</CardTitle>
+                      <p className="text-sm text-gray-600">{agent.role}</p>
+                    </div>
+                  </div>
+                  <p className={`text-gray-600 mb-4 ${index === 0 ? "text-center max-w-3xl mx-auto" : ""}`}>
+                    {agent.description}
+                  </p>
 
-                  <CardContent className="pt-0">
-                    {/* Expandable Section Toggle */}
-                    <div className="border-t pt-4 mb-4">
-                      <Button
-                        variant="ghost"
-                        onClick={() => toggleCardExpansion(agent.id)}
-                        className="w-full flex items-center justify-between p-2 hover:bg-gray-50"
-                      >
-                        <span className="font-semibold text-gray-900">Core Capabilities</span>
-                        {isExpanded ? (
-                          <ChevronUp className="h-4 w-4 text-gray-500" />
+                  <div className={`flex flex-wrap gap-2 mb-4 ${index === 0 ? "justify-center" : ""}`}>
+                    {agent.expertise.slice(0, 2).map((skill) => (
+                      <Badge key={skill} variant="secondary" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
+                    {agent.expertise.length > 2 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{agent.expertise.length - 2} more
+                      </Badge>
+                    )}
+                  </div>
+                </CardHeader>
+
+                <CardContent className="relative space-y-4">
+                  <Collapsible
+                    open={expandedCapabilities.includes(agent.id)}
+                    onOpenChange={() => toggleCapabilities(agent.id)}
+                  >
+                    <CollapsibleTrigger asChild>
+                      <Button variant="ghost" className="w-full justify-between p-0 h-auto">
+                        <span className="font-medium">Key Capabilities</span>
+                        {expandedCapabilities.includes(agent.id) ? (
+                          <ChevronUp className="h-4 w-4" />
                         ) : (
-                          <ChevronDown className="h-4 w-4 text-gray-500" />
+                          <ChevronDown className="h-4 w-4" />
                         )}
                       </Button>
-                    </div>
-
-                    {/* Expandable Content */}
-                    {isExpanded && (
-                      <div className="space-y-4 mb-6">
-                        {/* Capabilities as Tags */}
-                        <div className="flex flex-wrap gap-2">
-                          {agent.capabilities.map((capability, index) => (
-                            <Badge
-                              key={index}
-                              variant="secondary"
-                              className="text-xs bg-blue-50 text-blue-700 hover:bg-blue-100 cursor-default"
-                            >
-                              {capability}
-                            </Badge>
-                          ))}
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="space-y-2 mt-3">
+                      {agent.capabilities.map((capability, capIndex) => (
+                        <div key={capIndex} className="flex items-start space-x-2 text-sm">
+                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-gray-600">{capability}</span>
                         </div>
+                      ))}
+                    </CollapsibleContent>
+                  </Collapsible>
 
-                        {/* Features */}
-                        <div>
-                          <h4 className="font-semibold mb-2 text-gray-900">Key Features:</h4>
-                          <div className="grid grid-cols-1 gap-1">
-                            {agent.features.slice(0, 4).map((feature, index) => (
-                              <div key={index} className="text-sm text-gray-600 flex items-center">
-                                <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 flex-shrink-0"></div>
-                                {feature}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Interactive Demo & Pricing - Always Visible */}
-                    <div className="border-t pt-6 space-y-3">
-                      {/* Try Interactive Demo Button - ESTE ES EL ÚNICO BOTÓN DE DEMO */}
-                      <Button
-                        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
-                        onClick={() => handleTryAgentDemo(agent)}
-                      >
-                        <MessageCircle className="h-4 w-4 mr-2" />
-                        Try Interactive Demo
-                      </Button>
-
-                      <div className="flex items-center justify-between mb-4">
-                        <div>
-                          <div className="text-2xl font-bold text-gray-900">${agent.price}</div>
-                          <div className="text-sm text-gray-500">per month</div>
-                        </div>
-                        <Badge className="bg-green-100 text-green-700">5-Day Free Trial</Badge>
-                      </div>
-
-                      <div className="space-y-2">
-                        <Button
-                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                          onClick={() => handleAddToCart(agent)}
-                        >
-                          Start Free Trial
-                        </Button>
-                        <Button
-                          variant="outline"
-                          className="w-full bg-transparent"
-                          onClick={() => setSelectedAgent(agent)}
-                        >
-                          View Details
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
+                  <Button
+                    className={`w-full bg-gradient-to-r ${agent.color} hover:opacity-90`}
+                    onClick={() => handleTryAgentDemo(agent)}
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {index === 0 ? "Try Neural Orchestrator" : "Try Interactive Demo"}
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
-          {/* Call to Action for More Agents */}
-          <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-gray-100 to-gray-200 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">Need More Specialized Agents?</h3>
-              <p className="text-lg mb-6 text-gray-600">
-                We offer 15+ additional specialized AI executives including CFO, CHRO, COO, and industry-specific roles.
-              </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3"
-                onClick={() => setShowCustomerChat(true)}
-              >
-                <Crown className="h-5 w-5 mr-2" />
-                Explore All Agents
-              </Button>
+          {/* Orchestrator Guided Questions Section */}
+          {demoMode === "showcase" && (
+            <div className="mt-12">
+              <Card className="border-2 bg-gradient-to-r from-indigo-50 to-purple-50">
+                <CardHeader>
+                  <div className="flex items-center justify-center space-x-3 mb-4">
+                    <Network className="h-8 w-8 text-indigo-600" />
+                    <CardTitle className="text-2xl text-gray-900">Try Neural Orchestrator Coordination</CardTitle>
+                  </div>
+                  <p className="text-center text-gray-600 max-w-3xl mx-auto">
+                    Experience how the Neural Orchestrator coordinates CEO, CMO, and CTO for complex business
+                    initiatives
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      {
+                        title: "Digital Transformation",
+                        question: "Coordinate a complete digital transformation strategy across all executives",
+                        description:
+                          "See how CEO handles strategy, CMO manages customer experience, CTO architects technology",
+                        icon: <Zap className="h-5 w-5 text-orange-600" />,
+                      },
+                      {
+                        title: "Market Expansion",
+                        question: "How should CEO, CMO, and CTO work together on our market expansion?",
+                        description:
+                          "Watch orchestrated market entry with strategic, marketing, and technical coordination",
+                        icon: <Globe className="h-5 w-5 text-blue-600" />,
+                      },
+                      {
+                        title: "Product Launch",
+                        question: "Delegate our product launch across the executive team with clear responsibilities",
+                        description: "Experience coordinated launch planning with executive role delegation",
+                        icon: <Target className="h-5 w-5 text-green-600" />,
+                      },
+                      {
+                        title: "Crisis Management",
+                        question: "Synthesize a unified crisis management plan using all three executives",
+                        description: "See integrated crisis response across strategic, brand, and technical domains",
+                        icon: <Shield className="h-5 w-5 text-red-600" />,
+                      },
+                      {
+                        title: "Competitive Analysis",
+                        question: "Coordinate a comprehensive competitive analysis across all business functions",
+                        description: "Watch multi-perspective competitive intelligence synthesis",
+                        icon: <BarChart3 className="h-5 w-5 text-purple-600" />,
+                      },
+                      {
+                        title: "Customer Retention",
+                        question: "How can all executives collaborate on our customer retention strategy?",
+                        description: "Experience coordinated retention strategy across all executive functions",
+                        icon: <Users className="h-5 w-5 text-teal-600" />,
+                      },
+                    ].map((guidedQuestion, index) => (
+                      <Card
+                        key={index}
+                        className="border hover:border-indigo-300 transition-all duration-200 cursor-pointer group"
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-start space-x-3 mb-3">
+                            {guidedQuestion.icon}
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-gray-900 mb-1">{guidedQuestion.title}</h4>
+                              <p className="text-xs text-gray-600 mb-2">{guidedQuestion.description}</p>
+                            </div>
+                          </div>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full text-left justify-start text-xs h-auto py-2 px-3 group-hover:bg-indigo-50 group-hover:border-indigo-300 bg-transparent"
+                            onClick={() => {
+                              setDemoMode("chat")
+                              setActiveExecutive("orchestrator")
+                              setTimeout(() => handleSampleQuestion(guidedQuestion.question), 500)
+                            }}
+                          >
+                            <MessageCircle className="h-3 w-3 mr-2 text-indigo-600" />"
+                            {guidedQuestion.question.length > 45
+                              ? guidedQuestion.question.substring(0, 45) + "..."
+                              : guidedQuestion.question}
+                            "
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 text-center">
+                    <Button
+                      size="lg"
+                      className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 px-8 py-3"
+                      onClick={() => {
+                        setDemoMode("chat")
+                        setActiveExecutive("orchestrator")
+                      }}
+                    >
+                      <Network className="h-5 w-5 mr-2" />
+                      Start Neural Orchestrator Chat
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
+          )}
+
+          {/* Executive Matrix Preview */}
+          <div className="mt-16 text-center">
+            <Card className="border-2 bg-gradient-to-r from-indigo-50 to-purple-50">
+              <CardContent className="p-8">
+                <div className="flex items-center justify-center space-x-3 mb-4">
+                  <Command className="h-8 w-8 text-indigo-600" />
+                  <h3 className="text-2xl font-bold text-gray-900">Executive Coordination Matrix</h3>
+                </div>
+                <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
+                  See how the Neural Orchestrator coordinates all executives across key business functions for unified
+                  strategic execution.
+                </p>
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 px-8 py-3"
+                  onClick={() => setShowMatrix(true)}
+                >
+                  <Settings className="h-5 w-5 mr-2" />
+                  Explore Full Matrix
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
+      {/* Executive Matrix Modal */}
+      {showMatrix && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <Card className="w-full max-w-7xl max-h-[90vh] overflow-y-auto">
+            <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <Command className="h-8 w-8" />
+                  <div>
+                    <CardTitle className="text-2xl">Neural Executive Coordination Matrix</CardTitle>
+                    <p className="text-indigo-100">Unified AI executive collaboration across all business functions</p>
+                  </div>
+                </div>
+                <Button variant="ghost" onClick={() => setShowMatrix(false)} className="text-white hover:bg-white/20">
+                  <ChevronUp className="h-6 w-6" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse">
+                  <thead>
+                    <tr className="border-b-2 border-gray-200">
+                      <th className="text-left p-4 font-bold text-gray-900">Business Function</th>
+                      <th className="text-center p-4 font-bold text-indigo-600">Neural Orchestrator</th>
+                      <th className="text-center p-4 font-bold text-purple-600">CEO</th>
+                      <th className="text-center p-4 font-bold text-green-600">CMO</th>
+                      <th className="text-center p-4 font-bold text-orange-600">CTO</th>
+                      <th className="text-center p-4 font-bold text-blue-600">Unified Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {matrixCapabilities.map((capability, index) => (
+                      <tr key={index} className="border-b border-gray-100 hover:bg-gray-50">
+                        <td className="p-4 font-semibold text-gray-900">{capability.category}</td>
+                        <td className="p-4 text-sm text-center text-indigo-700 bg-indigo-50">
+                          {capability.orchestrator}
+                        </td>
+                        <td className="p-4 text-sm text-center text-purple-700 bg-purple-50">{capability.ceo}</td>
+                        <td className="p-4 text-sm text-center text-green-700 bg-green-50">{capability.cmo}</td>
+                        <td className="p-4 text-sm text-center text-orange-700 bg-orange-50">{capability.cto}</td>
+                        <td className="p-4 text-sm text-center font-semibold text-blue-700 bg-blue-50">
+                          {capability.integration}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-8 grid md:grid-cols-3 gap-6">
+                <Card className="border-2 border-indigo-200">
+                  <CardHeader className="bg-indigo-50">
+                    <CardTitle className="text-lg text-indigo-800 flex items-center">
+                      <Network className="h-5 w-5 mr-2" />
+                      Orchestration Benefits
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>40% faster decision-making</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>95% cross-functional alignment</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>60% reduction in strategic conflicts</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-purple-200">
+                  <CardHeader className="bg-purple-50">
+                    <CardTitle className="text-lg text-purple-800 flex items-center">
+                      <Command className="h-5 w-5 mr-2" />
+                      Coordination Features
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>Real-time executive collaboration</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>Automated task delegation</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>Unified strategic synthesis</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-2 border-blue-200">
+                  <CardHeader className="bg-blue-50">
+                    <CardTitle className="text-lg text-blue-800 flex items-center">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Performance Metrics
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    <ul className="space-y-2 text-sm">
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>300% ROI improvement</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>85% project success rate</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>50% faster implementation</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       {/* Use Cases Section */}
-      <section id="use-cases" className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="py-20 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Transform Your Business Operations
-            </h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Orchestrated Success Stories</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover how Neural AI Executives are revolutionizing business processes across industries with measurable
-              results and unprecedented efficiency.
+              See how the Neural Orchestrator coordinates executive teams to deliver unified strategies and measurable
+              results across complex business initiatives.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {useCases.map((useCase) => {
-              const IconComponent = useCase.icon
-              const isExpanded = expandedUseCases.includes(useCase.id)
+            {useCases.map((useCase) => (
+              <Card key={useCase.id} className="border-2 hover:border-blue-200 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center space-x-3 mb-3">
+                    {useCase.icon}
+                    <CardTitle className="text-lg">{useCase.title}</CardTitle>
+                  </div>
+                  <p className="text-gray-600 text-sm">{useCase.description}</p>
 
-              return (
-                <Card
-                  key={useCase.id}
-                  className="border-2 hover:border-blue-200 transition-all duration-200 hover:shadow-lg bg-white"
-                >
-                  {/* Compact Header - Always Visible */}
-                  <CardHeader className="text-center pb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                      <IconComponent className="h-6 w-6 text-white" />
-                    </div>
-                    <CardTitle className="text-xl mb-2">{useCase.title}</CardTitle>
-                    <p className="text-gray-600 text-sm leading-relaxed">{useCase.description}</p>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {useCase.industry.map((tag) => (
+                      <Badge key={tag} variant="outline" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </CardHeader>
 
-                    {/* Metrics */}
-                    <div className="flex justify-center gap-4 mt-4 text-xs">
-                      <div className="text-center">
-                        <div className="font-bold text-green-600">{useCase.metrics.efficiency}</div>
-                        <div className="text-gray-500">Efficiency</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-blue-600">{useCase.metrics.accuracy}</div>
-                        <div className="text-gray-500">Accuracy</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-bold text-purple-600">{useCase.metrics.satisfaction}</div>
-                        <div className="text-gray-500">Rating</div>
-                      </div>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent className="pt-0">
-                    {/* Expandable Section Toggle */}
-                    <div className="border-t pt-4 mb-4">
-                      <Button
-                        variant="ghost"
-                        onClick={() => toggleUseCaseExpansion(useCase.id)}
-                        className="w-full flex items-center justify-between p-2 hover:bg-gray-50"
-                      >
-                        <span className="font-semibold text-gray-900">Key Benefits</span>
-                        {isExpanded ? (
-                          <ChevronUp className="h-4 w-4 text-gray-500" />
+                <CardContent className="space-y-4">
+                  <Collapsible
+                    open={expandedUseCases.includes(useCase.id)}
+                    onOpenChange={() => toggleUseCase(useCase.id)}
+                  >
+                    <CollapsibleTrigger asChild>
+                      <Button variant="ghost" className="w-full justify-between p-0 h-auto">
+                        <span className="font-medium">Key Benefits</span>
+                        {expandedUseCases.includes(useCase.id) ? (
+                          <ChevronUp className="h-4 w-4" />
                         ) : (
-                          <ChevronDown className="h-4 w-4 text-gray-500" />
+                          <ChevronDown className="h-4 w-4" />
                         )}
                       </Button>
-                    </div>
-
-                    {/* Expandable Content */}
-                    {isExpanded && (
-                      <div className="space-y-4 mb-6">
-                        {/* Benefits */}
-                        <div className="space-y-2">
-                          {useCase.benefits.map((benefit, index) => (
-                            <div key={index} className="flex items-center text-sm text-gray-600">
-                              <div className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2 flex-shrink-0"></div>
-                              {benefit}
-                            </div>
-                          ))}
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="space-y-2 mt-3">
+                      {useCase.benefits.map((benefit, index) => (
+                        <div key={index} className="flex items-start space-x-2 text-sm">
+                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-gray-600">{benefit}</span>
                         </div>
+                      ))}
 
-                        {/* Industries */}
-                        <div>
-                          <h4 className="font-semibold mb-2 text-gray-900">Popular Industries:</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {useCase.industries.map((industry, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs bg-purple-50 text-purple-700">
-                                {industry}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
+                      <div className="bg-green-50 p-3 rounded-lg mt-4">
+                        <p className="text-sm text-green-800">
+                          <strong>Results:</strong> {useCase.results}
+                        </p>
                       </div>
-                    )}
-
-                    {/* CTA - Always Visible */}
-                    <div className="border-t pt-6">
-                      <Button
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                        onClick={handleTryDemo}
-                      >
-                        Try This Use Case
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-4">Ready to Transform Your Business?</h3>
-              <p className="text-lg mb-6 opacity-90">
-                Join thousands of companies already using Neural AI Executives to drive growth and efficiency.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3"
-                  onClick={handleTryDemo}
-                >
-                  <Play className="h-5 w-5 mr-2" />
-                  Try Live Demo
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 bg-transparent"
-                  onClick={() => document.getElementById("agents")?.scrollIntoView({ behavior: "smooth" })}
-                >
-                  View Pricing
-                  <ArrowRight className="h-5 w-5 ml-2" />
-                </Button>
-              </div>
-            </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <div id="faq">
-        <FAQSection />
-      </div>
+      {/* FAQ Section */}
+      <FAQSection />
 
-      {/* CHAT WIDGET UNIFICADO - Este es el único chat que se usa */}
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-4">Ready to Deploy Your AI Executive Suite?</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Start with the Neural Orchestrator and complete C-suite team. Experience coordinated AI leadership that
+            transforms your business.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
+              onClick={() => setShowAuthModal(true)}
+            >
+              <Network className="h-5 w-5 mr-2" />
+              Start Executive Suite Trial
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white/10 text-lg px-8 py-6 bg-transparent"
+              onClick={() => handleTryAgentDemo(agents[0])}
+            >
+              <MessageCircle className="h-5 w-5 mr-2" />
+              Try Neural Orchestrator
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Modals */}
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+
       <ChatWidget
+        agent={chatAgent}
         isOpen={showChatWidget}
         onClose={() => {
           setShowChatWidget(false)
           setChatAgent(null)
         }}
-        agent={
-          chatAgent
-            ? {
-                id: chatAgent.id,
-                name: chatAgent.name,
-                icon: chatAgent.icon,
-                description: chatAgent.description,
-              }
-            : undefined
-        }
-        maxQuestions={user ? Number.POSITIVE_INFINITY : 3}
-        onAuthRequired={handleAuthRequired}
+        maxQuestions={5}
       />
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Customer Service Chat */}
-      <CustomerServiceChat isOpen={showCustomerChat} onToggle={() => setShowCustomerChat(!showCustomerChat)} />
-
-      {/* Neural Executive Demo */}
-      <NeuralExecutiveDemo isOpen={showExecutiveDemo} onToggle={() => setShowExecutiveDemo(!showExecutiveDemo)} />
-
-      {/* Auth Modal */}
-      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
-
-      {/* Modals */}
-      <CartModal isOpen={showCart} onClose={() => setShowCart(false)} />
-      {selectedAgent && (
-        <AgentDetailsModal
-          agent={selectedAgent}
-          isOpen={!!selectedAgent}
-          onClose={() => setSelectedAgent(null)}
-          onAddToCart={() => handleAddToCart(selectedAgent)}
-        />
-      )}
     </div>
   )
 }
