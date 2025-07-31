@@ -38,10 +38,10 @@ export function CustomerServiceChat({ isOpen = false, onToggle }: CustomerServic
       timestamp: new Date(),
       type: "quick_reply",
       quickReplies: [
-        "Show me pricing & ROI",
-        "Which agent fits my role?",
-        "Start my free trial",
-        "See success stories",
+        "How do I justify AI executives to my board?",
+        "What's the ROI vs hiring human executives?",
+        "How secure is our sensitive data?",
+        "Talk to a human specialist",
       ],
       metadata: {
         confidence: 1.0,
@@ -116,94 +116,122 @@ Remember: Every response should make them feel valued, understood, and excited a
       const data = await response.json()
       const aiResponse = data.response
 
-      // Generate highly contextual quick replies based on advanced customer service principles
+      // Generate highly contextual and engaging quick replies
       let quickReplies: string[] = []
       const responseText = aiResponse.toLowerCase()
       const userQuestionCount = conversationHistory.filter((msg) => msg.sender === "user").length
 
-      // Advanced contextual reply generation
-      if (responseText.includes("trial") || responseText.includes("free")) {
+      // Advanced contextual reply generation with more engaging options
+      if (responseText.includes("board") || responseText.includes("justify") || responseText.includes("executive")) {
+        quickReplies = [
+          "Show me the exact ROI numbers",
+          "How do Fortune 500 companies use this?",
+          "What's the risk of NOT having AI executives?",
+          "Connect me with a specialist",
+        ]
+      } else if (
+        responseText.includes("roi") ||
+        responseText.includes("return") ||
+        responseText.includes("investment")
+      ) {
+        quickReplies = [
+          "Calculate ROI for my company size",
+          "Show me before/after case studies",
+          "What's the payback period?",
+          "Speak with ROI expert",
+        ]
+      } else if (
+        responseText.includes("security") ||
+        responseText.includes("data") ||
+        responseText.includes("compliance")
+      ) {
+        quickReplies = [
+          "Show me security certifications",
+          "How do you handle GDPR/HIPAA?",
+          "What about data sovereignty?",
+          "Talk to security specialist",
+        ]
+      } else if (
+        responseText.includes("competitive") ||
+        responseText.includes("compare") ||
+        responseText.includes("better")
+      ) {
+        quickReplies = [
+          "Neuralia vs ChatGPT for business",
+          "Why not hire consultants instead?",
+          "What makes you different?",
+          "Speak with product expert",
+        ]
+      } else if (
+        responseText.includes("integration") ||
+        responseText.includes("systems") ||
+        responseText.includes("workflow")
+      ) {
+        quickReplies = [
+          "How does it work with our CRM?",
+          "API integration capabilities",
+          "Implementation timeline",
+          "Talk to technical specialist",
+        ]
+      } else if (responseText.includes("trial") || responseText.includes("free") || responseText.includes("demo")) {
         quickReplies = [
           "Start my trial right now",
           "Which agent should I try first?",
-          "What happens after my trial?",
-          "Can I get a demo first?",
+          "Can I get a live demo?",
+          "Schedule call with specialist",
         ]
-      } else if (
-        responseText.includes("ceo") &&
-        (responseText.includes("strategic") || responseText.includes("leadership"))
-      ) {
+      } else if (responseText.includes("ceo") && responseText.includes("strategic")) {
         quickReplies = [
           "Try CEO agent now",
-          "Show me CEO success stories",
-          "CEO vs other executives",
-          "Calculate my CEO ROI",
+          "CEO decision-making examples",
+          "Strategic planning capabilities",
+          "Speak with CEO specialist",
         ]
-      } else if (
-        responseText.includes("cmo") &&
-        (responseText.includes("marketing") || responseText.includes("growth"))
-      ) {
+      } else if (responseText.includes("cmo") && responseText.includes("marketing")) {
         quickReplies = [
           "Try CMO agent now",
-          "Show marketing case studies",
-          "CMO ROI calculator",
-          "Growth strategy examples",
+          "Marketing ROI case studies",
+          "Growth hacking examples",
+          "Talk to marketing expert",
         ]
-      } else if (
-        responseText.includes("cto") &&
-        (responseText.includes("technology") || responseText.includes("innovation"))
-      ) {
+      } else if (responseText.includes("cto") && responseText.includes("technology")) {
         quickReplies = [
           "Try CTO agent now",
-          "See tech roadmap examples",
-          "CTO implementation guide",
-          "Innovation case studies",
+          "Tech roadmap examples",
+          "Architecture review process",
+          "Connect with CTO specialist",
+        ]
+      } else if (responseText.includes("implementation") || responseText.includes("getting started")) {
+        quickReplies = [
+          "What's the onboarding process?",
+          "How long until we see results?",
+          "Training and support included?",
+          "Talk to implementation expert",
         ]
       } else if (
-        responseText.includes("pricing") ||
-        responseText.includes("$299") ||
-        responseText.includes("cost") ||
-        responseText.includes("roi")
-      ) {
-        quickReplies = ["Start free trial now", "Calculate my ROI", "Compare all agents", "See pricing breakdown"]
-      } else if (
-        responseText.includes("security") ||
-        responseText.includes("compliance") ||
-        responseText.includes("enterprise")
+        responseText.includes("culture") ||
+        responseText.includes("team") ||
+        responseText.includes("adoption")
       ) {
         quickReplies = [
-          "Security documentation",
-          "Enterprise features",
-          "Compliance certifications",
-          "Integration options",
+          "How to get team buy-in?",
+          "Managing resistance to AI",
+          "Success metrics to track",
+          "Speak with change specialist",
         ]
-      } else if (
-        responseText.includes("success") ||
-        responseText.includes("case study") ||
-        responseText.includes("results")
-      ) {
-        quickReplies = ["More success stories", "ROI calculator", "Start my trial", "Schedule demo call"]
-      } else if (
-        responseText.includes("compare") ||
-        responseText.includes("difference") ||
-        responseText.includes("which")
-      ) {
-        quickReplies = [
-          "I need strategic help",
-          "Marketing is my priority",
-          "Technology challenges",
-          "Try all three agents",
-        ]
-      } else if (responseText.includes("demo") || responseText.includes("example") || responseText.includes("show")) {
-        quickReplies = ["Schedule live demo", "Start trial instead", "See more examples", "Talk to specialist"]
       } else {
-        // Default high-value contextual replies
-        quickReplies = ["Start my free trial", "Calculate potential ROI", "See success stories", "Compare all agents"]
+        // Default high-engagement contextual replies
+        quickReplies = [
+          "How do I justify this to executives?",
+          "Show me competitive advantages",
+          "What's the implementation process?",
+          "Connect me with a specialist",
+        ]
       }
 
       // Add close option after 3+ questions with more engaging language
       if (userQuestionCount >= 3) {
-        quickReplies = [...quickReplies.slice(0, 3), "I'm ready to get started!"]
+        quickReplies = [...quickReplies.slice(0, 3), "I'm ready to transform my business!"]
       }
 
       return {
@@ -230,7 +258,7 @@ Remember: Every response should make them feel valued, understood, and excited a
         sender: "agent",
         timestamp: new Date(),
         type: "quick_reply",
-        quickReplies: ["Try again", "Start free trial", "See success stories", "Contact specialist"],
+        quickReplies: ["Try again", "Start free trial anyway", "Show me success stories", "Talk to human support"],
         metadata: {
           confidence: 0.9,
           processingTime: 0.1,
@@ -272,7 +300,12 @@ Remember: Every response should make them feel valued, understood, and excited a
         sender: "agent",
         timestamp: new Date(),
         type: "quick_reply",
-        quickReplies: ["Start free trial", "Show me pricing", "Compare agents", "Success stories"],
+        quickReplies: [
+          "Show me ROI calculations",
+          "Security and compliance info",
+          "Competitive advantages",
+          "Talk to human specialist",
+        ],
       }
       setMessages((prev) => [...prev, fallbackMessage])
     } finally {
@@ -281,12 +314,37 @@ Remember: Every response should make them feel valued, understood, and excited a
   }
 
   const handleQuickReply = (reply: string) => {
-    if (reply === "I'm ready to get started!" || reply === "I'm ready to close this chat") {
+    // Handle human support requests
+    if (
+      reply.includes("Talk to") ||
+      reply.includes("Speak with") ||
+      reply.includes("Connect me") ||
+      reply.includes("human support") ||
+      reply.includes("specialist")
+    ) {
+      const humanSupportMessage: Message = {
+        id: Date.now().toString(),
+        content:
+          "🤝 I'd be happy to connect you with one of our human specialists! Our expert team is available 24/7 to provide personalized support.\n\n📞 **Immediate Support Options:**\n• Live chat with specialist: Available now\n• Phone consultation: +1 (555) 123-NEURAL\n• Email: support@neuralia.ai\n• Schedule video call: Available within 15 minutes\n\n✨ **What to expect:**\n• Dedicated specialist assigned to your account\n• Personalized demo tailored to your business\n• Custom ROI analysis for your company\n• Implementation roadmap and timeline\n\nWould you like me to connect you right now, or would you prefer to schedule a call at your convenience?",
+        sender: "agent",
+        timestamp: new Date(),
+        type: "quick_reply",
+        quickReplies: ["Connect me now", "Schedule a call", "Send me contact details", "Continue with AI support"],
+      }
+      setMessages((prev) => [...prev, humanSupportMessage])
+      return
+    }
+
+    if (
+      reply === "I'm ready to transform my business!" ||
+      reply === "I'm ready to get started!" ||
+      reply === "I'm ready to close this chat"
+    ) {
       // Enhanced closing message with clear next steps
       const closingMessage: Message = {
         id: Date.now().toString(),
         content:
-          "🎉 Fantastic! I'm thrilled you're ready to transform your business with Neuralia's neural AI executives. Your free 5-day trial is just one click away - no credit card required!\n\n✅ Choose your AI executive\n✅ Get instant access in 30 seconds\n✅ Start seeing results immediately\n\nThank you for choosing Neuralia - we're here 24/7 whenever you need us! 🚀",
+          "🎉 Outstanding! I'm thrilled you're ready to revolutionize your business with Neuralia's neural AI executives. Your transformation starts with our risk-free 5-day trial - no credit card required!\n\n✅ Choose your AI executive (CEO, CMO, or CTO)\n✅ Get instant access in 30 seconds\n✅ Start seeing measurable results immediately\n✅ Full support from our expert team\n\nThank you for choosing Neuralia - we're here 24/7 to ensure your success! 🚀",
         sender: "agent",
         timestamp: new Date(),
         type: "text",
@@ -296,7 +354,7 @@ Remember: Every response should make them feel valued, understood, and excited a
       // Close the chat after showing the message
       setTimeout(() => {
         if (onToggle) onToggle()
-      }, 3000)
+      }, 4000)
       return
     }
 
@@ -320,8 +378,8 @@ Remember: Every response should make them feel valued, understood, and excited a
           <MessageCircle className="h-6 w-6" />
         </Button>
         <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-bounce"></div>
-        <div className="absolute -top-8 right-0 bg-black text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity">
-          Get instant AI executive support! 🚀
+        <div className="absolute -top-12 -left-8 bg-black text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          💡 Ask me complex business questions!
         </div>
       </div>
     )
@@ -347,7 +405,7 @@ Remember: Every response should make them feel valued, understood, and excited a
                 <CardTitle className="text-lg font-semibold">Neuralia AI Support</CardTitle>
                 <div className="flex items-center space-x-2 text-sm text-blue-100">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span>Online • Expert support • Avg response: 0.2s</span>
+                  <span>Expert support • Human specialists available • 0.2s avg</span>
                 </div>
               </div>
             </div>
@@ -422,7 +480,7 @@ Remember: Every response should make them feel valued, understood, and excited a
                             variant="outline"
                             size="sm"
                             onClick={() => handleQuickReply(reply)}
-                            className="text-xs bg-white hover:bg-blue-50 border-blue-200 text-blue-700 hover:border-blue-400 transition-all duration-200"
+                            className="text-xs bg-white hover:bg-blue-50 border-blue-200 text-blue-700 hover:border-blue-400 transition-all duration-200 hover:shadow-sm"
                           >
                             {reply}
                           </Button>
@@ -463,7 +521,7 @@ Remember: Every response should make them feel valued, understood, and excited a
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything about our neural AI executives..."
+                  placeholder="Ask complex questions about ROI, security, implementation..."
                   className="flex-1 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                   disabled={isTyping}
                 />
@@ -476,7 +534,7 @@ Remember: Every response should make them feel valued, understood, and excited a
                 </Button>
               </div>
               <div className="text-xs text-gray-500 mt-2 text-center">
-                🚀 Powered by Neuralia AI • 94% satisfaction • 500+ happy customers
+                🧠 Expert AI • Human specialists available 24/7 • 94% satisfaction • 500+ enterprises
               </div>
             </div>
           </CardContent>
