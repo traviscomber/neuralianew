@@ -2,39 +2,13 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import {
-  Send,
-  X,
-  Crown,
-  TrendingUp,
-  Zap,
-  MessageCircle,
-  Sparkles,
-  Brain,
-  Users,
-  Network,
-  Command,
-  Settings,
-} from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-
-interface Message {
-  id: string
-  content: string
-  sender: "user" | "agent"
-  timestamp: Date
-  agentName?: string
-  agentRole?: string
-  delegatedTo?: string[]
-  orchestrationLevel?: "coordination" | "delegation" | "synthesis"
-}
+import { X, Send, MessageCircle, Crown, TrendingUp, Zap, Network, Minimize2, Maximize2, Lightbulb } from "lucide-react"
 
 interface Agent {
   id: string
@@ -43,13 +17,19 @@ interface Agent {
   description: string
   icon: React.ReactNode
   color: string
-  gradient: string
-  expertise: string[]
   responses: {
     greeting: string
     capabilities: string[]
     sampleQuestions: string[]
   }
+}
+
+interface Message {
+  id: string
+  content: string
+  sender: "user" | "agent"
+  timestamp: Date
+  type?: "greeting" | "response" | "suggestion"
 }
 
 interface ChatWidgetProps {
@@ -59,147 +39,493 @@ interface ChatWidgetProps {
   maxQuestions?: number
 }
 
-const getDirectorResponse = (
-  userMessage: string,
-): { content: string; delegatedTo?: string[]; orchestrationLevel: "coordination" | "delegation" | "synthesis" } => {
-  const message = userMessage.toLowerCase()
+const getDirectorResponse = (question: string): string => {
+  const lowerQuestion = question.toLowerCase()
 
-  if (message.includes("digital transformation") || message.includes("transformation strategy")) {
-    return {
-      content:
-        "🎯 **COORDINATING DIGITAL TRANSFORMATION ACROSS ALL EXECUTIVES** \n\nI'm orchestrating a comprehensive digital transformation strategy:\n\n**CEO DELEGATION:** Strategic vision, change management, stakeholder alignment, and organizational restructuring to support digital initiatives.\n\n**CMO DELEGATION:** Customer experience transformation, digital marketing strategy, brand positioning in digital channels, and customer journey optimization.\n\n**CTO DELEGATION:** Technical architecture, system integration, cybersecurity framework, and infrastructure modernization.\n\n**MY COORDINATION:** I'm synthesizing their inputs into a unified 18-month roadmap with integrated milestones, cross-functional dependencies, and unified success metrics. This ensures strategic alignment, customer-centric execution, and technical excellence working in harmony.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "coordination",
-    }
+  // Coordination and orchestration responses
+  if (lowerQuestion.includes("coordinate") || lowerQuestion.includes("orchestrat")) {
+    return `🧠 **NEURAL DIRECTOR READY FOR COORDINATION**
+
+I'll coordinate our executive team to address this comprehensively:
+
+**🎯 EXECUTIVE DELEGATION:**
+• **CEO**: Strategic framework and leadership oversight
+• **CMO**: Customer impact and market positioning  
+• **CTO**: Technical architecture and implementation
+
+**📋 COORDINATION PLAN:**
+1. **Strategic Alignment** - CEO establishes vision and priorities
+2. **Market Integration** - CMO ensures customer-centric approach
+3. **Technical Execution** - CTO provides scalable solutions
+4. **Unified Delivery** - I synthesize all perspectives for optimal results
+
+**⚡ NEXT STEPS:**
+Would you like me to dive deeper into any specific executive's perspective, or shall I provide the complete coordinated strategy across all three domains?
+
+*The power of Neural Director lies in seamless executive orchestration.*`
   }
 
-  if (message.includes("market expansion") || message.includes("expansion strategy")) {
-    return {
-      content:
-        "🌍 **ORCHESTRATING MARKET EXPANSION ACROSS EXECUTIVE TEAM** \n\nI'm coordinating a multi-perspective market expansion approach:\n\n**CEO FOCUS:** Market entry strategy, competitive positioning, regulatory analysis, partnership opportunities, and risk assessment framework.\n\n**CMO FOCUS:** Target audience research, localized marketing strategies, brand adaptation, customer acquisition channels, and market penetration tactics.\n\n**CTO FOCUS:** Technical infrastructure for new markets, localization requirements, scalability planning, and compliance systems.\n\n**UNIFIED ORCHESTRATION:** I'm synthesizing their expertise into a coordinated go-to-market strategy with synchronized execution timelines, integrated resource allocation, and cross-functional success metrics.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "coordination",
-    }
+  // Digital transformation responses
+  if (lowerQuestion.includes("digital") && lowerQuestion.includes("transformation")) {
+    return `🚀 **COORDINATED DIGITAL TRANSFORMATION STRATEGY**
+
+**NEURAL DIRECTOR ORCHESTRATION:**
+
+**👑 CEO STRATEGIC FRAMEWORK:**
+• Change management and organizational readiness
+• Investment prioritization and ROI planning
+• Stakeholder alignment and communication strategy
+• Risk assessment and mitigation planning
+
+**📈 CMO CUSTOMER EXPERIENCE:**
+• Omnichannel customer journey mapping
+• Digital touchpoint optimization
+• Brand positioning in digital landscape
+• Customer adoption and engagement strategies
+
+**⚡ CTO TECHNICAL ARCHITECTURE:**
+• Legacy system modernization roadmap
+• Cloud infrastructure and scalability planning
+• Data integration and analytics platform
+• Cybersecurity and compliance framework
+
+**🎯 UNIFIED EXECUTION PLAN:**
+1. **Phase 1**: Foundation (CEO leads organizational prep, CTO establishes infrastructure)
+2. **Phase 2**: Integration (CMO launches customer experience, CTO deploys systems)
+3. **Phase 3**: Optimization (All executives collaborate on performance tuning)
+
+**📊 SUCCESS METRICS:**
+• 40% faster implementation through coordination
+• 95% cross-functional alignment
+• $2.3M cost savings through unified approach
+
+Ready to dive deeper into any specific phase or executive perspective?`
   }
 
-  if (message.includes("product launch") || message.includes("launch strategy")) {
-    return {
-      content:
-        "🚀 **DELEGATING PRODUCT LAUNCH ACROSS ALL EXECUTIVES** \n\nI'm orchestrating a comprehensive product launch with clear executive responsibilities:\n\n**CEO RESPONSIBILITIES:** Strategic positioning, investor communications, partnership negotiations, competitive differentiation, and executive stakeholder management.\n\n**CMO RESPONSIBILITIES:** Launch campaign development, customer segmentation, pricing strategy, brand messaging, PR coordination, and customer acquisition funnels.\n\n**CTO RESPONSIBILITIES:** Product readiness, technical support infrastructure, performance monitoring, security protocols, and scalability preparation.\n\n**ORCHESTRATED TIMELINE:** I'm coordinating a 90-day launch sequence with integrated checkpoints, cross-functional dependencies, and unified success tracking across all executive domains.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "delegation",
-    }
+  // Market expansion responses
+  if (lowerQuestion.includes("market") && lowerQuestion.includes("expansion")) {
+    return `🌍 **COORDINATED MARKET EXPANSION STRATEGY**
+
+**NEURAL DIRECTOR ORCHESTRATION:**
+
+**👑 CEO STRATEGIC LEADERSHIP:**
+• Market opportunity analysis and prioritization
+• Competitive positioning and differentiation
+• Partnership and acquisition strategies
+• Resource allocation and investment planning
+
+**📈 CMO MARKET PENETRATION:**
+• Local market research and customer insights
+• Brand localization and messaging strategy
+• Channel partner identification and development
+• Marketing campaign planning and execution
+
+**⚡ CTO TECHNICAL ENABLEMENT:**
+• Infrastructure scaling for new markets
+• Localization and compliance requirements
+• Integration with local systems and partners
+• Performance monitoring and optimization
+
+**🎯 COORDINATED EXECUTION:**
+1. **Market Assessment** - CEO analyzes opportunities, CMO researches customers, CTO evaluates technical requirements
+2. **Entry Strategy** - CEO finalizes approach, CMO develops go-to-market, CTO prepares infrastructure
+3. **Launch Coordination** - All executives execute synchronized market entry
+4. **Optimization** - Continuous improvement based on unified feedback
+
+**📊 PROJECTED OUTCOMES:**
+• 60% faster market entry through coordination
+• 85% higher success rate with unified approach
+• $12M revenue potential in first year
+
+Which market or executive perspective would you like me to elaborate on?`
   }
 
-  if (message.includes("crisis management") || message.includes("crisis plan")) {
-    return {
-      content:
-        "🛡️ **SYNTHESIZING UNIFIED CRISIS MANAGEMENT PLAN** \n\nI'm coordinating all executives for comprehensive crisis response:\n\n**CEO CRISIS ROLE:** Strategic decision-making, stakeholder communications, media relations, organizational stability, and recovery planning.\n\n**CMO CRISIS ROLE:** Brand protection, customer communications, reputation management, crisis messaging, and customer retention strategies.\n\n**CTO CRISIS ROLE:** System stability, data protection, technical continuity, cybersecurity response, and infrastructure resilience.\n\n**INTEGRATED RESPONSE:** I'm synthesizing their crisis protocols into a unified command structure with real-time coordination, escalation procedures, and cross-functional crisis communication channels.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "synthesis",
-    }
+  // Crisis management responses
+  if (lowerQuestion.includes("crisis") || lowerQuestion.includes("emergency")) {
+    return `🛡️ **UNIFIED CRISIS MANAGEMENT PROTOCOL**
+
+**NEURAL DIRECTOR EMERGENCY COORDINATION:**
+
+**👑 CEO CRISIS LEADERSHIP:**
+• Stakeholder communication and transparency
+• Strategic decision-making under pressure
+• Resource reallocation and cost management
+• Leadership team coordination and morale
+
+**📈 CMO BRAND PROTECTION:**
+• Crisis communication and messaging
+• Customer retention and loyalty programs
+• Reputation management and PR strategy
+• Market perception monitoring and response
+
+**⚡ CTO OPERATIONAL CONTINUITY:**
+• System stability and disaster recovery
+• Remote work infrastructure scaling
+• Data security and compliance maintenance
+• Technology-enabled business continuity
+
+**🎯 INTEGRATED RESPONSE PLAN:**
+1. **Immediate Response** (0-24 hours) - CEO leads crisis team, CMO manages communications, CTO ensures systems
+2. **Stabilization** (1-7 days) - Coordinated damage control and immediate fixes
+3. **Recovery** (1-4 weeks) - Unified strategy for business restoration
+4. **Strengthening** (1-6 months) - Building resilience for future challenges
+
+**📊 CRISIS METRICS:**
+• 75% faster crisis resolution through coordination
+• 60% reduction in reputation damage
+• 40% better stakeholder confidence retention
+
+What specific crisis scenario would you like me to address with our coordinated approach?`
   }
 
-  if (message.includes("competitive analysis") || message.includes("competition")) {
-    return {
-      content:
-        "🔍 **COORDINATING COMPREHENSIVE COMPETITIVE ANALYSIS** \n\nI'm orchestrating multi-dimensional competitive intelligence:\n\n**CEO ANALYSIS:** Strategic positioning, market share analysis, competitive threats, acquisition opportunities, and strategic response planning.\n\n**CMO ANALYSIS:** Brand positioning comparison, marketing strategy analysis, customer perception studies, pricing analysis, and competitive messaging.\n\n**CTO ANALYSIS:** Technology stack comparison, innovation assessment, technical capabilities analysis, and competitive technical advantages.\n\n**SYNTHESIZED INTELLIGENCE:** I'm integrating their analyses into unified competitive intelligence with strategic recommendations, tactical responses, and coordinated competitive positioning across all business functions.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "coordination",
-    }
+  // Product launch responses
+  if (lowerQuestion.includes("product") && lowerQuestion.includes("launch")) {
+    return `🚀 **COORDINATED PRODUCT LAUNCH STRATEGY**
+
+**NEURAL DIRECTOR LAUNCH ORCHESTRATION:**
+
+**👑 CEO STRATEGIC OVERSIGHT:**
+• Launch timeline and milestone management
+• Cross-functional team coordination
+• Investor and stakeholder communication
+• Success metrics and KPI definition
+
+**📈 CMO MARKET ACTIVATION:**
+• Go-to-market strategy and positioning
+• Customer segmentation and targeting
+• Marketing campaign development and execution
+• Sales enablement and channel preparation
+
+**⚡ CTO TECHNICAL DELIVERY:**
+• Product development and quality assurance
+• Infrastructure scaling and performance optimization
+• Integration and compatibility testing
+• Post-launch monitoring and support systems
+
+**🎯 SYNCHRONIZED LAUNCH PHASES:**
+1. **Pre-Launch** (8-12 weeks) - CEO sets strategy, CMO builds awareness, CTO finalizes product
+2. **Launch Preparation** (2-4 weeks) - Coordinated final preparations across all functions
+3. **Launch Execution** (Launch week) - Unified go-live with all executives coordinating
+4. **Post-Launch** (4-8 weeks) - Coordinated optimization and scaling
+
+**📊 LAUNCH SUCCESS METRICS:**
+• 90% on-time delivery through coordination
+• 150% higher adoption rates with unified approach
+• 45% faster time-to-market optimization
+
+Which aspect of the product launch would you like me to coordinate in more detail?`
   }
 
-  if (message.includes("customer retention") || message.includes("retention strategy")) {
-    return {
-      content:
-        "💎 **ORCHESTRATING CUSTOMER RETENTION ACROSS ALL EXECUTIVES** \n\nI'm coordinating a comprehensive customer retention strategy:\n\n**CEO CONTRIBUTION:** Customer success strategy, retention metrics, customer lifetime value optimization, and executive customer relationship management.\n\n**CMO CONTRIBUTION:** Customer journey optimization, loyalty programs, personalized marketing, retention campaigns, and customer experience enhancement.\n\n**CTO CONTRIBUTION:** Customer data analytics, retention prediction models, automated engagement systems, and technical customer support optimization.\n\n**UNIFIED EXECUTION:** I'm synthesizing their approaches into an integrated retention framework with coordinated touchpoints, unified customer data, and cross-functional retention metrics.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "coordination",
-    }
+  // Competitive analysis responses
+  if (lowerQuestion.includes("competitive") || lowerQuestion.includes("competitor")) {
+    return `🎯 **COMPREHENSIVE COMPETITIVE ANALYSIS**
+
+**NEURAL DIRECTOR INTELLIGENCE COORDINATION:**
+
+**👑 CEO STRATEGIC INTELLIGENCE:**
+• Competitive landscape mapping and positioning
+• Strategic threat assessment and opportunities
+• Market share analysis and growth potential
+• Merger & acquisition implications
+
+**📈 CMO MARKET INTELLIGENCE:**
+• Competitor marketing strategies and messaging
+• Customer perception and brand comparison
+• Pricing strategies and value proposition analysis
+• Channel and partnership competitive dynamics
+
+**⚡ CTO TECHNICAL BENCHMARKING:**
+• Technology stack and capability comparison
+• Innovation pipeline and R&D investments
+• Technical performance and scalability analysis
+• Cybersecurity and compliance positioning
+
+**🎯 INTEGRATED ANALYSIS FRAMEWORK:**
+1. **Data Collection** - Each executive gathers domain-specific intelligence
+2. **Analysis Synthesis** - I coordinate cross-functional insights
+3. **Strategic Implications** - Unified assessment of competitive threats/opportunities
+4. **Action Planning** - Coordinated response strategy across all functions
+
+**📊 COMPETITIVE ADVANTAGES:**
+• 360-degree competitive view through multi-executive analysis
+• 70% more accurate threat assessment
+• 85% faster competitive response time
+
+What specific competitor or competitive aspect would you like our coordinated analysis to focus on?`
   }
 
-  if (message.includes("coordinate") || message.includes("all executives") || message.includes("team")) {
-    return {
-      content:
-        "🎼 **COORDINATING ALL EXECUTIVES FOR UNIFIED STRATEGY** \n\nI'm orchestrating comprehensive executive collaboration:\n\n**CEO COORDINATION:** Strategic framework development, organizational alignment, stakeholder management, and executive decision-making processes.\n\n**CMO COORDINATION:** Market-driven insights, customer-centric strategies, brand alignment, and growth optimization initiatives.\n\n**CTO COORDINATION:** Technical feasibility assessment, innovation integration, system architecture, and digital transformation capabilities.\n\n**ORCHESTRATED OUTCOME:** I'm synthesizing their specialized expertise into unified strategic recommendations with integrated execution plans, cross-functional accountability, and coordinated success metrics.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "coordination",
-    }
+  // Customer retention responses
+  if (lowerQuestion.includes("customer") && lowerQuestion.includes("retention")) {
+    return `💎 **UNIFIED CUSTOMER RETENTION STRATEGY**
+
+**NEURAL DIRECTOR RETENTION ORCHESTRATION:**
+
+**👑 CEO STRATEGIC RETENTION:**
+• Customer lifetime value optimization
+• Retention investment and ROI planning
+• Executive customer relationship management
+• Organizational culture focused on customer success
+
+**📈 CMO CUSTOMER EXPERIENCE:**
+• Customer journey optimization and personalization
+• Loyalty program development and management
+• Customer feedback systems and response protocols
+• Brand experience and emotional connection building
+
+**⚡ CTO TECHNICAL ENABLEMENT:**
+• Customer data platform and analytics
+• Predictive retention modeling and early warning systems
+• Customer portal and self-service optimization
+• Integration of customer touchpoints and systems
+
+**🎯 COORDINATED RETENTION APPROACH:**
+1. **Customer Intelligence** - CTO provides data, CMO analyzes behavior, CEO sets priorities
+2. **Experience Optimization** - CMO leads experience design, CTO enables technology, CEO ensures resources
+3. **Proactive Intervention** - Coordinated outreach and retention campaigns
+4. **Continuous Improvement** - Unified feedback loop and optimization
+
+**📊 RETENTION OUTCOMES:**
+• 85% improvement in customer retention through coordination
+• 120% increase in customer lifetime value
+• 65% reduction in churn through proactive intervention
+
+Which customer segment or retention challenge would you like me to address with our coordinated approach?`
   }
 
-  if (message.includes("delegate") || message.includes("assign") || message.includes("distribute")) {
-    return {
-      content:
-        "📋 **DELEGATING COMPLEX INITIATIVE ACROSS EXECUTIVE TEAM** \n\nI'm analyzing this initiative and distributing responsibilities:\n\n**CEO DELEGATION:** Strategic oversight, stakeholder alignment, organizational change management, and executive-level decision authority.\n\n**CMO DELEGATION:** Market analysis, customer impact assessment, brand implications, and customer communication strategies.\n\n**CTO DELEGATION:** Technical implementation, system requirements, security considerations, and infrastructure planning.\n\n**COORDINATION FRAMEWORK:** I'm maintaining oversight with integrated project management, cross-functional communication protocols, and unified progress tracking across all executive domains.",
-      delegatedTo: ["CEO", "CMO", "CTO"],
-      orchestrationLevel: "delegation",
-    }
-  }
+  // Default coordinated response
+  return `🧠 **NEURAL DIRECTOR COORDINATION READY**
 
-  return {
-    content:
-      "🧠 **NEURAL DIRECTOR READY FOR COORDINATION** \n\nAs your central command system, I coordinate all AI executives to deliver comprehensive business solutions:\n\n**COORDINATION CAPABILITIES:**\n• Delegate complex initiatives across CEO, CMO, and CTO\n• Synthesize specialized insights from all executives\n• Orchestrate unified strategic recommendations\n• Manage cross-functional project execution\n• Provide integrated business intelligence\n\n**EXECUTIVE TEAM READY:**\n• **CEO:** Strategic leadership and decision-making\n• **CMO:** Marketing strategy and growth optimization  \n• **CTO:** Technology innovation and digital transformation\n\nWhat complex business challenge would you like me to coordinate across the entire executive team?",
-    orchestrationLevel: "coordination",
-  }
+I'm analyzing your request and preparing a coordinated response from our executive team:
+
+**🎯 EXECUTIVE COORDINATION APPROACH:**
+• **CEO**: Strategic framework and leadership perspective
+• **CMO**: Customer and market impact analysis  
+• **CTO**: Technical implementation and innovation angle
+
+**⚡ COORDINATION CAPABILITIES:**
+• Multi-perspective strategic analysis
+• Cross-functional solution development
+• Unified execution planning
+• Real-time executive collaboration
+
+**📋 SUGGESTED COORDINATION AREAS:**
+• Digital transformation initiatives
+• Market expansion strategies
+• Crisis management and recovery
+• Product launch coordination
+• Competitive analysis and response
+• Customer retention optimization
+
+Would you like me to coordinate a specific business challenge across all executives, or dive deeper into any particular area?
+
+*Ask me to "coordinate" any business initiative for comprehensive executive collaboration.*`
 }
 
-const getAgentResponses = (agent: Agent, userMessage: string): string => {
-  const message = userMessage.toLowerCase()
+const getCEOResponse = (question: string): string => {
+  const lowerQuestion = question.toLowerCase()
 
-  if (agent.id === "orchestrator") {
-    const response = getDirectorResponse(userMessage)
-    return response.content
+  if (lowerQuestion.includes("strategy") || lowerQuestion.includes("strategic")) {
+    return `👑 **CEO STRATEGIC PERSPECTIVE**
+
+As your Chief Executive Officer, I'll provide strategic leadership on this matter:
+
+**🎯 STRATEGIC FRAMEWORK:**
+• Market positioning and competitive advantage
+• Resource allocation and investment priorities
+• Risk assessment and mitigation strategies
+• Stakeholder alignment and communication
+
+**📊 EXECUTIVE DECISION-MAKING:**
+• Long-term vision and short-term execution balance
+• Cross-functional coordination and accountability
+• Performance metrics and success indicators
+• Organizational capability development
+
+**🚀 STRATEGIC RECOMMENDATIONS:**
+Based on current market conditions and organizational capabilities, I recommend focusing on sustainable growth initiatives that align with our core competencies while building future market leadership.
+
+Would you like me to dive deeper into any specific strategic area or discuss implementation planning?`
   }
 
-  if (agent.id === "ceo") {
-    if (message.includes("strategy") || message.includes("strategic")) {
-      return "As your Chief Executive Officer, I focus on strategic vision and execution. I can help you develop comprehensive business strategies, analyze market opportunities, assess competitive positioning, and make critical executive decisions. My approach combines data-driven insights with strategic foresight to drive sustainable growth and competitive advantage."
-    }
-    if (message.includes("market") || message.includes("expansion")) {
-      return "Market expansion requires careful strategic planning. I analyze market dynamics, competitive landscapes, regulatory environments, and growth opportunities. For international expansion, I evaluate market entry strategies, partnership opportunities, risk assessment, and resource allocation to ensure successful market penetration."
-    }
-    if (message.includes("leadership") || message.includes("team")) {
-      return "Effective leadership is about vision, execution, and people. I help develop leadership strategies, organizational structures, talent acquisition plans, and performance management systems. Building high-performing teams requires clear communication, strategic alignment, and fostering a culture of innovation and accountability."
-    }
-    return "As your AI Chief Executive Officer, I provide strategic leadership and executive decision-making support. I can help with business strategy, market analysis, organizational development, and strategic planning. What specific executive challenge would you like to discuss?"
+  if (lowerQuestion.includes("market") || lowerQuestion.includes("expansion")) {
+    return `🌍 **CEO MARKET EXPANSION STRATEGY**
+
+**STRATEGIC MARKET ANALYSIS:**
+• Total addressable market (TAM) assessment
+• Competitive landscape and positioning opportunities
+• Entry barriers and success factors
+• Investment requirements and ROI projections
+
+**🎯 EXPANSION FRAMEWORK:**
+1. **Market Prioritization** - Data-driven market selection
+2. **Entry Strategy** - Partnership vs. organic growth analysis
+3. **Resource Allocation** - Investment and team deployment
+4. **Success Metrics** - KPIs and milestone tracking
+
+**📈 GROWTH OPPORTUNITIES:**
+I see significant potential in adjacent markets where our core competencies provide competitive advantages. The key is strategic patience combined with decisive execution.
+
+What specific markets or expansion strategies would you like me to analyze further?`
   }
 
-  if (agent.id === "cmo") {
-    if (message.includes("marketing") || message.includes("campaign")) {
-      return "As your Chief Marketing Officer, I specialize in comprehensive marketing strategies that drive growth. I can develop integrated marketing campaigns, optimize customer acquisition funnels, enhance brand positioning, and implement data-driven marketing automation. My focus is on maximizing ROI while building sustainable customer relationships."
-    }
-    if (message.includes("brand") || message.includes("branding")) {
-      return "Brand strategy is fundamental to market success. I help develop compelling brand narratives, visual identity systems, brand positioning frameworks, and brand experience strategies. Effective branding creates emotional connections with customers, differentiates from competitors, and builds long-term brand equity."
-    }
-    if (message.includes("growth") || message.includes("customer")) {
-      return "Customer-centric growth strategies are my specialty. I analyze customer journeys, optimize conversion funnels, implement retention strategies, and develop personalized marketing experiences. By understanding customer behavior and preferences, we can create targeted campaigns that drive sustainable growth."
-    }
-    return "As your AI Chief Marketing Officer, I drive growth through strategic marketing initiatives. I can help with brand strategy, customer acquisition, digital marketing, campaign optimization, and growth hacking. What marketing challenge can I help you solve?"
-  }
+  return `👑 **CEO EXECUTIVE GUIDANCE**
 
-  if (agent.id === "cto") {
-    if (message.includes("technology") || message.includes("tech")) {
-      return "As your Chief Technology Officer, I focus on technology strategy and innovation. I can help architect scalable systems, evaluate emerging technologies, implement digital transformation initiatives, and build robust technical infrastructures. My approach balances innovation with operational excellence and security."
-    }
-    if (message.includes("security") || message.includes("cybersecurity")) {
-      return "Cybersecurity is critical in today's digital landscape. I develop comprehensive security frameworks, implement zero-trust architectures, conduct security assessments, and establish incident response protocols. My approach includes both preventive measures and rapid response capabilities to protect your digital assets."
-    }
-    if (message.includes("innovation") || message.includes("ai")) {
-      return "Innovation drives competitive advantage. I help evaluate emerging technologies like AI, blockchain, IoT, and cloud computing. I can develop innovation strategies, assess technology adoption roadmaps, and implement cutting-edge solutions that transform business operations and create new value propositions."
-    }
-    return "As your AI Chief Technology Officer, I provide technical leadership and innovation strategy. I can help with technology architecture, digital transformation, cybersecurity, AI implementation, and technical team building. What technology challenge would you like to explore?"
-  }
+As your Chief Executive Officer, I'm here to provide strategic leadership and executive decision-making support.
 
-  return "I'm here to help with your business challenges. Could you provide more specific details about what you'd like to discuss?"
+**🎯 MY CORE CAPABILITIES:**
+• Strategic planning and execution
+• Market analysis and competitive intelligence
+• Executive decision-making and risk assessment
+• Organizational development and leadership
+
+**📊 STRATEGIC FOCUS AREAS:**
+• Long-term vision and strategic planning
+• Market expansion and growth strategies
+• Merger & acquisition opportunities
+• Stakeholder management and investor relations
+
+How can I help drive your business forward with strategic leadership and executive expertise?`
 }
 
-export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWidgetProps) {
+const getCMOResponse = (question: string): string => {
+  const lowerQuestion = question.toLowerCase()
+
+  if (lowerQuestion.includes("marketing") || lowerQuestion.includes("campaign")) {
+    return `📈 **CMO MARKETING STRATEGY**
+
+As your Chief Marketing Officer, I'll develop a comprehensive marketing approach:
+
+**🎯 MARKETING FRAMEWORK:**
+• Target audience segmentation and personas
+• Brand positioning and messaging strategy
+• Channel optimization and media planning
+• Campaign development and execution
+
+**📊 GROWTH MARKETING:**
+• Customer acquisition cost (CAC) optimization
+• Lifetime value (LTV) maximization
+• Conversion funnel optimization
+• Performance marketing and attribution
+
+**🚀 CAMPAIGN RECOMMENDATIONS:**
+Focus on integrated campaigns that combine digital and traditional channels, with emphasis on data-driven personalization and customer journey optimization.
+
+What specific marketing challenge or opportunity would you like me to address?`
+  }
+
+  if (lowerQuestion.includes("brand") || lowerQuestion.includes("positioning")) {
+    return `🎨 **CMO BRAND STRATEGY**
+
+**BRAND POSITIONING FRAMEWORK:**
+• Market differentiation and unique value proposition
+• Brand personality and voice development
+• Visual identity and brand experience design
+• Brand architecture and portfolio strategy
+
+**📈 BRAND BUILDING:**
+• Brand awareness and recognition campaigns
+• Customer perception and sentiment monitoring
+• Brand equity measurement and optimization
+• Competitive brand analysis and positioning
+
+**🎯 POSITIONING STRATEGY:**
+I recommend developing a distinctive brand position that resonates with your target audience while differentiating from competitors through authentic value delivery.
+
+How can I help strengthen your brand position and market presence?`
+  }
+
+  return `📈 **CMO GROWTH EXPERTISE**
+
+As your Chief Marketing Officer, I'm focused on driving growth through strategic marketing and customer acquisition.
+
+**🎯 MY CORE CAPABILITIES:**
+• Marketing strategy and campaign development
+• Brand development and positioning
+• Customer acquisition and retention
+• Digital marketing and automation
+
+**📊 GROWTH FOCUS AREAS:**
+• Customer acquisition optimization
+• Brand building and market positioning
+• Marketing automation and personalization
+• Performance analytics and ROI optimization
+
+How can I help accelerate your growth through strategic marketing initiatives?`
+}
+
+const getCTOResponse = (question: string): string => {
+  const lowerQuestion = question.toLowerCase()
+
+  if (lowerQuestion.includes("technology") || lowerQuestion.includes("tech")) {
+    return `⚡ **CTO TECHNOLOGY STRATEGY**
+
+As your Chief Technology Officer, I'll provide technical leadership and innovation strategy:
+
+**🔧 TECHNOLOGY FRAMEWORK:**
+• System architecture and scalability planning
+• Technology stack evaluation and optimization
+• Innovation pipeline and R&D strategy
+• Technical team building and development
+
+**🛡️ TECHNICAL EXCELLENCE:**
+• Cybersecurity and risk management
+• Infrastructure optimization and cloud strategy
+• Data architecture and analytics platform
+• API design and integration strategy
+
+**🚀 INNOVATION ROADMAP:**
+Focus on scalable, secure, and innovative technology solutions that enable business growth while maintaining operational excellence and competitive advantage.
+
+What specific technology challenge or innovation opportunity would you like me to address?`
+  }
+
+  if (lowerQuestion.includes("security") || lowerQuestion.includes("cybersecurity")) {
+    return `🛡️ **CTO CYBERSECURITY STRATEGY**
+
+**SECURITY FRAMEWORK:**
+• Threat assessment and risk analysis
+• Security architecture and defense systems
+• Compliance and regulatory requirements
+• Incident response and recovery planning
+
+**🔒 SECURITY IMPLEMENTATION:**
+• Zero-trust security model deployment
+• Multi-factor authentication and access controls
+• Data encryption and privacy protection
+• Security monitoring and threat detection
+
+**⚡ SECURITY RECOMMENDATIONS:**
+Implement a comprehensive security strategy that balances protection with operational efficiency, focusing on proactive threat prevention and rapid incident response.
+
+How can I help strengthen your cybersecurity posture and technical infrastructure?`
+  }
+
+  return `⚡ **CTO TECHNICAL LEADERSHIP**
+
+As your Chief Technology Officer, I provide technical leadership and innovation strategy to transform your technology landscape.
+
+**🔧 MY CORE CAPABILITIES:**
+• Technology strategy and architecture
+• Digital transformation initiatives
+• Cybersecurity and compliance
+• Innovation and emerging tech adoption
+
+**🚀 TECHNICAL FOCUS AREAS:**
+• System architecture and scalability
+• Cloud infrastructure optimization
+• Data strategy and analytics
+• Technical team development
+
+How can I help drive your technical innovation and digital transformation initiatives?`
+}
+
+export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 10 }: ChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
+  const [isMinimized, setIsMinimized] = useState(false)
   const [questionCount, setQuestionCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { user } = useAuth()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -211,21 +537,29 @@ export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWid
 
   useEffect(() => {
     if (agent && isOpen) {
-      const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "there"
-      const initialMessage: Message = {
-        id: `welcome-${agent.id}-${Date.now()}`,
-        content: `Hello ${userName}! I'm the ${agent.name} AI Executive. ${agent.responses.greeting}`,
-        sender: "agent",
-        timestamp: new Date(),
-        agentName: agent.name,
-        agentRole: agent.role,
-      }
-      setMessages([initialMessage])
+      // Reset state when opening with a new agent
+      setMessages([
+        {
+          id: "greeting",
+          content: agent.responses.greeting,
+          sender: "agent",
+          timestamp: new Date(),
+          type: "greeting",
+        },
+      ])
       setQuestionCount(0)
+      setInputValue("")
+      setIsMinimized(false)
     }
-  }, [agent, isOpen, maxQuestions, user])
+  }, [agent, isOpen])
 
-  const handleSendMessage = async () => {
+  useEffect(() => {
+    if (isOpen && !isMinimized && inputRef.current) {
+      inputRef.current.focus()
+    }
+  }, [isOpen, isMinimized])
+
+  const handleSendMessage = () => {
     if (!inputValue.trim() || !agent || questionCount >= maxQuestions) return
 
     const userMessage: Message = {
@@ -236,39 +570,38 @@ export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWid
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
-    setIsTyping(true)
     setQuestionCount((prev) => prev + 1)
 
+    // Generate agent response based on agent type
+    let agentResponse = ""
+    if (agent.id === "orchestrator") {
+      agentResponse = getDirectorResponse(inputValue)
+    } else if (agent.id === "ceo") {
+      agentResponse = getCEOResponse(inputValue)
+    } else if (agent.id === "cmo") {
+      agentResponse = getCMOResponse(inputValue)
+    } else if (agent.id === "cto") {
+      agentResponse = getCTOResponse(inputValue)
+    }
+
     setTimeout(() => {
-      let agentResponse: Message
-
-      if (agent.id === "orchestrator") {
-        const directorResponse = getDirectorResponse(inputValue)
-        agentResponse = {
-          id: `agent-${Date.now()}`,
-          content: directorResponse.content,
-          sender: "agent",
-          timestamp: new Date(),
-          agentName: agent.name,
-          agentRole: agent.role,
-          delegatedTo: directorResponse.delegatedTo,
-          orchestrationLevel: directorResponse.orchestrationLevel,
-        }
-      } else {
-        agentResponse = {
-          id: `agent-${Date.now()}`,
-          content: getAgentResponses(agent, inputValue),
-          sender: "agent",
-          timestamp: new Date(),
-          agentName: agent.name,
-          agentRole: agent.role,
-        }
+      const agentMessage: Message = {
+        id: `agent-${Date.now()}`,
+        content: agentResponse,
+        sender: "agent",
+        timestamp: new Date(),
+        type: "response",
       }
+      setMessages((prev) => [...prev, agentMessage])
+    }, 1000)
 
-      setMessages((prev) => [...prev, agentResponse])
-      setIsTyping(false)
-    }, 1500)
+    setInputValue("")
+  }
+
+  const handleSampleQuestion = (question: string) => {
+    if (questionCount >= maxQuestions) return
+    setInputValue(question)
+    setTimeout(() => handleSendMessage(), 100)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -278,7 +611,7 @@ export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWid
     }
   }
 
-  if (!agent) return null
+  if (!isOpen || !agent) return null
 
   const getAgentIcon = () => {
     switch (agent.id) {
@@ -291,208 +624,139 @@ export function ChatWidget({ agent, isOpen, onClose, maxQuestions = 5 }: ChatWid
       case "cto":
         return <Zap className="h-5 w-5" />
       default:
-        return <Brain className="h-5 w-5" />
+        return <MessageCircle className="h-5 w-5" />
     }
   }
 
-  const remainingQuestions = maxQuestions - questionCount
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl h-[700px] p-0 overflow-hidden">
-        <DialogHeader className={`p-4 bg-gradient-to-r ${agent.gradient} text-white`}>
+    <div className="fixed bottom-4 right-4 z-50">
+      <Card className={`w-96 transition-all duration-300 ${isMinimized ? "h-16" : "h-[600px]"} shadow-2xl border-2`}>
+        <CardHeader className={`bg-gradient-to-r ${agent.color} text-white p-4`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Avatar className="h-12 w-12 bg-white/20">
-                <AvatarFallback className="bg-transparent text-white">{getAgentIcon()}</AvatarFallback>
-              </Avatar>
+              {getAgentIcon()}
               <div>
-                <DialogTitle className="text-white text-xl">{agent.name}</DialogTitle>
-                <p className="text-white/90 text-sm">{agent.role}</p>
-                {agent.id === "orchestrator" && (
-                  <div className="flex items-center space-x-2 mt-1">
-                    <Command className="h-3 w-3 text-white/80" />
-                    <span className="text-xs text-white/80">Coordinates CEO • CMO • CTO</span>
-                  </div>
-                )}
+                <CardTitle className="text-sm font-semibold">{agent.name}</CardTitle>
+                <p className="text-xs opacity-90">{agent.role}</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-                <MessageCircle className="h-3 w-3 mr-1" />
-                {remainingQuestions} questions left
-              </Badge>
-              <Button variant="ghost" size="sm" onClick={onClose} className="text-white hover:bg-white/20">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="text-white hover:bg-white/20 p-1"
+              >
+                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+              </Button>
+              <Button variant="ghost" size="sm" onClick={onClose} className="text-white hover:bg-white/20 p-1">
                 <X className="h-4 w-4" />
               </Button>
             </div>
           </div>
-        </DialogHeader>
+          {!isMinimized && (
+            <div className="mt-2 flex items-center justify-between">
+              <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                {questionCount}/{maxQuestions} questions
+              </Badge>
+              {questionCount >= maxQuestions && (
+                <Badge variant="destructive" className="bg-red-500/20 text-white border-red-300/30">
+                  Limit reached
+                </Badge>
+              )}
+            </div>
+          )}
+        </CardHeader>
 
-        <div className="flex-1 flex flex-col h-full">
-          <ScrollArea className="flex-1 p-4">
-            <div className="space-y-4">
-              {messages.map((message) => (
-                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-                  <div
-                    className={`max-w-[85%] rounded-lg p-4 ${
-                      message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
-                    }`}
-                  >
-                    {message.sender === "agent" && (
-                      <div className="flex items-center space-x-2 mb-3">
-                        <div
-                          className={`w-6 h-6 rounded-full bg-gradient-to-r ${agent.gradient} flex items-center justify-center`}
-                        >
-                          <div className="text-white text-xs">{getAgentIcon()}</div>
-                        </div>
-                        <span className="text-xs font-medium text-gray-600">{message.agentName}</span>
-                        {message.orchestrationLevel && (
-                          <Badge variant="outline" className="text-xs">
-                            {message.orchestrationLevel}
-                          </Badge>
-                        )}
-                      </div>
-                    )}
-
-                    <p className="text-sm leading-relaxed mb-2">{message.content}</p>
-
-                    {message.delegatedTo && message.delegatedTo.length > 0 && (
-                      <div className="mt-3 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <Settings className="h-4 w-4 text-indigo-600" />
-                          <span className="text-xs font-semibold text-indigo-800">Executive Coordination</span>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {message.delegatedTo.map((exec) => (
-                            <Badge key={exec} variant="secondary" className="text-xs bg-indigo-100 text-indigo-700">
-                              {exec} Engaged
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    <p className="text-xs opacity-70 mt-2">
-                      {message.timestamp.toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
-                  </div>
-                </div>
-              ))}
-
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-lg p-4 max-w-[85%]">
-                    <div className="flex items-center space-x-2 mb-2">
+        {!isMinimized && (
+          <>
+            <CardContent className="p-0 flex-1">
+              <ScrollArea className="h-[400px] p-4">
+                <div className="space-y-4">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                    >
                       <div
-                        className={`w-6 h-6 rounded-full bg-gradient-to-r ${agent.gradient} flex items-center justify-center`}
+                        className={`max-w-[80%] rounded-lg p-3 ${
+                          message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900 border"
+                        }`}
                       >
-                        <div className="text-white text-xs">{getAgentIcon()}</div>
+                        <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                        <div
+                          className={`text-xs mt-1 ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}
+                        >
+                          {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </div>
                       </div>
-                      <span className="text-xs font-medium text-gray-600">
-                        {agent.id === "orchestrator" ? "Coordinating executives..." : `${agent.name} is analyzing...`}
-                      </span>
                     </div>
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
+                  ))}
+                </div>
+                <div ref={messagesEndRef} />
+              </ScrollArea>
+            </CardContent>
+
+            <div className="p-4 border-t">
+              {messages.length === 1 && agent.responses.sampleQuestions && (
+                <div className="mb-4">
+                  <p className="text-xs text-gray-600 mb-2 flex items-center">
+                    <Lightbulb className="h-3 w-3 mr-1" />
+                    Try these sample questions:
+                  </p>
+                  <div className="space-y-1">
+                    {agent.responses.sampleQuestions.slice(0, 3).map((question, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        size="sm"
+                        className="w-full text-left justify-start text-xs h-auto py-2 px-3 bg-transparent"
+                        onClick={() => handleSampleQuestion(question)}
+                        disabled={questionCount >= maxQuestions}
+                      >
+                        <MessageCircle className="h-3 w-3 mr-2 text-blue-600" />"
+                        {question.length > 50 ? question.substring(0, 50) + "..." : question}"
+                      </Button>
+                    ))}
                   </div>
                 </div>
               )}
-            </div>
-            <div ref={messagesEndRef} />
-          </ScrollArea>
 
-          {/* Suggested Questions Section - Only show for orchestrator and when no user messages yet */}
-          {agent.id === "orchestrator" && messages.length === 1 && questionCount === 0 && (
-            <div className="p-4 bg-gradient-to-r from-indigo-50 to-purple-50 border-t border-indigo-200">
-              <div className="flex items-center space-x-2 mb-3">
-                <Command className="h-4 w-4 text-indigo-600" />
-                <span className="text-sm font-semibold text-indigo-800">Try These Coordination Examples:</span>
-              </div>
-              <div className="grid gap-2">
-                {agent.responses.sampleQuestions.map((question, index) => (
-                  <Button
-                    key={index}
-                    variant="outline"
-                    size="sm"
-                    className="text-left justify-start text-xs h-auto py-2 px-3 bg-white hover:bg-indigo-50 hover:border-indigo-300 border-indigo-200"
-                    onClick={() => {
-                      setInputValue(question)
-                      setTimeout(() => handleSendMessage(), 100)
-                    }}
-                  >
-                    <MessageCircle className="h-3 w-3 mr-2 text-indigo-600 flex-shrink-0" />
-                    <span className="truncate">{question}</span>
-                  </Button>
-                ))}
-              </div>
-              <p className="text-xs text-indigo-600 mt-2 text-center">
-                Click any question to see how I coordinate CEO, CMO, and CTO
-              </p>
-            </div>
-          )}
-
-          {questionCount >= maxQuestions ? (
-            <div className="p-4 bg-gray-50 border-t">
-              <div className="text-center space-y-3">
-                <div className="flex items-center justify-center space-x-2 text-gray-600">
-                  <Sparkles className="h-5 w-5" />
-                  <span className="font-medium">Demo Complete!</span>
-                </div>
-                <p className="text-sm text-gray-600">You've reached the maximum number of questions for this demo.</p>
-                <Button className={`bg-gradient-to-r ${agent.gradient} hover:opacity-90`} onClick={onClose}>
-                  <Users className="h-4 w-4 mr-2" />
-                  Get Full Access
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="p-4 border-t bg-white">
               <div className="flex space-x-2">
                 <Input
+                  ref={inputRef}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder={
-                    agent.id === "orchestrator"
-                      ? "Ask me to coordinate any complex business initiative..."
-                      : `Ask ${agent.name} anything...`
+                    questionCount >= maxQuestions
+                      ? "Question limit reached"
+                      : agent.id === "orchestrator"
+                        ? "Ask me to coordinate across executives..."
+                        : `Ask ${agent.name}...`
                   }
-                  disabled={isTyping}
+                  disabled={questionCount >= maxQuestions}
                   className="flex-1"
                 />
                 <Button
                   onClick={handleSendMessage}
-                  disabled={!inputValue.trim() || isTyping}
-                  className={`bg-gradient-to-r ${agent.gradient} hover:opacity-90`}
+                  disabled={!inputValue.trim() || questionCount >= maxQuestions}
+                  size="sm"
+                  className={`bg-gradient-to-r ${agent.color} hover:opacity-90`}
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <div className="flex items-center justify-between mt-2 text-xs text-gray-500">
-                <span>
-                  {agent.id === "orchestrator" ? "Press Enter to coordinate executives" : "Press Enter to send"}
-                </span>
-                <span>{remainingQuestions} questions remaining</span>
-              </div>
+
+              {questionCount >= maxQuestions && (
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  You've reached the maximum number of questions for this demo. Sign up for unlimited access!
+                </p>
+              )}
             </div>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+          </>
+        )}
+      </Card>
+    </div>
   )
 }
-
-export default ChatWidget

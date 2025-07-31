@@ -2,478 +2,348 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Send, Bot, User, Building, Target, AlertCircle, Sparkles } from "lucide-react"
-import { supabase } from "@/lib/supabase-browser"
-import { useAuth } from "@/hooks/use-auth"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Send, MessageCircle, Network, Lightbulb } from "lucide-react"
 
 interface Message {
   id: string
   content: string
-  sender: "user" | "assistant"
+  sender: "user" | "orchestrator"
   timestamp: Date
-}
-
-interface CompanyData {
-  name?: string
-  industry?: string
-  size?: string
-  goals?: string[]
-  challenges?: string[]
-  description?: string
+  type?: "greeting" | "response" | "coordination"
 }
 
 interface OrchestratorChatProps {
   isOpen: boolean
   onClose: () => void
+  maxQuestions?: number
 }
 
-export function OrchestratorChat({ isOpen, onClose }: OrchestratorChatProps) {
-  const { user } = useAuth()
+const getDirectorResponse = (question: string): string => {
+  const lowerQuestion = question.toLowerCase()
+
+  // Coordination and orchestration responses
+  if (lowerQuestion.includes("coordinate") || lowerQuestion.includes("orchestrat")) {
+    return `🧠 **NEURAL DIRECTOR READY FOR COORDINATION**
+
+I'll coordinate our executive team to address this comprehensively:
+
+**🎯 EXECUTIVE DELEGATION:**
+• **CEO**: Strategic framework and leadership oversight
+• **CMO**: Customer impact and market positioning  
+• **CTO**: Technical architecture and implementation
+
+**📋 COORDINATION PLAN:**
+1. **Strategic Alignment** - CEO establishes vision and priorities
+2. **Market Integration** - CMO ensures customer-centric approach
+3. **Technical Execution** - CTO provides scalable solutions
+4. **Unified Delivery** - I synthesize all perspectives for optimal results
+
+**⚡ NEXT STEPS:**
+Would you like me to dive deeper into any specific executive's perspective, or shall I provide the complete coordinated strategy across all three domains?
+
+*The power of Neural Director lies in seamless executive orchestration.*`
+  }
+
+  // Digital transformation responses
+  if (lowerQuestion.includes("digital") && lowerQuestion.includes("transformation")) {
+    return `🚀 **COORDINATED DIGITAL TRANSFORMATION STRATEGY**
+
+**NEURAL DIRECTOR ORCHESTRATION:**
+
+**👑 CEO STRATEGIC FRAMEWORK:**
+• Change management and organizational readiness
+• Investment prioritization and ROI planning
+• Stakeholder alignment and communication strategy
+• Risk assessment and mitigation planning
+
+**📈 CMO CUSTOMER EXPERIENCE:**
+• Omnichannel customer journey mapping
+• Digital touchpoint optimization
+• Brand positioning in digital landscape
+• Customer adoption and engagement strategies
+
+**⚡ CTO TECHNICAL ARCHITECTURE:**
+• Legacy system modernization roadmap
+• Cloud infrastructure and scalability planning
+• Data integration and analytics platform
+• Cybersecurity and compliance framework
+
+**🎯 UNIFIED EXECUTION PLAN:**
+1. **Phase 1**: Foundation (CEO leads organizational prep, CTO establishes infrastructure)
+2. **Phase 2**: Integration (CMO launches customer experience, CTO deploys systems)
+3. **Phase 3**: Optimization (All executives collaborate on performance tuning)
+
+**📊 SUCCESS METRICS:**
+• 40% faster implementation through coordination
+• 95% cross-functional alignment
+• $2.3M cost savings through unified approach
+
+Ready to dive deeper into any specific phase or executive perspective?`
+  }
+
+  // Market expansion responses
+  if (lowerQuestion.includes("market") && lowerQuestion.includes("expansion")) {
+    return `🌍 **COORDINATED MARKET EXPANSION STRATEGY**
+
+**NEURAL DIRECTOR ORCHESTRATION:**
+
+**👑 CEO STRATEGIC LEADERSHIP:**
+• Market opportunity analysis and prioritization
+• Competitive positioning and differentiation
+• Partnership and acquisition strategies
+• Resource allocation and investment planning
+
+**📈 CMO MARKET PENETRATION:**
+• Local market research and customer insights
+• Brand localization and messaging strategy
+• Channel partner identification and development
+• Marketing campaign planning and execution
+
+**⚡ CTO TECHNICAL ENABLEMENT:**
+• Infrastructure scaling for new markets
+• Localization and compliance requirements
+• Integration with local systems and partners
+• Performance monitoring and optimization
+
+**🎯 COORDINATED EXECUTION:**
+1. **Market Assessment** - CEO analyzes opportunities, CMO researches customers, CTO evaluates technical requirements
+2. **Entry Strategy** - CEO finalizes approach, CMO develops go-to-market, CTO prepares infrastructure
+3. **Launch Coordination** - All executives execute synchronized market entry
+4. **Optimization** - Continuous improvement based on unified feedback
+
+**📊 PROJECTED OUTCOMES:**
+• 60% faster market entry through coordination
+• 85% higher success rate with unified approach
+• $12M revenue potential in first year
+
+Which market or executive perspective would you like me to elaborate on?`
+  }
+
+  // Default coordinated response
+  return `🧠 **NEURAL DIRECTOR COORDINATION READY**
+
+I'm analyzing your request and preparing a coordinated response from our executive team:
+
+**🎯 EXECUTIVE COORDINATION APPROACH:**
+• **CEO**: Strategic framework and leadership perspective
+• **CMO**: Customer and market impact analysis  
+• **CTO**: Technical implementation and innovation angle
+
+**⚡ COORDINATION CAPABILITIES:**
+• Multi-perspective strategic analysis
+• Cross-functional solution development
+• Unified execution planning
+• Real-time executive collaboration
+
+**📋 SUGGESTED COORDINATION AREAS:**
+• Digital transformation initiatives
+• Market expansion strategies
+• Crisis management and recovery
+• Product launch coordination
+• Competitive analysis and response
+• Customer retention optimization
+
+Would you like me to coordinate a specific business challenge across all executives, or dive deeper into any particular area?
+
+*Ask me to "coordinate" any business initiative for comprehensive executive collaboration.*`
+}
+
+export function OrchestratorChat({ isOpen, onClose, maxQuestions = 10 }: OrchestratorChatProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [companyData, setCompanyData] = useState<CompanyData>({})
-  const [conversationId, setConversationId] = useState<string | null>(null)
+  const [questionCount, setQuestionCount] = useState(0)
+  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  // Load conversation on open
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
   useEffect(() => {
-    if (isOpen && user) {
-      loadConversation()
-    }
-  }, [isOpen, user])
+    scrollToBottom()
+  }, [messages])
 
-  const loadConversation = async () => {
-    if (!user) return
-
-    try {
-      const { data, error } = await supabase
-        .from("orchestrator_conversations")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .single()
-
-      if (error && error.code !== "PGRST116") {
-        console.error("Error loading conversation:", error)
-        return
-      }
-
-      if (data) {
-        setConversationId(data.id)
-        setMessages(data.messages || [])
-        setCompanyData(data.company_data || {})
-      } else {
-        // Create initial conversation with welcome message
-        const welcomeMessage: Message = {
-          id: "1",
+  useEffect(() => {
+    if (isOpen) {
+      // Initialize with greeting message
+      setMessages([
+        {
+          id: "greeting",
           content:
-            "Hello! I'm your Neural Director. I'll help coordinate all your AI agents and learn about your business. To get started, could you tell me about your company? What's your business name and what industry are you in?",
-          sender: "assistant",
+            "I am the Neural Director, your central command system that coordinates all AI executives to deliver comprehensive business solutions.",
+          sender: "orchestrator",
           timestamp: new Date(),
-        }
-        setMessages([welcomeMessage])
-      }
-    } catch (error) {
-      console.error("Error loading conversation:", error)
+          type: "greeting",
+        },
+      ])
+      setQuestionCount(0)
+      setInputValue("")
     }
-  }
+  }, [isOpen])
 
-  const extractCompanyData = (message: string): Partial<CompanyData> => {
-    const extracted: Partial<CompanyData> = {}
-    const lowerMessage = message.toLowerCase()
-
-    // Extract company name patterns
-    const namePatterns = [
-      /(?:company|business|startup|firm|organization|corp|inc|llc|ltd)\s+(?:is|called|named)\s+([^.,!?]+)/i,
-      /(?:we're|we are|i'm|i am)\s+([^.,!?]+?)(?:\s+(?:company|business|startup|firm|corp|inc|llc|ltd))/i,
-      /(?:my|our)\s+(?:company|business|startup|firm)\s+(?:is|called|named)\s+([^.,!?]+)/i,
-    ]
-
-    for (const pattern of namePatterns) {
-      const match = message.match(pattern)
-      if (match && match[1]) {
-        extracted.name = match[1].trim()
-        break
-      }
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus()
     }
+  }, [isOpen])
 
-    // Extract industry
-    const industries = [
-      "technology",
-      "tech",
-      "software",
-      "saas",
-      "fintech",
-      "healthcare",
-      "education",
-      "e-commerce",
-      "retail",
-      "manufacturing",
-      "consulting",
-      "marketing",
-      "real estate",
-      "finance",
-      "insurance",
-      "logistics",
-      "transportation",
-      "food",
-      "restaurant",
-      "hospitality",
-      "construction",
-      "energy",
-    ]
-
-    for (const industry of industries) {
-      if (lowerMessage.includes(industry)) {
-        extracted.industry = industry
-        break
-      }
-    }
-
-    // Extract company size
-    const sizePatterns = [
-      /(\d+)\s+(?:employees|people|staff|team members)/i,
-      /(?:team|company|startup|business)\s+of\s+(\d+)/i,
-      /(small|medium|large|startup|enterprise)\s+(?:company|business|team)/i,
-    ]
-
-    for (const pattern of sizePatterns) {
-      const match = message.match(pattern)
-      if (match && match[1]) {
-        if (isNaN(Number(match[1]))) {
-          extracted.size = match[1].toLowerCase()
-        } else {
-          const num = Number.parseInt(match[1])
-          if (num < 10) extracted.size = "startup"
-          else if (num < 50) extracted.size = "small"
-          else if (num < 200) extracted.size = "medium"
-          else extracted.size = "large"
-        }
-        break
-      }
-    }
-
-    // Extract goals
-    const goalKeywords = ["goal", "objective", "aim", "target", "want to", "trying to", "hoping to", "plan to"]
-    const goals: string[] = []
-
-    for (const keyword of goalKeywords) {
-      if (lowerMessage.includes(keyword)) {
-        const sentences = message.split(/[.!?]/)
-        for (const sentence of sentences) {
-          if (sentence.toLowerCase().includes(keyword)) {
-            goals.push(sentence.trim())
-          }
-        }
-      }
-    }
-
-    if (goals.length > 0) {
-      extracted.goals = goals
-    }
-
-    // Extract challenges
-    const challengeKeywords = ["challenge", "problem", "issue", "struggle", "difficulty", "pain point"]
-    const challenges: string[] = []
-
-    for (const keyword of challengeKeywords) {
-      if (lowerMessage.includes(keyword)) {
-        const sentences = message.split(/[.!?]/)
-        for (const sentence of sentences) {
-          if (sentence.toLowerCase().includes(keyword)) {
-            challenges.push(sentence.trim())
-          }
-        }
-      }
-    }
-
-    if (challenges.length > 0) {
-      extracted.challenges = challenges
-    }
-
-    return extracted
-  }
-
-  const generateResponse = (userMessage: string, currentCompanyData: CompanyData): string => {
-    const lowerMessage = userMessage.toLowerCase()
-
-    // Check what data we're missing
-    const missingData = []
-    if (!currentCompanyData.name) missingData.push("company name")
-    if (!currentCompanyData.industry) missingData.push("industry")
-    if (!currentCompanyData.size) missingData.push("company size")
-    if (!currentCompanyData.goals || currentCompanyData.goals.length === 0) missingData.push("business goals")
-    if (!currentCompanyData.challenges || currentCompanyData.challenges.length === 0)
-      missingData.push("main challenges")
-
-    // Provide contextual responses
-    if (lowerMessage.includes("hello") || lowerMessage.includes("hi")) {
-      return "Hello! Great to meet you. I'm here to learn about your business and help coordinate your AI agents effectively. What can you tell me about your company?"
-    }
-
-    if (missingData.length === 0) {
-      return `Perfect! I now have a comprehensive understanding of ${currentCompanyData.name}. As a ${currentCompanyData.size} ${currentCompanyData.industry} company, I can help coordinate your AI agents to focus on your goals and address your challenges. 
-
-I'll ensure all your deployed agents work together effectively to support your business objectives. Is there anything specific you'd like to discuss about your AI strategy?`
-    }
-
-    // Ask for missing information
-    if (missingData.length > 0) {
-      const responses = [
-        `Thanks for that information! To better coordinate your AI agents, I'd also like to know about your ${missingData[0]}. Could you share that with me?`,
-        `Great! I'm building a profile of your business. Could you also tell me about your ${missingData[0]}?`,
-        `Excellent! To complete your business profile, I'd love to learn about your ${missingData[0]}. What can you share?`,
-      ]
-      return responses[Math.floor(Math.random() * responses.length)]
-    }
-
-    return "Thank you for sharing that information. I'm continuously learning about your business to better coordinate your AI agents. What else would you like to discuss?"
-  }
-
-  const handleSend = async () => {
-    if (!inputValue.trim() || !user) return
+  const handleSendMessage = () => {
+    if (!inputValue.trim() || questionCount >= maxQuestions) return
 
     const userMessage: Message = {
-      id: Date.now().toString(),
-      content: inputValue.trim(),
+      id: `user-${Date.now()}`,
+      content: inputValue,
       sender: "user",
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
-    setIsLoading(true)
+    setQuestionCount((prev) => prev + 1)
 
-    try {
-      // Extract company data from user message
-      const extractedData = extractCompanyData(userMessage.content)
-      const updatedCompanyData = { ...companyData, ...extractedData }
-      setCompanyData(updatedCompanyData)
+    // Generate Neural Director response
+    const agentResponse = getDirectorResponse(inputValue)
 
-      // Generate AI response
-      const aiResponse = generateResponse(userMessage.content, updatedCompanyData)
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: aiResponse,
-        sender: "assistant",
+    setTimeout(() => {
+      const orchestratorMessage: Message = {
+        id: `orchestrator-${Date.now()}`,
+        content: agentResponse,
+        sender: "orchestrator",
         timestamp: new Date(),
+        type: "coordination",
       }
+      setMessages((prev) => [...prev, orchestratorMessage])
+    }, 1000)
 
-      const updatedMessages = [...messages, userMessage, assistantMessage]
-      setMessages(updatedMessages)
+    setInputValue("")
+  }
 
-      // Save to Supabase
-      if (conversationId) {
-        // Update existing conversation
-        await supabase
-          .from("orchestrator_conversations")
-          .update({
-            messages: updatedMessages,
-            company_data: updatedCompanyData,
-          })
-          .eq("id", conversationId)
-      } else {
-        // Create new conversation
-        const { data, error } = await supabase
-          .from("orchestrator_conversations")
-          .insert({
-            user_id: user.id,
-            messages: updatedMessages,
-            company_data: updatedCompanyData,
-          })
-          .select()
-          .single()
-
-        if (data) {
-          setConversationId(data.id)
-        }
-
-        if (error) {
-          console.error("Error saving conversation:", error)
-        }
-      }
-    } catch (error) {
-      console.error("Send error:", error)
-    } finally {
-      setIsLoading(false)
-    }
+  const handleSampleQuestion = (question: string) => {
+    if (questionCount >= maxQuestions) return
+    setInputValue(question)
+    setTimeout(() => handleSendMessage(), 100)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSend()
+      handleSendMessage()
     }
   }
 
+  const sampleQuestions = [
+    "Coordinate a complete digital transformation strategy across all executives",
+    "How should CEO, CMO, and CTO work together on our market expansion?",
+    "Delegate our product launch across the executive team with clear responsibilities",
+    "Synthesize a unified crisis management plan using all three executives",
+    "Coordinate a comprehensive competitive analysis across all business functions",
+    "How can all executives collaborate on our customer retention strategy?",
+  ]
+
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-6xl h-[80vh] p-0">
-        <DialogHeader className="p-6 pb-0">
-          <DialogTitle className="flex items-center gap-2 text-purple-600">
-            <Bot className="h-6 w-6" />
-            Neural Director
-          </DialogTitle>
-          <DialogDescription className="sr-only">
-            Chat with the Neural Director to set up your business profile and coordinate AI agents
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="flex h-full">
-          {/* Chat Area */}
-          <div className="flex-1 flex flex-col">
-            <ScrollArea className="flex-1 p-6">
-              <div className="space-y-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`flex gap-3 ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                  >
-                    <div
-                      className={`flex gap-3 max-w-[80%] ${
-                        message.sender === "user" ? "flex-row-reverse" : "flex-row"
-                      }`}
-                    >
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          message.sender === "user" ? "bg-blue-500 text-white" : "bg-purple-500 text-white"
-                        }`}
-                      >
-                        {message.sender === "user" ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-                      </div>
-                      <div
-                        className={`rounded-lg p-3 ${
-                          message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-900"
-                        }`}
-                      >
-                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-                        <p className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {isLoading && (
-                  <div className="flex gap-3 justify-start">
-                    <div className="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center">
-                      <Bot className="h-4 w-4" />
-                    </div>
-                    <div className="bg-gray-100 rounded-lg p-3">
-                      <div className="flex items-center gap-2">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-purple-500"></div>
-                        <span className="text-sm text-gray-600">Thinking...</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </ScrollArea>
-
-            {/* Input Area */}
-            <div className="p-6 border-t">
-              <div className="flex gap-2">
-                <Input
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Tell me about your company..."
-                  className="flex-1"
-                  disabled={isLoading}
-                />
-                <Button
-                  onClick={handleSend}
-                  disabled={!inputValue.trim() || isLoading}
-                  className="bg-purple-500 hover:bg-purple-600"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+        <DialogHeader className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <Network className="h-8 w-8" />
+              <div>
+                <DialogTitle className="text-2xl font-bold">Neural Director</DialogTitle>
+                <p className="text-indigo-100">Central Command & Coordination</p>
               </div>
             </div>
+            <div className="flex items-center space-x-4">
+              <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                {questionCount}/{maxQuestions} questions
+              </Badge>
+              {questionCount >= maxQuestions && (
+                <Badge variant="destructive" className="bg-red-500/20 text-white border-red-300/30">
+                  Limit reached
+                </Badge>
+              )}
+            </div>
           </div>
+        </DialogHeader>
 
-          {/* Company Profile Sidebar */}
-          <div className="w-80 border-l bg-gray-50 p-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-sm">
-                  <Building className="h-4 w-4" />
-                  Company Profile
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {companyData.name && (
-                  <div>
-                    <label className="text-xs font-medium text-gray-500">Company Name</label>
-                    <p className="text-sm font-medium">{companyData.name}</p>
-                  </div>
-                )}
-
-                {companyData.industry && (
-                  <div>
-                    <label className="text-xs font-medium text-gray-500">Industry</label>
-                    <Badge variant="secondary" className="mt-1">
-                      {companyData.industry}
-                    </Badge>
-                  </div>
-                )}
-
-                {companyData.size && (
-                  <div>
-                    <label className="text-xs font-medium text-gray-500">Size</label>
-                    <p className="text-sm">{companyData.size}</p>
-                  </div>
-                )}
-
-                {companyData.goals && companyData.goals.length > 0 && (
-                  <div>
-                    <label className="text-xs font-medium text-gray-500 flex items-center gap-1">
-                      <Target className="h-3 w-3" />
-                      Goals
-                    </label>
-                    <div className="space-y-1 mt-1">
-                      {companyData.goals.map((goal, index) => (
-                        <p key={index} className="text-xs bg-green-50 text-green-700 p-2 rounded">
-                          {goal}
-                        </p>
-                      ))}
+        <div className="flex flex-col h-[600px]">
+          <ScrollArea className="flex-1 p-6">
+            <div className="space-y-4">
+              {messages.map((message) => (
+                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
+                  <div
+                    className={`max-w-[80%] rounded-lg p-4 ${
+                      message.sender === "user"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gradient-to-r from-indigo-50 to-purple-50 text-gray-900 border border-indigo-200"
+                    }`}
+                  >
+                    <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                    <div className={`text-xs mt-2 ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}>
+                      {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </div>
                   </div>
-                )}
+                </div>
+              ))}
+            </div>
+            <div ref={messagesEndRef} />
+          </ScrollArea>
 
-                {companyData.challenges && companyData.challenges.length > 0 && (
-                  <div>
-                    <label className="text-xs font-medium text-gray-500 flex items-center gap-1">
-                      <AlertCircle className="h-3 w-3" />
-                      Challenges
-                    </label>
-                    <div className="space-y-1 mt-1">
-                      {companyData.challenges.map((challenge, index) => (
-                        <p key={index} className="text-xs bg-red-50 text-red-700 p-2 rounded">
-                          {challenge}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
+          <div className="p-6 border-t bg-gray-50">
+            {messages.length === 1 && (
+              <div className="mb-4">
+                <p className="text-sm text-gray-600 mb-3 flex items-center">
+                  <Lightbulb className="h-4 w-4 mr-2" />
+                  Try these coordination examples:
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {sampleQuestions.slice(0, 4).map((question, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      className="text-left justify-start text-xs h-auto py-3 px-4 bg-white hover:bg-indigo-50 hover:border-indigo-300"
+                      onClick={() => handleSampleQuestion(question)}
+                      disabled={questionCount >= maxQuestions}
+                    >
+                      <MessageCircle className="h-3 w-3 mr-2 text-indigo-600 flex-shrink-0" />
+                      <span className="truncate">"{question}"</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
 
-                {Object.keys(companyData).length === 0 && (
-                  <div className="text-center py-8">
-                    <Sparkles className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                    <p className="text-xs text-gray-500">
-                      Share your company details in the chat to build your profile
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <div className="flex space-x-3">
+              <Input
+                ref={inputRef}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder={
+                  questionCount >= maxQuestions ? "Question limit reached" : "Ask me to coordinate across executives..."
+                }
+                disabled={questionCount >= maxQuestions}
+                className="flex-1"
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputValue.trim() || questionCount >= maxQuestions}
+                className="bg-gradient-to-r from-indigo-600 to-purple-700 hover:opacity-90"
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {questionCount >= maxQuestions && (
+              <p className="text-xs text-gray-500 mt-3 text-center">
+                You've reached the maximum number of questions for this demo. Sign up for unlimited access!
+              </p>
+            )}
           </div>
         </div>
       </DialogContent>
