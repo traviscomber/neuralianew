@@ -1,183 +1,120 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Download, FileText, Calendar, User } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { useRouter } from "next/navigation"
+import { Download, FileText, Package, Users } from "lucide-react"
 
 interface DownloadItem {
   id: string
   name: string
   description: string
-  fileSize: string
-  downloadCount: number
-  uploadDate: string
-  category: string
-  fileType: string
+  type: "report" | "data" | "software"
+  size: string
+  downloads: number
+  lastUpdated: string
 }
 
+const mockDownloads: DownloadItem[] = [
+  {
+    id: "1",
+    name: "User Analytics Report",
+    description: "Comprehensive analytics report for Q4 2024",
+    type: "report",
+    size: "2.4 MB",
+    downloads: 156,
+    lastUpdated: "2024-01-15",
+  },
+  {
+    id: "2",
+    name: "Agent Performance Data",
+    description: "Performance metrics and usage statistics",
+    type: "data",
+    size: "8.7 MB",
+    downloads: 89,
+    lastUpdated: "2024-01-12",
+  },
+  {
+    id: "3",
+    name: "Neuralia SDK",
+    description: "Software development kit for custom integrations",
+    type: "software",
+    size: "45.2 MB",
+    downloads: 234,
+    lastUpdated: "2024-01-10",
+  },
+]
+
 export default function AdminDownloadsPage() {
-  const { user, loading } = useAuth()
-  const router = useRouter()
-  const [downloads, setDownloads] = useState<DownloadItem[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [downloads] = useState<DownloadItem[]>(mockDownloads)
 
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push("/auth/login")
-      return
-    }
-
-    // Mock data for demonstration
-    const mockDownloads: DownloadItem[] = [
-      {
-        id: "1",
-        name: "AI Agent Configuration Guide",
-        description: "Complete guide for configuring AI agents in your business environment.",
-        fileSize: "2.4 MB",
-        downloadCount: 156,
-        uploadDate: "2024-01-15",
-        category: "Documentation",
-        fileType: "PDF",
-      },
-      {
-        id: "2",
-        name: "API Integration Templates",
-        description: "Ready-to-use templates for integrating Neuralia APIs.",
-        fileSize: "1.8 MB",
-        downloadCount: 89,
-        uploadDate: "2024-01-10",
-        category: "Templates",
-        fileType: "ZIP",
-      },
-      {
-        id: "3",
-        name: "Business Process Automation Toolkit",
-        description: "Tools and scripts for automating common business processes.",
-        fileSize: "5.2 MB",
-        downloadCount: 234,
-        uploadDate: "2024-01-05",
-        category: "Tools",
-        fileType: "ZIP",
-      },
-      {
-        id: "4",
-        name: "Training Data Preparation Guide",
-        description: "Best practices for preparing training data for AI models.",
-        fileSize: "3.1 MB",
-        downloadCount: 67,
-        uploadDate: "2023-12-28",
-        category: "Documentation",
-        fileType: "PDF",
-      },
-    ]
-
-    setDownloads(mockDownloads)
-    setIsLoading(false)
-  }, [user, loading, router])
-
-  const handleDownload = (item: DownloadItem) => {
-    // In a real application, this would trigger an actual download
-    console.log(`Downloading: ${item.name}`)
-
-    // Update download count
-    setDownloads((prev) =>
-      prev.map((download) =>
-        download.id === item.id ? { ...download, downloadCount: download.downloadCount + 1 } : download,
-      ),
-    )
-  }
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "Documentation":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
-      case "Templates":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-      case "Tools":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
-      default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
-    }
-  }
-
-  const getFileTypeIcon = (fileType: string) => {
-    switch (fileType) {
-      case "PDF":
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case "report":
         return <FileText className="h-4 w-4" />
-      case "ZIP":
+      case "data":
+        return <Package className="h-4 w-4" />
+      case "software":
         return <Download className="h-4 w-4" />
       default:
         return <FileText className="h-4 w-4" />
     }
   }
 
-  if (loading || isLoading) {
-    return (
-      <div className="container mx-auto py-8">
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-        </div>
-      </div>
-    )
+  const getTypeBadgeVariant = (type: string) => {
+    switch (type) {
+      case "report":
+        return "default"
+      case "data":
+        return "secondary"
+      case "software":
+        return "outline"
+      default:
+        return "default"
+    }
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Downloads</h1>
-        <p className="text-muted-foreground mt-2">Access and download resources, documentation, and tools.</p>
+        <h1 className="text-3xl font-bold">Downloads</h1>
+        <p className="text-muted-foreground">Manage and monitor downloadable resources</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6">
         {downloads.map((item) => (
-          <Card key={item.id} className="hover:shadow-lg transition-shadow">
+          <Card key={item.id}>
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-2">
-                  {getFileTypeIcon(item.fileType)}
-                  <CardTitle className="text-lg">{item.name}</CardTitle>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  {getTypeIcon(item.type)}
+                  <CardTitle className="text-xl">{item.name}</CardTitle>
+                  <Badge variant={getTypeBadgeVariant(item.type)}>{item.type}</Badge>
                 </div>
-                <Badge className={getCategoryColor(item.category)}>{item.category}</Badge>
+                <Button>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download
+                </Button>
               </div>
-              <CardDescription className="line-clamp-2">{item.description}</CardDescription>
+              <CardDescription>{item.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between text-sm text-muted-foreground">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="h-4 w-4" />
-                    <span>{new Date(item.uploadDate).toLocaleDateString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <User className="h-4 w-4" />
-                    <span>{item.downloadCount} downloads</span>
-                  </div>
+              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-1">
+                  <Package className="h-4 w-4" />
+                  {item.size}
                 </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{item.fileSize}</span>
-                  <Button onClick={() => handleDownload(item)} size="sm" className="flex items-center space-x-2">
-                    <Download className="h-4 w-4" />
-                    <span>Download</span>
-                  </Button>
+                <div className="flex items-center gap-1">
+                  <Users className="h-4 w-4" />
+                  {item.downloads} downloads
                 </div>
+                <div>Last updated: {new Date(item.lastUpdated).toLocaleDateString()}</div>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
-
-      {downloads.length === 0 && (
-        <div className="text-center py-12">
-          <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No downloads available</h3>
-          <p className="text-muted-foreground">Check back later for new resources and documentation.</p>
-        </div>
-      )}
     </div>
   )
 }

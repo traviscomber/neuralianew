@@ -11,7 +11,6 @@ import { FeaturesSection } from "@/components/landing/features-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
-import { ChatWidget } from "@/components/chat/chat-widget"
 
 export default function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -163,7 +162,6 @@ export default function HomePage() {
         <TestimonialsSection />
         <FAQSection />
         <Footer />
-        <ChatWidget />
       </main>
 
       {/* Auth Modal */}

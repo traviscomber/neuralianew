@@ -9,6 +9,7 @@ interface CartItem {
   name: string
   price: number
   quantity: number
+  icon: string
 }
 
 interface CartContextType {
@@ -33,7 +34,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       try {
         setItems(JSON.parse(savedCart))
       } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
+        console.error("Failed to parse cart from localStorage:", error)
       }
     }
   }, [])
@@ -44,17 +45,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items])
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {
-    setItems((currentItems) => {
-      const existingItem = currentItems.find((item) => item.id === newItem.id)
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((item) => item.id === newItem.id)
       if (existingItem) {
-        return currentItems.map((item) => (item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item))
+        return prevItems.map((item) => (item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item))
       }
-      return [...currentItems, { ...newItem, quantity: 1 }]
+      return [...prevItems, { ...newItem, quantity: 1 }]
     })
   }
 
   const removeItem = (id: string) => {
-    setItems((currentItems) => currentItems.filter((item) => item.id !== id))
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
   const updateQuantity = (id: string, quantity: number) => {
@@ -62,7 +63,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       removeItem(id)
       return
     }
-    setItems((currentItems) => currentItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
   }
 
   const clearCart = () => {
@@ -72,17 +73,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
-  const value = {
-    items,
-    addItem,
-    removeItem,
-    updateQuantity,
-    clearCart,
-    total,
-    itemCount,
-  }
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>
+  return (
+    <CartContext.Provider
+      value={{
+        items,
+        addItem,
+        removeItem,
+        updateQuantity,
+        clearCart,
+        total,
+        itemCount,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
 }
 
 export function useCart() {
