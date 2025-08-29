@@ -146,20 +146,18 @@ export default function HomePage() {
       </nav>
 
       {/* Main Content */}
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-background">
         <HeroSection />
         <FeaturesSection />
         <TestimonialsSection />
         <TeamSection />
         <FAQSection />
         <Footer />
+        <ChatWidget />
       </main>
 
       {/* Auth Modal */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-
-      {/* Chat Widget */}
-      <ChatWidget />
     </div>
   )
 }

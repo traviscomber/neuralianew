@@ -12,45 +12,40 @@ export function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
-export function formatDate(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date
-  return new Intl.DateTimeFormat("en-US", {
-    year: "short",
-    month: "short",
-    day: "numeric",
-  }).format(d)
-}
-
-export function formatTime(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date
-  return new Intl.DateTimeFormat("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(d)
-}
-
-export function formatDateTime(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date
+export function formatDate(date: string | Date): string {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
-    month: "short",
+    month: "long",
     day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(d)
+  }).format(new Date(date))
 }
 
-export function formatRelativeTime(date: Date | string): string {
-  const d = typeof date === "string" ? new Date(date) : date
+export function formatRelativeTime(date: string | Date): string {
   const now = new Date()
-  const diffInSeconds = Math.floor((now.getTime() - d.getTime()) / 1000)
+  const targetDate = new Date(date)
+  const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000)
 
-  if (diffInSeconds < 60) return "just now"
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`
+  if (diffInSeconds < 60) {
+    return "just now"
+  } else if (diffInSeconds < 3600) {
+    const minutes = Math.floor(diffInSeconds / 60)
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`
+  } else if (diffInSeconds < 86400) {
+    const hours = Math.floor(diffInSeconds / 3600)
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`
+  } else {
+    const days = Math.floor(diffInSeconds / 86400)
+    return `${days} day${days > 1 ? "s" : ""} ago`
+  }
+}
 
-  return formatDate(d)
+export function generateId(): string {
+  return Math.random().toString(36).substring(2) + Date.now().toString(36)
+}
+
+export function truncateText(text: string, maxLength: number): string {
+  if (text.length <= maxLength) return text
+  return text.substring(0, maxLength) + "..."
 }
 
 export function slugify(text: string): string {
@@ -61,117 +56,35 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, "")
 }
 
-export function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1)
-}
-
-export function truncate(text: string, length: number): string {
-  if (text.length <= length) return text
-  return text.slice(0, length) + "..."
-}
-
-export function debounce<T extends (...args: any[]) => any>(func: T, wait: number): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout
-  return (...args: Parameters<T>) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(() => func(...args), wait)
-  }
-}
-
-export function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
-  let inThrottle: boolean
-  return (...args: Parameters<T>) => {
-    if (!inThrottle) {
-      func(...args)
-      inThrottle = true
-      setTimeout(() => (inThrottle = false), limit)
-    }
-  }
-}
-
-export function generateId(): string {
-  return Math.random().toString(36).substring(2) + Date.now().toString(36)
-}
-
-export function isValidEmail(email: string): boolean {
+export function validateEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
 }
 
-export function isValidUrl(url: string): boolean {
-  try {
-    new URL(url)
-    return true
-  } catch {
-    return false
+export function validatePassword(password: string): {
+  isValid: boolean
+  errors: string[]
+} {
+  const errors: string[] = []
+
+  if (password.length < 8) {
+    errors.push("Password must be at least 8 characters long")
   }
-}
 
-export function getInitials(name: string): string {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2)
-}
-
-export function parseJSON<T>(json: string, fallback: T): T {
-  try {
-    return JSON.parse(json)
-  } catch {
-    return fallback
+  if (!/[A-Z]/.test(password)) {
+    errors.push("Password must contain at least one uppercase letter")
   }
-}
 
-export function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
-export function randomBetween(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
-
-export function arrayToMap<T, K extends keyof T>(array: T[], key: K): Map<T[K], T> {
-  return new Map(array.map((item) => [item[key], item]))
-}
-
-export function groupBy<T, K extends keyof T>(array: T[], key: K): Record<string, T[]> {
-  return array.reduce(
-    (groups, item) => {
-      const group = String(item[key])
-      groups[group] = groups[group] || []
-      groups[group].push(item)
-      return groups
-    },
-    {} as Record<string, T[]>,
-  )
-}
-
-export function unique<T>(array: T[]): T[] {
-  return [...new Set(array)]
-}
-
-export function chunk<T>(array: T[], size: number): T[][] {
-  const chunks: T[][] = []
-  for (let i = 0; i < array.length; i += size) {
-    chunks.push(array.slice(i, i + size))
+  if (!/[a-z]/.test(password)) {
+    errors.push("Password must contain at least one lowercase letter")
   }
-  return chunks
-}
 
-export function omit<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  const result = { ...obj }
-  keys.forEach((key) => delete result[key])
-  return result
-}
+  if (!/\d/.test(password)) {
+    errors.push("Password must contain at least one number")
+  }
 
-export function pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-  const result = {} as Pick<T, K>
-  keys.forEach((key) => {
-    if (key in obj) {
-      result[key] = obj[key]
-    }
-  })
-  return result
+  return {
+    isValid: errors.length === 0,
+    errors,
+  }
 }

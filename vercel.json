@@ -1,10 +1,11 @@
 {
-  "framework": "nextjs",
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
   "functions": {
-    "app/api/*/route.ts": {
+    "app/api/**/*.ts": {
       "maxDuration": 30
     }
   },
@@ -13,25 +14,24 @@
       "source": "/(.*)",
       "headers": [
         {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
         {
-          "key": "Referrer-Policy",
-          "value": "origin-when-cross-origin"
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
         }
       ]
     }
   ],
-  "redirects": [
+  "rewrites": [
     {
-      "source": "/www.n3uralia.com/(.*)",
-      "destination": "https://n3uralia.com/$1",
-      "permanent": true
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
   ]
 }

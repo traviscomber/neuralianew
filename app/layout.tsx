@@ -10,56 +10,21 @@ import { Toaster } from "@/components/ui/sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Executive Team for Your Business",
-  description:
-    "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
-  keywords: "AI executives, business strategy, neural networks, artificial intelligence, business automation",
+  title: "Neuralia - AI Executive Agents",
+  description: "Deploy AI executives that think, decide, and execute like seasoned business leaders.",
+  keywords: "AI, artificial intelligence, business automation, executive agents, enterprise AI",
   authors: [{ name: "Neuralia Team" }],
-  creator: "Neuralia",
-  publisher: "Neuralia",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://n3uralia.com"),
-  alternates: {
-    canonical: "https://n3uralia.com",
-  },
   openGraph: {
-    title: "Neuralia - AI Executive Team for Your Business",
-    description:
-      "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
+    title: "Neuralia - AI Executive Agents",
+    description: "Deploy AI executives that think, decide, and execute like seasoned business leaders.",
     url: "https://n3uralia.com",
     siteName: "Neuralia",
-    images: [
-      {
-        url: "/placeholder-logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Neuralia - AI Executive Team",
-      },
-    ],
-    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - AI Executive Team for Your Business",
-    description:
-      "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
-    images: ["/placeholder-logo.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    title: "Neuralia - AI Executive Agents",
+    description: "Deploy AI executives that think, decide, and execute like seasoned business leaders.",
   },
     generator: 'v0.app'
 }

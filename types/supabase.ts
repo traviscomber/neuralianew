@@ -8,6 +8,7 @@ export interface Database {
           id: string
           email: string
           full_name: string | null
+          phone: string | null
           avatar_url: string | null
           created_at: string
           updated_at: string
@@ -16,6 +17,7 @@ export interface Database {
           id: string
           email: string
           full_name?: string | null
+          phone?: string | null
           avatar_url?: string | null
           created_at?: string
           updated_at?: string
@@ -24,6 +26,7 @@ export interface Database {
           id?: string
           email?: string
           full_name?: string | null
+          phone?: string | null
           avatar_url?: string | null
           created_at?: string
           updated_at?: string
@@ -39,7 +42,7 @@ export interface Database {
           agent_type: string
           icon: string | null
           status: string
-          configuration: Json | null
+          configuration: Json
           is_trial: boolean
           trial_ends_at: string | null
           payment_status: string
@@ -55,7 +58,7 @@ export interface Database {
           agent_type: string
           icon?: string | null
           status?: string
-          configuration?: Json | null
+          configuration?: Json
           is_trial?: boolean
           trial_ends_at?: string | null
           payment_status?: string
@@ -71,7 +74,7 @@ export interface Database {
           agent_type?: string
           icon?: string | null
           status?: string
-          configuration?: Json | null
+          configuration?: Json
           is_trial?: boolean
           trial_ends_at?: string | null
           payment_status?: string
@@ -103,6 +106,35 @@ export interface Database {
           user_id?: string
           items?: Json
           total_amount?: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      chat_conversations: {
+        Row: {
+          id: string
+          user_id: string
+          agent_id: string | null
+          title: string
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          agent_id?: string | null
+          title: string
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          agent_id?: string | null
+          title?: string
           status?: string
           created_at?: string
           updated_at?: string

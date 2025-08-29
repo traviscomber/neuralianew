@@ -10,10 +10,11 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signUp: (email: string, password: string, fullName?: string) => Promise<any>
-  signIn: (email: string, password: string) => Promise<any>
+  signIn: (email: string, password: string) => Promise<{ error: any }>
+  signUp: (email: string, password: string, fullName?: string) => Promise<{ error: any }>
   signOut: () => Promise<void>
-  resetPassword: (email: string) => Promise<any>
+  resetPassword: (email: string) => Promise<{ error: any }>
+  updateProfile: (data: { full_name?: string; phone?: string }) => Promise<{ error: any }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -25,11 +26,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const getInitialSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
-    })
+    }
+
+    getInitialSession()
 
     // Listen for auth changes
     const {
@@ -41,19 +47,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       // Create profile on sign up
       if (event === "SIGNED_UP" && session?.user) {
-        try {
-          await dbService.createProfile(session.user.id, session.user.email!, session.user.user_metadata?.full_name)
-        } catch (error) {
-          console.error("Error creating profile:", error)
-        }
+        await dbService.createProfile(session.user.id, session.user.email!, session.user.user_metadata?.full_name)
       }
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    return { error }
+  }
+
   const signUp = async (email: string, password: string, fullName?: string) => {
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -62,37 +72,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       },
     })
-    return { data, error }
-  }
-
-  const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { data, error }
+    return { error }
   }
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut()
-    if (error) throw error
+    await supabase.auth.signOut()
   }
 
   const resetPassword = async (email: string) => {
-    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     })
-    return { data, error }
+    return { error }
+  }
+
+  const updateProfile = async (data: { full_name?: string; phone?: string }) => {
+    if (!user) return { error: new Error("No user logged in") }
+
+    const { error } = await supabase.auth.updateUser({
+      data: data,
+    })
+    return { error }
   }
 
   const value = {
     user,
     session,
     loading,
-    signUp,
     signIn,
+    signUp,
     signOut,
     resetPassword,
+    updateProfile,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
