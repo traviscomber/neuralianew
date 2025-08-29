@@ -4,152 +4,166 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Download, FileText, Package, Users } from "lucide-react"
+import { Download, FileText, Calendar, User } from "lucide-react"
+import { useAuth } from "@/hooks/use-auth"
+import { useRouter } from "next/navigation"
 
 interface DownloadItem {
   id: string
   name: string
-  type: "agent" | "system" | "report"
-  size: string
-  downloads: number
-  lastUpdated: string
-  status: "active" | "deprecated" | "beta"
+  description: string
+  fileSize: string
+  downloadCount: number
+  uploadDate: string
+  category: string
+  fileType: string
 }
 
 export default function AdminDownloadsPage() {
+  const { user, loading } = useAuth()
+  const router = useRouter()
   const [downloads, setDownloads] = useState<DownloadItem[]>([])
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    if (!loading && !user) {
+      router.push("/auth/login")
+      return
+    }
+
     // Mock data for demonstration
     const mockDownloads: DownloadItem[] = [
       {
         id: "1",
-        name: "Customer Service Agent v2.1",
-        type: "agent",
-        size: "15.2 MB",
-        downloads: 1247,
-        lastUpdated: "2024-01-15",
-        status: "active",
+        name: "AI Agent Configuration Guide",
+        description: "Complete guide for configuring AI agents in your business environment.",
+        fileSize: "2.4 MB",
+        downloadCount: 156,
+        uploadDate: "2024-01-15",
+        category: "Documentation",
+        fileType: "PDF",
       },
       {
         id: "2",
-        name: "Sales Assistant Pro",
-        type: "agent",
-        size: "22.8 MB",
-        downloads: 892,
-        lastUpdated: "2024-01-12",
-        status: "active",
+        name: "API Integration Templates",
+        description: "Ready-to-use templates for integrating Neuralia APIs.",
+        fileSize: "1.8 MB",
+        downloadCount: 89,
+        uploadDate: "2024-01-10",
+        category: "Templates",
+        fileType: "ZIP",
       },
       {
         id: "3",
-        name: "Analytics Dashboard System",
-        type: "system",
-        size: "45.6 MB",
-        downloads: 456,
-        lastUpdated: "2024-01-10",
-        status: "beta",
+        name: "Business Process Automation Toolkit",
+        description: "Tools and scripts for automating common business processes.",
+        fileSize: "5.2 MB",
+        downloadCount: 234,
+        uploadDate: "2024-01-05",
+        category: "Tools",
+        fileType: "ZIP",
       },
       {
         id: "4",
-        name: "Monthly Usage Report",
-        type: "report",
-        size: "2.1 MB",
-        downloads: 234,
-        lastUpdated: "2024-01-08",
-        status: "active",
-      },
-      {
-        id: "5",
-        name: "Legacy Support Agent v1.5",
-        type: "agent",
-        size: "12.4 MB",
-        downloads: 89,
-        lastUpdated: "2023-12-20",
-        status: "deprecated",
+        name: "Training Data Preparation Guide",
+        description: "Best practices for preparing training data for AI models.",
+        fileSize: "3.1 MB",
+        downloadCount: 67,
+        uploadDate: "2023-12-28",
+        category: "Documentation",
+        fileType: "PDF",
       },
     ]
 
-    setTimeout(() => {
-      setDownloads(mockDownloads)
-      setLoading(false)
-    }, 1000)
-  }, [])
+    setDownloads(mockDownloads)
+    setIsLoading(false)
+  }, [user, loading, router])
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "bg-green-100 text-green-800"
-      case "beta":
-        return "bg-blue-100 text-blue-800"
-      case "deprecated":
-        return "bg-red-100 text-red-800"
+  const handleDownload = (item: DownloadItem) => {
+    // In a real application, this would trigger an actual download
+    console.log(`Downloading: ${item.name}`)
+
+    // Update download count
+    setDownloads((prev) =>
+      prev.map((download) =>
+        download.id === item.id ? { ...download, downloadCount: download.downloadCount + 1 } : download,
+      ),
+    )
+  }
+
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case "Documentation":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+      case "Templates":
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+      case "Tools":
+        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300"
     }
   }
 
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case "agent":
-        return <Users className="h-4 w-4" />
-      case "system":
-        return <Package className="h-4 w-4" />
-      case "report":
+  const getFileTypeIcon = (fileType: string) => {
+    switch (fileType) {
+      case "PDF":
         return <FileText className="h-4 w-4" />
-      default:
+      case "ZIP":
         return <Download className="h-4 w-4" />
+      default:
+        return <FileText className="h-4 w-4" />
     }
   }
 
-  if (loading) {
+  if (loading || isLoading) {
     return (
-      <div className="container mx-auto p-6">
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="container mx-auto py-8">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto py-8 px-4">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Downloads Management</h1>
-        <p className="text-muted-foreground mt-2">Manage and monitor downloadable content for your platform</p>
+        <h1 className="text-3xl font-bold tracking-tight">Downloads</h1>
+        <p className="text-muted-foreground mt-2">Access and download resources, documentation, and tools.</p>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {downloads.map((item) => (
-          <Card key={item.id}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="flex items-center space-x-2">
-                {getTypeIcon(item.type)}
-                <CardTitle className="text-lg">{item.name}</CardTitle>
-                <Badge className={getStatusColor(item.status)}>{item.status}</Badge>
+          <Card key={item.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-2">
+                  {getFileTypeIcon(item.fileType)}
+                  <CardTitle className="text-lg">{item.name}</CardTitle>
+                </div>
+                <Badge className={getCategoryColor(item.category)}>{item.category}</Badge>
               </div>
-              <Button variant="outline" size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Download
-              </Button>
+              <CardDescription className="line-clamp-2">{item.description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <p className="text-muted-foreground">Type</p>
-                  <p className="font-medium capitalize">{item.type}</p>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center space-x-1">
+                    <Calendar className="h-4 w-4" />
+                    <span>{new Date(item.uploadDate).toLocaleDateString()}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <User className="h-4 w-4" />
+                    <span>{item.downloadCount} downloads</span>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-muted-foreground">Size</p>
-                  <p className="font-medium">{item.size}</p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground">Downloads</p>
-                  <p className="font-medium">{item.downloads.toLocaleString()}</p>
-                </div>
-                <div>
-                  <p className="text-muted-foreground">Last Updated</p>
-                  <p className="font-medium">{new Date(item.lastUpdated).toLocaleDateString()}</p>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium">{item.fileSize}</span>
+                  <Button onClick={() => handleDownload(item)} size="sm" className="flex items-center space-x-2">
+                    <Download className="h-4 w-4" />
+                    <span>Download</span>
+                  </Button>
                 </div>
               </div>
             </CardContent>
@@ -158,13 +172,11 @@ export default function AdminDownloadsPage() {
       </div>
 
       {downloads.length === 0 && (
-        <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <Download className="h-12 w-12 text-muted-foreground mb-4" />
-            <CardTitle className="mb-2">No Downloads Available</CardTitle>
-            <CardDescription>There are currently no downloadable items available.</CardDescription>
-          </CardContent>
-        </Card>
+        <div className="text-center py-12">
+          <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <h3 className="text-lg font-semibold mb-2">No downloads available</h3>
+          <p className="text-muted-foreground">Check back later for new resources and documentation.</p>
+        </div>
       )}
     </div>
   )
