@@ -11,31 +11,20 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Neuralia - AI Executive Platform",
-  description: "Deploy and manage AI executives for your business",
-  keywords: ["AI", "artificial intelligence", "executives", "automation", "business"],
+  description: "Deploy and manage AI executive agents for your business",
+  keywords: ["AI", "executives", "automation", "business", "agents"],
   authors: [{ name: "Neuralia Team" }],
-  creator: "Neuralia",
-  publisher: "Neuralia",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://n3uralia.com"),
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Neuralia - AI Executive Platform",
-    description: "Deploy and manage AI executives for your business",
+    description: "Deploy and manage AI executive agents for your business",
     url: "https://n3uralia.com",
     siteName: "Neuralia",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/placeholder-logo.png",
         width: 1200,
         height: 630,
-        alt: "Neuralia AI Executive Platform",
+        alt: "Neuralia - AI Executive Platform",
       },
     ],
     locale: "en_US",
@@ -44,8 +33,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Neuralia - AI Executive Platform",
-    description: "Deploy and manage AI executives for your business",
-    images: ["/og-image.jpg"],
+    description: "Deploy and manage AI executive agents for your business",
+    images: ["/placeholder-logo.png"],
   },
   robots: {
     index: true,

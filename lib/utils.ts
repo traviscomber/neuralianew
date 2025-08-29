@@ -23,8 +23,3 @@ export function formatDate(date: string | Date) {
 export function generateId() {
   return Math.random().toString(36).substring(2) + Date.now().toString(36)
 }
-
-export function truncateText(text: string, maxLength: number) {
-  if (text.length <= maxLength) return text
-  return text.substring(0, maxLength) + "..."
-}

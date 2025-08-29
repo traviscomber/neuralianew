@@ -10,6 +10,10 @@ const supabaseServiceKey =
   process.env.SUPABASE_SERVICE_ROLE_KEY ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE3NzUyNiwiZXhwIjoyMDY2NzUzNTI2fQ.dh6RKDuDSpp18baxBO-D46K4fPGr-7-8H4KMRsmBjyM"
 
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing Supabase environment variables")
+}
+
 // Client-side Supabase client (browser)
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {

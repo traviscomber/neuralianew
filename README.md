@@ -1,26 +1,25 @@
 # Neuralia - AI Executive Platform
 
-A modern AI agent marketplace built with Next.js, Supabase, and TypeScript.
+A Next.js application for deploying and managing AI executive agents.
 
 ## Features
 
-- 🤖 AI Agent Marketplace
+- 🤖 AI Executive Agents marketplace
 - 🔐 Authentication with Supabase
-- 🛒 Shopping Cart Functionality
-- 💬 AI Chat Integration
-- 🎨 Modern UI with Tailwind CSS
-- 📱 Fully Responsive Design
-- 🌙 Dark Mode Support
+- 🛒 Shopping cart functionality
+- 💬 Real-time chat with AI agents
+- 📊 Dashboard for managing deployed agents
+- 🎨 Modern UI with Tailwind CSS and shadcn/ui
 
 ## Tech Stack
 
-- **Framework**: Next.js 14
-- **Database**: Supabase
+- **Framework**: Next.js 15 with App Router
+- **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui
-- **TypeScript**: Full type safety
-- **AI Integration**: OpenAI API
+- **AI**: OpenAI GPT-4
+- **Deployment**: Vercel
 
 ## Getting Started
 
@@ -28,21 +27,12 @@ A modern AI agent marketplace built with Next.js, Supabase, and TypeScript.
 2. Install dependencies: `npm install`
 3. Set up environment variables (see `.env.example`)
 4. Run the development server: `npm run dev`
+5. Open [http://localhost:3000](http://localhost:3000)
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local` and fill in your values:
-
-- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key
-- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `NEXT_PUBLIC_SITE_URL`: Your site URL
+See `.env.example` for required environment variables.
 
 ## Deployment
 
 Deploy to Vercel with one click or push to your connected Git repository.
-
-## License
-
-MIT License

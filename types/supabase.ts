@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
-export type Database = {
+export interface Database {
   public: {
     Tables: {
       profiles: {
@@ -34,10 +34,10 @@ export type Database = {
           id: string
           name: string
           description: string
-          type: string
           icon: string
+          category: string
           price: number
-          features: Json
+          features: string[]
           created_at: string
           updated_at: string
         }
@@ -45,10 +45,10 @@ export type Database = {
           id?: string
           name: string
           description: string
-          type: string
           icon: string
+          category: string
           price: number
-          features: Json
+          features: string[]
           created_at?: string
           updated_at?: string
         }
@@ -56,10 +56,10 @@ export type Database = {
           id?: string
           name?: string
           description?: string
-          type?: string
           icon?: string
+          category?: string
           price?: number
-          features?: Json
+          features?: string[]
           created_at?: string
           updated_at?: string
         }
@@ -70,14 +70,12 @@ export type Database = {
           user_id: string
           agent_id: string
           agent_name: string
-          agent_description: string | null
-          agent_type: string
-          icon: string
+          agent_description: string
+          agent_icon: string
+          deployment_date: string
           status: string
-          configuration: Json
-          is_trial: boolean
           trial_ends_at: string | null
-          payment_status: string
+          is_trial: boolean
           created_at: string
           updated_at: string
         }
@@ -86,14 +84,12 @@ export type Database = {
           user_id: string
           agent_id: string
           agent_name: string
-          agent_description?: string | null
-          agent_type: string
-          icon: string
-          status: string
-          configuration: Json
-          is_trial?: boolean
+          agent_description: string
+          agent_icon: string
+          deployment_date?: string
+          status?: string
           trial_ends_at?: string | null
-          payment_status: string
+          is_trial?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -102,43 +98,12 @@ export type Database = {
           user_id?: string
           agent_id?: string
           agent_name?: string
-          agent_description?: string | null
-          agent_type?: string
-          icon?: string
+          agent_description?: string
+          agent_icon?: string
+          deployment_date?: string
           status?: string
-          configuration?: Json
-          is_trial?: boolean
           trial_ends_at?: string | null
-          payment_status?: string
-          created_at?: string
-          updated_at?: string
-        }
-      }
-      purchases: {
-        Row: {
-          id: string
-          user_id: string
-          items: Json
-          total_amount: number
-          status: string
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          user_id: string
-          items: Json
-          total_amount: number
-          status: string
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          user_id?: string
-          items?: Json
-          total_amount?: number
-          status?: string
+          is_trial?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -146,25 +111,25 @@ export type Database = {
       chat_conversations: {
         Row: {
           id: string
-          user_id: string | null
-          agent_id: string | null
-          messages: Json
+          user_id: string
+          agent_id: string
+          messages: Json[]
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          user_id?: string | null
-          agent_id?: string | null
-          messages: Json
+          user_id: string
+          agent_id: string
+          messages: Json[]
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          user_id?: string | null
-          agent_id?: string | null
-          messages?: Json
+          user_id?: string
+          agent_id?: string
+          messages?: Json[]
           created_at?: string
           updated_at?: string
         }
@@ -177,9 +142,6 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
       [_ in never]: never
     }
   }

@@ -1,15 +1,16 @@
 "use client"
 
 import type React from "react"
+
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface CartItem {
   id: string
   name: string
-  price: number
-  type: string
-  icon: string
   description: string
+  icon: string
+  price: number
+  category: string
   features: string[]
 }
 
