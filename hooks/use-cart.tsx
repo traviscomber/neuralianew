@@ -9,7 +9,8 @@ interface CartItem {
   price: number
   type: string
   icon: string
-  description?: string
+  description: string
+  features: string[]
 }
 
 interface CartContextType {
@@ -45,8 +46,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addItem = (item: CartItem) => {
     setItems((prev) => {
-      const existingItem = prev.find((i) => i.id === item.id)
-      if (existingItem) {
+      const exists = prev.find((i) => i.id === item.id)
+      if (exists) {
         return prev // Don't add duplicates
       }
       return [...prev, item]

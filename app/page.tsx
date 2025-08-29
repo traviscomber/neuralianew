@@ -9,6 +9,7 @@ import { Menu, X, Brain } from "lucide-react"
 import { HeroSection } from "@/components/landing/hero-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
+import { TeamSection } from "@/components/landing/team-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
 import { ChatWidget } from "@/components/chat/chat-widget"
@@ -53,6 +54,12 @@ export default function HomePage() {
                   className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Testimonials
+                </a>
+                <a
+                  href="#team"
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Team
                 </a>
                 <a
                   href="#contact"
@@ -118,6 +125,12 @@ export default function HomePage() {
                 Testimonials
               </a>
               <a
+                href="#team"
+                className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Team
+              </a>
+              <a
                 href="#contact"
                 className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
               >
@@ -149,6 +162,7 @@ export default function HomePage() {
         <HeroSection />
         <FeaturesSection />
         <TestimonialsSection />
+        <TeamSection />
         <FAQSection />
         <Footer />
         <ChatWidget />

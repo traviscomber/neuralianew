@@ -10,8 +10,54 @@ import { Toaster } from "@/components/ui/sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Agent Marketplace",
-  description: "Deploy and manage AI agents for your business",
+  title: "Neuralia - AI Executive Platform",
+  description: "Deploy and manage AI executives for your business",
+  keywords: ["AI", "artificial intelligence", "executives", "automation", "business"],
+  authors: [{ name: "Neuralia Team" }],
+  creator: "Neuralia",
+  publisher: "Neuralia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://n3uralia.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Neuralia - AI Executive Platform",
+    description: "Deploy and manage AI executives for your business",
+    url: "https://n3uralia.com",
+    siteName: "Neuralia",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Neuralia AI Executive Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Neuralia - AI Executive Platform",
+    description: "Deploy and manage AI executives for your business",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
     generator: 'v0.app'
 }
 

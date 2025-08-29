@@ -1,55 +1,35 @@
 import { createClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
-// Get environment variables with fallbacks
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ""
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ""
-
-// Only throw error in production or when actually using the client
-const createSupabaseClient = () => {
-  if (!supabaseUrl || !supabaseAnonKey) {
-    console.warn("Supabase environment variables not found, using fallback configuration")
-    // Return a mock client for development
-    return null
-  }
-
-  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: true,
-    },
-  })
-}
-
-const createSupabaseAdminClient = () => {
-  if (!supabaseUrl || !supabaseServiceKey) {
-    console.warn("Supabase admin environment variables not found")
-    return null
-  }
-
-  return createClient<Database>(supabaseUrl, supabaseServiceKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  })
-}
+// Get environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dptblcvifavtbvngivkb.supabase.co"
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNzc1MjYsImV4cCI6MjA2Njc1MzUyNn0.GxB1UkdkrNA9Hhz04wRTnkpWZGllwgLrXcde7cEiNZw"
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE3NzUyNiwiZXhwIjoyMDY2NzUzNTI2fQ.dh6RKDuDSpp18baxBO-D46K4fPGr-7-8H4KMRsmBjyM"
 
 // Client-side Supabase client (browser)
-export const supabase = createSupabaseClient()
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
 
 // Server-side Supabase client with service role
-export const supabaseAdmin = createSupabaseAdminClient()
+export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
+})
 
-// Database helper functions with null checks
+// Database helper functions
 export const dbHelpers = {
   async createProfile(userId: string, email: string, fullName?: string) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin
       .from("profiles")
       .insert({
@@ -66,10 +46,6 @@ export const dbHelpers = {
   },
 
   async getProfile(userId: string) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin.from("profiles").select("*").eq("id", userId).single()
 
     if (error && error.code !== "PGRST116") throw error
@@ -77,10 +53,6 @@ export const dbHelpers = {
   },
 
   async deployAgent(userId: string, agentId: string, configuration: any) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin
       .from("deployed_agents")
       .insert({
@@ -104,10 +76,6 @@ export const dbHelpers = {
   },
 
   async getUserDeployedAgents(userId: string) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin
       .from("deployed_agents")
       .select("*")
@@ -119,10 +87,6 @@ export const dbHelpers = {
   },
 
   async removeDeployedAgent(userId: string, agentId: string) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { error } = await supabaseAdmin.from("deployed_agents").delete().eq("user_id", userId).eq("agent_id", agentId)
 
     if (error) throw error
@@ -130,10 +94,6 @@ export const dbHelpers = {
   },
 
   async createPurchase(userId: string, items: any[], totalAmount: number) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin
       .from("purchases")
       .insert({
@@ -150,10 +110,6 @@ export const dbHelpers = {
   },
 
   async getUserPurchases(userId: string) {
-    if (!supabaseAdmin) {
-      throw new Error("Supabase admin client not available")
-    }
-
     const { data, error } = await supabaseAdmin
       .from("purchases")
       .select("*")

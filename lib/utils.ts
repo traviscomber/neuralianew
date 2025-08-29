@@ -5,14 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number): string {
+export function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
-  }).format(amount)
+  }).format(price)
 }
 
-export function formatDate(date: string | Date): string {
+export function formatDate(date: string | Date) {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
@@ -20,71 +20,11 @@ export function formatDate(date: string | Date): string {
   }).format(new Date(date))
 }
 
-export function formatRelativeTime(date: string | Date): string {
-  const now = new Date()
-  const targetDate = new Date(date)
-  const diffInSeconds = Math.floor((now.getTime() - targetDate.getTime()) / 1000)
-
-  if (diffInSeconds < 60) {
-    return "just now"
-  } else if (diffInSeconds < 3600) {
-    const minutes = Math.floor(diffInSeconds / 60)
-    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`
-  } else if (diffInSeconds < 86400) {
-    const hours = Math.floor(diffInSeconds / 3600)
-    return `${hours} hour${hours > 1 ? "s" : ""} ago`
-  } else {
-    const days = Math.floor(diffInSeconds / 86400)
-    return `${days} day${days > 1 ? "s" : ""} ago`
-  }
-}
-
-export function generateId(): string {
+export function generateId() {
   return Math.random().toString(36).substring(2) + Date.now().toString(36)
 }
 
-export function truncateText(text: string, maxLength: number): string {
+export function truncateText(text: string, maxLength: number) {
   if (text.length <= maxLength) return text
   return text.substring(0, maxLength) + "..."
-}
-
-export function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/[\s_-]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-}
-
-export function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  return emailRegex.test(email)
-}
-
-export function validatePassword(password: string): {
-  isValid: boolean
-  errors: string[]
-} {
-  const errors: string[] = []
-
-  if (password.length < 8) {
-    errors.push("Password must be at least 8 characters long")
-  }
-
-  if (!/[A-Z]/.test(password)) {
-    errors.push("Password must contain at least one uppercase letter")
-  }
-
-  if (!/[a-z]/.test(password)) {
-    errors.push("Password must contain at least one lowercase letter")
-  }
-
-  if (!/\d/.test(password)) {
-    errors.push("Password must contain at least one number")
-  }
-
-  return {
-    isValid: errors.length === 0,
-    errors,
-  }
 }
