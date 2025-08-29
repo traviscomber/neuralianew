@@ -4,18 +4,18 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Send, MessageCircle, Network, Lightbulb } from "lucide-react"
+import { Network, Crown, TrendingUp, Zap, Send, User, X, Minimize2, Maximize2 } from "lucide-react"
 
 interface Message {
   id: string
   content: string
-  sender: "user" | "orchestrator"
+  sender: "user" | "orchestrator" | "ceo" | "cmo" | "cto"
   timestamp: Date
-  type?: "greeting" | "response" | "coordination"
+  agentName?: string
 }
 
 interface OrchestratorChatProps {
@@ -24,140 +24,35 @@ interface OrchestratorChatProps {
   maxQuestions?: number
 }
 
-const getDirectorResponse = (question: string): string => {
-  const lowerQuestion = question.toLowerCase()
-
-  // Coordination and orchestration responses
-  if (lowerQuestion.includes("coordinate") || lowerQuestion.includes("orchestrat")) {
-    return `🧠 **NEURAL DIRECTOR READY FOR COORDINATION**
-
-I'll coordinate our executive team to address this comprehensively:
-
-**🎯 EXECUTIVE DELEGATION:**
-• **CEO**: Strategic framework and leadership oversight
-• **CMO**: Customer impact and market positioning  
-• **CTO**: Technical architecture and implementation
-
-**📋 COORDINATION PLAN:**
-1. **Strategic Alignment** - CEO establishes vision and priorities
-2. **Market Integration** - CMO ensures customer-centric approach
-3. **Technical Execution** - CTO provides scalable solutions
-4. **Unified Delivery** - I synthesize all perspectives for optimal results
-
-**⚡ NEXT STEPS:**
-Would you like me to dive deeper into any specific executive's perspective, or shall I provide the complete coordinated strategy across all three domains?
-
-*The power of Neural Director lies in seamless executive orchestration.*`
-  }
-
-  // Digital transformation responses
-  if (lowerQuestion.includes("digital") && lowerQuestion.includes("transformation")) {
-    return `🚀 **COORDINATED DIGITAL TRANSFORMATION STRATEGY**
-
-**NEURAL DIRECTOR ORCHESTRATION:**
-
-**👑 CEO STRATEGIC FRAMEWORK:**
-• Change management and organizational readiness
-• Investment prioritization and ROI planning
-• Stakeholder alignment and communication strategy
-• Risk assessment and mitigation planning
-
-**📈 CMO CUSTOMER EXPERIENCE:**
-• Omnichannel customer journey mapping
-• Digital touchpoint optimization
-• Brand positioning in digital landscape
-• Customer adoption and engagement strategies
-
-**⚡ CTO TECHNICAL ARCHITECTURE:**
-• Legacy system modernization roadmap
-• Cloud infrastructure and scalability planning
-• Data integration and analytics platform
-• Cybersecurity and compliance framework
-
-**🎯 UNIFIED EXECUTION PLAN:**
-1. **Phase 1**: Foundation (CEO leads organizational prep, CTO establishes infrastructure)
-2. **Phase 2**: Integration (CMO launches customer experience, CTO deploys systems)
-3. **Phase 3**: Optimization (All executives collaborate on performance tuning)
-
-**📊 SUCCESS METRICS:**
-• 40% faster implementation through coordination
-• 95% cross-functional alignment
-• $2.3M cost savings through unified approach
-
-Ready to dive deeper into any specific phase or executive perspective?`
-  }
-
-  // Market expansion responses
-  if (lowerQuestion.includes("market") && lowerQuestion.includes("expansion")) {
-    return `🌍 **COORDINATED MARKET EXPANSION STRATEGY**
-
-**NEURAL DIRECTOR ORCHESTRATION:**
-
-**👑 CEO STRATEGIC LEADERSHIP:**
-• Market opportunity analysis and prioritization
-• Competitive positioning and differentiation
-• Partnership and acquisition strategies
-• Resource allocation and investment planning
-
-**📈 CMO MARKET PENETRATION:**
-• Local market research and customer insights
-• Brand localization and messaging strategy
-• Channel partner identification and development
-• Marketing campaign planning and execution
-
-**⚡ CTO TECHNICAL ENABLEMENT:**
-• Infrastructure scaling for new markets
-• Localization and compliance requirements
-• Integration with local systems and partners
-• Performance monitoring and optimization
-
-**🎯 COORDINATED EXECUTION:**
-1. **Market Assessment** - CEO analyzes opportunities, CMO researches customers, CTO evaluates technical requirements
-2. **Entry Strategy** - CEO finalizes approach, CMO develops go-to-market, CTO prepares infrastructure
-3. **Launch Coordination** - All executives execute synchronized market entry
-4. **Optimization** - Continuous improvement based on unified feedback
-
-**📊 PROJECTED OUTCOMES:**
-• 60% faster market entry through coordination
-• 85% higher success rate with unified approach
-• $12M revenue potential in first year
-
-Which market or executive perspective would you like me to elaborate on?`
-  }
-
-  // Default coordinated response
-  return `🧠 **NEURAL DIRECTOR COORDINATION READY**
-
-I'm analyzing your request and preparing a coordinated response from our executive team:
-
-**🎯 EXECUTIVE COORDINATION APPROACH:**
-• **CEO**: Strategic framework and leadership perspective
-• **CMO**: Customer and market impact analysis  
-• **CTO**: Technical implementation and innovation angle
-
-**⚡ COORDINATION CAPABILITIES:**
-• Multi-perspective strategic analysis
-• Cross-functional solution development
-• Unified execution planning
-• Real-time executive collaboration
-
-**📋 SUGGESTED COORDINATION AREAS:**
-• Digital transformation initiatives
-• Market expansion strategies
-• Crisis management and recovery
-• Product launch coordination
-• Competitive analysis and response
-• Customer retention optimization
-
-Would you like me to coordinate a specific business challenge across all executives, or dive deeper into any particular area?
-
-*Ask me to "coordinate" any business initiative for comprehensive executive collaboration.*`
+const executiveInfo = {
+  orchestrator: {
+    name: "Neural Director",
+    icon: <Network className="h-4 w-4" />,
+    color: "from-indigo-600 to-purple-700",
+  },
+  ceo: {
+    name: "CEO",
+    icon: <Crown className="h-4 w-4" />,
+    color: "from-purple-600 to-blue-600",
+  },
+  cmo: {
+    name: "CMO",
+    icon: <TrendingUp className="h-4 w-4" />,
+    color: "from-green-600 to-teal-600",
+  },
+  cto: {
+    name: "CTO",
+    icon: <Zap className="h-4 w-4" />,
+    color: "from-orange-600 to-red-600",
+  },
 }
 
-export function OrchestratorChat({ isOpen, onClose, maxQuestions = 10 }: OrchestratorChatProps) {
+export function OrchestratorChat({ isOpen, onClose, maxQuestions = 5 }: OrchestratorChatProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState("")
+  const [isMinimized, setIsMinimized] = useState(false)
   const [questionCount, setQuestionCount] = useState(0)
+  const [isProcessing, setIsProcessing] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -171,62 +66,158 @@ export function OrchestratorChat({ isOpen, onClose, maxQuestions = 10 }: Orchest
 
   useEffect(() => {
     if (isOpen) {
-      // Initialize with greeting message
-      setMessages([
-        {
-          id: "greeting",
-          content:
-            "I am the Neural Director, your central command system that coordinates all AI executives to deliver comprehensive business solutions.",
-          sender: "orchestrator",
-          timestamp: new Date(),
-          type: "greeting",
-        },
-      ])
+      setMessages([])
       setQuestionCount(0)
-      setInputValue("")
+      setIsMinimized(false)
+      setIsProcessing(false)
+
+      // Add greeting message
+      const greetingMessage: Message = {
+        id: `greeting-${Date.now()}`,
+        content:
+          "I am the Neural Director, coordinating your AI executive team. I can orchestrate complex business initiatives by delegating tasks across CEO, CMO, and CTO. What strategic challenge can we tackle together?",
+        sender: "orchestrator",
+        timestamp: new Date(),
+        agentName: "Neural Director",
+      }
+      setMessages([greetingMessage])
     }
   }, [isOpen])
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && !isMinimized && inputRef.current) {
       inputRef.current.focus()
     }
-  }, [isOpen])
+  }, [isOpen, isMinimized])
 
-  const handleSendMessage = () => {
-    if (!inputValue.trim() || questionCount >= maxQuestions) return
+  const generateOrchestratedResponse = async (userMessage: string) => {
+    const message = userMessage.toLowerCase()
+
+    // Simulate orchestrator analyzing and delegating
+    const orchestratorResponse: Message = {
+      id: `orchestrator-${Date.now()}`,
+      content: "Let me coordinate our executive team to address this comprehensively...",
+      sender: "orchestrator",
+      timestamp: new Date(),
+      agentName: "Neural Director",
+    }
+
+    setMessages((prev) => [...prev, orchestratorResponse])
+
+    // Simulate delay for coordination
+    await new Promise((resolve) => setTimeout(resolve, 1500))
+
+    // Generate responses from different executives based on the query
+    const responses: Message[] = []
+
+    if (message.includes("strategy") || message.includes("market") || message.includes("business")) {
+      responses.push({
+        id: `ceo-${Date.now()}`,
+        content:
+          "From a strategic perspective, I recommend conducting a comprehensive market analysis and developing a multi-phase approach. We should prioritize high-impact initiatives and establish clear success metrics.",
+        sender: "ceo",
+        timestamp: new Date(),
+        agentName: "CEO",
+      })
+    }
+
+    if (
+      message.includes("marketing") ||
+      message.includes("customer") ||
+      message.includes("growth") ||
+      message.includes("brand")
+    ) {
+      responses.push({
+        id: `cmo-${Date.now()}`,
+        content:
+          "For marketing execution, I suggest developing targeted campaigns that align with our strategic objectives. We should focus on customer acquisition, retention optimization, and brand positioning to maximize market impact.",
+        sender: "cmo",
+        timestamp: new Date(),
+        agentName: "CMO",
+      })
+    }
+
+    if (
+      message.includes("technology") ||
+      message.includes("digital") ||
+      message.includes("system") ||
+      message.includes("tech")
+    ) {
+      responses.push({
+        id: `cto-${Date.now()}`,
+        content:
+          "From a technology standpoint, I recommend implementing scalable solutions with robust security measures. We should prioritize system integration, data analytics capabilities, and ensure our technical infrastructure supports business growth.",
+        sender: "cto",
+        timestamp: new Date(),
+        agentName: "CTO",
+      })
+    }
+
+    // If no specific area mentioned, provide general coordination
+    if (responses.length === 0) {
+      responses.push(
+        {
+          id: `ceo-${Date.now()}`,
+          content: "I'll handle the strategic framework and ensure alignment with our business objectives.",
+          sender: "ceo",
+          timestamp: new Date(),
+          agentName: "CEO",
+        },
+        {
+          id: `cmo-${Date.now()}`,
+          content: "I'll develop the marketing approach and customer engagement strategy.",
+          sender: "cmo",
+          timestamp: new Date(),
+          agentName: "CMO",
+        },
+        {
+          id: `cto-${Date.now()}`,
+          content: "I'll architect the technical solution and ensure scalable implementation.",
+          sender: "cto",
+          timestamp: new Date(),
+          agentName: "CTO",
+        },
+      )
+    }
+
+    // Add responses with delays
+    for (let i = 0; i < responses.length; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      setMessages((prev) => [...prev, responses[i]])
+    }
+
+    // Final orchestrator summary
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const summaryResponse: Message = {
+      id: `orchestrator-summary-${Date.now()}`,
+      content:
+        "I've coordinated our executive team's input. This unified approach ensures strategic alignment, effective marketing execution, and robust technical implementation. Would you like me to elaborate on any specific aspect or coordinate additional initiatives?",
+      sender: "orchestrator",
+      timestamp: new Date(),
+      agentName: "Neural Director",
+    }
+
+    setMessages((prev) => [...prev, summaryResponse])
+    setIsProcessing(false)
+  }
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || questionCount >= maxQuestions || isProcessing) return
 
     const userMessage: Message = {
       id: `user-${Date.now()}`,
-      content: inputValue,
+      content: inputValue.trim(),
       sender: "user",
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setQuestionCount((prev) => prev + 1)
-
-    // Generate Neural Director response
-    const agentResponse = getDirectorResponse(inputValue)
-
-    setTimeout(() => {
-      const orchestratorMessage: Message = {
-        id: `orchestrator-${Date.now()}`,
-        content: agentResponse,
-        sender: "orchestrator",
-        timestamp: new Date(),
-        type: "coordination",
-      }
-      setMessages((prev) => [...prev, orchestratorMessage])
-    }, 1000)
-
     setInputValue("")
-  }
+    setQuestionCount((prev) => prev + 1)
+    setIsProcessing(true)
 
-  const handleSampleQuestion = (question: string) => {
-    if (questionCount >= maxQuestions) return
-    setInputValue(question)
-    setTimeout(() => handleSendMessage(), 100)
+    // Generate orchestrated response
+    await generateOrchestratedResponse(userMessage.content)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -236,117 +227,181 @@ export function OrchestratorChat({ isOpen, onClose, maxQuestions = 10 }: Orchest
     }
   }
 
-  const sampleQuestions = [
-    "Coordinate a complete digital transformation strategy across all executives",
-    "How should CEO, CMO, and CTO work together on our market expansion?",
-    "Delegate our product launch across the executive team with clear responsibilities",
-    "Synthesize a unified crisis management plan using all three executives",
-    "Coordinate a comprehensive competitive analysis across all business functions",
-    "How can all executives collaborate on our customer retention strategy?",
-  ]
+  if (!isOpen) return null
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] p-0">
-        <DialogHeader className="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6">
+    <div className="fixed bottom-4 right-4 z-50">
+      <Card
+        className={`w-[500px] shadow-2xl border-2 transition-all duration-300 ${isMinimized ? "h-16" : "h-[700px]"}`}
+      >
+        {/* Header */}
+        <CardHeader className="pb-3 bg-gradient-to-r from-indigo-600 to-purple-700 text-white rounded-t-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Network className="h-8 w-8" />
+              <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                <Network className="h-5 w-5" />
+              </div>
               <div>
-                <DialogTitle className="text-2xl font-bold">Neural Director</DialogTitle>
-                <p className="text-indigo-100">Central Command & Coordination</p>
+                <CardTitle className="text-sm font-semibold">Neural Director</CardTitle>
+                <p className="text-xs opacity-90">Orchestrating AI Executive Team</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-                {questionCount}/{maxQuestions} questions
-              </Badge>
-              {questionCount >= maxQuestions && (
-                <Badge variant="destructive" className="bg-red-500/20 text-white border-red-300/30">
-                  Limit reached
-                </Badge>
-              )}
-            </div>
-          </div>
-        </DialogHeader>
-
-        <div className="flex flex-col h-[600px]">
-          <ScrollArea className="flex-1 p-6">
-            <div className="space-y-4">
-              {messages.map((message) => (
-                <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-                  <div
-                    className={`max-w-[80%] rounded-lg p-4 ${
-                      message.sender === "user"
-                        ? "bg-blue-600 text-white"
-                        : "bg-gradient-to-r from-indigo-50 to-purple-50 text-gray-900 border border-indigo-200"
-                    }`}
-                  >
-                    <div className="text-sm whitespace-pre-wrap">{message.content}</div>
-                    <div className={`text-xs mt-2 ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}>
-                      {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div ref={messagesEndRef} />
-          </ScrollArea>
-
-          <div className="p-6 border-t bg-gray-50">
-            {messages.length === 1 && (
-              <div className="mb-4">
-                <p className="text-sm text-gray-600 mb-3 flex items-center">
-                  <Lightbulb className="h-4 w-4 mr-2" />
-                  Try these coordination examples:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {sampleQuestions.slice(0, 4).map((question, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="sm"
-                      className="text-left justify-start text-xs h-auto py-3 px-4 bg-white hover:bg-indigo-50 hover:border-indigo-300"
-                      onClick={() => handleSampleQuestion(question)}
-                      disabled={questionCount >= maxQuestions}
-                    >
-                      <MessageCircle className="h-3 w-3 mr-2 text-indigo-600 flex-shrink-0" />
-                      <span className="truncate">"{question}"</span>
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="flex space-x-3">
-              <Input
-                ref={inputRef}
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder={
-                  questionCount >= maxQuestions ? "Question limit reached" : "Ask me to coordinate across executives..."
-                }
-                disabled={questionCount >= maxQuestions}
-                className="flex-1"
-              />
+            <div className="flex items-center space-x-1">
               <Button
-                onClick={handleSendMessage}
-                disabled={!inputValue.trim() || questionCount >= maxQuestions}
-                className="bg-gradient-to-r from-indigo-600 to-purple-700 hover:opacity-90"
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsMinimized(!isMinimized)}
+                className="text-white hover:bg-white/20 h-8 w-8 p-0"
               >
-                <Send className="h-4 w-4" />
+                {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+              </Button>
+              <Button variant="ghost" size="sm" onClick={onClose} className="text-white hover:bg-white/20 h-8 w-8 p-0">
+                <X className="h-4 w-4" />
               </Button>
             </div>
-
-            {questionCount >= maxQuestions && (
-              <p className="text-xs text-gray-500 mt-3 text-center">
-                You've reached the maximum number of questions for this demo. Sign up for unlimited access!
-              </p>
-            )}
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </CardHeader>
+
+        {!isMinimized && (
+          <CardContent className="p-0 flex flex-col h-[calc(700px-80px)]">
+            {/* Messages */}
+            <ScrollArea className="flex-1 p-4">
+              <div className="space-y-4">
+                {messages.map((message) => (
+                  <div key={message.id}>
+                    {message.sender === "user" ? (
+                      <div className="flex justify-end">
+                        <div className="max-w-[80%] rounded-lg p-3 bg-blue-500 text-white">
+                          <div className="flex items-start space-x-2">
+                            <User className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                            <div className="flex-1">
+                              <p className="text-sm leading-relaxed">{message.content}</p>
+                              <p className="text-xs mt-1 text-blue-100">
+                                {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex justify-start">
+                        <div className="max-w-[85%] rounded-lg p-3 bg-gray-100 text-gray-900">
+                          <div className="flex items-start space-x-2">
+                            <div
+                              className={`w-6 h-6 rounded-full bg-gradient-to-r ${executiveInfo[message.sender as keyof typeof executiveInfo].color} flex items-center justify-center flex-shrink-0 mt-0.5`}
+                            >
+                              {executiveInfo[message.sender as keyof typeof executiveInfo].icon}
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-1">
+                                <Badge variant="outline" className="text-xs">
+                                  {message.agentName}
+                                </Badge>
+                              </div>
+                              <p className="text-sm leading-relaxed">{message.content}</p>
+                              <p className="text-xs mt-1 text-gray-500">
+                                {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {isProcessing && (
+                  <div className="flex justify-start">
+                    <div className="max-w-[85%] rounded-lg p-3 bg-gray-100 text-gray-900">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-600 to-purple-700 flex items-center justify-center">
+                          <Network className="h-4 w-4 text-white animate-pulse" />
+                        </div>
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div ref={messagesEndRef} />
+              </div>
+            </ScrollArea>
+
+            {/* Sample Questions */}
+            {messages.length <= 1 && (
+              <div className="p-4 border-t bg-gray-50">
+                <p className="text-xs text-gray-600 mb-2">Try coordinated initiatives:</p>
+                <div className="space-y-1">
+                  {["Coordinate a digital transformation strategy", "How should we approach market expansion?"].map(
+                    (question, index) => (
+                      <Button
+                        key={index}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setInputValue(question)}
+                        className="w-full text-left justify-start text-xs h-auto py-1 px-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                        disabled={questionCount >= maxQuestions || isProcessing}
+                      >
+                        "{question}"
+                      </Button>
+                    ),
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Input */}
+            <div className="p-4 border-t">
+              {questionCount >= maxQuestions ? (
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 mb-2">Demo limit reached</p>
+                  <Badge variant="outline" className="text-xs">
+                    Sign up for unlimited access
+                  </Badge>
+                </div>
+              ) : (
+                <div className="flex space-x-2">
+                  <Input
+                    ref={inputRef}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Describe your business challenge..."
+                    className="flex-1 text-sm"
+                    disabled={questionCount >= maxQuestions || isProcessing}
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={!inputValue.trim() || questionCount >= maxQuestions || isProcessing}
+                    size="sm"
+                    className="bg-gradient-to-r from-indigo-600 to-purple-700 hover:opacity-90"
+                  >
+                    <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+              <div className="flex justify-between items-center mt-2">
+                <p className="text-xs text-gray-500">
+                  {questionCount}/{maxQuestions} questions used
+                </p>
+                <Badge variant="outline" className="text-xs">
+                  Demo Mode
+                </Badge>
+              </div>
+            </div>
+          </CardContent>
+        )}
+      </Card>
+    </div>
   )
 }

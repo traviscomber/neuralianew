@@ -1,16 +1,19 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import type { User } from "@supabase/supabase-js"
-import { supabase } from "@/lib/supabase"
+import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+
+interface User {
+  id: string
+  email: string
+  name: string
+}
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error: any }>
-  signUp: (email: string, password: string) => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string, name: string) => Promise<void>
   signOut: () => Promise<void>
-  resetPassword: (email: string) => Promise<{ error: any }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -20,62 +23,79 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
+    // Check for existing session
+    const checkAuth = async () => {
+      try {
+        // Simulate checking for existing session
+        const savedUser = localStorage.getItem("neuralia_user")
+        if (savedUser) {
+          setUser(JSON.parse(savedUser))
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-    })
-
-    return () => subscription.unsubscribe()
+    checkAuth()
   }, [])
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-    return { error }
+    setLoading(true)
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      const mockUser: User = {
+        id: "1",
+        email,
+        name: email.split("@")[0],
+      }
+
+      setUser(mockUser)
+      localStorage.setItem("neuralia_user", JSON.stringify(mockUser))
+    } catch (error) {
+      throw new Error("Sign in failed")
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-    return { error }
+  const signUp = async (email: string, password: string, name: string) => {
+    setLoading(true)
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      const mockUser: User = {
+        id: "1",
+        email,
+        name,
+      }
+
+      setUser(mockUser)
+      localStorage.setItem("neuralia_user", JSON.stringify(mockUser))
+    } catch (error) {
+      throw new Error("Sign up failed")
+    } finally {
+      setLoading(false)
+    }
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    setLoading(true)
+    try {
+      setUser(null)
+      localStorage.removeItem("neuralia_user")
+    } catch (error) {
+      throw new Error("Sign out failed")
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email)
-    return { error }
-  }
-
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        signIn,
-        signUp,
-        signOut,
-        resetPassword,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

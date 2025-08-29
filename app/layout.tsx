@@ -2,18 +2,16 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/hooks/use-auth"
-import { CartProvider } from "@/hooks/use-cart"
 import { Toaster } from "@/components/ui/toaster"
-import { ErrorBoundary } from "@/components/system/error-boundary"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Neural AI Executives",
-  description: "Deploy specialized AI agents that think, strategize, and execute like world-class business leaders.",
-    generator: 'v0.dev'
+  title: "Neuralia - Neural AI Executive Suite",
+  description:
+    "Deploy a complete AI C-suite with Neural Director coordination. Get strategic insights, coordinated execution, and unified business transformation 24/7.",
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -22,18 +20,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={inter.className}>
-        <ErrorBoundary>
-          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-            <AuthProvider>
-              <CartProvider>
-                {children}
-                <Toaster />
-              </CartProvider>
-            </AuthProvider>
-          </ThemeProvider>
-        </ErrorBoundary>
+        <AuthProvider>
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   )

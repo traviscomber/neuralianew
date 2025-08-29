@@ -10,37 +10,37 @@ const faqs = [
     icon: Brain,
     question: "What exactly are 'Neural AI Executives'?",
     answer:
-      "Neural AI Executives are specialized AI agents trained on millions of executive decision-making patterns from Fortune 500 companies. Each agent combines advanced transformer neural networks (175B+ parameters) with quantum-inspired algorithms to provide strategic insights, automate complex decisions, and execute business functions at an executive level. Think of them as having a world-class CEO, CMO, or CTO available 24/7 for your business.",
+      "Neural AI Executives are specialized AI agents designed to provide executive-level business guidance. Each agent focuses on a specific business function (CEO for strategy, CMO for marketing, CTO for technology) and can provide insights, recommendations, and coordinate with other executives through the Neural Director.",
   },
   {
     icon: Clock,
     question: "How does the 5-day free trial work?",
     answer:
-      "Your 5-day free trial gives you complete access to all neural network capabilities with no limitations. Simply deploy any agent and start using it immediately. You'll get full executive-level insights, unlimited queries, and access to all premium features. After 5 days, you can upgrade with USDT payment to continue unlimited access, or the agent will pause until upgraded.",
+      "Your 5-day free trial gives you complete access to all AI executives with no limitations. Simply deploy any agent and start using it immediately. You'll get full access to all features and capabilities. After 5 days, you can upgrade with USDT payment to continue access.",
   },
   {
     icon: CreditCard,
     question: "Why do you only accept USDT payments?",
     answer:
-      "We use USDT (Tether) for several strategic reasons: 1) Instant global transactions without banking delays, 2) Lower fees than traditional payment processors, 3) Enhanced privacy and security for enterprise clients, 4) Seamless integration with our decentralized neural network infrastructure. USDT is stable, widely accepted, and allows us to serve clients worldwide without geographic payment restrictions.",
+      "We use USDT (Tether) for several reasons: instant global transactions, lower fees than traditional payment processors, enhanced privacy and security, and seamless integration with our decentralized infrastructure. USDT allows us to serve clients worldwide without geographic payment restrictions.",
   },
   {
     icon: Zap,
     question: "How is this different from ChatGPT or other AI tools?",
     answer:
-      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized business decision-makers. They're trained specifically on executive decision patterns, have access to real-time business data, can execute complex multi-step strategies, and integrate directly with your business tools. Think ChatGPT for conversations vs. our agents for running your business operations.",
+      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized for business functions. They're designed specifically for executive decision-making, can coordinate with each other through the Neural Director, and focus on strategic business guidance rather than general conversation.",
   },
   {
     icon: Users,
     question: "Can these agents integrate with my existing business tools?",
     answer:
-      "Yes! Our Neural AI Executives integrate natively with 200+ business tools including Salesforce, HubSpot, Slack, Microsoft Teams, Google Workspace, Zoom, Notion, and most major CRM, ERP, and communication platforms. They can read your data, generate reports, send communications, and execute decisions across your entire tech stack.",
+      "Our Neural AI Executives are designed to work with common business workflows and can provide guidance on integrating with various business tools. The specific integrations available depend on your subscription plan and business needs.",
   },
   {
     icon: Shield,
     question: "How secure is my business data?",
     answer:
-      "Security is our top priority. We're SOC 2 Type II certified, ISO 27001 compliant, and GDPR compliant. All data is encrypted end-to-end, processed in secure cloud environments, and never stored permanently. Our neural networks run in isolated containers with zero-trust architecture. We also offer on-premise deployment for enterprise clients with the highest security requirements.",
+      "Security is our top priority. We use enterprise-grade encryption, secure processing environments, and follow industry best practices for data protection. Your conversations and business data are processed securely and are not stored permanently or used to train other models.",
   },
 ]
 
@@ -59,7 +59,7 @@ export function FAQSection() {
             Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about Neural AI Executives and how they can transform your business operations.
+            Everything you need to know about Neural AI Executives and how they can support your business operations.
           </p>
         </div>
 
