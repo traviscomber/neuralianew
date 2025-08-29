@@ -10,13 +10,21 @@ import { Toaster } from "@/components/ui/sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Executive Platform",
-  description: "Deploy and manage AI executives and agents for your business",
-  keywords: "AI, artificial intelligence, executives, agents, automation, business",
+  title: "Neuralia - AI Agent Platform",
+  description: "Deploy and manage AI agents for your business needs",
+  keywords: ["AI", "agents", "automation", "business", "technology"],
   authors: [{ name: "Neuralia Team" }],
+  creator: "Neuralia",
+  publisher: "Neuralia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://n3uralia.com"),
   openGraph: {
-    title: "Neuralia - AI Executive Platform",
-    description: "Deploy and manage AI executives and agents for your business",
+    title: "Neuralia - AI Agent Platform",
+    description: "Deploy and manage AI agents for your business needs",
     url: "https://n3uralia.com",
     siteName: "Neuralia",
     images: [
@@ -24,7 +32,7 @@ export const metadata: Metadata = {
         url: "/placeholder.jpg",
         width: 1200,
         height: 630,
-        alt: "Neuralia AI Platform",
+        alt: "Neuralia AI Agent Platform",
       },
     ],
     locale: "en_US",
@@ -32,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - AI Executive Platform",
-    description: "Deploy and manage AI executives and agents for your business",
+    title: "Neuralia - AI Agent Platform",
+    description: "Deploy and manage AI agents for your business needs",
     images: ["/placeholder.jpg"],
   },
   robots: {
@@ -58,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthProvider>
             <CartProvider>
               {children}

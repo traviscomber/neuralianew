@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js"
+import { createServerClient } from "@supabase/ssr"
 import type { Database } from "@/types/supabase"
 
 // Get environment variables
@@ -21,11 +22,6 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     detectSessionInUrl: true,
   },
-  global: {
-    headers: {
-      "X-Client-Info": "neuralia-landing@1.0.0",
-    },
-  },
 })
 
 // Server-side Supabase client with service role
@@ -35,6 +31,9 @@ export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseService
     persistSession: false,
   },
 })
+
+// Export createClient and createServerClient for compatibility
+export { createClient, createServerClient }
 
 // Database helper functions
 export const dbHelpers = {

@@ -1,16 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface CartItem {
   id: string
   name: string
   price: number
-  description: string
-  icon: string
-  category: string
+  type: string
+  icon?: string
+  description?: string
 }
 
 interface CartContextType {
@@ -45,17 +44,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items])
 
   const addItem = (item: CartItem) => {
-    setItems((prev) => {
-      const exists = prev.find((i) => i.id === item.id)
-      if (exists) {
-        return prev // Don't add duplicates
+    setItems((prevItems) => {
+      const existingItem = prevItems.find((i) => i.id === item.id)
+      if (existingItem) {
+        return prevItems // Item already in cart, don't add duplicate
       }
-      return [...prev, item]
+      return [...prevItems, item]
     })
   }
 
   const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id))
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
   const clearCart = () => {
