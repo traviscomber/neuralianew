@@ -9,7 +9,6 @@ import { Menu, X, Brain } from "lucide-react"
 import { HeroSection } from "@/components/landing/hero-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
-import { TeamSection } from "@/components/landing/team-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
 import { ChatWidget } from "@/components/chat/chat-widget"
@@ -162,7 +161,6 @@ export default function HomePage() {
         <HeroSection />
         <FeaturesSection />
         <TestimonialsSection />
-        <TeamSection />
         <FAQSection />
         <Footer />
         <ChatWidget />

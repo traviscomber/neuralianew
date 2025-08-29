@@ -7,11 +7,10 @@ import { createContext, useContext, useEffect, useState } from "react"
 interface CartItem {
   id: string
   name: string
-  description: string
   price: number
+  description: string
   icon: string
   category: string
-  features: string[]
 }
 
 interface CartContextType {
