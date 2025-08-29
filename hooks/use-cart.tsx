@@ -1,15 +1,13 @@
 "use client"
 
 import type React from "react"
-
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState } from "react"
 
 interface CartItem {
   id: string
   name: string
   price: number
   quantity: number
-  type: "agent" | "service"
   description?: string
 }
 
@@ -27,23 +25,6 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
-
-  // Load cart from localStorage on mount
-  useEffect(() => {
-    const savedCart = localStorage.getItem("neuralia-cart")
-    if (savedCart) {
-      try {
-        setItems(JSON.parse(savedCart))
-      } catch (error) {
-        console.error("Failed to load cart from localStorage:", error)
-      }
-    }
-  }, [])
-
-  // Save cart to localStorage whenever items change
-  useEffect(() => {
-    localStorage.setItem("neuralia-cart", JSON.stringify(items))
-  }, [items])
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {
     setItems((prevItems) => {
