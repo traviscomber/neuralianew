@@ -8,8 +8,8 @@ interface CartItem {
   id: string
   name: string
   description: string
-  icon: string
   price: number
+  icon: string
   category: string
   features: string[]
 }

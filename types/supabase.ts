@@ -34,10 +34,10 @@ export interface Database {
           id: string
           name: string
           description: string
-          icon: string
-          category: string
           price: number
+          category: string
           features: string[]
+          icon: string
           created_at: string
           updated_at: string
         }
@@ -45,10 +45,10 @@ export interface Database {
           id?: string
           name: string
           description: string
-          icon: string
-          category: string
           price: number
+          category: string
           features: string[]
+          icon: string
           created_at?: string
           updated_at?: string
         }
@@ -56,10 +56,10 @@ export interface Database {
           id?: string
           name?: string
           description?: string
-          icon?: string
-          category?: string
           price?: number
+          category?: string
           features?: string[]
+          icon?: string
           created_at?: string
           updated_at?: string
         }

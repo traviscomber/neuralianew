@@ -19,7 +19,11 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
-    detectSessionInUrl: true,
+  },
+  global: {
+    headers: {
+      "X-Client-Info": "neuralia-landing@1.0.0",
+    },
   },
 })
 

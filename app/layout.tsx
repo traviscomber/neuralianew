@@ -12,8 +12,19 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Neuralia - AI Executive Platform",
   description: "Deploy and manage AI executive agents for your business",
-  keywords: ["AI", "executives", "automation", "business", "agents"],
+  keywords: "AI, artificial intelligence, executives, automation, business",
   authors: [{ name: "Neuralia Team" }],
+  creator: "Neuralia",
+  publisher: "Neuralia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://n3uralia.com"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Neuralia - AI Executive Platform",
     description: "Deploy and manage AI executive agents for your business",
@@ -21,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Neuralia",
     images: [
       {
-        url: "/placeholder-logo.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Neuralia - AI Executive Platform",
@@ -34,7 +45,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Neuralia - AI Executive Platform",
     description: "Deploy and manage AI executive agents for your business",
-    images: ["/placeholder-logo.png"],
+    images: ["/og-image.jpg"],
+    creator: "@neuralia",
   },
   robots: {
     index: true,
@@ -47,6 +59,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "your-google-verification-code",
+  },
     generator: 'v0.app'
 }
 
@@ -57,6 +72,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#3b82f6" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+      </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AuthProvider>

@@ -1,11 +1,11 @@
 import { createBrowserClient } from "@supabase/ssr"
 import type { Database } from "@/types/supabase"
 
-let supabaseInstance: ReturnType<typeof createBrowserClient<Database>> | null = null
+let client: ReturnType<typeof createBrowserClient<Database>> | undefined
 
 export function createClient() {
-  if (supabaseInstance) {
-    return supabaseInstance
+  if (client) {
+    return client
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dptblcvifavtbvngivkb.supabase.co"
@@ -17,8 +17,8 @@ export function createClient() {
     throw new Error("Missing Supabase environment variables")
   }
 
-  supabaseInstance = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey)
-  return supabaseInstance
+  client = createBrowserClient<Database>(supabaseUrl, supabaseAnonKey)
+  return client
 }
 
 export const supabase = createClient()
