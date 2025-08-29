@@ -10,15 +10,21 @@ Deploy AI executives that think, decide, and execute like seasoned business lead
 - 📊 **Business Intelligence** - Get strategic insights and data-driven recommendations
 - 🔒 **Secure & Private** - Enterprise-grade security with data privacy protection
 - 🌍 **Global Market Expertise** - Agents trained on international business practices
+- 🤖 **AI Agent Marketplace** - A modern AI agent marketplace built with Next.js, Supabase, and TypeScript
+- 🔐 **Authentication with Supabase** - Secure user authentication
+- 🛒 **Shopping Cart Functionality** - Easily manage purchases
+- 📱 **Responsive Design** - Accessible on all devices
+- 🎨 **Modern UI with Tailwind CSS** - Sleek and intuitive user interface
 
 ## Tech Stack
 
 - **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, shadcn/ui components
+- **Styling**: Tailwind CSS, Radix UI components
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **AI**: OpenAI GPT-4
 - **Deployment**: Vercel
+- **UI Animation**: Framer Motion
 
 ## Getting Started
 
@@ -53,6 +59,7 @@ Fill in your environment variables:
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `OPENAI_API_KEY`
 - `NEXT_PUBLIC_OPENAI_API_KEY`
+- `NEXT_PUBLIC_SITE_URL`
 
 4. Set up the database:
 Run the SQL scripts in the `scripts/` directory in your Supabase SQL editor.
@@ -73,10 +80,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 │   ├── dashboard/         # Dashboard pages
 │   └── globals.css        # Global styles
 ├── components/            # React components
-│   ├── ui/               # shadcn/ui components
+│   ├── ui/               # Radix UI components
 │   ├── auth/             # Authentication components
 │   ├── chat/             # Chat components
-│   └── landing/          # Landing page components
+│   ├── landing/          # Landing page components
+│   └── cart/             # Shopping cart components
 ├── hooks/                # Custom React hooks
 ├── lib/                  # Utility libraries
 ├── scripts/              # Database scripts

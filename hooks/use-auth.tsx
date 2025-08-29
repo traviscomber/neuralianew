@@ -4,17 +4,15 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import type { User, Session } from "@supabase/supabase-js"
 import { supabase } from "@/lib/supabase-browser"
-import { dbService } from "@/lib/database"
 
 interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error: any }>
-  signUp: (email: string, password: string, fullName?: string) => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string, fullName?: string) => Promise<void>
   signOut: () => Promise<void>
-  resetPassword: (email: string) => Promise<{ error: any }>
-  updateProfile: (data: { full_name?: string; phone?: string }) => Promise<{ error: any }>
+  resetPassword: (email: string) => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -25,17 +23,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Only run if supabase client is available
+    if (!supabase) {
+      setLoading(false)
+      return
+    }
+
     // Get initial session
-    const getInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
-    }
-
-    getInitialSession()
+    })
 
     // Listen for auth changes
     const {
@@ -44,25 +43,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
-
-      // Create profile on sign up
-      if (event === "SIGNED_UP" && session?.user) {
-        await dbService.createProfile(session.user.id, session.user.email!, session.user.user_metadata?.full_name)
-      }
     })
 
     return () => subscription.unsubscribe()
   }, [])
 
   const signIn = async (email: string, password: string) => {
+    if (!supabase) {
+      throw new Error("Supabase client not available")
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-    return { error }
+    if (error) throw error
   }
 
   const signUp = async (email: string, password: string, fullName?: string) => {
+    if (!supabase) {
+      throw new Error("Supabase client not available")
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -72,27 +74,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       },
     })
-    return { error }
+    if (error) throw error
   }
 
   const signOut = async () => {
-    await supabase.auth.signOut()
+    if (!supabase) {
+      throw new Error("Supabase client not available")
+    }
+
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
   }
 
   const resetPassword = async (email: string) => {
+    if (!supabase) {
+      throw new Error("Supabase client not available")
+    }
+
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${window.location.origin}/reset-password`,
     })
-    return { error }
-  }
-
-  const updateProfile = async (data: { full_name?: string; phone?: string }) => {
-    if (!user) return { error: new Error("No user logged in") }
-
-    const { error } = await supabase.auth.updateUser({
-      data: data,
-    })
-    return { error }
+    if (error) throw error
   }
 
   const value = {
@@ -103,7 +105,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signUp,
     signOut,
     resetPassword,
-    updateProfile,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
