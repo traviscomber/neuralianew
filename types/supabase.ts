@@ -33,30 +33,33 @@ export interface Database {
         Row: {
           id: string
           name: string
-          description: string | null
+          description: string
           price: number
           category: string
-          features: Json
+          features: string[]
+          icon: string
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           name: string
-          description?: string | null
+          description: string
           price: number
           category: string
-          features?: Json
+          features: string[]
+          icon: string
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           name?: string
-          description?: string | null
+          description?: string
           price?: number
           category?: string
-          features?: Json
+          features?: string[]
+          icon?: string
           created_at?: string
           updated_at?: string
         }

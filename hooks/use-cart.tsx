@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface CartItem {
@@ -8,6 +9,7 @@ interface CartItem {
   name: string
   price: number
   quantity: number
+  icon: string
 }
 
 interface CartContextType {

@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Download, FileText, Calendar } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
+import { Download, FileText, Calendar, User } from "lucide-react"
 
 interface DownloadItem {
   id: string
@@ -14,47 +13,50 @@ interface DownloadItem {
   fileType: string
   size: string
   downloadCount: number
-  createdAt: string
-  updatedAt: string
+  uploadedAt: string
+  uploadedBy: string
+  category: string
 }
 
 export default function AdminDownloadsPage() {
-  const { user } = useAuth()
   const [downloads, setDownloads] = useState<DownloadItem[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading downloads data
+    // Mock data for demonstration
     const mockDownloads: DownloadItem[] = [
       {
         id: "1",
         name: "AI Agent Configuration Guide",
-        description: "Complete guide for configuring AI agents",
+        description: "Complete guide for configuring AI agents in your organization",
         fileType: "PDF",
-        size: "2.5 MB",
+        size: "2.4 MB",
         downloadCount: 156,
-        createdAt: "2024-01-15",
-        updatedAt: "2024-01-20",
+        uploadedAt: "2024-01-15",
+        uploadedBy: "Admin User",
+        category: "Documentation",
       },
       {
         id: "2",
-        name: "API Documentation",
-        description: "Full API documentation for developers",
-        fileType: "PDF",
-        size: "1.8 MB",
+        name: "API Integration Examples",
+        description: "Code examples for integrating with Neuralia APIs",
+        fileType: "ZIP",
+        size: "5.1 MB",
         downloadCount: 89,
-        createdAt: "2024-01-10",
-        updatedAt: "2024-01-18",
+        uploadedAt: "2024-01-10",
+        uploadedBy: "Developer Team",
+        category: "Code",
       },
       {
         id: "3",
-        name: "User Manual",
-        description: "Comprehensive user manual for the platform",
-        fileType: "PDF",
-        size: "3.2 MB",
+        name: "User Training Materials",
+        description: "Training materials for end users",
+        fileType: "PPTX",
+        size: "12.3 MB",
         downloadCount: 234,
-        createdAt: "2024-01-05",
-        updatedAt: "2024-01-15",
+        uploadedAt: "2024-01-08",
+        uploadedBy: "Training Team",
+        category: "Training",
       },
     ]
 
@@ -65,9 +67,10 @@ export default function AdminDownloadsPage() {
   }, [])
 
   const handleDownload = (item: DownloadItem) => {
-    // Simulate download
-    console.log(`Downloading ${item.name}`)
-    // In a real app, this would trigger the actual download
+    // Mock download functionality
+    console.log(`Downloading: ${item.name}`)
+
+    // Update download count
     setDownloads((prev) =>
       prev.map((download) =>
         download.id === item.id ? { ...download, downloadCount: download.downloadCount + 1 } : download,
@@ -75,88 +78,89 @@ export default function AdminDownloadsPage() {
     )
   }
 
-  if (!user) {
+  const getCategoryColor = (category: string) => {
+    switch (category) {
+      case "Documentation":
+        return "bg-blue-100 text-blue-800"
+      case "Code":
+        return "bg-green-100 text-green-800"
+      case "Training":
+        return "bg-purple-100 text-purple-800"
+      default:
+        return "bg-gray-100 text-gray-800"
+    }
+  }
+
+  if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <Card>
-          <CardContent className="flex items-center justify-center h-64">
-            <p className="text-muted-foreground">Please log in to access downloads.</p>
-          </CardContent>
-        </Card>
+      <div className="container mx-auto p-6">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">Downloads</h1>
-        <p className="text-muted-foreground mt-2">Access documentation, guides, and resources</p>
+        <h1 className="text-3xl font-bold mb-2">Downloads</h1>
+        <p className="text-muted-foreground">Manage and monitor downloadable resources</p>
       </div>
 
-      {loading ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <Card key={i} className="animate-pulse">
-              <CardHeader>
-                <div className="h-4 bg-muted rounded w-3/4"></div>
-                <div className="h-3 bg-muted rounded w-1/2"></div>
-              </CardHeader>
-              <CardContent>
+      <div className="grid gap-6">
+        {downloads.map((item) => (
+          <Card key={item.id} className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <div className="flex items-start justify-between">
                 <div className="space-y-2">
-                  <div className="h-3 bg-muted rounded"></div>
-                  <div className="h-3 bg-muted rounded w-2/3"></div>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    {item.name}
+                  </CardTitle>
+                  <CardDescription>{item.description}</CardDescription>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {downloads.map((item) => (
-            <Card key={item.id} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-lg">{item.name}</CardTitle>
+                <Badge className={getCategoryColor(item.category)}>{item.category}</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1">
+                    <FileText className="h-4 w-4" />
+                    {item.fileType} • {item.size}
                   </div>
-                  <Badge variant="secondary">{item.fileType}</Badge>
+                  <div className="flex items-center gap-1">
+                    <Download className="h-4 w-4" />
+                    {item.downloadCount} downloads
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Calendar className="h-4 w-4" />
+                    {new Date(item.uploadedAt).toLocaleDateString()}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <User className="h-4 w-4" />
+                    {item.uploadedBy}
+                  </div>
                 </div>
-                <CardDescription>{item.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>Size: {item.size}</span>
-                    <span>{item.downloadCount} downloads</span>
-                  </div>
+                <Button onClick={() => handleDownload(item)} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  Download
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
-                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-3 w-3" />
-                      <span>Updated {new Date(item.updatedAt).toLocaleDateString()}</span>
-                    </div>
-                  </div>
-
-                  <Button onClick={() => handleDownload(item)} className="w-full" size="sm">
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
-
-      {!loading && downloads.length === 0 && (
+      {downloads.length === 0 && (
         <Card>
-          <CardContent className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">No downloads available at the moment.</p>
-            </div>
+          <CardContent className="flex flex-col items-center justify-center py-12">
+            <FileText className="h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-semibold mb-2">No downloads available</h3>
+            <p className="text-muted-foreground text-center">
+              There are currently no downloadable resources available.
+            </p>
           </CardContent>
         </Card>
       )}

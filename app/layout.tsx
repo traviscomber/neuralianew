@@ -11,7 +11,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Neuralia - AI Executive Platform",
-  description: "Deploy and manage AI executives and agents for your business",
+  description: "Transform your business with AI-powered executive agents",
+  keywords: "AI, artificial intelligence, business automation, executive agents",
     generator: 'v0.app'
 }
 

@@ -1,20 +1,21 @@
 import { createClient } from "@supabase/supabase-js"
-import { createServerClient as createSSRClient } from "@supabase/ssr"
+import { createServerClient } from "@supabase/ssr"
 import { cookies } from "next/headers"
 import type { Database } from "@/types/supabase"
 
-// Fallback values for development/preview
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co"
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key"
 
-// Client-side Supabase client
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
 
-// Server-side Supabase client with cookies
-export function createServerClient() {
+export function createSupabaseClient() {
+  return createClient<Database>(supabaseUrl, supabaseAnonKey)
+}
+
+export function createSupabaseServerClient() {
   const cookieStore = cookies()
 
-  return createSSRClient<Database>(supabaseUrl, supabaseAnonKey, {
+  return createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookies: {
       get(name: string) {
         return cookieStore.get(name)?.value
@@ -41,8 +42,4 @@ export function createServerClient() {
   })
 }
 
-// Service role client for admin operations
-export const supabaseAdmin = createClient<Database>(
-  supabaseUrl,
-  process.env.SUPABASE_SERVICE_ROLE_KEY || "placeholder-service-role-key",
-)
+export default supabase
