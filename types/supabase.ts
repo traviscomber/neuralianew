@@ -6,83 +6,43 @@ export interface Database {
       profiles: {
         Row: {
           id: string
-          updated_at: string | null
-          username: string | null
+          email: string
           full_name: string | null
           avatar_url: string | null
-          website: string | null
-        }
-        Insert: {
-          id: string
-          updated_at?: string | null
-          username?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
-          website?: string | null
-        }
-        Update: {
-          id?: string
-          updated_at?: string | null
-          username?: string | null
-          full_name?: string | null
-          avatar_url?: string | null
-          website?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      ai_agents: {
-        Row: {
-          id: string
-          name: string
-          description: string | null
-          category: string
-          price: number
-          features: Json | null
           created_at: string
           updated_at: string
         }
         Insert: {
-          id?: string
-          name: string
-          description?: string | null
-          category: string
-          price: number
-          features?: Json | null
+          id: string
+          email: string
+          full_name?: string | null
+          avatar_url?: string | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          name?: string
-          description?: string | null
-          category?: string
-          price?: number
-          features?: Json | null
+          email?: string
+          full_name?: string | null
+          avatar_url?: string | null
           created_at?: string
           updated_at?: string
         }
-        Relationships: []
       }
       deployed_agents: {
         Row: {
           id: string
           user_id: string
           agent_id: string
-          agent_name: string | null
+          agent_name: string
           agent_description: string | null
-          agent_type: string | null
+          agent_type: string
+          icon: string | null
           status: string
-          deployment_date: string | null
-          trial_start_date: string | null
-          trial_end_date: string | null
+          configuration: Json | null
+          is_trial: boolean
+          trial_ends_at: string | null
+          payment_status: string
           created_at: string
           updated_at: string
         }
@@ -90,13 +50,15 @@ export interface Database {
           id?: string
           user_id: string
           agent_id: string
-          agent_name?: string | null
+          agent_name: string
           agent_description?: string | null
-          agent_type?: string | null
+          agent_type: string
+          icon?: string | null
           status?: string
-          deployment_date?: string | null
-          trial_start_date?: string | null
-          trial_end_date?: string | null
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
           created_at?: string
           updated_at?: string
         }
@@ -104,25 +66,47 @@ export interface Database {
           id?: string
           user_id?: string
           agent_id?: string
-          agent_name?: string | null
+          agent_name?: string
           agent_description?: string | null
-          agent_type?: string | null
+          agent_type?: string
+          icon?: string | null
           status?: string
-          deployment_date?: string | null
-          trial_start_date?: string | null
-          trial_end_date?: string | null
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
           created_at?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "deployed_agents_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+      }
+      purchases: {
+        Row: {
+          id: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          items?: Json
+          total_amount?: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
       }
     }
     Views: {

@@ -5,18 +5,31 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/hooks/use-auth"
 import { CartProvider } from "@/hooks/use-cart"
-import { Toaster } from "@/components/ui/toaster"
-import { Toaster as Sonner } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Executive Platform",
-  description: "Deploy AI executives that understand your business context and deliver results.",
+  title: "Neuralia - AI Executive Team for Your Business",
+  description:
+    "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
+  keywords: "AI executives, business strategy, neural networks, artificial intelligence, business automation",
+  authors: [{ name: "Neuralia Team" }],
+  creator: "Neuralia",
+  publisher: "Neuralia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   metadataBase: new URL("https://n3uralia.com"),
+  alternates: {
+    canonical: "https://n3uralia.com",
+  },
   openGraph: {
-    title: "Neuralia - AI Executive Platform",
-    description: "Deploy AI executives that understand your business context and deliver results.",
+    title: "Neuralia - AI Executive Team for Your Business",
+    description:
+      "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
     url: "https://n3uralia.com",
     siteName: "Neuralia",
     images: [
@@ -24,7 +37,7 @@ export const metadata: Metadata = {
         url: "/placeholder-logo.png",
         width: 1200,
         height: 630,
-        alt: "Neuralia - AI Executive Platform",
+        alt: "Neuralia - AI Executive Team",
       },
     ],
     locale: "en_US",
@@ -32,9 +45,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - AI Executive Platform",
-    description: "Deploy AI executives that understand your business context and deliver results.",
+    title: "Neuralia - AI Executive Team for Your Business",
+    description:
+      "Deploy AI executives specialized for your market. Get strategic insights, marketing expertise, and technical guidance from neural-powered business leaders.",
     images: ["/placeholder-logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
     generator: 'v0.app'
 }
@@ -47,12 +72,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthProvider>
             <CartProvider>
               {children}
               <Toaster />
-              <Sonner />
             </CartProvider>
           </AuthProvider>
         </ThemeProvider>

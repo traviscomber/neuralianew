@@ -145,23 +145,15 @@ export default function HomePage() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* Features Section */}
-      <FeaturesSection />
-
-      {/* Testimonials Section */}
-      <TestimonialsSection />
-
-      {/* Team Section */}
-      <TeamSection />
-
-      {/* FAQ Section */}
-      <FAQSection />
-
-      {/* Footer */}
-      <Footer />
+      {/* Main Content */}
+      <main className="min-h-screen">
+        <HeroSection />
+        <FeaturesSection />
+        <TestimonialsSection />
+        <TeamSection />
+        <FAQSection />
+        <Footer />
+      </main>
 
       {/* Auth Modal */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />

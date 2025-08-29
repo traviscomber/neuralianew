@@ -3,13 +3,11 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "redirects": [
-    {
-      "source": "/www/(.*)",
-      "destination": "/$1",
-      "permanent": true
+  "functions": {
+    "app/api/*/route.ts": {
+      "maxDuration": 30
     }
-  ],
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -27,6 +25,13 @@
           "value": "origin-when-cross-origin"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/www.n3uralia.com/(.*)",
+      "destination": "https://n3uralia.com/$1",
+      "permanent": true
     }
   ]
 }

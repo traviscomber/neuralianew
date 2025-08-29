@@ -1,16 +1,16 @@
 import { dbHelpers } from "./supabase"
 
 export const dbService = {
-  /* ---------------- profiles ---------------- */
+  // Profile management
   createProfile: dbHelpers.createProfile,
   getProfile: dbHelpers.getProfile,
 
-  /* ---------------- deployed agents ---------------- */
+  // Agent deployment
   deployAgent: dbHelpers.deployAgent,
   getUserDeployedAgents: dbHelpers.getUserDeployedAgents,
   removeDeployedAgent: dbHelpers.removeDeployedAgent,
 
-  /* ---------------- purchases + composite flow ---------------- */
+  // Purchase processing
   async processPurchase(userId: string, cartItems: any[]) {
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
     const purchase = await dbHelpers.createPurchase(userId, cartItems, total)
@@ -32,7 +32,7 @@ export const dbService = {
 
   getUserPurchases: dbHelpers.getUserPurchases,
 
-  /* ---------------- misc ---------------- */
+  // Analytics
   async trackUserAction(userId: string, action: string, metadata: any = {}) {
     console.log("Tracking user action", { userId, action, metadata })
     return { success: true }

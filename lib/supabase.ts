@@ -1,123 +1,41 @@
-/* --------------------------------------------------------------------------
-   Central Supabase helper with proper singleton pattern
-   -------------------------------------------------------------------------- */
-
-import { createClient as supabaseCreateClient, createClientComponentClient } from "@supabase/supabase-js"
+import { createClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
-/** Resolve credentials from env – works both client & server side. */
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
-/** Global singleton instances */
-let _browserClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
-let _serverClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
-let supabaseInstance: ReturnType<typeof createClientComponentClient> | null = null
-
-/**
- * Create a **new** Supabase client.
- * Use this when you explicitly need a fresh client (e.g. per request).
- */
-export function createClient() {
-  return supabaseCreateClient<Database>(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true,
-      flowType: "pkce",
-    },
-  })
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Missing Supabase environment variables")
 }
 
-/**
- * Get the singleton browser client
- */
-function getBrowserClient() {
-  if (typeof window === "undefined") {
-    throw new Error("getBrowserClient() can only be called on the client side")
-  }
+// Client-side Supabase client (browser)
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
 
-  if (!_browserClient) {
-    _browserClient = createClient()
-  }
+// Server-side Supabase client with service role
+export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey || supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
+})
 
-  return _browserClient
-}
-
-/**
- * Server-side helper for Route Handlers / Server Actions.
- */
-export function createServerClient() {
-  const serviceRole = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-  if (!_serverClient) {
-    _serverClient = supabaseCreateClient<Database>(supabaseUrl, serviceRole || supabaseAnonKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-      },
-      global: {
-        headers: { "X-Client-Environment": "server" },
-      },
-    })
-  }
-
-  return _serverClient
-}
-
-/**
- * Main export - returns the appropriate client based on environment
- */
-export function getSupabase() {
-  if (!supabaseInstance) {
-    supabaseInstance = createClientComponentClient()
-  }
-  return supabaseInstance
-}
-
-export const supabase = typeof window !== "undefined" ? getBrowserClient() : createServerClient()
-export default supabase
-
-/** ---------------------------------------------------------------
- *  High-level helpers that the rest of the app relies on
- *  ------------------------------------------------------------- */
-const getClient = () => (typeof window !== "undefined" ? getBrowserClient() : createServerClient())
-
+// Database helper functions
 export const dbHelpers = {
-  /** Return all AI agents (newest first). */
-  async getAIAgents() {
-    const { data, error } = await getClient().from("ai_agents").select("*").order("created_at", { ascending: false })
-
-    if (error) throw error
-    return data
-  },
-
-  /** Return agents the given user has deployed (newest first). */
-  async getUserDeployedAgents(userId: string) {
-    const { data, error } = await getClient()
-      .from("deployed_agents")
-      .select("*")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false })
-
-    if (error) throw error
-    return data
-  },
-
-  /** Insert a new deployed agent row and return it. */
-  async deployAgent(userId: string, agentData: any) {
-    const { data, error } = await getClient()
-      .from("deployed_agents")
+  async createProfile(userId: string, email: string, fullName?: string) {
+    const { data, error } = await supabaseAdmin
+      .from("profiles")
       .insert({
-        user_id: userId,
-        agent_id: agentData.id,
-        agent_name: agentData.name,
-        agent_description: agentData.description || null,
-        agent_type: agentData.category,
-        status: "trial",
-        deployment_date: new Date().toISOString(),
-        trial_start_date: new Date().toISOString(),
-        trial_end_date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days from now
+        id: userId,
+        email,
+        full_name: fullName,
+        updated_at: new Date().toISOString(),
       })
       .select()
       .single()
@@ -126,6 +44,80 @@ export const dbHelpers = {
     return data
   },
 
-  /** Get the Supabase client for direct use */
-  getClient,
+  async getProfile(userId: string) {
+    const { data, error } = await supabaseAdmin.from("profiles").select("*").eq("id", userId).single()
+
+    if (error && error.code !== "PGRST116") throw error
+    return data
+  },
+
+  async deployAgent(userId: string, agentId: string, configuration: any) {
+    const { data, error } = await supabaseAdmin
+      .from("deployed_agents")
+      .insert({
+        user_id: userId,
+        agent_id: agentId,
+        agent_name: configuration.name || "Unnamed Agent",
+        agent_description: configuration.description,
+        agent_type: configuration.type || "general",
+        icon: configuration.icon || "🤖",
+        status: "active",
+        configuration: configuration,
+        is_trial: true,
+        trial_ends_at: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+        payment_status: "trial",
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  },
+
+  async getUserDeployedAgents(userId: string) {
+    const { data, error } = await supabaseAdmin
+      .from("deployed_agents")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+
+    if (error) throw error
+    return data || []
+  },
+
+  async removeDeployedAgent(userId: string, agentId: string) {
+    const { error } = await supabaseAdmin.from("deployed_agents").delete().eq("user_id", userId).eq("agent_id", agentId)
+
+    if (error) throw error
+    return true
+  },
+
+  async createPurchase(userId: string, items: any[], totalAmount: number) {
+    const { data, error } = await supabaseAdmin
+      .from("purchases")
+      .insert({
+        user_id: userId,
+        items: items,
+        total_amount: totalAmount,
+        status: "completed",
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
+  },
+
+  async getUserPurchases(userId: string) {
+    const { data, error } = await supabaseAdmin
+      .from("purchases")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+
+    if (error) throw error
+    return data || []
+  },
 }
+
+export default supabase

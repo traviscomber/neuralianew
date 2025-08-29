@@ -24,15 +24,6 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/www/:path*',
-        destination: '/:path*',
-        permanent: true,
-      },
-    ]
-  },
   async headers() {
     return [
       {
@@ -51,6 +42,15 @@ const nextConfig = {
             value: 'origin-when-cross-origin',
           },
         ],
+      },
+    ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/www.n3uralia.com/:path*',
+        destination: 'https://n3uralia.com/:path*',
+        permanent: true,
       },
     ]
   },
