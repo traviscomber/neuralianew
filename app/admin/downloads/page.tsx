@@ -4,18 +4,17 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Download, FileText, Calendar } from "lucide-react"
+import { Download, FileText, Database, Code } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth"
 
 interface DownloadItem {
   id: string
   name: string
   description: string
-  fileType: string
+  type: "database" | "code" | "documentation" | "config"
   size: string
-  downloadCount: number
-  uploadDate: string
-  category: string
+  downloadUrl: string
+  lastUpdated: string
 }
 
 export default function AdminDownloadsPage() {
@@ -24,37 +23,43 @@ export default function AdminDownloadsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simulate loading downloads data
+    // Simulate loading downloads
     const mockDownloads: DownloadItem[] = [
       {
         id: "1",
-        name: "AI Agent Configuration Guide",
-        description: "Complete guide for configuring AI agents",
-        fileType: "PDF",
-        size: "2.5 MB",
-        downloadCount: 156,
-        uploadDate: "2024-01-15",
-        category: "Documentation",
+        name: "Database Schema",
+        description: "Complete database schema with all tables and relationships",
+        type: "database",
+        size: "2.3 MB",
+        downloadUrl: "/downloads/schema.sql",
+        lastUpdated: "2024-01-15",
       },
       {
         id: "2",
-        name: "Executive Dashboard Template",
-        description: "Template for executive dashboard setup",
-        fileType: "ZIP",
-        size: "8.2 MB",
-        downloadCount: 89,
-        uploadDate: "2024-01-10",
-        category: "Templates",
+        name: "API Documentation",
+        description: "Complete API documentation with examples",
+        type: "documentation",
+        size: "1.8 MB",
+        downloadUrl: "/downloads/api-docs.pdf",
+        lastUpdated: "2024-01-14",
       },
       {
         id: "3",
-        name: "API Integration Examples",
-        description: "Code examples for API integrations",
-        fileType: "ZIP",
-        size: "1.8 MB",
-        downloadCount: 234,
-        uploadDate: "2024-01-08",
-        category: "Code",
+        name: "Configuration Files",
+        description: "Environment and configuration templates",
+        type: "config",
+        size: "45 KB",
+        downloadUrl: "/downloads/config.zip",
+        lastUpdated: "2024-01-13",
+      },
+      {
+        id: "4",
+        name: "Source Code Backup",
+        description: "Complete source code backup",
+        type: "code",
+        size: "15.2 MB",
+        downloadUrl: "/downloads/source.zip",
+        lastUpdated: "2024-01-12",
       },
     ]
 
@@ -64,22 +69,49 @@ export default function AdminDownloadsPage() {
     }, 1000)
   }, [])
 
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "database":
+        return <Database className="h-5 w-5" />
+      case "code":
+        return <Code className="h-5 w-5" />
+      case "documentation":
+        return <FileText className="h-5 w-5" />
+      case "config":
+        return <FileText className="h-5 w-5" />
+      default:
+        return <FileText className="h-5 w-5" />
+    }
+  }
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "database":
+        return "bg-blue-100 text-blue-800"
+      case "code":
+        return "bg-green-100 text-green-800"
+      case "documentation":
+        return "bg-purple-100 text-purple-800"
+      case "config":
+        return "bg-orange-100 text-orange-800"
+      default:
+        return "bg-gray-100 text-gray-800"
+    }
+  }
+
   const handleDownload = (item: DownloadItem) => {
-    // Simulate download
+    // In a real app, this would trigger the actual download
     console.log(`Downloading ${item.name}`)
-    setDownloads((prev) =>
-      prev.map((download) =>
-        download.id === item.id ? { ...download, downloadCount: download.downloadCount + 1 } : download,
-      ),
-    )
+    // You could implement actual file download logic here
   }
 
   if (!user) {
     return (
       <div className="container mx-auto px-4 py-8">
         <Card>
-          <CardContent className="flex items-center justify-center py-8">
-            <p>Please log in to access admin downloads.</p>
+          <CardContent className="p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">Access Denied</h2>
+            <p className="text-muted-foreground">You must be logged in to access downloads.</p>
           </CardContent>
         </Card>
       </div>
@@ -90,55 +122,46 @@ export default function AdminDownloadsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Admin Downloads</h1>
-        <p className="text-muted-foreground">Manage and download administrative files and resources</p>
+        <p className="text-muted-foreground">Download system files, documentation, and backups</p>
       </div>
 
       {loading ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((i) => (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
             <Card key={i} className="animate-pulse">
               <CardHeader>
-                <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                 <div className="h-3 bg-gray-200 rounded w-1/2"></div>
               </CardHeader>
               <CardContent>
-                <div className="h-20 bg-gray-200 rounded mb-4"></div>
-                <div className="h-8 bg-gray-200 rounded"></div>
+                <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded w-2/3"></div>
               </CardContent>
             </Card>
           ))}
         </div>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {downloads.map((item) => (
             <Card key={item.id} className="hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-lg mb-1">{item.name}</CardTitle>
-                    <CardDescription>{item.description}</CardDescription>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {getIcon(item.type)}
+                    <CardTitle className="text-lg">{item.name}</CardTitle>
                   </div>
-                  <Badge variant="secondary">{item.category}</Badge>
+                  <Badge className={getTypeColor(item.type)}>{item.type}</Badge>
                 </div>
+                <CardDescription>{item.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <FileText className="h-4 w-4" />
-                    <span>
-                      {item.fileType} • {item.size}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Download className="h-4 w-4" />
-                    <span>{item.downloadCount} downloads</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Calendar className="h-4 w-4" />
-                    <span>Uploaded {new Date(item.uploadDate).toLocaleDateString()}</span>
-                  </div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm text-muted-foreground">Size: {item.size}</span>
+                  <span className="text-sm text-muted-foreground">
+                    Updated: {new Date(item.lastUpdated).toLocaleDateString()}
+                  </span>
                 </div>
-                <Button onClick={() => handleDownload(item)} className="w-full">
+                <Button onClick={() => handleDownload(item)} className="w-full" variant="outline">
                   <Download className="h-4 w-4 mr-2" />
                   Download
                 </Button>
@@ -150,10 +173,9 @@ export default function AdminDownloadsPage() {
 
       {!loading && downloads.length === 0 && (
         <Card>
-          <CardContent className="flex flex-col items-center justify-center py-12">
-            <FileText className="h-12 w-12 text-muted-foreground mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No downloads available</h3>
-            <p className="text-muted-foreground text-center">There are currently no files available for download.</p>
+          <CardContent className="p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">No Downloads Available</h2>
+            <p className="text-muted-foreground">There are currently no files available for download.</p>
           </CardContent>
         </Card>
       )}

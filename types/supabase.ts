@@ -33,30 +33,112 @@ export interface Database {
         Row: {
           id: string
           name: string
-          description: string
+          description: string | null
+          type: string
+          icon: string | null
           price: number
-          category: string
-          features: string[]
+          features: Json | null
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
           name: string
-          description: string
+          description?: string | null
+          type: string
+          icon?: string | null
           price: number
-          category: string
-          features: string[]
+          features?: Json | null
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
           name?: string
-          description?: string
+          description?: string | null
+          type?: string
+          icon?: string | null
           price?: number
-          category?: string
-          features?: string[]
+          features?: Json | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      deployed_agents: {
+        Row: {
+          id: string
+          user_id: string
+          agent_id: string
+          agent_name: string | null
+          agent_description: string | null
+          agent_type: string | null
+          icon: string | null
+          status: string
+          configuration: Json | null
+          is_trial: boolean
+          trial_ends_at: string | null
+          payment_status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          agent_id: string
+          agent_name?: string | null
+          agent_description?: string | null
+          agent_type?: string | null
+          icon?: string | null
+          status?: string
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          agent_id?: string
+          agent_name?: string | null
+          agent_description?: string | null
+          agent_type?: string | null
+          icon?: string | null
+          status?: string
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      purchases: {
+        Row: {
+          id: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          items?: Json
+          total_amount?: number
+          status?: string
           created_at?: string
           updated_at?: string
         }
@@ -69,6 +151,9 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
       [_ in never]: never
     }
   }

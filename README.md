@@ -1,15 +1,15 @@
-# Neuralia - AI Executive Platform
+# Neuralia - AI Agent Platform
 
-A modern AI platform for deploying and managing AI executives and agents.
+A modern AI agent platform built with Next.js, Supabase, and OpenAI.
 
 ## Features
 
-- 🤖 AI Executive Chat Interface
-- 🛒 Agent Marketplace
-- 👤 User Authentication with Supabase
-- 💳 Shopping Cart Functionality
+- 🤖 AI Agent Marketplace
+- 🔐 Authentication with Supabase
+- 💳 Shopping Cart & Purchases
 - 📱 Responsive Design
 - 🎨 Modern UI with Tailwind CSS
+- 🌙 Dark Mode Support
 
 ## Getting Started
 
@@ -23,19 +23,20 @@ A modern AI platform for deploying and managing AI executives and agents.
 Copy `.env.example` to `.env.local` and fill in your values:
 
 - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous key
-- `OPENAI_API_KEY`: Your OpenAI API key (server-side only)
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key
+- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key
+- `OPENAI_API_KEY`: Your OpenAI API key
 
 ## Deployment
 
-This project is configured for deployment on Vercel with automatic builds from the main branch.
+This project is configured for deployment on Vercel. Simply connect your GitHub repository to Vercel and it will automatically deploy.
 
 ## Tech Stack
 
-- Next.js 15
-- React 18
-- TypeScript
-- Tailwind CSS
-- Supabase
-- OpenAI API
-- Radix UI Components
+- **Framework**: Next.js 15
+- **Database**: Supabase
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **AI**: OpenAI API
+- **Authentication**: Supabase Auth
+- **Deployment**: Vercel

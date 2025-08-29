@@ -1,15 +1,23 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, createServerClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
 // Get environment variables with fallbacks
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://placeholder.supabase.co"
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "placeholder-anon-key"
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dptblcvifavtbvngivkb.supabase.co"
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNzc1MjYsImV4cCI6MjA2Njc1MzUyNn0.GxB1UkdkrNA9Hhz04wRTnkpWZGllwgLrXcde7cEiNZw"
 const supabaseServiceKey =
   process.env.SUPABASE_SERVICE_ROLE_KEY ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE3NzUyNiwiZXhwIjoyMDY2NzUzNTI2fQ.dh6RKDuDSpp18baxBO-D46K4fPGr-7-8H4KMRsmBjyM"
 
 // Client-side Supabase client (browser)
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
 
 // Server-side Supabase client with service role
 export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey, {
@@ -18,6 +26,9 @@ export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseService
     persistSession: false,
   },
 })
+
+// Export createClient and createServerClient for compatibility
+export { createClient, createServerClient }
 
 // Database helper functions
 export const dbHelpers = {

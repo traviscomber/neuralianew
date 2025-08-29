@@ -5,13 +5,13 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/hooks/use-auth"
 import { CartProvider } from "@/hooks/use-cart"
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Executive Platform",
-  description: "Deploy and manage AI executives and agents for your business",
+  title: "Neuralia - AI Agent Platform",
+  description: "Deploy and manage AI agents for your business needs",
     generator: 'v0.app'
 }
 

@@ -10,7 +10,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com'],
+    domains: ['placeholder.svg', 'images.unsplash.com', 'via.placeholder.com'],
     remotePatterns: [
       {
         protocol: 'https',
