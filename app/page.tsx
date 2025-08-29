@@ -2,573 +2,489 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  Crown,
-  TrendingUp,
-  Zap,
-  Network,
-  MessageCircle,
-  Play,
-  Code,
-  Users,
-  Building,
-  Sparkles,
-  ArrowRight,
-  CheckCircle,
-  Star,
-  Globe,
-  Shield,
-  Clock,
-} from "lucide-react"
 import { AuthModal } from "@/components/auth/auth-modal"
-import { useAuth } from "@/hooks/use-auth"
 import { ChatWidget } from "@/components/chat/chat-widget"
+import {
+  Brain,
+  Users,
+  Zap,
+  Shield,
+  Globe,
+  Clock,
+  Star,
+  ArrowRight,
+  MessageSquare,
+  Code,
+  Briefcase,
+  TrendingUp,
+} from "lucide-react"
 
-// AI Executives for Our Products section
-const aiExecutives = [
-  {
-    id: "orchestrator",
-    name: "Neural Director",
-    role: "Central Command & Coordination",
-    description: "Master AI that coordinates all executives and provides unified strategic oversight.",
-    icon: <Network className="h-8 w-8" />,
-    color: "from-indigo-600 to-purple-700",
-    features: ["Multi-Agent Coordination", "Strategic Orchestration", "Task Delegation", "Executive Synthesis"],
-    responses: {
-      greeting: "I am the Neural Director, coordinating all AI executives to deliver comprehensive business solutions.",
-      capabilities: [
-        "Multi-agent coordination",
-        "Cross-functional planning",
-        "Executive synthesis",
-        "Project orchestration",
-      ],
-      sampleQuestions: [
-        "Coordinate a digital transformation across all executives",
-        "How should CEO, CMO, and CTO work together on market expansion?",
-        "Delegate our product launch across the executive team",
-      ],
-    },
-  },
-  {
-    id: "ceo",
-    name: "AI Chief Executive",
-    role: "Strategic Leadership & Vision",
-    description: "Strategic planning, market analysis, executive decision-making, and organizational leadership.",
-    icon: <Crown className="h-8 w-8" />,
-    color: "from-purple-600 to-blue-600",
-    features: ["Strategic Planning", "Market Analysis", "Leadership", "Business Development"],
-    responses: {
-      greeting: "I provide strategic leadership and executive decision-making support to drive your business forward.",
-      capabilities: ["Strategic planning", "Market analysis", "Executive decisions", "Organizational development"],
-      sampleQuestions: [
-        "What's our market expansion strategy?",
-        "How should we approach this acquisition?",
-        "What are the key strategic priorities?",
-      ],
-    },
-  },
-  {
-    id: "cmo",
-    name: "AI Chief Marketing",
-    role: "Growth & Customer Acquisition",
-    description: "Marketing strategy, brand development, customer acquisition, and growth optimization.",
-    icon: <TrendingUp className="h-8 w-8" />,
-    color: "from-green-600 to-teal-600",
-    features: ["Marketing Strategy", "Brand Development", "Customer Acquisition", "Growth Optimization"],
-    responses: {
-      greeting: "I drive growth through strategic marketing initiatives and customer-centric approaches.",
-      capabilities: ["Marketing strategy", "Brand development", "Customer acquisition", "Growth optimization"],
-      sampleQuestions: [
-        "How can we improve our conversion rates?",
-        "What's the best customer acquisition strategy?",
-        "How should we position our brand?",
-      ],
-    },
-  },
-  {
-    id: "cto",
-    name: "AI Chief Technology",
-    role: "Innovation & Technical Excellence",
-    description: "Technology strategy, system architecture, innovation, and digital transformation.",
-    icon: <Zap className="h-8 w-8" />,
-    color: "from-orange-600 to-red-600",
-    features: ["Technology Strategy", "System Architecture", "Innovation", "Digital Transformation"],
-    responses: {
-      greeting: "I provide technical leadership and innovation strategy to transform your technology landscape.",
-      capabilities: ["Technology strategy", "System architecture", "Innovation", "Digital transformation"],
-      sampleQuestions: [
-        "What's our technology roadmap?",
-        "How can we improve our security posture?",
-        "What emerging technologies should we adopt?",
-      ],
-    },
-  },
-]
-
-// Development services for Want Dev section
-const devServices = [
-  {
-    icon: <Code className="h-6 w-6" />,
-    title: "Custom AI Integration",
-    description: "Integrate our AI executives into your existing systems and workflows",
-    features: ["API Integration", "Custom Workflows", "Data Synchronization", "Real-time Updates"],
-  },
-  {
-    icon: <Network className="h-6 w-6" />,
-    title: "Multi-Agent Orchestration",
-    description: "Deploy coordinated AI executive teams for complex business operations",
-    features: ["Team Coordination", "Task Delegation", "Unified Reporting", "Cross-functional Alignment"],
-  },
-  {
-    icon: <Shield className="h-6 w-6" />,
-    title: "Enterprise Security",
-    description: "Bank-level security with compliance and data protection standards",
-    features: ["End-to-End Encryption", "SOC 2 Compliance", "GDPR Compliant", "Zero-Trust Architecture"],
-  },
-]
-
-// Consultancy services
-const consultancies = [
-  {
-    title: "Digital Transformation",
-    description: "Complete business transformation with AI executive coordination",
-    icon: <Sparkles className="h-6 w-6 text-blue-600" />,
-    deliverables: ["Strategic roadmap", "Technology assessment", "Change management", "Implementation plan"],
-    duration: "3-6 months",
-  },
-  {
-    title: "AI Strategy Consulting",
-    description: "Develop comprehensive AI adoption strategies for your organization",
-    icon: <Crown className="h-6 w-6 text-purple-600" />,
-    deliverables: ["AI readiness assessment", "Use case identification", "ROI analysis", "Implementation roadmap"],
-    duration: "2-4 months",
-  },
-  {
-    title: "Executive Team Optimization",
-    description: "Optimize decision-making processes with AI executive support",
-    icon: <Users className="h-6 w-6 text-green-600" />,
-    deliverables: ["Process analysis", "Decision frameworks", "Team coordination", "Performance metrics"],
-    duration: "1-3 months",
-  },
-]
-
-// Client testimonials and use cases
-const clients = [
-  {
-    company: "TechCorp Solutions",
-    industry: "Technology",
-    logo: "TC",
-    testimonial:
-      "Neural AI Executives transformed our strategic planning process. The coordination between AI CEO, CMO, and CTO is remarkable.",
-    results: ["40% faster decision-making", "Unified strategic vision", "Improved cross-team collaboration"],
-    size: "500+ employees",
-  },
-  {
-    company: "Global Manufacturing Inc",
-    industry: "Manufacturing",
-    logo: "GM",
-    testimonial:
-      "The Neural Director helped us coordinate a complex digital transformation across all business functions.",
-    results: ["Streamlined operations", "Enhanced productivity", "Successful digital transformation"],
-    size: "1000+ employees",
-  },
-  {
-    company: "StartupX",
-    industry: "Fintech",
-    logo: "SX",
-    testimonial:
-      "As a growing startup, having AI executives available 24/7 gave us the strategic guidance we needed to scale.",
-    results: ["Strategic clarity", "Accelerated growth", "Professional guidance"],
-    size: "50+ employees",
-  },
-]
-
-export default function HomePage() {
+export default function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false)
-  const [showChatWidget, setShowChatWidget] = useState(false)
-  const [chatAgent, setChatAgent] = useState<(typeof aiExecutives)[0] | null>(null)
-  const { user } = useAuth()
+  const [showChat, setShowChat] = useState(false)
+  const [selectedExecutive, setSelectedExecutive] = useState<string | null>(null)
 
-  const handleTryAgent = (agent: (typeof aiExecutives)[0]) => {
-    setShowChatWidget(false)
-    setChatAgent(null)
-    setTimeout(() => {
-      setChatAgent(agent)
-      setShowChatWidget(true)
-    }, 100)
+  const executives = [
+    {
+      id: "neural-director",
+      name: "Neural Director",
+      role: "AI Orchestrator",
+      description: "Coordinates all AI executives and optimizes business operations",
+      icon: Brain,
+      color: "bg-purple-500",
+      capabilities: ["Team Coordination", "Strategic Planning", "Performance Analytics"],
+    },
+    {
+      id: "ai-ceo",
+      name: "AI CEO",
+      role: "Chief Executive",
+      description: "Strategic leadership and high-level decision making",
+      icon: Users,
+      color: "bg-blue-500",
+      capabilities: ["Strategic Vision", "Leadership", "Decision Making"],
+    },
+    {
+      id: "ai-cmo",
+      name: "AI CMO",
+      role: "Chief Marketing Officer",
+      description: "Marketing strategy, campaigns, and customer engagement",
+      icon: TrendingUp,
+      color: "bg-green-500",
+      capabilities: ["Marketing Strategy", "Brand Management", "Customer Analytics"],
+    },
+    {
+      id: "ai-cto",
+      name: "AI CTO",
+      role: "Chief Technology Officer",
+      description: "Technology strategy, development, and innovation",
+      icon: Code,
+      color: "bg-orange-500",
+      capabilities: ["Tech Strategy", "Innovation", "System Architecture"],
+    },
+  ]
+
+  const consultingServices = [
+    {
+      title: "Digital Transformation",
+      description: "Complete AI integration strategy for your business operations",
+      duration: "3-6 months",
+      deliverables: ["AI Strategy Roadmap", "Implementation Plan", "Training Program"],
+    },
+    {
+      title: "AI Strategy Development",
+      description: "Custom AI executive deployment and optimization",
+      duration: "1-3 months",
+      deliverables: ["Executive Configuration", "Workflow Integration", "Performance Metrics"],
+    },
+    {
+      title: "Executive AI Optimization",
+      description: "Enhance existing AI systems with executive-level intelligence",
+      duration: "2-4 months",
+      deliverables: ["System Audit", "Optimization Plan", "Enhanced Capabilities"],
+    },
+  ]
+
+  const clientTestimonials = [
+    {
+      name: "Sarah Chen",
+      company: "TechFlow Solutions",
+      role: "CEO",
+      content:
+        "Our AI executives have transformed how we make strategic decisions. The Neural Director coordinates everything seamlessly.",
+      rating: 5,
+      industry: "Technology",
+    },
+    {
+      name: "Michael Rodriguez",
+      company: "Global Manufacturing Inc",
+      role: "Operations Director",
+      content:
+        "The AI CMO revolutionized our marketing approach. We've seen significant improvements in customer engagement.",
+      rating: 5,
+      industry: "Manufacturing",
+    },
+    {
+      name: "Emily Watson",
+      company: "FinanceForward",
+      role: "CTO",
+      content:
+        "Having an AI CTO that works 24/7 has accelerated our development cycles and improved our technology strategy.",
+      rating: 5,
+      industry: "Finance",
+    },
+  ]
+
+  const handleExecutiveDemo = (executiveId: string) => {
+    setSelectedExecutive(executiveId)
+    setShowChat(true)
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* 1. HERO SECTION */}
-      <section className="relative py-20 px-4 bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5" />
-        <div className="relative max-w-6xl mx-auto text-center">
-          <Badge className="mb-6 bg-blue-100 text-blue-800 hover:bg-blue-200">
-            <Sparkles className="h-3 w-3 mr-1" />
-            AI Executive Suite Now Available
-          </Badge>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      {/* Section 1: Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative container mx-auto px-4 py-20">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              Deploy Your{" "}
+              <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+                AI Executive Team
+              </span>
+            </h1>
+            <p className="text-xl md:text-2xl mb-8 text-blue-100">
+              Neural Director, CEO, CMO, and CTO working together 24/7 for your business success
+            </p>
 
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            Neural AI Executives
-          </h1>
-
-          <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
-            Deploy a complete AI C-suite with Neural Director coordination. Get strategic insights, coordinated
-            execution, and unified business transformation 24/7.
-          </p>
-
-          {/* Hero Comments */}
-          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-12">
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 border">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                  <Crown className="h-4 w-4 text-white" />
+            {/* Stats Grid */}
+            <div className="grid grid-cols-3 gap-8 mb-12 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Clock className="h-6 w-6 mr-2" />
+                  <span className="text-2xl font-bold">24/7</span>
                 </div>
-                <span className="font-semibold text-sm">Strategic Leadership</span>
+                <p className="text-sm text-blue-200">Always Available</p>
               </div>
-              <p className="text-sm text-gray-600">
-                "AI CEO provides executive-level strategic guidance and decision-making support."
-              </p>
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Brain className="h-6 w-6 mr-2" />
+                  <span className="text-2xl font-bold">4</span>
+                </div>
+                <p className="text-sm text-blue-200">AI Executives</p>
+              </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center mb-2">
+                  <Zap className="h-6 w-6 mr-2" />
+                  <span className="text-2xl font-bold">5</span>
+                </div>
+                <p className="text-sm text-blue-200">Days Free Trial</p>
+              </div>
             </div>
 
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 border">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <TrendingUp className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-semibold text-sm">Growth Optimization</span>
+            {/* Comments Section */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto">
+              <div className="flex items-center mb-4">
+                <MessageSquare className="h-5 w-5 mr-2" />
+                <span className="font-semibold">Live User Feedback</span>
               </div>
-              <p className="text-sm text-gray-600">
-                "AI CMO drives customer acquisition and marketing strategy optimization."
-              </p>
-            </div>
-
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 border">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                  <Zap className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-semibold text-sm">Technical Innovation</span>
-              </div>
-              <p className="text-sm text-gray-600">
-                "AI CTO provides technology strategy and digital transformation leadership."
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-lg px-8 py-6"
-              onClick={() => setShowAuthModal(true)}
-            >
-              <Play className="h-5 w-5 mr-2" />
-              Start 5-Day Free Trial
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 py-6 border-2 bg-transparent"
-              onClick={() => handleTryAgent(aiExecutives[0])}
-            >
-              <MessageCircle className="h-5 w-5 mr-2" />
-              Try AI Chat Demo
-            </Button>
-          </div>
-
-          {/* Powerful AI Chat Preview */}
-          <Card className="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm border-2">
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-center space-x-2">
-                <Network className="h-6 w-6 text-indigo-600" />
-                <CardTitle className="text-lg">Powerful AI Chat Integration</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 mb-4">
-                Experience real-time conversations with AI executives. Get strategic insights, coordinated planning, and
-                executive-level guidance instantly.
-              </p>
-              <div className="grid grid-cols-2 gap-3">
-                {aiExecutives.slice(0, 4).map((exec) => (
-                  <Button
-                    key={exec.id}
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleTryAgent(exec)}
-                    className="justify-start"
-                  >
-                    <div className={`w-4 h-4 rounded bg-gradient-to-r ${exec.color} mr-2`} />
-                    {exec.name.split(" ")[0]} {exec.name.split(" ")[1]}
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* 2. WANT DEV? SECTION */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Want Dev?</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Need custom development or integration? We provide comprehensive development services to integrate AI
-              executives into your existing systems and workflows.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {devServices.map((service, index) => (
-              <Card key={index} className="border-2 hover:border-blue-200 transition-all duration-300 group">
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white">
-                      {service.icon}
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
+              <div className="space-y-3 text-left">
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-sm font-bold">
+                    J
                   </div>
-                  <p className="text-gray-600">{service.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        <span className="text-sm text-gray-600">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90">
-              <Code className="h-5 w-5 mr-2" />
-              Request Custom Development
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. OUR PRODUCTS SECTION */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Products</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Deploy specialized AI executives for strategic leadership, marketing growth, and technical innovation.
-              Each executive brings deep expertise in their domain.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {aiExecutives.map((executive) => (
-              <Card
-                key={executive.id}
-                className="border-2 hover:border-blue-200 transition-all duration-300 group cursor-pointer"
-                onClick={() => handleTryAgent(executive)}
-              >
-                <CardHeader className="text-center">
-                  <div
-                    className={`w-16 h-16 mx-auto rounded-lg bg-gradient-to-r ${executive.color} flex items-center justify-center text-white mb-4`}
-                  >
-                    {executive.icon}
-                  </div>
-                  <CardTitle className="text-lg">{executive.name}</CardTitle>
-                  <p className="text-sm text-gray-600">{executive.role}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-sm mb-4">{executive.description}</p>
-                  <div className="space-y-2">
-                    {executive.features.slice(0, 2).map((feature, index) => (
-                      <Badge key={index} variant="secondary" className="text-xs mr-1">
-                        {feature}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button className={`w-full mt-4 bg-gradient-to-r ${executive.color} hover:opacity-90`} size="sm">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    Try Demo
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. CONSULTANCIES SECTION */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Consultancies</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Expert consulting services to help you implement AI executives and transform your business operations with
-              coordinated AI leadership.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {consultancies.map((consultancy, index) => (
-              <Card key={index} className="border-2 hover:border-blue-200 transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-4">
-                    {consultancy.icon}
-                    <CardTitle className="text-xl">{consultancy.title}</CardTitle>
-                  </div>
-                  <p className="text-gray-600">{consultancy.description}</p>
-                </CardHeader>
-                <CardContent className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Deliverables:</h4>
-                    <ul className="space-y-1">
-                      {consultancy.deliverables.map((deliverable, deliverableIndex) => (
-                        <li key={deliverableIndex} className="flex items-center space-x-2">
-                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                          <span className="text-sm text-gray-600">{deliverable}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <p className="text-sm">"The Neural Director coordinated our entire product launch flawlessly!"</p>
+                    <span className="text-xs text-blue-200">- John, Startup Founder</span>
                   </div>
-                  <div className="flex justify-between items-center pt-4 border-t">
-                    <Badge variant="outline">{consultancy.duration}</Badge>
-                    <Button size="sm" variant="outline">
-                      Learn More
-                      <ArrowRight className="h-4 w-4 ml-1" />
-                    </Button>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold">
+                    M
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <div>
+                    <p className="text-sm">"AI CMO increased our conversion rates by implementing smart campaigns."</p>
+                    <span className="text-xs text-blue-200">- Maria, Marketing Director</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3"
+                onClick={() => setShowAuthModal(true)}
+              >
+                Start Free Trial
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 font-semibold px-8 py-3 bg-transparent"
+                onClick={() => setShowChat(true)}
+              >
+                Try AI Chat Demo
+                <MessageSquare className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. OUR CLIENTS SECTION */}
-      <section className="py-20 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Clients</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Trusted by companies across industries to provide AI executive leadership and strategic guidance.
+      {/* Section 2: Want Dev? */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-6 text-gray-900">Want Dev?</h2>
+            <p className="text-xl text-gray-600 mb-12">
+              We build custom AI executives tailored to your specific business needs
             </p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {clients.map((client, index) => (
-              <Card key={index} className="border-2 hover:border-blue-200 transition-all duration-300">
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="border-2 hover:border-blue-500 transition-colors">
                 <CardHeader>
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold">
-                      {client.logo}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{client.company}</CardTitle>
-                      <p className="text-sm text-gray-600">
-                        {client.industry} • {client.size}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-1 mb-3">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 italic">"{client.testimonial}"</p>
+                  <Code className="h-12 w-12 text-blue-600 mb-4 mx-auto" />
+                  <CardTitle>Custom AI Executives</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <h4 className="font-semibold text-gray-900 mb-2">Results:</h4>
-                  <ul className="space-y-1">
-                    {client.results.map((result, resultIndex) => (
-                      <li key={resultIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                        <span className="text-sm text-gray-600">{result}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="text-gray-600">
+                    Develop specialized AI executives for your industry and business model
+                  </p>
                 </CardContent>
               </Card>
-            ))}
-          </div>
 
-          <div className="text-center mt-12">
-            <p className="text-gray-600 mb-6">Join companies already using Neural AI Executives</p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90">
-              <Building className="h-5 w-5 mr-2" />
-              Become Our Client
-            </Button>
+              <Card className="border-2 hover:border-green-500 transition-colors">
+                <CardHeader>
+                  <Globe className="h-12 w-12 text-green-600 mb-4 mx-auto" />
+                  <CardTitle>Enterprise Integration</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">Seamless integration with your existing systems and workflows</p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2 hover:border-purple-500 transition-colors">
+                <CardHeader>
+                  <Shield className="h-12 w-12 text-purple-600 mb-4 mx-auto" />
+                  <CardTitle>Global Deployment</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">Deploy your AI executives globally with enterprise-grade security</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="mt-12">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3">
+                Schedule Development Consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 6. FOOTER/CTA SECTION */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Deploy Your AI Executive Suite?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Start with the Neural Director and complete C-suite team. Experience coordinated AI leadership that
-            transforms your business operations and strategic decision-making.
-          </p>
+      {/* Section 3: Our Products */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Products</h2>
+              <p className="text-xl text-gray-600">
+                Meet your AI executive team - each specialized for different aspects of your business
+              </p>
+            </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
-              onClick={() => setShowAuthModal(true)}
-            >
-              <Network className="h-5 w-5 mr-2" />
-              Start Executive Suite Trial
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white/10 text-lg px-8 py-6 bg-transparent"
-              onClick={() => handleTryAgent(aiExecutives[0])}
-            >
-              <MessageCircle className="h-5 w-5 mr-2" />
-              Try Neural Director
-            </Button>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {executives.map((executive) => {
+                const IconComponent = executive.icon
+                return (
+                  <Card key={executive.id} className="border-2 hover:border-blue-500 transition-all hover:shadow-lg">
+                    <CardHeader className="text-center">
+                      <div
+                        className={`w-16 h-16 ${executive.color} rounded-full flex items-center justify-center mx-auto mb-4`}
+                      >
+                        <IconComponent className="h-8 w-8 text-white" />
+                      </div>
+                      <CardTitle className="text-xl">{executive.name}</CardTitle>
+                      <CardDescription className="text-sm font-medium text-blue-600">{executive.role}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 mb-4 text-sm">{executive.description}</p>
+                      <div className="space-y-2 mb-4">
+                        {executive.capabilities.map((capability, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {capability}
+                          </Badge>
+                        ))}
+                      </div>
+                      <Button
+                        className="w-full bg-transparent"
+                        variant="outline"
+                        onClick={() => handleExecutiveDemo(executive.id)}
+                      >
+                        Try Demo
+                        <MessageSquare className="ml-2 h-4 w-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+
+            <div className="text-center mt-12">
+              <p className="text-lg text-gray-600 mb-6">
+                All executives work together as a coordinated team under the Neural Director
+              </p>
+              <Button size="lg" onClick={() => setShowAuthModal(true)}>
+                Deploy Your Team Now
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Contact Information */}
-          <div className="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            <div className="text-center">
-              <Globe className="h-8 w-8 mx-auto mb-2 opacity-80" />
-              <h4 className="font-semibold mb-1">Global Access</h4>
-              <p className="text-sm opacity-80">Available worldwide, 24/7</p>
+      {/* Section 4: Consultancies */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">Consultancies</h2>
+              <p className="text-xl text-gray-600">
+                Professional services to maximize your AI executive implementation
+              </p>
             </div>
-            <div className="text-center">
-              <Shield className="h-8 w-8 mx-auto mb-2 opacity-80" />
-              <h4 className="font-semibold mb-1">Enterprise Security</h4>
-              <p className="text-sm opacity-80">SOC 2 compliant, encrypted</p>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {consultingServices.map((service, index) => (
+                <Card key={index} className="border-2 hover:border-blue-500 transition-colors">
+                  <CardHeader>
+                    <Briefcase className="h-12 w-12 text-blue-600 mb-4" />
+                    <CardTitle className="text-xl">{service.title}</CardTitle>
+                    <CardDescription>{service.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div>
+                        <span className="font-semibold text-gray-900">Duration:</span>
+                        <p className="text-gray-600">{service.duration}</p>
+                      </div>
+                      <div>
+                        <span className="font-semibold text-gray-900">Deliverables:</span>
+                        <ul className="list-disc list-inside text-gray-600 mt-2">
+                          {service.deliverables.map((deliverable, idx) => (
+                            <li key={idx} className="text-sm">
+                              {deliverable}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-            <div className="text-center">
-              <Clock className="h-8 w-8 mx-auto mb-2 opacity-80" />
-              <h4 className="font-semibold mb-1">Instant Deployment</h4>
-              <p className="text-sm opacity-80">Start in minutes, not months</p>
+
+            <div className="text-center mt-12">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white">
+                Schedule Consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-12 pt-8 border-t border-white/20">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-sm opacity-80 mb-4 md:mb-0">© 2024 Neuralia. All rights reserved.</div>
-              <div className="flex space-x-6">
-                <a href="mailto:hello@neuralia.ai" className="text-sm opacity-80 hover:opacity-100 transition-opacity">
-                  hello@neuralia.ai
-                </a>
-                <a
-                  href="https://t.me/neuralia_support"
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                >
-                  @neuralia_support
-                </a>
+      {/* Section 5: Our Clients */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-6 text-gray-900">Our Clients</h2>
+              <p className="text-xl text-gray-600">
+                See how businesses across industries are succeeding with AI executives
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {clientTestimonials.map((testimonial, index) => (
+                <Card key={index} className="border-2 hover:border-blue-500 transition-colors">
+                  <CardHeader>
+                    <div className="flex items-center space-x-1 mb-2">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                    <CardDescription>
+                      {testimonial.role} at {testimonial.company}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 mb-4 italic">"{testimonial.content}"</p>
+                    <Badge variant="outline">{testimonial.industry}</Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <p className="text-lg text-gray-600 mb-6">Join hundreds of companies already using AI executives</p>
+              <Button size="lg" onClick={() => setShowAuthModal(true)}>
+                Start Your Success Story
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Footer/Final CTA */}
+      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Deploy your AI executive team today and experience the future of business management
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              <div className="text-center">
+                <Globe className="h-12 w-12 mx-auto mb-4 text-blue-200" />
+                <h3 className="text-lg font-semibold mb-2">Global</h3>
+                <p className="text-blue-200">Deploy anywhere in the world</p>
+              </div>
+              <div className="text-center">
+                <Shield className="h-12 w-12 mx-auto mb-4 text-blue-200" />
+                <h3 className="text-lg font-semibold mb-2">Secure</h3>
+                <p className="text-blue-200">Enterprise-grade security</p>
+              </div>
+              <div className="text-center">
+                <Zap className="h-12 w-12 mx-auto mb-4 text-blue-200" />
+                <h3 className="text-lg font-semibold mb-2">Instant</h3>
+                <p className="text-blue-200">Deploy in minutes, not months</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <Button
+                size="lg"
+                className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-3"
+                onClick={() => setShowAuthModal(true)}
+              >
+                Start Free Trial
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 font-semibold px-8 py-3 bg-transparent"
+                onClick={() => setShowChat(true)}
+              >
+                Talk to Neural Director
+                <MessageSquare className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+
+            <div className="border-t border-blue-400 pt-8">
+              <div className="grid md:grid-cols-2 gap-8 text-left">
+                <div>
+                  <h4 className="font-semibold mb-4">Contact</h4>
+                  <p className="text-blue-200">support@neuralia.ai</p>
+                  <p className="text-blue-200">+1 (555) 123-4567</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-4">AI Executives</h4>
+                  <p className="text-blue-200">Neural Director • AI CEO • AI CMO • AI CTO</p>
+                </div>
+              </div>
+              <div className="text-center mt-8 pt-8 border-t border-blue-400">
+                <p className="text-blue-200">&copy; 2024 Neuralia. All rights reserved.</p>
               </div>
             </div>
           </div>
@@ -578,15 +494,7 @@ export default function HomePage() {
       {/* Modals */}
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
 
-      <ChatWidget
-        agent={chatAgent}
-        isOpen={showChatWidget}
-        onClose={() => {
-          setShowChatWidget(false)
-          setChatAgent(null)
-        }}
-        maxQuestions={5}
-      />
+      <ChatWidget isOpen={showChat} onClose={() => setShowChat(false)} selectedExecutive={selectedExecutive} />
     </div>
   )
 }
