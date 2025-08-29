@@ -10,8 +10,8 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Agent Platform",
-  description: "Deploy and manage AI agents for your business needs",
+  title: "Neuralia - AI Executive Platform",
+  description: "Deploy and manage AI executives and agents for your business",
     generator: 'v0.app'
 }
 

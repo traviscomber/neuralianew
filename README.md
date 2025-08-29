@@ -1,42 +1,41 @@
-# Neuralia - AI Agent Platform
+# Neuralia - AI Executive Platform
 
-A modern AI agent platform built with Next.js, Supabase, and OpenAI.
+Advanced AI executives for strategic business guidance. Chat with specialized CEO, CMO, and CTO personas.
 
 ## Features
 
-- 🤖 AI Agent Marketplace
-- 🔐 Authentication with Supabase
-- 💳 Shopping Cart & Purchases
-- 📱 Responsive Design
-- 🎨 Modern UI with Tailwind CSS
-- 🌙 Dark Mode Support
+- **AI Executive Chat**: Interact with specialized AI executives (CEO, CMO, CTO)
+- **Chilean Market Intelligence**: Specialized knowledge for Chilean business context
+- **Global Business Strategy**: International best practices and frameworks
+- **Authentication System**: Secure user registration and login
+- **Shopping Cart**: Purchase AI agent services
+- **Admin Dashboard**: Manage agents and monitor system health
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Database**: Supabase (PostgreSQL)
+- **Authentication**: Supabase Auth
+- **AI**: OpenAI GPT-4 with AI SDK
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Deployment**: Vercel
 
 ## Getting Started
 
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Set up environment variables (see `.env.example`)
-4. Run the development server: `npm run dev`
+4. Run development server: `npm run dev`
+5. Open [http://localhost:3000](http://localhost:3000)
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local` and fill in your values:
-
-- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anon key
-- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key
-- `OPENAI_API_KEY`: Your OpenAI API key
+See `.env.example` for required environment variables.
 
 ## Deployment
 
-This project is configured for deployment on Vercel. Simply connect your GitHub repository to Vercel and it will automatically deploy.
+Deploy to Vercel with one click or push to your connected Git repository.
 
-## Tech Stack
+## License
 
-- **Framework**: Next.js 15
-- **Database**: Supabase
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
-- **AI**: OpenAI API
-- **Authentication**: Supabase Auth
-- **Deployment**: Vercel
+MIT License

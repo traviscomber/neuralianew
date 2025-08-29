@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverComponentsExternalPackages: ['@supabase/supabase-js']
-  },
+  serverExternalPackages: ['@supabase/supabase-js'],
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -19,9 +17,6 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
-  }
 }
 
 export default nextConfig

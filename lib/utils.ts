@@ -5,14 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatPrice(price: number) {
+export function formatPrice(price: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
   }).format(price)
 }
 
-export function formatDate(date: string | Date) {
+export function formatDate(date: string | Date): string {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "long",
@@ -20,6 +20,14 @@ export function formatDate(date: string | Date) {
   }).format(new Date(date))
 }
 
-export function generateId() {
-  return Math.random().toString(36).substring(2) + Date.now().toString(36)
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, "")
+    .replace(/ +/g, "-")
+}
+
+export function truncate(text: string, length: number): string {
+  if (text.length <= length) return text
+  return text.slice(0, length) + "..."
 }
