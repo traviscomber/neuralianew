@@ -1,21 +1,21 @@
 "use client"
 
 import type React from "react"
+
 import { createContext, useContext, useEffect, useState } from "react"
 
 interface CartItem {
   id: string
   name: string
   price: number
-  type: string
-  icon?: string
-  description?: string
+  quantity: number
 }
 
 interface CartContextType {
   items: CartItem[]
-  addItem: (item: CartItem) => void
+  addItem: (item: Omit<CartItem, "quantity">) => void
   removeItem: (id: string) => void
+  updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
   total: number
   itemCount: number
@@ -28,46 +28,51 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   // Load cart from localStorage on mount
   useEffect(() => {
-    const savedCart = localStorage.getItem("neuralia-cart")
+    const savedCart = localStorage.getItem("cart")
     if (savedCart) {
-      try {
-        setItems(JSON.parse(savedCart))
-      } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
-      }
+      setItems(JSON.parse(savedCart))
     }
   }, [])
 
   // Save cart to localStorage whenever items change
   useEffect(() => {
-    localStorage.setItem("neuralia-cart", JSON.stringify(items))
+    localStorage.setItem("cart", JSON.stringify(items))
   }, [items])
 
-  const addItem = (item: CartItem) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((i) => i.id === item.id)
+  const addItem = (newItem: Omit<CartItem, "quantity">) => {
+    setItems((currentItems) => {
+      const existingItem = currentItems.find((item) => item.id === newItem.id)
       if (existingItem) {
-        return prevItems // Item already in cart, don't add duplicate
+        return currentItems.map((item) => (item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item))
       }
-      return [...prevItems, item]
+      return [...currentItems, { ...newItem, quantity: 1 }]
     })
   }
 
   const removeItem = (id: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
+    setItems((currentItems) => currentItems.filter((item) => item.id !== id))
+  }
+
+  const updateQuantity = (id: string, quantity: number) => {
+    if (quantity <= 0) {
+      removeItem(id)
+      return
+    }
+    setItems((currentItems) => currentItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
   }
 
   const clearCart = () => {
     setItems([])
   }
 
-  const total = items.reduce((sum, item) => sum + item.price, 0)
-  const itemCount = items.length
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   const value = {
     items,
     addItem,
     removeItem,
+    updateQuantity,
     clearCart,
     total,
     itemCount,
