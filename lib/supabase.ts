@@ -2,7 +2,7 @@
    Central Supabase helper with proper singleton pattern
    -------------------------------------------------------------------------- */
 
-import { createClient as supabaseCreateClient } from "@supabase/supabase-js"
+import { createClient as supabaseCreateClient, createClientComponentClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
 /** Resolve credentials from env – works both client & server side. */
@@ -12,6 +12,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 /** Global singleton instances */
 let _browserClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
 let _serverClient: ReturnType<typeof supabaseCreateClient> | undefined = undefined
+let supabaseInstance: ReturnType<typeof createClientComponentClient> | null = null
 
 /**
  * Create a **new** Supabase client.
@@ -22,6 +23,8 @@ export function createClient() {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
+      detectSessionInUrl: true,
+      flowType: "pkce",
     },
   })
 }
@@ -65,15 +68,21 @@ export function createServerClient() {
 /**
  * Main export - returns the appropriate client based on environment
  */
-export const supabase = typeof window !== "undefined" ? getBrowserClient() : createServerClient()
-
-function getClient() {
-  return typeof window !== "undefined" ? getBrowserClient() : createServerClient()
+export function getSupabase() {
+  if (!supabaseInstance) {
+    supabaseInstance = createClientComponentClient()
+  }
+  return supabaseInstance
 }
+
+export const supabase = typeof window !== "undefined" ? getBrowserClient() : createServerClient()
+export default supabase
 
 /** ---------------------------------------------------------------
  *  High-level helpers that the rest of the app relies on
  *  ------------------------------------------------------------- */
+const getClient = () => (typeof window !== "undefined" ? getBrowserClient() : createServerClient())
+
 export const dbHelpers = {
   /** Return all AI agents (newest first). */
   async getAIAgents() {
@@ -120,6 +129,3 @@ export const dbHelpers = {
   /** Get the Supabase client for direct use */
   getClient,
 }
-
-/** Default export kept for backward compatibility. */
-export default supabase
