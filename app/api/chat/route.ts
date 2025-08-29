@@ -110,6 +110,12 @@ const EXECUTIVE_PERSONAS = {
 
 export async function POST(request: NextRequest) {
   try {
+    // Verify OpenAI API key is available server-side only
+    if (!process.env.OPENAI_API_KEY) {
+      console.error("OPENAI_API_KEY is not configured")
+      return NextResponse.json({ error: "AI service temporarily unavailable" }, { status: 503 })
+    }
+
     const { message, executiveType = "ceo", userInfo } = await request.json()
 
     if (!message) {
@@ -153,7 +159,7 @@ ${profile.website ? `Website: ${profile.website}` : ""}
 `
     }
 
-    // Generate response using OpenAI
+    // Generate response using OpenAI (server-side only)
     const result = await generateText({
       model: openai("gpt-4o"),
       system: `${persona}

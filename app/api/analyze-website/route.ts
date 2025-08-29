@@ -71,30 +71,39 @@ export async function POST(request: NextRequest) {
       return null
     }
 
-    const detectedCountry = getCountryFromDomain(domain)
+    let detectedCountry = getCountryFromDomain(domain)
+
+    // Detect country from domain name if TLD detection fails
+    if (!detectedCountry) {
+      if (domain.includes(".cl") || domain.includes("chile")) {
+        detectedCountry = "CL"
+      } else if (domain.includes(".ar") || domain.includes("argentina")) {
+        detectedCountry = "AR"
+      } else if (domain.includes(".br") || domain.includes("brasil")) {
+        detectedCountry = "BR"
+      } else if (domain.includes(".co") || domain.includes("colombia")) {
+        detectedCountry = "CO"
+      }
+    }
 
     // Industry detection based on domain keywords and common patterns
     const detectIndustry = (domain: string): string => {
-      const industryKeywords: { [key: string]: string[] } = {
-        Technology: ["tech", "software", "app", "digital", "cloud", "ai", "data", "cyber", "dev", "code"],
-        Healthcare: ["health", "medical", "pharma", "bio", "clinic", "hospital", "care", "wellness"],
-        Finance: ["bank", "finance", "invest", "capital", "fund", "trading", "crypto", "fintech"],
-        "E-commerce": ["shop", "store", "market", "buy", "sell", "commerce", "retail", "cart"],
-        Education: ["edu", "school", "university", "learn", "course", "training", "academy"],
-        "Real Estate": ["real", "estate", "property", "home", "house", "rent", "mortgage"],
-        Manufacturing: ["manufacturing", "factory", "industrial", "production", "supply"],
-        Consulting: ["consulting", "advisory", "strategy", "solutions", "services"],
-        Media: ["media", "news", "blog", "content", "publishing", "creative"],
-        Travel: ["travel", "hotel", "booking", "tourism", "vacation", "flight"],
+      if (domain.includes("tech") || domain.includes("software") || domain.includes("app")) {
+        return "Technology"
+      } else if (domain.includes("finance") || domain.includes("bank") || domain.includes("pay")) {
+        return "Financial Services"
+      } else if (domain.includes("health") || domain.includes("medical") || domain.includes("clinic")) {
+        return "Healthcare"
+      } else if (domain.includes("edu") || domain.includes("school") || domain.includes("university")) {
+        return "Education"
+      } else if (domain.includes("shop") || domain.includes("store") || domain.includes("commerce")) {
+        return "E-commerce"
+      } else {
+        return "Business Services"
       }
-
-      for (const [industry, keywords] of Object.entries(industryKeywords)) {
-        if (keywords.some((keyword) => domain.includes(keyword))) {
-          return industry
-        }
-      }
-      return "Business Services"
     }
+
+    const industry = detectIndustry(domain)
 
     // Business type detection
     const detectBusinessType = (domain: string): string => {
@@ -120,7 +129,6 @@ export async function POST(request: NextRequest) {
       return "B2B" // Default assumption
     }
 
-    const industry = detectIndustry(domain)
     const businessType = detectBusinessType(domain)
 
     // Generate analysis based on domain and detected patterns
@@ -139,16 +147,19 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Website analysis error:", error)
 
-    return NextResponse.json({
-      title: "Business Website",
-      description: "Professional business platform",
-      industry: "Business Services",
-      businessType: "B2B",
-      keyFeatures: ["Professional Services", "Business Solutions"],
-      targetAudience: "Business Professionals",
-      competitors: ["Industry Leaders"],
-      detectedCountry: null,
-    })
+    return NextResponse.json(
+      {
+        title: "Business Website",
+        description: "Professional business platform",
+        industry: "Business Services",
+        businessType: "B2B",
+        keyFeatures: ["Professional Services", "Business Solutions"],
+        targetAudience: "Business Professionals",
+        competitors: ["Industry Leaders"],
+        detectedCountry: null,
+      },
+      { status: 500 },
+    )
   }
 }
 
