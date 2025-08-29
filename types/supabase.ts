@@ -29,37 +29,81 @@ export interface Database {
           updated_at?: string
         }
       }
-      ai_agents: {
+      deployed_agents: {
         Row: {
           id: string
-          name: string
-          description: string
-          price: number
-          category: string
-          features: string[]
+          user_id: string
+          agent_id: string
+          agent_name: string
+          agent_description: string | null
+          agent_type: string
           icon: string
+          status: string
+          configuration: Json
+          is_trial: boolean
+          trial_ends_at: string | null
+          payment_status: string
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          name: string
-          description: string
-          price: number
-          category: string
-          features: string[]
+          user_id: string
+          agent_id: string
+          agent_name: string
+          agent_description?: string | null
+          agent_type: string
           icon: string
+          status: string
+          configuration: Json
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status: string
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          name?: string
-          description?: string
-          price?: number
-          category?: string
-          features?: string[]
+          user_id?: string
+          agent_id?: string
+          agent_name?: string
+          agent_description?: string | null
+          agent_type?: string
           icon?: string
+          status?: string
+          configuration?: Json
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      purchases: {
+        Row: {
+          id: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          items?: Json
+          total_amount?: number
+          status?: string
           created_at?: string
           updated_at?: string
         }
@@ -72,6 +116,9 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
       [_ in never]: never
     }
   }
