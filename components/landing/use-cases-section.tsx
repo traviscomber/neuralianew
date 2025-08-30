@@ -1,884 +1,514 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
-  MessageSquare,
   TrendingUp,
-  Users,
-  Zap,
-  CheckCircle,
-  Clock,
-  Smartphone,
   Globe,
-  Target,
-  BookOpen,
-  Trophy,
-  Lightbulb,
-  Calendar,
-  ExternalLink,
-  GraduationCap,
-  Briefcase,
-  Heart,
-  Coffee,
-  Rocket,
-  Brain,
-  Award,
-  Sparkles,
-  ChevronRight,
-  DollarSign,
-  FileText,
   BarChart3,
+  Target,
+  GraduationCap,
   Building2,
+  Rocket,
+  PieChart,
+  Calendar,
+  Award,
+  RotateCcw,
+  Phone,
+  MessageCircle,
+  Sparkles,
+  Crown,
+  Brain,
 } from "lucide-react"
 
-interface ChatMessage {
+interface Message {
   id: string
   content: string
-  sender: "user" | "coach" | "system" | "assistant" | "tutor"
-  timestamp: string
-  type?: "encouragement" | "recommendation" | "milestone" | "challenge" | "resource"
-  metadata?: {
-    category?: string
-    priority?: "high" | "medium" | "low"
-    actionRequired?: boolean
-    resources?: string[]
-    nextSteps?: string[]
-  }
-}
-
-interface LearningProgress {
-  currentLevel: number
-  totalLevels: number
-  skillsAcquired: string[]
-  weeklyGoals: { goal: string; completed: boolean; dueDate: string }[]
-  readingList: { title: string; author: string; progress: number; recommended: boolean }[]
-  achievements: { title: string; date: string; description: string }[]
+  sender: "user" | "agent"
+  timestamp: Date
+  type?: "text" | "image" | "audio" | "data"
+  metadata?: any
 }
 
 export function UseCasesSection() {
-  const [activeTab, setActiveTab] = useState("ecosuelobot")
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [activeTab, setActiveTab] = useState("ecosuelo")
 
-  const [ecosueloBotChatMessages, setEcosueloBotChatMessages] = useState<ChatMessage[]>([])
-  const [ecosueloMessageIndex, setEcosueloMessageIndex] = useState(0)
+  // EcosueloBot Messages - Real agricultural data and scenarios
+  const [ecosueloBotMessages, setEcosueloBotMessages] = useState<Message[]>([
+    {
+      id: "welcome",
+      content:
+        "¡Hola! 👋 Soy EcosueloBot, tu asistente agrícola inteligente. Te ayudo con análisis de suelos, recomendaciones de cultivos y optimización de rendimientos. ¿En qué región de Chile tienes tu campo?",
+      sender: "agent",
+      timestamp: new Date(),
+    },
+  ])
+
+  // Career Coaching Messages - Real career development scenarios
+  const [careerMessages, setCareerMessages] = useState<Message[]>([
+    {
+      id: "welcome",
+      content:
+        "🚀 ¡Hola! Soy tu Coach de Carrera IA. Analizo datos reales del mercado laboral chileno y global para ayudarte a identificar oportunidades, negociar salarios y planificar tu crecimiento profesional. ¿Cuál es tu situación profesional actual?",
+      sender: "agent",
+      timestamp: new Date(),
+    },
+  ])
+
+  // ParrotfyIA Messages - Real business ERP scenarios
+  const [parrotfyBusinessMessages, setParrotfyBusinessMessages] = useState<Message[]>([
+    {
+      id: "welcome",
+      content:
+        "👋 Hola, soy ParrotfyIA, tu asistente conversacional de ERP impulsado por OpenAI GPT-4.0. Manejo todas las operaciones de tu negocio a través de conversación natural. Puedo ayudarte con proyectos, finanzas, inventario, clientes y análisis en tiempo real. ¿Qué necesitas revisar hoy?",
+      sender: "agent",
+      timestamp: new Date(),
+    },
+  ])
+
   const [ecosueloIsPlaying, setEcosueloIsPlaying] = useState(false)
-
-  const [parrotfyChatMessages, setParrotfyChatMessages] = useState<ChatMessage[]>([])
-  const [parrotfyMessageIndex, setParrotfyMessageIndex] = useState(0)
+  const [careerIsPlaying, setCareerIsPlaying] = useState(false)
   const [parrotfyIsPlaying, setParrotfyIsPlaying] = useState(false)
+  const [showERPPanels, setShowERPPanels] = useState(false)
 
-  const [learningProgress, setLearningProgress] = useState<LearningProgress>({
-    currentLevel: 7,
-    totalLevels: 10,
-    skillsAcquired: ["Leadership Communication", "Strategic Thinking", "Data Analysis", "Team Management"],
-    weeklyGoals: [
-      { goal: "Complete 'Good to Great' chapters 1-3", completed: true, dueDate: "Today" },
-      { goal: "Practice public speaking 15 minutes daily", completed: true, dueDate: "Today" },
-      { goal: "Network with 3 industry professionals", completed: false, dueDate: "Friday" },
-      { goal: "Update LinkedIn with new skills", completed: false, dueDate: "Sunday" },
-    ],
-    readingList: [
-      { title: "Good to Great", author: "Jim Collins", progress: 65, recommended: true },
-      { title: "The Lean Startup", author: "Eric Ries", progress: 100, recommended: true },
-      { title: "Atomic Habits", author: "James Clear", progress: 30, recommended: true },
-      { title: "The 7 Habits", author: "Stephen Covey", progress: 0, recommended: false },
-    ],
-    achievements: [
-      { title: "Leadership Milestone", date: "2 days ago", description: "Completed advanced leadership module" },
-      { title: "Reading Streak", date: "1 week ago", description: "7 consecutive days of reading" },
-      { title: "Skill Mastery", date: "2 weeks ago", description: "Mastered Data Analysis fundamentals" },
-    ],
-  })
-
-  // Enhanced career coaching conversation
-  const careerChatMessages: ChatMessage[] = [
-    {
-      id: "1",
-      content:
-        "Good morning, Sarah! 🌅 I noticed you've been consistently hitting your daily reading goals. How are you feeling about the leadership concepts from 'Good to Great'?",
-      sender: "coach",
-      timestamp: "8:30 AM",
-      type: "encouragement",
-      metadata: {
-        category: "daily_check_in",
-        priority: "medium",
-        actionRequired: false,
-      },
-    },
-    {
-      id: "2",
-      content:
-        "Hi Coach! I'm really enjoying the book. The concept of Level 5 Leadership is fascinating. I'm trying to apply the humility aspect in my team meetings.",
-      sender: "user",
-      timestamp: "8:35 AM",
-    },
-    {
-      id: "3",
-      content:
-        "That's excellent self-awareness! 🎯 Applying Level 5 Leadership principles shows real growth. I have a challenge for you: try implementing the 'First Who, Then What' principle in your next project. Also, I found 3 TED talks on humble leadership that align perfectly with your learning style. Should I add them to your personalized playlist?",
-      sender: "coach",
-      timestamp: "8:36 AM",
-      type: "challenge",
-      metadata: {
-        category: "skill_application",
-        priority: "high",
-        actionRequired: true,
-        resources: [
-          "TED Talk: The Power of Humble Leadership",
-          "Harvard Business Review: Level 5 Leadership",
-          "Podcast: Leadership in Practice",
-        ],
-        nextSteps: [
-          "Watch recommended TED talks",
-          "Apply 'First Who, Then What' in next project",
-          "Reflect on leadership style",
-        ],
-      },
-    },
-    {
-      id: "4",
-      content: "Yes, please add them! I love how you always know exactly what I need to learn next.",
-      sender: "user",
-      timestamp: "8:38 AM",
-    },
-    {
-      id: "5",
-      content:
-        "Perfect! 📚 I've added them to your learning queue. Here's what I'm seeing in your progress: You're 65% through 'Good to Great' and your comprehension scores are in the top 10% of learners. Your consistency is paying off! \n\nQuick insight: Based on your learning pattern, you absorb leadership concepts best in the morning. I've scheduled your next skill assessment for tomorrow at 9 AM. Ready to level up? 🚀",
-      sender: "coach",
-      timestamp: "8:39 AM",
-      type: "milestone",
-      metadata: {
-        category: "progress_update",
-        priority: "high",
-        actionRequired: true,
-        resources: ["Skill Assessment: Leadership Styles", "Morning Learning Optimization Guide"],
-      },
-    },
-    {
-      id: "6",
-      content:
-        "I'm ready! But I'm feeling a bit overwhelmed with my current workload. How do I balance learning with my job responsibilities?",
-      sender: "user",
-      timestamp: "8:42 AM",
-    },
-    {
-      id: "7",
-      content:
-        "I hear you, Sarah. 💪 Feeling overwhelmed is normal when you're growing rapidly. Let's optimize your approach:\n\n🎯 **Micro-learning Strategy:**\n• 15-minute morning reading sessions (you're already doing this!)\n• Listen to leadership podcasts during commute\n• Practice one new skill during lunch breaks\n\n📈 **Integration Approach:**\n• Apply new concepts immediately in your current role\n• Turn work challenges into learning opportunities\n• Use your team as a practice ground for leadership skills\n\nRemember: You're not adding to your workload, you're enhancing it. Every leadership principle you learn makes your current job easier and more effective. You've got this! 🌟",
-      sender: "coach",
-      timestamp: "8:43 AM",
-      type: "encouragement",
-      metadata: {
-        category: "work_life_balance",
-        priority: "high",
-        actionRequired: true,
-        resources: ["Time Management for Leaders", "Micro-learning Techniques", "Leadership in Daily Work"],
-        nextSteps: [
-          "Implement 15-min morning sessions",
-          "Choose leadership podcast",
-          "Identify practice opportunities at work",
-        ],
-      },
-    },
-    {
-      id: "8",
-      content: "This is exactly what I needed to hear. Thank you for always knowing how to motivate me!",
-      sender: "user",
-      timestamp: "8:45 AM",
-    },
-    {
-      id: "9",
-      content:
-        "That's what I'm here for! 🎉 Your growth mindset is inspiring. I'm tracking your progress and I can see you're building momentum. \n\n🏆 **This Week's Wins:**\n• 7-day reading streak maintained\n• Applied active listening in 3 team meetings\n• Completed leadership self-assessment\n\n📅 **Tomorrow's Focus:**\n• Morning: Leadership assessment (9 AM)\n• Afternoon: Practice delegation with your team\n• Evening: Reflect on the day's leadership moments\n\nI'll check in with you tomorrow evening to see how the assessment went. Keep pushing forward - you're closer to that promotion than you think! 💼✨",
-      sender: "coach",
-      timestamp: "8:46 AM",
-      type: "milestone",
-      metadata: {
-        category: "weekly_review",
-        priority: "medium",
-        actionRequired: false,
-        resources: ["Leadership Assessment Prep", "Delegation Best Practices", "Reflection Journal Template"],
-      },
-    },
-    {
-      id: "10",
-      content:
-        "🌟 **Evening Check-in Reminder** 🌟\n\nHey Sarah! How did your leadership assessment go today? I'm excited to hear about your progress and help you plan tomorrow's growth activities. Remember, every small step counts toward your bigger career goals! 💪\n\nReply when you're ready to share your wins from today! 🎯",
-      sender: "coach",
-      timestamp: "6:30 PM",
-      type: "encouragement",
-      metadata: {
-        category: "evening_checkin",
-        priority: "medium",
-        actionRequired: false,
-      },
-    },
-  ]
-
-  // EcosueloBot WhatsApp conversation
-  const ecosueloBotChatMessagesData: ChatMessage[] = [
-    {
-      id: "1",
-      content: "🌱 ¡Hola! Soy EcosueloBot. ¿Cómo está tu cultivo hoy?",
-      sender: "assistant",
-      timestamp: "10:30 AM",
-    },
-    {
-      id: "2",
-      content: "Hola! Mis tomates se ven un poco amarillos. ¿Qué puede ser?",
-      sender: "user",
-      timestamp: "10:32 AM",
-    },
-    {
-      id: "3",
-      content:
-        "🔍 Analizando tu ubicación y datos del suelo...\n\n📊 **Diagnóstico IA:**\n• Deficiencia de nitrógeno (85% probabilidad)\n• Humedad del suelo: 45% (óptimo: 60-70%)\n• pH detectado: 6.8 (bueno para tomates)\n\n💡 **Recomendación:**\nAplica fertilizante rico en nitrógeno y aumenta riego 20%. ¿Quieres que te envíe el plan detallado?",
-      sender: "assistant",
-      timestamp: "10:33 AM",
-    },
-    {
-      id: "4",
-      content: "¡Sí, por favor! Y gracias por el análisis tan rápido.",
-      sender: "user",
-      timestamp: "10:34 AM",
-    },
-    {
-      id: "5",
-      content:
-        "📋 **Plan de Acción (7 días):**\n\n**Día 1-2:** Fertilizante NPK 15-15-15\n**Día 3-7:** Riego cada 2 días (mañana)\n**Monitoreo:** Fotos cada 3 días\n\n📈 Mejora esperada: 15-20% en 2 semanas\n💰 Costo estimado: $25,000 CLP\n\nTe recordaré cada paso. ¡Tus tomates van a estar perfectos! 🍅✨",
-      sender: "assistant",
-      timestamp: "10:35 AM",
-    },
-    {
-      id: "6",
-      content: "¡Perfecto! ¿Puedes también revisar mi maíz? Está en otra parcela.",
-      sender: "user",
-      timestamp: "10:36 AM",
-    },
-    {
-      id: "7",
-      content:
-        "¡Por supuesto! 🌽 Conectándome a los sensores de tu parcela de maíz...\n\n📊 **Análisis de Maíz:**\n• Estado general: Excelente\n• Humedad: 68% (perfecto)\n• Temperatura del suelo: 22°C (ideal)\n• Predicción climática: 3 días soleados\n\n✅ **Todo está perfecto!** Tu maíz está en condiciones óptimas. Solo mantén el riego actual y estarás listo para una cosecha excepcional en 6 semanas.",
-      sender: "assistant",
-      timestamp: "10:37 AM",
-    },
-  ]
-
-  // CRM conversation for Parrotfy
-  const parrotfyBusinessMessages = [
-    {
-      id: "1",
-      content: "¡Hola! Soy ParrotfyIA, tu asistente de ERP conversacional. ¿En qué puedo ayudarte con tu negocio hoy?",
-      sender: "assistant",
-      timestamp: "10:30 AM",
-    },
-    {
-      id: "2",
-      content: "Hola! Necesito ver el estado de mis proyectos activos y cuáles necesitan atención.",
-      sender: "user",
-      timestamp: "10:31 AM",
-    },
-    {
-      id: "3",
-      content:
-        "📊 **Estado de Proyectos Activos:**\n\n🟢 **En tiempo:** 8 proyectos\n• Proyecto Alpha - 85% completado\n• Desarrollo Web XYZ - 92% completado\n• Consultoría ABC - 67% completado\n\n🟡 **Requieren atención:** 3 proyectos\n• Proyecto Beta - 45% (retraso de 3 días)\n• App Mobile - 78% (pendiente aprobación cliente)\n\n🔴 **Crítico:** 1 proyecto\n• Sistema ERP - 30% (retraso de 1 semana)\n\n¿Quieres que programe reuniones de seguimiento?",
-      sender: "assistant",
-      timestamp: "10:32 AM",
-    },
-    {
-      id: "4",
-      content: "Sí, programa las reuniones. También muéstrame los ingresos de este mes.",
-      sender: "user",
-      timestamp: "10:33 AM",
-    },
-    {
-      id: "5",
-      content:
-        "✅ **Reuniones programadas** para mañana 9 AM, 11 AM y 2 PM.\n\n💰 **Ingresos Marzo 2024:**\n\n📈 **Total:** $89,450 (112% del objetivo)\n🏆 **Cliente top:** TechSolutions Inc. ($28,900)\n📊 **Crecimiento:** +23% vs febrero\n\n💳 **Facturación:**\n• Facturas emitidas: 24\n• Cobradas: $66,050\n• Pendientes: $23,400 (6 facturas)\n• Tiempo promedio cobro: 18 días\n\n¿Necesitas que envíe recordatorios de pago?",
-      sender: "assistant",
-      timestamp: "10:34 AM",
-    },
-    {
-      id: "6",
-      content: "Perfecto! ¿Puedes mostrarme también el inventario y qué necesito reabastecer?",
-      sender: "user",
-      timestamp: "10:35 AM",
-    },
-    {
-      id: "7",
-      content:
-        "📦 **Estado del Inventario:**\n\n🔴 **Stock crítico (reabastecer urgente):**\n• Componente A - 5 unidades (mín: 20)\n• Material B - 12 unidades (mín: 50)\n\n🟡 **Stock bajo:**\n• Producto C - 35 unidades (mín: 30)\n• Herramienta D - 8 unidades (mín: 15)\n\n🟢 **Stock óptimo:** 15 productos\n\n💡 **Recomendación:** Generar orden de compra por $12,400 para reabastecer stock crítico. ¿Procedo?",
-      sender: "assistant",
-      timestamp: "10:36 AM",
-    },
-    {
-      id: "8",
-      content: "Sí, genera la orden de compra. ¿Cómo está la satisfacción de nuestros clientes?",
-      sender: "user",
-      timestamp: "10:37 AM",
-    },
-    {
-      id: "9",
-      content:
-        '✅ **Orden de compra #OC-2024-089** generada y enviada a proveedores.\n\n😊 **Satisfacción del Cliente:**\n\n⭐ **NPS Score:** 8.4/10 (Excelente)\n📊 **Encuestas completadas:** 18 este mes\n\n🟢 **Muy satisfechos:** 72%\n🟡 **Satisfechos:** 22%\n🔴 **Necesitan atención:** 6% (1 cliente)\n\n💬 **Comentarios destacados:**\n• "Excelente servicio y tiempos de entrega"\n• "Muy profesionales, recomendado"\n\n¿Quieres que contacte al cliente que necesita atención?',
-      sender: "assistant",
-      timestamp: "10:38 AM",
-    },
-  ]
-
-  // Remove the parrotfyMode state - no longer needed
-  // const [parrotfyMode, setParrotfyMode] = useState("language")
-
-  // Remove the parrotfyLanguageMessages array entirely since it's no longer used.
-  // const parrotfyLanguageMessages = [
-  //   {
-  //     id: "1",
-  //     content: "Hola! ¿Cómo puedo ayudarte a aprender español hoy?",
-  //     sender: "tutor",
-  //     timestamp: "10:30 AM",
-  //   },
-  //   {
-  //     id: "2",
-  //     content: "Hola! Me gustaría practicar cómo ordenar comida en un restaurante.",
-  //     sender: "user",
-  //     timestamp: "10:31 AM",
-  //   },
-  //   {
-  //     id: "3",
-  //     content: "¡Excelente! Vamos a empezar. Primero, el camarero se acerca a tu mesa. ¿Qué le dices?",
-  //     sender: "tutor",
-  //     timestamp: "10:32 AM",
-  //   },
-  //   {
-  //     id: "4",
-  //     content: "Mmm... ¿'Quisiera una mesa, por favor'?",
-  //     sender: "user",
-  //     timestamp: "10:33 AM",
-  //   },
-  //   {
-  //     id: "5",
-  //     content:
-  //       "Muy bien! También puedes decir '¿Tiene una mesa para uno/dos, por favor?'. Ahora, estás sentado. ¿Qué le dices al camarero cuando te pregunta qué quieres?",
-  //     sender: "tutor",
-  //     timestamp: "10:34 AM",
-  //   },
-  //   {
-  //     id: "6",
-  //     content: "Podría ver el menú, por favor?",
-  //     sender: "user",
-  //     timestamp: "10:35 AM",
-  //   },
-  //   {
-  //     id: "7",
-  //     content:
-  //       "Perfecto! Ahora, después de ver el menú, decides qué quieres. ¿Cómo le dices al camarero qué vas a ordenar?",
-  //     sender: "tutor",
-  //     timestamp: "10:36 AM",
-  //   },
-  //   {
-  //     id: "8",
-  //     content: "Podría pedir el pollo asado, por favor.",
-  //     sender: "user",
-  //     timestamp: "10:37 AM",
-  //   },
-  //   {
-  //     id: "9",
-  //     content: "¡Fantástico! Y si quieres algo para beber, ¿qué dirías?",
-  //     sender: "tutor",
-  //     timestamp: "10:38 AM",
-  //   },
-  // ]
-
-  // Update the auto-start logic for ParrotfyIA
+  // Auto-start demos when tabs are selected
   useEffect(() => {
-    if (activeTab === "career") {
-      // Auto-start career demo
-      if (chatMessages.length === 0) {
-        setChatMessages([careerChatMessages[0]])
-        setCurrentMessageIndex(0)
-        setIsPlaying(true)
-      }
-    } else if (activeTab === "ecosuelobot") {
-      // Auto-start EcosueloBot demo
-      if (ecosueloBotChatMessages.length === 0) {
-        setEcosueloBotChatMessages([ecosueloBotChatMessagesData[0]])
-        setEcosueloMessageIndex(0)
-        setEcosueloIsPlaying(true)
-      }
-    } else if (activeTab === "parrotfy") {
-      // Auto-start ParrotfyIA demo - only business messages
-      if (parrotfyChatMessages.length === 0) {
-        setParrotfyChatMessages([parrotfyBusinessMessages[0]])
-        setParrotfyMessageIndex(0)
-        setParrotfyIsPlaying(true)
+    if (activeTab === "ecosuelo" && !ecosueloIsPlaying && ecosueloBotMessages.length === 1) {
+      setEcosueloIsPlaying(true)
+      startEcosueloDemo()
+    } else if (activeTab === "career" && !careerIsPlaying && careerMessages.length === 1) {
+      setCareerIsPlaying(true)
+      startCareerDemo()
+    } else if (activeTab === "parrotfy" && !parrotfyIsPlaying && parrotfyBusinessMessages.length === 1) {
+      setParrotfyIsPlaying(true)
+      startParrotfyDemo()
+    }
+  }, [activeTab, ecosueloIsPlaying, careerIsPlaying, parrotfyIsPlaying])
+
+  const startEcosueloDemo = () => {
+    const demoMessages = [
+      {
+        id: "user1",
+        content: "Tengo 50 hectáreas en la Región del Maule, cultivo trigo y maíz",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent1",
+        content:
+          "Perfecto! La Región del Maule es excelente para cereales. Según datos del INIA, los suelos de esa zona tienen pH promedio 6.2-6.8, ideal para trigo y maíz. 📊\n\n🌾 **Análisis de tu situación:**\n• Trigo: Rendimiento promedio regional 45 qq/ha\n• Maíz: Rendimiento promedio regional 120 qq/ha\n• Precipitaciones: 600-800mm anuales\n\n¿Has hecho análisis de suelo recientemente? Te puedo recomendar qué nutrientes optimizar según la época.",
+        sender: "agent" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "user2",
+        content: "Sí, el análisis muestra pH 6.5, fósforo bajo y potasio medio",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent2",
+        content:
+          "Excelente información! 🎯 Con pH 6.5 estás en el rango óptimo. El fósforo bajo es común en suelos del Maule.\n\n📋 **Recomendaciones específicas:**\n\n🌱 **Para Trigo (próxima siembra):**\n• Superfosfato triple: 150 kg/ha en siembra\n• Urea: 200 kg/ha (50% siembra, 50% macollaje)\n• Rendimiento esperado: 50-55 qq/ha (+15%)\n\n🌽 **Para Maíz:**\n• DAP: 180 kg/ha en siembra\n• Urea: 250 kg/ha fraccionado\n• Rendimiento esperado: 130-140 qq/ha (+12%)\n\n💰 **ROI estimado:** $2.8M adicionales por temporada\n\n¿Te interesa que calculemos el plan de fertilización detallado?",
+        sender: "agent" as const,
+        timestamp: new Date(),
+      },
+    ]
+
+    let messageIndex = 0
+    const addMessage = () => {
+      if (messageIndex < demoMessages.length) {
+        setEcosueloBotMessages((prev) => [...prev, demoMessages[messageIndex]])
+        messageIndex++
+        setTimeout(addMessage, 3000)
+      } else {
+        setEcosueloIsPlaying(false)
       }
     }
-  }, [activeTab]) // Remove parrotfyMode dependency
+    setTimeout(addMessage, 2000)
+  }
 
-  // Career chat auto-play
-  useEffect(() => {
-    if (activeTab === "career" && isPlaying) {
-      const timer = setInterval(() => {
-        if (currentMessageIndex < careerChatMessages.length - 1) {
-          setCurrentMessageIndex((prev) => prev + 1)
-          setChatMessages((prev) => [...prev, careerChatMessages[currentMessageIndex + 1]])
-        } else {
-          setIsPlaying(false)
-        }
-      }, 3000)
+  const startCareerDemo = () => {
+    const demoMessages = [
+      {
+        id: "user1",
+        content: "Soy ingeniero de software con 3 años de experiencia en Santiago, quiero acelerar mi carrera",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent1",
+        content:
+          "¡Excelente! 🚀 Con 3 años de experiencia estás en el momento perfecto para acelerar tu crecimiento. Según datos de Laborum y GetOnBoard, el mercado tech chileno está muy activo.\n\n📊 **Tu situación actual:**\n• Rango salarial promedio: $1.8M - $2.5M CLP\n• Demanda de ingenieros: +35% vs 2023\n• Empresas contratando: 450+ posiciones abiertas\n\n🎯 **Oportunidades inmediatas:**\n• Senior Developer: $2.8M - $3.5M (+40%)\n• Tech Lead: $3.2M - $4.2M (+65%)\n• Especialización Cloud/AI: +$800K premium\n\n¿En qué tecnologías te especializas? Te ayudo a identificar el camino más rápido para tu próximo salto.",
+        sender: "agent" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "user2",
+        content: "Trabajo principalmente con React, Node.js y AWS. Me interesa liderar equipos",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent2",
+        content:
+          "¡Perfecto stack! 🎯 React + Node.js + AWS es una combinación muy demandada. Para liderazgo técnico, tienes una base sólida.\n\n🚀 **Plan de aceleración (6 meses):**\n\n**Mes 1-2: Fortalecimiento técnico**\n• Certificación AWS Solutions Architect ($150 USD)\n• Proyecto showcase con microservicios\n• Contribuir a proyectos open source\n\n**Mes 3-4: Desarrollo de liderazgo**\n• Mentoría de junior developers\n• Liderar iniciativa técnica en tu empresa actual\n• Networking en meetups tech Santiago\n\n**Mes 5-6: Transición**\n• Aplicar a posiciones Tech Lead\n• Negociar aumento interno (datos de mercado)\n• Entrevistas estratégicas\n\n💰 **Objetivo salarial:** $3.5M - $4.0M CLP\n📈 **Basado en:** Análisis de mercado actual\n\n¿Empezamos con la certificación AWS o prefieres enfocarte primero en liderazgo?",
+        sender: "agent" as const,
+        timestamp: new Date(),
+      },
+    ]
 
-      return () => clearInterval(timer)
+    let messageIndex = 0
+    const addMessage = () => {
+      if (messageIndex < demoMessages.length) {
+        setCareerMessages((prev) => [...prev, demoMessages[messageIndex]])
+        messageIndex++
+        setTimeout(addMessage, 3000)
+      } else {
+        setCareerIsPlaying(false)
+      }
     }
-  }, [activeTab, isPlaying, currentMessageIndex])
+    setTimeout(addMessage, 2000)
+  }
 
-  // EcosueloBot chat auto-play
-  useEffect(() => {
-    if (activeTab === "ecosuelobot" && ecosueloIsPlaying) {
-      const timer = setInterval(() => {
-        if (ecosueloMessageIndex < ecosueloBotChatMessagesData.length - 1) {
-          setEcosueloMessageIndex((prev) => prev + 1)
-          setEcosueloBotChatMessages((prev) => [...prev, ecosueloBotChatMessagesData[ecosueloMessageIndex + 1]])
-        } else {
-          setEcosueloIsPlaying(false)
+  const startParrotfyDemo = () => {
+    const demoMessages = [
+      {
+        id: "user1",
+        content: "¿Cómo van nuestros proyectos este mes?",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent1",
+        content:
+          "📊 **Estado de Proyectos - Noviembre 2024:**\n\n✅ **Completados:** 12 proyectos (+3 vs octubre)\n🔄 **En progreso:** 8 proyectos\n⚠️ **Retrasados:** 2 proyectos (E-commerce Mobile, CRM Integration)\n\n💰 **Facturación proyectos:**\n• Completados: $45.2M CLP\n• Pipeline: $28.7M CLP\n• Margen promedio: 34%\n\n🎯 **Próximos hitos:**\n• App Banco Regional: Entrega 15/Nov\n• Sistema Inventario: Testing 20/Nov\n\n¿Quieres que revisemos los proyectos retrasados o prefieres ver el análisis financiero detallado?",
+        sender: "agent" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "user2",
+        content: "Muéstrame los ingresos y gastos del trimestre",
+        sender: "user" as const,
+        timestamp: new Date(),
+      },
+      {
+        id: "agent2",
+        content:
+          "💼 **Análisis Financiero Q4 2024:**\n\n📈 **Ingresos (Oct-Nov):**\n• Servicios desarrollo: $89.4M CLP\n• Consultoría: $23.1M CLP\n• Mantenimiento: $15.7M CLP\n• **Total:** $128.2M CLP (+18% vs Q3)\n\n📉 **Gastos principales:**\n• Nómina: $52.3M CLP (41%)\n• Infraestructura AWS: $8.9M CLP\n• Marketing: $12.1M CLP\n• Oficina: $6.8M CLP\n• **Total gastos:** $80.1M CLP\n\n💰 **Utilidad neta:** $48.1M CLP (37.5% margen)\n📊 **Cash flow:** +$35.2M CLP\n\nEstamos 12% por encima de la proyección. ¿Revisamos el inventario o analizamos satisfacción de clientes?",
+        sender: "agent" as const,
+        timestamp: new Date(),
+        metadata: { showPanels: true },
+      },
+    ]
+
+    let messageIndex = 0
+    const addMessage = () => {
+      if (messageIndex < demoMessages.length) {
+        const message = demoMessages[messageIndex]
+        setParrotfyBusinessMessages((prev) => [...prev, message])
+
+        // Show ERP panels after the financial analysis message
+        if (message.metadata?.showPanels) {
+          setTimeout(() => setShowERPPanels(true), 1000)
         }
-      }, 3000)
 
-      return () => clearInterval(timer)
+        messageIndex++
+        setTimeout(addMessage, 3000)
+      } else {
+        setParrotfyIsPlaying(false)
+      }
     }
-  }, [activeTab, ecosueloIsPlaying, ecosueloMessageIndex])
+    setTimeout(addMessage, 2000)
+  }
 
-  // Update the ParrotfyIA chat auto-play to only use business messages
-  useEffect(() => {
-    if (activeTab === "parrotfy" && parrotfyIsPlaying) {
-      const timer = setInterval(() => {
-        if (parrotfyMessageIndex < parrotfyBusinessMessages.length - 1) {
-          setParrotfyMessageIndex((prev) => prev + 1)
-          setParrotfyChatMessages((prev) => [...prev, parrotfyBusinessMessages[parrotfyMessageIndex + 1]])
-        } else {
-          setParrotfyIsPlaying(false)
-        }
-      }, 3000)
+  const resetEcosueloDemo = () => {
+    setEcosueloBotMessages([ecosueloBotMessages[0]])
+    setEcosueloIsPlaying(false)
+  }
 
-      return () => clearInterval(timer)
-    }
-  }, [activeTab, parrotfyIsPlaying, parrotfyMessageIndex])
+  const resetCareerDemo = () => {
+    setCareerMessages([careerMessages[0]])
+    setCareerIsPlaying(false)
+  }
 
-  // Remove the mode change effect - no longer needed
-  // useEffect(() => {
-  //   if (activeTab === "parrotfy") {
-  //     const messagesToUse = parrotfyMode === "language" ? parrotfyLanguageMessages : parrotfyBusinessMessages
-  //     setParrotfyChatMessages([messagesToUse[0]])
-  //     setParrotfyMessageIndex(0)
-  //     setParrotfyIsPlaying(true)
-  //   }
-  // }, [parrotfyMode])
+  const resetParrotfyDemo = () => {
+    setParrotfyBusinessMessages([parrotfyBusinessMessages[0]])
+    setParrotfyIsPlaying(false)
+    setShowERPPanels(false)
+  }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
+    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Real AI Executives in Action</h2>
+          <Badge className="mb-4 bg-blue-100 text-blue-800 border-blue-200">
+            <Sparkles className="h-3 w-3 mr-1" />
+            Casos de Uso Reales
+          </Badge>
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">Neuralia en Acción</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how our Neural AI Executives are transforming businesses across industries with intelligent,
-            personalized solutions that deliver measurable results.
+            Descubre cómo nuestros ejecutivos IA están transformando industrias reales con datos auténticos y resultados
+            medibles
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="ecosuelobot" className="text-sm">
-              🌱 EcosueloBot
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white shadow-lg rounded-xl p-2">
+            <TabsTrigger
+              value="ecosuelo"
+              className="flex items-center space-x-2 data-[state=active]:bg-green-500 data-[state=active]:text-white rounded-lg py-3"
+            >
+              <Globe className="h-4 w-4" />
+              <span className="font-semibold">🌱 EcosueloBot</span>
             </TabsTrigger>
-            <TabsTrigger value="career" className="text-sm">
-              🚀 Launch Your Career
+            <TabsTrigger
+              value="career"
+              className="flex items-center space-x-2 data-[state=active]:bg-blue-500 data-[state=active]:text-white rounded-lg py-3"
+            >
+              <Rocket className="h-4 w-4" />
+              <span className="font-semibold">🚀 Despega tu Carrera</span>
             </TabsTrigger>
-            <TabsTrigger value="parrotfy" className="text-sm">
-              🦜 ParrotfyIA
+            <TabsTrigger
+              value="parrotfy"
+              className="flex items-center space-x-2 data-[state=active]:bg-purple-500 data-[state=active]:text-white rounded-lg py-3"
+            >
+              <Building2 className="h-4 w-4" />
+              <span className="font-semibold">💼 ParrotfyIA</span>
             </TabsTrigger>
           </TabsList>
 
-          {/* EcosueloBot Tab */}
-          <TabsContent value="ecosuelobot">
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                      <MessageSquare className="h-6 w-6 text-white" />
+          <TabsContent value="ecosuelo" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* EcosueloBot Chat Demo */}
+              <Card className="border-2 border-green-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-t-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                        <Globe className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">EcosueloBot - Asistente Agrícola</CardTitle>
+                        <p className="text-green-100 text-sm">WhatsApp Business • Datos INIA reales</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">EcosueloBot</h3>
-                      <p className="text-gray-600">AI Agricultural Assistant via WhatsApp</p>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-green-300 rounded-full animate-pulse"></div>
+                      <span className="text-sm">En línea</span>
                     </div>
                   </div>
-
-                  <p className="text-gray-700 leading-relaxed">
-                    EcosueloBot transforms complex agricultural data into simple WhatsApp conversations. Powered by{" "}
-                    <strong>OpenAI ChatGPT 4.0 agentic AI</strong> backend, it connects to multiple APIs including{" "}
-                    <strong>IrriWatch</strong>, <strong>SoilGrids</strong>, and <strong>OpenWeatherMap Agro</strong>
-                    to provide farmers with intelligent, real-time agricultural insights through the familiar WhatsApp
-                    interface.
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Users className="h-5 w-5 text-green-600" />
-                        <span className="font-semibold">Active Farmers</span>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="bg-green-50 p-4 border-b">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <Phone className="h-4 w-4 text-green-600" />
+                        <span className="text-sm font-medium text-green-800">WhatsApp Business</span>
                       </div>
-                      <div className="text-2xl font-bold text-green-600">15,000+</div>
-                      <div className="text-sm text-gray-500">Across 12 countries</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <TrendingUp className="h-5 w-5 text-green-600" />
-                        <span className="font-semibold">Crop Yield</span>
-                      </div>
-                      <div className="text-2xl font-bold text-green-600">+23%</div>
-                      <div className="text-sm text-gray-500">Average improvement</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Zap className="h-5 w-5 text-green-600" />
-                        <span className="font-semibold">Response Time</span>
-                      </div>
-                      <div className="text-2xl font-bold text-green-600">{"<2s"}</div>
-                      <div className="text-sm text-gray-500">Average AI response</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <CheckCircle className="h-5 w-5 text-green-600" />
-                        <span className="font-semibold">Accuracy</span>
-                      </div>
-                      <div className="text-2xl font-bold text-green-600">96%</div>
-                      <div className="text-sm text-gray-500">Prediction accuracy</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-gray-900">Technical Stack:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary">OpenAI ChatGPT 4.0</Badge>
-                      <Badge variant="secondary">WhatsApp Business API</Badge>
-                      <Badge variant="secondary">IrriWatch API</Badge>
-                      <Badge variant="secondary">SoilGrids API</Badge>
-                      <Badge variant="secondary">OpenWeatherMap Agro</Badge>
-                      <Badge variant="secondary">Agentic AI Architecture</Badge>
-                      <Badge variant="secondary">Real-time Data Processing</Badge>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-green-600 text-white p-4">
-                  <div className="flex items-center space-x-3">
-                    <Smartphone className="h-6 w-6" />
-                    <div>
-                      <div className="font-semibold">WhatsApp Business</div>
-                      <div className="text-sm opacity-90">EcosueloBot • Online</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 space-y-4 h-80 overflow-y-auto bg-gray-50">
-                  {ecosueloBotChatMessages.map((message, index) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                    >
-                      <div
-                        className={`rounded-lg p-3 max-w-xs ${
-                          message.sender === "user" ? "bg-green-500 text-white" : "bg-white shadow-sm"
-                        }`}
-                      >
-                        <div className="text-sm whitespace-pre-line">{message.content}</div>
-                        <div
-                          className={`text-xs mt-1 ${message.sender === "user" ? "text-green-100" : "text-gray-500"}`}
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={resetEcosueloDemo}
+                          className="text-green-600 border-green-300 hover:bg-green-100 bg-transparent"
                         >
-                          {message.timestamp}
-                        </div>
+                          <RotateCcw className="h-3 w-3 mr-1" />
+                          Reiniciar
+                        </Button>
                       </div>
                     </div>
-                  ))}
-
-                  {ecosueloIsPlaying && ecosueloMessageIndex < ecosueloBotChatMessagesData.length - 1 && (
-                    <div className="flex justify-start">
-                      <div className="bg-white rounded-lg p-3 max-w-xs shadow-sm">
-                        <div className="flex items-center space-x-1">
-                          <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
-                          <div
-                            className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.1s" }}
-                          ></div>
-                          <div
-                            className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.2s" }}
-                          ></div>
-                          <span className="text-xs text-gray-500 ml-2">EcosueloBot está analizando...</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="p-4 border-t bg-white">
-                  <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Globe className="h-4 w-4" />
-                    <span>Powered by OpenAI GPT-4 • Connected to IrriWatch, SoilGrids & Weather APIs • Auto Demo</span>
                   </div>
-                </div>
+
+                  <ScrollArea className="h-96 p-4">
+                    <div className="space-y-4">
+                      {ecosueloBotMessages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                          <div
+                            className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                              message.sender === "user"
+                                ? "bg-green-500 text-white"
+                                : "bg-white border border-gray-200 text-gray-900"
+                            }`}
+                          >
+                            <div className="text-sm whitespace-pre-line">{message.content}</div>
+                            <div className="text-xs opacity-70 mt-1">
+                              {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+
+                      {ecosueloIsPlaying && (
+                        <div className="flex justify-start">
+                          <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
+                            <div className="flex items-center space-x-1">
+                              <div className="w-2 h-2 bg-green-500 rounded-full animate-bounce"></div>
+                              <div
+                                className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+                                style={{ animationDelay: "0.1s" }}
+                              ></div>
+                              <div
+                                className="w-2 h-2 bg-green-500 rounded-full animate-bounce"
+                                style={{ animationDelay: "0.2s" }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+
+              {/* EcosueloBot Features */}
+              <div className="space-y-6">
+                <Card className="border-green-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-green-700">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Capacidades Técnicas
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-600">INIA</div>
+                        <div className="text-sm text-gray-600">Datos oficiales</div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-600">24/7</div>
+                        <div className="text-sm text-gray-600">Disponibilidad</div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-600">15+</div>
+                        <div className="text-sm text-gray-600">Tipos de cultivo</div>
+                      </div>
+                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                        <div className="text-2xl font-bold text-green-600">GPT-4</div>
+                        <div className="text-sm text-gray-600">OpenAI Engine</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-green-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-green-700">
+                      <Target className="h-5 w-5 mr-2" />
+                      Funcionalidades
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Análisis de suelos</span>
+                      <span className="font-bold text-green-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Recomendaciones fertilización</span>
+                      <span className="font-bold text-green-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Predicción rendimientos</span>
+                      <span className="font-bold text-green-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Integración WhatsApp</span>
+                      <span className="font-bold text-green-600">✓ Activo</span>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-r from-green-500 to-emerald-600 text-white border-0">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-bold mb-2">Integración WhatsApp Business</h3>
+                    <p className="text-green-100 mb-4">
+                      Conecta directamente con agricultores usando la plataforma que ya conocen y usan diariamente.
+                    </p>
+                    <Button className="bg-white text-green-600 hover:bg-green-50">
+                      <MessageCircle className="h-4 w-4 mr-2" />
+                      Probar en WhatsApp
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </TabsContent>
 
-          {/* Career Coaching Tab */}
-          <TabsContent value="career">
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                      <GraduationCap className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">Launch Your Career</h3>
-                      <p className="text-gray-600">AI Career Coach Always With You</p>
-                    </div>
-                  </div>
-
-                  <p className="text-gray-700 leading-relaxed">
-                    Your personal AI career coach that never sleeps. Get continuous encouragement, personalized learning
-                    paths, reading recommendations, and skill development guidance. From daily check-ins to milestone
-                    celebrations, your coach is always there to push you forward.
-                  </p>
-
-                  {/* Learning Progress Dashboard */}
-                  <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-lg flex items-center">
-                        <Trophy className="h-5 w-5 mr-2 text-blue-600" />
-                        Sarah's Learning Journey
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div>
-                        <div className="flex justify-between text-sm mb-2">
-                          <span>Career Level Progress</span>
-                          <span>
-                            {learningProgress.currentLevel}/{learningProgress.totalLevels}
-                          </span>
-                        </div>
-                        <Progress
-                          value={(learningProgress.currentLevel / learningProgress.totalLevels) * 100}
-                          className="h-2"
-                        />
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">Skills Mastered:</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {learningProgress.skillsAcquired.map((skill, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              <CheckCircle className="h-3 w-3 mr-1" />
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">This Week's Goals:</h4>
-                        <div className="space-y-1">
-                          {learningProgress.weeklyGoals.map((goal, index) => (
-                            <div key={index} className="flex items-center space-x-2 text-xs">
-                              {goal.completed ? (
-                                <CheckCircle className="h-3 w-3 text-green-500" />
-                              ) : (
-                                <Clock className="h-3 w-3 text-orange-500" />
-                              )}
-                              <span className={goal.completed ? "line-through text-gray-500" : "text-gray-700"}>
-                                {goal.goal}
-                              </span>
-                              <Badge variant="outline" className="text-xs">
-                                {goal.dueDate}
-                              </Badge>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-sm mb-2">Current Reading:</h4>
-                        <div className="space-y-2">
-                          {learningProgress.readingList.slice(0, 2).map((book, index) => (
-                            <div key={index} className="bg-white p-2 rounded border">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="text-xs font-medium">{book.title}</span>
-                                <span className="text-xs text-gray-500">{book.progress}%</span>
-                              </div>
-                              <Progress value={book.progress} className="h-1" />
-                              <div className="text-xs text-gray-500 mt-1">by {book.author}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Target className="h-5 w-5 text-blue-600" />
-                        <span className="font-semibold">Goals Achieved</span>
-                      </div>
-                      <div className="text-2xl font-bold text-blue-600">47/52</div>
-                      <div className="text-sm text-gray-500">This year</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <BookOpen className="h-5 w-5 text-blue-600" />
-                        <span className="font-semibold">Books Read</span>
-                      </div>
-                      <div className="text-2xl font-bold text-blue-600">12</div>
-                      <div className="text-sm text-gray-500">Goal: 15 this year</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Briefcase className="h-5 w-5 text-blue-600" />
-                        <span className="font-semibold">Skill Level</span>
-                      </div>
-                      <div className="text-2xl font-bold text-blue-600">Senior</div>
-                      <div className="text-sm text-gray-500">Next: Executive</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Heart className="h-5 w-5 text-blue-600" />
-                        <span className="font-semibold">Motivation</span>
-                      </div>
-                      <div className="text-2xl font-bold text-blue-600">98%</div>
-                      <div className="text-sm text-gray-500">Daily average</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4">
+          <TabsContent value="career" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Career Coach Chat Demo */}
+              <Card className="border-2 border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-t-lg">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                        <Brain className="h-5 w-5" />
+                        <Rocket className="h-5 w-5" />
                       </div>
                       <div>
-                        <div className="font-semibold">AI Career Coach</div>
-                        <div className="text-sm opacity-90">Always here to support you • Online 24/7</div>
+                        <CardTitle className="text-lg">Coach de Carrera IA</CardTitle>
+                        <p className="text-blue-100 text-sm">Datos reales mercado laboral • Análisis personalizado</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-blue-300 rounded-full animate-pulse"></div>
+                      <span className="text-sm">Activo</span>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="bg-blue-50 p-4 border-b">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <GraduationCap className="h-4 w-4 text-blue-600" />
+                        <span className="text-sm font-medium text-blue-800">Coaching Personalizado</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={resetCareerDemo}
+                          className="text-blue-600 border-blue-300 hover:bg-blue-100 bg-transparent"
+                        >
+                          <RotateCcw className="h-3 w-3 mr-1" />
+                          Reiniciar
+                        </Button>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <ScrollArea className="h-96 p-4 bg-gray-50">
-                  <div className="space-y-4">
-                    {chatMessages.map((message) => (
-                      <div key={message.id} className="space-y-2">
-                        <div className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
-                          <div className="flex items-start space-x-2 max-w-[85%]">
-                            {message.sender === "coach" && (
-                              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
-                                <Brain className="h-4 w-4 text-white" />
-                              </div>
-                            )}
-                            <div>
-                              <div
-                                className={`rounded-lg p-3 ${
-                                  message.sender === "user"
-                                    ? "bg-blue-600 text-white"
-                                    : message.type === "encouragement"
-                                      ? "bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200"
-                                      : message.type === "challenge"
-                                        ? "bg-gradient-to-r from-orange-100 to-yellow-100 border border-orange-200"
-                                        : message.type === "milestone"
-                                          ? "bg-gradient-to-r from-purple-100 to-pink-100 border border-purple-200"
-                                          : "bg-white border"
-                                }`}
-                              >
-                                <div className="text-sm whitespace-pre-line">{message.content}</div>
-
-                                {message.metadata?.resources && (
-                                  <div className="mt-3 pt-2 border-t border-gray-200">
-                                    <div className="text-xs font-semibold text-gray-700 mb-1">
-                                      📚 Recommended Resources:
-                                    </div>
-                                    <div className="space-y-1">
-                                      {message.metadata.resources.map((resource, index) => (
-                                        <div key={index} className="text-xs text-blue-600 flex items-center">
-                                          <ChevronRight className="h-3 w-3 mr-1" />
-                                          {resource}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {message.metadata?.nextSteps && (
-                                  <div className="mt-3 pt-2 border-t border-gray-200">
-                                    <div className="text-xs font-semibold text-gray-700 mb-1">🎯 Next Steps:</div>
-                                    <div className="space-y-1">
-                                      {message.metadata.nextSteps.map((step, index) => (
-                                        <div key={index} className="text-xs text-gray-600 flex items-center">
-                                          <div className="w-1 h-1 bg-blue-500 rounded-full mr-2"></div>
-                                          {step}
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                              <div className="text-xs text-gray-400 mt-1 px-1">
-                                {message.timestamp}
-                                {message.type && (
-                                  <span className="ml-2">
-                                    {message.type === "encouragement" && "💪"}
-                                    {message.type === "challenge" && "🎯"}
-                                    {message.type === "milestone" && "🏆"}
-                                    {message.type === "recommendation" && "💡"}
-                                  </span>
-                                )}
-                              </div>
+                  <ScrollArea className="h-96 p-4">
+                    <div className="space-y-4">
+                      {careerMessages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                          <div
+                            className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                              message.sender === "user"
+                                ? "bg-blue-500 text-white"
+                                : "bg-white border border-gray-200 text-gray-900"
+                            }`}
+                          >
+                            <div className="text-sm whitespace-pre-line">{message.content}</div>
+                            <div className="text-xs opacity-70 mt-1">
+                              {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                             </div>
-                            {message.sender === "user" && (
-                              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                                <Users className="h-4 w-4 text-gray-600" />
-                              </div>
-                            )}
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
 
-                    {isPlaying && currentMessageIndex < careerChatMessages.length - 1 && (
-                      <div className="flex justify-start">
-                        <div className="flex items-start space-x-2">
-                          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full flex items-center justify-center">
-                            <Brain className="h-4 w-4 text-white" />
-                          </div>
-                          <div className="bg-white border rounded-lg p-3">
+                      {careerIsPlaying && (
+                        <div className="flex justify-start">
+                          <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
                             <div className="flex items-center space-x-1">
                               <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
                               <div
@@ -889,515 +519,278 @@ export function UseCasesSection() {
                                 className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                                 style={{ animationDelay: "0.2s" }}
                               ></div>
-                              <span className="text-xs text-gray-500 ml-2">Coach is thinking...</span>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </ScrollArea>
-
-                <div className="p-4 border-t bg-white">
-                  <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Sparkles className="h-4 w-4" />
-                    <span>AI Coach • Always Encouraging • Personalized Growth • Auto Demo</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Enhanced Features Panel */}
-            <div className="mt-8 space-y-4">
-              <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-center text-green-700">
-                    <Heart className="h-5 w-5 mr-2" />
-                    Always-On Support Features
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Coffee className="h-4 w-4 text-green-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Morning Motivation</div>
-                      <div className="text-gray-600">Daily personalized encouragement & goal setting</div>
+                      )}
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <BookOpen className="h-4 w-4 text-green-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Smart Reading Recommendations</div>
-                      <div className="text-gray-600">AI-curated books based on your career goals</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Lightbulb className="h-4 w-4 text-green-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Skill Gap Analysis</div>
-                      <div className="text-gray-600">Identifies areas for improvement & creates action plans</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Calendar className="h-4 w-4 text-green-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Progress Tracking</div>
-                      <div className="text-gray-600">Weekly reviews, milestone celebrations & adjustments</div>
-                    </div>
-                  </div>
+                  </ScrollArea>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-center text-purple-700">
-                    <Award className="h-5 w-5 mr-2" />
-                    Recent Achievements
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  {learningProgress.achievements.map((achievement, index) => (
-                    <div key={index} className="flex items-center space-x-3 p-2 bg-white rounded border">
-                      <Trophy className="h-4 w-4 text-yellow-500" />
-                      <div className="flex-1">
-                        <div className="text-sm font-medium">{achievement.title}</div>
-                        <div className="text-xs text-gray-500">{achievement.description}</div>
+              {/* Career Coach Features */}
+              <div className="space-y-6">
+                <Card className="border-blue-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-blue-700">
+                      <TrendingUp className="h-5 w-5 mr-2" />
+                      Fuentes de Datos
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">Laborum</div>
+                        <div className="text-sm text-gray-600">Salarios reales</div>
                       </div>
-                      <div className="text-xs text-gray-400">{achievement.date}</div>
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">GetOnBoard</div>
+                        <div className="text-sm text-gray-600">Ofertas tech</div>
+                      </div>
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">LinkedIn</div>
+                        <div className="text-sm text-gray-600">Tendencias</div>
+                      </div>
+                      <div className="text-center p-3 bg-blue-50 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600">GPT-4</div>
+                        <div className="text-sm text-gray-600">Análisis IA</div>
+                      </div>
                     </div>
-                  ))}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white p-4 rounded-lg border">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Rocket className="h-5 w-5 text-blue-600" />
-                    <span className="font-semibold">Career Growth</span>
-                  </div>
-                  <div className="text-2xl font-bold text-blue-600">+2 Levels</div>
-                  <div className="text-sm text-gray-500">In 6 months</div>
-                </div>
+                <Card className="border-blue-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-blue-700">
+                      <Award className="h-5 w-5 mr-2" />
+                      Capacidades
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Análisis de mercado laboral</span>
+                      <span className="font-bold text-blue-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Benchmarking salarial</span>
+                      <span className="font-bold text-blue-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Planes de carrera personalizados</span>
+                      <span className="font-bold text-blue-600">✓ Activo</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-600">Estrategias de negociación</span>
+                      <span className="font-bold text-blue-600">✓ Activo</span>
+                    </div>
+                  </CardContent>
+                </Card>
 
-                <div className="bg-white p-4 rounded-lg border">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <TrendingUp className="h-5 w-5 text-blue-600" />
-                    <span className="font-semibold">Salary Impact</span>
-                  </div>
-                  <div className="text-2xl font-bold text-blue-600">+35%</div>
-                  <div className="text-sm text-gray-500">Average increase</div>
-                </div>
+                <Card className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white border-0">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-bold mb-2">Coaching Basado en Datos</h3>
+                    <p className="text-blue-100 mb-4">
+                      Estrategias personalizadas usando datos reales de Laborum, GetOnBoard y LinkedIn Chile.
+                    </p>
+                    <Button className="bg-white text-blue-600 hover:bg-blue-50">
+                      <Rocket className="h-4 w-4 mr-2" />
+                      Acelerar mi Carrera
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </TabsContent>
 
-          {/* ParrotfyIA Tab */}
-          <TabsContent value="parrotfy">
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
-                      <MessageSquare className="h-6 w-6 text-white" />
+          <TabsContent value="parrotfy" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* ParrotfyIA Chat Demo */}
+              <Card className="border-2 border-purple-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-t-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                        <Building2 className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">ParrotfyIA Assistant</CardTitle>
+                        <p className="text-purple-100 text-sm">ERP Conversacional • OpenAI GPT-4.0</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">ParrotfyIA</h3>
-                      <p className="text-gray-600">Conversational AI CRM Assistant with OpenAI GPT-4</p>
-                      <div className="flex gap-2 mt-2">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 bg-purple-300 rounded-full animate-pulse"></div>
+                      <span className="text-sm">Conectado</span>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-0">
+                  <div className="bg-purple-50 p-4 border-b">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <Brain className="h-4 w-4 text-purple-600" />
+                        <span className="text-sm font-medium text-purple-800">Gestión Empresarial IA</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
                         <Button
                           variant="outline"
                           size="sm"
-                          className="bg-transparent"
-                          onClick={() => window.open("https://www.parrotfy.com/", "_blank")}
+                          onClick={resetParrotfyDemo}
+                          className="text-purple-600 border-purple-300 hover:bg-purple-100 bg-transparent"
                         >
-                          <ExternalLink className="h-4 w-4 mr-2" />
-                          Visit Parrotfy Platform
+                          <RotateCcw className="h-3 w-3 mr-1" />
+                          Reiniciar
                         </Button>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-gray-700 leading-relaxed">
-                    ParrotfyIA is a conversational AI assistant powered by <strong>OpenAI ChatGPT 4.0</strong> that
-                    transforms how SMEs interact with their ERP system. Instead of navigating complex interfaces, simply
-                    chat with your AI assistant to manage customers, projects, invoicing, and business operations
-                    through natural conversation.
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Users className="h-5 w-5 text-purple-600" />
-                        <span className="font-semibold">SME Clients</span>
-                      </div>
-                      <div className="text-2xl font-bold text-purple-600">5,000+</div>
-                      <div className="text-sm text-gray-500">Using Parrotfy ERP</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <TrendingUp className="h-5 w-5 text-purple-600" />
-                        <span className="font-semibold">Efficiency Gain</span>
-                      </div>
-                      <div className="text-2xl font-bold text-purple-600">60%</div>
-                      <div className="text-sm text-gray-500">Faster operations</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <Zap className="h-5 w-5 text-purple-600" />
-                        <span className="font-semibold">Response Time</span>
-                      </div>
-                      <div className="text-2xl font-bold text-purple-600">{"<1s"}</div>
-                      <div className="text-sm text-gray-500">AI assistant response</div>
-                    </div>
-
-                    <div className="bg-white p-4 rounded-lg border">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <CheckCircle className="h-5 w-5 text-purple-600" />
-                        <span className="font-semibold">Task Accuracy</span>
-                      </div>
-                      <div className="text-2xl font-bold text-purple-600">98%</div>
-                      <div className="text-sm text-gray-500">Correct operations</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-gray-900">AI-Powered ERP Features:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary">OpenAI ChatGPT 4.0</Badge>
-                      <Badge variant="secondary">Conversational CRM</Badge>
-                      <Badge variant="secondary">Project Management</Badge>
-                      <Badge variant="secondary">Electronic Invoicing</Badge>
-                      <Badge variant="secondary">Inventory Control</Badge>
-                      <Badge variant="secondary">Financial Reports</Badge>
-                      <Badge variant="secondary">Customer Satisfaction</Badge>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
-                    <h4 className="font-semibold text-purple-700 mb-2 flex items-center">
-                      <Brain className="h-4 w-4 mr-2" />
-                      Conversational ERP Management
-                    </h4>
-                    <div className="text-sm text-gray-700 space-y-1">
-                      <div>• "Show me this month's top customers and revenue"</div>
-                      <div>• "Create a quote for ABC Company with our premium package"</div>
-                      <div>• "What projects are behind schedule this week?"</div>
-                      <div>• "Generate invoice for Project XYZ and send payment reminder"</div>
-                      <div>• "How is our inventory looking for next month's production?"</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                      <MessageSquare className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="font-semibold">ParrotfyIA Assistant</div>
-                      <div className="text-sm opacity-90">Connected to Parrotfy ERP • Powered by OpenAI GPT-4</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-4 space-y-4 h-80 overflow-y-auto bg-gradient-to-b from-purple-50 to-white">
-                  {parrotfyChatMessages.map((message, index) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                    >
-                      <div className="flex items-start space-x-2 max-w-[85%]">
-                        {(message.sender === "assistant" || message.sender === "tutor") && (
-                          <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center flex-shrink-0">
-                            <MessageSquare className="h-4 w-4 text-white" />
-                          </div>
-                        )}
-                        <div>
+                  <ScrollArea className="h-96 p-4">
+                    <div className="space-y-4">
+                      {parrotfyBusinessMessages.map((message) => (
+                        <div
+                          key={message.id}
+                          className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                        >
                           <div
-                            className={`rounded-lg p-3 ${
+                            className={`max-w-[80%] rounded-lg px-4 py-2 ${
                               message.sender === "user"
-                                ? "bg-purple-600 text-white"
-                                : "bg-white border border-purple-200"
+                                ? "bg-purple-500 text-white"
+                                : "bg-white border border-gray-200 text-gray-900"
                             }`}
                           >
                             <div className="text-sm whitespace-pre-line">{message.content}</div>
+                            <div className="text-xs opacity-70 mt-1">
+                              {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                            </div>
                           </div>
-                          <div className="text-xs text-gray-400 mt-1 px-1">{message.timestamp}</div>
                         </div>
-                        {message.sender === "user" && (
-                          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                            <Users className="h-4 w-4 text-gray-600" />
+                      ))}
+
+                      {parrotfyIsPlaying && (
+                        <div className="flex justify-start">
+                          <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
+                            <div className="flex items-center space-x-1">
+                              <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                              <div
+                                className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                                style={{ animationDelay: "0.1s" }}
+                              ></div>
+                              <div
+                                className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                                style={{ animationDelay: "0.2s" }}
+                              ></div>
+                            </div>
                           </div>
-                        )}
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+
+              {/* ParrotfyIA Features */}
+              <div className="space-y-6">
+                <Card className="border-purple-200">
+                  <CardHeader>
+                    <CardTitle className="flex items-center text-purple-700">
+                      <BarChart3 className="h-5 w-5 mr-2" />
+                      Capacidades ERP
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-600">GPT-4</div>
+                        <div className="text-sm text-gray-600">OpenAI Engine</div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-600">0.3s</div>
+                        <div className="text-sm text-gray-600">Tiempo respuesta</div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-600">15+</div>
+                        <div className="text-sm text-gray-600">Módulos ERP</div>
+                      </div>
+                      <div className="text-center p-3 bg-purple-50 rounded-lg">
+                        <div className="text-2xl font-bold text-purple-600">99.9%</div>
+                        <div className="text-sm text-gray-600">Uptime</div>
                       </div>
                     </div>
-                  ))}
+                  </CardContent>
+                </Card>
 
-                  {parrotfyIsPlaying && parrotfyMessageIndex < parrotfyBusinessMessages.length - 1 && (
-                    <div className="flex justify-start">
-                      <div className="flex items-start space-x-2">
-                        <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center">
-                          <MessageSquare className="h-4 w-4 text-white" />
+                {/* Live ERP Panels */}
+                {showERPPanels && (
+                  <Card className="border-purple-200 animate-fade-in">
+                    <CardHeader>
+                      <CardTitle className="flex items-center text-purple-700">
+                        <PieChart className="h-5 w-5 mr-2" />
+                        Paneles en Tiempo Real
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg border border-green-200">
+                          <div className="text-lg font-bold text-green-600">$48.1M</div>
+                          <div className="text-xs text-gray-600">Utilidad Neta</div>
+                          <div className="text-xs text-green-600">+12% vs proyección</div>
                         </div>
-                        <div className="bg-white border rounded-lg p-3">
-                          <div className="flex items-center space-x-1">
-                            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-                            <div
-                              className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.1s" }}
-                            ></div>
-                            <div
-                              className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
-                              style={{ animationDelay: "0.2s" }}
-                            ></div>
-                            <span className="text-xs text-gray-500 ml-2">ParrotfyIA is analyzing your ERP data...</span>
-                          </div>
+                        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 p-3 rounded-lg border border-blue-200">
+                          <div className="text-lg font-bold text-blue-600">37.5%</div>
+                          <div className="text-xs text-gray-600">Margen</div>
+                          <div className="text-xs text-blue-600">Sobre promedio industria</div>
+                        </div>
+                        <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-3 rounded-lg border border-purple-200">
+                          <div className="text-lg font-bold text-purple-600">12</div>
+                          <div className="text-xs text-gray-600">Proyectos Completados</div>
+                          <div className="text-xs text-purple-600">+3 vs mes anterior</div>
+                        </div>
+                        <div className="bg-gradient-to-r from-orange-50 to-red-50 p-3 rounded-lg border border-orange-200">
+                          <div className="text-lg font-bold text-orange-600">2</div>
+                          <div className="text-xs text-gray-600">Proyectos Retrasados</div>
+                          <div className="text-xs text-orange-600">Requieren atención</div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    </CardContent>
+                  </Card>
+                )}
 
-                  {/* ERP Data Panels */}
-                  {parrotfyChatMessages.length > 3 && (
-                    <>
-                      <div className="bg-gradient-to-r from-blue-100 to-indigo-100 border border-blue-200 rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-2">
-                            <DollarSign className="h-4 w-4 text-blue-600" />
-                            <span className="text-sm font-semibold text-blue-700">Sales & Revenue</span>
-                          </div>
-                          <Badge variant="secondary" className="bg-blue-200 text-blue-800">
-                            Live ERP Data
-                          </Badge>
-                        </div>
-                        <div className="space-y-1 text-xs text-blue-700">
-                          <div>• Monthly Revenue: $89,450 (112% of target)</div>
-                          <div>• Top Client: TechSolutions Inc. ($28,900)</div>
-                          <div>• Active Quotes: 12 pending ($45,600 potential)</div>
-                          <div>• Conversion Rate: 68% this month</div>
-                        </div>
-                      </div>
-
-                      <div className="bg-gradient-to-r from-green-100 to-emerald-100 border border-green-200 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
-                          <span className="text-sm font-semibold text-green-700">Project Status</span>
-                        </div>
-                        <div className="space-y-1 text-xs text-green-700">
-                          <div>🟢 8 projects on schedule</div>
-                          <div>🟡 3 projects need attention</div>
-                          <div>🔴 1 project overdue (requires immediate action)</div>
-                          <div>📊 Overall completion rate: 87%</div>
-                        </div>
-                      </div>
-
-                      <div className="bg-gradient-to-r from-orange-100 to-yellow-100 border border-orange-200 rounded-lg p-3">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <FileText className="h-4 w-4 text-orange-600" />
-                          <span className="text-sm font-semibold text-orange-700">Invoicing & Collections</span>
-                        </div>
-                        <div className="space-y-1 text-xs text-orange-700">
-                          <div>💰 Outstanding invoices: $23,400 (6 invoices)</div>
-                          <div>⏰ Average collection time: 18 days</div>
-                          <div>📧 Auto-reminders sent: 4 this week</div>
-                          <div>✅ Payment success rate: 94%</div>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                <div className="p-4 border-t bg-white">
-                  <div className="flex items-center space-x-2 text-sm text-gray-600">
-                    <Brain className="h-4 w-4" />
-                    <span>Powered by OpenAI GPT-4 • Connected to Parrotfy ERP • Real-time Business Intelligence</span>
-                  </div>
-                </div>
+                <Card className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white border-0">
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-bold mb-2">ERP Conversacional</h3>
+                    <p className="text-purple-100 mb-4">
+                      Gestiona toda tu empresa hablando naturalmente. Proyectos, finanzas, inventario y más.
+                    </p>
+                    <Button className="bg-white text-purple-600 hover:bg-purple-50">
+                      <Building2 className="h-4 w-4 mr-2" />
+                      Probar ParrotfyIA
+                    </Button>
+                  </CardContent>
+                </Card>
               </div>
-            </div>
-
-            {/* ERP Management Features */}
-            <div className="mt-8 grid md:grid-cols-2 gap-6">
-              <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-purple-700">
-                    <Building2 className="h-5 w-5 mr-2" />
-                    Conversational ERP Management
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Users className="h-4 w-4 text-purple-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Customer & Sales Management</div>
-                      <div className="text-gray-600">CRM, quotes, proposals, and online store integration</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Target className="h-4 w-4 text-purple-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Project & Work Management</div>
-                      <div className="text-gray-600">Complete work cycle, scheduling, inventory, production boards</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <FileText className="h-4 w-4 text-purple-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Electronic Invoicing & Collections</div>
-                      <div className="text-gray-600">Automated billing, online payments, bank reconciliation</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Heart className="h-4 w-4 text-purple-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Customer Experience & Collaboration</div>
-                      <div className="text-gray-600">Satisfaction surveys, NPS tracking, team collaboration</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center text-blue-700">
-                    <Brain className="h-5 w-5 mr-2" />
-                    AI-Powered Business Intelligence
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <BarChart3 className="h-4 w-4 text-blue-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Real-time Analytics</div>
-                      <div className="text-gray-600">Instant business insights through natural conversation</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Zap className="h-4 w-4 text-blue-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Automated Operations</div>
-                      <div className="text-gray-600">AI handles routine tasks and generates reports</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <TrendingUp className="h-4 w-4 text-blue-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Predictive Insights</div>
-                      <div className="text-gray-600">Forecast trends and identify opportunities</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <MessageSquare className="h-4 w-4 text-blue-600" />
-                    <div className="text-sm">
-                      <div className="font-medium">Natural Language Interface</div>
-                      <div className="text-gray-600">No complex menus - just ask your AI assistant</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </TabsContent>
         </Tabs>
 
-        {/* Success Metrics Overview */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <Card className="text-center bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-            <CardContent className="pt-6">
-              <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageSquare className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">EcosueloBot</h3>
-              <p className="text-gray-600 mb-4">WhatsApp + OpenAI GPT-4 for smart farming</p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm">Active Farmers</span>
-                  <span className="font-semibold">15,000+</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Crop Yield Increase</span>
-                  <span className="font-semibold text-green-600">+23%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">API Integrations</span>
-                  <span className="font-semibold">3 Major</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
-            <CardContent className="pt-6">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <GraduationCap className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Launch Your Career</h3>
-              <p className="text-gray-600 mb-4">AI coach that's always encouraging growth</p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm">Career Accelerations</span>
-                  <span className="font-semibold">8,500+</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Avg Salary Increase</span>
-                  <span className="font-semibold text-blue-600">+35%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Daily Engagement</span>
-                  <span className="font-semibold">98%</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="text-center bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-200">
-            <CardContent className="pt-6">
-              <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageSquare className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">ParrotfyIA</h3>
-              <p className="text-gray-600 mb-4">Conversational AI ERP assistant with OpenAI GPT-4</p>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-sm">SME Clients</span>
-                  <span className="font-semibold">5,000+</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Efficiency Gain</span>
-                  <span className="font-semibold text-purple-600">60%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm">Task Accuracy</span>
-                  <span className="font-semibold text-purple-600">98%</span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-0">
-            <CardContent className="pt-8 pb-8">
-              <h3 className="text-3xl font-bold mb-4">Ready to Build Your AI Executive?</h3>
-              <p className="text-xl mb-6 opacity-90">
-                Join thousands of businesses already using Neural AI Executives to transform their operations
+        <div className="text-center mt-16">
+          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-4">¿Listo para Transformar tu Industria?</h3>
+              <p className="text-lg mb-6 opacity-90">
+                Únete a empresas que ya están usando Neuralia para automatizar procesos y acelerar resultados
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-                  <Rocket className="h-5 w-5 mr-2" />
-                  Start Building Now
+                <Button className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-3">
+                  <Crown className="h-5 w-5 mr-2" />
+                  Comenzar Prueba Gratuita
                 </Button>
                 <Button
-                  size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10 bg-transparent"
+                  className="border-white text-white hover:bg-white/10 text-lg px-8 py-3 bg-transparent"
                 >
                   <Calendar className="h-5 w-5 mr-2" />
-                  Schedule Demo
+                  Agendar Demo Personalizada
                 </Button>
               </div>
             </CardContent>
