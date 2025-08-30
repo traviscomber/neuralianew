@@ -1,14 +1,13 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { supabase } from "@/lib/supabase"
+import { createClient } from "@/lib/supabase-browser"
 import { useToast } from "@/hooks/use-toast"
 
 interface AuthModalProps {
@@ -21,68 +20,65 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { toast } = useToast()
+  const supabase = createClient()
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      })
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    })
 
-      if (error) throw error
-
-      toast({
-        title: "Success!",
-        description: "Check your email for the confirmation link.",
-      })
-      onClose()
-    } catch (error: any) {
+    if (error) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       })
-    } finally {
-      setLoading(false)
+    } else {
+      toast({
+        title: "Success",
+        description: "Check your email for the confirmation link!",
+      })
+      onClose()
     }
+
+    setLoading(false)
   }
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
 
-      if (error) throw error
-
-      toast({
-        title: "Welcome back!",
-        description: "You have been signed in successfully.",
-      })
-      onClose()
-    } catch (error: any) {
+    if (error) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       })
-    } finally {
-      setLoading(false)
+    } else {
+      toast({
+        title: "Success",
+        description: "Welcome back!",
+      })
+      onClose()
     }
+
+    setLoading(false)
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Get Started with Neuralia</DialogTitle>
+          <DialogTitle>Welcome to Neuralia</DialogTitle>
         </DialogHeader>
 
         <Tabs defaultValue="signin" className="w-full">

@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "rm -rf pnpm-lock.yaml && npm install && npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "installCommand": "npm install",
+  "installCommand": "rm -rf pnpm-lock.yaml && npm install",
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30
