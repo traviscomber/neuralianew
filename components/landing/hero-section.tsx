@@ -1,127 +1,178 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Zap, Target, Lightbulb, ArrowRight, Sparkles } from "lucide-react"
-import { AuthModal } from "@/components/auth/auth-modal"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowRight, Sparkles, Zap, Users, Code, Star } from "lucide-react"
 
 export function HeroSection() {
-  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20" />
-
-      {/* Animated background elements */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-indigo-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        {/* Gradient Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-600/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400/20 to-pink-600/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-cyan-600/10 rounded-full blur-3xl animate-pulse delay-2000" />
+
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-20 animate-bounce delay-1000">
+          <Code className="h-8 w-8 text-blue-500/30" />
+        </div>
+        <div className="absolute top-40 right-32 animate-bounce delay-2000">
+          <Star className="h-6 w-6 text-purple-500/30" />
+        </div>
+        <div className="absolute bottom-32 left-32 animate-bounce delay-3000">
+          <Users className="h-10 w-10 text-indigo-500/30" />
+        </div>
+
+        {/* Mouse Follower */}
+        <div
+          className="absolute w-32 h-32 bg-gradient-to-r from-blue-400/10 to-purple-600/10 rounded-full blur-xl pointer-events-none transition-all duration-300 ease-out"
+          style={{
+            left: mousePosition.x - 64,
+            top: mousePosition.y - 64,
+          }}
+        />
       </div>
 
-      {/* Header with theme toggle */}
-      <div className="absolute top-6 right-6 z-10">
-        <ThemeToggle />
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto text-center space-y-12">
-        {/* Main hero content */}
-        <div className="space-y-8">
-          {/* Badge */}
-          <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Badge */}
+        <div className="flex justify-center mb-8 animate-fade-in-up">
+          <Badge
+            variant="secondary"
+            className="px-4 py-2 text-sm font-medium bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 border-0"
+          >
             <Sparkles className="w-4 h-4 mr-2" />
-            Next-Generation AI Executives
+            AI Development Factory
+            <div className="ml-2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           </Badge>
-
-          {/* Brain icon with animated background */}
-          <div className="relative mx-auto w-32 h-32 mb-8">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-xl opacity-30 animate-pulse" />
-            <div className="relative bg-gradient-to-br from-blue-600 to-purple-600 rounded-full p-8 shadow-2xl">
-              <Brain className="w-16 h-16 text-white" />
-            </div>
-          </div>
-
-          {/* Main headline */}
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 dark:from-white dark:via-blue-200 dark:to-purple-200 bg-clip-text text-transparent leading-tight">
-              Deploy AI Executives
-              <br />
-              That Actually Think
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Built for developers who demand more than chatbots.
-              <br />
-              <span className="font-semibold text-gray-800 dark:text-gray-200">
-                Get AI agents that reason, decide, and execute autonomously.
-              </span>
-            </p>
-          </div>
-
-          {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button
-              size="lg"
-              className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => setShowAuthModal(true)}
-            >
-              Start Building
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="px-8 py-4 text-lg font-semibold border-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all duration-300 bg-transparent"
-            >
-              View Demo
-            </Button>
-          </div>
         </div>
 
-        {/* Feature highlight cards */}
-        <div className="grid md:grid-cols-3 gap-6 mt-16">
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardContent className="p-6 text-center space-y-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mx-auto">
-                <Zap className="w-6 h-6 text-white" />
+        {/* Main Heading */}
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in-up delay-200">
+          <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 dark:from-white dark:via-blue-100 dark:to-purple-100 bg-clip-text text-transparent">
+            Custom AI Solutions
+          </span>
+          <br />
+          <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-x">
+            From Concept to Production
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto animate-fade-in-up delay-400">
+          Your dedicated AI development team. We build, deploy, and scale intelligent solutions that transform your
+          business.
+        </p>
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-in-up delay-600">
+          <Button
+            size="lg"
+            className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          >
+            Start Your AI Project
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="group hover:bg-accent transition-all duration-300 transform hover:scale-105 bg-transparent"
+          >
+            <Zap className="mr-2 h-5 w-5 group-hover:text-yellow-500 transition-colors" />
+            View Our Work
+          </Button>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto animate-fade-in-up delay-800">
+          <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-white/20">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform">
+                50+
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Autonomous Decision Making</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                AI executives that analyze context, weigh options, and make strategic decisions without constant
-                oversight.
-              </p>
+              <div className="text-sm text-muted-foreground">AI Models Deployed</div>
             </CardContent>
           </Card>
-
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardContent className="p-6 text-center space-y-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto">
-                <Target className="w-6 h-6 text-white" />
+          <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-white/20">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-purple-600 mb-2 group-hover:scale-110 transition-transform">
+                99.9%
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Goal-Oriented Execution</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Set objectives and watch AI executives break them down into actionable plans and execute systematically.
-              </p>
+              <div className="text-sm text-muted-foreground">Uptime Guarantee</div>
             </CardContent>
           </Card>
-
-          <Card className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-            <CardContent className="p-6 text-center space-y-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center mx-auto">
-                <Lightbulb className="w-6 h-6 text-white" />
+          <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-white/20">
+            <CardContent className="p-6 text-center">
+              <div className="text-3xl font-bold text-pink-600 mb-2 group-hover:scale-110 transition-transform">
+                24h
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Contextual Intelligence</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Deep understanding of your business context, industry nuances, and organizational dynamics.
-              </p>
+              <div className="text-sm text-muted-foreground">Deployment Time</div>
             </CardContent>
           </Card>
         </div>
       </div>
 
-      <AuthModal open={showAuthModal} onOpenChange={setShowAuthModal} />
+      <style jsx>{`
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes gradient-x {
+          0%, 100% {
+            background-size: 200% 200%;
+            background-position: left center;
+          }
+          50% {
+            background-size: 200% 200%;
+            background-position: right center;
+          }
+        }
+
+        .animate-fade-in-up {
+          animation: fade-in-up 0.6s ease-out forwards;
+        }
+
+        .animate-gradient-x {
+          animation: gradient-x 3s ease infinite;
+        }
+
+        .delay-200 {
+          animation-delay: 0.2s;
+        }
+
+        .delay-400 {
+          animation-delay: 0.4s;
+        }
+
+        .delay-600 {
+          animation-delay: 0.6s;
+        }
+
+        .delay-800 {
+          animation-delay: 0.8s;
+        }
+      `}</style>
     </section>
   )
 }

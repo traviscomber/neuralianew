@@ -1,66 +1,59 @@
-# Environment Variables Setup
+# Environment Setup Guide
 
 ## Required Environment Variables
 
-To run this application, you need to set up the following environment variables:
+### Supabase Configuration
+1. **NEXT_PUBLIC_SUPABASE_URL**: Your Supabase project URL
+   - Found in: Supabase Dashboard > Settings > API
+   - Format: `https://your-project-id.supabase.co`
 
-### 1. Supabase Configuration
+2. **NEXT_PUBLIC_SUPABASE_ANON_KEY**: Your Supabase anonymous key
+   - Found in: Supabase Dashboard > Settings > API
+   - This is safe to expose in the browser
 
-You'll need to create a Supabase project and get these values from your project settings:
+3. **SUPABASE_SERVICE_ROLE_KEY**: Your Supabase service role key
+   - Found in: Supabase Dashboard > Settings > API
+   - Keep this secret! Only use server-side
 
-- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous/public key
-- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key (for server-side operations)
+### OpenAI Configuration
+4. **OPENAI_API_KEY**: Your OpenAI API key
+   - Get from: https://platform.openai.com/api-keys
+   - Required for AI chat functionality
 
-### 2. Site Configuration
+### Site Configuration
+5. **NEXT_PUBLIC_SITE_URL**: Your site URL
+   - Development: `http://localhost:3000`
+   - Production: Your actual domain
 
-- `NEXT_PUBLIC_SITE_URL`: Your site's URL (e.g., `https://yoursite.com` or `http://localhost:3000` for development)
-
-### 3. OpenAI Configuration
-
-If you're using the AI chat features:
-
-- `OPENAI_API_KEY`: Your OpenAI API key (server-side only, never exposed to client)
-
-## How to Set Environment Variables
-
-### For Local Development
+## Setup Steps
 
 1. Copy `.env.example` to `.env.local`
-2. Fill in your actual values
-3. Never commit `.env.local` to version control
+2. Fill in all the required values
+3. Restart your development server
+4. Run the database setup scripts in order
 
-### For Vercel Deployment
+## Database Setup
 
-1. Go to your Vercel project dashboard
-2. Navigate to Settings > Environment Variables
-3. Add each variable with its corresponding value
-4. Make sure to set the environment (Production, Preview, Development)
+Run these SQL scripts in your Supabase SQL editor in order:
 
-### For Other Hosting Platforms
+1. `scripts/01-setup-extensions.sql`
+2. `scripts/02-create-profiles-table.sql`
+3. `scripts/03-create-ai-agents-table.sql`
+4. `scripts/04-create-ai-systems-table.sql`
+5. `scripts/05-create-chat-conversations-table.sql`
+6. `scripts/06-create-user-analytics-table.sql`
+7. `scripts/07-create-functions-and-triggers.sql`
 
-Refer to your hosting platform's documentation for setting environment variables.
+## Verification
 
-## Getting Supabase Credentials
+After setup, you should be able to:
+- Sign up/sign in users
+- Create and deploy AI agents
+- Store chat conversations
+- Track user analytics
 
-1. Go to [supabase.com](https://supabase.com)
-2. Create a new project or select an existing one
-3. Go to Settings > API
-4. Copy the Project URL and anon/public key
-5. For the service role key, copy it from the same API settings page
+## Troubleshooting
 
-## Security Notes
-
-- Never expose service role keys or API keys in client-side code
-- Use `NEXT_PUBLIC_` prefix only for variables that are safe to expose to the browser
-- OpenAI API keys should only be used server-side (API routes, Server Actions)
-- Keep your `.env.local` file in `.gitignore`
-- Rotate your keys regularly for security
-
-## OpenAI API Key Security
-
-The OpenAI API key is used server-side only in:
-- API routes (`/api/chat/route.ts`)
-- Server Actions (if any)
-
-It is never exposed to the client-side code, ensuring your API key remains secure.
+- **Auth errors**: Check your Supabase URL and keys
+- **Database errors**: Ensure all tables are created with proper RLS policies
+- **AI chat errors**: Verify your OpenAI API key is valid

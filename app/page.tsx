@@ -157,7 +157,7 @@ export default function HomePage() {
       </nav>
 
       {/* Main Content */}
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen">
         <HeroSection />
         <FeaturesSection />
         <TestimonialsSection />

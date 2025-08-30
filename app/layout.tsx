@@ -10,20 +10,16 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Executive Agents",
-  description: "Deploy AI executives that think, decide, and execute like your best team members",
-  keywords: ["AI development", "custom AI", "machine learning", "AI agents", "artificial intelligence"],
+  title: "Neuralia - AI Development Factory",
+  description:
+    "Transform your business with advanced AI solutions. Deploy neural executives, automate workflows, and scale with intelligent systems.",
+  keywords: "AI, artificial intelligence, business automation, neural networks, machine learning, enterprise AI",
   authors: [{ name: "Neuralia Team" }],
   openGraph: {
-    title: "Neuralia - AI Executive Agents",
-    description: "Deploy AI executives that think, decide, and execute like your best team members",
+    title: "Neuralia - AI Development Factory",
+    description: "Transform your business with advanced AI solutions",
     type: "website",
-    url: "https://neuralia.ai",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Neuralia - AI Executive Agents",
-    description: "Deploy AI executives that think, decide, and execute like your best team members",
+    locale: "en_US",
   },
     generator: 'v0.app'
 }
@@ -36,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange={false}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthProvider>
             <CartProvider>
               {children}

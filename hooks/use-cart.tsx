@@ -1,85 +1,145 @@
 "use client"
 
-import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, type ReactNode } from "react"
+import { useAuth } from "@/hooks/use-auth"
+import { useToast } from "@/hooks/use-toast"
+import { dbService } from "@/lib/database"
 
 interface CartItem {
   id: string
   name: string
+  description: string
   price: number
-  quantity: number
-  type: string
+  category: string
+  icon: string
 }
 
 interface CartContextType {
-  items: CartItem[]
-  addItem: (item: Omit<CartItem, "quantity">) => void
-  removeItem: (id: string) => void
-  updateQuantity: (id: string, quantity: number) => void
+  cartItems: CartItem[]
+  deployedAgents: string[]
+  deployingAgents: string[]
+  loading: boolean
+  addToCart: (item: CartItem) => void
+  removeFromCart: (itemId: string) => void
   clearCart: () => void
-  total: number
-  itemCount: number
+  getTotalPrice: () => number
+  deployAgent: (agent: CartItem) => Promise<void>
+  isAgentDeployed: (agentId: string) => boolean
+  isAgentDeploying: (agentId: string) => boolean
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([])
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [cartItems, setCartItems] = useState<CartItem[]>([])
+  const [deployedAgents, setDeployedAgents] = useState<string[]>([])
+  const [deployingAgents, setDeployingAgents] = useState<string[]>([])
+  const [loading, setLoading] = useState(false)
+  const { user } = useAuth()
+  const { toast } = useToast()
 
-  // Load cart from localStorage on mount
-  useEffect(() => {
-    const savedCart = localStorage.getItem("neuralia-cart")
-    if (savedCart) {
-      try {
-        setItems(JSON.parse(savedCart))
-      } catch (error) {
-        console.error("Error loading cart from localStorage:", error)
+  const addToCart = (item: CartItem) => {
+    setCartItems((prev) => {
+      const exists = prev.find((cartItem) => cartItem.id === item.id)
+      if (exists) {
+        toast({
+          title: "Already in cart",
+          description: `${item.name} is already in your cart.`,
+        })
+        return prev
       }
-    }
-  }, [])
-
-  // Save cart to localStorage whenever items change
-  useEffect(() => {
-    localStorage.setItem("neuralia-cart", JSON.stringify(items))
-  }, [items])
-
-  const addItem = (newItem: Omit<CartItem, "quantity">) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((item) => item.id === newItem.id)
-      if (existingItem) {
-        return prevItems.map((item) => (item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item))
-      }
-      return [...prevItems, { ...newItem, quantity: 1 }]
+      toast({
+        title: "Added to cart",
+        description: `${item.name} has been added to your cart.`,
+      })
+      return [...prev, item]
     })
   }
 
-  const removeItem = (id: string) => {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id))
-  }
-
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(id)
-      return
-    }
-    setItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity } : item)))
+  const removeFromCart = (itemId: string) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== itemId))
+    toast({
+      title: "Removed from cart",
+      description: "Item has been removed from your cart.",
+    })
   }
 
   const clearCart = () => {
-    setItems([])
+    setCartItems([])
+    toast({
+      title: "Cart cleared",
+      description: "All items have been removed from your cart.",
+    })
   }
 
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0)
+  }
+
+  const deployAgent = async (agent: CartItem) => {
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to deploy agents.",
+        variant: "destructive",
+      })
+      return
+    }
+
+    if (deployedAgents.includes(agent.id)) {
+      toast({
+        title: "Already deployed",
+        description: `${agent.name} is already deployed.`,
+      })
+      return
+    }
+
+    setDeployingAgents((prev) => [...prev, agent.id])
+    setLoading(true)
+
+    try {
+      await dbService.deployAgent(user.id, agent)
+
+      setDeployedAgents((prev) => [...prev, agent.id])
+      removeFromCart(agent.id)
+
+      toast({
+        title: "Deployment successful!",
+        description: `${agent.name} has been deployed with a 5-day free trial.`,
+      })
+    } catch (error) {
+      console.error("Deployment error:", error)
+      toast({
+        title: "Deployment failed",
+        description: "Failed to deploy agent. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setDeployingAgents((prev) => prev.filter((id) => id !== agent.id))
+      setLoading(false)
+    }
+  }
+
+  const isAgentDeployed = (agentId: string) => {
+    return deployedAgents.includes(agentId)
+  }
+
+  const isAgentDeploying = (agentId: string) => {
+    return deployingAgents.includes(agentId)
+  }
 
   const value = {
-    items,
-    addItem,
-    removeItem,
-    updateQuantity,
+    cartItems,
+    deployedAgents,
+    deployingAgents,
+    loading,
+    addToCart,
+    removeFromCart,
     clearCart,
-    total,
-    itemCount,
+    getTotalPrice,
+    deployAgent,
+    isAgentDeployed,
+    isAgentDeploying,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

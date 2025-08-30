@@ -32,6 +32,24 @@ export const dbService = {
 
   getUserPurchases: dbHelpers.getUserPurchases,
 
+  /* ---------------- conversations ---------------- */
+  async saveConversation(userId: string, agentType: string, messages: any[]) {
+    return await dbHelpers.saveConversation(userId, agentType, messages)
+  },
+
+  async getConversationHistory(userId: string, agentType: string, limit = 50) {
+    return await dbHelpers.getConversationHistory(userId, agentType, limit)
+  },
+
+  /* ---------------- user preferences ---------------- */
+  async updateUserPreferences(userId: string, preferences: any) {
+    return await dbHelpers.updateUserPreferences(userId, preferences)
+  },
+
+  async getUserPreferences(userId: string) {
+    return await dbHelpers.getUserPreferences(userId)
+  },
+
   /* ---------------- misc ---------------- */
   async trackUserAction(userId: string, action: string, metadata: any = {}) {
     console.log("Tracking user action", { userId, action, metadata })

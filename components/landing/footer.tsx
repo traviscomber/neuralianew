@@ -1,137 +1,65 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Brain, Twitter, Linkedin, Github, Mail, ArrowRight } from "lucide-react"
+import { Brain, Mail, Phone, MapPin } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-background border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-2">
+    <footer id="contact" className="bg-gray-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Company Info */}
+          <div className="col-span-1 md:col-span-2">
             <div className="flex items-center mb-4">
-              <Brain className="h-8 w-8 text-primary mr-2" />
-              <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Neuralia
-              </span>
+              <Brain className="h-8 w-8 text-blue-400 mr-2" />
+              <span className="text-xl font-bold">Neuralia</span>
             </div>
-            <p className="text-muted-foreground mb-6 max-w-md">
-              Deploy AI executives that think, decide, and execute like your best team members. Built for developers who
-              demand more than chatbots.
+            <p className="text-gray-400 mb-6 max-w-md">
+              Your dedicated AI development factory. We build, deploy, and scale intelligent solutions that transform
+              businesses worldwide.
             </p>
-            <div className="flex space-x-4">
-              <Button variant="outline" size="icon">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon">
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon">
-                <Github className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon">
-                <Mail className="h-4 w-4" />
-              </Button>
+            <div className="space-y-2">
+              <div className="flex items-center text-gray-400">
+                <Mail className="h-4 w-4 mr-2" />
+                <span>hello@neuralia.ai</span>
+              </div>
+              <div className="flex items-center text-gray-400">
+                <Phone className="h-4 w-4 mr-2" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center text-gray-400">
+                <MapPin className="h-4 w-4 mr-2" />
+                <span>San Francisco, CA</span>
+              </div>
             </div>
           </div>
 
-          {/* Product */}
+          {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4">Product</h4>
-            <ul className="space-y-3 text-muted-foreground">
-              <li>
-                <a href="#features" className="hover:text-primary transition-colors">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Pricing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  API Documentation
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Integrations
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Security
-                </a>
-              </li>
+            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li>AI Model Development</li>
+              <li>Machine Learning</li>
+              <li>Data Engineering</li>
+              <li>AI Integration</li>
+              <li>Consulting</li>
             </ul>
           </div>
 
           {/* Company */}
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-3 text-muted-foreground">
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Careers
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-primary transition-colors">
-                  Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Press Kit
-                </a>
-              </li>
+            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li>About Us</li>
+              <li>Careers</li>
+              <li>Blog</li>
+              <li>Contact</li>
+              <li>Privacy Policy</li>
             </ul>
           </div>
         </div>
 
-        {/* Newsletter */}
-        <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <h4 className="font-semibold mb-2">Stay Updated</h4>
-              <p className="text-muted-foreground">Get the latest updates on AI executive capabilities and features.</p>
-            </div>
-            <div className="flex w-full md:w-auto max-w-sm">
-              <Input placeholder="Enter your email" className="rounded-r-none" />
-              <Button className="rounded-l-none">
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
           <p>&copy; 2024 Neuralia. All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              Cookie Policy
-            </a>
-          </div>
         </div>
       </div>
     </footer>
