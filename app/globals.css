@@ -68,6 +68,15 @@
   }
 }
 
+@layer utilities {
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
+  }
+}
+
 @keyframes accordion-down {
   from {
     height: 0;
@@ -84,12 +93,4 @@
   to {
     height: 0;
   }
-}
-
-.animate-accordion-down {
-  animation: accordion-down 0.2s ease-out;
-}
-
-.animate-accordion-up {
-  animation: accordion-up 0.2s ease-out;
 }

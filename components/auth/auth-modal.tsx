@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useAuth } from "@/hooks/use-auth"
+import { supabase } from "@/lib/supabase"
 import { useToast } from "@/hooks/use-toast"
 
 interface AuthModalProps {
@@ -17,63 +17,72 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose }: AuthModalProps) {
+  const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const { signIn, signUp } = useAuth()
   const { toast } = useToast()
-
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    const { error } = await signIn(email, password)
-
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      })
-    } else {
-      toast({
-        title: "Success",
-        description: "Signed in successfully!",
-      })
-      onClose()
-    }
-
-    setLoading(false)
-  }
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = await signUp(email, password)
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+      })
 
-    if (error) {
+      if (error) throw error
+
+      toast({
+        title: "Success!",
+        description: "Check your email for the confirmation link.",
+      })
+      onClose()
+    } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       })
-    } else {
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      })
+
+      if (error) throw error
+
       toast({
-        title: "Success",
-        description: "Check your email to confirm your account!",
+        title: "Welcome back!",
+        description: "You have been signed in successfully.",
       })
       onClose()
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      })
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Welcome to Neuralia</DialogTitle>
+          <DialogTitle>Get Started with Neuralia</DialogTitle>
         </DialogHeader>
 
         <Tabs defaultValue="signin" className="w-full">
@@ -88,7 +97,6 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input
@@ -99,7 +107,6 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   required
                 />
               </div>
-
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing In..." : "Sign In"}
               </Button>
@@ -118,7 +125,6 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   required
                 />
               </div>
-
               <div className="space-y-2">
                 <Label htmlFor="signup-password">Password</Label>
                 <Input
@@ -129,7 +135,6 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   required
                 />
               </div>
-
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Creating Account..." : "Create Account"}
               </Button>

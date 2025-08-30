@@ -1,36 +1,34 @@
-"use client"
-
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
-const faqs = [
-  {
-    question: "How are AI executives different from AI assistants?",
-    answer:
-      "AI executives don't just provide recommendations - they make autonomous decisions, execute strategies, and manage complex workflows. They think strategically and act independently within defined parameters.",
-  },
-  {
-    question: "What kind of decisions can AI executives make?",
-    answer:
-      "Our AI executives can handle strategic planning, resource allocation, market analysis, operational decisions, and complex problem-solving that typically requires C-level thinking.",
-  },
-  {
-    question: "How do you ensure AI decisions align with company goals?",
-    answer:
-      "Each AI executive is trained on your company's values, goals, and decision-making frameworks. They operate within defined guardrails and provide full transparency on their reasoning.",
-  },
-  {
-    question: "Is my data secure with Neuralia?",
-    answer:
-      "Yes, we use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and data sovereignty options. Your data never leaves your designated regions.",
-  },
-  {
-    question: "How quickly can I deploy an AI executive?",
-    answer:
-      "Most AI executives can be deployed within 24-48 hours. Complex customizations may take up to a week, but basic deployment is nearly instantaneous.",
-  },
-]
-
 export function FAQSection() {
+  const faqs = [
+    {
+      question: "How are AI executives different from chatbots?",
+      answer:
+        "AI executives are designed for strategic thinking and autonomous execution. Unlike chatbots that respond to queries, they proactively analyze situations, make decisions, and execute complex workflows without constant supervision.",
+    },
+    {
+      question: "What kind of tasks can AI executives handle?",
+      answer:
+        "They excel at strategic planning, data analysis, process optimization, stakeholder communication, project management, and complex decision-making that typically requires senior-level thinking.",
+    },
+    {
+      question: "How secure is my data with Neuralia?",
+      answer:
+        "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and full audit trails. Your data never leaves our secure infrastructure and is never used to train models.",
+    },
+    {
+      question: "Can I customize the AI executive for my industry?",
+      answer:
+        "Absolutely. Our AI executives can be trained on your specific industry knowledge, company processes, and decision-making frameworks to operate exactly how you need them to.",
+    },
+    {
+      question: "What's the ROI of deploying AI executives?",
+      answer:
+        "Most clients see 60-80% reduction in management overhead and 3-5x faster decision-making cycles. The average ROI is 400% within the first 6 months of deployment.",
+    },
+  ]
+
   return (
     <section className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -46,7 +44,7 @@ export function FAQSection() {
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-gray-600 dark:text-gray-300">{faq.answer}</AccordionContent>
+                <AccordionContent>{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

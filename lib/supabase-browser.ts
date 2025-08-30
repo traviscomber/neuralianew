@@ -1,6 +1,10 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient } from "./supabase"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Browser-specific Supabase client
+export const supabase = createClient()
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Named export
+export { createClient }
+
+// Default export
+export default supabase

@@ -6,62 +6,36 @@ export interface Database {
       profiles: {
         Row: {
           id: string
-          email: string
+          updated_at: string | null
+          username: string | null
           full_name: string | null
           avatar_url: string | null
-          created_at: string
-          updated_at: string
+          website: string | null
         }
         Insert: {
           id: string
-          email: string
+          updated_at?: string | null
+          username?: string | null
           full_name?: string | null
           avatar_url?: string | null
-          created_at?: string
-          updated_at?: string
+          website?: string | null
         }
         Update: {
           id?: string
-          email?: string
+          updated_at?: string | null
+          username?: string | null
           full_name?: string | null
           avatar_url?: string | null
-          created_at?: string
-          updated_at?: string
+          website?: string | null
         }
-        Relationships: []
-      }
-      ai_agents: {
-        Row: {
-          id: string
-          name: string
-          description: string
-          price: number
-          category: string
-          features: Json
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          description: string
-          price: number
-          category: string
-          features: Json
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          description?: string
-          price?: number
-          category?: string
-          features?: Json
-          created_at?: string
-          updated_at?: string
-        }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
