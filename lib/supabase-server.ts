@@ -1,14 +1,7 @@
-import { createServerClient } from "@supabase/ssr"
-import { cookies } from "next/headers"
+import { createServerClient } from "./supabase"
 
-export function createClient() {
-  const cookieStore = cookies()
+// Server-side Supabase client wrapper for compatibility
 
-  return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
-      },
-    },
-  })
-}
+// Re-export the server client
+export { createServerClient }
+export default createServerClient
