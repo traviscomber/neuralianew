@@ -81,7 +81,7 @@ export default function HomePage() {
               <ThemeToggle />
               {user ? (
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-muted-foreground">Welcome, {user.email}</span>
+                  <span className="text-sm text-muted-foreground">Welcome, {user.name || user.email}</span>
                   <Button variant="outline" size="sm">
                     Dashboard
                   </Button>
@@ -143,7 +143,7 @@ export default function HomePage() {
               <div className="pt-4 pb-3 border-t border-border">
                 {user ? (
                   <div className="px-3">
-                    <div className="text-sm text-muted-foreground mb-2">Welcome, {user.email}</div>
+                    <div className="text-sm text-muted-foreground mb-2">Welcome, {user.name || user.email}</div>
                     <Button variant="outline" size="sm" className="w-full bg-transparent">
                       Dashboard
                     </Button>

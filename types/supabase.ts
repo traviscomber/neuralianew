@@ -6,28 +6,36 @@ export interface Database {
       profiles: {
         Row: {
           id: string
-          email: string
+          updated_at: string | null
+          username: string | null
           full_name: string | null
           avatar_url: string | null
-          created_at: string
-          updated_at: string
+          website: string | null
         }
         Insert: {
           id: string
-          email: string
+          updated_at?: string | null
+          username?: string | null
           full_name?: string | null
           avatar_url?: string | null
-          created_at?: string
-          updated_at?: string
+          website?: string | null
         }
         Update: {
           id?: string
-          email?: string
+          updated_at?: string | null
+          username?: string | null
           full_name?: string | null
           avatar_url?: string | null
-          created_at?: string
-          updated_at?: string
+          website?: string | null
         }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_id_fkey"
+            columns: ["id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
