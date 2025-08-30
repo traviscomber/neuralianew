@@ -1,47 +1,32 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import type { User, Session, AuthError } from "@supabase/supabase-js"
 import { supabase } from "@/lib/supabase"
-import { useToast } from "@/hooks/use-toast"
+import type { User } from "@supabase/supabase-js"
 
 interface AuthContextType {
   user: User | null
-  session: Session | null
   loading: boolean
-  signUp: (email: string, password: string, metadata?: any) => Promise<{ error: AuthError | null }>
-  signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>
-  signOut: () => Promise<{ error: AuthError | null }>
-  updateProfile: (updates: any) => Promise<{ error: AuthError | null }>
+  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<{ error: any }>
+  signOut: () => Promise<void>
+  resetPassword: (email: string) => Promise<{ error: any }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
-  const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
-  const { toast } = useToast()
 
   useEffect(() => {
     // Get initial session
     const getInitialSession = async () => {
-      try {
-        const {
-          data: { session },
-          error,
-        } = await supabase.auth.getSession()
-        if (error) {
-          console.error("Error getting session:", error)
-        } else {
-          setSession(session)
-          setUser(session?.user ?? null)
-        }
-      } catch (error) {
-        console.error("Error in getInitialSession:", error)
-      } finally {
-        setLoading(false)
-      }
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
+      setLoading(false)
     }
 
     getInitialSession()
@@ -50,88 +35,80 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      console.log("Auth state changed:", event, session?.user?.email)
-      setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
 
-      if (event === "SIGNED_IN") {
-        toast({
-          title: "Welcome!",
-          description: "You have successfully signed in.",
-        })
-      } else if (event === "SIGNED_OUT") {
-        toast({
-          title: "Signed out",
-          description: "You have been signed out successfully.",
-        })
+      // Create profile if user signs up
+      if (event === "SIGNED_UP" && session?.user) {
+        await createUserProfile(session.user)
       }
     })
 
-    return () => {
-      subscription.unsubscribe()
-    }
-  }, [toast])
+    return () => subscription.unsubscribe()
+  }, [])
 
-  const signUp = async (email: string, password: string, metadata?: any) => {
+  const createUserProfile = async (user: User) => {
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: metadata || {},
-        },
+      const { error } = await supabase.from("profiles").insert({
+        id: user.id,
+        email: user.email,
+        full_name: user.user_metadata?.full_name || "",
+        avatar_url: user.user_metadata?.avatar_url || "",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       })
-      return { error }
+
+      if (error && error.code !== "23505") {
+        // Ignore duplicate key errors
+        console.error("Error creating profile:", error)
+      }
     } catch (error) {
-      console.error("Sign up error:", error)
-      return { error: error as AuthError }
+      console.error("Error in createUserProfile:", error)
     }
+  }
+
+  const signUp = async (email: string, password: string, fullName: string) => {
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    })
+
+    return { error }
   }
 
   const signIn = async (email: string, password: string) => {
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      return { error }
-    } catch (error) {
-      console.error("Sign in error:", error)
-      return { error: error as AuthError }
-    }
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    return { error }
   }
 
   const signOut = async () => {
-    try {
-      const { error } = await supabase.auth.signOut()
-      return { error }
-    } catch (error) {
-      console.error("Sign out error:", error)
-      return { error: error as AuthError }
-    }
+    await supabase.auth.signOut()
   }
 
-  const updateProfile = async (updates: any) => {
-    try {
-      const { error } = await supabase.auth.updateUser({
-        data: updates,
-      })
-      return { error }
-    } catch (error) {
-      console.error("Update profile error:", error)
-      return { error: error as AuthError }
-    }
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+
+    return { error }
   }
 
   const value = {
     user,
-    session,
     loading,
     signUp,
     signIn,
     signOut,
-    updateProfile,
+    resetPassword,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
