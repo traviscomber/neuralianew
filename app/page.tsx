@@ -17,6 +17,14 @@ export default function HomePage() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const { user, loading } = useAuth()
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       {/* Navigation */}
@@ -71,9 +79,7 @@ export default function HomePage() {
             {/* Desktop Auth & Theme */}
             <div className="hidden md:flex items-center space-x-4">
               <ThemeToggle />
-              {loading ? (
-                <div className="w-20 h-9 bg-muted animate-pulse rounded-md" />
-              ) : user ? (
+              {user ? (
                 <div className="flex items-center space-x-2">
                   <span className="text-sm text-muted-foreground">Welcome, {user.name || user.email}</span>
                   <Button variant="outline" size="sm">
@@ -135,9 +141,7 @@ export default function HomePage() {
                 Contact
               </a>
               <div className="pt-4 pb-3 border-t border-border">
-                {loading ? (
-                  <div className="w-full h-10 bg-muted animate-pulse rounded-md mx-3" />
-                ) : user ? (
+                {user ? (
                   <div className="px-3">
                     <div className="text-sm text-muted-foreground mb-2">Welcome, {user.name || user.email}</div>
                     <Button variant="outline" size="sm" className="w-full bg-transparent">

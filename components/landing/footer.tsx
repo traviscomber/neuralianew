@@ -1,107 +1,86 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Bot, Github, Twitter, Linkedin, Mail } from "lucide-react"
-import Link from "next/link"
 
 export function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Bot className="h-8 w-8 text-blue-400" />
-              <span className="text-2xl font-bold">Neuralia</span>
-            </div>
+        <div className="grid md:grid-cols-4 gap-8">
+          <div className="col-span-2">
+            <h3 className="text-2xl font-bold mb-4">Neuralia</h3>
             <p className="text-gray-300 mb-6 max-w-md">
-              Deploy intelligent AI agents that transform your business operations. Fast, secure, and scalable solutions
-              for the modern enterprise.
+              Deploy AI executives that think, decide, and execute like your best team members. The future of autonomous
+              business intelligence.
             </p>
-            <div className="flex gap-4">
-              <Button size="icon" variant="ghost">
-                <Github className="h-5 w-5" />
+            <div className="flex space-x-4">
+              <Button variant="outline" size="sm">
+                Twitter
               </Button>
-              <Button size="icon" variant="ghost">
-                <Twitter className="h-5 w-5" />
+              <Button variant="outline" size="sm">
+                LinkedIn
               </Button>
-              <Button size="icon" variant="ghost">
-                <Linkedin className="h-5 w-5" />
-              </Button>
-              <Button size="icon" variant="ghost">
-                <Mail className="h-5 w-5" />
+              <Button variant="outline" size="sm">
+                GitHub
               </Button>
             </div>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Product</h3>
+            <h4 className="font-semibold mb-4">Product</h4>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link href="#features" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   Features
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   Pricing
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/agents" className="hover:text-white transition-colors">
-                  AI Agents
-                </Link>
+                <a href="#" className="hover:text-white">
+                  Documentation
+                </a>
               </li>
               <li>
-                <Link href="/integrations" className="hover:text-white transition-colors">
-                  Integrations
-                </Link>
+                <a href="#" className="hover:text-white">
+                  API
+                </a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Company</h3>
+            <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-gray-300">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   About
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/blog" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   Blog
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/careers" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   Careers
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <a href="#" className="hover:text-white">
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400">© 2024 Neuralia. All rights reserved.</p>
-            <div className="flex gap-6 text-gray-400">
-              <Link href="/privacy" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="hover:text-white transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/cookies" className="hover:text-white transition-colors">
-                Cookie Policy
-              </Link>
-            </div>
-          </div>
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+          <p>&copy; 2024 Neuralia. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,8 +1,8 @@
 {
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
+  "buildCommand": "npm ci --force && npm run build",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "installCommand": "npm install --legacy-peer-deps",
+  "installCommand": "npm ci --force",
   "functions": {
     "app/api/**/*.ts": {
       "maxDuration": 30

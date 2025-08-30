@@ -4,44 +4,41 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 
 const faqs = [
   {
-    question: "How quickly can I deploy an AI agent?",
+    question: "How are AI executives different from AI assistants?",
     answer:
-      "Most AI agents can be deployed in under 10 minutes. Our streamlined process guides you through configuration, testing, and deployment with minimal setup required.",
+      "AI executives don't just provide recommendations - they make autonomous decisions, execute strategies, and manage complex workflows. They think strategically and act independently within defined parameters.",
   },
   {
-    question: "What types of AI agents are available?",
+    question: "What kind of decisions can AI executives make?",
     answer:
-      "We offer a wide variety of AI agents including customer service bots, data analysis agents, content generators, scheduling assistants, and custom agents tailored to your specific needs.",
+      "Our AI executives can handle strategic planning, resource allocation, market analysis, operational decisions, and complex problem-solving that typically requires C-level thinking.",
+  },
+  {
+    question: "How do you ensure AI decisions align with company goals?",
+    answer:
+      "Each AI executive is trained on your company's values, goals, and decision-making frameworks. They operate within defined guardrails and provide full transparency on their reasoning.",
   },
   {
     question: "Is my data secure with Neuralia?",
     answer:
-      "Absolutely. We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and regular security audits. Your data never leaves our secure infrastructure.",
+      "Yes, we use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and data sovereignty options. Your data never leaves your designated regions.",
   },
   {
-    question: "Can I customize the AI agents?",
+    question: "How quickly can I deploy an AI executive?",
     answer:
-      "Yes! All our AI agents are highly customizable. You can modify their behavior, integrate with your existing systems, and train them on your specific data and processes.",
-  },
-  {
-    question: "What support do you provide?",
-    answer:
-      "We offer 24/7 technical support, comprehensive documentation, video tutorials, and dedicated account managers for enterprise customers.",
+      "Most AI executives can be deployed within 24-48 hours. Complex customizations may take up to a week, but basic deployment is nearly instantaneous.",
   },
 ]
 
 export function FAQSection() {
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Frequently Asked
-            <span className="text-blue-600 dark:text-blue-400"> Questions</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Everything you need to know about deploying AI agents
-          </p>
+          <p className="text-xl text-gray-600 dark:text-gray-300">Everything you need to know about AI executives</p>
         </div>
 
         <div className="max-w-3xl mx-auto">
@@ -49,7 +46,7 @@ export function FAQSection() {
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
+                <AccordionContent className="text-gray-600 dark:text-gray-300">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

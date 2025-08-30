@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
-export type Database = {
+export interface Database {
   public: {
     Tables: {
       profiles: {
@@ -30,64 +30,38 @@ export type Database = {
         }
         Relationships: []
       }
-      deployed_agents: {
+      ai_agents: {
         Row: {
           id: string
-          user_id: string
-          agent_id: string
-          agent_name: string
-          agent_description: string | null
-          agent_type: string
-          icon: string
-          status: string
-          configuration: Json
-          is_trial: boolean
-          trial_ends_at: string | null
-          payment_status: string
+          name: string
+          description: string
+          price: number
+          category: string
+          features: Json
           created_at: string
           updated_at: string
         }
         Insert: {
           id?: string
-          user_id: string
-          agent_id: string
-          agent_name: string
-          agent_description?: string | null
-          agent_type: string
-          icon?: string
-          status?: string
-          configuration: Json
-          is_trial?: boolean
-          trial_ends_at?: string | null
-          payment_status?: string
+          name: string
+          description: string
+          price: number
+          category: string
+          features: Json
           created_at?: string
           updated_at?: string
         }
         Update: {
           id?: string
-          user_id?: string
-          agent_id?: string
-          agent_name?: string
-          agent_description?: string | null
-          agent_type?: string
-          icon?: string
-          status?: string
-          configuration?: Json
-          is_trial?: boolean
-          trial_ends_at?: string | null
-          payment_status?: string
+          name?: string
+          description?: string
+          price?: number
+          category?: string
+          features?: Json
           created_at?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "deployed_agents_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {

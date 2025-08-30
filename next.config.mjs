@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverExternalPackages: ['@supabase/supabase-js']
+    serverComponentsExternalPackages: ['@supabase/supabase-js']
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -10,7 +10,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com'],
+    domains: ['placeholder.svg'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,9 +18,6 @@ const nextConfig = {
       },
     ],
     unoptimized: true,
-  },
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
 }
 

@@ -4,14 +4,13 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/hooks/use-auth"
-import { CartProvider } from "@/hooks/use-cart"
 import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Agent Marketplace",
-  description: "Deploy and manage AI agents for your business needs",
+  title: "Neuralia - AI Executive Agents",
+  description: "Deploy AI executives that think, decide, and execute like your best team members",
     generator: 'v0.app'
 }
 
@@ -25,10 +24,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <AuthProvider>
-            <CartProvider>
-              {children}
-              <Toaster />
-            </CartProvider>
+            {children}
+            <Toaster />
           </AuthProvider>
         </ThemeProvider>
       </body>

@@ -1,74 +1,55 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Bot, Zap, Shield, BarChart3, Clock, Users } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Brain, Zap, Shield, BarChart3 } from "lucide-react"
 
 const features = [
   {
-    icon: Bot,
-    title: "Smart AI Agents",
-    description: "Deploy intelligent agents that learn and adapt to your business needs",
-    badge: "Popular",
+    icon: Brain,
+    title: "Strategic AI Thinking",
+    description:
+      "AI agents that understand context, analyze complex scenarios, and make strategic decisions like senior executives.",
   },
   {
     icon: Zap,
-    title: "Instant Deployment",
-    description: "Get your AI agents up and running in minutes, not hours",
-    badge: "Fast",
+    title: "Autonomous Execution",
+    description:
+      "Deploy agents that don't just recommend - they execute decisions, manage workflows, and drive results.",
   },
   {
     icon: Shield,
     title: "Enterprise Security",
-    description: "Bank-level security with end-to-end encryption and compliance",
-    badge: "Secure",
+    description: "Bank-grade security with full audit trails, compliance controls, and data sovereignty.",
   },
   {
     icon: BarChart3,
-    title: "Real-time Analytics",
-    description: "Monitor performance and optimize your AI agents with detailed insights",
-    badge: "Analytics",
-  },
-  {
-    icon: Clock,
-    title: "24/7 Operation",
-    description: "Your AI agents work around the clock, never taking a break",
-    badge: "Always On",
-  },
-  {
-    icon: Users,
-    title: "Team Collaboration",
-    description: "Share and manage AI agents across your entire organization",
-    badge: "Teamwork",
+    title: "Performance Analytics",
+    description: "Real-time insights into agent performance, decision quality, and business impact metrics.",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section className="py-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Powerful Features for
-            <span className="text-blue-600 dark:text-blue-400"> Modern Business</span>
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Everything you need to deploy, manage, and scale AI agents for your business
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Why Choose Neuralia?</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            The only platform that deploys AI executives, not just assistants
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="relative overflow-hidden group hover:shadow-lg transition-shadow">
+            <Card key={index} className="text-center">
               <CardHeader>
-                <div className="flex items-center justify-between mb-2">
-                  <feature.icon className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                  <Badge variant="secondary">{feature.badge}</Badge>
+                <div className="mx-auto w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <CardTitle className="text-xl">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base">{feature.description}</CardDescription>
+                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
