@@ -24,6 +24,9 @@ import {
   Brain,
   Target,
   Workflow,
+  Package,
+  ShoppingCart,
+  FileText,
 } from "lucide-react"
 
 interface Message {
@@ -250,6 +253,13 @@ export function UseCasesSection() {
         "✅ **Inventario Actualizado**\n\n💻 Laptop Dell XPS 13:\n• Stock anterior: 12 unidades\n• Ingreso: +50 unidades\n• **Stock actual: 62 unidades**\n\n📋 Sistema ERP sincronizado\n🔔 Notificación enviada a equipo de ventas\n\n¿Necesitas actualizar algo más?",
       timestamp: "09:18",
     },
+    {
+      id: 5,
+      sender: "bot",
+      content:
+        "💡 **Sugerencia Inteligente:**\n\nCon 62 unidades en stock y el ritmo de ventas actual (19 unidades/semana), tienes inventario para 3.2 semanas.\n\n📅 Recomiendo planificar próximo pedido para el 15 de octubre.\n\n¿Quieres que configure un recordatorio automático?",
+      timestamp: "09:19",
+    },
   ]
 
   return (
@@ -288,8 +298,8 @@ export function UseCasesSection() {
               value="parrotfy"
               className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-lg"
             >
-              <MessageSquare className="w-4 h-4" />
-              Parrotfy
+              <Package className="w-4 h-4" />
+              Parrotfy ERP
             </TabsTrigger>
           </TabsList>
 
@@ -540,25 +550,25 @@ export function UseCasesSection() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="p-3 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl">
-                        <MessageSquare className="w-8 h-8 text-purple-600" />
+                        <Package className="w-8 h-8 text-purple-600" />
                       </div>
                       <div>
-                        <CardTitle className="text-purple-800 text-xl">Parrotfy</CardTitle>
-                        <p className="text-sm text-purple-600 font-medium">ERP Conversacional Inteligente</p>
+                        <CardTitle className="text-purple-800 text-xl">Parrotfy ERP</CardTitle>
+                        <p className="text-sm text-purple-600 font-medium">Sistema ERP Online Inteligente</p>
                       </div>
                     </div>
                     <Badge
                       variant="secondary"
                       className="bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 font-semibold"
                     >
-                      OpenAI GPT-4
+                      parrotfy.com
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-muted-foreground">
-                    Sistema ERP conversacional potenciado por OpenAI GPT-4 que gestiona inventarios, ventas y reportes
-                    mediante chat natural.
+                    Sistema ERP online potenciado por OpenAI GPT-4 que gestiona inventarios, ventas, reportes y
+                    operaciones empresariales mediante conversación natural.
                   </p>
 
                   <div className="grid grid-cols-2 gap-4">
@@ -567,38 +577,44 @@ export function UseCasesSection() {
                       <span className="text-sm font-medium">Reportes IA</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
-                      <Database className="w-4 h-4 text-green-500" />
+                      <Package className="w-4 h-4 text-green-500" />
                       <span className="text-sm font-medium">Gestión Inventario</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
-                      <TrendingUp className="w-4 h-4 text-purple-500" />
-                      <span className="text-sm font-medium">Analytics Avanzado</span>
+                      <ShoppingCart className="w-4 h-4 text-purple-500" />
+                      <span className="text-sm font-medium">Control Ventas</span>
                     </div>
                     <div className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg">
-                      <Zap className="w-4 h-4 text-yellow-500" />
+                      <FileText className="w-4 h-4 text-yellow-500" />
                       <span className="text-sm font-medium">Automatización</span>
                     </div>
                   </div>
 
                   <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
-                    <h4 className="font-semibold text-purple-800 mb-3">Capacidades OpenAI GPT-4:</h4>
+                    <h4 className="font-semibold text-purple-800 mb-3">Capacidades ERP con IA:</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle className="w-4 h-4 text-purple-600" />
                         <span>
-                          <strong>Procesamiento Natural:</strong> Comandos en lenguaje cotidiano
+                          <strong>Gestión Conversacional:</strong> Comandos en lenguaje natural
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="w-4 h-4 text-purple-600" />
                         <span>
-                          <strong>Análisis Inteligente:</strong> Insights automáticos de datos
+                          <strong>Análisis Predictivo:</strong> Sugerencias inteligentes de inventario
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="w-4 h-4 text-purple-600" />
                         <span>
-                          <strong>Reportes Dinámicos:</strong> Generación automática de informes
+                          <strong>Reportes Dinámicos:</strong> Informes automáticos en tiempo real
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-purple-600" />
+                        <span>
+                          <strong>Integración Total:</strong> Ventas, inventario, finanzas unificadas
                         </span>
                       </div>
                     </div>
@@ -625,8 +641,8 @@ export function UseCasesSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <BarChart3 className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-1 text-lg">70% Reducción</h3>
-                  <p className="text-sm text-muted-foreground">en tiempo de reportes</p>
+                  <h3 className="font-semibold mb-1 text-lg">75% Reducción</h3>
+                  <p className="text-sm text-muted-foreground">en tiempo de gestión</p>
                 </CardContent>
               </Card>
               <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -634,8 +650,8 @@ export function UseCasesSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Zap className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-1 text-lg">95% Automatización</h3>
-                  <p className="text-sm text-muted-foreground">de tareas administrativas</p>
+                  <h3 className="font-semibold mb-1 text-lg">90% Automatización</h3>
+                  <p className="text-sm text-muted-foreground">de procesos empresariales</p>
                 </CardContent>
               </Card>
               <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -643,8 +659,8 @@ export function UseCasesSection() {
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Users className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-1 text-lg">500+ Empresas</h3>
-                  <p className="text-sm text-muted-foreground">optimizando con IA</p>
+                  <h3 className="font-semibold mb-1 text-lg">800+ Empresas</h3>
+                  <p className="text-sm text-muted-foreground">gestionando con IA</p>
                 </CardContent>
               </Card>
             </div>
