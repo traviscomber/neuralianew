@@ -10,20 +10,20 @@ import { Toaster } from "@/components/ui/toaster"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Development Factory",
-  description: "Custom AI solutions from concept to production. Your dedicated AI development team.",
+  title: "Neuralia - AI Executive Agents",
+  description: "Deploy AI executives that think, decide, and execute like your best team members",
   keywords: ["AI development", "custom AI", "machine learning", "AI agents", "artificial intelligence"],
   authors: [{ name: "Neuralia Team" }],
   openGraph: {
-    title: "Neuralia - AI Development Factory",
-    description: "Custom AI solutions from concept to production. Your dedicated AI development team.",
+    title: "Neuralia - AI Executive Agents",
+    description: "Deploy AI executives that think, decide, and execute like your best team members",
     type: "website",
     url: "https://neuralia.ai",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - AI Development Factory",
-    description: "Custom AI solutions from concept to production. Your dedicated AI development team.",
+    title: "Neuralia - AI Executive Agents",
+    description: "Deploy AI executives that think, decide, and execute like your best team members",
   },
     generator: 'v0.app'
 }

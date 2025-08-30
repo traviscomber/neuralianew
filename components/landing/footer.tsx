@@ -1,118 +1,135 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Mail, MessageCircle, Shield, Clock, Globe } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Brain, Twitter, Linkedin, Github, Mail, ArrowRight } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Neuralia
-            </h3>
-            <p className="text-gray-300 mb-6 max-w-md">
-              Deploy specialized AI executives for strategic leadership, marketing growth, and technical innovation.
-              Experience coordinated AI decision-making with the Neural Director.
+    <footer className="bg-background border-t border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center mb-4">
+              <Brain className="h-8 w-8 text-primary mr-2" />
+              <span className="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Neuralia
+              </span>
+            </div>
+            <p className="text-muted-foreground mb-6 max-w-md">
+              Deploy AI executives that think, decide, and execute like your best team members. Built for developers who
+              demand more than chatbots.
             </p>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="border-gray-600 text-gray-300">
-                <Shield className="h-3 w-3 mr-1" />
-                Enterprise Security
-              </Badge>
-              <Badge variant="outline" className="border-gray-600 text-gray-300">
-                <Clock className="h-3 w-3 mr-1" />
-                24/7 Available
-              </Badge>
-              <Badge variant="outline" className="border-gray-600 text-gray-300">
-                <Globe className="h-3 w-3 mr-1" />
-                Global Access
-              </Badge>
+            <div className="flex space-x-4">
+              <Button variant="outline" size="icon">
+                <Twitter className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Linkedin className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Github className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <Mail className="h-4 w-4" />
+              </Button>
             </div>
           </div>
 
-          {/* AI Executives */}
+          {/* Product */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">AI Executives</h4>
-            <ul className="space-y-2 text-gray-300">
-              <li>Neural Director</li>
-              <li>Chief Executive Officer</li>
-              <li>Chief Marketing Officer</li>
-              <li>Chief Technology Officer</li>
+            <h4 className="font-semibold mb-4">Product</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li>
+                <a href="#features" className="hover:text-primary transition-colors">
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Pricing
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  API Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Integrations
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Security
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Company */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Support</h4>
-            <div className="space-y-3">
-              <a
-                href="mailto:hello@neuralia.ai"
-                className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
-              >
-                <Mail className="h-4 w-4" />
-                <span>hello@neuralia.ai</span>
-              </a>
-              <a
-                href="https://t.me/neuralia_support"
-                className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-4 w-4" />
-                <span>@neuralia_support</span>
-              </a>
+            <h4 className="font-semibold mb-4">Company</h4>
+            <ul className="space-y-3 text-muted-foreground">
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Careers
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-primary transition-colors">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-primary transition-colors">
+                  Press Kit
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Newsletter */}
+        <div className="border-t border-border mt-12 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <h4 className="font-semibold mb-2">Stay Updated</h4>
+              <p className="text-muted-foreground">Get the latest updates on AI executive capabilities and features.</p>
+            </div>
+            <div className="flex w-full md:w-auto max-w-sm">
+              <Input placeholder="Enter your email" className="rounded-r-none" />
+              <Button className="rounded-l-none">
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </div>
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="bg-gray-800 border-gray-700">
-              <CardContent className="p-4">
-                <h5 className="font-semibold text-white mb-2">Strategic Coordination</h5>
-                <p className="text-sm text-gray-300">
-                  Neural Director coordinates all AI executives for unified business strategy and execution.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-800 border-gray-700">
-              <CardContent className="p-4">
-                <h5 className="font-semibold text-white mb-2">Specialized Expertise</h5>
-                <p className="text-sm text-gray-300">
-                  Each AI executive focuses on their domain: strategy, marketing, or technology leadership.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gray-800 border-gray-700">
-              <CardContent className="p-4">
-                <h5 className="font-semibold text-white mb-2">Real-Time Insights</h5>
-                <p className="text-sm text-gray-300">
-                  Get immediate strategic guidance and coordinated decision-making support 24/7.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-gray-400 text-sm">© 2024 Neuralia. All rights reserved.</div>
+        {/* Bottom */}
+        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-muted-foreground">
+          <p>&copy; 2024 Neuralia. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+            <a href="#" className="hover:text-primary transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
+            <a href="#" className="hover:text-primary transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">
-              Security
+            <a href="#" className="hover:text-primary transition-colors">
+              Cookie Policy
             </a>
           </div>
         </div>

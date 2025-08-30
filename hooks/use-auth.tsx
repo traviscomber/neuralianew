@@ -1,22 +1,17 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useEffect, useState } from "react"
-import { supabase } from "@/lib/supabase-browser"
 
-interface User {
-  id: string
-  email: string
-  name?: string
-}
+import { createContext, useContext, useEffect, useState } from "react"
+import { createClient } from "@/lib/supabase-browser"
+import type { User } from "@supabase/supabase-js"
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error?: string }>
-  signUp: (email: string, password: string, name?: string) => Promise<{ error?: string }>
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string, metadata?: any) => Promise<void>
   signOut: () => Promise<void>
-  signInWithGoogle: () => Promise<{ error?: string }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -24,113 +19,51 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const supabase = createClient()
 
   useEffect(() => {
-    // Get initial session
-    const getSession = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession()
-        if (session?.user) {
-          setUser({
-            id: session.user.id,
-            email: session.user.email || "",
-            name: session.user.user_metadata?.name,
-          })
-        }
-      } catch (error) {
-        console.log("Session error:", error)
-      } finally {
-        setLoading(false)
-      }
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      setUser(user)
+      setLoading(false)
     }
 
-    getSession()
+    getUser()
 
-    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
-      if (session?.user) {
-        setUser({
-          id: session.user.id,
-          email: session.user.email || "",
-          name: session.user.user_metadata?.name,
-        })
-      } else {
-        setUser(null)
-      }
+      setUser(session?.user ?? null)
       setLoading(false)
     })
 
     return () => subscription.unsubscribe()
-  }, [])
+  }, [supabase.auth])
 
   const signIn = async (email: string, password: string) => {
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-
-      if (error) {
-        return { error: error.message }
-      }
-
-      return {}
-    } catch (error) {
-      return { error: "An unexpected error occurred" }
-    }
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    if (error) throw error
   }
 
-  const signUp = async (email: string, password: string, name?: string) => {
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            name: name,
-          },
-        },
-      })
-
-      if (error) {
-        return { error: error.message }
-      }
-
-      return {}
-    } catch (error) {
-      return { error: "An unexpected error occurred" }
-    }
+  const signUp = async (email: string, password: string, metadata?: any) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: metadata,
+      },
+    })
+    if (error) throw error
   }
 
   const signOut = async () => {
-    try {
-      await supabase.auth.signOut()
-    } catch (error) {
-      console.error("Sign out error:", error)
-    }
-  }
-
-  const signInWithGoogle = async () => {
-    try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
-      })
-
-      if (error) {
-        return { error: error.message }
-      }
-
-      return {}
-    } catch (error) {
-      return { error: "An unexpected error occurred" }
-    }
+    const { error } = await supabase.auth.signOut()
+    if (error) throw error
   }
 
   const value = {
@@ -139,7 +72,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signIn,
     signUp,
     signOut,
-    signInWithGoogle,
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

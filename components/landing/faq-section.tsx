@@ -1,111 +1,122 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ChevronDown, Brain, Shield, CreditCard, Zap, Users, Clock } from "lucide-react"
-
-const faqs = [
-  {
-    icon: Brain,
-    question: "What exactly are 'Neural AI Executives'?",
-    answer:
-      "Neural AI Executives are specialized AI agents designed to provide executive-level business guidance. Each agent focuses on a specific business function (CEO for strategy, CMO for marketing, CTO for technology) and can provide insights, recommendations, and coordinate with other executives through the Neural Director.",
-  },
-  {
-    icon: Clock,
-    question: "How does the 5-day free trial work?",
-    answer:
-      "Your 5-day free trial gives you complete access to all AI executives with no limitations. Simply deploy any agent and start using it immediately. You'll get full access to all features and capabilities. After 5 days, you can upgrade with USDT payment to continue access.",
-  },
-  {
-    icon: CreditCard,
-    question: "Why do you only accept USDT payments?",
-    answer:
-      "We use USDT (Tether) for several reasons: instant global transactions, lower fees than traditional payment processors, enhanced privacy and security, and seamless integration with our decentralized infrastructure. USDT allows us to serve clients worldwide without geographic payment restrictions.",
-  },
-  {
-    icon: Zap,
-    question: "How is this different from ChatGPT or other AI tools?",
-    answer:
-      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized for business functions. They're designed specifically for executive decision-making, can coordinate with each other through the Neural Director, and focus on strategic business guidance rather than general conversation.",
-  },
-  {
-    icon: Users,
-    question: "Can these agents integrate with my existing business tools?",
-    answer:
-      "Our Neural AI Executives are designed to work with common business workflows and can provide guidance on integrating with various business tools. The specific integrations available depend on your subscription plan and business needs.",
-  },
-  {
-    icon: Shield,
-    question: "How secure is my business data?",
-    answer:
-      "Security is our top priority. We use enterprise-grade encryption, secure processing environments, and follow industry best practices for data protection. Your conversations and business data are processed securely and are not stored permanently or used to train other models.",
-  },
-]
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
 
 export function FAQSection() {
-  const [openItems, setOpenItems] = useState<string[]>([])
-
-  const toggleItem = (value: string) => {
-    setOpenItems((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]))
-  }
-
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <Badge variant="outline" className="mb-4">
             Frequently Asked Questions
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Everything You Need to
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> Know</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about Neural AI Executives and how they can support your business operations.
+          <p className="text-xl text-muted-foreground">
+            Get answers to the most common questions about AI executives and how they can transform your business.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((faq, index) => {
-            const Icon = faq.icon
-            const isOpen = openItems.includes(index.toString())
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          <AccordionItem value="item-1" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              What makes AI executives different from regular chatbots?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              AI executives are designed for strategic thinking and autonomous execution, not just conversation. They
+              understand business context, make complex decisions, analyze data, and take action to achieve specific
+              objectives. Unlike chatbots that respond to queries, AI executives proactively identify opportunities,
+              solve problems, and drive results without constant human oversight.
+            </AccordionContent>
+          </AccordionItem>
 
-            return (
-              <Card key={index} className="border-2 hover:border-blue-200 transition-colors">
-                <Collapsible>
-                  <CollapsibleTrigger className="w-full" onClick={() => toggleItem(index.toString())}>
-                    <CardHeader className="flex flex-row items-center space-y-0 pb-4">
-                      <div className="flex items-center space-x-4 flex-1 text-left">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-                        <CardTitle className="text-lg font-semibold text-gray-900">{faq.question}</CardTitle>
-                      </div>
-                      <ChevronDown
-                        className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </CardHeader>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <CardContent className="pt-0">
-                      <p className="text-gray-600 leading-relaxed pl-14">{faq.answer}</p>
-                    </CardContent>
-                  </CollapsibleContent>
-                </Collapsible>
-              </Card>
-            )
-          })}
-        </div>
+          <AccordionItem value="item-2" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              How quickly can I deploy an AI executive?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              Most AI executives can be deployed within 24-48 hours. Our streamlined onboarding process includes data
+              integration, custom training on your business context, and initial configuration. More complex
+              implementations with extensive customization typically take 1-2 weeks. We provide full support throughout
+              the deployment process.
+            </AccordionContent>
+          </AccordionItem>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Still have questions?</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:hello@neuralia.ai" className="text-blue-600 hover:text-blue-700 font-medium">
-              Email: hello@neuralia.ai
-            </a>
-            <a href="https://t.me/neuralia_support" className="text-blue-600 hover:text-blue-700 font-medium">
-              Telegram: @neuralia_support
-            </a>
-          </div>
-        </div>
+          <AccordionItem value="item-3" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              What kind of decisions can AI executives make autonomously?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              AI executives can handle a wide range of strategic and operational decisions including resource
+              allocation, market analysis, customer segmentation, pricing optimization, workflow management, and
+              performance optimization. You set the parameters and objectives, and they execute within those boundaries.
+              Critical decisions can be configured to require human approval.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-4" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              How secure is my business data?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              We implement bank-level security with end-to-end encryption, zero-trust architecture, and SOC 2 Type II
+              compliance. Your data is processed in isolated environments with role-based access controls. We never
+              share or use your data to train models for other clients. All AI executive actions are logged and
+              auditable for complete transparency.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-5" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              Can AI executives integrate with my existing tools?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              Yes, AI executives are built with integration in mind. They connect seamlessly with popular business tools
+              including CRM systems (Salesforce, HubSpot), project management (Asana, Jira), analytics platforms (Google
+              Analytics, Mixpanel), and communication tools (Slack, Teams). We also provide APIs and webhooks for custom
+              integrations.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-6" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              What's the ROI of implementing AI executives?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              Most clients see positive ROI within 30-60 days. Typical benefits include 30-50% reduction in operational
+              costs, 25-40% improvement in decision-making speed, and 20-35% increase in revenue through optimized
+              strategies. The exact ROI depends on your use case, but our AI executives are designed to pay for
+              themselves quickly through efficiency gains and strategic improvements.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-7" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              Do I need technical expertise to manage AI executives?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              No technical expertise is required for day-to-day management. AI executives are designed with intuitive
+              interfaces that business users can easily navigate. You communicate with them in natural language, set
+              objectives through simple forms, and monitor performance through visual dashboards. Our team handles all
+              technical maintenance and updates.
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-8" className="bg-card/50 backdrop-blur-sm rounded-lg border px-6">
+            <AccordionTrigger className="text-left hover:no-underline">
+              What happens if an AI executive makes a mistake?
+            </AccordionTrigger>
+            <AccordionContent className="text-muted-foreground leading-relaxed">
+              AI executives include built-in safeguards and learning mechanisms. All actions are logged and can be
+              reviewed or reversed if needed. They learn from mistakes and adjust their decision-making accordingly. You
+              can set approval workflows for high-impact decisions and configure alerts for unusual activities. We also
+              provide 24/7 monitoring and support to address any issues quickly.
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </section>
   )
