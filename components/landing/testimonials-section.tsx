@@ -2,103 +2,103 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Quote } from "lucide-react"
 
-export function TestimonialsSection() {
-  const testimonials = [
-    {
-      name: "María González",
-      role: "Directora de Marketing",
-      company: "TechStart Chile",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "Neuralia transformó completamente nuestra atención al cliente. Nuestro agente IA maneja el 80% de las consultas automáticamente, y la satisfacción del cliente aumentó un 35%.",
-      results: "35% ↑ Satisfacción del cliente",
-    },
-    {
-      name: "Carlos Mendoza",
-      role: "CEO",
-      company: "AgroTech Solutions",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "El agente de análisis de suelos ha revolucionado cómo nuestros clientes agricultores toman decisiones. Procesamos 10x más consultas con la misma calidad de respuesta.",
-      results: "10x más consultas procesadas",
-    },
-    {
-      name: "Ana Rodríguez",
-      role: "Head of HR",
-      company: "Innovate Corp",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "El coaching de carrera con IA ha sido un game-changer para nuestros empleados. El 90% reporta mayor claridad en sus objetivos profesionales después de usar la plataforma.",
-      results: "90% mayor claridad profesional",
-    },
-    {
-      name: "Diego Silva",
-      role: "Director Académico",
-      company: "Language Institute",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "ParrotfyIA ha mejorado significativamente el engagement de nuestros estudiantes. Las sesiones de práctica aumentaron 300% y la retención de estudiantes subió al 85%.",
-      results: "300% ↑ Práctica de idiomas",
-    },
-    {
-      name: "Lucía Herrera",
-      role: "Operations Manager",
-      company: "E-commerce Plus",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "Implementamos Neuralia en 48 horas y vimos resultados inmediatos. Nuestro agente de ventas genera 40% más leads calificados que nuestro equipo anterior.",
-      results: "40% más leads calificados",
-    },
-    {
-      name: "Roberto Vega",
-      role: "CTO",
-      company: "FinTech Latam",
-      image: "/placeholder-user.jpg",
-      rating: 5,
-      text: "La seguridad y escalabilidad de Neuralia nos permitió desplegar agentes IA en toda la región. Procesamos 50,000 consultas diarias sin problemas.",
-      results: "50k consultas diarias",
-    },
-  ]
+const testimonials = [
+  {
+    name: "María González",
+    role: "CEO",
+    company: "EcoSolutions",
+    content:
+      "Neuralia transformed our customer service. Our AI agent handles 80% of inquiries automatically, improving response time by 300%.",
+    rating: 5,
+    metric: "300% faster responses",
+  },
+  {
+    name: "Carlos Mendoza",
+    role: "Operations Director",
+    company: "TechStart",
+    content:
+      "The no-code platform allowed us to deploy our first AI agent in just 2 hours. The ROI was immediate and substantial.",
+    rating: 5,
+    metric: "2 hours to deployment",
+  },
+  {
+    name: "Ana Rodríguez",
+    role: "HR Manager",
+    company: "GlobalCorp",
+    content:
+      "Our recruitment AI agent screens candidates 24/7, reducing hiring time by 60% while improving candidate quality.",
+    rating: 5,
+    metric: "60% faster hiring",
+  },
+  {
+    name: "Diego Fernández",
+    role: "Sales Manager",
+    company: "SalesForce Pro",
+    content:
+      "Lead qualification improved dramatically. Our AI agent identifies high-value prospects with 95% accuracy.",
+    rating: 5,
+    metric: "95% accuracy rate",
+  },
+  {
+    name: "Lucía Martín",
+    role: "Customer Success",
+    company: "ServiceFirst",
+    content: "Customer satisfaction scores increased by 40% after implementing our multilingual support agent.",
+    rating: 5,
+    metric: "40% higher satisfaction",
+  },
+  {
+    name: "Roberto Silva",
+    role: "CTO",
+    company: "InnovaTech",
+    content:
+      "The integration capabilities are outstanding. Our agent connects seamlessly with all our existing systems.",
+    rating: 5,
+    metric: "100% system integration",
+  },
+]
 
+export function TestimonialsSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-blue-600">Testimonios</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Lo que dicen nuestros clientes
-          </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Empresas de toda Latinoamérica confían en Neuralia para transformar sus operaciones con IA
+    <section className="py-24 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Trusted by Industry Leaders</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Join thousands of companies that have transformed their operations with Neuralia AI agents
           </p>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow">
+            <Card
+              key={index}
+              className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white"
+            >
               <CardContent className="p-6">
-                <div className="flex items-center gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <Quote className="h-6 w-6 text-gray-300" />
+                  </div>
 
-                <Quote className="h-8 w-8 text-blue-600 mb-4" />
+                  <p className="text-gray-700 text-base leading-relaxed">"{testimonial.content}"</p>
 
-                <blockquote className="text-gray-700 mb-6">"{testimonial.text}"</blockquote>
-
-                <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-100">{testimonial.results}</Badge>
-
-                <div className="flex items-center gap-3">
-                  <img
-                    src={testimonial.image || "/placeholder.svg"}
-                    alt={testimonial.name}
-                    className="h-10 w-10 rounded-full object-cover"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                    <p className="text-sm text-blue-600 font-medium">{testimonial.company}</p>
+                  <div className="border-t pt-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                        <p className="text-sm text-gray-600">{testimonial.role}</p>
+                        <p className="text-sm font-medium text-indigo-600">{testimonial.company}</p>
+                      </div>
+                      <Badge variant="secondary" className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800">
+                        {testimonial.metric}
+                      </Badge>
+                    </div>
                   </div>
                 </div>
               </CardContent>

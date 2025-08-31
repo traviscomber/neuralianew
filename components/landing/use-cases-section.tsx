@@ -4,300 +4,210 @@ import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MessageCircle, Send, User, Bot } from "lucide-react"
+import { MessageCircle, User, Bot } from "lucide-react"
+
+const useCases = [
+  {
+    id: "ecosuelo",
+    title: "EcosueloLab",
+    description: "Environmental consulting and sustainability solutions",
+    color: "emerald",
+    messages: [
+      { type: "user", content: "¿Cómo puedo reducir la huella de carbono de mi empresa?" },
+      {
+        type: "bot",
+        content:
+          "Te ayudo a crear un plan de sostenibilidad personalizado. Primero, analicemos tus principales fuentes de emisiones...",
+      },
+      { type: "user", content: "Tenemos oficinas en 3 ciudades y una flota de 50 vehículos" },
+      {
+        type: "bot",
+        content:
+          "Perfecto. Para oficinas, recomiendo auditoría energética y transición a renovables. Para la flota, evaluemos vehículos eléctricos...",
+      },
+    ],
+  },
+  {
+    id: "carrera",
+    title: "Despega tu Carrera",
+    description: "Career coaching and professional development platform",
+    color: "blue",
+    messages: [
+      { type: "user", content: "Quiero cambiar de carrera pero no sé por dónde empezar" },
+      {
+        type: "bot",
+        content: "¡Excelente decisión! Vamos a explorar tus intereses y habilidades. ¿Qué te motiva más en el trabajo?",
+      },
+      { type: "user", content: "Me gusta resolver problemas y trabajar con tecnología" },
+      {
+        type: "bot",
+        content:
+          "Perfecto perfil para tech. Te sugiero explorar: Desarrollo de Software, Data Science, o UX Design. ¿Cuál te llama más la atención?",
+      },
+    ],
+  },
+  {
+    id: "parrotfy",
+    title: "ParrotfyIA",
+    description: "AI-powered language learning and pronunciation coach",
+    color: "purple",
+    messages: [
+      { type: "user", content: "I want to improve my English pronunciation" },
+      {
+        type: "bot",
+        content:
+          "Great! I'll help you master English pronunciation. Let's start with common problem areas. Say: 'The weather is beautiful today'",
+      },
+      { type: "user", content: "Ze wezer is byutiful today" },
+      {
+        type: "bot",
+        content:
+          "Good effort! Focus on 'th' sound in 'The' and 'weather'. Try: 'Thuh weather'. Put your tongue between your teeth.",
+      },
+    ],
+  },
+]
 
 export function UseCasesSection() {
   const [activeTab, setActiveTab] = useState("ecosuelo")
-  const [messages, setMessages] = useState<{
-    [key: string]: Array<{ id: string; text: string; sender: "user" | "bot"; timestamp: Date }>
-  }>({
-    ecosuelo: [],
-    carrera: [],
-    parrotfy: [],
-  })
-  const [isTyping, setIsTyping] = useState<{ [key: string]: boolean }>({
-    ecosuelo: false,
-    carrera: false,
-    parrotfy: false,
-  })
-
-  const useCases = {
-    ecosuelo: {
-      title: "EcosueloLab",
-      subtitle: "Análisis de Suelos con IA",
-      description:
-        "Agente especializado en análisis de suelos agrícolas que proporciona recomendaciones personalizadas para optimizar cultivos",
-      color: "from-emerald-500 to-teal-600",
-      bgColor: "bg-emerald-50",
-      borderColor: "border-emerald-200",
-      conversation: [
-        { text: "¡Hola! Soy EcosueloBot 🌱 ¿En qué puedo ayudarte con tu análisis de suelos?", sender: "bot" as const },
-        {
-          text: "Necesito analizar el suelo de mi campo de maíz. Los resultados muestran pH 6.2 y baja materia orgánica",
-          sender: "user" as const,
-        },
-        {
-          text: "Perfecto! Con pH 6.2 estás en un rango bueno para maíz. Para la materia orgánica baja, te recomiendo:\n\n🌾 Incorporar compost orgánico (2-3 ton/ha)\n🍂 Cultivos de cobertura en rotación\n📊 Análisis de micronutrientes\n\n¿Qué superficie vas a trabajar?",
-          sender: "bot" as const,
-        },
-        { text: "Son 15 hectáreas. ¿Cuánto me costaría el tratamiento?", sender: "user" as const },
-        {
-          text: "Para 15 hectáreas necesitarías:\n\n💰 Compost: $45,000 - $67,500\n🌱 Semillas cobertura: $15,000\n⚗️ Análisis adicional: $8,500\n\n📈 ROI esperado: 25-35% en primera cosecha\n🎯 ¿Te interesa un plan personalizado?",
-          sender: "bot" as const,
-        },
-      ],
-    },
-    carrera: {
-      title: "Despega tu Carrera",
-      subtitle: "Coaching Profesional IA",
-      description:
-        "Agente de coaching profesional que guía a usuarios en su desarrollo de carrera y búsqueda de empleo",
-      color: "from-blue-500 to-indigo-600",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
-      conversation: [
-        {
-          text: "¡Hola! Soy tu Coach de Carrera IA 🚀 Estoy aquí para ayudarte a impulsar tu desarrollo profesional",
-          sender: "bot" as const,
-        },
-        {
-          text: "Hola, soy ingeniero en sistemas con 3 años de experiencia pero siento que mi carrera está estancada",
-          sender: "user" as const,
-        },
-        {
-          text: "Entiendo perfectamente esa sensación. Es muy común a los 3 años de experiencia. Vamos a trabajar juntos para desbloquearte 💪\n\n¿Podrías contarme:\n🎯 ¿Cuál es tu rol actual?\n📈 ¿Qué tipo de crecimiento buscas?\n💡 ¿Hay alguna tecnología que te emocione?",
-          sender: "bot" as const,
-        },
-        {
-          text: "Trabajo como desarrollador full-stack en una startup. Me gustaría liderar proyectos y el área de machine learning me llama mucho la atención",
-          sender: "user" as const,
-        },
-        {
-          text: "¡Excelente combinación! Full-stack + ML es muy demandado 🔥\n\nTe propongo este roadmap:\n\n🎓 **Próximos 3 meses:**\n- Curso de ML fundamentals\n- Proyecto personal con ML\n- Proponer iniciativa ML en tu startup\n\n👥 **Liderazgo:**\n- Mentoría a junior developers\n- Liderar feature completa\n\n¿Por cuál empezarías?",
-          sender: "bot" as const,
-        },
-      ],
-    },
-    parrotfy: {
-      title: "ParrotfyIA",
-      subtitle: "Aprendizaje de Idiomas IA",
-      description:
-        "Agente conversacional para práctica de idiomas con corrección en tiempo real y ejercicios personalizados",
-      color: "from-purple-500 to-pink-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
-      conversation: [
-        {
-          text: "Hello! I'm ParrotfyIA 🦜 Your AI language learning companion. Ready to practice English?",
-          sender: "bot" as const,
-        },
-        {
-          text: "Hi! Yes, I want to practice my English. I'm preparing for a job interview next week",
-          sender: "user" as const,
-        },
-        {
-          text: "Perfect! Job interview practice is one of my specialties 💼\n\nLet's start with some common questions. I'll give you feedback on:\n✅ Grammar & vocabulary\n🗣️ Pronunciation tips\n💡 Professional expressions\n\nTell me: What position are you applying for?",
-          sender: "bot" as const,
-        },
-        { text: "I'm applying for a marketing manager position at a tech company", sender: "user" as const },
-        {
-          text: "Excellent! Let's practice 🎯\n\n**Mock Interview Question:**\n\"Tell me about a successful marketing campaign you've led and what made it effective.\"\n\n💡 **Tips before you answer:**\n- Use the STAR method (Situation, Task, Action, Result)\n- Include specific metrics\n- Show leadership skills\n\nGo ahead, I'm listening! 🎤",
-          sender: "bot" as const,
-        },
-      ],
-    },
-  }
-
-  const simulateConversation = (tabKey: string) => {
-    const conversation = useCases[tabKey as keyof typeof useCases].conversation
-    setMessages((prev) => ({ ...prev, [tabKey]: [] }))
-
-    conversation.forEach((msg, index) => {
-      setTimeout(() => {
-        if (msg.sender === "bot") {
-          setIsTyping((prev) => ({ ...prev, [tabKey]: true }))
-          setTimeout(() => {
-            setMessages((prev) => ({
-              ...prev,
-              [tabKey]: [
-                ...prev[tabKey],
-                {
-                  id: `${tabKey}-${index}`,
-                  text: msg.text,
-                  sender: msg.sender,
-                  timestamp: new Date(),
-                },
-              ],
-            }))
-            setIsTyping((prev) => ({ ...prev, [tabKey]: false }))
-          }, 1500)
-        } else {
-          setMessages((prev) => ({
-            ...prev,
-            [tabKey]: [
-              ...prev[tabKey],
-              {
-                id: `${tabKey}-${index}`,
-                text: msg.text,
-                sender: msg.sender,
-                timestamp: new Date(),
-              },
-            ],
-          }))
-        }
-      }, index * 3000)
-    })
-  }
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
 
   useEffect(() => {
-    simulateConversation(activeTab)
+    const interval = setInterval(() => {
+      const currentUseCase = useCases.find((uc) => uc.id === activeTab)
+      if (currentUseCase) {
+        setCurrentMessageIndex((prev) => (prev >= currentUseCase.messages.length - 1 ? 0 : prev + 1))
+      }
+    }, 3000)
+
+    return () => clearInterval(interval)
   }, [activeTab])
 
+  useEffect(() => {
+    setCurrentMessageIndex(0)
+  }, [activeTab])
+
+  const getColorClasses = (color: string) => {
+    switch (color) {
+      case "emerald":
+        return {
+          bg: "bg-gradient-to-br from-emerald-500 to-teal-600",
+          border: "border-emerald-200",
+          text: "text-emerald-700",
+          badge: "bg-emerald-100 text-emerald-800",
+        }
+      case "blue":
+        return {
+          bg: "bg-gradient-to-br from-blue-500 to-indigo-600",
+          border: "border-blue-200",
+          text: "text-blue-700",
+          badge: "bg-blue-100 text-blue-800",
+        }
+      case "purple":
+        return {
+          bg: "bg-gradient-to-br from-purple-500 to-pink-600",
+          border: "border-purple-200",
+          text: "text-purple-700",
+          badge: "bg-purple-100 text-purple-800",
+        }
+      default:
+        return {
+          bg: "bg-gradient-to-br from-gray-500 to-gray-600",
+          border: "border-gray-200",
+          text: "text-gray-700",
+          badge: "bg-gray-100 text-gray-800",
+        }
+    }
+  }
+
   return (
-    <section className="py-24 sm:py-32 bg-gray-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-blue-600">Casos de Uso</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Agentes IA en acción</p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Descubre cómo nuestros agentes IA están transformando diferentes industrias con conversaciones reales
+    <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Real Success Stories</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            See how our AI agents are transforming businesses across different industries
           </p>
         </div>
 
-        <div className="mt-16">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger
-                value="ecosuelo"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-teal-600 data-[state=active]:text-white"
-              >
-                EcosueloLab
-              </TabsTrigger>
-              <TabsTrigger
-                value="carrera"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-600 data-[state=active]:text-white"
-              >
-                Despega tu Carrera
-              </TabsTrigger>
-              <TabsTrigger
-                value="parrotfy"
-                className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-600 data-[state=active]:text-white"
-              >
-                ParrotfyIA
-              </TabsTrigger>
-            </TabsList>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            {useCases.map((useCase) => {
+              const colors = getColorClasses(useCase.color)
+              return (
+                <TabsTrigger
+                  key={useCase.id}
+                  value={useCase.id}
+                  className={`data-[state=active]:${colors.bg} data-[state=active]:text-white`}
+                >
+                  {useCase.title}
+                </TabsTrigger>
+              )
+            })}
+          </TabsList>
 
-            {Object.entries(useCases).map(([key, useCase]) => (
-              <TabsContent key={key} value={key}>
+          {useCases.map((useCase) => {
+            const colors = getColorClasses(useCase.color)
+            return (
+              <TabsContent key={useCase.id} value={useCase.id} className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <Card className={`${useCase.bgColor} ${useCase.borderColor} border-2`}>
+                  <Card className={`${colors.border} border-2`}>
                     <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className={`h-3 w-3 rounded-full bg-gradient-to-r ${useCase.color}`} />
-                        <Badge className={`bg-gradient-to-r ${useCase.color} text-white`}>En vivo</Badge>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <h3 className={`text-2xl font-bold ${colors.text}`}>{useCase.title}</h3>
+                          <Badge className={colors.badge}>Live Demo</Badge>
+                        </div>
+                        <p className="text-gray-600 text-lg">{useCase.description}</p>
+                        <div className="flex items-center space-x-2 text-sm text-gray-500">
+                          <MessageCircle className="h-4 w-4" />
+                          <span>Auto-cycling conversation demo</span>
+                        </div>
                       </div>
-
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{useCase.title}</h3>
-                      <p className="text-lg text-gray-600 mb-4">{useCase.subtitle}</p>
-                      <p className="text-gray-700">{useCase.description}</p>
                     </CardContent>
                   </Card>
 
                   <Card className="bg-white shadow-lg">
-                    <CardContent className="p-0">
-                      <div className={`bg-gradient-to-r ${useCase.color} p-4 text-white`}>
-                        <div className="flex items-center gap-2">
-                          <MessageCircle className="h-5 w-5" />
-                          <span className="font-semibold">Chat en vivo</span>
-                          <div className="ml-auto flex items-center gap-1">
-                            <div className="h-2 w-2 bg-green-400 rounded-full animate-pulse" />
-                            <span className="text-sm">Conectado</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="h-96 overflow-y-auto p-4 space-y-4">
-                        {messages[key]?.map((message) => (
+                    <CardContent className="p-6">
+                      <div className="space-y-4 h-80 overflow-y-auto">
+                        {useCase.messages.slice(0, currentMessageIndex + 1).map((message, index) => (
                           <div
-                            key={message.id}
-                            className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                            key={index}
+                            className={`flex items-start space-x-3 ${
+                              message.type === "user" ? "justify-end" : "justify-start"
+                            }`}
                           >
-                            <div
-                              className={`flex items-start gap-2 max-w-[80%] ${message.sender === "user" ? "flex-row-reverse" : ""}`}
-                            >
+                            {message.type === "bot" && (
                               <div
-                                className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                                  message.sender === "user" ? "bg-gray-200" : `bg-gradient-to-r ${useCase.color}`
-                                }`}
-                              >
-                                {message.sender === "user" ? (
-                                  <User className="h-4 w-4 text-gray-600" />
-                                ) : (
-                                  <Bot className="h-4 w-4 text-white" />
-                                )}
-                              </div>
-                              <div
-                                className={`rounded-lg p-3 ${
-                                  message.sender === "user"
-                                    ? "bg-gray-100 text-gray-900"
-                                    : "bg-white border shadow-sm text-gray-900"
-                                }`}
-                              >
-                                <p className="text-sm whitespace-pre-line">{message.text}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-
-                        {isTyping[key] && (
-                          <div className="flex justify-start">
-                            <div className="flex items-start gap-2">
-                              <div
-                                className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-r ${useCase.color}`}
+                                className={`w-8 h-8 ${colors.bg} rounded-full flex items-center justify-center flex-shrink-0`}
                               >
                                 <Bot className="h-4 w-4 text-white" />
                               </div>
-                              <div className="bg-white border shadow-sm rounded-lg p-3">
-                                <div className="flex space-x-1">
-                                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                                  <div
-                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                    style={{ animationDelay: "0.1s" }}
-                                  />
-                                  <div
-                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                    style={{ animationDelay: "0.2s" }}
-                                  />
-                                </div>
-                              </div>
+                            )}
+                            <div
+                              className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                                message.type === "user"
+                                  ? "bg-gray-100 text-gray-900"
+                                  : "bg-white border-2 " + colors.border
+                              }`}
+                            >
+                              <p className="text-sm">{message.content}</p>
                             </div>
+                            {message.type === "user" && (
+                              <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                                <User className="h-4 w-4 text-white" />
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-
-                      <div className="border-t p-4">
-                        <div className="flex items-center gap-2 text-gray-400">
-                          <input
-                            type="text"
-                            placeholder="Escribe tu mensaje..."
-                            className="flex-1 p-2 border rounded-lg text-sm"
-                            disabled
-                          />
-                          <button className="p-2 text-gray-400" disabled>
-                            <Send className="h-4 w-4" />
-                          </button>
-                        </div>
-                        <p className="text-xs text-gray-500 mt-2 text-center">
-                          Demo en vivo - Los mensajes se generan automáticamente
-                        </p>
+                        ))}
                       </div>
                     </CardContent>
                   </Card>
                 </div>
               </TabsContent>
-            ))}
-          </Tabs>
-        </div>
+            )
+          })}
+        </Tabs>
       </div>
     </section>
   )

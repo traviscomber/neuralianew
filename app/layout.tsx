@@ -6,8 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Agentes IA Inteligentes",
-  description: "Plataforma de agentes de IA para transformar tu negocio",
+  title: "Neuralia - AI Agent Platform",
+  description: "Build, deploy, and manage AI agents with our comprehensive platform",
     generator: 'v0.app'
 }
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
+    <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   )
