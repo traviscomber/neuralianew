@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     serverActions: {
-      allowedOrigins: ["localhost:3000", "*.vercel.app"]
+      allowedOrigins: ['localhost:3000', '*.vercel.app']
     }
   },
   eslint: {
@@ -12,7 +12,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com'],
+    domains: ['placeholder.com', 'via.placeholder.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,6 +20,9 @@ const nextConfig = {
       },
     ],
     unoptimized: true,
+  },
+  env: {
+    CUSTOM_KEY: 'neuralia-vibe-coding',
   },
 }
 

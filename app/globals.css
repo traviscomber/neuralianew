@@ -60,58 +60,68 @@
 
 @layer components {
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
-  }
-
-  .gradient-border {
-    @apply relative overflow-hidden rounded-lg;
-  }
-
-  .gradient-border::before {
-    content: "";
-    @apply absolute inset-0 rounded-lg p-[1px] bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: xor;
-  }
-
-  .chat-message {
-    @apply animate-fade-in;
-    animation: fade-in 0.5s ease-out forwards;
-    opacity: 0;
-  }
-
-  .hero-stats {
-    @apply animate-bounce-in;
-    animation: bounce-in 0.6s ease-out forwards;
+    @apply bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent;
   }
 
   .feature-card {
-    @apply transition-all duration-300 hover:scale-105 hover:shadow-xl;
-    transition: all 0.3s ease;
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl;
   }
 
-  .feature-card:hover {
-    transform: translateY(-8px);
+  .hero-stats {
+    @apply animate-fade-in;
   }
 
-  .demo-container {
-    @apply bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800;
+  .chat-message {
+    @apply animate-slide-in;
+  }
+
+  .nav-link {
+    @apply relative transition-colors hover:text-blue-600;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-300;
+    content: "";
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-50 transition-all duration-300;
+  }
+
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -123,18 +133,63 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Loading animations */
-@keyframes shimmer {
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: calc(200px + 100%) 0;
+/* Focus styles for accessibility */
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200px 100%;
-  animation: shimmer 1.5s infinite;
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Neuralia brand colors */
+.neuralia-blue {
+  @apply text-blue-600;
+}
+
+.neuralia-purple {
+  @apply text-purple-600;
+}
+
+.neuralia-gradient {
+  @apply bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600;
+}
+
+/* Responsive text sizes */
+@media (max-width: 640px) {
+  .text-responsive-xl {
+    @apply text-2xl;
+  }
+  .text-responsive-2xl {
+    @apply text-3xl;
+  }
+  .text-responsive-3xl {
+    @apply text-4xl;
+  }
+}
+
+@media (min-width: 641px) {
+  .text-responsive-xl {
+    @apply text-xl;
+  }
+  .text-responsive-2xl {
+    @apply text-2xl;
+  }
+  .text-responsive-3xl {
+    @apply text-3xl;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
