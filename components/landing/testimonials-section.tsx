@@ -12,7 +12,7 @@ const testimonials = [
     role: "Agricultora",
     company: "Hacienda Verde",
     content:
-      "Necesitábamos una forma más rápida de obtener datos de nitrógeno e hidro de nuestros cultivos. EcosueloLab Bot toma la información desde nuestra API y la envía directamente por WhatsApp. Ahora podemos responder a nuestros agricultores inmediatamente cuando preguntan sobre el estado de su suelo. Es como tener un experto disponible las 24 horas para nuestros clientes. El resultado fue rápido y exitoso.",
+      "Necesitábamos una forma más rápida de obtener datos de nitrógeno e hidro de nuestros cultivos. EcosueloLab Bot toma la información desde nuestra API y la envía directamente por WhatsApp. Ahora podemos responder a nuestros agricultores inmediatamente cuando preguntan sobre el estado de su suelo. Es como tener un experto disponible las 24 horas para nuestros clientes. N3uralia cumplió exactamente lo que prometió.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
@@ -21,7 +21,7 @@ const testimonials = [
     role: "CEO",
     company: "Despega Tu Carrera",
     content:
-      "Buscábamos algo innovador para el crecimiento profesional y N3uralia nos sorprendió gratamente. Crearon un ecosistema de IA que no solo da consejos de carrera, sino que realmente entiende a cada persona. Es como tener un mentor personal que conoce perfectamente el mercado laboral. Nuestros usuarios nos dicen que sienten que alguien finalmente los comprende y los guía hacia donde realmente quieren llegar. El resultado fue rápido y exitoso.",
+      "Buscábamos algo innovador para el crecimiento profesional y N3uralia nos sorprendió gratamente. Crearon un ecosistema de IA que no solo da consejos de carrera, sino que realmente entiende a cada persona. Es como tener un mentor personal que conoce perfectamente el mercado laboral. Nuestros usuarios nos dicen que sienten que alguien finalmente los comprende y los guía hacia donde realmente quieren llegar. Superó nuestras expectativas completamente.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
@@ -30,7 +30,7 @@ const testimonials = [
     role: "Empresaria",
     company: "Consultora Independiente",
     content:
-      "Necesitábamos que alguien consultara los endpoints de nuestro ERP y nos entregara la información que pedíamos. N3uralia creó un agente que hace exactamente eso. Ahora cuando necesito datos de ventas, inventario o clientes, simplemente pregunto y el agente consulta la API y me entrega lo que solicité. Ya no tengo que navegar por el sistema o esperar reportes. El resultado fue rápido y exitoso.",
+      "Necesitábamos un agente conversacional de IA para nuestro ERP que pudiera entender nuestras consultas en lenguaje natural. N3uralia desarrolló exactamente lo que pedimos. Ahora puedo preguntarle al sistema sobre ventas, inventario o análisis de clientes como si fuera una conversación normal, y me entrega la información precisa que necesito. Ya no tengo que recordar comandos o navegar menús complicados. Fue una inversión que valió completamente la pena.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
