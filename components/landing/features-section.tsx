@@ -1,62 +1,62 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Brain, Code, Database, Globe, MessageSquare, Shield, Smartphone, TrendingUp, Zap } from "lucide-react"
+import { Brain, Code, Database, Globe, MessageSquare, Shield, Smartphone, Zap, BarChart3 } from "lucide-react"
 
 const features = [
   {
     icon: Brain,
-    title: "Advanced AI Models",
+    title: "AI-Powered Development",
     description:
-      "Leverage cutting-edge language models and machine learning algorithms to create intelligent, context-aware agents.",
-    badge: "GPT-4 Powered",
+      "Build intelligent agents with advanced machine learning capabilities and natural language processing.",
+    badge: "Core",
   },
   {
     icon: Code,
     title: "No-Code Builder",
-    description: "Build sophisticated AI agents without writing code using our intuitive drag-and-drop interface.",
-    badge: "Visual Editor",
+    description: "Create sophisticated AI workflows without writing a single line of code using our visual interface.",
+    badge: "Popular",
   },
   {
     icon: Database,
-    title: "Data Integration",
-    description: "Connect to any data source, API, or database to give your agents access to real-time information.",
-    badge: "100+ Integrations",
+    title: "Integrated Database",
+    description: "Store and manage your agent data with our built-in, scalable database solution.",
+    badge: "Essential",
+  },
+  {
+    icon: Globe,
+    title: "Multi-Platform Deploy",
+    description: "Deploy your agents across web, mobile, and API endpoints with one-click deployment.",
+    badge: "Pro",
   },
   {
     icon: MessageSquare,
-    title: "Multi-Channel Deploy",
-    description: "Deploy your agents across websites, mobile apps, WhatsApp, Slack, and more with one click.",
-    badge: "Omnichannel",
-  },
-  {
-    icon: TrendingUp,
-    title: "Analytics & Insights",
-    description: "Track performance, user interactions, and business impact with comprehensive analytics dashboards.",
-    badge: "Real-time",
+    title: "Conversational AI",
+    description: "Build natural, context-aware conversations with advanced dialogue management.",
+    badge: "Core",
   },
   {
     icon: Shield,
     title: "Enterprise Security",
-    description: "Bank-grade security with SOC 2 compliance, data encryption, and privacy controls.",
-    badge: "SOC 2 Certified",
-  },
-  {
-    icon: Zap,
-    title: "Auto-scaling",
-    description: "Handle millions of conversations simultaneously with our cloud-native infrastructure.",
-    badge: "99.9% Uptime",
-  },
-  {
-    icon: Globe,
-    title: "Global Deployment",
-    description: "Deploy agents worldwide with edge computing for ultra-low latency responses.",
-    badge: "50+ Regions",
+    description: "Bank-grade security with encryption, compliance, and audit trails built-in.",
+    badge: "Enterprise",
   },
   {
     icon: Smartphone,
-    title: "Mobile Optimized",
-    description: "Native mobile experiences with responsive design and offline capabilities.",
-    badge: "iOS & Android",
+    title: "Mobile Ready",
+    description: "Responsive design ensures your agents work perfectly on any device or platform.",
+    badge: "Standard",
+  },
+  {
+    icon: Zap,
+    title: "Real-time Processing",
+    description: "Lightning-fast response times with optimized processing and caching.",
+    badge: "Performance",
+  },
+  {
+    icon: BarChart3,
+    title: "Analytics Dashboard",
+    description: "Comprehensive insights into agent performance, user interactions, and business metrics.",
+    badge: "Insights",
   },
 ]
 
@@ -69,25 +69,31 @@ export function FeaturesSection() {
             Everything you need to build AI agents
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            From ideation to deployment, Neuralia provides all the tools and infrastructure needed to create powerful AI
-            agents that deliver real business value.
+            From development to deployment, our comprehensive platform provides all the tools and infrastructure you
+            need to create powerful AI agents.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-          <div className="grid max-w-xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature) => (
-              <Card key={feature.title} className="relative overflow-hidden">
-                <CardHeader>
+
+        <div className="mx-auto mt-16 max-w-6xl">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <Card
+                key={index}
+                className="relative overflow-hidden border-0 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
                       <feature.icon className="h-6 w-6 text-white" />
                     </div>
-                    <Badge variant="secondary">{feature.badge}</Badge>
+                    <Badge variant="secondary" className="text-xs">
+                      {feature.badge}
+                    </Badge>
                   </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base">{feature.description}</CardDescription>
+                  <CardDescription className="text-base leading-relaxed">{feature.description}</CardDescription>
                 </CardContent>
               </Card>
             ))}

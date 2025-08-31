@@ -1,61 +1,53 @@
 import type { Config } from "tailwindcss"
-import defaultConfig from "shadcn/ui/tailwind.config"
 
 const config: Config = {
-  ...defaultConfig,
-  content: [...defaultConfig.content, "./pages/**/*.{js,ts,jsx,tsx,mdx}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
-    ...defaultConfig.theme,
     extend: {
-      ...defaultConfig.theme.extend,
       colors: {
-        ...defaultConfig.theme.extend.colors,
-        border: "hsl(214.3 31.8% 91.4%)",
-        input: "hsl(214.3 31.8% 91.4%)",
-        ring: "hsl(222.2 84% 4.9%)",
-        background: "hsl(0 0% 100%)",
-        foreground: "hsl(222.2 84% 4.9%)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          ...defaultConfig.theme.extend.colors.primary,
-          DEFAULT: "hsl(222.2 47.4% 11.2%)",
-          foreground: "hsl(210 40% 98%)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          ...defaultConfig.theme.extend.colors.secondary,
-          DEFAULT: "hsl(210 40% 96%)",
-          foreground: "hsl(222.2 84% 4.9%)",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          ...defaultConfig.theme.extend.colors.destructive,
-          DEFAULT: "hsl(0 84.2% 60.2%)",
-          foreground: "hsl(210 40% 98%)",
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          ...defaultConfig.theme.extend.colors.muted,
-          DEFAULT: "hsl(210 40% 96%)",
-          foreground: "hsl(215.4 16.3% 46.9%)",
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          ...defaultConfig.theme.extend.colors.accent,
-          DEFAULT: "hsl(210 40% 96%)",
-          foreground: "hsl(222.2 84% 4.9%)",
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          ...defaultConfig.theme.extend.colors.popover,
-          DEFAULT: "hsl(0 0% 100%)",
-          foreground: "hsl(222.2 84% 4.9%)",
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          ...defaultConfig.theme.extend.colors.card,
-          DEFAULT: "hsl(0 0% 100%)",
-          foreground: "hsl(222.2 84% 4.9%)",
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
-        ...defaultConfig.theme.extend.borderRadius,
-        lg: "0.5rem",
-        md: "calc(0.5rem - 2px)",
-        sm: "calc(0.5rem - 4px)",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
@@ -73,7 +65,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [...defaultConfig.plugins, require("tailwindcss-animate")],
+  plugins: [],
 }
 
 export default config

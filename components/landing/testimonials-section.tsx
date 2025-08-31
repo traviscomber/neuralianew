@@ -4,57 +4,57 @@ import { Star } from "lucide-react"
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "CTO",
-    company: "TechFlow Solutions",
+    role: "CTO at TechFlow",
+    company: "TechFlow",
     content:
-      "Neuralia transformed our customer support. Our AI agent handles 80% of inquiries automatically, reducing response time from hours to seconds.",
+      "Neuralia transformed how we build AI solutions. We deployed our first agent in just 2 days and saw 40% improvement in customer satisfaction.",
     rating: 5,
-    metrics: "80% automation rate",
+    metrics: "40% ↑ Customer Satisfaction",
   },
   {
     name: "Marcus Rodriguez",
-    role: "Head of Operations",
-    company: "Global Logistics Inc",
-    content:
-      "The no-code builder made it incredibly easy to create agents for our supply chain. We've reduced manual processes by 60% in just 3 months.",
-    rating: 5,
-    metrics: "60% process reduction",
-  },
-  {
-    name: "Emily Watson",
-    role: "Marketing Director",
-    company: "GrowthLab",
-    content:
-      "Our lead qualification agent increased conversion rates by 45%. The analytics dashboard gives us insights we never had before.",
-    rating: 5,
-    metrics: "45% conversion increase",
-  },
-  {
-    name: "David Kim",
     role: "Product Manager",
     company: "InnovateCorp",
     content:
-      "Deploying across multiple channels was seamless. Our agent works perfectly on web, mobile, and WhatsApp with consistent performance.",
+      "The no-code builder is incredible. Our non-technical team members can now create sophisticated AI workflows without any programming knowledge.",
     rating: 5,
-    metrics: "Multi-channel deployment",
+    metrics: "3x Faster Development",
+  },
+  {
+    name: "Emily Watson",
+    role: "Startup Founder",
+    company: "GrowthLab",
+    content:
+      "From prototype to production in weeks, not months. Neuralia's platform gave us the competitive edge we needed to scale rapidly.",
+    rating: 5,
+    metrics: "60% Faster Time-to-Market",
+  },
+  {
+    name: "David Kim",
+    role: "AI Engineer",
+    company: "DataDriven",
+    content:
+      "The integrated analytics and real-time processing capabilities are outstanding. We can monitor and optimize our agents' performance effortlessly.",
+    rating: 5,
+    metrics: "99.9% Uptime Achieved",
   },
   {
     name: "Lisa Thompson",
-    role: "Customer Success Lead",
+    role: "Operations Director",
     company: "ServicePro",
     content:
-      "The enterprise security features gave us confidence to deploy company-wide. SOC 2 compliance was crucial for our industry.",
+      "Our customer service costs dropped by 50% while response times improved dramatically. The ROI has been phenomenal.",
     rating: 5,
-    metrics: "Enterprise-grade security",
+    metrics: "50% ↓ Support Costs",
   },
   {
     name: "Alex Johnson",
-    role: "Founder",
-    company: "StartupXYZ",
+    role: "Head of Innovation",
+    company: "FutureTech",
     content:
-      "As a startup, we needed something that could scale with us. Neuralia's infrastructure handled our 10x growth without any issues.",
+      "Neuralia's enterprise security features give us complete confidence. We can deploy AI agents knowing our data is fully protected.",
     rating: 5,
-    metrics: "10x scale handled",
+    metrics: "100% Compliance Met",
   },
 ]
 
@@ -63,37 +63,41 @@ export function TestimonialsSection() {
     <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Trusted by industry leaders</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Trusted by innovative teams</h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Companies of all sizes rely on Neuralia to build AI agents that deliver measurable business impact and
-            exceptional user experiences.
+            See how companies are transforming their operations with Neuralia's AI agent platform.
           </p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.name} className="bg-white shadow-lg hover:shadow-xl transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <blockquote className="text-gray-900 mb-6">
-                  <p>"{testimonial.content}"</p>
-                </blockquote>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
-                    <div className="text-sm text-gray-600">{testimonial.company}</div>
+
+        <div className="mx-auto mt-16 max-w-6xl">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.map((testimonial, index) => (
+              <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-blue-600">{testimonial.metrics}</div>
+
+                  <blockquote className="text-gray-900 mb-6">"{testimonial.content}"</blockquote>
+
+                  <div className="border-t pt-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                        <div className="text-sm text-gray-600">{testimonial.role}</div>
+                        <div className="text-sm text-gray-500">{testimonial.company}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-semibold text-green-600">{testimonial.metrics}</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>
