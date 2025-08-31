@@ -1,98 +1,95 @@
-"use client"
-
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp } from "lucide-react"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 const faqs = [
   {
-    question: "¿Qué es Neuralia y cómo funciona?",
+    question: "¿Qué hace diferente a Neuralia de otras plataformas de IA?",
     answer:
-      "Neuralia es un ecosistema completo de agentes de IA que permite a las empresas crear, desplegar y gestionar asistentes inteligentes. Nuestros agentes utilizan procesamiento de lenguaje natural avanzado para entender el contexto y proporcionar respuestas precisas y personalizadas.",
+      "Neuralia ofrece un ecosistema completo de IA copilotado por inteligencia artificial. Nuestros agentes no solo responden preguntas, sino que aprenden, se adaptan y toman decisiones autónomas. Además, proporcionamos infraestructura fullstack, desde el desarrollo hasta el despliegue y monitoreo.",
   },
   {
-    question: "¿Cuánto tiempo toma implementar un agente de IA?",
+    question: "¿Cómo funcionan los agentes IA especializados como EcosueloLab?",
     answer:
-      "La implementación típica toma entre 2-5 días dependiendo de la complejidad. Nuestro equipo de expertos te acompaña durante todo el proceso, desde la configuración inicial hasta la integración con tus sistemas existentes.",
+      "Nuestros agentes especializados están entrenados con datos específicos de cada industria. EcosueloLab, por ejemplo, utiliza bases de datos de análisis de suelos, patrones climáticos y técnicas agrícolas para proporcionar recomendaciones precisas y personalizadas para cada tipo de cultivo y región.",
   },
   {
-    question: "¿Los agentes pueden integrarse con nuestros sistemas actuales?",
+    question: "¿Puedo integrar los agentes IA con mis sistemas existentes?",
     answer:
-      "Sí, completamente. Ofrecemos APIs robustas y SDKs que permiten integración seamless con CRM, ERP, bases de datos, WhatsApp Business, y más de 50 plataformas populares. Nuestro equipo técnico te asiste en todo el proceso.",
+      "Absolutamente. Neuralia ofrece APIs robustas y conectores pre-construidos para integrar con CRM, ERP, bases de datos y sistemas de terceros. Nuestro equipo técnico te ayuda con la implementación para asegurar una integración perfecta.",
   },
   {
-    question: "¿Qué nivel de personalización ofrecen?",
+    question: "¿Qué nivel de personalización ofrecen para diferentes industrias?",
     answer:
-      "Personalización completa. Puedes configurar la personalidad del agente, el tono de comunicación, conocimiento específico de tu industria, flujos de conversación personalizados, y reglas de negocio específicas para tu empresa.",
+      "Ofrecemos personalización completa. Puedes entrenar agentes con tus propios datos, definir flujos de conversación específicos, integrar con tus sistemas y personalizar la interfaz. Tenemos plantillas para más de 20 industrias diferentes.",
   },
   {
-    question: "¿Cómo garantizan la seguridad de los datos?",
+    question: "¿Cómo garantizan la seguridad y privacidad de los datos?",
     answer:
-      "Implementamos seguridad de nivel bancario con cifrado end-to-end, cumplimiento con GDPR y LGPD, auditorías de seguridad regulares, y centros de datos certificados. Tus datos nunca se comparten y tienes control total sobre la información.",
+      "Implementamos cifrado de extremo a extremo, cumplimos con GDPR y SOC 2, y ofrecemos despliegues on-premise para máxima seguridad. Todos los datos se procesan de forma segura y nunca se comparten con terceros sin autorización explícita.",
   },
   {
-    question: "¿Qué soporte técnico incluye el servicio?",
+    question: "¿Cuánto tiempo toma implementar un agente IA personalizado?",
     answer:
-      "Soporte 24/7 en español, onboarding personalizado, capacitación para tu equipo, actualizaciones automáticas, monitoreo proactivo, y un customer success manager dedicado para empresas enterprise.",
+      "Con nuestras plantillas pre-construidas, puedes tener un agente básico funcionando en 24-48 horas. Para implementaciones personalizadas complejas, el tiempo típico es de 2-4 semanas, incluyendo entrenamiento, pruebas y despliegue.",
   },
   {
-    question: "¿Los agentes mejoran con el tiempo?",
+    question: "¿Ofrecen soporte técnico y mantenimiento continuo?",
     answer:
-      "Absolutamente. Nuestros agentes utilizan machine learning para aprender de cada interacción, mejorando continuamente su precisión y efectividad. También recibes reportes detallados sobre el rendimiento y sugerencias de optimización.",
+      "Sí, proporcionamos soporte 24/7, monitoreo proactivo, actualizaciones automáticas y un equipo dedicado de éxito del cliente. También ofrecemos capacitación para tu equipo y documentación completa.",
   },
   {
-    question: "¿Qué planes de precios están disponibles?",
+    question: "¿Cuáles son los costos y modelos de precios disponibles?",
     answer:
-      "Ofrecemos planes flexibles desde startups hasta enterprise: Plan Starter ($99/mes), Plan Professional ($299/mes), Plan Enterprise (personalizado). Todos incluyen soporte técnico y actualizaciones. Contáctanos para una cotización personalizada.",
+      "Ofrecemos planes flexibles desde $99/mes para startups hasta soluciones enterprise personalizadas. Los precios se basan en el número de conversaciones, usuarios activos y funcionalidades avanzadas. Contacta con nuestro equipo para una cotización personalizada.",
   },
 ]
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
-
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-orange-100 text-orange-700">FAQ</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Preguntas Frecuentes</h2>
+          <Badge className="mb-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white border-0">
+            Preguntas Frecuentes
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Resolvemos Todas
+            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent block">
+              Tus Dudas
+            </span>
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Resolvemos las dudas más comunes sobre nuestro ecosistema de agentes de IA y cómo pueden transformar tu
-            negocio.
+            Encuentra respuestas a las preguntas más comunes sobre nuestra plataforma de agentes IA y cómo pueden
+            transformar tu negocio.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
+        <Accordion type="single" collapsible className="w-full space-y-4">
           {faqs.map((faq, index) => (
-            <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-all duration-300">
-              <CardContent className="p-0">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                  {openIndex === index ? (
-                    <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                  )}
-                </button>
-
-                {openIndex === index && (
-                  <div className="px-6 pb-6">
-                    <div className="border-t pt-4">
-                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="border border-gray-200 rounded-lg px-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-purple-600 transition-colors duration-300">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 leading-relaxed pt-2">{faq.answer}</AccordionContent>
+            </AccordionItem>
           ))}
+        </Accordion>
+
+        <div className="mt-12 text-center">
+          <p className="text-gray-600 mb-4">¿No encuentras la respuesta que buscas?</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white">
+              Contactar Soporte
+            </Button>
+            <Button variant="outline" className="border-purple-600 text-purple-600 hover:bg-purple-50 bg-transparent">
+              Agendar Demo
+            </Button>
+          </div>
         </div>
       </div>
     </section>

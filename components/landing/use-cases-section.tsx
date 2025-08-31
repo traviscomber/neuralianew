@@ -1,73 +1,87 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MessageCircle, User, Bot } from "lucide-react"
-
-interface Message {
-  id: number
-  type: "user" | "bot"
-  content: string
-}
+import { MessageCircle, Leaf, GraduationCap, MessageSquare } from "lucide-react"
 
 const useCases = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    description: "Career coaching and professional development platform",
-    gradient: "from-emerald-500 to-teal-600",
+    subtitle: "Análisis de Suelos con IA",
+    icon: Leaf,
+    color: "emerald",
+    gradient: "from-emerald-500 to-green-600",
+    bgGradient: "from-emerald-50 to-green-50",
     messages: [
-      { type: "user", content: "Hola, necesito ayuda para encontrar trabajo en tecnología" },
+      { sender: "user", text: "Hola, necesito analizar mi suelo para cultivo de tomates" },
       {
-        type: "bot",
-        content: "¡Perfecto! Te ayudo a encontrar oportunidades en tech. ¿Cuál es tu experiencia actual?",
+        sender: "bot",
+        text: "¡Perfecto! Te ayudo con el análisis de suelo para tomates. ¿Podrías enviarme una foto del área de cultivo?",
       },
-      { type: "user", content: "Soy desarrollador junior con 1 año de experiencia en React" },
+      { sender: "user", text: "📸 [Imagen del terreno]" },
       {
-        type: "bot",
-        content:
-          "Excelente perfil. He encontrado 15 posiciones que coinciden con tu experiencia. Te recomiendo estas 3 empresas que están contratando activamente...",
+        sender: "bot",
+        text: "Excelente. Veo que es un suelo arcilloso. Para tomates recomiendo: pH 6.0-6.8, drenaje mejorado y materia orgánica. ¿Quieres el análisis completo?",
+      },
+      { sender: "user", text: "Sí, por favor" },
+      {
+        sender: "bot",
+        text: "📊 Análisis EcosueloLab:\n• Tipo: Arcilloso\n• pH recomendado: 6.2-6.5\n• Nutrientes: Agregar compost\n• Drenaje: Instalar surcos\n• Mejor época: Primavera",
       },
     ],
   },
   {
     id: "carrera",
     title: "Despega tu Carrera",
-    description: "Professional career acceleration and mentoring",
+    subtitle: "Coaching Profesional IA",
+    icon: GraduationCap,
+    color: "blue",
     gradient: "from-blue-500 to-indigo-600",
+    bgGradient: "from-blue-50 to-indigo-50",
     messages: [
-      { type: "user", content: "Quiero hacer una transición de marketing a product management" },
+      { sender: "user", text: "Hola, quiero cambiar de carrera pero no sé por dónde empezar" },
       {
-        type: "bot",
-        content:
-          "¡Excelente decisión! Product Management es un campo en crecimiento. ¿Qué experiencia tienes trabajando con equipos técnicos?",
+        sender: "bot",
+        text: "¡Hola! Me alegra que quieras dar este paso. Soy tu coach de carrera IA. ¿Qué área te interesa explorar?",
       },
-      { type: "user", content: "He colaborado con developers en campañas digitales por 3 años" },
+      { sender: "user", text: "Me gusta la tecnología, pero trabajo en marketing" },
       {
-        type: "bot",
-        content:
-          "Perfecto, esa experiencia es muy valiosa. Te sugiero este plan de 6 meses: 1) Certificación en Product Management, 2) Proyecto personal, 3) Networking...",
+        sender: "bot",
+        text: "Perfecto, hay muchas oportunidades en la intersección de marketing y tecnología. ¿Has considerado Marketing Digital, UX/UI, o Product Management?",
+      },
+      { sender: "user", text: "UX/UI me llama la atención" },
+      {
+        sender: "bot",
+        text: "¡Excelente elección! UX/UI tiene gran demanda. Te recomiendo:\n\n🎯 Plan de transición:\n• Curso de Figma (2 semanas)\n• Portfolio con 3 proyectos\n• Networking en LinkedIn\n• Aplicar a roles junior en 3 meses",
       },
     ],
   },
   {
     id: "parrotfy",
     title: "ParrotfyIA",
-    description: "AI-powered language learning and conversation practice",
-    gradient: "from-purple-500 to-pink-600",
+    subtitle: "Asistente de Idiomas IA",
+    icon: MessageSquare,
+    color: "purple",
+    gradient: "from-purple-500 to-violet-600",
+    bgGradient: "from-purple-50 to-violet-50",
     messages: [
-      { type: "user", content: "I want to practice my English conversation skills" },
+      { sender: "user", text: "Hi! I want to practice my English conversation skills" },
       {
-        type: "bot",
-        content: "Great! I'm here to help you improve your English. What topics would you like to discuss today?",
+        sender: "bot",
+        text: "Hello! I'm ParrotfyIA, your AI language assistant. I'd love to help you practice English! What topics interest you?",
       },
-      { type: "user", content: "Let's talk about technology and artificial intelligence" },
+      { sender: "user", text: "I'm preparing for a job interview" },
       {
-        type: "bot",
-        content:
-          "Excellent choice! AI is fascinating. What aspect of artificial intelligence interests you most? Machine learning, natural language processing, or perhaps robotics?",
+        sender: "bot",
+        text: "Great! Job interview practice is very important. Let's start with a common question: 'Tell me about yourself.' Try answering, and I'll give you feedback!",
+      },
+      { sender: "user", text: "I am software developer with 3 years experience in React and Node.js" },
+      {
+        sender: "bot",
+        text: "Good start! Here's my feedback:\n\n✅ Clear and concise\n💡 Suggestion: Add 'I am A software developer' and mention a specific achievement\n\n🎯 Try: 'I am a software developer with 3 years of experience in React and Node.js. I recently led a team project that increased app performance by 40%.'",
       },
     ],
   },
@@ -79,25 +93,29 @@ export function UseCasesSection() {
   const [isTyping, setIsTyping] = useState(false)
 
   useEffect(() => {
+    const currentUseCase = useCases.find((uc) => uc.id === activeTab)
+    if (!currentUseCase) return
+
     const interval = setInterval(() => {
-      const currentUseCase = useCases.find((uc) => uc.id === activeTab)
-      if (currentUseCase) {
-        if (currentMessageIndex < currentUseCase.messages.length - 1) {
+      setCurrentMessageIndex((prev) => {
+        if (prev < currentUseCase.messages.length - 1) {
           setIsTyping(true)
-          setTimeout(() => {
-            setCurrentMessageIndex((prev) => prev + 1)
-            setIsTyping(false)
-          }, 1000)
+          setTimeout(() => setIsTyping(false), 1000)
+          return prev + 1
         } else {
           // Reset to start
-          setCurrentMessageIndex(0)
+          setTimeout(() => {
+            setCurrentMessageIndex(0)
+          }, 2000)
+          return prev
         }
-      }
+      })
     }, 3000)
 
     return () => clearInterval(interval)
-  }, [activeTab, currentMessageIndex])
+  }, [activeTab])
 
+  // Reset message index when tab changes
   useEffect(() => {
     setCurrentMessageIndex(0)
   }, [activeTab])
@@ -105,82 +123,149 @@ export function UseCasesSection() {
   const currentUseCase = useCases.find((uc) => uc.id === activeTab)
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-700">Use Cases</Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Real-World Applications</h2>
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+            Casos de Uso Reales
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            Agentes IA en
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block">
+              Acción Real
+            </span>
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how our AI agents are transforming businesses across different industries with intelligent conversations
-            and automated solutions.
+            Descubre cómo nuestros agentes IA están transformando diferentes industrias con conversaciones inteligentes
+            y soluciones automatizadas.
           </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="max-w-6xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-gray-100 p-1 rounded-xl">
             {useCases.map((useCase) => (
               <TabsTrigger
                 key={useCase.id}
                 value={useCase.id}
-                className={`data-[state=active]:bg-gradient-to-r data-[state=active]:${useCase.gradient} data-[state=active]:text-white`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  activeTab === useCase.id
+                    ? `bg-gradient-to-r ${useCase.gradient} text-white shadow-lg`
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
               >
-                {useCase.title}
+                <useCase.icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{useCase.title}</span>
               </TabsTrigger>
             ))}
           </TabsList>
 
           {useCases.map((useCase) => (
-            <TabsContent key={useCase.id} value={useCase.id}>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-3xl font-bold mb-4">{useCase.title}</h3>
-                  <p className="text-lg text-gray-600 mb-6">{useCase.description}</p>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 bg-gradient-to-r ${useCase.gradient} rounded-lg text-white`}>
-                        <MessageCircle className="h-5 w-5" />
+            <TabsContent key={useCase.id} value={useCase.id} className="mt-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* Info Card */}
+                <Card className={`bg-gradient-to-br ${useCase.bgGradient} border-0 shadow-xl`}>
+                  <CardHeader className="pb-6">
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className={`p-3 rounded-xl bg-gradient-to-r ${useCase.gradient} text-white shadow-lg`}>
+                        <useCase.icon className="w-8 h-8" />
                       </div>
-                      <span className="font-medium">Intelligent Conversations</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 bg-gradient-to-r ${useCase.gradient} rounded-lg text-white`}>
-                        <Bot className="h-5 w-5" />
+                      <div>
+                        <CardTitle className="text-2xl font-bold text-gray-900">{useCase.title}</CardTitle>
+                        <p className="text-gray-600 font-medium">{useCase.subtitle}</p>
                       </div>
-                      <span className="font-medium">24/7 Availability</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 bg-gradient-to-r ${useCase.gradient} rounded-lg text-white`}>
-                        <User className="h-5 w-5" />
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {useCase.id === "ecosuelo" && (
+                      <div className="space-y-3">
+                        <p className="text-gray-700 leading-relaxed">
+                          Agente especializado en análisis de suelos que ayuda a agricultores y jardineros a optimizar
+                          sus cultivos mediante IA.
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-emerald-700">Análisis IA</div>
+                            <div className="text-sm text-gray-600">Suelos y nutrientes</div>
+                          </div>
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-emerald-700">Recomendaciones</div>
+                            <div className="text-sm text-gray-600">Personalizadas</div>
+                          </div>
+                        </div>
                       </div>
-                      <span className="font-medium">Personalized Experience</span>
-                    </div>
-                  </div>
-                </div>
+                    )}
+                    {useCase.id === "carrera" && (
+                      <div className="space-y-3">
+                        <p className="text-gray-700 leading-relaxed">
+                          Coach profesional IA que guía a personas en transiciones de carrera y desarrollo profesional
+                          con planes personalizados.
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-blue-700">Coaching IA</div>
+                            <div className="text-sm text-gray-600">Personalizado</div>
+                          </div>
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-blue-700">Plan de Carrera</div>
+                            <div className="text-sm text-gray-600">Paso a paso</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {useCase.id === "parrotfy" && (
+                      <div className="space-y-3">
+                        <p className="text-gray-700 leading-relaxed">
+                          Asistente de idiomas IA que mejora habilidades conversacionales con práctica interactiva y
+                          retroalimentación instantánea.
+                        </p>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-purple-700">Conversación IA</div>
+                            <div className="text-sm text-gray-600">Tiempo real</div>
+                          </div>
+                          <div className="bg-white/70 rounded-lg p-3">
+                            <div className="font-semibold text-purple-700">Feedback</div>
+                            <div className="text-sm text-gray-600">Instantáneo</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
 
-                <Card className="bg-white shadow-xl">
-                  <CardContent className="p-6">
-                    <div className="space-y-4 h-80 overflow-y-auto">
-                      {useCase.messages.slice(0, currentMessageIndex + 1).map((message, index) => (
+                {/* Chat Demo */}
+                <Card className="shadow-xl border-0 bg-white">
+                  <CardHeader className="border-b bg-gray-50">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${useCase.gradient}`}></div>
+                      <div className="font-semibold text-gray-900">{useCase.title}</div>
+                      <Badge variant="secondary" className="ml-auto">
+                        <MessageCircle className="w-3 h-3 mr-1" />
+                        En vivo
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="h-96 overflow-y-auto p-4 space-y-4">
+                      {currentUseCase?.messages.slice(0, currentMessageIndex + 1).map((message, index) => (
                         <div
                           key={index}
-                          className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+                          className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                         >
                           <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                              message.type === "user"
-                                ? "bg-blue-500 text-white"
+                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
+                              message.sender === "user"
+                                ? "bg-gray-200 text-gray-900"
                                 : `bg-gradient-to-r ${useCase.gradient} text-white`
-                            }`}
+                            } ${index === currentMessageIndex ? "animate-pulse" : ""}`}
                           >
-                            <p className="text-sm">{message.content}</p>
+                            <p className="text-sm whitespace-pre-line">{message.text}</p>
                           </div>
                         </div>
                       ))}
                       {isTyping && (
                         <div className="flex justify-start">
-                          <div
-                            className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg bg-gradient-to-r ${useCase.gradient} text-white`}
-                          >
+                          <div className={`bg-gradient-to-r ${useCase.gradient} text-white px-4 py-2 rounded-2xl`}>
                             <div className="flex space-x-1">
                               <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
                               <div
