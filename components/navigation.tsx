@@ -3,54 +3,73 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Menu, X, MessageCircle } from "lucide-react"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  const navItems = [
-    { name: "Inicio", href: "#" },
-    { name: "Casos de Éxito", href: "#success-cases" },
-    { name: "¿Por qué Neuralia?", href: "#features" },
-    { name: "Equipo", href: "#team" },
-    { name: "FAQ", href: "#faq" },
-  ]
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+    setIsMenuOpen(false)
+  }
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
+          {/* Logo */}
+          <button onClick={scrollToTop} className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">N</span>
+            </div>
+            <span className="text-xl font-bold text-gray-900 dark:text-white">Neuralia</span>
+          </button>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={scrollToTop}
-              className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
             >
-              Neuralia
+              Inicio
             </button>
-          </div>
+            <button
+              onClick={() => scrollToSection("features")}
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            >
+              Diferencias
+            </button>
+            <button
+              onClick={() => scrollToSection("success-cases")}
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            >
+              Casos de Éxito
+            </button>
+            <button
+              onClick={() => scrollToSection("team")}
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            >
+              Equipo
+            </button>
+            <button
+              onClick={() => scrollToSection("faq")}
+              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+            >
+              FAQ
+            </button>
 
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors"
-                  onClick={item.href === "#" ? scrollToTop : undefined}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
+            <ThemeToggle />
 
-          <div className="hidden md:block">
-            <Button asChild className="bg-green-600 hover:bg-green-700">
+            <Button asChild className="bg-green-600 hover:bg-green-700 text-white">
               <a
-                href="https://wa.me/56940946660?text=¡Hola!%20Me%20interesa%20implementar%20IA%20conversacional%20en%20mi%20negocio.%20¿Podrían%20contarme%20más%20sobre%20Neuralia?"
+                href="https://wa.me/56940946660"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2"
@@ -61,35 +80,53 @@ export function Navigation() {
             </Button>
           </div>
 
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 hover:text-purple-600 p-2">
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </Button>
           </div>
         </div>
 
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-purple-600 block px-3 py-2 text-base font-medium"
-                  onClick={() => {
-                    setIsOpen(false)
-                    if (item.href === "#") {
-                      scrollToTop()
-                    }
-                  }}
-                >
-                  {item.name}
-                </a>
-              ))}
-              <div className="pt-4">
-                <Button asChild className="w-full bg-green-600 hover:bg-green-700">
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              <button
+                onClick={scrollToTop}
+                className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              >
+                Inicio
+              </button>
+              <button
+                onClick={() => scrollToSection("features")}
+                className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              >
+                Diferencias
+              </button>
+              <button
+                onClick={() => scrollToSection("success-cases")}
+                className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              >
+                Casos de Éxito
+              </button>
+              <button
+                onClick={() => scrollToSection("team")}
+                className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              >
+                Equipo
+              </button>
+              <button
+                onClick={() => scrollToSection("faq")}
+                className="block w-full text-left px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
+              >
+                FAQ
+              </button>
+              <div className="px-3 py-2">
+                <Button asChild className="w-full bg-green-600 hover:bg-green-700 text-white">
                   <a
-                    href="https://wa.me/56940946660?text=¡Hola!%20Me%20interesa%20implementar%20IA%20conversacional%20en%20mi%20negocio.%20¿Podrían%20contarme%20más%20sobre%20Neuralia?"
+                    href="https://wa.me/56940946660"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center space-x-2"

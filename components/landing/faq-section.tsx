@@ -1,117 +1,82 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { HelpCircle } from "lucide-react"
-
-const faqs = [
-  {
-    question: "¿Qué hace diferente a Neuralia de otros chatbots?",
-    answer:
-      "No somos un chatbot genérico. Creamos sistemas de IA especializados que se integran completamente con tu negocio. Cada agente está entrenado específicamente para tu industria, conoce tu terminología y se conecta directamente con tus sistemas existentes.",
-  },
-  {
-    question: "¿Cómo funciona la integración con mis sistemas actuales?",
-    answer:
-      "Nuestros sistemas se conectan directamente con tus APIs, bases de datos y herramientas existentes. Por ejemplo, EcosueloLab se integra con APIs de análisis de suelo, Parrotfy con sistemas ERP, y todos pueden funcionar vía WhatsApp usando Twilio. No necesitas cambiar tu infraestructura.",
-  },
-  {
-    question: "¿Realmente tienen cobertura 24/7?",
-    answer:
-      "Sí. Tenemos ingenieros reales en Chile, Rusia, Vietnam y Singapur, más sistemas de IA que nunca duermen. Siempre hay alguien (humano o IA) monitoreando y trabajando en tu proyecto, sin importar la hora.",
-  },
-  {
-    question: "¿Qué tan rápido pueden implementar una solución?",
-    answer:
-      "Depende de la complejidad, pero típicamente entre 2-4 semanas para una implementación completa. Comenzamos con un análisis de tus necesidades, luego desarrollamos el agente especializado, lo integramos con tus sistemas y realizamos pruebas exhaustivas antes del lanzamiento.",
-  },
-  {
-    question: "¿Los sistemas aprenden y mejoran con el tiempo?",
-    answer:
-      "Absolutamente. Nuestros agentes de IA analizan cada conversación, aprenden de los patrones de uso y se optimizan continuamente. Además, nuestro equipo humano revisa el rendimiento regularmente y hace ajustes para mejorar la efectividad.",
-  },
-  {
-    question: "¿Qué tipo de soporte técnico ofrecen?",
-    answer:
-      "Ofrecemos soporte técnico completo con nuestro equipo global. Desde Chile manejamos desarrollo y soporte general, desde Rusia el backend y sistemas de IA, Vietnam se encarga del frontend y testing, y Singapur maneja DevOps y deployment. Siempre hay alguien disponible.",
-  },
-]
+import { Button } from "@/components/ui/button"
+import { MessageCircle } from "lucide-react"
 
 export function FAQSection() {
+  const faqs = [
+    {
+      question: "¿Qué incluye un sistema full stack de IA?",
+      answer:
+        "Incluye todo: frontend (interfaz de usuario), backend (lógica de negocio), base de datos, APIs, integración con sistemas existentes (CRM, ERP), agentes conversacionales, y monitoreo 24/7. Es una solución completa, no solo un chatbot.",
+    },
+    {
+      question: "¿Cómo se integra con nuestros sistemas actuales?",
+      answer:
+        "Nos conectamos directamente con tus sistemas existentes a través de APIs, webhooks, y conectores personalizados. Trabajamos con CRM (Salesforce, HubSpot), ERP (SAP, Oracle), bases de datos, WhatsApp Business API, y cualquier sistema que uses.",
+    },
+    {
+      question: "¿Cuánto tiempo toma implementar una solución?",
+      answer:
+        "Depende de la complejidad. Un agente conversacional básico: 1-2 semanas. Sistema completo con integraciones: 4-8 semanas. Proyectos enterprise complejos: 2-3 meses. Siempre con entregas incrementales.",
+    },
+    {
+      question: "¿Qué diferencia a Neuralia de otros proveedores de IA?",
+      answer:
+        "Somos full stack: no solo chatbots, sino sistemas completos. Tenemos equipo global 24/7 (humanos + IA). Integramos con sistemas reales, no soluciones aisladas. Y desarrollamos soluciones personalizadas, no plantillas genéricas.",
+    },
+    {
+      question: "¿Cómo funciona el soporte 24/7 global?",
+      answer:
+        "Tenemos ingenieros en 4 zonas horarias (Chile, Rusia, Vietnam, Singapur) más sistemas de IA monitoreando constantemente. Siempre hay alguien disponible para resolver problemas o hacer mejoras.",
+    },
+    {
+      question: "¿Cuáles son los costos de implementación?",
+      answer:
+        "Los costos varían según el alcance. Agente conversacional básico desde $2,000 USD. Sistemas full stack desde $10,000 USD. Proyectos enterprise desde $25,000 USD. Incluye desarrollo, implementación y 3 meses de soporte.",
+    },
+  ]
+
   return (
-    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
-          >
-            <HelpCircle className="w-4 h-4 mr-2" />
-            FAQ
-          </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            ¿Tienes{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">dudas?</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Respuestas a las preguntas más frecuentes sobre nuestros sistemas de IA conversacional empresarial.
+    <section id="faq" className="py-20 bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">¿Tienes dudas?</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-400">
+            Respuestas a las preguntas más frecuentes sobre nuestros sistemas de IA
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-white border-2 border-gray-100 rounded-lg px-6 hover:border-purple-200 transition-colors"
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        <Accordion type="single" collapsible className="space-y-4">
+          {faqs.map((faq, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400">
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">¿Tienes más preguntas?</h3>
-            <p className="text-gray-600 mb-6">
-              Nuestro equipo está disponible 24/7 para resolver cualquier duda específica sobre tu proyecto.
-            </p>
+        <div className="text-center mt-12">
+          <p className="text-gray-600 dark:text-gray-400 mb-6">¿Tienes más preguntas? Hablemos directamente</p>
+          <Button asChild size="lg" className="bg-green-600 hover:bg-green-700 text-white">
             <a
-              href="https://wa.me/56940946660?text=¡Hola!%20Tengo%20algunas%20preguntas%20sobre%20los%20sistemas%20de%20IA%20de%20Neuralia."
+              href="https://wa.me/56940946660"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="flex items-center space-x-2"
             >
-              <HelpCircle className="w-5 h-5" />
-              Pregúntanos por WhatsApp
+              <MessageCircle className="w-5 h-5" />
+              <span>Contactar por WhatsApp</span>
             </a>
-          </div>
-        </motion.div>
+          </Button>
+        </div>
       </div>
     </section>
   )
