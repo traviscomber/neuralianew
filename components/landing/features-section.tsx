@@ -1,86 +1,80 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Code, Database, Globe, MessageSquare, Shield, Zap, BarChart3, Workflow } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Brain, Code, Database, Globe, MessageSquare, Shield, Smartphone, Zap, BarChart3 } from "lucide-react"
 
 const features = [
   {
     icon: Brain,
     title: "Advanced AI Models",
-    description:
-      "Leverage cutting-edge language models and machine learning algorithms to create intelligent, context-aware agents.",
-    badge: "GPT-4 Powered",
+    description: "Leverage GPT-4, Claude, and custom models for intelligent conversations and decision-making.",
+    badge: "AI-Powered",
   },
   {
     icon: Code,
     title: "No-Code Builder",
-    description:
-      "Build sophisticated AI agents without writing a single line of code using our intuitive drag-and-drop interface.",
-    badge: "Visual Builder",
+    description: "Create sophisticated AI agents without writing a single line of code using our visual interface.",
+    badge: "Easy Setup",
   },
   {
     icon: Database,
-    title: "Smart Data Integration",
-    description:
-      "Connect to any data source, API, or database. Your agents learn from your data to provide accurate responses.",
-    badge: "Multi-Source",
-  },
-  {
-    icon: Globe,
-    title: "Multi-Language Support",
-    description:
-      "Deploy agents that communicate fluently in over 50 languages with automatic translation capabilities.",
-    badge: "50+ Languages",
+    title: "Smart Integrations",
+    description: "Connect to databases, APIs, CRMs, and 500+ tools to create powerful automated workflows.",
+    badge: "500+ Integrations",
   },
   {
     icon: MessageSquare,
-    title: "Omnichannel Deployment",
-    description: "Deploy your agents across web, mobile, WhatsApp, Slack, and more with a single configuration.",
-    badge: "All Platforms",
+    title: "Multi-Channel Deploy",
+    description: "Deploy your agents across WhatsApp, Slack, websites, mobile apps, and custom platforms.",
+    badge: "Omnichannel",
+  },
+  {
+    icon: BarChart3,
+    title: "Real-Time Analytics",
+    description: "Monitor performance, track conversations, and optimize your agents with detailed insights.",
+    badge: "Analytics",
   },
   {
     icon: Shield,
     title: "Enterprise Security",
-    description: "Bank-level encryption, SOC 2 compliance, and advanced access controls keep your data secure.",
-    badge: "SOC 2 Certified",
+    description: "Bank-level encryption, SOC2 compliance, and data privacy controls for peace of mind.",
+    badge: "Secure",
+  },
+  {
+    icon: Globe,
+    title: "Global Scale",
+    description: "Handle millions of conversations simultaneously with our distributed cloud infrastructure.",
+    badge: "Scalable",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile-First",
+    description: "Optimized for mobile experiences with responsive design and native app integrations.",
+    badge: "Mobile Ready",
   },
   {
     icon: Zap,
-    title: "Real-Time Learning",
-    description: "Agents continuously improve through interactions, becoming more accurate and helpful over time.",
-    badge: "Auto-Learning",
-  },
-  {
-    icon: BarChart3,
-    title: "Advanced Analytics",
-    description: "Comprehensive dashboards and insights to track performance, user satisfaction, and ROI.",
-    badge: "Full Analytics",
-  },
-  {
-    icon: Workflow,
-    title: "Workflow Automation",
-    description:
-      "Create complex workflows that trigger actions, send notifications, and integrate with your existing tools.",
-    badge: "Smart Automation",
+    title: "Lightning Fast",
+    description: "Sub-second response times with intelligent caching and optimized AI model routing.",
+    badge: "High Performance",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 sm:py-32 bg-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-base font-semibold leading-7 text-indigo-600">Everything you need</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Powerful features for modern AI agents
-          </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            From simple chatbots to complex AI assistants, our platform provides all the tools you need to build,
-            deploy, and scale intelligent agents.
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Everything you need to build AI agents
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-gray-600">
+            Our comprehensive platform provides all the tools, integrations, and infrastructure to create
+            production-ready AI agents that scale with your business.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-7xl">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          <div className="grid max-w-xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
             {features.map((feature, index) => (
               <Card
                 key={index}
@@ -88,17 +82,19 @@ export function FeaturesSection() {
               >
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
-                      <feature.icon className="h-5 w-5 text-white" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
+                      <feature.icon className="h-6 w-6 text-white" />
                     </div>
                     <Badge variant="secondary" className="text-xs">
                       {feature.badge}
                     </Badge>
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-gray-900">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-base leading-relaxed">{feature.description}</CardDescription>
+                  <CardDescription className="text-base text-gray-600 leading-relaxed">
+                    {feature.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             ))}

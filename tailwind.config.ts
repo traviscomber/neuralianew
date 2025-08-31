@@ -3,7 +3,7 @@ import defaultConfig from "shadcn/ui/tailwind.config"
 
 const config: Config = {
   ...defaultConfig,
-  content: [...defaultConfig.content, "./pages/**/*.{js,ts,jsx,tsx,mdx}", "*.{js,ts,jsx,tsx,mdx}"],
+  content: [...defaultConfig.content, "./pages/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     ...defaultConfig.theme,
     container: {
@@ -15,6 +15,11 @@ const config: Config = {
     },
     extend: {
       ...defaultConfig.theme.extend,
+      borderRadius: {
+        lg: "0.5rem",
+        md: "calc(0.5rem - 2px)",
+        sm: "calc(0.5rem - 4px)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -26,7 +31,6 @@ const config: Config = {
         },
       },
       animation: {
-        ...defaultConfig.theme.extend.animation,
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

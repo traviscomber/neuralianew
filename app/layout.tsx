@@ -6,8 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - AI Agent Platform",
-  description: "Build, deploy, and manage AI agents with our comprehensive platform",
+  title: "Neuralia - AI Agent Ecosystem",
+  description: "Build, deploy, and manage AI agents with our comprehensive ecosystem",
     generator: 'v0.app'
 }
 
