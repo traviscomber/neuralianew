@@ -1,62 +1,62 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Code, Database, Globe, MessageSquare, Shield, Smartphone, Zap, BarChart3 } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Brain, Code, Database, Globe, MessageSquare, Shield, Smartphone, TrendingUp, Zap } from "lucide-react"
 
 const features = [
   {
     icon: Brain,
-    title: "AI-Powered Development",
+    title: "Advanced AI Models",
     description:
-      "Build intelligent agents with advanced machine learning capabilities and natural language processing.",
-    badge: "Core",
+      "Leverage cutting-edge language models and machine learning algorithms to create intelligent, context-aware agents.",
+    badge: "GPT-4 Powered",
   },
   {
     icon: Code,
     title: "No-Code Builder",
-    description: "Create sophisticated AI workflows without writing a single line of code using our visual interface.",
-    badge: "Popular",
+    description: "Build sophisticated AI agents without writing code using our intuitive drag-and-drop interface.",
+    badge: "Visual Editor",
   },
   {
     icon: Database,
-    title: "Integrated Database",
-    description: "Built-in vector database and traditional storage solutions for seamless data management.",
-    badge: "Enterprise",
-  },
-  {
-    icon: Globe,
-    title: "Multi-Platform Deploy",
-    description: "Deploy your agents across web, mobile, and API endpoints with one-click deployment.",
-    badge: "Core",
+    title: "Data Integration",
+    description: "Connect to any data source, API, or database to give your agents access to real-time information.",
+    badge: "100+ Integrations",
   },
   {
     icon: MessageSquare,
-    title: "Conversational AI",
-    description: "Advanced chat capabilities with context awareness and multi-turn conversations.",
-    badge: "Popular",
+    title: "Multi-Channel Deploy",
+    description: "Deploy your agents across websites, mobile apps, WhatsApp, Slack, and more with one click.",
+    badge: "Omnichannel",
+  },
+  {
+    icon: TrendingUp,
+    title: "Analytics & Insights",
+    description: "Track performance, user interactions, and business impact with comprehensive analytics dashboards.",
+    badge: "Real-time",
   },
   {
     icon: Shield,
     title: "Enterprise Security",
-    description: "Bank-grade security with encryption, compliance, and audit trails built-in.",
-    badge: "Enterprise",
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile-First",
-    description: "Responsive design and native mobile apps ensure your agents work everywhere.",
-    badge: "Core",
+    description: "Bank-grade security with SOC 2 compliance, data encryption, and privacy controls.",
+    badge: "SOC 2 Certified",
   },
   {
     icon: Zap,
-    title: "Real-Time Processing",
-    description: "Lightning-fast response times with edge computing and optimized infrastructure.",
-    badge: "Performance",
+    title: "Auto-scaling",
+    description: "Handle millions of conversations simultaneously with our cloud-native infrastructure.",
+    badge: "99.9% Uptime",
   },
   {
-    icon: BarChart3,
-    title: "Analytics Dashboard",
-    description: "Comprehensive insights into agent performance, user interactions, and business metrics.",
-    badge: "Analytics",
+    icon: Globe,
+    title: "Global Deployment",
+    description: "Deploy agents worldwide with edge computing for ultra-low latency responses.",
+    badge: "50+ Regions",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile Optimized",
+    description: "Native mobile experiences with responsive design and offline capabilities.",
+    badge: "iOS & Android",
   },
 ]
 
@@ -69,28 +69,29 @@ export function FeaturesSection() {
             Everything you need to build AI agents
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Our comprehensive platform provides all the tools, infrastructure, and support you need to create
-            world-class AI experiences.
+            From ideation to deployment, Neuralia provides all the tools and infrastructure needed to create powerful AI
+            agents that deliver real business value.
           </p>
         </div>
-
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {features.map((feature, index) => (
-            <Card key={index} className="relative overflow-hidden">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600">
-                    <feature.icon className="h-5 w-5 text-white" />
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          <div className="grid max-w-xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
+            {features.map((feature) => (
+              <Card key={feature.title} className="relative overflow-hidden">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600">
+                      <feature.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <Badge variant="secondary">{feature.badge}</Badge>
                   </div>
-                  <Badge variant="secondary">{feature.badge}</Badge>
-                </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">{feature.description}</CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base">{feature.description}</CardDescription>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>

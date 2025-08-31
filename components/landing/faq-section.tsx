@@ -5,44 +5,44 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 
 const faqs = [
   {
-    question: "What makes Neuralia different from other AI platforms?",
+    question: "How quickly can I build and deploy an AI agent?",
     answer:
-      "Neuralia is a fullstack ecosystem specifically designed for AI agent development. Unlike generic AI tools, we provide end-to-end solutions including no-code builders, integrated databases, enterprise security, and deployment infrastructure - all copiloted by AI to accelerate your development process.",
+      "With Neuralia's no-code builder, you can create a basic AI agent in under 30 minutes. More complex agents with custom integrations typically take 1-3 days. Our templates and pre-built components accelerate development significantly.",
   },
   {
-    question: "Do I need coding experience to build AI agents?",
+    question: "What AI models does Neuralia support?",
     answer:
-      "Not at all! Our no-code visual builder allows anyone to create sophisticated AI agents through drag-and-drop interfaces. However, if you're a developer, you also have full access to APIs and custom code integration for advanced use cases.",
+      "We support all major language models including GPT-4, Claude, Gemini, and open-source alternatives like Llama. You can also bring your own fine-tuned models or use our model optimization tools to create custom solutions.",
   },
   {
-    question: "How secure is the Neuralia platform?",
+    question: "How does pricing work?",
     answer:
-      "Security is our top priority. We provide bank-grade encryption, SOC 2 compliance, GDPR compliance, and comprehensive audit trails. All data is encrypted in transit and at rest, with role-based access controls and enterprise-grade security monitoring.",
+      "We offer flexible pricing based on usage: Free tier for up to 1,000 conversations/month, Pro at $99/month for 10,000 conversations, and Enterprise with custom pricing for unlimited usage. All plans include core features with advanced capabilities in higher tiers.",
   },
   {
-    question: "What kind of support do you offer?",
+    question: "Is my data secure with Neuralia?",
     answer:
-      "We offer comprehensive support including 24/7 technical support for enterprise customers, extensive documentation, video tutorials, community forums, and dedicated customer success managers for larger deployments.",
+      "Absolutely. We're SOC 2 Type II certified with enterprise-grade security. All data is encrypted in transit and at rest, we offer private cloud deployments, and you maintain full control over your data with options for data residency compliance.",
   },
   {
-    question: "Can I integrate Neuralia with my existing systems?",
+    question: "Can I integrate with my existing systems?",
     answer:
-      "Neuralia provides robust APIs, webhooks, and pre-built integrations with popular tools like Salesforce, Slack, Microsoft Teams, and hundreds of other platforms. Our integration marketplace is constantly growing.",
+      "Yes! Neuralia offers 100+ pre-built integrations with popular tools like Salesforce, HubSpot, Slack, and more. We also provide REST APIs, webhooks, and custom integration support for any system you need to connect.",
   },
   {
-    question: "What are the pricing options?",
+    question: "What kind of support do you provide?",
     answer:
-      "We offer flexible pricing tiers including a free tier for getting started, professional plans for growing businesses, and enterprise solutions for large organizations. Pricing is based on usage, number of agents, and features needed.",
+      "We offer comprehensive support including documentation, video tutorials, community forums, and direct support. Enterprise customers get dedicated success managers, priority support, and custom training sessions.",
   },
   {
-    question: "How quickly can I deploy my first AI agent?",
+    question: "How does Neuralia handle multiple languages?",
     answer:
-      "With our no-code builder, you can have a basic AI agent running in minutes. More complex agents typically take a few hours to a few days, depending on your requirements. Our templates and pre-built components significantly accelerate development.",
+      "Our platform natively supports 50+ languages with automatic detection and translation capabilities. You can build multilingual agents that seamlessly switch between languages based on user preferences or geographic location.",
   },
   {
-    question: "What languages and regions do you support?",
+    question: "What's the difference between Neuralia and other AI platforms?",
     answer:
-      "Neuralia supports over 100 languages and can be deployed globally. We have data centers in North America, Europe, Asia-Pacific, and other regions to ensure low latency and compliance with local data regulations.",
+      "Neuralia is specifically designed for conversational AI agents with enterprise-grade infrastructure. Unlike general AI tools, we provide specialized features for agent deployment, conversation management, analytics, and scaling that are purpose-built for business applications.",
   },
 ]
 
@@ -57,13 +57,12 @@ export function FAQSection() {
     <section className="py-24 sm:py-32 bg-gray-50">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Frequently Asked Questions</h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Frequently asked questions</h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Everything you need to know about building AI agents with Neuralia.
+            Everything you need to know about building and deploying AI agents with Neuralia.
           </p>
         </div>
-
-        <div className="mx-auto mt-16 max-w-3xl">
+        <div className="mx-auto mt-16 max-w-4xl">
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -78,7 +77,6 @@ export function FAQSection() {
                     <ChevronDown className="h-5 w-5 text-gray-500" />
                   )}
                 </button>
-
                 {openIndex === index && (
                   <div className="px-6 pb-4">
                     <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
