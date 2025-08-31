@@ -1,156 +1,112 @@
 "use client"
 
-import { Zap, Mail, Phone, MapPin, Github, Twitter, Linkedin } from "lucide-react"
+import { Zap, Github, Twitter, Linkedin, Mail } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="col-span-1">
+    <footer className="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Zap className="h-8 w-8 text-blue-400" />
-              <span className="text-xl font-bold text-white">Neuralia</span>
+              <span className="text-2xl font-bold">Neuralia</span>
+              <span className="text-sm text-blue-400 font-medium">vibe coding</span>
             </div>
-            <p className="text-gray-400 mb-4">
-              Revolutionary AI solutions powered by vibe coding methodology. Transforming how businesses interact with
-              artificial intelligence.
+            <p className="text-gray-300 mb-6 max-w-md">
+              Build intelligent AI agents that understand context, emotion, and intent. Transform how your business
+              connects with users through vibe coding.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Twitter className="h-5 w-5" />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Github className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Linkedin className="h-5 w-5" />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Twitter className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors">
-                <Github className="h-5 w-5" />
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Linkedin className="h-6 w-6" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <Mail className="h-6 w-6" />
               </a>
             </div>
           </div>
 
-          {/* Products */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Vibe Coding Solutions</h3>
+            <h3 className="text-lg font-semibold mb-4">Product</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  EcosueloLab
+                <a href="#features" className="text-gray-300 hover:text-white transition-colors">
+                  Features
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  ParrotfyIA
+                <a href="#use-cases" className="text-gray-300 hover:text-white transition-colors">
+                  Use Cases
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Career Coach AI
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  Pricing
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Enterprise AI
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  API Docs
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Healthcare AI
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Education AI
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  Integrations
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
+            <h3 className="text-lg font-semibold mb-4">Company</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Vibe Coding Documentation
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  About
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  API Reference
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Case Studies
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Webinars
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                  Support Center
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                  Privacy
                 </a>
               </li>
             </ul>
           </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-white font-semibold mb-4">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">hello@neuralia.ai</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">San Francisco, CA</span>
-              </li>
-            </ul>
-            <div className="mt-6">
-              <h4 className="text-white font-medium mb-2">Vibe Coding Newsletter</h4>
-              <p className="text-gray-400 text-sm mb-3">Get the latest updates on vibe coding AI innovations</p>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 bg-slate-800 border border-slate-700 rounded-l-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
-                />
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg text-sm transition-colors">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8">
+        <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 Neuralia. All rights reserved. Powered by vibe coding methodology.
-            </div>
-            <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+            <p className="text-gray-400 text-sm">© 2024 Neuralia. All rights reserved. Powered by vibe coding.</p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Terms of Service
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
                 Cookie Policy
               </a>
             </div>

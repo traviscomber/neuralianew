@@ -1,62 +1,43 @@
-# Neuralia - Vibe Coding AI Solutions
+# Neuralia - Vibe Coding AI Platform
 
-Revolutionary AI solutions powered by our proprietary vibe coding methodology. Transform your business with intelligent systems that understand context, emotion, and human nuance.
+A modern landing page for Neuralia's vibe coding AI platform, showcasing intelligent AI agents that understand context, emotion, and intent.
 
-## 🚀 Features
+## Features
 
-- **Vibe Coding Methodology**: AI that understands emotional context and cultural nuances
-- **EcosueloLab**: Environmental intelligence platform
-- **ParrotfyIA**: Revolutionary language learning AI
-- **Career Coach AI**: Intelligent career guidance system
-- **Enterprise Solutions**: Business intelligence and automation
-- **Healthcare AI**: Empathetic patient care systems
-- **Educational AI**: Personalized learning experiences
+- **Auto-cycling Hero Demos** - Interactive demonstrations of EcosueloLab, ParrotfyIA, and Customer Service AI
+- **Vibe Coding Branding** - Consistent messaging about the intuitive AI development approach
+- **Responsive Design** - Optimized for all devices with smooth animations
+- **Interactive Chat Widget** - Live chat experience with bilingual support
+- **Modern UI** - Built with Next.js, Tailwind CSS, and Framer Motion
 
-## 🛠 Technology Stack
+## Getting Started
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, Framer Motion
-- **UI Components**: Radix UI, shadcn/ui
-- **Icons**: Lucide React
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
 
-## 🎯 Vibe Coding Methodology
+Open [http://localhost:3000](http://localhost:3000) to view the landing page.
 
-Our revolutionary vibe coding approach enables AI to:
-- Understand emotional context and sentiment
-- Adapt to cultural nuances and communication styles
-- Provide empathetic and contextually appropriate responses
-- Learn from human interaction patterns
-- Deliver more natural and effective AI experiences
+## Tech Stack
 
-## 🚀 Getting Started
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first styling
+- **Framer Motion** - Smooth animations
+- **Radix UI** - Accessible components
+- **Lucide React** - Beautiful icons
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-4. Open [http://localhost:3000](http://localhost:3000)
+## Deployment
 
-## 📦 Build and Deploy
+This project is configured for static export and can be deployed to any static hosting platform:
 
 \`\`\`bash
 npm run build
-npm start
 \`\`\`
 
-## 🌟 Use Cases
+The build output will be in the `out` directory.
 
-- **Environmental Monitoring**: Real-time ecological intelligence
-- **Language Learning**: Adaptive pronunciation and cultural coaching
-- **Career Development**: Personalized professional guidance
-- **Healthcare**: Empathetic patient interaction systems
-- **Education**: Emotionally intelligent learning platforms
-- **Enterprise**: Cultural-aware business automation
+## License
 
-## 📞 Contact
-
-- Email: hello@neuralia.ai
-- Website: [neuralia.ai](https://neuralia.ai)
-- Documentation: [docs.neuralia.ai](https://docs.neuralia.ai)
-
----
-
-Powered by vibe coding methodology - AI that truly understands humans.
+MIT License - see LICENSE file for details.

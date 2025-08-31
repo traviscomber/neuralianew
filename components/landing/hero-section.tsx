@@ -5,60 +5,72 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageSquare, TrendingUp, Zap, ArrowRight, Bot, Briefcase } from "lucide-react"
+import { Zap, MessageSquare, Brain, Code, Sparkles, Play, Users, TrendingUp, Globe } from "lucide-react"
 
 const demos = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    subtitle: "Environmental Intelligence",
-    icon: <TrendingUp className="h-6 w-6" />,
-    color: "from-green-500 to-emerald-600",
+    subtitle: "Career Coaching AI",
+    description: "AI-powered career guidance with emotional intelligence",
+    icon: <Users className="h-6 w-6" />,
+    gradient: "from-green-500 to-emerald-600",
     messages: [
-      { type: "user", text: "¿Cómo está el nivel de contaminación hoy?" },
+      { role: "user", content: "Necesito ayuda con mi carrera profesional" },
       {
-        type: "bot",
-        text: "Basado en nuestros sensores IoT, el índice de calidad del aire es 45 (Bueno). Recomiendo actividades al aire libre entre 10-16hrs.",
+        role: "assistant",
+        content:
+          "¡Hola! Soy tu coach de carrera de EcosueloLab. Entiendo que buscas orientación profesional. Cuéntame, ¿en qué área trabajas actualmente y qué desafíos estás enfrentando?",
       },
-      { type: "user", text: "¿Qué medidas preventivas sugiere?" },
+      { role: "user", content: "Trabajo en marketing pero quiero cambiar a tech" },
       {
-        type: "bot",
-        text: "Con vibe coding, he analizado patrones ambientales y sugiero: 1) Aumentar áreas verdes en zona norte, 2) Implementar filtros en industrias cercanas.",
+        role: "assistant",
+        content:
+          "¡Excelente decisión! La transición de marketing a tech es muy viable. Tus habilidades en marketing son valiosas en tech. Te sugiero: 1) Identifica qué área de tech te interesa más, 2) Aprovecha tu experiencia en marketing digital, 3) Considera roles como Product Marketing en empresas tech. ¿Qué área específica de tecnología te llama más la atención?",
       },
     ],
   },
   {
     id: "parrotfy",
     title: "ParrotfyIA",
-    subtitle: "Language Learning Revolution",
-    icon: <MessageSquare className="h-6 w-6" />,
-    color: "from-purple-500 to-pink-600",
+    subtitle: "Language Learning AI",
+    description: "Advanced conversation practice with pronunciation feedback",
+    icon: <Globe className="h-6 w-6" />,
+    gradient: "from-purple-500 to-violet-600",
     messages: [
-      { type: "user", text: "Help me practice English pronunciation" },
-      { type: "bot", text: "Perfect! Let's work on your pronunciation. Say: 'The weather is beautiful today'" },
-      { type: "user", text: "Ze wezzer is byutiful today" },
+      { role: "user", content: "I want to practice English conversation" },
       {
-        type: "bot",
-        text: "Great effort! Using vibe coding analysis: 'The' should be 'thuh' not 'ze'. Try: 'THUH weather'. Your rhythm is excellent! 🎯",
+        role: "assistant",
+        content:
+          "Perfect! I'm ParrotfyIA, your AI conversation partner. Let's practice English together! I'll help you with pronunciation, grammar, and natural conversation flow. What topic would you like to discuss today? We could talk about travel, work, hobbies, or anything that interests you!",
+      },
+      { role: "user", content: "Let's talk about travel plans" },
+      {
+        role: "assistant",
+        content:
+          "Great choice! Travel is always exciting to discuss. Tell me, do you have any upcoming trips planned? Or perhaps there's a destination you've been dreaming about visiting? I can help you practice vocabulary related to travel, booking, and describing places. Where would you love to go?",
       },
     ],
   },
   {
-    id: "career",
-    title: "Career Coach AI",
-    subtitle: "Intelligent Career Guidance",
-    icon: <Briefcase className="h-6 w-6" />,
-    color: "from-blue-500 to-cyan-600",
+    id: "customer-service",
+    title: "Customer Service AI",
+    subtitle: "Intelligent Support",
+    description: "24/7 customer support with human-like understanding",
+    icon: <MessageSquare className="h-6 w-6" />,
+    gradient: "from-blue-500 to-cyan-600",
     messages: [
-      { type: "user", text: "I feel stuck in my current job. What should I do?" },
+      { role: "user", content: "I'm having trouble with my order" },
       {
-        type: "bot",
-        text: "I understand that feeling. Let's explore this together. What aspects of your current role energize you the most?",
+        role: "assistant",
+        content:
+          "I'm sorry to hear you're experiencing issues with your order. I'm here to help resolve this quickly for you. Could you please provide me with your order number? I'll look into the details and find the best solution.",
       },
-      { type: "user", text: "I love solving complex problems and mentoring others" },
+      { role: "user", content: "Order #12345, it hasn't arrived yet" },
       {
-        type: "bot",
-        text: "That's wonderful insight! With vibe coding methodology, I see you'd thrive in senior technical roles or team leadership. Have you considered transitioning to a Tech Lead position? 🚀",
+        role: "assistant",
+        content:
+          "Thank you for providing order #12345. I've located your order in our system. I can see it was shipped 3 days ago via standard delivery. Let me track the current status... It appears there was a slight delay at the distribution center, but it's now out for delivery and should arrive today. I'll send you a tracking link and ensure you receive priority handling. Is there anything else I can help you with?",
       },
     ],
   },
@@ -67,192 +79,201 @@ const demos = [
 export function HeroSection() {
   const [currentDemo, setCurrentDemo] = useState(0)
   const [currentMessage, setCurrentMessage] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useEffect(() => {
+    if (!isPlaying) return
+
     const interval = setInterval(() => {
-      setCurrentDemo((prev) => (prev + 1) % demos.length)
-      setCurrentMessage(0)
-    }, 8000)
+      setCurrentMessage((prev) => {
+        const demo = demos[currentDemo]
+        if (prev < demo.messages.length - 1) {
+          return prev + 1
+        } else {
+          // Move to next demo
+          setCurrentDemo((prevDemo) => (prevDemo + 1) % demos.length)
+          return 0
+        }
+      })
+    }, 2000)
 
     return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    if (currentMessage < demos[currentDemo].messages.length) {
-      const timer = setTimeout(() => {
-        setIsTyping(true)
-        setTimeout(() => {
-          setCurrentMessage((prev) => prev + 1)
-          setIsTyping(false)
-        }, 1000)
-      }, 2000)
-
-      return () => clearTimeout(timer)
-    }
-  }, [currentDemo, currentMessage])
+  }, [currentDemo, isPlaying])
 
   const currentDemoData = demos[currentDemo]
 
   return (
-    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+    <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center lg:text-left"
-          >
-            <Badge className="mb-4 bg-blue-600/20 text-blue-400 border-blue-600/30">
-              <Zap className="h-3 w-3 mr-1" />
+        <div className="text-center mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
+              <Sparkles className="h-4 w-4 mr-1" />
               Powered by Vibe Coding
             </Badge>
-
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              AI Solutions with <span className="gradient-text">Vibe Coding</span>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Build AI Agents with{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Vibe Coding
+              </span>
             </h1>
-
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Experience the future of artificial intelligence with our revolutionary vibe coding methodology. Transform
-              your business with intelligent solutions that understand context, emotion, and human nuance.
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              Create intelligent AI systems that understand context, emotion, and intent. Deploy conversational agents
+              that feel natural and respond with human-like understanding.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 animate-pulse-glow">
-                Start Your AI Journey
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                variant="outline"
-                className="border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
+                <Zap className="h-5 w-5 mr-2" />
+                Start Vibe Coding
+              </Button>
+              <Button size="lg" variant="outline">
+                <Play className="h-5 w-5 mr-2" />
                 Watch Demo
               </Button>
             </div>
+          </motion.div>
+        </div>
 
-            <div className="mt-12 grid grid-cols-3 gap-8 text-center">
-              <div>
-                <div className="text-3xl font-bold text-white">50+</div>
-                <div className="text-gray-400">AI Agents Deployed</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white">99.9%</div>
-                <div className="text-gray-400">Uptime</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-white">24/7</div>
-                <div className="text-gray-400">Vibe Coding Support</div>
-              </div>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">See Vibe Coding in Action</h2>
+            <p className="text-gray-600 mb-8">
+              Watch how our AI agents understand context, maintain conversation flow, and provide intelligent responses
+              across different use cases.
+            </p>
+
+            <div className="space-y-4">
+              {demos.map((demo, index) => (
+                <motion.div
+                  key={demo.id}
+                  className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                    index === currentDemo ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                  }`}
+                  onClick={() => {
+                    setCurrentDemo(index)
+                    setCurrentMessage(0)
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="flex items-center space-x-3">
+                    <div className={`p-2 rounded-lg bg-gradient-to-r ${demo.gradient} text-white`}>{demo.icon}</div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">{demo.title}</h3>
+                      <p className="text-sm text-gray-600">{demo.subtitle}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex items-center space-x-4">
+              <Button variant="outline" size="sm" onClick={() => setIsPlaying(!isPlaying)}>
+                {isPlaying ? "Pause" : "Play"} Demo
+              </Button>
+              <span className="text-sm text-gray-500">Auto-cycling every 2 seconds</span>
             </div>
           </motion.div>
 
-          {/* Right Column - Interactive Demo */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <Card className="bg-white shadow-2xl">
               <CardContent className="p-6">
-                {/* Demo Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${currentDemoData.color}`}>
-                      {currentDemoData.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-white font-semibold">{currentDemoData.title}</h3>
-                      <p className="text-gray-400 text-sm">{currentDemoData.subtitle}</p>
-                    </div>
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className={`p-3 rounded-lg bg-gradient-to-r ${currentDemoData.gradient} text-white`}>
+                    {currentDemoData.icon}
                   </div>
-                  <Badge variant="outline" className="border-blue-600/30 text-blue-400">
-                    Live Demo
-                  </Badge>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900">{currentDemoData.title}</h3>
+                    <p className="text-gray-600">{currentDemoData.description}</p>
+                  </div>
                 </div>
 
-                {/* Chat Messages */}
                 <div className="space-y-4 h-80 overflow-y-auto">
                   <AnimatePresence mode="wait">
-                    {currentDemoData.messages.slice(0, currentMessage).map((message, index) => (
+                    {currentDemoData.messages.slice(0, currentMessage + 1).map((message, index) => (
                       <motion.div
                         key={`${currentDemo}-${index}`}
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
+                        exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.3 }}
-                        className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+                        className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                       >
                         <div
-                          className={`max-w-xs lg:max-w-sm px-4 py-2 rounded-lg ${
-                            message.type === "user" ? "bg-blue-600 text-white" : "bg-slate-700 text-gray-100"
+                          className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                            message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                           }`}
                         >
-                          {message.type === "bot" && (
-                            <div className="flex items-center space-x-2 mb-1">
-                              <Bot className="h-4 w-4 text-blue-400" />
-                              <span className="text-xs text-blue-400">vibe coding AI</span>
-                            </div>
-                          )}
-                          <p className="text-sm">{message.text}</p>
+                          <p className="text-sm">{message.content}</p>
                         </div>
                       </motion.div>
                     ))}
                   </AnimatePresence>
-
-                  {/* Typing Indicator */}
-                  {isTyping && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                      <div className="bg-slate-700 text-gray-100 px-4 py-2 rounded-lg">
-                        <div className="flex items-center space-x-2">
-                          <Bot className="h-4 w-4 text-blue-400" />
-                          <span className="text-xs text-blue-400">vibe coding AI</span>
-                        </div>
-                        <div className="flex space-x-1 mt-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.1s" }}
-                          ></div>
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.2s" }}
-                          ></div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
                 </div>
 
-                {/* Demo Indicators */}
-                <div className="flex justify-center space-x-2 mt-6">
-                  {demos.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentDemo(index)
-                        setCurrentMessage(0)
-                      }}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentDemo ? "bg-blue-400" : "bg-gray-600"
-                      }`}
-                    />
-                  ))}
+                <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+                  <span>Powered by Vibe Coding</span>
+                  <div className="flex space-x-1">
+                    {demos.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-2 h-2 rounded-full ${index === currentDemo ? "bg-blue-600" : "bg-gray-300"}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </CardContent>
             </Card>
-
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
-            <div
-              className="absolute -bottom-4 -left-4 w-16 h-16 bg-purple-500/20 rounded-full blur-xl animate-pulse"
-              style={{ animationDelay: "1s" }}
-            ></div>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-16 text-center"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center">
+              <div className="p-3 bg-blue-100 rounded-full mb-4">
+                <Brain className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Intelligent Understanding</h3>
+              <p className="text-gray-600 text-sm">
+                AI that comprehends context, emotion, and intent for natural conversations
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="p-3 bg-purple-100 rounded-full mb-4">
+                <Code className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Vibe Coding Approach</h3>
+              <p className="text-gray-600 text-sm">
+                Intuitive development process that captures the essence of human interaction
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="p-3 bg-green-100 rounded-full mb-4">
+                <TrendingUp className="h-8 w-8 text-green-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Scalable Deployment</h3>
+              <p className="text-gray-600 text-sm">
+                Deploy across multiple channels with consistent personality and performance
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

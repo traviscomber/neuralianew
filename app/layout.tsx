@@ -6,11 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Vibe Coding AI Solutions",
-  description:
-    "Revolutionary AI solutions with vibe coding methodology. Transform your business with EcosueloLab, ParrotfyIA, and intelligent career coaching.",
-  keywords:
-    "AI, vibe coding, artificial intelligence, EcosueloLab, ParrotfyIA, career coaching, business intelligence, automation",
+  title: "Neuralia - Vibe Coding AI Platform",
+  description: "Create and deploy AI agents with vibe coding - the intuitive way to build intelligent systems",
     generator: 'v0.app'
 }
 
