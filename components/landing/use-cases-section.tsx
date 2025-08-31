@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+import { motion } from "framer-motion"
 import {
   MessageCircle,
   TrendingUp,
@@ -12,13 +13,13 @@ import {
   GraduationCap,
   BarChart3,
   Target,
-  Zap,
   Star,
   Sprout,
   Building2,
   Droplets,
-  Thermometer,
-  CloudRain,
+  Headphones,
+  ShoppingCart,
+  FileText,
 } from "lucide-react"
 
 interface Message {
@@ -117,11 +118,45 @@ const ChatDemo = ({ messages, isActive, colorScheme }: ChatDemoProps) => {
 }
 
 export function UseCasesSection() {
-  const [activeTab, setActiveTab] = useState("ecosuelo")
+  const [activeTab, setActiveTab] = useState("customer-service")
 
-  const useCases = {
-    ecosuelo: {
+  const useCases = [
+    {
+      id: "customer-service",
+      title: "Customer Service",
+      icon: Headphones,
+      description: "24/7 intelligent support that understands and resolves customer issues",
+      features: ["Instant responses", "Multi-language support", "Escalation handling", "Sentiment analysis"],
+      metrics: { efficiency: "85%", satisfaction: "92%", cost: "60%" },
+    },
+    {
+      id: "sales",
+      title: "Sales Automation",
+      icon: ShoppingCart,
+      description: "AI-powered sales assistant that qualifies leads and closes deals",
+      features: ["Lead qualification", "Personalized outreach", "Follow-up automation", "Deal tracking"],
+      metrics: { conversion: "40%", productivity: "65%", revenue: "35%" },
+    },
+    {
+      id: "analytics",
+      title: "Business Intelligence",
+      icon: BarChart3,
+      description: "Transform data into actionable insights with natural language queries",
+      features: ["Natural language queries", "Real-time dashboards", "Predictive analytics", "Custom reports"],
+      metrics: { insights: "10x", decisions: "3x", accuracy: "95%" },
+    },
+    {
+      id: "content",
+      title: "Content Creation",
+      icon: FileText,
+      description: "Generate high-quality content that matches your brand voice",
+      features: ["Brand voice matching", "SEO optimization", "Multi-format content", "Quality assurance"],
+      metrics: { speed: "5x", quality: "90%", consistency: "100%" },
+    },
+    {
+      id: "ecosuelo",
       title: "EcosueloBot",
+      icon: Sprout,
       subtitle: "Asistente Agrícola Inteligente",
       description:
         "Análisis de suelos, riego inteligente y recomendaciones agrícolas con datos INIA, IrriWatch y sensores IoT",
@@ -147,7 +182,7 @@ export function UseCasesSection() {
         },
         {
           id: 2,
-          text: "¡Perfecto! Según datos integrados:\n\n🌱 **INIA:** pH 6.5 óptimo, fósforo bajo común en Maule\n💧 **IrriWatch:** Humedad suelo 45% - necesita riego\n🌡️ **Sensores:** Temp 22°C, evapotranspiración 4.2mm/día\n\n📊 **Recomendación:**\n• Riego: 25mm mañana (6-8 AM)\n• Fertilización: Superfosfato triple 150 kg/ha\n• Próximo riego: en 3 días según pronóstico",
+          text: "¡Perfecto! Según datos integrados:\n\n🌱 **INIA:** pH 6.5 óptimo, fósforo bajo común en Maule\n💧 **IrriWatch:** Humedad suelo 45% - necesita riego\n🌡️ **Sensores IoT:** Temp 22°C, evapotranspiración 4.2mm/día\n\n📊 **Recomendación:**\n• Riego: 25mm mañana (6-8 AM)\n• Fertilización: Superfosfato triple 150 kg/ha\n• Próximo riego: en 3 días según pronóstico",
           sender: "bot" as const,
           timestamp: "10:31",
         },
@@ -165,8 +200,10 @@ export function UseCasesSection() {
         },
       ],
     },
-    career: {
+    {
+      id: "career",
       title: "Despega tu Carrera",
+      icon: Briefcase,
       subtitle: "Coach de Carrera con IA",
       description: "Orientación profesional personalizada con datos reales del mercado laboral chileno",
       colorScheme: "blue" as const,
@@ -209,8 +246,10 @@ export function UseCasesSection() {
         },
       ],
     },
-    parrotfy: {
+    {
+      id: "parrotfy",
       title: "ParrotfyIA",
+      icon: Building2,
       subtitle: "ERP Conversacional con OpenAI GPT-4",
       description: "Gestión empresarial completa a través de conversación natural con inteligencia artificial",
       colorScheme: "purple" as const,
@@ -253,243 +292,131 @@ export function UseCasesSection() {
         },
       ],
     },
-  }
+  ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
-      <div className="container mx-auto px-4">
+    <section id="use-cases" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Casos de Éxito Reales</h2>
+          <Badge className="mb-4 bg-purple-100 text-purple-800">Use Cases</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            AI Solutions for{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Every Business
+            </span>
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubre cómo nuestros agentes de IA están transformando industrias específicas con soluciones
-            personalizadas y resultados medibles
+            See how our vibe coding approach creates AI solutions that fit perfectly into your workflow and deliver real
+            results.
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-gray-100 p-1 rounded-xl">
-            {Object.entries(useCases).map(([key, useCase]) => (
-              <TabsTrigger
-                key={key}
-                value={key}
-                className={`rounded-lg font-medium transition-all duration-200 ${
-                  activeTab === key
-                    ? useCase.colorScheme === "green"
-                      ? "bg-green-500 text-white shadow-lg"
-                      : useCase.colorScheme === "blue"
-                        ? "bg-blue-500 text-white shadow-lg"
-                        : "bg-purple-500 text-white shadow-lg"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {useCase.title}
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
+            {useCases.map((useCase) => (
+              <TabsTrigger key={useCase.id} value={useCase.id} className="flex items-center gap-2">
+                <useCase.icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{useCase.title}</span>
               </TabsTrigger>
             ))}
           </TabsList>
 
-          {Object.entries(useCases).map(([key, useCase]) => (
-            <TabsContent key={key} value={key} className="space-y-8">
-              {/* Header */}
-              <div
-                className={`text-center p-8 rounded-2xl bg-gradient-to-r ${
-                  useCase.colorScheme === "green"
-                    ? "from-green-500 to-emerald-600"
-                    : useCase.colorScheme === "blue"
-                      ? "from-blue-500 to-indigo-600"
-                      : "from-purple-500 to-indigo-600"
-                } text-white`}
-              >
-                <h3 className="text-3xl font-bold mb-2">{useCase.title}</h3>
-                <p className="text-xl opacity-90 mb-4">{useCase.subtitle}</p>
-                <p className="text-lg opacity-80 max-w-2xl mx-auto">{useCase.description}</p>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {useCase.stats.map((stat, index) => (
-                  <Card
-                    key={index}
-                    className={`text-center border-2 ${
-                      useCase.colorScheme === "green"
-                        ? "border-green-200 bg-green-50"
-                        : useCase.colorScheme === "blue"
-                          ? "border-blue-200 bg-blue-50"
-                          : "border-purple-200 bg-purple-50"
-                    }`}
-                  >
-                    <CardContent className="p-6">
-                      <stat.icon
-                        className={`w-8 h-8 mx-auto mb-3 ${
-                          useCase.colorScheme === "green"
-                            ? "text-green-600"
-                            : useCase.colorScheme === "blue"
-                              ? "text-blue-600"
-                              : "text-purple-600"
-                        }`}
-                      />
-                      <div
-                        className={`text-2xl font-bold mb-1 ${
-                          useCase.colorScheme === "green"
-                            ? "text-green-700"
-                            : useCase.colorScheme === "blue"
-                              ? "text-blue-700"
-                              : "text-purple-700"
-                        }`}
-                      >
-                        {stat.value}
+          {useCases.map((useCase, index) => (
+            <TabsContent key={useCase.id} value={useCase.id}>
+              {useCase.id === "ecosuelo" || useCase.id === "career" || useCase.id === "parrotfy" ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Card className="overflow-hidden">
+                    <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-3 bg-white rounded-lg shadow-sm">
+                          <useCase.icon className="w-8 h-8 text-blue-600" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-2xl">{useCase.title}</CardTitle>
+                          <p className="text-gray-600 mt-1">{useCase.description}</p>
+                        </div>
                       </div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="grid lg:grid-cols-2 gap-8">
+                        <div>
+                          <h4 className="font-semibold text-lg mb-4">Key Features</h4>
+                          <ul className="space-y-3">
+                            {useCase.features.map((feature, idx) => (
+                              <li key={idx} className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <span className="text-gray-700">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-lg mb-4">Impact Metrics</h4>
+                          <div className="grid grid-cols-3 gap-4">
+                            {useCase.stats &&
+                              useCase.stats.map((stat, idx) => (
+                                <div key={idx} className="text-center p-4 bg-gray-50 rounded-lg">
+                                  <div className="text-2xl font-bold text-blue-600 mb-1">{stat.value}</div>
+                                  <div className="text-sm text-gray-600 capitalize">{stat.label}</div>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
-                ))}
-              </div>
-
-              {/* Data Sources for EcosueloBot */}
-              {key === "ecosuelo" && (
-                <Card className="border-2 border-green-200 bg-green-50">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-green-700">
-                      <Globe className="w-5 h-5" />
-                      Fuentes de Datos Integradas
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Sprout className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">INIA</div>
-                        <div className="text-xs text-gray-600">Análisis de suelos</div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Card className="overflow-hidden">
+                    <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-3 bg-white rounded-lg shadow-sm">
+                          <useCase.icon className="w-8 h-8 text-blue-600" />
+                        </div>
+                        <div>
+                          <CardTitle className="text-2xl">{useCase.title}</CardTitle>
+                          <p className="text-gray-600 mt-1">{useCase.description}</p>
+                        </div>
                       </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Droplets className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">IrriWatch</div>
-                        <div className="text-xs text-gray-600">Riego inteligente</div>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="grid lg:grid-cols-2 gap-8">
+                        <div>
+                          <h4 className="font-semibold text-lg mb-4">Key Features</h4>
+                          <ul className="space-y-3">
+                            {useCase.features.map((feature, idx) => (
+                              <li key={idx} className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                                <span className="text-gray-700">{feature}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-lg mb-4">Impact Metrics</h4>
+                          <div className="grid grid-cols-3 gap-4">
+                            {Object.entries(useCase.metrics).map(([key, value]) => (
+                              <div key={key} className="text-center p-4 bg-gray-50 rounded-lg">
+                                <div className="text-2xl font-bold text-blue-600 mb-1">{value}</div>
+                                <div className="text-sm text-gray-600 capitalize">{key}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Thermometer className="w-6 h-6 text-orange-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">Sensores IoT</div>
-                        <div className="text-xs text-gray-600">Temp & Humedad</div>
-                      </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <CloudRain className="w-6 h-6 text-gray-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">DMC</div>
-                        <div className="text-xs text-gray-600">Pronóstico clima</div>
-                      </div>
-                    </div>
-                    <div className="mt-4 p-4 bg-white rounded-lg border border-green-200">
-                      <h4 className="font-semibold text-green-700 mb-2">Integración en Tiempo Real:</h4>
-                      <ul className="text-sm text-gray-700 space-y-1">
-                        <li>
-                          • <strong>INIA:</strong> Análisis de suelos, recomendaciones de fertilización por región
-                        </li>
-                        <li>
-                          • <strong>IrriWatch:</strong> Monitoreo de humedad del suelo y programación de riego
-                        </li>
-                        <li>
-                          • <strong>Sensores IoT:</strong> Temperatura, humedad relativa, evapotranspiración
-                        </li>
-                        <li>
-                          • <strong>DMC (Dirección Meteorológica):</strong> Pronósticos climáticos precisos
-                        </li>
-                        <li>
-                          • <strong>Agromet:</strong> Datos fenológicos y alertas fitosanitarias
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               )}
-
-              {/* Main Content */}
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Features */}
-                <Card
-                  className={`border-2 ${
-                    useCase.colorScheme === "green"
-                      ? "border-green-200"
-                      : useCase.colorScheme === "blue"
-                        ? "border-blue-200"
-                        : "border-purple-200"
-                  }`}
-                >
-                  <CardHeader>
-                    <CardTitle
-                      className={`flex items-center gap-2 ${
-                        useCase.colorScheme === "green"
-                          ? "text-green-700"
-                          : useCase.colorScheme === "blue"
-                            ? "text-blue-700"
-                            : "text-purple-700"
-                      }`}
-                    >
-                      <Zap className="w-5 h-5" />
-                      Características Principales
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {useCase.features.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div
-                          className={`w-2 h-2 rounded-full mt-2 ${
-                            useCase.colorScheme === "green"
-                              ? "bg-green-500"
-                              : useCase.colorScheme === "blue"
-                                ? "bg-blue-500"
-                                : "bg-purple-500"
-                          }`}
-                        ></div>
-                        <span className="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                    <div className="pt-4">
-                      <Button
-                        className={`w-full ${
-                          useCase.colorScheme === "green"
-                            ? "bg-green-500 hover:bg-green-600"
-                            : useCase.colorScheme === "blue"
-                              ? "bg-blue-500 hover:bg-blue-600"
-                              : "bg-purple-500 hover:bg-purple-600"
-                        }`}
-                      >
-                        Probar {useCase.title}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Chat Demo */}
-                <Card
-                  className={`border-2 ${
-                    useCase.colorScheme === "green"
-                      ? "border-green-200"
-                      : useCase.colorScheme === "blue"
-                        ? "border-blue-200"
-                        : "border-purple-200"
-                  }`}
-                >
-                  <CardHeader>
-                    <CardTitle
-                      className={`flex items-center gap-2 ${
-                        useCase.colorScheme === "green"
-                          ? "text-green-700"
-                          : useCase.colorScheme === "blue"
-                            ? "text-blue-700"
-                            : "text-purple-700"
-                      }`}
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      {useCase.colorScheme === "green" ? "Demo WhatsApp Business" : "Demostración en Vivo"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ChatDemo
-                      messages={useCase.messages}
-                      isActive={activeTab === key}
-                      colorScheme={useCase.colorScheme}
-                    />
-                  </CardContent>
-                </Card>
-              </div>
             </TabsContent>
           ))}
         </Tabs>

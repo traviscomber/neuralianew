@@ -1,82 +1,88 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { motion } from "framer-motion"
+
+const faqs = [
+  {
+    question: "What is vibe coding and how does it work?",
+    answer:
+      "Vibe coding is our unique methodology that makes AI development feel natural and intuitive. Instead of complex configurations, our platform understands your intent and creates solutions that just work, focusing on the 'vibe' or feeling of seamless interaction.",
+  },
+  {
+    question: "How quickly can I deploy AI agents?",
+    answer:
+      "With our vibe coding approach, most AI agents can be deployed in minutes, not months. Our platform handles the complex setup automatically, so you can focus on defining what you want your AI to accomplish.",
+  },
+  {
+    question: "Do I need technical expertise to use Neuralia?",
+    answer:
+      "Not at all! Vibe coding makes AI accessible to everyone. Our intuitive interface and natural language setup mean you can create powerful AI solutions without any programming knowledge.",
+  },
+  {
+    question: "How secure is my data?",
+    answer:
+      "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and GDPR adherence. Your data is processed securely and never used to train models for other customers.",
+  },
+  {
+    question: "Can Neuralia integrate with my existing tools?",
+    answer:
+      "Yes! Our AI agents work seamlessly with popular platforms like Slack, Microsoft Teams, Salesforce, HubSpot, and hundreds of other tools through our extensive API and webhook support.",
+  },
+  {
+    question: "What kind of support do you provide?",
+    answer:
+      "We offer 24/7 technical support, comprehensive documentation, video tutorials, and dedicated customer success managers for enterprise clients. Our vibe coding philosophy extends to our support - it's designed to be helpful and human.",
+  },
+  {
+    question: "How does pricing work?",
+    answer:
+      "We offer flexible pricing based on usage and features. Start with our free tier to explore vibe coding, then scale up as your needs grow. Enterprise plans include custom pricing and dedicated support.",
+  },
+  {
+    question: "What makes Neuralia different from other AI platforms?",
+    answer:
+      "Our vibe coding methodology focuses on creating AI that feels natural and intuitive. While other platforms require complex setup and technical expertise, we make AI accessible through intelligent automation and user-friendly design.",
+  },
+]
 
 export function FAQSection() {
-  const faqs = [
-    {
-      question: "How does EcosueloLab's agentic AI work differently from regular chatbots?",
-      answer:
-        "EcosueloLab uses agentic OpenAI technology that can reason, plan, and take autonomous actions. Unlike simple chatbots that follow scripts, our AI executive can fetch data from external agricultural APIs, analyze complex soil conditions, and provide strategic recommendations. It thinks like a human agricultural expert but with access to vast databases and real-time information.",
-    },
-    {
-      question: "What makes your AI executives different from automation tools?",
-      answer:
-        "Our AI executives use neural networks to think strategically and make complex decisions. They don't just automate tasks - they understand context, reason through problems, and adapt to new situations. They can handle unexpected scenarios, learn from interactions, and provide executive-level strategic thinking that traditional automation cannot match.",
-    },
-    {
-      question: "How do you integrate with external APIs and existing systems?",
-      answer:
-        "Our agentic AI can seamlessly connect to any external API or database. For EcosueloLab, we integrate with agricultural databases, weather services, and soil analysis APIs. The AI agent autonomously fetches relevant data, processes it contextually, and presents insights through simple interfaces like WhatsApp. Integration typically takes 2-4 weeks depending on complexity.",
-    },
-    {
-      question: "Can the AI executives work in different languages and regions?",
-      answer:
-        "Yes, our neural AI executives are multilingual and culturally aware. EcosueloLab, for example, operates in Spanish, Portuguese, and English, understanding regional farming practices and local agricultural conditions. The AI adapts its recommendations based on geographic location, climate data, and local farming traditions.",
-    },
-    {
-      question: "How do you ensure data security and privacy?",
-      answer:
-        "We implement enterprise-grade security with end-to-end encryption, secure API connections, and compliance with international data protection standards. All conversations and data processing happen through secure channels, and we never store sensitive customer information without explicit consent.",
-    },
-    {
-      question: "What kind of results can we expect from deploying an AI executive?",
-      answer:
-        "Results vary by industry, but our clients typically see 40-70% improvements in efficiency, 60-95% customer satisfaction rates, and significant cost reductions. EcosueloLab users report 40% yield increases and 60% fertilizer savings. We provide detailed ROI analysis and success metrics for each deployment.",
-    },
-    {
-      question: "How long does it take to deploy a custom AI executive?",
-      answer:
-        "Deployment typically takes 3-8 weeks depending on complexity. This includes understanding your business processes, integrating with your systems, training the AI on your specific requirements, and testing. Simple conversational bots like EcosueloLab can be deployed faster, while complex financial or operations AIs may take longer.",
-    },
-    {
-      question: "Do you provide ongoing support and AI executive optimization?",
-      answer:
-        "Yes, we provide 24/7 monitoring, continuous learning optimization, and regular performance reviews. Our AI executives improve over time through machine learning and feedback loops. We also provide training for your team and strategic consulting to maximize the AI's impact on your business.",
-    },
-  ]
-
   return (
-    <section id="faq" className="py-24 bg-muted/30">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            Frequently{" "}
+          <Badge className="mb-4 bg-orange-100 text-orange-800">FAQ</Badge>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Asked Questions
+              Questions
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground">
-            Everything you need to know about our AI executives and neural technology
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Everything you need to know about vibe coding and our AI platform.
           </p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-center">Common Questions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border shadow-sm">
+                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
+                  <span className="font-semibold text-gray-900">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4">
+                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
       </div>
     </section>
   )

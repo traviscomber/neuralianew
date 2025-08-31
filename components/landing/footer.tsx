@@ -1,114 +1,120 @@
 "use client"
 
-import { Brain, Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react"
+import { Zap, Twitter, Linkedin, Github, Mail } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-muted/50 border-t">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Brain className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Neuralia
-              </span>
+    <footer className="bg-gray-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-4 gap-8">
+          <div className="col-span-1">
+            <div className="flex items-center mb-4">
+              <Zap className="h-8 w-8 text-blue-400" />
+              <span className="ml-2 text-xl font-bold">Neuralia</span>
             </div>
-            <p className="text-muted-foreground text-sm">
-              Transforming businesses with neural AI executives that think, reason, and act autonomously.
+            <p className="text-gray-400 mb-4">
+              Smart AI, Simple Results. Built with vibe coding methodology for the modern world.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-                <Github className="w-5 h-5" />
-              </a>
+              <Twitter className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer" />
+              <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer" />
+              <Github className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer" />
+              <Mail className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer" />
             </div>
           </div>
 
-          {/* Use Cases */}
           <div>
-            <h3 className="font-semibold mb-4">Use Cases</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-semibold mb-4">Product</h3>
+            <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  EcosueloLab
+                <a href="#" className="hover:text-white">
+                  Features
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Customer Service
+                <a href="#" className="hover:text-white">
+                  Use Cases
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Financial Analysis
+                <a href="#" className="hover:text-white">
+                  Pricing
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  HR Automation
+                <a href="#" className="hover:text-white">
+                  API
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* AI Executives */}
           <div>
-            <h3 className="font-semibold mb-4">AI Executives</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-semibold mb-4">Company</h3>
+            <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Neural Executive
+                <a href="#" className="hover:text-white">
+                  About
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Customer Success AI
+                <a href="#" className="hover:text-white">
+                  Blog
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Financial Analyst AI
+                <a href="#" className="hover:text-white">
+                  Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Operations Manager AI
+                <a href="#" className="hover:text-white">
+                  Contact
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h3 className="font-semibold mb-4">Contact</h3>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4" />
-                <span>hello@neuralia.ai</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4" />
-                <span>San Francisco, CA</span>
-              </div>
-            </div>
+            <h3 className="font-semibold mb-4">Support</h3>
+            <ul className="space-y-2 text-gray-400">
+              <li>
+                <a href="#" className="hover:text-white">
+                  Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white">
+                  Community
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-white">
+                  Status
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t mt-12 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Neuralia. All rights reserved. Powered by Neural AI Technology.</p>
+        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-400 text-sm">© 2024 Neuralia. All rights reserved. Powered by vibe coding.</p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a href="#" className="text-gray-400 hover:text-white text-sm">
+              Privacy Policy
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm">
+              Terms of Service
+            </a>
+            <a href="#" className="text-gray-400 hover:text-white text-sm">
+              Cookie Policy
+            </a>
+          </div>
         </div>
       </div>
     </footer>
