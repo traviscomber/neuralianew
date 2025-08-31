@@ -3,53 +3,76 @@ import { ArrowRight, Bot, Users, Zap } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-indigo-600/10 to-purple-600/10" />
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-8">
-          <div className="space-y-4">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Neuralia AI Platform
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto">
-              Build, deploy, and manage intelligent AI agents that transform your business operations with cutting-edge
-              technology
-            </p>
+    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20 sm:py-32">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-pink-600/10" />
+
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-8 flex justify-center">
+            <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+              Announcing our new AI Agent Platform.{" "}
+              <a href="#" className="font-semibold text-indigo-600">
+                <span className="absolute inset-0" aria-hidden="true" />
+                Read more <span aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+            Build, Deploy & Scale{" "}
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              AI Agents
+            </span>{" "}
+            with Neuralia
+          </h1>
+
+          <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+            Our fullstack ecosystem, copiloted by AI, empowers you to create intelligent agents that understand, learn,
+            and adapt. From customer service to data analysis, deploy AI that works.
+          </p>
+
+          <div className="mt-10 flex items-center justify-center gap-x-6">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 text-lg"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             >
-              Start Building <ArrowRight className="ml-2 h-5 w-5" />
+              Start Building
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button variant="outline" size="lg" className="px-8 py-3 text-lg bg-transparent">
+            <Button variant="outline" size="lg">
               Watch Demo
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16">
-            <div className="flex flex-col items-center space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center">
-                <Bot className="h-8 w-8 text-white" />
+          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            <div className="flex flex-col items-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100">
+                <Bot className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">500+</h3>
-              <p className="text-gray-600">AI Agents Deployed</p>
+              <div className="mt-4 text-center">
+                <div className="text-2xl font-bold text-gray-900">500+</div>
+                <div className="text-sm text-gray-600">Active AI Agents</div>
+              </div>
             </div>
-            <div className="flex flex-col items-center space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
-                <Users className="h-8 w-8 text-white" />
+
+            <div className="flex flex-col items-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100">
+                <Users className="h-6 w-6 text-purple-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">10,000+</h3>
-              <p className="text-gray-600">Active Users</p>
+              <div className="mt-4 text-center">
+                <div className="text-2xl font-bold text-gray-900">10,000+</div>
+                <div className="text-sm text-gray-600">Happy Users</div>
+              </div>
             </div>
-            <div className="flex flex-col items-center space-y-2">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                <Zap className="h-8 w-8 text-white" />
+
+            <div className="flex flex-col items-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-pink-100">
+                <Zap className="h-6 w-6 text-pink-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">99.9%</h3>
-              <p className="text-gray-600">Uptime Guarantee</p>
+              <div className="mt-4 text-center">
+                <div className="text-2xl font-bold text-gray-900">99.9%</div>
+                <div className="text-sm text-gray-600">Uptime</div>
+              </div>
             </div>
           </div>
         </div>

@@ -8,42 +8,42 @@ const faqs = [
   {
     question: "How quickly can I deploy my first AI agent?",
     answer:
-      "With our no-code platform, you can have your first AI agent up and running in under 30 minutes. Our visual builder and pre-built templates make it incredibly fast to get started.",
+      "With our no-code builder, you can have a basic AI agent up and running in under 30 minutes. More complex agents with custom workflows typically take 2-4 hours to configure and deploy.",
   },
   {
-    question: "What types of AI agents can I build?",
+    question: "What types of data sources can I connect?",
     answer:
-      "You can build customer service agents, sales assistants, HR recruiters, technical support bots, lead qualification agents, appointment schedulers, and much more. Our platform is flexible enough to handle any conversational use case.",
+      "Neuralia supports virtually any data source including databases (SQL, NoSQL), APIs (REST, GraphQL), file uploads (CSV, JSON, PDF), cloud storage (AWS S3, Google Drive), and real-time streams. Our platform automatically handles data formatting and integration.",
   },
   {
-    question: "Do I need technical knowledge to use Neuralia?",
+    question: "Is my data secure and private?",
     answer:
-      "Not at all! Our platform is designed for business users. The drag-and-drop interface, visual workflow builder, and pre-built templates mean anyone can create sophisticated AI agents without coding.",
+      "Absolutely. We use bank-level encryption (AES-256), are SOC 2 Type II certified, and offer on-premise deployment options. Your data never leaves your control, and we provide detailed audit logs for compliance requirements.",
   },
   {
-    question: "How does pricing work?",
+    question: "Can I customize the AI agent's personality and responses?",
     answer:
-      "We offer flexible pricing based on usage. Start with our free tier that includes 1,000 conversations per month. Paid plans start at $49/month and scale with your needs. Enterprise plans available for large organizations.",
+      "Yes! You have full control over your agent's personality, tone, response style, and behavior. You can define custom prompts, set conversation flows, and even upload your own training data to make the agent uniquely yours.",
   },
   {
-    question: "Can I integrate with my existing systems?",
+    question: "What's included in the pricing plans?",
     answer:
-      "Yes! Neuralia connects with over 500+ popular tools including CRM systems, databases, email platforms, messaging apps, and more. Our API also allows custom integrations.",
+      "Our Starter plan includes 1,000 conversations/month, basic analytics, and email support. Pro includes 10,000 conversations, advanced analytics, integrations, and priority support. Enterprise offers unlimited conversations, custom features, dedicated support, and on-premise options.",
   },
   {
-    question: "Is my data secure?",
+    question: "How does the AI agent learn and improve over time?",
     answer:
-      "Absolutely. We use bank-level encryption, are SOC 2 compliant, and follow strict data privacy regulations. Your data is never used to train our models, and you maintain full control over your information.",
+      "Our agents use advanced machine learning to continuously improve from interactions. They learn from successful conversations, user feedback, and correction patterns. You can also manually train them with new examples and monitor their performance through our analytics dashboard.",
   },
   {
-    question: "What languages are supported?",
+    question: "Can I integrate with my existing tools and platforms?",
     answer:
-      "Our AI agents support over 95 languages and can handle multilingual conversations seamlessly. They can detect the user's language automatically and respond appropriately.",
+      "Yes! We offer pre-built integrations with popular platforms like Slack, WhatsApp, Shopify, Salesforce, HubSpot, and Zendesk. We also provide APIs and webhooks for custom integrations with any system.",
   },
   {
-    question: "How accurate are the AI responses?",
+    question: "What kind of support do you provide?",
     answer:
-      "Our agents achieve 95%+ accuracy rates through advanced training, continuous learning, and human feedback loops. You can also review and improve responses over time to maintain high quality.",
+      "We offer comprehensive support including detailed documentation, video tutorials, live chat support, and dedicated customer success managers for Enterprise clients. Our team helps with setup, optimization, and ongoing maintenance of your AI agents.",
   },
 ]
 
@@ -55,38 +55,42 @@ export function FAQSection() {
   }
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600">Everything you need to know about building AI agents with Neuralia</p>
+    <section className="py-24 bg-gray-50">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">FAQ</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Frequently asked questions</p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Everything you need to know about building and deploying AI agents with Neuralia.
+          </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="border border-gray-200 hover:border-indigo-300 transition-colors duration-200">
-              <CardContent className="p-0">
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full text-left p-6 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-inset"
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
+        <div className="mx-auto mt-16 max-w-4xl">
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <Card key={index} className="border-0 shadow-sm">
+                <CardContent className="p-0">
+                  <button
+                    className="flex w-full items-center justify-between p-6 text-left"
+                    onClick={() => toggleFAQ(index)}
+                  >
+                    <span className="text-lg font-semibold text-gray-900">{faq.question}</span>
                     {openIndex === index ? (
-                      <ChevronUp className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                      <ChevronUp className="h-5 w-5 text-gray-500" />
                     ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                      <ChevronDown className="h-5 w-5 text-gray-500" />
                     )}
-                  </div>
-                </button>
-                {openIndex === index && (
-                  <div className="px-6 pb-6">
-                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+                  </button>
+
+                  {openIndex === index && (
+                    <div className="px-6 pb-6">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -5,9 +5,9 @@ import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-white">
       <HeroSection />
       <FeaturesSection />
       <UseCasesSection />

@@ -1,48 +1,63 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
 import { MessageCircle, User, Bot } from "lucide-react"
 
 const useCases = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    description: "Environmental consulting and sustainability solutions",
-    color: "emerald",
+    description: "Career coaching and professional development platform",
+    badge: "Career Coach",
+    gradient: "from-emerald-500 to-teal-600",
     messages: [
-      { type: "user", content: "¿Cómo puedo reducir la huella de carbono de mi empresa?" },
+      { type: "user", content: "Hola, necesito ayuda para encontrar trabajo en tecnología" },
       {
         type: "bot",
         content:
-          "Te ayudo a crear un plan de sostenibilidad personalizado. Primero, analicemos tus principales fuentes de emisiones...",
+          "¡Hola! Me alegra que busques oportunidades en tecnología. Cuéntame sobre tu experiencia actual y qué tipo de rol te interesa.",
       },
-      { type: "user", content: "Tenemos oficinas en 3 ciudades y una flota de 50 vehículos" },
+      { type: "user", content: "Soy desarrollador junior con 1 año de experiencia en React" },
       {
         type: "bot",
         content:
-          "Perfecto. Para oficinas, recomiendo auditoría energética y transición a renovables. Para la flota, evaluemos vehículos eléctricos...",
+          "Excelente base. Con React tienes muchas oportunidades. Te recomiendo enfocarte en empresas que buscan desarrolladores frontend. ¿Has trabajado con TypeScript o Next.js?",
+      },
+      { type: "user", content: "Un poco de TypeScript, pero no Next.js" },
+      {
+        type: "bot",
+        content:
+          "Perfecto. Te sugiero un plan: 1) Completa un proyecto con Next.js, 2) Mejora tu portfolio, 3) Practica entrevistas técnicas. ¿Te parece bien empezar por ahí?",
       },
     ],
   },
   {
-    id: "carrera",
+    id: "despega",
     title: "Despega tu Carrera",
-    description: "Career coaching and professional development platform",
-    color: "blue",
+    description: "Professional growth and skill development assistant",
+    badge: "Growth Coach",
+    gradient: "from-blue-500 to-indigo-600",
     messages: [
-      { type: "user", content: "Quiero cambiar de carrera pero no sé por dónde empezar" },
-      {
-        type: "bot",
-        content: "¡Excelente decisión! Vamos a explorar tus intereses y habilidades. ¿Qué te motiva más en el trabajo?",
-      },
-      { type: "user", content: "Me gusta resolver problemas y trabajar con tecnología" },
+      { type: "user", content: "Quiero hacer una transición de marketing a product management" },
       {
         type: "bot",
         content:
-          "Perfecto perfil para tech. Te sugiero explorar: Desarrollo de Software, Data Science, o UX Design. ¿Cuál te llama más la atención?",
+          "¡Excelente decisión! Tu experiencia en marketing es muy valiosa para product management. ¿Qué aspectos del marketing te han gustado más?",
+      },
+      { type: "user", content: "Me encanta analizar datos de usuarios y entender sus necesidades" },
+      {
+        type: "bot",
+        content:
+          "Perfecto, esas son habilidades clave en PM. Te recomiendo: 1) Aprende sobre roadmaps de producto, 2) Estudia metodologías ágiles, 3) Practica con casos de estudio. ¿Tienes experiencia con herramientas como Jira o Figma?",
+      },
+      { type: "user", content: "Figma sí, Jira no tanto" },
+      {
+        type: "bot",
+        content:
+          "Genial. Figma te ayudará mucho trabajando con diseñadores. Para Jira, te sugiero hacer un curso básico. También considera certificarte en Product Management. ¿Te interesa que te recomiende algunos recursos específicos?",
       },
     ],
   },
@@ -50,19 +65,26 @@ const useCases = [
     id: "parrotfy",
     title: "ParrotfyIA",
     description: "AI-powered language learning and pronunciation coach",
-    color: "purple",
+    badge: "Language Coach",
+    gradient: "from-purple-500 to-pink-600",
     messages: [
-      { type: "user", content: "I want to improve my English pronunciation" },
+      { type: "user", content: "I want to improve my English pronunciation for job interviews" },
       {
         type: "bot",
         content:
-          "Great! I'll help you master English pronunciation. Let's start with common problem areas. Say: 'The weather is beautiful today'",
+          "Great goal! Job interviews require clear, confident pronunciation. Let's start with common interview phrases. Can you tell me about your current English level?",
       },
-      { type: "user", content: "Ze wezer is byutiful today" },
+      { type: "user", content: "I'm intermediate but struggle with 'th' sounds and word stress" },
       {
         type: "bot",
         content:
-          "Good effort! Focus on 'th' sound in 'The' and 'weather'. Try: 'Thuh weather'. Put your tongue between your teeth.",
+          "Those are very common challenges! For 'th' sounds, practice with words like 'think', 'this', 'through'. For word stress, let's work on interview keywords like 'experience', 'responsibility', 'achievement'. Would you like to practice some phrases now?",
+      },
+      { type: "user", content: "Yes, let's practice 'I have experience in project management'" },
+      {
+        type: "bot",
+        content:
+          "Perfect! Focus on: 'I have ex-PE-ri-ence in PRO-ject MA-nage-ment'. The stress is on 'PE', 'PRO', and 'MA'. Try saying it slowly first, then at normal speed. Remember to clearly pronounce the 'th' in 'the' if you add it.",
       },
     ],
   },
@@ -71,143 +93,153 @@ const useCases = [
 export function UseCasesSection() {
   const [activeTab, setActiveTab] = useState("ecosuelo")
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+  const [displayedMessages, setDisplayedMessages] = useState<any[]>([])
 
   useEffect(() => {
+    const currentUseCase = useCases.find((uc) => uc.id === activeTab)
+    if (!currentUseCase) return
+
     const interval = setInterval(() => {
-      const currentUseCase = useCases.find((uc) => uc.id === activeTab)
-      if (currentUseCase) {
-        setCurrentMessageIndex((prev) => (prev >= currentUseCase.messages.length - 1 ? 0 : prev + 1))
-      }
+      setCurrentMessageIndex((prev) => {
+        const nextIndex = (prev + 1) % currentUseCase.messages.length
+        if (nextIndex === 0) {
+          setDisplayedMessages([])
+          setTimeout(() => {
+            setDisplayedMessages([currentUseCase.messages[0]])
+          }, 500)
+        } else {
+          setDisplayedMessages(currentUseCase.messages.slice(0, nextIndex + 1))
+        }
+        return nextIndex
+      })
     }, 3000)
+
+    // Initialize with first message
+    setDisplayedMessages([currentUseCase.messages[0]])
+    setCurrentMessageIndex(0)
 
     return () => clearInterval(interval)
   }, [activeTab])
 
-  useEffect(() => {
-    setCurrentMessageIndex(0)
-  }, [activeTab])
-
-  const getColorClasses = (color: string) => {
-    switch (color) {
-      case "emerald":
-        return {
-          bg: "bg-gradient-to-br from-emerald-500 to-teal-600",
-          border: "border-emerald-200",
-          text: "text-emerald-700",
-          badge: "bg-emerald-100 text-emerald-800",
-        }
-      case "blue":
-        return {
-          bg: "bg-gradient-to-br from-blue-500 to-indigo-600",
-          border: "border-blue-200",
-          text: "text-blue-700",
-          badge: "bg-blue-100 text-blue-800",
-        }
-      case "purple":
-        return {
-          bg: "bg-gradient-to-br from-purple-500 to-pink-600",
-          border: "border-purple-200",
-          text: "text-purple-700",
-          badge: "bg-purple-100 text-purple-800",
-        }
-      default:
-        return {
-          bg: "bg-gradient-to-br from-gray-500 to-gray-600",
-          border: "border-gray-200",
-          text: "text-gray-700",
-          badge: "bg-gray-100 text-gray-800",
-        }
-    }
-  }
-
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">Real Success Stories</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how our AI agents are transforming businesses across different industries
+    <section className="py-24 bg-gray-50">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">Success Stories</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Real AI agents solving real problems
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            See how our platform powers intelligent agents across different industries and use cases.
           </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            {useCases.map((useCase) => {
-              const colors = getColorClasses(useCase.color)
-              return (
-                <TabsTrigger
-                  key={useCase.id}
-                  value={useCase.id}
-                  className={`data-[state=active]:${colors.bg} data-[state=active]:text-white`}
-                >
+        <div className="mt-16">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
+              {useCases.map((useCase) => (
+                <TabsTrigger key={useCase.id} value={useCase.id} className="text-sm">
                   {useCase.title}
                 </TabsTrigger>
-              )
-            })}
-          </TabsList>
+              ))}
+            </TabsList>
 
-          {useCases.map((useCase) => {
-            const colors = getColorClasses(useCase.color)
-            return (
-              <TabsContent key={useCase.id} value={useCase.id} className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <Card className={`${colors.border} border-2`}>
-                    <CardContent className="p-6">
+            {useCases.map((useCase) => (
+              <TabsContent key={useCase.id} value={useCase.id}>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  <Card className="h-full">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-2xl">{useCase.title}</CardTitle>
+                        <Badge
+                          variant="secondary"
+                          className={`bg-gradient-to-r ${useCase.gradient} text-white border-0`}
+                        >
+                          {useCase.badge}
+                        </Badge>
+                      </div>
+                      <p className="text-gray-600 mt-2">{useCase.description}</p>
+                    </CardHeader>
+                    <CardContent>
                       <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                          <h3 className={`text-2xl font-bold ${colors.text}`}>{useCase.title}</h3>
-                          <Badge className={colors.badge}>Live Demo</Badge>
-                        </div>
-                        <p className="text-gray-600 text-lg">{useCase.description}</p>
-                        <div className="flex items-center space-x-2 text-sm text-gray-500">
-                          <MessageCircle className="h-4 w-4" />
-                          <span>Auto-cycling conversation demo</span>
-                        </div>
+                        <h4 className="font-semibold text-lg">Key Features:</h4>
+                        <ul className="space-y-2 text-sm text-gray-600">
+                          {useCase.id === "ecosuelo" && (
+                            <>
+                              <li>• Personalized career guidance in Spanish</li>
+                              <li>• Industry-specific job market insights</li>
+                              <li>• Interview preparation and skill assessment</li>
+                              <li>• Professional network building strategies</li>
+                            </>
+                          )}
+                          {useCase.id === "despega" && (
+                            <>
+                              <li>• Career transition planning and roadmaps</li>
+                              <li>• Skill gap analysis and learning paths</li>
+                              <li>• Professional development coaching</li>
+                              <li>• Goal setting and progress tracking</li>
+                            </>
+                          )}
+                          {useCase.id === "parrotfy" && (
+                            <>
+                              <li>• AI-powered pronunciation analysis</li>
+                              <li>• Real-time feedback and corrections</li>
+                              <li>• Personalized learning curriculum</li>
+                              <li>• Progress tracking and achievements</li>
+                            </>
+                          )}
+                        </ul>
                       </div>
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-white shadow-lg">
-                    <CardContent className="p-6">
-                      <div className="space-y-4 h-80 overflow-y-auto">
-                        {useCase.messages.slice(0, currentMessageIndex + 1).map((message, index) => (
-                          <div
-                            key={index}
-                            className={`flex items-start space-x-3 ${
-                              message.type === "user" ? "justify-end" : "justify-start"
-                            }`}
-                          >
-                            {message.type === "bot" && (
-                              <div
-                                className={`w-8 h-8 ${colors.bg} rounded-full flex items-center justify-center flex-shrink-0`}
-                              >
-                                <Bot className="h-4 w-4 text-white" />
-                              </div>
-                            )}
+                  <Card className="h-full">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <MessageCircle className="h-5 w-5" />
+                        Live Demo
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="bg-gray-50 rounded-lg p-4 h-80 overflow-y-auto">
+                        <div className="space-y-4">
+                          {displayedMessages.map((message, index) => (
                             <div
-                              className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                                message.type === "user"
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "bg-white border-2 " + colors.border
+                              key={index}
+                              className={`flex items-start gap-3 ${
+                                message.type === "user" ? "justify-end" : "justify-start"
                               }`}
                             >
-                              <p className="text-sm">{message.content}</p>
-                            </div>
-                            {message.type === "user" && (
-                              <div className="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
-                                <User className="h-4 w-4 text-white" />
+                              {message.type === "bot" && (
+                                <div
+                                  className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r ${useCase.gradient}`}
+                                >
+                                  <Bot className="h-4 w-4 text-white" />
+                                </div>
+                              )}
+                              <div
+                                className={`max-w-xs rounded-lg px-3 py-2 text-sm ${
+                                  message.type === "user" ? "bg-blue-500 text-white" : "bg-white border shadow-sm"
+                                }`}
+                              >
+                                {message.content}
                               </div>
-                            )}
-                          </div>
-                        ))}
+                              {message.type === "user" && (
+                                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300">
+                                  <User className="h-4 w-4 text-gray-600" />
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     </CardContent>
                   </Card>
                 </div>
               </TabsContent>
-            )
-          })}
-        </Tabs>
+            ))}
+          </Tabs>
+        </div>
       </div>
     </section>
   )
