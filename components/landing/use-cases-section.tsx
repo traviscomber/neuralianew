@@ -1,82 +1,83 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import {
-  GraduationCap,
+  MessageCircle,
   ShoppingCart,
+  GraduationCap,
+  Briefcase,
   Heart,
-  Building,
-  Users,
-  MessageSquare,
-  TrendingUp,
-  Globe,
   Zap,
+  ArrowRight,
+  CheckCircle,
 } from "lucide-react"
+import { motion } from "framer-motion"
 
 const useCases = [
   {
+    icon: MessageCircle,
+    title: "Customer Support Revolution",
+    description: "Transform customer service with AI that understands emotions, context, and brand personality.",
+    benefits: ["24/7 empathetic support", "90% faster resolution", "Consistent brand voice"],
+    industry: "E-commerce",
+    color: "blue",
+  },
+  {
     icon: GraduationCap,
-    title: "EcosueloLab - Career Coaching",
-    description:
-      "AI-powered career guidance that understands your professional vibe and helps you find the perfect career path.",
-    features: ["Personalized career assessments", "Interview preparation", "Skill gap analysis", "Job market insights"],
-    metrics: { users: "15,000+", success: "94%", placements: "2,300+" },
-    color: "from-green-500 to-emerald-600",
+    title: "Personalized Learning",
+    description: "Educational AI that adapts to each student's learning style, pace, and interests.",
+    benefits: ["Adaptive curriculum", "Real-time feedback", "Engagement tracking"],
+    industry: "Education",
+    color: "green",
   },
   {
-    icon: Globe,
-    title: "ParrotfyIA - Language Learning",
-    description: "Conversational AI that adapts to your learning style and helps you master new languages naturally.",
-    features: [
-      "Adaptive conversation practice",
-      "Cultural context learning",
-      "Pronunciation coaching",
-      "Progress tracking",
-    ],
-    metrics: { users: "28,000+", retention: "87%", fluency: "+65%" },
-    color: "from-blue-500 to-cyan-600",
-  },
-  {
-    icon: MessageSquare,
-    title: "Customer Service Excellence",
-    description: "Empathetic support AI that matches your brand's personality and resolves issues with genuine care.",
-    features: ["24/7 multilingual support", "Emotion recognition", "Escalation management", "Brand voice consistency"],
-    metrics: { resolution: "92%", satisfaction: "96%", response: "<30s" },
-    color: "from-purple-500 to-violet-600",
+    icon: Briefcase,
+    title: "Business Intelligence",
+    description: "AI consultants that understand your industry, challenges, and strategic goals.",
+    benefits: ["Strategic insights", "Market analysis", "Decision support"],
+    industry: "Consulting",
+    color: "purple",
   },
   {
     icon: ShoppingCart,
-    title: "E-commerce Personal Shopper",
-    description: "AI shopping assistant that understands your style and preferences to recommend perfect products.",
-    features: ["Style profiling", "Personalized recommendations", "Size and fit guidance", "Trend insights"],
-    metrics: { conversion: "+45%", satisfaction: "91%", returns: "-30%" },
-    color: "from-orange-500 to-red-600",
+    title: "Smart Sales Assistant",
+    description: "AI that knows your products, customers, and sales process to maximize conversions.",
+    benefits: ["Personalized recommendations", "Objection handling", "Upselling optimization"],
+    industry: "Retail",
+    color: "orange",
   },
   {
     icon: Heart,
-    title: "Mental Health Support",
-    description: "Compassionate AI companion that provides emotional support and mental wellness guidance.",
-    features: ["Mood tracking", "Coping strategies", "Crisis intervention", "Therapy preparation"],
-    metrics: { engagement: "89%", improvement: "+78%", retention: "85%" },
-    color: "from-pink-500 to-rose-600",
+    title: "Healthcare Companion",
+    description: "Compassionate AI that provides health guidance while understanding patient concerns.",
+    benefits: ["Symptom assessment", "Treatment adherence", "Emotional support"],
+    industry: "Healthcare",
+    color: "red",
   },
   {
-    icon: Building,
-    title: "Enterprise Solutions",
-    description: "Custom AI agents for large organizations that maintain company culture and values.",
-    features: ["Internal knowledge base", "Employee onboarding", "Process automation", "Compliance monitoring"],
-    metrics: { efficiency: "+60%", satisfaction: "93%", adoption: "88%" },
-    color: "from-indigo-500 to-blue-600",
+    icon: Zap,
+    title: "Creative Collaboration",
+    description: "AI creative partners that understand your artistic vision and brand aesthetics.",
+    benefits: ["Content generation", "Design assistance", "Brand consistency"],
+    industry: "Creative",
+    color: "yellow",
   },
 ]
 
+const colorClasses = {
+  blue: "bg-blue-100 text-blue-800",
+  green: "bg-green-100 text-green-800",
+  purple: "bg-purple-100 text-purple-800",
+  orange: "bg-orange-100 text-orange-800",
+  red: "bg-red-100 text-red-800",
+  yellow: "bg-yellow-100 text-yellow-800",
+}
+
 export function UseCasesSection() {
   return (
-    <section id="use-cases" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="use-cases" className="py-20 px-4">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -84,18 +85,21 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge variant="secondary" className="mb-4">
-            <Zap className="w-4 h-4 mr-2" />
+          <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">
+            <Briefcase className="mr-1 h-3 w-3" />
             Real-World Applications
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Vibe Coding in Action</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            See how our vibe coding approach transforms industries with AI that truly understands and connects with
-            users on a human level.
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Vibe Coding in{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Action</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            See how businesses across industries are using vibe coding to create AI experiences that feel natural,
+            authentic, and perfectly aligned with their brand.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {useCases.map((useCase, index) => (
             <motion.div
               key={useCase.title}
@@ -104,55 +108,40 @@ export function UseCasesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-purple-200 group">
                 <CardHeader>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div
-                      className={`w-16 h-16 rounded-xl bg-gradient-to-r ${useCase.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                    >
-                      <useCase.icon className="w-8 h-8 text-white" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="p-3 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg group-hover:scale-110 transition-transform">
+                      <useCase.icon className="h-6 w-6 text-purple-600" />
                     </div>
-                    <div>
-                      <CardTitle className="text-xl mb-2">{useCase.title}</CardTitle>
-                      <CardDescription className="text-base">{useCase.description}</CardDescription>
-                    </div>
+                    <Badge className={colorClasses[useCase.color as keyof typeof colorClasses]}>
+                      {useCase.industry}
+                    </Badge>
                   </div>
+                  <CardTitle className="text-xl group-hover:text-purple-600 transition-colors">
+                    {useCase.title}
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="font-semibold mb-3 flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        Key Features
-                      </h4>
-                      <ul className="space-y-2">
-                        {useCase.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                            {feature}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                <CardContent className="space-y-4">
+                  <CardDescription className="text-gray-600 leading-relaxed">{useCase.description}</CardDescription>
 
-                    <div>
-                      <h4 className="font-semibold mb-3 flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4" />
-                        Success Metrics
-                      </h4>
-                      <div className="grid grid-cols-3 gap-4">
-                        {Object.entries(useCase.metrics).map(([key, value]) => (
-                          <div key={key} className="text-center">
-                            <div className="text-lg font-bold text-primary">{value}</div>
-                            <div className="text-xs text-muted-foreground capitalize">{key}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-gray-900 text-sm">Key Benefits:</h4>
+                    <ul className="space-y-1">
+                      {useCase.benefits.map((benefit, benefitIndex) => (
+                        <li key={benefitIndex} className="flex items-center text-sm text-gray-600">
+                          <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                    <Button className="w-full bg-transparent" variant="outline">
+                  <div className="pt-4 border-t">
+                    <button className="flex items-center text-purple-600 hover:text-purple-700 font-medium text-sm group-hover:translate-x-1 transition-transform">
                       Learn More
-                    </Button>
+                      <ArrowRight className="h-4 w-4 ml-1" />
+                    </button>
                   </div>
                 </CardContent>
               </Card>
@@ -167,21 +156,16 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-blue-600/5 border-primary/20">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">Ready to Build Your Vibe-Coded AI?</h3>
-              <p className="text-lg text-muted-foreground mb-6">
-                Join thousands of businesses that have transformed their customer experience with AI that truly
-                understands and connects.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg">Start Building Now</Button>
-                <Button variant="outline" size="lg">
-                  Schedule Demo
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8 border border-purple-100">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Don't See Your Use Case?</h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              Our vibe coding technology adapts to any industry or application. Let's discuss how we can create the
+              perfect AI solution for your unique needs.
+            </p>
+            <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">
+              Discuss Your Project
+            </button>
+          </div>
         </motion.div>
       </div>
     </section>

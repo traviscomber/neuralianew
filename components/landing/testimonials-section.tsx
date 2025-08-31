@@ -1,78 +1,71 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Quote, Zap } from "lucide-react"
+import { Star, Quote } from "lucide-react"
+import { motion } from "framer-motion"
 
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "Head of Customer Experience",
+    role: "CEO",
     company: "TechFlow Solutions",
-    avatar: "/placeholder-user.jpg",
     content:
-      "Neuralia's vibe coding approach completely transformed our customer service. Our AI doesn't just solve problems—it connects with customers on an emotional level. We've seen a 40% increase in satisfaction scores.",
+      "Neuralia's vibe coding completely transformed our customer support. Our AI now handles complex queries with the same empathy and expertise as our best human agents. Customer satisfaction increased by 40%.",
     rating: 5,
-    metric: "40% ↑ Satisfaction",
+    industry: "SaaS",
   },
   {
     name: "Marcus Rodriguez",
-    role: "Learning & Development Director",
-    company: "Global Education Corp",
-    avatar: "/placeholder-user.jpg",
+    role: "Head of Marketing",
+    company: "GreenLeaf Organics",
     content:
-      "The EcosueloLab career coaching AI has been a game-changer for our students. It understands their unique career aspirations and provides personalized guidance that feels genuinely supportive.",
+      "The AI understands our brand's environmental mission perfectly. It creates content that feels authentic to our values while engaging customers in meaningful conversations about sustainability.",
     rating: 5,
-    metric: "94% Success Rate",
+    industry: "E-commerce",
   },
   {
-    name: "Elena Kowalski",
-    role: "Product Manager",
-    company: "LinguaLearn",
-    avatar: "/placeholder-user.jpg",
+    name: "Dr. Emily Watson",
+    role: "Director of Education",
+    company: "Future Learning Academy",
     content:
-      "ParrotfyIA's conversational approach to language learning is revolutionary. Our users stay engaged 3x longer because the AI adapts to their personality and learning style.",
+      "Our students love their AI tutors! The personalized learning approach adapts to each child's unique style. We've seen a 60% improvement in engagement and learning outcomes.",
     rating: 5,
-    metric: "3x Engagement",
+    industry: "Education",
   },
   {
-    name: "David Park",
+    name: "James Park",
+    role: "Operations Manager",
+    company: "Urban Fitness Chain",
+    content:
+      "The AI scheduling assistant understands our members' preferences and schedules classes perfectly. It's like having a personal concierge for each of our 10,000+ members.",
+    rating: 5,
+    industry: "Fitness",
+  },
+  {
+    name: "Lisa Thompson",
+    role: "Creative Director",
+    company: "Pixel Perfect Agency",
+    content:
+      "Working with Neuralia's creative AI is like having a brilliant creative partner who never sleeps. It understands our aesthetic and helps us deliver consistent, high-quality work faster.",
+    rating: 5,
+    industry: "Creative",
+  },
+  {
+    name: "David Kumar",
     role: "CTO",
-    company: "RetailNext",
-    avatar: "/placeholder-user.jpg",
+    company: "FinanceForward",
     content:
-      "The vibe coding methodology helped us create an AI shopping assistant that truly understands our customers' style preferences. Conversion rates increased by 45% in just three months.",
+      "The AI's ability to explain complex financial concepts in simple terms while maintaining regulatory compliance is remarkable. Our clients trust it as much as they trust our human advisors.",
     rating: 5,
-    metric: "45% ↑ Conversions",
-  },
-  {
-    name: "Dr. Amanda Foster",
-    role: "Clinical Director",
-    company: "MindWell Therapy",
-    avatar: "/placeholder-user.jpg",
-    content:
-      "The empathetic AI companion we built with Neuralia provides genuine emotional support to our clients. It's not just technology—it's a caring presence that makes a real difference.",
-    rating: 5,
-    metric: "89% User Engagement",
-  },
-  {
-    name: "James Thompson",
-    role: "VP of Operations",
-    company: "Enterprise Solutions Inc",
-    avatar: "/placeholder-user.jpg",
-    content:
-      "Implementing Neuralia's vibe-coded AI across our organization improved employee satisfaction and operational efficiency. The AI truly embodies our company culture and values.",
-    rating: 5,
-    metric: "60% ↑ Efficiency",
+    industry: "Finance",
   },
 ]
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
-      <div className="max-w-7xl mx-auto">
+    <section id="testimonials" className="py-20 px-4 bg-white/50">
+      <div className="container mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -80,14 +73,17 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge variant="secondary" className="mb-4">
-            <Zap className="w-4 h-4 mr-2" />
-            Success Stories
+          <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">
+            <Star className="mr-1 h-3 w-3" />
+            Customer Success Stories
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Loved by Teams Worldwide</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            See how organizations across industries are transforming their customer experience with AI that truly
-            understands and connects.
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            Loved by{" "}
+            <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Thousands</span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            See what industry leaders are saying about their vibe coding experience and the transformative impact on
+            their business.
           </p>
         </motion.div>
 
@@ -100,39 +96,39 @@ export function TestimonialsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-2 hover:border-green-200">
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    ))}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {testimonial.industry}
+                    </Badge>
                   </div>
 
                   <div className="relative mb-6">
-                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-primary/20" />
-                    <p className="text-muted-foreground italic pl-6">"{testimonial.content}"</p>
+                    <Quote className="absolute -top-2 -left-2 h-8 w-8 text-green-200" />
+                    <p className="text-gray-700 leading-relaxed pl-6">{testimonial.content}</p>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Avatar>
-                        <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                        <AvatarFallback>
-                          {testimonial.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
+                  <div className="border-t pt-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                        {testimonial.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </div>
                       <div>
-                        <div className="font-semibold text-sm">{testimonial.name}</div>
-                        <div className="text-xs text-muted-foreground">{testimonial.role}</div>
-                        <div className="text-xs text-muted-foreground">{testimonial.company}</div>
+                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                        <div className="text-sm text-gray-600">
+                          {testimonial.role} at {testimonial.company}
+                        </div>
                       </div>
                     </div>
-                    <Badge variant="outline" className="text-xs font-semibold">
-                      {testimonial.metric}
-                    </Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -147,23 +143,22 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="grid md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">50,000+</div>
-              <div className="text-sm text-muted-foreground">Active Users</div>
+          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8 border border-green-100">
+            <div className="flex items-center justify-center mb-4">
+              <div className="flex items-center space-x-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
+              <span className="ml-3 text-2xl font-bold text-gray-900">4.9/5</span>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">96%</div>
-              <div className="text-sm text-muted-foreground">Satisfaction Rate</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">500+</div>
-              <div className="text-sm text-muted-foreground">Companies</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-              <div className="text-sm text-muted-foreground">Support</div>
-            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Join Our Success Stories</h3>
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+              Over 1,000+ businesses trust Neuralia to deliver AI experiences that truly understand their vibe.
+            </p>
+            <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">
+              Start Your Success Story
+            </button>
           </div>
         </motion.div>
       </div>

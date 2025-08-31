@@ -1,57 +1,54 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Zap, MessageSquare, Users, TrendingUp, Play, Pause } from "lucide-react"
+import { Brain, Zap, MessageCircle, Play, Pause } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const demos = [
   {
     id: "ecosuelo",
-    title: "EcosueloLab - Career Coaching",
-    description: "AI-powered career guidance with vibe coding approach",
+    title: "EcosueloLab",
+    description: "AI-powered environmental analysis and sustainability consulting",
+    category: "Environmental AI",
     messages: [
-      { role: "user", content: "I feel stuck in my current job and don't know what career path to take next." },
+      { role: "user", content: "¿Cómo puedo reducir la huella de carbono de mi empresa?" },
       {
         role: "assistant",
         content:
-          "I totally get that feeling! 🌟 Let's vibe check your career energy. What activities make you lose track of time? When do you feel most alive at work? Let's decode your passion patterns and find that perfect career match that aligns with your authentic self!",
+          "Te ayudo a crear un plan integral de sostenibilidad. Primero, analicemos tus principales fuentes de emisión: energía, transporte, y residuos. Podemos implementar energías renovables, optimizar logística, y establecer un programa de economía circular que reduzca hasta un 40% tu huella de carbono.",
       },
     ],
-    metrics: { users: "15K+", satisfaction: "94%", placements: "2.3K" },
   },
   {
     id: "parrotfy",
-    title: "ParrotfyIA - Language Learning",
-    description: "Conversational AI that adapts to your learning vibe",
+    title: "ParrotfyIA",
+    description: "Advanced language learning with AI conversation partners",
+    category: "Education AI",
     messages: [
-      { role: "user", content: "I want to practice Spanish but I'm nervous about making mistakes." },
+      { role: "user", content: "I want to practice business English for presentations" },
       {
         role: "assistant",
         content:
-          "¡No te preocupes! 🦜 Making mistakes is part of the vibe! I'm here to help you practice in a chill, judgment-free zone. Let's start with something fun - tell me about your favorite hobby in Spanish, and I'll help you express it naturally. ¡Vamos a practicar con buena onda!",
+          "Perfect! Let's work on your presentation skills. I'll help you with professional vocabulary, confident delivery, and persuasive techniques. Try starting with: 'Good morning, I'm here to present our Q4 strategy...' I'll provide real-time feedback on pronunciation and business terminology.",
       },
     ],
-    metrics: { users: "28K+", retention: "87%", fluency: "+65%" },
   },
   {
     id: "customer-service",
     title: "Customer Service AI",
-    description: "Empathetic support that matches your brand's vibe",
+    description: "Intelligent customer support with emotional understanding",
+    category: "Business AI",
     messages: [
-      {
-        role: "user",
-        content: "My order hasn't arrived and I'm really frustrated. This is the third time this has happened.",
-      },
+      { role: "user", content: "I'm frustrated with my order delay, this is unacceptable!" },
       {
         role: "assistant",
         content:
-          "I completely understand your frustration, and I'm genuinely sorry this keeps happening. 💙 That's definitely not the experience we want for you. Let me personally track down your order right now and make sure we get this sorted out properly. Can you share your order number? I'm going to make this right!",
+          "I completely understand your frustration, and I sincerely apologize for this delay. Let me immediately check your order status and provide you with a solution. I'm also arranging priority shipping at no cost and a 20% discount on your next purchase. Your satisfaction is our priority.",
       },
     ],
-    metrics: { resolution: "92%", satisfaction: "96%", response: "< 30s" },
   },
 ]
 
@@ -69,167 +66,156 @@ export function HeroSection() {
     return () => clearInterval(interval)
   }, [isPlaying])
 
-  const togglePlayback = () => {
-    setIsPlaying(!isPlaying)
-  }
+  const demo = demos[currentDemo]
 
   return (
-    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Badge variant="secondary" className="mb-4">
-              <Zap className="w-4 h-4 mr-2" />
-              Vibe Coding Revolution
-            </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-              AI That Gets Your Vibe
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Create AI agents that understand your unique energy and communication style. With Neuralia's vibe coding
-              approach, build intelligent solutions that feel authentically you.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8">
+    <section className="py-20 px-4">
+      <div className="container mx-auto max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Content */}
+          <div className="space-y-8">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">
+                <Zap className="mr-1 h-3 w-3" />
+                Vibe Coding Revolution
+              </Badge>
+              <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                AI That Gets Your{" "}
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Vibe</span>
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Transform your business with AI agents that understand your unique style, culture, and goals. Our vibe
+                coding approach creates personalized AI solutions that feel natural and authentic.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg px-8 py-3"
+              >
+                <Brain className="mr-2 h-5 w-5" />
                 Start Vibe Coding
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-3 bg-transparent">
                 Watch Demo
               </Button>
-            </div>
-          </motion.div>
-        </div>
+            </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="grid grid-cols-3 gap-8 pt-8 border-t"
+            >
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600">50+</div>
+                <div className="text-sm text-gray-600">AI Vibes Created</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600">98%</div>
+                <div className="text-sm text-gray-600">Vibe Match Rate</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600">24/7</div>
+                <div className="text-sm text-gray-600">Vibe Support</div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column - Interactive Demo */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="relative"
           >
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Live Vibe Coding Demos</h2>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={togglePlayback}
-                className="flex items-center gap-2 bg-transparent"
-              >
-                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                {isPlaying ? "Pause" : "Play"}
-              </Button>
-            </div>
+            <Card className="bg-white/80 backdrop-blur-sm border-2 border-blue-100 shadow-2xl">
+              <CardContent className="p-6">
+                {/* Demo Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  </div>
+                  <Button variant="ghost" size="sm" onClick={() => setIsPlaying(!isPlaying)}>
+                    {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                  </Button>
+                </div>
 
-            <div className="flex gap-2 mb-6">
-              {demos.map((demo, index) => (
-                <button
-                  key={demo.id}
-                  onClick={() => setCurrentDemo(index)}
-                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
-                    currentDemo === index
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {demo.title.split(" - ")[0]}
-                </button>
-              ))}
-            </div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentDemo}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="mb-6">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold">{demos[currentDemo].title}</h3>
-                        <p className="text-sm text-muted-foreground">{demos[currentDemo].description}</p>
-                      </div>
+                {/* Demo Content */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={demo.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="mb-4">
+                      <Badge className="mb-2 bg-blue-100 text-blue-800">{demo.category}</Badge>
+                      <h3 className="text-xl font-bold text-gray-900">{demo.title}</h3>
+                      <p className="text-sm text-gray-600">{demo.description}</p>
                     </div>
 
                     <div className="space-y-4">
-                      {demos[currentDemo].messages.map((message, index) => (
-                        <div
+                      {demo.messages.map((message, index) => (
+                        <motion.div
                           key={index}
+                          initial={{ opacity: 0, x: message.role === "user" ? 20 : -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.4, delay: index * 0.2 }}
                           className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                         >
                           <div
                             className={`max-w-[80%] p-3 rounded-lg ${
-                              message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                              message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                             }`}
                           >
                             <p className="text-sm">{message.content}</p>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
+                  </motion.div>
+                </AnimatePresence>
 
-                <div className="grid grid-cols-3 gap-4">
-                  {Object.entries(demos[currentDemo].metrics).map(([key, value]) => (
-                    <div key={key} className="text-center">
-                      <div className="text-2xl font-bold text-primary">{value}</div>
-                      <div className="text-sm text-muted-foreground capitalize">{key}</div>
-                    </div>
+                {/* Demo Navigation */}
+                <div className="flex justify-center space-x-2 mt-6">
+                  {demos.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentDemo(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentDemo ? "bg-blue-600" : "bg-gray-300"
+                      }`}
+                    />
                   ))}
                 </div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6"
-          >
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <MessageSquare className="w-8 h-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Vibe-First Development</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  Our AI agents don't just process requests—they understand context, emotion, and personality. Each
-                  interaction feels natural and aligned with your brand's unique energy.
-                </p>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Users className="w-8 h-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Human-Centric AI</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  Built for real people, not just data points. Our vibe coding approach ensures every AI interaction
-                  feels authentic, empathetic, and genuinely helpful.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <TrendingUp className="w-8 h-8 text-primary" />
-                  <h3 className="text-xl font-semibold">Proven Results</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  Join 50,000+ users who've transformed their businesses with AI that truly gets their vibe. See
-                  measurable improvements in engagement, satisfaction, and growth.
-                </p>
-              </CardContent>
-            </Card>
+            {/* Floating Elements */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
+              className="absolute -top-4 -right-4 bg-purple-600 text-white p-3 rounded-full shadow-lg"
+            >
+              <MessageCircle className="h-6 w-6" />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, delay: 1.5 }}
+              className="absolute -bottom-4 -left-4 bg-blue-600 text-white p-3 rounded-full shadow-lg"
+            >
+              <Brain className="h-6 w-6" />
+            </motion.div>
           </motion.div>
         </div>
       </div>

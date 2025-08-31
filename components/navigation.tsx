@@ -2,96 +2,71 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Zap } from "lucide-react"
+import { Brain, Menu, X } from "lucide-react"
 
 export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <Zap className="h-8 w-8 text-primary" />
-              <span className="ml-2 text-xl font-bold">Neuralia</span>
-            </div>
+    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Brain className="h-8 w-8 text-blue-600" />
+            <span className="text-2xl font-bold text-gray-900">Neuralia</span>
+            <span className="text-sm text-purple-600 font-medium">Vibe Coding</span>
           </div>
 
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <a
-                href="#features"
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Features
-              </a>
-              <a
-                href="#use-cases"
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Use Cases
-              </a>
-              <a
-                href="#testimonials"
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                Testimonials
-              </a>
-              <a
-                href="#faq"
-                className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                FAQ
-              </a>
-              <Button>Get Started</Button>
-            </div>
-          </div>
-
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary hover:bg-accent focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-background border-b">
-            <a
-              href="#features"
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
-            >
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
               Features
             </a>
-            <a
-              href="#use-cases"
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
-            >
+            <a href="#use-cases" className="text-gray-600 hover:text-blue-600 transition-colors">
               Use Cases
             </a>
-            <a
-              href="#testimonials"
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
-            >
+            <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
               Testimonials
             </a>
-            <a
-              href="#faq"
-              className="text-foreground hover:text-primary block px-3 py-2 rounded-md text-base font-medium"
-            >
+            <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">
               FAQ
             </a>
-            <div className="px-3 py-2">
-              <Button className="w-full">Get Started</Button>
-            </div>
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+              Get Started
+            </Button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
           </div>
         </div>
-      )}
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t">
+            <div className="flex flex-col space-y-4 pt-4">
+              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
+                Features
+              </a>
+              <a href="#use-cases" className="text-gray-600 hover:text-blue-600 transition-colors">
+                Use Cases
+              </a>
+              <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
+                Testimonials
+              </a>
+              <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">
+                FAQ
+              </a>
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 w-full">
+                Get Started
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   )
 }
