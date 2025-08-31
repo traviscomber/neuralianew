@@ -1,13 +1,13 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
-export type Database = {
+export interface Database {
   public: {
     Tables: {
       profiles: {
         Row: {
           id: string
           email: string
-          name: string | null
+          full_name: string | null
           avatar_url: string | null
           created_at: string
           updated_at: string
@@ -15,7 +15,7 @@ export type Database = {
         Insert: {
           id: string
           email: string
-          name?: string | null
+          full_name?: string | null
           avatar_url?: string | null
           created_at?: string
           updated_at?: string
@@ -23,22 +23,21 @@ export type Database = {
         Update: {
           id?: string
           email?: string
-          name?: string | null
+          full_name?: string | null
           avatar_url?: string | null
           created_at?: string
           updated_at?: string
         }
-        Relationships: []
       }
       ai_agents: {
         Row: {
           id: string
           name: string
           description: string | null
-          category: string
-          price: number
-          features: Json
+          type: string
           icon: string | null
+          price: number
+          features: Json | null
           created_at: string
           updated_at: string
         }
@@ -46,10 +45,10 @@ export type Database = {
           id?: string
           name: string
           description?: string | null
-          category: string
-          price: number
-          features: Json
+          type: string
           icon?: string | null
+          price: number
+          features?: Json | null
           created_at?: string
           updated_at?: string
         }
@@ -57,27 +56,28 @@ export type Database = {
           id?: string
           name?: string
           description?: string | null
-          category?: string
-          price?: number
-          features?: Json
+          type?: string
           icon?: string | null
+          price?: number
+          features?: Json | null
           created_at?: string
           updated_at?: string
         }
-        Relationships: []
       }
       deployed_agents: {
         Row: {
           id: string
           user_id: string
           agent_id: string
-          agent_name: string
+          agent_name: string | null
           agent_description: string | null
-          agent_type: string
+          agent_type: string | null
+          icon: string | null
           status: string
-          deployment_date: string
-          trial_start_date: string | null
-          trial_end_date: string | null
+          configuration: Json | null
+          is_trial: boolean
+          trial_ends_at: string | null
+          payment_status: string
           created_at: string
           updated_at: string
         }
@@ -85,13 +85,15 @@ export type Database = {
           id?: string
           user_id: string
           agent_id: string
-          agent_name: string
+          agent_name?: string | null
           agent_description?: string | null
-          agent_type: string
-          status: string
-          deployment_date: string
-          trial_start_date?: string | null
-          trial_end_date?: string | null
+          agent_type?: string | null
+          icon?: string | null
+          status?: string
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
           created_at?: string
           updated_at?: string
         }
@@ -99,25 +101,47 @@ export type Database = {
           id?: string
           user_id?: string
           agent_id?: string
-          agent_name?: string
+          agent_name?: string | null
           agent_description?: string | null
-          agent_type?: string
+          agent_type?: string | null
+          icon?: string | null
           status?: string
-          deployment_date?: string
-          trial_start_date?: string | null
-          trial_end_date?: string | null
+          configuration?: Json | null
+          is_trial?: boolean
+          trial_ends_at?: string | null
+          payment_status?: string
           created_at?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "deployed_agents_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
+      }
+      purchases: {
+        Row: {
+          id: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          items: Json
+          total_amount: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          items?: Json
+          total_amount?: number
+          status?: string
+          created_at?: string
+          updated_at?: string
+        }
       }
     }
     Views: {
@@ -134,75 +158,3 @@ export type Database = {
     }
   }
 }
-
-export type Tables<
-  PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
-    | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-        Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
-      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
-    }
-    ? R
-    : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & Database["public"]["Views"])
-    ? (Database["public"]["Tables"] & Database["public"]["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
-    : never
-
-export type TablesInsert<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
-    }
-    ? I
-    : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
-    : never
-
-export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
-  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
-> = PublicTableNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
-    }
-    ? U
-    : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
-    : never
-
-export type Enums<
-  PublicEnumNameOrOptions extends keyof Database["public"]["Enums"] | { schema: keyof Database },
-  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
-    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
-> = PublicEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-    ? Database["public"]["Enums"][PublicEnumNameOrOptions]
-    : never

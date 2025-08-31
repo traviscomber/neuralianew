@@ -1,88 +1,111 @@
 "use client"
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Badge } from "@/components/ui/badge"
-import { motion } from "framer-motion"
+import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { ChevronDown, Brain, Shield, CreditCard, Zap, Users, Clock } from "lucide-react"
 
 const faqs = [
   {
-    question: "What is vibe coding and how does it work?",
+    icon: Brain,
+    question: "What exactly are 'Neural AI Executives'?",
     answer:
-      "Vibe coding is our unique methodology that makes AI development feel natural and intuitive. Instead of complex configurations, our platform understands your intent and creates solutions that just work, focusing on the 'vibe' or feeling of seamless interaction.",
+      "Neural AI Executives are specialized AI agents designed to provide executive-level business guidance. Each agent focuses on a specific business function (CEO for strategy, CMO for marketing, CTO for technology) and can provide insights, recommendations, and coordinate with other executives through the Neural Director.",
   },
   {
-    question: "How quickly can I deploy AI agents?",
+    icon: Clock,
+    question: "How does the 5-day free trial work?",
     answer:
-      "With our vibe coding approach, most AI agents can be deployed in minutes, not months. Our platform handles the complex setup automatically, so you can focus on defining what you want your AI to accomplish.",
+      "Your 5-day free trial gives you complete access to all AI executives with no limitations. Simply deploy any agent and start using it immediately. You'll get full access to all features and capabilities. After 5 days, you can upgrade with USDT payment to continue access.",
   },
   {
-    question: "Do I need technical expertise to use Neuralia?",
+    icon: CreditCard,
+    question: "Why do you only accept USDT payments?",
     answer:
-      "Not at all! Vibe coding makes AI accessible to everyone. Our intuitive interface and natural language setup mean you can create powerful AI solutions without any programming knowledge.",
+      "We use USDT (Tether) for several reasons: instant global transactions, lower fees than traditional payment processors, enhanced privacy and security, and seamless integration with our decentralized infrastructure. USDT allows us to serve clients worldwide without geographic payment restrictions.",
   },
   {
-    question: "How secure is my data?",
+    icon: Zap,
+    question: "How is this different from ChatGPT or other AI tools?",
     answer:
-      "We use enterprise-grade security with end-to-end encryption, SOC 2 compliance, and GDPR adherence. Your data is processed securely and never used to train models for other customers.",
+      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized for business functions. They're designed specifically for executive decision-making, can coordinate with each other through the Neural Director, and focus on strategic business guidance rather than general conversation.",
   },
   {
-    question: "Can Neuralia integrate with my existing tools?",
+    icon: Users,
+    question: "Can these agents integrate with my existing business tools?",
     answer:
-      "Yes! Our AI agents work seamlessly with popular platforms like Slack, Microsoft Teams, Salesforce, HubSpot, and hundreds of other tools through our extensive API and webhook support.",
+      "Our Neural AI Executives are designed to work with common business workflows and can provide guidance on integrating with various business tools. The specific integrations available depend on your subscription plan and business needs.",
   },
   {
-    question: "What kind of support do you provide?",
+    icon: Shield,
+    question: "How secure is my business data?",
     answer:
-      "We offer 24/7 technical support, comprehensive documentation, video tutorials, and dedicated customer success managers for enterprise clients. Our vibe coding philosophy extends to our support - it's designed to be helpful and human.",
-  },
-  {
-    question: "How does pricing work?",
-    answer:
-      "We offer flexible pricing based on usage and features. Start with our free tier to explore vibe coding, then scale up as your needs grow. Enterprise plans include custom pricing and dedicated support.",
-  },
-  {
-    question: "What makes Neuralia different from other AI platforms?",
-    answer:
-      "Our vibe coding methodology focuses on creating AI that feels natural and intuitive. While other platforms require complex setup and technical expertise, we make AI accessible through intelligent automation and user-friendly design.",
+      "Security is our top priority. We use enterprise-grade encryption, secure processing environments, and follow industry best practices for data protection. Your conversations and business data are processed securely and are not stored permanently or used to train other models.",
   },
 ]
 
 export function FAQSection() {
+  const [openItems, setOpenItems] = useState<string[]>([])
+
+  const toggleItem = (value: string) => {
+    setOpenItems((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]))
+  }
+
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-orange-100 text-orange-800">FAQ</Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Questions
-            </span>
+          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Frequently Asked Questions
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about vibe coding and our AI platform.
+            Everything you need to know about Neural AI Executives and how they can support your business operations.
           </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border shadow-sm">
-                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        <div className="max-w-4xl mx-auto space-y-4">
+          {faqs.map((faq, index) => {
+            const Icon = faq.icon
+            const isOpen = openItems.includes(index.toString())
+
+            return (
+              <Card key={index} className="border-2 hover:border-blue-200 transition-colors">
+                <Collapsible>
+                  <CollapsibleTrigger className="w-full" onClick={() => toggleItem(index.toString())}>
+                    <CardHeader className="flex flex-row items-center space-y-0 pb-4">
+                      <div className="flex items-center space-x-4 flex-1 text-left">
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Icon className="h-5 w-5 text-white" />
+                        </div>
+                        <CardTitle className="text-lg font-semibold text-gray-900">{faq.question}</CardTitle>
+                      </div>
+                      <ChevronDown
+                        className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    </CardHeader>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <CardContent className="pt-0">
+                      <p className="text-gray-600 leading-relaxed pl-14">{faq.answer}</p>
+                    </CardContent>
+                  </CollapsibleContent>
+                </Collapsible>
+              </Card>
+            )
+          })}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-gray-600 mb-4">Still have questions?</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="mailto:hello@neuralia.ai" className="text-blue-600 hover:text-blue-700 font-medium">
+              Email: hello@neuralia.ai
+            </a>
+            <a href="https://t.me/neuralia_support" className="text-blue-600 hover:text-blue-700 font-medium">
+              Telegram: @neuralia_support
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -1,174 +1,127 @@
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { createClient, createServerClient } from "@supabase/supabase-js"
 import type { Database } from "@/types/supabase"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Get environment variables with fallbacks
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://dptblcvifavtbvngivkb.supabase.co"
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTExNzc1MjYsImV4cCI6MjA2Njc1MzUyNn0.GxB1UkdkrNA9Hhz04wRTnkpWZGllwgLrXcde7cEiNZw"
+const supabaseServiceKey =
+  process.env.SUPABASE_SERVICE_ROLE_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwdGJsY3ZpZmF2dGJ2bmdpdmtiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTE3NzUyNiwiZXhwIjoyMDY2NzUzNTI2fQ.dh6RKDuDSpp18baxBO-D46K4fPGr-7-8H4KMRsmBjyM"
 
-// Client-side Supabase client
-export const createClient = () => {
-  return createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey)
-}
+// Client-side Supabase client (browser)
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true,
+  },
+})
 
-// Client-side Supabase client - REQUIRED NAMED EXPORT
-export const supabase = createClient()
+// Server-side Supabase client with service role
+export const supabaseAdmin = createClient<Database>(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
+})
 
-// Server-side Supabase client
-export const createServerClient = () => {
-  return createSupabaseClient<Database>(supabaseUrl, process.env.SUPABASE_SERVICE_ROLE_KEY || supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: false,
-      persistSession: false,
-    },
-  })
-}
+// Export createClient and createServerClient for compatibility
+export { createClient, createServerClient }
 
 // Database helper functions
 export const dbHelpers = {
-  // User profile operations
-  async createProfile(userId: string, profileData: any) {
-    const client = createClient()
-    return await client.from("profiles").insert({
-      id: userId,
-      ...profileData,
-    })
+  async createProfile(userId: string, email: string, fullName?: string) {
+    const { data, error } = await supabaseAdmin
+      .from("profiles")
+      .insert({
+        id: userId,
+        email,
+        full_name: fullName,
+        updated_at: new Date().toISOString(),
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
   },
 
   async getProfile(userId: string) {
-    const client = createClient()
-    return await client.from("profiles").select("*").eq("id", userId).single()
+    const { data, error } = await supabaseAdmin.from("profiles").select("*").eq("id", userId).single()
+
+    if (error && error.code !== "PGRST116") throw error
+    return data
   },
 
-  async updateProfile(userId: string, updates: any) {
-    const client = createClient()
-    return await client.from("profiles").update(updates).eq("id", userId)
-  },
+  async deployAgent(userId: string, agentId: string, configuration: any) {
+    const { data, error } = await supabaseAdmin
+      .from("deployed_agents")
+      .insert({
+        user_id: userId,
+        agent_id: agentId,
+        agent_name: configuration.name || "Unnamed Agent",
+        agent_description: configuration.description,
+        agent_type: configuration.type || "general",
+        icon: configuration.icon || "🤖",
+        status: "active",
+        configuration: configuration,
+        is_trial: true,
+        trial_ends_at: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+        payment_status: "trial",
+      })
+      .select()
+      .single()
 
-  // AI Agents operations
-  async createAgent(agentData: any) {
-    const client = createClient()
-    return await client.from("ai_agents").insert(agentData)
-  },
-
-  async getUserAgents(userId: string) {
-    const client = createClient()
-    return await client.from("ai_agents").select("*").eq("user_id", userId)
-  },
-
-  async updateAgent(agentId: string, updates: any) {
-    const client = createClient()
-    return await client.from("ai_agents").update(updates).eq("id", agentId)
-  },
-
-  async deleteAgent(agentId: string) {
-    const client = createClient()
-    return await client.from("ai_agents").delete().eq("id", agentId)
-  },
-
-  // AI Systems operations
-  async createSystem(systemData: any) {
-    const client = createClient()
-    return await client.from("ai_systems").insert(systemData)
-  },
-
-  async getUserSystems(userId: string) {
-    const client = createClient()
-    return await client.from("ai_systems").select("*").eq("user_id", userId)
-  },
-
-  async updateSystem(systemId: string, updates: any) {
-    const client = createClient()
-    return await client.from("ai_systems").update(updates).eq("id", systemId)
-  },
-
-  async deleteSystem(systemId: string) {
-    const client = createClient()
-    return await client.from("ai_systems").delete().eq("id", systemId)
-  },
-
-  // Chat conversations operations
-  async createConversation(conversationData: any) {
-    const client = createClient()
-    return await client.from("chat_conversations").insert(conversationData)
-  },
-
-  async getUserConversations(userId: string) {
-    const client = createClient()
-    return await client
-      .from("chat_conversations")
-      .select("*")
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false })
-  },
-
-  async updateConversation(conversationId: string, updates: any) {
-    const client = createClient()
-    return await client.from("chat_conversations").update(updates).eq("id", conversationId)
-  },
-
-  async deleteConversation(conversationId: string) {
-    const client = createClient()
-    return await client.from("chat_conversations").delete().eq("id", conversationId)
-  },
-
-  // User analytics operations
-  async createAnalytics(analyticsData: any) {
-    const client = createClient()
-    return await client.from("user_analytics").insert(analyticsData)
-  },
-
-  async getUserAnalytics(userId: string) {
-    const client = createClient()
-    return await client
-      .from("user_analytics")
-      .select("*")
-      .eq("user_id", userId)
-      .order("period_start", { ascending: false })
-  },
-
-  async updateAnalytics(analyticsId: string, updates: any) {
-    const client = createClient()
-    return await client.from("user_analytics").update(updates).eq("id", analyticsId)
-  },
-
-  // Deployed agents operations
-  async deployAgent(deploymentData: any) {
-    const client = createClient()
-    return await client.from("deployed_agents").insert(deploymentData)
+    if (error) throw error
+    return data
   },
 
   async getUserDeployedAgents(userId: string) {
-    const client = createClient()
-    return await client
+    const { data, error } = await supabaseAdmin
       .from("deployed_agents")
       .select("*")
       .eq("user_id", userId)
-      .order("deployment_date", { ascending: false })
+      .order("created_at", { ascending: false })
+
+    if (error) throw error
+    return data || []
   },
 
-  async updateDeployedAgent(deploymentId: string, updates: any) {
-    const client = createClient()
-    return await client.from("deployed_agents").update(updates).eq("id", deploymentId)
+  async removeDeployedAgent(userId: string, agentId: string) {
+    const { error } = await supabaseAdmin.from("deployed_agents").delete().eq("user_id", userId).eq("agent_id", agentId)
+
+    if (error) throw error
+    return true
   },
 
-  async deleteDeployedAgent(deploymentId: string) {
-    const client = createClient()
-    return await client.from("deployed_agents").delete().eq("id", deploymentId)
+  async createPurchase(userId: string, items: any[], totalAmount: number) {
+    const { data, error } = await supabaseAdmin
+      .from("purchases")
+      .insert({
+        user_id: userId,
+        items: items,
+        total_amount: totalAmount,
+        status: "completed",
+      })
+      .select()
+      .single()
+
+    if (error) throw error
+    return data
   },
 
-  // Error reporting
-  async reportError(errorData: any) {
-    const client = createClient()
-    return await client.from("error_reports").insert(errorData)
-  },
+  async getUserPurchases(userId: string) {
+    const { data, error } = await supabaseAdmin
+      .from("purchases")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
 
-  // Health check
-  async healthCheck() {
-    const client = createClient()
-    return await client.from("profiles").select("count").limit(1)
+    if (error) throw error
+    return data || []
   },
 }
-
-// Alias for backward compatibility
-export const dbService = dbHelpers
 
 export default supabase
