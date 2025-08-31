@@ -2,496 +2,653 @@
 
 import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
-  MessageCircle,
-  TrendingUp,
-  Globe,
-  Briefcase,
+  Leaf,
   GraduationCap,
+  MessageSquare,
   BarChart3,
-  Target,
-  Zap,
-  Star,
-  Sprout,
-  Building2,
+  Users,
+  Globe,
   Droplets,
   Thermometer,
-  CloudRain,
+  Database,
+  Zap,
+  TrendingUp,
+  CheckCircle,
+  Play,
+  ArrowRight,
+  Brain,
+  Target,
+  Workflow,
 } from "lucide-react"
 
 interface Message {
   id: number
-  text: string
   sender: "user" | "bot"
+  content: string
   timestamp: string
+  avatar?: string
+  name?: string
 }
 
-interface ChatDemoProps {
+interface ChatSimulationProps {
   messages: Message[]
-  isActive: boolean
-  colorScheme: "green" | "blue" | "purple"
+  autoStart?: boolean
 }
 
-const ChatDemo = ({ messages, isActive, colorScheme }: ChatDemoProps) => {
+function ChatSimulation({ messages, autoStart = false }: ChatSimulationProps) {
   const [displayedMessages, setDisplayedMessages] = useState<Message[]>([])
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-
-  const colorClasses = {
-    green: {
-      userBg: "bg-green-500",
-      botBg: "bg-green-50",
-      botText: "text-green-800",
-      userText: "text-white",
-    },
-    blue: {
-      userBg: "bg-blue-500",
-      botBg: "bg-blue-50",
-      botText: "text-blue-800",
-      userText: "text-white",
-    },
-    purple: {
-      userBg: "bg-purple-500",
-      botBg: "bg-purple-50",
-      botText: "text-purple-800",
-      userText: "text-white",
-    },
-  }
+  const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
-    if (!isActive) {
-      setDisplayedMessages([])
-      setCurrentMessageIndex(0)
-      return
+    if (autoStart && !isActive) {
+      startDemo()
     }
+  }, [autoStart, isActive])
 
-    if (currentMessageIndex < messages.length) {
-      const timer = setTimeout(
-        () => {
-          setDisplayedMessages((prev) => [...prev, messages[currentMessageIndex]])
-          setCurrentMessageIndex((prev) => prev + 1)
-        },
-        currentMessageIndex === 0 ? 1000 : 2000,
-      )
+  const startDemo = () => {
+    setIsActive(true)
+    setDisplayedMessages([])
 
-      return () => clearTimeout(timer)
-    }
-  }, [isActive, currentMessageIndex, messages])
-
-  const colors = colorClasses[colorScheme]
+    messages.forEach((message, index) => {
+      setTimeout(() => {
+        setDisplayedMessages((prev) => [...prev, message])
+      }, index * 2000)
+    })
+  }
 
   return (
-    <div className="h-80 bg-white rounded-lg border overflow-hidden flex flex-col">
-      <div
-        className={`p-3 bg-gradient-to-r ${colorScheme === "green" ? "from-green-500 to-emerald-600" : colorScheme === "blue" ? "from-blue-500 to-indigo-600" : "from-purple-500 to-indigo-600"} text-white`}
-      >
-        <div className="flex items-center gap-2">
-          <MessageCircle className="w-4 h-4" />
-          <span className="font-medium text-sm">{colorScheme === "green" ? "WhatsApp Business" : "Chat en Vivo"}</span>
-          <div className="ml-auto flex gap-1">
-            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-            <div className="w-2 h-2 bg-white/60 rounded-full"></div>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex-1 p-4 overflow-y-auto space-y-3">
+    <div className="bg-gray-50 rounded-lg p-4 h-80 overflow-y-auto">
+      <div className="space-y-3">
         {displayedMessages.map((message) => (
           <div key={message.id} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
             <div
-              className={`max-w-[80%] p-3 rounded-lg text-sm ${
-                message.sender === "user"
-                  ? `${colors.userBg} ${colors.userText}`
-                  : `${colors.botBg} ${colors.botText} border`
-              }`}
+              className={`flex items-start space-x-2 max-w-xs ${message.sender === "user" ? "flex-row-reverse space-x-reverse" : ""}`}
             >
-              {message.text}
+              <Avatar className="w-8 h-8">
+                <AvatarImage src={message.avatar || "/placeholder.svg"} />
+                <AvatarFallback>{message.sender === "user" ? "U" : "AI"}</AvatarFallback>
+              </Avatar>
+              <div
+                className={`rounded-lg p-3 ${message.sender === "user" ? "bg-blue-500 text-white" : "bg-white border"}`}
+              >
+                <p className="text-sm">{message.content}</p>
+                <span className="text-xs opacity-70">{message.timestamp}</span>
+              </div>
             </div>
           </div>
         ))}
+      </div>
+
+      {!isActive && (
+        <div className="flex items-center justify-center h-full">
+          <Button onClick={startDemo} className="bg-green-600 hover:bg-green-700">
+            <Play className="w-4 h-4 mr-2" />
+            Iniciar Demo
+          </Button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function AIWorkflowDiagram() {
+  return (
+    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 mb-8">
+      <h3 className="text-xl font-bold text-center mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        Flujo de Trabajo de Ejecutivos IA
+      </h3>
+      <div className="flex items-center justify-between max-w-4xl mx-auto">
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+            <Database className="w-8 h-8 text-white" />
+          </div>
+          <h4 className="font-semibold text-green-700 mb-1">Datos Reales</h4>
+          <p className="text-xs text-gray-600 max-w-20">Integración con fuentes externas</p>
+        </div>
+
+        <ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+            <Brain className="w-8 h-8 text-white" />
+          </div>
+          <h4 className="font-semibold text-blue-700 mb-1">Procesamiento IA</h4>
+          <p className="text-xs text-gray-600 max-w-20">Análisis inteligente GPT-4</p>
+        </div>
+
+        <ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+            <Target className="w-8 h-8 text-white" />
+          </div>
+          <h4 className="font-semibold text-purple-700 mb-1">Decisiones</h4>
+          <p className="text-xs text-gray-600 max-w-20">Recomendaciones precisas</p>
+        </div>
+
+        <ArrowRight className="w-6 h-6 text-gray-400 mx-2" />
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mb-3 shadow-lg">
+            <Workflow className="w-8 h-8 text-white" />
+          </div>
+          <h4 className="font-semibold text-orange-700 mb-1">Automatización</h4>
+          <p className="text-xs text-gray-600 max-w-20">Ejecución automática</p>
+        </div>
       </div>
     </div>
   )
 }
 
 export function UseCasesSection() {
-  const [activeTab, setActiveTab] = useState("ecosuelo")
+  const ecosueloMessages: Message[] = [
+    {
+      id: 1,
+      sender: "user",
+      content: "Hola, necesito analizar el suelo de mi campo en Curicó para plantar viñas",
+      timestamp: "10:30",
+      name: "Carlos Mendoza",
+    },
+    {
+      id: 2,
+      sender: "bot",
+      content:
+        "¡Hola Carlos! 🌱 Soy EcosueloLab. Te ayudo con análisis de suelos. ¿Podrías enviarme la ubicación exacta de tu campo?",
+      timestamp: "10:31",
+    },
+    {
+      id: 3,
+      sender: "user",
+      content: "📍 Ubicación: -34.9823, -71.2394 (Curicó, Región del Maule)",
+      timestamp: "10:32",
+    },
+    {
+      id: 4,
+      sender: "bot",
+      content:
+        "📊 Consultando base de datos INIA...\n\n✅ **Datos INIA obtenidos:**\n🌾 Tipo de suelo: Franco arcilloso\n🧪 pH promedio zona: 6.5-7.0\n🌡️ Temperatura media: 16-18°C\n📈 Aptitud viñas: ALTA",
+      timestamp: "10:33",
+    },
+    {
+      id: 5,
+      sender: "bot",
+      content:
+        "🔬 Conectando con IrriWatch para análisis nutricional...\n\n✅ **Datos IrriWatch:**\n🧪 Nitrógeno (N): 45 ppm - ÓPTIMO\n🍃 Hidratación foliar: 78% - BUENA\n💧 Estrés hídrico: BAJO\n\n🍇 Condiciones ideales para plantación de viñas!",
+      timestamp: "10:34",
+    },
+  ]
 
-  const useCases = {
-    ecosuelo: {
-      title: "EcosueloBot",
-      subtitle: "Asistente Agrícola Inteligente",
-      description:
-        "Análisis de suelos, riego inteligente y recomendaciones agrícolas con datos INIA, IrriWatch y sensores IoT",
-      colorScheme: "green" as const,
-      stats: [
-        { icon: Sprout, label: "Análisis de Suelo", value: "2,847" },
-        { icon: Droplets, label: "Sistemas de Riego", value: "1,234" },
-        { icon: TrendingUp, label: "Mejora Rendimiento", value: "34%" },
-        { icon: Globe, label: "Regiones Chile", value: "15" },
-      ],
-      features: [
-        "Análisis de pH y nutrientes del suelo (INIA)",
-        "Monitoreo de riego inteligente (IrriWatch)",
-        "Predicción climática y fenológica",
-        "Integración WhatsApp Business + ChatGPT",
-      ],
-      messages: [
-        {
-          id: 1,
-          text: "Hola! Tengo 50 hectáreas de trigo en Maule. Mi análisis muestra pH 6.5, fósforo bajo. ¿Cuándo debo regar?",
-          sender: "user" as const,
-          timestamp: "10:30",
-        },
-        {
-          id: 2,
-          text: "¡Perfecto! Según datos integrados:\n\n🌱 **INIA:** pH 6.5 óptimo, fósforo bajo común en Maule\n💧 **IrriWatch:** Humedad suelo 45% - necesita riego\n🌡️ **Sensores:** Temp 22°C, evapotranspiración 4.2mm/día\n\n📊 **Recomendación:**\n• Riego: 25mm mañana (6-8 AM)\n• Fertilización: Superfosfato triple 150 kg/ha\n• Próximo riego: en 3 días según pronóstico",
-          sender: "bot" as const,
-          timestamp: "10:31",
-        },
-        {
-          id: 3,
-          text: "¿Qué dice el pronóstico climático para esta semana?",
-          sender: "user" as const,
-          timestamp: "10:32",
-        },
-        {
-          id: 4,
-          text: "📡 **Datos integrados DMC + IrriWatch:**\n\n🌤️ **Próximos 7 días:**\n• Lun-Mar: Soleado, 18-25°C, viento 12 km/h\n• Mié: 40% lluvia (8-12mm esperados)\n• Jue-Vie: Despejado, 20-27°C\n• Fin semana: Estable\n\n💧 **Ajuste riego automático:**\n• Reducir 30% el miércoles\n• Suspender si lluvia >10mm\n• Reanudar jueves según humedad suelo\n\n🎯 **Ahorro estimado:** 15% agua + $180k/temporada",
-          sender: "bot" as const,
-          timestamp: "10:33",
-        },
-      ],
+  const careerMessages: Message[] = [
+    {
+      id: 1,
+      sender: "user",
+      content:
+        "Hola, me siento un poco perdida en mi carrera. Soy desarrolladora Python con 3 años de experiencia pero no sé si voy por buen camino...",
+      timestamp: "14:20",
+      name: "María González",
     },
-    career: {
-      title: "Despega tu Carrera",
-      subtitle: "Coach de Carrera con IA",
-      description: "Orientación profesional personalizada con datos reales del mercado laboral chileno",
-      colorScheme: "blue" as const,
-      stats: [
-        { icon: Briefcase, label: "Profesionales Asesorados", value: "3,456" },
-        { icon: GraduationCap, label: "Planes de Carrera", value: "1,890" },
-        { icon: TrendingUp, label: "Éxito en Colocación", value: "78%" },
-        { icon: Target, label: "Industrias Cubiertas", value: "25" },
-      ],
-      features: [
-        "Análisis de mercado laboral en tiempo real",
-        "Benchmarking salarial con datos Laborum",
-        "Planes de carrera personalizados",
-        "Estrategias de negociación salarial",
-      ],
-      messages: [
-        {
-          id: 1,
-          text: "Hola! Soy ingeniero de software con 3 años de experiencia en Santiago. Quiero acelerar mi carrera y aumentar mi salario",
-          sender: "user" as const,
-          timestamp: "14:15",
-        },
-        {
-          id: 2,
-          text: "¡Excelente timing! Con 3 años de experiencia estás en el momento perfecto para acelerar. Según datos actuales de Laborum y GetOnBoard:\n\n💰 **Tu rango actual:** $1.8M - $2.5M CLP\n🎯 **Objetivo realista:** $2.8M - $3.5M (+40%)\n📈 **Demanda:** +35% vs 2023\n\n¿En qué tecnologías te especializas? Te ayudo a identificar el camino más rápido.",
-          sender: "bot" as const,
-          timestamp: "14:16",
-        },
-        {
-          id: 3,
-          text: "Trabajo con React, Node.js y AWS. Me interesa liderar equipos",
-          sender: "user" as const,
-          timestamp: "14:17",
-        },
-        {
-          id: 4,
-          text: "¡Stack perfecto para liderazgo! React + Node.js + AWS es muy demandado.\n\n🚀 **Plan 6 meses:**\n📚 **Mes 1-2:** Certificación AWS Solutions Architect\n👥 **Mes 3-4:** Mentoría junior developers + liderar proyecto\n💼 **Mes 5-6:** Aplicar Tech Lead positions\n\n🎯 **Objetivo salarial:** $3.5M - $4.0M CLP\n📊 **Basado en:** 127 ofertas LinkedIn + 89 GetOnBoard\n\n¿Empezamos con AWS o prefieres enfocarte en liderazgo?",
-          sender: "bot" as const,
-          timestamp: "14:18",
-        },
-      ],
+    {
+      id: 2,
+      sender: "bot",
+      content:
+        "¡Hola María! 💙 Me da mucha alegría que me escribas. Primero, quiero que sepas que es completamente normal sentirse así - yo he acompañado a miles de profesionales que han pasado por lo mismo.\n\n¿Sabes qué? 3 años de Python es increíble! Estás en un momento perfecto para dar el siguiente paso. Cuéntame, ¿qué es lo que más te gusta de programar?",
+      timestamp: "14:21",
     },
-    parrotfy: {
-      title: "ParrotfyIA",
-      subtitle: "ERP Conversacional con OpenAI GPT-4",
-      description: "Gestión empresarial completa a través de conversación natural con inteligencia artificial",
-      colorScheme: "purple" as const,
-      stats: [
-        { icon: Building2, label: "Empresas Activas", value: "156" },
-        { icon: BarChart3, label: "Consultas Diarias", value: "4,321" },
-        { icon: TrendingUp, label: "Eficiencia Operativa", value: "85%" },
-        { icon: Star, label: "Módulos ERP", value: "15" },
-      ],
-      features: [
-        "Gestión de proyectos conversacional",
-        "Análisis financiero en tiempo real",
-        "Control de inventario inteligente",
-        "Reportes automáticos con OpenAI GPT-4",
-      ],
-      messages: [
-        {
-          id: 1,
-          text: "¿Cómo van nuestros proyectos este mes? Necesito un resumen ejecutivo",
-          sender: "user" as const,
-          timestamp: "16:45",
-        },
-        {
-          id: 2,
-          text: "📊 **Resumen Ejecutivo - Noviembre 2024:**\n\n✅ **Completados:** 12 proyectos (+3 vs octubre)\n🔄 **En progreso:** 8 proyectos\n⚠️ **Retrasados:** 2 proyectos (E-commerce Mobile, CRM Integration)\n\n💰 **Facturación:**\n• Completados: $45.2M CLP\n• Pipeline: $28.7M CLP\n• Margen: 34%\n\n🎯 **Próximos hitos:** App Banco Regional (15/Nov), Sistema Inventario (20/Nov)",
-          sender: "bot" as const,
-          timestamp: "16:46",
-        },
-        {
-          id: 3,
-          text: "Muéstrame el análisis financiero del trimestre",
-          sender: "user" as const,
-          timestamp: "16:47",
-        },
-        {
-          id: 4,
-          text: "💼 **Análisis Financiero Q4 2024:**\n\n📈 **Ingresos (Oct-Nov):**\n• Desarrollo: $89.4M CLP\n• Consultoría: $23.1M CLP\n• Mantenimiento: $15.7M CLP\n• **Total:** $128.2M CLP (+18% vs Q3)\n\n📉 **Gastos:** $80.1M CLP\n• Nómina: $52.3M (41%)\n• AWS: $8.9M\n• Marketing: $12.1M\n\n💰 **Utilidad:** $48.1M CLP (37.5% margen)\n🎯 **12% sobre proyección**",
-          sender: "bot" as const,
-          timestamp: "16:48",
-        },
-      ],
+    {
+      id: 3,
+      sender: "user",
+      content:
+        "Me encanta resolver problemas complejos, pero a veces siento que no crezco lo suficiente en mi trabajo actual...",
+      timestamp: "14:22",
     },
-  }
+    {
+      id: 4,
+      sender: "bot",
+      content:
+        "María, eso que sientes es tu intuición diciéndote que estás lista para más desafíos - ¡y eso es hermoso! 🌟\n\nHe estado revisando el mercado y hay empresas increíbles buscando exactamente tu perfil:\n\n💎 **Banco Estado** - Senior Python Dev\n$2.8M-$3.2M • Remoto\n*Proyectos de transformación digital*\n\n🚀 **Falabella** - Data Engineer  \n$2.5M-$3.0M • Las Condes\n*Análisis de big data, súper desafiante*\n\n¿Te late alguna? Estoy aquí para prepararte para lo que necesites 💪",
+      timestamp: "14:23",
+    },
+    {
+      id: 5,
+      sender: "bot",
+      content:
+        "Y María, recuerda: tu valor no se mide solo en años de experiencia. Tu pasión por resolver problemas complejos es oro puro en este mercado. Confía en ti, yo ya lo hago ✨",
+      timestamp: "14:24",
+    },
+  ]
+
+  const parrotfyMessages: Message[] = [
+    {
+      id: 1,
+      sender: "user",
+      content: "Necesito el reporte de ventas del Q3 y actualizar el inventario de productos",
+      timestamp: "09:15",
+      name: "Roberto Silva",
+    },
+    {
+      id: 2,
+      sender: "bot",
+      content:
+        "¡Hola Roberto! 📊 Soy Parrotfy, tu asistente ERP inteligente con OpenAI GPT-4.\n\nGenerando reporte Q3... ✅\n📈 Ventas Q3: $847M CLP (+12% vs Q2)\n🏆 Top producto: Laptop Dell (234 unidades)",
+      timestamp: "09:16",
+    },
+    {
+      id: 3,
+      sender: "user",
+      content: "Perfecto. ¿Puedes actualizar el stock de laptops Dell? Llegaron 50 unidades hoy",
+      timestamp: "09:17",
+    },
+    {
+      id: 4,
+      sender: "bot",
+      content:
+        "✅ **Inventario Actualizado**\n\n💻 Laptop Dell XPS 13:\n• Stock anterior: 12 unidades\n• Ingreso: +50 unidades\n• **Stock actual: 62 unidades**\n\n📋 Sistema ERP sincronizado\n🔔 Notificación enviada a equipo de ventas\n\n¿Necesitas actualizar algo más?",
+      timestamp: "09:18",
+    },
+  ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-white">
-      <div className="container mx-auto px-4">
+    <section id="use-cases" className="py-24 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Casos de Éxito Reales</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubre cómo nuestros agentes de IA están transformando industrias específicas con soluciones
-            personalizadas y resultados medibles
+          <h2 className="text-4xl font-bold mb-4">
+            Casos de Uso{" "}
+            <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Reales</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Descubre cómo nuestros ejecutivos IA están transformando industrias con datos reales y conversaciones
+            auténticas
           </p>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-gray-100 p-1 rounded-xl">
-            {Object.entries(useCases).map(([key, useCase]) => (
-              <TabsTrigger
-                key={key}
-                value={key}
-                className={`rounded-lg font-medium transition-all duration-200 ${
-                  activeTab === key
-                    ? useCase.colorScheme === "green"
-                      ? "bg-green-500 text-white shadow-lg"
-                      : useCase.colorScheme === "blue"
-                        ? "bg-blue-500 text-white shadow-lg"
-                        : "bg-purple-500 text-white shadow-lg"
-                    : "text-gray-600 hover:text-gray-900"
-                }`}
-              >
-                {useCase.title}
-              </TabsTrigger>
-            ))}
+        <AIWorkflowDiagram />
+
+        <Tabs defaultValue="ecosuelo" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-gradient-to-r from-gray-100 to-gray-200 p-1 rounded-xl">
+            <TabsTrigger
+              value="ecosuelo"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-green-600 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-lg"
+            >
+              <Leaf className="w-4 h-4" />
+              EcosueloLab
+            </TabsTrigger>
+            <TabsTrigger
+              value="career"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-lg"
+            >
+              <GraduationCap className="w-4 h-4" />
+              Despega tu Carrera
+            </TabsTrigger>
+            <TabsTrigger
+              value="parrotfy"
+              className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-lg"
+            >
+              <MessageSquare className="w-4 h-4" />
+              Parrotfy
+            </TabsTrigger>
           </TabsList>
 
-          {Object.entries(useCases).map(([key, useCase]) => (
-            <TabsContent key={key} value={key} className="space-y-8">
-              {/* Header */}
-              <div
-                className={`text-center p-8 rounded-2xl bg-gradient-to-r ${
-                  useCase.colorScheme === "green"
-                    ? "from-green-500 to-emerald-600"
-                    : useCase.colorScheme === "blue"
-                      ? "from-blue-500 to-indigo-600"
-                      : "from-purple-500 to-indigo-600"
-                } text-white`}
-              >
-                <h3 className="text-3xl font-bold mb-2">{useCase.title}</h3>
-                <p className="text-xl opacity-90 mb-4">{useCase.subtitle}</p>
-                <p className="text-lg opacity-80 max-w-2xl mx-auto">{useCase.description}</p>
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {useCase.stats.map((stat, index) => (
-                  <Card
-                    key={index}
-                    className={`text-center border-2 ${
-                      useCase.colorScheme === "green"
-                        ? "border-green-200 bg-green-50"
-                        : useCase.colorScheme === "blue"
-                          ? "border-blue-200 bg-blue-50"
-                          : "border-purple-200 bg-purple-50"
-                    }`}
-                  >
-                    <CardContent className="p-6">
-                      <stat.icon
-                        className={`w-8 h-8 mx-auto mb-3 ${
-                          useCase.colorScheme === "green"
-                            ? "text-green-600"
-                            : useCase.colorScheme === "blue"
-                              ? "text-blue-600"
-                              : "text-purple-600"
-                        }`}
-                      />
-                      <div
-                        className={`text-2xl font-bold mb-1 ${
-                          useCase.colorScheme === "green"
-                            ? "text-green-700"
-                            : useCase.colorScheme === "blue"
-                              ? "text-blue-700"
-                              : "text-purple-700"
-                        }`}
-                      >
-                        {stat.value}
+          <TabsContent value="ecosuelo" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              <Card className="border-green-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 bg-gradient-to-br from-green-100 to-green-200 rounded-xl">
+                        <Leaf className="w-8 h-8 text-green-600" />
                       </div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Data Sources for EcosueloBot */}
-              {key === "ecosuelo" && (
-                <Card className="border-2 border-green-200 bg-green-50">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-green-700">
-                      <Globe className="w-5 h-5" />
-                      Fuentes de Datos Integradas
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Sprout className="w-6 h-6 text-green-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">INIA</div>
-                        <div className="text-xs text-gray-600">Análisis de suelos</div>
-                      </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Droplets className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">IrriWatch</div>
-                        <div className="text-xs text-gray-600">Riego inteligente</div>
-                      </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <Thermometer className="w-6 h-6 text-orange-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">Sensores IoT</div>
-                        <div className="text-xs text-gray-600">Temp & Humedad</div>
-                      </div>
-                      <div className="text-center p-4 bg-white rounded-lg border border-green-200">
-                        <CloudRain className="w-6 h-6 text-gray-600 mx-auto mb-2" />
-                        <div className="font-semibold text-green-700">DMC</div>
-                        <div className="text-xs text-gray-600">Pronóstico clima</div>
+                      <div>
+                        <CardTitle className="text-green-800 text-xl">EcosueloLab</CardTitle>
+                        <p className="text-sm text-green-600 font-medium">Laboratorio Agrícola Inteligente</p>
                       </div>
                     </div>
-                    <div className="mt-4 p-4 bg-white rounded-lg border border-green-200">
-                      <h4 className="font-semibold text-green-700 mb-2">Integración en Tiempo Real:</h4>
-                      <ul className="text-sm text-gray-700 space-y-1">
-                        <li>
-                          • <strong>INIA:</strong> Análisis de suelos, recomendaciones de fertilización por región
-                        </li>
-                        <li>
-                          • <strong>IrriWatch:</strong> Monitoreo de humedad del suelo y programación de riego
-                        </li>
-                        <li>
-                          • <strong>Sensores IoT:</strong> Temperatura, humedad relativa, evapotranspiración
-                        </li>
-                        <li>
-                          • <strong>DMC (Dirección Meteorológica):</strong> Pronósticos climáticos precisos
-                        </li>
-                        <li>
-                          • <strong>Agromet:</strong> Datos fenológicos y alertas fitosanitarias
-                        </li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* Main Content */}
-              <div className="grid lg:grid-cols-2 gap-8">
-                {/* Features */}
-                <Card
-                  className={`border-2 ${
-                    useCase.colorScheme === "green"
-                      ? "border-green-200"
-                      : useCase.colorScheme === "blue"
-                        ? "border-blue-200"
-                        : "border-purple-200"
-                  }`}
-                >
-                  <CardHeader>
-                    <CardTitle
-                      className={`flex items-center gap-2 ${
-                        useCase.colorScheme === "green"
-                          ? "text-green-700"
-                          : useCase.colorScheme === "blue"
-                            ? "text-blue-700"
-                            : "text-purple-700"
-                      }`}
+                    <Badge
+                      variant="secondary"
+                      className="bg-gradient-to-r from-green-100 to-green-200 text-green-800 font-semibold"
                     >
-                      <Zap className="w-5 h-5" />
-                      Características Principales
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {useCase.features.map((feature, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div
-                          className={`w-2 h-2 rounded-full mt-2 ${
-                            useCase.colorScheme === "green"
-                              ? "bg-green-500"
-                              : useCase.colorScheme === "blue"
-                                ? "bg-blue-500"
-                                : "bg-purple-500"
-                          }`}
-                        ></div>
-                        <span className="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                    <div className="pt-4">
-                      <Button
-                        className={`w-full ${
-                          useCase.colorScheme === "green"
-                            ? "bg-green-500 hover:bg-green-600"
-                            : useCase.colorScheme === "blue"
-                              ? "bg-blue-500 hover:bg-blue-600"
-                              : "bg-purple-500 hover:bg-purple-600"
-                        }`}
-                      >
-                        Probar {useCase.title}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                      WhatsApp Business
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Análisis de suelos en tiempo real con integración a INIA, IrriWatch y sensores IoT para agricultura
+                    de precisión.
+                  </p>
 
-                {/* Chat Demo */}
-                <Card
-                  className={`border-2 ${
-                    useCase.colorScheme === "green"
-                      ? "border-green-200"
-                      : useCase.colorScheme === "blue"
-                        ? "border-blue-200"
-                        : "border-purple-200"
-                  }`}
-                >
-                  <CardHeader>
-                    <CardTitle
-                      className={`flex items-center gap-2 ${
-                        useCase.colorScheme === "green"
-                          ? "text-green-700"
-                          : useCase.colorScheme === "blue"
-                            ? "text-blue-700"
-                            : "text-purple-700"
-                      }`}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
+                      <Droplets className="w-4 h-4 text-blue-500" />
+                      <span className="text-sm font-medium">Hidratación Foliar</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-red-50 rounded-lg">
+                      <Thermometer className="w-4 h-4 text-red-500" />
+                      <span className="text-sm font-medium">Monitoreo Clima</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
+                      <Database className="w-4 h-4 text-purple-500" />
+                      <span className="text-sm font-medium">Datos INIA</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg">
+                      <Zap className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm font-medium">Análisis N</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200">
+                    <h4 className="font-semibold text-green-800 mb-3">Fuentes de Datos Integradas:</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>
+                          <strong>INIA:</strong> Base de datos agrícola nacional
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>
+                          <strong>IrriWatch:</strong> Nitrógeno e hidratación foliar
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>
+                          <strong>DMC:</strong> Datos meteorológicos en tiempo real
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-green-600" />
+                        <span>
+                          <strong>Sensores IoT:</strong> Humedad, pH, temperatura del suelo
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-green-600" />
+                    Conversación Real - WhatsApp
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChatSimulation messages={ecosueloMessages} autoStart={true} />
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <TrendingUp className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">40% Aumento</h3>
+                  <p className="text-sm text-muted-foreground">en rendimiento de cultivos</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Droplets className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">60% Ahorro</h3>
+                  <p className="text-sm text-muted-foreground">en consumo de agua</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">2,500+ Agricultores</h3>
+                  <p className="text-sm text-muted-foreground">usando la plataforma</p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="career" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              <Card className="border-blue-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl">
+                        <GraduationCap className="w-8 h-8 text-blue-600" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-blue-800 text-xl">Despega tu Carrera</CardTitle>
+                        <p className="text-sm text-blue-600 font-medium">Tu Coach Personal y Confidente</p>
+                      </div>
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 font-semibold"
                     >
-                      <MessageCircle className="w-5 h-5" />
-                      {useCase.colorScheme === "green" ? "Demo WhatsApp Business" : "Demostración en Vivo"}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ChatDemo
-                      messages={useCase.messages}
-                      isActive={activeTab === key}
-                      colorScheme={useCase.colorScheme}
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-          ))}
+                      Apoyo Incondicional
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Tu compañero de confianza en el desarrollo profesional. Más que un coach, soy tu amigo que cree en
+                    tu potencial y te acompaña en cada paso.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-2 p-2 bg-pink-50 rounded-lg">
+                      <BarChart3 className="w-4 h-4 text-pink-500" />
+                      <span className="text-sm font-medium">Apoyo Emocional</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
+                      <Users className="w-4 h-4 text-purple-500" />
+                      <span className="text-sm font-medium">Confianza Total</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
+                      <TrendingUp className="w-4 h-4 text-blue-500" />
+                      <span className="text-sm font-medium">Crecimiento Personal</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-orange-50 rounded-lg">
+                      <Globe className="w-4 h-4 text-orange-500" />
+                      <span className="text-sm font-medium">Visión Global</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200">
+                    <h4 className="font-semibold text-blue-800 mb-3">Mi Compromiso Contigo:</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-blue-600" />
+                        <span>
+                          <strong>Escucha Activa:</strong> Entiendo tus miedos y aspiraciones
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-blue-600" />
+                        <span>
+                          <strong>Apoyo 24/7:</strong> Siempre aquí cuando me necesites
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-blue-600" />
+                        <span>
+                          <strong>Crecimiento Integral:</strong> No solo trabajo, sino bienestar
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-blue-600" />
+                    Conversación Real - Apoyo Personal
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChatSimulation messages={careerMessages} autoStart={true} />
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <TrendingUp className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">95% Satisfacción</h3>
+                  <p className="text-sm text-muted-foreground">en apoyo emocional</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BarChart3 className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">40% Más Confianza</h3>
+                  <p className="text-sm text-muted-foreground">en decisiones profesionales</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">15,000+ Vidas</h3>
+                  <p className="text-sm text-muted-foreground">transformadas con cariño</p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="parrotfy" className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+              <Card className="border-purple-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="p-3 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl">
+                        <MessageSquare className="w-8 h-8 text-purple-600" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-purple-800 text-xl">Parrotfy</CardTitle>
+                        <p className="text-sm text-purple-600 font-medium">ERP Conversacional Inteligente</p>
+                      </div>
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 font-semibold"
+                    >
+                      OpenAI GPT-4
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-muted-foreground">
+                    Sistema ERP conversacional potenciado por OpenAI GPT-4 que gestiona inventarios, ventas y reportes
+                    mediante chat natural.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex items-center gap-2 p-2 bg-blue-50 rounded-lg">
+                      <BarChart3 className="w-4 h-4 text-blue-500" />
+                      <span className="text-sm font-medium">Reportes IA</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-green-50 rounded-lg">
+                      <Database className="w-4 h-4 text-green-500" />
+                      <span className="text-sm font-medium">Gestión Inventario</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-purple-50 rounded-lg">
+                      <TrendingUp className="w-4 h-4 text-purple-500" />
+                      <span className="text-sm font-medium">Analytics Avanzado</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-yellow-50 rounded-lg">
+                      <Zap className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm font-medium">Automatización</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200">
+                    <h4 className="font-semibold text-purple-800 mb-3">Capacidades OpenAI GPT-4:</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-purple-600" />
+                        <span>
+                          <strong>Procesamiento Natural:</strong> Comandos en lenguaje cotidiano
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-purple-600" />
+                        <span>
+                          <strong>Análisis Inteligente:</strong> Insights automáticos de datos
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-purple-600" />
+                        <span>
+                          <strong>Reportes Dinámicos:</strong> Generación automática de informes
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <MessageSquare className="w-5 h-5 text-purple-600" />
+                    Gestión ERP Conversacional
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ChatSimulation messages={parrotfyMessages} autoStart={true} />
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BarChart3 className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">70% Reducción</h3>
+                  <p className="text-sm text-muted-foreground">en tiempo de reportes</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">95% Automatización</h3>
+                  <p className="text-sm text-muted-foreground">de tareas administrativas</p>
+                </CardContent>
+              </Card>
+              <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <CardContent className="pt-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="font-semibold mb-1 text-lg">500+ Empresas</h3>
+                  <p className="text-sm text-muted-foreground">optimizando con IA</p>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     </section>
