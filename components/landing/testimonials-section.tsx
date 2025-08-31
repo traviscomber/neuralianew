@@ -1,71 +1,90 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Star, Quote } from "lucide-react"
-import { motion } from "framer-motion"
+import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Star, Quote, Users, Building, GraduationCap, Globe } from "lucide-react"
 
 const testimonials = [
   {
-    name: "Sarah Chen",
+    name: "María González",
+    role: "Directora de Recursos Humanos",
+    company: "TechCorp Chile",
+    avatar: "/placeholder-user.jpg",
+    rating: 5,
+    content:
+      "EcosueloLab transformó completamente nuestro proceso de selección. La IA no solo evalúa habilidades técnicas, sino que entiende la personalidad y fit cultural. Hemos reducido la rotación en un 60%.",
+    category: "Recursos Humanos",
+    icon: Building,
+    color: "from-green-500 to-emerald-600",
+  },
+  {
+    name: "Carlos Mendoza",
+    role: "Estudiante de Ingeniería",
+    company: "Universidad de Chile",
+    avatar: "/placeholder-user.jpg",
+    rating: 5,
+    content:
+      "Gracias a Despega Tu Carrera conseguí mi primera práctica profesional en solo 3 semanas. El coaching personalizado me ayudó a identificar mis fortalezas y a presentarme con confianza.",
+    category: "Estudiante",
+    icon: GraduationCap,
+    color: "from-blue-500 to-cyan-600",
+  },
+  {
+    name: "Ana Rodríguez",
+    role: "Gerente de Marketing",
+    company: "StartupLab",
+    avatar: "/placeholder-user.jpg",
+    rating: 5,
+    content:
+      "ParrotfyIA me ayudó a dominar el inglés de negocios en 6 meses. Las conversaciones se sienten tan naturales que olvidas que estás hablando con IA. Ahora lidero reuniones internacionales con confianza.",
+    category: "Profesional",
+    icon: Globe,
+    color: "from-purple-500 to-violet-600",
+  },
+  {
+    name: "Roberto Silva",
     role: "CEO",
-    company: "TechFlow Solutions",
-    content:
-      "Neuralia's vibe coding completely transformed our customer support. Our AI now handles complex queries with the same empathy and expertise as our best human agents. Customer satisfaction increased by 40%.",
+    company: "InnovateTech",
+    avatar: "/placeholder-user.jpg",
     rating: 5,
-    industry: "SaaS",
+    content:
+      "Implementamos los portales neuronales de Neuralia en nuestro customer service. La satisfacción del cliente subió al 96% y redujimos los tiempos de respuesta en un 80%. Es impresionante.",
+    category: "Liderazgo",
+    icon: Users,
+    color: "from-orange-500 to-red-600",
   },
   {
-    name: "Marcus Rodriguez",
-    role: "Head of Marketing",
-    company: "GreenLeaf Organics",
-    content:
-      "The AI understands our brand's environmental mission perfectly. It creates content that feels authentic to our values while engaging customers in meaningful conversations about sustainability.",
+    name: "Sofía Herrera",
+    role: "Psicóloga Organizacional",
+    company: "Consultoría Humana",
+    avatar: "/placeholder-user.jpg",
     rating: 5,
-    industry: "E-commerce",
+    content:
+      "Lo que más me impresiona es cómo la IA entiende las emociones y responde con empatía genuina. Mis clientes se sienten realmente escuchados y comprendidos. Es terapéutico.",
+    category: "Bienestar",
+    icon: Building,
+    color: "from-pink-500 to-rose-600",
   },
   {
-    name: "Dr. Emily Watson",
-    role: "Director of Education",
-    company: "Future Learning Academy",
-    content:
-      "Our students love their AI tutors! The personalized learning approach adapts to each child's unique style. We've seen a 60% improvement in engagement and learning outcomes.",
+    name: "Diego Morales",
+    role: "Desarrollador Senior",
+    company: "DevStudio",
+    avatar: "/placeholder-user.jpg",
     rating: 5,
-    industry: "Education",
-  },
-  {
-    name: "James Park",
-    role: "Operations Manager",
-    company: "Urban Fitness Chain",
     content:
-      "The AI scheduling assistant understands our members' preferences and schedules classes perfectly. It's like having a personal concierge for each of our 10,000+ members.",
-    rating: 5,
-    industry: "Fitness",
-  },
-  {
-    name: "Lisa Thompson",
-    role: "Creative Director",
-    company: "Pixel Perfect Agency",
-    content:
-      "Working with Neuralia's creative AI is like having a brilliant creative partner who never sleeps. It understands our aesthetic and helps us deliver consistent, high-quality work faster.",
-    rating: 5,
-    industry: "Creative",
-  },
-  {
-    name: "David Kumar",
-    role: "CTO",
-    company: "FinanceForward",
-    content:
-      "The AI's ability to explain complex financial concepts in simple terms while maintaining regulatory compliance is remarkable. Our clients trust it as much as they trust our human advisors.",
-    rating: 5,
-    industry: "Finance",
+      "Como desarrollador, aprecio la sofisticación técnica detrás del vibe coding. Pero como usuario, simplemente funciona de manera mágica. La IA se adapta perfectamente a mi estilo de comunicación.",
+    category: "Tecnología",
+    icon: Building,
+    color: "from-indigo-500 to-purple-600",
   },
 ]
 
 export function TestimonialsSection() {
   return (
-    <section id="testimonials" className="py-20 px-4 bg-white/50">
-      <div className="container mx-auto max-w-7xl">
+    <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -73,17 +92,20 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-200">
-            <Star className="mr-1 h-3 w-3" />
-            Customer Success Stories
+          <Badge
+            variant="secondary"
+            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
+          >
+            <Users className="w-4 h-4 mr-2" />
+            Testimonios Reales
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Loved by{" "}
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Thousands</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Lo que dicen nuestros{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">usuarios</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See what industry leaders are saying about their vibe coding experience and the transformative impact on
-            their business.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Historias reales de personas y empresas que han transformado su experiencia con nuestros portales
+            neuronales.
           </p>
         </motion.div>
 
@@ -96,39 +118,47 @@ export function TestimonialsSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-2 hover:border-green-200">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-1">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-purple-200 group relative overflow-hidden">
+                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${testimonial.color}`} />
+
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="relative">
+                      <img
+                        src={testimonial.avatar || "/placeholder.svg"}
+                        alt={testimonial.name}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div
+                        className={`absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r ${testimonial.color} rounded-full flex items-center justify-center`}
+                      >
+                        <testimonial.icon className="w-3 h-3 text-white" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <CardTitle className="text-lg">{testimonial.name}</CardTitle>
+                      <CardDescription className="text-sm">
+                        {testimonial.role} • {testimonial.company}
+                      </CardDescription>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="flex">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
-                    <Badge variant="outline" className="text-xs">
-                      {testimonial.industry}
+                    <Badge variant="secondary" className="text-xs">
+                      {testimonial.category}
                     </Badge>
                   </div>
+                </CardHeader>
 
-                  <div className="relative mb-6">
-                    <Quote className="absolute -top-2 -left-2 h-8 w-8 text-green-200" />
-                    <p className="text-gray-700 leading-relaxed pl-6">{testimonial.content}</p>
-                  </div>
-
-                  <div className="border-t pt-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-                        {testimonial.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </div>
-                      <div>
-                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                        <div className="text-sm text-gray-600">
-                          {testimonial.role} at {testimonial.company}
-                        </div>
-                      </div>
-                    </div>
+                <CardContent>
+                  <div className="relative">
+                    <Quote className="absolute -top-2 -left-2 w-8 h-8 text-purple-200" />
+                    <p className="text-gray-700 leading-relaxed pl-6 italic">"{testimonial.content}"</p>
                   </div>
                 </CardContent>
               </Card>
@@ -143,22 +173,20 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8 border border-green-100">
-            <div className="flex items-center justify-center mb-4">
-              <div className="flex items-center space-x-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-              <span className="ml-3 text-2xl font-bold text-gray-900">4.9/5</span>
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Join Our Success Stories</h3>
+          <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-green-50 rounded-2xl p-8 border border-purple-100">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Listo para ser el próximo caso de éxito?</h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Over 1,000+ businesses trust Neuralia to deliver AI experiences that truly understand their vibe.
+              Únete a miles de profesionales y empresas que ya están transformando su futuro con nuestros portales
+              neuronales.
             </p>
-            <button className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">
-              Start Your Success Story
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">
+                Comenzar Mi Transformación
+              </button>
+              <button className="border border-purple-200 text-purple-700 hover:bg-purple-50 px-8 py-3 rounded-lg font-medium transition-all">
+                Hablar con un Experto
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

@@ -1,69 +1,78 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Zap, MessageSquare, Shield, Sparkles, Target } from "lucide-react"
-import { motion } from "framer-motion"
+import {
+  Brain,
+  Heart,
+  MessageSquare,
+  Target,
+  Sparkles,
+  Users,
+  TrendingUp,
+  Shield,
+  Lightbulb,
+  Rocket,
+  Globe,
+} from "lucide-react"
 
 const features = [
   {
     icon: Brain,
-    title: "Vibe Intelligence",
-    description: "AI that learns and adapts to your unique communication style, brand voice, and business culture.",
-    badge: "Core Feature",
-    color: "blue",
+    title: "Inteligencia Emocional",
+    description: "IA que reconoce y responde a emociones humanas con empatía genuina",
+    color: "from-purple-500 to-violet-600",
+    bgColor: "bg-purple-50",
   },
   {
-    icon: Zap,
-    title: "Instant Vibe Matching",
-    description: "Deploy AI agents that instantly understand your vibe and start delivering personalized experiences.",
-    badge: "Lightning Fast",
-    color: "purple",
-  },
-  {
-    icon: MessageSquare,
-    title: "Natural Conversations",
-    description: "Engage in authentic, context-aware conversations that feel genuinely human and on-brand.",
-    badge: "Human-like",
-    color: "green",
-  },
-  {
-    icon: Shield,
-    title: "Secure Vibe Coding",
-    description: "Enterprise-grade security ensures your unique vibe and data remain protected and private.",
-    badge: "Enterprise Ready",
-    color: "red",
-  },
-  {
-    icon: Sparkles,
-    title: "Creative Adaptation",
-    description:
-      "AI that doesn't just follow rules but creatively adapts to new situations while maintaining your vibe.",
-    badge: "Innovative",
-    color: "yellow",
+    icon: Heart,
+    title: "Conexión Auténtica",
+    description: "Crea vínculos reales entre la IA y los usuarios a través de personalidad coherente",
+    color: "from-pink-500 to-rose-600",
+    bgColor: "bg-pink-50",
   },
   {
     icon: Target,
-    title: "Goal-Aligned AI",
-    description: "Every AI interaction is optimized to achieve your specific business objectives and KPIs.",
-    badge: "Results Driven",
-    color: "indigo",
+    title: "Personalización Profunda",
+    description: "Adapta cada interacción al contexto, historial y preferencias únicas del usuario",
+    color: "from-blue-500 to-cyan-600",
+    bgColor: "bg-blue-50",
+  },
+  {
+    icon: Sparkles,
+    title: "Aprendizaje Continuo",
+    description: "Evoluciona constantemente para mejorar la calidad de cada conversación",
+    color: "from-green-500 to-emerald-600",
+    bgColor: "bg-green-50",
+  },
+  {
+    icon: MessageSquare,
+    title: "Conversación Natural",
+    description: "Diálogos fluidos que se sienten como hablar con un experto humano",
+    color: "from-orange-500 to-amber-600",
+    bgColor: "bg-orange-50",
+  },
+  {
+    icon: Shield,
+    title: "Confianza y Seguridad",
+    description: "Protección de datos y transparencia en cada interacción",
+    color: "from-indigo-500 to-purple-600",
+    bgColor: "bg-indigo-50",
   },
 ]
 
-const colorClasses = {
-  blue: "bg-blue-100 text-blue-800 border-blue-200",
-  purple: "bg-purple-100 text-purple-800 border-purple-200",
-  green: "bg-green-100 text-green-800 border-green-200",
-  red: "bg-red-100 text-red-800 border-red-200",
-  yellow: "bg-yellow-100 text-yellow-800 border-yellow-200",
-  indigo: "bg-indigo-100 text-indigo-800 border-indigo-200",
-}
+const stats = [
+  { icon: Users, value: "50K+", label: "Usuarios Satisfechos" },
+  { icon: TrendingUp, value: "94%", label: "Tasa de Éxito" },
+  { icon: Globe, value: "15+", label: "Idiomas Soportados" },
+  { icon: Rocket, value: "99.9%", label: "Tiempo de Actividad" },
+]
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-20 px-4 bg-white/50">
-      <div className="container mx-auto max-w-7xl">
+    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -71,21 +80,27 @@ export function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
-            <Sparkles className="mr-1 h-3 w-3" />
-            Vibe Coding Features
+          <Badge
+            variant="secondary"
+            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
+          >
+            <Lightbulb className="w-4 h-4 mr-2" />
+            Tecnología Revolucionaria
           </Badge>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            AI That Speaks Your{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Language</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            ¿Qué hace especial al{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Vibe Coding?
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our vibe coding technology creates AI agents that understand not just what you say, but how you say it, why
-            you say it, and what you really mean.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            No es solo IA funcional, es IA con alma. Nuestros portales neuronales entienden el contexto emocional, la
+            personalidad y las necesidades únicas de cada usuario.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -94,44 +109,61 @@ export function FeaturesSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-2 hover:border-blue-200">
+              <Card
+                className={`h-full hover:shadow-xl transition-all duration-300 border-2 hover:border-purple-200 group ${feature.bgColor}/30`}
+              >
                 <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="p-3 bg-gradient-to-br from-blue-50 to-purple-50 rounded-lg">
-                      <feature.icon className="h-6 w-6 text-blue-600" />
-                    </div>
-                    <Badge className={colorClasses[feature.color as keyof typeof colorClasses]}>{feature.badge}</Badge>
+                  <div
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <feature.icon className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl group-hover:text-purple-600 transition-colors">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-gray-600 leading-relaxed">{feature.description}</CardDescription>
+                  <CardDescription className="text-gray-600 leading-relaxed text-base">
+                    {feature.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
+        {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="bg-gradient-to-r from-purple-50 via-blue-50 to-green-50 rounded-2xl p-8 border border-purple-100"
         >
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Experience Vibe Coding?</h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Join thousands of businesses that have transformed their AI interactions with our vibe coding approach.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-lg font-medium transition-all">
-                Start Free Trial
-              </button>
-              <button className="border border-gray-300 hover:border-blue-300 text-gray-700 px-8 py-3 rounded-lg font-medium transition-all">
-                Schedule Demo
-              </button>
-            </div>
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Resultados que Hablan por Sí Solos</h3>
+            <p className="text-gray-600">Métricas reales de nuestros portales neuronales en producción</p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <stat.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

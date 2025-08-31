@@ -1,70 +1,87 @@
 "use client"
 
 import { useState } from "react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Brain, Menu, X } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Menu, X, Zap, Brain } from "lucide-react"
 
 export function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Brain className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">Neuralia</span>
-            <span className="text-sm text-purple-600 font-medium">Vibe Coding</span>
+    <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-purple-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center">
+              <Brain className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Neuralia
+              </h1>
+              <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700">
+                Vibe Coding
+              </Badge>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Features
+            <a href="#features" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+              Características
             </a>
-            <a href="#use-cases" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Use Cases
+            <a href="#success-cases" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+              Casos de Éxito
             </a>
-            <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
-              Testimonials
+            <a href="#testimonials" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+              Testimonios
             </a>
-            <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <a href="#faq" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
               FAQ
             </a>
-            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-              Get Started
+            <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white">
+              <Zap className="w-4 h-4 mr-2" />
+              Empezar Ahora
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <div className="md:hidden">
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t">
-            <div className="flex flex-col space-y-4 pt-4">
-              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Features
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden py-4 border-t border-purple-100"
+          >
+            <div className="flex flex-col space-y-4">
+              <a href="#features" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+                Características
               </a>
-              <a href="#use-cases" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Use Cases
+              <a href="#success-cases" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+                Casos de Éxito
               </a>
-              <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Testimonials
+              <a href="#testimonials" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
+                Testimonios
               </a>
-              <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">
+              <a href="#faq" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
                 FAQ
               </a>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 w-full">
-                Get Started
+              <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white w-full">
+                <Zap className="w-4 h-4 mr-2" />
+                Empezar Ahora
               </Button>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </nav>
