@@ -1,103 +1,114 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Brain, Twitter, Linkedin, Github, Mail } from "lucide-react"
+import { Brain, Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react"
 
 export function Footer() {
   return (
     <footer className="bg-muted/50 border-t">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center mb-4">
-              <Brain className="h-8 w-8 text-primary mr-2" />
-              <span className="text-xl font-bold gradient-text">Neuralia</span>
+          {/* Company Info */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Brain className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Neuralia
+              </span>
             </div>
-            <p className="text-muted-foreground mb-4 max-w-md">
-              Transforming businesses with AI-powered solutions and innovative vibe coding approaches. Experience the
-              future of intelligent automation.
+            <p className="text-muted-foreground text-sm">
+              Transforming businesses with neural AI executives that think, reason, and act autonomously.
             </p>
             <div className="flex space-x-4">
-              <Button variant="ghost" size="icon">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <Github className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon">
-                <Mail className="h-4 w-4" />
-              </Button>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Github className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
+          {/* Use Cases */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Solutions</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <h3 className="font-semibold mb-4">Use Cases</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  AI Agents
+                <a href="#" className="hover:text-foreground transition-colors">
+                  EcosueloLab
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Automation Tools
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Customer Service
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Vibe Coding
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Financial Analysis
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Analytics
+                <a href="#" className="hover:text-foreground transition-colors">
+                  HR Automation
                 </a>
               </li>
             </ul>
           </div>
 
+          {/* AI Executives */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Company</h3>
-            <ul className="space-y-2 text-muted-foreground">
+            <h3 className="font-semibold mb-4">AI Executives</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  About Us
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Neural Executive
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Careers
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Customer Success AI
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Contact
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Financial Analyst AI
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-primary transition-colors">
-                  Blog
+                <a href="#" className="hover:text-foreground transition-colors">
+                  Operations Manager AI
                 </a>
               </li>
             </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h3 className="font-semibold mb-4">Contact</h3>
+            <div className="space-y-3 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4" />
+                <span>hello@neuralia.ai</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="w-4 h-4" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MapPin className="w-4 h-4" />
+                <span>San Francisco, CA</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
-            © 2024 Neuralia. All rights reserved. Powered by vibe coding innovation.
-          </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-              Terms of Service
-            </a>
-          </div>
+        <div className="border-t mt-12 pt-8 text-center text-sm text-muted-foreground">
+          <p>&copy; 2024 Neuralia. All rights reserved. Powered by Neural AI Technology.</p>
         </div>
       </div>
     </footer>

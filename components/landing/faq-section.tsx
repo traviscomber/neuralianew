@@ -1,92 +1,82 @@
 "use client"
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { motion } from "framer-motion"
-
-const faqs = [
-  {
-    question: "What is vibe coding and how does it enhance AI solutions?",
-    answer:
-      "Vibe coding is our innovative approach to AI development that focuses on intuitive, human-centered design principles. It combines traditional coding methodologies with empathetic understanding of user needs, resulting in AI solutions that feel natural and responsive. This approach leads to better user adoption, higher satisfaction rates, and more effective AI implementations.",
-  },
-  {
-    question: "How quickly can I integrate Neuralia's AI solutions into my existing systems?",
-    answer:
-      "Our vibe coding framework is designed for rapid integration. Most clients see initial results within 2-4 weeks, with full deployment typically completed within 6-8 weeks. Our solutions are built with compatibility in mind, minimizing disruption to your existing workflows while maximizing the benefits of AI automation.",
-  },
-  {
-    question: "What industries benefit most from vibe coding AI solutions?",
-    answer:
-      "While our vibe coding approach is versatile across industries, we've seen exceptional results in enterprise automation, e-commerce, healthcare, education, and financial services. The key is that vibe coding adapts to the unique 'vibe' or culture of each industry, making AI solutions feel native to your business environment.",
-  },
-  {
-    question: "Is technical expertise required to use Neuralia's AI tools?",
-    answer:
-      "Not at all! The beauty of vibe coding is its emphasis on intuitive design. Our AI solutions are built to be user-friendly, with interfaces that feel natural to use. We provide comprehensive training and support, but many clients find they can start benefiting from our tools immediately without extensive technical knowledge.",
-  },
-  {
-    question: "How does Neuralia ensure data security and privacy?",
-    answer:
-      "Security is paramount in our vibe coding philosophy. We implement bank-level encryption, comply with international data protection regulations (GDPR, CCPA), and use secure cloud infrastructure. Our vibe coding approach includes security by design, meaning privacy and protection are built into every solution from the ground up.",
-  },
-  {
-    question: "Can Neuralia's AI solutions scale with my business growth?",
-    answer:
-      "Scalability is a core principle of vibe coding. Our solutions are architected to grow with your business, from startup to enterprise level. Whether you're processing hundreds or millions of transactions, our AI infrastructure adapts seamlessly, maintaining performance and the intuitive vibe that makes our solutions special.",
-  },
-  {
-    question: "What kind of support and training does Neuralia provide?",
-    answer:
-      "We offer comprehensive support including onboarding training, documentation, 24/7 technical support, and ongoing consultation. Our vibe coding philosophy extends to our support - we believe in empowering our clients with knowledge and providing assistance that feels helpful rather than overwhelming.",
-  },
-  {
-    question: "How do I measure the ROI of implementing vibe coding AI solutions?",
-    answer:
-      "We provide detailed analytics and reporting tools that track key performance indicators relevant to your business. Most clients see measurable improvements in efficiency (average 95% gain), cost reduction (typically 30-50%), and user satisfaction within the first quarter of implementation. Our vibe coding approach ensures these benefits are sustainable long-term.",
-  },
-]
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function FAQSection() {
+  const faqs = [
+    {
+      question: "How does EcosueloLab's agentic AI work differently from regular chatbots?",
+      answer:
+        "EcosueloLab uses agentic OpenAI technology that can reason, plan, and take autonomous actions. Unlike simple chatbots that follow scripts, our AI executive can fetch data from external agricultural APIs, analyze complex soil conditions, and provide strategic recommendations. It thinks like a human agricultural expert but with access to vast databases and real-time information.",
+    },
+    {
+      question: "What makes your AI executives different from automation tools?",
+      answer:
+        "Our AI executives use neural networks to think strategically and make complex decisions. They don't just automate tasks - they understand context, reason through problems, and adapt to new situations. They can handle unexpected scenarios, learn from interactions, and provide executive-level strategic thinking that traditional automation cannot match.",
+    },
+    {
+      question: "How do you integrate with external APIs and existing systems?",
+      answer:
+        "Our agentic AI can seamlessly connect to any external API or database. For EcosueloLab, we integrate with agricultural databases, weather services, and soil analysis APIs. The AI agent autonomously fetches relevant data, processes it contextually, and presents insights through simple interfaces like WhatsApp. Integration typically takes 2-4 weeks depending on complexity.",
+    },
+    {
+      question: "Can the AI executives work in different languages and regions?",
+      answer:
+        "Yes, our neural AI executives are multilingual and culturally aware. EcosueloLab, for example, operates in Spanish, Portuguese, and English, understanding regional farming practices and local agricultural conditions. The AI adapts its recommendations based on geographic location, climate data, and local farming traditions.",
+    },
+    {
+      question: "How do you ensure data security and privacy?",
+      answer:
+        "We implement enterprise-grade security with end-to-end encryption, secure API connections, and compliance with international data protection standards. All conversations and data processing happen through secure channels, and we never store sensitive customer information without explicit consent.",
+    },
+    {
+      question: "What kind of results can we expect from deploying an AI executive?",
+      answer:
+        "Results vary by industry, but our clients typically see 40-70% improvements in efficiency, 60-95% customer satisfaction rates, and significant cost reductions. EcosueloLab users report 40% yield increases and 60% fertilizer savings. We provide detailed ROI analysis and success metrics for each deployment.",
+    },
+    {
+      question: "How long does it take to deploy a custom AI executive?",
+      answer:
+        "Deployment typically takes 3-8 weeks depending on complexity. This includes understanding your business processes, integrating with your systems, training the AI on your specific requirements, and testing. Simple conversational bots like EcosueloLab can be deployed faster, while complex financial or operations AIs may take longer.",
+    },
+    {
+      question: "Do you provide ongoing support and AI executive optimization?",
+      answer:
+        "Yes, we provide 24/7 monitoring, continuous learning optimization, and regular performance reviews. Our AI executives improve over time through machine learning and feedback loops. We also provide training for your team and strategic consulting to maximize the AI's impact on your business.",
+    },
+  ]
+
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <section id="faq" className="py-24 bg-muted/30">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            Frequently Asked Questions About <span className="gradient-text">Vibe Coding</span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-muted-foreground max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Get answers to common questions about our vibe coding approach and how it can transform your business with
-            AI.
-          </motion.p>
+          <h2 className="text-4xl font-bold mb-4">
+            Frequently{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Asked Questions
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground">
+            Everything you need to know about our AI executives and neural technology
+          </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">Common Questions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )

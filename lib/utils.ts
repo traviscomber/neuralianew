@@ -5,14 +5,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date)
-}
-
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -20,11 +12,57 @@ export function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
+export function formatDate(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    year: "short",
+    month: "short",
+    day: "numeric",
+  }).format(d)
+}
+
+export function formatTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d)
+}
+
+export function formatDateTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d)
+}
+
+export function formatRelativeTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  const now = new Date()
+  const diffInSeconds = Math.floor((now.getTime() - d.getTime()) / 1000)
+
+  if (diffInSeconds < 60) return "just now"
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
+  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`
+
+  return formatDate(d)
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/[^\w ]+/g, "")
-    .replace(/ +/g, "-")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+}
+
+export function capitalize(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 export function truncate(text: string, length: number): string {
@@ -52,7 +90,7 @@ export function throttle<T extends (...args: any[]) => any>(func: T, limit: numb
 }
 
 export function generateId(): string {
-  return Math.random().toString(36).substr(2, 9)
+  return Math.random().toString(36).substring(2) + Date.now().toString(36)
 }
 
 export function isValidEmail(email: string): boolean {
@@ -72,93 +110,68 @@ export function isValidUrl(url: string): boolean {
 export function getInitials(name: string): string {
   return name
     .split(" ")
-    .map((word) => word.charAt(0))
+    .map((n) => n[0])
     .join("")
     .toUpperCase()
     .slice(0, 2)
 }
 
-export function capitalizeFirst(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+export function parseJSON<T>(json: string, fallback: T): T {
+  try {
+    return JSON.parse(json)
+  } catch {
+    return fallback
+  }
 }
 
-export function removeHtmlTags(html: string): string {
-  return html.replace(/<[^>]*>/g, "")
+export function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-export function getRandomColor(): string {
-  const colors = [
-    "#FF6B6B",
-    "#4ECDC4",
-    "#45B7D1",
-    "#96CEB4",
-    "#FFEAA7",
-    "#DDA0DD",
-    "#98D8C8",
-    "#F7DC6F",
-    "#BB8FCE",
-    "#85C1E9",
-  ]
-  return colors[Math.floor(Math.random() * colors.length)]
+export function randomBetween(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export function copyToClipboard(text: string): Promise<void> {
-  if (navigator.clipboard) {
-    return navigator.clipboard.writeText(text)
-  } else {
-    // Fallback for older browsers
-    const textArea = document.createElement("textarea")
-    textArea.value = text
-    document.body.appendChild(textArea)
-    textArea.focus()
-    textArea.select()
-    try {
-      document.execCommand("copy")
-      return Promise.resolve()
-    } catch (err) {
-      return Promise.reject(err)
-    } finally {
-      document.body.removeChild(textArea)
+export function arrayToMap<T, K extends keyof T>(array: T[], key: K): Map<T[K], T> {
+  return new Map(array.map((item) => [item[key], item]))
+}
+
+export function groupBy<T, K extends keyof T>(array: T[], key: K): Record<string, T[]> {
+  return array.reduce(
+    (groups, item) => {
+      const group = String(item[key])
+      groups[group] = groups[group] || []
+      groups[group].push(item)
+      return groups
+    },
+    {} as Record<string, T[]>,
+  )
+}
+
+export function unique<T>(array: T[]): T[] {
+  return [...new Set(array)]
+}
+
+export function chunk<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size))
+  }
+  return chunks
+}
+
+export function omit<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+  const result = { ...obj }
+  keys.forEach((key) => delete result[key])
+  return result
+}
+
+export function pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+  const result = {} as Pick<T, K>
+  keys.forEach((key) => {
+    if (key in obj) {
+      result[key] = obj[key]
     }
-  }
-}
-
-export function scrollToElement(elementId: string, offset = 0): void {
-  const element = document.getElementById(elementId)
-  if (element) {
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - offset
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    })
-  }
-}
-
-export function getDeviceType(): "mobile" | "tablet" | "desktop" {
-  const width = window.innerWidth
-  if (width < 768) return "mobile"
-  if (width < 1024) return "tablet"
-  return "desktop"
-}
-
-export function formatFileSize(bytes: number): string {
-  if (bytes === 0) return "0 Bytes"
-  const k = 1024
-  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return Number.parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
-}
-
-export function getTimeAgo(date: Date): string {
-  const now = new Date()
-  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-
-  if (diffInSeconds < 60) return "just now"
-  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
-  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
-  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`
-  if (diffInSeconds < 31536000) return `${Math.floor(diffInSeconds / 2592000)}mo ago`
-  return `${Math.floor(diffInSeconds / 31536000)}y ago`
+  })
+  return result
 }

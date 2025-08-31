@@ -1,143 +1,127 @@
 "use client"
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Star } from "lucide-react"
-import { motion } from "framer-motion"
-
-const testimonials = [
-  {
-    name: "Sarah Chen",
-    role: "CTO",
-    company: "TechFlow Solutions",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Neuralia's vibe coding approach to AI has revolutionized our development process. The efficiency gains are remarkable, and the intuitive nature of their solutions makes implementation seamless.",
-    rating: 5,
-    badge: "Enterprise",
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "Head of Innovation",
-    company: "Global Dynamics",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The vibe coding methodology isn't just a buzzword - it's a game-changer. Our team productivity increased by 300% after implementing Neuralia's AI solutions.",
-    rating: 5,
-    badge: "Fortune 500",
-  },
-  {
-    name: "Emily Watson",
-    role: "Product Manager",
-    company: "StartupX",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "As a startup, we needed AI solutions that could scale with us. Neuralia's vibe coding approach provided exactly that - powerful, flexible, and surprisingly intuitive.",
-    rating: 5,
-    badge: "Startup",
-  },
-  {
-    name: "David Kim",
-    role: "Operations Director",
-    company: "ManufacturePro",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The automation capabilities powered by vibe coding have transformed our manufacturing processes. We've seen a 40% reduction in operational costs.",
-    rating: 5,
-    badge: "Manufacturing",
-  },
-  {
-    name: "Lisa Thompson",
-    role: "Digital Transformation Lead",
-    company: "RetailMax",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "Neuralia's vibe coding AI solutions helped us create personalized customer experiences that increased our conversion rates by 60%. Absolutely phenomenal results.",
-    rating: 5,
-    badge: "Retail",
-  },
-  {
-    name: "Alex Johnson",
-    role: "Chief Data Officer",
-    company: "FinanceFirst",
-    avatar: "/placeholder.svg?height=40&width=40",
-    content:
-      "The predictive analytics powered by vibe coding have given us insights we never thought possible. Our risk assessment accuracy improved by 85%.",
-    rating: 5,
-    badge: "Finance",
-  },
-]
+import { Star, Quote } from "lucide-react"
 
 export function TestimonialsSection() {
+  const testimonials = [
+    {
+      name: "Carlos Mendoza",
+      role: "Agricultural Cooperative Director",
+      company: "AgroValle Cooperative",
+      image: "/placeholder-user.jpg",
+      content:
+        "EcosueloLab transformed our farming operations. Our farmers now get instant soil analysis through WhatsApp, leading to 40% better yields. The AI understands our local conditions perfectly.",
+      rating: 5,
+      industry: "Agriculture",
+    },
+    {
+      name: "Sarah Chen",
+      role: "Customer Experience Director",
+      company: "TechFlow Solutions",
+      image: "/placeholder-user.jpg",
+      content:
+        "Our AI executive handles 10,000+ customer inquiries daily with 95% satisfaction. It's like having a brilliant customer service director who never sleeps.",
+      rating: 5,
+      industry: "Technology",
+    },
+    {
+      name: "Michael Rodriguez",
+      role: "CFO",
+      company: "InvestCorp Financial",
+      image: "/placeholder-user.jpg",
+      content:
+        "The financial analysis AI processes millions in transactions daily with 99.9% accuracy. It's revolutionized our risk management and investment strategies.",
+      rating: 5,
+      industry: "Finance",
+    },
+    {
+      name: "Elena Vasquez",
+      role: "HR Director",
+      company: "GlobalTech Industries",
+      image: "/placeholder-user.jpg",
+      content:
+        "Our HR AI executive manages 5,000+ employees, reduced hiring time by 70%, and improved retention to 92%. It's like having a strategic HR partner.",
+      rating: 5,
+      industry: "Technology",
+    },
+    {
+      name: "David Kim",
+      role: "Operations Manager",
+      company: "Manufacturing Plus",
+      image: "/placeholder-user.jpg",
+      content:
+        "The operations AI optimized our entire supply chain, reducing costs by 35% while improving quality metrics. It thinks strategically about every decision.",
+      rating: 5,
+      industry: "Manufacturing",
+    },
+    {
+      name: "Ana Silva",
+      role: "Marketing Director",
+      company: "BrandForward Agency",
+      image: "/placeholder-user.jpg",
+      content:
+        "Our content strategist AI creates campaigns that consistently outperform human-only efforts by 60%. It understands our brand voice perfectly.",
+      rating: 5,
+      industry: "Marketing",
+    },
+  ]
+
   return (
-    <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/50">
-      <div className="max-w-7xl mx-auto">
+    <section id="testimonials" className="py-24 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-foreground mb-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            What Our Clients Say About <span className="gradient-text">Vibe Coding</span>
-          </motion.h2>
-          <motion.p
-            className="text-xl text-muted-foreground max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-          >
-            Hear from industry leaders who have experienced the transformative power of our vibe coding approach to AI
-            solutions.
-          </motion.p>
+          <h2 className="text-4xl font-bold mb-4">
+            What Our{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Clients Say
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Real feedback from businesses that have deployed our AI executives and achieved measurable results
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="h-full card-hover">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <Avatar>
-                        <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                        <AvatarFallback>
-                          {testimonial.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <CardTitle className="text-lg">{testimonial.name}</CardTitle>
-                        <CardDescription>{testimonial.role}</CardDescription>
-                        <CardDescription className="text-xs text-muted-foreground">
-                          {testimonial.company}
-                        </CardDescription>
-                      </div>
+            <Card key={index} className="border-2 hover:shadow-lg transition-all duration-300">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center space-x-3">
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} />
+                      <AvatarFallback>
+                        {testimonial.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      <p className="text-xs text-muted-foreground">{testimonial.company}</p>
                     </div>
-                    <Badge variant="secondary">{testimonial.badge}</Badge>
                   </div>
-                  <div className="flex items-center space-x-1 mb-2">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base italic">"{testimonial.content}"</CardDescription>
-                </CardContent>
-              </Card>
-            </motion.div>
+                  <Badge variant="secondary" className="text-xs">
+                    {testimonial.industry}
+                  </Badge>
+                </div>
+                <div className="flex items-center space-x-1">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="relative">
+                  <Quote className="absolute -top-2 -left-2 w-6 h-6 text-muted-foreground/20" />
+                  <p className="text-muted-foreground italic pl-4">"{testimonial.content}"</p>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
