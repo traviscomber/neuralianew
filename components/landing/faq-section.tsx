@@ -2,48 +2,49 @@
 
 import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { ChevronDown, ChevronUp } from "lucide-react"
 
 const faqs = [
   {
-    question: "What makes Neuralia different from other AI platforms?",
-    answer:
-      "Neuralia offers a complete fullstack ecosystem that's copiloted by AI. Unlike other platforms that focus on single aspects, we provide everything from development tools to deployment infrastructure, all optimized for AI agent creation. Our no-code builder, integrated database, and real-time analytics make it the most comprehensive solution available.",
-  },
-  {
-    question: "Do I need programming experience to build AI agents?",
-    answer:
-      "Not at all! Our no-code visual builder allows anyone to create sophisticated AI agents without writing code. However, if you are a developer, you also have full access to APIs and advanced customization options. The platform scales with your technical expertise.",
-  },
-  {
     question: "How quickly can I deploy my first AI agent?",
     answer:
-      "Most users deploy their first agent within hours, not days. Our templates and guided setup process help you get started immediately. For more complex agents, you can typically go from concept to production in just a few days.",
+      "You can have your first AI agent up and running in under 15 minutes. Our platform provides pre-built templates and a simple drag-and-drop interface that makes deployment incredibly fast. Most users complete their first deployment during their initial session.",
   },
   {
-    question: "What kind of support and training do you provide?",
+    question: "What programming languages and frameworks do you support?",
     answer:
-      "We offer comprehensive support including documentation, video tutorials, live training sessions, and dedicated customer success managers for enterprise clients. Our community forum and AI-powered help system ensure you get answers quickly.",
+      "Our platform supports all major programming languages including Python, JavaScript, TypeScript, Java, and C#. We provide SDKs and APIs for popular frameworks like React, Vue, Angular, Django, Flask, Express.js, and Spring Boot. You can integrate with any existing tech stack.",
   },
   {
-    question: "Is my data secure with Neuralia?",
+    question: "How does pricing work for different usage levels?",
     answer:
-      "Absolutely. We implement bank-grade security with end-to-end encryption, SOC 2 compliance, and regular security audits. Your data is stored in secure, isolated environments with full audit trails. We never use your data to train our models without explicit permission.",
+      "We offer flexible pricing based on your usage needs. Start with our free tier that includes 1,000 conversations per month. Our paid plans scale from $29/month for small businesses to enterprise solutions. You only pay for what you use, with no hidden fees or long-term commitments.",
   },
   {
-    question: "Can I integrate Neuralia with my existing systems?",
+    question: "What security measures are in place to protect my data?",
     answer:
-      "Yes! Neuralia provides robust APIs and pre-built integrations with popular tools like Slack, Microsoft Teams, Salesforce, and hundreds of other platforms. Our webhook system and custom API endpoints make integration seamless.",
+      "Security is our top priority. We use end-to-end encryption, SOC 2 Type II compliance, GDPR compliance, and bank-grade security measures. All data is encrypted at rest and in transit. We offer on-premise deployment options for enterprises with strict security requirements.",
   },
   {
-    question: "What pricing plans do you offer?",
+    question: "Can I customize the AI models for my specific industry?",
     answer:
-      "We offer flexible pricing from a free tier for individuals to enterprise plans for large organizations. Pricing is based on usage, number of agents, and features needed. Contact our sales team for custom enterprise pricing and volume discounts.",
+      "Our platform allows you to train custom AI models using your own data. You can fine-tune models for specific industries, use cases, and even company-specific terminology. We provide tools for data preparation, model training, and performance optimization.",
   },
   {
-    question: "How do you handle scaling and performance?",
+    question: "What kind of analytics and insights do you provide?",
     answer:
-      "Our platform is built on cloud-native infrastructure that automatically scales with your needs. We guarantee 99.9% uptime and can handle millions of interactions per day. Real-time processing and intelligent caching ensure lightning-fast response times even under heavy load.",
+      "Our comprehensive analytics dashboard provides real-time metrics including conversation volume, user satisfaction scores, response accuracy, popular topics, and performance trends. You can export data, set up custom alerts, and integrate with your existing business intelligence tools.",
+  },
+  {
+    question: "How do you handle multiple languages and cultural contexts?",
+    answer:
+      "Our AI agents support over 40 languages with cultural context awareness. The platform automatically detects user language and responds appropriately. You can configure region-specific behaviors, cultural nuances, and local business practices for each market you serve.",
+  },
+  {
+    question: "What support options are available if I need help?",
+    answer:
+      "We provide 24/7 support through multiple channels including live chat, email, and phone. Enterprise customers get dedicated account managers and priority support. We also offer comprehensive documentation, video tutorials, community forums, and regular webinars.",
   },
 ]
 
@@ -55,43 +56,45 @@ export function FAQSection() {
   }
 
   return (
-    <section className="py-24 sm:py-32 bg-gray-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Frequently Asked Questions</h2>
+    <section className="py-24 sm:py-32 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="mx-auto max-w-4xl px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-blue-100 text-blue-800 px-4 py-2">❓ Frequently Asked Questions</Badge>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Everything You Need
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> to Know</span>
+          </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Everything you need to know about building AI agents with Neuralia.
+            Get answers to the most common questions about our AI agent platform and how it can transform your business.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-4xl">
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <Card key={index} className="overflow-hidden">
-                <CardContent className="p-0">
-                  <button
-                    className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors duration-200"
-                    onClick={() => toggleFAQ(index)}
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                      {openIndex === index ? (
-                        <ChevronUp className="h-5 w-5 text-gray-500 flex-shrink-0" />
-                      ) : (
-                        <ChevronDown className="h-5 w-5 text-gray-500 flex-shrink-0" />
-                      )}
-                    </div>
-                  </button>
-
-                  {openIndex === index && (
-                    <div className="px-6 pb-4">
-                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                    </div>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <Card key={index} className="overflow-hidden border-2 hover:border-blue-200 transition-all duration-300">
+              <button
+                className="w-full text-left p-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
+                onClick={() => toggleFAQ(index)}
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
+                  {openIndex === index ? (
+                    <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5 text-gray-400 flex-shrink-0" />
                   )}
+                </div>
+              </button>
+
+              {openIndex === index && (
+                <CardContent className="px-6 pb-6 pt-0">
+                  <div className="border-t pt-4">
+                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                  </div>
                 </CardContent>
-              </Card>
-            ))}
-          </div>
+              )}
+            </Card>
+          ))}
         </div>
       </div>
     </section>

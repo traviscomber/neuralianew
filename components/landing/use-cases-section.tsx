@@ -1,84 +1,69 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { MessageCircle, User, Bot } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { MessageCircle, Send, Bot, User } from "lucide-react"
 
 const useCases = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    description: "Career coaching and professional development",
+    description: "Career coaching and professional development platform",
     gradient: "from-emerald-500 to-teal-600",
+    bgGradient: "from-emerald-50 to-teal-50",
     messages: [
-      { role: "user", content: "Hola, necesito ayuda con mi carrera profesional" },
+      { type: "bot", text: "¡Hola! Soy tu coach de carrera de EcosueloLab. ¿En qué puedo ayudarte hoy?" },
+      { type: "user", text: "Quiero mejorar mi perfil profesional" },
       {
-        role: "bot",
-        content:
-          "¡Hola! Soy tu coach de carrera de EcosueloLab. Te ayudo a desarrollar tu potencial profesional. ¿En qué área te gustaría enfocar tu crecimiento?",
+        type: "bot",
+        text: "Perfecto. Analicemos tu experiencia actual y definamos objetivos específicos para potenciar tu carrera.",
       },
-      { role: "user", content: "Quiero mejorar mis habilidades de liderazgo" },
+      { type: "user", text: "¿Qué habilidades debería desarrollar?" },
       {
-        role: "bot",
-        content:
-          "Excelente elección. El liderazgo es fundamental para el crecimiento profesional. Te recomiendo comenzar con nuestro programa de desarrollo de liderazgo que incluye:",
-      },
-      {
-        role: "bot",
-        content:
-          "• Comunicación efectiva\n• Gestión de equipos\n• Toma de decisiones estratégicas\n• Inteligencia emocional",
+        type: "bot",
+        text: "Basándome en las tendencias del mercado, te recomiendo enfocarte en liderazgo digital y análisis de datos.",
       },
     ],
   },
   {
-    id: "carrera",
+    id: "despega",
     title: "Despega tu Carrera",
-    description: "Professional career acceleration platform",
+    description: "Professional growth and career acceleration platform",
     gradient: "from-blue-500 to-indigo-600",
+    bgGradient: "from-blue-50 to-indigo-50",
     messages: [
-      { role: "user", content: "I want to transition to a tech career" },
+      { type: "bot", text: "¡Bienvenido a Despega tu Carrera! Estoy aquí para impulsar tu crecimiento profesional." },
+      { type: "user", text: "Necesito cambiar de trabajo" },
       {
-        role: "bot",
-        content:
-          "Great choice! Tech offers amazing opportunities. I'm here to help you navigate this transition successfully. What's your current background?",
+        type: "bot",
+        text: "Entiendo. Vamos a crear una estrategia personalizada para tu transición profesional exitosa.",
       },
-      { role: "user", content: "I have a marketing background but I'm interested in product management" },
+      { type: "user", text: "¿Cómo puedo destacar en entrevistas?" },
       {
-        role: "bot",
-        content:
-          "Perfect! Your marketing experience is actually valuable for product management. Here's your personalized roadmap:",
-      },
-      {
-        role: "bot",
-        content:
-          "1. Learn product fundamentals\n2. Build a portfolio with case studies\n3. Network with product managers\n4. Apply to entry-level PM roles\n\nI'll guide you through each step!",
+        type: "bot",
+        text: "Te ayudo con técnicas de storytelling y preparación específica según el tipo de empresa y rol.",
       },
     ],
   },
   {
     id: "parrotfy",
     title: "ParrotfyIA",
-    description: "AI-powered language learning and pronunciation",
+    description: "AI-powered language learning and pronunciation platform",
     gradient: "from-purple-500 to-pink-600",
+    bgGradient: "from-purple-50 to-pink-50",
     messages: [
-      { role: "user", content: "I want to improve my English pronunciation" },
+      { type: "bot", text: "Hello! I'm your AI language tutor from ParrotfyIA. Ready to improve your English?" },
+      { type: "user", text: "Yes, I want to practice pronunciation" },
       {
-        role: "bot",
-        content:
-          "Welcome to ParrotfyIA! I'm your AI pronunciation coach. Let's work on perfecting your English pronunciation. What specific sounds do you find challenging?",
+        type: "bot",
+        text: "Great! Let's start with some common phrases. I'll analyze your pronunciation in real-time.",
       },
-      { role: "user", content: "I have trouble with the 'th' sound" },
+      { type: "user", text: "How can I sound more natural?" },
       {
-        role: "bot",
-        content:
-          "The 'th' sound is tricky for many learners! Let's practice together. Try saying 'think' - place your tongue between your teeth and blow air gently.",
-      },
-      {
-        role: "bot",
-        content:
-          "🎯 Practice words: think, thank, three, through\n🔊 Listen and repeat after me\n📊 I'll analyze your pronunciation in real-time!",
+        type: "bot",
+        text: "Focus on rhythm and intonation. I'll provide personalized exercises based on your native language.",
       },
     ],
   },
@@ -87,7 +72,7 @@ const useCases = [
 export function UseCasesSection() {
   const [activeTab, setActiveTab] = useState("ecosuelo")
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [displayedMessages, setDisplayedMessages] = useState<(typeof useCases)[0]["messages"]>([])
+  const [displayedMessages, setDisplayedMessages] = useState<any[]>([])
 
   useEffect(() => {
     const currentUseCase = useCases.find((uc) => uc.id === activeTab)
@@ -109,88 +94,148 @@ export function UseCasesSection() {
     }, 3000)
 
     // Initialize with first message
-    setCurrentMessageIndex(0)
     setDisplayedMessages([currentUseCase.messages[0]])
+    setCurrentMessageIndex(0)
 
     return () => clearInterval(interval)
   }, [activeTab])
 
   return (
-    <section className="py-24 sm:py-32 bg-gray-50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Real AI Agents in Action</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            See how our platform powers diverse AI agents across different industries and use cases.
+    <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="container mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-purple-100 text-purple-800 px-4 py-2">🎯 Real-World Applications</Badge>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-gray-900 to-purple-800 bg-clip-text text-transparent">
+            See Our AI Agents
+            <br />
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              In Action
+            </span>
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover how our intelligent agents are transforming industries with real conversations and practical
+            applications across different domains.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-4xl">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              {useCases.map((useCase) => (
-                <TabsTrigger key={useCase.id} value={useCase.id} className="text-sm">
-                  {useCase.title}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
+        {/* Use Cases Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white/50 backdrop-blur-sm">
             {useCases.map((useCase) => (
-              <TabsContent key={useCase.id} value={useCase.id}>
-                <Card className="overflow-hidden">
-                  <div className={`h-2 bg-gradient-to-r ${useCase.gradient}`} />
-                  <CardContent className="p-6">
-                    <div className="flex items-center justify-between mb-6">
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900">{useCase.title}</h3>
-                        <p className="text-gray-600">{useCase.description}</p>
-                      </div>
-                      <Badge variant="secondary" className="flex items-center gap-1">
-                        <MessageCircle className="h-3 w-3" />
-                        Live Demo
-                      </Badge>
-                    </div>
+              <TabsTrigger
+                key={useCase.id}
+                value={useCase.id}
+                className="data-[state=active]:bg-white data-[state=active]:shadow-md"
+              >
+                <div className="text-center">
+                  <div className="font-semibold">{useCase.title}</div>
+                  <div className="text-xs text-gray-500 mt-1">{useCase.description}</div>
+                </div>
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-                    <div className="bg-gray-50 rounded-lg p-4 h-80 overflow-y-auto">
+          {useCases.map((useCase) => (
+            <TabsContent key={useCase.id} value={useCase.id} className="mt-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                {/* Chat Demo */}
+                <Card className={`bg-gradient-to-br ${useCase.bgGradient} border-2 shadow-xl`}>
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`p-2 bg-gradient-to-r ${useCase.gradient} rounded-lg`}>
+                        <MessageCircle className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">{useCase.title} Demo</CardTitle>
+                        <CardDescription>Live conversation simulation</CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="bg-white rounded-lg p-4 h-80 overflow-y-auto">
                       <div className="space-y-4">
                         {displayedMessages.map((message, index) => (
                           <div
                             key={index}
-                            className={`flex items-start gap-3 ${
-                              message.role === "user" ? "justify-end" : "justify-start"
-                            }`}
+                            className={`flex items-start gap-3 ${message.type === "user" ? "flex-row-reverse" : ""}`}
                           >
-                            {message.role === "bot" && (
-                              <div
-                                className={`flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r ${useCase.gradient}`}
-                              >
-                                <Bot className="h-4 w-4 text-white" />
-                              </div>
-                            )}
                             <div
-                              className={`max-w-xs rounded-lg px-4 py-2 ${
-                                message.role === "user"
-                                  ? "bg-blue-500 text-white"
-                                  : "bg-white text-gray-900 shadow-sm border"
+                              className={`p-2 rounded-full ${
+                                message.type === "bot" ? `bg-gradient-to-r ${useCase.gradient}` : "bg-gray-200"
                               }`}
                             >
-                              <p className="text-sm whitespace-pre-line">{message.content}</p>
-                            </div>
-                            {message.role === "user" && (
-                              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300">
+                              {message.type === "bot" ? (
+                                <Bot className="h-4 w-4 text-white" />
+                              ) : (
                                 <User className="h-4 w-4 text-gray-600" />
-                              </div>
-                            )}
+                              )}
+                            </div>
+                            <div
+                              className={`max-w-xs p-3 rounded-lg ${
+                                message.type === "bot"
+                                  ? "bg-gray-100 text-gray-800"
+                                  : `bg-gradient-to-r ${useCase.gradient} text-white`
+                              }`}
+                            >
+                              <p className="text-sm">{message.text}</p>
+                            </div>
                           </div>
                         ))}
                       </div>
                     </div>
+                    <div className="mt-4 flex items-center gap-2 p-3 bg-white rounded-lg border">
+                      <input
+                        type="text"
+                        placeholder="Type your message..."
+                        className="flex-1 outline-none text-sm"
+                        disabled
+                      />
+                      <button className={`p-2 bg-gradient-to-r ${useCase.gradient} rounded-lg`}>
+                        <Send className="h-4 w-4 text-white" />
+                      </button>
+                    </div>
                   </CardContent>
                 </Card>
-              </TabsContent>
-            ))}
-          </Tabs>
-        </div>
+
+                {/* Use Case Details */}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">{useCase.title}</h3>
+                    <p className="text-gray-600 text-lg leading-relaxed mb-6">{useCase.description}</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${useCase.gradient} rounded-full`}></div>
+                      <span className="text-gray-700">Real-time conversation processing</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${useCase.gradient} rounded-full`}></div>
+                      <span className="text-gray-700">Contextual understanding and responses</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${useCase.gradient} rounded-full`}></div>
+                      <span className="text-gray-700">Multilingual support and adaptation</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 bg-gradient-to-r ${useCase.gradient} rounded-full`}></div>
+                      <span className="text-gray-700">Personalized learning and coaching</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-4">
+                    <button
+                      className={`bg-gradient-to-r ${useCase.gradient} text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300`}
+                    >
+                      Try {useCase.title}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </section>
   )
