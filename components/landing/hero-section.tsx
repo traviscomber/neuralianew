@@ -4,21 +4,22 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sprout, TrendingUp, Settings, Bot, User, Sparkles } from "lucide-react"
+import { Sprout, TrendingUp, Settings, Bot, User, Database, Code, Zap } from "lucide-react"
 
 const demos = [
   {
     id: "ecosuelo",
     name: "EcosueloLab",
-    tagline: "Análisis de Suelo vía API",
-    description: "Se conecta a tus datos de suelo y envía análisis por WhatsApp",
+    tagline: "Full Stack IA + API + WhatsApp",
+    description: "Sistema completo: Base de datos → IA → WhatsApp Business API",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     icon: Sprout,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! 🌱 Soy EcosueloBot. Tengo acceso a tus datos de suelo. ¿Qué potrero revisamos?",
+        content:
+          "¡Hola! 🌱 Soy EcosueloBot. Tengo acceso completo a tu base de datos de suelo. ¿Qué potrero revisamos?",
       },
       {
         role: "user",
@@ -26,7 +27,8 @@ const demos = [
       },
       {
         role: "bot",
-        content: "Revisando datos... Tu potrero norte tiene nitrógeno muy bajo (15 ppm). Eso causa el amarillo.",
+        content:
+          "Analizando datos en tiempo real... Tu potrero norte tiene nitrógeno muy bajo (15 ppm). Sistema detecta deficiencia nutricional.",
       },
       {
         role: "user",
@@ -34,22 +36,23 @@ const demos = [
       },
       {
         role: "bot",
-        content: "Te envío el plan por WhatsApp: aplicar 120 kg/ha de urea. ¿Confirmas tu número?",
+        content:
+          "Generando plan automático... Te envío recomendación completa por WhatsApp: aplicar 120 kg/ha de urea. ¿Confirmas tu número?",
       },
     ],
   },
   {
     id: "despega",
     name: "Despega Tu Carrera",
-    tagline: "Coach Profesional",
-    description: "Tu mentor personal para crecer profesionalmente",
+    tagline: "IA Coach + CRM + Automatización",
+    description: "Sistema full stack: Perfil de usuario → IA personalizada → Seguimiento automático",
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
     icon: TrendingUp,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! 🚀 Soy tu coach personal. ¿Cuál es tu meta profesional?",
+        content: "¡Hola! 🚀 Soy tu coach IA. Analicé tu perfil profesional. ¿Cuál es tu meta?",
       },
       {
         role: "user",
@@ -57,46 +60,50 @@ const demos = [
       },
       {
         role: "bot",
-        content: "¡Excelente meta! ¿Tienes experiencia técnica y has liderado proyectos?",
+        content:
+          "Perfecto. Según tu experiencia en React/Node.js, mi sistema calcula 85% probabilidad de éxito. ¿Has liderado proyectos?",
       },
       {
         role: "user",
-        content: "Sí, en React y Node.js, algunos proyectos pequeños",
+        content: "Sí, algunos proyectos pequeños",
       },
       {
         role: "bot",
-        content: "Perfecto. Plan: mentorea juniors → lidera proyectos grandes → postula a Tech Lead. ¿Empezamos?",
+        content:
+          "Excelente. Plan personalizado generado: mentorea juniors → lidera proyectos grandes → postula a Tech Lead. Te programo seguimiento automático. ¿Empezamos?",
       },
     ],
   },
   {
     id: "parrotfy",
-    name: "Parrotfy",
-    tagline: "Asistente de Negocio",
-    description: "Analiza tus clientes y facturas conversando contigo",
+    name: "Parrotfy ERP",
+    tagline: "IA + ERP + Business Intelligence",
+    description: "Sistema completo: ERP integrado → IA analítica → Reportes automáticos",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     icon: Settings,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! 💼 Soy Parrotfy. Analizo tus datos de negocio. ¿Qué quieres saber?",
+        content: "¡Hola! 💼 Soy Parrotfy IA. Conectado a tu ERP en tiempo real. ¿Qué análisis necesitas?",
       },
       {
         role: "user",
-        content: "¿Quién es mi mejor cliente?",
+        content: "¿Quién es mi mejor cliente este mes?",
       },
       {
         role: "bot",
-        content: "Revisando facturas... Tu mejor cliente es TechCorp con $45.000 este mes.",
+        content:
+          "Procesando datos ERP... Tu mejor cliente es TechCorp: $45.000 facturados, 12 órdenes completadas, 98% satisfacción.",
       },
       {
         role: "user",
-        content: "¿Qué le vendemos más?",
+        content: "¿Qué productos le vendemos más?",
       },
       {
         role: "bot",
-        content: "Principalmente: 60% Software, 25% Consultoría. ¿Quieres ideas para vender más?",
+        content:
+          "Análisis completo: 60% Software, 25% Consultoría, 15% Soporte. Mi IA detecta oportunidad de upselling en servicios cloud. ¿Genero propuesta automática?",
       },
     ],
   },
@@ -181,8 +188,8 @@ export function HeroSection() {
               variant="secondary"
               className="mb-6 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200 px-4 py-2"
             >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Portales Neuronales con Vibe Coding
+              <Code className="w-4 h-4 mr-2" />
+              Full Stack IA Systems
             </Badge>
 
             <motion.h1
@@ -191,11 +198,11 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
             >
-              IA que{" "}
+              Sistemas{" "}
               <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent">
-                conecta de verdad
+                Full Stack IA
               </span>{" "}
-              contigo
+              completos
             </motion.h1>
 
             <motion.p
@@ -204,11 +211,32 @@ export function HeroSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
             >
-              Creamos IA que no solo responde preguntas, sino que{" "}
-              <span className="font-semibold text-purple-700">conecta de verdad</span> contigo.
+              Desarrollamos <span className="font-semibold text-purple-700">sistemas completos de IA</span>: desde la
+              base de datos hasta la interfaz conversacional.
               <br />
-              Cada conversación se siente natural, como hablar con alguien que te entiende.
+              <span className="text-lg text-gray-500">Backend + Frontend + IA + Integraciones = Solución completa</span>
             </motion.p>
+
+            {/* Tech Stack Indicators */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8"
+            >
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-sm">
+                <Database className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-medium">Base de Datos</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-sm">
+                <Bot className="w-4 h-4 text-purple-600" />
+                <span className="text-sm font-medium">IA Conversacional</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-full shadow-sm">
+                <Zap className="w-4 h-4 text-green-600" />
+                <span className="text-sm font-medium">APIs & Integraciones</span>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Right side - Interactive Demo */}
@@ -329,9 +357,9 @@ export function HeroSection() {
                       <div className="flex items-center justify-between mt-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                          <span>IA conectada</span>
+                          <span>Sistema Full Stack Activo</span>
                         </div>
-                        <span>Demo en vivo</span>
+                        <span>Demo en tiempo real</span>
                       </div>
                     </CardContent>
                   </Card>

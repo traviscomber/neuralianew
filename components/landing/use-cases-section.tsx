@@ -8,11 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
   Sprout,
-  MessageSquare,
   Settings,
   TrendingUp,
   CheckCircle,
-  Zap,
   Send,
   Bot,
   User,
@@ -20,11 +18,11 @@ import {
   BarChart3,
   Target,
   Award,
-  MessageCircle,
   Smartphone,
   Users,
   Receipt,
 } from "lucide-react"
+import { MessageCircle } from "lucide-react" // Import MessageCircle
 
 const successCases = {
   ecosuelo: {
@@ -521,47 +519,6 @@ export function UseCasesSection() {
             ))}
           </AnimatePresence>
         </Tabs>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <Card className="max-w-4xl mx-auto bg-gradient-to-r from-purple-50 via-blue-50 to-green-50 border-2 border-purple-100">
-            <CardContent className="p-8">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Zap className="w-6 h-6 text-purple-600" />
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  Proyectos Reales, Resultados Reales
-                </h3>
-              </div>
-              <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-                Estos no son demos ni prototipos. Son proyectos entregados y funcionando. Si tienes una idea, nos
-                encantaría hacerla realidad contigo.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8"
-                >
-                  <Zap className="w-4 h-4 mr-2" />
-                  Hablemos de Tu Proyecto
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 bg-transparent"
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Ver Más Casos
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
     </section>
   )
