@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Sprout, TrendingUp, Settings, Zap, ArrowRight, MessageCircle, Bot, User } from "lucide-react"
+import { Sprout, TrendingUp, Settings, Bot, User, Sparkles } from "lucide-react"
 
 const demos = [
   {
@@ -161,15 +160,12 @@ export function HeroSection() {
   const demo = demos[currentDemo]
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50" />
-
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-green-50">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
-        <div className="absolute top-40 left-40 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
+        <div className="absolute top-40 left-40 w-80 h-80 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -181,67 +177,38 @@ export function HeroSection() {
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
-            <Badge className="mb-6 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200 text-sm px-4 py-2">
-              <Zap className="w-4 h-4 mr-2" />
-              Vibe Coding Technology
+            <Badge
+              variant="secondary"
+              className="mb-6 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200 px-4 py-2"
+            >
+              <Sparkles className="w-4 h-4 mr-2" />
+              Portales Neuronales con Vibe Coding
             </Badge>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+            >
               IA que{" "}
               <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent">
-                Entiende
-              </span>
-              <br />
-              tu{" "}
-              <span className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Vibe
-              </span>
-            </h1>
+                conecta de verdad
+              </span>{" "}
+              contigo
+            </motion.h1>
 
-            <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+            >
               Creamos IA que no solo responde preguntas, sino que{" "}
               <span className="font-semibold text-purple-700">conecta de verdad</span> contigo.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all"
-              >
-                <Zap className="w-5 h-5 mr-2" />
-                Crear Mi IA
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 py-4 text-lg bg-white/80 backdrop-blur-sm"
-              >
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Ver Demo
-              </Button>
-            </div>
-
-            {/* Stats - Real but general */}
-            <div className="grid grid-cols-3 gap-8 text-center lg:text-left">
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  Beta
-                </div>
-                <div className="text-gray-600 font-medium">En Desarrollo</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                  Simple
-                </div>
-                <div className="text-gray-600 font-medium">Conversación</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-purple-600 bg-clip-text text-transparent">
-                  24/7
-                </div>
-                <div className="text-gray-600 font-medium">Disponible</div>
-              </div>
-            </div>
+              <br />
+              Cada conversación se siente natural, como hablar con alguien que te entiende.
+            </motion.p>
           </motion.div>
 
           {/* Right side - Interactive Demo */}
@@ -379,19 +346,6 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <div className="flex flex-col items-center gap-2 text-gray-400">
-          <span className="text-sm font-medium">Descubre más</span>
-          <ArrowRight className="w-4 h-4 rotate-90 animate-bounce" />
-        </div>
-      </motion.div>
     </section>
   )
 }

@@ -2,160 +2,129 @@
 
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Brain, Mail, Phone, MapPin, Twitter, Linkedin, Github, Heart, Zap, Globe, MessageSquare } from "lucide-react"
-
-const footerLinks = {
-  Productos: [
-    { name: "EcosueloLab", href: "#ecosuelo" },
-    { name: "Despega Tu Carrera", href: "#despega" },
-    { name: "Parrotfy", href: "#parrotfy" },
-    { name: "Portales Personalizados", href: "#custom" },
-  ],
-  Empresa: [
-    { name: "Sobre Nosotros", href: "#about" },
-    { name: "Equipo", href: "#team" },
-    { name: "Carreras", href: "#careers" },
-    { name: "Blog", href: "#blog" },
-  ],
-  Recursos: [
-    { name: "Documentación", href: "#docs" },
-    { name: "API", href: "#api" },
-    { name: "Casos de Estudio", href: "#cases" },
-    { name: "Soporte", href: "#support" },
-  ],
-  Legal: [
-    { name: "Privacidad", href: "#privacy" },
-    { name: "Términos", href: "#terms" },
-    { name: "Cookies", href: "#cookies" },
-    { name: "GDPR", href: "#gdpr" },
-  ],
-}
-
-const socialLinks = [
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Github, href: "#", label: "GitHub" },
-]
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { Heart, Mail, MessageCircle, Sparkles } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-5 gap-8">
-          {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-blue-400 rounded-xl flex items-center justify-center">
-                  <Brain className="w-7 h-7 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold">Neuralia</h3>
-                  <Badge variant="secondary" className="bg-purple-800 text-purple-200 border-purple-700">
-                    <Zap className="w-3 h-3 mr-1" />
-                    Vibe Coding
-                  </Badge>
-                </div>
-              </div>
-
-              <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                Creamos IA que transforma la interacción humano-máquina a través de conexiones auténticas, comprensión
-                emocional y personalización real.
-              </p>
-
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 text-gray-300">
-                  <Mail className="w-5 h-5 text-purple-400" />
-                  <span>contacto@neuralia.ai</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-300">
-                  <Phone className="w-5 h-5 text-purple-400" />
-                  <span>+56 9 1234 5678</span>
-                </div>
-                <div className="flex items-center gap-3 text-gray-300">
-                  <MapPin className="w-5 h-5 text-purple-400" />
-                  <span>Santiago, Chile</span>
-                </div>
-              </div>
-
-              <div className="flex gap-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    className="w-10 h-10 bg-white/10 hover:bg-white/20 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-5 h-5" />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Links Sections */}
-          {Object.entries(footerLinks).map(([category, links], index) => (
-            <div key={category}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <h4 className="font-semibold text-lg mb-4 text-white">{category}</h4>
-                <ul className="space-y-3">
-                  {links.map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        className="text-gray-300 hover:text-white transition-colors duration-300 hover:translate-x-1 inline-block"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom Section */}
+    <footer className="bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="border-t border-white/10 mt-12 pt-8"
+          className="py-16 text-center"
         >
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2 text-gray-300">
-              <span>© 2024 Neuralia. Hecho con</span>
-              <Heart className="w-4 h-4 text-red-400 fill-current" />
-              <span>en Chile</span>
-            </div>
-
-            <div className="flex items-center gap-6 text-sm text-gray-300">
-              <div className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-green-400" />
-                <span>15+ Idiomas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4 text-blue-400" />
-                <span>Beta</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-yellow-400" />
-                <span>24/7 Activo</span>
-              </div>
-            </div>
+          <Badge variant="secondary" className="mb-6 bg-white/10 text-white border-white/20 backdrop-blur-sm">
+            <Sparkles className="w-4 h-4 mr-2" />
+            ¿Listo para empezar?
+          </Badge>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+            Crea tu{" "}
+            <span className="bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent">
+              portal neuronal
+            </span>
+          </h2>
+          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+            Hablemos sobre cómo podemos crear una IA que conecte de verdad con tus usuarios.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-white text-purple-900 hover:bg-purple-50 font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Hablemos
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-4 text-lg backdrop-blur-sm bg-transparent"
+            >
+              <Mail className="w-5 h-5 mr-2" />
+              Enviar Email
+            </Button>
           </div>
         </motion.div>
+
+        <Separator className="bg-white/20" />
+
+        {/* Footer Content */}
+        <div className="py-12">
+          <div className="grid md:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-purple-400 to-blue-400 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold">Vibe Coding</span>
+              </div>
+              <p className="text-purple-200 mb-6 max-w-md">
+                Creamos portales neuronales que conectan de verdad contigo. IA con alma, diseñada para entender tu vibe.
+              </p>
+              <div className="flex items-center gap-2 text-sm text-purple-300">
+                <span>Hecho con</span>
+                <Heart className="w-4 h-4 text-red-400" />
+                <span>en Chile</span>
+              </div>
+            </div>
+
+            {/* Products */}
+            <div>
+              <h3 className="font-semibold mb-4">Productos</h3>
+              <ul className="space-y-2 text-purple-200">
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    EcosueloLab
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Despega Tu Carrera
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Parrotfy
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact */}
+            <div>
+              <h3 className="font-semibold mb-4">Contacto</h3>
+              <ul className="space-y-2 text-purple-200">
+                <li>
+                  <a href="mailto:hola@vibecoding.com" className="hover:text-white transition-colors">
+                    hola@vibecoding.com
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    LinkedIn
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <Separator className="bg-white/20" />
+
+        {/* Copyright */}
+        <div className="py-6 text-center text-purple-300 text-sm">
+          <p>&copy; 2024 Vibe Coding. Todos los derechos reservados.</p>
+        </div>
       </div>
     </footer>
   )
