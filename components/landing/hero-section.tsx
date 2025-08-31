@@ -1,279 +1,237 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { motion, AnimatePresence } from "framer-motion"
-import { Zap, MessageSquare, Brain, Code, Sparkles, Play, Users, TrendingUp, Globe } from "lucide-react"
+import { Zap, MessageSquare, Users, TrendingUp, Play, Pause } from "lucide-react"
 
 const demos = [
   {
     id: "ecosuelo",
-    title: "EcosueloLab",
-    subtitle: "Career Coaching AI",
-    description: "AI-powered career guidance with emotional intelligence",
-    icon: <Users className="h-6 w-6" />,
-    gradient: "from-green-500 to-emerald-600",
+    title: "EcosueloLab - Career Coaching",
+    description: "AI-powered career guidance with vibe coding approach",
     messages: [
-      { role: "user", content: "Necesito ayuda con mi carrera profesional" },
+      { role: "user", content: "I feel stuck in my current job and don't know what career path to take next." },
       {
         role: "assistant",
         content:
-          "¡Hola! Soy tu coach de carrera de EcosueloLab. Entiendo que buscas orientación profesional. Cuéntame, ¿en qué área trabajas actualmente y qué desafíos estás enfrentando?",
-      },
-      { role: "user", content: "Trabajo en marketing pero quiero cambiar a tech" },
-      {
-        role: "assistant",
-        content:
-          "¡Excelente decisión! La transición de marketing a tech es muy viable. Tus habilidades en marketing son valiosas en tech. Te sugiero: 1) Identifica qué área de tech te interesa más, 2) Aprovecha tu experiencia en marketing digital, 3) Considera roles como Product Marketing en empresas tech. ¿Qué área específica de tecnología te llama más la atención?",
+          "I totally get that feeling! 🌟 Let's vibe check your career energy. What activities make you lose track of time? When do you feel most alive at work? Let's decode your passion patterns and find that perfect career match that aligns with your authentic self!",
       },
     ],
+    metrics: { users: "15K+", satisfaction: "94%", placements: "2.3K" },
   },
   {
     id: "parrotfy",
-    title: "ParrotfyIA",
-    subtitle: "Language Learning AI",
-    description: "Advanced conversation practice with pronunciation feedback",
-    icon: <Globe className="h-6 w-6" />,
-    gradient: "from-purple-500 to-violet-600",
+    title: "ParrotfyIA - Language Learning",
+    description: "Conversational AI that adapts to your learning vibe",
     messages: [
-      { role: "user", content: "I want to practice English conversation" },
+      { role: "user", content: "I want to practice Spanish but I'm nervous about making mistakes." },
       {
         role: "assistant",
         content:
-          "Perfect! I'm ParrotfyIA, your AI conversation partner. Let's practice English together! I'll help you with pronunciation, grammar, and natural conversation flow. What topic would you like to discuss today? We could talk about travel, work, hobbies, or anything that interests you!",
-      },
-      { role: "user", content: "Let's talk about travel plans" },
-      {
-        role: "assistant",
-        content:
-          "Great choice! Travel is always exciting to discuss. Tell me, do you have any upcoming trips planned? Or perhaps there's a destination you've been dreaming about visiting? I can help you practice vocabulary related to travel, booking, and describing places. Where would you love to go?",
+          "¡No te preocupes! 🦜 Making mistakes is part of the vibe! I'm here to help you practice in a chill, judgment-free zone. Let's start with something fun - tell me about your favorite hobby in Spanish, and I'll help you express it naturally. ¡Vamos a practicar con buena onda!",
       },
     ],
+    metrics: { users: "28K+", retention: "87%", fluency: "+65%" },
   },
   {
     id: "customer-service",
     title: "Customer Service AI",
-    subtitle: "Intelligent Support",
-    description: "24/7 customer support with human-like understanding",
-    icon: <MessageSquare className="h-6 w-6" />,
-    gradient: "from-blue-500 to-cyan-600",
+    description: "Empathetic support that matches your brand's vibe",
     messages: [
-      { role: "user", content: "I'm having trouble with my order" },
       {
-        role: "assistant",
-        content:
-          "I'm sorry to hear you're experiencing issues with your order. I'm here to help resolve this quickly for you. Could you please provide me with your order number? I'll look into the details and find the best solution.",
+        role: "user",
+        content: "My order hasn't arrived and I'm really frustrated. This is the third time this has happened.",
       },
-      { role: "user", content: "Order #12345, it hasn't arrived yet" },
       {
         role: "assistant",
         content:
-          "Thank you for providing order #12345. I've located your order in our system. I can see it was shipped 3 days ago via standard delivery. Let me track the current status... It appears there was a slight delay at the distribution center, but it's now out for delivery and should arrive today. I'll send you a tracking link and ensure you receive priority handling. Is there anything else I can help you with?",
+          "I completely understand your frustration, and I'm genuinely sorry this keeps happening. 💙 That's definitely not the experience we want for you. Let me personally track down your order right now and make sure we get this sorted out properly. Can you share your order number? I'm going to make this right!",
       },
     ],
+    metrics: { resolution: "92%", satisfaction: "96%", response: "< 30s" },
   },
 ]
 
 export function HeroSection() {
   const [currentDemo, setCurrentDemo] = useState(0)
-  const [currentMessage, setCurrentMessage] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
 
   useEffect(() => {
     if (!isPlaying) return
 
     const interval = setInterval(() => {
-      setCurrentMessage((prev) => {
-        const demo = demos[currentDemo]
-        if (prev < demo.messages.length - 1) {
-          return prev + 1
-        } else {
-          // Move to next demo
-          setCurrentDemo((prevDemo) => (prevDemo + 1) % demos.length)
-          return 0
-        }
-      })
-    }, 2000)
+      setCurrentDemo((prev) => (prev + 1) % demos.length)
+    }, 4000)
 
     return () => clearInterval(interval)
-  }, [currentDemo, isPlaying])
+  }, [isPlaying])
 
-  const currentDemoData = demos[currentDemo]
+  const togglePlayback = () => {
+    setIsPlaying(!isPlaying)
+  }
 
   return (
-    <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Badge className="mb-4 bg-blue-100 text-blue-800 hover:bg-blue-200">
-              <Sparkles className="h-4 w-4 mr-1" />
-              Powered by Vibe Coding
+            <Badge variant="secondary" className="mb-4">
+              <Zap className="w-4 h-4 mr-2" />
+              Vibe Coding Revolution
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Build AI Agents with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Vibe Coding
-              </span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              AI That Gets Your Vibe
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Create intelligent AI systems that understand context, emotion, and intent. Deploy conversational agents
-              that feel natural and respond with human-like understanding.
+            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Create AI agents that understand your unique energy and communication style. With Neuralia's vibe coding
+              approach, build intelligent solutions that feel authentically you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-              >
-                <Zap className="h-5 w-5 mr-2" />
+              <Button size="lg" className="text-lg px-8">
                 Start Vibe Coding
               </Button>
-              <Button size="lg" variant="outline">
-                <Play className="h-5 w-5 mr-2" />
+              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
                 Watch Demo
               </Button>
             </div>
           </motion.div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">See Vibe Coding in Action</h2>
-            <p className="text-gray-600 mb-8">
-              Watch how our AI agents understand context, maintain conversation flow, and provide intelligent responses
-              across different use cases.
-            </p>
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold">Live Vibe Coding Demos</h2>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={togglePlayback}
+                className="flex items-center gap-2 bg-transparent"
+              >
+                {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                {isPlaying ? "Pause" : "Play"}
+              </Button>
+            </div>
 
-            <div className="space-y-4">
+            <div className="flex gap-2 mb-6">
               {demos.map((demo, index) => (
-                <motion.div
+                <button
                   key={demo.id}
-                  className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
-                    index === currentDemo ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300"
+                  onClick={() => setCurrentDemo(index)}
+                  className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                    currentDemo === index
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80"
                   }`}
-                  onClick={() => {
-                    setCurrentDemo(index)
-                    setCurrentMessage(0)
-                  }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${demo.gradient} text-white`}>{demo.icon}</div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900">{demo.title}</h3>
-                      <p className="text-sm text-gray-600">{demo.subtitle}</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  {demo.title.split(" - ")[0]}
+                </button>
               ))}
             </div>
 
-            <div className="mt-6 flex items-center space-x-4">
-              <Button variant="outline" size="sm" onClick={() => setIsPlaying(!isPlaying)}>
-                {isPlaying ? "Pause" : "Play"} Demo
-              </Button>
-              <span className="text-sm text-gray-500">Auto-cycling every 2 seconds</span>
-            </div>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentDemo}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className="mb-6">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold">{demos[currentDemo].title}</h3>
+                        <p className="text-sm text-muted-foreground">{demos[currentDemo].description}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      {demos[currentDemo].messages.map((message, index) => (
+                        <div
+                          key={index}
+                          className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                          <div
+                            className={`max-w-[80%] p-3 rounded-lg ${
+                              message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
+                            }`}
+                          >
+                            <p className="text-sm">{message.content}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="grid grid-cols-3 gap-4">
+                  {Object.entries(demos[currentDemo].metrics).map(([key, value]) => (
+                    <div key={key} className="text-center">
+                      <div className="text-2xl font-bold text-primary">{value}</div>
+                      <div className="text-sm text-muted-foreground capitalize">{key}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
+            className="space-y-6"
           >
-            <Card className="bg-white shadow-2xl">
+            <Card>
               <CardContent className="p-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${currentDemoData.gradient} text-white`}>
-                    {currentDemoData.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-gray-900">{currentDemoData.title}</h3>
-                    <p className="text-gray-600">{currentDemoData.description}</p>
-                  </div>
+                <div className="flex items-center gap-3 mb-4">
+                  <MessageSquare className="w-8 h-8 text-primary" />
+                  <h3 className="text-xl font-semibold">Vibe-First Development</h3>
                 </div>
+                <p className="text-muted-foreground">
+                  Our AI agents don't just process requests—they understand context, emotion, and personality. Each
+                  interaction feels natural and aligned with your brand's unique energy.
+                </p>
+              </CardContent>
+            </Card>
 
-                <div className="space-y-4 h-80 overflow-y-auto">
-                  <AnimatePresence mode="wait">
-                    {currentDemoData.messages.slice(0, currentMessage + 1).map((message, index) => (
-                      <motion.div
-                        key={`${currentDemo}-${index}`}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.3 }}
-                        className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-                      >
-                        <div
-                          className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-                            message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
-                          }`}
-                        >
-                          <p className="text-sm">{message.content}</p>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Users className="w-8 h-8 text-primary" />
+                  <h3 className="text-xl font-semibold">Human-Centric AI</h3>
                 </div>
+                <p className="text-muted-foreground">
+                  Built for real people, not just data points. Our vibe coding approach ensures every AI interaction
+                  feels authentic, empathetic, and genuinely helpful.
+                </p>
+              </CardContent>
+            </Card>
 
-                <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
-                  <span>Powered by Vibe Coding</span>
-                  <div className="flex space-x-1">
-                    {demos.map((_, index) => (
-                      <div
-                        key={index}
-                        className={`w-2 h-2 rounded-full ${index === currentDemo ? "bg-blue-600" : "bg-gray-300"}`}
-                      />
-                    ))}
-                  </div>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <TrendingUp className="w-8 h-8 text-primary" />
+                  <h3 className="text-xl font-semibold">Proven Results</h3>
                 </div>
+                <p className="text-muted-foreground">
+                  Join 50,000+ users who've transformed their businesses with AI that truly gets their vibe. See
+                  measurable improvements in engagement, satisfaction, and growth.
+                </p>
               </CardContent>
             </Card>
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col items-center">
-              <div className="p-3 bg-blue-100 rounded-full mb-4">
-                <Brain className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Intelligent Understanding</h3>
-              <p className="text-gray-600 text-sm">
-                AI that comprehends context, emotion, and intent for natural conversations
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="p-3 bg-purple-100 rounded-full mb-4">
-                <Code className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Vibe Coding Approach</h3>
-              <p className="text-gray-600 text-sm">
-                Intuitive development process that captures the essence of human interaction
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="p-3 bg-green-100 rounded-full mb-4">
-                <TrendingUp className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Scalable Deployment</h3>
-              <p className="text-gray-600 text-sm">
-                Deploy across multiple channels with consistent personality and performance
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

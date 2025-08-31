@@ -1,66 +1,70 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Brain, MessageSquare, Zap, Shield, Globe, BarChart3, Code2, Sparkles } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Brain, Zap, MessageSquare, Users, TrendingUp, Shield, Sparkles, Heart, Target } from "lucide-react"
 
 const features = [
   {
-    icon: <Brain className="h-8 w-8" />,
-    title: "Contextual Intelligence",
-    description:
-      "AI agents that understand conversation context, remember previous interactions, and maintain coherent dialogue flow.",
-    gradient: "from-blue-500 to-cyan-500",
+    icon: Brain,
+    title: "Vibe Intelligence",
+    description: "AI that understands context, emotion, and personality to create authentic interactions",
+    badge: "Core Feature",
   },
   {
-    icon: <Sparkles className="h-8 w-8" />,
-    title: "Vibe Coding Framework",
-    description:
-      "Intuitive development approach that captures personality, tone, and behavioral patterns for authentic AI interactions.",
-    gradient: "from-purple-500 to-pink-500",
+    icon: Sparkles,
+    title: "Natural Conversations",
+    description: "Chat experiences that feel genuinely human with personality-driven responses",
+    badge: "Popular",
   },
   {
-    icon: <MessageSquare className="h-8 w-8" />,
-    title: "Multi-Channel Deployment",
-    description:
-      "Deploy your AI agents across web, mobile, WhatsApp, Telegram, and other messaging platforms seamlessly.",
-    gradient: "from-green-500 to-emerald-500",
+    icon: Heart,
+    title: "Empathetic AI",
+    description: "Built-in emotional intelligence that responds with care and understanding",
+    badge: "Unique",
   },
   {
-    icon: <Zap className="h-8 w-8" />,
-    title: "Real-Time Processing",
-    description: "Lightning-fast response times with advanced caching and optimization for smooth user experiences.",
-    gradient: "from-yellow-500 to-orange-500",
+    icon: Target,
+    title: "Brand Alignment",
+    description: "AI agents that perfectly match your brand's voice, tone, and values",
+    badge: "Essential",
   },
   {
-    icon: <Shield className="h-8 w-8" />,
-    title: "Enterprise Security",
-    description: "Bank-level security with end-to-end encryption, compliance standards, and data privacy protection.",
-    gradient: "from-red-500 to-rose-500",
+    icon: Users,
+    title: "Multi-Language Support",
+    description: "Seamless conversations in multiple languages with cultural awareness",
+    badge: "Global",
   },
   {
-    icon: <BarChart3 className="h-8 w-8" />,
-    title: "Advanced Analytics",
-    description: "Comprehensive insights into user interactions, conversation patterns, and AI performance metrics.",
-    gradient: "from-indigo-500 to-blue-500",
+    icon: Shield,
+    title: "Privacy First",
+    description: "Enterprise-grade security with complete data privacy and compliance",
+    badge: "Secure",
   },
   {
-    icon: <Globe className="h-8 w-8" />,
-    title: "Multilingual Support",
-    description: "Native support for 50+ languages with cultural context awareness and localized responses.",
-    gradient: "from-teal-500 to-cyan-500",
+    icon: TrendingUp,
+    title: "Analytics & Insights",
+    description: "Deep insights into user interactions and AI performance metrics",
+    badge: "Data-Driven",
   },
   {
-    icon: <Code2 className="h-8 w-8" />,
-    title: "API Integration",
-    description: "Robust APIs and webhooks for seamless integration with existing systems and third-party services.",
-    gradient: "from-violet-500 to-purple-500",
+    icon: Zap,
+    title: "Instant Deployment",
+    description: "Deploy your vibe-coded AI agents in minutes, not months",
+    badge: "Fast",
+  },
+  {
+    icon: MessageSquare,
+    title: "Omnichannel Ready",
+    description: "Works across web, mobile, WhatsApp, and all major platforms",
+    badge: "Versatile",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -69,38 +73,40 @@ export function FeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Powerful Features for{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Vibe Coding
-            </span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to build, deploy, and scale intelligent AI agents that understand and respond with
-            human-like intuition.
+          <Badge variant="secondary" className="mb-4">
+            <Sparkles className="w-4 h-4 mr-2" />
+            Vibe Coding Features
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">AI That Understands Your Vibe</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Experience the next generation of AI development with features designed for authentic, human-centered
+            interactions that feel natural and engaging.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
-              key={index}
+              key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300 border-0 bg-gradient-to-br from-gray-50 to-white">
-                <CardHeader className="pb-4">
-                  <div
-                    className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.gradient} flex items-center justify-center text-white mb-4`}
-                  >
-                    {feature.icon}
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <feature.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <Badge variant="outline" className="text-xs">
+                      {feature.badge}
+                    </Badge>
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900">{feature.title}</CardTitle>
+                  <CardTitle className="text-xl">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                  <CardDescription className="text-base">{feature.description}</CardDescription>
                 </CardContent>
               </Card>
             </motion.div>
@@ -110,25 +116,36 @@ export function FeaturesSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Ready to Experience Vibe Coding?</h3>
-            <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-              Join thousands of developers who are building the next generation of AI agents with our intuitive vibe
-              coding approach.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Start Free Trial
-              </button>
-              <button className="border border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
-                Schedule Demo
-              </button>
-            </div>
-          </div>
+          <Card className="max-w-4xl mx-auto bg-gradient-to-r from-primary/5 to-blue-600/5 border-primary/20">
+            <CardContent className="p-8">
+              <div className="flex items-center justify-center mb-4">
+                <Zap className="w-8 h-8 text-primary mr-3" />
+                <h3 className="text-2xl font-bold">The Vibe Coding Difference</h3>
+              </div>
+              <p className="text-lg text-muted-foreground mb-6">
+                Traditional AI focuses on functionality. Vibe coding focuses on connection. Our approach creates AI that
+                doesn't just work—it resonates.
+              </p>
+              <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <div className="text-3xl font-bold text-primary mb-2">96%</div>
+                  <div className="text-sm text-muted-foreground">User Satisfaction</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary mb-2">3x</div>
+                  <div className="text-sm text-muted-foreground">Engagement Increase</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary mb-2">50K+</div>
+                  <div className="text-sm text-muted-foreground">Happy Users</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>

@@ -7,7 +7,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Neuralia - Vibe Coding AI Platform",
-  description: "Create and deploy AI agents with vibe coding - the intuitive way to build intelligent systems",
+  description:
+    "Transform your business with AI agents that understand your vibe. Create, deploy, and scale intelligent solutions with Neuralia's vibe coding approach.",
     generator: 'v0.app'
 }
 

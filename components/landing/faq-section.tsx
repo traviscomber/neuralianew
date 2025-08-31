@@ -2,53 +2,57 @@
 
 import { motion } from "framer-motion"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Zap, MessageSquare } from "lucide-react"
 
 const faqs = [
   {
     question: "What is vibe coding and how is it different from traditional AI development?",
     answer:
-      "Vibe coding is our intuitive approach to AI development that focuses on capturing the essence, personality, and emotional intelligence of human interactions. Unlike traditional rule-based systems, vibe coding allows you to define how your AI should 'feel' and respond, creating more natural and engaging conversations.",
+      "Vibe coding is our unique approach to AI development that focuses on creating authentic, emotionally intelligent interactions. Unlike traditional AI that prioritizes functionality, vibe coding emphasizes understanding context, personality, and emotional nuance to create AI that feels genuinely human and connects with users on a deeper level.",
   },
   {
-    question: "How quickly can I deploy an AI agent using Neuralia?",
+    question: "How quickly can I deploy a vibe-coded AI agent?",
     answer:
-      "With our vibe coding framework, you can have a basic AI agent running in minutes. More complex agents with custom personalities and specialized knowledge can be deployed within hours, not weeks. Our platform handles all the technical infrastructure, so you focus on defining the vibe and behavior.",
+      "With Neuralia's platform, you can have a basic AI agent running in minutes. Our intuitive interface and pre-built templates allow for rapid deployment, while our vibe coding methodology ensures your AI maintains authentic personality and brand alignment from day one.",
   },
   {
-    question: "What languages and platforms does Neuralia support?",
+    question: "Can the AI handle multiple languages and cultural contexts?",
     answer:
-      "Neuralia supports 50+ languages with native cultural context understanding. You can deploy across web, mobile apps, WhatsApp, Telegram, Slack, and other messaging platforms. Our API also integrates with existing systems and custom applications.",
+      "Our vibe-coded AI agents are designed with cultural intelligence built-in. They can communicate naturally in multiple languages while understanding cultural nuances, local expressions, and context-specific communication styles.",
   },
   {
-    question: "How does the pricing work for Neuralia's vibe coding platform?",
+    question: "How does Neuralia ensure data privacy and security?",
     answer:
-      "We offer flexible pricing based on usage and features. Start with our free tier to experiment with vibe coding, then scale with pay-per-conversation or monthly plans. Enterprise customers get custom pricing with dedicated support and advanced features.",
-  },
-  {
-    question: "Is my data secure with Neuralia?",
-    answer:
-      "Absolutely. We use bank-level encryption, comply with GDPR, HIPAA, and other privacy standards. Your data is never used to train our models without explicit permission. We offer on-premise deployment options for maximum security control.",
-  },
-  {
-    question: "Can I integrate Neuralia with my existing systems?",
-    answer:
-      "Yes! Neuralia provides robust APIs, webhooks, and pre-built integrations with popular CRM, helpdesk, and business systems. Our technical team can help with custom integrations to ensure seamless workflow integration.",
+      "We implement enterprise-grade security measures including end-to-end encryption, SOC 2 compliance, and GDPR adherence. Your data remains private and secure, with full control over how it's used and stored. We never use your data to train models for other customers.",
   },
   {
     question: "What kind of support and training do you provide?",
     answer:
-      "We provide comprehensive onboarding, documentation, video tutorials, and live training sessions. Our support team includes vibe coding specialists who can help you design the perfect AI personality for your use case. Enterprise customers get dedicated success managers.",
+      "We offer comprehensive onboarding, 24/7 technical support, and ongoing training resources. Our team works closely with you to ensure your AI agents are perfectly aligned with your brand voice and business objectives.",
   },
   {
-    question: "How do I measure the success of my AI agents?",
+    question: "Can I integrate Neuralia AI with my existing systems?",
     answer:
-      "Neuralia provides detailed analytics including conversation quality scores, user satisfaction metrics, resolution rates, and engagement patterns. You can track how well your AI maintains the intended vibe and continuously improve based on real user interactions.",
+      "Yes! Our platform offers robust APIs and integrations with popular tools like CRM systems, help desks, e-commerce platforms, and communication channels. We support seamless integration with your existing workflow.",
+  },
+  {
+    question: "What makes Neuralia's AI more empathetic than other solutions?",
+    answer:
+      "Our vibe coding methodology incorporates emotional intelligence training, context awareness, and personality modeling. This allows our AI to recognize emotional cues, respond with appropriate empathy, and maintain consistent personality traits that align with your brand values.",
+  },
+  {
+    question: "How do you measure the success of vibe-coded AI implementations?",
+    answer:
+      "We track both traditional metrics (response time, resolution rate) and vibe-specific metrics (emotional satisfaction, personality consistency, brand alignment). Our analytics dashboard provides insights into how well your AI is connecting with users on an emotional level.",
   },
 ]
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,14 +61,13 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Questions
-            </span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Everything you need to know about vibe coding and building intelligent AI agents with Neuralia.
+          <Badge variant="secondary" className="mb-4">
+            <Zap className="w-4 h-4 mr-2" />
+            Frequently Asked Questions
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Everything You Need to Know</h2>
+          <p className="text-xl text-muted-foreground">
+            Get answers to common questions about vibe coding and how Neuralia can transform your AI experience.
           </p>
         </motion.div>
 
@@ -76,13 +79,11 @@ export function FAQSection() {
         >
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border-0 shadow-sm">
-                <AccordionTrigger className="px-6 py-4 text-left hover:no-underline">
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
+              <AccordionItem key={index} value={`item-${index}`} className="border rounded-lg px-6">
+                <AccordionTrigger className="text-left hover:no-underline">
+                  <span className="font-semibold">{faq.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </AccordionContent>
+                <AccordionContent className="text-muted-foreground pb-6">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -93,23 +94,25 @@ export function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="mt-16"
         >
-          <div className="bg-white rounded-2xl p-8 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Still Have Questions?</h3>
-            <p className="text-gray-600 mb-6">
-              Our vibe coding experts are here to help you get started with building intelligent AI agents that truly
-              understand your users.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                Contact Support
-              </button>
-              <button className="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-50 transition-colors">
-                Schedule Demo
-              </button>
-            </div>
-          </div>
+          <Card className="bg-gradient-to-r from-primary/5 to-blue-600/5 border-primary/20">
+            <CardContent className="p-8 text-center">
+              <div className="flex items-center justify-center mb-4">
+                <MessageSquare className="w-8 h-8 text-primary mr-3" />
+                <h3 className="text-2xl font-bold">Still Have Questions?</h3>
+              </div>
+              <p className="text-lg text-muted-foreground mb-6">
+                Our team is here to help you understand how vibe coding can transform your business.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg">Schedule a Demo</Button>
+                <Button variant="outline" size="lg">
+                  Contact Support
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>

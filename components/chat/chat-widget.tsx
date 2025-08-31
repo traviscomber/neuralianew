@@ -2,189 +2,149 @@
 
 import type React from "react"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { MessageSquare, X, Send, Zap } from "lucide-react"
 
-interface Message {
-  id: string
-  content: string
-  role: "user" | "assistant"
-  timestamp: Date
-}
-
-const initialMessages: Message[] = [
+const chatResponses = [
   {
-    id: "1",
-    content: "¡Hola! Soy tu asistente de vibe coding de Neuralia. ¿En qué puedo ayudarte hoy? 🤖✨",
-    role: "assistant",
-    timestamp: new Date(),
+    trigger: ["hello", "hi", "hey", "hola"],
+    responses: [
+      "Hey there! 👋 Welcome to the vibe zone! I'm here to help you discover how Neuralia can transform your business with AI that truly gets your energy. What's your vibe today?",
+      "¡Hola! 🌟 I love the energy you're bringing! I'm your friendly Neuralia guide, ready to show you how vibe coding can revolutionize your AI experience. What can I help you explore?",
+    ],
+  },
+  {
+    trigger: ["vibe", "coding", "what is"],
+    responses: [
+      "Vibe coding is our revolutionary approach to AI development! 🚀 Instead of just building functional AI, we create AI that understands personality, emotion, and authentic human connection. It's like giving your AI a soul that matches your brand's energy!",
+      "Think of vibe coding as the difference between a robot and a friend! 💫 Our AI doesn't just process requests - it vibes with your users, understands their emotions, and responds with genuine personality. It's AI with heart!",
+    ],
+  },
+  {
+    trigger: ["help", "support", "question"],
+    responses: [
+      "I'm totally here for you! 💪 Whether you want to learn about our vibe coding approach, see our success stories, or explore how we can transform your business - just let me know what's on your mind!",
+      "¡Por supuesto! I'm here to help you navigate the amazing world of vibe-coded AI. What aspect of Neuralia interests you most? Features? Use cases? Or maybe you want to see a demo?",
+    ],
+  },
+  {
+    trigger: ["demo", "example", "show"],
+    responses: [
+      "You're in for a treat! 🎉 Check out our live demos above - EcosueloLab for career coaching, ParrotfyIA for language learning, and our empathetic customer service AI. Each one shows how vibe coding creates authentic connections!",
+      "The demos are where the magic happens! ✨ You can see our AI in action - notice how each response feels natural, caring, and perfectly aligned with the user's needs. That's the power of vibe coding!",
+    ],
   },
 ]
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>(initialMessages)
-  const [inputValue, setInputValue] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      content:
+        "¡Hola! 👋 I'm your Neuralia vibe guide! Ready to explore AI that truly gets your energy? Ask me anything about vibe coding! 🌟",
+    },
+  ])
+  const [input, setInput] = useState("")
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+  const getResponse = (userInput: string) => {
+    const lowerInput = userInput.toLowerCase()
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  const handleSendMessage = async () => {
-    if (!inputValue.trim()) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      content: inputValue,
-      role: "user",
-      timestamp: new Date(),
+    for (const responseSet of chatResponses) {
+      if (responseSet.trigger.some((trigger) => lowerInput.includes(trigger))) {
+        const randomResponse = responseSet.responses[Math.floor(Math.random() * responseSet.responses.length)]
+        return randomResponse
+      }
     }
 
-    setMessages((prev) => [...prev, userMessage])
-    setInputValue("")
-    setIsTyping(true)
+    // Default responses
+    const defaultResponses = [
+      "That's a great question! 🤔 Our vibe coding approach is all about creating AI that connects authentically. Want to see how it works in our live demos above?",
+      "I love your curiosity! 💡 Neuralia specializes in AI that understands personality and emotion. Check out our success stories or ask me about specific features!",
+      "¡Excelente pregunta! Our AI is designed to match your unique vibe and energy. Would you like to explore our use cases or learn more about implementation?",
+    ]
 
-    // Simulate AI response with vibe coding personality
-    setTimeout(() => {
-      const responses = [
-        "¡Excelente pregunta! Con vibe coding, puedes crear AI agents que realmente entienden el contexto emocional. ¿Te gustaría saber más sobre algún caso de uso específico?",
-        "That's a great question! Vibe coding allows you to build AI that feels natural and intuitive. Would you like to see how EcosueloLab or ParrotfyIA work?",
-        "¡Me encanta tu interés en vibe coding! Neuralia hace que crear AI inteligente sea tan fácil como definir la personalidad que quieres. ¿Qué tipo de AI agent te gustaría construir?",
-        "Perfect! With our vibe coding approach, you can deploy AI agents that understand context, emotion, and intent. Want to explore our use cases or start building?",
-        "¡Fantástico! El vibe coding es nuestra forma intuitiva de crear AI que conecta realmente con los usuarios. ¿Te interesa más la parte técnica o los casos de uso?",
-      ]
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)]
+  }
 
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)]
+  const handleSend = () => {
+    if (!input.trim()) return
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: randomResponse,
-        role: "assistant",
-        timestamp: new Date(),
-      }
+    const userMessage = { role: "user", content: input }
+    const assistantMessage = { role: "assistant", content: getResponse(input) }
 
-      setMessages((prev) => [...prev, assistantMessage])
-      setIsTyping(false)
-    }, 1500)
+    setMessages((prev) => [...prev, userMessage, assistantMessage])
+    setInput("")
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      handleSend()
     }
   }
 
   return (
     <>
       <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="fixed bottom-6 right-6 z-50"
-          >
-            <Button
-              onClick={() => setIsOpen(true)}
-              size="lg"
-              className="rounded-full w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <MessageSquare className="h-6 w-6" />
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ scale: 0, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0, opacity: 0, y: 20 }}
-            className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-2rem)]"
+            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-24 right-4 w-80 h-96 z-50"
           >
-            <Card className="shadow-2xl border-0 bg-white">
-              <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg">
+            <Card className="h-full flex flex-col shadow-2xl">
+              <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Zap className="h-5 w-5" />
-                    <CardTitle className="text-lg">Neuralia Assistant</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center">
+                      <Zap className="w-4 h-4 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-sm">Neuralia Vibe Guide</CardTitle>
+                      <Badge variant="secondary" className="text-xs">
+                        Online
+                      </Badge>
+                    </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsOpen(false)}
-                    className="text-white hover:bg-white/20"
-                  >
+                  <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6">
                     <X className="h-4 w-4" />
                   </Button>
                 </div>
-                <p className="text-blue-100 text-sm">Powered by vibe coding</p>
               </CardHeader>
 
-              <CardContent className="p-0">
-                <div className="h-80 overflow-y-auto p-4 space-y-4">
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-                    >
+              <CardContent className="flex-1 flex flex-col p-0">
+                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  {messages.map((message, index) => (
+                    <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                       <div
-                        className={`max-w-xs px-4 py-2 rounded-lg ${
-                          message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
+                        className={`max-w-[80%] p-2 rounded-lg text-sm ${
+                          message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                         }`}
                       >
-                        <p className="text-sm">{message.content}</p>
+                        {message.content}
                       </div>
                     </div>
                   ))}
-
-                  {isTyping && (
-                    <div className="flex justify-start">
-                      <div className="bg-gray-100 px-4 py-2 rounded-lg">
-                        <div className="flex space-x-1">
-                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.1s" }}
-                          />
-                          <div
-                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                            style={{ animationDelay: "0.2s" }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div ref={messagesEndRef} />
                 </div>
 
                 <div className="p-4 border-t">
-                  <div className="flex space-x-2">
+                  <div className="flex gap-2">
                     <input
                       type="text"
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      placeholder="Pregúntame sobre vibe coding..."
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      placeholder="Ask about vibe coding..."
+                      className="flex-1 px-3 py-2 text-sm border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
-                    <Button
-                      onClick={handleSendMessage}
-                      size="sm"
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-                    >
+                    <Button size="sm" onClick={handleSend}>
                       <Send className="h-4 w-4" />
                     </Button>
                   </div>
@@ -194,6 +154,16 @@ export function ChatWidget() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <motion.div className="fixed bottom-4 right-4 z-50" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          size="lg"
+          className="rounded-full w-14 h-14 shadow-lg bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90"
+        >
+          <MessageSquare className="h-6 w-6" />
+        </Button>
+      </motion.div>
     </>
   )
 }
