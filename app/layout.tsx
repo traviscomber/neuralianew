@@ -2,73 +2,16 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { AuthProvider } from "@/hooks/use-auth"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Smart AI, Simple Results | Built with Vibe Coding",
+  title: "Neuralia - AI Executives That Think & Act Autonomously",
   description:
-    "We build AI agents that actually work. No complexity, just results. Advanced technology made simple with vibe coding methodology.",
-  keywords: [
-    "AI",
-    "artificial intelligence",
-    "chatbots",
-    "automation",
-    "vibe coding",
-    "neuralia",
-    "machine learning",
-    "conversational AI",
-  ],
-  authors: [{ name: "Neuralia Team" }],
-  creator: "Neuralia",
-  publisher: "Neuralia",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://neuralia.ai"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    title: "Neuralia - Smart AI, Simple Results",
-    description: "We build AI agents that actually work. No complexity, just results.",
-    url: "https://neuralia.ai",
-    siteName: "Neuralia",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Neuralia - Smart AI Solutions",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Neuralia - Smart AI, Simple Results",
-    description: "We build AI agents that actually work. No complexity, just results.",
-    images: ["/og-image.jpg"],
-    creator: "@neuralia_ai",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
-  },
+    "Deploy neural AI executives that make strategic decisions, analyze complex data, and execute business operations autonomously. Experience the future of intelligent business automation.",
+  keywords: "AI executives, neural AI, business automation, agentic AI, EcosueloLab, soil analysis, WhatsApp bot",
     generator: 'v0.app'
 }
 
@@ -79,14 +22,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="vibe-coding" content="true" />
-      </head>
       <body className={inter.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

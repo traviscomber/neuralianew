@@ -1,126 +1,117 @@
 "use client"
 
-import type React from "react"
-
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
+import { supabase } from "@/lib/supabase"
 import type { User } from "@supabase/supabase-js"
 
 interface AuthContextType {
   user: User | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>
+  signIn: (email: string, password: string) => Promise<{ error: any }>
   signOut: () => Promise<void>
+  resetPassword: (email: string) => Promise<{ error: any }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Mock auth state
-    const mockUser = {
-      id: "mock-user-id",
-      email: "demo@neuralia.ai",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      app_metadata: {},
-      user_metadata: {},
-      aud: "authenticated",
-      confirmation_sent_at: null,
-      recovery_sent_at: null,
-      email_change_sent_at: null,
-      new_email: null,
-      invited_at: null,
-      action_link: null,
-      email_confirmed_at: new Date().toISOString(),
-      phone_confirmed_at: null,
-      confirmed_at: new Date().toISOString(),
-      last_sign_in_at: new Date().toISOString(),
-      role: "authenticated",
-      phone: null,
-      identities: [],
-      factors: [],
-    } as User
-
-    // Simulate loading
-    setTimeout(() => {
-      setUser(mockUser)
+    // Get initial session
+    const getInitialSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession()
+      setUser(session?.user ?? null)
       setLoading(false)
-    }, 1000)
+    }
+
+    getInitialSession()
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user ?? null)
+      setLoading(false)
+
+      // Create profile if user signs up
+      if (event === "SIGNED_UP" && session?.user) {
+        await createUserProfile(session.user)
+      }
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
-  const signIn = async (email: string, password: string) => {
-    setLoading(true)
-    // Mock sign in
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setUser({
-      id: "mock-user-id",
-      email,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      app_metadata: {},
-      user_metadata: {},
-      aud: "authenticated",
-      confirmation_sent_at: null,
-      recovery_sent_at: null,
-      email_change_sent_at: null,
-      new_email: null,
-      invited_at: null,
-      action_link: null,
-      email_confirmed_at: new Date().toISOString(),
-      phone_confirmed_at: null,
-      confirmed_at: new Date().toISOString(),
-      last_sign_in_at: new Date().toISOString(),
-      role: "authenticated",
-      phone: null,
-      identities: [],
-      factors: [],
-    } as User)
-    setLoading(false)
+  const createUserProfile = async (user: User) => {
+    try {
+      const { error } = await supabase.from("profiles").insert({
+        id: user.id,
+        email: user.email,
+        full_name: user.user_metadata?.full_name || "",
+        avatar_url: user.user_metadata?.avatar_url || "",
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+
+      if (error && error.code !== "23505") {
+        // Ignore duplicate key errors
+        console.error("Error creating profile:", error)
+      }
+    } catch (error) {
+      console.error("Error in createUserProfile:", error)
+    }
   }
 
-  const signUp = async (email: string, password: string) => {
-    setLoading(true)
-    // Mock sign up
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setUser({
-      id: "mock-user-id",
+  const signUp = async (email: string, password: string, fullName: string) => {
+    const { data, error } = await supabase.auth.signUp({
       email,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      app_metadata: {},
-      user_metadata: {},
-      aud: "authenticated",
-      confirmation_sent_at: null,
-      recovery_sent_at: null,
-      email_change_sent_at: null,
-      new_email: null,
-      invited_at: null,
-      action_link: null,
-      email_confirmed_at: new Date().toISOString(),
-      phone_confirmed_at: null,
-      confirmed_at: new Date().toISOString(),
-      last_sign_in_at: new Date().toISOString(),
-      role: "authenticated",
-      phone: null,
-      identities: [],
-      factors: [],
-    } as User)
-    setLoading(false)
+      password,
+      options: {
+        data: {
+          full_name: fullName,
+        },
+      },
+    })
+
+    return { error }
+  }
+
+  const signIn = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    return { error }
   }
 
   const signOut = async () => {
-    setLoading(true)
-    // Mock sign out
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    setUser(null)
-    setLoading(false)
+    await supabase.auth.signOut()
   }
 
-  return <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>{children}</AuthContext.Provider>
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+
+    return { error }
+  }
+
+  const value = {
+    user,
+    loading,
+    signUp,
+    signIn,
+    signOut,
+    resetPassword,
+  }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {

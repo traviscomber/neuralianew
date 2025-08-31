@@ -1,114 +1,157 @@
-# Neuralia - Smart AI, Simple Results
+# NeuralIA Landing Page
 
-Built with **Vibe Coding** methodology - a revolutionary approach to AI development that prioritizes simplicity, effectiveness, and rapid deployment.
+A modern, AI-powered landing page built with Next.js 15, Supabase, and the AI SDK.
 
-## 🚀 What We Do
+## Features
 
-We build AI agents that actually work. No complexity, just results.
+- 🚀 **Modern Design**: Beautiful gradient backgrounds with animated particles
+- 🤖 **AI Chat Widget**: Interactive chat with OpenAI integration
+- 🔐 **Authentication**: Complete auth flow with Supabase
+- 📱 **Responsive**: Works perfectly on all devices
+- ⚡ **Fast**: Built with Next.js 15 and optimized for performance
+- 🎨 **Animations**: Smooth animations and transitions
+- 🛡️ **Secure**: Row-level security with Supabase
 
-- **EcosueloLab** 🌱 - Soil Analysis AI for farmers
-- **Career Coach** 🚀 - Professional AI guidance  
-- **ParrotfyIA** 🦜 - Language learning AI tutor
-- **Enterprise AI** 🏢 - Custom business solutions
+## Tech Stack
 
-## 🛠️ Tech Stack
+- **Framework**: Next.js 15
+- **Database**: Supabase
+- **AI**: OpenAI with AI SDK
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **Authentication**: Supabase Auth
+- **TypeScript**: Full type safety
 
-- **Frontend**: Next.js 15, React 18, TypeScript
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **AI**: GPT-4 + Custom models, OpenAI API
-- **Backend**: Node.js, Supabase
-- **Deployment**: Vercel, Docker
-- **Development**: Vibe Coding framework
+## Getting Started
 
-## 🎯 Key Features
+### Prerequisites
 
-- **Smart AI**: Advanced neural networks that understand your industry
-- **Fast Deploy**: From idea to working AI agent in days, not months
-- **Secure**: Enterprise-grade security with full data protection
-- **Easy Integration**: Simple APIs that work with existing systems
-- **Smart Memory**: AI that remembers and learns from conversations
-- **Auto-Scale**: Handles millions of conversations without breaking
+- Node.js 18+ 
+- Supabase account
+- OpenAI API key
 
-## 📊 Results
+### Installation
 
-- **25K+** Users served
-- **98%** Customer satisfaction
-- **150+** AI agents deployed
-- **300%** Average ROI for clients
-
-## 🚀 Quick Start
-
+1. Clone the repository:
 \`\`\`bash
-# Clone the repository
-git clone https://github.com/neuralia/neuralia-landing.git
+git clone <repository-url>
+cd neuralia-landing
+\`\`\`
 
-# Install dependencies
+2. Install dependencies:
+\`\`\`bash
 npm install
+\`\`\`
 
-# Set up environment variables
+3. Set up environment variables:
+\`\`\`bash
 cp .env.example .env.local
+\`\`\`
 
-# Run development server
+Add your environment variables:
+\`\`\`env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=your_openai_api_key
+\`\`\`
+
+4. Set up the database:
+- Go to your Supabase dashboard
+- Navigate to SQL Editor
+- Run the script from `scripts/setup-complete-database.sql`
+
+5. Start the development server:
+\`\`\`bash
 npm run dev
 \`\`\`
 
 Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-## 🏗️ Project Structure
+## Project Structure
 
 \`\`\`
-neuralia-landing/
 ├── app/                    # Next.js app directory
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
+│   ├── api/               # API routes
+│   ├── auth/              # Authentication pages
+│   └── globals.css        # Global styles
 ├── components/            # React components
-│   ├── ui/               # shadcn/ui components
-│   └── landing/          # Landing page sections
-├── hooks/                # Custom React hooks
-├── lib/                  # Utility functions
-└── public/               # Static assets
+│   ├── auth/              # Authentication components
+│   ├── chat/              # Chat widget components
+│   └── ui/                # shadcn/ui components
+├── hooks/                 # Custom React hooks
+├── lib/                   # Utility functions
+├── scripts/               # Database scripts
+└── public/                # Static assets
 \`\`\`
 
-## 🎨 Vibe Coding Principles
+## Key Features
 
-1. **Simplicity First**: Complex problems, simple solutions
-2. **User-Centric**: Built for humans, not machines
-3. **Rapid Iteration**: Fast feedback loops and continuous improvement
-4. **Smart Defaults**: Intelligent configurations out of the box
-5. **Scalable Architecture**: Grows with your needs
+### Authentication
+- Sign up with email confirmation
+- Sign in with email/password
+- Password reset functionality
+- Protected routes and user sessions
 
-## 🌟 Why Neuralia?
+### AI Chat System
+- Interactive chat widget
+- OpenAI integration with AI SDK
+- Conversation history
+- Question limits with WhatsApp fallback
 
-- **Proven Results**: 300% average ROI in first year
-- **Fast Implementation**: Most agents deploy in 1-2 weeks
-- **24/7 Support**: Dedicated technical support team
-- **Continuous Learning**: AI that improves over time
-- **Enterprise Ready**: SOC 2, GDPR compliant
+### Database Schema
+- User profiles
+- Chat conversations
+- AI agents and systems
+- Row-level security (RLS)
 
-## 📈 Performance
+### UI/UX
+- Animated background particles
+- Gradient text effects
+- Smooth scrolling
+- Mobile-responsive design
+- Loading states and error handling
 
-- **<200ms** Response time
-- **99.9%** Uptime guarantee
-- **50K+** Concurrent conversations
-- **98.7%** Accuracy rate
+## Deployment
 
-## 🤝 Contributing
+### Vercel (Recommended)
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Add environment variables in Vercel dashboard
+4. Deploy
 
-## 📄 License
+### Manual Deployment
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+1. Build the project:
+\`\`\`bash
+npm run build
+\`\`\`
 
-## 📞 Contact
+2. Start the production server:
+\`\`\`bash
+npm start
+\`\`\`
 
-- **Email**: hello@neuralia.ai
-- **Website**: [neuralia.ai](https://neuralia.ai)
-- **Location**: Santiago, Chile
+## Environment Variables
 
----
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | Yes |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
+| `OPENAI_API_KEY` | Your OpenAI API key | Yes |
 
-**Built with ❤️ and Vibe Coding in Chile**
+## Contributing
 
-*Neuralia - Where AI meets simplicity*
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Support
+
+For support, email contact@neuralia.ai or join our Discord community.

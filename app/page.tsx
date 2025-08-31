@@ -1,231 +1,216 @@
-"use client"
-
-import { useState, useEffect } from "react"
-import { Brain, Shield, Globe, Code, Database, Cpu } from "lucide-react"
 import { HeroSection } from "@/components/landing/hero-section"
+import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { UseCasesSection } from "@/components/landing/use-cases-section"
-import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
 import { Navigation } from "@/components/navigation"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Zap, Users, BarChart3, MessageSquare, CheckCircle, Sparkles } from "lucide-react"
+
+function ReadyToDeploySection() {
+  return (
+    <section className="py-24 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+            <Sparkles className="w-4 h-4 mr-2" />
+            Listo para Implementar
+          </Badge>
+          <h2 className="text-4xl font-bold mb-4">
+            ¿Listo para Desplegar tu{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Ejecutivo IA
+            </span>
+            ?
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Únete a más de 10,000 empresas que ya están transformando sus operaciones con agentes IA personalizados
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+          <Card className="border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Zap className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <CardTitle className="text-blue-800">Implementación Rápida</CardTitle>
+                  <p className="text-sm text-blue-600">En menos de 48 horas</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm">Configuración automática</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm">Integración con sistemas existentes</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm">Capacitación incluida</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm">Soporte 24/7</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-green-100 rounded-lg">
+                  <Users className="w-6 h-6 text-green-600" />
+                </div>
+                <div>
+                  <CardTitle className="text-green-800">Escalabilidad Total</CardTitle>
+                  <p className="text-sm text-green-600">Crece con tu empresa</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">Múltiples agentes IA</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">Personalización avanzada</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">APIs y webhooks</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">Análisis en tiempo real</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-indigo-50">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-100 rounded-lg">
+                  <BarChart3 className="w-6 h-6 text-purple-600" />
+                </div>
+                <div>
+                  <CardTitle className="text-purple-800">ROI Garantizado</CardTitle>
+                  <p className="text-sm text-purple-600">Resultados medibles</p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm">Reducción 60% costos operativos</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm">Aumento 40% productividad</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm">Mejora 85% satisfacción cliente</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm">Métricas en tiempo real</span>
+                </li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="text-center space-y-8">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-4">Comienza tu Transformación Digital Hoy</h3>
+            <p className="text-gray-600 mb-6">
+              Más de 500 empresas ya están usando nuestros ejecutivos IA para automatizar procesos, mejorar la
+              experiencia del cliente y acelerar el crecimiento
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">48h</div>
+                <div className="text-sm text-gray-600">Tiempo de implementación</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 mb-2">99.9%</div>
+                <div className="text-sm text-gray-600">Uptime garantizado</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 mb-2">24/7</div>
+                <div className="text-sm text-gray-600">Soporte técnico</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <MessageSquare className="w-5 h-5 mr-2" />
+                Comenzar Ahora
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+              <Button variant="outline" size="lg" className="border-2 bg-transparent">
+                Agendar Demo Personalizada
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+            <div className="text-sm text-gray-500">Empresas que confían en nosotros:</div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gray-200 rounded"></div>
+              <span className="text-sm font-medium text-gray-600">Banco de Chile</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gray-200 rounded"></div>
+              <span className="text-sm font-medium text-gray-600">Falabella</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gray-200 rounded"></div>
+              <span className="text-sm font-medium text-gray-600">LATAM Airlines</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gray-200 rounded"></div>
+              <span className="text-sm font-medium text-gray-600">Entel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function HomePage() {
-  const [activeDemo, setActiveDemo] = useState(0)
-  const [stats, setStats] = useState({
-    agentsBuilt: 0,
-    industriesServed: 0,
-    conversationsProcessed: 0,
-    accuracyRate: 0,
-  })
-
-  // Auto-cycle through demos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveDemo((prev) => (prev + 1) % 3)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
-
-  // Animate Neuralia's achievements on mount
-  useEffect(() => {
-    const animateStats = () => {
-      const targets = {
-        agentsBuilt: 150,
-        industriesServed: 25,
-        conversationsProcessed: 2500000,
-        accuracyRate: 98.7,
-      }
-      const duration = 2500
-      const steps = 60
-      const increment = {
-        agentsBuilt: targets.agentsBuilt / steps,
-        industriesServed: targets.industriesServed / steps,
-        conversationsProcessed: targets.conversationsProcessed / steps,
-        accuracyRate: targets.accuracyRate / steps,
-      }
-
-      let step = 0
-      const timer = setInterval(() => {
-        step++
-        setStats({
-          agentsBuilt: Math.min(Math.floor(increment.agentsBuilt * step), targets.agentsBuilt),
-          industriesServed: Math.min(Math.floor(increment.industriesServed * step), targets.industriesServed),
-          conversationsProcessed: Math.min(
-            Math.floor(increment.conversationsProcessed * step),
-            targets.conversationsProcessed,
-          ),
-          accuracyRate: Math.min(Number((increment.accuracyRate * step).toFixed(1)), targets.accuracyRate),
-        })
-
-        if (step >= steps) {
-          clearInterval(timer)
-        }
-      }, duration / steps)
-    }
-
-    animateStats()
-  }, [])
-
-  const neuraliaProducts = [
-    {
-      title: "EcosueloLab",
-      subtitle: "Agente IA para Agricultura de Precisión",
-      description: "Desarrollado por Neuralia para revolucionar el análisis de suelos",
-      color: "from-green-500 to-emerald-600",
-      icon: "🌱",
-      achievements: [
-        "Entrenado con 50,000+ análisis de suelos reales",
-        "Precisión del 96% en recomendaciones agronómicas",
-        "Integración con 15+ laboratorios certificados",
-        "Soporte para 200+ tipos de cultivos",
-      ],
-      messages: [
-        { role: "user", content: "Necesito optimizar el pH para mi cultivo de arándanos orgánicos" },
-        {
-          role: "assistant",
-          content:
-            "Perfecto. Para arándanos orgánicos, Neuralia recomienda pH entre 4.5-5.5. Basado en nuestro análisis de 12,000+ cultivos similares, te sugiero aplicar azufre elemental y materia orgánica ácida.",
-        },
-        { role: "user", content: "¿Qué cantidad específica necesito por hectárea?" },
-        {
-          role: "assistant",
-          content:
-            "Según nuestros algoritmos de Neuralia: 150-200 kg/ha de azufre elemental + 15-20 ton/ha de compost ácido. Nuestro sistema predice una mejora del pH en 3-4 meses con 94% de precisión.",
-        },
-      ],
-    },
-    {
-      title: "Despega tu Carrera",
-      subtitle: "Coach Profesional IA de Neuralia",
-      description: "Sistema de coaching desarrollado con psicología organizacional avanzada",
-      color: "from-blue-500 to-cyan-600",
-      icon: "🚀",
-      achievements: [
-        "Entrenado con 100,000+ perfiles profesionales",
-        "Metodología basada en 25+ frameworks de coaching",
-        "Integración con 500+ ofertas laborales en tiempo real",
-        "Tasa de éxito del 87% en transiciones de carrera",
-      ],
-      messages: [
-        { role: "user", content: "Soy ingeniero civil pero quiero migrar a tecnología" },
-        {
-          role: "assistant",
-          content:
-            "Excelente decisión. Neuralia ha analizado 15,000+ transiciones similares. Tu perfil ingenieril es muy valorado en tech. Te recomiendo especializarte en DevOps o Data Engineering - aprovechas tu base matemática.",
-        },
-        { role: "user", content: "¿Cuál sería mi ruta de aprendizaje específica?" },
-        {
-          role: "assistant",
-          content:
-            "Basado en nuestro análisis de Neuralia:\n\n📚 Mes 1-2: Python + SQL\n🔧 Mes 3-4: Docker + AWS\n📊 Mes 5-6: Proyecto portfolio\n🎯 Mes 7: Aplicaciones estratégicas\n\nNuestros datos muestran 92% de éxito con esta ruta.",
-        },
-      ],
-    },
-    {
-      title: "ParrotfyIA",
-      subtitle: "Tutor de Idiomas IA de Neuralia",
-      description: "Sistema de aprendizaje conversacional con neurociencia aplicada",
-      color: "from-purple-500 to-pink-600",
-      icon: "🦜",
-      achievements: [
-        "Entrenado con 500,000+ conversaciones nativas",
-        "Algoritmos de pronunciación con 95% precisión",
-        "Adaptación cultural para 30+ países",
-        "Metodología basada en neuroplasticidad",
-      ],
-      messages: [
-        { role: "user", content: "I want to improve my business English for international meetings" },
-        {
-          role: "assistant",
-          content:
-            "Perfect! Neuralia's business English module has trained with 50,000+ corporate conversations. Let's focus on executive communication patterns. I'll adapt to your industry - what sector do you work in?",
-        },
-        { role: "user", content: "I work in renewable energy consulting" },
-        {
-          role: "assistant",
-          content:
-            "Excellent! Neuralia has specialized vocabulary for renewable energy. Let's practice: 'Our solar capacity projections indicate a 40% efficiency improvement.' Try saying this - I'll analyze your pronunciation and suggest industry-specific improvements.",
-        },
-      ],
-    },
-  ]
-
-  const neuraliaAchievements = [
-    {
-      icon: Brain,
-      title: "Arquitectura IA Propietaria",
-      description: "Neuralia desarrolló una arquitectura híbrida que combina LLMs con sistemas expertos especializados",
-      metrics: "15+ patentes pendientes",
-    },
-    {
-      icon: Database,
-      title: "Datasets Especializados",
-      description: "Hemos curado y etiquetado más de 10TB de datos específicos por industria",
-      metrics: "10TB+ datos curados",
-    },
-    {
-      icon: Cpu,
-      title: "Infraestructura Escalable",
-      description: "Nuestra plataforma procesa 50,000+ consultas simultáneas con latencia <200ms",
-      metrics: "99.9% uptime garantizado",
-    },
-    {
-      icon: Code,
-      title: "APIs Enterprise",
-      description: "SDKs nativos para 12+ lenguajes de programación con documentación completa",
-      metrics: "12+ SDKs disponibles",
-    },
-    {
-      icon: Shield,
-      title: "Seguridad Certificada",
-      description: "Certificaciones SOC 2, ISO 27001 y cumplimiento GDPR desde el diseño",
-      metrics: "3+ certificaciones internacionales",
-    },
-    {
-      icon: Globe,
-      title: "Expansión Global",
-      description: "Presencia activa en 15+ países con soporte multiidioma nativo",
-      metrics: "15+ países activos",
-    },
-  ]
-
-  const neuraliaTimeline = [
-    {
-      year: "2022",
-      title: "Fundación de Neuralia",
-      description: "Inicio del desarrollo de la primera generación de agentes IA especializados",
-      achievement: "Equipo fundador de 8 expertos en IA",
-    },
-    {
-      year: "2023",
-      title: "Lanzamiento de EcosueloLab",
-      description: "Primer agente IA especializado en agricultura, revolucionando el análisis de suelos",
-      achievement: "10,000+ análisis procesados en 6 meses",
-    },
-    {
-      year: "2024",
-      title: "Expansión del Ecosistema",
-      description: "Lanzamiento de Despega tu Carrera y ParrotfyIA, consolidando nuestro ecosistema",
-      achievement: "150+ agentes IA desplegados",
-    },
-    {
-      year: "2025",
-      title: "Neuralia Enterprise",
-      description: "Plataforma empresarial para crear agentes IA personalizados a gran escala",
-      achievement: "Meta: 1,000+ agentes activos",
-    },
-  ]
-
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <Navigation />
-      <HeroSection />
-      <FeaturesSection />
-      <UseCasesSection />
-      <TestimonialsSection />
-      <FAQSection />
+      <main>
+        <HeroSection />
+        <TestimonialsSection />
+        <FeaturesSection />
+        <UseCasesSection />
+        <FAQSection />
+        <ReadyToDeploySection />
+      </main>
       <Footer />
-    </main>
+    </div>
   )
 }

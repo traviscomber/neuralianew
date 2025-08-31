@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000', '*.vercel.app']
-    }
+    appDir: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -12,17 +10,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['placeholder.com', 'via.placeholder.com'],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
-    ],
+    domains: ['placeholder.com'],
     unoptimized: true,
-  },
-  env: {
-    CUSTOM_KEY: 'neuralia-vibe-coding',
   },
 }
 

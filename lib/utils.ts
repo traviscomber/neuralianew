@@ -5,16 +5,52 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date)
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount)
 }
 
-export function formatNumber(num: number): string {
-  return new Intl.NumberFormat("en-US").format(num)
+export function formatDate(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    year: "short",
+    month: "short",
+    day: "numeric",
+  }).format(d)
+}
+
+export function formatTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d)
+}
+
+export function formatDateTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(d)
+}
+
+export function formatRelativeTime(date: Date | string): string {
+  const d = typeof date === "string" ? new Date(date) : date
+  const now = new Date()
+  const diffInSeconds = Math.floor((now.getTime() - d.getTime()) / 1000)
+
+  if (diffInSeconds < 60) return "just now"
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
+  if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d ago`
+
+  return formatDate(d)
 }
 
 export function slugify(text: string): string {
@@ -23,6 +59,10 @@ export function slugify(text: string): string {
     .replace(/[^\w\s-]/g, "")
     .replace(/[\s_-]+/g, "-")
     .replace(/^-+|-+$/g, "")
+}
+
+export function capitalize(text: string): string {
+  return text.charAt(0).toUpperCase() + text.slice(1)
 }
 
 export function truncate(text: string, length: number): string {
@@ -50,7 +90,7 @@ export function throttle<T extends (...args: any[]) => any>(func: T, limit: numb
 }
 
 export function generateId(): string {
-  return Math.random().toString(36).substr(2, 9)
+  return Math.random().toString(36).substring(2) + Date.now().toString(36)
 }
 
 export function isValidEmail(email: string): boolean {
@@ -67,17 +107,21 @@ export function isValidUrl(url: string): boolean {
   }
 }
 
-export function capitalize(text: string): string {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
-}
-
 export function getInitials(name: string): string {
   return name
     .split(" ")
-    .map((word) => word.charAt(0))
+    .map((n) => n[0])
     .join("")
     .toUpperCase()
     .slice(0, 2)
+}
+
+export function parseJSON<T>(json: string, fallback: T): T {
+  try {
+    return JSON.parse(json)
+  } catch {
+    return fallback
+  }
 }
 
 export function sleep(ms: number): Promise<void> {
@@ -88,27 +132,11 @@ export function randomBetween(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-export function arrayToChunks<T>(array: T[], chunkSize: number): T[][] {
-  const chunks: T[][] = []
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunks.push(array.slice(i, i + chunkSize))
-  }
-  return chunks
+export function arrayToMap<T, K extends keyof T>(array: T[], key: K): Map<T[K], T> {
+  return new Map(array.map((item) => [item[key], item]))
 }
 
-export function removeDuplicates<T>(array: T[]): T[] {
-  return [...new Set(array)]
-}
-
-export function sortBy<T>(array: T[], key: keyof T): T[] {
-  return [...array].sort((a, b) => {
-    if (a[key] < b[key]) return -1
-    if (a[key] > b[key]) return 1
-    return 0
-  })
-}
-
-export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
+export function groupBy<T, K extends keyof T>(array: T[], key: K): Record<string, T[]> {
   return array.reduce(
     (groups, item) => {
       const group = String(item[key])
@@ -120,20 +148,30 @@ export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
   )
 }
 
-export function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
+export function unique<T>(array: T[]): T[] {
+  return [...new Set(array)]
+}
+
+export function chunk<T>(array: T[], size: number): T[][] {
+  const chunks: T[][] = []
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size))
+  }
+  return chunks
+}
+
+export function omit<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
+  const result = { ...obj }
+  keys.forEach((key) => delete result[key])
+  return result
+}
+
+export function pick<T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
   const result = {} as Pick<T, K>
   keys.forEach((key) => {
     if (key in obj) {
       result[key] = obj[key]
     }
-  })
-  return result
-}
-
-export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  const result = { ...obj }
-  keys.forEach((key) => {
-    delete result[key]
   })
   return result
 }
