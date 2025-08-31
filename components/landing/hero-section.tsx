@@ -1,26 +1,29 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Bot, Briefcase, GraduationCap, TrendingUp, ChevronRight, Sparkles, Zap } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { MessageSquare, TrendingUp, Zap, ArrowRight, Bot, Briefcase } from "lucide-react"
 
 const demos = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
     subtitle: "Environmental Intelligence",
-    description: "AI-powered environmental monitoring and analysis with vibe coding integration",
     icon: <TrendingUp className="h-6 w-6" />,
     color: "from-green-500 to-emerald-600",
     messages: [
-      { role: "user", content: "¿Cuál es el estado actual de la calidad del aire en Santiago?" },
+      { type: "user", text: "¿Cómo está el nivel de contaminación hoy?" },
       {
-        role: "assistant",
-        content:
-          "Basado en los datos en tiempo real, la calidad del aire en Santiago presenta un ICA de 85 (Moderado). Las concentraciones de PM2.5 están en 35 μg/m³. Recomiendo limitar actividades al aire libre para grupos sensibles. ¿Te gustaría un análisis más detallado?",
+        type: "bot",
+        text: "Basado en nuestros sensores IoT, el índice de calidad del aire es 45 (Bueno). Recomiendo actividades al aire libre entre 10-16hrs.",
+      },
+      { type: "user", text: "¿Qué medidas preventivas sugiere?" },
+      {
+        type: "bot",
+        text: "Con vibe coding, he analizado patrones ambientales y sugiero: 1) Aumentar áreas verdes en zona norte, 2) Implementar filtros en industrias cercanas.",
       },
     ],
   },
@@ -28,31 +31,34 @@ const demos = [
     id: "parrotfy",
     title: "ParrotfyIA",
     subtitle: "Language Learning Revolution",
-    description: "Advanced AI language tutor with vibe coding methodology for immersive learning",
-    icon: <GraduationCap className="h-6 w-6" />,
-    color: "from-blue-500 to-purple-600",
+    icon: <MessageSquare className="h-6 w-6" />,
+    color: "from-purple-500 to-pink-600",
     messages: [
-      { role: "user", content: "Help me practice English conversation about business meetings" },
+      { type: "user", text: "Help me practice English pronunciation" },
+      { type: "bot", text: "Perfect! Let's work on your pronunciation. Say: 'The weather is beautiful today'" },
+      { type: "user", text: "Ze wezzer is byutiful today" },
       {
-        role: "assistant",
-        content:
-          "Great choice! Let's simulate a business meeting scenario. I'll be your colleague. *clears throat* Good morning! I've reviewed the quarterly reports. What are your thoughts on our market expansion strategy? Remember, focus on clear pronunciation and professional vocabulary.",
+        type: "bot",
+        text: "Great effort! Using vibe coding analysis: 'The' should be 'thuh' not 'ze'. Try: 'THUH weather'. Your rhythm is excellent! 🎯",
       },
     ],
   },
   {
     id: "career",
     title: "Career Coach AI",
-    subtitle: "Professional Growth Partner",
-    description: "Personalized career guidance powered by vibe coding insights and market intelligence",
+    subtitle: "Intelligent Career Guidance",
     icon: <Briefcase className="h-6 w-6" />,
-    color: "from-orange-500 to-red-600",
+    color: "from-blue-500 to-cyan-600",
     messages: [
-      { role: "user", content: "I'm feeling stuck in my current role. How can I advance my career?" },
+      { type: "user", text: "I feel stuck in my current job. What should I do?" },
       {
-        role: "assistant",
-        content:
-          "I understand that feeling completely, and it's actually a positive sign that you're ready for growth! Let's explore your strengths and create a personalized development plan. What aspects of your current role energize you most? This will help us identify the best path forward for your unique situation.",
+        type: "bot",
+        text: "I understand that feeling. Let's explore this together. What aspects of your current role energize you the most?",
+      },
+      { type: "user", text: "I love solving complex problems and mentoring others" },
+      {
+        type: "bot",
+        text: "That's wonderful insight! With vibe coding methodology, I see you'd thrive in senior technical roles or team leadership. Have you considered transitioning to a Tech Lead position? 🚀",
       },
     ],
   },
@@ -60,174 +66,193 @@ const demos = [
 
 export function HeroSection() {
   const [currentDemo, setCurrentDemo] = useState(0)
-  const [messageIndex, setMessageIndex] = useState(0)
+  const [currentMessage, setCurrentMessage] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentDemo((prev) => (prev + 1) % demos.length)
-      setMessageIndex(0)
-    }, 4000)
+      setCurrentMessage(0)
+    }, 8000)
 
     return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
-    if (messageIndex < demos[currentDemo].messages.length) {
-      setIsTyping(true)
+    if (currentMessage < demos[currentDemo].messages.length) {
       const timer = setTimeout(() => {
-        setIsTyping(false)
-        setMessageIndex((prev) => prev + 1)
-      }, 1500)
+        setIsTyping(true)
+        setTimeout(() => {
+          setCurrentMessage((prev) => prev + 1)
+          setIsTyping(false)
+        }, 1000)
+      }, 2000)
+
       return () => clearTimeout(timer)
     }
-  }, [currentDemo, messageIndex])
+  }, [currentDemo, currentMessage])
 
   const currentDemoData = demos[currentDemo]
 
   return (
-    <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-background to-primary/5">
+    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center lg:text-left"
           >
-            <div className="space-y-4">
-              <Badge variant="secondary" className="px-4 py-2 text-sm font-medium">
-                <Sparkles className="h-4 w-4 mr-2" />
-                Powered by Vibe Coding
-              </Badge>
+            <Badge className="mb-4 bg-blue-600/20 text-blue-400 border-blue-600/30">
+              <Zap className="h-3 w-3 mr-1" />
+              Powered by Vibe Coding
+            </Badge>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                Transform Your Business with <span className="gradient-text">AI Solutions</span>
-              </h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              AI Solutions with <span className="gradient-text">Vibe Coding</span>
+            </h1>
 
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Experience the future of artificial intelligence with Neuralia's innovative vibe coding approach. Build,
-                deploy, and scale AI agents that understand your business context and deliver exceptional results.
-              </p>
-            </div>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Experience the future of artificial intelligence with our revolutionary vibe coding methodology. Transform
+              your business with intelligent solutions that understand context, emotion, and human nuance.
+            </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="gradient-bg text-white hover:opacity-90 group">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 animate-pulse-glow">
                 Start Your AI Journey
-                <ChevronRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 bg-transparent">
-                <Bot className="mr-2 h-5 w-5" />
-                Try Live Demo
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent"
+              >
+                Watch Demo
               </Button>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">AI Agents Deployed</div>
+            <div className="mt-12 grid grid-cols-3 gap-8 text-center">
+              <div>
+                <div className="text-3xl font-bold text-white">50+</div>
+                <div className="text-gray-400">AI Agents Deployed</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">98%</div>
-                <div className="text-sm text-muted-foreground">Client Satisfaction</div>
+              <div>
+                <div className="text-3xl font-bold text-white">99.9%</div>
+                <div className="text-gray-400">Uptime</div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">24/7</div>
-                <div className="text-sm text-muted-foreground">Vibe Coding Support</div>
+              <div>
+                <div className="text-3xl font-bold text-white">24/7</div>
+                <div className="text-gray-400">Vibe Coding Support</div>
               </div>
             </div>
           </motion.div>
 
           {/* Right Column - Interactive Demo */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative z-10">
-              <Card className="overflow-hidden shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-                <div className={`h-2 bg-gradient-to-r ${currentDemoData.color}`} />
-
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className={`p-2 rounded-lg bg-gradient-to-r ${currentDemoData.color} text-white`}>
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+              <CardContent className="p-6">
+                {/* Demo Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-3">
+                    <div className={`p-2 rounded-lg bg-gradient-to-r ${currentDemoData.color}`}>
                       {currentDemoData.icon}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg">{currentDemoData.title}</h3>
-                      <p className="text-sm text-muted-foreground">{currentDemoData.subtitle}</p>
+                      <h3 className="text-white font-semibold">{currentDemoData.title}</h3>
+                      <p className="text-gray-400 text-sm">{currentDemoData.subtitle}</p>
                     </div>
                   </div>
+                  <Badge variant="outline" className="border-blue-600/30 text-blue-400">
+                    Live Demo
+                  </Badge>
+                </div>
 
-                  <div className="space-y-4 min-h-[200px]">
-                    <AnimatePresence mode="wait">
-                      {demos[currentDemo].messages.slice(0, messageIndex).map((message, idx) => (
-                        <motion.div
-                          key={`${currentDemo}-${idx}`}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -20 }}
-                          transition={{ duration: 0.5 }}
-                          className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                {/* Chat Messages */}
+                <div className="space-y-4 h-80 overflow-y-auto">
+                  <AnimatePresence mode="wait">
+                    {currentDemoData.messages.slice(0, currentMessage).map((message, index) => (
+                      <motion.div
+                        key={`${currentDemo}-${index}`}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+                      >
+                        <div
+                          className={`max-w-xs lg:max-w-sm px-4 py-2 rounded-lg ${
+                            message.type === "user" ? "bg-blue-600 text-white" : "bg-slate-700 text-gray-100"
+                          }`}
                         >
-                          <div className={`chat-bubble ${message.role} max-w-[85%]`}>{message.content}</div>
-                        </motion.div>
-                      ))}
-                    </AnimatePresence>
-
-                    {isTyping && messageIndex < demos[currentDemo].messages.length && (
-                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                        <div className="chat-bubble assistant">
-                          <div className="typing-indicator">
-                            <div className="typing-dot"></div>
-                            <div className="typing-dot"></div>
-                            <div className="typing-dot"></div>
-                          </div>
+                          {message.type === "bot" && (
+                            <div className="flex items-center space-x-2 mb-1">
+                              <Bot className="h-4 w-4 text-blue-400" />
+                              <span className="text-xs text-blue-400">vibe coding AI</span>
+                            </div>
+                          )}
+                          <p className="text-sm">{message.text}</p>
                         </div>
                       </motion.div>
-                    )}
-                  </div>
-
-                  <div className="flex justify-center mt-6 gap-2">
-                    {demos.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setCurrentDemo(idx)
-                          setMessageIndex(0)
-                        }}
-                        className={`w-2 h-2 rounded-full transition-all ${
-                          idx === currentDemo ? "bg-primary w-6" : "bg-muted"
-                        }`}
-                      />
                     ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+                  </AnimatePresence>
 
-            {/* Background decoration */}
-            <div className="absolute -top-4 -right-4 w-72 h-72 bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl -z-10" />
+                  {/* Typing Indicator */}
+                  {isTyping && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+                      <div className="bg-slate-700 text-gray-100 px-4 py-2 rounded-lg">
+                        <div className="flex items-center space-x-2">
+                          <Bot className="h-4 w-4 text-blue-400" />
+                          <span className="text-xs text-blue-400">vibe coding AI</span>
+                        </div>
+                        <div className="flex space-x-1 mt-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Demo Indicators */}
+                <div className="flex justify-center space-x-2 mt-6">
+                  {demos.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setCurrentDemo(index)
+                        setCurrentMessage(0)
+                      }}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentDemo ? "bg-blue-400" : "bg-gray-600"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Floating Elements */}
+            <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-500/20 rounded-full blur-xl animate-pulse"></div>
+            <div
+              className="absolute -bottom-4 -left-4 w-16 h-16 bg-purple-500/20 rounded-full blur-xl animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
           </motion.div>
         </div>
-
-        {/* Vibe Coding Highlight */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary/10 rounded-full border border-primary/20">
-            <Zap className="h-5 w-5 text-primary" />
-            <span className="text-sm font-medium">
-              Experience the power of <strong>vibe coding</strong> - where AI meets intuitive development
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

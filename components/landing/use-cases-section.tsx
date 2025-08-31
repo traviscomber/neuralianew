@@ -1,201 +1,206 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MessageSquare, ShoppingCart, Users, GraduationCap, Building, Heart, ArrowRight, Sparkles } from "lucide-react"
+import { TrendingUp, MessageSquare, Briefcase, Building, GraduationCap, Heart, ArrowRight, Zap } from "lucide-react"
 
 const useCases = [
   {
-    id: "customer-service",
-    title: "Customer Service Revolution",
-    description: "Transform customer support with AI agents that understand context and emotion through vibe coding",
-    icon: <MessageSquare className="h-6 w-6" />,
-    color: "from-blue-500 to-cyan-500",
-    metrics: ["95% Customer Satisfaction", "60% Faster Response Time", "24/7 Availability"],
+    icon: <TrendingUp className="h-8 w-8" />,
+    title: "EcosueloLab",
+    subtitle: "Environmental Intelligence Platform",
+    description:
+      "Monitor and analyze environmental data with vibe coding AI that understands ecological patterns, predicts environmental changes, and provides actionable insights for sustainability.",
     features: [
-      "Emotional intelligence through vibe coding",
-      "Multi-language support",
-      "Seamless human handoff",
-      "Real-time sentiment analysis",
+      "Real-time environmental monitoring",
+      "Predictive analytics with vibe coding",
+      "Sustainability recommendations",
+      "IoT sensor integration",
     ],
+    color: "from-green-500 to-emerald-600",
+    badge: "Environmental AI",
+    metrics: { users: "500+", accuracy: "94%", impact: "30% reduction in waste" },
   },
   {
-    id: "sales-automation",
-    title: "Sales & Lead Generation",
-    description: "Boost sales with AI that understands buyer psychology and adapts using vibe coding insights",
-    icon: <ShoppingCart className="h-6 w-6" />,
-    color: "from-green-500 to-emerald-500",
-    metrics: ["40% Increase in Conversions", "3x More Qualified Leads", "50% Faster Sales Cycle"],
+    icon: <MessageSquare className="h-8 w-8" />,
+    title: "ParrotfyIA",
+    subtitle: "Intelligent Language Learning",
+    description:
+      "Revolutionary language learning powered by vibe coding that adapts to your learning style, cultural context, and emotional state for accelerated language acquisition.",
     features: [
-      "Personalized vibe coding interactions",
-      "Lead scoring and qualification",
-      "Automated follow-up sequences",
-      "CRM integration",
-    ],
-  },
-  {
-    id: "education",
-    title: "Educational Excellence",
-    description: "Personalized learning experiences powered by vibe coding for adaptive education",
-    icon: <GraduationCap className="h-6 w-6" />,
-    color: "from-purple-500 to-pink-500",
-    metrics: ["85% Learning Improvement", "70% Higher Engagement", "Personalized Paths"],
-    features: [
-      "Adaptive vibe coding curriculum",
-      "Real-time progress tracking",
       "Personalized learning paths",
-      "Interactive AI tutoring",
+      "Cultural context awareness",
+      "Pronunciation coaching",
+      "Emotional learning adaptation",
     ],
+    color: "from-purple-500 to-pink-600",
+    badge: "Language AI",
+    metrics: { users: "10K+", improvement: "3x faster", satisfaction: "96%" },
   },
   {
-    id: "healthcare",
-    title: "Healthcare Support",
-    description: "Compassionate AI assistance for healthcare with empathetic vibe coding technology",
-    icon: <Heart className="h-6 w-6" />,
-    color: "from-red-500 to-pink-500",
-    metrics: ["90% Patient Satisfaction", "50% Reduced Wait Times", "24/7 Support"],
-    features: [
-      "Empathetic vibe coding responses",
-      "Symptom assessment",
-      "Appointment scheduling",
-      "Health monitoring integration",
-    ],
+    icon: <Briefcase className="h-8 w-8" />,
+    title: "Career Coach AI",
+    subtitle: "Intelligent Career Guidance",
+    description:
+      "Get personalized career advice with vibe coding AI that understands your aspirations, skills, and market trends to guide your professional journey.",
+    features: ["Personalized career paths", "Skill gap analysis", "Market trend insights", "Interview preparation"],
+    color: "from-blue-500 to-cyan-600",
+    badge: "Career AI",
+    metrics: { placements: "85%", satisfaction: "92%", growth: "40% salary increase" },
   },
   {
-    id: "enterprise",
-    title: "Enterprise Automation",
-    description: "Streamline business processes with intelligent vibe coding automation solutions",
-    icon: <Building className="h-6 w-6" />,
-    color: "from-orange-500 to-red-500",
-    metrics: ["60% Process Efficiency", "80% Cost Reduction", "99.9% Uptime"],
-    features: [
-      "Workflow vibe coding optimization",
-      "Document processing",
-      "Data analysis and insights",
-      "System integrations",
-    ],
+    icon: <Building className="h-8 w-8" />,
+    title: "Enterprise Solutions",
+    subtitle: "Business Intelligence & Automation",
+    description:
+      "Transform your business operations with vibe coding AI that understands your company culture, processes, and goals to deliver intelligent automation.",
+    features: ["Process automation", "Cultural alignment", "Predictive analytics", "Custom integrations"],
+    color: "from-orange-500 to-red-600",
+    badge: "Enterprise AI",
+    metrics: { efficiency: "60%", cost_savings: "$2M+", adoption: "98%" },
   },
   {
-    id: "hr-recruitment",
-    title: "HR & Recruitment",
-    description: "Revolutionize hiring with AI that understands candidate potential through vibe coding",
-    icon: <Users className="h-6 w-6" />,
-    color: "from-indigo-500 to-purple-500",
-    metrics: ["75% Faster Hiring", "90% Better Matches", "Reduced Bias"],
-    features: [
-      "Candidate vibe coding assessment",
-      "Automated screening",
-      "Interview scheduling",
-      "Performance prediction",
-    ],
+    icon: <GraduationCap className="h-8 w-8" />,
+    title: "Educational AI",
+    subtitle: "Personalized Learning Experiences",
+    description:
+      "Enhance education with vibe coding AI that adapts to individual learning styles, emotional states, and cultural backgrounds for optimal learning outcomes.",
+    features: ["Adaptive learning", "Emotional support", "Cultural sensitivity", "Progress tracking"],
+    color: "from-indigo-500 to-purple-600",
+    badge: "Education AI",
+    metrics: { improvement: "45%", engagement: "89%", retention: "78%" },
+  },
+  {
+    icon: <Heart className="h-8 w-8" />,
+    title: "Healthcare AI",
+    subtitle: "Empathetic Patient Care",
+    description:
+      "Support healthcare with vibe coding AI that provides empathetic patient interactions, understands emotional needs, and assists in care coordination.",
+    features: ["Patient empathy", "Care coordination", "Emotional support", "Health monitoring"],
+    color: "from-rose-500 to-pink-600",
+    badge: "Healthcare AI",
+    metrics: { satisfaction: "94%", efficiency: "50%", outcomes: "25% better" },
   },
 ]
 
 export function UseCasesSection() {
   return (
-    <section id="use-cases" className="py-24 px-4 sm:px-6 lg:px-8">
+    <section id="use-cases" className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-900/50">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge variant="secondary" className="mb-4 px-4 py-2">
-            <Sparkles className="h-4 w-4 mr-2" />
+          <Badge className="mb-4 bg-purple-600/20 text-purple-400 border-purple-600/30">
+            <Zap className="h-3 w-3 mr-1" />
             Vibe Coding Applications
           </Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
-            Real-World <span className="gradient-text">Success Stories</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Real-World <span className="gradient-text">Vibe Coding</span> Solutions
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            See how businesses across industries are transforming their operations with Neuralia's vibe coding AI
-            solutions and achieving remarkable results.
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Discover how our vibe coding methodology is transforming industries and creating meaningful impact across
+            diverse applications and use cases.
           </p>
         </motion.div>
 
-        <Tabs defaultValue="customer-service" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 mb-8">
-            {useCases.map((useCase) => (
-              <TabsTrigger key={useCase.id} value={useCase.id} className="text-xs sm:text-sm">
-                <div className="flex items-center gap-2">
-                  {useCase.icon}
-                  <span className="hidden sm:inline">{useCase.title.split(" ")[0]}</span>
-                </div>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
+        <div className="grid lg:grid-cols-2 gap-8">
           {useCases.map((useCase, index) => (
-            <TabsContent key={useCase.id} value={useCase.id}>
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-                <Card className="overflow-hidden border-0 bg-white/80 backdrop-blur-sm shadow-xl">
-                  <div className={`h-2 bg-gradient-to-r ${useCase.color}`} />
-
-                  <div className="grid lg:grid-cols-2 gap-8 p-8">
-                    {/* Content */}
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-4">
-                        <div className={`p-3 rounded-xl bg-gradient-to-r ${useCase.color} text-white`}>
-                          {useCase.icon}
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold">{useCase.title}</h3>
-                          <p className="text-muted-foreground">{useCase.description}</p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <h4 className="text-lg font-semibold">Key Features</h4>
-                        <ul className="space-y-2">
-                          {useCase.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center gap-3">
-                              <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${useCase.color}`} />
-                              <span className="text-sm">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <Button className={`bg-gradient-to-r ${useCase.color} text-white hover:opacity-90 group`}>
-                        Learn More About This Solution
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-all duration-300 h-full group">
+                <CardHeader>
+                  <div className="flex items-start justify-between mb-4">
+                    <div
+                      className={`p-3 rounded-lg bg-gradient-to-r ${useCase.color} group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      {useCase.icon}
                     </div>
+                    <Badge variant="outline" className="border-blue-600/30 text-blue-400">
+                      {useCase.badge}
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-white text-xl mb-2">{useCase.title}</CardTitle>
+                  <p className="text-blue-400 font-medium mb-3">{useCase.subtitle}</p>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <p className="text-gray-300 leading-relaxed">{useCase.description}</p>
 
-                    {/* Metrics */}
-                    <div className="space-y-6">
-                      <h4 className="text-lg font-semibold">Success Metrics</h4>
-                      <div className="grid gap-4">
-                        {useCase.metrics.map((metric, idx) => (
-                          <Card key={idx} className="p-4 bg-muted/50">
-                            <div className="text-2xl font-bold text-primary mb-1">{metric.split(" ")[0]}</div>
-                            <div className="text-sm text-muted-foreground">{metric.split(" ").slice(1).join(" ")}</div>
-                          </Card>
-                        ))}
-                      </div>
+                  <div>
+                    <h4 className="text-white font-semibold mb-3">Key Features:</h4>
+                    <ul className="space-y-2">
+                      {useCase.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center text-gray-300">
+                          <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                      <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
-                        <div className="flex items-center gap-2 mb-2">
-                          <Sparkles className="h-4 w-4 text-primary" />
-                          <span className="text-sm font-medium">Vibe Coding Advantage</span>
+                  <div className="bg-slate-900/50 rounded-lg p-4">
+                    <h4 className="text-white font-semibold mb-3">Impact Metrics:</h4>
+                    <div className="grid grid-cols-3 gap-4 text-center">
+                      {Object.entries(useCase.metrics).map(([key, value]) => (
+                        <div key={key}>
+                          <div className="text-lg font-bold text-blue-400">{value}</div>
+                          <div className="text-xs text-gray-400 capitalize">{key.replace("_", " ")}</div>
                         </div>
-                        <p className="text-sm text-muted-foreground">
-                          Our vibe coding technology enables AI systems to understand context, emotion, and nuance,
-                          delivering more human-like and effective interactions.
-                        </p>
-                      </div>
+                      ))}
                     </div>
                   </div>
-                </Card>
-              </motion.div>
-            </TabsContent>
+
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                    Learn More About {useCase.title}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </Tabs>
+        </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <Card className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border-blue-600/30">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-white mb-4">Ready to Transform Your Industry with Vibe Coding?</h3>
+              <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
+                Join the vibe coding revolution and discover how our AI solutions can transform your specific use case.
+                Let's build something amazing together.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+                  Start Your Vibe Coding Journey
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent"
+                >
+                  Schedule Consultation
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   )
