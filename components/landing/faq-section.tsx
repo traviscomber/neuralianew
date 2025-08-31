@@ -5,44 +5,44 @@ import { ChevronDown, ChevronUp } from "lucide-react"
 
 const faqs = [
   {
+    question: "What makes Neuralia different from other AI platforms?",
+    answer:
+      "Neuralia is a fullstack ecosystem specifically designed for AI agent development. Unlike generic AI tools, we provide end-to-end solutions including no-code builders, integrated databases, enterprise security, and deployment infrastructure - all copiloted by AI to accelerate your development process.",
+  },
+  {
+    question: "Do I need coding experience to build AI agents?",
+    answer:
+      "Not at all! Our no-code visual builder allows anyone to create sophisticated AI agents through drag-and-drop interfaces. However, if you're a developer, you also have full access to APIs and custom code integration for advanced use cases.",
+  },
+  {
+    question: "How secure is the Neuralia platform?",
+    answer:
+      "Security is our top priority. We provide bank-grade encryption, SOC 2 compliance, GDPR compliance, and comprehensive audit trails. All data is encrypted in transit and at rest, with role-based access controls and enterprise-grade security monitoring.",
+  },
+  {
+    question: "What kind of support do you offer?",
+    answer:
+      "We offer comprehensive support including 24/7 technical support for enterprise customers, extensive documentation, video tutorials, community forums, and dedicated customer success managers for larger deployments.",
+  },
+  {
+    question: "Can I integrate Neuralia with my existing systems?",
+    answer:
+      "Neuralia provides robust APIs, webhooks, and pre-built integrations with popular tools like Salesforce, Slack, Microsoft Teams, and hundreds of other platforms. Our integration marketplace is constantly growing.",
+  },
+  {
+    question: "What are the pricing options?",
+    answer:
+      "We offer flexible pricing tiers including a free tier for getting started, professional plans for growing businesses, and enterprise solutions for large organizations. Pricing is based on usage, number of agents, and features needed.",
+  },
+  {
     question: "How quickly can I deploy my first AI agent?",
     answer:
-      "Most users deploy their first AI agent within 30 minutes using our no-code builder. For more complex integrations, it typically takes 1-2 hours. Our templates and pre-built components make the process incredibly fast.",
+      "With our no-code builder, you can have a basic AI agent running in minutes. More complex agents typically take a few hours to a few days, depending on your requirements. Our templates and pre-built components significantly accelerate development.",
   },
   {
-    question: "What AI models do you support?",
+    question: "What languages and regions do you support?",
     answer:
-      "We support all major AI models including GPT-4, GPT-3.5, Claude, PaLM, and custom fine-tuned models. You can switch between models or use multiple models within the same agent based on your specific needs.",
-  },
-  {
-    question: "Can I integrate with my existing systems?",
-    answer:
-      "We offer 500+ pre-built integrations including CRMs (Salesforce, HubSpot), databases (PostgreSQL, MongoDB), communication platforms (Slack, Teams), and APIs. Custom integrations are also supported.",
-  },
-  {
-    question: "How do you ensure data security and privacy?",
-    answer:
-      "We implement bank-level security with end-to-end encryption, SOC2 Type II compliance, GDPR compliance, and regular security audits. Your data is never used to train AI models, and you maintain full control over data retention and deletion.",
-  },
-  {
-    question: "What's included in the free plan?",
-    answer:
-      "The free plan includes 1,000 monthly conversations, access to GPT-3.5, basic integrations, and community support. It's perfect for testing and small projects. Paid plans start at $29/month with advanced features and higher limits.",
-  },
-  {
-    question: "Can AI agents handle multiple languages?",
-    answer:
-      "Yes! Our AI agents support 95+ languages with native understanding and response capabilities. You can build multilingual agents that automatically detect and respond in the user's preferred language.",
-  },
-  {
-    question: "How do you handle high-volume conversations?",
-    answer:
-      "Our infrastructure auto-scales to handle millions of concurrent conversations. We use distributed computing, intelligent load balancing, and edge computing to ensure sub-second response times even during peak usage.",
-  },
-  {
-    question: "What kind of support do you provide?",
-    answer:
-      "We offer 24/7 support via chat, email, and phone for paid plans. Free users get community support and documentation access. Enterprise customers receive dedicated success managers and priority support.",
+      "Neuralia supports over 100 languages and can be deployed globally. We have data centers in North America, Europe, Asia-Pacific, and other regions to ensure low latency and compliance with local data regulations.",
   },
 ]
 
@@ -58,8 +58,8 @@ export function FAQSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Frequently Asked Questions</h2>
-          <p className="mt-4 text-lg leading-8 text-gray-600">
-            Everything you need to know about building and deploying AI agents with Neuralia.
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Everything you need to know about building AI agents with Neuralia.
           </p>
         </div>
 
@@ -68,16 +68,17 @@ export function FAQSection() {
             {faqs.map((faq, index) => (
               <div key={index} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
                 <button
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
                   onClick={() => toggleFAQ(index)}
                 >
-                  <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                  <span className="font-medium text-gray-900">{faq.question}</span>
                   {openIndex === index ? (
-                    <ChevronUp className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                    <ChevronUp className="h-5 w-5 text-gray-500" />
                   ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-500 flex-shrink-0" />
+                    <ChevronDown className="h-5 w-5 text-gray-500" />
                   )}
                 </button>
+
                 {openIndex === index && (
                   <div className="px-6 pb-4">
                     <p className="text-gray-600 leading-relaxed">{faq.answer}</p>

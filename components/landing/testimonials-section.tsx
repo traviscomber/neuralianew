@@ -1,125 +1,100 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Star, Quote } from "lucide-react"
+import { Star } from "lucide-react"
 
 const testimonials = [
   {
     name: "Sarah Chen",
-    role: "CTO",
+    role: "CTO at TechFlow",
     company: "TechFlow Solutions",
     content:
-      "Neuralia transformed our customer support. We went from 24-hour response times to instant, intelligent responses. Our customer satisfaction increased by 40% in just 3 months.",
+      "Neuralia transformed how we handle customer support. Our AI agents now resolve 85% of inquiries automatically, and customer satisfaction has increased by 40%.",
     rating: 5,
-    metric: "40% increase in satisfaction",
-    avatar: "/placeholder-user.jpg",
+    metrics: "85% automation rate",
   },
   {
     name: "Marcus Rodriguez",
-    role: "Head of Operations",
-    company: "Global Logistics Inc",
+    role: "Product Manager",
+    company: "EduTech Innovations",
     content:
-      "The AI agents handle 80% of our routine inquiries automatically. Our team can now focus on complex problems while customers get instant help 24/7.",
+      "The no-code builder is incredible. We built and deployed our first AI tutor in just 2 days. Our students love the personalized learning experience.",
     rating: 5,
-    metric: "80% automation rate",
-    avatar: "/placeholder-user.jpg",
+    metrics: "2-day deployment",
   },
   {
     name: "Emily Watson",
-    role: "Marketing Director",
-    company: "GrowthLab",
+    role: "Founder",
+    company: "HealthAI Startup",
     content:
-      "Building our lead qualification bot was incredibly easy. No coding required, and it's generating 3x more qualified leads than our previous forms.",
+      "The enterprise security features gave us confidence to handle sensitive health data. HIPAA compliance was seamless with Neuralia's built-in safeguards.",
     rating: 5,
-    metric: "3x more qualified leads",
-    avatar: "/placeholder-user.jpg",
+    metrics: "HIPAA compliant",
   },
   {
     name: "David Kim",
-    role: "Founder",
-    company: "EduTech Startup",
+    role: "Operations Director",
+    company: "RetailBot Corp",
     content:
-      "We launched our AI tutor in weeks, not months. Students love the personalized learning experience, and we've seen 60% better engagement rates.",
+      "Our e-commerce AI assistant increased conversion rates by 32%. The analytics dashboard provides insights we never had before.",
     rating: 5,
-    metric: "60% better engagement",
-    avatar: "/placeholder-user.jpg",
+    metrics: "32% conversion increase",
   },
   {
     name: "Lisa Thompson",
-    role: "HR Manager",
-    company: "InnovateCorp",
+    role: "Head of Innovation",
+    company: "FinanceForward",
     content:
-      "Our AI recruitment assistant screens candidates 24/7 and schedules interviews automatically. We've reduced time-to-hire by 50% while improving candidate experience.",
+      "Real-time processing capabilities are outstanding. Our trading algorithms now respond 10x faster than our previous solution.",
     rating: 5,
-    metric: "50% faster hiring",
-    avatar: "/placeholder-user.jpg",
+    metrics: "10x faster response",
   },
   {
     name: "Alex Johnson",
-    role: "Product Manager",
-    company: "FinanceFlow",
+    role: "CEO",
+    company: "StartupLab",
     content:
-      "The analytics dashboard gives us incredible insights into customer conversations. We've optimized our product based on AI-gathered feedback and increased retention by 35%.",
+      "From prototype to production in weeks, not months. Neuralia's platform accelerated our go-to-market strategy significantly.",
     rating: 5,
-    metric: "35% retention increase",
-    avatar: "/placeholder-user.jpg",
+    metrics: "Weeks to production",
   },
 ]
 
 export function TestimonialsSection() {
   return (
-    <section className="py-24 sm:py-32 bg-white">
+    <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Trusted by innovative companies
           </h2>
-          <p className="mt-4 text-lg leading-8 text-gray-600">
-            See how businesses across industries are using Neuralia to transform their customer experiences and drive
-            growth.
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            See how leading organizations are transforming their business with AI agents built on Neuralia.
           </p>
         </div>
 
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 group"
-            >
-              <CardContent className="p-8">
-                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Quote className="h-8 w-8 text-gray-400" />
-                </div>
-
-                <div className="flex items-center gap-1 mb-4">
+            <Card key={index} className="bg-white shadow-lg hover:shadow-xl transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
 
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">"{testimonial.content}"</blockquote>
+                <blockquote className="text-gray-900 mb-6">"{testimonial.content}"</blockquote>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={testimonial.avatar || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      className="h-10 w-10 rounded-full object-cover"
-                    />
+                <div className="border-t pt-4">
+                  <div className="flex items-center justify-between">
                     <div>
                       <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">
-                        {testimonial.role}, {testimonial.company}
-                      </div>
+                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                      <div className="text-sm text-gray-500">{testimonial.company}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-medium text-blue-600">{testimonial.metrics}</div>
                     </div>
                   </div>
                 </div>
-
-                <Badge
-                  variant="secondary"
-                  className="mt-4 bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 border-green-200"
-                >
-                  {testimonial.metric}
-                </Badge>
               </CardContent>
             </Card>
           ))}
