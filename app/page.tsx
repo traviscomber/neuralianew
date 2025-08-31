@@ -4,7 +4,6 @@ import { FeaturesSection } from "@/components/landing/features-section"
 import { UseCasesSection } from "@/components/landing/use-cases-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
-import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -198,19 +197,15 @@ function ReadyToDeploySection() {
   )
 }
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main>
-        <HeroSection />
-        <TestimonialsSection />
-        <FeaturesSection />
-        <UseCasesSection />
-        <FAQSection />
-        <ReadyToDeploySection />
-      </main>
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <HeroSection />
+      <FeaturesSection />
+      <UseCasesSection />
+      <TestimonialsSection />
+      <FAQSection />
       <Footer />
-    </div>
+    </main>
   )
 }
