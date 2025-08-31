@@ -1,124 +1,105 @@
-"use client"
-
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Star, Quote } from "lucide-react"
 
 export function TestimonialsSection() {
   const testimonials = [
     {
+      name: "María González",
+      role: "Directora de Marketing",
+      company: "TechStart Chile",
+      image: "/placeholder-user.jpg",
+      rating: 5,
+      text: "Neuralia transformó completamente nuestra atención al cliente. Nuestro agente IA maneja el 80% de las consultas automáticamente, y la satisfacción del cliente aumentó un 35%.",
+      results: "35% ↑ Satisfacción del cliente",
+    },
+    {
       name: "Carlos Mendoza",
-      role: "Agricultural Cooperative Director",
-      company: "AgroValle Cooperative",
+      role: "CEO",
+      company: "AgroTech Solutions",
       image: "/placeholder-user.jpg",
-      content:
-        "EcosueloLab transformed our farming operations. Our farmers now get instant soil analysis through WhatsApp, leading to 40% better yields. The AI understands our local conditions perfectly.",
       rating: 5,
-      industry: "Agriculture",
+      text: "El agente de análisis de suelos ha revolucionado cómo nuestros clientes agricultores toman decisiones. Procesamos 10x más consultas con la misma calidad de respuesta.",
+      results: "10x más consultas procesadas",
     },
     {
-      name: "Sarah Chen",
-      role: "Customer Experience Director",
-      company: "TechFlow Solutions",
+      name: "Ana Rodríguez",
+      role: "Head of HR",
+      company: "Innovate Corp",
       image: "/placeholder-user.jpg",
-      content:
-        "Our AI executive handles 10,000+ customer inquiries daily with 95% satisfaction. It's like having a brilliant customer service director who never sleeps.",
       rating: 5,
-      industry: "Technology",
+      text: "El coaching de carrera con IA ha sido un game-changer para nuestros empleados. El 90% reporta mayor claridad en sus objetivos profesionales después de usar la plataforma.",
+      results: "90% mayor claridad profesional",
     },
     {
-      name: "Michael Rodriguez",
-      role: "CFO",
-      company: "InvestCorp Financial",
+      name: "Diego Silva",
+      role: "Director Académico",
+      company: "Language Institute",
       image: "/placeholder-user.jpg",
-      content:
-        "The financial analysis AI processes millions in transactions daily with 99.9% accuracy. It's revolutionized our risk management and investment strategies.",
       rating: 5,
-      industry: "Finance",
+      text: "ParrotfyIA ha mejorado significativamente el engagement de nuestros estudiantes. Las sesiones de práctica aumentaron 300% y la retención de estudiantes subió al 85%.",
+      results: "300% ↑ Práctica de idiomas",
     },
     {
-      name: "Elena Vasquez",
-      role: "HR Director",
-      company: "GlobalTech Industries",
-      image: "/placeholder-user.jpg",
-      content:
-        "Our HR AI executive manages 5,000+ employees, reduced hiring time by 70%, and improved retention to 92%. It's like having a strategic HR partner.",
-      rating: 5,
-      industry: "Technology",
-    },
-    {
-      name: "David Kim",
+      name: "Lucía Herrera",
       role: "Operations Manager",
-      company: "Manufacturing Plus",
+      company: "E-commerce Plus",
       image: "/placeholder-user.jpg",
-      content:
-        "The operations AI optimized our entire supply chain, reducing costs by 35% while improving quality metrics. It thinks strategically about every decision.",
       rating: 5,
-      industry: "Manufacturing",
+      text: "Implementamos Neuralia en 48 horas y vimos resultados inmediatos. Nuestro agente de ventas genera 40% más leads calificados que nuestro equipo anterior.",
+      results: "40% más leads calificados",
     },
     {
-      name: "Ana Silva",
-      role: "Marketing Director",
-      company: "BrandForward Agency",
+      name: "Roberto Vega",
+      role: "CTO",
+      company: "FinTech Latam",
       image: "/placeholder-user.jpg",
-      content:
-        "Our content strategist AI creates campaigns that consistently outperform human-only efforts by 60%. It understands our brand voice perfectly.",
       rating: 5,
-      industry: "Marketing",
+      text: "La seguridad y escalabilidad de Neuralia nos permitió desplegar agentes IA en toda la región. Procesamos 50,000 consultas diarias sin problemas.",
+      results: "50k consultas diarias",
     },
   ]
 
   return (
-    <section id="testimonials" className="py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">
-            What Our{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Clients Say
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Real feedback from businesses that have deployed our AI executives and achieved measurable results
+    <section className="py-24 sm:py-32 bg-white">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-base font-semibold leading-7 text-blue-600">Testimonios</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Lo que dicen nuestros clientes
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Empresas de toda Latinoamérica confían en Neuralia para transformar sus operaciones con IA
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="border-2 hover:shadow-lg transition-all duration-300">
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
-                    <Avatar className="h-12 w-12">
-                      <AvatarImage src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} />
-                      <AvatarFallback>
-                        {testimonial.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                      <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                    </div>
-                  </div>
-                  <Badge variant="secondary" className="text-xs">
-                    {testimonial.industry}
-                  </Badge>
-                </div>
-                <div className="flex items-center space-x-1">
+            <Card key={index} className="relative overflow-hidden hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="relative">
-                  <Quote className="absolute -top-2 -left-2 w-6 h-6 text-muted-foreground/20" />
-                  <p className="text-muted-foreground italic pl-4">"{testimonial.content}"</p>
+
+                <Quote className="h-8 w-8 text-blue-600 mb-4" />
+
+                <blockquote className="text-gray-700 mb-6">"{testimonial.text}"</blockquote>
+
+                <Badge className="mb-4 bg-green-100 text-green-800 hover:bg-green-100">{testimonial.results}</Badge>
+
+                <div className="flex items-center gap-3">
+                  <img
+                    src={testimonial.image || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    className="h-10 w-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold text-gray-900">{testimonial.name}</p>
+                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    <p className="text-sm text-blue-600 font-medium">{testimonial.company}</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
