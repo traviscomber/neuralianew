@@ -1,75 +1,72 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Brain, Zap, Globe } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Sparkles, Zap, Target } from "lucide-react"
 
 export function HeroSection() {
+  const [currentStat, setCurrentStat] = useState(0)
+
+  const stats = [
+    { label: "Faster Deploy", value: "70%", icon: Zap },
+    { label: "Better Results", value: "35%", icon: Target },
+    { label: "Smart AI", value: "100%", icon: Sparkles },
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStat((prev) => (prev + 1) % stats.length)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [stats.length])
+
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 dark:from-blue-950/20 dark:via-purple-950/20 dark:to-cyan-950/20" />
+    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto text-center">
+        <Badge variant="secondary" className="mb-6 animate-bounce-in">
+          Built with Vibe Coding
+        </Badge>
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-purple-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse delay-1000" />
-      </div>
+        <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 hero-title">
+          Smart AI, <span className="gradient-text">Simple Results</span>
+        </h1>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <div className="mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full border border-blue-200 dark:border-blue-800">
-              <Brain className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Neural AI Executives</span>
-            </div>
-          </div>
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto hero-subtitle">
+          We build AI agents that actually work. No complexity, just results.
+        </p>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Transform Your Business with{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent">
-              AI Executives
-            </span>
-          </h1>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 hero-cta">
+          <Button size="lg" className="group">
+            Get Started
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
+          <Button variant="outline" size="lg">
+            See Demo
+          </Button>
+        </div>
 
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Deploy intelligent AI executives that think, reason, and act autonomously. From WhatsApp soil analysis to
-            complex business operations - our neural AI transforms how you work.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            >
-              Explore Use Cases
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-
-          {/* Key metrics */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Zap className="w-5 h-5 text-blue-600 mr-2" />
-                <span className="text-2xl font-bold text-foreground">10,000+</span>
+        {/* Animated Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+          {stats.map((stat, index) => {
+            const Icon = stat.icon
+            return (
+              <div
+                key={stat.label}
+                className={`p-6 rounded-lg transition-all duration-500 ${
+                  index === currentStat
+                    ? "bg-blue-50 border-2 border-blue-200 scale-105"
+                    : "bg-white border border-gray-200"
+                }`}
+              >
+                <Icon className={`h-8 w-8 mx-auto mb-2 ${index === currentStat ? "text-blue-600" : "text-gray-400"}`} />
+                <div className={`text-3xl font-bold mb-1 ${index === currentStat ? "text-blue-600" : "text-gray-600"}`}>
+                  {stat.value}
+                </div>
+                <div className="text-sm text-gray-500">{stat.label}</div>
               </div>
-              <p className="text-sm text-muted-foreground">Daily Interactions</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Globe className="w-5 h-5 text-purple-600 mr-2" />
-                <span className="text-2xl font-bold text-foreground">24/7</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Autonomous Operation</p>
-            </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-2">
-                <Brain className="w-5 h-5 text-cyan-600 mr-2" />
-                <span className="text-2xl font-bold text-foreground">95%</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Success Rate</p>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
     </section>

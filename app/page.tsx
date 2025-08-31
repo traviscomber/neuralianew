@@ -200,13 +200,13 @@ function ReadyToDeploySection() {
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       <Navigation />
       <main>
         <HeroSection />
-        <TestimonialsSection />
         <FeaturesSection />
         <UseCasesSection />
+        <TestimonialsSection />
         <FAQSection />
         <ReadyToDeploySection />
       </main>
