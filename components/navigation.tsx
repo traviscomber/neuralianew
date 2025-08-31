@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Menu, X, Zap, Brain } from "lucide-react"
+import { Menu, X, Zap, Brain, MessageCircle } from "lucide-react"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +41,15 @@ export function Navigation() {
             <a href="#faq" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
               FAQ
             </a>
+            <a
+              href="https://wa.me/56940946660"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
             <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white">
               <Zap className="w-4 h-4 mr-2" />
               Empezar Ahora
@@ -75,6 +84,15 @@ export function Navigation() {
               </a>
               <a href="#faq" className="text-gray-700 hover:text-purple-600 font-medium transition-colors">
                 FAQ
+              </a>
+              <a
+                href="https://wa.me/56940946660"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp
               </a>
               <Button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white w-full">
                 <Zap className="w-4 h-4 mr-2" />
