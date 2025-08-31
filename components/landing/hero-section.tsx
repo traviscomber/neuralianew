@@ -11,32 +11,33 @@ const demos = [
   {
     id: "ecosuelo",
     name: "EcosueloLab",
-    tagline: "Análisis de Suelo",
-    description: "Analiza nitrógeno en el suelo conversando naturalmente con IA",
+    tagline: "Análisis de Suelo vía API",
+    description: "Se conecta vía API a datos de suelo y envía análisis por WhatsApp con Twilio",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     icon: Sprout,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! Soy EcosueloBot. ¿Qué observas en tu campo? 🌱",
+        content:
+          "¡Hola! 🌱 Soy EcosueloBot. He accedido a los datos de tu potrero vía API. ¿Qué potrero quieres analizar? 🌱",
       },
       {
         role: "user",
-        content: "Mis plantas de maíz están amarillentas",
+        content: "El potrero norte, las plantas están amarillentas",
       },
       {
         role: "bot",
-        content: "Eso indica deficiencia de nitrógeno. ¿Cuándo fue la última fertilización?",
+        content: "Consultando API... Tu potrero norte (12 ha) tiene 15 ppm de nitrógeno. Muy bajo.",
       },
       {
         role: "user",
-        content: "Hace un mes, antes de las lluvias fuertes",
+        content: "¿Qué me recomiendas hacer?",
       },
       {
         role: "bot",
         content:
-          "Las lluvias lavaron el nitrógeno. Te recomiendo aplicar sulfato de amonio que resiste mejor el lavado. ¿Quieres el procedimiento completo?",
+          "Te envío por WhatsApp el plan completo: aplicar 120 kg/ha de urea. ¿Confirmas tu número para el reporte detallado?",
       },
     ],
   },
@@ -76,31 +77,31 @@ const demos = [
     id: "parrotfy",
     name: "Parrotfy",
     tagline: "Asistente ERP IA",
-    description: "Asistente ERP que se conecta a tu sistema vía API para gestión conversacional",
+    description: "Analiza clientes, facturas y datos empresariales conversando vía API",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     icon: Settings,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! Soy Parrotfy, tu asistente ERP IA. ¿Qué necesitas consultar? ⚙️",
+        content: "¡Hola! Soy Parrotfy, tu asistente ERP IA. ¿Qué análisis necesitas? ⚙️",
       },
       {
         role: "user",
-        content: "¿Puedes revisar mi inventario?",
+        content: "¿Quién es mi mejor cliente este mes?",
       },
       {
         role: "bot",
-        content: "He accedido a tu ERP vía API. Veo niveles de stock y rotación. ¿Análisis específico?",
+        content: "Analizando facturas vía API... Tu mejor cliente es TechCorp con $45.000 en ventas este mes.",
       },
       {
         role: "user",
-        content: "Qué productos necesitan reposición",
+        content: "¿Qué productos le vendemos más?",
       },
       {
         role: "bot",
         content:
-          "Identificados productos con stock bajo y alta rotación. Puedo generar órdenes automáticas o configurar alertas. ¿Qué prefieres?",
+          "Basado en facturas: 60% Software, 25% Consultoría, 15% Soporte. ¿Quieres estrategias para aumentar ventas?",
       },
     ],
   },

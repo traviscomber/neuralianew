@@ -20,72 +20,73 @@ import {
   BarChart3,
   Target,
   Award,
-  Database,
-  Plug,
+  MessageCircle,
+  Smartphone,
+  Users,
+  Receipt,
 } from "lucide-react"
 
 const successCases = {
   ecosuelo: {
     name: "EcosueloLab",
-    tagline: "Análisis Inteligente de Suelo Agrícola",
-    description: "Plataforma de análisis de nitrógeno en el suelo que optimiza la agricultura con IA especializada",
+    tagline: "Análisis de Suelo con API y WhatsApp",
+    description:
+      "Portal neuronal que se conecta vía API a datos de suelo del cliente y envía análisis por WhatsApp usando Twilio",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     textColor: "text-green-700",
     icon: Sprout,
-    url: "ecosuelobot.vercel.app",
     metrics: {
       status: "En desarrollo",
-      focus: "Agricultura",
-      type: "Análisis IA",
+      focus: "Agricultura inteligente",
+      integration: "API + Twilio WhatsApp",
       availability: "Demo disponible",
     },
     features: [
-      "Análisis de nitrógeno conversacional",
-      "Recomendaciones personalizadas",
-      "Diagnóstico de deficiencias",
-      "Consejos de fertilización",
-      "Interfaz natural y fácil",
+      "Conexión API a sistemas de análisis de suelo",
+      "Análisis conversacional de nitrógeno en potreros",
+      "Envío automático de reportes vía WhatsApp",
+      "Integración con Twilio para mensajería",
+      "Recomendaciones técnicas personalizadas",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Hola! 🌱 Soy EcosueloBot. Te ayudo a analizar problemas en tus cultivos y optimizar la fertilización. ¿Qué observas en tu campo?",
+          "¡Hola! 🌱 Soy EcosueloBot. He accedido a los datos de tus potreros vía API. ¿Qué potrero quieres que analice hoy?",
         timestamp: "08:30",
       },
       {
         role: "user",
-        content: "Tengo plantas de maíz que se ven amarillentas en algunas zonas del campo",
+        content: "El potrero norte, las plantas están amarillentas desde hace una semana",
         timestamp: "08:31",
       },
       {
         role: "assistant",
         content:
-          "El amarillamiento puede indicar deficiencia de nitrógeno 🌽 Para ayudarte mejor, cuéntame:\n\n📍 ¿En qué región está tu campo?\n📏 ¿Qué extensión está afectada?\n🌱 ¿En qué etapa está el cultivo?\n💧 ¿Cuándo fue el último riego o lluvia?",
+          "Consultando API de análisis de suelo... 📊\n\n**Potrero Norte (12 hectáreas)**:\n• Nitrógeno: 15 ppm (BAJO)\n• pH: 6.2 (Óptimo)\n• Humedad: 45%\n\nEl amarillamiento confirma deficiencia de nitrógeno. ¿Quieres el plan de fertilización?",
         timestamp: "08:31",
       },
       {
         role: "user",
-        content:
-          "Está en la zona sur, son varias hectáreas afectadas. El maíz tiene unas 6 semanas y llovió bastante la semana pasada",
+        content: "Sí, por favor. Y envíamelo por WhatsApp para compartir con mi equipo",
         timestamp: "08:32",
       },
       {
         role: "assistant",
         content:
-          "Perfecto, esa información es clave 📊 Basado en tu descripción:\n\n🔬 **Diagnóstico probable**: Deficiencia de nitrógeno por lixiviación\n⚠️ **Causa**: Las lluvias pueden haber lavado el nitrógeno del suelo\n💡 **Recomendación**: Aplicar fertilizante nitrogenado de acción rápida\n🎯 **Estrategia**: Considerar fertilización foliar para recuperación inmediata\n\n¿Te gustaría que te explique el procedimiento paso a paso?",
+          "¡Perfecto! 📱 Preparando reporte completo:\n\n**Plan de Fertilización**:\n• Aplicar 120 kg/ha de urea (46% N)\n• Fraccionado: 70% ahora, 30% en 15 días\n• Riego ligero post-aplicación\n• Seguimiento en 3 semanas\n\n¿Confirmas tu número de WhatsApp para enviar el reporte detallado vía Twilio?",
         timestamp: "08:33",
       },
       {
         role: "user",
-        content: "Sí, por favor. Y también cómo prevenir esto en el futuro",
+        content: "Sí, es el +56 9 1234 5678. También incluye el costo estimado por favor",
         timestamp: "08:34",
       },
       {
         role: "assistant",
         content:
-          "¡Excelente! Te doy el plan completo 🎯:\n\n📋 **Acción Inmediata**:\n• Aplicar fertilizante nitrogenado soluble\n• Considerar fertilización foliar con urea al 2%\n• Aplicar en horas frescas del día\n• Regar ligeramente después si no llueve\n\n🛡️ **Prevención Futura**:\n• Fertilización fraccionada en varias aplicaciones\n• Usar fertilizantes de liberación lenta\n• Monitorear pronóstico antes de fertilizar\n• Considerar análisis de suelo regular\n\n¿Necesitas más detalles sobre algún punto específico?",
+          "✅ **Reporte enviado a WhatsApp +56 9 1234 5678**\n\nIncluye:\n• Plan técnico detallado\n• Cronograma de aplicación\n• Costo estimado: $180.000 CLP\n• Mapa del potrero con zonas críticas\n• Contacto de proveedores recomendados\n\n📈 Programé recordatorio automático para seguimiento en 21 días. ¿Algo más que necesites?",
         timestamp: "08:35",
       },
     ],
@@ -98,7 +99,6 @@ const successCases = {
     bgColor: "bg-blue-50",
     textColor: "text-blue-700",
     icon: TrendingUp,
-    url: "despegacarrera.com",
     metrics: {
       status: "En desarrollo",
       focus: "Desarrollo profesional",
@@ -160,64 +160,62 @@ const successCases = {
   parrotfy: {
     name: "Parrotfy",
     tagline: "Asistente ERP IA",
-    description:
-      "Asistente ERP inteligente que se conecta vía API a tu sistema empresarial para gestión conversacional completa",
+    description: "Asistente ERP inteligente que analiza clientes, facturas y datos empresariales conversando vía API",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     textColor: "text-purple-700",
     icon: Settings,
-    url: "parrotfyia.vercel.app",
     metrics: {
       status: "En desarrollo",
-      focus: "ERP empresarial",
-      type: "Asistente IA",
+      focus: "Análisis empresarial",
+      type: "Asistente ERP IA",
       integration: "Conexión API",
     },
     features: [
-      "Conexión API a sistemas ERP existentes",
-      "Gestión conversacional de inventarios",
-      "Análisis de datos empresariales en tiempo real",
-      "Automatización de procesos de negocio",
-      "Reportes inteligentes y predictivos",
+      "Análisis inteligente de clientes y facturas",
+      "Identificación de mejores clientes por período",
+      "Análisis de productos más vendidos por cliente",
+      "Reportes de tendencias de ventas",
+      "Predicciones basadas en datos históricos",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Hola! 👋 Soy Parrotfy, tu asistente ERP IA. Me conecto vía API a tu sistema empresarial para ayudarte con gestión conversacional. ¿Qué datos necesitas consultar hoy? ⚙️",
+          "¡Hola! 👋 Soy Parrotfy, tu asistente ERP IA. Me conecto vía API a tu sistema empresarial para analizar clientes, facturas y datos de negocio. ¿Qué análisis necesitas hoy? ⚙️",
         timestamp: "09:15",
       },
       {
         role: "user",
-        content: "¿Puedes revisar el estado actual de mi inventario?",
+        content: "¿Quién es mi mejor cliente este mes?",
         timestamp: "09:16",
       },
       {
         role: "assistant",
         content:
-          "Por supuesto 📊 He accedido a tu sistema ERP vía API y estoy analizando los datos:\n\n🔍 **Consultando**:\n• Niveles de stock actuales\n• Movimientos recientes de inventario\n• Productos con rotación alta/baja\n• Alertas de stock mínimo\n\n📈 **Estado general**: Sistema conectado y datos actualizados\n\n¿Te interesa un análisis específico de alguna categoría de productos o prefieres un resumen general?",
+          "Analizando facturas vía API... 📊\n\n🏆 **Mejor Cliente de Diciembre 2024**:\n• **TechCorp Solutions**: $45.000 USD\n• 12 facturas procesadas\n• Crecimiento del 23% vs mes anterior\n• Margen promedio: 35%\n\n📈 **Comparación Top 3**:\n1. TechCorp: $45.000\n2. InnovateX: $32.500  \n3. DataFlow: $28.800\n\n¿Quieres detalles específicos de algún cliente?",
         timestamp: "09:16",
       },
       {
         role: "user",
-        content: "Muéstrame qué productos necesitan reposición urgente",
+        content: "Sí, dime qué productos le vendemos más a TechCorp",
         timestamp: "09:17",
       },
       {
         role: "assistant",
         content:
-          "Perfecto, he analizado tu inventario vía API 🎯:\n\n🔴 **Reposición Urgente**:\n• Productos con stock por debajo del mínimo configurado\n• Items con alta rotación y stock limitado\n• Productos con pedidos pendientes sin stock\n\n📊 **Análisis inteligente**:\n• Predicción de agotamiento basada en ventas históricas\n• Sugerencias de cantidades óptimas de pedido\n• Identificación de proveedores preferidos\n\n💡 **Acciones disponibles**:\n• Generar órdenes de compra automáticas\n• Configurar alertas personalizadas\n• Programar reposiciones recurrentes\n\n¿Quieres que genere las órdenes de compra o prefieres revisar las sugerencias primero?",
+          "Perfecto, analizando facturas de TechCorp vía API 🎯:\n\n💼 **Productos más vendidos a TechCorp**:\n• **Software Licenses**: 60% ($27.000)\n  - Office Suite Pro: $15.000\n  - Development Tools: $12.000\n• **Consultoría**: 25% ($11.250)\n  - Implementación: $7.500\n  - Training: $3.750\n• **Soporte Técnico**: 15% ($6.750)\n  - Premium Support: $6.750\n\n📊 **Insights**:\n• Mayor demanda en Q4\n• Prefieren paquetes enterprise\n• Renovación automática activada\n\n¿Te interesa una estrategia para aumentar ventas con ellos?",
         timestamp: "09:18",
       },
       {
         role: "user",
-        content: "Genera las órdenes de compra y configura alertas automáticas para el futuro",
+        content: "Sí, y también dime si hay clientes que están comprando menos últimamente",
         timestamp: "09:19",
       },
       {
         role: "assistant",
         content:
-          "¡Excelente! Procesando a través de tu sistema ERP 🚀:\n\n📋 **Órdenes de Compra Generadas**:\n• Creadas automáticamente en tu sistema\n• Enviadas a proveedores configurados\n• Cantidades optimizadas según historial\n• Fechas de entrega estimadas calculadas\n\n🚨 **Sistema de Alertas Configurado**:\n• Notificaciones cuando stock llegue al 20% del mínimo\n• Alertas de productos de alta rotación\n• Recordatorios de seguimiento a proveedores\n• Reportes semanales de estado de inventario\n\n✅ **Integración completa**: Todas las acciones sincronizadas con tu ERP\n\n¿Hay algún otro proceso que te gustaría automatizar o consultar?",
+          "Excelente pregunta. Analizando tendencias vía API 📉:\n\n🚨 **Clientes con Reducción de Compras**:\n• **MegaCorp**: -40% ($18.000 → $10.800)\n  - Último pedido: hace 45 días\n  - Historial: cliente desde 2022\n• **StartupHub**: -25% ($8.000 → $6.000)\n  - Cambió a pedidos mensuales vs semanales\n• **CloudTech**: -15% ($12.000 → $10.200)\n  - Redujo licencias de 50 a 42\n\n💡 **Estrategias sugeridas**:\n• Contactar MegaCorp (riesgo alto)\n• Ofrecer descuentos por volumen a StartupHub\n• Revisar necesidades actuales de CloudTech\n\n¿Quieres que genere un plan de retención específico?",
         timestamp: "09:20",
       },
     ],
@@ -329,9 +327,6 @@ export function UseCasesSection() {
                         </div>
                       </div>
                       <p className="text-gray-700 text-lg leading-relaxed mb-4">{caseData.description}</p>
-                      <div className="flex items-center gap-2 text-purple-600">
-                        <span className="font-medium">{caseData.url}</span>
-                      </div>
                     </CardHeader>
 
                     <CardContent className="space-y-6">
@@ -369,14 +364,26 @@ export function UseCasesSection() {
                       {/* Características principales */}
                       <div>
                         <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                          {key === "parrotfy" ? <Database className="w-5 h-5" /> : <Target className="w-5 h-5" />}
-                          {key === "parrotfy" ? "Capacidades ERP" : "Características Principales"}
+                          {key === "ecosuelo" ? (
+                            <Smartphone className="w-5 h-5" />
+                          ) : key === "parrotfy" ? (
+                            <Users className="w-5 h-5" />
+                          ) : (
+                            <Target className="w-5 h-5" />
+                          )}
+                          {key === "ecosuelo"
+                            ? "Capacidades API + WhatsApp"
+                            : key === "parrotfy"
+                              ? "Análisis de Clientes y Facturas"
+                              : "Características Principales"}
                         </h4>
                         <ul className="space-y-3">
                           {caseData.features.map((feature, index) => (
                             <li key={index} className="flex items-start gap-3">
-                              {key === "parrotfy" ? (
-                                <Plug className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
+                              {key === "ecosuelo" ? (
+                                <MessageCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
+                              ) : key === "parrotfy" ? (
+                                <Receipt className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
                               ) : (
                                 <CheckCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
                               )}
@@ -409,7 +416,11 @@ export function UseCasesSection() {
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600">
-                              {key === "parrotfy" ? "Conectado vía API" : "Demo interactivo"}
+                              {key === "ecosuelo"
+                                ? "API + WhatsApp activo"
+                                : key === "parrotfy"
+                                  ? "Analizando facturas vía API"
+                                  : "Demo interactivo"}
                             </span>
                           </div>
                         </div>
@@ -501,9 +512,11 @@ export function UseCasesSection() {
                           </Button>
                         </div>
                         <p className="text-xs text-gray-500 mt-2 text-center">
-                          {key === "parrotfy"
-                            ? "Demo ERP - Simulación de conexión API"
-                            : "Demo automático - Los mensajes se muestran progresivamente"}
+                          {key === "ecosuelo"
+                            ? "Demo API + WhatsApp - Simulación de integración Twilio"
+                            : key === "parrotfy"
+                              ? "Demo Análisis de Facturas - Simulación de conexión API"
+                              : "Demo automático - Los mensajes se muestran progresivamente"}
                         </p>
                       </div>
                     </CardContent>
