@@ -1,107 +1,134 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, MessageSquare, Zap, Shield, Globe, BarChart3, Cpu, Layers, Rocket } from "lucide-react"
-
-const features = [
-  {
-    icon: Brain,
-    title: "Advanced Neural Networks",
-    description: "Powered by state-of-the-art AI models with deep learning capabilities for natural conversations.",
-    badge: "AI Core",
-  },
-  {
-    icon: MessageSquare,
-    title: "Multi-Language Support",
-    description: "Deploy agents that communicate fluently in multiple languages with cultural context awareness.",
-    badge: "Global",
-  },
-  {
-    icon: Zap,
-    title: "Real-Time Processing",
-    description: "Lightning-fast response times with sub-second latency for seamless user experiences.",
-    badge: "Performance",
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description: "Bank-grade security with end-to-end encryption and compliance with global data protection standards.",
-    badge: "Security",
-  },
-  {
-    icon: Globe,
-    title: "Scalable Infrastructure",
-    description:
-      "Auto-scaling cloud infrastructure that grows with your business needs and handles millions of conversations.",
-    badge: "Scale",
-  },
-  {
-    icon: BarChart3,
-    title: "Advanced Analytics",
-    description: "Comprehensive insights and metrics to optimize your AI agents' performance and user satisfaction.",
-    badge: "Analytics",
-  },
-  {
-    icon: Cpu,
-    title: "Custom AI Models",
-    description: "Train and deploy custom AI models tailored to your specific industry and business requirements.",
-    badge: "Custom",
-  },
-  {
-    icon: Layers,
-    title: "API Integration",
-    description: "Seamlessly integrate with your existing systems through our comprehensive REST and GraphQL APIs.",
-    badge: "Integration",
-  },
-  {
-    icon: Rocket,
-    title: "One-Click Deployment",
-    description: "Deploy your AI agents instantly with our streamlined deployment process and monitoring tools.",
-    badge: "Deploy",
-  },
-]
+import {
+  Brain,
+  MessageSquare,
+  BarChart3,
+  Users,
+  Briefcase,
+  ShoppingCart,
+  FileText,
+  Headphones,
+  Database,
+} from "lucide-react"
 
 export function FeaturesSection() {
+  const agents = [
+    {
+      icon: Brain,
+      name: "Neural Executive",
+      description:
+        "Strategic decision-making AI that analyzes complex business scenarios and provides executive-level insights.",
+      capabilities: ["Strategic planning", "Risk assessment", "Market analysis", "Decision automation"],
+    },
+    {
+      icon: MessageSquare,
+      name: "Customer Success AI",
+      description: "Advanced customer relationship management with emotional intelligence and personalized engagement.",
+      capabilities: ["Customer retention", "Satisfaction analysis", "Personalized outreach", "Churn prediction"],
+    },
+    {
+      icon: BarChart3,
+      name: "Financial Analyst AI",
+      description: "Comprehensive financial analysis, forecasting, and investment strategy optimization.",
+      capabilities: ["Financial modeling", "Risk analysis", "Investment planning", "Budget optimization"],
+    },
+    {
+      icon: Users,
+      name: "HR Director AI",
+      description: "Complete human resources management from recruitment to performance optimization.",
+      capabilities: ["Talent acquisition", "Performance reviews", "Training programs", "Culture development"],
+    },
+    {
+      icon: Briefcase,
+      name: "Operations Manager AI",
+      description: "End-to-end operations management with supply chain optimization and process automation.",
+      capabilities: ["Process optimization", "Supply chain", "Quality control", "Resource allocation"],
+    },
+    {
+      icon: ShoppingCart,
+      name: "Sales Director AI",
+      description: "Advanced sales strategy, lead qualification, and revenue optimization with predictive analytics.",
+      capabilities: ["Lead scoring", "Sales forecasting", "Pipeline management", "Revenue optimization"],
+    },
+    {
+      icon: FileText,
+      name: "Content Strategist AI",
+      description: "Comprehensive content creation, brand management, and marketing campaign optimization.",
+      capabilities: ["Content creation", "Brand strategy", "Campaign optimization", "SEO management"],
+    },
+    {
+      icon: Headphones,
+      name: "Support Executive AI",
+      description: "Advanced technical support with problem-solving capabilities and knowledge base management.",
+      capabilities: ["Technical troubleshooting", "Knowledge management", "Escalation handling", "User training"],
+    },
+  ]
+
   return (
-    <section className="py-24 sm:py-32 bg-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <Badge className="mb-4 bg-purple-100 text-purple-800 px-4 py-2">🔧 Platform Features</Badge>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Everything You Need to Build
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              {" "}
-              Intelligent Agents
+    <section id="features" className="py-24 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">
+            Our{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              AI Executives
             </span>
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Our comprehensive platform provides all the tools and infrastructure needed to create, deploy, and scale AI
-            agents that deliver exceptional user experiences.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Specialized neural AI executives designed to handle complex business functions with human-level intelligence
+            and strategic thinking.
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-7xl">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="relative overflow-hidden border-2 hover:border-purple-200 transition-all duration-300 hover:shadow-lg"
-              >
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-purple-500 to-blue-500">
-                      <feature.icon className="h-6 w-6 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {agents.map((agent, index) => (
+            <Card key={index} className="border-2 hover:shadow-lg transition-all duration-300 group">
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <agent.icon className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-lg">{agent.name}</CardTitle>
+                <CardDescription className="text-sm">{agent.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  {agent.capabilities.map((capability, capIndex) => (
+                    <div key={capIndex} className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full" />
+                      <span className="text-sm text-muted-foreground">{capability}</span>
                     </div>
-                    <Badge variant="secondary" className="text-xs">
-                      {feature.badge}
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-600 leading-relaxed">{feature.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div className="text-center mt-16">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-8 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-4">Ready to Deploy Your AI Executive?</h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Every business is unique. Our neural AI executives adapt to your specific industry, processes, and
+              objectives to deliver measurable results from day one.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+              <Badge variant="secondary" className="bg-white/60">
+                <Brain className="w-4 h-4 mr-2" />
+                Neural Intelligence
+              </Badge>
+              <Badge variant="secondary" className="bg-white/60">
+                <MessageSquare className="w-4 h-4 mr-2" />
+                Conversational Interface
+              </Badge>
+              <Badge variant="secondary" className="bg-white/60">
+                <Database className="w-4 h-4 mr-2" />
+                External API Integration
+              </Badge>
+            </div>
           </div>
         </div>
       </div>

@@ -33,15 +33,15 @@ export function CustomerServiceChat({ isOpen = false, onToggle }: CustomerServic
     {
       id: "welcome",
       content:
-        "👋 ¡Hola! Soy tu especialista de soporte Neuralia AI. Estoy genuinamente emocionado de ayudarte a descubrir cómo nuestros ejecutivos neurales de IA pueden transformar las operaciones de tu negocio. ¿Qué desafío específico puedo ayudarte a resolver hoy?",
+        "👋 Hello! I'm your Neuralia AI Support specialist. I'm genuinely excited to help you discover how our neural AI executives can transform your business operations. What specific challenge can I help you solve today?",
       sender: "agent",
       timestamp: new Date(),
       type: "quick_reply",
       quickReplies: [
-        "¿Cómo justifico ejecutivos IA a mi directorio?",
-        "¿Cuál es el ROI vs contratar ejecutivos humanos?",
-        "¿Qué tan segura está nuestra data sensible?",
-        "Hablar con un especialista humano",
+        "How do I justify AI executives to my board?",
+        "What's the ROI vs hiring human executives?",
+        "How secure is our sensitive data?",
+        "Talk to a human specialist",
       ],
       metadata: {
         confidence: 1.0,
@@ -67,23 +67,25 @@ export function CustomerServiceChat({ isOpen = false, onToggle }: CustomerServic
 
   const generateAIResponse = async (userInput: string, conversationHistory: Message[]): Promise<Message> => {
     try {
+      // Build conversation context for OpenAI with enhanced customer service context
       const messages = [
         {
           role: "system" as const,
-          content: `Eres Neuralia AI Support, el agente de servicio al cliente más avanzado del mundo. Usa el entrenamiento integral de servicio al cliente de tu prompt del sistema para brindar soporte excepcional.
+          content: `You are Neuralia AI Support, the world's most advanced customer service AI agent. Use the comprehensive customer service training from your system prompt to provide exceptional support.
 
-CONTEXTO DE CONVERSACIÓN: Este es el mensaje #${conversationHistory.filter((msg) => msg.sender === "user").length + 1} en esta conversación.
+CONVERSATION CONTEXT: This is message #${conversationHistory.filter((msg) => msg.sender === "user").length + 1} in this conversation.
 
-REQUISITOS DE RESPUESTA:
-1. Reconoce su pregunta específica con empatía genuina
-2. Proporciona información detallada y enfocada en valor con métricas específicas
-3. Incluye historias de éxito relevantes o prueba social cuando sea apropiado
-4. Siempre termina con una llamada a la acción clara o próximo paso
-5. Usa técnicas de venta consultiva para entender sus necesidades más profundas
-6. Crea urgencia éticamente a través de ofertas por tiempo limitado o beneficios exclusivos
+RESPONSE REQUIREMENTS:
+1. Acknowledge their specific question with genuine empathy
+2. Provide detailed, value-focused information with specific metrics
+3. Include relevant success stories or social proof when appropriate
+4. Always end with a clear call-to-action or next step
+5. Use consultative selling techniques to understand their deeper needs
+6. Create urgency ethically through limited-time offers or exclusive benefits
 
-Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emocionados sobre el potencial de Neuralia para resolver sus desafíos empresariales.`,
+Remember: Every response should make them feel valued, understood, and excited about Neuralia's potential to solve their business challenges.`,
         },
+        // Add recent conversation history
         ...conversationHistory.slice(-6).map((msg) => ({
           role: msg.sender === "user" ? ("user" as const) : ("assistant" as const),
           content: msg.content,
@@ -114,54 +116,122 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
       const data = await response.json()
       const aiResponse = data.response
 
+      // Generate highly contextual and engaging quick replies
       let quickReplies: string[] = []
       const responseText = aiResponse.toLowerCase()
       const userQuestionCount = conversationHistory.filter((msg) => msg.sender === "user").length
 
-      if (
-        responseText.includes("directorio") ||
-        responseText.includes("justificar") ||
-        responseText.includes("ejecutivo")
-      ) {
+      // Advanced contextual reply generation with more engaging options
+      if (responseText.includes("board") || responseText.includes("justify") || responseText.includes("executive")) {
         quickReplies = [
-          "Muéstrame los números exactos de ROI",
-          "¿Cómo usan esto las empresas Fortune 500?",
-          "¿Cuál es el riesgo de NO tener ejecutivos IA?",
-          "Conectarme con un especialista",
+          "Show me the exact ROI numbers",
+          "How do Fortune 500 companies use this?",
+          "What's the risk of NOT having AI executives?",
+          "Connect me with a specialist",
         ]
       } else if (
         responseText.includes("roi") ||
-        responseText.includes("retorno") ||
-        responseText.includes("inversión")
+        responseText.includes("return") ||
+        responseText.includes("investment")
       ) {
         quickReplies = [
-          "Calcular ROI para mi tamaño de empresa",
-          "Muéstrame casos de estudio antes/después",
-          "¿Cuál es el período de recuperación?",
-          "Hablar con experto en ROI",
+          "Calculate ROI for my company size",
+          "Show me before/after case studies",
+          "What's the payback period?",
+          "Speak with ROI expert",
         ]
       } else if (
-        responseText.includes("seguridad") ||
-        responseText.includes("datos") ||
-        responseText.includes("cumplimiento")
+        responseText.includes("security") ||
+        responseText.includes("data") ||
+        responseText.includes("compliance")
       ) {
         quickReplies = [
-          "Muéstrame certificaciones de seguridad",
-          "¿Cómo manejan GDPR/HIPAA?",
-          "¿Qué pasa con la soberanía de datos?",
-          "Hablar con especialista en seguridad",
+          "Show me security certifications",
+          "How do you handle GDPR/HIPAA?",
+          "What about data sovereignty?",
+          "Talk to security specialist",
+        ]
+      } else if (
+        responseText.includes("competitive") ||
+        responseText.includes("compare") ||
+        responseText.includes("better")
+      ) {
+        quickReplies = [
+          "Neuralia vs ChatGPT for business",
+          "Why not hire consultants instead?",
+          "What makes you different?",
+          "Speak with product expert",
+        ]
+      } else if (
+        responseText.includes("integration") ||
+        responseText.includes("systems") ||
+        responseText.includes("workflow")
+      ) {
+        quickReplies = [
+          "How does it work with our CRM?",
+          "API integration capabilities",
+          "Implementation timeline",
+          "Talk to technical specialist",
+        ]
+      } else if (responseText.includes("trial") || responseText.includes("free") || responseText.includes("demo")) {
+        quickReplies = [
+          "Start my trial right now",
+          "Which agent should I try first?",
+          "Can I get a live demo?",
+          "Schedule call with specialist",
+        ]
+      } else if (responseText.includes("ceo") && responseText.includes("strategic")) {
+        quickReplies = [
+          "Try CEO agent now",
+          "CEO decision-making examples",
+          "Strategic planning capabilities",
+          "Speak with CEO specialist",
+        ]
+      } else if (responseText.includes("cmo") && responseText.includes("marketing")) {
+        quickReplies = [
+          "Try CMO agent now",
+          "Marketing ROI case studies",
+          "Growth hacking examples",
+          "Talk to marketing expert",
+        ]
+      } else if (responseText.includes("cto") && responseText.includes("technology")) {
+        quickReplies = [
+          "Try CTO agent now",
+          "Tech roadmap examples",
+          "Architecture review process",
+          "Connect with CTO specialist",
+        ]
+      } else if (responseText.includes("implementation") || responseText.includes("getting started")) {
+        quickReplies = [
+          "What's the onboarding process?",
+          "How long until we see results?",
+          "Training and support included?",
+          "Talk to implementation expert",
+        ]
+      } else if (
+        responseText.includes("culture") ||
+        responseText.includes("team") ||
+        responseText.includes("adoption")
+      ) {
+        quickReplies = [
+          "How to get team buy-in?",
+          "Managing resistance to AI",
+          "Success metrics to track",
+          "Speak with change specialist",
         ]
       } else {
+        // Default high-engagement contextual replies
         quickReplies = [
-          "¿Cómo justifico esto a ejecutivos?",
-          "Muéstrame ventajas competitivas",
-          "¿Cuál es el proceso de implementación?",
-          "Conectarme con un especialista",
+          "How do I justify this to executives?",
+          "Show me competitive advantages",
+          "What's the implementation process?",
+          "Connect me with a specialist",
         ]
       }
 
+      // Add close option after 3+ questions with more engaging language
       if (userQuestionCount >= 3) {
-        quickReplies = [...quickReplies.slice(0, 3), "¡Estoy listo para transformar mi negocio!"]
+        quickReplies = [...quickReplies.slice(0, 3), "I'm ready to transform my business!"]
       }
 
       return {
@@ -180,19 +250,15 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
     } catch (error) {
       console.error("Error getting AI response:", error)
 
+      // Enhanced fallback response with customer service excellence
       return {
         id: Date.now().toString(),
         content:
-          "¡Disculpa sinceramente el inconveniente técnico! Mientras me reconecto, permíteme compartir que nuestros ejecutivos neurales de IA han ayudado a 500+ empresas a lograr un ROI promedio de 3.2x. ¡Tu prueba gratuita de 5 días te está esperando - sin tarjeta de crédito requerida! 🚀",
+          "I sincerely apologize for the technical hiccup! While I reconnect, let me share that our neural AI executives have helped 500+ companies achieve an average 3.2x ROI. Your 5-day free trial is waiting - no credit card required! 🚀",
         sender: "agent",
         timestamp: new Date(),
         type: "quick_reply",
-        quickReplies: [
-          "Intentar de nuevo",
-          "Iniciar prueba gratuita de todos modos",
-          "Muéstrame historias de éxito",
-          "Hablar con soporte humano",
-        ],
+        quickReplies: ["Try again", "Start free trial anyway", "Show me success stories", "Talk to human support"],
         metadata: {
           confidence: 0.9,
           processingTime: 0.1,
@@ -206,6 +272,7 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
     const messageText = message || inputValue.trim()
     if (!messageText) return
 
+    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       content: messageText,
@@ -220,22 +287,24 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
     setIsTyping(true)
 
     try {
+      // Get AI response from OpenAI
       const agentResponse = await generateAIResponse(messageText, messages)
       setMessages((prev) => [...prev, agentResponse])
     } catch (error) {
       console.error("Error in handleSendMessage:", error)
+      // Enhanced fallback message
       const fallbackMessage: Message = {
         id: Date.now().toString(),
         content:
-          "Estoy experimentando un breve problema de conexión, ¡pero estoy de vuelta! ¿Cómo puedo ayudarte a descubrir el ejecutivo neural de IA perfecto para las necesidades de tu negocio? 🎯",
+          "I'm experiencing a brief connection issue, but I'm back! How can I help you discover the perfect neural AI executive for your business needs? 🎯",
         sender: "agent",
         timestamp: new Date(),
         type: "quick_reply",
         quickReplies: [
-          "Muéstrame cálculos de ROI",
-          "Info de seguridad y cumplimiento",
-          "Ventajas competitivas",
-          "Hablar con especialista humano",
+          "Show me ROI calculations",
+          "Security and compliance info",
+          "Competitive advantages",
+          "Talk to human specialist",
         ],
       }
       setMessages((prev) => [...prev, fallbackMessage])
@@ -245,45 +314,44 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
   }
 
   const handleQuickReply = (reply: string) => {
+    // Handle human support requests
     if (
-      reply.includes("Hablar con") ||
-      reply.includes("Conectarme") ||
-      reply.includes("soporte humano") ||
-      reply.includes("especialista")
+      reply.includes("Talk to") ||
+      reply.includes("Speak with") ||
+      reply.includes("Connect me") ||
+      reply.includes("human support") ||
+      reply.includes("specialist")
     ) {
       const humanSupportMessage: Message = {
         id: Date.now().toString(),
         content:
-          "🤝 ¡Me encantaría conectarte con uno de nuestros especialistas humanos! Nuestro equipo experto está disponible 24/7 para brindar soporte personalizado.\n\n📞 **Opciones de Soporte Inmediato:**\n• Chat en vivo con especialista: Disponible ahora\n• Consulta telefónica: +1 (555) 123-NEURAL\n• Email: support@neuralia.ai\n• Programar videollamada: Disponible en 15 minutos\n\n✨ **Qué esperar:**\n• Especialista dedicado asignado a tu cuenta\n• Demo personalizado adaptado a tu negocio\n• Análisis de ROI personalizado para tu empresa\n• Hoja de ruta de implementación y cronograma\n\n¿Te gustaría que te conecte ahora mismo, o prefieres programar una llamada a tu conveniencia?",
+          "🤝 I'd be happy to connect you with one of our human specialists! Our expert team is available 24/7 to provide personalized support.\n\n📞 **Immediate Support Options:**\n• Live chat with specialist: Available now\n• Phone consultation: +1 (555) 123-NEURAL\n• Email: support@neuralia.ai\n• Schedule video call: Available within 15 minutes\n\n✨ **What to expect:**\n• Dedicated specialist assigned to your account\n• Personalized demo tailored to your business\n• Custom ROI analysis for your company\n• Implementation roadmap and timeline\n\nWould you like me to connect you right now, or would you prefer to schedule a call at your convenience?",
         sender: "agent",
         timestamp: new Date(),
         type: "quick_reply",
-        quickReplies: [
-          "Conectarme ahora",
-          "Programar una llamada",
-          "Enviarme detalles de contacto",
-          "Continuar con soporte IA",
-        ],
+        quickReplies: ["Connect me now", "Schedule a call", "Send me contact details", "Continue with AI support"],
       }
       setMessages((prev) => [...prev, humanSupportMessage])
       return
     }
 
     if (
-      reply === "¡Estoy listo para transformar mi negocio!" ||
-      reply === "¡Estoy listo para comenzar!" ||
-      reply === "Estoy listo para cerrar este chat"
+      reply === "I'm ready to transform my business!" ||
+      reply === "I'm ready to get started!" ||
+      reply === "I'm ready to close this chat"
     ) {
+      // Enhanced closing message with clear next steps
       const closingMessage: Message = {
         id: Date.now().toString(),
         content:
-          "🎉 ¡Excelente! Estoy emocionado de que estés listo para revolucionar tu negocio con los ejecutivos neurales de IA de Neuralia. Tu transformación comienza con nuestra prueba gratuita de 5 días sin riesgo - ¡sin tarjeta de crédito requerida!\n\n✅ Elige tu ejecutivo IA (CEO, CMO, o CTO)\n✅ Obtén acceso instantáneo en 30 segundos\n✅ Comienza a ver resultados medibles inmediatamente\n✅ Soporte completo de nuestro equipo experto\n\n¡Gracias por elegir Neuralia - estamos aquí 24/7 para asegurar tu éxito! 🚀",
+          "🎉 Outstanding! I'm thrilled you're ready to revolutionize your business with Neuralia's neural AI executives. Your transformation starts with our risk-free 5-day trial - no credit card required!\n\n✅ Choose your AI executive (CEO, CMO, or CTO)\n✅ Get instant access in 30 seconds\n✅ Start seeing measurable results immediately\n✅ Full support from our expert team\n\nThank you for choosing Neuralia - we're here 24/7 to ensure your success! 🚀",
         sender: "agent",
         timestamp: new Date(),
         type: "text",
       }
       setMessages((prev) => [...prev, closingMessage])
 
+      // Close the chat after showing the message
       setTimeout(() => {
         if (onToggle) onToggle()
       }, 4000)
@@ -305,13 +373,13 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={onToggle}
-          className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-lg rounded-full w-14 h-14 p-0 animate-pulse"
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full w-14 h-14 p-0 animate-pulse"
         >
           <MessageCircle className="h-6 w-6" />
         </Button>
-        <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-500 rounded-full animate-bounce"></div>
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-bounce"></div>
         <div className="absolute -top-12 -left-8 bg-black text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          💡 ¡Hazme preguntas complejas de negocio!
+          💡 Ask me complex business questions!
         </div>
       </div>
     )
@@ -320,24 +388,24 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <Card
-        className={`w-96 shadow-2xl border-2 border-purple-200 transition-all duration-300 ${
+        className={`w-96 shadow-2xl border-2 border-blue-200 transition-all duration-300 ${
           isMinimized ? "h-16" : "h-[600px]"
         }`}
       >
-        <CardHeader className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-t-lg p-4">
+        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="relative">
                 <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                   <Headphones className="h-5 w-5 text-white" />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-orange-400 rounded-full border-2 border-white animate-pulse"></div>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white animate-pulse"></div>
               </div>
               <div>
                 <CardTitle className="text-lg font-semibold">Neuralia AI Support</CardTitle>
-                <div className="flex items-center space-x-2 text-sm text-purple-100">
-                  <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                  <span>Soporte experto • Especialistas humanos disponibles • 0.2s promedio</span>
+                <div className="flex items-center space-x-2 text-sm text-blue-100">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                  <span>Expert support • Human specialists available • 0.2s avg</span>
                 </div>
               </div>
             </div>
@@ -370,7 +438,7 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
                     >
                       <div className="flex-shrink-0">
                         {message.sender === "agent" ? (
-                          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                             <Bot className="h-4 w-4 text-white" />
                           </div>
                         ) : (
@@ -383,9 +451,7 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
                       <div className={`max-w-[80%] ${message.sender === "user" ? "text-right" : ""}`}>
                         <div
                           className={`rounded-lg px-4 py-2 ${
-                            message.sender === "user"
-                              ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
-                              : "bg-gray-100 text-gray-900"
+                            message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                           }`}
                         >
                           <div className="text-sm whitespace-pre-line">{message.content}</div>
@@ -393,10 +459,10 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
 
                         {message.metadata && message.sender === "agent" && (
                           <div className="flex items-center space-x-2 mt-1 text-xs text-gray-500">
-                            <Zap className="h-3 w-3 text-orange-500" />
+                            <Zap className="h-3 w-3 text-green-500" />
                             <span>{message.metadata.processingTime?.toFixed(2)}s</span>
-                            <CheckCircle className="h-3 w-3 text-orange-500" />
-                            <span>{Math.round((message.metadata.confidence || 0) * 100)}% confianza</span>
+                            <CheckCircle className="h-3 w-3 text-green-500" />
+                            <span>{Math.round((message.metadata.confidence || 0) * 100)}% confident</span>
                           </div>
                         )}
 
@@ -414,7 +480,7 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
                             variant="outline"
                             size="sm"
                             onClick={() => handleQuickReply(reply)}
-                            className="text-xs bg-white hover:bg-purple-50 border-purple-200 text-purple-700 hover:border-purple-400 transition-all duration-200 hover:shadow-sm"
+                            className="text-xs bg-white hover:bg-blue-50 border-blue-200 text-blue-700 hover:border-blue-400 transition-all duration-200 hover:shadow-sm"
                           >
                             {reply}
                           </Button>
@@ -426,18 +492,18 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
 
                 {isTyping && (
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                       <Bot className="h-4 w-4 text-white" />
                     </div>
                     <div className="bg-gray-100 rounded-lg px-4 py-2">
                       <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
                         <div
-                          className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
@@ -449,26 +515,26 @@ Recuerda: Cada respuesta debe hacerlos sentir valorados, comprendidos y emociona
               </div>
             </ScrollArea>
 
-            <div className="border-t p-4 bg-gradient-to-r from-purple-50 to-indigo-50">
+            <div className="border-t p-4 bg-gradient-to-r from-gray-50 to-blue-50">
               <div className="flex items-center space-x-2">
                 <Input
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Haz preguntas complejas sobre ROI, seguridad, implementación..."
-                  className="flex-1 border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
+                  placeholder="Ask complex questions about ROI, security, implementation..."
+                  className="flex-1 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                   disabled={isTyping}
                 />
                 <Button
                   onClick={() => handleSendMessage()}
                   disabled={!inputValue.trim() || isTyping}
-                  className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition-all duration-200"
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
               <div className="text-xs text-gray-500 mt-2 text-center">
-                🧠 IA Experta • Especialistas humanos disponibles 24/7 • 94% satisfacción • 500+ empresas
+                🧠 Expert AI • Human specialists available 24/7 • 94% satisfaction • 500+ enterprises
               </div>
             </div>
           </CardContent>

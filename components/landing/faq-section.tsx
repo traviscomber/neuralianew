@@ -1,101 +1,82 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ChevronUp } from "lucide-react"
-
-const faqs = [
-  {
-    question: "How quickly can I deploy my first AI agent?",
-    answer:
-      "You can have your first AI agent up and running in under 15 minutes. Our platform provides pre-built templates and a simple drag-and-drop interface that makes deployment incredibly fast. Most users complete their first deployment during their initial session.",
-  },
-  {
-    question: "What programming languages and frameworks do you support?",
-    answer:
-      "Our platform supports all major programming languages including Python, JavaScript, TypeScript, Java, and C#. We provide SDKs and APIs for popular frameworks like React, Vue, Angular, Django, Flask, Express.js, and Spring Boot. You can integrate with any existing tech stack.",
-  },
-  {
-    question: "How does pricing work for different usage levels?",
-    answer:
-      "We offer flexible pricing based on your usage needs. Start with our free tier that includes 1,000 conversations per month. Our paid plans scale from $29/month for small businesses to enterprise solutions. You only pay for what you use, with no hidden fees or long-term commitments.",
-  },
-  {
-    question: "What security measures are in place to protect my data?",
-    answer:
-      "Security is our top priority. We use end-to-end encryption, SOC 2 Type II compliance, GDPR compliance, and bank-grade security measures. All data is encrypted at rest and in transit. We offer on-premise deployment options for enterprises with strict security requirements.",
-  },
-  {
-    question: "Can I customize the AI models for my specific industry?",
-    answer:
-      "Our platform allows you to train custom AI models using your own data. You can fine-tune models for specific industries, use cases, and even company-specific terminology. We provide tools for data preparation, model training, and performance optimization.",
-  },
-  {
-    question: "What kind of analytics and insights do you provide?",
-    answer:
-      "Our comprehensive analytics dashboard provides real-time metrics including conversation volume, user satisfaction scores, response accuracy, popular topics, and performance trends. You can export data, set up custom alerts, and integrate with your existing business intelligence tools.",
-  },
-  {
-    question: "How do you handle multiple languages and cultural contexts?",
-    answer:
-      "Our AI agents support over 40 languages with cultural context awareness. The platform automatically detects user language and responds appropriately. You can configure region-specific behaviors, cultural nuances, and local business practices for each market you serve.",
-  },
-  {
-    question: "What support options are available if I need help?",
-    answer:
-      "We provide 24/7 support through multiple channels including live chat, email, and phone. Enterprise customers get dedicated account managers and priority support. We also offer comprehensive documentation, video tutorials, community forums, and regular webinars.",
-  },
-]
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
-
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
+  const faqs = [
+    {
+      question: "How does EcosueloLab's agentic AI work differently from regular chatbots?",
+      answer:
+        "EcosueloLab uses agentic OpenAI technology that can reason, plan, and take autonomous actions. Unlike simple chatbots that follow scripts, our AI executive can fetch data from external agricultural APIs, analyze complex soil conditions, and provide strategic recommendations. It thinks like a human agricultural expert but with access to vast databases and real-time information.",
+    },
+    {
+      question: "What makes your AI executives different from automation tools?",
+      answer:
+        "Our AI executives use neural networks to think strategically and make complex decisions. They don't just automate tasks - they understand context, reason through problems, and adapt to new situations. They can handle unexpected scenarios, learn from interactions, and provide executive-level strategic thinking that traditional automation cannot match.",
+    },
+    {
+      question: "How do you integrate with external APIs and existing systems?",
+      answer:
+        "Our agentic AI can seamlessly connect to any external API or database. For EcosueloLab, we integrate with agricultural databases, weather services, and soil analysis APIs. The AI agent autonomously fetches relevant data, processes it contextually, and presents insights through simple interfaces like WhatsApp. Integration typically takes 2-4 weeks depending on complexity.",
+    },
+    {
+      question: "Can the AI executives work in different languages and regions?",
+      answer:
+        "Yes, our neural AI executives are multilingual and culturally aware. EcosueloLab, for example, operates in Spanish, Portuguese, and English, understanding regional farming practices and local agricultural conditions. The AI adapts its recommendations based on geographic location, climate data, and local farming traditions.",
+    },
+    {
+      question: "How do you ensure data security and privacy?",
+      answer:
+        "We implement enterprise-grade security with end-to-end encryption, secure API connections, and compliance with international data protection standards. All conversations and data processing happen through secure channels, and we never store sensitive customer information without explicit consent.",
+    },
+    {
+      question: "What kind of results can we expect from deploying an AI executive?",
+      answer:
+        "Results vary by industry, but our clients typically see 40-70% improvements in efficiency, 60-95% customer satisfaction rates, and significant cost reductions. EcosueloLab users report 40% yield increases and 60% fertilizer savings. We provide detailed ROI analysis and success metrics for each deployment.",
+    },
+    {
+      question: "How long does it take to deploy a custom AI executive?",
+      answer:
+        "Deployment typically takes 3-8 weeks depending on complexity. This includes understanding your business processes, integrating with your systems, training the AI on your specific requirements, and testing. Simple conversational bots like EcosueloLab can be deployed faster, while complex financial or operations AIs may take longer.",
+    },
+    {
+      question: "Do you provide ongoing support and AI executive optimization?",
+      answer:
+        "Yes, we provide 24/7 monitoring, continuous learning optimization, and regular performance reviews. Our AI executives improve over time through machine learning and feedback loops. We also provide training for your team and strategic consulting to maximize the AI's impact on your business.",
+    },
+  ]
 
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="mx-auto max-w-4xl px-6 lg:px-8">
+    <section id="faq" className="py-24 bg-muted/30">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-blue-100 text-blue-800 px-4 py-2">❓ Frequently Asked Questions</Badge>
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Everything You Need
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"> to Know</span>
+          <h2 className="text-4xl font-bold mb-4">
+            Frequently{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Asked Questions
+            </span>
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Get answers to the most common questions about our AI agent platform and how it can transform your business.
+          <p className="text-xl text-muted-foreground">
+            Everything you need to know about our AI executives and neural technology
           </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="overflow-hidden border-2 hover:border-blue-200 transition-all duration-300">
-              <button
-                className="w-full text-left p-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset"
-                onClick={() => toggleFAQ(index)}
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
-                  {openIndex === index ? (
-                    <ChevronUp className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-400 flex-shrink-0" />
-                  )}
-                </div>
-              </button>
-
-              {openIndex === index && (
-                <CardContent className="px-6 pb-6 pt-0">
-                  <div className="border-t pt-4">
-                    <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                  </div>
-                </CardContent>
-              )}
-            </Card>
-          ))}
-        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-center">Common Questions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )
