@@ -20,6 +20,8 @@ import {
   BarChart3,
   Target,
   Award,
+  Database,
+  Plug,
 } from "lucide-react"
 
 const successCases = {
@@ -31,188 +33,191 @@ const successCases = {
     bgColor: "bg-green-50",
     textColor: "text-green-700",
     icon: Sprout,
+    url: "ecosuelobot.vercel.app",
     metrics: {
-      farmers: "3,200+",
-      accuracy: "96%",
-      yield: "+34%",
-      satisfaction: "4.8/5",
+      status: "En desarrollo",
+      focus: "Agricultura",
+      type: "Análisis IA",
+      availability: "Demo disponible",
     },
     features: [
-      "Análisis de nitrógeno en tiempo real",
-      "Recomendaciones de fertilización personalizadas",
-      "Predicción de rendimiento de cultivos",
-      "Monitoreo de salud del suelo",
-      "Optimización de recursos agrícolas",
+      "Análisis de nitrógeno conversacional",
+      "Recomendaciones personalizadas",
+      "Diagnóstico de deficiencias",
+      "Consejos de fertilización",
+      "Interfaz natural y fácil",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Hola! 🌱 Soy EcosueloBot de ecosuelobot.vercel.app. Te ayudo a analizar el nitrógeno en tu suelo para optimizar tus cultivos. ¿Qué tipo de análisis necesitas hoy?",
+          "¡Hola! 🌱 Soy EcosueloBot. Te ayudo a analizar problemas en tus cultivos y optimizar la fertilización. ¿Qué observas en tu campo?",
         timestamp: "08:30",
       },
       {
         role: "user",
-        content: "Hola, tengo un problema con mi campo de maíz. Las plantas se ven amarillentas en algunas zonas",
+        content: "Tengo plantas de maíz que se ven amarillentas en algunas zonas del campo",
         timestamp: "08:31",
       },
       {
         role: "assistant",
         content:
-          "Entiendo tu preocupación 🌽 El amarillamiento puede indicar deficiencia de nitrógeno. Para hacer un diagnóstico preciso, necesito algunos datos:\n\n📍 ¿En qué región está tu campo?\n📏 ¿Cuántas hectáreas afectadas?\n🌱 ¿En qué etapa está el maíz?\n💧 ¿Cuándo fue el último riego?\n🌡️ ¿Has notado patrones en las zonas afectadas?",
+          "El amarillamiento puede indicar deficiencia de nitrógeno 🌽 Para ayudarte mejor, cuéntame:\n\n📍 ¿En qué región está tu campo?\n📏 ¿Qué extensión está afectada?\n🌱 ¿En qué etapa está el cultivo?\n💧 ¿Cuándo fue el último riego o lluvia?",
         timestamp: "08:31",
       },
       {
         role: "user",
         content:
-          "Está en Temuco, son como 8 hectáreas afectadas de 20 totales. El maíz tiene 6 semanas. Regué hace 4 días y las zonas amarillas están más en las partes altas del terreno",
+          "Está en la zona sur, son varias hectáreas afectadas. El maíz tiene unas 6 semanas y llovió bastante la semana pasada",
         timestamp: "08:32",
       },
       {
         role: "assistant",
         content:
-          "Perfecto, esa información es muy valiosa 📊 Basado en tu descripción:\n\n🔬 **Diagnóstico**: Deficiencia de N en zonas de drenaje rápido\n⚠️ **Causa probable**: Lixiviación de nitrógeno en partes altas\n💡 **Solución inmediata**: Aplicar 60kg N/ha en zonas afectadas\n🎯 **Estrategia**: Fertilización fraccionada para evitar pérdidas\n\n¿Quieres que calcule el plan de fertilización específico para tu terreno?",
+          "Perfecto, esa información es clave 📊 Basado en tu descripción:\n\n🔬 **Diagnóstico probable**: Deficiencia de nitrógeno por lixiviación\n⚠️ **Causa**: Las lluvias pueden haber lavado el nitrógeno del suelo\n💡 **Recomendación**: Aplicar fertilizante nitrogenado de acción rápida\n🎯 **Estrategia**: Considerar fertilización foliar para recuperación inmediata\n\n¿Te gustaría que te explique el procedimiento paso a paso?",
         timestamp: "08:33",
       },
       {
         role: "user",
-        content: "Sí, por favor. Y me gustaría saber cómo prevenir esto en el futuro",
+        content: "Sí, por favor. Y también cómo prevenir esto en el futuro",
         timestamp: "08:34",
       },
       {
         role: "assistant",
         content:
-          "¡Excelente pregunta! 🎯 Aquí tienes tu plan completo:\n\n📋 **Plan Inmediato**:\n• Urea 46%: 130kg en zonas afectadas\n• Aplicar en 2 dosis: 70% ahora, 30% en 10 días\n• Regar ligeramente después de aplicar\n\n🛡️ **Prevención Futura**:\n• Análisis de suelo cada 6 meses\n• Fertilización fraccionada en 3-4 aplicaciones\n• Considerar inhibidores de nitrificación\n• Monitoreo con sensores de humedad\n\n¿Te interesa que configure alertas automáticas para tu campo?",
+          "¡Excelente! Te doy el plan completo 🎯:\n\n📋 **Acción Inmediata**:\n• Aplicar fertilizante nitrogenado soluble\n• Considerar fertilización foliar con urea al 2%\n• Aplicar en horas frescas del día\n• Regar ligeramente después si no llueve\n\n🛡️ **Prevención Futura**:\n• Fertilización fraccionada en varias aplicaciones\n• Usar fertilizantes de liberación lenta\n• Monitorear pronóstico antes de fertilizar\n• Considerar análisis de suelo regular\n\n¿Necesitas más detalles sobre algún punto específico?",
         timestamp: "08:35",
       },
     ],
   },
   despega: {
     name: "Despega Tu Carrera",
-    tagline: "Impulso Profesional Personalizado",
-    description: "Programa intensivo de desarrollo profesional con IA que entiende tus metas y personalidad",
+    tagline: "Coaching Profesional Personalizado",
+    description: "Programa de desarrollo profesional con IA que entiende tus metas y te guía paso a paso",
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
     textColor: "text-blue-700",
     icon: TrendingUp,
+    url: "despegacarrera.com",
     metrics: {
-      users: "8,500+",
-      growth: "+156%",
-      promotions: "1,800+",
-      satisfaction: "4.8/5",
+      status: "En desarrollo",
+      focus: "Desarrollo profesional",
+      type: "Coaching IA",
+      availability: "Demo disponible",
     },
     features: [
-      "Plan de carrera personalizado con IA",
-      "Mentoring virtual 24/7",
-      "Simulación de entrevistas avanzadas",
-      "Network building inteligente",
-      "Seguimiento de progreso en tiempo real",
+      "Plan de carrera personalizado",
+      "Mentoring conversacional 24/7",
+      "Estrategias probadas de crecimiento",
+      "Seguimiento de progreso",
+      "Consejos específicos por industria",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Bienvenido a Despega Tu Carrera! 🚀 Soy tu mentor de crecimiento profesional. Veo que tienes potencial increíble. Cuéntame, ¿cuál es ese sueño profesional que te emociona pero también te da un poco de miedo?",
+          "¡Bienvenido! 🚀 Soy tu coach de desarrollo profesional. Estoy aquí para ayudarte a alcanzar tus metas. Cuéntame, ¿cuál es esa aspiración profesional que te emociona?",
         timestamp: "14:30",
       },
       {
         role: "user",
         content:
-          "Siempre he querido liderar un equipo de desarrollo, pero siento que me falta experiencia en gestión de personas",
+          "Me gustaría liderar un equipo de desarrollo, pero siento que me falta experiencia en gestión de personas",
         timestamp: "14:31",
       },
       {
         role: "assistant",
         content:
-          "¡Qué honesto y valiente! 💪 Reconocer esa brecha ya te pone adelante del 80% de profesionales. Cuéntame más:\n\n🎯 ¿Qué es lo que más te atrae del liderazgo técnico?\n🤔 ¿Has tenido alguna experiencia informal liderando proyectos?\n💭 ¿Cuál crees que es tu mayor fortaleza como desarrollador?\n⏰ ¿En cuánto tiempo te visualizas en ese rol?",
+          "¡Qué meta tan valiosa! 💪 Reconocer esa área de crecimiento ya te pone adelante. Cuéntame más:\n\n🎯 ¿Qué te atrae más del liderazgo técnico?\n🤔 ¿Has liderado proyectos o mentoreado a alguien?\n💭 ¿Cuál consideras tu mayor fortaleza técnica?\n⏰ ¿En qué plazo te visualizas en ese rol?",
         timestamp: "14:31",
       },
       {
         role: "user",
         content:
-          "Me emociona la idea de mentorear a otros devs y crear productos increíbles. He liderado algunos proyectos pequeños y creo que soy bueno resolviendo problemas complejos. Me gustaría lograrlo en 8-12 meses",
+          "Me emociona poder mentorear y crear productos increíbles. He liderado algunos proyectos pequeños y soy bueno resolviendo problemas complejos. Me gustaría lograrlo en menos de un año",
         timestamp: "14:32",
       },
       {
         role: "assistant",
         content:
-          "¡Me encanta tu visión! 🌟 Tienes las bases perfectas: pasión por mentorear y habilidades técnicas sólidas. He diseñado tu roadmap personalizado:\n\n🎯 **Fase 1 (Meses 1-3)**: Liderazgo Técnico\n• Curso intensivo de gestión de equipos\n• Mentoría con 2 desarrolladores junior\n• Proyecto piloto liderando 3-4 personas\n\n🎯 **Fase 2 (Meses 4-6)**: Habilidades Blandas\n• Workshop de comunicación efectiva\n• Simulaciones de conflictos en equipos\n• Feedback 360° con tu equipo actual\n\n¿Qué te parece si empezamos identificando a esos developers que podrías mentorear?",
+          "¡Perfecto! Tienes bases sólidas 🌟 Tu pasión por mentorear y habilidades técnicas son excelentes cimientos. Te propongo un enfoque gradual:\n\n🎯 **Primeros pasos (1-3 meses)**:\n• Buscar oportunidades de mentoría informal\n• Liderar un proyecto con más responsabilidad\n• Desarrollar habilidades de comunicación\n\n🎯 **Desarrollo (4-8 meses)**:\n• Tomar cursos de liderazgo técnico\n• Buscar feedback de tu equipo actual\n• Prepararte para entrevistas de liderazgo\n\n¿Hay algún aspecto específico en el que te gustaría enfocarte primero?",
         timestamp: "14:33",
       },
       {
         role: "user",
         content:
-          "Suena perfecto! Hay dos juniors en mi equipo que siempre me hacen preguntas. ¿Cómo estructuro esa mentoría?",
+          "Me interesa empezar con la mentoría. Hay algunos developers junior en mi equipo que siempre me hacen preguntas",
         timestamp: "14:34",
       },
       {
         role: "assistant",
         content:
-          "¡Perfecto! Ya tienes tus primeros mentees 🎓 Aquí está tu framework de mentoría:\n\n📅 **Estructura Semanal**:\n• 30 min 1:1 con cada junior\n• 15 min de code review conjunto\n• 1 hora grupal de 'tech talks' informales\n\n🎯 **Objetivos Medibles**:\n• Reducir sus preguntas repetitivas en 50%\n• Que completen 1 feature independiente/mes\n• Feedback positivo en sus 1:1s con el manager\n\n📊 **Tu Crecimiento**:\n• Documentar lecciones aprendidas\n• Medir tu impacto en su productividad\n• Preparar casos de éxito para tu próxima entrevista\n\n¿Empezamos con el plan de la primera sesión de mentoría?",
+          "¡Excelente punto de partida! 🎓 Ya tienes la oportunidad perfecta. Te sugiero estructurar esa mentoría:\n\n📅 **Estructura sugerida**:\n• Sesiones regulares de 30 minutos\n• Combinar code reviews con conversación\n• Establecer objetivos claros de aprendizaje\n• Documentar el progreso de ambos\n\n🎯 **Beneficios para ti**:\n• Desarrollar habilidades de enseñanza\n• Practicar dar feedback constructivo\n• Crear casos de éxito para tu CV\n• Ganar experiencia en desarrollo de talento\n\n¿Te gustaría que te ayude a planificar la primera sesión de mentoría?",
         timestamp: "14:35",
       },
     ],
   },
   parrotfy: {
     name: "Parrotfy",
-    tagline: "Asistente IA para ERP",
+    tagline: "Asistente ERP IA",
     description:
-      "Asistente inteligente que revoluciona la gestión empresarial con IA conversacional especializada en ERP",
+      "Asistente ERP inteligente que se conecta vía API a tu sistema empresarial para gestión conversacional completa",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     textColor: "text-purple-700",
     icon: Settings,
+    url: "parrotfyia.vercel.app",
     metrics: {
-      companies: "1,200+",
-      efficiency: "+78%",
-      automation: "85%",
-      satisfaction: "4.9/5",
+      status: "En desarrollo",
+      focus: "ERP empresarial",
+      type: "Asistente IA",
+      integration: "Conexión API",
     },
     features: [
+      "Conexión API a sistemas ERP existentes",
       "Gestión conversacional de inventarios",
-      "Automatización de procesos ERP",
-      "Análisis predictivo de ventas",
-      "Integración con sistemas existentes",
-      "Reportes inteligentes en tiempo real",
+      "Análisis de datos empresariales en tiempo real",
+      "Automatización de procesos de negocio",
+      "Reportes inteligentes y predictivos",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Hola! 👋 Soy Parrotfy, tu asistente IA para ERP de parrotfyia.vercel.app. He notado algunas anomalías interesantes en tus datos. ¿Tienes un momento para revisar algo que podría ahorrarte mucho dinero?",
+          "¡Hola! 👋 Soy Parrotfy, tu asistente ERP IA. Me conecto vía API a tu sistema empresarial para ayudarte con gestión conversacional. ¿Qué datos necesitas consultar hoy? ⚙️",
         timestamp: "09:15",
       },
       {
         role: "user",
-        content: "¡Por supuesto! ¿Qué has encontrado?",
+        content: "¿Puedes revisar el estado actual de mi inventario?",
         timestamp: "09:16",
       },
       {
         role: "assistant",
         content:
-          "Excelente 🔍 He detectado un patrón preocupante:\n\n⚠️ **Alerta de Inventario**:\n• 15 productos con rotación <30 días están sobre-stockeados\n• Costo de oportunidad: $23,400 inmovilizados\n• 3 proveedores han subido precios sin que lo notes\n\n💡 **Oportunidad detectada**:\n• Puedes liberar $18K optimizando stock\n• Renegociar con Proveedor A podría ahorrarte 12%\n\n¿Quieres que analice producto por producto o prefieres que genere el plan de optimización completo?",
+          "Por supuesto 📊 He accedido a tu sistema ERP vía API y estoy analizando los datos:\n\n🔍 **Consultando**:\n• Niveles de stock actuales\n• Movimientos recientes de inventario\n• Productos con rotación alta/baja\n• Alertas de stock mínimo\n\n📈 **Estado general**: Sistema conectado y datos actualizados\n\n¿Te interesa un análisis específico de alguna categoría de productos o prefieres un resumen general?",
         timestamp: "09:16",
       },
       {
         role: "user",
-        content: "¡Wow! No tenía idea. Muéstrame el plan completo, por favor",
+        content: "Muéstrame qué productos necesitan reposición urgente",
         timestamp: "09:17",
       },
       {
         role: "assistant",
         content:
-          "¡Perfecto! 📊 Aquí tienes tu **Plan de Optimización Inteligente**:\n\n🎯 **Acciones Inmediatas (Esta semana)**:\n• Reducir stock de Mouse Gamer Pro: 45→20 unidades (-$3,200)\n• Promocionar Teclado RGB: 60→25 unidades (-$2,800)\n• Pausar orden de Webcam 4K (ya tienes 3 meses de stock)\n\n💰 **Renegociaciones Sugeridas**:\n• TechSupply Co: Proponer descuento por volumen (ahorro: $1,200/mes)\n• ComponentesPro: Cambiar términos de pago 30→45 días\n\n📈 **Proyección**: +$4,500 flujo de caja en 30 días\n\n¿Quieres que prepare los emails de renegociación automáticamente?",
+          "Perfecto, he analizado tu inventario vía API 🎯:\n\n🔴 **Reposición Urgente**:\n• Productos con stock por debajo del mínimo configurado\n• Items con alta rotación y stock limitado\n• Productos con pedidos pendientes sin stock\n\n📊 **Análisis inteligente**:\n• Predicción de agotamiento basada en ventas históricas\n• Sugerencias de cantidades óptimas de pedido\n• Identificación de proveedores preferidos\n\n💡 **Acciones disponibles**:\n• Generar órdenes de compra automáticas\n• Configurar alertas personalizadas\n• Programar reposiciones recurrentes\n\n¿Quieres que genere las órdenes de compra o prefieres revisar las sugerencias primero?",
         timestamp: "09:18",
       },
       {
         role: "user",
-        content: "¡Increíble! Sí, prepara los emails. Y me gustaría configurar alertas para que esto no vuelva a pasar",
+        content: "Genera las órdenes de compra y configura alertas automáticas para el futuro",
         timestamp: "09:19",
       },
       {
         role: "assistant",
         content:
-          "¡Listo! ✅ **Emails preparados y enviados**:\n\n📧 **TechSupply Co**: Propuesta de descuento por volumen enviada\n📧 **ComponentesPro**: Solicitud de extensión de términos enviada\n\n🚨 **Sistema de Alertas Configurado**:\n• Alerta si rotación <45 días y stock >30 días\n• Notificación de cambios de precios >5%\n• Reporte semanal de oportunidades de optimización\n• Dashboard predictivo de flujo de caja\n\n📱 **Bonus**: He creado un dashboard móvil para que monitorees todo desde tu teléfono\n\n¿Te gustaría que también analice tus patrones de ventas para predecir la demanda del próximo trimestre?",
+          "¡Excelente! Procesando a través de tu sistema ERP 🚀:\n\n📋 **Órdenes de Compra Generadas**:\n• Creadas automáticamente en tu sistema\n• Enviadas a proveedores configurados\n• Cantidades optimizadas según historial\n• Fechas de entrega estimadas calculadas\n\n🚨 **Sistema de Alertas Configurado**:\n• Notificaciones cuando stock llegue al 20% del mínimo\n• Alertas de productos de alta rotación\n• Recordatorios de seguimiento a proveedores\n• Reportes semanales de estado de inventario\n\n✅ **Integración completa**: Todas las acciones sincronizadas con tu ERP\n\n¿Hay algún otro proceso que te gustaría automatizar o consultar?",
         timestamp: "09:20",
       },
     ],
@@ -258,15 +263,17 @@ export function UseCasesSection() {
             className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
           >
             <Award className="w-4 h-4 mr-2" />
-            Casos de Éxito Reales
+            Proyectos en Desarrollo
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Nuestros{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Clientes</span>
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Proyectos
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            Descubre cómo nuestros clientes han transformado sus industrias con IA que entiende, conecta y genera
-            resultados extraordinarios.
+            Explora los portales neuronales que estamos desarrollando. Cada uno diseñado para entender y conectar
+            emocionalmente con usuarios específicos.
           </p>
         </motion.div>
 
@@ -321,51 +328,39 @@ export function UseCasesSection() {
                           </CardDescription>
                         </div>
                       </div>
-                      <p className="text-gray-700 text-lg leading-relaxed">{caseData.description}</p>
+                      <p className="text-gray-700 text-lg leading-relaxed mb-4">{caseData.description}</p>
+                      <div className="flex items-center gap-2 text-purple-600">
+                        <span className="font-medium">{caseData.url}</span>
+                      </div>
                     </CardHeader>
 
                     <CardContent className="space-y-6">
-                      {/* Métricas de éxito */}
+                      {/* Estado del proyecto */}
                       <div>
                         <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
                           <BarChart3 className="w-5 h-5" />
-                          Métricas de Impacto
+                          Estado del Proyecto
                         </h4>
                         <div className="grid grid-cols-2 gap-4">
                           {Object.entries(caseData.metrics).map(([key, value]) => (
-                            <div key={key} className="text-center p-3 bg-white/70 rounded-lg">
-                              <div
-                                className={`text-2xl font-bold bg-gradient-to-r ${caseData.color} bg-clip-text text-transparent`}
-                              >
-                                {value}
+                            <div
+                              key={key}
+                              className={`p-4 rounded-xl ${caseData.bgColor} ${caseData.textColor} border`}
+                            >
+                              <div className="text-sm font-medium text-gray-600 capitalize mb-1">
+                                {key === "status"
+                                  ? "Estado"
+                                  : key === "focus"
+                                    ? "Enfoque"
+                                    : key === "type"
+                                      ? "Tipo"
+                                      : key === "availability"
+                                        ? "Disponibilidad"
+                                        : key === "integration"
+                                          ? "Integración"
+                                          : key}
                               </div>
-                              <div className="text-sm text-gray-600 capitalize font-medium">
-                                {key === "farmers"
-                                  ? "Agricultores"
-                                  : key === "accuracy"
-                                    ? "Precisión"
-                                    : key === "yield"
-                                      ? "Rendimiento"
-                                      : key === "users"
-                                        ? "Usuarios"
-                                        : key === "success"
-                                          ? "Éxito"
-                                          : key === "placements"
-                                            ? "Colocaciones"
-                                            : key === "satisfaction"
-                                              ? "Satisfacción"
-                                              : key === "growth"
-                                                ? "Crecimiento"
-                                                : key === "promotions"
-                                                  ? "Promociones"
-                                                  : key === "companies"
-                                                    ? "Empresas"
-                                                    : key === "efficiency"
-                                                      ? "Eficiencia"
-                                                      : key === "automation"
-                                                        ? "Automatización"
-                                                        : key}
-                              </div>
+                              <div className="font-bold text-gray-900">{value}</div>
                             </div>
                           ))}
                         </div>
@@ -374,13 +369,17 @@ export function UseCasesSection() {
                       {/* Características principales */}
                       <div>
                         <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                          <Target className="w-5 h-5" />
-                          Características Clave
+                          {key === "parrotfy" ? <Database className="w-5 h-5" /> : <Target className="w-5 h-5" />}
+                          {key === "parrotfy" ? "Capacidades ERP" : "Características Principales"}
                         </h4>
                         <ul className="space-y-3">
                           {caseData.features.map((feature, index) => (
                             <li key={index} className="flex items-start gap-3">
-                              <CheckCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
+                              {key === "parrotfy" ? (
+                                <Plug className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
+                              ) : (
+                                <CheckCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
+                              )}
                               <span className="text-gray-700 font-medium">{feature}</span>
                             </li>
                           ))}
@@ -391,7 +390,7 @@ export function UseCasesSection() {
                         className={`w-full bg-gradient-to-r ${caseData.color} hover:opacity-90 text-white font-semibold py-3`}
                       >
                         <ArrowRight className="w-4 h-4 mr-2" />
-                        Explorar {caseData.name}
+                        Probar Demo de {caseData.name}
                       </Button>
                     </CardContent>
                   </Card>
@@ -409,7 +408,9 @@ export function UseCasesSection() {
                           <CardTitle className="text-lg">Portal Neuronal - {caseData.name}</CardTitle>
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-sm text-gray-600">En línea</span>
+                            <span className="text-sm text-gray-600">
+                              {key === "parrotfy" ? "Conectado vía API" : "Demo interactivo"}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -425,7 +426,7 @@ export function UseCasesSection() {
                             transition={{ duration: 0.3 }}
                             className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                           >
-                            <div className={`max-w-[80%] ${message.role === "user" ? "order-2" : "order-1"}`}>
+                            <div className={`max-w-[85%] ${message.role === "user" ? "order-2" : "order-1"}`}>
                               <div
                                 className={`flex items-end gap-2 ${message.role === "user" ? "flex-row-reverse" : "flex-row"}`}
                               >
@@ -500,7 +501,9 @@ export function UseCasesSection() {
                           </Button>
                         </div>
                         <p className="text-xs text-gray-500 mt-2 text-center">
-                          Demo interactivo - Los mensajes se muestran automáticamente
+                          {key === "parrotfy"
+                            ? "Demo ERP - Simulación de conexión API"
+                            : "Demo automático - Los mensajes se muestran progresivamente"}
                         </p>
                       </div>
                     </CardContent>
@@ -524,12 +527,12 @@ export function UseCasesSection() {
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Zap className="w-6 h-6 text-purple-600" />
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  ¿Listo para tu Portal Neuronal?
+                  ¿Interesado en un Portal Neuronal?
                 </h3>
               </div>
               <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-                Únete a miles de empresas que han transformado su experiencia de usuario con IA que verdaderamente
-                entiende, conecta y genera resultados extraordinarios.
+                Estamos desarrollando IA conversacional que entiende, conecta y genera valor real. Si tienes un proyecto
+                en mente, nos encantaría conocer tu visión.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -537,7 +540,7 @@ export function UseCasesSection() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8"
                 >
                   <Zap className="w-4 h-4 mr-2" />
-                  Crear Mi Portal Neuronal
+                  Explorar Colaboración
                 </Button>
                 <Button
                   variant="outline"
@@ -545,7 +548,7 @@ export function UseCasesSection() {
                   className="border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 bg-transparent"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Ver Demo Personalizada
+                  Ver Demos Disponibles
                 </Button>
               </div>
             </CardContent>
