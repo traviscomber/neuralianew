@@ -12,7 +12,7 @@ const testimonials = [
     role: "Agricultora",
     company: "Hacienda Verde",
     content:
-      "Antes tardábamos días en obtener análisis de suelo y contactar a nuestros agricultores. Ahora EcosueloLab Bot nos cambió todo. Toma los datos de nitrógeno e hidro desde nuestra API y los envía directo por WhatsApp a nuestros clientes. Nos convertimos en sus expertos de suelo las 24 horas. Cuando un agricultor necesita saber el estado de su tierra, la respuesta llega al instante. Es como tener un agrónomo en el bolsillo que nunca duerme.",
+      "Necesitábamos una forma más rápida de obtener datos de nitrógeno e hidro de nuestros cultivos. EcosueloLab Bot toma la información desde nuestra API y la envía directamente por WhatsApp. Ahora podemos responder a nuestros agricultores inmediatamente cuando preguntan sobre el estado de su suelo. Es como tener un experto disponible las 24 horas para nuestros clientes. El resultado fue rápido y exitoso.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
@@ -21,7 +21,7 @@ const testimonials = [
     role: "CEO",
     company: "Despega Tu Carrera",
     content:
-      "Cuando buscábamos revolucionar el crecimiento profesional, N3uralia creó algo extraordinario para nosotros. Su complejo ecosistema de IA no solo combina coaching personalizado con análisis de mercado laboral, sino que transforma vidas completas. Es una plataforma que entiende los sueños de cada persona y los convierte en planes reales. Jamás imaginamos que la inteligencia artificial pudiera ser tan humana y efectiva. El resultado superó todo lo que creíamos posible.",
+      "Buscábamos algo innovador para el crecimiento profesional y N3uralia nos sorprendió gratamente. Crearon un ecosistema de IA que no solo da consejos de carrera, sino que realmente entiende a cada persona. Es como tener un mentor personal que conoce perfectamente el mercado laboral. Nuestros usuarios nos dicen que sienten que alguien finalmente los comprende y los guía hacia donde realmente quieren llegar. El resultado fue rápido y exitoso.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
@@ -30,7 +30,7 @@ const testimonials = [
     role: "Empresaria",
     company: "Consultora Independiente",
     content:
-      "Antes revisar facturas y entender a mis clientes me tomaba horas cada día. Parrotfy cambió mi rutina completamente. Ahora converso naturalmente con la IA sobre mis documentos y me da insights que antes no veía. Es como tener un analista de negocios trabajando conmigo las 24 horas. Cuando necesito entender patrones de compra o identificar oportunidades, simplemente pregunto y obtengo respuestas claras al instante. Mi negocio nunca había sido tan eficiente.",
+      "Necesitábamos que alguien consultara los endpoints de nuestro ERP y nos entregara la información que pedíamos. N3uralia creó un agente que hace exactamente eso. Ahora cuando necesito datos de ventas, inventario o clientes, simplemente pregunto y el agente consulta la API y me entrega lo que solicité. Ya no tengo que navegar por el sistema o esperar reportes. El resultado fue rápido y exitoso.",
     rating: 5,
     avatar: "/placeholder-user.jpg",
   },
