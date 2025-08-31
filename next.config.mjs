@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizePackageImports: ['lucide-react']
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -7,10 +10,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    domains: ['placeholder.svg'],
     unoptimized: true,
-  },
-  experimental: {
-    optimizePackageImports: ['lucide-react']
   }
 }
 

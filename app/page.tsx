@@ -7,82 +7,93 @@ import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import {
   Brain,
-  MessageSquare,
   Zap,
   Shield,
-  Globe,
   Users,
   BarChart3,
-  Sparkles,
-  ArrowRight,
   Star,
   Play,
   Pause,
-  Bot,
-  Briefcase,
-  GraduationCap,
+  ArrowRight,
+  CheckCircle,
+  Globe,
+  Smartphone,
+  TrendingUp,
+  Target,
 } from "lucide-react"
 
 export default function LandingPage() {
   const [currentDemo, setCurrentDemo] = useState(0)
   const [isPlaying, setIsPlaying] = useState(true)
-  const [messageIndex, setMessageIndex] = useState(0)
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
 
   const demos = [
     {
+      id: "ecosuelo",
       name: "EcosueloLab",
-      description: "Análisis de suelos con IA",
-      color: "from-green-500 to-emerald-600",
+      description: "Career coaching and professional development",
+      color: "from-emerald-500 to-teal-600",
       messages: [
-        { role: "user", content: "Necesito analizar mi suelo para cultivo de tomates" },
+        { sender: "user", text: "Hola, necesito ayuda para encontrar trabajo en tecnología" },
         {
-          role: "assistant",
-          content:
-            "¡Perfecto! Para el cultivo de tomates necesitamos analizar pH, nutrientes y materia orgánica. ¿Tienes los datos del análisis de suelo?",
+          sender: "bot",
+          text: "¡Hola! Soy tu coach de carrera de EcosueloLab. Te ayudo a encontrar oportunidades en tech. ¿Qué área te interesa más?",
         },
-        { role: "user", content: "Sí, pH 6.2, nitrógeno bajo, fósforo medio" },
+        { sender: "user", text: "Me interesa el desarrollo web, pero no tengo experiencia formal" },
         {
-          role: "assistant",
-          content:
-            "Excelente. Con pH 6.2 estás en rango óptimo para tomates (6.0-6.8). Para el nitrógeno bajo, recomiendo fertilización con compost o urea. El fósforo medio está bien. ¿Qué superficie vas a cultivar?",
+          sender: "bot",
+          text: "Perfecto! El desarrollo web es muy demandado. Te recomiendo empezar con HTML, CSS y JavaScript. ¿Has considerado hacer proyectos personales para tu portafolio?",
+        },
+        { sender: "user", text: "No, ¿qué tipo de proyectos me recomiendas?" },
+        {
+          sender: "bot",
+          text: "Te sugiero: 1) Una página web personal, 2) Un e-commerce básico, 3) Una app de tareas. Estos proyectos muestran habilidades clave que buscan los empleadores.",
         },
       ],
     },
     {
+      id: "despega",
       name: "Despega tu Carrera",
-      description: "Coaching profesional personalizado",
-      color: "from-blue-500 to-cyan-600",
+      description: "Personal career acceleration and mentorship",
+      color: "from-blue-500 to-indigo-600",
       messages: [
-        { role: "user", content: "Me siento estancado en mi trabajo actual" },
+        { sender: "user", text: "Quiero cambiar de carrera pero tengo miedo de empezar de cero" },
         {
-          role: "assistant",
-          content:
-            "Entiendo esa sensación. Es muy común y el primer paso es reconocerlo. Cuéntame, ¿qué aspectos específicos te hacen sentir estancado? ¿Es el crecimiento profesional, los desafíos, o algo más?",
+          sender: "bot",
+          text: "Entiendo tu preocupación. Cambiar de carrera es un gran paso, pero también una oportunidad increíble. ¿En qué área trabajas actualmente?",
         },
-        { role: "user", content: "Siento que no aprendo nada nuevo y las tareas son repetitivas" },
+        { sender: "user", text: "Trabajo en marketing, pero me atrae mucho la programación" },
         {
-          role: "assistant",
-          content:
-            "Esa falta de crecimiento puede ser muy desmotivante. Vamos a trabajar juntos para identificar oportunidades. ¿Has considerado proponer nuevos proyectos en tu área actual o explorar capacitaciones que te interesen?",
+          sender: "bot",
+          text: "¡Excelente! Tu experiencia en marketing es muy valiosa en tech. Muchas empresas buscan desarrolladores que entiendan el negocio. ¿Has probado algún lenguaje de programación?",
+        },
+        { sender: "user", text: "Solo he hecho algunos tutoriales de Python" },
+        {
+          sender: "bot",
+          text: "Python es perfecto para empezar. Te recomiendo enfocarte en desarrollo web con Django o Flask. Tu background en marketing te dará ventaja en productos digitales.",
         },
       ],
     },
     {
+      id: "parrotfy",
       name: "ParrotfyIA",
-      description: "Language learning with AI conversation",
+      description: "AI-powered language learning and pronunciation",
       color: "from-purple-500 to-pink-600",
       messages: [
-        { role: "user", content: "I want to practice my Spanish pronunciation" },
+        { sender: "user", text: "I want to improve my English pronunciation for job interviews" },
         {
-          role: "assistant",
-          content:
-            "¡Excelente! Let's start with some basic phrases. Try saying 'Hola, ¿cómo estás?' - focus on rolling the 'r' in 'cómo'. I'll listen and give you feedback on your pronunciation.",
+          sender: "bot",
+          text: "Great goal! I'm ParrotfyIA, your AI pronunciation coach. Let's work on interview-specific pronunciation. Can you tell me about your current English level?",
         },
-        { role: "user", content: "Hola, como estas?" },
+        { sender: "user", text: "I can read and write well, but speaking makes me nervous" },
         {
-          role: "assistant",
-          content:
-            "Good attempt! I noticed you missed the accent marks which affect pronunciation. Try 'CÓ-mo es-TÁS' with emphasis on those syllables. Also, don't forget the opening question mark: '¿Cómo estás?' Let's try again!",
+          sender: "bot",
+          text: "That's very common! Let's practice with common interview phrases. Try saying: 'I have experience in project management.' I'll analyze your pronunciation.",
+        },
+        { sender: "user", text: "I have experience in project management" },
+        {
+          sender: "bot",
+          text: "Good! Your pronunciation is 85% accurate. Focus on the 'th' sound in 'the' and stress 'EX-per-ience'. Let's practice: 'I'm EX-per-ienced in project management.'",
         },
       ],
     },
@@ -92,9 +103,9 @@ export default function LandingPage() {
     if (!isPlaying) return
 
     const interval = setInterval(() => {
-      setMessageIndex((prev) => {
-        const currentMessages = demos[currentDemo].messages
-        if (prev >= currentMessages.length - 1) {
+      setCurrentMessageIndex((prev) => {
+        const currentDemoMessages = demos[currentDemo].messages
+        if (prev >= currentDemoMessages.length - 1) {
           // Move to next demo
           setCurrentDemo((prevDemo) => (prevDemo + 1) % demos.length)
           return 0
@@ -106,142 +117,35 @@ export default function LandingPage() {
     return () => clearInterval(interval)
   }, [currentDemo, isPlaying, demos])
 
-  const stats = [
-    { label: "Active Users", value: "50K+", icon: Users },
-    { label: "AI Conversations", value: "2M+", icon: MessageSquare },
-    { label: "Success Rate", value: "98%", icon: BarChart3 },
-    { label: "Languages", value: "25+", icon: Globe },
-  ]
-
-  const features = [
-    {
-      icon: Brain,
-      title: "Advanced AI Models",
-      description: "Powered by GPT-4 and custom-trained models for specialized domains",
-    },
-    {
-      icon: MessageSquare,
-      title: "Natural Conversations",
-      description: "Engage in human-like conversations with context awareness and memory",
-    },
-    {
-      icon: Zap,
-      title: "Lightning Fast",
-      description: "Sub-second response times with optimized infrastructure",
-    },
-    {
-      icon: Shield,
-      title: "Enterprise Security",
-      description: "Bank-grade encryption and compliance with global privacy standards",
-    },
-    {
-      icon: Globe,
-      title: "Multi-language Support",
-      description: "Communicate in 25+ languages with native-level fluency",
-    },
-    {
-      icon: Sparkles,
-      title: "Continuous Learning",
-      description: "AI agents that improve over time through interaction and feedback",
-    },
-  ]
-
-  const testimonials = [
-    {
-      name: "María González",
-      role: "Agricultural Engineer",
-      company: "AgroTech Solutions",
-      content:
-        "EcosueloLab transformed how we analyze soil composition. The AI recommendations increased our crop yield by 35%.",
-      rating: 5,
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      name: "Carlos Mendoza",
-      role: "Career Transition Specialist",
-      company: "Professional Growth Inc",
-      content:
-        "The career coaching AI helped me transition from engineering to product management. The personalized guidance was invaluable.",
-      rating: 5,
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Language Learning Coordinator",
-      company: "Global Education Corp",
-      content:
-        "ParrotfyIA's pronunciation feedback is incredibly accurate. Our students improved their speaking skills 3x faster.",
-      rating: 5,
-      avatar: "/placeholder.svg?height=40&width=40",
-    },
-  ]
-
-  const faqs = [
-    {
-      question: "How does Neuralia's AI technology work?",
-      answer:
-        "Our AI agents are built on advanced language models, fine-tuned for specific domains like agriculture, career coaching, and language learning. They use natural language processing, machine learning, and domain expertise to provide accurate, contextual responses.",
-    },
-    {
-      question: "Is my data secure with Neuralia?",
-      answer:
-        "Absolutely. We use enterprise-grade encryption, comply with GDPR and other privacy regulations, and never share your personal data with third parties. All conversations are encrypted and stored securely.",
-    },
-    {
-      question: "Can I customize AI agents for my specific needs?",
-      answer:
-        "Yes! Our platform allows you to create custom AI agents tailored to your industry, use case, and specific requirements. You can train them on your data and customize their personality and expertise.",
-    },
-    {
-      question: "What languages are supported?",
-      answer:
-        "We currently support 25+ languages including English, Spanish, French, German, Portuguese, Italian, Chinese, Japanese, and many more. Our AI agents can seamlessly switch between languages in the same conversation.",
-    },
-    {
-      question: "How accurate are the AI recommendations?",
-      answer:
-        "Our AI agents maintain a 98% accuracy rate across different domains. They're continuously learning and improving through user interactions and expert feedback, ensuring high-quality recommendations.",
-    },
-    {
-      question: "What's the pricing structure?",
-      answer:
-        "We offer flexible pricing plans starting from a free tier for basic usage, professional plans for individuals and small teams, and enterprise solutions for large organizations. Contact us for custom pricing based on your needs.",
-    },
-    {
-      question: "How quickly can I get started?",
-      answer:
-        "You can start using our AI agents immediately after signing up. No setup required - just choose your use case and begin conversing. For custom agents, deployment typically takes 1-2 weeks.",
-    },
-    {
-      question: "Do you offer API access?",
-      answer:
-        "Yes, we provide comprehensive APIs for developers who want to integrate our AI agents into their own applications. Full documentation and SDKs are available for popular programming languages.",
-    },
-  ]
+  const currentDemoData = demos[currentDemo]
+  const visibleMessages = currentDemoData.messages.slice(0, currentMessageIndex + 1)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
       {/* Navigation */}
       <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
               <Brain className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Neuralia</span>
+              <span className="text-2xl font-bold text-gray-900">Neuralia</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="text-gray-600 hover:text-gray-900">
+              <a href="#features" className="text-gray-600 hover:text-blue-600 transition-colors">
                 Features
               </a>
-              <a href="#demos" className="text-gray-600 hover:text-gray-900">
-                Demos
+              <a href="#use-cases" className="text-gray-600 hover:text-blue-600 transition-colors">
+                Use Cases
               </a>
-              <a href="#testimonials" className="text-gray-600 hover:text-gray-900">
+              <a href="#testimonials" className="text-gray-600 hover:text-blue-600 transition-colors">
                 Testimonials
               </a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900">
+              <a href="#faq" className="text-gray-600 hover:text-blue-600 transition-colors">
                 FAQ
               </a>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button variant="outline">Sign In</Button>
               <Button>Get Started</Button>
             </div>
           </div>
@@ -249,141 +153,118 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              The Future of
+      <section className="py-20 px-4">
+        <div className="container mx-auto text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+              AI Agents
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {" "}
-                AI Agents
+                Ecosystem
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Specialized AI agents for agriculture, career coaching, language learning, and more. Built with
-              cutting-edge technology to solve real-world problems.
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Build, deploy, and scale intelligent AI agents that transform how businesses operate. From customer
+              service to data analysis, our platform makes AI accessible to everyone.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600">50K+</div>
+                <div className="text-gray-600">Active Agents</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600">99.9%</div>
+                <div className="text-gray-600">Uptime</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-emerald-600">24/7</div>
+                <div className="text-gray-600">Support</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-orange-600">150+</div>
+                <div className="text-gray-600">Integrations</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
-                Start Free Trial
-                <ArrowRight className="ml-2 h-4 w-4" />
+                Start Building <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button size="lg" variant="outline">
-                Watch Demo
-                <Play className="ml-2 h-4 w-4" />
+                Watch Demo <Play className="ml-2 h-4 w-4" />
               </Button>
             </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <stat.icon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Powerful Features for Every Use Case</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our AI agents are designed with advanced capabilities to handle complex, domain-specific tasks
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader>
-                  <feature.icon className="h-12 w-12 text-blue-600 mb-4" />
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-600">{feature.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Live Demos Section */}
-      <section id="demos" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">See Our AI Agents in Action</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Watch real conversations with our specialized AI agents
+      {/* Live Demo Section */}
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">See Our AI Agents in Action</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Experience real conversations with our specialized AI agents across different industries and use cases.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-center mb-8">
-              <div className="flex items-center gap-4">
-                <Button variant={isPlaying ? "default" : "outline"} size="sm" onClick={() => setIsPlaying(!isPlaying)}>
+              <div className="flex items-center space-x-4 bg-gray-100 rounded-lg p-1">
+                {demos.map((demo, index) => (
+                  <button
+                    key={demo.id}
+                    onClick={() => {
+                      setCurrentDemo(index)
+                      setCurrentMessageIndex(0)
+                    }}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                      currentDemo === index ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    {demo.name}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setIsPlaying(!isPlaying)}
+                  className="ml-4 p-2 rounded-md bg-blue-100 text-blue-600 hover:bg-blue-200 transition-colors"
+                >
                   {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                  {isPlaying ? "Pause" : "Play"}
-                </Button>
-                <div className="flex gap-2">
-                  {demos.map((_, index) => (
-                    <button
-                      key={index}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentDemo ? "bg-blue-600" : "bg-gray-300"
-                      }`}
-                      onClick={() => {
-                        setCurrentDemo(index)
-                        setMessageIndex(0)
-                      }}
-                    />
-                  ))}
-                </div>
+                </button>
               </div>
             </div>
 
-            <Card className="border-0 shadow-2xl overflow-hidden">
-              <CardHeader className={`bg-gradient-to-r ${demos[currentDemo].color} text-white`}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-white flex items-center gap-2">
-                      {currentDemo === 0 && <Bot className="h-5 w-5" />}
-                      {currentDemo === 1 && <Briefcase className="h-5 w-5" />}
-                      {currentDemo === 2 && <GraduationCap className="h-5 w-5" />}
-                      {demos[currentDemo].name}
-                    </CardTitle>
-                    <CardDescription className="text-white/80">{demos[currentDemo].description}</CardDescription>
-                  </div>
+            <Card className="max-w-2xl mx-auto">
+              <CardHeader className={`bg-gradient-to-r ${currentDemoData.color} text-white`}>
+                <CardTitle className="flex items-center justify-between">
+                  <span>{currentDemoData.name}</span>
                   <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
                     Live Demo
                   </Badge>
-                </div>
+                </CardTitle>
+                <CardDescription className="text-white/90">{currentDemoData.description}</CardDescription>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-4 min-h-[300px]">
-                  {demos[currentDemo].messages.slice(0, messageIndex + 1).map((message, index) => (
-                    <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+              <CardContent className="p-0">
+                <div className="h-96 overflow-y-auto p-4 space-y-4">
+                  {visibleMessages.map((message, index) => (
+                    <div key={index} className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}>
                       <div
-                        className={`max-w-[80%] p-3 rounded-lg ${
-                          message.role === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
+                        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                          message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
                         }`}
                       >
-                        {message.content}
+                        {message.text}
                       </div>
                     </div>
                   ))}
-                  {isPlaying && messageIndex < demos[currentDemo].messages.length - 1 && (
+                  {isPlaying && (
                     <div className="flex justify-start">
-                      <div className="bg-gray-100 p-3 rounded-lg">
+                      <div className="bg-gray-100 rounded-lg px-4 py-2">
                         <div className="flex space-x-1">
                           <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                           <div
@@ -405,178 +286,512 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Trusted by Professionals Worldwide</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See what our users say about their experience with Neuralia AI agents
+      {/* Features Section */}
+      <section id="features" className="py-16 px-4 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Powerful Features</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Everything you need to build, deploy, and manage intelligent AI agents at scale.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
-                    ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <Brain className="h-6 w-6 text-blue-600" />
+                </div>
+                <CardTitle>Intelligent Conversations</CardTitle>
+                <CardDescription>
+                  Advanced NLP capabilities that understand context, intent, and nuance for natural interactions.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-purple-600" />
+                </div>
+                <CardTitle>Lightning Fast</CardTitle>
+                <CardDescription>
+                  Sub-second response times with optimized AI models and global edge deployment.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-emerald-600" />
+                </div>
+                <CardTitle>Enterprise Security</CardTitle>
+                <CardDescription>
+                  Bank-level encryption, compliance certifications, and privacy-first architecture.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-orange-600" />
+                </div>
+                <CardTitle>Multi-Agent Orchestration</CardTitle>
+                <CardDescription>
+                  Coordinate multiple specialized agents to handle complex workflows and tasks.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                  <BarChart3 className="h-6 w-6 text-pink-600" />
+                </div>
+                <CardTitle>Advanced Analytics</CardTitle>
+                <CardDescription>
+                  Real-time insights, performance metrics, and detailed conversation analytics.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                  <Globe className="h-6 w-6 text-indigo-600" />
+                </div>
+                <CardTitle>Global Scale</CardTitle>
+                <CardDescription>
+                  Deploy worldwide with automatic scaling, load balancing, and 99.9% uptime SLA.
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section id="use-cases" className="py-16 px-4 bg-white">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Use Cases</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Our AI agents are transforming industries and solving real business challenges.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-emerald-50 to-teal-50">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
+                  <Target className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-emerald-800">EcosueloLab</CardTitle>
+                <CardDescription className="text-emerald-700">
+                  Career coaching and professional development platform
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-emerald-700">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-emerald-600" />
+                    Personalized career guidance
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-emerald-600" />
+                    Skill assessment and recommendations
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-emerald-600" />
+                    Job market insights
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-emerald-600" />
+                    Interview preparation
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-blue-50 to-indigo-50">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center mb-4">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-blue-800">Despega tu Carrera</CardTitle>
+                <CardDescription className="text-blue-700">Personal career acceleration and mentorship</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-blue-700">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-blue-600" />
+                    Career transition support
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-blue-600" />
+                    Personal branding guidance
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-blue-600" />
+                    Networking strategies
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-blue-600" />
+                    Goal setting and tracking
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-purple-50 to-pink-50">
+              <CardHeader>
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mb-4">
+                  <Smartphone className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-purple-800">ParrotfyIA</CardTitle>
+                <CardDescription className="text-purple-700">
+                  AI-powered language learning and pronunciation
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-purple-700">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-purple-600" />
+                    Real-time pronunciation feedback
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-purple-600" />
+                    Conversational practice
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-purple-600" />
+                    Accent reduction training
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-4 w-4 mr-2 text-purple-600" />
+                    Progress tracking
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-16 px-4 bg-gray-50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Trusted by thousands of businesses and professionals worldwide.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "EcosueloLab helped me transition from marketing to tech in just 6 months. The personalized guidance
+                  was incredible."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-blue-600 font-semibold">MR</span>
                   </div>
-                  <p className="text-gray-600 mb-6">"{testimonial.content}"</p>
-                  <div className="flex items-center">
-                    <img
-                      src={testimonial.avatar || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      className="w-10 h-10 rounded-full mr-3"
-                    />
-                    <div>
-                      <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600">{testimonial.role}</div>
-                      <div className="text-sm text-gray-500">{testimonial.company}</div>
-                    </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Maria Rodriguez</div>
+                    <div className="text-sm text-gray-600">Software Developer</div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "ParrotfyIA improved my English pronunciation dramatically. I got the job I wanted thanks to better
+                  communication skills."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-purple-600 font-semibold">CL</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Carlos Lopez</div>
+                    <div className="text-sm text-gray-600">Project Manager</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-600 mb-4">
+                  "The career acceleration program gave me the confidence and strategy I needed to advance to senior
+                  management."
+                </p>
+                <div className="flex items-center">
+                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mr-3">
+                    <span className="text-emerald-600 font-semibold">AS</span>
+                  </div>
+                  <div>
+                    <div className="font-semibold text-gray-900">Ana Silva</div>
+                    <div className="text-sm text-gray-600">Senior Manager</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600">Everything you need to know about Neuralia AI agents</p>
+      <section id="faq" className="py-16 px-4 bg-white">
+        <div className="container mx-auto max-w-3xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-gray-600">Everything you need to know about our AI agents platform.</p>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border-0 shadow-sm">
-                <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="px-6 pb-4 text-gray-600">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
+            <AccordionItem value="item-1" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">
+                How do I get started with building my first AI agent?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Getting started is simple! Sign up for a free account, choose from our pre-built templates or start from
+                scratch, configure your agent's personality and knowledge base, then deploy with one click. Our
+                step-by-step wizard guides you through the entire process.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">
+                What makes Neuralia different from other AI platforms?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Neuralia focuses on specialized, industry-specific AI agents rather than generic chatbots. Our agents
+                are pre-trained for specific use cases like career coaching, language learning, and business consulting,
+                providing more accurate and contextually relevant responses.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">
+                Can I integrate Neuralia agents with my existing systems?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                We offer REST APIs, webhooks, and pre-built integrations with popular platforms like Slack, Microsoft
+                Teams, Salesforce, and more. Our technical team can also help with custom integrations for enterprise
+                clients.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-4" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">How secure is my data with Neuralia?</AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Security is our top priority. We use end-to-end encryption, comply with GDPR and SOC 2 standards, and
+                never use your data to train our models. All data is processed in secure, isolated environments with
+                regular security audits.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-5" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">What kind of support do you provide?</AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                We offer 24/7 technical support, comprehensive documentation, video tutorials, and a community forum.
+                Enterprise customers get dedicated account managers and priority support with guaranteed response times.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-6" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">
+                Can I customize the AI agent's personality and responses?
+              </AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Yes! You have full control over your agent's personality, tone, knowledge base, and response style. You
+                can upload custom training data, set conversation flows, and even define specific responses for common
+                scenarios.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-7" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">What languages do your AI agents support?</AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Our agents support over 50 languages with native-level fluency. This includes major languages like
+                English, Spanish, French, German, Chinese, Japanese, and many others. Language detection and switching
+                happen automatically based on user input.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-8" className="border rounded-lg px-6">
+              <AccordionTrigger className="text-left">How do you handle scaling and performance?</AccordionTrigger>
+              <AccordionContent className="text-gray-600">
+                Our platform automatically scales based on demand using cloud infrastructure across multiple regions. We
+                guarantee 99.9% uptime and sub-second response times even during peak usage. Load balancing and caching
+                ensure optimal performance.
+              </AccordionContent>
+            </AccordionItem>
           </Accordion>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Transform Your Business with AI?</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join thousands of professionals already using Neuralia AI agents to solve complex problems
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              Start Free Trial
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
-            >
-              Contact Sales
-            </Button>
+      <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="container mx-auto text-center">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Ready to Transform Your Business with AI?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join thousands of companies already using Neuralia to automate workflows, enhance customer experiences,
+              and drive growth.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-blue-600 bg-transparent"
+              >
+                Schedule Demo
+              </Button>
+            </div>
+            <p className="text-blue-200 text-sm mt-4">No credit card required • 14-day free trial • Cancel anytime</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <footer className="bg-gray-900 text-white py-12 px-4">
+        <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <div className="flex items-center mb-4">
+              <div className="flex items-center space-x-2 mb-4">
                 <Brain className="h-8 w-8 text-blue-400" />
-                <span className="ml-2 text-xl font-bold">Neuralia</span>
+                <span className="text-2xl font-bold">Neuralia</span>
               </div>
-              <p className="text-gray-400">
-                Building the future of AI agents for specialized domains and real-world applications.
+              <p className="text-gray-400 mb-4">
+                Building the future of AI-powered business automation and customer engagement.
               </p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
+                  </svg>
+                </a>
+                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </a>
+              </div>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-4">Product</h3>
+              <h3 className="text-lg font-semibold mb-4">Product</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    API
+                  <a href="#" className="hover:text-white transition-colors">
+                    API Documentation
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    Documentation
+                  <a href="#" className="hover:text-white transition-colors">
+                    Integrations
                   </a>
                 </li>
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-4">Company</h3>
+              <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Careers
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Contact
                   </a>
                 </li>
               </ul>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-4">Support</h3>
+              <h3 className="text-lg font-semibold mb-4">Support</h3>
               <ul className="space-y-2 text-gray-400">
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Help Center
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
+                  <a href="#" className="hover:text-white transition-colors">
                     Community
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    Privacy Policy
+                  <a href="#" className="hover:text-white transition-colors">
+                    Status
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    Terms of Service
+                  <a href="#" className="hover:text-white transition-colors">
+                    Privacy Policy
                   </a>
                 </li>
               </ul>
             </div>
           </div>
+
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 Neuralia. All rights reserved.</p>
           </div>

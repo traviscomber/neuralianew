@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 
 interface User {
   id: string
@@ -11,22 +11,21 @@ interface User {
 
 interface Profile {
   id: string
+  user_id: string
   role: string
-  subscription_plan: string
-  subscription_status: string
+  full_name?: string
 }
 
 interface AuthContextType {
   user: User | null
   profile: Profile | null
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (email: string, password: string) => Promise<void>
+  signOut: () => Promise<void>
   loading: boolean
 }
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  profile: null,
-  loading: true,
-})
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -34,27 +33,88 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Mock auth for demo
-    setUser({
-      id: "demo-user",
+    // Mock authentication check
+    const mockUser = {
+      id: "1",
       email: "admin@neuralia.ai",
-      name: "Demo User",
-    })
-    setProfile({
-      id: "demo-profile",
+      name: "Admin User",
+    }
+    const mockProfile = {
+      id: "1",
+      user_id: "1",
       role: "admin",
-      subscription_plan: "pro",
-      subscription_status: "active",
-    })
+      full_name: "Admin User",
+    }
+
+    setUser(mockUser)
+    setProfile(mockProfile)
     setLoading(false)
   }, [])
 
-  return <AuthContext.Provider value={{ user, profile, loading }}>{children}</AuthContext.Provider>
+  const signIn = async (email: string, password: string) => {
+    setLoading(true)
+    // Mock sign in
+    const mockUser = {
+      id: "1",
+      email: email,
+      name: "User",
+    }
+    const mockProfile = {
+      id: "1",
+      user_id: "1",
+      role: email === "admin@neuralia.ai" ? "admin" : "user",
+      full_name: "User",
+    }
+
+    setUser(mockUser)
+    setProfile(mockProfile)
+    setLoading(false)
+  }
+
+  const signUp = async (email: string, password: string) => {
+    setLoading(true)
+    // Mock sign up
+    const mockUser = {
+      id: "2",
+      email: email,
+      name: "New User",
+    }
+    const mockProfile = {
+      id: "2",
+      user_id: "2",
+      role: "user",
+      full_name: "New User",
+    }
+
+    setUser(mockUser)
+    setProfile(mockProfile)
+    setLoading(false)
+  }
+
+  const signOut = async () => {
+    setUser(null)
+    setProfile(null)
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        profile,
+        signIn,
+        signUp,
+        signOut,
+        loading,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
-export const useAuth = () => {
+export function useAuth() {
   const context = useContext(AuthContext)
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider")
   }
   return context
