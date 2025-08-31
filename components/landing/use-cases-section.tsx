@@ -7,9 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import {
-  GraduationCap,
+  Sprout,
   MessageSquare,
-  Globe,
+  Settings,
   TrendingUp,
   CheckCircle,
   Zap,
@@ -25,53 +25,65 @@ import {
 const successCases = {
   ecosuelo: {
     name: "EcosueloLab",
-    tagline: "Coaching de Carrera Inteligente",
-    description: "Plataforma de coaching profesional que conecta talento con oportunidades usando IA empática",
+    tagline: "Análisis Inteligente de Suelo Agrícola",
+    description: "Plataforma de análisis de nitrógeno en el suelo que optimiza la agricultura con IA especializada",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     textColor: "text-green-700",
-    icon: GraduationCap,
+    icon: Sprout,
     metrics: {
-      users: "15,000+",
-      success: "94%",
-      placements: "2,300+",
-      satisfaction: "4.9/5",
+      farmers: "3,200+",
+      accuracy: "96%",
+      yield: "+34%",
+      satisfaction: "4.8/5",
     },
     features: [
-      "Evaluación personalizada de habilidades",
-      "Preparación para entrevistas con IA",
-      "Análisis de mercado laboral en tiempo real",
-      "Matching inteligente con oportunidades",
-      "Coaching emocional y motivacional",
+      "Análisis de nitrógeno en tiempo real",
+      "Recomendaciones de fertilización personalizadas",
+      "Predicción de rendimiento de cultivos",
+      "Monitoreo de salud del suelo",
+      "Optimización de recursos agrícolas",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Hola! 👋 Soy tu coach de carrera de EcosueloLab. Estoy aquí para ayudarte a despegar tu carrera profesional. ¿En qué área te gustaría crecer?",
-        timestamp: "10:00",
+          "¡Hola! 🌱 Soy EcosueloBot de ecosuelobot.vercel.app. Te ayudo a analizar el nitrógeno en tu suelo para optimizar tus cultivos. ¿Qué tipo de análisis necesitas hoy?",
+        timestamp: "08:30",
       },
       {
         role: "user",
-        content: "Hola, me siento estancado en mi trabajo actual y no sé cómo avanzar",
-        timestamp: "10:01",
+        content: "Hola, tengo un problema con mi campo de maíz. Las plantas se ven amarillentas en algunas zonas",
+        timestamp: "08:31",
       },
       {
         role: "assistant",
         content:
-          "Entiendo perfectamente esa sensación 💪 Es muy común y el primer paso es reconocerlo. Cuéntame, ¿qué es lo que más te apasiona de tu trabajo actual? Y ¿hay alguna área específica donde sientes que podrías brillar más?",
-        timestamp: "10:01",
+          "Entiendo tu preocupación 🌽 El amarillamiento puede indicar deficiencia de nitrógeno. Para hacer un diagnóstico preciso, necesito algunos datos:\n\n📍 ¿En qué región está tu campo?\n📏 ¿Cuántas hectáreas afectadas?\n🌱 ¿En qué etapa está el maíz?\n💧 ¿Cuándo fue el último riego?\n🌡️ ¿Has notado patrones en las zonas afectadas?",
+        timestamp: "08:31",
       },
       {
         role: "user",
-        content: "Me gusta mucho el análisis de datos, pero siento que no tengo las habilidades técnicas suficientes",
-        timestamp: "10:02",
+        content:
+          "Está en Temuco, son como 8 hectáreas afectadas de 20 totales. El maíz tiene 6 semanas. Regué hace 4 días y las zonas amarillas están más en las partes altas del terreno",
+        timestamp: "08:32",
       },
       {
         role: "assistant",
         content:
-          "¡Excelente! 📊 El análisis de datos es un campo increíblemente demandado. He analizado tu perfil y veo gran potencial. Te propongo un plan personalizado:\n\n✅ Evaluación de habilidades actuales\n✅ Roadmap de aprendizaje específico\n✅ Proyectos prácticos para tu portafolio\n✅ Conexiones con empresas que buscan tu perfil\n\n¿Te parece si empezamos con una evaluación rápida?",
-        timestamp: "10:03",
+          "Perfecto, esa información es muy valiosa 📊 Basado en tu descripción:\n\n🔬 **Diagnóstico**: Deficiencia de N en zonas de drenaje rápido\n⚠️ **Causa probable**: Lixiviación de nitrógeno en partes altas\n💡 **Solución inmediata**: Aplicar 60kg N/ha en zonas afectadas\n🎯 **Estrategia**: Fertilización fraccionada para evitar pérdidas\n\n¿Quieres que calcule el plan de fertilización específico para tu terreno?",
+        timestamp: "08:33",
+      },
+      {
+        role: "user",
+        content: "Sí, por favor. Y me gustaría saber cómo prevenir esto en el futuro",
+        timestamp: "08:34",
+      },
+      {
+        role: "assistant",
+        content:
+          "¡Excelente pregunta! 🎯 Aquí tienes tu plan completo:\n\n📋 **Plan Inmediato**:\n• Urea 46%: 130kg en zonas afectadas\n• Aplicar en 2 dosis: 70% ahora, 30% en 10 días\n• Regar ligeramente después de aplicar\n\n🛡️ **Prevención Futura**:\n• Análisis de suelo cada 6 meses\n• Fertilización fraccionada en 3-4 aplicaciones\n• Considerar inhibidores de nitrificación\n• Monitoreo con sensores de humedad\n\n¿Te interesa que configure alertas automáticas para tu campo?",
+        timestamp: "08:35",
       },
     ],
   },
@@ -100,82 +112,108 @@ const successCases = {
       {
         role: "assistant",
         content:
-          "¡Bienvenido a Despega Tu Carrera! 🚀 Soy tu mentor de crecimiento profesional. Estoy aquí para ayudarte a alcanzar tus metas más ambiciosas. ¿Cuál es tu objetivo profesional principal?",
+          "¡Bienvenido a Despega Tu Carrera! 🚀 Soy tu mentor de crecimiento profesional. Veo que tienes potencial increíble. Cuéntame, ¿cuál es ese sueño profesional que te emociona pero también te da un poco de miedo?",
         timestamp: "14:30",
       },
       {
         role: "user",
-        content: "Quiero conseguir una promoción a gerente en los próximos 6 meses",
+        content:
+          "Siempre he querido liderar un equipo de desarrollo, pero siento que me falta experiencia en gestión de personas",
         timestamp: "14:31",
       },
       {
         role: "assistant",
         content:
-          "¡Me encanta tu ambición! 🎯 Una promoción a gerente en 6 meses es totalmente alcanzable con la estrategia correcta. Primero, cuéntame: ¿qué posición tienes actualmente y qué habilidades de liderazgo has desarrollado hasta ahora?",
+          "¡Qué honesto y valiente! 💪 Reconocer esa brecha ya te pone adelante del 80% de profesionales. Cuéntame más:\n\n🎯 ¿Qué es lo que más te atrae del liderazgo técnico?\n🤔 ¿Has tenido alguna experiencia informal liderando proyectos?\n💭 ¿Cuál crees que es tu mayor fortaleza como desarrollador?\n⏰ ¿En cuánto tiempo te visualizas en ese rol?",
         timestamp: "14:31",
       },
       {
         role: "user",
-        content: "Soy analista senior, lidero algunos proyectos pequeños pero nunca he manejado un equipo grande",
+        content:
+          "Me emociona la idea de mentorear a otros devs y crear productos increíbles. He liderado algunos proyectos pequeños y creo que soy bueno resolviendo problemas complejos. Me gustaría lograrlo en 8-12 meses",
         timestamp: "14:32",
       },
       {
         role: "assistant",
         content:
-          "Perfecto, tienes una base sólida 💼 He creado un plan estratégico para ti:\n\n🎯 **Mes 1-2**: Desarrollo de habilidades de liderazgo\n🎯 **Mes 3-4**: Proyectos de alto impacto y visibilidad\n🎯 **Mes 5-6**: Preparación para la conversación de promoción\n\nIncluye: simulaciones de liderazgo, feedback 360°, y networking estratégico. ¿Empezamos con tu perfil de liderazgo?",
+          "¡Me encanta tu visión! 🌟 Tienes las bases perfectas: pasión por mentorear y habilidades técnicas sólidas. He diseñado tu roadmap personalizado:\n\n🎯 **Fase 1 (Meses 1-3)**: Liderazgo Técnico\n• Curso intensivo de gestión de equipos\n• Mentoría con 2 desarrolladores junior\n• Proyecto piloto liderando 3-4 personas\n\n🎯 **Fase 2 (Meses 4-6)**: Habilidades Blandas\n• Workshop de comunicación efectiva\n• Simulaciones de conflictos en equipos\n• Feedback 360° con tu equipo actual\n\n¿Qué te parece si empezamos identificando a esos developers que podrías mentorear?",
         timestamp: "14:33",
+      },
+      {
+        role: "user",
+        content:
+          "Suena perfecto! Hay dos juniors en mi equipo que siempre me hacen preguntas. ¿Cómo estructuro esa mentoría?",
+        timestamp: "14:34",
+      },
+      {
+        role: "assistant",
+        content:
+          "¡Perfecto! Ya tienes tus primeros mentees 🎓 Aquí está tu framework de mentoría:\n\n📅 **Estructura Semanal**:\n• 30 min 1:1 con cada junior\n• 15 min de code review conjunto\n• 1 hora grupal de 'tech talks' informales\n\n🎯 **Objetivos Medibles**:\n• Reducir sus preguntas repetitivas en 50%\n• Que completen 1 feature independiente/mes\n• Feedback positivo en sus 1:1s con el manager\n\n📊 **Tu Crecimiento**:\n• Documentar lecciones aprendidas\n• Medir tu impacto en su productividad\n• Preparar casos de éxito para tu próxima entrevista\n\n¿Empezamos con el plan de la primera sesión de mentoría?",
+        timestamp: "14:35",
       },
     ],
   },
   parrotfy: {
-    name: "ParrotfyIA",
-    tagline: "Domina Idiomas Naturalmente",
-    description: "Plataforma de aprendizaje de idiomas con IA conversacional que se adapta a tu ritmo y estilo",
+    name: "Parrotfy",
+    tagline: "Asistente IA para ERP",
+    description:
+      "Asistente inteligente que revoluciona la gestión empresarial con IA conversacional especializada en ERP",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     textColor: "text-purple-700",
-    icon: Globe,
+    icon: Settings,
     metrics: {
-      users: "28,000+",
-      retention: "87%",
-      fluency: "+65%",
+      companies: "1,200+",
+      efficiency: "+78%",
+      automation: "85%",
       satisfaction: "4.9/5",
     },
     features: [
-      "Conversaciones naturales con IA nativa",
-      "Corrección de pronunciación en tiempo real",
-      "Inmersión cultural contextual",
-      "Gamificación adaptativa",
-      "Certificaciones internacionales",
+      "Gestión conversacional de inventarios",
+      "Automatización de procesos ERP",
+      "Análisis predictivo de ventas",
+      "Integración con sistemas existentes",
+      "Reportes inteligentes en tiempo real",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "Hello! 👋 Welcome to ParrotfyIA! I'm your personal language learning companion. I can help you practice English in a natural, fun way. What would you like to talk about today?",
-        timestamp: "16:45",
+          "¡Hola! 👋 Soy Parrotfy, tu asistente IA para ERP de parrotfyia.vercel.app. He notado algunas anomalías interesantes en tus datos. ¿Tienes un momento para revisar algo que podría ahorrarte mucho dinero?",
+        timestamp: "09:15",
       },
       {
         role: "user",
-        content: "Hi! I want to practice English for job interviews. I'm a bit nervous about it.",
-        timestamp: "16:46",
+        content: "¡Por supuesto! ¿Qué has encontrado?",
+        timestamp: "09:16",
       },
       {
         role: "assistant",
         content:
-          "That's fantastic! 🌟 Job interview practice is one of my specialties. I totally understand the nerves - it's completely normal! Let's start with something comfortable. Can you tell me about your current job or the position you're applying for? Don't worry about perfect grammar, just speak naturally! 😊",
-        timestamp: "16:46",
+          "Excelente 🔍 He detectado un patrón preocupante:\n\n⚠️ **Alerta de Inventario**:\n• 15 productos con rotación <30 días están sobre-stockeados\n• Costo de oportunidad: $23,400 inmovilizados\n• 3 proveedores han subido precios sin que lo notes\n\n💡 **Oportunidad detectada**:\n• Puedes liberar $18K optimizando stock\n• Renegociar con Proveedor A podría ahorrarte 12%\n\n¿Quieres que analice producto por producto o prefieres que genere el plan de optimización completo?",
+        timestamp: "09:16",
       },
       {
         role: "user",
-        content: "I work in marketing, but I want to apply for a digital marketing manager position",
-        timestamp: "16:47",
+        content: "¡Wow! No tenía idea. Muéstrame el plan completo, por favor",
+        timestamp: "09:17",
       },
       {
         role: "assistant",
         content:
-          'Excellent! 🎯 Digital marketing is such an exciting field! Your English is already quite good, by the way. Let me ask you a common interview question: "What digital marketing strategies have you found most effective in your current role?" \n\nTake your time, and remember - I\'m here to help you sound confident and natural! 💪',
-        timestamp: "16:47",
+          "¡Perfecto! 📊 Aquí tienes tu **Plan de Optimización Inteligente**:\n\n🎯 **Acciones Inmediatas (Esta semana)**:\n• Reducir stock de Mouse Gamer Pro: 45→20 unidades (-$3,200)\n• Promocionar Teclado RGB: 60→25 unidades (-$2,800)\n• Pausar orden de Webcam 4K (ya tienes 3 meses de stock)\n\n💰 **Renegociaciones Sugeridas**:\n• TechSupply Co: Proponer descuento por volumen (ahorro: $1,200/mes)\n• ComponentesPro: Cambiar términos de pago 30→45 días\n\n📈 **Proyección**: +$4,500 flujo de caja en 30 días\n\n¿Quieres que prepare los emails de renegociación automáticamente?",
+        timestamp: "09:18",
+      },
+      {
+        role: "user",
+        content: "¡Increíble! Sí, prepara los emails. Y me gustaría configurar alertas para que esto no vuelva a pasar",
+        timestamp: "09:19",
+      },
+      {
+        role: "assistant",
+        content:
+          "¡Listo! ✅ **Emails preparados y enviados**:\n\n📧 **TechSupply Co**: Propuesta de descuento por volumen enviada\n📧 **ComponentesPro**: Solicitud de extensión de términos enviada\n\n🚨 **Sistema de Alertas Configurado**:\n• Alerta si rotación <45 días y stock >30 días\n• Notificación de cambios de precios >5%\n• Reporte semanal de oportunidades de optimización\n• Dashboard predictivo de flujo de caja\n\n📱 **Bonus**: He creado un dashboard móvil para que monitorees todo desde tu teléfono\n\n¿Te gustaría que también analice tus patrones de ventas para predecir la demanda del próximo trimestre?",
+        timestamp: "09:20",
       },
     ],
   },
@@ -199,8 +237,8 @@ export function UseCasesSection() {
         setTimeout(() => {
           setCurrentMessageIndex((prev) => prev + 1)
           setIsTyping(false)
-        }, 1000)
-      }, 2000)
+        }, 1500)
+      }, 3000)
       return () => clearTimeout(timer)
     }
   }, [currentMessageIndex, currentCase.chatMessages.length])
@@ -224,13 +262,11 @@ export function UseCasesSection() {
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Nuestros{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Portales Neuronales
-            </span>
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Clientes</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            Descubre cómo nuestros portales neuronales han transformado industrias completas con IA que entiende,
-            conecta y genera resultados extraordinarios.
+            Descubre cómo nuestros clientes han transformado sus industrias con IA que entiende, conecta y genera
+            resultados extraordinarios.
           </p>
         </motion.div>
 
@@ -240,7 +276,7 @@ export function UseCasesSection() {
               value="ecosuelo"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white font-semibold"
             >
-              <GraduationCap className="w-4 h-4 mr-2" />
+              <Sprout className="w-4 h-4 mr-2" />
               EcosueloLab
             </TabsTrigger>
             <TabsTrigger
@@ -254,8 +290,8 @@ export function UseCasesSection() {
               value="parrotfy"
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white font-semibold"
             >
-              <Globe className="w-4 h-4 mr-2" />
-              ParrotfyIA
+              <Settings className="w-4 h-4 mr-2" />
+              Parrotfy
             </TabsTrigger>
           </TabsList>
 
@@ -304,23 +340,31 @@ export function UseCasesSection() {
                                 {value}
                               </div>
                               <div className="text-sm text-gray-600 capitalize font-medium">
-                                {key === "users"
-                                  ? "Usuarios"
-                                  : key === "success"
-                                    ? "Éxito"
-                                    : key === "placements"
-                                      ? "Colocaciones"
-                                      : key === "satisfaction"
-                                        ? "Satisfacción"
-                                        : key === "growth"
-                                          ? "Crecimiento"
-                                          : key === "promotions"
-                                            ? "Promociones"
-                                            : key === "retention"
-                                              ? "Retención"
-                                              : key === "fluency"
-                                                ? "Fluidez"
-                                                : key}
+                                {key === "farmers"
+                                  ? "Agricultores"
+                                  : key === "accuracy"
+                                    ? "Precisión"
+                                    : key === "yield"
+                                      ? "Rendimiento"
+                                      : key === "users"
+                                        ? "Usuarios"
+                                        : key === "success"
+                                          ? "Éxito"
+                                          : key === "placements"
+                                            ? "Colocaciones"
+                                            : key === "satisfaction"
+                                              ? "Satisfacción"
+                                              : key === "growth"
+                                                ? "Crecimiento"
+                                                : key === "promotions"
+                                                  ? "Promociones"
+                                                  : key === "companies"
+                                                    ? "Empresas"
+                                                    : key === "efficiency"
+                                                      ? "Eficiencia"
+                                                      : key === "automation"
+                                                        ? "Automatización"
+                                                        : key}
                               </div>
                             </div>
                           ))}

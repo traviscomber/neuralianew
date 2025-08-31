@@ -3,222 +3,302 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Brain, MessageSquare, ArrowRight, Play, GraduationCap, TrendingUp, Globe, Sparkles } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Sprout, TrendingUp, Settings, Zap, ArrowRight, MessageCircle, Bot, User } from "lucide-react"
 
-const heroExamples = [
+const demos = [
   {
-    title: "EcosueloLab",
-    subtitle: "Coaching de Carrera",
-    description: "IA que entiende tus metas profesionales y te guía hacia el éxito",
+    id: "ecosuelo",
+    name: "EcosueloLab",
+    tagline: "Análisis de Suelo",
+    description: "Analiza nitrógeno en el suelo conversando naturalmente con IA",
     color: "from-green-500 to-emerald-600",
-    icon: GraduationCap,
-    demo: "Descubre tu potencial profesional",
+    bgColor: "bg-green-50",
+    icon: Sprout,
+    message: "¡Hola! Soy EcosueloBot. ¿Qué análisis de suelo necesitas hoy? 🌱",
+    userMessage: "Analizar nitrógeno",
   },
   {
-    title: "Despega Tu Carrera",
-    subtitle: "Impulso Profesional",
-    description: "Mentoring personalizado que acelera tu crecimiento profesional",
+    id: "despega",
+    name: "Despega Tu Carrera",
+    tagline: "Coaching Profesional",
+    description: "Impulsa tu carrera conversando naturalmente con IA",
     color: "from-blue-500 to-cyan-600",
+    bgColor: "bg-blue-50",
     icon: TrendingUp,
-    demo: "Acelera tu crecimiento",
+    message: "¡Hola! Soy tu coach de carrera. ¿Cuál es tu meta profesional? 🚀",
+    userMessage: "Conseguir promoción",
   },
   {
-    title: "ParrotfyIA",
-    subtitle: "Dominio de Idiomas",
-    description: "Aprende idiomas conversando naturalmente con IA nativa",
+    id: "parrotfy",
+    name: "Parrotfy",
+    tagline: "Asistente ERP",
+    description: "Gestiona tu empresa conversando naturalmente con IA",
     color: "from-purple-500 to-violet-600",
-    icon: Globe,
-    demo: "Habla con fluidez natural",
+    bgColor: "bg-purple-50",
+    icon: Settings,
+    message: "¡Hola! Soy Parrotfy de parrotfyia.vercel.app. ¿Qué proceso optimizamos hoy? ⚙️",
+    userMessage: "Revisar inventario",
   },
 ]
 
 export function HeroSection() {
-  const [currentExample, setCurrentExample] = useState(0)
+  const [currentDemo, setCurrentDemo] = useState(0)
+  const [showUserMessage, setShowUserMessage] = useState(false)
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentExample((prev) => (prev + 1) % heroExamples.length)
+    const interval = setInterval(() => {
+      setShowUserMessage(false)
+      setTimeout(() => {
+        setCurrentDemo((prev) => (prev + 1) % demos.length)
+        setTimeout(() => {
+          setShowUserMessage(true)
+        }, 1000)
+      }, 500)
     }, 4000)
-    return () => clearInterval(timer)
+
+    // Show first user message after initial delay
+    const initialTimer = setTimeout(() => {
+      setShowUserMessage(true)
+    }, 2000)
+
+    return () => {
+      clearInterval(interval)
+      clearTimeout(initialTimer)
+    }
   }, [])
 
-  const currentHero = heroExamples[currentExample]
+  const demo = demos[currentDemo]
 
   return (
-    <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 opacity-50" />
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse" />
-      <div
-        className="absolute top-40 right-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"
-        style={{ animationDelay: "2s" }}
-      />
-      <div
-        className="absolute bottom-20 left-1/2 w-72 h-72 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-pulse"
-        style={{ animationDelay: "4s" }}
-      />
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-green-50" />
 
-      <div className="max-w-7xl mx-auto relative">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
+        <div className="absolute top-40 left-40 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+          {/* Left side - Content */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center lg:text-left"
           >
             <Badge className="mb-6 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200 text-sm px-4 py-2">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Revolución en IA Conversacional
+              <Zap className="w-4 h-4 mr-2" />
+              Vibe Coding Technology
             </Badge>
 
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+              IA que{" "}
               <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent">
-                Vibe Coding
+                Entiende
               </span>
               <br />
-              <span className="text-gray-900">IA que Conecta</span>
+              tu{" "}
+              <span className="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Vibe
+              </span>
             </h1>
 
-            <p className="text-xl lg:text-2xl text-gray-600 mb-8 leading-relaxed max-w-2xl">
-              Creamos <strong>portales neuronales</strong> que no solo procesan información, sino que entienden
-              emociones, personalidad y contexto para generar conexiones auténticas.
+            <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Creamos portales neuronales que no solo procesan información, sino que{" "}
+              <span className="font-semibold text-purple-700">conectan emocionalmente</span> con tus usuarios.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg"
+                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all"
               >
-                <Brain className="w-5 h-5 mr-2" />
+                <Zap className="w-5 h-5 mr-2" />
                 Crear Mi Portal Neuronal
-                <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 py-4 text-lg bg-transparent"
+                className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 py-4 text-lg bg-white/80 backdrop-blur-sm"
               >
-                <Play className="w-5 h-5 mr-2" />
+                <MessageCircle className="w-5 h-5 mr-2" />
                 Ver Demo en Vivo
               </Button>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-8 border-t border-purple-100">
-              <div className="text-center">
+            <div className="grid grid-cols-3 gap-8 text-center lg:text-left">
+              <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   50K+
                 </div>
-                <div className="text-sm text-gray-600 font-medium">Usuarios Activos</div>
+                <div className="text-gray-600 font-medium">Usuarios Activos</div>
               </div>
-              <div className="text-center">
+              <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                  94%
+                  98%
                 </div>
-                <div className="text-sm text-gray-600 font-medium">Satisfacción</div>
+                <div className="text-gray-600 font-medium">Satisfacción</div>
               </div>
-              <div className="text-center">
+              <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-purple-600 bg-clip-text text-transparent">
-                  3
+                  24/7
                 </div>
-                <div className="text-sm text-gray-600 font-medium">Portales Activos</div>
+                <div className="text-gray-600 font-medium">Disponibilidad</div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Content - Dynamic Hero Examples */}
+          {/* Right side - Interactive Demo */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentExample}
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: -20 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Card className="bg-white/80 backdrop-blur-sm shadow-2xl border-2 border-white/50 overflow-hidden">
-                  <CardContent className="p-0">
-                    {/* Header */}
-                    <div className={`bg-gradient-to-r ${currentHero.color} p-6 text-white`}>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                          <currentHero.icon className="w-6 h-6" />
+            <div className="relative max-w-md mx-auto">
+              {/* Demo indicators */}
+              <div className="flex justify-center mb-6 space-x-2">
+                {demos.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentDemo ? "bg-purple-600 w-8" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentDemo}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card className={`${demo.bgColor} border-2 border-opacity-20 shadow-2xl`}>
+                    <CardContent className="p-6">
+                      {/* Header */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-r ${demo.color} flex items-center justify-center shadow-lg`}
+                        >
+                          <demo.icon className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold">{currentHero.title}</h3>
-                          <p className="text-white/80">{currentHero.subtitle}</p>
+                          <h3 className="font-bold text-lg">{demo.name}</h3>
+                          <p className="text-sm text-gray-600">{demo.tagline}</p>
                         </div>
                       </div>
-                      <p className="text-white/90 leading-relaxed">{currentHero.description}</p>
-                    </div>
 
-                    {/* Demo Content */}
-                    <div className="p-6">
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3">
+                      <p className="text-gray-700 mb-6 leading-relaxed">{demo.description}</p>
+
+                      {/* Chat Interface */}
+                      <div className="bg-white rounded-lg shadow-inner p-4 space-y-3">
+                        {/* Bot message */}
+                        <div className="flex items-start gap-2">
                           <div
-                            className={`w-8 h-8 rounded-full bg-gradient-to-r ${currentHero.color} flex items-center justify-center`}
+                            className={`w-8 h-8 rounded-full bg-gradient-to-r ${demo.color} flex items-center justify-center flex-shrink-0`}
                           >
-                            <MessageSquare className="w-4 h-4 text-white" />
+                            <Bot className="w-4 h-4 text-white" />
                           </div>
-                          <div className="flex-1">
-                            <div className="bg-gray-100 rounded-2xl px-4 py-3">
-                              <p className="text-gray-800 font-medium">{currentHero.demo}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex justify-end">
-                          <div className="max-w-[80%]">
-                            <div className={`bg-gradient-to-r ${currentHero.color} text-white rounded-2xl px-4 py-3`}>
-                              <p className="font-medium">
-                                {currentExample === 0 &&
-                                  "¡Perfecto! He analizado tu perfil y veo un potencial increíble. ¿Te gustaría que creemos un plan personalizado para impulsar tu carrera? 🚀"}
-                                {currentExample === 1 &&
-                                  "¡Excelente decisión! Basándome en tus objetivos, he diseñado una estrategia de 90 días que maximizará tu crecimiento profesional. ¿Empezamos? 💪"}
-                                {currentExample === 2 &&
-                                  "Amazing! I can see you're ready to take your English to the next level. Let's start with a fun conversation about your goals! 🌟"}
-                              </p>
-                            </div>
+                          <div
+                            className={`bg-gradient-to-r ${demo.color} text-white px-4 py-2 rounded-2xl rounded-tl-sm max-w-[80%] shadow-sm`}
+                          >
+                            <p className="text-sm">{demo.message}</p>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-center pt-4">
-                          <div className="flex items-center gap-2 text-sm text-gray-500">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            Portal neuronal activo
-                          </div>
-                        </div>
+                        {/* User message */}
+                        <AnimatePresence>
+                          {showUserMessage && (
+                            <motion.div
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              exit={{ opacity: 0, x: 20 }}
+                              transition={{ duration: 0.3 }}
+                              className="flex items-start gap-2 justify-end"
+                            >
+                              <div className="bg-gray-100 text-gray-800 px-4 py-2 rounded-2xl rounded-tr-sm max-w-[80%] shadow-sm">
+                                <p className="text-sm">{demo.userMessage}</p>
+                              </div>
+                              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0">
+                                <User className="w-4 h-4 text-gray-600" />
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+
+                        {/* Typing indicator */}
+                        {showUserMessage && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="flex items-center gap-2"
+                          >
+                            <div
+                              className={`w-8 h-8 rounded-full bg-gradient-to-r ${demo.color} flex items-center justify-center`}
+                            >
+                              <Bot className="w-4 h-4 text-white" />
+                            </div>
+                            <div className="bg-gray-100 px-4 py-2 rounded-2xl">
+                              <div className="flex space-x-1">
+                                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                                <div
+                                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                  style={{ animationDelay: "0.1s" }}
+                                />
+                                <div
+                                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                  style={{ animationDelay: "0.2s" }}
+                                />
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </AnimatePresence>
 
-            {/* Indicators */}
-            <div className="flex justify-center gap-2 mt-6">
-              {heroExamples.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentExample(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === currentExample ? `bg-gradient-to-r ${heroExamples[index].color}` : "bg-gray-300"
-                  }`}
-                />
-              ))}
+                      {/* Status */}
+                      <div className="flex items-center justify-between mt-4 text-sm text-gray-600">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                          <span>Portal neuronal activo</span>
+                        </div>
+                        <span>Respuesta en tiempo real</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Floating elements */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-200 rounded-full animate-pulse" />
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-200 rounded-full animate-pulse animation-delay-1000" />
+              <div className="absolute top-1/2 -left-8 w-4 h-4 bg-green-200 rounded-full animate-pulse animation-delay-2000" />
             </div>
           </motion.div>
         </div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center gap-2 text-gray-400">
+          <span className="text-sm font-medium">Descubre más</span>
+          <ArrowRight className="w-4 h-4 rotate-90 animate-bounce" />
+        </div>
+      </motion.div>
     </section>
   )
 }
