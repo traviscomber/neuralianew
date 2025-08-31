@@ -1,111 +1,119 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ChevronDown, Brain, Shield, CreditCard, Zap, Users, Clock } from "lucide-react"
+import { motion } from "framer-motion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 const faqs = [
   {
-    icon: Brain,
-    question: "What exactly are 'Neural AI Executives'?",
+    question: "What is vibe coding and how does it make AI better?",
     answer:
-      "Neural AI Executives are specialized AI agents designed to provide executive-level business guidance. Each agent focuses on a specific business function (CEO for strategy, CMO for marketing, CTO for technology) and can provide insights, recommendations, and coordinate with other executives through the Neural Director.",
+      "Vibe coding is our unique development methodology that prioritizes intuitive user experience and natural interaction patterns. Instead of building complex interfaces, we create AI that feels natural and responds the way humans expect. This approach results in higher adoption rates and better user satisfaction.",
   },
   {
-    icon: Clock,
-    question: "How does the 5-day free trial work?",
+    question: "How quickly can I deploy an AI agent for my business?",
     answer:
-      "Your 5-day free trial gives you complete access to all AI executives with no limitations. Simply deploy any agent and start using it immediately. You'll get full access to all features and capabilities. After 5 days, you can upgrade with USDT payment to continue access.",
+      "With our vibe coding approach, most AI agents can be deployed within 2-4 weeks. We focus on rapid prototyping and iterative development, allowing you to see results quickly and make adjustments based on real user feedback.",
   },
   {
-    icon: CreditCard,
-    question: "Why do you only accept USDT payments?",
+    question: "What makes Neuralia different from other AI companies?",
     answer:
-      "We use USDT (Tether) for several reasons: instant global transactions, lower fees than traditional payment processors, enhanced privacy and security, and seamless integration with our decentralized infrastructure. USDT allows us to serve clients worldwide without geographic payment restrictions.",
+      "We combine cutting-edge AI technology with our signature vibe coding methodology. This means you get powerful AI that's actually usable. Our track record includes successful deployments like EcosueloLab (10,000+ farmers), ParrotfyIA (25,000+ language learners), and numerous enterprise solutions.",
   },
   {
-    icon: Zap,
-    question: "How is this different from ChatGPT or other AI tools?",
+    question: "Can your AI agents integrate with existing business systems?",
     answer:
-      "While ChatGPT is a general-purpose conversational AI, our Neural AI Executives are specialized for business functions. They're designed specifically for executive decision-making, can coordinate with each other through the Neural Director, and focus on strategic business guidance rather than general conversation.",
+      "Our vibe coding approach emphasizes seamless integration. We can connect with your existing CRM, databases, communication platforms (like WhatsApp, Slack, Teams), and custom APIs. The goal is to enhance your current workflow, not replace it.",
   },
   {
-    icon: Users,
-    question: "Can these agents integrate with my existing business tools?",
+    question: "What kind of support do you provide after deployment?",
     answer:
-      "Our Neural AI Executives are designed to work with common business workflows and can provide guidance on integrating with various business tools. The specific integrations available depend on your subscription plan and business needs.",
+      "We provide comprehensive support including 24/7 monitoring, regular performance optimization, user training, and continuous improvement based on usage analytics. Our vibe coding philosophy extends to support - we make sure your AI keeps working smoothly.",
   },
   {
-    icon: Shield,
-    question: "How secure is my business data?",
+    question: "How do you ensure data privacy and security?",
     answer:
-      "Security is our top priority. We use enterprise-grade encryption, secure processing environments, and follow industry best practices for data protection. Your conversations and business data are processed securely and are not stored permanently or used to train other models.",
+      "Security is built into our vibe coding process from day one. We use enterprise-grade encryption, comply with GDPR and other privacy regulations, and can deploy on-premises or in your preferred cloud environment. Your data stays private and secure.",
+  },
+  {
+    question: "What industries do you work with?",
+    answer:
+      "Our vibe coding approach works across industries. We've successfully deployed AI solutions in agriculture (EcosueloLab), education (ParrotfyIA), career development, customer service, healthcare, finance, and manufacturing. The methodology adapts to any domain.",
+  },
+  {
+    question: "How do you measure the success of an AI implementation?",
+    answer:
+      "We focus on real business metrics: user adoption rates, task completion times, customer satisfaction scores, cost savings, and ROI. Our vibe coding approach typically achieves 90%+ user adoption rates and measurable productivity improvements within the first month.",
   },
 ]
 
 export function FAQSection() {
-  const [openItems, setOpenItems] = useState<string[]>([])
-
-  const toggleItem = (value: string) => {
-    setOpenItems((prev) => (prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]))
-  }
-
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about Neural AI Executives and how they can support your business operations.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Everything you need to know about our vibe coding approach and AI solutions.
+            </p>
+          </motion.div>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((faq, index) => {
-            const Icon = faq.icon
-            const isOpen = openItems.includes(index.toString())
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="bg-white rounded-lg border border-gray-200 px-6"
+              >
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <span className="font-semibold text-gray-900">{faq.question}</span>
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 pb-6 leading-relaxed">{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
 
-            return (
-              <Card key={index} className="border-2 hover:border-blue-200 transition-colors">
-                <Collapsible>
-                  <CollapsibleTrigger className="w-full" onClick={() => toggleItem(index.toString())}>
-                    <CardHeader className="flex flex-row items-center space-y-0 pb-4">
-                      <div className="flex items-center space-x-4 flex-1 text-left">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon className="h-5 w-5 text-white" />
-                        </div>
-                        <CardTitle className="text-lg font-semibold text-gray-900">{faq.question}</CardTitle>
-                      </div>
-                      <ChevronDown
-                        className={`h-5 w-5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                      />
-                    </CardHeader>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <CardContent className="pt-0">
-                      <p className="text-gray-600 leading-relaxed pl-14">{faq.answer}</p>
-                    </CardContent>
-                  </CollapsibleContent>
-                </Collapsible>
-              </Card>
-            )
-          })}
-        </div>
-
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">Still have questions?</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:hello@neuralia.ai" className="text-blue-600 hover:text-blue-700 font-medium">
-              Email: hello@neuralia.ai
-            </a>
-            <a href="https://t.me/neuralia_support" className="text-blue-600 hover:text-blue-700 font-medium">
-              Telegram: @neuralia_support
-            </a>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <div className="bg-white rounded-2xl p-8 border border-gray-200">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Still have questions?</h3>
+            <p className="text-gray-600 mb-6">
+              Our team is here to help you understand how vibe coding can transform your business with AI.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="mailto:hello@neuralia.com"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors"
+              >
+                Contact Our Team
+              </a>
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Schedule a Demo
+              </a>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
