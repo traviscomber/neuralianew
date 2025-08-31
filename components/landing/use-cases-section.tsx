@@ -36,10 +36,10 @@ const successCases = {
     textColor: "text-green-700",
     icon: Sprout,
     metrics: {
-      status: "En desarrollo",
+      status: "Entregado",
       focus: "Agricultura",
       integration: "API + WhatsApp",
-      availability: "Demo disponible",
+      availability: "Funcionando",
     },
     features: [
       "Se conecta a tus sistemas de análisis de suelo",
@@ -98,10 +98,10 @@ const successCases = {
     textColor: "text-blue-700",
     icon: TrendingUp,
     metrics: {
-      status: "En desarrollo",
+      status: "Entregado",
       focus: "Desarrollo profesional",
       type: "Coach personal",
-      availability: "Demo disponible",
+      availability: "Funcionando",
     },
     features: [
       "Plan de carrera hecho para ti",
@@ -162,7 +162,7 @@ const successCases = {
     textColor: "text-purple-700",
     icon: Settings,
     metrics: {
-      status: "En desarrollo",
+      status: "Entregado",
       focus: "Análisis de negocio",
       type: "Asistente inteligente",
       integration: "Datos en tiempo real",
@@ -256,7 +256,7 @@ export function UseCasesSection() {
             className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
           >
             <Award className="w-4 h-4 mr-2" />
-            Proyectos en Desarrollo
+            Proyectos Entregados
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Nuestros{" "}
@@ -265,7 +265,8 @@ export function UseCasesSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            Mira lo que estamos construyendo. Cada proyecto está diseñado para entender y conectar de verdad contigo.
+            Mira lo que hemos entregado. Cada proyecto está funcionando y diseñado para entender y conectar de verdad
+            contigo.
           </p>
         </motion.div>
 
@@ -391,7 +392,7 @@ export function UseCasesSection() {
                         className={`w-full bg-gradient-to-r ${caseData.color} hover:opacity-90 text-white font-semibold py-3`}
                       >
                         <ArrowRight className="w-4 h-4 mr-2" />
-                        Probar Demo de {caseData.name}
+                        Ver {caseData.name} en Acción
                       </Button>
                     </CardContent>
                   </Card>
@@ -411,10 +412,10 @@ export function UseCasesSection() {
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600">
                               {key === "ecosuelo"
-                                ? "Analizando suelo"
+                                ? "Funcionando"
                                 : key === "parrotfy"
-                                  ? "Revisando facturas"
-                                  : "Demo interactivo"}
+                                  ? "Analizando datos"
+                                  : "Entregado"}
                             </span>
                           </div>
                         </div>
@@ -507,10 +508,10 @@ export function UseCasesSection() {
                         </div>
                         <p className="text-xs text-gray-500 mt-2 text-center">
                           {key === "ecosuelo"
-                            ? "Demo con datos de suelo + WhatsApp"
+                            ? "Proyecto entregado - API de suelo + WhatsApp"
                             : key === "parrotfy"
-                              ? "Demo con análisis de facturas en tiempo real"
-                              : "Demo automático - Los mensajes aparecen solos"}
+                              ? "Proyecto entregado - Análisis ERP en tiempo real"
+                              : "Proyecto entregado - Coach profesional funcionando"}
                         </p>
                       </div>
                     </CardContent>
@@ -534,12 +535,12 @@ export function UseCasesSection() {
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Zap className="w-6 h-6 text-purple-600" />
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  ¿Te Interesa?
+                  Proyectos Reales, Resultados Reales
                 </h3>
               </div>
               <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-                Estamos creando IA que entiende, conecta y ayuda de verdad. Si tienes una idea, nos encantaría
-                conocerla.
+                Estos no son demos ni prototipos. Son proyectos entregados y funcionando. Si tienes una idea, nos
+                encantaría hacerla realidad contigo.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -547,7 +548,7 @@ export function UseCasesSection() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8"
                 >
                   <Zap className="w-4 h-4 mr-2" />
-                  Hablemos
+                  Hablemos de Tu Proyecto
                 </Button>
                 <Button
                   variant="outline"
@@ -555,7 +556,7 @@ export function UseCasesSection() {
                   className="border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 bg-transparent"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Ver Demos
+                  Ver Más Casos
                 </Button>
               </div>
             </CardContent>

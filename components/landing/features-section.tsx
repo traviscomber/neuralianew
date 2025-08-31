@@ -1,174 +1,180 @@
 "use client"
-
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Heart, Brain, Zap, MessageCircle, Database, Bot, Code, Globe, Shield } from "lucide-react"
+import { Brain, MessageSquare, Zap, Shield, Globe, Smartphone } from "lucide-react"
 
 const features = [
   {
-    icon: Heart,
+    icon: Brain,
     title: "Conexión Emocional Real",
     description:
-      "Desarrollamos IA que reconoce patrones emocionales y responde con empatía auténtica. Como en Despega Tu Carrera, donde la IA detecta frustración profesional y ofrece apoyo personalizado.",
-    color: "from-red-500 to-pink-500",
-    bgColor: "bg-red-50",
-    tech: "Análisis de sentimientos + GPT-4",
+      "Nuestras IAs detectan frustración, celebran logros contigo y ofrecen apoyo personalizado. Como un asistente que realmente te entiende.",
+    color: "from-purple-500 to-pink-500",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-700",
+    details: [
+      "Análisis de sentimientos en tiempo real",
+      "Respuestas empáticas contextualizadas",
+      "Memoria emocional de conversaciones",
+      "Adaptación al estado de ánimo del usuario",
+    ],
   },
   {
-    icon: Database,
+    icon: MessageSquare,
     title: "Integración API Completa",
     description:
-      "Conectamos tu IA con cualquier sistema existente. En EcosueloLab procesamos datos de suelo via API y enviamos resultados por WhatsApp con Twilio. En Parrotfy consultamos endpoints ERP en tiempo real.",
+      "EcosueloLab se conecta a APIs de análisis de suelo, Parrotfy consulta endpoints ERP, todo con WhatsApp vía Twilio.",
     color: "from-blue-500 to-cyan-500",
     bgColor: "bg-blue-50",
-    tech: "REST APIs + WebHooks + Twilio",
-  },
-  {
-    icon: Bot,
-    title: "Agentes Especializados",
-    description:
-      "Cada IA tiene personalidad y expertise únicos. Desde análisis técnico de suelos hasta coaching profesional y consultas empresariales. Cada agente domina su área como un experto humano.",
-    color: "from-purple-500 to-indigo-500",
-    bgColor: "bg-purple-50",
-    tech: "Prompt Engineering + RAG",
-  },
-  {
-    icon: MessageCircle,
-    title: "Conversación Multi-Canal",
-    description:
-      "WhatsApp, web chat, integración ERP. Tu IA funciona donde tus usuarios ya están. Desarrollamos interfaces nativas para cada plataforma manteniendo la misma personalidad.",
-    color: "from-green-500 to-emerald-500",
-    bgColor: "bg-green-50",
-    tech: "WhatsApp API + Web Components",
-  },
-  {
-    icon: Code,
-    title: "Arquitectura Escalable",
-    description:
-      "Next.js 15, Supabase, TypeScript. Stack moderno que crece contigo. Desde prototipos hasta sistemas empresariales con miles de usuarios simultáneos.",
-    color: "from-orange-500 to-red-500",
-    bgColor: "bg-orange-50",
-    tech: "Next.js + Supabase + TypeScript",
-  },
-  {
-    icon: Brain,
-    title: "Memoria Contextual",
-    description:
-      "Tu IA recuerda conversaciones pasadas y aprende de cada interacción. Como un asistente personal que conoce tu historial y preferencias, mejorando cada día.",
-    color: "from-violet-500 to-purple-500",
-    bgColor: "bg-violet-50",
-    tech: "Vector DB + Embeddings",
+    textColor: "text-blue-700",
+    details: [
+      "APIs REST y GraphQL nativas",
+      "WhatsApp Business API + Twilio",
+      "Webhooks para datos en tiempo real",
+      "Integración ERP y sistemas legacy",
+    ],
   },
   {
     icon: Zap,
-    title: "Respuestas Instantáneas",
+    title: "Agentes Especializados",
     description:
-      "Streaming en tiempo real para respuestas fluidas. Los usuarios ven la IA 'pensando' y respondiendo naturalmente, como en una conversación real.",
-    color: "from-yellow-500 to-orange-500",
-    bgColor: "bg-yellow-50",
-    tech: "AI SDK + Streaming",
-  },
-  {
-    icon: Shield,
-    title: "Datos Seguros",
-    description:
-      "Encriptación end-to-end, cumplimiento GDPR, hosting en Chile. Tus datos y los de tus usuarios están protegidos con estándares bancarios.",
-    color: "from-gray-600 to-gray-800",
-    bgColor: "bg-gray-50",
-    tech: "Encryption + GDPR + Local Hosting",
+      "Cada IA tiene expertise único: suelos y agricultura, coaching profesional, análisis de negocio. No son chatbots genéricos.",
+    color: "from-green-500 to-emerald-500",
+    bgColor: "bg-green-50",
+    textColor: "text-green-700",
+    details: [
+      "Modelos fine-tuned por industria",
+      "Base de conocimiento especializada",
+      "Terminología técnica precisa",
+      "Casos de uso específicos optimizados",
+    ],
   },
   {
     icon: Globe,
     title: "Multiidioma Nativo",
     description:
-      "Español chileno, inglés técnico, jerga empresarial. Cada IA habla el idioma de tu industria y se adapta al contexto cultural de tus usuarios.",
-    color: "from-teal-500 to-cyan-500",
-    bgColor: "bg-teal-50",
-    tech: "i18n + Cultural Context",
+      "Español chileno natural, jerga empresarial, contexto cultural. Hablan como tus colegas, no como robots traducidos.",
+    color: "from-orange-500 to-red-500",
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-700",
+    details: [
+      "Español chileno con modismos",
+      "Contexto cultural latinoamericano",
+      "Jerga técnica por industria",
+      "Adaptación regional automática",
+    ],
   },
+  {
+    icon: Smartphone,
+    title: "Conversación Multi-Canal",
+    description:
+      "WhatsApp, web, integración directa en ERP. La misma IA, donde la necesites, con memoria completa de contexto.",
+    color: "from-indigo-500 to-purple-500",
+    bgColor: "bg-indigo-50",
+    textColor: "text-indigo-700",
+    details: [
+      "WhatsApp Business integrado",
+      "Widget web responsive",
+      "APIs para integración ERP",
+      "Sincronización cross-platform",
+    ],
+  },
+  {
+    icon: Shield,
+    title: "Memoria Contextual",
+    description:
+      "Como un asistente personal que te conoce. Recuerda tus preferencias, historial y objetivos a largo plazo.",
+    color: "from-teal-500 to-green-500",
+    bgColor: "bg-teal-50",
+    textColor: "text-teal-700",
+    details: [
+      "Historial conversacional persistente",
+      "Perfiles de usuario dinámicos",
+      "Preferencias y patrones de uso",
+      "Contexto empresarial y personal",
+    ],
+  },
+]
+
+// Tech Stack Icons
+const techStack = [
+  { name: "Next.js", icon: "⚡" },
+  { name: "TypeScript", icon: "📘" },
+  { name: "Supabase", icon: "🗄️" },
+  { name: "OpenAI GPT-4", icon: "🧠" },
+  { name: "Twilio", icon: "📱" },
+  { name: "WhatsApp", icon: "💬" },
+  { name: "Vercel", icon: "▲" },
+  { name: "PostgreSQL", icon: "🐘" },
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
-          >
-            <Code className="w-4 h-4 mr-2" />
-            Stack Tecnológico Completo
-          </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            ¿Por qué es{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              diferente
-            </span>
-            ?
-          </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            No desarrollamos chatbots genéricos. Creamos sistemas de IA especializados que se integran profundamente con
-            tu negocio, hablan tu idioma y entienden tu industria.
-            <span className="font-semibold text-gray-800">
-              {" "}
-              Cada línea de código está pensada para conectar de verdad con humanos.
-            </span>
+    <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">¿Por qué Neuralia es diferente?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            No somos otro chatbot. Somos asistentes especializados que entienden tu industria, hablan tu idioma y se
+            conectan a tus sistemas reales.
           </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card
-                className={`${feature.bgColor} border-2 border-opacity-20 hover:shadow-xl transition-all duration-300 h-full group hover:-translate-y-1`}
-              >
-                <CardContent className="p-6">
-                  <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{feature.title}</h3>
-                  <p className="text-gray-700 leading-relaxed mb-4">{feature.description}</p>
-                  <Badge variant="outline" className="text-xs font-mono bg-white/50">
-                    {feature.tech}
-                  </Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Experiencia Comprobada</h3>
-            <p className="text-lg opacity-90 max-w-3xl mx-auto">
-              Hemos desarrollado sistemas de IA para agricultura (EcosueloLab), recursos humanos (Despega Tu Carrera), y
-              gestión empresarial (Parrotfy). Cada proyecto nos ha enseñado cómo crear tecnología que realmente sirve a
-              las personas.
-            </p>
+        {/* Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {features.map((feature, index) => {
+            const IconComponent = feature.icon
+            return (
+              <div
+                key={index}
+                className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200"
+              >
+                {/* Icon */}
+                <div
+                  className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
+                >
+                  <IconComponent className="w-8 h-8 text-white" />
+                </div>
+
+                {/* Content */}
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">{feature.description}</p>
+
+                {/* Details */}
+                <ul className="space-y-2">
+                  {feature.details.map((detail, detailIndex) => (
+                    <li key={detailIndex} className="flex items-start">
+                      <div
+                        className={`w-2 h-2 rounded-full bg-gradient-to-r ${feature.color} mt-2 mr-3 flex-shrink-0`}
+                      />
+                      <span className="text-sm text-gray-600">{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Hover Effect */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-r ${feature.color} opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-300`}
+                />
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Tech Stack */}
+        <div className="text-center">
+          <h3 className="text-2xl font-bold text-gray-900 mb-8">Tecnología de Vanguardia</h3>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {techStack.map((tech, index) => (
+              <div
+                key={index}
+                className="flex items-center space-x-2 bg-white px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-shadow duration-200"
+              >
+                <span className="text-lg">{tech.icon}</span>
+                <span className="text-sm font-medium text-gray-700">{tech.name}</span>
+              </div>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
