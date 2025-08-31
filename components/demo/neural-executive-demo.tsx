@@ -130,6 +130,7 @@ const COUNTRIES = [
   { code: "RU", name: "Russia", region: "Europe/Asia" },
 ]
 
+// Enhanced EXECUTIVE_CONFIGS with Chilean-specific questions and insights
 const EXECUTIVE_CONFIGS = {
   ceo: {
     name: "CEO Neural Orchestrator",
@@ -137,20 +138,15 @@ const EXECUTIVE_CONFIGS = {
     color: "from-purple-600 to-indigo-600",
     bgColor: "bg-purple-50",
     textColor: "text-purple-700",
-    description: "Liderazgo estratégico y toma de decisiones ejecutivas",
-    expertise: [
-      "Planificación Estratégica",
-      "Análisis de Mercado",
-      "Gestión de Crisis",
-      "Árboles de Decisión Ejecutiva",
-    ],
+    description: "Strategic leadership & executive decision-making",
+    expertise: ["Strategic Planning", "Market Analysis", "Crisis Management", "Executive Decision Trees"],
     sampleQuestions: [
-      "¿Cómo deberíamos abordar el ingreso al mercado asiático?",
-      "¿Cuál es nuestra estrategia de posicionamiento competitivo?",
-      "¿Cómo manejamos esta crisis de cadena de suministro?",
-      "¿Deberíamos adquirir a nuestro principal competidor?",
-      "¿Cuál es nuestra visión estratégica a 5 años?",
-      "¿Cómo pivoteamos durante la incertidumbre económica?",
+      "How should we approach entering the Asian market?",
+      "What's our competitive positioning strategy?",
+      "How do we handle this supply chain crisis?",
+      "Should we acquire our main competitor?",
+      "What's our 5-year strategic vision?",
+      "How do we pivot during economic uncertainty?",
     ],
     regionalQuestions: {
       "South America": [
@@ -179,42 +175,42 @@ const EXECUTIVE_CONFIGS = {
     },
     contextualQuestions: {
       strategy: [
-        "¿Cuál es nuestra estrategia de expansión de mercado?",
-        "¿Cómo nos diferenciamos de los competidores?",
-        "¿Qué alianzas estratégicas deberíamos buscar?",
+        "What's our market expansion strategy?",
+        "How do we differentiate from competitors?",
+        "What strategic partnerships should we pursue?",
       ],
       crisis: [
-        "¿Cómo manejamos esta crisis de relaciones públicas?",
-        "¿Cuál es nuestro plan de continuidad del negocio?",
-        "¿Cómo comunicamos con las partes interesadas?",
+        "How do we manage this PR crisis?",
+        "What's our business continuity plan?",
+        "How do we communicate with stakeholders?",
       ],
       growth: [
-        "¿Qué mercados deberíamos ingresar a continuación?",
-        "¿Cómo escalamos nuestras operaciones?",
-        "¿Cuál es nuestra estrategia de adquisición?",
+        "What markets should we enter next?",
+        "How do we scale our operations?",
+        "What's our acquisition strategy?",
       ],
       leadership: [
-        "¿Cómo construimos una cultura de alto rendimiento?",
-        "¿Cuál es nuestra estrategia de planificación de sucesión?",
-        "¿Cómo impulsamos el cambio organizacional?",
+        "How do we build a high-performance culture?",
+        "What's our succession planning strategy?",
+        "How do we drive organizational change?",
       ],
     },
   },
   cmo: {
     name: "CMO Growth Engine",
     icon: TrendingUp,
-    color: "from-orange-500 to-red-500",
-    bgColor: "bg-orange-50",
-    textColor: "text-orange-700",
-    description: "Estrategia de marketing y optimización de crecimiento",
-    expertise: ["Segmentación de Clientes", "Optimización de Campañas", "Growth Hacking", "Análisis de ROI"],
+    color: "from-green-600 to-emerald-600",
+    bgColor: "bg-green-50",
+    textColor: "text-green-700",
+    description: "Marketing strategy & growth optimization",
+    expertise: ["Customer Segmentation", "Campaign Optimization", "Growth Hacking", "ROI Analysis"],
     sampleQuestions: [
-      "¿Cómo reducimos el costo de adquisición de clientes en un 40%?",
-      "¿Cuál es la mejor mezcla de canales para nuestra audiencia objetivo?",
-      "¿Cómo podemos mejorar nuestro embudo de conversión?",
-      "¿Qué estrategia de marketing viral deberíamos implementar?",
-      "¿Cómo aumentamos el valor de vida del cliente?",
-      "¿Cuál es nuestra estrategia de posicionamiento de marca?",
+      "How do we reduce customer acquisition cost by 40%?",
+      "What's the best channel mix for our target audience?",
+      "How can we improve our conversion funnel?",
+      "What viral marketing strategy should we implement?",
+      "How do we increase customer lifetime value?",
+      "What's our brand positioning strategy?",
     ],
     regionalQuestions: {
       "South America": [
@@ -243,47 +239,42 @@ const EXECUTIVE_CONFIGS = {
     },
     contextualQuestions: {
       acquisition: [
-        "¿Cómo optimizamos nuestra publicidad pagada?",
-        "¿Cuál es nuestra estrategia de marketing de contenidos?",
-        "¿Cómo mejoramos la generación de leads?",
+        "How do we optimize our paid advertising?",
+        "What's our content marketing strategy?",
+        "How do we improve lead generation?",
       ],
       retention: [
-        "¿Cómo reducimos la rotación de clientes?",
-        "¿Cuál es nuestro programa de fidelidad de clientes?",
-        "¿Cómo aumentamos las compras repetidas?",
+        "How do we reduce customer churn?",
+        "What's our customer loyalty program?",
+        "How do we increase repeat purchases?",
       ],
       branding: [
-        "¿Cómo construimos el conocimiento de marca?",
-        "¿Cuál es nuestra estrategia de redes sociales?",
-        "¿Cómo gestionamos nuestra reputación de marca?",
+        "How do we build brand awareness?",
+        "What's our social media strategy?",
+        "How do we manage our brand reputation?",
       ],
       analytics: [
-        "¿Cómo medimos el ROI de marketing?",
-        "¿Qué KPIs deberíamos rastrear?",
-        "¿Cómo optimizamos nuestro modelo de atribución?",
+        "How do we measure marketing ROI?",
+        "What KPIs should we track?",
+        "How do we optimize our attribution model?",
       ],
     },
   },
   cto: {
     name: "CTO Innovation Architect",
     icon: Zap,
-    color: "from-blue-600 to-cyan-500",
+    color: "from-blue-600 to-cyan-600",
     bgColor: "bg-blue-50",
     textColor: "text-blue-700",
-    description: "Estrategia tecnológica y liderazgo en innovación",
-    expertise: [
-      "Hojas de Ruta Tecnológicas",
-      "Diseño de Arquitectura",
-      "Estrategia de Innovación",
-      "Seguridad y Cumplimiento",
-    ],
+    description: "Technology strategy & innovation leadership",
+    expertise: ["Technology Roadmaps", "Architecture Design", "Innovation Strategy", "Security & Compliance"],
     sampleQuestions: [
-      "¿Cómo deberíamos arquitecturar nuestra plataforma de microservicios?",
-      "¿Cuál es nuestra estrategia de implementación de IA/ML?",
-      "¿Cómo aseguramos 99.99% de tiempo de actividad a escala?",
-      "¿Cuál es el mejor enfoque para la migración a la nube?",
-      "¿Cómo implementamos seguridad de confianza cero?",
-      "¿Cuál es nuestro plan de reducción de deuda técnica?",
+      "How should we architect our microservices platform?",
+      "What's our AI/ML implementation strategy?",
+      "How do we ensure 99.99% uptime at scale?",
+      "What's the best approach for cloud migration?",
+      "How do we implement zero-trust security?",
+      "What's our technical debt reduction plan?",
     ],
     regionalQuestions: {
       "South America": [
@@ -312,29 +303,30 @@ const EXECUTIVE_CONFIGS = {
     },
     contextualQuestions: {
       architecture: [
-        "¿Cómo diseñamos para escalabilidad?",
-        "¿Cuál es nuestra estrategia de API?",
-        "¿Cómo implementamos arquitectura dirigida por eventos?",
+        "How do we design for scalability?",
+        "What's our API strategy?",
+        "How do we implement event-driven architecture?",
       ],
       security: [
-        "¿Cómo implementamos seguridad de confianza cero?",
-        "¿Cuál es nuestra estrategia de protección de datos?",
-        "¿Cómo manejamos los requisitos de cumplimiento?",
+        "How do we implement zero-trust security?",
+        "What's our data protection strategy?",
+        "How do we handle compliance requirements?",
       ],
       innovation: [
-        "¿Cómo evaluamos nuevas tecnologías?",
-        "¿Cuál es nuestra estrategia de inversión en I+D?",
-        "¿Cómo fomentamos la cultura de innovación?",
+        "How do we evaluate new technologies?",
+        "What's our R&D investment strategy?",
+        "How do we foster innovation culture?",
       ],
       operations: [
-        "¿Cómo implementamos las mejores prácticas de DevOps?",
-        "¿Cuál es nuestra estrategia de monitoreo y alertas?",
-        "¿Cómo optimizamos el rendimiento del sistema?",
+        "How do we implement DevOps best practices?",
+        "What's our monitoring and alerting strategy?",
+        "How do we optimize system performance?",
       ],
     },
   },
 }
 
+// Update the getContextualQuestions function to prioritize Chilean questions
 const getContextualQuestions = (
   lastMessage: string,
   executive: "ceo" | "cmo" | "cto",
@@ -343,6 +335,7 @@ const getContextualQuestions = (
   const config = EXECUTIVE_CONFIGS[executive]
   const lowerMessage = lastMessage.toLowerCase()
 
+  // First try to get Chilean/South American regional questions if user is from Chile
   if (userProfile?.locationData?.countryCode === "CL" && config.regionalQuestions?.["South America"]) {
     const chileanQuestions = config.regionalQuestions["South America"]
     if (chileanQuestions.length > 0) {
@@ -350,6 +343,7 @@ const getContextualQuestions = (
     }
   }
 
+  // Then try other regional questions if user has location data
   if (userProfile?.locationData?.region && config.regionalQuestions?.[userProfile.locationData.region]) {
     const regionalQuestions = config.regionalQuestions[userProfile.locationData.region]
     if (regionalQuestions.length > 0) {
@@ -357,6 +351,7 @@ const getContextualQuestions = (
     }
   }
 
+  // Then fall back to contextual questions based on message content
   if (executive === "ceo") {
     if (lowerMessage.includes("strategy") || lowerMessage.includes("market") || lowerMessage.includes("competitive")) {
       return config.contextualQuestions.strategy
@@ -406,6 +401,7 @@ const getContextualQuestions = (
     }
   }
 
+  // Default to sample questions if no context matches
   return config.sampleQuestions.slice(0, 3)
 }
 
@@ -420,7 +416,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
   const [showQuestionSuggestions, setShowQuestionSuggestions] = useState(true)
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
-  const [profileForm, setProfileForm] = useState({ name: "", website: "", country: "CL" })
+  const [profileForm, setProfileForm] = useState({ name: "", website: "", country: "CL" }) // Default to Chile
   const [isAnalyzingWebsite, setIsAnalyzingWebsite] = useState(false)
   const [isDetectingLocation, setIsDetectingLocation] = useState(false)
   const [detectedLocation, setDetectedLocation] = useState<any>(null)
@@ -436,6 +432,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
   }, [messages])
 
   useEffect(() => {
+    // Show profile modal when switching to chat mode for the first time
     if (demoMode === "chat" && !userProfile) {
       setShowProfileModal(true)
       detectUserLocation()
@@ -446,17 +443,20 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     try {
       setIsDetectingLocation(true)
 
+      // Try to get location from IP
       const response = await fetch("/api/detect-location")
       if (response.ok) {
         const locationData = await response.json()
         setDetectedLocation(locationData)
 
+        // Auto-fill country if detected, otherwise default to Chile
         if (locationData.countryCode) {
           setProfileForm((prev) => ({ ...prev, country: locationData.countryCode }))
         }
       }
     } catch (error) {
       console.error("Location detection error:", error)
+      // Keep Chile as default
     } finally {
       setIsDetectingLocation(false)
     }
@@ -466,6 +466,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     try {
       const domain = new URL(url).hostname.toLowerCase()
 
+      // Common country-specific TLDs with focus on Latin America
       const countryTlds: { [key: string]: string } = {
         ".cl": "CL",
         ".com.cl": "CL",
@@ -520,6 +521,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     try {
       setIsAnalyzingWebsite(true)
 
+      // Detect country from domain
       const detectedCountry = getCountryFromDomain(url)
 
       const response = await fetch(`/api/analyze-website`, {
@@ -537,6 +539,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           detectedCountry,
         }
       } else {
+        // Fallback analysis based on domain
         const domain = new URL(url).hostname
         return {
           title: `${domain} Website`,
@@ -577,6 +580,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
         const url = profileForm.website.startsWith("http") ? profileForm.website : `https://${profileForm.website}`
         websiteAnalysis = await analyzeWebsite(url)
 
+        // Use website-detected country if user hasn't selected one
         if (!finalCountry && websiteAnalysis.detectedCountry) {
           finalCountry = websiteAnalysis.detectedCountry
         }
@@ -585,10 +589,12 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       }
     }
 
+    // Use IP-detected country if still no country
     if (!finalCountry && detectedLocation?.countryCode) {
       finalCountry = detectedLocation.countryCode
     }
 
+    // Default to Chile if still no country
     if (!finalCountry) {
       finalCountry = "CL"
     }
@@ -615,6 +621,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
     setShowProfileModal(false)
     setShowCountrySelect(false)
 
+    // Initialize chat with personalized welcome message in Spanish for Chilean users
     const config = EXECUTIVE_CONFIGS[activeExecutive]
     const isChilean = finalCountry === "CL"
 
@@ -689,20 +696,21 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       const data = await response.json()
       const executiveResponse = data.response
 
+      // Generate insights and recommendations based on the response and user profile
       const insights = []
       const recommendations = []
       const isChilean = userProfile?.locationData?.countryCode === "CL"
 
       if (executive === "ceo") {
-        insights.push("Análisis de Impacto Estratégico", "Evaluación de Riesgos", "Posicionamiento de Mercado")
+        insights.push("Strategic Impact Analysis", "Risk Assessment", "Market Positioning")
         if (userProfile?.websiteAnalysis?.industry) {
-          insights.push(`Experiencia en Industria ${userProfile.websiteAnalysis.industry}`)
+          insights.push(`${userProfile.websiteAnalysis.industry} Industry Expertise`)
         }
         if (userProfile?.locationData?.country) {
-          insights.push(`Conocimiento del Mercado ${userProfile.locationData.country}`)
+          insights.push(`${userProfile.locationData.country} Market Knowledge`)
         }
         if (isChilean) {
-          insights.push("Entorno Regulatorio Chileno", "Oportunidades Alianza del Pacífico")
+          insights.push("Chilean Regulatory Environment", "Pacific Alliance Opportunities")
         }
         recommendations.push(
           isChilean ? "Implementar en Q1 2024" : "Implement in Q1 2024",
@@ -710,15 +718,15 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           isChilean ? "Formar equipo multifuncional" : "Form cross-functional team",
         )
       } else if (executive === "cmo") {
-        insights.push("Análisis de Comportamiento del Cliente", "Rendimiento de Canales", "Proyección de ROI")
+        insights.push("Customer Behavior Analysis", "Channel Performance", "ROI Projection")
         if (userProfile?.websiteAnalysis?.targetAudience) {
-          insights.push(`Targeting ${userProfile.websiteAnalysis.targetAudience}`)
+          insights.push(`${userProfile.websiteAnalysis.targetAudience} Targeting`)
         }
         if (userProfile?.locationData?.region) {
-          insights.push(`Estrategia Regional ${userProfile.locationData.region}`)
+          insights.push(`${userProfile.locationData.region} Regional Strategy`)
         }
         if (isChilean) {
-          insights.push("Panorama Digital Chileno", "Integración de Pagos Locales")
+          insights.push("Chilean Digital Landscape", "Local Payment Integration")
         }
         recommendations.push(
           isChilean ? "Testear A/B por 2 semanas" : "A/B test for 2 weeks",
@@ -726,15 +734,15 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
           isChilean ? "Enfocar en demografía local" : "Focus on local demographics",
         )
       } else {
-        insights.push("Factibilidad Técnica", "Evaluación de Seguridad", "Análisis de Escalabilidad")
+        insights.push("Technical Feasibility", "Security Assessment", "Scalability Analysis")
         if (userProfile?.websiteAnalysis?.businessType) {
-          insights.push(`Arquitectura ${userProfile.websiteAnalysis.businessType}`)
+          insights.push(`${userProfile.websiteAnalysis.businessType} Architecture`)
         }
         if (userProfile?.locationData?.country) {
-          insights.push(`Estándares de Cumplimiento ${userProfile.locationData.country}`)
+          insights.push(`${userProfile.locationData.country} Compliance Standards`)
         }
         if (isChilean) {
-          insights.push("Región AWS Santiago", "Leyes Chilenas de Protección de Datos")
+          insights.push("AWS Santiago Region", "Chilean Data Protection Laws")
         }
         recommendations.push(
           isChilean ? "Usar arquitectura de microservicios" : "Use microservices architecture",
@@ -805,6 +813,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       const executiveResponse = await generateExecutiveResponse(messageText, activeExecutive)
       setMessages((prev) => [...prev, executiveResponse])
 
+      // Show question suggestions after each response
       setShowQuestionSuggestions(true)
     } catch (error) {
       console.error("Error in handleSendMessage:", error)
@@ -828,6 +837,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
   const currentConfig = EXECUTIVE_CONFIGS[activeExecutive]
   const IconComponent = currentConfig.icon
 
+  // Update the contextualQuestions usage in the component
   const lastAgentMessage = messages.filter((m) => m.sender === "agent").pop()
   const contextualQuestions = lastAgentMessage
     ? getContextualQuestions(lastAgentMessage.content, activeExecutive, userProfile)
@@ -854,6 +864,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
   return (
     <>
+      {/* Profile Collection Modal */}
       <Dialog open={showProfileModal} onOpenChange={() => {}}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -899,6 +910,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
               </p>
             </div>
 
+            {/* Location Detection Status */}
             <div className="space-y-2">
               <Label className="text-base font-medium flex items-center">
                 <MapPin className="mr-1 h-4 w-4" />
@@ -925,6 +937,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                 )}
               </div>
 
+              {/* Manual Country Selection */}
               <div className="space-y-2">
                 <Label htmlFor="country" className="text-sm font-medium">
                   Seleccionar País
@@ -1018,6 +1031,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
           {!isMinimized && (
             <CardContent className="flex flex-col h-[636px] p-0">
+              {/* Demo Mode Toggle */}
               <div className="p-4 border-b bg-gray-50">
                 <Tabs value={demoMode} onValueChange={(value) => setDemoMode(value as "chat" | "showcase")}>
                   <TabsList className="grid w-full grid-cols-2">
@@ -1028,6 +1042,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
               </div>
 
               {demoMode === "showcase" ? (
+                // Showcase Mode
                 <div className="flex-1 p-4 space-y-4">
                   <div className="text-center mb-6">
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Conoce tus Ejecutivos IA Neurales</h3>
@@ -1115,7 +1130,9 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                   </Tabs>
                 </div>
               ) : (
+                // Chat Mode
                 <>
+                  {/* Executive Selector with User Profile */}
                   <div className="p-3 border-b bg-gray-50">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
@@ -1144,6 +1161,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                     </div>
                   </div>
 
+                  {/* Chat Messages */}
                   <ScrollArea className="flex-1 p-4">
                     <div className="space-y-4">
                       {messages.map((message) => (
@@ -1180,13 +1198,15 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
                               {message.metadata && message.sender === "agent" && (
                                 <div className="mt-2 space-y-2">
+                                  {/* Performance Metrics */}
                                   <div className="flex items-center space-x-2 text-xs text-gray-500">
-                                    <Zap className="h-3 w-3 text-orange-500" />
+                                    <Zap className="h-3 w-3 text-green-500" />
                                     <span>{message.metadata.processingTime?.toFixed(2)}s</span>
-                                    <CheckCircle className="h-3 w-3 text-orange-500" />
+                                    <CheckCircle className="h-3 w-3 text-green-500" />
                                     <span>{Math.round((message.metadata.confidence || 0) * 100)}% confianza</span>
                                   </div>
 
+                                  {/* Insights */}
                                   {message.metadata.insights && (
                                     <div className="space-y-1">
                                       <div className="flex items-center space-x-1">
@@ -1203,6 +1223,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                                     </div>
                                   )}
 
+                                  {/* Recommendations */}
                                   {message.metadata.recommendations && (
                                     <div className="space-y-1">
                                       <div className="flex items-center space-x-1">
@@ -1260,8 +1281,9 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                     </div>
                   </ScrollArea>
 
+                  {/* Contextual Question Suggestions */}
                   {showQuestionSuggestions && messages.length > 1 && (
-                    <div className="px-4 py-3 border-t bg-gradient-to-r from-purple-50 to-indigo-50">
+                    <div className="px-4 py-3 border-t bg-gradient-to-r from-gray-50 to-purple-50">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-2">
                           <Sparkles className="h-4 w-4 text-purple-600" />
@@ -1293,6 +1315,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                     </div>
                   )}
 
+                  {/* Initial Sample Questions */}
                   {messages.length <= 1 && (
                     <div className="px-4 py-2 border-t bg-gray-50">
                       <div className="text-xs font-semibold text-gray-700 mb-2">Prueba estas preguntas ejecutivas:</div>
@@ -1312,7 +1335,8 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                     </div>
                   )}
 
-                  <div className="border-t p-4 bg-gradient-to-r from-purple-50 to-indigo-50">
+                  {/* Input */}
+                  <div className="border-t p-4 bg-gradient-to-r from-gray-50 to-purple-50">
                     <div className="flex items-center space-x-2">
                       <Input
                         value={inputValue}

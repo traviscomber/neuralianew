@@ -1,507 +1,479 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
-  Bot,
-  MessageCircle,
-  Send,
+  MessageSquare,
+  Package,
+  GraduationCap,
+  BarChart3,
   Users,
-  TrendingUp,
-  Clock,
-  CheckCircle,
   Zap,
   Globe,
-  Brain,
-  Target,
-  Award,
-  Leaf,
-  GraduationCap,
-  Building2,
-  Shield,
-  Cpu,
-  Database,
-  Cloud,
-  Code,
-  Layers,
-  GitBranch,
+  CheckCircle,
+  ArrowRight,
+  Play,
+  Pause,
 } from "lucide-react"
 
 interface Message {
-  id: number
-  text: string
-  sender: "user" | "bot"
-  timestamp: string
+  id: string
+  content: string
+  sender: "user" | "assistant"
+  timestamp: Date
 }
 
-interface ChatState {
+interface UseCase {
+  id: string
+  title: string
+  description: string
+  icon: React.ComponentType<any>
+  badge: string
+  color: string
   messages: Message[]
-  isTyping: boolean
-  currentIndex: number
+  metrics: {
+    improvement: string
+    automation: string
+    users: string
+  }
 }
 
-const USE_CASES = [
+const useCases: UseCase[] = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    subtitle: "Análisis de Suelos Inteligente",
-    description: "Optimiza tus cultivos con datos en tiempo real de IrriWatch sobre nitrógeno y hidratación foliar",
-    icon: Leaf,
-    primaryColor: "emerald",
-    gradientFrom: "from-emerald-500",
-    gradientTo: "to-green-600",
-    bgGradient: "from-emerald-100 to-green-100",
-    textColor: "text-emerald-700",
-    hoverBg: "hover:bg-emerald-50",
+    description: "Análisis de suelos con IA para agricultura de precisión",
+    icon: BarChart3,
+    badge: "ecosuelolab.com",
+    color: "bg-green-500",
     messages: [
       {
-        id: 1,
-        text: "Hola, necesito datos sobre el nivel de nitrógeno en mi cultivo de maíz, sector norte.",
-        sender: "user" as const,
-        timestamp: "10:30",
+        id: "1",
+        content: "Necesito analizar los niveles de nitrógeno en el sector norte de mi campo",
+        sender: "user",
+        timestamp: new Date(),
       },
       {
-        id: 2,
-        text: "¡Hola! Analizando los datos de IrriWatch para tu sector norte... Los niveles de nitrógeno están en 45 ppm, ligeramente por debajo del óptimo (50-60 ppm). La hidratación foliar está al 78%, dentro del rango ideal.",
-        sender: "bot" as const,
-        timestamp: "10:31",
+        id: "2",
+        content:
+          "🌱 ¡Hola Carlos! Soy IrriWatch, tu asistente de análisis de suelos con IA.\n\n📊 **Análisis Sector Norte Completado:**\n\n🔬 **Niveles de Nitrógeno:**\n• Zona A: 45 ppm (Óptimo ✅)\n• Zona B: 28 ppm (Bajo ⚠️)\n• Zona C: 52 ppm (Alto 📈)\n\n💧 **Hidratación Foliar:**\n• Humedad promedio: 68%\n• Estrés hídrico detectado en Zona B\n\n📋 **Recomendaciones IA:**\n✅ Aplicar fertilizante nitrogenado en Zona B\n✅ Reducir riego en Zona C\n✅ Mantener programa actual en Zona A",
+        sender: "assistant",
+        timestamp: new Date(),
       },
       {
-        id: 3,
-        text: "¿Qué me recomiendas para optimizar el nitrógeno?",
-        sender: "user" as const,
-        timestamp: "10:32",
+        id: "3",
+        content: "Perfecto. ¿Cuándo debería aplicar el fertilizante en la Zona B?",
+        sender: "user",
+        timestamp: new Date(),
       },
       {
-        id: 4,
-        text: "Te recomiendo aplicar 15 kg/ha de urea en las próximas 48 horas. Basándome en los datos meteorológicos, no hay lluvia prevista, ideal para la aplicación. También sugiero monitorear la zona sur que muestra patrones similares.",
-        sender: "bot" as const,
-        timestamp: "10:33",
+        id: "4",
+        content:
+          "⏰ **Cronograma Óptimo de Fertilización:**\n\n🗓️ **Aplicación Recomendada:**\n• **Fecha ideal:** Próximos 3-5 días\n• **Hora:** 6:00-8:00 AM (menor evaporación)\n• **Condiciones:** Sin lluvia pronosticada\n\n🌡️ **Condiciones Actuales:**\n• Temperatura: 18°C (Ideal)\n• Humedad: 65% (Óptima)\n• Viento: 8 km/h (Favorable)\n\n📦 **Dosis Calculada por IA:**\n• 25 kg/hectárea de urea (46-0-0)\n• Cobertura: 2.3 hectáreas en Zona B\n• Total necesario: 57.5 kg\n\n🚜 **Próximos pasos automatizados:**\n✅ Alerta programada para mañana 6 AM\n✅ Monitoreo post-aplicación en 7 días",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "5",
+        content: "Excelente. Programa la alerta y el monitoreo automático",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "6",
+        content:
+          '✅ **Sistema Automatizado Configurado**\n\n🔔 **Alertas Programadas:**\n• Mañana 6:00 AM: "Aplicar fertilizante Zona B"\n• En 7 días: "Monitoreo post-fertilización"\n• En 14 días: "Análisis de efectividad"\n\n📱 **Notificaciones Activas:**\n• WhatsApp: +56 9 XXXX-XXXX\n• Email: carlos@campo-norte.cl\n• Dashboard: ecosuelolab.com/alertas\n\n🤖 **IA Trabajando 24/7:**\n• Monitoreo satelital continuo\n• Análisis predictivo de crecimiento\n• Optimización automática de recursos\n\n🌱 **Resultado esperado:** +15% rendimiento en Zona B\n\n¡Tu campo está ahora bajo supervisión inteligente! 🚜✨',
+        sender: "assistant",
+        timestamp: new Date(),
       },
     ],
-    features: [
-      "Monitoreo de nitrógeno en tiempo real",
-      "Análisis de hidratación foliar",
-      "Recomendaciones de fertilización",
-      "Integración con datos meteorológicos",
-      "Alertas automáticas de cultivo",
-      "Reportes de productividad",
-    ],
-    metrics: [
-      { label: "Precisión", value: "94%", icon: Target },
-      { label: "Ahorro Costos", value: "23%", icon: TrendingUp },
-      { label: "Tiempo Respuesta", value: "< 2min", icon: Clock },
-      { label: "Satisfacción", value: "4.8/5", icon: Award },
-    ],
-  },
-  {
-    id: "career",
-    title: "Despega tu Carrera",
-    subtitle: "Coaching Personal con IA",
-    description: "Tu compañero de confianza para el crecimiento profesional y desarrollo de carrera",
-    icon: GraduationCap,
-    primaryColor: "blue",
-    gradientFrom: "from-blue-500",
-    gradientTo: "to-indigo-600",
-    bgGradient: "from-blue-100 to-indigo-100",
-    textColor: "text-blue-700",
-    hoverBg: "hover:bg-blue-50",
-    messages: [
-      {
-        id: 1,
-        text: "Me siento perdido en mi carrera profesional. No sé si seguir en mi trabajo actual o buscar algo nuevo.",
-        sender: "user" as const,
-        timestamp: "14:20",
-      },
-      {
-        id: 2,
-        text: "Entiendo perfectamente esa sensación, es más común de lo que piensas y es completamente válida. Cuéntame, ¿qué es lo que más te genera dudas sobre tu situación actual? ¿Es el crecimiento profesional, el ambiente laboral, o tal vez sientes que tus habilidades no están siendo aprovechadas?",
-        sender: "bot" as const,
-        timestamp: "14:21",
-      },
-      {
-        id: 3,
-        text: "Creo que es una mezcla. Siento que no estoy creciendo y que podría estar haciendo algo más significativo.",
-        sender: "user" as const,
-        timestamp: "14:22",
-      },
-      {
-        id: 4,
-        text: "Esa sensación de querer algo más significativo habla muy bien de ti y de tu ambición personal. Es una señal de que estás listo para el siguiente nivel. ¿Has identificado qué tipo de trabajo o industria te haría sentir más realizado? Podemos explorar juntos tus fortalezas y pasiones para encontrar ese camino que te emocione.",
-        sender: "bot" as const,
-        timestamp: "14:23",
-      },
-    ],
-    features: [
-      "Coaching personalizado y empático",
-      "Análisis de fortalezas profesionales",
-      "Planificación de carrera estratégica",
-      "Preparación para entrevistas",
-      "Desarrollo de habilidades blandas",
-      "Seguimiento de objetivos profesionales",
-    ],
-    metrics: [
-      { label: "Usuarios Activos", value: "12K+", icon: Users },
-      { label: "Tasa Éxito", value: "87%", icon: TrendingUp },
-      { label: "Sesiones/Mes", value: "45K", icon: MessageCircle },
-      { label: "Rating", value: "4.9/5", icon: Award },
-    ],
+    metrics: {
+      improvement: "40% Aumento en rendimiento de cultivos",
+      automation: "85% Automatización en análisis de suelos",
+      users: "500+ Agricultores usando IA",
+    },
   },
   {
     id: "parrotfy",
-    title: "ParrotfyIA",
-    subtitle: "Sistema ERP Inteligente",
-    description: "Gestiona tu negocio con inteligencia artificial integrada en parrotfy.com",
-    icon: Building2,
-    primaryColor: "purple",
-    gradientFrom: "from-purple-500",
-    gradientTo: "to-violet-600",
-    bgGradient: "from-purple-100 to-violet-100",
-    textColor: "text-purple-700",
-    hoverBg: "hover:bg-purple-50",
+    title: "Parrotfy ERP",
+    description: "Sistema ERP online inteligente para gestión empresarial",
+    icon: Package,
+    badge: "parrotfy.com",
+    color: "bg-blue-500",
     messages: [
       {
-        id: 1,
-        text: "Necesito generar el reporte de ventas del último trimestre y analizar la rentabilidad por producto.",
-        sender: "user" as const,
-        timestamp: "09:15",
+        id: "1",
+        content: "Necesito el reporte de ventas del Q3 y actualizar el inventario de productos",
+        sender: "user",
+        timestamp: new Date(),
       },
       {
-        id: 2,
-        text: "Perfecto, generando el reporte Q3 2024... He analizado 1,247 transacciones. Las ventas totales fueron $2.8M (+15% vs Q2). Los productos más rentables: Software Licenses (42% margen), Consulting Services (38% margen), y Hardware (23% margen).",
-        sender: "bot" as const,
-        timestamp: "09:16",
+        id: "2",
+        content:
+          '📊 ¡Hola Roberto! Soy Parrotfy, tu asistente ERP inteligente con OpenAI GPT-4.\n\n**Generando reporte Q3...** ✅\n\n📈 **Resumen Ventas Q3 2024:**\n• Total: $847M CLP (+12% vs Q2)\n• Transacciones: 2,847 órdenes\n• Ticket promedio: $297,450 CLP\n\n🏆 **Top 3 Productos:**\n1. Laptop Dell XPS 13: 234 unidades\n2. Monitor Samsung 27": 189 unidades  \n3. Teclado Mecánico: 156 unidades\n\n📊 **Análisis IA:**\n• Tendencia: Crecimiento sostenido\n• Predicción Q4: +8% adicional\n• Recomendación: Aumentar stock laptops',
+        sender: "assistant",
+        timestamp: new Date(),
       },
       {
-        id: 3,
-        text: "¿Puedes mostrarme las tendencias de inventario para el próximo mes?",
-        sender: "user" as const,
-        timestamp: "09:17",
+        id: "3",
+        content: "Perfecto. ¿Puedes actualizar el stock de laptops Dell? Llegaron 50 unidades hoy",
+        sender: "user",
+        timestamp: new Date(),
       },
       {
-        id: 4,
-        text: "Analizando patrones de inventario... Detecté que necesitarás restock de 3 productos clave: Laptops Dell (stock crítico: 12 unidades), Licencias Office (vencen 45 en 15 días), y Cables HDMI (alta rotación). ¿Genero las órdenes de compra automáticamente?",
-        sender: "bot" as const,
-        timestamp: "09:18",
+        id: "4",
+        content:
+          "✅ **Inventario Actualizado en Tiempo Real**\n\n💻 **Laptop Dell XPS 13:**\n• Stock anterior: 12 unidades\n• Ingreso registrado: +50 unidades\n• **Stock actual: 62 unidades**\n• Ubicación: Bodega A-15\n\n📋 **Acciones Automáticas:**\n✅ Sistema ERP sincronizado\n✅ Notificación a equipo de ventas\n✅ Actualización en tienda online\n✅ Cálculo automático de valorización\n\n💰 **Impacto Financiero:**\n• Valor ingreso: $74.5M CLP\n• Stock total valorizado: $92.1M CLP\n\n🔔 **Alerta IA:** Stock óptimo alcanzado para demanda Q4",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "5",
+        content: "Genial. ¿Hay alguna recomendación para optimizar las ventas?",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "6",
+        content:
+          '🚀 **Recomendaciones IA para Optimización:**\n\n📊 **Análisis Predictivo:**\n• Monitor Samsung: Stock bajo (23 unidades)\n• Demanda proyectada: 45 unidades/semana\n• **Acción:** Reabastecer en 5 días\n\n💡 **Oportunidades Detectadas:**\n• Bundle Laptop + Monitor: +25% margen\n• Promoción teclados: Inventario alto (89 unidades)\n• Cross-selling automático activado\n\n🎯 **Estrategia Sugerida:**\n✅ Campaña "Combo Productividad" \n✅ Descuento 15% en teclados\n✅ Alerta automática restock monitores\n\n📈 **Impacto Estimado:** +$127M CLP en Q4\n\n¿Activo las campañas automáticas? 🤖✨',
+        sender: "assistant",
+        timestamp: new Date(),
       },
     ],
-    features: [
-      "Análisis automático de ventas",
-      "Gestión inteligente de inventario",
-      "Reportes financieros en tiempo real",
-      "Predicción de demanda",
-      "Automatización de procesos",
-      "Integración con OpenAI GPT-4",
+    metrics: {
+      improvement: "75% Reducción en tiempo de gestión",
+      automation: "90% Automatización de procesos empresariales",
+      users: "800+ Empresas gestionando con IA",
+    },
+  },
+  {
+    id: "despega",
+    title: "Despega tu Carrera",
+    description: "Coaching personalizado con IA para desarrollo profesional",
+    icon: GraduationCap,
+    badge: "Coaching IA",
+    color: "bg-purple-500",
+    messages: [
+      {
+        id: "1",
+        content: "Me siento perdido en mi carrera. No sé si seguir en mi trabajo actual o buscar algo nuevo",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "2",
+        content:
+          "💜 Hola querido/a, entiendo perfectamente esa sensación de incertidumbre. Es completamente normal sentirse así, y quiero que sepas que estás dando un paso muy valiente al buscar claridad. 🌟\n\n😌 **Primero, respira hondo.** Esos sentimientos son válidos y muchas personas exitosas han pasado por exactamente lo mismo.\n\n🤗 **Vamos a explorar juntos:**\n• ¿Qué es lo que más te gusta de tu trabajo actual?\n• ¿Qué te hace sentir realizado/a profesionalmente?\n• ¿Cuáles son tus valores más importantes?\n\n💭 No hay respuestas correctas o incorrectas aquí. Solo quiero conocerte mejor para poder acompañarte de la mejor manera.\n\n¿Te parece si empezamos por lo que SÍ te gusta de tu situación actual? A veces ahí encontramos pistas valiosas. ✨",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "3",
+        content:
+          "Me gusta el ambiente de trabajo y mis compañeros, pero siento que no estoy creciendo profesionalmente",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "4",
+        content:
+          "🌱 ¡Qué valioso lo que compartes! Tener un buen ambiente laboral es un tesoro que no todos tienen, y es hermoso que valores esas relaciones. 💕\n\n😊 **Tu sentir es súper legítimo.** El crecimiento profesional es una necesidad humana básica, como el aire que respiramos. No te sientas mal por quererlo.\n\n🤔 **Reflexionemos juntos:**\n• ¿Has conversado con tu jefe sobre oportunidades de crecimiento?\n• ¿Existen proyectos nuevos donde podrías aportar más?\n• ¿Hay capacitaciones o certificaciones que te interesen?\n\n💡 **Posibles caminos:**\n1. **Crecer donde estás:** Proponer nuevas responsabilidades\n2. **Crecer hacia afuera:** Buscar oportunidades externas\n3. **Crecer por dentro:** Desarrollar habilidades mientras decides\n\n🫂 Recuerda: No tienes que decidir todo hoy. ¿Qué te resuena más en este momento? Estoy aquí para acompañarte sin presión. 💜",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "5",
+        content: "Creo que me gustaría explorar oportunidades externas, pero me da miedo dejar la estabilidad",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "6",
+        content:
+          "💙 Ay, mi querido/a, ese miedo es TAN humano y comprensible. La estabilidad es importante, y es inteligente de tu parte valorarla. No eres cobarde por sentir miedo, eres prudente. 🤗\n\n🌈 **El miedo y la emoción pueden coexistir:**\n• Miedo = Tu mente cuidándote\n• Emoción = Tu corazón llamándote a crecer\n• Ambos son válidos y necesarios\n\n💪 **Estrategia suave para explorar:**\n✨ Actualiza tu LinkedIn sin prisa\n✨ Conversa informalmente con contactos\n✨ Explora ofertas sin compromiso\n✨ Mantén tu trabajo mientras investigas\n\n🛡️ **Tu red de seguridad:**\n• Tienes experiencia valiosa\n• Conoces tu valor en el mercado\n• Puedes tomarte el tiempo necesario\n\n💜 **Recuerda:** Explorar no es comprometerse. Es darte el regalo de conocer tus opciones.\n\n¿Qué te parece si empezamos por algo pequeñito y sin presión? 🌱✨",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
     ],
-    metrics: [
-      { label: "Empresas", value: "2.5K+", icon: Globe },
-      { label: "Eficiencia", value: "+40%", icon: Zap },
-      { label: "Procesamiento", value: "1M+ ops", icon: Brain },
-      { label: "Uptime", value: "99.9%", icon: CheckCircle },
+    metrics: {
+      improvement: "85% Mejora en claridad profesional",
+      automation: "70% Personalización automática de coaching",
+      users: "1,200+ Profesionales creciendo con IA",
+    },
+  },
+  {
+    id: "crm",
+    title: "CRM Inteligente",
+    description: "Gestión de clientes potenciada con IA conversacional",
+    icon: Users,
+    badge: "CRM IA",
+    color: "bg-orange-500",
+    messages: [
+      {
+        id: "1",
+        content: "Necesito un resumen de mis clientes más importantes y sus últimas interacciones",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "2",
+        content:
+          "👋 ¡Hola María! Soy tu asistente CRM con IA. Aquí tienes el resumen de tus clientes VIP:\n\n🏆 **Top 3 Clientes Estratégicos:**\n\n1. **TechCorp SA** 💼\n   • Valor: $2.4M CLP/año\n   • Última interacción: Hace 3 días\n   • Estado: Renovación pendiente (Dic 2024)\n   • ⚠️ Acción requerida: Llamada de seguimiento\n\n2. **Innovatech Ltda** 🚀\n   • Valor: $1.8M CLP/año\n   • Última interacción: Ayer (email)\n   • Estado: Interesados en upgrade\n   • ✅ Oportunidad: Propuesta premium\n\n3. **StartupXYZ** 🌟\n   • Valor: $950K CLP/año\n   • Última interacción: Hace 1 semana\n   • Estado: Satisfecho, referidos potenciales\n   • 💡 Acción: Solicitar testimonial",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "3",
+        content: "Perfecto. ¿Puedes programar un seguimiento automático para TechCorp?",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "4",
+        content:
+          '✅ **Seguimiento Automático Configurado para TechCorp SA**\n\n📅 **Cronograma IA Personalizado:**\n• **Hoy 3:00 PM:** Recordatorio para llamada\n• **Mañana 10:00 AM:** Email de seguimiento automático\n• **En 3 días:** Propuesta de renovación generada\n• **Semanal:** Monitoreo de engagement\n\n📧 **Email Borrador Generado:**\n*"Hola Roberto, espero que estés bien. Quería hacer seguimiento a nuestra conversación sobre la renovación..."*\n\n🎯 **Estrategia IA Sugerida:**\n• Destacar ROI actual: +34% eficiencia\n• Mencionar nuevas funcionalidades 2024\n• Ofrecer descuento por renovación temprana\n\n📊 **Probabilidad de cierre:** 78% (basado en historial)\n\n¿Apruebas el envío automático del email mañana? 🤖',
+        sender: "assistant",
+        timestamp: new Date(),
+      },
+      {
+        id: "5",
+        content: "Sí, apruebo. También quiero crear una campaña para Innovatech sobre el upgrade premium",
+        sender: "user",
+        timestamp: new Date(),
+      },
+      {
+        id: "6",
+        content:
+          "🚀 **Campaña Premium Creada para Innovatech**\n\n✨ **Estrategia Personalizada IA:**\n\n📊 **Análisis del Cliente:**\n• Uso actual: 67% de capacidad\n• Crecimiento: +45% último trimestre\n• Pain points: Reportes limitados\n\n💎 **Propuesta Premium Generada:**\n• Reportes avanzados con IA\n• Integraciones ilimitadas\n• Soporte prioritario 24/7\n• Dashboard ejecutivo personalizado\n\n💰 **Pricing Inteligente:**\n• Upgrade: +$480K CLP/año\n• ROI estimado: 340%\n• Descuento lanzamiento: 15%\n\n📱 **Secuencia Automática:**\n✅ Email personalizado (hoy 4 PM)\n✅ Demo interactiva (programada)\n✅ Propuesta formal (en 2 días)\n✅ Follow-up inteligente\n\n🎯 **Probabilidad de upgrade:** 85%\n\n¡Campaña activada! Te notificaré los resultados. 📈✨",
+        sender: "assistant",
+        timestamp: new Date(),
+      },
     ],
+    metrics: {
+      improvement: "60% Aumento en conversión de leads",
+      automation: "80% Automatización en seguimiento de clientes",
+      users: "2,500+ Vendedores optimizando con IA",
+    },
   },
 ]
 
 export function UseCasesSection() {
   const [activeTab, setActiveTab] = useState("ecosuelo")
-  const [chatStates, setChatStates] = useState<Record<string, ChatState>>({})
+  const [currentMessageIndex, setCurrentMessageIndex] = useState<{ [key: string]: number }>({})
+  const [isPlaying, setIsPlaying] = useState<{ [key: string]: boolean }>({})
 
-  // Initialize chat states
+  // Auto-start demo for all use cases
   useEffect(() => {
-    const initialStates: Record<string, ChatState> = {}
-    USE_CASES.forEach((useCase) => {
-      initialStates[useCase.id] = {
-        messages: [],
-        isTyping: false,
-        currentIndex: 0,
-      }
-    })
-    setChatStates(initialStates)
+    const startAllDemos = () => {
+      const initialPlaying: { [key: string]: boolean } = {}
+      const initialMessageIndex: { [key: string]: number } = {}
+
+      useCases.forEach((useCase) => {
+        initialPlaying[useCase.id] = true
+        initialMessageIndex[useCase.id] = 0
+      })
+
+      setIsPlaying(initialPlaying)
+      setCurrentMessageIndex(initialMessageIndex)
+    }
+
+    // Start all demos after a short delay
+    const timer = setTimeout(startAllDemos, 1000)
+    return () => clearTimeout(timer)
   }, [])
 
-  // Auto-start demo when tab changes
+  // Auto-advance messages
   useEffect(() => {
-    const timer = setTimeout(() => {
-      startDemo(activeTab)
-    }, 1000)
+    const intervals: { [key: string]: NodeJS.Timeout } = {}
 
-    return () => clearTimeout(timer)
-  }, [activeTab])
-
-  const startDemo = (useCaseId: string) => {
-    const useCase = USE_CASES.find((uc) => uc.id === useCaseId)
-    if (!useCase) return
-
-    setChatStates((prev) => ({
-      ...prev,
-      [useCaseId]: {
-        messages: [],
-        isTyping: false,
-        currentIndex: 0,
-      },
-    }))
-
-    simulateConversation(useCaseId, useCase.messages, 0)
-  }
-
-  const simulateConversation = (useCaseId: string, messages: Message[], index: number) => {
-    if (index >= messages.length) return
-
-    const message = messages[index]
-    const delay = message.sender === "user" ? 1500 : 2500
-
-    setTimeout(() => {
-      if (message.sender === "bot") {
-        // Show typing indicator
-        setChatStates((prev) => ({
-          ...prev,
-          [useCaseId]: {
-            ...prev[useCaseId],
-            isTyping: true,
-          },
-        }))
-
-        // Add message after typing delay
-        setTimeout(() => {
-          setChatStates((prev) => ({
-            ...prev,
-            [useCaseId]: {
-              messages: [...prev[useCaseId].messages, message],
-              isTyping: false,
-              currentIndex: index + 1,
-            },
-          }))
-
-          simulateConversation(useCaseId, messages, index + 1)
-        }, 1500)
-      } else {
-        // Add user message immediately
-        setChatStates((prev) => ({
-          ...prev,
-          [useCaseId]: {
-            ...prev[useCaseId],
-            messages: [...prev[useCaseId].messages, message],
-            currentIndex: index + 1,
-          },
-        }))
-
-        simulateConversation(useCaseId, messages, index + 1)
+    useCases.forEach((useCase) => {
+      if (isPlaying[useCase.id] && currentMessageIndex[useCase.id] < useCase.messages.length) {
+        intervals[useCase.id] = setInterval(() => {
+          setCurrentMessageIndex((prev) => {
+            const current = prev[useCase.id] || 0
+            if (current < useCase.messages.length - 1) {
+              return { ...prev, [useCase.id]: current + 1 }
+            } else {
+              // Stop playing when all messages are shown
+              setIsPlaying((prevPlaying) => ({ ...prevPlaying, [useCase.id]: false }))
+              return prev
+            }
+          })
+        }, 3000) // 3 seconds between messages
       }
-    }, delay)
+    })
+
+    return () => {
+      Object.values(intervals).forEach((interval) => clearInterval(interval))
+    }
+  }, [isPlaying, currentMessageIndex])
+
+  const togglePlayPause = (useCaseId: string) => {
+    setIsPlaying((prev) => ({ ...prev, [useCaseId]: !prev[useCaseId] }))
   }
 
   const resetDemo = (useCaseId: string) => {
-    setChatStates((prev) => ({
-      ...prev,
-      [useCaseId]: {
-        messages: [],
-        isTyping: false,
-        currentIndex: 0,
-      },
-    }))
-
-    setTimeout(() => startDemo(useCaseId), 500)
+    setCurrentMessageIndex((prev) => ({ ...prev, [useCaseId]: 0 }))
+    setIsPlaying((prev) => ({ ...prev, [useCaseId]: true }))
   }
 
-  const getActiveUseCase = () => USE_CASES.find((uc) => uc.id === activeTab)
-  const activeUseCase = getActiveUseCase()
+  const activeUseCase = useCases.find((uc) => uc.id === activeTab)!
+  const visibleMessages = activeUseCase.messages.slice(0, (currentMessageIndex[activeTab] || 0) + 1)
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-24 bg-gradient-to-br from-slate-50 to-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4 border-purple-200 text-purple-700">
+          <Badge variant="outline" className="mb-4">
             Casos de Uso Reales
           </Badge>
-          <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Neuralia en Acción
+          <h2 className="text-4xl font-bold mb-4">
+            IA Conversacional en <span className="text-blue-600">Acción</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Descubre cómo nuestros agentes de IA están transformando industrias y mejorando la vida de miles de usuarios
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Descubre cómo nuestros agentes de IA están transformando industrias reales con conversaciones inteligentes y
+            automatización avanzada
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList
-            className={`grid w-full grid-cols-3 mb-12 bg-gradient-to-r ${activeUseCase?.bgGradient || "from-purple-100 to-blue-100"} shadow-lg border-0 rounded-xl p-1 transition-all duration-300`}
-          >
-            {USE_CASES.map((useCase) => {
-              const IconComponent = useCase.icon
-              const isActive = activeTab === useCase.id
+          <TabsList className="grid w-full grid-cols-4 mb-8">
+            {useCases.map((useCase) => {
+              const Icon = useCase.icon
               return (
-                <TabsTrigger
-                  key={useCase.id}
-                  value={useCase.id}
-                  className={`flex items-center gap-2 rounded-lg transition-all duration-200 font-medium ${
-                    isActive
-                      ? `bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} text-white shadow-md`
-                      : `${useCase.textColor} ${useCase.hoverBg}`
-                  }`}
-                >
-                  <IconComponent className="w-4 h-4" />
+                <TabsTrigger key={useCase.id} value={useCase.id} className="flex items-center gap-2">
+                  <Icon className="w-4 h-4" />
                   <span className="hidden sm:inline">{useCase.title}</span>
                 </TabsTrigger>
               )
             })}
           </TabsList>
 
-          {USE_CASES.map((useCase) => {
-            const IconComponent = useCase.icon
-            const chatState = chatStates[useCase.id] || { messages: [], isTyping: false, currentIndex: 0 }
+          {useCases.map((useCase) => {
+            const Icon = useCase.icon
+            const messages = useCase.messages.slice(0, (currentMessageIndex[useCase.id] || 0) + 1)
 
             return (
-              <TabsContent key={useCase.id} value={useCase.id} className="space-y-8">
-                <div className="text-center space-y-2 mb-8">
-                  <h3
-                    className={`text-2xl font-bold bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} bg-clip-text text-transparent`}
-                  >
-                    {useCase.title}
-                  </h3>
-                  <p className="text-gray-600 max-w-2xl mx-auto">{useCase.description}</p>
-                </div>
-
+              <TabsContent key={useCase.id} value={useCase.id}>
                 <div className="grid lg:grid-cols-2 gap-8">
-                  {/* Chat Interface */}
-                  <Card className="h-[500px] flex flex-col shadow-lg border-0 bg-gradient-to-br from-white to-gray-50">
-                    {/* Chat Header */}
-                    <CardHeader
-                      className={`p-4 bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} text-white rounded-t-lg`}
-                    >
+                  {/* Chat Simulation */}
+                  <Card className="h-[600px] flex flex-col">
+                    <CardHeader className="flex-shrink-0">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                            <Bot className="w-6 h-6" />
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg ${useCase.color} text-white`}>
+                            <Icon className="w-5 h-5" />
                           </div>
                           <div>
-                            <CardTitle className="text-white text-lg">Neuralia AI</CardTitle>
-                            <p className="text-sm opacity-90">Asistente Inteligente</p>
+                            <CardTitle className="text-lg">{useCase.title}</CardTitle>
+                            <Badge variant="secondary" className="text-xs">
+                              {useCase.badge}
+                            </Badge>
                           </div>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => resetDemo(useCase.id)}
-                          className="text-white hover:bg-white/20"
-                        >
-                          ↻ Reiniciar
-                        </Button>
+                        <div className="flex gap-2">
+                          <Button size="sm" variant="outline" onClick={() => togglePlayPause(useCase.id)}>
+                            {isPlaying[useCase.id] ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                          </Button>
+                          <Button size="sm" variant="outline" onClick={() => resetDemo(useCase.id)}>
+                            Reiniciar
+                          </Button>
+                        </div>
                       </div>
                     </CardHeader>
-
-                    {/* Messages */}
-                    <CardContent className="flex-1 p-4 overflow-y-auto space-y-4 bg-gray-50">
-                      {chatState.messages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
-                        >
+                    <CardContent className="flex-1 overflow-y-auto">
+                      <div className="space-y-4">
+                        {messages.map((message) => (
                           <div
-                            className={`max-w-[80%] p-3 rounded-lg ${
-                              message.sender === "user"
-                                ? `bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} text-white`
-                                : "bg-white border shadow-sm text-gray-800"
-                            }`}
+                            key={message.id}
+                            className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
                           >
-                            <p className="text-sm leading-relaxed">{message.text}</p>
-                            <p
-                              className={`text-xs mt-1 ${
-                                message.sender === "user" ? "text-white/70" : "text-gray-500"
-                              }`}
+                            <div
+                              className={`flex items-start gap-3 max-w-[80%] ${message.sender === "user" ? "flex-row-reverse" : ""}`}
                             >
-                              {message.timestamp}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-
-                      {chatState.isTyping && (
-                        <div className="flex justify-start">
-                          <div className="bg-white border shadow-sm p-3 rounded-lg">
-                            <div className="flex space-x-1">
-                              <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                              <Avatar className="w-8 h-8 flex-shrink-0">
+                                <AvatarFallback className={message.sender === "user" ? "bg-blue-100" : "bg-green-100"}>
+                                  {message.sender === "user" ? "U" : "IA"}
+                                </AvatarFallback>
+                              </Avatar>
                               <div
-                                className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                style={{ animationDelay: "0.1s" }}
-                              ></div>
-                              <div
-                                className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                style={{ animationDelay: "0.2s" }}
-                              ></div>
+                                className={`p-3 rounded-lg ${
+                                  message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-900"
+                                }`}
+                              >
+                                <p className="text-sm whitespace-pre-line">{message.content}</p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </CardContent>
-
-                    {/* Input */}
-                    <div className="p-4 border-t bg-white rounded-b-lg">
-                      <div className="flex space-x-2">
-                        <input
-                          type="text"
-                          placeholder="Escribe tu mensaje..."
-                          className="flex-1 p-2 border rounded-lg bg-gray-50"
-                          disabled
-                        />
-                        <Button
-                          size="sm"
-                          className={`bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} hover:opacity-90`}
-                        >
-                          <Send className="w-4 h-4" />
-                        </Button>
+                        ))}
                       </div>
-                    </div>
+                    </CardContent>
                   </Card>
 
-                  {/* Features & Metrics */}
+                  {/* Use Case Details */}
                   <div className="space-y-6">
-                    <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-gray-50">
+                    <Card>
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2 text-gray-800">
-                          <IconComponent className={`w-5 h-5 ${useCase.textColor.replace("text-", "text-")}`} />
-                          Características Principales
+                        <CardTitle className="flex items-center gap-3">
+                          <Icon className="w-6 h-6" />
+                          {useCase.title}
                         </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3">
-                        {useCase.features.map((feature, index) => (
-                          <div key={index} className="flex items-center space-x-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                            <span className="text-sm text-gray-700">{feature}</span>
-                          </div>
-                        ))}
-                      </CardContent>
-                    </Card>
-
-                    <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-gray-50">
-                      <CardHeader>
-                        <CardTitle className="text-gray-800">Métricas de Rendimiento</CardTitle>
+                        <CardDescription className="text-base">{useCase.description}</CardDescription>
                       </CardHeader>
                       <CardContent>
-                        <div className="grid grid-cols-2 gap-4">
-                          {useCase.metrics.map((metric, index) => {
-                            const MetricIcon = metric.icon
-                            return (
-                              <div key={index} className="text-center p-3 bg-white rounded-lg border">
-                                <MetricIcon
-                                  className={`w-6 h-6 mx-auto mb-2 ${useCase.textColor.replace("text-", "text-")}`}
-                                />
-                                <div className="text-lg font-bold text-gray-800">{metric.value}</div>
-                                <div className="text-xs text-gray-600">{metric.label}</div>
-                              </div>
-                            )
-                          })}
+                        <div className="grid gap-4">
+                          <div className="flex items-center gap-3">
+                            <CheckCircle className="w-5 h-5 text-green-500" />
+                            <span className="font-medium">{useCase.metrics.improvement}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Zap className="w-5 h-5 text-yellow-500" />
+                            <span className="font-medium">{useCase.metrics.automation}</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Users className="w-5 h-5 text-blue-500" />
+                            <span className="font-medium">{useCase.metrics.users}</span>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
 
-                    <Button
-                      onClick={() => resetDemo(useCase.id)}
-                      className={`w-full bg-gradient-to-r ${useCase.gradientFrom} ${useCase.gradientTo} hover:opacity-90 text-white`}
-                    >
-                      <Zap className="w-4 h-4 mr-2" />
-                      Ver Demo Completo
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-lg">Capacidades Técnicas</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3">
+                            <MessageSquare className="w-4 h-4 text-blue-500" />
+                            <span className="text-sm">Procesamiento de lenguaje natural avanzado</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <BarChart3 className="w-4 h-4 text-green-500" />
+                            <span className="text-sm">Análisis predictivo con machine learning</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Globe className="w-4 h-4 text-purple-500" />
+                            <span className="text-sm">Integración con sistemas existentes</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Zap className="w-4 h-4 text-yellow-500" />
+                            <span className="text-sm">Automatización de procesos complejos</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Button className="w-full" size="lg">
+                      Crear Agente Similar
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
                 </div>
@@ -509,178 +481,6 @@ export function UseCasesSection() {
             )
           })}
         </Tabs>
-
-        {/* Technical Infrastructure Section */}
-        <div className="mt-20 mb-16">
-          <Card className="bg-gradient-to-br from-slate-900 to-gray-900 text-white border-0 shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-blue-600/10"></div>
-            <CardContent className="relative p-12">
-              <div className="text-center mb-12">
-                <Badge variant="outline" className="mb-4 border-purple-400 text-purple-300 bg-purple-900/20">
-                  Infraestructura Tecnológica
-                </Badge>
-                <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  Ecosistema Fullstack Neuralia
-                </h3>
-                <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                  Todos estos agentes funcionan sobre un <strong>ecosistema fullstack completo</strong> desarrollado
-                  íntegramente por <strong>Neuralia</strong>, utilizando tecnología de vanguardia y{" "}
-                  <strong>copilotado por IA</strong> para garantizar máximo rendimiento, escalabilidad y confiabilidad.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <div className="text-center group">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Brain className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2 text-purple-300">IA Copiloto</h4>
-                  <p className="text-sm text-gray-400">
-                    Sistema de IA que optimiza y supervisa toda la infraestructura en tiempo real
-                  </p>
-                </div>
-
-                <div className="text-center group">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Cloud className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2 text-blue-300">Cloud Native</h4>
-                  <p className="text-sm text-gray-400">
-                    Arquitectura distribuida en la nube con auto-escalado y alta disponibilidad
-                  </p>
-                </div>
-
-                <div className="text-center group">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Database className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2 text-green-300">Base de Datos IA</h4>
-                  <p className="text-sm text-gray-400">
-                    Sistemas de datos vectoriales y relacionales optimizados para IA conversacional
-                  </p>
-                </div>
-
-                <div className="text-center group">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Shield className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-bold text-lg mb-2 text-orange-300">Seguridad Total</h4>
-                  <p className="text-sm text-gray-400">
-                    Encriptación end-to-end, autenticación multi-factor y cumplimiento normativo
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
-                      <Code className="w-5 h-5 text-purple-400" />
-                      Stack Tecnológico
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Next.js 15 + React 18
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      TypeScript + Tailwind CSS
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Supabase + PostgreSQL
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      OpenAI GPT-4 + AI SDK
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
-                      <Layers className="w-5 h-5 text-blue-400" />
-                      Arquitectura
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Microservicios Distribuidos
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      API Gateway Inteligente
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Event-Driven Architecture
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Real-time WebSockets
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-white">
-                      <GitBranch className="w-5 h-5 text-green-400" />
-                      DevOps IA
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      CI/CD Automatizado
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Monitoreo Inteligente
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Auto-scaling Predictivo
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-300">
-                      <CheckCircle className="w-4 h-4 text-green-400" />
-                      Deployment Zero-Downtime
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              <div className="text-center mt-12">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600/20 to-blue-600/20 border border-purple-400/30 rounded-full px-6 py-3">
-                  <Cpu className="w-5 h-5 text-purple-400" />
-                  <span className="text-purple-300 font-medium">
-                    99.9% Uptime • Latencia &lt; 100ms • Escalabilidad Infinita
-                  </span>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center">
-          <Card className="p-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white border-0 shadow-2xl max-w-4xl mx-auto">
-            <CardContent className="p-0">
-              <h3 className="text-3xl font-bold mb-4">¿Listo para Crear tu Propio Agente?</h3>
-              <p className="text-xl mb-6 opacity-90">
-                Únete a miles de empresas que ya están transformando sus procesos con el ecosistema Neuralia
-              </p>
-              <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-3">
-                <Brain className="w-5 h-5 mr-2" />
-                Comenzar Gratis
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </section>
   )
