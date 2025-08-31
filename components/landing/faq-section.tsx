@@ -1,86 +1,94 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Sparkles } from "lucide-react"
 
 const faqs = [
   {
-    question: "What is vibe coding and how does it make AI better?",
+    question: "What is vibe coding and how does it work?",
     answer:
-      "Vibe coding is our unique development methodology that prioritizes intuitive user experience and natural interaction patterns. Instead of building complex interfaces, we create AI that feels natural and responds the way humans expect. This approach results in higher adoption rates and better user satisfaction.",
+      "Vibe coding is Neuralia's revolutionary approach to AI development that combines traditional programming with emotional intelligence and contextual understanding. It allows AI systems to interpret not just what users say, but how they feel and what they really need, creating more human-like and effective interactions.",
   },
   {
-    question: "How quickly can I deploy an AI agent for my business?",
+    question: "How quickly can I deploy AI agents with vibe coding?",
     answer:
-      "With our vibe coding approach, most AI agents can be deployed within 2-4 weeks. We focus on rapid prototyping and iterative development, allowing you to see results quickly and make adjustments based on real user feedback.",
+      "With our vibe coding platform, you can deploy basic AI agents in minutes and fully customized solutions within days. Our pre-built templates and intuitive interface make it incredibly fast to go from concept to production, while our vibe coding technology ensures your agents understand context from day one.",
   },
   {
-    question: "What makes Neuralia different from other AI companies?",
+    question: "Is vibe coding suitable for my industry?",
     answer:
-      "We combine cutting-edge AI technology with our signature vibe coding methodology. This means you get powerful AI that's actually usable. Our track record includes successful deployments like EcosueloLab (10,000+ farmers), ParrotfyIA (25,000+ language learners), and numerous enterprise solutions.",
+      "Vibe coding technology adapts to any industry - from healthcare and education to retail and finance. Our AI agents learn your industry's specific language, regulations, and customer expectations, making them effective regardless of your business sector.",
   },
   {
-    question: "Can your AI agents integrate with existing business systems?",
+    question: "How does vibe coding improve customer satisfaction?",
     answer:
-      "Our vibe coding approach emphasizes seamless integration. We can connect with your existing CRM, databases, communication platforms (like WhatsApp, Slack, Teams), and custom APIs. The goal is to enhance your current workflow, not replace it.",
+      "Vibe coding enables AI to understand emotional context, tone, and underlying needs in customer interactions. This means more empathetic responses, better problem resolution, and customers who feel truly understood. Our clients typically see 40-60% improvements in satisfaction scores.",
   },
   {
-    question: "What kind of support do you provide after deployment?",
+    question: "What kind of support do you provide for vibe coding implementation?",
     answer:
-      "We provide comprehensive support including 24/7 monitoring, regular performance optimization, user training, and continuous improvement based on usage analytics. Our vibe coding philosophy extends to support - we make sure your AI keeps working smoothly.",
+      "We provide comprehensive support including 24/7 technical assistance, dedicated success managers, training sessions, and ongoing optimization. Our team of vibe coding experts ensures your AI agents continuously improve and adapt to your business needs.",
   },
   {
-    question: "How do you ensure data privacy and security?",
+    question: "Can vibe coding integrate with my existing systems?",
     answer:
-      "Security is built into our vibe coding process from day one. We use enterprise-grade encryption, comply with GDPR and other privacy regulations, and can deploy on-premises or in your preferred cloud environment. Your data stays private and secure.",
+      "Yes! Our vibe coding platform is designed for seamless integration with popular CRMs, help desks, e-commerce platforms, and custom systems. We provide APIs, webhooks, and pre-built connectors to ensure smooth integration with your existing workflow.",
   },
   {
-    question: "What industries do you work with?",
+    question: "How secure is the vibe coding platform?",
     answer:
-      "Our vibe coding approach works across industries. We've successfully deployed AI solutions in agriculture (EcosueloLab), education (ParrotfyIA), career development, customer service, healthcare, finance, and manufacturing. The methodology adapts to any domain.",
+      "Security is paramount in our vibe coding architecture. We use enterprise-grade encryption, comply with GDPR and SOC 2 standards, and provide detailed audit logs. Your data and your customers' information are protected with bank-level security measures.",
   },
   {
-    question: "How do you measure the success of an AI implementation?",
+    question: "What makes vibe coding different from other AI solutions?",
     answer:
-      "We focus on real business metrics: user adoption rates, task completion times, customer satisfaction scores, cost savings, and ROI. Our vibe coding approach typically achieves 90%+ user adoption rates and measurable productivity improvements within the first month.",
+      "Unlike traditional AI that focuses purely on data processing, vibe coding incorporates emotional intelligence, contextual understanding, and adaptive learning. This creates AI agents that don't just respond to queries but truly understand and connect with users on a human level.",
   },
 ]
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
+    <section id="faq" className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to know about our vibe coding approach and AI solutions.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <Badge variant="secondary" className="mb-4 px-4 py-2">
+            <Sparkles className="h-4 w-4 mr-2" />
+            Frequently Asked Questions
+          </Badge>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">
+            Everything You Need to Know About <span className="gradient-text">Vibe Coding</span>
+          </h2>
+          <p className="text-xl text-muted-foreground">
+            Get answers to common questions about our vibe coding technology, implementation process, and how it can
+            transform your business.
+          </p>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-white rounded-lg border border-gray-200 px-6"
+                className="border rounded-lg px-6 bg-white/80 backdrop-blur-sm"
               >
                 <AccordionTrigger className="text-left hover:no-underline py-6">
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
+                  <span className="font-semibold">{faq.question}</span>
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 pb-6 leading-relaxed">{faq.answer}</AccordionContent>
+                <AccordionContent className="pb-6 text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -89,28 +97,23 @@ export function FAQSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="mt-16 text-center"
         >
-          <div className="bg-white rounded-2xl p-8 border border-gray-200">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Still have questions?</h3>
-            <p className="text-gray-600 mb-6">
-              Our team is here to help you understand how vibe coding can transform your business with AI.
+          <div className="p-8 bg-primary/10 rounded-2xl border border-primary/20">
+            <h3 className="text-2xl font-bold mb-4">Still have questions about vibe coding?</h3>
+            <p className="text-muted-foreground mb-6">
+              Our team of vibe coding experts is here to help you understand how our technology can transform your
+              business operations and customer experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:hello@neuralia.com"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-colors"
-              >
-                Contact Our Team
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-              >
+              <button className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
                 Schedule a Demo
-              </a>
+              </button>
+              <button className="px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors">
+                Contact Support
+              </button>
             </div>
           </div>
         </motion.div>

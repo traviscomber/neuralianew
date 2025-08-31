@@ -3,65 +3,34 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { AuthProvider } from "@/hooks/use-auth"
-import { CartProvider } from "@/hooks/use-cart"
 import { Toaster } from "@/components/ui/toaster"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Smart AI, Simple Results | Vibe Coding",
+  title: "Neuralia - AI Solutions with Vibe Coding",
   description:
-    "We build AI agents that actually work. Advanced technology made simple for real people. Built with Vibe Coding methodology.",
-  keywords: "AI agents, artificial intelligence, automation, vibe coding, smart technology, business solutions",
+    "Transform your business with AI-powered solutions. Experience the future of vibe coding with Neuralia's innovative AI agents and systems.",
+  keywords: "AI, artificial intelligence, vibe coding, automation, chatbots, business solutions, Neuralia",
   authors: [{ name: "Neuralia Team" }],
   creator: "Neuralia",
   publisher: "Neuralia",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://neuralia.com"),
-  alternates: {
-    canonical: "/",
-  },
+  robots: "index, follow",
   openGraph: {
-    title: "Neuralia - Smart AI, Simple Results",
-    description: "We build AI agents that actually work. Advanced technology made simple.",
-    url: "https://neuralia.com",
-    siteName: "Neuralia",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Neuralia - Smart AI Solutions",
-      },
-    ],
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    url: "https://neuralia.com",
+    title: "Neuralia - AI Solutions with Vibe Coding",
+    description:
+      "Transform your business with AI-powered solutions. Experience the future of vibe coding with Neuralia's innovative AI agents and systems.",
+    siteName: "Neuralia",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - Smart AI, Simple Results",
-    description: "We build AI agents that actually work. Advanced technology made simple.",
-    images: ["/twitter-image.jpg"],
+    title: "Neuralia - AI Solutions with Vibe Coding",
+    description:
+      "Transform your business with AI-powered solutions. Experience the future of vibe coding with Neuralia's innovative AI agents and systems.",
     creator: "@neuralia",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
   },
     generator: 'v0.app'
 }
@@ -73,20 +42,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="vibe-coding" content="true" />
-      </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <AuthProvider>
-            <CartProvider>
-              {children}
-              <Toaster />
-            </CartProvider>
-          </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

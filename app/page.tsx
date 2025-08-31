@@ -1,4 +1,3 @@
-"use client"
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
 import { FeaturesSection } from "@/components/landing/features-section"
@@ -8,19 +7,17 @@ import { FAQSection } from "@/components/landing/faq-section"
 import { Footer } from "@/components/landing/footer"
 import { ChatWidget } from "@/components/chat/chat-widget"
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <main className="min-h-screen bg-background">
       <Navigation />
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-        <UseCasesSection />
-        <TestimonialsSection />
-        <FAQSection />
-      </main>
+      <HeroSection />
+      <FeaturesSection />
+      <UseCasesSection />
+      <TestimonialsSection />
+      <FAQSection />
       <Footer />
       <ChatWidget />
-    </div>
+    </main>
   )
 }
