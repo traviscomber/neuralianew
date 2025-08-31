@@ -29,72 +29,70 @@ import {
 const successCases = {
   ecosuelo: {
     name: "EcosueloLab",
-    tagline: "Análisis de Suelo con API y WhatsApp",
-    description:
-      "Portal neuronal que se conecta vía API a datos de suelo del cliente y envía análisis por WhatsApp usando Twilio",
+    tagline: "Análisis de Suelo Inteligente",
+    description: "Se conecta a tus datos de suelo y te envía análisis claros por WhatsApp",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     textColor: "text-green-700",
     icon: Sprout,
     metrics: {
       status: "En desarrollo",
-      focus: "Agricultura inteligente",
-      integration: "API + Twilio WhatsApp",
+      focus: "Agricultura",
+      integration: "API + WhatsApp",
       availability: "Demo disponible",
     },
     features: [
-      "Conexión API a sistemas de análisis de suelo",
-      "Análisis conversacional de nitrógeno en potreros",
-      "Envío automático de reportes vía WhatsApp",
-      "Integración con Twilio para mensajería",
-      "Recomendaciones técnicas personalizadas",
+      "Se conecta a tus sistemas de análisis de suelo",
+      "Habla contigo sobre nitrógeno y nutrientes",
+      "Envía reportes automáticos por WhatsApp",
+      "Te da recomendaciones técnicas claras",
+      "Hace seguimiento de tus cultivos",
     ],
     chatMessages: [
       {
         role: "assistant",
-        content:
-          "¡Hola! 🌱 Soy EcosueloBot. He accedido a los datos de tus potreros vía API. ¿Qué potrero quieres que analice hoy?",
+        content: "¡Hola! 🌱 Soy EcosueloBot. Tengo acceso a los datos de tus potreros. ¿Cuál revisamos hoy?",
         timestamp: "08:30",
       },
       {
         role: "user",
-        content: "El potrero norte, las plantas están amarillentas desde hace una semana",
+        content: "El potrero norte, las plantas están amarillas desde hace una semana",
         timestamp: "08:31",
       },
       {
         role: "assistant",
         content:
-          "Consultando API de análisis de suelo... 📊\n\n**Potrero Norte (12 hectáreas)**:\n• Nitrógeno: 15 ppm (BAJO)\n• pH: 6.2 (Óptimo)\n• Humedad: 45%\n\nEl amarillamiento confirma deficiencia de nitrógeno. ¿Quieres el plan de fertilización?",
+          "Revisando datos de suelo... 📊\n\n**Potrero Norte (12 hectáreas)**:\n• Nitrógeno: 15 ppm (MUY BAJO)\n• pH: 6.2 (Perfecto)\n• Humedad: 45% (Buena)\n\nEl amarillo es por falta de nitrógeno. ¿Quieres el plan para solucionarlo?",
         timestamp: "08:31",
       },
       {
         role: "user",
-        content: "Sí, por favor. Y envíamelo por WhatsApp para compartir con mi equipo",
+        content: "Sí, y envíamelo por WhatsApp para mi equipo",
         timestamp: "08:32",
       },
       {
         role: "assistant",
         content:
-          "¡Perfecto! 📱 Preparando reporte completo:\n\n**Plan de Fertilización**:\n• Aplicar 120 kg/ha de urea (46% N)\n• Fraccionado: 70% ahora, 30% en 15 días\n• Riego ligero post-aplicación\n• Seguimiento en 3 semanas\n\n¿Confirmas tu número de WhatsApp para enviar el reporte detallado vía Twilio?",
+          "¡Perfecto! 📱 Preparando plan completo:\n\n**Plan de Fertilización**:\n• Aplicar 120 kg/ha de urea (46% N)\n• Primera aplicación: 70% ahora\n• Segunda aplicación: 30% en 15 días\n• Riego ligero después\n\n¿Confirmas tu WhatsApp para enviar el reporte completo?",
         timestamp: "08:33",
       },
       {
         role: "user",
-        content: "Sí, es el +56 9 1234 5678. También incluye el costo estimado por favor",
+        content: "Sí, +56 9 1234 5678. Incluye costos por favor",
         timestamp: "08:34",
       },
       {
         role: "assistant",
         content:
-          "✅ **Reporte enviado a WhatsApp +56 9 1234 5678**\n\nIncluye:\n• Plan técnico detallado\n• Cronograma de aplicación\n• Costo estimado: $180.000 CLP\n• Mapa del potrero con zonas críticas\n• Contacto de proveedores recomendados\n\n📈 Programé recordatorio automático para seguimiento en 21 días. ¿Algo más que necesites?",
+          "✅ **Reporte enviado por WhatsApp**\n\nIncluye:\n• Plan paso a paso\n• Cronograma detallado\n• Costo total: $180.000 CLP\n• Mapa del potrero\n• Contactos de proveedores\n\n📅 Te recordaré revisar en 21 días. ¡Tu potrero se va a recuperar!",
         timestamp: "08:35",
       },
     ],
   },
   despega: {
     name: "Despega Tu Carrera",
-    tagline: "Coaching Profesional Personalizado",
-    description: "Programa de desarrollo profesional con IA que entiende tus metas y te guía paso a paso",
+    tagline: "Tu Coach Personal",
+    description: "Tu mentor que entiende tus metas y te guía paso a paso",
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
     textColor: "text-blue-700",
@@ -102,87 +100,84 @@ const successCases = {
     metrics: {
       status: "En desarrollo",
       focus: "Desarrollo profesional",
-      type: "Coaching IA",
+      type: "Coach personal",
       availability: "Demo disponible",
     },
     features: [
-      "Plan de carrera personalizado",
-      "Mentoring conversacional 24/7",
-      "Estrategias probadas de crecimiento",
-      "Seguimiento de progreso",
-      "Consejos específicos por industria",
+      "Plan de carrera hecho para ti",
+      "Mentoring 24/7 cuando lo necesites",
+      "Estrategias que realmente funcionan",
+      "Seguimiento de tu progreso",
+      "Consejos específicos para tu industria",
     ],
     chatMessages: [
       {
         role: "assistant",
         content:
-          "¡Bienvenido! 🚀 Soy tu coach de desarrollo profesional. Estoy aquí para ayudarte a alcanzar tus metas. Cuéntame, ¿cuál es esa aspiración profesional que te emociona?",
+          "¡Hola! 🚀 Soy tu coach personal. Estoy aquí para ayudarte a crecer profesionalmente. ¿Cuál es tu meta?",
         timestamp: "14:30",
       },
       {
         role: "user",
-        content:
-          "Me gustaría liderar un equipo de desarrollo, pero siento que me falta experiencia en gestión de personas",
+        content: "Quiero liderar un equipo de desarrollo, pero me falta experiencia en gestión",
         timestamp: "14:31",
       },
       {
         role: "assistant",
         content:
-          "¡Qué meta tan valiosa! 💪 Reconocer esa área de crecimiento ya te pone adelante. Cuéntame más:\n\n🎯 ¿Qué te atrae más del liderazgo técnico?\n🤔 ¿Has liderado proyectos o mentoreado a alguien?\n💭 ¿Cuál consideras tu mayor fortaleza técnica?\n⏰ ¿En qué plazo te visualizas en ese rol?",
+          "¡Qué meta tan buena! 💪 Reconocer esa área de mejora ya te pone adelante. Cuéntame:\n\n🎯 ¿Qué te emociona del liderazgo?\n🤔 ¿Has liderado proyectos antes?\n💭 ¿Cuál es tu fortaleza técnica?\n⏰ ¿En cuánto tiempo quieres lograrlo?",
         timestamp: "14:31",
       },
       {
         role: "user",
         content:
-          "Me emociona poder mentorear y crear productos increíbles. He liderado algunos proyectos pequeños y soy bueno resolviendo problemas complejos. Me gustaría lograrlo en menos de un año",
+          "Me emociona mentorear y crear productos increíbles. He liderado proyectos pequeños. Soy bueno resolviendo problemas complejos. Quiero lograrlo en un año",
         timestamp: "14:32",
       },
       {
         role: "assistant",
         content:
-          "¡Perfecto! Tienes bases sólidas 🌟 Tu pasión por mentorear y habilidades técnicas son excelentes cimientos. Te propongo un enfoque gradual:\n\n🎯 **Primeros pasos (1-3 meses)**:\n• Buscar oportunidades de mentoría informal\n• Liderar un proyecto con más responsabilidad\n• Desarrollar habilidades de comunicación\n\n🎯 **Desarrollo (4-8 meses)**:\n• Tomar cursos de liderazgo técnico\n• Buscar feedback de tu equipo actual\n• Prepararte para entrevistas de liderazgo\n\n¿Hay algún aspecto específico en el que te gustaría enfocarte primero?",
+          "¡Perfecto! Tienes bases sólidas 🌟 Tu plan de 12 meses:\n\n🎯 **Primeros 3 meses**:\n• Mentorea developers junior\n• Lidera un proyecto más grande\n• Mejora tu comunicación\n\n🎯 **Siguientes 6 meses**:\n• Curso de liderazgo técnico\n• Pide feedback constante\n• Prepárate para entrevistas\n\n¿Por dónde empezamos?",
         timestamp: "14:33",
       },
       {
         role: "user",
-        content:
-          "Me interesa empezar con la mentoría. Hay algunos developers junior en mi equipo que siempre me hacen preguntas",
+        content: "La mentoría me interesa. Hay juniors en mi equipo que siempre me preguntan",
         timestamp: "14:34",
       },
       {
         role: "assistant",
         content:
-          "¡Excelente punto de partida! 🎓 Ya tienes la oportunidad perfecta. Te sugiero estructurar esa mentoría:\n\n📅 **Estructura sugerida**:\n• Sesiones regulares de 30 minutos\n• Combinar code reviews con conversación\n• Establecer objetivos claros de aprendizaje\n• Documentar el progreso de ambos\n\n🎯 **Beneficios para ti**:\n• Desarrollar habilidades de enseñanza\n• Practicar dar feedback constructivo\n• Crear casos de éxito para tu CV\n• Ganar experiencia en desarrollo de talento\n\n¿Te gustaría que te ayude a planificar la primera sesión de mentoría?",
+          "¡Excelente! Ya tienes la oportunidad perfecta 🎓\n\n**Plan de Mentoría**:\n\n📅 **Estructura**:\n• 30 minutos semanales con cada junior\n• Combina code reviews con conversación\n• Objetivos claros de aprendizaje\n• Documenta el progreso\n\n🎯 **Beneficios para ti**:\n• Desarrollas habilidades de enseñanza\n• Practicas dar feedback\n• Casos de éxito para tu CV\n\n¿Te ayudo a planificar la primera sesión?",
         timestamp: "14:35",
       },
     ],
   },
   parrotfy: {
     name: "Parrotfy",
-    tagline: "Asistente ERP IA",
-    description: "Asistente ERP inteligente que analiza clientes, facturas y datos empresariales conversando vía API",
+    tagline: "Tu Asistente de Negocio",
+    description: "Analiza tus clientes y facturas hablando contigo de forma natural",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     textColor: "text-purple-700",
     icon: Settings,
     metrics: {
       status: "En desarrollo",
-      focus: "Análisis empresarial",
-      type: "Asistente ERP IA",
-      integration: "Conexión API",
+      focus: "Análisis de negocio",
+      type: "Asistente inteligente",
+      integration: "Datos en tiempo real",
     },
     features: [
-      "Análisis inteligente de clientes y facturas",
-      "Identificación de mejores clientes por período",
-      "Análisis de productos más vendidos por cliente",
-      "Reportes de tendencias de ventas",
-      "Predicciones basadas en datos históricos",
+      "Analiza clientes y facturas de forma inteligente",
+      "Identifica tus mejores clientes cada mes",
+      "Descubre qué productos vender más",
+      "Detecta tendencias y oportunidades",
+      "Predicciones basadas en tu historial",
     ],
     chatMessages: [
       {
         role: "assistant",
-        content:
-          "¡Hola! 👋 Soy Parrotfy, tu asistente ERP IA. Me conecto vía API a tu sistema empresarial para analizar clientes, facturas y datos de negocio. ¿Qué análisis necesitas hoy? ⚙️",
+        content: "¡Hola! 💼 Soy Parrotfy. Tengo acceso a todos tus datos de negocio. ¿Qué quieres descubrir hoy?",
         timestamp: "09:15",
       },
       {
@@ -193,29 +188,29 @@ const successCases = {
       {
         role: "assistant",
         content:
-          "Analizando facturas vía API... 📊\n\n🏆 **Mejor Cliente de Diciembre 2024**:\n• **TechCorp Solutions**: $45.000 USD\n• 12 facturas procesadas\n• Crecimiento del 23% vs mes anterior\n• Margen promedio: 35%\n\n📈 **Comparación Top 3**:\n1. TechCorp: $45.000\n2. InnovateX: $32.500  \n3. DataFlow: $28.800\n\n¿Quieres detalles específicos de algún cliente?",
+          "Revisando todas tus facturas... 📊\n\n🏆 **Tu Mejor Cliente - Diciembre 2024**:\n• **TechCorp Solutions**: $45.000 USD\n• 12 facturas este mes\n• Creció 23% vs mes pasado\n• Margen promedio: 35% (excelente)\n\n📈 **Top 3**:\n1. TechCorp: $45.000\n2. InnovateX: $32.500\n3. DataFlow: $28.800\n\n¿Quieres saber más de TechCorp?",
         timestamp: "09:16",
       },
       {
         role: "user",
-        content: "Sí, dime qué productos le vendemos más a TechCorp",
+        content: "Sí, ¿qué productos le vendemos más?",
         timestamp: "09:17",
       },
       {
         role: "assistant",
         content:
-          "Perfecto, analizando facturas de TechCorp vía API 🎯:\n\n💼 **Productos más vendidos a TechCorp**:\n• **Software Licenses**: 60% ($27.000)\n  - Office Suite Pro: $15.000\n  - Development Tools: $12.000\n• **Consultoría**: 25% ($11.250)\n  - Implementación: $7.500\n  - Training: $3.750\n• **Soporte Técnico**: 15% ($6.750)\n  - Premium Support: $6.750\n\n📊 **Insights**:\n• Mayor demanda en Q4\n• Prefieren paquetes enterprise\n• Renovación automática activada\n\n¿Te interesa una estrategia para aumentar ventas con ellos?",
+          "Analizando ventas a TechCorp 🎯:\n\n💼 **Sus Productos Favoritos**:\n• **Software**: 60% ($27.000)\n  - Office Suite Pro: $15.000\n  - Herramientas Dev: $12.000\n• **Consultoría**: 25% ($11.250)\n  - Implementación: $7.500\n  - Capacitación: $3.750\n• **Soporte**: 15% ($6.750)\n\n💡 **Descubrí que**:\n• Compra más en fin de año\n• Prefiere paquetes enterprise\n• Tiene renovación automática\n\n¿Quieres ideas para venderles más?",
         timestamp: "09:18",
       },
       {
         role: "user",
-        content: "Sí, y también dime si hay clientes que están comprando menos últimamente",
+        content: "Sí, y dime si hay clientes comprando menos",
         timestamp: "09:19",
       },
       {
         role: "assistant",
         content:
-          "Excelente pregunta. Analizando tendencias vía API 📉:\n\n🚨 **Clientes con Reducción de Compras**:\n• **MegaCorp**: -40% ($18.000 → $10.800)\n  - Último pedido: hace 45 días\n  - Historial: cliente desde 2022\n• **StartupHub**: -25% ($8.000 → $6.000)\n  - Cambió a pedidos mensuales vs semanales\n• **CloudTech**: -15% ($12.000 → $10.200)\n  - Redujo licencias de 50 a 42\n\n💡 **Estrategias sugeridas**:\n• Contactar MegaCorp (riesgo alto)\n• Ofrecer descuentos por volumen a StartupHub\n• Revisar necesidades actuales de CloudTech\n\n¿Quieres que genere un plan de retención específico?",
+          "Detecté algunas señales de alerta 🚨:\n\n📉 **Clientes en Riesgo**:\n• **MegaCorp**: -40% ($18.000 → $10.800)\n  - Sin pedidos hace 45 días\n  - Cliente desde 2022 (¡cuidado!)\n• **StartupHub**: -25% ($8.000 → $6.000)\n  - Cambió de pedidos semanales a mensuales\n• **CloudTech**: -15% ($12.000 → $10.200)\n  - Redujo licencias de 50 a 42\n\n💡 **Te sugiero**:\n• Llamar a MegaCorp HOY (riesgo alto)\n• Ofrecer descuento por volumen a StartupHub\n• Revisar necesidades de CloudTech\n\n¿Genero un plan de retención?",
         timestamp: "09:20",
       },
     ],
@@ -270,8 +265,7 @@ export function UseCasesSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            Explora los portales neuronales que estamos desarrollando. Cada uno diseñado para entender y conectar
-            emocionalmente con usuarios específicos.
+            Mira lo que estamos construyendo. Cada proyecto está diseñado para entender y conectar de verdad contigo.
           </p>
         </motion.div>
 
@@ -372,9 +366,9 @@ export function UseCasesSection() {
                             <Target className="w-5 h-5" />
                           )}
                           {key === "ecosuelo"
-                            ? "Capacidades API + WhatsApp"
+                            ? "Capacidades Principales"
                             : key === "parrotfy"
-                              ? "Análisis de Clientes y Facturas"
+                              ? "Análisis de Negocio"
                               : "Características Principales"}
                         </h4>
                         <ul className="space-y-3">
@@ -412,14 +406,14 @@ export function UseCasesSection() {
                           <Bot className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">Portal Neuronal - {caseData.name}</CardTitle>
+                          <CardTitle className="text-lg">{caseData.name}</CardTitle>
                           <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600">
                               {key === "ecosuelo"
-                                ? "API + WhatsApp activo"
+                                ? "Analizando suelo"
                                 : key === "parrotfy"
-                                  ? "Analizando facturas vía API"
+                                  ? "Revisando facturas"
                                   : "Demo interactivo"}
                             </span>
                           </div>
@@ -513,10 +507,10 @@ export function UseCasesSection() {
                         </div>
                         <p className="text-xs text-gray-500 mt-2 text-center">
                           {key === "ecosuelo"
-                            ? "Demo API + WhatsApp - Simulación de integración Twilio"
+                            ? "Demo con datos de suelo + WhatsApp"
                             : key === "parrotfy"
-                              ? "Demo Análisis de Facturas - Simulación de conexión API"
-                              : "Demo automático - Los mensajes se muestran progresivamente"}
+                              ? "Demo con análisis de facturas en tiempo real"
+                              : "Demo automático - Los mensajes aparecen solos"}
                         </p>
                       </div>
                     </CardContent>
@@ -540,12 +534,12 @@ export function UseCasesSection() {
               <div className="flex items-center justify-center gap-2 mb-4">
                 <Zap className="w-6 h-6 text-purple-600" />
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  ¿Interesado en un Portal Neuronal?
+                  ¿Te Interesa?
                 </h3>
               </div>
               <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-                Estamos desarrollando IA conversacional que entiende, conecta y genera valor real. Si tienes un proyecto
-                en mente, nos encantaría conocer tu visión.
+                Estamos creando IA que entiende, conecta y ayuda de verdad. Si tienes una idea, nos encantaría
+                conocerla.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
@@ -553,7 +547,7 @@ export function UseCasesSection() {
                   className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8"
                 >
                   <Zap className="w-4 h-4 mr-2" />
-                  Explorar Colaboración
+                  Hablemos
                 </Button>
                 <Button
                   variant="outline"
@@ -561,7 +555,7 @@ export function UseCasesSection() {
                   className="border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 bg-transparent"
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Ver Demos Disponibles
+                  Ver Demos
                 </Button>
               </div>
             </CardContent>

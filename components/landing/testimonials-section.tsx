@@ -14,7 +14,7 @@ const testimonials = [
     avatar: "/placeholder-user.jpg",
     rating: 5,
     content:
-      "EcosueloLab transformó completamente nuestro proceso de selección. La IA no solo evalúa habilidades técnicas, sino que entiende la personalidad y fit cultural. Hemos reducido la rotación en un 60%.",
+      "EcosueloLab cambió completamente cómo seleccionamos personal. La IA no solo evalúa habilidades técnicas, sino que entiende la personalidad y si encaja con nuestro equipo. Redujimos la rotación en un 60%.",
     category: "Recursos Humanos",
     icon: Building,
     color: "from-green-500 to-emerald-600",
@@ -26,7 +26,7 @@ const testimonials = [
     avatar: "/placeholder-user.jpg",
     rating: 5,
     content:
-      "Gracias a Despega Tu Carrera conseguí mi primera práctica profesional en solo 3 semanas. El coaching personalizado me ayudó a identificar mis fortalezas y a presentarme con confianza.",
+      "Gracias a Despega Tu Carrera conseguí mi primera práctica en solo 3 semanas. El coaching me ayudó a identificar mis fortalezas y a presentarme con confianza.",
     category: "Estudiante",
     icon: GraduationCap,
     color: "from-blue-500 to-cyan-600",
@@ -50,7 +50,7 @@ const testimonials = [
     avatar: "/placeholder-user.jpg",
     rating: 5,
     content:
-      "Implementamos los portales neuronales de Neuralia en nuestro customer service. La satisfacción del cliente subió al 96% y redujimos los tiempos de respuesta en un 80%. Es impresionante.",
+      "Implementamos los portales neuronales de Neuralia en nuestro servicio al cliente. La satisfacción subió al 96% y redujimos los tiempos de respuesta en un 80%. Es impresionante cómo entiende a cada cliente.",
     category: "Liderazgo",
     icon: Users,
     color: "from-orange-500 to-red-600",
@@ -62,7 +62,7 @@ const testimonials = [
     avatar: "/placeholder-user.jpg",
     rating: 5,
     content:
-      "Lo que más me impresiona es cómo la IA entiende las emociones y responde con empatía genuina. Mis clientes se sienten realmente escuchados y comprendidos. Es terapéutico.",
+      "Lo que más me impresiona es cómo la IA entiende las emociones y responde con empatía real. Mis clientes se sienten realmente escuchados y comprendidos. Es casi terapéutico.",
     category: "Bienestar",
     icon: Building,
     color: "from-pink-500 to-rose-600",
@@ -104,8 +104,7 @@ export function TestimonialsSection() {
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">usuarios</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Historias reales de personas y empresas que han transformado su experiencia con nuestros portales
-            neuronales.
+            Historias reales de personas y empresas que han probado nuestra IA que conecta de verdad.
           </p>
         </motion.div>
 
@@ -176,8 +175,8 @@ export function TestimonialsSection() {
           <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-green-50 rounded-2xl p-8 border border-purple-100">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Listo para ser el próximo caso de éxito?</h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              Únete a miles de profesionales y empresas que ya están transformando su futuro con nuestros portales
-              neuronales.
+              Únete a miles de profesionales y empresas que ya están transformando su futuro con nuestra IA que conecta
+              de verdad.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">

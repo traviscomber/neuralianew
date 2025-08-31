@@ -20,53 +20,53 @@ import {
 const features = [
   {
     icon: Brain,
-    title: "Inteligencia Emocional",
-    description: "IA que reconoce y responde a emociones humanas con empatía genuina",
+    title: "Entiende Emociones",
+    description: "Nuestra IA reconoce cómo te sientes y responde con empatía real",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
   },
   {
     icon: Heart,
-    title: "Conexión Auténtica",
-    description: "Crea vínculos reales entre la IA y los usuarios a través de personalidad coherente",
+    title: "Conexión Real",
+    description: "Crea vínculos auténticos contigo, como hablar con un amigo que te entiende",
     color: "from-pink-500 to-rose-600",
     bgColor: "bg-pink-50",
   },
   {
     icon: Target,
-    title: "Personalización Profunda",
-    description: "Adapta cada interacción al contexto, historial y preferencias únicas del usuario",
+    title: "Se Adapta a Ti",
+    description: "Cada conversación es única, adaptada a tu forma de ser y tus necesidades",
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
   },
   {
     icon: Sparkles,
-    title: "Aprendizaje Continuo",
-    description: "Evoluciona constantemente para mejorar la calidad de cada conversación",
+    title: "Aprende Contigo",
+    description: "Mejora cada día para darte respuestas más útiles y precisas",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
   },
   {
     icon: MessageSquare,
-    title: "Conversación Natural",
-    description: "Diálogos fluidos que se sienten como hablar con un experto humano",
+    title: "Habla Natural",
+    description: "Conversaciones fluidas que se sienten como hablar con una persona real",
     color: "from-orange-500 to-amber-600",
     bgColor: "bg-orange-50",
   },
   {
     icon: Shield,
-    title: "Confianza y Seguridad",
-    description: "Protección de datos y transparencia en cada interacción",
+    title: "Seguro y Confiable",
+    description: "Tus datos están protegidos y nunca los compartimos con nadie",
     color: "from-indigo-500 to-purple-600",
     bgColor: "bg-indigo-50",
   },
 ]
 
 const stats = [
-  { icon: Users, value: "50K+", label: "Usuarios Satisfechos" },
-  { icon: TrendingUp, value: "94%", label: "Tasa de Éxito" },
-  { icon: Globe, value: "15+", label: "Idiomas Soportados" },
-  { icon: Rocket, value: "99.9%", label: "Tiempo de Actividad" },
+  { icon: Users, value: "Beta", label: "En Desarrollo" },
+  { icon: TrendingUp, value: "Simple", label: "Fácil de Usar" },
+  { icon: Globe, value: "15+", label: "Idiomas" },
+  { icon: Rocket, value: "24/7", label: "Siempre Activo" },
 ]
 
 export function FeaturesSection() {
@@ -85,17 +85,17 @@ export function FeaturesSection() {
             className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
           >
             <Lightbulb className="w-4 h-4 mr-2" />
-            Tecnología Revolucionaria
+            Tecnología Única
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            ¿Qué hace especial al{" "}
+            ¿Qué hace especial a{" "}
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Vibe Coding?
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            No es solo IA funcional, es IA con alma. Nuestros portales neuronales entienden el contexto emocional, la
-            personalidad y las necesidades únicas de cada usuario.
+            No es solo IA que funciona, es IA que te entiende. Nuestra tecnología conecta contigo de forma real y
+            personal.
           </p>
         </motion.div>
 
@@ -141,8 +141,8 @@ export function FeaturesSection() {
           className="bg-gradient-to-r from-purple-50 via-blue-50 to-green-50 rounded-2xl p-8 border border-purple-100"
         >
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Resultados que Hablan por Sí Solos</h3>
-            <p className="text-gray-600">Métricas reales de nuestros portales neuronales en producción</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Números que Importan</h3>
+            <p className="text-gray-600">Lo que estamos construyendo para ti</p>
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

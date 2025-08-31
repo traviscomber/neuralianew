@@ -12,47 +12,45 @@ const demos = [
     id: "ecosuelo",
     name: "EcosueloLab",
     tagline: "Análisis de Suelo vía API",
-    description: "Se conecta vía API a datos de suelo y envía análisis por WhatsApp con Twilio",
+    description: "Se conecta a tus datos de suelo y envía análisis por WhatsApp",
     color: "from-green-500 to-emerald-600",
     bgColor: "bg-green-50",
     icon: Sprout,
     messages: [
       {
         role: "bot",
-        content:
-          "¡Hola! 🌱 Soy EcosueloBot. He accedido a los datos de tu potrero vía API. ¿Qué potrero quieres analizar? 🌱",
+        content: "¡Hola! 🌱 Soy EcosueloBot. Tengo acceso a tus datos de suelo. ¿Qué potrero revisamos?",
       },
       {
         role: "user",
-        content: "El potrero norte, las plantas están amarillentas",
+        content: "El potrero norte, las plantas están amarillas",
       },
       {
         role: "bot",
-        content: "Consultando API... Tu potrero norte (12 ha) tiene 15 ppm de nitrógeno. Muy bajo.",
+        content: "Revisando datos... Tu potrero norte tiene nitrógeno muy bajo (15 ppm). Eso causa el amarillo.",
       },
       {
         role: "user",
-        content: "¿Qué me recomiendas hacer?",
+        content: "¿Qué hago?",
       },
       {
         role: "bot",
-        content:
-          "Te envío por WhatsApp el plan completo: aplicar 120 kg/ha de urea. ¿Confirmas tu número para el reporte detallado?",
+        content: "Te envío el plan por WhatsApp: aplicar 120 kg/ha de urea. ¿Confirmas tu número?",
       },
     ],
   },
   {
     id: "despega",
     name: "Despega Tu Carrera",
-    tagline: "Coaching Profesional",
-    description: "Impulsa tu carrera conversando naturalmente con IA",
+    tagline: "Coach Profesional",
+    description: "Tu mentor personal para crecer profesionalmente",
     color: "from-blue-500 to-cyan-600",
     bgColor: "bg-blue-50",
     icon: TrendingUp,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! Soy tu coach de carrera. ¿Cuál es tu meta profesional? 🚀",
+        content: "¡Hola! 🚀 Soy tu coach personal. ¿Cuál es tu meta profesional?",
       },
       {
         role: "user",
@@ -60,48 +58,46 @@ const demos = [
       },
       {
         role: "bot",
-        content: "¡Excelente! ¿Tienes experiencia técnica y has liderado proyectos?",
+        content: "¡Excelente meta! ¿Tienes experiencia técnica y has liderado proyectos?",
       },
       {
         role: "user",
-        content: "Sí, en React y Node.js, he coordinado algunos proyectos pequeños",
+        content: "Sí, en React y Node.js, algunos proyectos pequeños",
       },
       {
         role: "bot",
-        content:
-          "Perfecto. Te sugiero: mentorear juniors → liderar proyectos grandes → postular a Tech Lead. ¿Te parece viable?",
+        content: "Perfecto. Plan: mentorea juniors → lidera proyectos grandes → postula a Tech Lead. ¿Empezamos?",
       },
     ],
   },
   {
     id: "parrotfy",
     name: "Parrotfy",
-    tagline: "Asistente ERP IA",
-    description: "Analiza clientes, facturas y datos empresariales conversando vía API",
+    tagline: "Asistente de Negocio",
+    description: "Analiza tus clientes y facturas conversando contigo",
     color: "from-purple-500 to-violet-600",
     bgColor: "bg-purple-50",
     icon: Settings,
     messages: [
       {
         role: "bot",
-        content: "¡Hola! Soy Parrotfy, tu asistente ERP IA. ¿Qué análisis necesitas? ⚙️",
+        content: "¡Hola! 💼 Soy Parrotfy. Analizo tus datos de negocio. ¿Qué quieres saber?",
       },
       {
         role: "user",
-        content: "¿Quién es mi mejor cliente este mes?",
+        content: "¿Quién es mi mejor cliente?",
       },
       {
         role: "bot",
-        content: "Analizando facturas vía API... Tu mejor cliente es TechCorp con $45.000 en ventas este mes.",
+        content: "Revisando facturas... Tu mejor cliente es TechCorp con $45.000 este mes.",
       },
       {
         role: "user",
-        content: "¿Qué productos le vendemos más?",
+        content: "¿Qué le vendemos más?",
       },
       {
         role: "bot",
-        content:
-          "Basado en facturas: 60% Software, 25% Consultoría, 15% Soporte. ¿Quieres estrategias para aumentar ventas?",
+        content: "Principalmente: 60% Software, 25% Consultoría. ¿Quieres ideas para vender más?",
       },
     ],
   },
@@ -203,8 +199,8 @@ export function HeroSection() {
             </h1>
 
             <p className="text-xl sm:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Creamos portales neuronales que no solo procesan información, sino que{" "}
-              <span className="font-semibold text-purple-700">conectan emocionalmente</span> con tus usuarios.
+              Creamos IA que no solo responde preguntas, sino que{" "}
+              <span className="font-semibold text-purple-700">conecta de verdad</span> contigo.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
@@ -213,7 +209,7 @@ export function HeroSection() {
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all"
               >
                 <Zap className="w-5 h-5 mr-2" />
-                Crear Mi Portal Neuronal
+                Crear Mi IA
               </Button>
               <Button
                 variant="outline"
@@ -221,7 +217,7 @@ export function HeroSection() {
                 className="border-2 border-purple-200 text-purple-700 hover:bg-purple-50 font-semibold px-8 py-4 text-lg bg-white/80 backdrop-blur-sm"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Ver Demo en Vivo
+                Ver Demo
               </Button>
             </div>
 
@@ -235,15 +231,15 @@ export function HeroSection() {
               </div>
               <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                  IA
+                  Simple
                 </div>
-                <div className="text-gray-600 font-medium">Conversacional</div>
+                <div className="text-gray-600 font-medium">Conversación</div>
               </div>
               <div>
                 <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-purple-600 bg-clip-text text-transparent">
                   24/7
                 </div>
-                <div className="text-gray-600 font-medium">Disponibilidad</div>
+                <div className="text-gray-600 font-medium">Disponible</div>
               </div>
             </div>
           </motion.div>
@@ -366,9 +362,9 @@ export function HeroSection() {
                       <div className="flex items-center justify-between mt-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
                           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                          <span>Portal neuronal activo</span>
+                          <span>IA conectada</span>
                         </div>
-                        <span>Demo interactivo</span>
+                        <span>Demo en vivo</span>
                       </div>
                     </CardContent>
                   </Card>

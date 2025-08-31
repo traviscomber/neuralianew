@@ -10,49 +10,49 @@ const faqs = [
   {
     question: "¿Qué es exactamente el 'Vibe Coding'?",
     answer:
-      "Vibe Coding es nuestra metodología revolucionaria para crear IA que no solo procesa información, sino que entiende el contexto emocional, la personalidad y las necesidades únicas de cada usuario. Es como darle alma a la inteligencia artificial, creando conexiones auténticas y naturales.",
+      "Vibe Coding es nuestra forma de crear IA que no solo procesa información, sino que entiende cómo te sientes, tu personalidad y lo que realmente necesitas. Es como darle alma a la inteligencia artificial para que conecte contigo de verdad.",
     category: "Concepto",
   },
   {
     question: "¿Cómo funcionan los 'Portales Neuronales'?",
     answer:
-      "Los Portales Neuronales son sistemas de IA especializados que combinan procesamiento de lenguaje natural, análisis emocional y aprendizaje adaptativo. Cada portal está diseñado para un dominio específico (como EcosueloLab para carreras o ParrotfyIA para idiomas) y evoluciona continuamente para mejorar la experiencia del usuario.",
+      "Los Portales Neuronales son sistemas de IA especializados que combinan comprensión de lenguaje, análisis emocional y aprendizaje adaptativo. Cada portal está diseñado para un área específica (como EcosueloLab para agricultura o Parrotfy para negocios) y mejora continuamente.",
     category: "Tecnología",
   },
   {
     question: "¿Qué tan segura es mi información personal?",
     answer:
-      "La seguridad es nuestra máxima prioridad. Utilizamos encriptación de extremo a extremo, cumplimos con GDPR y regulaciones locales, y nunca compartimos datos personales con terceros. Toda la información se procesa de forma segura y se almacena con los más altos estándares de protección.",
+      "La seguridad es lo más importante para nosotros. Usamos encriptación de extremo a extremo, cumplimos con GDPR y regulaciones locales, y nunca compartimos tus datos con terceros. Todo se procesa de forma segura.",
     category: "Seguridad",
   },
   {
     question: "¿Puedo personalizar la IA para mi empresa?",
     answer:
-      "¡Absolutamente! Nuestros portales neuronales se adaptan completamente a tu marca, industria y necesidades específicas. Podemos entrenar la IA con tu base de conocimientos, ajustar el tono de comunicación y integrarla con tus sistemas existentes.",
+      "¡Por supuesto! Nuestros portales se adaptan completamente a tu marca, industria y necesidades específicas. Podemos entrenar la IA con tu información, ajustar cómo habla y conectarla con tus sistemas.",
     category: "Personalización",
   },
   {
     question: "¿En qué idiomas está disponible?",
     answer:
-      "Actualmente soportamos más de 15 idiomas, incluyendo español, inglés, portugués, francés, alemán, italiano, y varios más. Nuestro sistema ParrotfyIA es especialmente potente para el aprendizaje multiidioma con hablantes nativos de IA.",
+      "Actualmente soportamos más de 15 idiomas, incluyendo español, inglés, portugués, francés, alemán, italiano, y varios más. Nuestro sistema Parrotfy es especialmente bueno para aprender idiomas con hablantes nativos de IA.",
     category: "Idiomas",
   },
   {
     question: "¿Cuánto tiempo toma implementar un portal neuronal?",
     answer:
-      "Dependiendo de la complejidad, la implementación puede tomar desde 2-4 semanas para soluciones estándar hasta 8-12 semanas para portales completamente personalizados. Incluimos capacitación, soporte y optimización continua.",
+      "Dependiendo de la complejidad, puede tomar desde 2-4 semanas para soluciones estándar hasta 8-12 semanas para portales completamente personalizados. Incluimos capacitación, soporte y mejoras continuas.",
     category: "Implementación",
   },
   {
     question: "¿Qué diferencia a Neuralia de otros chatbots?",
     answer:
-      "Los chatbots tradicionales siguen scripts rígidos. Nuestros portales neuronales entienden contexto, emociones y personalidad. No solo responden preguntas, sino que crean experiencias significativas, aprenden de cada interacción y se adaptan al estilo único de cada usuario.",
+      "Los chatbots tradicionales siguen scripts rígidos. Nuestros portales neuronales entienden contexto, emociones y personalidad. No solo responden preguntas, sino que crean experiencias significativas y se adaptan a tu estilo único.",
     category: "Diferenciación",
   },
   {
     question: "¿Ofrecen soporte técnico y mantenimiento?",
     answer:
-      "Sí, incluimos soporte técnico 24/7, actualizaciones regulares, monitoreo de rendimiento y optimización continua. Nuestro equipo de expertos está siempre disponible para asegurar que tu portal neuronal funcione perfectamente.",
+      "Sí, incluimos soporte técnico 24/7, actualizaciones regulares, monitoreo de rendimiento y mejoras continuas. Nuestro equipo está siempre disponible para asegurar que tu portal funcione perfectamente.",
     category: "Soporte",
   },
 ]
@@ -160,8 +160,8 @@ export function FAQSection() {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">¿No encontraste tu respuesta?</h3>
               <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Nuestro equipo de expertos está listo para resolver cualquier duda específica sobre cómo los portales
-                neuronales pueden transformar tu negocio.
+                Nuestro equipo está listo para resolver cualquier duda específica sobre cómo nuestros portales
+                neuronales pueden ayudar a tu negocio.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all">

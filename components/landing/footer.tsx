@@ -8,7 +8,7 @@ const footerLinks = {
   Productos: [
     { name: "EcosueloLab", href: "#ecosuelo" },
     { name: "Despega Tu Carrera", href: "#despega" },
-    { name: "ParrotfyIA", href: "#parrotfy" },
+    { name: "Parrotfy", href: "#parrotfy" },
     { name: "Portales Personalizados", href: "#custom" },
   ],
   Empresa: [
@@ -64,8 +64,8 @@ export function Footer() {
               </div>
 
               <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-                Creamos portales neuronales que transforman la interacción humano-IA a través de conexiones auténticas,
-                comprensión emocional y personalización profunda.
+                Creamos IA que transforma la interacción humano-máquina a través de conexiones auténticas, comprensión
+                emocional y personalización real.
               </p>
 
               <div className="space-y-3 mb-6">
@@ -147,11 +147,11 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4 text-blue-400" />
-                <span>50K+ Usuarios</span>
+                <span>Beta</span>
               </div>
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-yellow-400" />
-                <span>99.9% Uptime</span>
+                <span>24/7 Activo</span>
               </div>
             </div>
           </div>
