@@ -3,100 +3,108 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Zap, Users, TrendingUp } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowRight, Zap, Brain, Sparkles } from "lucide-react"
 
 export function HeroSection() {
-  const [stats, setStats] = useState({
-    agents: 500,
-    users: 10000,
-    uptime: 99.9,
-  })
+  const [stats, setStats] = useState({ agents: 0, users: 0, accuracy: 0 })
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setStats((prev) => ({
-        agents: prev.agents + Math.floor(Math.random() * 3),
-        users: prev.users + Math.floor(Math.random() * 10),
-        uptime: 99.9,
+        agents: Math.min(prev.agents + 2, 150),
+        users: Math.min(prev.users + 100, 25000),
+        accuracy: Math.min(prev.accuracy + 1, 98.7),
       }))
-    }, 3000)
-
-    return () => clearInterval(interval)
+    }, 50)
+    return () => clearInterval(timer)
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-teal-600/20 animate-pulse" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Badge */}
-        <div className="mb-8">
-          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 px-4 py-2 text-sm font-medium">
-            <Zap className="w-4 h-4 mr-2" />
-            Fullstack AI Ecosystem Built by Neuralia
+    <section className="pt-24 pb-16 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+            <Sparkles className="w-3 h-3 mr-1" />
+            Built with Vibe Coding
           </Badge>
+
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="gradient-text">Smart AI</span>
+            <br />
+            Simple Results
+          </h1>
+
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            We build AI agents that actually work. No complexity, just results.
+          </p>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-3 gap-6 mb-12 max-w-2xl mx-auto">
+            <Card className="p-4 bg-white/80">
+              <CardContent className="p-0 text-center">
+                <div className="text-2xl font-bold gradient-text">{stats.agents}+</div>
+                <div className="text-sm text-gray-600">AI Agents</div>
+              </CardContent>
+            </Card>
+            <Card className="p-4 bg-white/80">
+              <CardContent className="p-0 text-center">
+                <div className="text-2xl font-bold gradient-text">{(stats.users / 1000).toFixed(0)}K+</div>
+                <div className="text-sm text-gray-600">Users</div>
+              </CardContent>
+            </Card>
+            <Card className="p-4 bg-white/80">
+              <CardContent className="p-0 text-center">
+                <div className="text-2xl font-bold gradient-text">{stats.accuracy.toFixed(1)}%</div>
+                <div className="text-sm text-gray-600">Accuracy</div>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 text-lg">
+              <Zap className="mr-2 h-5 w-5" />
+              Try Free
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button size="lg" variant="outline" className="px-8 py-4 text-lg bg-transparent">
+              See Demo
+            </Button>
+          </div>
         </div>
 
-        {/* Main Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          AI Agents That
-          <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-teal-400 bg-clip-text text-transparent block">
-            Think & Act Autonomously
-          </span>
-        </h1>
-
-        {/* Subheading */}
-        <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed">
-          Deploy intelligent AI agents that run on our fullstack ecosystem,
-          <span className="text-blue-400 font-semibold"> copiloted by AI</span> for maximum efficiency and autonomous
-          decision-making.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold"
-          >
-            Deploy Your Agent
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-gray-600 text-white hover:bg-gray-800 px-8 py-4 text-lg bg-transparent"
-          >
-            Watch Demo
-          </Button>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="flex items-center justify-center mb-2">
-              <Zap className="w-8 h-8 text-blue-400 mr-2" />
-              <span className="text-3xl font-bold text-white">{stats.agents.toLocaleString()}+</span>
+        {/* Live Demo Preview */}
+        <div className="max-w-4xl mx-auto">
+          <Card className="shadow-2xl border-0 overflow-hidden">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4">
+              <div className="flex items-center gap-2 text-white">
+                <Brain className="w-5 h-5" />
+                <span className="font-semibold">Neuralia AI</span>
+                <Badge variant="secondary" className="bg-white/20 text-white border-0 ml-auto">
+                  Live
+                </Badge>
+              </div>
             </div>
-            <p className="text-gray-300">Active AI Agents</p>
-          </div>
 
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="flex items-center justify-center mb-2">
-              <Users className="w-8 h-8 text-purple-400 mr-2" />
-              <span className="text-3xl font-bold text-white">{stats.users.toLocaleString()}+</span>
+            <div className="p-6 space-y-4 bg-gray-50">
+              <div className="flex justify-end">
+                <div className="bg-blue-600 text-white p-3 rounded-lg max-w-xs">Need help with my soil analysis</div>
+              </div>
+              <div className="flex justify-start">
+                <div className="bg-white p-3 rounded-lg max-w-xs shadow-sm">
+                  I'll analyze your soil right now. What crop are you planning?
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <div className="bg-blue-600 text-white p-3 rounded-lg max-w-xs">Tomatoes in Chile</div>
+              </div>
+              <div className="flex justify-start">
+                <div className="bg-white p-3 rounded-lg max-w-xs shadow-sm">
+                  Perfect! For Chilean tomatoes, I recommend pH 6.2-6.8. Need specific fertilizer amounts?
+                </div>
+              </div>
             </div>
-            <p className="text-gray-300">Happy Users</p>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="flex items-center justify-center mb-2">
-              <TrendingUp className="w-8 h-8 text-teal-400 mr-2" />
-              <span className="text-3xl font-bold text-white">{stats.uptime}%</span>
-            </div>
-            <p className="text-gray-300">System Uptime</p>
-          </div>
+          </Card>
         </div>
       </div>
     </section>

@@ -1,300 +1,295 @@
 "use client"
 
-import { useState } from "react"
-import { useAuth } from "@/hooks/use-auth"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Database, Users, Activity, Settings, Shield, BarChart3, CheckCircle, AlertTriangle } from "lucide-react"
+import { Brain, Users, MessageSquare, TrendingUp, Activity, Zap, Shield, Globe } from "lucide-react"
 
 export default function AdminPage() {
-  const { user, profile } = useAuth()
-  const [activeTab, setActiveTab] = useState("overview")
+  const [stats, setStats] = useState({
+    totalAgents: 0,
+    activeUsers: 0,
+    conversations: 0,
+    uptime: 0,
+  })
 
-  // Check if user is admin
-  const isAdmin = profile?.role === "admin" || user?.email === "admin@neuralia.ai"
+  useEffect(() => {
+    // Animate stats
+    const timer = setInterval(() => {
+      setStats((prev) => ({
+        totalAgents: Math.min(prev.totalAgents + 1, 150),
+        activeUsers: Math.min(prev.activeUsers + 50, 25000),
+        conversations: Math.min(prev.conversations + 1000, 2500000),
+        uptime: Math.min(prev.uptime + 0.1, 99.9),
+      }))
+    }, 50)
+    return () => clearInterval(timer)
+  }, [])
 
-  if (!user) {
-    return (
-      <div className="container mx-auto py-8">
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <AlertTriangle className="h-4 w-4 text-yellow-600 mr-2" />
-            <span className="text-yellow-800">Please sign in to access the admin panel.</span>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (!isAdmin) {
-    return (
-      <div className="container mx-auto py-8">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <Shield className="h-4 w-4 text-red-600 mr-2" />
-            <span className="text-red-800">Access denied. Admin privileges required.</span>
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const agents = [
+    { name: "EcosueloLab", status: "Active", users: 5000, accuracy: 96.2 },
+    { name: "Career Coach", status: "Active", users: 10000, accuracy: 94.8 },
+    { name: "ParrotfyIA", status: "Active", users: 8000, accuracy: 95.5 },
+    { name: "Enterprise AI", status: "Active", users: 2000, accuracy: 98.1 },
+  ]
 
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold flex items-center gap-2">
-                <Database className="h-8 w-8" />
-                Admin Dashboard
-              </h1>
-              <p className="text-gray-600">Database management and system administration</p>
-            </div>
-            <div className="flex gap-2">
-              <Button variant="outline">
-                <Settings className="mr-2 h-4 w-4" />
-                Settings
-              </Button>
-            </div>
+          <div className="flex items-center gap-3 mb-4">
+            <Brain className="h-8 w-8 text-blue-600" />
+            <h1 className="text-3xl font-bold gradient-text">Neuralia Admin</h1>
+            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">Vibe Dashboard</Badge>
           </div>
+          <p className="text-gray-600">Real-time monitoring of our AI ecosystem</p>
         </div>
 
-        {/* Health Status */}
-        <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
-          <div className="flex items-center">
-            <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-            <span className="text-green-800">
-              Database Status: <strong>Healthy</strong>
-            </span>
-          </div>
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Total Agents</p>
+                  <p className="text-3xl font-bold gradient-text">{stats.totalAgents}</p>
+                </div>
+                <Brain className="h-8 w-8 text-blue-600" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Active Users</p>
+                  <p className="text-3xl font-bold gradient-text">{(stats.activeUsers / 1000).toFixed(0)}K</p>
+                </div>
+                <Users className="h-8 w-8 text-green-600" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Conversations</p>
+                  <p className="text-3xl font-bold gradient-text">{(stats.conversations / 1000000).toFixed(1)}M</p>
+                </div>
+                <MessageSquare className="h-8 w-8 text-purple-600" />
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-gray-600">Uptime</p>
+                  <p className="text-3xl font-bold gradient-text">{stats.uptime.toFixed(1)}%</p>
+                </div>
+                <Activity className="h-8 w-8 text-orange-600" />
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        {/* Main Content */}
+        <Tabs defaultValue="agents" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="agents">AI Agents</TabsTrigger>
+            <TabsTrigger value="performance">Performance</TabsTrigger>
             <TabsTrigger value="users">Users</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+            <TabsTrigger value="system">System</TabsTrigger>
           </TabsList>
 
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Total Tables</p>
-                      <p className="text-2xl font-bold">8</p>
-                    </div>
-                    <Database className="h-8 w-8 text-blue-600" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Total Users</p>
-                      <p className="text-2xl font-bold">1,234</p>
-                    </div>
-                    <Users className="h-8 w-8 text-green-600" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">RLS Policies</p>
-                      <p className="text-2xl font-bold">15</p>
-                    </div>
-                    <Shield className="h-8 w-8 text-purple-600" />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600">Active Triggers</p>
-                      <p className="text-2xl font-bold">8</p>
-                    </div>
-                    <Activity className="h-8 w-8 text-orange-600" />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>System Health</CardTitle>
-                  <CardDescription>Database performance and status indicators</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Database Connection</span>
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
-                        <CheckCircle className="mr-1 h-3 w-3" />
-                        Connected
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Row Level Security</span>
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
-                        <Shield className="mr-1 h-3 w-3" />
-                        Active
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm">Performance</span>
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
-                        <BarChart3 className="mr-1 h-3 w-3" />
-                        Optimal
-                      </Badge>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                  <CardDescription>Latest system operations</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-full bg-blue-100">
-                        <Activity className="h-4 w-4 text-blue-600" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">Database backup completed</p>
-                        <p className="text-xs text-gray-500">2 hours ago</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-full bg-green-100">
-                        <Users className="h-4 w-4 text-green-600" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">New user registered</p>
-                        <p className="text-xs text-gray-500">4 hours ago</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-full bg-purple-100">
-                        <Shield className="h-4 w-4 text-purple-600" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">Security scan completed</p>
-                        <p className="text-xs text-gray-500">6 hours ago</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Users Tab */}
-          <TabsContent value="users" className="space-y-6">
-            <Card>
+          <TabsContent value="agents" className="space-y-6">
+            <Card className="border-0 shadow-lg">
               <CardHeader>
-                <CardTitle>User Management</CardTitle>
-                <CardDescription>Manage user accounts and permissions</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="h-5 w-5" />
+                  Active AI Agents
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8">
-                  <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500 mb-4">User management features coming soon</p>
-                  <Button>Add New User</Button>
+                <div className="space-y-4">
+                  {agents.map((agent, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-4">
+                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                        <div>
+                          <h3 className="font-semibold">{agent.name}</h3>
+                          <p className="text-sm text-gray-600">{agent.users.toLocaleString()} active users</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <Badge variant="secondary">{agent.accuracy}% accuracy</Badge>
+                        <Badge className="bg-green-100 text-green-800">{agent.status}</Badge>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* Analytics Tab */}
-          <TabsContent value="analytics" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Usage Analytics</CardTitle>
-                <CardDescription>System usage statistics and performance metrics</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <BarChart3 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500 mb-4">Analytics dashboard coming soon</p>
-                  <Button>View Reports</Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Maintenance Tab */}
-          <TabsContent value="maintenance" className="space-y-6">
+          <TabsContent value="performance" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card>
+              <Card className="border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle>Database Maintenance</CardTitle>
-                  <CardDescription>Routine maintenance and optimization tasks</CardDescription>
+                  <CardTitle className="flex items-center gap-2">
+                    <TrendingUp className="h-5 w-5" />
+                    Response Times
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Activity className="mr-2 h-4 w-4" />
-                    Refresh Statistics
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Database className="mr-2 h-4 w-4" />
-                    Vacuum Database
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <BarChart3 className="mr-2 h-4 w-4" />
-                    Analyze Tables
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Shield className="mr-2 h-4 w-4" />
-                    Check RLS Policies
-                  </Button>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <span>Average Response</span>
+                      <span className="font-semibold">180ms</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>95th Percentile</span>
+                      <span className="font-semibold">350ms</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>99th Percentile</span>
+                      <span className="font-semibold">800ms</span>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
 
-              <Card>
+              <Card className="border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle>System Operations</CardTitle>
-                  <CardDescription>Administrative operations and tools</CardDescription>
+                  <CardTitle className="flex items-center gap-2">
+                    <Zap className="h-5 w-5" />
+                    System Health
+                  </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Settings className="mr-2 h-4 w-4" />
-                    System Settings
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Users className="mr-2 h-4 w-4" />
-                    User Management
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
-                    <Activity className="mr-2 h-4 w-4" />
-                    Activity Logs
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start text-red-600 bg-transparent">
-                    <AlertTriangle className="mr-2 h-4 w-4" />
-                    Emergency Actions
-                  </Button>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span>API Status</span>
+                      <Badge className="bg-green-100 text-green-800">Healthy</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Database</span>
+                      <Badge className="bg-green-100 text-green-800">Optimal</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>AI Models</span>
+                      <Badge className="bg-green-100 text-green-800">Running</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="users" className="space-y-6">
+            <Card className="border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  User Analytics
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold gradient-text">25K+</div>
+                    <div className="text-gray-600">Total Users</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold gradient-text">15K</div>
+                    <div className="text-gray-600">Daily Active</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold gradient-text">98%</div>
+                    <div className="text-gray-600">Satisfaction</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="system" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="h-5 w-5" />
+                    Security Status
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span>SSL Certificates</span>
+                      <Badge className="bg-green-100 text-green-800">Valid</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Firewall</span>
+                      <Badge className="bg-green-100 text-green-800">Active</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Data Encryption</span>
+                      <Badge className="bg-green-100 text-green-800">AES-256</Badge>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe className="h-5 w-5" />
+                    Global Status
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span>Americas</span>
+                      <Badge className="bg-green-100 text-green-800">Online</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Europe</span>
+                      <Badge className="bg-green-100 text-green-800">Online</Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Asia Pacific</span>
+                      <Badge className="bg-green-100 text-green-800">Online</Badge>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
           </TabsContent>
         </Tabs>
+
+        {/* Quick Actions */}
+        <div className="mt-8">
+          <Card className="border-0 shadow-lg">
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-4">
+                <Button className="bg-gradient-to-r from-blue-600 to-purple-600">Deploy New Agent</Button>
+                <Button variant="outline">View Logs</Button>
+                <Button variant="outline">System Backup</Button>
+                <Button variant="outline">Generate Report</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )

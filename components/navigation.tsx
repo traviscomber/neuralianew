@@ -2,80 +2,67 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Brain } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Menu, X, Zap } from "lucide-react"
 
 export function Navigation() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
+          {/* Logo */}
+          <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
+              <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Neuralia
-            </span>
+            <span className="text-xl font-bold gradient-text">Neuralia</span>
+            <Badge variant="secondary" className="ml-2 text-xs">
+              Vibe
+            </Badge>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#use-cases" className="text-foreground hover:text-primary transition-colors">
-              Use Cases
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-6">
+            <a href="#products" className="text-gray-700 hover:text-blue-600">
+              Products
             </a>
-            <a href="#features" className="text-foreground hover:text-primary transition-colors">
-              Features
+            <a href="#tech" className="text-gray-700 hover:text-blue-600">
+              Tech
             </a>
-            <a href="#testimonials" className="text-foreground hover:text-primary transition-colors">
-              Testimonials
+            <a href="#about" className="text-gray-700 hover:text-blue-600">
+              About
             </a>
-            <a href="#faq" className="text-foreground hover:text-primary transition-colors">
-              FAQ
-            </a>
+            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600">
+              Start Free
+            </Button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden">
-            <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
+        {/* Mobile Menu */}
+        {isOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <a
-                href="#use-cases"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Use Cases
+              <a href="#products" onClick={() => setIsOpen(false)}>
+                Products
               </a>
-              <a
-                href="#features"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
+              <a href="#tech" onClick={() => setIsOpen(false)}>
+                Tech
               </a>
-              <a
-                href="#testimonials"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Testimonials
+              <a href="#about" onClick={() => setIsOpen(false)}>
+                About
               </a>
-              <a
-                href="#faq"
-                className="text-foreground hover:text-primary transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                FAQ
-              </a>
+              <Button size="sm" className="bg-gradient-to-r from-blue-600 to-purple-600">
+                Start Free
+              </Button>
             </div>
           </div>
         )}
