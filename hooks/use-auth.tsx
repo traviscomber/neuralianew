@@ -1,122 +1,61 @@
 "use client"
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
-import { supabase } from "@/lib/supabase"
-import type { User } from "@supabase/supabase-js"
+import type React from "react"
+
+import { createContext, useContext, useEffect, useState } from "react"
+
+interface User {
+  id: string
+  email: string
+  name?: string
+}
+
+interface Profile {
+  id: string
+  role: string
+  subscription_plan: string
+  subscription_status: string
+}
 
 interface AuthContextType {
   user: User | null
+  profile: Profile | null
   loading: boolean
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>
-  signIn: (email: string, password: string) => Promise<{ error: any }>
-  signOut: () => Promise<void>
-  resetPassword: (email: string) => Promise<{ error: any }>
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  profile: null,
+  loading: true,
+})
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get initial session
-    const getInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
-      setLoading(false)
-    }
-
-    getInitialSession()
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (event, session) => {
-      setUser(session?.user ?? null)
-      setLoading(false)
-
-      // Create profile if user signs up
-      if (event === "SIGNED_UP" && session?.user) {
-        await createUserProfile(session.user)
-      }
+    // Mock auth for demo
+    setUser({
+      id: "demo-user",
+      email: "admin@neuralia.ai",
+      name: "Demo User",
     })
-
-    return () => subscription.unsubscribe()
+    setProfile({
+      id: "demo-profile",
+      role: "admin",
+      subscription_plan: "pro",
+      subscription_status: "active",
+    })
+    setLoading(false)
   }, [])
 
-  const createUserProfile = async (user: User) => {
-    try {
-      const { error } = await supabase.from("profiles").insert({
-        id: user.id,
-        email: user.email,
-        full_name: user.user_metadata?.full_name || "",
-        avatar_url: user.user_metadata?.avatar_url || "",
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-
-      if (error && error.code !== "23505") {
-        // Ignore duplicate key errors
-        console.error("Error creating profile:", error)
-      }
-    } catch (error) {
-      console.error("Error in createUserProfile:", error)
-    }
-  }
-
-  const signUp = async (email: string, password: string, fullName: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-        },
-      },
-    })
-
-    return { error }
-  }
-
-  const signIn = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
-
-    return { error }
-  }
-
-  const signOut = async () => {
-    await supabase.auth.signOut()
-  }
-
-  const resetPassword = async (email: string) => {
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
-    })
-
-    return { error }
-  }
-
-  const value = {
-    user,
-    loading,
-    signUp,
-    signIn,
-    signOut,
-    resetPassword,
-  }
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={{ user, profile, loading }}>{children}</AuthContext.Provider>
 }
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext)
-  if (context === undefined) {
+  if (!context) {
     throw new Error("useAuth must be used within an AuthProvider")
   }
   return context
