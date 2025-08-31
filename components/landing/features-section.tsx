@@ -1,59 +1,58 @@
 "use client"
-import { Brain, MessageSquare, Zap } from "lucide-react"
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Brain, Zap, Cog } from "lucide-react"
 
 const features = [
   {
     icon: Brain,
     title: "IA que Te Entiende",
-    description: "No es un chatbot genérico. Cada IA está entrenada para tu industria específica y habla tu idioma.",
-    color: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: MessageSquare,
-    title: "Integración Real",
-    description: "Se conecta a tus sistemas: CRM, ERP, WhatsApp Business. Datos reales, respuestas reales.",
-    color: "from-blue-500 to-cyan-500",
+    description:
+      "No es ChatGPT genérico. Sistemas especializados que comprenden tu negocio específico y hablan tu idioma empresarial.",
   },
   {
     icon: Zap,
+    title: "Integración Real",
+    description:
+      "Se conecta directamente con tus sistemas existentes. No es un chatbot flotante, es parte de tu infraestructura.",
+  },
+  {
+    icon: Cog,
     title: "Sistema Completo",
-    description: "Full stack: base de datos, IA, interfaz. Todo funciona junto, todo está incluido.",
-    color: "from-green-500 to-emerald-500",
+    description:
+      "Full stack IA: desde la conversación hasta la base de datos. Una solución integral, no parches separados.",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-16 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">¿Por qué Neuralia?</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Sistemas completos de IA, no solo chatbots. Integración real con tus datos.
+    <section id="features" className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">¿Por qué Neuralia es diferente?</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Sistemas de IA conversacional empresarial diseñados específicamente para tu negocio
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {features.map((feature, index) => {
-            const IconComponent = feature.icon
+            const Icon = feature.icon
             return (
-              <div
+              <Card
                 key={index}
-                className="text-center p-6 rounded-2xl bg-gray-50 hover:bg-white hover:shadow-lg transition-all duration-300"
+                className="text-center hover:shadow-lg transition-shadow border-2 hover:border-purple-200"
               >
-                {/* Icon */}
-                <div
-                  className={`inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-r ${feature.color} mb-6`}
-                >
-                  <IconComponent className="w-8 h-8 text-white" />
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
+                <CardHeader>
+                  <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+                    <Icon className="h-8 w-8 text-white" />
+                  </div>
+                  <CardTitle className="text-xl mb-2">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
             )
           })}
         </div>
