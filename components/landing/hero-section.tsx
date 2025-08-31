@@ -1,72 +1,75 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Sparkles, Zap, Target } from "lucide-react"
+import { ArrowRight, Sparkles, Zap, Brain } from "lucide-react"
+import { motion } from "framer-motion"
 
 export function HeroSection() {
-  const [currentStat, setCurrentStat] = useState(0)
-
-  const stats = [
-    { label: "Faster Deploy", value: "70%", icon: Zap },
-    { label: "Better Results", value: "35%", icon: Target },
-    { label: "Smart AI", value: "100%", icon: Sparkles },
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentStat((prev) => (prev + 1) % stats.length)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [stats.length])
-
   return (
     <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto text-center">
-        <Badge variant="secondary" className="mb-6 animate-bounce-in">
-          Built with Vibe Coding
-        </Badge>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <Badge variant="secondary" className="mb-4">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Powered by Vibe Coding
+            </Badge>
+          </motion.div>
 
-        <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 hero-title">
-          Smart AI, <span className="gradient-text">Simple Results</span>
-        </h1>
+          <motion.h1
+            className="text-4xl md:text-6xl font-bold text-foreground mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Transform Your Business with <span className="gradient-text">AI Solutions</span>
+          </motion.h1>
 
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto hero-subtitle">
-          We build AI agents that actually work. No complexity, just results.
-        </p>
+          <motion.p
+            className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Neuralia delivers cutting-edge AI agents and automation tools that revolutionize how businesses operate.
+            Experience the power of vibe coding and intelligent automation.
+          </motion.p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 hero-cta">
-          <Button size="lg" className="group">
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Button>
-          <Button variant="outline" size="lg">
-            See Demo
-          </Button>
-        </div>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Button size="lg" className="group">
+              Start Your AI Journey
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button variant="outline" size="lg">
+              Watch Demo
+            </Button>
+          </motion.div>
 
-        {/* Animated Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon
-            return (
-              <div
-                key={stat.label}
-                className={`p-6 rounded-lg transition-all duration-500 ${
-                  index === currentStat
-                    ? "bg-blue-50 border-2 border-blue-200 scale-105"
-                    : "bg-white border border-gray-200"
-                }`}
-              >
-                <Icon className={`h-8 w-8 mx-auto mb-2 ${index === currentStat ? "text-blue-600" : "text-gray-400"}`} />
-                <div className={`text-3xl font-bold mb-1 ${index === currentStat ? "text-blue-600" : "text-gray-600"}`}>
-                  {stat.value}
-                </div>
-                <div className="text-sm text-gray-500">{stat.label}</div>
-              </div>
-            )
-          })}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+              <Brain className="h-5 w-5 text-primary" />
+              <span>AI-Powered Intelligence</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+              <Zap className="h-5 w-5 text-primary" />
+              <span>Lightning Fast Deployment</span>
+            </div>
+            <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+              <Sparkles className="h-5 w-5 text-primary" />
+              <span>Vibe Coding Innovation</span>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
