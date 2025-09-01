@@ -1,391 +1,212 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Sprout,
-  GraduationCap,
-  Building2,
-  MessageCircle,
-  Bot,
-  User,
-  ArrowRight,
-  CheckCircle,
-  Clock,
-  TrendingUp,
-} from "lucide-react"
+import { MessageCircle, User, Bot, Clock, CheckCircle } from "lucide-react"
 
-const useCases = [
-  {
-    id: "ecosuelo",
-    title: "EcosueloLab",
-    subtitle: "Análisis de Suelo Inteligente",
-    icon: Sprout,
-    industry: "Agricultura",
-    description: "Agente conversacional avanzado de IA que entrega análisis de suelo en tiempo real por WhatsApp",
-    challenge: "Los agricultores esperaban días para recibir resultados de análisis de suelo por email o teléfono",
-    solution:
-      "Agente conversacional avanzado de IA que interpreta consultas y entrega análisis personalizados instantáneos por WhatsApp",
-    results: [
-      "Respuesta instantánea 24/7",
-      "Reducción de 5 días a 5 minutos",
-      "95% de satisfacción del cliente",
-      "IA conversacional avanzada",
-    ],
-    chat: [
-      { type: "user", message: "Hola, necesito los resultados del análisis de mi parcela #1247", time: "14:32" },
-      {
-        type: "bot",
-        message:
-          "¡Hola! Soy tu asistente de IA especializado en análisis de suelo. Consultando los resultados de tu parcela #1247... ✅",
-        time: "14:32",
-      },
-      {
-        type: "bot",
-        message:
-          "📊 **Resultados Parcela #1247:**\n\n🌱 **Nitrógeno:** 45 ppm (Óptimo)\n💧 **Fósforo:** 12 ppm (Bajo - requiere fertilización)\n🌿 **Potasio:** 180 ppm (Bueno)\n📈 **pH:** 6.8 (Ideal para cultivos)\n\n**Mi recomendación IA:** Aplicar fertilizante fosfórico en dosis de 50kg/ha basado en análisis predictivo",
-        time: "14:33",
-      },
-      { type: "user", message: "¿Qué cultivo me recomiendas para esta parcela?", time: "14:35" },
-      {
-        type: "bot",
-        message:
-          "Basado en mi análisis de IA y las condiciones de tu suelo:\n\n🌽 **Maíz:** 95% compatibilidad\n🥔 **Papa:** 88% compatibilidad\n🌾 **Trigo:** 82% compatibilidad\n\nRecomiendo **maíz** por el pH óptimo y niveles de nutrientes. ¿Quieres que calcule el rendimiento esperado?",
-        time: "14:35",
-      },
-    ],
-  },
-  {
-    id: "despega",
-    title: "Despega Tu Carrera",
-    subtitle: "Coaching Profesional con IA",
-    icon: GraduationCap,
-    industry: "Educación",
-    description: "Asistente de IA que guía a profesionales en su desarrollo de carrera con consejos personalizados",
-    challenge: "Los profesionales necesitan orientación de carrera personalizada pero los coaches son costosos",
-    solution: "IA conversacional que analiza perfiles y entrega consejos de carrera específicos y motivacionales",
-    results: [
-      "Consejos personalizados 24/7",
-      "85% mejora en claridad de objetivos",
-      "Coaching accesible para todos",
-      "Seguimiento continuo del progreso",
-    ],
-    chat: [
-      {
-        type: "user",
-        message: "Hola, soy ingeniero con 3 años de experiencia pero siento que no avanzo en mi carrera",
-        time: "10:15",
-      },
-      {
-        type: "bot",
-        message:
-          "Hola! Entiendo perfectamente esa sensación. Es muy común en ingenieros con tu experiencia. Cuéntame, ¿en qué área específica trabajas y qué tipo de crecimiento buscas?",
-        time: "10:15",
-      },
-      {
-        type: "user",
-        message: "Trabajo en desarrollo de software, pero quiero liderar proyectos más grandes",
-        time: "10:17",
-      },
-      {
-        type: "bot",
-        message:
-          "¡Excelente objetivo! 🚀 Para liderar proyectos grandes necesitas desarrollar 3 áreas clave:\n\n👥 **Liderazgo técnico:** Comienza mentoreando juniors\n📊 **Gestión de proyectos:** Aprende metodologías ágiles\n🗣️ **Comunicación:** Practica presentar ideas a stakeholders\n\n¿Cuál de estas áreas sientes que es tu mayor desafío?",
-        time: "10:17",
-      },
-      { type: "user", message: "Definitivamente la comunicación con stakeholders me cuesta", time: "10:19" },
-      {
-        type: "bot",
-        message:
-          "Perfecto, identificaste el punto clave! 💡 Te sugiero:\n\n1. **Esta semana:** Ofrécete para presentar en la próxima reunión de equipo\n2. **Este mes:** Toma un curso de comunicación técnica\n3. **Próximos 3 meses:** Busca un mentor senior que sea buen comunicador\n\n¿Te parece un plan realista? ¿Con cuál empezarías?",
-        time: "10:19",
-      },
-    ],
-  },
-  {
-    id: "parrotfy",
-    title: "Parrotfy ERP",
-    subtitle: "Asistente IA para ERP",
-    icon: Building2,
-    industry: "Empresarial",
-    description: "Agente conversacional que permite consultar datos del ERP usando lenguaje natural",
-    challenge: "Los usuarios necesitan capacitación extensa para usar sistemas ERP complejos",
-    solution: "IA que interpreta consultas en lenguaje natural y extrae información específica del ERP",
-    results: [
-      "Consultas ERP en lenguaje natural",
-      "70% reducción en tiempo de capacitación",
-      "Acceso instantáneo a reportes",
-      "Integración con OpenAI GPT-4",
-    ],
-    chat: [
-      { type: "user", message: "¿Cuáles fueron las ventas del mes pasado por región?", time: "09:45" },
-      {
-        type: "bot",
-        message: "Consultando las ventas de diciembre 2023 por región... 📊",
-        time: "09:45",
-      },
-      {
-        type: "bot",
-        message:
-          "**📈 Ventas Diciembre 2023:**\n\n🏙️ **Región Metropolitana:** $2,450,000\n🌊 **Valparaíso:** $1,230,000\n🏔️ **Biobío:** $890,000\n🌵 **Norte Grande:** $1,100,000\n\n**Total:** $5,670,000 (+12% vs nov)\n\n¿Quieres ver el detalle de alguna región específica?",
-        time: "09:46",
-      },
-      { type: "user", message: "Sí, muéstrame el detalle de la Región Metropolitana", time: "09:47" },
-      {
-        type: "bot",
-        message:
-          "**🏙️ Región Metropolitana - Detalle:**\n\n👤 **Top Vendedores:**\n• María González: $580,000\n• Carlos Ruiz: $520,000\n• Ana López: $490,000\n\n🏢 **Por Sucursal:**\n• Las Condes: $980,000\n• Providencia: $750,000\n• Maipú: $720,000\n\n¿Necesitas algún reporte específico?",
-        time: "09:47",
-      },
-    ],
-  },
-]
+export default function UseCasesSection() {
+  const [activeDemo, setActiveDemo] = useState<string | null>(null)
 
-export function UseCasesSection() {
-  const [activeTab, setActiveTab] = useState("ecosuelo")
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
+  const useCases = [
+    {
+      id: "parrotfy",
+      title: "ParrotfyIA - Aprendizaje de Idiomas",
+      description: "Agente especializado en enseñanza de inglés conversacional",
+      industry: "Educación",
+      metrics: {
+        satisfaction: "98%",
+        responseTime: "1.2s",
+        accuracy: "96%",
+      },
+      demo: [
+        { type: "user", message: "Hi! I want to practice my English conversation skills" },
+        {
+          type: "bot",
+          message:
+            "Hello! I'm excited to help you practice English! 🎉 What's your current level, and what would you like to focus on today?",
+        },
+        { type: "user", message: "I'm intermediate level. I want to practice job interview conversations" },
+        {
+          type: "bot",
+          message:
+            "Perfect! Job interviews are great practice. Let's start with a common question: 'Tell me about yourself.' Take your time and answer as if I'm the interviewer. I'll provide feedback on your grammar and pronunciation! 💼",
+        },
+      ],
+    },
+    {
+      id: "ecosuelo",
+      title: "EcosueloLab - Análisis Agrícola",
+      description: "IA especializada en análisis de suelos y recomendaciones agrícolas",
+      industry: "Agricultura",
+      metrics: {
+        satisfaction: "94%",
+        responseTime: "2.1s",
+        accuracy: "92%",
+      },
+      demo: [
+        { type: "user", message: "Necesito analizar el pH de mi suelo para cultivo de tomates" },
+        {
+          type: "bot",
+          message:
+            "¡Perfecto! Para el cultivo de tomates necesitamos un pH entre 6.0-6.8. 🍅 ¿Podrías contarme qué tipo de suelo tienes y en qué región te encuentras?",
+        },
+        { type: "user", message: "Tengo suelo arcilloso en la región de Valparaíso, Chile" },
+        {
+          type: "bot",
+          message:
+            "Excelente información. Los suelos arcillosos de Valparaíso suelen tener pH alcalino. Te recomiendo: 1) Aplicar azufre elemental (150g/m²) 2) Incorporar compost orgánico 3) Realizar análisis cada 3 meses. ¿Quieres que te envíe el protocolo completo? 📊",
+        },
+      ],
+    },
+    {
+      id: "despega",
+      title: "Despega Tu Carrera - Coaching Profesional",
+      description: "Agente de coaching personalizado para desarrollo profesional",
+      industry: "Recursos Humanos",
+      metrics: {
+        satisfaction: "97%",
+        responseTime: "1.8s",
+        accuracy: "95%",
+      },
+      demo: [
+        { type: "user", message: "Me siento estancado en mi carrera profesional, no sé cómo avanzar" },
+        {
+          type: "bot",
+          message:
+            "Entiendo perfectamente esa sensación. Es más común de lo que piensas y tiene solución. 💪 Cuéntame: ¿en qué área trabajas actualmente y cuáles son tus principales fortalezas?",
+        },
+        { type: "user", message: "Trabajo en marketing digital, soy bueno con redes sociales pero me falta liderazgo" },
+        {
+          type: "bot",
+          message:
+            "¡Excelente autoconocimiento! El marketing digital + liderazgo es una combinación poderosa. Te sugiero: 1) Buscar proyectos donde puedas liderar campañas 2) Tomar un curso de gestión de equipos 3) Solicitar mentoría interna. ¿Cuál de estas opciones resuena más contigo? 🚀",
+        },
+      ],
+    },
+    {
+      id: "crm",
+      title: "CRM Inteligente - Gestión de Clientes",
+      description: "Agente que gestiona leads, seguimientos y cierre de ventas",
+      industry: "Ventas",
+      metrics: {
+        satisfaction: "96%",
+        responseTime: "1.5s",
+        accuracy: "94%",
+      },
+      demo: [
+        { type: "user", message: "Tengo un lead interesado en nuestro software, ¿cómo hago seguimiento?" },
+        {
+          type: "bot",
+          message:
+            "¡Excelente! Un lead caliente necesita seguimiento estratégico. 🎯 Primero, cuéntame: ¿cuál fue su nivel de interés del 1-10 y qué objeciones mencionó?",
+        },
+        { type: "user", message: "Interés nivel 8, pero le preocupa el precio y la implementación" },
+        {
+          type: "bot",
+          message:
+            "Perfecto, lead muy calificado. Para precio: enfócate en ROI y casos de éxito similares. Para implementación: ofrece demo personalizada y plan de onboarding. Te programo seguimiento en 48hrs y preparo propuesta con descuento por decisión rápida. ¿Procedo? 💼",
+        },
+      ],
+    },
+  ]
 
-  const activeCase = useCases.find((useCase) => useCase.id === activeTab)
-
-  useEffect(() => {
-    if (!activeCase) return
-
-    const timer = setInterval(() => {
-      if (currentMessageIndex < activeCase.chat.length - 1) {
-        setIsTyping(true)
-        setTimeout(() => {
-          setCurrentMessageIndex((prev) => prev + 1)
-          setIsTyping(false)
-        }, 1500)
-      } else {
-        setTimeout(() => {
-          setCurrentMessageIndex(0)
-        }, 4000)
-      }
-    }, 3000)
-
-    return () => clearInterval(timer)
-  }, [activeCase, currentMessageIndex])
-
-  useEffect(() => {
-    setCurrentMessageIndex(0)
-  }, [activeTab])
+  const startDemo = (caseId: string) => {
+    setActiveDemo(caseId)
+  }
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700"
-          >
-            <CheckCircle className="w-4 h-4 mr-2" />
-            Casos de éxito reales
+    <section className="py-20 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <Badge className="mb-4 bg-gradient-to-r from-green-500/20 to-teal-500/20 text-green-300 border-green-500/30">
+            Casos de Éxito
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Proyectos que{" "}
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-              transformaron
-            </span>{" "}
-            negocios
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+              Agentes especializados en acción
+            </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Descubre cómo hemos implementado IA conversacional en diferentes industrias, generando resultados medibles
-            desde el primer día.
+            Descubre cómo nuestros agentes de IA transforman diferentes industrias
           </p>
-        </motion.div>
+        </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/50 dark:bg-muted/30">
-            {useCases.map((useCase) => (
-              <TabsTrigger
-                key={useCase.id}
-                value={useCase.id}
-                className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:text-foreground"
-              >
-                <useCase.icon className="w-4 h-4" />
-                <span className="hidden sm:inline">{useCase.title}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {useCases.map((useCase) => (
-            <TabsContent key={useCase.id} value={useCase.id}>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
-                {/* Left Column - Case Details */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                      <useCase.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-foreground">{useCase.title}</h3>
-                      <p className="text-muted-foreground">{useCase.subtitle}</p>
-                    </div>
-                    <Badge variant="outline" className="ml-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {useCases.map((useCase, index) => (
+            <Card key={index} className="bg-card border-border overflow-hidden">
+              <CardContent className="p-0">
+                <div className="p-8 border-b border-border">
+                  <div className="flex items-center justify-between mb-4">
+                    <Badge variant="secondary" className="text-xs">
                       {useCase.industry}
                     </Badge>
-                  </div>
-
-                  <p className="text-lg text-muted-foreground mb-8">{useCase.description}</p>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-red-500" />
-                        Desafío
-                      </h4>
-                      <p className="text-muted-foreground">{useCase.challenge}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                        <Bot className="w-4 h-4 text-blue-500" />
-                        Solución N3uralia
-                      </h4>
-                      <p className="text-muted-foreground">{useCase.solution}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-green-500" />
-                        Resultados
-                      </h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        {useCase.results.map((result, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                            <span className="text-sm text-muted-foreground">{result}</span>
-                          </div>
-                        ))}
-                      </div>
+                    <div className="flex space-x-4 text-sm text-muted-foreground">
+                      <span className="flex items-center">
+                        <CheckCircle className="w-4 h-4 mr-1 text-green-500" />
+                        {useCase.metrics.satisfaction}
+                      </span>
+                      <span className="flex items-center">
+                        <Clock className="w-4 h-4 mr-1 text-blue-500" />
+                        {useCase.metrics.responseTime}
+                      </span>
                     </div>
                   </div>
-                </motion.div>
 
-                {/* Right Column - Interactive Chat Demo */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="sticky top-8"
-                >
-                  <Card className="bg-card border-2 border-border shadow-xl">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
-                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="font-semibold text-card-foreground">{useCase.title}</span>
-                        <Badge variant="secondary" className="ml-auto text-xs">
-                          Demo en vivo
-                        </Badge>
-                      </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">{useCase.title}</h3>
+                  <p className="text-muted-foreground mb-6">{useCase.description}</p>
 
-                      <div className="space-y-4 h-96 overflow-y-auto">
-                        <AnimatePresence>
-                          {useCase.chat.slice(0, currentMessageIndex + 1).map((msg, index) => (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5 }}
-                              className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
-                            >
-                              {msg.type === "bot" && (
-                                <Avatar className="w-8 h-8 flex-shrink-0">
-                                  <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-                                    <Bot className="w-4 h-4" />
-                                  </AvatarFallback>
-                                </Avatar>
-                              )}
-                              <div
-                                className={`max-w-[85%] p-3 rounded-2xl ${
-                                  msg.type === "user"
-                                    ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white"
-                                    : "bg-muted text-muted-foreground"
-                                }`}
-                              >
-                                <p className="text-sm whitespace-pre-line">{msg.message}</p>
-                                <p className="text-xs opacity-70 mt-1">{msg.time}</p>
-                              </div>
-                              {msg.type === "user" && (
-                                <Avatar className="w-8 h-8 flex-shrink-0">
-                                  <AvatarFallback className="bg-gray-500 text-white">
-                                    <User className="w-4 h-4" />
-                                  </AvatarFallback>
-                                </Avatar>
-                              )}
-                            </motion.div>
-                          ))}
-                        </AnimatePresence>
+                  <Button onClick={() => startDemo(useCase.id)} className="w-full bg-primary hover:bg-primary/90">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Ver Demo Interactivo
+                  </Button>
+                </div>
 
-                        {isTyping && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="flex gap-3 justify-start"
+                {/* Chat Demo */}
+                <div className="bg-muted/50 p-6 h-80 overflow-y-auto">
+                  {activeDemo === useCase.id ? (
+                    <div className="space-y-4">
+                      {useCase.demo.map((message, msgIndex) => (
+                        <div
+                          key={msgIndex}
+                          className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}
+                        >
+                          <div
+                            className={`max-w-[80%] p-3 rounded-lg ${
+                              message.type === "user"
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-background text-foreground border"
+                            }`}
                           >
-                            <Avatar className="w-8 h-8">
-                              <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-                                <Bot className="w-4 h-4" />
-                              </AvatarFallback>
-                            </Avatar>
-                            <div className="bg-muted p-3 rounded-2xl">
-                              <div className="flex space-x-1">
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce animation-delay-200"></div>
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce animation-delay-400"></div>
-                              </div>
+                            <div className="flex items-center mb-1">
+                              {message.type === "user" ? (
+                                <User className="w-4 h-4 mr-2" />
+                              ) : (
+                                <Bot className="w-4 h-4 mr-2" />
+                              )}
+                              <span className="text-xs font-medium">
+                                {message.type === "user" ? "Usuario" : "Agente IA"}
+                              </span>
                             </div>
-                          </motion.div>
-                        )}
+                            <p className="text-sm">{message.message}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-muted-foreground">
+                      <div className="text-center">
+                        <MessageCircle className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                        <p>Haz clic en "Ver Demo Interactivo" para comenzar</p>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </div>
-            </TabsContent>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
           ))}
-        </Tabs>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            asChild
-          >
-            <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Crear mi proyecto de IA
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
-          </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

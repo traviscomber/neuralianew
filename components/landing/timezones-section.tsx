@@ -1,247 +1,71 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Clock, MapPin, Users, Zap } from "lucide-react"
+import { Clock, Globe } from "lucide-react"
 
-export function TimezonesSection() {
-  const [currentTime, setCurrentTime] = useState({
-    santiago: new Date(),
-    singapore: new Date(),
-    moscow: new Date(),
-  })
-
-  useEffect(() => {
-    const updateTimes = () => {
-      const now = new Date()
-      setCurrentTime({
-        santiago: new Date(now.toLocaleString("en-US", { timeZone: "America/Santiago" })),
-        singapore: new Date(now.toLocaleString("en-US", { timeZone: "Asia/Singapore" })),
-        moscow: new Date(now.toLocaleString("en-US", { timeZone: "Europe/Moscow" })),
-      })
-    }
-
-    updateTimes()
-    const interval = setInterval(updateTimes, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const isWorkingHours = (time: Date) => {
-    const hour = time.getHours()
-    return hour >= 9 && hour < 18
-  }
-
-  const formatTime = (time: Date) => {
-    return time.toLocaleTimeString("es-ES", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    })
-  }
-
+export default function TimezonesSection() {
   const timezones = [
-    {
-      city: "Santiago",
-      country: "Chile",
-      time: currentTime.santiago,
-      flag: "🇨🇱",
-      position: { x: 25, y: 65 },
-    },
-    {
-      city: "Singapur",
-      country: "Singapur",
-      time: currentTime.singapore,
-      flag: "🇸🇬",
-      position: { x: 75, y: 45 },
-    },
-    {
-      city: "Moscú",
-      country: "Rusia",
-      time: currentTime.moscow,
-      flag: "🇷🇺",
-      position: { x: 60, y: 25 },
-    },
-  ]
-
-  const stats = [
-    {
-      icon: Clock,
-      value: "24/7",
-      label: "Soporte Continuo",
-      gradient: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: MapPin,
-      value: "3",
-      label: "Continentes",
-      gradient: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: Users,
-      value: "100%",
-      label: "Ingenieros",
-      gradient: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: Zap,
-      value: "99.9%",
-      label: "Uptime",
-      gradient: "from-orange-500 to-red-500",
-    },
+    { city: "Santiago", country: "Chile", time: "UTC-3", flag: "🇨🇱" },
+    { city: "Buenos Aires", country: "Argentina", time: "UTC-3", flag: "🇦🇷" },
+    { city: "Bogotá", country: "Colombia", time: "UTC-5", flag: "🇨🇴" },
+    { city: "Ciudad de México", country: "México", time: "UTC-6", flag: "🇲🇽" },
+    { city: "Madrid", country: "España", time: "UTC+1", flag: "🇪🇸" },
+    { city: "Nueva York", country: "Estados Unidos", time: "UTC-5", flag: "🇺🇸" },
+    { city: "Londres", country: "Reino Unido", time: "UTC+0", flag: "🇬🇧" },
+    { city: "Tokio", country: "Japón", time: "UTC+9", flag: "🇯🇵" },
   ]
 
   return (
-    <section className="py-20 bg-slate-950 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-green-900/20" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(59,130,246,0.3),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(34,197,94,0.2),transparent_50%)]" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+    <section className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 border-green-500/30 mb-6">
-            <Clock className="w-4 h-4 mr-2" />
-            Equipo Multidisciplinario
+          <Badge className="mb-4 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 text-indigo-300 border-indigo-500/30">
+            <Globe className="w-4 h-4 mr-2" />
+            Cobertura Global
           </Badge>
-
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-green-100 to-blue-200 bg-clip-text text-transparent">
-              Soporte global
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-              las 24 horas
+            <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+              Siempre disponibles, sin importar dónde estés
             </span>
           </h2>
-
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Nuestro equipo distribuido globalmente garantiza soporte continuo y expertise multicultural para proyectos
-            en cualquier zona horaria.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Nuestro equipo distribuido globalmente garantiza soporte 24/7 en tu zona horaria
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* World Map */}
-          <div className="relative">
-            <Card className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm p-8">
-              <div className="relative h-80 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden">
-                {/* Simplified World Map SVG */}
-                <svg viewBox="0 0 100 60" className="w-full h-full">
-                  <defs>
-                    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity="0.3" />
-                      <stop offset="50%" stopColor="rgb(147, 51, 234)" stopOpacity="0.2" />
-                      <stop offset="100%" stopColor="rgb(34, 197, 94)" stopOpacity="0.3" />
-                    </linearGradient>
-                  </defs>
-
-                  {/* Continents simplified shapes */}
-                  <path d="M15 20 L35 15 L40 25 L35 35 L20 40 L10 35 Z" fill="url(#mapGradient)" opacity="0.6" />
-                  <path d="M40 15 L65 10 L70 20 L65 30 L45 35 L40 25 Z" fill="url(#mapGradient)" opacity="0.6" />
-                  <path d="M70 20 L85 15 L90 25 L85 35 L75 40 L70 30 Z" fill="url(#mapGradient)" opacity="0.6" />
-
-                  {/* Location pins */}
-                  {timezones.map((tz, index) => (
-                    <g key={index}>
-                      <circle
-                        cx={tz.position.x}
-                        cy={tz.position.y}
-                        r="2"
-                        fill={isWorkingHours(tz.time) ? "#10b981" : "#ef4444"}
-                        className="animate-pulse"
-                      />
-                      <circle
-                        cx={tz.position.x}
-                        cy={tz.position.y}
-                        r="4"
-                        fill="none"
-                        stroke={isWorkingHours(tz.time) ? "#10b981" : "#ef4444"}
-                        strokeWidth="0.5"
-                        opacity="0.6"
-                        className="animate-ping"
-                      />
-                    </g>
-                  ))}
-                </svg>
-
-                {/* Floating timezone cards */}
-                {timezones.map((tz, index) => (
-                  <div
-                    key={index}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                    style={{
-                      left: `${tz.position.x}%`,
-                      top: `${tz.position.y}%`,
-                      marginTop: "20px",
-                    }}
-                  >
-                    <div className="bg-slate-800/90 backdrop-blur-sm border border-slate-600 rounded-lg p-2 text-center min-w-[120px]">
-                      <div className="text-lg mb-1">{tz.flag}</div>
-                      <div className="text-white font-semibold text-sm">{tz.city}</div>
-                      <div className="text-slate-300 text-xs">{tz.country}</div>
-                      <div
-                        className={`text-sm font-mono mt-1 ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}
-                      >
-                        {formatTime(tz.time)}
-                      </div>
-                      <div className={`text-xs mt-1 ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
-                        {isWorkingHours(tz.time) ? "● Activo" : "● Fuera de horario"}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          {timezones.map((timezone, index) => (
+            <Card key={index} className="bg-card border-border hover:shadow-lg transition-all duration-300 text-center">
+              <CardContent className="p-6">
+                <div className="text-4xl mb-3">{timezone.flag}</div>
+                <h3 className="font-semibold text-foreground mb-1">{timezone.city}</h3>
+                <p className="text-sm text-muted-foreground mb-2">{timezone.country}</p>
+                <div className="flex items-center justify-center text-xs text-primary">
+                  <Clock className="w-3 h-3 mr-1" />
+                  {timezone.time}
+                </div>
+              </CardContent>
             </Card>
-          </div>
+          ))}
+        </div>
 
-          {/* Stats and Info */}
-          <div className="space-y-8">
-            {/* Live Clocks */}
-            <div className="grid grid-cols-1 gap-4">
-              {timezones.map((tz, index) => (
-                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{tz.flag}</span>
-                        <div>
-                          <div className="font-semibold text-white">
-                            {tz.city}, {tz.country}
-                          </div>
-                          <div className={`text-sm ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
-                            {isWorkingHours(tz.time) ? "Horario laboral" : "Fuera de horario"}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-mono text-white">{formatTime(tz.time)}</div>
-                        <div
-                          className={`w-3 h-3 rounded-full mx-auto mt-1 ${isWorkingHours(tz.time) ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
-                        />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
-                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
-                  <CardContent className="p-6 text-center">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-r ${stat.gradient} rounded-xl flex items-center justify-center mx-auto mb-3`}
-                    >
-                      <stat.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-slate-400">{stat.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
+        <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-8 text-center">
+          <div className="max-w-3xl mx-auto">
+            <h3 className="text-2xl font-bold text-foreground mb-4">Respuesta Garantizada en Tu Horario</h3>
+            <p className="text-muted-foreground mb-6">
+              No importa si es lunes por la mañana en Santiago o viernes por la noche en Tokio. Nuestro equipo
+              distribuido globalmente está siempre listo para ayudarte.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Badge className="bg-green-500/20 text-green-300 border-green-500/30 px-4 py-2">
+                <Clock className="w-4 h-4 mr-2" />
+                Tiempo de respuesta promedio: 15 minutos
+              </Badge>
+              <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 px-4 py-2">
+                <Globe className="w-4 h-4 mr-2" />
+                Disponible en 8 zonas horarias
+              </Badge>
             </div>
           </div>
         </div>

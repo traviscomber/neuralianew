@@ -1,11 +1,12 @@
 "use client"
+
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowRight, Sparkles, Users, TrendingUp, Clock, Star } from "lucide-react"
 import { HeroChatInterface } from "./hero-chat-interface"
 
-export function HeroSection() {
+export default function HeroSection() {
   return (
     <section className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 relative overflow-hidden flex items-center">
       {/* Background Effects */}

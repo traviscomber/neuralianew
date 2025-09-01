@@ -2,131 +2,74 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Bot, MessageSquare, Cog, Zap, Globe, Building } from "lucide-react"
+import { MessageSquare, Brain, Zap, Shield, BarChart3, Headphones } from "lucide-react"
 
-export function FeaturesSection() {
+export default function FeaturesSection() {
   const features = [
     {
-      icon: Bot,
-      title: "AI Agents & Automations",
-      description:
-        "Agentes inteligentes que automatizan procesos complejos, toman decisiones y aprenden continuamente de cada interacción para optimizar resultados.",
-      badge: "24/7 Active",
-      gradient: "from-blue-500 to-cyan-500",
-      bgGradient: "from-blue-500/10 to-cyan-500/10",
-      borderGradient: "from-blue-500/30 to-cyan-500/30",
-    },
-    {
       icon: MessageSquare,
-      title: "Multichannel",
+      title: "Conversaciones Naturales",
       description:
-        "Integración perfecta en WhatsApp, web, móvil y redes sociales. Una experiencia unificada que mantiene contexto en todos los canales.",
-      badge: "Omnichannel",
-      gradient: "from-purple-500 to-pink-500",
-      bgGradient: "from-purple-500/10 to-pink-500/10",
-      borderGradient: "from-purple-500/30 to-pink-500/30",
+        "Agentes que entienden contexto, emociones y matices del lenguaje humano para interacciones auténticas.",
     },
     {
-      icon: Cog,
-      title: "Full Stack AI Systems",
-      description:
-        "Soluciones completas desde el frontend hasta la infraestructura, con modelos de IA personalizados y arquitectura escalable enterprise.",
-      badge: "11+ Industries",
-      gradient: "from-orange-500 to-red-500",
-      bgGradient: "from-orange-500/10 to-red-500/10",
-      borderGradient: "from-orange-500/30 to-red-500/30",
+      icon: Brain,
+      title: "Aprendizaje Continuo",
+      description: "IA que mejora constantemente basándose en cada interacción, adaptándose a tu negocio específico.",
+    },
+    {
+      icon: Zap,
+      title: "Respuestas Instantáneas",
+      description: "Atención 24/7 con tiempos de respuesta menores a 2 segundos, sin esperas ni frustraciones.",
+    },
+    {
+      icon: Shield,
+      title: "Seguridad Empresarial",
+      description: "Encriptación end-to-end, cumplimiento GDPR y protección total de datos sensibles.",
+    },
+    {
+      icon: BarChart3,
+      title: "Analytics Avanzados",
+      description: "Métricas detalladas, insights de comportamiento y reportes que impulsan decisiones estratégicas.",
+    },
+    {
+      icon: Headphones,
+      title: "Soporte Especializado",
+      description: "Equipo técnico dedicado disponible 24/7 para optimización y resolución de consultas.",
     },
   ]
 
   return (
-    <section className="py-20 bg-slate-950 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(255,119,198,0.2),transparent_50%)]" />
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+    <section className="py-20 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border-blue-500/30 mb-6">
-            <Zap className="w-4 h-4 mr-2" />
-            Nuestras Especialidades
+          <Badge className="mb-4 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 border-purple-500/30">
+            Características Principales
           </Badge>
-
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-              Soluciones que
-            </span>
-            <br />
-            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              transforman negocios
+            <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+              Tecnología que marca la diferencia
             </span>
           </h2>
-
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Implementamos tecnología de inteligencia artificial que se adapta a las necesidades específicas de tu
-            industria y escala con tu crecimiento.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Cada característica está diseñada para maximizar el impacto en tu negocio
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <Card
               key={index}
-              className={`bg-gradient-to-br ${feature.bgGradient} border-2 bg-slate-900/50 backdrop-blur-sm hover:bg-slate-900/70 transition-all duration-300 group relative overflow-hidden`}
-              style={{
-                borderImage: `linear-gradient(135deg, ${feature.borderGradient.replace("from-", "").replace("to-", "").replace("/", ", ")}) 1`,
-              }}
+              className="bg-card border-border hover:shadow-lg transition-all duration-300 hover:scale-105"
             >
-              <div
-                className={`absolute inset-0 bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
-              />
-
-              <CardContent className="p-8 relative z-10">
-                <div className="flex items-center justify-between mb-6">
-                  <div
-                    className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <feature.icon className="w-7 h-7 text-white" />
+              <CardContent className="p-8">
+                <div className="flex items-center mb-6">
+                  <div className="p-3 bg-primary/10 rounded-lg mr-4">
+                    <feature.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <Badge
-                    variant="secondary"
-                    className={`bg-gradient-to-r ${feature.bgGradient} border-0 text-white font-medium`}
-                  >
-                    {feature.badge}
-                  </Badge>
+                  <h3 className="text-xl font-semibold text-foreground">{feature.title}</h3>
                 </div>
-
-                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-white transition-colors">
-                  {feature.title}
-                </h3>
-
-                <p className="text-slate-300 leading-relaxed group-hover:text-slate-200 transition-colors">
-                  {feature.description}
-                </p>
-
-                {/* Additional Icons */}
-                <div className="flex items-center gap-2 mt-6 opacity-60 group-hover:opacity-100 transition-opacity">
-                  {index === 0 && (
-                    <>
-                      <Bot className="w-4 h-4 text-blue-400" />
-                      <Zap className="w-4 h-4 text-cyan-400" />
-                    </>
-                  )}
-                  {index === 1 && (
-                    <>
-                      <Globe className="w-4 h-4 text-purple-400" />
-                      <MessageSquare className="w-4 h-4 text-pink-400" />
-                    </>
-                  )}
-                  {index === 2 && (
-                    <>
-                      <Building className="w-4 h-4 text-orange-400" />
-                      <Cog className="w-4 h-4 text-red-400" />
-                    </>
-                  )}
-                </div>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
