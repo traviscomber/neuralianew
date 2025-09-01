@@ -4,13 +4,52 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import { ChatWidget } from "@/components/chat/chat-widget"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "N3uralia - IA Conversacional Avanzada",
-  description: "Transformamos tu negocio con soluciones de IA conversacional que realmente entienden a tus usuarios",
+  title: "N3uralia - Agentes de IA Conversacional",
+  description:
+    "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente. Implementación en 48 horas con soporte 24/7.",
+  keywords: "IA conversacional, chatbots, automatización, agentes AI, WhatsApp Business, integración API",
+  authors: [{ name: "N3uralia" }],
+  creator: "N3uralia",
+  publisher: "N3uralia",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://n3uralia.com"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "N3uralia - Agentes de IA Conversacional",
+    description:
+      "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente.",
+    url: "https://n3uralia.com",
+    siteName: "N3uralia",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "N3uralia - Agentes de IA Conversacional",
+    description:
+      "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
     generator: 'v0.app'
 }
 
@@ -24,7 +63,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
           {children}
-          <ChatWidget />
           <Toaster />
         </ThemeProvider>
       </body>
