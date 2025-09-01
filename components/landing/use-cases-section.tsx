@@ -1,524 +1,306 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Sprout,
-  Settings,
+  GraduationCap,
+  Users,
+  ExternalLink,
+  BarChart3,
+  MessageSquare,
+  Zap,
+  Globe,
+  Database,
   TrendingUp,
   CheckCircle,
-  Send,
-  Bot,
-  User,
-  ArrowRight,
-  BarChart3,
-  Target,
-  Award,
-  Smartphone,
-  Users,
-  Receipt,
 } from "lucide-react"
-import { MessageCircle } from "lucide-react" // Import MessageCircle
 
-const successCases = {
-  ecosuelo: {
-    name: "EcosueloLab",
-    tagline: "Análisis de Suelo Inteligente",
-    description: "Se conecta a tus datos de suelo y te envía análisis claros por WhatsApp",
-    color: "from-green-500 to-emerald-600",
-    bgColor: "bg-green-50",
-    textColor: "text-green-700",
+const useCases = [
+  {
+    id: "ecosuelo",
+    title: "EcosueloLab",
+    subtitle: "Revolución Agrícola con IA",
     icon: Sprout,
+    category: "AgTech + IA",
+    description:
+      "Plataforma completa que combina análisis de suelo con IA conversacional vía WhatsApp. Los agricultores obtienen recomendaciones personalizadas en tiempo real.",
+    challenge:
+      "Los agricultores necesitaban análisis de suelo rápidos y recomendaciones expertas accesibles desde cualquier lugar.",
+    solution:
+      "Desarrollamos una API inteligente que procesa datos de sensores y un chatbot de WhatsApp que interpreta resultados y da recomendaciones personalizadas.",
+    results: [
+      "85% reducción en tiempo de análisis",
+      "300+ agricultores usando la plataforma",
+      "40% mejora en rendimiento de cultivos",
+      "Disponible 24/7 vía WhatsApp",
+    ],
+    technologies: ["OpenAI GPT-4o", "WhatsApp Business API", "Sensores IoT", "Python Analytics", "React Dashboard"],
     metrics: {
-      status: "Entregado",
-      focus: "Agricultura",
-      integration: "API + WhatsApp",
-      availability: "Funcionando",
+      users: "300+",
+      efficiency: "85%",
+      improvement: "40%",
+      availability: "24/7",
     },
-    features: [
-      "Se conecta a tus sistemas de análisis de suelo",
-      "Habla contigo sobre nitrógeno y nutrientes",
-      "Envía reportes automáticos por WhatsApp",
-      "Te da recomendaciones técnicas claras",
-      "Hace seguimiento de tus cultivos",
-    ],
-    chatMessages: [
-      {
-        role: "assistant",
-        content: "¡Hola! 🌱 Soy EcosueloBot. Tengo acceso a los datos de tus potreros. ¿Cuál revisamos hoy?",
-        timestamp: "08:30",
-      },
-      {
-        role: "user",
-        content: "El potrero norte, las plantas están amarillas desde hace una semana",
-        timestamp: "08:31",
-      },
-      {
-        role: "assistant",
-        content:
-          "Revisando datos de suelo... 📊\n\n**Potrero Norte (12 hectáreas)**:\n• Nitrógeno: 15 ppm (MUY BAJO)\n• pH: 6.2 (Perfecto)\n• Humedad: 45% (Buena)\n\nEl amarillo es por falta de nitrógeno. ¿Quieres el plan para solucionarlo?",
-        timestamp: "08:31",
-      },
-      {
-        role: "user",
-        content: "Sí, y envíamelo por WhatsApp para mi equipo",
-        timestamp: "08:32",
-      },
-      {
-        role: "assistant",
-        content:
-          "¡Perfecto! 📱 Preparando plan completo:\n\n**Plan de Fertilización**:\n• Aplicar 120 kg/ha de urea (46% N)\n• Primera aplicación: 70% ahora\n• Segunda aplicación: 30% en 15 días\n• Riego ligero después\n\n¿Confirmas tu WhatsApp para enviar el reporte completo?",
-        timestamp: "08:33",
-      },
-      {
-        role: "user",
-        content: "Sí, +56 9 1234 5678. Incluye costos por favor",
-        timestamp: "08:34",
-      },
-      {
-        role: "assistant",
-        content:
-          "✅ **Reporte enviado por WhatsApp**\n\nIncluye:\n• Plan paso a paso\n• Cronograma detallado\n• Costo total: $180.000 CLP\n• Mapa del potrero\n• Contactos de proveedores\n\n📅 Te recordaré revisar en 21 días. ¡Tu potrero se va a recuperar!",
-        timestamp: "08:35",
-      },
-    ],
+    color: "from-green-500 to-emerald-600",
+    link: "ecosuelolab.com",
   },
-  despega: {
-    name: "Despega Tu Carrera",
-    tagline: "Tu Coach Personal",
-    description: "Tu mentor que entiende tus metas y te guía paso a paso",
-    color: "from-blue-500 to-cyan-600",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
-    icon: TrendingUp,
+  {
+    id: "parrotfy",
+    title: "ParrotfyIA",
+    subtitle: "Educación Inteligente Personalizada",
+    icon: GraduationCap,
+    category: "EdTech + IA",
+    description:
+      "Plataforma de aprendizaje de idiomas con IA conversacional que se adapta al nivel y estilo de cada estudiante. Conversaciones naturales que enseñan de verdad.",
+    challenge:
+      "Los métodos tradicionales de enseñanza de idiomas son rígidos y no se adaptan al ritmo individual de cada estudiante.",
+    solution:
+      "Creamos una IA conversacional que mantiene diálogos naturales, corrige errores en tiempo real y personaliza el contenido según el progreso del estudiante.",
+    results: [
+      "92% de estudiantes mejoran fluidez",
+      "500+ horas de conversación diaria",
+      "Personalización automática por nivel",
+      "Corrección inteligente en tiempo real",
+    ],
+    technologies: ["OpenAI GPT-4o", "Speech Recognition", "Next.js", "Supabase", "Real-time Analytics"],
     metrics: {
-      status: "Entregado",
-      focus: "Desarrollo profesional",
-      type: "Coach personal",
-      availability: "Funcionando",
+      users: "1,200+",
+      fluency: "92%",
+      conversations: "500h/día",
+      retention: "89%",
     },
-    features: [
-      "Plan de carrera hecho para ti",
-      "Mentoring 24/7 cuando lo necesites",
-      "Estrategias que realmente funcionan",
-      "Seguimiento de tu progreso",
-      "Consejos específicos para tu industria",
-    ],
-    chatMessages: [
-      {
-        role: "assistant",
-        content:
-          "¡Hola! 🚀 Soy tu coach personal. Estoy aquí para ayudarte a crecer profesionalmente. ¿Cuál es tu meta?",
-        timestamp: "14:30",
-      },
-      {
-        role: "user",
-        content: "Quiero liderar un equipo de desarrollo, pero me falta experiencia en gestión",
-        timestamp: "14:31",
-      },
-      {
-        role: "assistant",
-        content:
-          "¡Qué meta tan buena! 💪 Reconocer esa área de mejora ya te pone adelante. Cuéntame:\n\n🎯 ¿Qué te emociona del liderazgo?\n🤔 ¿Has liderado proyectos antes?\n💭 ¿Cuál es tu fortaleza técnica?\n⏰ ¿En cuánto tiempo quieres lograrlo?",
-        timestamp: "14:31",
-      },
-      {
-        role: "user",
-        content:
-          "Me emociona mentorear y crear productos increíbles. He liderado proyectos pequeños. Soy bueno resolviendo problemas complejos. Quiero lograrlo en un año",
-        timestamp: "14:32",
-      },
-      {
-        role: "assistant",
-        content:
-          "¡Perfecto! Tienes bases sólidas 🌟 Tu plan de 12 meses:\n\n🎯 **Primeros 3 meses**:\n• Mentorea developers junior\n• Lidera un proyecto más grande\n• Mejora tu comunicación\n\n🎯 **Siguientes 6 meses**:\n• Curso de liderazgo técnico\n• Pide feedback constante\n• Prepárate para entrevistas\n\n¿Por dónde empezamos?",
-        timestamp: "14:33",
-      },
-      {
-        role: "user",
-        content: "La mentoría me interesa. Hay juniors en mi equipo que siempre me preguntan",
-        timestamp: "14:34",
-      },
-      {
-        role: "assistant",
-        content:
-          "¡Excelente! Ya tienes la oportunidad perfecta 🎓\n\n**Plan de Mentoría**:\n\n📅 **Estructura**:\n• 30 minutos semanales con cada junior\n• Combina code reviews con conversación\n• Objetivos claros de aprendizaje\n• Documenta el progreso\n\n🎯 **Beneficios para ti**:\n• Desarrollas habilidades de enseñanza\n• Practicas dar feedback\n• Casos de éxito para tu CV\n\n¿Te ayudo a planificar la primera sesión?",
-        timestamp: "14:35",
-      },
-    ],
+    color: "from-blue-500 to-purple-600",
+    link: "parrotfy.com",
   },
-  parrotfy: {
-    name: "Parrotfy",
-    tagline: "Tu Asistente de Negocio",
-    description: "Analiza tus clientes y facturas hablando contigo de forma natural",
-    color: "from-purple-500 to-violet-600",
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-700",
-    icon: Settings,
+  {
+    id: "crm",
+    title: "CRM Inteligente",
+    subtitle: "Ventas Automatizadas que Convierten",
+    icon: Users,
+    category: "Sales + IA",
+    description:
+      "Sistema CRM con IA que califica leads automáticamente, programa seguimientos inteligentes y predice probabilidades de cierre. Ventas que funcionan solas.",
+    challenge:
+      "Los equipos de ventas perdían tiempo en leads fríos y no tenían seguimiento sistemático de oportunidades calientes.",
+    solution:
+      "Desarrollamos un CRM con IA que analiza comportamiento, califica leads automáticamente y ejecuta secuencias de seguimiento personalizadas.",
+    results: [
+      "200% aumento en conversión de leads",
+      "75% reducción en tiempo de calificación",
+      "Seguimiento automático 100% efectivo",
+      "Predicción de cierre con 90% precisión",
+    ],
+    technologies: ["OpenAI GPT-4o", "Predictive Analytics", "WhatsApp Integration", "Email Automation", "Custom API"],
     metrics: {
-      status: "Entregado",
-      focus: "Análisis de negocio",
-      type: "Asistente inteligente",
-      integration: "Datos en tiempo real",
+      conversion: "200%",
+      efficiency: "75%",
+      accuracy: "90%",
+      automation: "100%",
     },
-    features: [
-      "Analiza clientes y facturas de forma inteligente",
-      "Identifica tus mejores clientes cada mes",
-      "Descubre qué productos vender más",
-      "Detecta tendencias y oportunidades",
-      "Predicciones basadas en tu historial",
-    ],
-    chatMessages: [
-      {
-        role: "assistant",
-        content: "¡Hola! 💼 Soy Parrotfy. Tengo acceso a todos tus datos de negocio. ¿Qué quieres descubrir hoy?",
-        timestamp: "09:15",
-      },
-      {
-        role: "user",
-        content: "¿Quién es mi mejor cliente este mes?",
-        timestamp: "09:16",
-      },
-      {
-        role: "assistant",
-        content:
-          "Revisando todas tus facturas... 📊\n\n🏆 **Tu Mejor Cliente - Diciembre 2024**:\n• **TechCorp Solutions**: $45.000 USD\n• 12 facturas este mes\n• Creció 23% vs mes pasado\n• Margen promedio: 35% (excelente)\n\n📈 **Top 3**:\n1. TechCorp: $45.000\n2. InnovateX: $32.500\n3. DataFlow: $28.800\n\n¿Quieres saber más de TechCorp?",
-        timestamp: "09:16",
-      },
-      {
-        role: "user",
-        content: "Sí, ¿qué productos le vendemos más?",
-        timestamp: "09:17",
-      },
-      {
-        role: "assistant",
-        content:
-          "Analizando ventas a TechCorp 🎯:\n\n💼 **Sus Productos Favoritos**:\n• **Software**: 60% ($27.000)\n  - Office Suite Pro: $15.000\n  - Herramientas Dev: $12.000\n• **Consultoría**: 25% ($11.250)\n  - Implementación: $7.500\n  - Capacitación: $3.750\n• **Soporte**: 15% ($6.750)\n\n💡 **Descubrí que**:\n• Compra más en fin de año\n• Prefiere paquetes enterprise\n• Tiene renovación automática\n\n¿Quieres ideas para venderles más?",
-        timestamp: "09:18",
-      },
-      {
-        role: "user",
-        content: "Sí, y dime si hay clientes comprando menos",
-        timestamp: "09:19",
-      },
-      {
-        role: "assistant",
-        content:
-          "Detecté algunas señales de alerta 🚨:\n\n📉 **Clientes en Riesgo**:\n• **MegaCorp**: -40% ($18.000 → $10.800)\n  - Sin pedidos hace 45 días\n  - Cliente desde 2022 (¡cuidado!)\n• **StartupHub**: -25% ($8.000 → $6.000)\n  - Cambió de pedidos semanales a mensuales\n• **CloudTech**: -15% ($12.000 → $10.200)\n  - Redujo licencias de 50 a 42\n\n💡 **Te sugiero**:\n• Llamar a MegaCorp HOY (riesgo alto)\n• Ofrecer descuento por volumen a StartupHub\n• Revisar necesidades de CloudTech\n\n¿Genero un plan de retención?",
-        timestamp: "09:20",
-      },
-    ],
+    color: "from-orange-500 to-red-600",
+    link: "Proyecto confidencial",
   },
-}
+]
 
 export function UseCasesSection() {
-  const [activeTab, setActiveTab] = useState("ecosuelo")
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
-  const [isTyping, setIsTyping] = useState(false)
-
-  const currentCase = successCases[activeTab as keyof typeof successCases]
-
-  useEffect(() => {
-    setCurrentMessageIndex(0)
-  }, [activeTab])
-
-  useEffect(() => {
-    if (currentMessageIndex < currentCase.chatMessages.length - 1) {
-      const timer = setTimeout(() => {
-        setIsTyping(true)
-        setTimeout(() => {
-          setCurrentMessageIndex((prev) => prev + 1)
-          setIsTyping(false)
-        }, 1500)
-      }, 3000)
-      return () => clearTimeout(timer)
-    }
-  }, [currentMessageIndex, currentCase.chatMessages.length])
+  const [activeCase, setActiveCase] = useState("ecosuelo")
+  const currentCase = useCases.find((useCase) => useCase.id === activeCase) || useCases[0]
 
   return (
-    <section id="success-cases" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="casos-de-uso" className="py-20 bg-gradient-to-br from-background to-muted/20">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
-          >
-            <Award className="w-4 h-4 mr-2" />
-            Proyectos Entregados
+          <Badge className="mb-4 bg-primary/10 text-primary hover:bg-primary/20">
+            <BarChart3 className="w-4 h-4 mr-2" />
+            Casos de Éxito Reales
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Nuestros{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Proyectos
+
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            <span className="text-foreground">Proyectos que</span>
+            <br />
+            <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+              transformaron industrias
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
-            Mira lo que hemos entregado. Cada proyecto está funcionando y diseñado para entender y conectar de verdad
-            contigo.
+
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            No son demos ni prototipos. Son plataformas reales, funcionando en producción,
+            <strong className="text-foreground"> generando resultados medibles todos los días.</strong>
           </p>
         </motion.div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 h-14 bg-gradient-to-r from-gray-50 to-gray-100">
-            <TabsTrigger
-              value="ecosuelo"
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-600 data-[state=active]:text-white font-semibold"
-            >
-              <Sprout className="w-4 h-4 mr-2" />
-              EcosueloLab
-            </TabsTrigger>
-            <TabsTrigger
-              value="despega"
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-cyan-600 data-[state=active]:text-white font-semibold"
-            >
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Despega Tu Carrera
-            </TabsTrigger>
-            <TabsTrigger
-              value="parrotfy"
-              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-violet-600 data-[state=active]:text-white font-semibold"
-            >
-              <Settings className="w-4 h-4 mr-2" />
-              Parrotfy
-            </TabsTrigger>
+        <Tabs value={activeCase} onValueChange={setActiveCase} className="w-full">
+          <TabsList className="grid w-full grid-cols-3 mb-12 bg-muted/50 p-1 rounded-xl">
+            {useCases.map((useCase) => (
+              <TabsTrigger
+                key={useCase.id}
+                value={useCase.id}
+                className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:shadow-sm rounded-lg py-3"
+              >
+                <useCase.icon className="w-4 h-4" />
+                <span className="hidden sm:inline">{useCase.title}</span>
+                <span className="sm:hidden">{useCase.icon.name}</span>
+              </TabsTrigger>
+            ))}
           </TabsList>
 
           <AnimatePresence mode="wait">
-            {Object.entries(successCases).map(([key, caseData]) => (
-              <TabsContent key={key} value={key} className="mt-0">
+            {useCases.map((useCase) => (
+              <TabsContent key={useCase.id} value={useCase.id} className="mt-0">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5 }}
-                  className="grid lg:grid-cols-2 gap-8"
                 >
-                  {/* Información del caso */}
-                  <Card className={`${caseData.bgColor} border-2 border-opacity-20`}>
-                    <CardHeader>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div
-                          className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${caseData.color} flex items-center justify-center shadow-lg`}
-                        >
-                          <caseData.icon className="w-8 h-8 text-white" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-2xl font-bold">{caseData.name}</CardTitle>
-                          <CardDescription className={`text-lg font-medium ${caseData.textColor}`}>
-                            {caseData.tagline}
-                          </CardDescription>
-                        </div>
-                      </div>
-                      <p className="text-gray-700 text-lg leading-relaxed mb-4">{caseData.description}</p>
-                    </CardHeader>
-
-                    <CardContent className="space-y-6">
-                      {/* Estado del proyecto */}
+                  <div className="grid lg:grid-cols-2 gap-12 items-start">
+                    <div className="space-y-8">
                       <div>
-                        <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                          <BarChart3 className="w-5 h-5" />
-                          Estado del Proyecto
-                        </h4>
-                        <div className="grid grid-cols-2 gap-4">
-                          {Object.entries(caseData.metrics).map(([key, value]) => (
-                            <div
-                              key={key}
-                              className={`p-4 rounded-xl ${caseData.bgColor} ${caseData.textColor} border`}
-                            >
-                              <div className="text-sm font-medium text-gray-600 capitalize mb-1">
-                                {key === "status"
-                                  ? "Estado"
-                                  : key === "focus"
-                                    ? "Enfoque"
-                                    : key === "type"
-                                      ? "Tipo"
-                                      : key === "availability"
-                                        ? "Disponibilidad"
-                                        : key === "integration"
-                                          ? "Integración"
-                                          : key}
-                              </div>
-                              <div className="font-bold text-gray-900">{value}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Características principales */}
-                      <div>
-                        <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                          {key === "ecosuelo" ? (
-                            <Smartphone className="w-5 h-5" />
-                          ) : key === "parrotfy" ? (
-                            <Users className="w-5 h-5" />
-                          ) : (
-                            <Target className="w-5 h-5" />
-                          )}
-                          {key === "ecosuelo"
-                            ? "Capacidades Principales"
-                            : key === "parrotfy"
-                              ? "Análisis de Negocio"
-                              : "Características Principales"}
-                        </h4>
-                        <ul className="space-y-3">
-                          {caseData.features.map((feature, index) => (
-                            <li key={index} className="flex items-start gap-3">
-                              {key === "ecosuelo" ? (
-                                <MessageCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
-                              ) : key === "parrotfy" ? (
-                                <Receipt className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
-                              ) : (
-                                <CheckCircle className={`w-5 h-5 mt-0.5 ${caseData.textColor} flex-shrink-0`} />
-                              )}
-                              <span className="text-gray-700 font-medium">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <Button
-                        className={`w-full bg-gradient-to-r ${caseData.color} hover:opacity-90 text-white font-semibold py-3`}
-                      >
-                        <ArrowRight className="w-4 h-4 mr-2" />
-                        Ver {caseData.name} en Acción
-                      </Button>
-                    </CardContent>
-                  </Card>
-
-                  {/* Chat demo */}
-                  <Card className="bg-white shadow-xl border-2">
-                    <CardHeader className={`${caseData.bgColor} border-b`}>
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`w-10 h-10 rounded-full bg-gradient-to-r ${caseData.color} flex items-center justify-center`}
-                        >
-                          <Bot className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <CardTitle className="text-lg">{caseData.name}</CardTitle>
-                          <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="text-sm text-gray-600">
-                              {key === "ecosuelo"
-                                ? "Funcionando"
-                                : key === "parrotfy"
-                                  ? "Analizando datos"
-                                  : "Entregado"}
-                            </span>
+                        <div className="flex items-center gap-3 mb-4">
+                          <div
+                            className={`w-12 h-12 rounded-xl bg-gradient-to-r ${useCase.color} flex items-center justify-center`}
+                          >
+                            <useCase.icon className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <Badge className="mb-2 bg-primary/10 text-primary">{useCase.category}</Badge>
+                            <h3 className="text-3xl font-bold">{useCase.title}</h3>
+                            <p className="text-lg text-muted-foreground">{useCase.subtitle}</p>
                           </div>
                         </div>
-                      </div>
-                    </CardHeader>
 
-                    <CardContent className="p-0">
-                      <div className="h-96 overflow-y-auto p-4 space-y-4">
-                        {caseData.chatMessages.slice(0, currentMessageIndex + 1).map((message, index) => (
-                          <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3 }}
-                            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-                          >
-                            <div className={`max-w-[85%] ${message.role === "user" ? "order-2" : "order-1"}`}>
-                              <div
-                                className={`flex items-end gap-2 ${message.role === "user" ? "flex-row-reverse" : "flex-row"}`}
-                              >
-                                <div
-                                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                    message.role === "user" ? "bg-gray-200" : `bg-gradient-to-r ${caseData.color}`
-                                  }`}
-                                >
-                                  {message.role === "user" ? (
-                                    <User className="w-4 h-4 text-gray-600" />
-                                  ) : (
-                                    <Bot className="w-4 h-4 text-white" />
-                                  )}
-                                </div>
-                                <div
-                                  className={`px-4 py-3 rounded-2xl ${
-                                    message.role === "user"
-                                      ? "bg-gray-100 text-gray-800"
-                                      : `bg-gradient-to-r ${caseData.color} text-white`
-                                  } shadow-sm`}
-                                >
-                                  <p className="text-sm leading-relaxed whitespace-pre-line">{message.content}</p>
-                                  <span
-                                    className={`text-xs mt-1 block ${
-                                      message.role === "user" ? "text-gray-500" : "text-white/70"
-                                    }`}
-                                  >
-                                    {message.timestamp}
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
-                        ))}
+                        <p className="text-lg text-muted-foreground leading-relaxed mb-6">{useCase.description}</p>
 
-                        {isTyping && (
-                          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                            <div className="flex items-end gap-2">
-                              <div
-                                className={`w-8 h-8 rounded-full bg-gradient-to-r ${caseData.color} flex items-center justify-center`}
-                              >
-                                <Bot className="w-4 h-4 text-white" />
-                              </div>
-                              <div className="bg-gray-100 px-4 py-3 rounded-2xl">
-                                <div className="flex space-x-1">
-                                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                                  <div
-                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                    style={{ animationDelay: "0.1s" }}
-                                  ></div>
-                                  <div
-                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-                                    style={{ animationDelay: "0.2s" }}
-                                  ></div>
-                                </div>
-                              </div>
-                            </div>
-                          </motion.div>
+                        {useCase.link !== "Proyecto confidencial" && (
+                          <Button variant="outline" className="mb-6 bg-transparent">
+                            <Globe className="w-4 h-4 mr-2" />
+                            Visitar {useCase.link}
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </Button>
                         )}
                       </div>
 
-                      <div className="p-4 border-t bg-gray-50">
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            placeholder="Escribe tu mensaje..."
-                            className="flex-1 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500"
-                            disabled
-                          />
-                          <Button size="sm" className={`rounded-full bg-gradient-to-r ${caseData.color}`} disabled>
-                            <Send className="w-4 h-4" />
-                          </Button>
-                        </div>
-                        <p className="text-xs text-gray-500 mt-2 text-center">
-                          {key === "ecosuelo"
-                            ? "Proyecto entregado - API de suelo + WhatsApp"
-                            : key === "parrotfy"
-                              ? "Proyecto entregado - Análisis ERP en tiempo real"
-                              : "Proyecto entregado - Coach profesional funcionando"}
-                        </p>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {Object.entries(useCase.metrics).map(([key, value], index) => (
+                          <motion.div
+                            key={key}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            className="text-center p-4 rounded-lg bg-muted/50"
+                          >
+                            <div
+                              className={`text-2xl font-bold bg-gradient-to-r ${useCase.color} bg-clip-text text-transparent`}
+                            >
+                              {value}
+                            </div>
+                            <div className="text-xs text-muted-foreground capitalize">
+                              {key.replace(/([A-Z])/g, " $1").trim()}
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
-                    </CardContent>
-                  </Card>
+
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold">Tecnologías utilizadas:</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {useCase.technologies.map((tech, index) => (
+                            <Badge key={index} variant="secondary" className="bg-primary/10 text-primary">
+                              {tech}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6">
+                      <Card className="border-2 border-primary/20">
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2">
+                            <MessageSquare className="w-5 h-5 text-primary" />
+                            El Desafío
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground leading-relaxed">{useCase.challenge}</p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 border-green-500/20">
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2">
+                            <Zap className="w-5 h-5 text-green-600" />
+                            Nuestra Solución
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground leading-relaxed">{useCase.solution}</p>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 border-blue-500/20">
+                        <CardHeader>
+                          <CardTitle className="flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-blue-600" />
+                            Resultados Medibles
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {useCase.results.map((result, index) => (
+                              <div key={index} className="flex items-center gap-3">
+                                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                                <span className="text-foreground font-medium">{result}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
                 </motion.div>
               </TabsContent>
             ))}
           </AnimatePresence>
         </Tabs>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <div className="bg-gradient-to-r from-primary/10 to-blue-600/10 rounded-2xl p-8 border border-primary/20">
+            <h3 className="text-2xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+                ¿Tu proyecto será el próximo caso de éxito?
+              </span>
+            </h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Cada proyecto que desarrollamos está diseñado para generar resultados medibles y transformar industrias.
+              Tu idea puede ser la próxima revolución.
+            </p>
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white px-8 py-6"
+            >
+              <Database className="w-5 h-5 mr-2" />
+              Desarrollar Mi Plataforma
+            </Button>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
