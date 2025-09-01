@@ -44,14 +44,14 @@ export function Navigation() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+        <div className="flex items-center justify-between h-24">
+          {/* Logo - 150% bigger */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             className="flex-shrink-0 cursor-pointer"
             onClick={() => scrollToSection("#hero")}
           >
-            <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={168} height={56} className="h-11 w-auto" />
+            <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={300} height={100} className="h-20 w-auto" />
           </motion.div>
 
           {/* Desktop Navigation */}

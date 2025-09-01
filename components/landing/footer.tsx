@@ -20,7 +20,7 @@ export function Footer() {
             className="space-y-4"
           >
             <div className="flex items-center space-x-3">
-              <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={120} height={40} className="h-8 w-auto" />
+              <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={300} height={100} className="h-20 w-auto" />
               <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
                 Soporte 24/7 Activo
