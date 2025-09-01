@@ -2,294 +2,405 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, User, Zap, Brain, Rocket, Target } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Sprout, TrendingUp, Settings, Bot, User, ArrowRight, Calendar, Clock } from "lucide-react"
+
+const demos = [
+  {
+    id: "ecosuelo",
+    name: "EcosueloLab",
+    tagline: "Te ahorra 15 horas semanales",
+    description: "Se conecta con tus datos de suelo y te manda recomendaciones por WhatsApp",
+    color: "from-green-500 to-emerald-600",
+    bgColor: "bg-green-50",
+    icon: Sprout,
+    messages: [
+      {
+        role: "bot",
+        content: "🌱 Tu potrero norte tiene déficit de nitrógeno. Te envío el plan por WhatsApp.",
+      },
+      {
+        role: "user",
+        content: "¿Cuánto me va a costar?",
+      },
+      {
+        role: "bot",
+        content: "Plan completo: $180.000. Tu cosecha va a subir 23%. Se recupera en 2 meses.",
+      },
+      {
+        role: "user",
+        content: "Bacán, mandámelo",
+      },
+      {
+        role: "bot",
+        content: "✅ Enviado. Incluye mapa, proveedores y recordatorio en 21 días.",
+      },
+    ],
+  },
+  {
+    id: "despega",
+    name: "Despega Tu Carrera",
+    tagline: "Sube tu sueldo 40% en 12 meses",
+    description: "Coach con IA que analiza tu perfil y te arma un plan personalizado",
+    color: "from-blue-500 to-cyan-600",
+    bgColor: "bg-blue-50",
+    icon: TrendingUp,
+    messages: [
+      {
+        role: "bot",
+        content: "🚀 Tienes 85% de probabilidades de conseguir liderazgo este año. ¿Partimos?",
+      },
+      {
+        role: "user",
+        content: "Sí, pero no cacho de liderar equipos",
+      },
+      {
+        role: "bot",
+        content: "Plan 12 meses: Mes 1-3 mentoring, Mes 4-6 liderar proyecto, Mes 7-12 Tech Lead. ¿Te tinca?",
+      },
+      {
+        role: "user",
+        content: "Me gusta, ¿por dónde empiezo?",
+      },
+      {
+        role: "bot",
+        content: "Mañana habla con Juan y ofrécele mentoring. Te programo recordatorio y temas.",
+      },
+    ],
+  },
+  {
+    id: "parrotfy",
+    name: "Parrotfy ERP",
+    tagline: "Te encuentra $50K+ por mes",
+    description: "IA que analiza tus datos y encuentra clientes en riesgo y oportunidades",
+    color: "from-purple-500 to-violet-600",
+    bgColor: "bg-purple-50",
+    icon: Settings,
+    messages: [
+      {
+        role: "bot",
+        content: "🚨 MegaCorp (-40% ventas) no compra hace 45 días. ¿Llamamos HOY?",
+      },
+      {
+        role: "user",
+        content: "Sí, ¿qué le ofrezco?",
+      },
+      {
+        role: "bot",
+        content: "20% descuento por renovación anual + consultoría gratis. Probabilidad: 78%",
+      },
+      {
+        role: "user",
+        content: "¿Y hay oportunidades nuevas?",
+      },
+      {
+        role: "bot",
+        content: "¡Obvio! TechCorp puede comprar $15K adicionales. ROI asegurado.",
+      },
+    ],
+  },
+]
 
 export function HeroSection() {
-  const [currentMessage, setCurrentMessage] = useState(0)
+  const [currentDemo, setCurrentDemo] = useState(0)
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
+  const [displayedMessages, setDisplayedMessages] = useState<any[]>([])
   const [isTyping, setIsTyping] = useState(false)
 
-  const chatMessages = [
-    {
-      role: "user",
-      content: "Necesito automatizar todo mi negocio, no solo WhatsApp",
-      timestamp: "14:30",
-    },
-    {
-      role: "assistant",
-      content:
-        "¡Perfecto! Desarrollamos ecosistemas completos de IA: chatbots inteligentes, APIs personalizadas, CRM automatizado, análisis predictivo y más. ¿Qué proceso quieres transformar primero?",
-      timestamp: "14:30",
-    },
-    {
-      role: "user",
-      content: "Todo: ventas, soporte, inventario, reportes...",
-      timestamp: "14:31",
-    },
-    {
-      role: "assistant",
-      content:
-        "¡Bacán! Creamos plataformas inteligentes que conectan todo. Como EcosueloLab (agricultura + IA) o ParrotfyIA (educación + IA). Tu negocio funcionará solo. ¿Conversamos tu proyecto?",
-      timestamp: "14:31",
-    },
-  ]
-
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIsTyping(true)
-      setTimeout(() => {
-        setCurrentMessage((prev) => (prev + 1) % chatMessages.length)
-        setIsTyping(false)
-      }, 1500)
-    }, 5000)
+    const demo = demos[currentDemo]
 
-    return () => clearInterval(interval)
-  }, [chatMessages.length])
+    // Reset when demo changes
+    setCurrentMessageIndex(0)
+    setDisplayedMessages([])
+    setIsTyping(false)
 
-  const stats = [
-    { icon: Rocket, value: "10x", label: "Más eficiencia operacional" },
-    { icon: Target, value: "90%", label: "Procesos automatizados" },
-    { icon: Brain, value: "24/7", label: "IA trabajando por ti" },
-  ]
+    // Start showing messages
+    const showNextMessage = (messageIndex: number) => {
+      if (messageIndex >= demo.messages.length) {
+        // All messages shown, wait then switch to next demo
+        setTimeout(() => {
+          setCurrentDemo((prev) => (prev + 1) % demos.length)
+        }, 4000)
+        return
+      }
 
-  const technologies = [
-    "OpenAI GPT-4o",
-    "APIs Personalizadas",
-    "WhatsApp Business",
-    "Análisis Predictivo",
-    "CRM Inteligente",
-    "Automatización Total",
-  ]
+      const message = demo.messages[messageIndex]
+
+      if (message.role === "bot") {
+        setIsTyping(true)
+        setTimeout(() => {
+          setDisplayedMessages((prev) => [...prev, message])
+          setIsTyping(false)
+          setCurrentMessageIndex(messageIndex + 1)
+          // Wait longer before next message (slower pace)
+          setTimeout(() => showNextMessage(messageIndex + 1), 3500)
+        }, 2000)
+      } else {
+        // User message appears faster
+        setTimeout(() => {
+          setDisplayedMessages((prev) => [...prev, message])
+          setCurrentMessageIndex(messageIndex + 1)
+          setTimeout(() => showNextMessage(messageIndex + 1), 2000)
+        }, 1000)
+      }
+    }
+
+    // Start the sequence
+    const initialDelay = setTimeout(() => {
+      showNextMessage(0)
+    }, 1000)
+
+    return () => {
+      clearTimeout(initialDelay)
+    }
+  }, [currentDemo])
+
+  const demo = demos[currentDemo]
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-muted/20 to-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+    <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-purple-50 via-blue-50 to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-xl opacity-70 animate-blob" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-xl opacity-70 animate-blob animation-delay-2000" />
+        <div className="absolute top-40 left-40 w-80 h-80 bg-green-300 dark:bg-green-600 rounded-full mix-blend-multiply dark:mix-blend-normal filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+      </div>
 
-      {/* Floating elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-blue-600/10 rounded-full blur-xl animate-pulse delay-1000" />
-
-      <div className="container mx-auto px-4 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left side - Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="text-center lg:text-left"
           >
-            <div className="space-y-6">
-              <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white hover:from-red-600 hover:to-orange-600 text-sm px-4 py-2 shadow-lg">
-                <Zap className="w-4 h-4 mr-2" />🔥 Mientras otros hablan, nosotros construimos
-              </Badge>
+            <Badge
+              variant="secondary"
+              className="mb-6 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900 dark:to-orange-900 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700 px-4 py-2"
+            >
+              <Clock className="w-4 h-4 mr-2" />
+              ¿Perdiste $50K+ por no automatizar?
+            </Badge>
 
-              <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                <span className="bg-gradient-to-r from-primary via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  Transformamos
-                </span>
-                <br />
-                <span className="text-foreground">negocios completos</span>
-                <br />
-                <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                  con IA real
-                </span>
-              </h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-gray-900 dark:text-white"
+            >
+              Tu competencia ya usa{" "}
+              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-green-600 bg-clip-text text-transparent">
+                IA
+              </span>
+            </motion.h1>
 
-              <p className="text-xl text-muted-foreground max-w-lg leading-relaxed">
-                No solo chatbots. <strong className="text-foreground">Desarrollamos ecosistemas completos de IA</strong>{" "}
-                que automatizan ventas, soporte, inventario, reportes y más.
-                <span className="text-primary font-semibold"> Tu competencia aún está en Excel.</span>
-              </p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+            >
+              <span className="font-semibold text-purple-700 dark:text-purple-300">Mientras tú haces todo manual</span>,
+              ellos automatizan y te ganan clientes.
+              <br />
+              <span className="text-lg text-gray-500 dark:text-gray-400">
+                Ponte al día en 2-3 meses o quédate atrás
+              </span>
+            </motion.p>
 
-              <div className="bg-muted/50 rounded-lg p-4 border-l-4 border-primary">
-                <p className="text-sm font-medium text-foreground">
-                  ✅ Plataformas completas como EcosueloLab y ParrotfyIA
-                  <br />✅ APIs personalizadas que conectan todo tu negocio
-                  <br />✅ IA que aprende y mejora automáticamente
-                </p>
+            {/* Benefits */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="flex flex-wrap gap-3 justify-center lg:justify-start mb-8"
+            >
+              <div className="flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-green-200 dark:border-green-700">
+                <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">40% menos gastos</span>
               </div>
-            </div>
+              <div className="flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm border border-blue-200 dark:border-blue-700">
+                <div className="w-2 h-2 bg-blue-500 rounded-full" />
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Sin saber tecnología</span>
+              </div>
+            </motion.div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
               <Button
+                asChild
                 size="lg"
-                className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
               >
-                <Rocket className="w-5 h-5 mr-2" />
-                Transformar Mi Negocio
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <a
+                  href="https://wa.me/56940946660?text=¡Hola!%20Quiero%20una%20asesoría%20gratuita%20sobre%20cómo%20la%20IA%20puede%20automatizar%20mi%20empresa%20y%20no%20quedarme%20atrás.%20¿Cuándo%20podemos%20conversar?"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center space-x-2"
+                >
+                  <Calendar className="w-5 h-5" />
+                  <span>Asesoría Gratuita</span>
+                  <ArrowRight className="w-5 h-5" />
+                </a>
               </Button>
 
               <Button
                 variant="outline"
                 size="lg"
-                className="px-8 py-6 text-lg bg-transparent hover:bg-muted/50 border-2 hover:border-primary/50 transition-all duration-300"
+                className="border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 px-8 py-4 text-lg font-semibold bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm"
+                onClick={() => {
+                  const element = document.getElementById("success-cases")
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth" })
+                  }
+                }}
               >
-                <Brain className="w-5 h-5 mr-2" />
-                Ver Casos Reales
+                Ver Casos de Éxito
               </Button>
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 pt-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                  className="text-center group hover:scale-105 transition-transform duration-300"
-                >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-primary/20 to-blue-600/20 flex items-center justify-center mx-auto mb-2 group-hover:from-primary/30 group-hover:to-blue-600/30 transition-all duration-300">
-                    <stat.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div className="text-2xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="pt-4">
-              <p className="text-sm text-muted-foreground mb-3">Tecnologías que dominamos:</p>
-              <div className="flex flex-wrap gap-2">
-                {technologies.map((tech, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.1 * index }}
-                  >
-                    <Badge
-                      variant="secondary"
-                      className="text-xs bg-primary/10 text-primary hover:bg-primary/20 transition-colors duration-300"
-                    >
-                      {tech}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
 
+          {/* Right side - Interactive Demo */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-blue-600/20 to-purple-600/20 rounded-3xl blur-xl animate-pulse" />
+            <div className="relative max-w-md mx-auto">
+              {/* Demo indicators */}
+              <div className="flex justify-center mb-6 space-x-2">
+                {demos.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentDemo ? "bg-purple-600 w-8" : "bg-gray-300 dark:bg-gray-600"
+                    }`}
+                  />
+                ))}
+              </div>
 
-            <Card className="relative bg-background/90 backdrop-blur-sm border-2 border-primary/30 shadow-2xl hover:shadow-3xl transition-all duration-500">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center shadow-lg">
-                    <Brain className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Neuralia AI System</h3>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                      <span className="text-sm text-muted-foreground">Procesando en tiempo real</span>
-                    </div>
-                  </div>
-                  <div className="ml-auto">
-                    <Badge className="bg-green-100 text-green-800 text-xs">
-                      <Zap className="w-3 h-3 mr-1" />
-                      ACTIVO
-                    </Badge>
-                  </div>
-                </div>
-
-                <div className="space-y-4 h-80 overflow-hidden">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentMessage}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                      className="space-y-4"
-                    >
-                      {chatMessages.slice(0, currentMessage + 1).map((message, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, x: message.role === "user" ? 20 : -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.4, delay: index * 0.1 }}
-                          className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentDemo}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Card className={`${demo.bgColor} dark:bg-gray-800 border-2 border-opacity-20 shadow-2xl`}>
+                    <CardContent className="p-6">
+                      {/* Header */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div
+                          className={`w-12 h-12 rounded-xl bg-gradient-to-r ${demo.color} flex items-center justify-center shadow-lg`}
                         >
-                          <div className="flex items-start gap-2 max-w-[85%]">
-                            {message.role === "assistant" && (
-                              <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center flex-shrink-0 mt-1 shadow-md">
-                                <Brain className="w-3 h-3 text-white" />
-                              </div>
-                            )}
-                            {message.role === "user" && (
-                              <div className="w-6 h-6 rounded-full bg-gradient-to-r from-muted to-muted-foreground/20 flex items-center justify-center flex-shrink-0 mt-1 order-2">
-                                <User className="w-3 h-3 text-muted-foreground" />
-                              </div>
-                            )}
-                            <div
-                              className={`p-3 rounded-2xl text-sm shadow-sm ${
-                                message.role === "user"
-                                  ? "bg-gradient-to-r from-primary to-blue-600 text-white rounded-br-md"
-                                  : "bg-muted/80 text-foreground rounded-bl-md border border-border/50"
-                              }`}
-                            >
-                              {message.content}
-                              <div
-                                className={`text-xs mt-1 ${message.role === "user" ? "text-white/70" : "text-muted-foreground"}`}
-                              >
-                                {message.timestamp}
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {isTyping && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="flex justify-start"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-primary to-blue-600 flex items-center justify-center shadow-md">
-                          <Brain className="w-3 h-3 text-white" />
+                          <demo.icon className="w-6 h-6 text-white" />
                         </div>
-                        <div className="bg-muted/80 p-3 rounded-2xl rounded-bl-md border border-border/50">
-                          <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                            <div
-                              className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                              style={{ animationDelay: "0.1s" }}
-                            />
-                            <div
-                              className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                              style={{ animationDelay: "0.2s" }}
-                            />
-                          </div>
+                        <div>
+                          <h3 className="font-bold text-lg text-gray-900 dark:text-white">{demo.name}</h3>
+                          <p className="text-sm text-green-600 dark:text-green-400 font-medium">{demo.tagline}</p>
                         </div>
                       </div>
-                    </motion.div>
-                  )}
-                </div>
 
-                <div className="mt-6 pt-4 border-t border-border/50">
-                  <div className="flex items-center justify-between">
-                    <Badge className="bg-green-100 text-green-800 text-xs">
-                      <Zap className="w-3 h-3 mr-1" />
-                      Sistema en producción
-                    </Badge>
-                    <div className="text-xs text-muted-foreground">Powered by Neuralia AI</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                      <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">{demo.description}</p>
+
+                      {/* Chat Interface */}
+                      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-inner p-4 min-h-[300px]">
+                        <div className="space-y-3">
+                          <AnimatePresence>
+                            {displayedMessages.map((message, index) => (
+                              <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className={`flex items-start gap-2 ${
+                                  message.role === "user" ? "justify-end" : "justify-start"
+                                }`}
+                              >
+                                {message.role === "bot" && (
+                                  <div
+                                    className={`w-8 h-8 rounded-full bg-gradient-to-r ${demo.color} flex items-center justify-center flex-shrink-0`}
+                                  >
+                                    <Bot className="w-4 h-4 text-white" />
+                                  </div>
+                                )}
+                                <div
+                                  className={`px-4 py-2 rounded-2xl max-w-[85%] shadow-sm ${
+                                    message.role === "bot"
+                                      ? `bg-gradient-to-r ${demo.color} text-white rounded-tl-sm`
+                                      : "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-tr-sm"
+                                  }`}
+                                >
+                                  <p className="text-sm leading-relaxed">{message.content}</p>
+                                </div>
+                                {message.role === "user" && (
+                                  <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center flex-shrink-0">
+                                    <User className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                                  </div>
+                                )}
+                              </motion.div>
+                            ))}
+                          </AnimatePresence>
+
+                          {/* Typing indicator */}
+                          {isTyping && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="flex items-start gap-2"
+                            >
+                              <div
+                                className={`w-8 h-8 rounded-full bg-gradient-to-r ${demo.color} flex items-center justify-center flex-shrink-0`}
+                              >
+                                <Bot className="w-4 h-4 text-white" />
+                              </div>
+                              <div className="bg-gray-100 dark:bg-gray-700 px-4 py-2 rounded-2xl rounded-tl-sm">
+                                <div className="flex space-x-1">
+                                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
+                                  <div
+                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                    style={{ animationDelay: "0.1s" }}
+                                  />
+                                  <div
+                                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                                    style={{ animationDelay: "0.2s" }}
+                                  />
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Status */}
+                      <div className="flex items-center justify-between mt-4 text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                          <span>Funcionando</span>
+                        </div>
+                        <span className="font-medium text-green-600 dark:text-green-400">ROI: 300%+</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Floating elements */}
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-200 dark:bg-purple-700 rounded-full animate-pulse" />
+              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-200 dark:bg-blue-700 rounded-full animate-pulse animation-delay-1000" />
+              <div className="absolute top-1/2 -left-8 w-4 h-4 bg-green-200 dark:bg-green-700 rounded-full animate-pulse animation-delay-2000" />
+            </div>
           </motion.div>
         </div>
       </div>
