@@ -5,13 +5,17 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+})
 
 export const metadata: Metadata = {
   title: "N3uralia - Agentes de IA Conversacional",
   description:
-    "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente. Implementación en 48 horas con soporte 24/7.",
-  keywords: "IA conversacional, chatbots, automatización, agentes AI, WhatsApp Business, integración API",
+    "Revoluciona tu negocio con agentes de IA conversacional avanzados. Automatización inteligente, atención 24/7 y resultados medibles.",
+  keywords: "IA conversacional, chatbots, automatización, inteligencia artificial, agentes virtuales",
   authors: [{ name: "N3uralia" }],
   creator: "N3uralia",
   publisher: "N3uralia",
@@ -27,9 +31,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "N3uralia - Agentes de IA Conversacional",
     description:
-      "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente.",
+      "Revoluciona tu negocio con agentes de IA conversacional avanzados. Automatización inteligente, atención 24/7 y resultados medibles.",
     url: "https://n3uralia.com",
     siteName: "N3uralia",
+    images: [
+      {
+        url: "/n3uralia-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "N3uralia - Agentes de IA Conversacional",
+      },
+    ],
     locale: "es_ES",
     type: "website",
   },
@@ -37,7 +49,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "N3uralia - Agentes de IA Conversacional",
     description:
-      "Desarrollamos agentes de IA conversacional que automatizan procesos y mejoran la experiencia del cliente.",
+      "Revoluciona tu negocio con agentes de IA conversacional avanzados. Automatización inteligente, atención 24/7 y resultados medibles.",
+    images: ["/n3uralia-logo.png"],
   },
   robots: {
     index: true,
@@ -60,8 +73,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange={false}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           {children}
           <Toaster />
         </ThemeProvider>

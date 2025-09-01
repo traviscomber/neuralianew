@@ -1,140 +1,133 @@
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/landing/footer"
+import ClientWrapper from "./client-wrapper"
 
-export default function TerminosDeServicio() {
+export default function TerminosDeServicioPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
+    <ClientWrapper>
+      <div className="min-h-screen bg-background pt-20">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="prose prose-lg max-w-none dark:prose-invert">
+            <h1 className="text-4xl font-bold text-center mb-12 text-foreground">Términos de Servicio</h1>
 
-      <main className="container mx-auto px-4 py-16 max-w-4xl">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Términos de Servicio</h1>
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">1. Aceptación de los Términos</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Al acceder y utilizar los servicios de N3uralia, usted acepta estar sujeto a estos Términos de
+                  Servicio y todas las leyes y regulaciones aplicables. Si no está de acuerdo con alguno de estos
+                  términos, no debe utilizar nuestros servicios.
+                </p>
+              </section>
 
-        <div className="prose prose-lg max-w-none">
-          <p className="text-gray-600 mb-8">
-            <strong>Última actualización:</strong> {new Date().toLocaleDateString("es-ES")}
-          </p>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">2. Descripción del Servicio</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  N3uralia proporciona servicios de inteligencia artificial conversacional, incluyendo pero no limitado
+                  a:
+                </p>
+                <ul className="list-disc list-inside mt-4 space-y-2 text-muted-foreground">
+                  <li>Desarrollo de agentes de IA conversacional personalizados</li>
+                  <li>Integración de chatbots en plataformas existentes</li>
+                  <li>Servicios de consultoría en automatización de procesos</li>
+                  <li>Soporte técnico y mantenimiento de sistemas de IA</li>
+                </ul>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Aceptación de los Términos</h2>
-            <p className="text-gray-700 mb-4">
-              Al acceder y utilizar los servicios de Neuralia ("nosotros", "nuestro" o "la empresa"), usted acepta estar
-              sujeto a estos Términos de Servicio. Si no está de acuerdo con alguna parte de estos términos, no debe
-              utilizar nuestros servicios.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">3. Uso Aceptable</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Usted se compromete a utilizar nuestros servicios únicamente para fines legales y de acuerdo con estos
+                  términos. Está prohibido:
+                </p>
+                <ul className="list-disc list-inside mt-4 space-y-2 text-muted-foreground">
+                  <li>Utilizar los servicios para actividades ilegales o no autorizadas</li>
+                  <li>Intentar acceder a sistemas o datos sin autorización</li>
+                  <li>Interferir con el funcionamiento normal de los servicios</li>
+                  <li>Reproducir, duplicar o copiar los servicios sin autorización</li>
+                </ul>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Descripción del Servicio</h2>
-            <p className="text-gray-700 mb-4">
-              Neuralia proporciona servicios de inteligencia artificial conversacional, incluyendo pero no limitado a:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 mb-4">
-              <li>Desarrollo de chatbots y asistentes virtuales</li>
-              <li>Integración de IA en sistemas existentes</li>
-              <li>Consultoría en automatización de atención al cliente</li>
-              <li>Plataformas especializadas como EcosueloLab y Parrotfy</li>
-            </ul>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">4. Privacidad y Protección de Datos</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  La privacidad de sus datos es fundamental para nosotros. Nos comprometemos a:
+                </p>
+                <ul className="list-disc list-inside mt-4 space-y-2 text-muted-foreground">
+                  <li>Proteger la confidencialidad de la información del cliente</li>
+                  <li>Cumplir con las regulaciones de protección de datos aplicables</li>
+                  <li>Implementar medidas de seguridad apropiadas</li>
+                  <li>No compartir datos con terceros sin consentimiento explícito</li>
+                </ul>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Registro y Cuentas de Usuario</h2>
-            <p className="text-gray-700 mb-4">
-              Para acceder a ciertos servicios, puede ser necesario crear una cuenta. Usted es responsable de mantener
-              la confidencialidad de su información de cuenta y de todas las actividades que ocurran bajo su cuenta.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">5. Propiedad Intelectual</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Todos los derechos de propiedad intelectual relacionados con nuestros servicios, incluyendo software,
+                  algoritmos, y metodologías, permanecen como propiedad exclusiva de N3uralia. Los clientes mantienen la
+                  propiedad de sus datos y contenido proporcionado.
+                </p>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Uso Aceptable</h2>
-            <p className="text-gray-700 mb-4">
-              Usted se compromete a utilizar nuestros servicios únicamente para fines legales y de acuerdo con estos
-              términos. Está prohibido:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 mb-4">
-              <li>Usar los servicios para actividades ilegales o no autorizadas</li>
-              <li>Intentar acceder a sistemas o datos sin autorización</li>
-              <li>Interferir con el funcionamiento de nuestros servicios</li>
-              <li>Transmitir contenido malicioso o dañino</li>
-            </ul>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">6. Limitación de Responsabilidad</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  N3uralia no será responsable por daños indirectos, incidentales, especiales o consecuenciales que
+                  resulten del uso o la imposibilidad de usar nuestros servicios. Nuestra responsabilidad total no
+                  excederá el monto pagado por los servicios en los últimos 12 meses.
+                </p>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Propiedad Intelectual</h2>
-            <p className="text-gray-700 mb-4">
-              Todos los derechos de propiedad intelectual en nuestros servicios y tecnología pertenecen a Neuralia. Los
-              clientes mantienen la propiedad de sus datos, pero nos otorgan una licencia para procesarlos según sea
-              necesario para proporcionar nuestros servicios.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">7. Modificaciones</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones
+                  entrarán en vigor inmediatamente después de su publicación en nuestro sitio web. Es su responsabilidad
+                  revisar periódicamente estos términos.
+                </p>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Privacidad y Protección de Datos</h2>
-            <p className="text-gray-700 mb-4">
-              El manejo de sus datos personales se rige por nuestra Política de Privacidad, que forma parte integral de
-              estos términos. Cumplimos con las regulaciones aplicables de protección de datos en Chile, Singapur y
-              otras jurisdicciones donde operamos.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">8. Terminación</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Cualquiera de las partes puede terminar el acuerdo de servicio con un aviso previo de 30 días. En caso
+                  de violación de estos términos, N3uralia se reserva el derecho de terminar los servicios
+                  inmediatamente.
+                </p>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Pagos y Facturación</h2>
-            <p className="text-gray-700 mb-4">
-              Los términos de pago se especifican en los contratos individuales de servicio. Los pagos vencidos pueden
-              resultar en la suspensión del servicio. Todos los precios están sujetos a los impuestos aplicables.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">9. Ley Aplicable</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Estos términos se regirán e interpretarán de acuerdo con las leyes de Chile. Cualquier disputa será
+                  resuelta en los tribunales competentes de Santiago, Chile.
+                </p>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Limitación de Responsabilidad</h2>
-            <p className="text-gray-700 mb-4">
-              En la máxima medida permitida por la ley, Neuralia no será responsable por daños indirectos, incidentales,
-              especiales o consecuentes que resulten del uso de nuestros servicios.
-            </p>
-          </section>
+              <section>
+                <h2 className="text-2xl font-semibold mb-4 text-foreground">10. Contacto</h2>
+                <p className="text-muted-foreground leading-relaxed">
+                  Si tiene preguntas sobre estos Términos de Servicio, puede contactarnos a través de:
+                </p>
+                <div className="mt-4 space-y-2 text-muted-foreground">
+                  <p>
+                    <strong>Email:</strong> legal@n3uralia.com
+                  </p>
+                  <p>
+                    <strong>WhatsApp:</strong> +56 9 4094 6660
+                  </p>
+                  <p>
+                    <strong>Dirección:</strong> Santiago, Chile
+                  </p>
+                </div>
+              </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Terminación</h2>
-            <p className="text-gray-700 mb-4">
-              Cualquiera de las partes puede terminar el servicio con previo aviso. Nos reservamos el derecho de
-              suspender o terminar cuentas que violen estos términos.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Ley Aplicable</h2>
-            <p className="text-gray-700 mb-4">
-              Estos términos se rigen por las leyes de Chile para clientes en América Latina y por las leyes de Singapur
-              para clientes en Asia-Pacífico. Las disputas se resolverán en la jurisdicción correspondiente.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Modificaciones</h2>
-            <p className="text-gray-700 mb-4">
-              Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios significativos se
-              notificarán con al menos 30 días de anticipación.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">12. Contacto</h2>
-            <p className="text-gray-700 mb-4">Para preguntas sobre estos términos, contáctenos en:</p>
-            <ul className="list-none text-gray-700">
-              <li>
-                <strong>Email:</strong> hello@n3uralia.com
-              </li>
-              <li>
-                <strong>WhatsApp:</strong> +56940946660
-              </li>
-              <li>
-                <strong>Oficinas:</strong> Santiago, Chile | Singapur
-              </li>
-            </ul>
-          </section>
+              <div className="mt-12 pt-8 border-t border-border text-center">
+                <p className="text-sm text-muted-foreground">Última actualización: Enero 2025</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </ClientWrapper>
   )
 }
