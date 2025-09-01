@@ -51,7 +51,7 @@ export function Navigation() {
             className="flex-shrink-0 cursor-pointer"
             onClick={() => scrollToSection("#hero")}
           >
-            <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={120} height={40} className="h-8 w-auto" />
+            <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={168} height={56} className="h-11 w-auto" />
           </motion.div>
 
           {/* Desktop Navigation */}
