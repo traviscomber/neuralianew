@@ -1,224 +1,171 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, MessageCircle, Moon, Sun } from "lucide-react"
-import { useTheme } from "next-themes"
+import Link from "next/link"
 import Image from "next/image"
-
-const navItems = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Testimonios", href: "#testimonials" },
-  { name: "Problemática", href: "#features" },
-  { name: "Casos de Uso", href: "#use-cases" },
-  { name: "Equipo", href: "#team" },
-  { name: "FAQ", href: "#faq" },
-]
+import { Menu, X, MessageCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
+import { motion, AnimatePresence } from "framer-motion"
 
 export function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeSection, setActiveSection] = useState("hero")
   const [isOpen, setIsOpen] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50)
-
-      // Update active section based on scroll position
-      const sections = navItems.map((item) => item.href.substring(1))
-      const currentSection = sections.find((section) => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-
-      if (currentSection) {
-        setActiveSection(currentSection)
-      }
+      setScrolled(window.scrollY > 50)
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const scrollToSection = (href: string) => {
-    const sectionId = href.substring(1) // Remove the #
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
-      const navHeight = 80 // Account for fixed navigation
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navHeight
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      })
+      element.scrollIntoView({ behavior: "smooth" })
     }
     setIsOpen(false)
   }
 
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark")
-  }
-
-  if (!mounted) {
-    return null
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+    setIsOpen(false)
   }
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+    <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/80 dark:bg-background/90 backdrop-blur-md border-b border-border shadow-lg"
-          : "bg-transparent"
+        scrolled ? "bg-black/95 backdrop-blur-md border-b border-gray-800" : "bg-black"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center">
-            <button
-              onClick={() => scrollToSection("#hero")}
-              className="flex items-center transition-all duration-300 hover:opacity-80"
-            >
-              <Image
-                src="/n3uralia-logo.png"
-                alt="N3uralia Logo"
-                width={80}
-                height={40}
-                className="object-contain"
-                priority
-              />
+          <div className="flex-shrink-0">
+            <button onClick={scrollToTop} className="flex items-center">
+              <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={120} height={40} className="h-8 w-auto" />
             </button>
-          </motion.div>
+          </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                  activeSection === item.href.substring(1)
-                    ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50 dark:hover:bg-muted/30"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-baseline space-x-8">
+              <button
+                onClick={scrollToTop}
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
               >
-                {item.name}
-              </motion.button>
-            ))}
+                Inicio
+              </button>
+              <button
+                onClick={() => scrollToSection("casos-de-exito")}
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+              >
+                Casos de Éxito
+              </button>
+              <button
+                onClick={() => scrollToSection("equipo")}
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+              >
+                Equipo
+              </button>
+              <button
+                onClick={() => scrollToSection("faq")}
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+              >
+                FAQ
+              </button>
+              <button
+                onClick={() => scrollToSection("footer")}
+                className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
+              >
+                Contáctenos
+              </button>
+            </div>
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="hover:bg-muted/50 dark:hover:bg-muted/30"
+          <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
+            <Link
+              href="https://wa.me/56912345678?text=Hola%20N3uralia,%20quiero%20implementar%20IA%20en%20mi%20empresa"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-
-            <Button
-              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300"
-              asChild
-            >
-              <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white">
                 <MessageCircle className="w-4 h-4 mr-2" />
                 WhatsApp
-              </a>
-            </Button>
+              </Button>
+            </Link>
           </div>
 
-          {/* Mobile Menu */}
-          <div className="lg:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="hover:bg-muted/50 dark:hover:bg-muted/30"
-            >
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="hover:bg-muted/50 dark:hover:bg-muted/30">
-                  <Menu className="w-5 h-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-80 bg-background border-border">
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center">
-                    <Image
-                      src="/n3uralia-logo.png"
-                      alt="N3uralia Logo"
-                      width={64}
-                      height={32}
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-
-                <nav className="space-y-4">
-                  {navItems.map((item) => (
-                    <motion.button
-                      key={item.name}
-                      onClick={() => scrollToSection(item.href)}
-                      className={`w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                        activeSection === item.href.substring(1)
-                          ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50 dark:hover:bg-muted/30"
-                      }`}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {item.name}
-                    </motion.button>
-                  ))}
-                </nav>
-
-                <div className="mt-8 pt-8 border-t border-border">
-                  <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium"
-                    asChild
-                  >
-                    <a
-                      href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Contactar por WhatsApp
-                    </a>
-                  </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-white p-2">
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-black border-t border-gray-800"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                <button
+                  onClick={scrollToTop}
+                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
+                >
+                  Inicio
+                </button>
+                <button
+                  onClick={() => scrollToSection("casos-de-exito")}
+                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
+                >
+                  Casos de Éxito
+                </button>
+                <button
+                  onClick={() => scrollToSection("equipo")}
+                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
+                >
+                  Equipo
+                </button>
+                <button
+                  onClick={() => scrollToSection("faq")}
+                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
+                >
+                  FAQ
+                </button>
+                <button
+                  onClick={() => scrollToSection("footer")}
+                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors"
+                >
+                  Contáctenos
+                </button>
+                <div className="pt-2">
+                  <Link
+                    href="https://wa.me/56912345678?text=Hola%20N3uralia,%20quiero%20implementar%20IA%20en%20mi%20empresa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Contactar por WhatsApp
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </motion.nav>
+    </nav>
   )
 }

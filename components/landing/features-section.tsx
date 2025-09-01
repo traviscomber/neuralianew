@@ -1,206 +1,131 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Brain, Bot, Palette, ArrowRight, Zap, Target, Users, TrendingUp } from "lucide-react"
+import { Brain, MessageSquare, Zap, Shield, BarChart3, Cpu, Network, Database } from "lucide-react"
 
-const problems = [
+const features = [
   {
-    icon: Users,
-    title: "Atención al Cliente 24/7",
-    description:
-      "Los clientes esperan respuestas inmediatas, pero mantener personal disponible las 24 horas es costoso e ineficiente.",
-  },
-  {
-    icon: Zap,
-    title: "Procesos Manuales Lentos",
-    description:
-      "Tareas repetitivas consumen tiempo valioso que podría dedicarse a actividades estratégicas de mayor valor.",
-  },
-  {
-    icon: Target,
-    title: "Decisiones sin Datos",
-    description: "Falta de análisis predictivo lleva a decisiones basadas en intuición en lugar de datos concretos.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Escalabilidad Limitada",
-    description: "El crecimiento se ve limitado por la capacidad humana de procesar información y atender clientes.",
-  },
-]
-
-const services = [
-  {
-    id: "fullstack",
     icon: Brain,
     title: "Full Stack AI Systems",
     description:
-      "Nuestro brutal programador T3 construye sistemas de IA que no solo funcionan, sino que dominan. Desde retail hasta agricultura, pasando por fintech y salud - si existe un rubro, nosotros lo conquistamos con código que hace que la competencia llore.",
-    features: [
-      "Análisis predictivo avanzado",
-      "Integración con sistemas existentes",
-      "Escalabilidad automática",
-      "Monitoreo en tiempo real",
-    ],
+      "Desarrollamos sistemas completos de IA que transforman industrias enteras. Desde retail, salud, educación, finanzas, agricultura, inmobiliaria, manufactura, logística, turismo, energía, telecomunicaciones y más. Código que hace que la competencia llore.",
+    badge: "11+ Industrias",
+    gradient: "from-purple-500 to-pink-500",
   },
   {
-    id: "agents",
-    icon: Bot,
+    icon: MessageSquare,
     title: "AI Agents & Automations",
     description:
-      "El samurai Raph forja agentes de IA como katanas digitales: cada uno perfecto para su misión. Coaching de carrera que inspira, análisis de suelos que predice cosechas, idiomas que se aprenden solos, CRM que vende mientras duermes, y generadores que crean arte, video y datos como por arte de magia.",
-    features: [
-      "Chatbots conversacionales",
-      "Automatización de workflows",
-      "Procesamiento de lenguaje natural",
-      "Integración multicanal",
-    ],
+      "Agentes inteligentes que trabajan 24/7, automatizando procesos complejos y tomando decisiones como expertos humanos. Cada agente es una máquina de eficiencia que nunca duerme.",
+    badge: "24/7 Active",
+    gradient: "from-blue-500 to-cyan-500",
   },
   {
-    id: "design",
-    icon: Palette,
-    title: "Multichannel Support & Web Design",
+    icon: Network,
+    title: "Multichannel",
     description:
-      "La maestra Irina, directora rusa de diseño, esculpe interfaces que enamoran y experiencias que convierten. WhatsApp, web, email, redes sociales - donde estén tus clientes, ahí estamos nosotros con diseño que no solo se ve increíble, sino que vende como loco.",
-    features: [
-      "Diseño UI/UX profesional",
-      "Soporte WhatsApp integrado",
-      "Interfaces responsive",
-      "Identidad corporativa completa",
-    ],
+      "Integración perfecta en WhatsApp, web, móvil y sistemas empresariales. Una experiencia unificada que conecta todos los puntos de contacto con tu cliente.",
+    badge: "Omnichannel",
+    gradient: "from-purple-500 to-blue-500",
+  },
+  {
+    icon: Zap,
+    title: "Real-time Processing",
+    description:
+      "Procesamiento instantáneo de datos y respuestas en tiempo real. Nuestros sistemas procesan millones de interacciones simultáneamente sin perder velocidad.",
+    badge: "< 100ms",
+    gradient: "from-blue-500 to-purple-500",
+  },
+  {
+    icon: Shield,
+    title: "Enterprise Security",
+    description:
+      "Seguridad de nivel bancario con encriptación end-to-end, cumplimiento GDPR y auditorías continuas. Tu data está más segura que en Fort Knox.",
+    badge: "Bank-level",
+    gradient: "from-purple-500 to-pink-500",
+  },
+  {
+    icon: BarChart3,
+    title: "Advanced Analytics",
+    description:
+      "Dashboards inteligentes que predicen tendencias, identifican oportunidades y optimizan performance automáticamente. Data que habla tu idioma de negocio.",
+    badge: "Predictive",
+    gradient: "from-pink-500 to-purple-500",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-24 bg-muted/30 dark:bg-muted/10">
+    <section id="features" className="py-24 bg-gradient-to-br from-background via-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge
-            variant="outline"
-            className="mb-4 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-800"
-          >
-            La Problemática
+          <Badge variant="outline" className="mb-4 text-sm font-medium">
+            🚀 Tecnología de Vanguardia
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
-            ¿Por qué tu negocio necesita IA?
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+            La Problemática que Resolvemos
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Las empresas que no adoptan IA se quedan atrás. Estos son los desafíos que enfrentan diariamente.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Mientras otros hablan de IA, nosotros la construimos. Sistemas que no solo funcionan, sino que{" "}
+            <span className="text-primary font-semibold">revolucionan industrias completas</span>.
           </p>
         </motion.div>
 
-        {/* Problems Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          {problems.map((problem, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
             <motion.div
-              key={problem.title}
+              key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ scale: 1.02 }}
+              className="h-full"
             >
-              <Card className="h-full hover:shadow-lg transition-all duration-300 border-l-4 border-l-red-500 dark:border-l-red-400">
-                <CardContent className="p-6">
-                  <problem.icon className="w-12 h-12 text-red-500 dark:text-red-400 mb-4" />
-                  <h3 className="text-lg font-semibold mb-3">{problem.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{problem.description}</p>
+              <Card className="h-full border-2 hover:border-primary/50 transition-all duration-300 bg-card/50 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-3 rounded-xl bg-gradient-to-r ${feature.gradient} shadow-lg`}>
+                      <feature.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <Badge variant="secondary" className="text-xs font-bold">
+                      {feature.badge}
+                    </Badge>
+                  </div>
+                  <CardTitle className="text-xl font-bold text-foreground">{feature.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-muted-foreground leading-relaxed text-sm">
+                    {feature.description}
+                  </CardDescription>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Solution Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mt-16"
         >
-          <div className="flex items-center justify-center mb-6">
-            <div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent w-24"></div>
-            <ArrowRight className="w-8 h-8 text-purple-500 mx-4" />
-            <div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent w-24"></div>
+          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full border border-primary/20">
+            <Cpu className="h-5 w-5 text-primary" />
+            <span className="text-sm font-medium text-primary">
+              Powered by Neural Networks & Advanced Machine Learning
+            </span>
+            <Database className="h-5 w-5 text-primary" />
           </div>
-          <Badge
-            variant="outline"
-            className="mb-4 text-green-600 dark:text-green-400 border-green-200 dark:border-green-800"
-          >
-            La Solución N3uralia
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-            Transforma tu negocio con soluciones full stack de IA
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Desarrollamos sistemas completos de inteligencia artificial que automatizan procesos, mejoran la experiencia
-            del cliente y potencian el crecimiento de tu empresa.
-          </p>
-        </motion.div>
-
-        {/* Services Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <Tabs defaultValue="fullstack" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8 bg-background/50 dark:bg-background/30">
-              {services.map((service) => (
-                <TabsTrigger
-                  key={service.id}
-                  value={service.id}
-                  className="data-[state=active]:bg-purple-100 dark:data-[state=active]:bg-purple-900/30 data-[state=active]:text-purple-700 dark:data-[state=active]:text-purple-300"
-                >
-                  <service.icon className="w-4 h-4 mr-2" />
-                  <span className="hidden sm:inline">{service.title}</span>
-                  <span className="sm:hidden">{service.title.split(" ")[0]}</span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
-            {services.map((service) => (
-              <TabsContent key={service.id} value={service.id}>
-                <Card className="border-2 border-purple-200 dark:border-purple-800">
-                  <CardContent className="p-8">
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
-                      <div>
-                        <div className="flex items-center mb-4">
-                          <service.icon className="w-8 h-8 text-purple-600 dark:text-purple-400 mr-3" />
-                          <h3 className="text-2xl font-bold">{service.title}</h3>
-                        </div>
-                        <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                        <div className="grid sm:grid-cols-2 gap-3">
-                          {service.features.map((feature, index) => (
-                            <div key={index} className="flex items-center">
-                              <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                              <span className="text-sm">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <div className="aspect-square bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center">
-                          <service.icon className="w-24 h-24 text-purple-600 dark:text-purple-400" />
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            ))}
-          </Tabs>
         </motion.div>
       </div>
     </section>
