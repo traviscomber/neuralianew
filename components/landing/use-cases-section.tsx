@@ -27,33 +27,35 @@ const useCases = [
     subtitle: "Análisis de Suelo Inteligente",
     icon: Sprout,
     industry: "Agricultura",
-    description: "Bot de WhatsApp que entrega análisis de suelo en tiempo real conectado a API de laboratorio",
+    description: "Agente conversacional avanzado de IA que entrega análisis de suelo en tiempo real por WhatsApp",
     challenge: "Los agricultores esperaban días para recibir resultados de análisis de suelo por email o teléfono",
-    solution: "Bot inteligente que consulta la API del laboratorio y entrega resultados instantáneos por WhatsApp",
+    solution:
+      "Agente conversacional avanzado de IA que interpreta consultas y entrega análisis personalizados instantáneos por WhatsApp",
     results: [
       "Respuesta instantánea 24/7",
       "Reducción de 5 días a 5 minutos",
       "95% de satisfacción del cliente",
-      "Integración perfecta con Twilio + API",
+      "IA conversacional avanzada",
     ],
     chat: [
       { type: "user", message: "Hola, necesito los resultados del análisis de mi parcela #1247", time: "14:32" },
       {
         type: "bot",
-        message: "¡Hola! Consultando los resultados de tu parcela #1247... ✅",
+        message:
+          "¡Hola! Soy tu asistente de IA especializado en análisis de suelo. Consultando los resultados de tu parcela #1247... ✅",
         time: "14:32",
       },
       {
         type: "bot",
         message:
-          "📊 **Resultados Parcela #1247:**\n\n🌱 **Nitrógeno:** 45 ppm (Óptimo)\n💧 **Fósforo:** 12 ppm (Bajo - requiere fertilización)\n🌿 **Potasio:** 180 ppm (Bueno)\n📈 **pH:** 6.8 (Ideal para cultivos)\n\n**Recomendación:** Aplicar fertilizante fosfórico en dosis de 50kg/ha",
+          "📊 **Resultados Parcela #1247:**\n\n🌱 **Nitrógeno:** 45 ppm (Óptimo)\n💧 **Fósforo:** 12 ppm (Bajo - requiere fertilización)\n🌿 **Potasio:** 180 ppm (Bueno)\n📈 **pH:** 6.8 (Ideal para cultivos)\n\n**Mi recomendación IA:** Aplicar fertilizante fosfórico en dosis de 50kg/ha basado en análisis predictivo",
         time: "14:33",
       },
-      { type: "user", message: "Perfecto, ¿cuándo fue tomada esta muestra?", time: "14:35" },
+      { type: "user", message: "¿Qué cultivo me recomiendas para esta parcela?", time: "14:35" },
       {
         type: "bot",
         message:
-          "La muestra fue procesada el 15 de enero 2024 a las 09:30 AM. Los resultados están certificados por nuestro laboratorio. ¿Necesitas el reporte completo en PDF?",
+          "Basado en mi análisis de IA y las condiciones de tu suelo:\n\n🌽 **Maíz:** 95% compatibilidad\n🥔 **Papa:** 88% compatibilidad\n🌾 **Trigo:** 82% compatibilidad\n\nRecomiendo **maíz** por el pH óptimo y niveles de nutrientes. ¿Quieres que calcule el rendimiento esperado?",
         time: "14:35",
       },
     ],
