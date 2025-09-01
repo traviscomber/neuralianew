@@ -52,9 +52,17 @@ export function Navigation() {
   }, [])
 
   const scrollToSection = (href: string) => {
-    const element = document.getElementById(href.substring(1))
+    const sectionId = href.substring(1) // Remove the #
+    const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const navHeight = 80 // Account for fixed navigation
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
     }
     setIsOpen(false)
   }
