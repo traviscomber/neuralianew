@@ -1,8 +1,9 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { MessageCircle } from "lucide-react"
+import { HelpCircle, MessageCircle } from "lucide-react"
 
 export function FAQSection() {
   const faqs = [
@@ -58,6 +59,11 @@ export function FAQSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
+          <Badge className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-300 border-purple-500/30 mb-6">
+            <HelpCircle className="w-4 h-4 mr-2" />
+            Resolvemos tus dudas
+          </Badge>
+
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-white via-purple-100 to-blue-200 bg-clip-text text-transparent">
               Preguntas

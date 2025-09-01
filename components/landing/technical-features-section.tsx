@@ -58,6 +58,13 @@ export function TechnicalFeaturesSection() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
+          <Badge
+            variant="outline"
+            className="mb-4 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+          >
+            <Cpu className="w-4 h-4 mr-2" />
+            Infraestructura Técnica
+          </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
             Tecnología de{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
