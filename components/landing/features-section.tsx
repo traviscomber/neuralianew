@@ -3,62 +3,38 @@
 import { motion } from "framer-motion"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Brain, MessageSquare, Zap, Shield, BarChart3, Cpu, Network, Database } from "lucide-react"
+import { Bot, Zap, Network } from "lucide-react"
 
 const features = [
   {
-    icon: Brain,
-    title: "Full Stack AI Systems",
-    description:
-      "Desarrollamos sistemas completos de IA que transforman industrias enteras. Desde retail, salud, educación, finanzas, agricultura, inmobiliaria, manufactura, logística, turismo, energía, telecomunicaciones y más. Código que hace que la competencia llore.",
-    badge: "11+ Industrias",
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: MessageSquare,
+    icon: Bot,
     title: "AI Agents & Automations",
     description:
-      "Agentes inteligentes que trabajan 24/7, automatizando procesos complejos y tomando decisiones como expertos humanos. Cada agente es una máquina de eficiencia que nunca duerme.",
+      "Agentes inteligentes que trabajan 24/7 automatizando procesos complejos, desde atención al cliente hasta análisis predictivo. Cada agente aprende y mejora continuamente.",
     badge: "24/7 Active",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-purple-500 to-blue-500",
   },
   {
     icon: Network,
     title: "Multichannel",
     description:
-      "Integración perfecta en WhatsApp, web, móvil y sistemas empresariales. Una experiencia unificada que conecta todos los puntos de contacto con tu cliente.",
+      "Integración perfecta con WhatsApp, web, móvil, CRM y sistemas existentes. Una sola IA que funciona en todos tus canales de comunicación sin perder contexto.",
     badge: "Omnichannel",
-    gradient: "from-purple-500 to-blue-500",
+    gradient: "from-blue-500 to-cyan-500",
   },
   {
     icon: Zap,
-    title: "Real-time Processing",
+    title: "Full Stack AI Systems",
     description:
-      "Procesamiento instantáneo de datos y respuestas en tiempo real. Nuestros sistemas procesan millones de interacciones simultáneamente sin perder velocidad.",
-    badge: "< 100ms",
-    gradient: "from-blue-500 to-purple-500",
-  },
-  {
-    icon: Shield,
-    title: "Enterprise Security",
-    description:
-      "Seguridad de nivel bancario con encriptación end-to-end, cumplimiento GDPR y auditorías continuas. Tu data está más segura que en Fort Knox.",
-    badge: "Bank-level",
-    gradient: "from-purple-500 to-pink-500",
-  },
-  {
-    icon: BarChart3,
-    title: "Advanced Analytics",
-    description:
-      "Dashboards inteligentes que predicen tendencias, identifican oportunidades y optimizan performance automáticamente. Data que habla tu idioma de negocio.",
-    badge: "Predictive",
-    gradient: "from-pink-500 to-purple-500",
+      "Sistemas completos de IA que transforman industrias enteras. Desde agricultura hasta fintech, desarrollamos soluciones que revolucionan tu sector específico.",
+    badge: "11+ Industries",
+    gradient: "from-cyan-500 to-purple-500",
   },
 ]
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="py-24 bg-gradient-to-br from-background via-background to-muted/20">
+    <section id="features" className="py-24 bg-gradient-to-br from-background via-muted/20 to-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -68,18 +44,19 @@ export function FeaturesSection() {
           className="text-center mb-16"
         >
           <Badge variant="outline" className="mb-4 text-sm font-medium">
-            🚀 Tecnología de Vanguardia
+            🎯 Nuestras Especialidades
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
-            La Problemática que Resolvemos
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            Soluciones que Transforman
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Mientras otros hablan de IA, nosotros la construimos. Sistemas que no solo funcionan, sino que{" "}
-            <span className="text-primary font-semibold">revolucionan industrias completas</span>.
+            No desarrollamos chatbots simples. Creamos{" "}
+            <span className="text-primary font-semibold">ecosistemas inteligentes</span> que revolucionan la forma en
+            que tu empresa opera.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -111,22 +88,6 @@ export function FeaturesSection() {
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full border border-primary/20">
-            <Cpu className="h-5 w-5 text-primary" />
-            <span className="text-sm font-medium text-primary">
-              Powered by Neural Networks & Advanced Machine Learning
-            </span>
-            <Database className="h-5 w-5 text-primary" />
-          </div>
-        </motion.div>
       </div>
     </section>
   )

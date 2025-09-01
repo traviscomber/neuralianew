@@ -1,58 +1,58 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { MessageCircle, HelpCircle, ArrowRight } from "lucide-react"
+import { MessageCircle } from "lucide-react"
 
 const faqs = [
   {
-    question: "¿Cuánto tiempo toma implementar una solución de IA?",
+    question: "¿Cuánto tiempo toma implementar un sistema de IA?",
     answer:
-      "Nuestro proceso de implementación estándar toma 48 horas. Esto incluye el análisis de requerimientos, desarrollo, integración con tus sistemas existentes y pruebas. Para proyectos más complejos, el tiempo puede extenderse a 1-2 semanas, pero siempre tendrás una versión funcional en las primeras 48 horas.",
+      "Nuestros sistemas están operativos en 48-72 horas para implementaciones básicas. Proyectos full stack toman 2-4 semanas. Incluimos consultoría gratuita, desarrollo, testing, deployment y capacitación completa del equipo.",
   },
   {
-    question: "¿Qué tecnologías utilizan para desarrollar las soluciones?",
+    question: "¿Qué tecnologías utilizan para desarrollar los sistemas?",
     answer:
-      "Utilizamos tecnologías de vanguardia como OpenAI GPT-4 para procesamiento de lenguaje natural, Next.js y React para interfaces web, Supabase para bases de datos, Twilio para integración con WhatsApp, y APIs REST para conectar con sistemas existentes. Todas nuestras soluciones son escalables y seguras.",
+      "Utilizamos OpenAI GPT-4, React/Next.js, Node.js, Python, PostgreSQL, y AWS. Nuestros sistemas incluyen APIs REST/GraphQL, bases de datos vectoriales, y arquitectura de microservicios escalable con CI/CD automatizado.",
   },
   {
-    question: "¿Pueden integrar la IA con nuestros sistemas actuales?",
+    question: "¿Pueden integrar con nuestros sistemas existentes?",
     answer:
-      "Sí, absolutamente. Nos especializamos en integrar soluciones de IA con sistemas existentes como ERPs, CRMs, bases de datos, APIs propias y plataformas de terceros. Trabajamos con cualquier sistema que tenga API disponible o que permita conexiones de base de datos.",
+      "Sí, nos especializamos en integraciones complejas. Conectamos con CRMs (Salesforce, HubSpot), ERPs (SAP, Oracle), WhatsApp Business API, sistemas de inventario, bases de datos legacy, y cualquier API REST o GraphQL.",
   },
   {
-    question: "¿Qué tipo de soporte ofrecen después de la implementación?",
+    question: "¿Cuál es el ROI esperado y en qué tiempo?",
     answer:
-      "Ofrecemos soporte técnico 24/7 durante el primer mes, seguido de soporte en horario laboral. Incluimos monitoreo continuo, actualizaciones de seguridad, optimizaciones de rendimiento y capacitación para tu equipo. También proporcionamos documentación completa y acceso a un panel de administración.",
+      "Nuestros clientes ven ROI promedio del 250% en el primer año. Reducción de costos operativos del 40-60%, aumento de conversiones del 200-300%, y mejora en satisfacción del cliente del 85%. Métricas verificables desde el primer mes.",
   },
   {
-    question: "¿Cuál es el costo de implementar una solución de IA?",
+    question: "¿Ofrecen soporte técnico y mantenimiento?",
     answer:
-      "Los costos varían según la complejidad del proyecto. Una solución básica de chatbot puede comenzar desde $500 USD, mientras que sistemas más complejos con múltiples integraciones pueden llegar a $3,000 USD. Ofrecemos una consulta gratuita para evaluar tu caso específico y proporcionar un presupuesto detallado.",
+      "Soporte 24/7 en 3 continentes (Santiago, Singapur, Moscú). Incluye monitoreo proactivo, actualizaciones automáticas, optimización continua, y equipo técnico dedicado. SLA del 99.9% de uptime garantizado.",
   },
   {
-    question: "¿La IA puede manejar consultas en español de forma natural?",
+    question: "¿Cuáles son los precios de sus servicios?",
     answer:
-      "Sí, nuestras soluciones están optimizadas para el español chileno y latinoamericano. Entrenamos los modelos con contexto local, jerga específica de cada industria y expresiones regionales. La IA comprende y responde de manera natural, manteniendo el tono y personalidad de tu marca.",
+      "Consultoría inicial GRATIS. Chatbots inteligentes desde $2,000 USD, sistemas full stack desde $15,000 USD, agentes IA avanzados desde $25,000 USD. Planes de pago flexibles y ROI garantizado.",
   },
   {
-    question: "¿Qué pasa si necesitamos modificaciones después del lanzamiento?",
+    question: "¿Pueden desarrollar IA para industrias específicas?",
     answer:
-      "Incluimos 2 semanas de ajustes gratuitos después del lanzamiento. Después de este período, ofrecemos planes de mantenimiento mensual que incluyen modificaciones, nuevas funcionalidades y optimizaciones. También puedes solicitar cambios puntuales con tarifas por hora de desarrollo.",
+      "Tenemos experiencia en 11+ industrias: agricultura (EcosueloLab), educación (ParrotfyIA), fintech, salud, retail, manufactura, logística, inmobiliaria, legal, y más. Cada solución es 100% personalizada para tu sector.",
   },
   {
-    question: "¿Cómo garantizan la seguridad y privacidad de los datos?",
+    question: "¿Qué diferencia a N3uralia de otras empresas de IA?",
     answer:
-      "Implementamos las mejores prácticas de seguridad: encriptación end-to-end, autenticación robusta, cumplimiento con GDPR y normativas locales. Los datos se almacenan en servidores seguros y nunca compartimos información con terceros. Proporcionamos auditorías de seguridad y certificados de cumplimiento.",
+      "No somos una consultora que subcontrata. Somos desarrolladores full stack especializados en IA. Equipo propio de ingenieros, arquitectura escalable, soporte 24/7 real, y track record comprobado con métricas verificables.",
   },
 ]
 
 export function FAQSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-4xl mx-auto">
+    <section id="faq" className="py-24 bg-gradient-to-br from-muted/20 via-background to-muted/20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -60,51 +60,36 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700"
-          >
-            <HelpCircle className="w-4 h-4 mr-2" />
-            Preguntas frecuentes
+          <Badge variant="outline" className="mb-4 text-sm font-medium">
+            ❓ Preguntas Frecuentes
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Resolvemos tus{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              dudas
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            Resolvemos tus dudas
           </h2>
-          <p className="text-xl text-muted-foreground">
-            Las preguntas más comunes sobre implementación de IA conversacional en tu negocio.
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            Todo lo que necesitas saber sobre nuestros{" "}
+            <span className="text-primary font-semibold">servicios de IA conversacional</span>.
           </p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <AccordionItem
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                value={`item-${index}`}
+                className="border border-border/50 rounded-lg px-6 bg-card/50 backdrop-blur-sm hover:bg-card/80 transition-all duration-300"
               >
-                <AccordionItem
-                  value={`item-${index}`}
-                  className="border-2 border-border rounded-lg px-6 bg-card hover:shadow-lg dark:hover:shadow-2xl dark:hover:shadow-purple-500/10 transition-all duration-300"
-                >
-                  <AccordionTrigger className="text-left font-semibold text-card-foreground hover:no-underline py-6">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              </motion.div>
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary py-6">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">{faq.answer}</AccordionContent>
+              </AccordionItem>
             ))}
           </Accordion>
         </motion.div>
@@ -112,27 +97,23 @@ export function FAQSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16 p-8 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-2xl text-white"
+          className="text-center mt-12"
         >
-          <h3 className="text-2xl font-bold mb-4">¿Tienes más preguntas?</h3>
-          <p className="text-lg mb-6 opacity-90">
-            Conversemos sobre tu proyecto específico y cómo la IA puede transformar tu negocio.
-          </p>
+          <p className="text-muted-foreground mb-6">¿Tienes más preguntas? Hablemos directamente.</p>
           <Button
             size="lg"
-            className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
             asChild
           >
             <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20tengo%20algunas%20preguntas%20sobre%20implementar%20IA%20en%20mi%20negocio"
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20tengo%20preguntas%20sobre%20sus%20servicios%20de%20IA"
               target="_blank"
               rel="noopener noreferrer"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Hacer una consulta
-              <ArrowRight className="w-5 h-5 ml-2" />
+              Consulta por WhatsApp
             </a>
           </Button>
         </motion.div>

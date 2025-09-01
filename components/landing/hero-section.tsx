@@ -1,549 +1,339 @@
 "use client"
 
-import type React from "react"
-
-import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState } from "react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent } from "@/components/ui/card"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  ArrowRight,
-  MessageSquare,
-  Brain,
-  Send,
-  Loader2,
-  Sparkles,
-  Bot,
-  User,
-  Calculator,
-  Code,
-  Globe,
-  Clock,
-  CheckCircle,
-} from "lucide-react"
+import { MessageCircle, Send, Bot, User, Sparkles } from "lucide-react"
 
 interface Message {
-  id: string
   role: "user" | "assistant"
   content: string
-  timestamp: Date
-  isTyping?: boolean
 }
 
-const QUICK_PROMPTS = [
-  {
-    icon: Calculator,
-    text: "💰 ¿Cuánto cuesta?",
-    prompt: "¿Cuánto costaría implementar un chatbot de IA para mi empresa?",
-  },
-  { icon: Code, text: "🔧 Arquitectura técnica", prompt: "¿Cómo funciona la arquitectura técnica de N3uralia?" },
-  { icon: Globe, text: "🏆 Casos de éxito", prompt: "Muéstrame casos de éxito reales con métricas específicas" },
-  { icon: Clock, text: "⚡ Proceso completo", prompt: "¿Cuál es el proceso desde consulta hasta implementación?" },
+const quickPrompts = [
+  "💰 Necesito una cotización personalizada para mi empresa",
+  "🔧 ¿Cómo funciona la arquitectura técnica de N3uralia?",
+  "🏆 Muéstrame casos de éxito reales con métricas específicas",
+  "⚡ ¿Cuál es el proceso completo desde consulta hasta deployment?",
 ]
 
 export function HeroSection() {
-  const [showChat, setShowChat] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: "welcome",
       role: "assistant",
-      content: `¡Hola! 👋 Soy el **N3uralia AI Expert**. Puedo ayudarte con:
-
-• **Cotizaciones personalizadas** para tu proyecto específico
-• **Información técnica** sobre nuestras soluciones de IA
-• **Casos de éxito** con métricas reales de ROI
-• **Procesos de implementación** paso a paso
-
-**¿En qué puedo ayudarte?** 🚀`,
-      timestamp: new Date(),
+      content:
+        "¡Hola! Soy el AI Expert de N3uralia. Puedo ayudarte con cotizaciones, información técnica, casos de éxito y procesos de implementación. ¿En qué puedo asistirte?",
     },
   ])
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+  const handleSendMessage = async (message: string) => {
+    if (!message.trim()) return
 
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
-
-  const generateResponse = async (userMessage: string): Promise<Message> => {
-    try {
-      const response = await fetch("/api/chat/hero-agent", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          conversationHistory: messages.slice(-3),
-          timestamp: new Date().toISOString(),
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error("Failed to get response")
-      }
-
-      const data = await response.json()
-
-      return {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: data.response,
-        timestamp: new Date(),
-      }
-    } catch (error) {
-      console.error("Error generating response:", error)
-
-      // Fallback responses
-      const lowerMessage = userMessage.toLowerCase()
-
-      if (lowerMessage.includes("precio") || lowerMessage.includes("costo") || lowerMessage.includes("cotiza")) {
-        return {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: `💰 **Cotización N3uralia:**
-
-**Rangos de precios:**
-• **Chatbot básico**: $2,000 - $5,000 USD
-• **IA conversacional avanzada**: $5,000 - $15,000 USD
-• **Solución enterprise**: $15,000+ USD
-
-**✅ Incluido siempre:**
-• Consultoría inicial GRATIS
-• Desarrollo completo
-• Soporte 24/7 por 6 meses
-• ROI promedio: 250%
-
-**¿Quieres una cotización exacta?**
-📞 +56 9 4094 6660 | 📧 hello@n3uralia.com`,
-          timestamp: new Date(),
-        }
-      }
-
-      if (lowerMessage.includes("técnic") || lowerMessage.includes("arquitec")) {
-        return {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: `🔧 **Arquitectura N3uralia:**
-
-**Stack Tecnológico:**
-• **Frontend**: React, Next.js, TypeScript
-• **Backend**: Node.js, Python, FastAPI
-• **IA**: OpenAI GPT-4, Custom Models
-• **Cloud**: AWS, Google Cloud, Azure
-• **Seguridad**: Encriptación end-to-end
-
-**Ventajas:**
-• Desarrollo 24/7 (3 continentes)
-• 99.9% uptime garantizado
-• Integración con 500+ APIs
-• Deployment en < 48 horas
-
-¿Te interesa algún aspecto específico?`,
-          timestamp: new Date(),
-        }
-      }
-
-      return {
-        id: Date.now().toString(),
-        role: "assistant",
-        content: `🚀 **N3uralia - Soluciones de IA Empresarial**
-
-**Servicios principales:**
-• Sistemas Full Stack de IA
-• Chatbots inteligentes
-• Automatización de procesos
-• Integración multicanal
-
-**Lo que nos diferencia:**
-• Equipo global 24/7
-• ROI promedio 250%
-• 50+ proyectos exitosos
-• 96% satisfacción cliente
-
-¿Qué te gustaría saber específicamente?`,
-        timestamp: new Date(),
-      }
-    }
-  }
-
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return
-
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      content: input.trim(),
-      timestamp: new Date(),
-    }
-
+    const userMessage = { role: "user" as const, content: message }
     setMessages((prev) => [...prev, userMessage])
     setInput("")
     setIsLoading(true)
 
-    const typingMessage: Message = {
-      id: "typing",
-      role: "assistant",
-      content: "",
-      timestamp: new Date(),
-      isTyping: true,
-    }
-    setMessages((prev) => [...prev, typingMessage])
-
     try {
-      const response = await generateResponse(userMessage.content)
-      setMessages((prev) => prev.filter((m) => m.id !== "typing").concat(response))
+      const response = await fetch("/api/chat/hero-agent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setMessages((prev) => [...prev, { role: "assistant", content: data.response }])
+      } else {
+        throw new Error("API Error")
+      }
     } catch (error) {
-      console.error("Error:", error)
-      setMessages((prev) => prev.filter((m) => m.id !== "typing"))
+      // Fallback responses
+      let fallbackResponse = "Gracias por tu consulta. Te conectaré con nuestro equipo especializado."
+
+      if (message.toLowerCase().includes("cotización") || message.toLowerCase().includes("precio")) {
+        fallbackResponse =
+          "💰 **Cotización Personalizada:**\n\n• **Consultoría inicial:** GRATIS\n• **Chatbots básicos:** Desde $2,000 USD\n• **Sistemas full stack:** Desde $15,000 USD\n• **Agentes IA avanzados:** Desde $25,000 USD\n\n¿Te gustaría agendar una consulta gratuita?"
+      } else if (message.toLowerCase().includes("arquitectura") || message.toLowerCase().includes("técnica")) {
+        fallbackResponse =
+          "🔧 **Arquitectura Técnica:**\n\n• **Frontend:** React/Next.js con TypeScript\n• **Backend:** Node.js, Python, APIs REST/GraphQL\n• **IA:** OpenAI GPT-4, modelos custom, RAG\n• **Base de datos:** PostgreSQL, Vector DBs\n• **Infraestructura:** AWS, Vercel, Docker\n\n¿Necesitas detalles específicos?"
+      }
+
+      setMessages((prev) => [...prev, { role: "assistant", content: fallbackResponse }])
     } finally {
       setIsLoading(false)
     }
   }
 
   const handleQuickPrompt = (prompt: string) => {
-    setInput(prompt)
-    textareaRef.current?.focus()
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      handleSend()
-    }
+    handleSendMessage(prompt)
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-      </div>
-
-      <div className="container mx-auto px-4 py-20 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Hero Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
-            >
-              <div className="space-y-6">
-                <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-4 py-2">
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  Powered by OpenAI GPT-4
-                </Badge>
-
-                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                  <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Transforma
-                  </span>
-                  <br />
-                  <span className="text-gray-900 dark:text-white">tu negocio</span>
-                  <br />
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    con IA
-                  </span>
-                </h1>
-
-                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Desarrollamos soluciones de IA conversacional que revolucionan la experiencia de tus clientes.
-                  <span className="font-semibold text-purple-600 dark:text-purple-400">
-                    {" "}
-                    ROI promedio 250% en el primer año.
-                  </span>
-                </p>
-
-                <div className="flex flex-wrap gap-4">
-                  <Button
-                    size="lg"
-                    onClick={() => setShowChat(true)}
-                    className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-4 text-lg"
-                  >
-                    <MessageSquare className="w-5 h-5 mr-2" />
-                    Consultar AI Expert
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-                    className="px-8 py-4 text-lg border-2 hover:bg-green-50 dark:hover:bg-green-900/20"
-                  >
-                    WhatsApp Directo
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">50+</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Proyectos</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">250%</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">ROI Promedio</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">24/7</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Soporte</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">96%</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">Satisfacción</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Column - Compact Chat Interface */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <Card className="shadow-2xl border-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm">
-                <CardContent className="p-0">
-                  {/* Chat Header */}
-                  <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-4 rounded-t-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                        <Brain className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold">N3uralia AI Expert</h3>
-                        <div className="flex items-center text-sm opacity-90">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse mr-2"></div>
-                          Online 24/7
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Messages */}
-                  <ScrollArea className="h-80 p-4">
-                    <div className="space-y-4">
-                      {messages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex items-start space-x-3 ${
-                            message.role === "user" ? "flex-row-reverse space-x-reverse" : ""
-                          }`}
-                        >
-                          <div
-                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              message.role === "user"
-                                ? "bg-gradient-to-r from-blue-500 to-purple-500"
-                                : "bg-gradient-to-r from-purple-500 to-pink-500"
-                            }`}
-                          >
-                            {message.role === "user" ? (
-                              <User className="w-4 h-4 text-white" />
-                            ) : (
-                              <Bot className="w-4 h-4 text-white" />
-                            )}
-                          </div>
-
-                          <div className={`flex-1 ${message.role === "user" ? "text-right" : ""}`}>
-                            <div
-                              className={`inline-block p-3 rounded-lg max-w-[85%] ${
-                                message.role === "user"
-                                  ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
-                                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                              }`}
-                            >
-                              {message.isTyping ? (
-                                <div className="flex items-center space-x-2">
-                                  <Loader2 className="w-4 h-4 animate-spin" />
-                                  <span className="text-sm">Pensando...</span>
-                                </div>
-                              ) : (
-                                <div className="text-sm whitespace-pre-line leading-relaxed">{message.content}</div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <div ref={messagesEndRef} />
-                  </ScrollArea>
-
-                  {/* Quick Prompts */}
-                  {messages.length === 1 && (
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-3 text-center">
-                        Preguntas rápidas:
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        {QUICK_PROMPTS.map((prompt, index) => (
-                          <Button
-                            key={index}
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleQuickPrompt(prompt.prompt)}
-                            className="text-xs h-8 justify-start hover:bg-purple-50 dark:hover:bg-purple-900/20"
-                          >
-                            {prompt.text}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Input */}
-                  <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex items-end space-x-2">
-                      <Textarea
-                        ref={textareaRef}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Pregúntame sobre cotizaciones, casos de éxito, arquitectura técnica..."
-                        className="min-h-[40px] max-h-[80px] resize-none text-sm"
-                        disabled={isLoading}
-                      />
-                      <Button
-                        onClick={handleSend}
-                        disabled={!input.trim() || isLoading}
-                        size="sm"
-                        className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white h-10"
-                      >
-                        {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
-                      </Button>
-                    </div>
-                    <div className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                      Powered by N3uralia AI • Enter para enviar
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Floating badges */}
-              <div className="absolute -top-4 -right-4">
-                <Badge className="bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  Respuesta en tiempo real
-                </Badge>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      {/* Expanded Chat Modal */}
-      <AnimatePresence>
-        {showChat && (
+    <section className="relative min-h-screen bg-gradient-to-br from-background via-background to-muted/20 flex items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setShowChat(false)}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
           >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-4xl h-[80vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
-            >
-              <div className="h-full flex flex-col">
-                <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-4 flex items-center justify-between">
+            <div className="space-y-6">
+              <Badge variant="outline" className="text-sm font-medium">
+                🚀 Líderes en IA Conversacional
+              </Badge>
+
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+                  Mientras otros hablan de IA,
+                </span>
+                <br />
+                <span className="text-foreground">nosotros la construimos</span>
+              </h1>
+
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                Sistemas que no solo funcionan, sino que revolucionan industrias completas.
+              </p>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { number: "50+", label: "Proyectos" },
+                { number: "250%", label: "ROI Promedio" },
+                { number: "24/7", label: "Soporte" },
+                { number: "96%", label: "Satisfacción" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  className="text-center"
+                >
+                  <div className="text-2xl font-bold text-primary">{stat.number}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white"
+                asChild
+              >
+                <a
+                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20empresa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Consulta Gratuita
+                </a>
+              </Button>
+
+              <Button size="lg" variant="outline">
+                Ver Casos de Éxito
+              </Button>
+            </div>
+          </motion.div>
+
+          {/* Right Content - Compact Chat */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative"
+          >
+            <Card className="bg-card/50 backdrop-blur-sm border-2 border-primary/20 shadow-2xl">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
-                    <Brain className="w-6 h-6" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                      <Bot className="w-5 h-5 text-white" />
+                    </div>
                     <div>
-                      <h3 className="font-semibold">N3uralia AI Expert - Modo Completo</h3>
-                      <p className="text-sm opacity-90">Consultor especializado en IA empresarial</p>
+                      <h3 className="font-semibold">N3uralia AI Expert</h3>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span className="text-xs text-muted-foreground">Online 24/7</span>
+                      </div>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" onClick={() => setShowChat(false)} className="text-white">
-                    ✕
-                  </Button>
+                  <Badge className="bg-primary/10 text-primary border-primary/20">Powered by GPT-4</Badge>
                 </div>
 
-                <ScrollArea className="flex-1 p-6">
-                  <div className="space-y-6 max-w-3xl mx-auto">
-                    {messages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex items-start space-x-4 ${
-                          message.role === "user" ? "flex-row-reverse space-x-reverse" : ""
-                        }`}
-                      >
-                        <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                            message.role === "user"
-                              ? "bg-gradient-to-r from-blue-500 to-purple-500"
-                              : "bg-gradient-to-r from-purple-500 to-pink-500"
-                          }`}
-                        >
-                          {message.role === "user" ? (
-                            <User className="w-5 h-5 text-white" />
-                          ) : (
-                            <Bot className="w-5 h-5 text-white" />
+                {/* Compact Chat Area */}
+                <ScrollArea className="h-80 mb-4 pr-4">
+                  <div className="space-y-4">
+                    {messages.map((message, index) => (
+                      <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+                        <div className="flex items-start space-x-2 max-w-[80%]">
+                          {message.role === "assistant" && (
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                              <Bot className="w-3 h-3 text-white" />
+                            </div>
                           )}
-                        </div>
-
-                        <div className={`flex-1 ${message.role === "user" ? "text-right" : ""}`}>
                           <div
-                            className={`inline-block p-4 rounded-2xl max-w-[85%] ${
+                            className={`px-3 py-2 rounded-lg text-sm ${
                               message.role === "user"
-                                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white"
-                                : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                                ? "bg-primary text-primary-foreground"
+                                : "bg-muted text-muted-foreground"
                             }`}
                           >
-                            {message.isTyping ? (
-                              <div className="flex items-center space-x-2">
-                                <Loader2 className="w-4 h-4 animate-spin" />
-                                <span>N3uralia AI está pensando...</span>
-                              </div>
-                            ) : (
-                              <div className="whitespace-pre-line leading-relaxed">{message.content}</div>
-                            )}
+                            {message.content}
                           </div>
+                          {message.role === "user" && (
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                              <User className="w-3 h-3 text-white" />
+                            </div>
+                          )}
                         </div>
                       </div>
                     ))}
+                    {isLoading && (
+                      <div className="flex justify-start">
+                        <div className="flex items-center space-x-2">
+                          <div className="w-6 h-6 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                            <Bot className="w-3 h-3 text-white" />
+                          </div>
+                          <div className="bg-muted px-3 py-2 rounded-lg">
+                            <div className="flex space-x-1">
+                              <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
+                              <div
+                                className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                                style={{ animationDelay: "0.1s" }}
+                              ></div>
+                              <div
+                                className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                                style={{ animationDelay: "0.2s" }}
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </ScrollArea>
 
-                <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-                  <div className="flex items-end space-x-4 max-w-3xl mx-auto">
-                    <Textarea
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Pregúntame sobre cotizaciones, arquitectura técnica, casos de éxito, procesos..."
-                      className="min-h-[60px] max-h-[120px] resize-none"
-                      disabled={isLoading}
-                    />
+                {/* Quick Prompts */}
+                <div className="grid grid-cols-1 gap-2 mb-4">
+                  {quickPrompts.slice(0, 2).map((prompt, index) => (
                     <Button
-                      onClick={handleSend}
-                      disabled={!input.trim() || isLoading}
-                      className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-6 py-3 h-[60px]"
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      className="text-xs h-8 justify-start bg-transparent"
+                      onClick={() => handleQuickPrompt(prompt)}
                     >
-                      {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
+                      {prompt}
                     </Button>
-                  </div>
+                  ))}
                 </div>
-              </div>
-            </motion.div>
+
+                {/* Input */}
+                <div className="flex space-x-2">
+                  <Input
+                    placeholder="Pregunta sobre IA, cotizaciones, casos..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
+                    className="flex-1"
+                  />
+                  <Button size="sm" onClick={() => handleSendMessage(input)} disabled={isLoading}>
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+
+                {/* Expand Button */}
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="ghost" size="sm" className="w-full mt-2">
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      Consultar AI Expert Completo
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[80vh]">
+                    <DialogHeader>
+                      <DialogTitle>N3uralia AI Expert - Consulta Completa</DialogTitle>
+                    </DialogHeader>
+                    <div className="h-96">
+                      <ScrollArea className="h-full pr-4">
+                        <div className="space-y-4">
+                          {messages.map((message, index) => (
+                            <div
+                              key={index}
+                              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                            >
+                              <div className="flex items-start space-x-3 max-w-[80%]">
+                                {message.role === "assistant" && (
+                                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                                    <Bot className="w-4 h-4 text-white" />
+                                  </div>
+                                )}
+                                <div
+                                  className={`px-4 py-3 rounded-lg ${
+                                    message.role === "user"
+                                      ? "bg-primary text-primary-foreground"
+                                      : "bg-muted text-muted-foreground"
+                                  }`}
+                                >
+                                  {message.content}
+                                </div>
+                                {message.role === "user" && (
+                                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                                    <User className="w-4 h-4 text-white" />
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </ScrollArea>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {quickPrompts.map((prompt, index) => (
+                        <Button
+                          key={index}
+                          variant="outline"
+                          size="sm"
+                          className="text-xs justify-start bg-transparent"
+                          onClick={() => handleQuickPrompt(prompt)}
+                        >
+                          {prompt}
+                        </Button>
+                      ))}
+                    </div>
+                    <div className="flex space-x-2">
+                      <Input
+                        placeholder="Pregunta detallada sobre implementación, arquitectura, ROI..."
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
+                        className="flex-1"
+                      />
+                      <Button onClick={() => handleSendMessage(input)} disabled={isLoading}>
+                        <Send className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardContent>
+            </Card>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
     </section>
   )
 }
