@@ -1,3 +1,4 @@
+import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FeaturesSection } from "@/components/landing/features-section"
@@ -8,9 +9,10 @@ import { TeamSection } from "@/components/landing/team-section"
 import { TimezonesSection } from "@/components/landing/timezones-section"
 import { Footer } from "@/components/landing/footer"
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-black text-white">
+      <Navigation />
       <HeroSection />
       <TestimonialsSection />
       <FeaturesSection />
