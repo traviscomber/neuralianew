@@ -38,7 +38,7 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,16 +49,18 @@ export function TestimonialsSection() {
         >
           <Badge
             variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-purple-200"
+            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700"
           >
             <Sparkles className="w-4 h-4 mr-2" />
             Lo que dicen nuestros usuarios
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
             Historias{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">reales</span>
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+              reales
+            </span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Personas reales que han trabajado con N3uralia y han experimentado resultados rápidos y exitosos en sus
             proyectos de IA.
           </p>
@@ -73,20 +75,23 @@ export function TestimonialsSection() {
               transition={{ duration: 0.5, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
-              <Card className="border-2 border-gray-100 hover:shadow-lg transition-all duration-300 h-full">
+              <Card className="border-2 border-border hover:shadow-lg dark:hover:shadow-2xl dark:hover:shadow-purple-500/10 transition-all duration-300 h-full bg-card">
                 <CardContent className="p-8">
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      <Star
+                        key={i}
+                        className="w-5 h-5 fill-yellow-400 text-yellow-400 dark:fill-yellow-300 dark:text-yellow-300"
+                      />
                     ))}
                   </div>
 
-                  <p className="text-gray-700 mb-6 leading-relaxed italic">"{testimonial.content}"</p>
+                  <p className="text-card-foreground mb-6 leading-relaxed italic">"{testimonial.content}"</p>
 
                   <div className="flex items-center gap-4">
                     <Avatar className="w-12 h-12">
                       <AvatarImage src={testimonial.avatar || "/placeholder.svg"} alt={testimonial.name} />
-                      <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
+                      <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 dark:from-purple-600 dark:to-blue-600 text-white">
                         {testimonial.name
                           .split(" ")
                           .map((n) => n[0])
@@ -94,9 +99,9 @@ export function TestimonialsSection() {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-600">{testimonial.role}</p>
-                      <p className="text-xs text-gray-500">{testimonial.company}</p>
+                      <h4 className="font-semibold text-card-foreground">{testimonial.name}</h4>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                      <p className="text-xs text-muted-foreground">{testimonial.company}</p>
                     </div>
                   </div>
                 </CardContent>

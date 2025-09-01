@@ -1,45 +1,91 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Clock, DollarSign, TrendingUp, CheckCircle, ArrowRight, MessageCircle } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import {
+  Brain,
+  Zap,
+  Shield,
+  MessageSquare,
+  BarChart3,
+  Smartphone,
+  CheckCircle,
+  TrendingUp,
+  Users,
+  Clock,
+} from "lucide-react"
+
+const features = [
+  {
+    icon: Brain,
+    title: "IA que Entiende",
+    description: "Procesamiento de lenguaje natural avanzado que comprende contexto y matices",
+    color: "from-purple-500 to-purple-600 dark:from-purple-400 dark:to-purple-500",
+  },
+  {
+    icon: Zap,
+    title: "Súper Rápido",
+    description: "Respuestas instantáneas con arquitectura optimizada para alta performance",
+    color: "from-yellow-500 to-orange-500 dark:from-yellow-400 dark:to-orange-400",
+  },
+  {
+    icon: Shield,
+    title: "Siempre Funciona",
+    description: "99.9% uptime con sistemas redundantes y monitoreo 24/7",
+    color: "from-green-500 to-emerald-500 dark:from-green-400 dark:to-emerald-400",
+  },
+  {
+    icon: MessageSquare,
+    title: "Multi-Canal",
+    description: "WhatsApp, Web, API - una sola IA en todos tus canales de comunicación",
+    color: "from-blue-500 to-cyan-500 dark:from-blue-400 dark:to-cyan-400",
+  },
+  {
+    icon: BarChart3,
+    title: "Analytics Inteligente",
+    description: "Insights automáticos sobre conversaciones y comportamiento de usuarios",
+    color: "from-indigo-500 to-purple-500 dark:from-indigo-400 dark:to-purple-400",
+  },
+  {
+    icon: Smartphone,
+    title: "Mobile First",
+    description: "Optimizado para móviles, donde están tus usuarios realmente",
+    color: "from-pink-500 to-rose-500 dark:from-pink-400 dark:to-rose-400",
+  },
+]
+
+const stats = [
+  {
+    icon: CheckCircle,
+    number: "99.9%",
+    label: "Uptime",
+    description: "Disponibilidad garantizada",
+  },
+  {
+    icon: TrendingUp,
+    number: "3x",
+    label: "ROI Promedio",
+    description: "Retorno de inversión",
+  },
+  {
+    icon: Users,
+    number: "50K+",
+    label: "Conversaciones",
+    description: "Procesadas mensualmente",
+  },
+  {
+    icon: Clock,
+    number: "<200ms",
+    label: "Respuesta",
+    description: "Tiempo promedio",
+  },
+]
 
 export function FeaturesSection() {
-  const features = [
-    {
-      icon: Clock,
-      title: "¿Las tareas manuales te tienen chato?",
-      problem: "Tu equipo se la pasa 20+ horas por semana en tareas repetitivas",
-      solution: "Automatizamos facturas, seguimiento de clientes y carga de datos",
-      result: "Te ahorras 15-25 horas semanales para cosas importantes",
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20",
-    },
-    {
-      icon: DollarSign,
-      title: "¿No sabes dónde se va la plata?",
-      problem: "Gastos altos y no tienes visibilidad de dónde optimizar",
-      solution: "Analizamos tu negocio y te mostramos dónde ahorrar con IA",
-      result: "Reduces hasta 40% tus gastos con un plan claro",
-      color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-50 dark:bg-green-900/20",
-    },
-    {
-      icon: TrendingUp,
-      title: "¿Necesitas algo hecho a la medida?",
-      problem: "Tu desafío es complejo y las soluciones genéricas no sirven",
-      solution: "Te creamos herramientas de IA personalizadas: chatbots, análisis, automatizaciones",
-      result: "Sistema diseñado para lo que necesitas con ROI en 3 meses",
-      color: "from-purple-500 to-violet-500",
-      bgColor: "bg-purple-50 dark:bg-purple-900/20",
-    },
-  ]
-
   return (
-    <section id="features" className="py-24 bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 dark:bg-muted/10">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -49,101 +95,79 @@ export function FeaturesSection() {
         >
           <Badge
             variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900 dark:to-blue-900 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700"
+            className="mb-4 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700"
           >
-            Problemas Reales, Soluciones Reales
+            <Brain className="w-4 h-4 mr-2" />
+            La Problemática
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            ¿Te suena{" "}
-            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              familiar?
+          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
+            Tu competencia ya{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+              automatizó
             </span>
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Identificamos dónde la IA puede generar más impacto
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-12">
+            Mientras tú sigues respondiendo manualmente, ellos ya tienen IA trabajando 24/7. Aquí está lo que necesitas
+            para ponerte al día.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {features.map((feature, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card
-                className={`h-full ${feature.bgColor} border-2 border-opacity-20 hover:shadow-xl transition-all duration-300`}
-              >
-                <CardContent className="p-8">
+              <Card className="border-2 border-border hover:shadow-lg dark:hover:shadow-2xl dark:hover:shadow-purple-500/10 transition-all duration-300 h-full bg-card group hover:scale-105">
+                <CardContent className="p-6">
                   <div
-                    className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg`}
+                    className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <feature.icon className="w-8 h-8 text-white" />
+                    <feature.icon className="w-6 h-6 text-white" />
                   </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">{feature.title}</h3>
-
-                  <div className="space-y-4">
-                    <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-400">
-                      <p className="text-sm font-medium text-red-700 dark:text-red-300 mb-1">❌ El problema:</p>
-                      <p className="text-red-600 dark:text-red-400 text-sm">{feature.problem}</p>
-                    </div>
-
-                    <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400">
-                      <p className="text-sm font-medium text-blue-700 dark:text-blue-300 mb-1">🔧 La solución:</p>
-                      <p className="text-blue-600 dark:text-blue-400 text-sm">{feature.solution}</p>
-                    </div>
-
-                    <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-400">
-                      <p className="text-sm font-medium text-green-700 dark:text-green-300 mb-1">✅ El resultado:</p>
-                      <p className="text-green-600 dark:text-green-400 text-sm font-medium">{feature.result}</p>
-                    </div>
-                  </div>
+                  <h3 className="text-xl font-semibold mb-3 text-card-foreground">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA Section */}
+        {/* Stats Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-2xl p-8 text-white"
         >
-          <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">¿Te identificas con alguno?</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-              En 30 minutos analizamos tu situación y te mostramos cómo la IA te puede ayudar.
-            </p>
+          <div className="text-center mb-8">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-2">Números que Importan</h3>
+            <p className="text-purple-100 dark:text-purple-200">Métricas reales de nuestros sistemas en producción</p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                asChild
-                size="lg"
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-lg"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
               >
-                <a
-                  href="https://wa.me/56940946660?text=¡Hola!%20Me%20identifico%20con%20algunos%20problemas.%20Quiero%20una%20asesoría%20gratuita%20para%20ver%20cómo%20la%20IA%20me%20puede%20ayudar."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-2"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span>Asesoría Gratuita</span>
-                  <ArrowRight className="w-5 h-5" />
-                </a>
-              </Button>
-
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                <CheckCircle className="w-4 h-4 text-green-500" />
-                <span>Sin compromiso • 30 minutos</span>
-              </div>
-            </div>
+                <div className="w-12 h-12 bg-white/20 dark:bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-3">
+                  <stat.icon className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-3xl font-bold mb-1">{stat.number}</div>
+                <div className="text-lg font-semibold mb-1">{stat.label}</div>
+                <div className="text-sm text-purple-100 dark:text-purple-200">{stat.description}</div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>

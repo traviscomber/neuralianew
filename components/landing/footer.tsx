@@ -1,169 +1,194 @@
 "use client"
 
-import { MessageCircle, Mail, MapPin, Clock, ArrowUp } from "lucide-react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { MessageCircle, Mail, MapPin, Clock, ExternalLink } from "lucide-react"
 
 export function Footer() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+  const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 dark:bg-black text-white">
+    <footer className="bg-muted/30 dark:bg-muted/10 border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="md:col-span-2">
-            <button
-              onClick={scrollToTop}
-              className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity"
-            >
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">N</span>
-              </div>
-              <span className="text-xl font-bold">Neuralia</span>
-            </button>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Ayudamos a empresas como la tuya a integrar IA de forma práctica y rentable, sin saber de tecnología.
-              Resultados en 2-3 meses.
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="lg:col-span-2"
+          >
+            <h3 className="text-2xl font-bold mb-4 text-foreground">N3uralia</h3>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Desarrollamos sistemas completos de IA que realmente funcionan. Desde chatbots inteligentes hasta
+              automatización empresarial completa. Tu competencia ya usa IA, ¿cuándo empiezas tú?
             </p>
-
-            {/* Key benefits */}
-            <div className="space-y-2 mb-6">
-              <div className="flex items-center space-x-2 text-gray-400">
-                <div className="w-2 h-2 bg-green-500 rounded-full" />
-                <span className="text-sm">40% menos gastos operativos</span>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <MapPin className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span>Santiago, Chile & Singapore</span>
               </div>
-              <div className="flex items-center space-x-2 text-gray-400">
-                <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                <span className="text-sm">ROI asegurado en 2-3 meses</span>
-              </div>
-              <div className="flex items-center space-x-2 text-gray-400">
-                <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                <span className="text-sm">Soporte 24/7</span>
+              <div className="flex items-center gap-3 text-muted-foreground">
+                <Clock className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <span>Lun - Vie: 9:00 - 18:00 (CLT)</span>
               </div>
             </div>
+          </motion.div>
 
-            {/* Main CTA */}
-            <Button asChild className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 mb-4">
-              <a
-                href="https://wa.me/56940946660?text=¡Hola!%20Quiero%20una%20asesoría%20gratuita%20sobre%20cómo%20Neuralia%20puede%20automatizar%20mi%20empresa%20con%20IA.%20¿Cuándo%20podemos%20conversar?"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>Asesoría Gratuita</span>
-              </a>
-            </Button>
-
-            <div className="flex items-center space-x-2 text-gray-400 mb-2">
-              <Clock className="w-4 h-4" />
-              <span>Disponible 24/7</span>
-            </div>
-            <div className="flex items-center space-x-2 text-gray-400">
-              <MapPin className="w-4 h-4" />
-              <span>Chile • Rusia • Vietnam • Singapur</span>
-            </div>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h3 className="font-semibold mb-4">Soluciones</h3>
-            <ul className="space-y-2 text-gray-400">
+          {/* Quick Links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="font-semibold mb-4 text-foreground">Enlaces Rápidos</h4>
+            <ul className="space-y-3">
               <li>
                 <button
-                  onClick={() => {
-                    const element = document.getElementById("features")
-                    if (element) element.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  className="hover:text-white transition-colors text-left"
+                  onClick={() => document.getElementById("testimonials")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                 >
-                  Automatización de Procesos
+                  Testimonios
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => {
-                    const element = document.getElementById("success-cases")
-                    if (element) element.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  className="hover:text-white transition-colors text-left"
+                  onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                 >
-                  Sistemas IA Personalizados
+                  Problemática
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => {
-                    const element = document.getElementById("team")
-                    if (element) element.scrollIntoView({ behavior: "smooth" })
-                  }}
-                  className="hover:text-white transition-colors text-left"
+                  onClick={() => document.getElementById("use-cases")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
                 >
-                  Asesoría IA
+                  Casos de Uso
                 </button>
               </li>
-              <li>Integración con ERP/CRM</li>
-              <li>Chatbots Inteligentes</li>
+              <li>
+                <button
+                  onClick={() => document.getElementById("team")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
+                >
+                  Equipo
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" })}
+                  className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
+                >
+                  FAQ
+                </button>
+              </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Contact */}
-          <div>
-            <h3 className="font-semibold mb-4">Contacto</h3>
-            <div className="space-y-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="font-semibold mb-4 text-foreground">Contacto</h4>
+            <div className="space-y-4">
+              <Button
+                variant="outline"
+                className="w-full justify-start border-2 hover:bg-muted/50 dark:hover:bg-muted/30 bg-transparent"
+                asChild
+              >
+                <a
+                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20más%20información%20sobre%20sus%20servicios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  WhatsApp
+                </a>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full justify-start border-2 hover:bg-muted/50 dark:hover:bg-muted/30 bg-transparent"
+                asChild
+              >
+                <a href="mailto:contacto@neuralia.com">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Email
+                </a>
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+
+        <Separator className="my-8" />
+
+        {/* Bottom Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div className="text-center md:text-left">
+            <p className="text-muted-foreground">© {currentYear} N3uralia. Todos los derechos reservados.</p>
+          </div>
+
+          <div className="flex flex-wrap gap-6 text-sm">
+            <a
+              href="/terminos-de-servicio"
+              className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
+            >
+              Términos de Servicio
+            </a>
+            <a
+              href="/politicas-de-privacidad"
+              className="text-muted-foreground hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
+            >
+              Políticas de Privacidad
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Final CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-12 text-center"
+        >
+          <div className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-2xl p-8 text-white">
+            <h3 className="text-2xl font-bold mb-4">¿Listo para automatizar tu negocio?</h3>
+            <p className="text-purple-100 dark:text-purple-200 mb-6 max-w-2xl mx-auto">
+              Tu competencia ya está usando IA. No te quedes atrás. Conversemos sobre cómo podemos transformar tu
+              negocio con sistemas inteligentes que realmente funcionan.
+            </p>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="bg-white text-purple-600 hover:bg-gray-100 font-semibold"
+              asChild
+            >
               <a
-                href="https://wa.me/56940946660"
+                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20empezar%20a%20usar%20IA%20en%20mi%20negocio%20ahora%20mismo"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-green-400 hover:text-green-300 transition-colors"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp: +56 9 4094 6660</span>
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Empezar Ahora
+                <ExternalLink className="w-4 h-4 ml-2" />
               </a>
-              <a
-                href="mailto:hello@neuralia.com"
-                className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                <span>hello@neuralia.com</span>
-              </a>
-            </div>
-
-            {/* Trust indicators */}
-            <div className="mt-6 p-4 bg-gray-800 dark:bg-gray-900 rounded-lg">
-              <h4 className="font-semibold text-sm mb-2">Resultados Asegurados</h4>
-              <ul className="text-xs text-gray-400 space-y-1">
-                <li>✅ ROI medible en 2-3 meses</li>
-                <li>✅ Asesoría inicial gratuita</li>
-                <li>✅ Soporte técnico incluido</li>
-                <li>✅ Sin conocimientos técnicos</li>
-              </ul>
-            </div>
+            </Button>
           </div>
-        </div>
-
-        <div className="border-t border-gray-800 dark:border-gray-700 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 Neuralia. Todos los derechos reservados.</p>
-            <div className="flex items-center space-x-6 mt-4 md:mt-0">
-              <a href="/terminos-de-servicio" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Términos de Servicio
-              </a>
-              <a href="/politicas-de-privacidad" className="text-gray-400 hover:text-white text-sm transition-colors">
-                Políticas de Privacidad
-              </a>
-              <button
-                onClick={scrollToTop}
-                className="flex items-center space-x-1 text-gray-400 hover:text-white text-sm transition-colors"
-              >
-                <ArrowUp className="w-4 h-4" />
-                <span>Volver arriba</span>
-              </button>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   )
