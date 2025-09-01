@@ -95,7 +95,7 @@ export function TestimonialsSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-    }, 7000) // Change every 7 seconds (2 seconds more)
+    }, 7000) // Change every 7 seconds
 
     return () => clearInterval(interval)
   }, [])
@@ -110,7 +110,6 @@ export function TestimonialsSection() {
           avatar: "bg-gradient-to-r from-green-500 to-emerald-500",
           progress: "bg-gradient-to-r from-green-500 to-emerald-500",
           indicator: "bg-green-600 dark:bg-green-400",
-          legend: "bg-green-500",
         }
       case "Parrotfy":
         return {
@@ -118,7 +117,6 @@ export function TestimonialsSection() {
           avatar: "bg-gradient-to-r from-orange-500 to-red-500",
           progress: "bg-gradient-to-r from-orange-500 to-red-500",
           indicator: "bg-orange-600 dark:bg-orange-400",
-          legend: "bg-orange-500",
         }
       case "Despega Tu Carrera":
         return {
@@ -126,7 +124,6 @@ export function TestimonialsSection() {
           avatar: "bg-gradient-to-r from-blue-500 to-indigo-500",
           progress: "bg-gradient-to-r from-blue-500 to-indigo-500",
           indicator: "bg-blue-600 dark:bg-blue-400",
-          legend: "bg-blue-500",
         }
       default:
         return {
@@ -134,7 +131,6 @@ export function TestimonialsSection() {
           avatar: "bg-gradient-to-r from-gray-500 to-gray-600",
           progress: "bg-gradient-to-r from-gray-500 to-gray-600",
           indicator: "bg-gray-600 dark:bg-gray-400",
-          legend: "bg-gray-500",
         }
     }
   }
@@ -158,7 +154,7 @@ export function TestimonialsSection() {
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Testimonios reales de EcosueloLab, Parrotfy y Despega Tu Carrera sobre sus proyectos de IA
+            Testimonios reales sobre proyectos de IA implementados
           </p>
         </motion.div>
 
@@ -251,22 +247,6 @@ export function TestimonialsSection() {
               animate={{ width: "100%" }}
               transition={{ duration: 7, ease: "linear" }}
             />
-          </div>
-        </div>
-
-        {/* Company Legend */}
-        <div className="flex justify-center gap-6 mt-8">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <span className="text-sm text-gray-600 dark:text-gray-400">EcosueloLab</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-orange-500"></div>
-            <span className="text-sm text-gray-600 dark:text-gray-400">Parrotfy</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-            <span className="text-sm text-gray-600 dark:text-gray-400">Despega Tu Carrera</span>
           </div>
         </div>
       </div>
