@@ -187,13 +187,6 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700"
-          >
-            <CheckCircle className="w-4 h-4 mr-2" />
-            Casos de éxito reales
-          </Badge>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
             Proyectos que{" "}
             <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">

@@ -2,9 +2,8 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Sparkles } from "lucide-react"
+import { Star } from "lucide-react"
 
 const testimonials = [
   {
@@ -47,13 +46,6 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700"
-          >
-            <Sparkles className="w-4 h-4 mr-2" />
-            Lo que dicen nuestros usuarios
-          </Badge>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
             Nuestros{" "}
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
