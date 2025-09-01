@@ -55,9 +55,9 @@ export function TestimonialsSection() {
             Lo que dicen nuestros usuarios
           </Badge>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Historias{" "}
+            Nuestros{" "}
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
-              reales
+              Clientes
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
