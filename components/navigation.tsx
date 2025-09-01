@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, MessageCircle, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import Image from "next/image"
 
 const navItems = [
   { name: "Inicio", href: "#hero" },
@@ -92,9 +93,16 @@ export function Navigation() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="flex items-center">
             <button
               onClick={() => scrollToSection("#hero")}
-              className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent hover:from-purple-700 hover:to-blue-700 dark:hover:from-purple-300 dark:hover:to-blue-300 transition-all duration-300"
+              className="flex items-center transition-all duration-300 hover:opacity-80"
             >
-              N3uralia
+              <Image
+                src="/n3uralia-logo.png"
+                alt="N3uralia Logo"
+                width={80}
+                height={40}
+                className="object-contain"
+                priority
+              />
             </button>
           </motion.div>
 
@@ -162,9 +170,15 @@ export function Navigation() {
               </SheetTrigger>
               <SheetContent side="right" className="w-80 bg-background border-border">
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
-                    N3uralia
-                  </span>
+                  <div className="flex items-center">
+                    <Image
+                      src="/n3uralia-logo.png"
+                      alt="N3uralia Logo"
+                      width={64}
+                      height={32}
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
 
                 <nav className="space-y-4">

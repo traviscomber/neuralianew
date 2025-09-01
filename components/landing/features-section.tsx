@@ -3,221 +3,204 @@
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Clock, TrendingUp, Users, MessageCircle, Zap, BarChart3, ArrowRight, Palette } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Brain, Bot, Palette, ArrowRight, Zap, Target, Users, TrendingUp } from "lucide-react"
 
 const problems = [
   {
-    icon: Clock,
-    title: "Tiempo perdido en tareas repetitivas",
-    description: "Tus empleados gastan horas en responder las mismas preguntas una y otra vez.",
-    impact: "40% del tiempo laboral",
+    icon: Users,
+    title: "Atención al Cliente 24/7",
+    description:
+      "Los clientes esperan respuestas inmediatas, pero mantener personal disponible las 24 horas es costoso e ineficiente.",
   },
   {
-    icon: Users,
-    title: "Atención al cliente limitada",
-    description: "Solo puedes atender clientes en horario laboral, perdiendo oportunidades 24/7.",
-    impact: "60% de consultas fuera de horario",
+    icon: Zap,
+    title: "Procesos Manuales Lentos",
+    description:
+      "Tareas repetitivas consumen tiempo valioso que podría dedicarse a actividades estratégicas de mayor valor.",
+  },
+  {
+    icon: Target,
+    title: "Decisiones sin Datos",
+    description: "Falta de análisis predictivo lleva a decisiones basadas en intuición en lugar de datos concretos.",
   },
   {
     icon: TrendingUp,
-    title: "Competencia con ventaja tecnológica",
-    description: "Tus competidores ya usan IA para ser más eficientes y captar más clientes.",
-    impact: "25% más de conversiones",
-  },
-  {
-    icon: BarChart3,
-    title: "Decisiones basadas en intuición",
-    description: "Sin datos automatizados, tomas decisiones importantes sin información completa.",
-    impact: "30% de decisiones subóptimas",
+    title: "Escalabilidad Limitada",
+    description: "El crecimiento se ve limitado por la capacidad humana de procesar información y atender clientes.",
   },
 ]
 
-const solutions = [
+const services = [
   {
-    icon: Zap,
+    id: "fullstack",
+    icon: Brain,
     title: "Full Stack AI Systems",
     description:
       "Nuestro brutal programador T3 construye sistemas de IA que no solo funcionan, sino que dominan. Desde retail hasta agricultura, pasando por fintech y salud - si existe un rubro, nosotros lo conquistamos con código que hace que la competencia llore.",
+    features: [
+      "Análisis predictivo avanzado",
+      "Integración con sistemas existentes",
+      "Escalabilidad automática",
+      "Monitoreo en tiempo real",
+    ],
   },
   {
-    icon: MessageCircle,
+    id: "agents",
+    icon: Bot,
     title: "AI Agents & Automations",
     description:
       "El samurai Raph forja agentes de IA como katanas digitales: cada uno perfecto para su misión. Coaching de carrera que inspira, análisis de suelos que predice cosechas, idiomas que se aprenden solos, CRM que vende mientras duermes, y generadores que crean arte, video y datos como por arte de magia.",
+    features: [
+      "Chatbots conversacionales",
+      "Automatización de workflows",
+      "Procesamiento de lenguaje natural",
+      "Integración multicanal",
+    ],
   },
   {
+    id: "design",
     icon: Palette,
     title: "Multichannel Support & Web Design",
     description:
       "La maestra Irina, directora rusa de diseño, esculpe interfaces que enamoran y experiencias que convierten. WhatsApp, web, email, redes sociales - donde estén tus clientes, ahí estamos nosotros con diseño que no solo se ve increíble, sino que vende como loco.",
+    features: [
+      "Diseño UI/UX profesional",
+      "Soporte WhatsApp integrado",
+      "Interfaces responsive",
+      "Identidad corporativa completa",
+    ],
   },
-]
-
-const stats = [
-  { number: "85%", label: "Reducción en tiempo de respuesta", color: "from-purple-500 to-blue-500" },
-  { number: "3x", label: "Más consultas atendidas", color: "from-blue-500 to-indigo-500" },
-  { number: "24/7", label: "Disponibilidad garantizada", color: "from-indigo-500 to-purple-500" },
-  { number: "48h", label: "Tiempo de implementación", color: "from-purple-500 to-pink-500" },
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 dark:bg-muted/10">
-      <div className="max-w-7xl mx-auto">
+    <section id="features" className="py-24 bg-muted/30 dark:bg-muted/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
           <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700"
+            variant="outline"
+            className="mb-4 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-800"
           >
-            <Clock className="w-4 h-4 mr-2" />
-            La problemática actual
+            La Problemática
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            ¿Por qué tu negocio{" "}
-            <span className="bg-gradient-to-r from-red-600 to-orange-600 dark:from-red-400 dark:to-orange-400 bg-clip-text text-transparent">
-              pierde dinero
-            </span>{" "}
-            cada día?
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+            ¿Por qué tu negocio necesita IA?
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Mientras no implementas IA, tus competidores ya están automatizando procesos, mejorando la experiencia del
-            cliente y aumentando sus ventas.
+            Las empresas que no adoptan IA se quedan atrás. Estos son los desafíos que enfrentan diariamente.
           </p>
         </motion.div>
 
         {/* Problems Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
           {problems.map((problem, index) => (
             <motion.div
-              key={index}
+              key={problem.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="border-2 border-red-100 dark:border-red-900/30 hover:shadow-lg dark:hover:shadow-2xl dark:hover:shadow-red-500/10 transition-all duration-300 h-full bg-card">
+              <Card className="h-full hover:shadow-lg transition-all duration-300 border-l-4 border-l-red-500 dark:border-l-red-400">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mb-4">
-                    <problem.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-card-foreground mb-2">{problem.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{problem.description}</p>
-                  <Badge variant="destructive" className="text-xs">
-                    {problem.impact}
-                  </Badge>
+                  <problem.icon className="w-12 h-12 text-red-500 dark:text-red-400 mb-4" />
+                  <h3 className="text-lg font-semibold mb-3">{problem.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{problem.description}</p>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Solutions Section */}
+        {/* Solution Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <div className="flex items-center justify-center mb-6">
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent w-24"></div>
+            <ArrowRight className="w-8 h-8 text-purple-500 mx-4" />
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent w-24"></div>
+          </div>
           <Badge
-            variant="secondary"
-            className="mb-4 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700"
+            variant="outline"
+            className="mb-4 text-green-600 dark:text-green-400 border-green-200 dark:border-green-800"
           >
-            <Zap className="w-4 h-4 mr-2" />
-            La solución N3uralia
+            La Solución N3uralia
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Transforma tu negocio con{" "}
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-              soluciones full stack de IA
-            </span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
+            Transforma tu negocio con soluciones full stack de IA
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Desarrollamos soluciones completas de IA que abarcan desde chatbots hasta análisis predictivo,
-            automatización de procesos y diseño web, todo integrado perfectamente con tu negocio.
+            Desarrollamos sistemas completos de inteligencia artificial que automatizan procesos, mejoran la experiencia
+            del cliente y potencian el crecimiento de tu empresa.
           </p>
         </motion.div>
 
-        {/* Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {solutions.map((solution, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="border-2 border-green-100 dark:border-green-900/30 hover:shadow-lg dark:hover:shadow-2xl dark:hover:shadow-green-500/10 transition-all duration-300 h-full bg-card">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg flex items-center justify-center mb-4">
-                    <solution.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-card-foreground mb-2">{solution.title}</h3>
-                  <p className="text-sm text-muted-foreground">{solution.description}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Stats Section */}
+        {/* Services Tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-2xl p-8 text-center text-white"
         >
-          <h3 className="text-2xl font-bold mb-8">Resultados que puedes esperar</h3>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center"
-              >
-                <div className="text-3xl font-bold mb-2">{stat.number}</div>
-                <div className="text-sm opacity-90">{stat.label}</div>
-              </motion.div>
+          <Tabs defaultValue="fullstack" className="w-full">
+            <TabsList className="grid w-full grid-cols-3 mb-8 bg-background/50 dark:bg-background/30">
+              {services.map((service) => (
+                <TabsTrigger
+                  key={service.id}
+                  value={service.id}
+                  className="data-[state=active]:bg-purple-100 dark:data-[state=active]:bg-purple-900/30 data-[state=active]:text-purple-700 dark:data-[state=active]:text-purple-300"
+                >
+                  <service.icon className="w-4 h-4 mr-2" />
+                  <span className="hidden sm:inline">{service.title}</span>
+                  <span className="sm:hidden">{service.title.split(" ")[0]}</span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {services.map((service) => (
+              <TabsContent key={service.id} value={service.id}>
+                <Card className="border-2 border-purple-200 dark:border-purple-800">
+                  <CardContent className="p-8">
+                    <div className="grid lg:grid-cols-2 gap-8 items-center">
+                      <div>
+                        <div className="flex items-center mb-4">
+                          <service.icon className="w-8 h-8 text-purple-600 dark:text-purple-400 mr-3" />
+                          <h3 className="text-2xl font-bold">{service.title}</h3>
+                        </div>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
+                        <div className="grid sm:grid-cols-2 gap-3">
+                          {service.features.map((feature, index) => (
+                            <div key={index} className="flex items-center">
+                              <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                              <span className="text-sm">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <div className="aspect-square bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-2xl flex items-center justify-center">
+                          <service.icon className="w-24 h-24 text-purple-600 dark:text-purple-400" />
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
             ))}
-          </div>
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            asChild
-          >
-            <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Implementar IA en mi negocio
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
-          </Button>
+          </Tabs>
         </motion.div>
       </div>
     </section>
