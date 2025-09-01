@@ -1,173 +1,141 @@
 import { type NextRequest, NextResponse } from "next/server"
 
+// Simple fallback responses without AI SDK dependency
+const fallbackResponses = {
+  cotizacion: `¡Perfecto! Para darte una cotización precisa, necesito conocer más sobre tu proyecto:
+
+📋 **Información que necesito:**
+• ¿Qué tipo de negocio tienes?
+• ¿Cuántos usuarios/clientes manejas mensualmente?
+• ¿Qué procesos quieres automatizar?
+
+💰 **Rangos de inversión:**
+• Chatbot básico: $2,000 - $5,000 USD
+• Sistema multicanal: $5,000 - $15,000 USD
+• Solución enterprise: $15,000+ USD
+
+¿Te gustaría agendar una llamada para revisar tu caso específico?`,
+
+  arquitectura: `🏗️ **Nuestra Arquitectura Técnica:**
+
+**Frontend:**
+• React/Next.js con TypeScript
+• Tailwind CSS para UI responsiva
+• Real-time WebSocket connections
+
+**Backend:**
+• Node.js/Python APIs
+• PostgreSQL/MongoDB databases
+• Redis para caching
+
+**IA & ML:**
+• OpenAI GPT-4 integration
+• Custom neural networks
+• Natural Language Processing
+
+**Infraestructura:**
+• AWS/Google Cloud deployment
+• Docker containerization
+• 99.9% uptime guarantee
+
+¿Hay algún aspecto técnico específico que te interese conocer más?`,
+
+  casos: `🎯 **Casos de Éxito Destacados:**
+
+**EcosueloLab** - AgTech
+• 40% reducción en tiempo de análisis
+• Automatización de reportes técnicos
+• ROI: 300% en 6 meses
+
+**ParrotfyIA** - EdTech
+• 85% mejora en engagement
+• Personalización de aprendizaje
+• 50,000+ usuarios activos
+
+**Despega Tu Carrera** - HR Tech
+• 60% más colocaciones exitosas
+• Matching inteligente candidato-empresa
+• 95% satisfacción de usuarios
+
+¿Te interesa conocer más detalles de algún caso específico?`,
+
+  procesos: `⚙️ **Nuestro Proceso de Implementación:**
+
+**Fase 1: Análisis (1-2 semanas)**
+• Auditoría de procesos actuales
+• Identificación de oportunidades
+• Definición de objetivos y KPIs
+
+**Fase 2: Diseño (2-3 semanas)**
+• Arquitectura de la solución
+• Prototipo funcional
+• Plan de integración
+
+**Fase 3: Desarrollo (4-8 semanas)**
+• Desarrollo del sistema
+• Entrenamiento de modelos IA
+• Testing y optimización
+
+**Fase 4: Despliegue (1-2 semanas)**
+• Implementación en producción
+• Capacitación del equipo
+• Monitoreo y ajustes
+
+¿En qué fase te gustaría profundizar más?`,
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { message } = await request.json()
 
-    if (!process.env.OPENAI_API_KEY) {
-      return getFallbackResponse(message)
+    if (!message) {
+      return NextResponse.json({ error: "Message is required" }, { status: 400 })
     }
 
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content: `Eres el AI Expert de N3uralia, una empresa líder en desarrollo de IA conversacional. 
+    // Simple keyword matching for fallback responses
+    const lowerMessage = message.toLowerCase()
 
-INFORMACIÓN DE N3URALIA:
-- Empresa: N3uralia - Líderes en IA Conversacional
-- Servicios: Full Stack AI Systems, AI Agents & Automations, Multichannel Integration
-- Tecnologías: OpenAI GPT-4, React/Next.js, Node.js, Python, PostgreSQL, AWS
-- Precios: Consultoría GRATIS, Chatbots desde $2,000 USD, Sistemas full stack desde $15,000 USD
-- ROI: 250% promedio en el primer año
-- Soporte: 24/7 en 3 continentes (Santiago, Singapur, Moscú)
-- Casos de éxito: EcosueloLab (agricultura), ParrotfyIA (idiomas), CRM Inteligente
-- Proceso: Consulta → Análisis → Desarrollo → Deployment → Soporte
-- Contacto: WhatsApp +56 9 4094 6660, hello@n3uralia.com
+    let response = ""
 
-INSTRUCCIONES:
-- Responde en español de forma profesional y técnica
-- Proporciona información específica sobre servicios, precios y procesos
-- Incluye métricas reales cuando sea relevante
-- Sugiere consulta gratuita para casos específicos
-- Máximo 300 palabras por respuesta
-- Usa emojis relevantes para hacer más atractiva la respuesta`,
-          },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-        max_tokens: 500,
-        temperature: 0.7,
-      }),
+    if (lowerMessage.includes("cotiz") || lowerMessage.includes("precio") || lowerMessage.includes("costo")) {
+      response = fallbackResponses.cotizacion
+    } else if (
+      lowerMessage.includes("arquitectura") ||
+      lowerMessage.includes("tecnic") ||
+      lowerMessage.includes("tecnolog")
+    ) {
+      response = fallbackResponses.arquitectura
+    } else if (
+      lowerMessage.includes("caso") ||
+      lowerMessage.includes("ejemplo") ||
+      lowerMessage.includes("referencia")
+    ) {
+      response = fallbackResponses.casos
+    } else if (
+      lowerMessage.includes("proceso") ||
+      lowerMessage.includes("metodolog") ||
+      lowerMessage.includes("implementa")
+    ) {
+      response = fallbackResponses.procesos
+    } else {
+      // Default response
+      response = `¡Hola! Soy el AI Expert de N3uralia 🤖
+
+Puedo ayudarte con:
+• **Cotizaciones** personalizadas para tu proyecto
+• **Arquitectura técnica** de nuestras soluciones
+• **Casos de éxito** de clientes reales
+• **Procesos** de implementación
+
+¿Sobre qué te gustaría saber más?`
+    }
+
+    return NextResponse.json({
+      message: response,
+      timestamp: new Date().toISOString(),
     })
-
-    if (!response.ok) {
-      return getFallbackResponse(message)
-    }
-
-    const data = await response.json()
-    const aiResponse = data.choices[0]?.message?.content || "Lo siento, no pude procesar tu consulta."
-
-    return NextResponse.json({ response: aiResponse })
   } catch (error) {
-    console.error("Error in chat API:", error)
-    return NextResponse.json({
-      response: "Lo siento, no pude procesar tu consulta.",
-    })
+    console.error("Hero agent error:", error)
+    return NextResponse.json({ error: "Error processing request" }, { status: 500 })
   }
-}
-
-function getFallbackResponse(message: string) {
-  const lowerMessage = message.toLowerCase()
-
-  if (lowerMessage.includes("cotización") || lowerMessage.includes("precio") || lowerMessage.includes("costo")) {
-    return NextResponse.json({
-      response: `💰 **Cotización Personalizada N3uralia:**
-
-• **Consultoría inicial:** COMPLETAMENTE GRATIS
-• **Chatbots inteligentes:** Desde $2,000 USD
-• **Sistemas full stack:** Desde $15,000 USD  
-• **Agentes IA avanzados:** Desde $25,000 USD
-
-📊 **ROI promedio:** 250% en el primer año
-⚡ **Implementación:** 48-72 horas
-🔧 **Soporte:** 24/7 incluido
-
-¿Te gustaría agendar una consulta gratuita para evaluar tu proyecto específico?`,
-    })
-  }
-
-  if (
-    lowerMessage.includes("arquitectura") ||
-    lowerMessage.includes("técnica") ||
-    lowerMessage.includes("tecnología")
-  ) {
-    return NextResponse.json({
-      response: `🔧 **Arquitectura Técnica N3uralia:**
-
-**Frontend:**
-• React/Next.js con TypeScript
-• Tailwind CSS, Framer Motion
-• Responsive design completo
-
-**Backend:**
-• Node.js, Python FastAPI
-• APIs REST/GraphQL
-• Microservicios escalables
-
-**IA & ML:**
-• OpenAI GPT-4 integration
-• Modelos custom fine-tuned
-• RAG (Retrieval Augmented Generation)
-• Vector databases
-
-**Infraestructura:**
-• AWS/Vercel deployment
-• PostgreSQL + Vector DBs
-• Docker containerization
-• CI/CD automatizado
-
-¿Necesitas detalles específicos sobre alguna tecnología?`,
-    })
-  }
-
-  if (lowerMessage.includes("casos") || lowerMessage.includes("éxito") || lowerMessage.includes("ejemplos")) {
-    return NextResponse.json({
-      response: `🏆 **Casos de Éxito N3uralia:**
-
-**EcosueloLab (Agricultura):**
-• 40% reducción costos operativos
-• Análisis predictivo de cultivos
-• WhatsApp + API integration
-
-**ParrotfyIA (Educación):**
-• 85% mejora en pronunciación
-• IA conversacional para idiomas
-• 10,000+ estudiantes activos
-
-**CRM Inteligente (Ventas):**
-• 300% aumento conversiones
-• Automatización lead scoring
-• Integración omnichannel
-
-📊 **Métricas generales:**
-• 50+ proyectos completados
-• 96% satisfacción cliente
-• 250% ROI promedio
-
-¿Te interesa conocer detalles de algún caso específico?`,
-    })
-  }
-
-  return NextResponse.json({
-    response: `¡Hola! 👋 Soy el AI Expert de N3uralia.
-
-🚀 **Podemos ayudarte con:**
-• Cotizaciones personalizadas
-• Información técnica detallada  
-• Casos de éxito reales
-• Procesos de implementación
-• Integración con sistemas existentes
-
-💡 **Especialidades:**
-• Full Stack AI Systems
-• AI Agents & Automations  
-• Multichannel Integration
-
-📞 **Contacto directo:**
-• WhatsApp: +56 9 4094 6660
-• Email: hello@n3uralia.com
-• Consultoría inicial: GRATIS
-
-¿En qué específicamente te puedo ayudar hoy?`,
-  })
 }

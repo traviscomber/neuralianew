@@ -1,269 +1,249 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Clock, MapPin, Users, Zap } from "lucide-react"
 
-interface TimeZone {
-  city: string
-  timezone: string
-  country: string
-  flag: string
-  coordinates: { x: number; y: number }
-}
-
-const timeZones: TimeZone[] = [
-  {
-    city: "Santiago",
-    timezone: "America/Santiago",
-    country: "Chile",
-    flag: "🇨🇱",
-    coordinates: { x: 25, y: 75 },
-  },
-  {
-    city: "Singapur",
-    timezone: "Asia/Singapore",
-    country: "Singapur",
-    flag: "🇸🇬",
-    coordinates: { x: 75, y: 60 },
-  },
-  {
-    city: "Moscú",
-    timezone: "Europe/Moscow",
-    country: "Rusia",
-    flag: "🇷🇺",
-    coordinates: { x: 60, y: 35 },
-  },
-]
-
 export function TimezonesSection() {
-  const [times, setTimes] = useState<{ [key: string]: string }>({})
-  const [workingStatus, setWorkingStatus] = useState<{ [key: string]: boolean }>({})
+  const [currentTime, setCurrentTime] = useState({
+    santiago: new Date(),
+    singapore: new Date(),
+    moscow: new Date(),
+  })
 
   useEffect(() => {
     const updateTimes = () => {
-      const newTimes: { [key: string]: string } = {}
-      const newStatus: { [key: string]: boolean } = {}
-
-      timeZones.forEach((tz) => {
-        const now = new Date()
-        const timeString = now.toLocaleTimeString("es-ES", {
-          timeZone: tz.timezone,
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        })
-        newTimes[tz.city] = timeString
-
-        // Working hours: 9 AM to 6 PM local time
-        const hour = Number.parseInt(
-          now.toLocaleTimeString("es-ES", {
-            timeZone: tz.timezone,
-            hour: "2-digit",
-            hour12: false,
-          }),
-        )
-        newStatus[tz.city] = hour >= 9 && hour < 18
+      const now = new Date()
+      setCurrentTime({
+        santiago: new Date(now.toLocaleString("en-US", { timeZone: "America/Santiago" })),
+        singapore: new Date(now.toLocaleString("en-US", { timeZone: "Asia/Singapore" })),
+        moscow: new Date(now.toLocaleString("en-US", { timeZone: "Europe/Moscow" })),
       })
-
-      setTimes(newTimes)
-      setWorkingStatus(newStatus)
     }
 
     updateTimes()
     const interval = setInterval(updateTimes, 1000)
-
     return () => clearInterval(interval)
   }, [])
 
+  const isWorkingHours = (time: Date) => {
+    const hour = time.getHours()
+    return hour >= 9 && hour < 18
+  }
+
+  const formatTime = (time: Date) => {
+    return time.toLocaleTimeString("es-ES", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    })
+  }
+
+  const timezones = [
+    {
+      city: "Santiago",
+      country: "Chile",
+      time: currentTime.santiago,
+      flag: "🇨🇱",
+      position: { x: 25, y: 65 },
+    },
+    {
+      city: "Singapur",
+      country: "Singapur",
+      time: currentTime.singapore,
+      flag: "🇸🇬",
+      position: { x: 75, y: 45 },
+    },
+    {
+      city: "Moscú",
+      country: "Rusia",
+      time: currentTime.moscow,
+      flag: "🇷🇺",
+      position: { x: 60, y: 25 },
+    },
+  ]
+
   const stats = [
-    { icon: Clock, label: "Soporte 24/7", value: "Real", color: "text-green-500" },
-    { icon: MapPin, label: "Continentes", value: "3", color: "text-blue-500" },
-    { icon: Users, label: "Ingenieros", value: "100%", color: "text-purple-500" },
-    { icon: Zap, label: "Downtime", value: "0%", color: "text-orange-500" },
+    {
+      icon: Clock,
+      value: "24/7",
+      label: "Soporte Continuo",
+      gradient: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: MapPin,
+      value: "3",
+      label: "Continentes",
+      gradient: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: Users,
+      value: "100%",
+      label: "Ingenieros",
+      gradient: "from-green-500 to-emerald-500",
+    },
+    {
+      icon: Zap,
+      value: "99.9%",
+      label: "Uptime",
+      gradient: "from-orange-500 to-red-500",
+    },
   ]
 
   return (
-    <section id="timezones" className="py-24 bg-gradient-to-br from-background via-muted/10 to-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge variant="outline" className="mb-4 text-sm font-medium">
-            🌍 Soporte Global
+    <section className="py-20 bg-slate-950 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-green-900/20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(59,130,246,0.3),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_30%,rgba(34,197,94,0.2),transparent_50%)]" />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <Badge className="bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-300 border-green-500/30 mb-6">
+            <Clock className="w-4 h-4 mr-2" />
+            Equipo Multidisciplinario
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            Equipo Distribuido 24/7
+
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="bg-gradient-to-r from-white via-green-100 to-blue-200 bg-clip-text text-transparent">
+              Soporte global
+            </span>
+            <br />
+            <span className="bg-gradient-to-r from-green-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+              las 24 horas
+            </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Nuestro equipo trabaja desde <span className="text-primary font-semibold">3 continentes diferentes</span>{" "}
-            para brindarte soporte continuo y desarrollo sin interrupciones.
+
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            Nuestro equipo distribuido globalmente garantiza soporte continuo y expertise multicultural para proyectos
+            en cualquier zona horaria.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* World Map */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            <Card className="p-8 bg-card/50 backdrop-blur-sm border-2 border-border/50">
-              <CardContent className="p-0">
-                <div className="relative w-full h-80 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg overflow-hidden">
-                  {/* Simplified World Map SVG */}
-                  <svg viewBox="0 0 100 50" className="w-full h-full">
-                    {/* Continents - simplified shapes */}
-                    <path
-                      d="M15 20 L35 18 L38 25 L35 30 L20 32 L15 28 Z"
-                      fill="currentColor"
-                      className="text-muted-foreground/20"
-                    />
-                    <path
-                      d="M40 15 L85 12 L88 20 L85 25 L82 30 L75 32 L65 30 L55 25 L50 20 L45 18 Z"
-                      fill="currentColor"
-                      className="text-muted-foreground/20"
-                    />
-                    <path
-                      d="M70 35 L85 33 L88 40 L85 45 L75 47 L70 42 Z"
-                      fill="currentColor"
-                      className="text-muted-foreground/20"
-                    />
+          <div className="relative">
+            <Card className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm p-8">
+              <div className="relative h-80 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl overflow-hidden">
+                {/* Simplified World Map SVG */}
+                <svg viewBox="0 0 100 60" className="w-full h-full">
+                  <defs>
+                    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="rgb(59, 130, 246)" stopOpacity="0.3" />
+                      <stop offset="50%" stopColor="rgb(147, 51, 234)" stopOpacity="0.2" />
+                      <stop offset="100%" stopColor="rgb(34, 197, 94)" stopOpacity="0.3" />
+                    </linearGradient>
+                  </defs>
 
-                    {/* Location pins */}
-                    {timeZones.map((tz, index) => (
-                      <g key={tz.city}>
-                        <motion.circle
-                          cx={tz.coordinates.x}
-                          cy={tz.coordinates.y}
-                          r="2"
-                          fill={workingStatus[tz.city] ? "#10b981" : "#ef4444"}
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ delay: index * 0.2 }}
-                        />
-                        <motion.circle
-                          cx={tz.coordinates.x}
-                          cy={tz.coordinates.y}
-                          r="4"
-                          fill="none"
-                          stroke={workingStatus[tz.city] ? "#10b981" : "#ef4444"}
-                          strokeWidth="0.5"
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: [1, 1.5, 1], opacity: [0.8, 0, 0.8] }}
-                          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2, delay: index * 0.2 }}
-                        />
-                      </g>
-                    ))}
-                  </svg>
+                  {/* Continents simplified shapes */}
+                  <path d="M15 20 L35 15 L40 25 L35 35 L20 40 L10 35 Z" fill="url(#mapGradient)" opacity="0.6" />
+                  <path d="M40 15 L65 10 L70 20 L65 30 L45 35 L40 25 Z" fill="url(#mapGradient)" opacity="0.6" />
+                  <path d="M70 20 L85 15 L90 25 L85 35 L75 40 L70 30 Z" fill="url(#mapGradient)" opacity="0.6" />
 
-                  {/* Tooltips */}
-                  {timeZones.map((tz, index) => (
-                    <motion.div
-                      key={`tooltip-${tz.city}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + index * 0.1 }}
-                      className="absolute bg-card/90 backdrop-blur-sm border border-border/50 rounded-lg p-2 text-xs shadow-lg"
-                      style={{
-                        left: `${tz.coordinates.x}%`,
-                        top: `${tz.coordinates.y - 15}%`,
-                        transform: "translateX(-50%)",
-                      }}
-                    >
-                      <div className="flex items-center gap-1">
-                        <span>{tz.flag}</span>
-                        <span className="font-semibold">{tz.city}</span>
-                      </div>
-                      <div className="flex items-center gap-1 mt-1">
-                        <div
-                          className={`w-2 h-2 rounded-full ${workingStatus[tz.city] ? "bg-green-500" : "bg-red-500"}`}
-                        />
-                        <span className="text-muted-foreground">
-                          {workingStatus[tz.city] ? "Trabajando" : "Descanso"}
-                        </span>
-                      </div>
-                    </motion.div>
+                  {/* Location pins */}
+                  {timezones.map((tz, index) => (
+                    <g key={index}>
+                      <circle
+                        cx={tz.position.x}
+                        cy={tz.position.y}
+                        r="2"
+                        fill={isWorkingHours(tz.time) ? "#10b981" : "#ef4444"}
+                        className="animate-pulse"
+                      />
+                      <circle
+                        cx={tz.position.x}
+                        cy={tz.position.y}
+                        r="4"
+                        fill="none"
+                        stroke={isWorkingHours(tz.time) ? "#10b981" : "#ef4444"}
+                        strokeWidth="0.5"
+                        opacity="0.6"
+                        className="animate-ping"
+                      />
+                    </g>
                   ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+                </svg>
 
-          {/* Time Clocks */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            {timeZones.map((tz, index) => (
-              <motion.div
-                key={tz.city}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="p-6 bg-card/50 backdrop-blur-sm border-2 border-border/50 hover:border-primary/50 transition-all duration-300">
-                  <CardContent className="p-0">
+                {/* Floating timezone cards */}
+                {timezones.map((tz, index) => (
+                  <div
+                    key={index}
+                    className="absolute transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                    style={{
+                      left: `${tz.position.x}%`,
+                      top: `${tz.position.y}%`,
+                      marginTop: "20px",
+                    }}
+                  >
+                    <div className="bg-slate-800/90 backdrop-blur-sm border border-slate-600 rounded-lg p-2 text-center min-w-[120px]">
+                      <div className="text-lg mb-1">{tz.flag}</div>
+                      <div className="text-white font-semibold text-sm">{tz.city}</div>
+                      <div className="text-slate-300 text-xs">{tz.country}</div>
+                      <div
+                        className={`text-sm font-mono mt-1 ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}
+                      >
+                        {formatTime(tz.time)}
+                      </div>
+                      <div className={`text-xs mt-1 ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
+                        {isWorkingHours(tz.time) ? "● Activo" : "● Fuera de horario"}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          {/* Stats and Info */}
+          <div className="space-y-8">
+            {/* Live Clocks */}
+            <div className="grid grid-cols-1 gap-4">
+              {timezones.map((tz, index) => (
+                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
+                  <CardContent className="p-4">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        <div className="text-3xl">{tz.flag}</div>
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{tz.flag}</span>
                         <div>
-                          <h3 className="font-bold text-lg text-foreground">{tz.city}</h3>
-                          <p className="text-sm text-muted-foreground">{tz.country}</p>
+                          <div className="font-semibold text-white">
+                            {tz.city}, {tz.country}
+                          </div>
+                          <div className={`text-sm ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
+                            {isWorkingHours(tz.time) ? "Horario laboral" : "Fuera de horario"}
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">
-                        <div className="text-2xl font-mono font-bold text-foreground">
-                          {times[tz.city] || "00:00:00"}
-                        </div>
-                        <div className="flex items-center justify-end space-x-2 mt-1">
-                          <div
-                            className={`w-2 h-2 rounded-full ${
-                              workingStatus[tz.city] ? "bg-green-500 animate-pulse" : "bg-red-500"
-                            }`}
-                          />
-                          <span className="text-xs text-muted-foreground">
-                            {workingStatus[tz.city] ? "Trabajando" : "Descanso"}
-                          </span>
-                        </div>
+                        <div className="text-2xl font-mono text-white">{formatTime(tz.time)}</div>
+                        <div
+                          className={`w-3 h-3 rounded-full mx-auto mt-1 ${isWorkingHours(tz.time) ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
+                        />
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4 mt-8">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center p-4 rounded-lg bg-card/30 backdrop-blur-sm border border-border/30"
-                >
-                  <stat.icon className={`w-6 h-6 mx-auto mb-2 ${stat.color}`} />
-                  <div className="text-xl font-bold text-foreground">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </motion.div>
               ))}
             </div>
-          </motion.div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-4">
+              {stats.map((stat, index) => (
+                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
+                  <CardContent className="p-6 text-center">
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-r ${stat.gradient} rounded-xl flex items-center justify-center mx-auto mb-3`}
+                    >
+                      <stat.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                    <div className="text-sm text-slate-400">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,132 +1,138 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Zap, Shield, BarChart3, Cpu, Database, AlertTriangle } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Cpu, Shield, BarChart3, Zap } from "lucide-react"
 
-const technicalFeatures = [
+const features = [
   {
-    icon: Zap,
     title: "Real-time Processing",
-    description:
-      "Procesamiento instantáneo de datos y respuestas en tiempo real. Nuestros sistemas procesan millones de interacciones simultáneamente sin perder velocidad.",
+    description: "Procesamiento de consultas en menos de 100ms con arquitectura distribuida y cache inteligente",
+    icon: Zap,
     badge: "< 100ms",
-    gradient: "from-blue-500 to-purple-500",
+    color: "from-blue-500 to-cyan-600",
+    details: [
+      "Arquitectura distribuida en múltiples regiones",
+      "Cache inteligente con Redis y CDN global",
+      "Optimización automática de consultas",
+      "Balanceador de carga con failover automático",
+    ],
   },
   {
-    icon: Shield,
     title: "Enterprise Security",
-    description:
-      "Seguridad de nivel bancario con encriptación end-to-end, cumplimiento GDPR y auditorías continuas. Tu data está más segura que en Fort Knox.",
+    description: "Seguridad de nivel bancario con encriptación end-to-end y cumplimiento de estándares internacionales",
+    icon: Shield,
     badge: "Bank-level",
-    gradient: "from-purple-500 to-pink-500",
+    color: "from-green-500 to-emerald-600",
+    details: [
+      "Encriptación AES-256 end-to-end",
+      "Cumplimiento SOC 2 Type II y GDPR",
+      "Autenticación multifactor obligatoria",
+      "Auditorías de seguridad trimestrales",
+    ],
   },
   {
-    icon: BarChart3,
     title: "Advanced Analytics",
-    description:
-      "Dashboards inteligentes que predicen tendencias, identifican oportunidades y optimizan performance automáticamente. Data que habla tu idioma de negocio.",
+    description: "Analytics predictivos con machine learning para optimización continua y insights accionables",
+    icon: BarChart3,
     badge: "Predictive",
-    gradient: "from-pink-500 to-purple-500",
+    color: "from-purple-500 to-pink-600",
+    details: [
+      "Dashboards en tiempo real con métricas clave",
+      "Predicción de comportamiento de usuarios",
+      "A/B testing automático de respuestas",
+      "Reportes personalizados y alertas inteligentes",
+    ],
   },
 ]
 
 export function TechnicalFeaturesSection() {
   return (
-    <section className="py-24 bg-gradient-to-br from-background via-background to-muted/20">
+    <section id="technical-features" className="py-16 bg-gradient-to-br from-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <Badge variant="outline" className="mb-4 text-sm font-medium">
-            ⚡ Tecnología de Clase Mundial
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent">
+          <Badge
+            variant="outline"
+            className="mb-4 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+          >
+            <Cpu className="w-4 h-4 mr-2" />
             Infraestructura Técnica
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            Tecnología de{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              Vanguardia
+            </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            La tecnología que hace posible que nuestros sistemas{" "}
-            <span className="text-primary font-semibold">superen cualquier expectativa</span>.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Infraestructura robusta y escalable que garantiza rendimiento, seguridad y confiabilidad empresarial.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {technicalFeatures.map((feature, index) => (
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
-              className="h-full"
             >
-              <Card className="h-full border-2 hover:border-primary/50 transition-all duration-300 bg-card/50 backdrop-blur-sm hover:shadow-xl hover:shadow-primary/10">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`p-3 rounded-xl bg-gradient-to-r ${feature.gradient} shadow-lg`}>
-                      <feature.icon className="h-6 w-6 text-white" />
+              <Card className="bg-card hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-border h-full">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div
+                      className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.color} flex items-center justify-center flex-shrink-0`}
+                    >
+                      <feature.icon className="w-6 h-6 text-white" />
                     </div>
-                    <Badge variant="secondary" className="text-xs font-bold">
+                    <Badge
+                      variant="secondary"
+                      className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700"
+                    >
                       {feature.badge}
                     </Badge>
                   </div>
-                  <CardTitle className="text-xl font-bold text-foreground">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground leading-relaxed text-sm">
-                    {feature.description}
-                  </CardDescription>
+
+                  <h3 className="text-xl font-bold text-card-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+
+                  <div className="space-y-2">
+                    {feature.details.map((detail, detailIndex) => (
+                      <div key={detailIndex} className="flex items-start gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div>
+                        <span className="text-sm text-muted-foreground">{detail}</span>
+                      </div>
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
+        {/* Neural Networks Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center"
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary/10 to-purple-500/10 rounded-full border border-primary/20">
-            <Cpu className="h-5 w-5 text-primary" />
-            <span className="text-sm font-medium text-primary">
-              Powered by Neural Networks & Advanced Machine Learning
-            </span>
-            <Database className="h-5 w-5 text-primary" />
-          </div>
-        </motion.div>
-
-        {/* Original Intro Phrase - Restored at the End */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <div className="max-w-4xl mx-auto p-8 bg-gradient-to-r from-orange-500/10 via-red-500/10 to-orange-500/10 border-2 border-orange-500/20 rounded-2xl">
-            <div className="flex items-center justify-center mb-4">
-              <AlertTriangle className="w-8 h-8 text-orange-500 mr-3" />
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                ¿No usas IA en tu negocio?
-              </h3>
-            </div>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-              Mientras tus competidores automatizan procesos y mejoran la experiencia del cliente, tú sigues perdiendo
-              tiempo en tareas repetitivas.
-            </p>
-            <p className="text-xl font-semibold text-foreground">
-              Implementamos IA conversacional que funciona desde el primer día.
-            </p>
-          </div>
+          <Badge
+            variant="outline"
+            className="text-lg px-6 py-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700"
+          >
+            <Cpu className="w-5 h-5 mr-2" />
+            Powered by Neural Networks & Advanced Machine Learning
+          </Badge>
         </motion.div>
       </div>
     </section>
