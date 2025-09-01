@@ -48,11 +48,6 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-300 border-blue-500/30 mb-6">
-            <Zap className="w-4 h-4 mr-2" />
-            Nuestras Especialidades
-          </Badge>
-
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
               Soluciones que

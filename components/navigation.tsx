@@ -1,192 +1,134 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter, usePathname } from "next/navigation"
-import { motion } from "framer-motion"
-import { Menu, X, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu } from "lucide-react"
 import Image from "next/image"
-
-const navItems = [
-  { name: "Inicio", href: "#hero", section: "hero" },
-  { name: "Casos de Éxito", href: "#use-cases", section: "use-cases" },
-  { name: "Equipo", href: "#team", section: "team" },
-  { name: "FAQ", href: "#faq", section: "faq" },
-  { name: "Contáctenos", href: "#footer", section: "footer" },
-]
+import { usePathname } from "next/navigation"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const router = useRouter()
   const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleNavigation = (href: string, section: string) => {
-    setIsOpen(false)
-
-    // If we're on the home page, scroll to section
-    if (pathname === "/") {
-      const element = document.getElementById(section)
+  const scrollToSection = (sectionId: string) => {
+    if (isHomePage) {
+      const element = document.getElementById(sectionId)
       if (element) {
-        const headerOffset = 80
-        const elementPosition = element.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        })
+        element.scrollIntoView({ behavior: "smooth" })
       }
     } else {
-      // If we're on another page, navigate to home with hash
-      router.push(`/${href}`)
+      window.location.href = `/#${sectionId}`
     }
+    setIsOpen(false)
   }
 
   const handleLogoClick = () => {
-    if (pathname === "/") {
+    if (isHomePage) {
       window.scrollTo({ top: 0, behavior: "smooth" })
     } else {
-      router.push("/")
+      window.location.href = "/"
     }
   }
 
-  // Handle hash navigation on page load
   useEffect(() => {
-    if (pathname === "/" && window.location.hash) {
-      const hash = window.location.hash.substring(1)
+    if (isHomePage && window.location.hash) {
+      const sectionId = window.location.hash.substring(1)
       setTimeout(() => {
-        const element = document.getElementById(hash)
+        const element = document.getElementById(sectionId)
         if (element) {
-          const headerOffset = 80
-          const elementPosition = element.getBoundingClientRect().top
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          })
+          element.scrollIntoView({ behavior: "smooth" })
         }
-      }, 500)
+      }, 100)
     }
-  }, [pathname])
+  }, [isHomePage])
+
+  const navItems = [
+    { name: "Inicio", id: "hero" },
+    { name: "Testimonios", id: "testimonials" },
+    { name: "Servicios", id: "features" },
+    { name: "FAQ", id: "faq" },
+    { name: "Casos de Uso", id: "use-cases" },
+    { name: "Tecnología", id: "technical-features" },
+    { name: "Equipo", id: "team" },
+  ]
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-black/95 backdrop-blur-md border-b border-gray-800" : "bg-black"
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0 cursor-pointer" onClick={handleLogoClick}>
-            <Image
-              src="/n3uralia-logo-new.png"
-              alt="N3uralia"
-              width={120}
-              height={40}
-              className="h-8 w-auto"
-              priority
-            />
-          </motion.div>
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-lg p-1"
+          >
+            <Image src="/n3uralia-logo.png" alt="N3uralia Logo" width={40} height={40} className="w-10 h-10" />
+            <span className="text-xl font-bold text-white">N3uralia</span>
+          </button>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavigation(item.href, item.section)}
-                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 rounded-md"
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-gray-300 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded px-2 py-1"
+              >
+                {item.name}
+              </button>
+            ))}
             <Button
               asChild
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0"
             >
               <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20empresa"
+                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                WhatsApp
+                Contactar
               </a>
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <ThemeToggle />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="bg-black border-gray-800">
+                <div className="flex flex-col space-y-4 mt-8">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="text-gray-300 hover:text-white transition-colors duration-200 text-left py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded px-2"
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                  <Button
+                    asChild
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 mt-4"
+                  >
+                    <a
+                      href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Contactar
+                    </a>
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black border-t border-gray-800"
-          >
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => handleNavigation(item.href, item.section)}
-                  className="text-gray-300 hover:text-white hover:bg-gray-800 block px-3 py-2 text-base font-medium w-full text-left transition-colors duration-200 rounded-md focus:outline-none focus:ring-2 focus:ring-white/20"
-                >
-                  {item.name}
-                </button>
-              ))}
-              <div className="pt-4 border-t border-gray-800 mt-4">
-                <Button
-                  asChild
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
-                >
-                  <a
-                    href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20empresa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    Contactar por WhatsApp
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
       </div>
-    </motion.nav>
+    </nav>
   )
 }
