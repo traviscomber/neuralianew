@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Clock, TrendingUp, Users, MessageCircle, Zap, Shield, BarChart3, Headphones, ArrowRight } from "lucide-react"
+import { Clock, TrendingUp, Users, MessageCircle, Zap, BarChart3, ArrowRight, Palette } from "lucide-react"
 
 const problems = [
   {
@@ -35,24 +35,22 @@ const problems = [
 
 const solutions = [
   {
-    icon: MessageCircle,
-    title: "Chatbots Inteligentes",
-    description: "Responden consultas complejas 24/7 con la personalidad de tu marca.",
-  },
-  {
     icon: Zap,
-    title: "Automatización de Procesos",
-    description: "Elimina tareas repetitivas y libera tiempo para actividades estratégicas.",
+    title: "Full Stack AI Systems",
+    description:
+      "Nuestro brutal programador T3 construye sistemas de IA que no solo funcionan, sino que dominan. Desde retail hasta agricultura, pasando por fintech y salud - si existe un rubro, nosotros lo conquistamos con código que hace que la competencia llore.",
   },
   {
-    icon: Shield,
-    title: "Análisis Predictivo",
-    description: "Anticipa tendencias y toma decisiones basadas en datos reales.",
+    icon: MessageCircle,
+    title: "AI Agents & Automations",
+    description:
+      "El samurai Raph forja agentes de IA como katanas digitales: cada uno perfecto para su misión. Coaching de carrera que inspira, análisis de suelos que predice cosechas, idiomas que se aprenden solos, CRM que vende mientras duermes, y generadores que crean arte, video y datos como por arte de magia.",
   },
   {
-    icon: Headphones,
-    title: "Soporte Multicanal",
-    description: "WhatsApp, web, email - tu IA funciona donde están tus clientes.",
+    icon: Palette,
+    title: "Multichannel Support & Web Design",
+    description:
+      "La maestra Irina, directora rusa de diseño, esculpe interfaces que enamoran y experiencias que convierten. WhatsApp, web, email, redes sociales - donde estén tus clientes, ahí estamos nosotros con diseño que no solo se ve increíble, sino que vende como loco.",
   },
 ]
 
@@ -139,17 +137,17 @@ export function FeaturesSection() {
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
             Transforma tu negocio con{" "}
             <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-              IA conversacional
+              soluciones full stack de IA
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Implementamos sistemas de IA que se integran perfectamente con tu negocio y empiezan a generar resultados
-            desde el primer día.
+            Desarrollamos soluciones completas de IA que abarcan desde chatbots hasta análisis predictivo,
+            automatización de procesos y diseño web, todo integrado perfectamente con tu negocio.
           </p>
         </motion.div>
 
         {/* Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {solutions.map((solution, index) => (
             <motion.div
               key={index}

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { MessageCircle, Mail, MapPin, ArrowRight } from "lucide-react"
+import { MessageCircle, Mail, MapPin } from "lucide-react"
 
 const footerLinks = {
   company: [
@@ -195,36 +195,6 @@ export function Footer() {
             </motion.div>
           </div>
         </div>
-
-        {/* Final CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="py-12 text-center bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 rounded-2xl mb-8 text-white"
-        >
-          <h3 className="text-2xl font-bold mb-4">¿Listo para transformar tu negocio con IA?</h3>
-          <p className="text-lg mb-6 opacity-90 max-w-2xl mx-auto">
-            Únete a las empresas que ya están automatizando procesos y mejorando la experiencia de sus clientes con
-            N3uralia.
-          </p>
-          <Button
-            size="lg"
-            className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            asChild
-          >
-            <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio%20ahora"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Implementar IA ahora
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
-          </Button>
-        </motion.div>
       </div>
     </footer>
   )
