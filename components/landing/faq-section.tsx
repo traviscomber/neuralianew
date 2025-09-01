@@ -13,27 +13,27 @@ export default function FAQSection() {
     {
       question: "¿Cuánto tiempo toma implementar un agente de IA?",
       answer:
-        "El tiempo de implementación varía según la complejidad del proyecto. Un agente básico puede estar funcionando en 2-3 semanas, mientras que soluciones más complejas pueden tomar 6-8 semanas. Siempre proporcionamos un cronograma detallado al inicio del proyecto.",
+        "El tiempo de implementación varía según la complejidad del proyecto. Un agente básico puede estar listo en 2-3 semanas, mientras que soluciones más complejas pueden tomar 6-8 semanas. Incluimos capacitación y soporte completo.",
     },
     {
       question: "¿Los agentes pueden integrarse con nuestros sistemas existentes?",
       answer:
-        "Sí, nuestros agentes se integran perfectamente con CRM, ERP, bases de datos, WhatsApp Business, sistemas de tickets, y prácticamente cualquier API o plataforma que uses actualmente.",
+        "Sí, nuestros agentes se integran con CRM, ERP, bases de datos, WhatsApp Business, sistemas de tickets, y más de 100 plataformas diferentes. Utilizamos APIs robustas y protocolos de seguridad empresarial.",
     },
     {
       question: "¿Qué nivel de personalización ofrecen?",
       answer:
-        "Ofrecemos personalización completa: desde el tono de voz y personalidad del agente, hasta flujos de conversación específicos, integración con datos propios, y adaptación a procesos únicos de tu empresa.",
+        "Personalización completa: tono de voz, conocimiento específico de tu empresa, flujos de conversación, integraciones, reportes personalizados, y branding. Cada agente refleja la identidad de tu marca.",
     },
     {
       question: "¿Cómo garantizan la seguridad de los datos?",
       answer:
-        "Implementamos encriptación end-to-end, cumplimos con GDPR y normativas locales, realizamos auditorías de seguridad regulares, y todos los datos se procesan en servidores seguros con acceso restringido.",
+        "Implementamos encriptación end-to-end, cumplimos con GDPR y normativas locales, auditorías de seguridad regulares, y hosting en servidores certificados. Tus datos están completamente protegidos.",
     },
     {
-      question: "¿Ofrecen soporte y mantenimiento continuo?",
+      question: "¿Ofrecen soporte técnico continuo?",
       answer:
-        "Sí, incluimos soporte 24/7, actualizaciones regulares, monitoreo de rendimiento, optimización continua basada en métricas, y un equipo dedicado para resolver cualquier consulta técnica.",
+        "Sí, ofrecemos soporte 24/7 con nuestro equipo multidisciplinario distribuido globalmente. Incluye monitoreo proactivo, actualizaciones automáticas, y optimización continua del rendimiento.",
     },
   ]
 
@@ -41,12 +41,10 @@ export default function FAQSection() {
     <section className="py-20 bg-slate-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-300 border-yellow-500/30">
-            Preguntas Frecuentes
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Resolvemos tus dudas</h2>
+          <Badge className="mb-4 bg-blue-500/20 text-blue-300 border-blue-500/30">Preguntas Frecuentes</Badge>
+          <h2 className="text-4xl font-bold text-white mb-4">Resolvemos tus dudas</h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Las preguntas más comunes sobre nuestros agentes de IA conversacional
+            Todo lo que necesitas saber sobre nuestros agentes de IA conversacional
           </p>
         </div>
 
@@ -57,10 +55,8 @@ export default function FAQSection() {
               value={`item-${index}`}
               className="bg-slate-800 border-slate-700 rounded-lg px-6"
             >
-              <AccordionTrigger className="text-left text-white hover:text-slate-300 py-6">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-slate-300 pb-6 leading-relaxed">{faq.answer}</AccordionContent>
+              <AccordionTrigger className="text-white hover:text-blue-300 text-left">{faq.question}</AccordionTrigger>
+              <AccordionContent className="text-slate-300 leading-relaxed">{faq.answer}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

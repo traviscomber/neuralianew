@@ -2,54 +2,54 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code, Database, Cloud, Cpu, Lock, Zap, Globe, BarChart, MessageSquare } from "lucide-react"
+import { Code, Database, Cloud, Cpu, Lock, Zap, Globe, BarChart, Webhook } from "lucide-react"
 
 export default function TechnicalFeaturesSection() {
   const technicalFeatures = [
     {
       icon: Code,
       title: "APIs RESTful",
-      description: "Integración perfecta con cualquier sistema existente mediante APIs robustas y documentadas.",
+      description: "Integración sencilla con endpoints documentados y SDKs en múltiples lenguajes.",
     },
     {
       icon: Database,
-      title: "Base de Datos Vectorial",
-      description: "Almacenamiento optimizado para búsqueda semántica y recuperación de información contextual.",
+      title: "Base de Datos Escalable",
+      description: "PostgreSQL con replicación automática y backup continuo para máxima disponibilidad.",
     },
     {
       icon: Cloud,
-      title: "Arquitectura Cloud-Native",
-      description: "Escalabilidad automática en AWS/Azure con alta disponibilidad y redundancia.",
+      title: "Infraestructura Cloud",
+      description: "Desplegado en AWS/Vercel con auto-scaling y distribución global de contenido.",
     },
     {
       icon: Cpu,
-      title: "Procesamiento en Tiempo Real",
-      description: "Inferencia de IA optimizada con latencia ultra-baja para respuestas instantáneas.",
+      title: "Procesamiento IA",
+      description: "GPT-4 Turbo y modelos especializados para comprensión contextual avanzada.",
     },
     {
       icon: Lock,
-      title: "Encriptación End-to-End",
-      description: "Seguridad empresarial con cifrado AES-256 y cumplimiento de normativas internacionales.",
+      title: "Seguridad Avanzada",
+      description: "Encriptación AES-256, autenticación OAuth2 y cumplimiento GDPR completo.",
     },
     {
       icon: Zap,
-      title: "Auto-scaling Inteligente",
-      description: "Ajuste automático de recursos basado en demanda para optimizar costos y rendimiento.",
+      title: "Tiempo Real",
+      description: "WebSockets y Server-Sent Events para comunicación instantánea bidireccional.",
     },
     {
       icon: Globe,
-      title: "CDN Global",
-      description: "Red de distribución mundial para garantizar baja latencia desde cualquier ubicación.",
+      title: "Multi-idioma",
+      description: "Soporte nativo para español, inglés y detección automática de idioma.",
     },
     {
       icon: BarChart,
-      title: "Analytics en Tiempo Real",
-      description: "Métricas detalladas y dashboards interactivos para monitoreo continuo del rendimiento.",
+      title: "Analytics Integrado",
+      description: "Métricas en tiempo real con dashboards personalizables y reportes automáticos.",
     },
     {
-      icon: MessageSquare,
-      title: "NLP Avanzado",
-      description: "Procesamiento de lenguaje natural con modelos transformer de última generación.",
+      icon: Webhook,
+      title: "Webhooks",
+      description: "Notificaciones automáticas para integración con sistemas externos y workflows.",
     },
   ]
 
@@ -57,35 +57,50 @@ export default function TechnicalFeaturesSection() {
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-300 border-blue-500/30">
-            Arquitectura Técnica
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              Tecnología de vanguardia
-            </span>
-          </h2>
+          <Badge className="mb-4 bg-purple-100 text-purple-800 hover:bg-purple-200">Arquitectura Técnica</Badge>
+          <h2 className="text-4xl font-bold text-foreground mb-4">Tecnología empresarial robusta</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Infraestructura robusta y escalable diseñada para empresas exigentes
+            Infraestructura escalable y segura diseñada para empresas que requieren máximo rendimiento
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {technicalFeatures.map((feature, index) => (
-            <Card key={index} className="bg-card border-border hover:shadow-lg transition-all duration-300 group">
+            <Card
+              key={index}
+              className="bg-card border-border hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
               <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
-                    <feature.icon className="w-6 h-6 text-primary" />
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-purple-100 rounded-lg flex-shrink-0">
+                    <feature.icon className="w-6 h-6 text-purple-600" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-semibold text-foreground">{feature.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-16 bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8">
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-bold text-foreground">¿Necesitas una integración personalizada?</h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Nuestro equipo técnico puede desarrollar conectores específicos para tu stack tecnológico
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mt-6">
+              {["Salesforce", "HubSpot", "SAP", "Oracle", "Microsoft", "Shopify", "WooCommerce", "Magento"].map(
+                (tech) => (
+                  <Badge key={tech} variant="outline" className="bg-white">
+                    {tech}
+                  </Badge>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>
