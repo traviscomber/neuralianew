@@ -1,218 +1,236 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { Globe, Clock, Users } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Users, Globe, Clock, Zap } from "lucide-react"
 
-interface Location {
-  name: string
-  country: string
-  flag: string
-  timezone: string
-  specialty: string
-  x: number
-  y: number
-}
-
-const locations: Location[] = [
+const advantages = [
   {
-    name: "Santiago",
-    country: "Chile",
-    flag: "🇨🇱",
-    timezone: "America/Santiago",
-    specialty: "Full Stack",
-    x: 25,
-    y: 75,
+    title: "Soporte 24/7 Real",
+    description: "Siempre hay un humano o IA disponible para ayudarte",
+    icon: Clock,
+    badge: "Ventaja Clave",
+    color: "from-green-500 to-emerald-600",
   },
   {
-    name: "Singapur",
-    country: "Singapur",
-    flag: "🇸🇬",
-    timezone: "Asia/Singapore",
-    specialty: "IA & ML",
-    x: 80,
-    y: 60,
+    title: "Coding 24 Horas",
+    description: "Desarrollo continuo mientras tu competencia duerme",
+    icon: Users,
+    badge: "Productividad x3",
+    color: "from-blue-500 to-cyan-600",
   },
   {
-    name: "Moscú",
-    country: "Rusia",
-    flag: "🇷🇺",
-    timezone: "Europe/Moscow",
-    specialty: "DevOps",
-    x: 65,
-    y: 35,
+    title: "Cobertura Global",
+    description: "3 zonas horarias = proyecto nunca se detiene",
+    icon: Globe,
+    badge: "3 Continentes",
+    color: "from-purple-500 to-pink-600",
+  },
+  {
+    title: "Respuesta Inmediata",
+    description: "Tu proyecto avanza 24/7, sin interrupciones",
+    icon: Zap,
+    badge: "Sin Parar",
+    color: "from-orange-500 to-red-600",
   },
 ]
 
-function WorldMap() {
-  return (
-    <div className="relative w-full h-48 bg-gradient-to-br from-blue-900/20 to-purple-900/20 rounded-lg overflow-hidden">
-      {/* Simplified world map SVG */}
-      <svg viewBox="0 0 100 60" className="w-full h-full opacity-30">
-        {/* Continents simplified */}
-        <path d="M15 20 Q20 15 25 20 L30 25 Q25 30 20 25 Z" fill="currentColor" />
-        <path d="M35 15 Q45 10 55 15 L65 20 Q60 25 50 20 Z" fill="currentColor" />
-        <path d="M70 25 Q80 20 85 25 L90 30 Q85 35 75 30 Z" fill="currentColor" />
-        <path d="M20 35 Q30 30 40 35 L45 40 Q40 45 30 40 Z" fill="currentColor" />
-      </svg>
-
-      {/* Location pins */}
-      {locations.map((location, index) => (
-        <motion.div
-          key={location.name}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: index * 0.2, duration: 0.3 }}
-          className="absolute group cursor-pointer"
-          style={{ left: `${location.x}%`, top: `${location.y}%` }}
-        >
-          <div className="relative">
-            <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse shadow-lg" />
-            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-black/90 text-white px-2 py-1 rounded text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-              {location.flag} {location.name}
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  )
-}
-
-function LocationClock({ location }: { location: Location }) {
-  const [time, setTime] = useState("")
-  const [isWorking, setIsWorking] = useState(false)
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const timeString = now.toLocaleTimeString("en-US", {
-        timeZone: location.timezone,
-        hour12: false,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      })
-      setTime(timeString)
-
-      // Check if it's working hours (8 AM - 8 PM)
-      const hour = Number.parseInt(
-        now.toLocaleTimeString("en-US", {
-          timeZone: location.timezone,
-          hour12: false,
-          hour: "2-digit",
-        }),
-      )
-      setIsWorking(hour >= 8 && hour < 20)
-    }
-
-    updateTime()
-    const interval = setInterval(updateTime, 1000)
-    return () => clearInterval(interval)
-  }, [location.timezone])
-
-  return (
-    <div className="bg-gray-800/50 rounded-lg p-3 border border-gray-700">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-2">
-          <span className="text-lg">{location.flag}</span>
-          <span className="font-medium text-sm">{location.name}</span>
-        </div>
-        <div className={`w-2 h-2 rounded-full ${isWorking ? "bg-green-500 animate-pulse" : "bg-gray-500"}`} />
-      </div>
-      <div className="font-mono text-lg font-bold mb-1">{time}</div>
-      <div className="text-xs text-gray-400">{location.specialty}</div>
-      <div className={`text-xs mt-1 ${isWorking ? "text-green-400" : "text-gray-500"}`}>
-        {isWorking ? "Activo" : "Descanso"}
-      </div>
-    </div>
-  )
-}
-
 export function TeamSection() {
   return (
-    <section id="equipo" className="py-16 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-black">
+    <section id="team" className="py-16 bg-gradient-to-br from-background to-muted/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 bg-clip-text text-transparent mb-4">
-            Nuestro Equipo
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <Badge
+            variant="outline"
+            className="mb-4 text-purple-600 dark:text-purple-400 border-purple-200 dark:border-purple-800"
+          >
+            <Users className="w-4 h-4 mr-2" />
+            Equipo Global
+          </Badge>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+            Equipo{" "}
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
+              Multidisciplinario
+            </span>
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Somos un equipo multidisciplinario de ingenieros reales e ingenieros de IA de múltiples nacionalidades,
-            trabajando 24/7 para hacer realidad tus proyectos.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Ingenieros reales de múltiples nacionalidades especializados en IA conversacional, trabajando 24/7 para tu
+            proyecto.
           </p>
-        </div>
+        </motion.div>
 
-        <Card className="bg-gradient-to-br from-gray-900 to-black border-gray-800 text-white mb-8">
-          <CardContent className="p-8">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* World Map */}
-              <div>
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <Globe className="w-5 h-5 mr-2 text-blue-400" />
-                  Cobertura Global 24/7
-                </h3>
-                <WorldMap />
-                <p className="text-gray-300 mt-4 text-sm">
-                  <span className="font-semibold text-purple-400">
-                    Mientras tu competencia duerme, nosotros desarrollamos.
-                  </span>{" "}
-                  Nuestro equipo trabaja en turnos coordinados desde 3 continentes para que tu proyecto avance 24 horas
-                  al día.
-                </p>
-              </div>
+        {/* Team Overview Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <Card className="bg-card border-2 border-border shadow-xl">
+            <CardContent className="p-8">
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                <div className="flex-shrink-0">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center text-white text-2xl font-bold border-4 border-purple-200 dark:border-purple-700">
+                    N3
+                  </div>
+                </div>
 
-              {/* Time Clocks */}
-              <div>
-                <h3 className="text-xl font-bold mb-4 flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-green-400" />
-                  Horarios en Tiempo Real
-                </h3>
-                <div className="grid gap-3">
-                  {locations.map((location) => (
-                    <LocationClock key={location.name} location={location} />
-                  ))}
-                </div>
-              </div>
-            </div>
+                <div className="flex-1 text-center lg:text-left">
+                  <div className="flex items-center justify-center lg:justify-start gap-2 mb-2">
+                    <h3 className="text-2xl font-bold text-card-foreground">Equipo N3uralia</h3>
+                    <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700">
+                      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                      ONLINE 24/7
+                    </Badge>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    Equipo multidisciplinario de ingenieros reales especializados en IA conversacional
+                  </p>
 
-            {/* Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-gray-700">
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                  24/7
-                </div>
-                <div className="text-xs text-gray-400">Disponibilidad</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">
-                  3
-                </div>
-                <div className="text-xs text-gray-400">Continentes</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-                  100%
-                </div>
-                <div className="text-xs text-gray-400">Ingenieros</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                  0
-                </div>
-                <div className="text-xs text-gray-400">Downtime</div>
-              </div>
-            </div>
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <span className="text-lg">🇨🇱</span>
+                      <span>Chile</span>
+                      <span className="text-xs text-muted-foreground">(UTC-3)</span>
+                    </Badge>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <span className="text-lg">🇸🇬</span>
+                      <span>Singapur</span>
+                      <span className="text-xs text-muted-foreground">(UTC+8)</span>
+                    </Badge>
+                    <Badge variant="outline" className="flex items-center gap-1">
+                      <span className="text-lg">🇷🇺</span>
+                      <span>Rusia</span>
+                      <span className="text-xs text-muted-foreground">(UTC+3)</span>
+                    </Badge>
+                  </div>
 
-            <div className="text-center mt-6">
-              <Button className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white">
-                <Users className="w-4 h-4 mr-2" />
-                Conocer Nuestro Equipo
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">24/7</div>
+                      <div className="text-sm text-muted-foreground">Soporte Humano + IA</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">3</div>
+                      <div className="text-sm text-muted-foreground">Continentes</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">24h</div>
+                      <div className="text-sm text-muted-foreground">Coding Non-Stop</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">100%</div>
+                      <div className="text-sm text-muted-foreground">Ingenieros Reales</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Our Great Advantage */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="text-center mb-12">
+            <Badge
+              variant="secondary"
+              className="mb-4 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700"
+            >
+              <Zap className="w-4 h-4 mr-2" />
+              Nuestra Gran Ventaja
+            </Badge>
+            <h3 className="text-3xl font-bold text-foreground mb-4">
+              Mientras tu competencia{" "}
+              <span className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">
+                duerme
+              </span>
+              , nosotros desarrollamos
+            </h3>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              La distribución estratégica de nuestro equipo en 3 continentes nos permite ofrecer desarrollo y soporte
+              continuo las 24 horas del día.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {advantages.map((advantage, index) => (
+              <motion.div
+                key={advantage.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="bg-card hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-border">
+                  <CardContent className="p-6 text-center">
+                    <div className="relative mb-4">
+                      <div
+                        className={`w-16 h-16 mx-auto rounded-xl bg-gradient-to-r ${advantage.color} flex items-center justify-center`}
+                      >
+                        <advantage.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <Badge
+                        variant="secondary"
+                        className="absolute -top-2 -right-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700 text-xs"
+                      >
+                        {advantage.badge}
+                      </Badge>
+                    </div>
+                    <h4 className="font-bold text-card-foreground mb-2">{advantage.title}</h4>
+                    <p className="text-sm text-muted-foreground">{advantage.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Final CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 border-2 border-green-200 dark:border-green-700">
+            <div className="text-4xl mb-4">🌍⚡🚀</div>
+            <h3 className="text-2xl font-bold text-foreground mb-4">3 Continentes • 24/7 Coding • 100% Humanos + IA</h3>
+            <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Aprovecha nuestra ventaja competitiva: desarrollo continuo, soporte real 24/7 y la experiencia de
+              ingenieros especializados en IA conversacional.
+            </p>
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+              asChild
+            >
+              <a
+                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20aprovechar%20su%20soporte%2024/7%20para%20mi%20proyecto"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Users className="w-5 h-5 mr-2" />
+                Aprovechar Soporte 24/7
+              </a>
+            </Button>
+          </div>
+        </motion.div>
       </div>
     </section>
   )
