@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Clock, MapPin, Users, Zap } from "lucide-react"
+import { Clock } from "lucide-react"
 
 export function TimezonesSection() {
   const [currentTime, setCurrentTime] = useState({
@@ -61,33 +61,6 @@ export function TimezonesSection() {
       time: currentTime.moscow,
       flag: "🇷🇺",
       position: { x: 60, y: 25 },
-    },
-  ]
-
-  const stats = [
-    {
-      icon: Clock,
-      value: "24/7",
-      label: "Soporte Continuo",
-      gradient: "from-blue-500 to-cyan-500",
-    },
-    {
-      icon: MapPin,
-      value: "3",
-      label: "Continentes",
-      gradient: "from-purple-500 to-pink-500",
-    },
-    {
-      icon: Users,
-      value: "100%",
-      label: "Ingenieros",
-      gradient: "from-green-500 to-emerald-500",
-    },
-    {
-      icon: Zap,
-      value: "99.9%",
-      label: "Uptime",
-      gradient: "from-orange-500 to-red-500",
     },
   ]
 
@@ -196,53 +169,33 @@ export function TimezonesSection() {
             </Card>
           </div>
 
-          {/* Stats and Info */}
-          <div className="space-y-8">
-            {/* Live Clocks */}
-            <div className="grid grid-cols-1 gap-4">
-              {timezones.map((tz, index) => (
-                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{tz.flag}</span>
-                        <div>
-                          <div className="font-semibold text-white">
-                            {tz.city}, {tz.country}
-                          </div>
-                          <div className={`text-sm ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
-                            {isWorkingHours(tz.time) ? "Horario laboral" : "Fuera de horario"}
-                          </div>
+          {/* Live Clocks */}
+          <div className="space-y-4">
+            {timezones.map((tz, index) => (
+              <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{tz.flag}</span>
+                      <div>
+                        <div className="font-semibold text-white">
+                          {tz.city}, {tz.country}
+                        </div>
+                        <div className={`text-sm ${isWorkingHours(tz.time) ? "text-green-400" : "text-red-400"}`}>
+                          {isWorkingHours(tz.time) ? "Horario laboral" : "Fuera de horario"}
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-mono text-white">{formatTime(tz.time)}</div>
-                        <div
-                          className={`w-3 h-3 rounded-full mx-auto mt-1 ${isWorkingHours(tz.time) ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
-                        />
-                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-4">
-              {stats.map((stat, index) => (
-                <Card key={index} className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
-                  <CardContent className="p-6 text-center">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-r ${stat.gradient} rounded-xl flex items-center justify-center mx-auto mb-3`}
-                    >
-                      <stat.icon className="w-6 h-6 text-white" />
+                    <div className="text-right">
+                      <div className="text-2xl font-mono text-white">{formatTime(tz.time)}</div>
+                      <div
+                        className={`w-3 h-3 rounded-full mx-auto mt-1 ${isWorkingHours(tz.time) ? "bg-green-400 animate-pulse" : "bg-red-400"}`}
+                      />
                     </div>
-                    <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-slate-400">{stat.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </div>
