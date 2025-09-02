@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# AI Search Engine Bots
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: BingBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Specific paths for AI optimization
+Allow: /llmo-content
+Allow: /ai-search-simulation
+Allow: /social-test-results
+
+# Sitemap
+Sitemap: https://n3uralia.com/sitemap.xml
+
+# Crawl delay for better indexing
+Crawl-delay: 1

@@ -1,141 +1,106 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-// Simple fallback responses without AI SDK dependency
-const fallbackResponses = {
-  cotizacion: `¡Perfecto! Para darte una cotización precisa, necesito conocer más sobre tu proyecto:
-
-📋 **Información que necesito:**
-• ¿Qué tipo de negocio tienes?
-• ¿Cuántos usuarios/clientes manejas mensualmente?
-• ¿Qué procesos quieres automatizar?
-
-💰 **Rangos de inversión:**
-• Chatbot básico: $2,000 - $5,000 USD
-• Sistema multicanal: $5,000 - $15,000 USD
-• Solución enterprise: $15,000+ USD
-
-¿Te gustaría agendar una llamada para revisar tu caso específico?`,
-
-  arquitectura: `🏗️ **Nuestra Arquitectura Técnica:**
-
-**Frontend:**
-• React/Next.js con TypeScript
-• Tailwind CSS para UI responsiva
-• Real-time WebSocket connections
-
-**Backend:**
-• Node.js/Python APIs
-• PostgreSQL/MongoDB databases
-• Redis para caching
-
-**IA & ML:**
-• OpenAI GPT-4 integration
-• Custom neural networks
-• Natural Language Processing
-
-**Infraestructura:**
-• AWS/Google Cloud deployment
-• Docker containerization
-• 99.9% uptime guarantee
-
-¿Hay algún aspecto técnico específico que te interese conocer más?`,
-
-  casos: `🎯 **Casos de Éxito Destacados:**
-
-**EcosueloLab** - AgTech
-• 40% reducción en tiempo de análisis
-• Automatización de reportes técnicos
-• ROI: 300% en 6 meses
-
-**ParrotfyIA** - EdTech
-• 85% mejora en engagement
-• Personalización de aprendizaje
-• 50,000+ usuarios activos
-
-**Despega Tu Carrera** - HR Tech
-• 60% más colocaciones exitosas
-• Matching inteligente candidato-empresa
-• 95% satisfacción de usuarios
-
-¿Te interesa conocer más detalles de algún caso específico?`,
-
-  procesos: `⚙️ **Nuestro Proceso de Implementación:**
-
-**Fase 1: Análisis (1-2 semanas)**
-• Auditoría de procesos actuales
-• Identificación de oportunidades
-• Definición de objetivos y KPIs
-
-**Fase 2: Diseño (2-3 semanas)**
-• Arquitectura de la solución
-• Prototipo funcional
-• Plan de integración
-
-**Fase 3: Desarrollo (4-8 semanas)**
-• Desarrollo del sistema
-• Entrenamiento de modelos IA
-• Testing y optimización
-
-**Fase 4: Despliegue (1-2 semanas)**
-• Implementación en producción
-• Capacitación del equipo
-• Monitoreo y ajustes
-
-¿En qué fase te gustaría profundizar más?`,
-}
+import { generateText } from "ai"
+import { openai } from "@ai-sdk/openai"
 
 export async function POST(request: NextRequest) {
   try {
-    const { message } = await request.json()
+    const { message, scenario } = await request.json()
 
     if (!message) {
       return NextResponse.json({ error: "Message is required" }, { status: 400 })
     }
 
-    // Simple keyword matching for fallback responses
-    const lowerMessage = message.toLowerCase()
+    // Define scenario-specific system prompts
+    const systemPrompts = {
+      ecosuelolab: `Eres un asistente especializado de EcosueloLab, una plataforma de análisis de suelos con IA para agricultores.
 
-    let response = ""
+CONTEXTO:
+- EcosueloLab ayuda a agricultores a optimizar sus cultivos mediante análisis de suelos inteligente
+- Usas WhatsApp para comunicarte directamente con agricultores
+- Tienes acceso a datos climáticos, tipos de suelo y recomendaciones de cultivos para Chile
+- Tu objetivo es proporcionar consejos prácticos y específicos
 
-    if (lowerMessage.includes("cotiz") || lowerMessage.includes("precio") || lowerMessage.includes("costo")) {
-      response = fallbackResponses.cotizacion
-    } else if (
-      lowerMessage.includes("arquitectura") ||
-      lowerMessage.includes("tecnic") ||
-      lowerMessage.includes("tecnolog")
-    ) {
-      response = fallbackResponses.arquitectura
-    } else if (
-      lowerMessage.includes("caso") ||
-      lowerMessage.includes("ejemplo") ||
-      lowerMessage.includes("referencia")
-    ) {
-      response = fallbackResponses.casos
-    } else if (
-      lowerMessage.includes("proceso") ||
-      lowerMessage.includes("metodolog") ||
-      lowerMessage.includes("implementa")
-    ) {
-      response = fallbackResponses.procesos
-    } else {
-      // Default response
-      response = `¡Hola! Soy el AI Expert de N3uralia 🤖
+PERSONALIDAD:
+- Amigable y cercano, como un ingeniero agrónomo experimentado
+- Usas emojis relacionados con agricultura (🌱🚜📊💧🌾)
+- Hablas en español chileno, pero de forma profesional
+- Siempre ofreces soluciones concretas y medibles
 
-Puedo ayudarte con:
-• **Cotizaciones** personalizadas para tu proyecto
-• **Arquitectura técnica** de nuestras soluciones
-• **Casos de éxito** de clientes reales
-• **Procesos** de implementación
+CAPACIDADES:
+- Análisis de pH, nutrientes, humedad y composición del suelo
+- Recomendaciones de fertilizantes y corrección de suelos
+- Calendarios de siembra y cosecha
+- Integración con sistemas de riego
+- Reportes detallados por WhatsApp
 
-¿Sobre qué te gustaría saber más?`
+Responde como si fueras este asistente especializado.`,
+
+      parrotfy: `Eres un agente de automatización empresarial de Parrotfy ERP, especializado en integración de IA con sistemas empresariales.
+
+CONTEXTO:
+- Parrotfy ERP integra IA conversacional con sistemas ERP existentes (SAP, Oracle, Microsoft Dynamics)
+- Automatizas procesos como facturación, inventario, RRHH y reportes
+- Trabajas con empresas medianas y grandes
+- Tu objetivo es reducir trabajo manual y aumentar eficiencia
+
+PERSONALIDAD:
+- Profesional y técnico, pero accesible
+- Usas emojis empresariales (⚡📊💼🔧📈)
+- Hablas con conocimiento de procesos empresariales
+- Siempre cuantificas beneficios (% de reducción de tiempo, costos, etc.)
+
+CAPACIDADES:
+- Integración con APIs de ERP
+- Automatización de workflows empresariales
+- Generación automática de reportes
+- Procesamiento de documentos
+- Análisis de datos empresariales en tiempo real
+- Notificaciones inteligentes
+
+Responde como si fueras este agente especializado en automatización empresarial.`,
+
+      despega: `Eres un coach de carrera con IA de "Despega Tu Carrera", especializado en desarrollo profesional y transiciones de carrera.
+
+CONTEXTO:
+- "Despega Tu Carrera" es una plataforma de coaching profesional potenciada por IA
+- Ayudas a personas a cambiar de carrera, desarrollar habilidades y encontrar oportunidades
+- Tienes acceso a datos del mercado laboral, tendencias de industrias y programas de capacitación
+- Tu objetivo es empoderar a las personas en su crecimiento profesional
+
+PERSONALIDAD:
+- Empático y motivador, como un mentor experimentado
+- Usas emojis de crecimiento y éxito (🚀💪🎯📚✨)
+- Hablas con calidez pero mantienes profesionalismo
+- Siempre ofreces pasos concretos y alcanzables
+
+CAPACIDADES:
+- Análisis de perfil profesional y habilidades
+- Recomendaciones de carrera basadas en tendencias del mercado
+- Planes de desarrollo personalizados
+- Conexión con oportunidades laborales
+- Seguimiento de progreso y metas
+- Preparación para entrevistas y networking
+
+Responde como si fueras este coach de carrera con IA.`,
     }
 
+    const systemPrompt = systemPrompts[scenario as keyof typeof systemPrompts] || systemPrompts.ecosuelolab
+
+    const { text } = await generateText({
+      model: openai("gpt-4"),
+      system: systemPrompt,
+      prompt: message,
+      maxTokens: 300,
+      temperature: 0.7,
+    })
+
     return NextResponse.json({
-      message: response,
+      response: text,
+      scenario: scenario,
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
-    console.error("Hero agent error:", error)
+    console.error("Error in hero-agent route:", error)
     return NextResponse.json({ error: "Error processing request" }, { status: 500 })
   }
 }
