@@ -35,7 +35,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 py-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 sm:px-8 md:px-12 lg:px-4 py-20">
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950">
         <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5"></div>
@@ -50,21 +50,24 @@ export function HeroSection() {
         <div className="absolute bottom-40 right-10 w-28 h-28 bg-yellow-500/10 rounded-full blur-xl animate-pulse delay-3000"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Left Column - Content */}
-        <div className={`space-y-8 ${isVisible ? "animate-in slide-in-from-left duration-1000" : "opacity-0"}`}>
+        <div
+          className={`space-y-6 lg:space-y-8 ${isVisible ? "animate-in slide-in-from-left duration-1000" : "opacity-0"}`}
+        >
           {/* Company Badge */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 flex-wrap">
             <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" width={40} height={40} className="rounded-lg" />
-            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 px-4 py-2">
+            <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 px-3 py-2 text-sm">
               <Sparkles className="w-4 h-4 mr-2" />
-              Agentes Conversacionales Inteligentes
+              <span className="hidden sm:inline">Agentes Conversacionales Inteligentes</span>
+              <span className="sm:hidden">IA Conversacional</span>
             </Badge>
           </div>
 
           {/* Main Headline */}
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+          <div className="space-y-3 lg:space-y-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
               <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
                 Full Stack
               </span>
@@ -74,7 +77,7 @@ export function HeroSection() {
               </span>
             </h1>
 
-            <div className="text-xl md:text-2xl text-slate-300 space-y-2">
+            <div className="text-base sm:text-lg md:text-xl lg:text-2xl text-slate-300 space-y-1 lg:space-y-2">
               <p className="font-semibold text-blue-300">🔧 FULL STACK Engineering</p>
               <p className="font-semibold text-purple-300">🤖 Agentic Fleet + Custom AGENTS</p>
               <p className="font-semibold text-green-300">⚡ Next Level AI TOOLS for Your Business</p>
@@ -82,7 +85,7 @@ export function HeroSection() {
           </div>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed max-w-2xl">
             Transformamos tu negocio con{" "}
             <strong className="text-blue-400">agentes conversacionales inteligentes</strong> que realmente entienden a
             tus usuarios. Desde automatización empresarial hasta integración completa con WhatsApp, CRM y ERP.{" "}
@@ -90,7 +93,7 @@ export function HeroSection() {
           </p>
 
           {/* Animated Metrics */}
-          <div className="flex flex-wrap gap-4">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-3 lg:gap-4">
             {metrics.map((metric, index) => {
               const Icon = metric.icon
               const isActive = index === currentMetric
@@ -103,13 +106,13 @@ export function HeroSection() {
                       : "bg-slate-900/50 border-slate-700/50"
                   }`}
                 >
-                  <CardContent className="p-4 flex items-center space-x-3">
-                    <Icon className={`w-5 h-5 ${isActive ? metric.color : "text-slate-400"}`} />
+                  <CardContent className="p-3 lg:p-4 flex items-center space-x-2 lg:space-x-3">
+                    <Icon className={`w-4 h-4 lg:w-5 lg:h-5 ${isActive ? metric.color : "text-slate-400"}`} />
                     <div>
-                      <div className={`text-lg font-bold ${isActive ? metric.color : "text-white"}`}>
+                      <div className={`text-sm lg:text-lg font-bold ${isActive ? metric.color : "text-white"}`}>
                         {metric.value}
                       </div>
-                      <div className="text-sm text-slate-400">{metric.label}</div>
+                      <div className="text-xs lg:text-sm text-slate-400">{metric.label}</div>
                     </div>
                   </CardContent>
                 </Card>
@@ -118,30 +121,30 @@ export function HeroSection() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 lg:gap-4">
             <Button
               size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 group min-h-[48px]"
               onClick={() => scrollToSection("casos-de-uso")}
             >
-              <Bot className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+              <Bot className="w-4 h-4 lg:w-5 lg:h-5 mr-2 group-hover:animate-pulse" />
               Ver Casos de Éxito
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
 
             <Button
               size="lg"
               variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent backdrop-blur-sm group"
+              className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent backdrop-blur-sm group min-h-[48px]"
               onClick={() => scrollToSection("demo-chat")}
             >
-              <Play className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              <Play className="w-4 h-4 lg:w-5 lg:h-5 mr-2 group-hover:scale-110 transition-transform" />
               Demo Interactivo
             </Button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6 pt-4 border-t border-slate-800">
             <div className="flex items-center space-x-2 text-slate-400">
               <MessageSquare className="w-4 h-4 text-green-400" />
               <span className="text-sm">Integración WhatsApp Certificada</span>
@@ -158,7 +161,9 @@ export function HeroSection() {
         </div>
 
         {/* Right Column - Interactive Demo */}
-        <div className={`${isVisible ? "animate-in slide-in-from-right duration-1000 delay-300" : "opacity-0"}`}>
+        <div
+          className={`mt-8 lg:mt-0 ${isVisible ? "animate-in slide-in-from-right duration-1000 delay-300" : "opacity-0"}`}
+        >
           <div id="demo-chat">
             <HeroChatInterface />
           </div>
@@ -166,7 +171,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
         <div className="w-6 h-10 border-2 border-slate-600 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-slate-400 rounded-full mt-2 animate-pulse"></div>
         </div>

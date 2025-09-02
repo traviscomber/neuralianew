@@ -80,6 +80,37 @@
   .animate-gradient {
     animation: gradient 3s ease infinite;
   }
+
+  /* Mobile-first responsive utilities */
+  .text-responsive {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .padding-responsive {
+    @apply p-4 sm:p-6 md:p-8 lg:p-12;
+  }
+
+  .margin-responsive {
+    @apply m-4 sm:m-6 md:m-8 lg:m-12;
+  }
+
+  /* Touch-friendly button sizes */
+  .btn-touch {
+    @apply min-h-[48px] min-w-[48px];
+  }
+
+  /* Mobile-optimized spacing */
+  .space-mobile {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
+  }
+
+  .gap-mobile {
+    @apply gap-3 sm:gap-4 md:gap-6;
+  }
 }
 
 @keyframes accordion-down {
@@ -200,8 +231,29 @@
 }
 
 /* Responsive utilities */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .container {
+    @apply px-6;
+  }
+
+  /* Ensure minimum padding on mobile */
+  body {
+    @apply overflow-x-hidden;
+  }
+
+  /* Fix text cutoff on mobile */
+  section {
+    @apply px-6;
+  }
+}
+
+@media (max-width: 475px) {
+  .container {
+    @apply px-4;
+  }
+
+  /* Extra small screens need more padding */
+  section {
     @apply px-4;
   }
 }
@@ -226,4 +278,41 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   @apply bg-gray-400 dark:bg-gray-500;
+}
+
+/* Touch-friendly interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+
+  .hover\:shadow-xl:hover {
+    box-shadow: none;
+  }
+
+  button {
+    @apply min-h-[48px];
+  }
+}
+
+/* Animation performance optimization */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-bounce,
+  .animate-fade-in,
+  .animate-slide-in,
+  .animate-gradient {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .bg-gradient-to-r {
+    background: var(--foreground);
+  }
+
+  .text-muted-foreground {
+    color: var(--foreground);
+  }
 }
