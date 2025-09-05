@@ -5,7 +5,19 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MessageSquare, Users, Globe, ArrowRight, Play, Bot, Sparkles, TrendingUp, Shield } from "lucide-react"
+import {
+  MessageSquare,
+  Users,
+  Globe,
+  ArrowRight,
+  Play,
+  Bot,
+  Sparkles,
+  TrendingUp,
+  Shield,
+  Code,
+  Database,
+} from "lucide-react"
 import { ChatWidget } from "@/components/chat/chat-widget"
 import { HeroChatInterface } from "./hero-chat-interface"
 
@@ -15,7 +27,7 @@ export function HeroSection() {
 
   const stats = [
     { icon: TrendingUp, value: "250%", label: "ROI Promedio", color: "text-green-400" },
-    { icon: Users, value: "50+", label: "Proyectos Exitosos", color: "text-blue-400" },
+    { icon: Users, value: "50+", label: "Proyectos Full Stack", color: "text-blue-400" },
     { icon: Globe, value: "24/7", label: "Soporte Global", color: "text-purple-400" },
     { icon: Shield, value: "95%", label: "Satisfacción", color: "text-orange-400" },
   ]
@@ -40,16 +52,16 @@ export function HeroSection() {
             {/* Badges */}
             <div className="flex flex-wrap justify-center lg:justify-start gap-3">
               <Badge className="bg-blue-600/20 text-blue-300 border-blue-500/30 hover:bg-blue-600/30">
-                <MessageSquare className="w-3 h-3 mr-1" />
-                Integración WhatsApp Certificada
+                <Code className="w-3 h-3 mr-1" />
+                Full Stack Development
               </Badge>
               <Badge className="bg-purple-600/20 text-purple-300 border-purple-500/30 hover:bg-purple-600/30">
                 <Sparkles className="w-3 h-3 mr-1" />
                 OpenAI GPT-4 Partner
               </Badge>
               <Badge className="bg-green-600/20 text-green-300 border-green-500/30 hover:bg-green-600/30">
-                <Globe className="w-3 h-3 mr-1" />
-                Presencia Global
+                <Database className="w-3 h-3 mr-1" />
+                Enterprise Solutions
               </Badge>
             </div>
 
@@ -64,19 +76,19 @@ export function HeroSection() {
               </h1>
 
               <div className="space-y-2 text-lg sm:text-xl text-slate-300">
-                <p className="font-semibold text-blue-300">FULL STACK Engineering</p>
-                <p className="font-semibold text-purple-300">Agentic Fleet + Custom AGENTS</p>
-                <p className="font-semibold text-green-300">Next Level AI TOOLS for Your Business</p>
+                <p className="font-semibold text-blue-300">🚀 FULL STACK Engineering</p>
+                <p className="font-semibold text-purple-300">🤖 Agentic Fleet + Custom AGENTS</p>
+                <p className="font-semibold text-green-300">⚡ Next Level AI TOOLS for Your Business</p>
               </div>
             </div>
 
             {/* Description */}
             <p className="text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Transformamos tu negocio con{" "}
-              <span className="text-blue-400 font-semibold">agentes conversacionales inteligentes</span> que realmente
-              entienden a tus usuarios. Desde automatización empresarial hasta integración completa con{" "}
-              <span className="text-green-400 font-semibold">WhatsApp, CRM y ERP</span>.{" "}
-              <span className="text-purple-400 font-semibold">Soporte 24/7 global</span> con equipos en Chile, Singapur
+              <strong className="text-blue-400">No solo agentes conversacionales.</strong> Desarrollamos{" "}
+              <span className="text-purple-400 font-semibold">ecosistemas tecnológicos completos</span>: frontend,
+              backend, bases de datos, APIs, integraciones y{" "}
+              <span className="text-green-400 font-semibold">agentes de IA especializados</span>.{" "}
+              <span className="text-orange-400 font-semibold">Soporte 24/7 global</span> con equipos en Chile, Singapur
               y Rusia.
             </p>
 
@@ -116,7 +128,7 @@ export function HeroSection() {
                 onClick={() => setActiveTab("demo")}
               >
                 <Play className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                Ver Demo en Vivo
+                Ver Demo Full Stack
               </Button>
             </div>
           </div>
@@ -139,7 +151,7 @@ export function HeroSection() {
                       className="data-[state=active]:bg-purple-600 data-[state=active]:text-white"
                     >
                       <Play className="w-4 h-4 mr-2" />
-                      Demo Interactivo
+                      Demo Full Stack
                     </TabsTrigger>
                   </TabsList>
 
@@ -151,8 +163,8 @@ export function HeroSection() {
                         </div>
                         <h3 className="text-xl font-semibold text-white">Chat Directo con N3uralia</h3>
                         <p className="text-slate-400">
-                          Habla directamente con nuestro equipo de expertos en IA. Respuesta garantizada en menos de 1
-                          hora.
+                          Habla directamente con nuestro equipo de ingenieros full stack. Respuesta garantizada en menos
+                          de 1 hora.
                         </p>
                       </div>
 
@@ -163,7 +175,12 @@ export function HeroSection() {
 
                       <Button
                         className="w-full bg-green-600 hover:bg-green-700 text-white border-0 shadow-lg"
-                        onClick={() => window.open("https://wa.me/56900000000", "_blank")}
+                        onClick={() =>
+                          window.open(
+                            "https://wa.me/56940946660?text=Hola%20N3uralia%2C%20necesito%20una%20solución%20full%20stack%20con%20IA",
+                            "_blank",
+                          )
+                        }
                       >
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Iniciar Chat en WhatsApp

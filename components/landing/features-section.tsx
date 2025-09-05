@@ -2,35 +2,35 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Bot, MessageSquare, Cog, Zap, Globe, Building } from "lucide-react"
+import { Bot, MessageSquare, Building, Code, Database, Cloud } from "lucide-react"
 
 export function FeaturesSection() {
   const features = [
     {
-      icon: Bot,
-      title: "AI Agents & Automations",
+      icon: Code,
+      title: "Full Stack Development",
       description:
-        "Agentes inteligentes que automatizan procesos complejos, toman decisiones y aprenden continuamente de cada interacción para optimizar resultados.",
-      badge: "24/7 Active",
+        "Desarrollamos ecosistemas tecnológicos completos: frontend React/Next.js, backend Node.js/Python, bases de datos PostgreSQL/MongoDB, APIs REST/GraphQL y agentes IA especializados.",
+      badge: "End-to-End",
       gradient: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-500/10 to-cyan-500/10",
       borderGradient: "from-blue-500/30 to-cyan-500/30",
     },
     {
       icon: MessageSquare,
-      title: "Multichannel",
+      title: "Agentes IA + Integraciones",
       description:
-        "Integración perfecta en WhatsApp, web, móvil y redes sociales. Una experiencia unificada que mantiene contexto en todos los canales.",
+        "Agentes conversacionales inteligentes integrados con WhatsApp Business API, CRM, ERP y sistemas empresariales. Una experiencia unificada que mantiene contexto en todos los canales.",
       badge: "Omnichannel",
       gradient: "from-purple-500 to-pink-500",
       bgGradient: "from-purple-500/10 to-pink-500/10",
       borderGradient: "from-purple-500/30 to-pink-500/30",
     },
     {
-      icon: Cog,
-      title: "Full Stack AI Systems",
+      icon: Building,
+      title: "Enterprise Architecture",
       description:
-        "Soluciones completas desde el frontend hasta la infraestructura, con modelos de IA personalizados y arquitectura escalable enterprise.",
+        "Arquitectura escalable enterprise con microservicios, contenedores Docker, Kubernetes, CI/CD, monitoreo avanzado y seguridad de nivel bancario para empresas de cualquier tamaño.",
       badge: "11+ Industries",
       gradient: "from-orange-500 to-red-500",
       bgGradient: "from-orange-500/10 to-red-500/10",
@@ -48,19 +48,23 @@ export function FeaturesSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
+            <Database className="w-4 h-4 mr-2" />
+            Más que Agentes Conversacionales
+          </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-              Soluciones que
+              Ecosistemas tecnológicos
             </span>
             <br />
             <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-              transforman negocios
+              que transforman negocios
             </span>
           </h2>
 
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Implementamos tecnología de inteligencia artificial que se adapta a las necesidades específicas de tu
-            industria y escala con tu crecimiento.
+          <p className="text-xl text-slate-300 max-w-4xl mx-auto">
+            Desarrollamos <strong>soluciones full stack completas</strong> con tecnología de inteligencia artificial que
+            se adapta a las necesidades específicas de tu industria y escala con tu crecimiento.
           </p>
         </div>
 
@@ -105,20 +109,20 @@ export function FeaturesSection() {
                 <div className="flex items-center gap-2 mt-6 opacity-60 group-hover:opacity-100 transition-opacity">
                   {index === 0 && (
                     <>
-                      <Bot className="w-4 h-4 text-blue-400" />
-                      <Zap className="w-4 h-4 text-cyan-400" />
+                      <Code className="w-4 h-4 text-blue-400" />
+                      <Database className="w-4 h-4 text-cyan-400" />
                     </>
                   )}
                   {index === 1 && (
                     <>
-                      <Globe className="w-4 h-4 text-purple-400" />
+                      <Bot className="w-4 h-4 text-purple-400" />
                       <MessageSquare className="w-4 h-4 text-pink-400" />
                     </>
                   )}
                   {index === 2 && (
                     <>
-                      <Building className="w-4 h-4 text-orange-400" />
-                      <Cog className="w-4 h-4 text-red-400" />
+                      <Cloud className="w-4 h-4 text-orange-400" />
+                      <Building className="w-4 h-4 text-red-400" />
                     </>
                   )}
                 </div>

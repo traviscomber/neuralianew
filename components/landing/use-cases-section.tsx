@@ -18,44 +18,51 @@ import {
   CheckCircle,
   Clock,
   TrendingUp,
+  Code,
+  Database,
+  Cloud,
 } from "lucide-react"
 
 const useCases = [
   {
     id: "ecosuelo",
     title: "EcosueloLab",
-    subtitle: "Análisis de Suelo Inteligente",
+    subtitle: "Plataforma Full Stack de Análisis Agrícola",
     icon: Sprout,
     industry: "Agricultura",
-    description: "Agente conversacional avanzado de IA que entrega análisis de suelo en tiempo real por WhatsApp",
-    challenge: "Los agricultores esperaban días para recibir resultados de análisis de suelo por email o teléfono",
+    description:
+      "Sistema completo de análisis de suelo con IA conversacional, dashboard web, API REST y base de datos en tiempo real",
+    challenge:
+      "Los agricultores necesitaban una solución integral que conectara laboratorios, análisis y recomendaciones en una sola plataforma",
     solution:
-      "Agente conversacional avanzado de IA que interpreta consultas y entrega análisis personalizados instantáneos por WhatsApp",
+      "Desarrollamos una solución full stack completa: frontend web, backend con APIs, base de datos PostgreSQL, integración WhatsApp Business API y agentes de IA especializados",
     results: [
-      "Respuesta instantánea 24/7",
-      "Reducción de 5 días a 5 minutos",
-      "95% de satisfacción del cliente",
-      "IA conversacional avanzada",
+      "Plataforma web completa con dashboard",
+      "API REST para integración con laboratorios",
+      "Base de datos en tiempo real",
+      "Agente conversacional por WhatsApp",
+      "Reducción 90% en tiempo de procesamiento",
     ],
+    techStack: ["Next.js", "PostgreSQL", "WhatsApp Business API", "OpenAI GPT-4", "Vercel", "Supabase"],
     chat: [
       { type: "user", message: "Hola, necesito los resultados del análisis de mi parcela #1247", time: "14:32" },
       {
         type: "bot",
         message:
-          "¡Hola! Soy tu asistente de IA especializado en análisis de suelo. Consultando los resultados de tu parcela #1247... ✅",
+          "¡Hola! Soy tu asistente de IA especializado en análisis de suelo. Consultando los resultados de tu parcela #1247 en nuestra base de datos... ✅",
         time: "14:32",
       },
       {
         type: "bot",
         message:
-          "📊 **Resultados Parcela #1247:**\n\n🌱 **Nitrógeno:** 45 ppm (Óptimo)\n💧 **Fósforo:** 12 ppm (Bajo - requiere fertilización)\n🌿 **Potasio:** 180 ppm (Bueno)\n📈 **pH:** 6.8 (Ideal para cultivos)\n\n**Mi recomendación IA:** Aplicar fertilizante fosfórico en dosis de 50kg/ha basado en análisis predictivo",
+          "📊 **Resultados Parcela #1247:**\n\n🌱 **Nitrógeno:** 45 ppm (Óptimo)\n💧 **Fósforo:** 12 ppm (Bajo - requiere fertilización)\n🌿 **Potasio:** 180 ppm (Bueno)\n📈 **pH:** 6.8 (Ideal para cultivos)\n\n**Recomendación IA:** Aplicar fertilizante fosfórico 50kg/ha\n\n📱 También puedes ver el reporte completo en tu dashboard web",
         time: "14:33",
       },
       { type: "user", message: "¿Qué cultivo me recomiendas para esta parcela?", time: "14:35" },
       {
         type: "bot",
         message:
-          "Basado en mi análisis de IA y las condiciones de tu suelo:\n\n🌽 **Maíz:** 95% compatibilidad\n🥔 **Papa:** 88% compatibilidad\n🌾 **Trigo:** 82% compatibilidad\n\nRecomiendo **maíz** por el pH óptimo y niveles de nutrientes. ¿Quieres que calcule el rendimiento esperado?",
+          "Basado en mi análisis de IA y datos históricos de nuestra plataforma:\n\n🌽 **Maíz:** 95% compatibilidad\n🥔 **Papa:** 88% compatibilidad\n🌾 **Trigo:** 82% compatibilidad\n\nRecomiendo **maíz** por condiciones óptimas. El sistema ya actualizó tu perfil con esta recomendación.",
         time: "14:35",
       },
     ],
@@ -63,18 +70,23 @@ const useCases = [
   {
     id: "despega",
     title: "Despega Tu Carrera",
-    subtitle: "Coaching Profesional con IA",
+    subtitle: "Ecosistema Full Stack de Coaching Profesional",
     icon: GraduationCap,
     industry: "Educación",
-    description: "Asistente de IA que guía a profesionales en su desarrollo de carrera con consejos personalizados",
-    challenge: "Los profesionales necesitan orientación de carrera personalizada pero los coaches son costosos",
-    solution: "IA conversacional que analiza perfiles y entrega consejos de carrera específicos y motivacionales",
+    description:
+      "Plataforma completa de desarrollo profesional con IA, portal web, sistema de matching y analytics avanzados",
+    challenge:
+      "Crear un ecosistema completo que conecte profesionales, empresas y oportunidades con coaching personalizado",
+    solution:
+      "Desarrollamos una plataforma full stack: aplicación web React, backend Node.js, base de datos con perfiles profesionales, sistema de matching con IA y agentes conversacionales especializados",
     results: [
-      "Consejos personalizados 24/7",
-      "85% mejora en claridad de objetivos",
-      "Coaching accesible para todos",
-      "Seguimiento continuo del progreso",
+      "Portal web completo con perfiles",
+      "Sistema de matching IA-powered",
+      "Analytics de progreso profesional",
+      "Agente de coaching conversacional",
+      "85% mejora en colocaciones laborales",
     ],
+    techStack: ["React", "Node.js", "MongoDB", "OpenAI GPT-4", "WhatsApp API", "AWS"],
     chat: [
       {
         type: "user",
@@ -84,7 +96,7 @@ const useCases = [
       {
         type: "bot",
         message:
-          "Hola! Entiendo perfectamente esa sensación. Es muy común en ingenieros con tu experiencia. Cuéntame, ¿en qué área específica trabajas y qué tipo de crecimiento buscas?",
+          "¡Hola! Soy tu coach de IA. He revisado tu perfil en nuestra plataforma y entiendo tu situación. Cuéntame, ¿en qué área específica trabajas y qué tipo de crecimiento buscas?",
         time: "10:15",
       },
       {
@@ -95,14 +107,14 @@ const useCases = [
       {
         type: "bot",
         message:
-          "¡Excelente objetivo! 🚀 Para liderar proyectos grandes necesitas desarrollar 3 áreas clave:\n\n👥 **Liderazgo técnico:** Comienza mentoreando juniors\n📊 **Gestión de proyectos:** Aprende metodologías ágiles\n🗣️ **Comunicación:** Practica presentar ideas a stakeholders\n\n¿Cuál de estas áreas sientes que es tu mayor desafío?",
+          "¡Excelente objetivo! 🚀 Basado en tu perfil y nuestro análisis de mercado:\n\n👥 **Liderazgo técnico:** Comienza mentoreando juniors\n📊 **Gestión de proyectos:** Aprende metodologías ágiles\n🗣️ **Comunicación:** Practica presentar ideas\n\n✅ He actualizado tu plan de desarrollo en el portal. ¿Cuál área priorizamos?",
         time: "10:17",
       },
       { type: "user", message: "Definitivamente la comunicación con stakeholders me cuesta", time: "10:19" },
       {
         type: "bot",
         message:
-          "Perfecto, identificaste el punto clave! 💡 Te sugiero:\n\n1. **Esta semana:** Ofrécete para presentar en la próxima reunión de equipo\n2. **Este mes:** Toma un curso de comunicación técnica\n3. **Próximos 3 meses:** Busca un mentor senior que sea buen comunicador\n\n¿Te parece un plan realista? ¿Con cuál empezarías?",
+          "Perfecto! 💡 He creado un plan personalizado:\n\n📅 **Esta semana:** Curso de comunicación técnica (ya agregado a tu dashboard)\n🎯 **Este mes:** 3 oportunidades de presentación identificadas\n👨‍💼 **Próximos 3 meses:** Te conecté con 2 mentores senior\n\n¿Empezamos con el curso online?",
         time: "10:19",
       },
     ],
@@ -110,36 +122,41 @@ const useCases = [
   {
     id: "parrotfy",
     title: "Parrotfy ERP",
-    subtitle: "Asistente IA para ERP",
+    subtitle: "Suite Full Stack de Business Intelligence",
     icon: Building2,
     industry: "Empresarial",
-    description: "Agente conversacional que permite consultar datos del ERP usando lenguaje natural",
-    challenge: "Los usuarios necesitan capacitación extensa para usar sistemas ERP complejos",
-    solution: "IA que interpreta consultas en lenguaje natural y extrae información específica del ERP",
+    description:
+      "Sistema completo de BI con IA conversacional, dashboards interactivos, APIs de integración y reportería automática",
+    challenge:
+      "Las empresas necesitaban una solución integral que unificara datos ERP, CRM y analytics con acceso conversacional",
+    solution:
+      "Construimos una suite completa: frontend con dashboards React, backend con microservicios, integración con múltiples ERPs, base de datos analítica y agentes conversacionales especializados",
     results: [
-      "Consultas ERP en lenguaje natural",
-      "70% reducción en tiempo de capacitación",
-      "Acceso instantáneo a reportes",
-      "Integración con OpenAI GPT-4",
+      "Dashboards interactivos en tiempo real",
+      "APIs de integración con 15+ ERPs",
+      "Base de datos analítica unificada",
+      "Agente conversacional multicanal",
+      "ROI 300% en primer año",
     ],
+    techStack: ["React", "Python", "PostgreSQL", "OpenAI GPT-4", "Docker", "Kubernetes"],
     chat: [
       { type: "user", message: "¿Cuáles fueron las ventas del mes pasado por región?", time: "09:45" },
       {
         type: "bot",
-        message: "Consultando las ventas de diciembre 2023 por región... 📊",
+        message: "Consultando datos en tiempo real desde nuestro data warehouse... 📊",
         time: "09:45",
       },
       {
         type: "bot",
         message:
-          "**📈 Ventas Diciembre 2023:**\n\n🏙️ **Región Metropolitana:** $2,450,000\n🌊 **Valparaíso:** $1,230,000\n🏔️ **Biobío:** $890,000\n🌵 **Norte Grande:** $1,100,000\n\n**Total:** $5,670,000 (+12% vs nov)\n\n¿Quieres ver el detalle de alguna región específica?",
+          "**📈 Ventas Diciembre 2023:**\n\n🏙️ **Región Metropolitana:** $2,450,000\n🌊 **Valparaíso:** $1,230,000\n🏔️ **Biobío:** $890,000\n🌵 **Norte Grande:** $1,100,000\n\n**Total:** $5,670,000 (+12% vs nov)\n\n📊 Dashboard actualizado con gráficos interactivos",
         time: "09:46",
       },
       { type: "user", message: "Sí, muéstrame el detalle de la Región Metropolitana", time: "09:47" },
       {
         type: "bot",
         message:
-          "**🏙️ Región Metropolitana - Detalle:**\n\n👤 **Top Vendedores:**\n• María González: $580,000\n• Carlos Ruiz: $520,000\n• Ana López: $490,000\n\n🏢 **Por Sucursal:**\n• Las Condes: $980,000\n• Providencia: $750,000\n• Maipú: $720,000\n\n¿Necesitas algún reporte específico?",
+          "**🏙️ Región Metropolitana - Análisis Completo:**\n\n👤 **Top Vendedores:**\n• María González: $580,000\n• Carlos Ruiz: $520,000\n• Ana López: $490,000\n\n🏢 **Por Sucursal:**\n• Las Condes: $980,000\n• Providencia: $750,000\n• Maipú: $720,000\n\n📈 Reporte completo enviado a tu email y disponible en el portal web",
         time: "09:47",
       },
     ],
@@ -150,32 +167,46 @@ export function UseCasesSection() {
   const [activeTab, setActiveTab] = useState("ecosuelo")
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
+  const [animationKey, setAnimationKey] = useState(0)
 
   const activeCase = useCases.find((useCase) => useCase.id === activeTab)
 
+  // Animation logic for cycling through messages
   useEffect(() => {
     if (!activeCase) return
 
-    const timer = setInterval(() => {
+    const animateMessages = () => {
       if (currentMessageIndex < activeCase.chat.length - 1) {
+        // Show typing indicator
         setIsTyping(true)
+
+        // After typing delay, show next message
         setTimeout(() => {
           setCurrentMessageIndex((prev) => prev + 1)
           setIsTyping(false)
-        }, 1500)
+        }, 1200) // Typing duration
       } else {
+        // Reset animation after showing all messages
         setTimeout(() => {
           setCurrentMessageIndex(0)
-        }, 4000)
+          setAnimationKey((prev) => prev + 1) // Force re-render for smooth restart
+        }, 3000) // Pause before restart
       }
-    }, 3000)
+    }
 
-    return () => clearInterval(timer)
+    const timer = setTimeout(animateMessages, 2500) // Delay between messages
+
+    return () => clearTimeout(timer)
   }, [activeCase, currentMessageIndex])
 
+  // Reset animation when tab changes
   useEffect(() => {
     setCurrentMessageIndex(0)
+    setIsTyping(false)
+    setAnimationKey((prev) => prev + 1)
   }, [activeTab])
+
+  if (!activeCase) return null
 
   return (
     <section id="use-cases" className="py-24 px-4 sm:px-6 lg:px-8 bg-background">
@@ -187,16 +218,20 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
+            <Code className="w-4 h-4 mr-2" />
+            Soluciones Full Stack Completas
+          </Badge>
           <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
-            Proyectos que{" "}
+            Ecosistemas tecnológicos que{" "}
             <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
               transformaron
             </span>{" "}
-            negocios
+            industrias
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Descubre cómo hemos implementado IA conversacional en diferentes industrias, generando resultados medibles
-            desde el primer día.
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+            No solo desarrollamos agentes conversacionales. Creamos <strong>ecosistemas tecnológicos completos</strong>:
+            frontend, backend, bases de datos, APIs, integraciones y agentes de IA especializados.
           </p>
         </motion.div>
 
@@ -242,15 +277,15 @@ export function UseCasesSection() {
                     <div>
                       <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                         <Clock className="w-4 h-4 text-red-500" />
-                        Desafío
+                        Desafío Empresarial
                       </h4>
                       <p className="text-muted-foreground">{useCase.challenge}</p>
                     </div>
 
                     <div>
                       <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                        <Bot className="w-4 h-4 text-blue-500" />
-                        Solución N3uralia
+                        <Code className="w-4 h-4 text-blue-500" />
+                        Solución Full Stack N3uralia
                       </h4>
                       <p className="text-muted-foreground">{useCase.solution}</p>
                     </div>
@@ -258,14 +293,29 @@ export function UseCasesSection() {
                     <div>
                       <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                         <TrendingUp className="w-4 h-4 text-green-500" />
-                        Resultados
+                        Componentes Desarrollados
                       </h4>
-                      <div className="grid grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 gap-3">
                         {useCase.results.map((result, index) => (
                           <div key={index} className="flex items-center gap-2">
                             <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
                             <span className="text-sm text-muted-foreground">{result}</span>
                           </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tech Stack */}
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                        <Database className="w-4 h-4 text-purple-500" />
+                        Stack Tecnológico
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {useCase.techStack.map((tech) => (
+                          <Badge key={tech} variant="secondary" className="text-xs">
+                            {tech}
+                          </Badge>
                         ))}
                       </div>
                     </div>
@@ -285,18 +335,24 @@ export function UseCasesSection() {
                         <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                         <span className="font-semibold text-card-foreground">{useCase.title}</span>
                         <Badge variant="secondary" className="ml-auto text-xs">
-                          Demo en vivo
+                          <Bot className="w-3 h-3 mr-1" />
+                          Agente IA
                         </Badge>
                       </div>
 
-                      <div className="space-y-4 h-96 overflow-y-auto">
-                        <AnimatePresence>
+                      <div className="space-y-4 h-96 overflow-y-auto" key={`${activeTab}-${animationKey}`}>
+                        <AnimatePresence mode="wait">
                           {useCase.chat.slice(0, currentMessageIndex + 1).map((msg, index) => (
                             <motion.div
-                              key={index}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ duration: 0.5 }}
+                              key={`${activeTab}-${index}-${animationKey}`}
+                              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                              transition={{
+                                duration: 0.4,
+                                delay: index * 0.1,
+                                ease: "easeOut",
+                              }}
                               className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
                             >
                               {msg.type === "bot" && (
@@ -306,7 +362,10 @@ export function UseCasesSection() {
                                   </AvatarFallback>
                                 </Avatar>
                               )}
-                              <div
+                              <motion.div
+                                initial={{ scale: 0.9 }}
+                                animate={{ scale: 1 }}
+                                transition={{ duration: 0.2, delay: 0.1 }}
                                 className={`max-w-[85%] p-3 rounded-2xl ${
                                   msg.type === "user"
                                     ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white"
@@ -315,7 +374,7 @@ export function UseCasesSection() {
                               >
                                 <p className="text-sm whitespace-pre-line">{msg.message}</p>
                                 <p className="text-xs opacity-70 mt-1">{msg.time}</p>
-                              </div>
+                              </motion.div>
                               {msg.type === "user" && (
                                 <Avatar className="w-8 h-8 flex-shrink-0">
                                   <AvatarFallback className="bg-gray-500 text-white">
@@ -331,6 +390,8 @@ export function UseCasesSection() {
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3 }}
                             className="flex gap-3 justify-start"
                           >
                             <Avatar className="w-8 h-8">
@@ -340,14 +401,41 @@ export function UseCasesSection() {
                             </Avatar>
                             <div className="bg-muted p-3 rounded-2xl">
                               <div className="flex space-x-1">
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce animation-delay-200"></div>
-                                <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce animation-delay-400"></div>
+                                <motion.div
+                                  className="w-2 h-2 bg-muted-foreground rounded-full"
+                                  animate={{ y: [0, -4, 0] }}
+                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0 }}
+                                />
+                                <motion.div
+                                  className="w-2 h-2 bg-muted-foreground rounded-full"
+                                  animate={{ y: [0, -4, 0] }}
+                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.2 }}
+                                />
+                                <motion.div
+                                  className="w-2 h-2 bg-muted-foreground rounded-full"
+                                  animate={{ y: [0, -4, 0] }}
+                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.4 }}
+                                />
                               </div>
                             </div>
                           </motion.div>
                         )}
                       </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Full Stack Architecture Highlight */}
+                  <Card className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-blue-200 dark:border-blue-800">
+                    <CardContent className="p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Cloud className="w-4 h-4 text-blue-600" />
+                        <span className="font-semibold text-blue-900 dark:text-blue-100 text-sm">
+                          Arquitectura Full Stack
+                        </span>
+                      </div>
+                      <p className="text-xs text-blue-700 dark:text-blue-300">
+                        Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
+                      </p>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -369,12 +457,12 @@ export function UseCasesSection() {
             asChild
           >
             <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20negocio"
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20solución%20full%20stack%20con%20IA"
               target="_blank"
               rel="noopener noreferrer"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Crear mi proyecto de IA
+              Crear mi ecosistema tecnológico
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
           </Button>
