@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Badge } from "@/components/ui/badge"
-import { Menu, X, Bot, MessageSquare, Users, Zap, Phone } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-toggle"
+import { Menu, X, MessageCircle, Sparkles } from "lucide-react"
 import Image from "next/image"
 
 export function Navigation() {
+  const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,136 +22,103 @@ export function Navigation() {
     const element = document.getElementById(sectionId)
     if (element) {
       const navHeight = 80
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navHeight
-
+      const elementPosition = element.offsetTop - navHeight
       window.scrollTo({
-        top: offsetPosition,
+        top: elementPosition,
         behavior: "smooth",
       })
-      setIsMobileMenuOpen(false)
     }
+    setIsOpen(false)
   }
 
-  const navigationItems = [
-    { id: "hero", label: "Inicio", icon: Bot },
-    { id: "use-cases", label: "Casos de Éxito", icon: Zap },
-    { id: "team", label: "Equipo", icon: Users },
-    { id: "faq", label: "FAQ", icon: MessageSquare },
-    { id: "contact", label: "Contacto", icon: Phone },
+  const navItems = [
+    { label: "Inicio", href: "hero" },
+    { label: "Casos de Éxito", href: "use-cases" },
+    { label: "FAQ", href: "faq" },
+    { label: "Contacto", href: "contact" },
   ]
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-slate-950/95 backdrop-blur-md border-b border-slate-800/50 shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-slate-900/95 backdrop-blur-md border-b border-slate-800/50 shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <button
-              onClick={() => scrollToSection("hero")}
-              className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
-            >
-              <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" width={32} height={32} className="rounded-lg" />
-              <div className="hidden sm:block">
-                <div className="text-xs text-slate-400">Agentes Conversacionales Inteligentes</div>
-              </div>
-            </button>
-            <Badge className="hidden md:flex bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
-              Full Stack IA Systems
-            </Badge>
+            <div className="relative w-10 h-10">
+              <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" fill className="object-contain" priority />
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                N3uralia
+              </span>
+              <Sparkles className="w-5 h-5 text-purple-400 animate-pulse" />
+            </div>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navigationItems.map((item) => {
-              const Icon = item.icon
-              return (
-                <Button
-                  key={item.id}
-                  variant="ghost"
-                  className="text-slate-300 hover:text-white hover:bg-slate-800/50 transition-all duration-200"
-                  onClick={() => scrollToSection(item.id)}
-                >
-                  <Icon className="w-4 h-4 mr-2" />
-                  {item.label}
-                </Button>
-              )
-            })}
-          </div>
-
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item.href}
+                onClick={() => scrollToSection(item.href)}
+                className="text-slate-300 hover:text-white transition-colors duration-200 font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
             <Button
-              size="sm"
-              className="hidden sm:flex bg-green-600 hover:bg-green-700 text-white border-0"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
               onClick={() => window.open("https://wa.me/56940946660", "_blank")}
             >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              WhatsApp
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Chat en Vivo
             </Button>
+          </div>
 
-            <ThemeToggle />
-
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden text-slate-300">
-                  <Menu className="w-5 h-5" />
+                <Button variant="ghost" size="sm" className="text-white">
+                  <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-950 border-slate-800">
+              <SheetContent side="right" className="bg-slate-900 border-slate-800">
                 <div className="flex items-center justify-between mb-8">
                   <div className="flex items-center space-x-2">
-                    <Image
-                      src="/n3uralia-logo-new.png"
-                      alt="N3uralia Logo"
-                      width={24}
-                      height={24}
-                      className="rounded"
-                    />
-                    <span className="text-sm text-slate-400">Agentes IA</span>
+                    <div className="relative w-8 h-8">
+                      <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" fill className="object-contain" />
+                    </div>
+                    <span className="text-xl font-bold text-white">N3uralia</span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-slate-400"
-                  >
-                    <X className="w-5 h-5" />
+                  <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="text-white">
+                    <X className="h-6 w-6" />
                   </Button>
                 </div>
-
-                <div className="space-y-4">
-                  {navigationItems.map((item) => {
-                    const Icon = item.icon
-                    return (
-                      <Button
-                        key={item.id}
-                        variant="ghost"
-                        className="w-full justify-start text-slate-300 hover:text-white hover:bg-slate-800/50"
-                        onClick={() => scrollToSection(item.id)}
-                      >
-                        <Icon className="w-4 h-4 mr-3" />
-                        {item.label}
-                      </Button>
-                    )
-                  })}
-
-                  <div className="pt-4 border-t border-slate-800">
-                    <Button
-                      className="w-full bg-green-600 hover:bg-green-700 text-white border-0"
-                      onClick={() => {
-                        window.open("https://wa.me/56940946660", "_blank")
-                        setIsMobileMenuOpen(false)
-                      }}
+                <div className="flex flex-col space-y-6">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.href}
+                      onClick={() => scrollToSection(item.href)}
+                      className="text-slate-300 hover:text-white transition-colors duration-200 font-medium text-left"
                     >
-                      <MessageSquare className="w-4 h-4 mr-2" />
-                      Contactar por WhatsApp
-                    </Button>
-                  </div>
+                      {item.label}
+                    </button>
+                  ))}
+                  <Button
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 w-full"
+                    onClick={() => {
+                      window.open("https://wa.me/56940946660", "_blank")
+                      setIsOpen(false)
+                    }}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    Chat en Vivo
+                  </Button>
                 </div>
               </SheetContent>
             </Sheet>
