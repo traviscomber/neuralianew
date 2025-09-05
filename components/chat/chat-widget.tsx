@@ -26,62 +26,65 @@ const BrainIcon = ({ className }: { className?: string }) => (
 
 const chatResponses = [
   {
-    trigger: ["hello", "hi", "hey", "hola", "servicios", "que hacen", "productos"],
+    trigger: ["hello", "hi", "hey", "hola", "servicios", "que hacen", "productos", "full stack", "desarrollo"],
     responses: [
-      "🚀 **N3uralia ofrece soluciones completas de IA:**\n\n• **Sistemas Full Stack de IA** - Desarrollo completo para 11+ industrias\n• **Agentes de IA & Automatizaciones** - Chatbots inteligentes y workflows\n• **Integración Multicanal** - WhatsApp, web, apps móviles\n• **Soporte 24/7** - Equipo global en 3 continentes\n\n¿Te interesa algún servicio específico?",
-      "💡 **Especializaciones de N3uralia:**\n\n• IA Conversacional avanzada\n• Automatización de procesos empresariales\n• Integración con sistemas existentes\n• Desarrollo full-stack personalizado\n\nTenemos experiencia en retail, salud, educación, finanzas y más. ¿En qué industria trabajas?",
+      "🚀 **N3uralia - Soluciones Full Stack con IA:**\n\n• **Desarrollo Full Stack Completo** - Frontend, Backend, Bases de Datos\n• **Agentes IA Integrados** - Chatbots como parte del ecosistema\n• **Arquitectura Enterprise** - Escalable y robusta\n• **Integración Multicanal** - WhatsApp, Web, Apps móviles\n• **Soporte 24/7** - Equipo global en 3 continentes\n\n¿Te interesa una solución completa?",
+      "💡 **Ecosistemas Tecnológicos Completos:**\n\n• **No solo chatbots** - Desarrollamos plataformas completas\n• **Stack tecnológico moderno** - React, Node.js, PostgreSQL, IA\n• **Integraciones nativas** - CRM, ERP, APIs, Webhooks\n• **Arquitectura escalable** - Microservicios y cloud native\n\nTenemos experiencia en 11+ industrias. ¿En qué sector trabajas?",
     ],
   },
   {
-    trigger: ["precios", "costo", "precio", "cuanto cuesta", "cotizacion"],
+    trigger: ["precios", "costo", "precio", "cuanto cuesta", "cotizacion", "presupuesto"],
     responses: [
-      "💰 **Precios de N3uralia (transparentes):**\n\n• **Consultoría inicial**: GRATIS 🎁\n• **Proyectos básicos**: Desde $2,000 USD\n• **Soluciones medianas**: $5,000 - $15,000 USD\n• **Enterprise**: Cotización personalizada\n\n✅ Todos incluyen soporte 24/7\n✅ Sin costos ocultos\n✅ Garantía de satisfacción\n\n¿Quieres una cotización personalizada?",
-      "📊 **Planes flexibles disponibles:**\n\n• **Startup**: Ideal para pequeñas empresas ($2K-5K)\n• **Business**: Para medianas empresas ($5K-15K)\n• **Enterprise**: Soluciones a gran escala (personalizado)\n\n🎯 **Incluye**: Desarrollo, implementación, capacitación y soporte\n\n¿Te gustaría que evaluemos tu caso específico?",
+      "💰 **Precios Transparentes - Soluciones Full Stack:**\n\n• **Consultoría inicial**: GRATIS 🎁\n• **Proyectos básicos**: Desde $2,000 USD (App + IA básica)\n• **Soluciones medianas**: $5,000 - $15,000 USD (Full Stack + IA)\n• **Enterprise**: $15,000+ USD (Ecosistema completo)\n\n✅ Incluye: Frontend + Backend + Base de datos + IA\n✅ Soporte 24/7 y mantenimiento\n✅ Sin costos ocultos\n\n¿Quieres una cotización personalizada?",
+      "📊 **Planes Full Stack disponibles:**\n\n• **Startup**: Plataforma completa + IA ($2K-5K)\n• **Business**: Ecosistema empresarial ($5K-15K)\n• **Enterprise**: Arquitectura escalable (personalizado)\n\n🎯 **Cada plan incluye**: Desarrollo completo, implementación, capacitación y soporte técnico\n\n¿Te gustaría que evaluemos tu proyecto específico?",
     ],
   },
   {
-    trigger: ["casos", "ejemplos", "clientes", "exito", "proyectos"],
+    trigger: ["casos", "ejemplos", "clientes", "exito", "proyectos", "portfolio"],
     responses: [
-      "🏆 **Casos de éxito destacados:**\n\n• **EcosueloLab** 🌱: IA para coaching de carrera\n  → 95% satisfacción del usuario\n  → 3x más conversiones\n\n• **ParrotfyIA** 🦜: Plataforma de aprendizaje de idiomas\n  → 80% retención de usuarios\n  → IA conversacional avanzada\n\n• **CRM Inteligente** 📊: Automatización de ventas\n  → 50% menos tiempo en tareas manuales\n  → 200% ROI en 6 meses\n\n¿Te interesa algún sector específico?",
-      "✨ **Transformaciones empresariales:**\n\n• **Retail**: Chatbots que aumentaron ventas 40%\n• **Salud**: Asistentes médicos que redujeron esperas 60%\n• **Educación**: Tutores de IA con 90% aprobación\n• **Finanzas**: Asesores automatizados 24/7\n\n🎯 **Resultados promedio**: 3x ROI, 50% menos costos operativos\n\n¿En qué industria está tu empresa?",
+      "🏆 **Casos de éxito - Ecosistemas Completos:**\n\n• **EcosueloLab** 🌱: Plataforma completa de análisis agrícola\n  → Frontend web + App móvil + IA conversacional\n  → 95% satisfacción, 70% menos tiempo de análisis\n\n• **ParrotfyIA** 🦜: ERP completo con IA integrada\n  → Dashboard ejecutivo + Base de datos + Agentes IA\n  → 92% satisfacción, 80% automatización\n\n• **Despega Tu Carrera** 📚: Plataforma educativa full stack\n  → Portal web + Sistema de matching + Coach IA\n  → 88% tasa de colocación laboral\n\n¿Te interesa algún sector específico?",
+      "✨ **Transformaciones tecnológicas completas:**\n\n• **Agricultura**: Plataforma IoT + IA que aumentó productividad 40%\n• **Retail**: E-commerce + IA que incrementó ventas 60%\n• **Educación**: LMS + Tutores IA con 90% retención\n• **Finanzas**: Core banking + Asesores IA 24/7\n\n🎯 **Resultados promedio**: 3x ROI, arquitectura escalable, 99.9% uptime\n\n¿En qué industria está tu empresa?",
     ],
   },
   {
-    trigger: ["equipo", "soporte", "24/7", "team", "desarrolladores"],
+    trigger: ["equipo", "soporte", "24/7", "team", "desarrolladores", "global"],
     responses: [
-      "👥 **Nuestro equipo global 24/7:**\n\n🇨🇱 **Chile**: Full Stack Development & Project Management\n🇸🇬 **Singapur**: IA & Machine Learning Specialists\n🇷🇺 **Rusia**: DevOps & Infrastructure Experts\n\n⚡ **Ventaja única**: Mientras tu competencia duerme, nosotros desarrollamos\n🔄 **Desarrollo continuo**: Tu proyecto avanza 24 horas\n👨‍💻 **100% ingenieros reales** (no bots ni outsourcing)\n\n¿Necesitas soporte inmediato?",
-      "🌍 **Soporte real 24/7 desde 3 continentes:**\n\n✅ Ingenieros senior disponibles siempre\n✅ Cobertura completa en todas las zonas horarias\n✅ Respuesta garantizada en menos de 1 hora\n✅ 0% downtime en nuestros servicios\n\n🚀 **Resultado**: Tu proyecto nunca para de avanzar\n\n¡Siempre hay alguien trabajando en tu éxito!",
+      "👥 **Equipo Full Stack Global 24/7:**\n\n🇨🇱 **Chile**: Full Stack Developers & Project Management\n🇸🇬 **Singapur**: IA Specialists & Cloud Architecture\n🇷🇺 **Rusia**: DevOps Engineers & Database Experts\n\n⚡ **Ventaja única**: Desarrollo continuo 24 horas\n🔄 **Stack completo**: Frontend, Backend, DevOps, IA\n👨‍💻 **35+ ingenieros especializados** en tecnologías modernas\n🏗️ **Arquitectura enterprise** con 99.9% uptime\n\n¿Necesitas una solución completa ahora?",
+      "🌍 **Desarrollo Full Stack 24/7 desde 3 continentes:**\n\n✅ Ingenieros full stack senior siempre disponibles\n✅ Cobertura completa: Frontend + Backend + DevOps + IA\n✅ Respuesta garantizada en menos de 1 hora\n✅ Arquitectura escalable con 0% downtime\n\n🚀 **Resultado**: Tu ecosistema tecnológico nunca para de evolucionar\n\n¡Siempre hay alguien desarrollando tu plataforma!",
     ],
   },
   {
-    trigger: ["whatsapp", "contacto", "hablar", "llamar", "email"],
+    trigger: ["whatsapp", "contacto", "hablar", "llamar", "email", "reunion"],
     responses: [
-      "📱 **¡Hablemos directamente!**\n\n• **WhatsApp**: +56 9 4094 6660 💬\n• **Email**: hello@n3uralia.com 📧\n• **Teléfono**: +56 9 4094 6660 ☎️\n\n🎁 **Consulta inicial GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación personalizada de tu proyecto**\n\n¿Prefieres WhatsApp para empezar ahora?",
-      "🤝 **Conectemos para transformar tu negocio:**\n\n📞 **Llamada directa**: +56 9 4094 6660\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: hello@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Evaluamos gratis → 3. Propuesta en 24h\n\n¡Haz clic en WhatsApp para empezar!",
+      "📱 **¡Hablemos de tu proyecto full stack!**\n\n• **WhatsApp**: +56 9 4094 6660 💬\n• **Email**: hello@n3uralia.com 📧\n• **Teléfono**: +56 9 4094 6660 ☎️\n\n🎁 **Consulta técnica GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación completa de arquitectura**\n🏗️ **Propuesta de stack tecnológico**\n\n¿Prefieres WhatsApp para empezar ahora?",
+      "🤝 **Conectemos para crear tu ecosistema tecnológico:**\n\n📞 **Llamada técnica**: +56 9 4094 6660\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: hello@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Análisis técnico gratis → 3. Propuesta full stack en 24h\n\n¡Haz clic en WhatsApp para empezar!",
+    ],
+  },
+  {
+    trigger: ["tecnologia", "stack", "backend", "frontend", "base de datos", "arquitectura"],
+    responses: [
+      "🛠️ **Stack Tecnológico N3uralia:**\n\n**Frontend:**\n• React 18 + Next.js 14\n• TypeScript + Tailwind CSS\n• PWA + Responsive Design\n\n**Backend:**\n• Node.js + Python\n• PostgreSQL + Redis\n• APIs RESTful + GraphQL\n\n**IA & Cloud:**\n• OpenAI GPT-4 + Custom Models\n• AWS/GCP + Docker + Kubernetes\n• Microservicios + CI/CD\n\n¿Qué parte del stack te interesa más?",
+      "⚡ **Arquitectura Enterprise Moderna:**\n\n• **Microservicios** escalables y mantenibles\n• **Bases de datos** optimizadas (SQL + NoSQL)\n• **APIs robustas** con documentación completa\n• **Seguridad** ISO 27001 + SOC 2\n• **Monitoreo** 24/7 con alertas automáticas\n• **Backup** automático y disaster recovery\n\n🚀 **Resultado**: Plataforma que crece con tu negocio\n\n¿Necesitas una arquitectura específica?",
     ],
   },
 ]
 
 const quickQuestions = [
-  { text: "🚀 ¿Qué servicios ofrecen?", trigger: "servicios" },
-  { text: "💰 ¿Cuánto cuesta?", trigger: "precios" },
-  { text: "🏆 Ver casos de éxito", trigger: "casos" },
-  { text: "📱 Hablar con el equipo", trigger: "contacto" },
-  { text: "👥 Soporte 24/7", trigger: "equipo" },
-  { text: "📊 Cotización personalizada", trigger: "cotizacion" },
+  { text: "🚀 ¿Qué soluciones full stack ofrecen?", trigger: "servicios" },
+  { text: "💰 ¿Cuánto cuesta un proyecto completo?", trigger: "precios" },
+  { text: "🏆 Ver casos de éxito completos", trigger: "casos" },
+  { text: "📱 Hablar con el equipo técnico", trigger: "contacto" },
+  { text: "👥 Soporte global 24/7", trigger: "equipo" },
+  { text: "🛠️ Stack tecnológico", trigger: "tecnologia" },
 ]
 
-interface ChatWidgetProps {
-  isOpen?: boolean
-  onToggle?: () => void
-}
-
-export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
+export function ChatWidget() {
+  const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       role: "assistant",
       content:
-        "¡Hola! 👋 Soy el **N3uralia AI Assistant**. Puedo ayudarte con:\n\n• Información sobre servicios de IA\n• Casos de éxito y ejemplos\n• Precios y cotizaciones\n• Contacto directo con el equipo\n\n**¿En qué puedo ayudarte?** 👇",
+        "¡Hola! 👋 Soy el **N3uralia AI Assistant**. Desarrollamos **ecosistemas tecnológicos completos** con IA integrada:\n\n• **Soluciones Full Stack** completas\n• **Desarrollo Frontend + Backend**\n• **Bases de datos y APIs**\n• **Agentes IA integrados**\n• **Arquitectura enterprise**\n\n**¿En qué puedo ayudarte?** 👇",
     },
   ])
   const [input, setInput] = useState("")
@@ -106,11 +109,11 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
       }
     }
 
-    // Default responses
+    // Default responses emphasizing full stack
     const defaultResponses = [
-      "🤔 **Interesante pregunta.** Te puedo ayudar con:\n\n• **Servicios**: IA conversacional y automatización\n• **Casos**: Ejemplos de proyectos exitosos\n• **Precios**: Cotizaciones transparentes\n• **Contacto**: Hablar directamente con el equipo\n\n¿Qué te interesa más?",
-      "💡 **No estoy seguro de entender completamente.** ¿Te interesa saber sobre:\n\n• Nuestros servicios de IA\n• Casos de éxito reales\n• Precios y cotizaciones\n• Hablar con nuestro equipo\n\n¡Selecciona una opción o pregúntame directamente!",
-      "🚀 **¡Excelente!** Puedo contarte sobre cómo N3uralia transforma negocios con IA. ¿Prefieres:\n\n• Ver nuestros servicios\n• Conocer casos de éxito\n• Obtener una cotización\n• Contactar al equipo directamente\n\n¿Cuál te interesa?",
+      "🤔 **Interesante pregunta.** Te puedo ayudar con:\n\n• **Soluciones Full Stack**: Desarrollo completo de plataformas\n• **Casos de éxito**: Proyectos reales con stack completo\n• **Precios**: Cotizaciones para ecosistemas tecnológicos\n• **Contacto**: Hablar con nuestro equipo técnico\n\n¿Qué te interesa más?",
+      "💡 **No estoy seguro de entender completamente.** ¿Te interesa saber sobre:\n\n• Nuestras soluciones full stack con IA\n• Casos de éxito de plataformas completas\n• Precios para desarrollo integral\n• Hablar con nuestro equipo de arquitectos\n\n¡Selecciona una opción o pregúntame directamente!",
+      "🚀 **¡Excelente!** Puedo contarte sobre cómo N3uralia desarrolla ecosistemas tecnológicos completos. ¿Prefieres:\n\n• Ver nuestro stack tecnológico\n• Conocer casos de plataformas completas\n• Obtener una cotización full stack\n• Contactar al equipo técnico directamente\n\n¿Cuál te interesa?",
     ]
 
     return defaultResponses[Math.floor(Math.random() * defaultResponses.length)]
@@ -143,15 +146,13 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
 
   const handleWhatsAppClick = () => {
     window.open(
-      "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20conocer%20más%20sobre%20sus%20servicios%20de%20IA",
+      "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20una%20solución%20full%20stack%20con%20IA%20para%20mi%20empresa",
       "_blank",
     )
   }
 
-  const handleToggle = () => {
-    if (onToggle) {
-      onToggle()
-    }
+  const toggleChat = () => {
+    setIsOpen(!isOpen)
   }
 
   return (
@@ -176,14 +177,14 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
                       <CardTitle className="text-sm font-semibold truncate">N3uralia AI Assistant</CardTitle>
                       <Badge variant="secondary" className="text-xs bg-green-100 text-green-700 border-0 mt-1">
                         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1 flex-shrink-0"></div>
-                        Online 24/7
+                        Full Stack Online 24/7
                       </Badge>
                     </div>
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={handleToggle}
+                    onClick={toggleChat}
                     className="h-6 w-6 text-white hover:bg-white/20 flex-shrink-0"
                   >
                     <X className="h-4 w-4" />
@@ -241,7 +242,7 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
                       className="space-y-2 px-1"
                     >
                       <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                        ¿Listo para empezar? 👇
+                        ¿Listo para tu proyecto full stack? 👇
                       </div>
                       <div className="grid grid-cols-1 gap-2">
                         <Button
@@ -273,7 +274,7 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      placeholder="Pregúntame sobre N3uralia..."
+                      placeholder="Pregúntame sobre soluciones full stack..."
                       className="flex-1 px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 min-w-0"
                     />
                     <Button
@@ -324,7 +325,7 @@ export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
           </div>
 
           <Button
-            onClick={handleToggle}
+            onClick={toggleChat}
             size="lg"
             className="relative rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 border-4 border-white dark:border-gray-800 transition-all duration-300"
           >

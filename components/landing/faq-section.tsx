@@ -1,231 +1,206 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { ChevronDown, MessageSquare, HelpCircle, DollarSign, Users, Settings, Globe } from "lucide-react"
+import { ChevronDown, Code, MessageSquare, Building, HelpCircle } from "lucide-react"
+
+const faqCategories = [
+  {
+    id: "general",
+    title: "General",
+    icon: HelpCircle,
+    questions: [
+      {
+        question: "¿Qué incluye una solución full stack de N3uralia?",
+        answer:
+          "Desarrollamos ecosistemas tecnológicos completos: frontend (React/Next.js), backend (Node.js/Python), bases de datos (PostgreSQL/MongoDB), APIs REST/GraphQL, integraciones con sistemas existentes y agentes IA especializados. No solo chatbots, sino plataformas completas.",
+      },
+      {
+        question: "¿Cuál es la diferencia entre N3uralia y otros proveedores de chatbots?",
+        answer:
+          "Mientras otros solo ofrecen agentes conversacionales, nosotros desarrollamos soluciones full stack completas. Incluimos dashboards web, sistemas de gestión, APIs, integraciones empresariales y arquitectura escalable, con agentes IA como parte del ecosistema.",
+      },
+      {
+        question: "¿Qué tecnologías utilizan en sus desarrollos?",
+        answer:
+          "Utilizamos tecnologías modernas: React/Next.js para frontend, Node.js/Python para backend, PostgreSQL/MongoDB para bases de datos, Docker/Kubernetes para contenedores, OpenAI GPT-4 para IA, y WhatsApp Business API para integraciones.",
+      },
+    ],
+  },
+  {
+    id: "technical",
+    title: "Técnico",
+    icon: Code,
+    questions: [
+      {
+        question: "¿Cómo integran los agentes IA con sistemas empresariales existentes?",
+        answer:
+          "Desarrollamos APIs personalizadas y conectores que permiten integración nativa con CRM, ERP, bases de datos y sistemas legacy. Los agentes IA acceden a datos en tiempo real y pueden ejecutar acciones directamente en los sistemas empresariales.",
+      },
+      {
+        question: "¿Qué nivel de personalización ofrecen en el desarrollo?",
+        answer:
+          "Cada proyecto es desarrollado desde cero según las necesidades específicas. Creamos arquitecturas personalizadas, interfaces de usuario únicas, modelos de IA entrenados con datos específicos y flujos de trabajo adaptados a cada industria.",
+      },
+      {
+        question: "¿Cómo garantizan la escalabilidad de las soluciones?",
+        answer:
+          "Utilizamos arquitectura de microservicios, contenedores Docker, Kubernetes para orquestación, bases de datos distribuidas y CDN global. Nuestras soluciones están diseñadas para escalar desde startups hasta empresas enterprise.",
+      },
+    ],
+  },
+  {
+    id: "business",
+    title: "Empresarial",
+    icon: Building,
+    questions: [
+      {
+        question: "¿Cuánto tiempo toma desarrollar una solución full stack?",
+        answer:
+          "Dependiendo de la complejidad: proyectos básicos 4-6 semanas, soluciones intermedias 8-12 semanas, y ecosistemas enterprise 12-20 semanas. Incluye análisis, desarrollo, testing, despliegue y capacitación del equipo.",
+      },
+      {
+        question: "¿Qué soporte ofrecen post-lanzamiento?",
+        answer:
+          "Soporte 24/7 con equipos en Chile, Singapur y Rusia. Incluye monitoreo proactivo, actualizaciones de seguridad, optimización de rendimiento, nuevas funcionalidades y soporte técnico especializado.",
+      },
+      {
+        question: "¿Pueden migrar sistemas existentes a su plataforma?",
+        answer:
+          "Sí, ofrecemos servicios de migración completos. Analizamos la arquitectura actual, diseñamos la migración, desarrollamos conectores de datos y ejecutamos la transición sin interrumpir las operaciones del negocio.",
+      },
+    ],
+  },
+]
 
 export function FAQSection() {
-  const [openItems, setOpenItems] = useState<string[]>(["pricing"])
+  const [activeCategory, setActiveCategory] = useState("general")
+  const [openQuestion, setOpenQuestion] = useState<number | null>(0)
 
-  const toggleItem = (id: string) => {
-    setOpenItems((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]))
-  }
-
-  const faqCategories = [
-    {
-      id: "general",
-      title: "Preguntas Generales",
-      icon: HelpCircle,
-      color: "from-blue-500 to-cyan-500",
-      faqs: [
-        {
-          id: "what-is-n3uralia",
-          question: "¿Qué es N3uralia y qué servicios ofrecen?",
-          answer:
-            "N3uralia es una empresa especializada en desarrollo de agentes conversacionales inteligentes y sistemas de IA full-stack. Ofrecemos soluciones completas que incluyen integración con WhatsApp Business, CRM, ERP, y desarrollo de chatbots personalizados para diferentes industrias como educación, ventas, soporte al cliente y recursos humanos.",
-        },
-        {
-          id: "how-it-works",
-          question: "¿Cómo funcionan sus agentes conversacionales?",
-          answer:
-            "Nuestros agentes utilizan modelos de lenguaje avanzados como GPT-4, entrenados específicamente para cada caso de uso. Se integran nativamente con WhatsApp Business API, sistemas CRM/ERP existentes, y pueden manejar conversaciones complejas, realizar tareas automatizadas, y aprender continuamente de las interacciones para mejorar su rendimiento.",
-        },
-        {
-          id: "industries",
-          question: "¿Para qué industrias trabajan?",
-          answer:
-            "Trabajamos con múltiples industrias: Educación (plataformas de aprendizaje como ParrotfyIA), Recursos Humanos (coaching profesional como EcosueloLab), E-commerce (asistentes de ventas), Servicios Financieros, Salud, Inmobiliario, y más. Cada solución se personaliza según las necesidades específicas del sector.",
-        },
-      ],
-    },
-    {
-      id: "pricing",
-      title: "Precios y Planes",
-      icon: DollarSign,
-      color: "from-green-500 to-emerald-500",
-      faqs: [
-        {
-          id: "pricing-model",
-          question: "¿Cuál es su modelo de precios?",
-          answer:
-            "Ofrecemos planes flexibles basados en el volumen de conversaciones y funcionalidades requeridas. Incluimos: Plan Starter (hasta 1,000 conversaciones/mes), Plan Professional (hasta 10,000 conversaciones/mes), y Plan Enterprise (volumen ilimitado). Todos incluyen soporte 24/7, integraciones básicas, y actualizaciones del modelo de IA.",
-        },
-        {
-          id: "roi",
-          question: "¿Qué ROI puedo esperar?",
-          answer:
-            "Nuestros clientes reportan un ROI promedio de 250-400% en el primer año. Los beneficios incluyen: reducción 60-70% en costos de soporte, aumento 180-300% en conversiones de ventas, mejora 85-95% en satisfacción del cliente, y escalabilidad automática sin contratar personal adicional.",
-        },
-        {
-          id: "implementation-cost",
-          question: "¿Cuánto cuesta la implementación inicial?",
-          answer:
-            "La implementación inicial varía según la complejidad: Proyectos básicos desde $5,000 USD (4-6 semanas), Proyectos avanzados $15,000-30,000 USD (8-12 semanas), Proyectos enterprise $50,000+ USD (12-16 semanas). Incluye análisis, desarrollo, entrenamiento del modelo, integración, pruebas, y capacitación del equipo.",
-        },
-      ],
-    },
-    {
-      id: "technical",
-      title: "Aspectos Técnicos",
-      icon: Settings,
-      color: "from-purple-500 to-pink-500",
-      faqs: [
-        {
-          id: "integration",
-          question: "¿Cómo se integra con nuestros sistemas existentes?",
-          answer:
-            "Utilizamos APIs REST y webhooks para integración seamless con CRM (Salesforce, HubSpot), ERP (SAP, Oracle), WhatsApp Business API, sistemas de email marketing, bases de datos, y más. Nuestro equipo maneja toda la integración técnica sin interrumpir sus operaciones actuales.",
-        },
-        {
-          id: "security",
-          question: "¿Qué medidas de seguridad implementan?",
-          answer:
-            "Implementamos seguridad de nivel enterprise: Encriptación end-to-end, cumplimiento GDPR/CCPA, auditorías de seguridad regulares, hosting en AWS/GCP con certificaciones SOC2, backup automático, monitoreo 24/7, y políticas estrictas de acceso a datos. Sus datos nunca se comparten con terceros.",
-        },
-        {
-          id: "customization",
-          question: "¿Qué tan personalizable es la solución?",
-          answer:
-            "Completamente personalizable: Entrenamiento con sus datos específicos, flujos de conversación únicos, integración con su branding, reglas de negocio personalizadas, múltiples idiomas, y capacidades específicas de su industria. Cada agente se desarrolla desde cero para sus necesidades exactas.",
-        },
-      ],
-    },
-    {
-      id: "support",
-      title: "Soporte y Mantenimiento",
-      icon: Users,
-      color: "from-orange-500 to-red-500",
-      faqs: [
-        {
-          id: "support-hours",
-          question: "¿Qué tipo de soporte ofrecen?",
-          answer:
-            "Soporte 24/7 con equipos en Chile, Singapur y Rusia. Incluye: Monitoreo proactivo, respuesta garantizada en <1 hora para issues críticos, actualizaciones regulares del modelo, optimización continua, reportes mensuales de performance, y acceso directo a nuestros ingenieros senior.",
-        },
-        {
-          id: "maintenance",
-          question: "¿Cómo manejan el mantenimiento y actualizaciones?",
-          answer:
-            "Mantenimiento automático incluido: Actualizaciones del modelo de IA cada mes, parches de seguridad automáticos, optimización de performance continua, backup diario, monitoreo de uptime 99.9%, y mejoras basadas en nuevas funcionalidades de OpenAI/WhatsApp sin costo adicional.",
-        },
-        {
-          id: "training",
-          question: "¿Proporcionan capacitación para nuestro equipo?",
-          answer:
-            "Sí, incluimos capacitación completa: Sesiones de onboarding para administradores, documentación técnica detallada, videos tutoriales, acceso a dashboard de analytics, capacitación en mejores prácticas, y sesiones de Q&A mensuales. Su equipo estará completamente preparado para maximizar el valor de la solución.",
-        },
-      ],
-    },
-  ]
+  const currentCategory = faqCategories.find((cat) => cat.id === activeCategory)
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-br from-slate-900 to-slate-800 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+    <section id="faq" className="py-20 bg-gradient-to-br from-background to-muted/20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
             <HelpCircle className="w-4 h-4 mr-2" />
-            Preguntas Frecuentes
+            Preguntas sobre Soluciones Full Stack
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Resolvemos Todas Tus{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Dudas</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            Preguntas Frecuentes
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Encuentra respuestas detalladas sobre nuestros servicios, precios, implementación y soporte técnico.
+          <p className="text-xl text-muted-foreground">
+            Todo lo que necesitas saber sobre nuestras soluciones tecnológicas completas
           </p>
+        </motion.div>
+
+        {/* Category Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="flex bg-muted rounded-lg p-1">
+            {faqCategories.map((category) => {
+              const Icon = category.icon
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    setActiveCategory(category.id)
+                    setOpenQuestion(0)
+                  }}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
+                    activeCategory === category.id
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {category.title}
+                </button>
+              )
+            })}
+          </div>
         </div>
 
-        {/* FAQ Categories */}
-        <div className="space-y-8">
-          {faqCategories.map((category) => {
-            const Icon = category.icon
-            return (
-              <Card key={category.id} className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  {/* Category Header */}
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div
-                      className={`w-10 h-10 bg-gradient-to-r ${category.color} rounded-lg flex items-center justify-center`}
+        {/* FAQ Content */}
+        <AnimatePresence mode="wait">
+          {currentCategory && (
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-4"
+            >
+              {currentCategory.questions.map((faq, index) => (
+                <Card key={index} className="bg-card border border-border">
+                  <CardContent className="p-0">
+                    <button
+                      onClick={() => setOpenQuestion(openQuestion === index ? null : index)}
+                      className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/50 transition-colors"
                     >
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-white">{category.title}</h3>
-                  </div>
-
-                  {/* FAQ Items */}
-                  <div className="space-y-4">
-                    {category.faqs.map((faq) => (
-                      <Collapsible
-                        key={faq.id}
-                        open={openItems.includes(faq.id)}
-                        onOpenChange={() => toggleItem(faq.id)}
-                      >
-                        <CollapsibleTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            className="w-full justify-between text-left p-4 h-auto bg-slate-700/30 hover:bg-slate-700/50 border border-slate-600/50 rounded-lg"
-                          >
-                            <span className="text-white font-medium pr-4">{faq.question}</span>
-                            <ChevronDown
-                              className={`w-5 h-5 text-slate-400 transition-transform duration-200 flex-shrink-0 ${
-                                openItems.includes(faq.id) ? "rotate-180" : ""
-                              }`}
-                            />
-                          </Button>
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="mt-2">
-                          <div className="p-4 bg-slate-700/20 rounded-lg border border-slate-600/30">
-                            <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
+                      <span className="font-semibold text-card-foreground pr-4">{faq.question}</span>
+                      <ChevronDown
+                        className={`w-5 h-5 text-muted-foreground transition-transform ${
+                          openQuestion === index ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                    <AnimatePresence>
+                      {openQuestion === index && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-border pt-4">
+                            {faq.answer}
                           </div>
-                        </CollapsibleContent>
-                      </Collapsible>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </CardContent>
+                </Card>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* CTA Section */}
-        <div className="mt-16 text-center">
-          <Card className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border-blue-700/50 backdrop-blur-sm">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-white mb-4">¿No encontraste lo que buscabas?</h3>
-              <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-                Nuestro equipo de expertos está disponible 24/7 para responder cualquier pregunta específica sobre tu
-                proyecto.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0"
-                  onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Hablar con un Experto
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-slate-600 text-slate-300 hover:bg-slate-800 bg-transparent"
-                  onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
-                >
-                  <Globe className="w-4 h-4 mr-2" />
-                  Enviar Email
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Full Stack Emphasis */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-center mt-16"
+        >
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Code className="w-5 h-5" />
+              <span className="text-lg font-semibold">¿Necesitas una solución personalizada?</span>
+            </div>
+            <p className="text-sm opacity-90 mb-4">Hablemos sobre tu proyecto full stack específico</p>
+            <a
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20tengo%20preguntas%20sobre%20soluciones%20full%20stack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm"
+            >
+              <MessageSquare className="w-4 h-4" />
+              Consultar por WhatsApp
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

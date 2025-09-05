@@ -3,35 +3,35 @@
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Database, Brain, MessageSquare, ArrowRight, Code } from "lucide-react"
+import { Database, Brain, MessageSquare, ArrowRight, Cloud, Layers } from "lucide-react"
 
 const layers = [
   {
     icon: Database,
-    title: "Datos",
-    description: "Tu información",
+    title: "Backend & Data",
+    description: "Infraestructura robusta",
     color: "from-blue-500 to-blue-600",
-    examples: ["CRM", "ERP"],
+    examples: ["PostgreSQL", "APIs REST", "Microservicios"],
   },
   {
     icon: Brain,
-    title: "IA",
-    description: "Procesamiento",
+    title: "IA & Processing",
+    description: "Inteligencia artificial",
     color: "from-purple-500 to-purple-600",
-    examples: ["GPT-4", "Análisis"],
+    examples: ["GPT-4", "ML Models", "Analytics"],
   },
   {
     icon: MessageSquare,
-    title: "Chat",
-    description: "Conversación",
+    title: "Frontend & UX",
+    description: "Interfaces de usuario",
     color: "from-green-500 to-green-600",
-    examples: ["WhatsApp", "Web"],
+    examples: ["React", "WhatsApp", "Dashboards"],
   },
 ]
 
 export function ArchitectureSection() {
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -41,20 +41,24 @@ export function ArchitectureSection() {
           viewport={{ once: true }}
           className="text-center mb-8"
         >
-          <Badge variant="secondary" className="mb-3 bg-blue-50 text-blue-700 border-blue-200">
-            <Code className="w-4 h-4 mr-2" />
-            Full Stack IA
+          <Badge
+            variant="secondary"
+            className="mb-3 bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700"
+          >
+            <Layers className="w-4 h-4 mr-2" />
+            Arquitectura Full Stack
           </Badge>
 
           <h2 className="text-2xl sm:text-3xl font-bold mb-3">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Sistema Completo
+              Ecosistema Tecnológico Completo
             </span>{" "}
-            en 3 Pasos
+            en 3 Capas
           </h2>
 
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Conectamos tus datos con IA para crear conversaciones inteligentes
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Desarrollamos cada componente del stack: desde la base de datos hasta la interfaz de usuario, con IA
+            integrada en cada capa
           </p>
         </motion.div>
 
@@ -69,7 +73,7 @@ export function ArchitectureSection() {
               viewport={{ once: true }}
               className="flex items-center gap-4 lg:gap-8"
             >
-              <Card className="bg-white border-2 border-gray-200 hover:shadow-md transition-all duration-300 w-full lg:w-64">
+              <Card className="bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 hover:shadow-md transition-all duration-300 w-full lg:w-64">
                 <CardContent className="p-4 text-center">
                   <div
                     className={`w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-r ${layer.color} flex items-center justify-center shadow-lg`}
@@ -77,8 +81,8 @@ export function ArchitectureSection() {
                     <layer.icon className="w-6 h-6 text-white" />
                   </div>
 
-                  <h3 className="text-lg font-bold mb-1">{layer.title}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{layer.description}</p>
+                  <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white">{layer.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{layer.description}</p>
 
                   <div className="flex justify-center gap-1 flex-wrap">
                     {layer.examples.map((example) => (
@@ -115,19 +119,22 @@ export function ArchitectureSection() {
           className="text-center mt-8"
         >
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6 max-w-2xl mx-auto">
-            <div className="text-lg font-semibold mb-2">📊 Datos → 🧠 IA → 💬 Chat = Sistema Completo</div>
-            <p className="text-sm opacity-90 mb-4">Todo integrado, funcionando en tiempo real</p>
+            <div className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
+              <Cloud className="w-5 h-5" />
+              Backend + IA + Frontend = Solución Completa
+            </div>
+            <p className="text-sm opacity-90 mb-4">Cada componente desarrollado y optimizado por nuestro equipo</p>
 
             <a
               href={`https://wa.me/56940946660?text=${encodeURIComponent(
-                "¡Hola! Quiero ver cómo funciona el sistema Full Stack IA de Neuralia.",
+                "¡Hola! Quiero conocer más sobre las soluciones full stack de N3uralia.",
               )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm"
             >
               <MessageSquare className="w-4 h-4" />
-              Ver Demo
+              Ver Arquitectura Completa
             </a>
           </div>
         </motion.div>
