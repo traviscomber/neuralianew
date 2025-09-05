@@ -1,166 +1,268 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { MessageSquare, Mail, MapPin, Linkedin, Github, Globe, Bot, Shield, Clock, ArrowUp } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const navHeight = 80
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - navHeight
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" })
+    }
+  }
+
+  const footerSections = [
+    {
+      title: "Servicios",
+      links: [
+        { label: "Agentes Conversacionales", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "Integración WhatsApp", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "Automatización CRM", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "Chatbots Personalizados", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "Consultoría en IA", href: "#", onClick: () => scrollToSection("team") },
+      ],
+    },
+    {
+      title: "Casos de Éxito",
+      links: [
+        { label: "ParrotfyIA - Educación", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "EcosueloLab - RRHH", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "CRM Inteligente", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "E-commerce Assistant", href: "#", onClick: () => scrollToSection("use-cases") },
+        { label: "Ver Todos los Casos", href: "#", onClick: () => scrollToSection("use-cases") },
+      ],
+    },
+    {
+      title: "Empresa",
+      links: [
+        { label: "Sobre Nosotros", href: "#", onClick: () => scrollToSection("team") },
+        { label: "Nuestro Equipo", href: "#", onClick: () => scrollToSection("team") },
+        { label: "Carreras", href: "#", onClick: () => scrollToSection("contact") },
+        { label: "Blog Técnico", href: "/llmo-content" },
+        { label: "Prensa", href: "#", onClick: () => scrollToSection("contact") },
+      ],
+    },
+    {
+      title: "Soporte",
+      links: [
+        { label: "Documentación", href: "#", onClick: () => scrollToSection("faq") },
+        { label: "FAQ", href: "#", onClick: () => scrollToSection("faq") },
+        { label: "Soporte Técnico", href: "#", onClick: () => window.open("https://wa.me/56940946660", "_blank") },
+        { label: "Estado del Sistema", href: "/system-check" },
+        { label: "Contacto", href: "#", onClick: () => scrollToSection("contact") },
+      ],
+    },
+  ]
+
+  const contactInfo = [
+    {
+      icon: MessageSquare,
+      label: "WhatsApp",
+      value: "+56 9 4094 6660",
+      action: () => window.open("https://wa.me/56940946660", "_blank"),
+      color: "text-green-400",
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: "info@n3uralia.com",
+      action: () => window.open("mailto:info@n3uralia.com", "_blank"),
+      color: "text-blue-400",
+    },
+    {
+      icon: MapPin,
+      label: "Oficinas",
+      value: "Santiago, Singapur, Moscú",
+      action: () => scrollToSection("team"),
+      color: "text-purple-400",
+    },
+  ]
+
+  const socialLinks = [
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://linkedin.com/company/n3uralia",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com/n3uralia",
+      color: "hover:text-purple-400",
+    },
+    {
+      icon: Globe,
+      label: "Website",
+      href: "https://n3uralia.com",
+      color: "hover:text-green-400",
+    },
+  ]
+
+  const certifications = [
+    { icon: Shield, label: "SOC 2 Certified" },
+    { icon: Bot, label: "OpenAI Partner" },
+    { icon: MessageSquare, label: "WhatsApp Certified" },
+    { icon: Clock, label: "99.9% Uptime SLA" },
+  ]
+
   return (
-    <footer id="footer" className="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-3 gap-8">
-          {/* Company Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <div className="flex items-center space-x-3">
-              <Image src="/n3uralia-logo-new.png" alt="N3uralia" width={300} height={100} className="h-20 w-auto" />
-              <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
-                Soporte 24/7 Activo
-              </Badge>
-            </div>
-            <p className="text-gray-300 text-sm">
-              Transformamos tu negocio con soluciones de IA conversacional que realmente entienden a tus usuarios.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="outline" className="text-purple-400 border-purple-600">
-                🧠 IA Avanzada
-              </Badge>
-              <Badge variant="outline" className="text-blue-400 border-blue-600">
-                ⚡ Tiempo Real
-              </Badge>
-              <Badge variant="outline" className="text-green-400 border-green-600">
-                🛡️ Seguridad Total
-              </Badge>
-              <Badge variant="outline" className="text-pink-400 border-pink-600">
-                👥 Equipo Global
-              </Badge>
-            </div>
-          </motion.div>
+    <footer id="contact" className="bg-gradient-to-br from-slate-950 to-slate-900 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
 
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-white">Contacto</h3>
-            <div className="space-y-3">
-              <a
-                href="mailto:hello@n3uralia.com"
-                className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                <span>hello@n3uralia.com</span>
-              </a>
-              <a
-                href="https://wa.me/56940946660"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center space-x-3 text-gray-300 hover:text-green-400 transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp</span>
-              </a>
-              <a
-                href="tel:+56940946660"
-                className="flex items-center space-x-3 text-gray-300 hover:text-white transition-colors"
-              >
-                <Phone className="w-4 h-4" />
-                <span>+56 9 4094 6660</span>
-              </a>
-            </div>
-            <Button
-              asChild
-              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white"
-            >
-              <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20IA%20en%20mi%20empresa"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Contactar por WhatsApp
-              </a>
-            </Button>
-          </motion.div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid lg:grid-cols-5 gap-12">
+            {/* Company Info */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="flex items-center space-x-3">
+                <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" width={40} height={40} className="rounded-lg" />
+                <div>
+                  <div className="text-xl font-bold text-white">N3uralia</div>
+                  <div className="text-sm text-slate-400">Full Stack IA Systems</div>
+                </div>
+              </div>
 
-          {/* Global Offices */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="space-y-4"
-          >
-            <h3 className="text-lg font-semibold text-white">Oficinas Globales</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-gray-300">
-                <MapPin className="w-4 h-4" />
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🇨🇱</span>
-                    <span className="font-medium">Santiago, Chile</span>
-                  </div>
-                  <div className="text-sm text-gray-400">Oficina Principal</div>
-                </div>
+              <p className="text-slate-300 leading-relaxed max-w-md">
+                Transformamos negocios con agentes conversacionales inteligentes. Soporte 24/7 global con equipos
+                especializados en Chile, Singapur y Rusia.
+              </p>
+
+              {/* Contact Cards */}
+              <div className="space-y-3">
+                {contactInfo.map((contact, index) => {
+                  const Icon = contact.icon
+                  return (
+                    <Card
+                      key={index}
+                      className="bg-slate-800/30 border-slate-700/50 hover:bg-slate-800/50 transition-all duration-300 cursor-pointer"
+                      onClick={contact.action}
+                    >
+                      <CardContent className="p-4">
+                        <div className="flex items-center space-x-3">
+                          <Icon className={`w-5 h-5 ${contact.color}`} />
+                          <div>
+                            <div className="text-sm text-slate-400">{contact.label}</div>
+                            <div className="text-white font-medium">{contact.value}</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
               </div>
-              <div className="flex items-center space-x-3 text-gray-300">
-                <MapPin className="w-4 h-4" />
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🇸🇬</span>
-                    <span className="font-medium">Singapur</span>
-                  </div>
-                  <div className="text-sm text-gray-400">Cobertura Asia-Pacífico</div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 text-gray-300">
-                <MapPin className="w-4 h-4" />
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-lg">🇷🇺</span>
-                    <span className="font-medium">Moscú, Rusia</span>
-                  </div>
-                  <div className="text-sm text-gray-400">Cobertura Europa</div>
-                </div>
+
+              {/* Social Links */}
+              <div className="flex space-x-4">
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon
+                  return (
+                    <Button
+                      key={index}
+                      variant="ghost"
+                      size="sm"
+                      className={`text-slate-400 ${social.color} transition-colors`}
+                      onClick={() => window.open(social.href, "_blank")}
+                    >
+                      <Icon className="w-5 h-5" />
+                    </Button>
+                  )
+                })}
               </div>
             </div>
-            <div className="text-center">
-              <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700">
-                ⏰ Soporte 24/7 Real
-              </Badge>
+
+            {/* Footer Links */}
+            <div className="lg:col-span-3 grid md:grid-cols-4 gap-8">
+              {footerSections.map((section, index) => (
+                <div key={index}>
+                  <h3 className="text-white font-semibold mb-4">{section.title}</h3>
+                  <ul className="space-y-3">
+                    {section.links.map((link, linkIndex) => (
+                      <li key={linkIndex}>
+                        {link.href?.startsWith("#") || link.onClick ? (
+                          <button
+                            onClick={link.onClick}
+                            className="text-slate-400 hover:text-white transition-colors text-sm"
+                          >
+                            {link.label}
+                          </button>
+                        ) : (
+                          <Link
+                            href={link.href || "#"}
+                            className="text-slate-400 hover:text-white transition-colors text-sm"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center"
-        >
-          <div className="text-gray-400 text-sm">© 2024 N3uralia. Todos los derechos reservados.</div>
-          <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/terminos-de-servicio" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Términos de Servicio
-            </a>
-            <a href="/politicas-de-privacidad" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Políticas de Privacidad
-            </a>
+        <Separator className="bg-slate-700/50" />
+
+        {/* Bottom Footer */}
+        <div className="py-8">
+          <div className="flex flex-col lg:flex-row justify-between items-center space-y-6 lg:space-y-0">
+            {/* Certifications */}
+            <div className="flex flex-wrap gap-4">
+              {certifications.map((cert, index) => {
+                const Icon = cert.icon
+                return (
+                  <Badge key={index} className="bg-slate-800/50 text-slate-300 border-slate-600/50">
+                    <Icon className="w-3 h-3 mr-1" />
+                    {cert.label}
+                  </Badge>
+                )
+              })}
+            </div>
+
+            {/* Copyright and Legal */}
+            <div className="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
+              <div className="flex space-x-6 text-sm">
+                <Link href="/politicas-de-privacidad" className="text-slate-400 hover:text-white transition-colors">
+                  Política de Privacidad
+                </Link>
+                <Link href="/terminos-de-servicio" className="text-slate-400 hover:text-white transition-colors">
+                  Términos de Servicio
+                </Link>
+              </div>
+              <div className="text-sm text-slate-400">© 2024 N3uralia. Todos los derechos reservados.</div>
+            </div>
+
+            {/* Back to Top */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={scrollToTop}
+              className="text-slate-400 hover:text-white transition-colors"
+            >
+              <ArrowUp className="w-4 h-4 mr-2" />
+              Volver Arriba
+            </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </footer>
   )

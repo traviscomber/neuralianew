@@ -7,7 +7,6 @@ import { Badge } from "@/components/ui/badge"
 import { Menu, X, Bot, MessageSquare, Users, Zap, Phone } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import Image from "next/image"
-import Link from "next/link"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -24,7 +23,7 @@ export function Navigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
-      const navHeight = 80 // Account for fixed navbar height
+      const navHeight = 80
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       const offsetPosition = elementPosition - navHeight
 
@@ -33,29 +32,15 @@ export function Navigation() {
         behavior: "smooth",
       })
       setIsMobileMenuOpen(false)
-    } else {
-      // Fallback: try to find section by class or data attribute
-      const fallbackElement = document.querySelector(`[data-section="${sectionId}"]`)
-      if (fallbackElement) {
-        const navHeight = 80
-        const elementPosition = fallbackElement.getBoundingClientRect().top + window.pageYOffset
-        const offsetPosition = elementPosition - navHeight
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        })
-        setIsMobileMenuOpen(false)
-      }
     }
   }
 
   const navigationItems = [
     { id: "hero", label: "Inicio", icon: Bot },
-    { id: "casos-de-uso", label: "Casos de Éxito", icon: Zap },
-    { id: "equipo", label: "Equipo", icon: Users },
+    { id: "use-cases", label: "Casos de Éxito", icon: Zap },
+    { id: "team", label: "Equipo", icon: Users },
     { id: "faq", label: "FAQ", icon: MessageSquare },
-    { id: "contacto", label: "Contacto", icon: Phone },
+    { id: "contact", label: "Contacto", icon: Phone },
   ]
 
   return (
@@ -102,20 +87,17 @@ export function Navigation() {
 
           {/* Right Side Actions */}
           <div className="flex items-center space-x-3">
-            {/* WhatsApp Contact */}
             <Button
               size="sm"
               className="hidden sm:flex bg-green-600 hover:bg-green-700 text-white border-0"
-              onClick={() => window.open("https://wa.me/56900000000", "_blank")}
+              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               WhatsApp
             </Button>
 
-            {/* Theme Toggle */}
             <ThemeToggle />
 
-            {/* Mobile Menu */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm" className="md:hidden text-slate-300">
@@ -164,40 +146,13 @@ export function Navigation() {
                     <Button
                       className="w-full bg-green-600 hover:bg-green-700 text-white border-0"
                       onClick={() => {
-                        window.open("https://wa.me/56900000000", "_blank")
+                        window.open("https://wa.me/56940946660", "_blank")
                         setIsMobileMenuOpen(false)
                       }}
                     >
                       <MessageSquare className="w-4 h-4 mr-2" />
                       Contactar por WhatsApp
                     </Button>
-                  </div>
-
-                  <div className="pt-4 space-y-2">
-                    <div className="text-sm text-slate-400">Enlaces Adicionales:</div>
-                    <div className="space-y-2">
-                      <Link
-                        href="/llmo-content"
-                        className="block text-sm text-blue-400 hover:text-blue-300"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Contenido LLMO
-                      </Link>
-                      <Link
-                        href="/ai-search-simulation"
-                        className="block text-sm text-purple-400 hover:text-purple-300"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Simulación Búsqueda IA
-                      </Link>
-                      <Link
-                        href="/test-chat"
-                        className="block text-sm text-green-400 hover:text-green-300"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Demo Chat
-                      </Link>
-                    </div>
                   </div>
                 </div>
               </SheetContent>
