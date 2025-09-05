@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -71,8 +71,12 @@ const quickQuestions = [
   { text: "📊 Cotización personalizada", trigger: "cotizacion" },
 ]
 
-export function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false)
+interface ChatWidgetProps {
+  isOpen?: boolean
+  onToggle?: () => void
+}
+
+export function ChatWidget({ isOpen = false, onToggle }: ChatWidgetProps = {}) {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -144,6 +148,12 @@ export function ChatWidget() {
     )
   }
 
+  const handleToggle = () => {
+    if (onToggle) {
+      onToggle()
+    }
+  }
+
   return (
     <>
       <AnimatePresence>
@@ -173,7 +183,7 @@ export function ChatWidget() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setIsOpen(false)}
+                    onClick={handleToggle}
                     className="h-6 w-6 text-white hover:bg-white/20 flex-shrink-0"
                   >
                     <X className="h-4 w-4" />
@@ -282,55 +292,57 @@ export function ChatWidget() {
       </AnimatePresence>
 
       {/* Floating Chat Button with Pulsating Effect and Brain Icon */}
-      <motion.div className="fixed bottom-4 right-4 z-50" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        {/* Pulsating Ring Effect */}
-        <div className="absolute inset-0 rounded-full">
-          <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-30"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.1, 0.3],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-          <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-20"
-            animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.2, 0.05, 0.2],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-          />
-        </div>
+      {!isOpen && (
+        <motion.div className="fixed bottom-4 right-4 z-50" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          {/* Pulsating Ring Effect */}
+          <div className="absolute inset-0 rounded-full">
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-30"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.1, 0.3],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
+            <motion.div
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-20"
+              animate={{
+                scale: [1, 1.4, 1],
+                opacity: [0.2, 0.05, 0.2],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+                delay: 0.5,
+              }}
+            />
+          </div>
 
-        <Button
-          onClick={() => setIsOpen(!isOpen)}
-          size="lg"
-          className="relative rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 border-4 border-white dark:border-gray-800 transition-all duration-300"
-        >
-          <motion.div
-            animate={{
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
+          <Button
+            onClick={handleToggle}
+            size="lg"
+            className="relative rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 border-4 border-white dark:border-gray-800 transition-all duration-300"
           >
-            <BrainIcon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
-          </motion.div>
-        </Button>
-      </motion.div>
+            <motion.div
+              animate={{
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            >
+              <BrainIcon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+            </motion.div>
+          </Button>
+        </motion.div>
+      )}
     </>
   )
 }

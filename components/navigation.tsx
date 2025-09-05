@@ -24,13 +24,34 @@ export function Navigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
+      const navHeight = 80 // Account for fixed navbar height
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+      const offsetPosition = elementPosition - navHeight
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      })
       setIsMobileMenuOpen(false)
+    } else {
+      // Fallback: try to find section by class or data attribute
+      const fallbackElement = document.querySelector(`[data-section="${sectionId}"]`)
+      if (fallbackElement) {
+        const navHeight = 80
+        const elementPosition = fallbackElement.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - navHeight
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        })
+        setIsMobileMenuOpen(false)
+      }
     }
   }
 
   const navigationItems = [
-    { id: "inicio", label: "Inicio", icon: Bot },
+    { id: "hero", label: "Inicio", icon: Bot },
     { id: "casos-de-uso", label: "Casos de Éxito", icon: Zap },
     { id: "equipo", label: "Equipo", icon: Users },
     { id: "faq", label: "FAQ", icon: MessageSquare },
@@ -48,13 +69,12 @@ export function Navigation() {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <button
-              onClick={() => scrollToSection("inicio")}
+              onClick={() => scrollToSection("hero")}
               className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
             >
               <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" width={32} height={32} className="rounded-lg" />
               <div className="hidden sm:block">
-                <div className="text-xl font-bold text-white">N3uralia</div>
-                <div className="text-xs text-slate-400 -mt-1">Agentes Conversacionales Inteligentes</div>
+                <div className="text-xs text-slate-400">Agentes Conversacionales Inteligentes</div>
               </div>
             </button>
             <Badge className="hidden md:flex bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
@@ -112,7 +132,7 @@ export function Navigation() {
                       height={24}
                       className="rounded"
                     />
-                    <span className="text-lg font-bold text-white">N3uralia</span>
+                    <span className="text-sm text-slate-400">Agentes IA</span>
                   </div>
                   <Button
                     variant="ghost"
