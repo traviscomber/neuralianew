@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, X, MessageCircle, Sparkles } from "lucide-react"
+import { Menu, X, MessageCircle } from "lucide-react"
 import Image from "next/image"
 
 export function Navigation() {
@@ -41,21 +41,25 @@ export function Navigation() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-slate-900/95 backdrop-blur-md border-b border-slate-800/50 shadow-lg" : "bg-transparent"
+        isScrolled ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm" : "bg-white/80 backdrop-blur-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="relative w-10 h-10">
-              <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" fill className="object-contain" priority />
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                N3uralia
-              </span>
-              <Sparkles className="w-5 h-5 text-purple-400 animate-pulse" />
+          {/* Logo - Optimized for performance */}
+          <div className="flex items-center">
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 transition-all duration-300">
+              <Image
+                src="/n3uralia-logo-new.png"
+                alt="N3uralia Logo"
+                fill
+                className="object-contain"
+                priority={true}
+                quality={90}
+                sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, 64px"
+                placeholder="blur"
+                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+              />
             </div>
           </div>
 
@@ -65,17 +69,17 @@ export function Navigation() {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-slate-300 hover:text-white transition-colors duration-200 font-medium"
+                className="text-slate-600 hover:text-slate-900 transition-colors duration-200 font-medium text-lg"
               >
                 {item.label}
               </button>
             ))}
             <Button
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+              className="bg-slate-900 hover:bg-slate-800 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold px-6 py-2 rounded-lg"
               onClick={() => window.open("https://wa.me/56940946660", "_blank")}
             >
               <MessageCircle className="w-4 h-4 mr-2" />
-              Chat en Vivo
+              Empezar ahora
             </Button>
           </div>
 
@@ -83,19 +87,25 @@ export function Navigation() {
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-white">
+                <Button variant="ghost" size="sm" className="text-slate-900">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-900 border-slate-800">
+              <SheetContent side="right" className="bg-white border-slate-200">
                 <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center space-x-2">
-                    <div className="relative w-8 h-8">
-                      <Image src="/n3uralia-logo-new.png" alt="N3uralia Logo" fill className="object-contain" />
+                  <div className="flex items-center">
+                    <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+                      <Image
+                        src="/n3uralia-logo-new.png"
+                        alt="N3uralia Logo"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 640px) 40px, 48px"
+                        quality={90}
+                      />
                     </div>
-                    <span className="text-xl font-bold text-white">N3uralia</span>
                   </div>
-                  <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="text-white">
+                  <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} className="text-slate-900">
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
@@ -104,20 +114,20 @@ export function Navigation() {
                     <button
                       key={item.href}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-slate-300 hover:text-white transition-colors duration-200 font-medium text-left"
+                      className="text-slate-600 hover:text-slate-900 transition-colors duration-200 font-medium text-left text-lg"
                     >
                       {item.label}
                     </button>
                   ))}
                   <Button
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 w-full"
+                    className="bg-slate-900 hover:bg-slate-800 text-white border-0 w-full font-semibold py-3 rounded-lg"
                     onClick={() => {
                       window.open("https://wa.me/56940946660", "_blank")
                       setIsOpen(false)
                     }}
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    Chat en Vivo
+                    Empezar ahora
                   </Button>
                 </div>
               </SheetContent>

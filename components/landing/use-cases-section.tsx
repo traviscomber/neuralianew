@@ -168,12 +168,13 @@ export function UseCasesSection() {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0)
   const [isTyping, setIsTyping] = useState(false)
   const [animationKey, setAnimationKey] = useState(0)
+  const [isAnimationPaused, setIsAnimationPaused] = useState(false)
 
   const activeCase = useCases.find((useCase) => useCase.id === activeTab)
 
-  // Animation logic for cycling through messages
+  // Enhanced animation logic with better tab switching
   useEffect(() => {
-    if (!activeCase) return
+    if (!activeCase || isAnimationPaused) return
 
     const animateMessages = () => {
       if (currentMessageIndex < activeCase.chat.length - 1) {
@@ -181,35 +182,52 @@ export function UseCasesSection() {
         setIsTyping(true)
 
         // After typing delay, show next message
-        setTimeout(() => {
+        const typingTimer = setTimeout(() => {
           setCurrentMessageIndex((prev) => prev + 1)
           setIsTyping(false)
-        }, 1200) // Typing duration
+        }, 1500) // Increased typing duration for better UX
+
+        return typingTimer
       } else {
         // Reset animation after showing all messages
-        setTimeout(() => {
+        const resetTimer = setTimeout(() => {
           setCurrentMessageIndex(0)
           setAnimationKey((prev) => prev + 1) // Force re-render for smooth restart
-        }, 3000) // Pause before restart
+        }, 4000) // Longer pause before restart
+
+        return resetTimer
       }
     }
 
-    const timer = setTimeout(animateMessages, 2500) // Delay between messages
+    const timer = setTimeout(animateMessages, 2000) // Consistent delay between messages
 
-    return () => clearTimeout(timer)
-  }, [activeCase, currentMessageIndex])
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [activeCase, currentMessageIndex, isAnimationPaused])
 
-  // Reset animation when tab changes
+  // Enhanced tab change handler with immediate reset
   useEffect(() => {
+    // Pause animation briefly during tab change
+    setIsAnimationPaused(true)
+
+    // Reset all animation states
     setCurrentMessageIndex(0)
     setIsTyping(false)
     setAnimationKey((prev) => prev + 1)
+
+    // Resume animation after brief pause
+    const resumeTimer = setTimeout(() => {
+      setIsAnimationPaused(false)
+    }, 300) // Brief pause for smooth transition
+
+    return () => clearTimeout(resumeTimer)
   }, [activeTab])
 
   if (!activeCase) return null
 
   return (
-    <section id="use-cases" className="py-24 px-4 sm:px-6 lg:px-8 bg-background">
+    <section id="use-cases" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -218,30 +236,30 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
+          <Badge className="mb-4 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 text-lg px-6 py-2 font-semibold">
             <Code className="w-4 h-4 mr-2" />
             Soluciones Full Stack Completas
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-slate-900 tracking-tight">
             Ecosistemas tecnológicos que{" "}
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               transformaron
             </span>{" "}
             industrias
           </h2>
-          <p className="text-xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
             No solo desarrollamos agentes conversacionales. Creamos <strong>ecosistemas tecnológicos completos</strong>:
             frontend, backend, bases de datos, APIs, integraciones y agentes de IA especializados.
           </p>
         </motion.div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-muted/50 dark:bg-muted/30">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
             {useCases.map((useCase) => (
               <TabsTrigger
                 key={useCase.id}
                 value={useCase.id}
-                className="flex items-center gap-2 data-[state=active]:bg-background data-[state=active]:text-foreground"
+                className="flex items-center gap-2 data-[state=active]:bg-slate-900 data-[state=active]:text-white rounded-lg font-semibold transition-all duration-300 hover:bg-slate-50 data-[state=active]:hover:bg-slate-800"
               >
                 <useCase.icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{useCase.title}</span>
@@ -249,199 +267,228 @@ export function UseCasesSection() {
             ))}
           </TabsList>
 
-          {useCases.map((useCase) => (
-            <TabsContent key={useCase.id} value={useCase.id}>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
-                {/* Left Column - Case Details */}
+          <AnimatePresence mode="wait">
+            {useCases.map((useCase) => (
+              <TabsContent key={useCase.id} value={useCase.id}>
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="grid lg:grid-cols-2 gap-12 items-start"
                 >
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                      <useCase.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-foreground">{useCase.title}</h3>
-                      <p className="text-muted-foreground">{useCase.subtitle}</p>
-                    </div>
-                    <Badge variant="outline" className="ml-auto">
-                      {useCase.industry}
-                    </Badge>
-                  </div>
-
-                  <p className="text-lg text-muted-foreground mb-8">{useCase.description}</p>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-red-500" />
-                        Desafío Empresarial
-                      </h4>
-                      <p className="text-muted-foreground">{useCase.challenge}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                        <Code className="w-4 h-4 text-blue-500" />
-                        Solución Full Stack N3uralia
-                      </h4>
-                      <p className="text-muted-foreground">{useCase.solution}</p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                        <TrendingUp className="w-4 h-4 text-green-500" />
-                        Componentes Desarrollados
-                      </h4>
-                      <div className="grid grid-cols-1 gap-3">
-                        {useCase.results.map((result, index) => (
-                          <div key={index} className="flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                            <span className="text-sm text-muted-foreground">{result}</span>
-                          </div>
-                        ))}
+                  {/* Left Column - Case Details */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center">
+                        <useCase.icon className="w-6 h-6 text-white" />
                       </div>
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
-                        <Database className="w-4 h-4 text-purple-500" />
-                        Stack Tecnológico
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {useCase.techStack.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="text-xs">
-                            {tech}
-                          </Badge>
-                        ))}
+                      <div>
+                        <h3 className="text-2xl font-bold text-slate-900">{useCase.title}</h3>
+                        <p className="text-slate-600">{useCase.subtitle}</p>
                       </div>
+                      <Badge variant="outline" className="ml-auto border-slate-200 text-slate-700">
+                        {useCase.industry}
+                      </Badge>
                     </div>
-                  </div>
-                </motion.div>
 
-                {/* Right Column - Interactive Chat Demo */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="sticky top-8"
-                >
-                  <Card className="bg-card border-2 border-border shadow-xl">
-                    <CardContent className="p-6">
-                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
-                        <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className="font-semibold text-card-foreground">{useCase.title}</span>
-                        <Badge variant="secondary" className="ml-auto text-xs">
-                          <Bot className="w-3 h-3 mr-1" />
-                          Agente IA
-                        </Badge>
+                    <p className="text-lg text-slate-600 mb-8 leading-relaxed">{useCase.description}</p>
+
+                    <div className="space-y-6">
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2 text-lg">
+                          <Clock className="w-5 h-5 text-red-500" />
+                          Desafío Empresarial
+                        </h4>
+                        <p className="text-slate-600 leading-relaxed">{useCase.challenge}</p>
                       </div>
 
-                      <div className="space-y-4 h-96 overflow-y-auto" key={`${activeTab}-${animationKey}`}>
-                        <AnimatePresence mode="wait">
-                          {useCase.chat.slice(0, currentMessageIndex + 1).map((msg, index) => (
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2 text-lg">
+                          <Code className="w-5 h-5 text-blue-500" />
+                          Solución Full Stack N3uralia
+                        </h4>
+                        <p className="text-slate-600 leading-relaxed">{useCase.solution}</p>
+                      </div>
+
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-lg">
+                          <TrendingUp className="w-5 h-5 text-green-500" />
+                          Componentes Desarrollados
+                        </h4>
+                        <div className="grid grid-cols-1 gap-3">
+                          {useCase.results.map((result, index) => (
                             <motion.div
-                              key={`${activeTab}-${index}-${animationKey}`}
-                              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                              transition={{
-                                duration: 0.4,
-                                delay: index * 0.1,
-                                ease: "easeOut",
-                              }}
-                              className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+                              key={index}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                              className="flex items-center gap-3"
                             >
-                              {msg.type === "bot" && (
-                                <Avatar className="w-8 h-8 flex-shrink-0">
-                                  <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-                                    <Bot className="w-4 h-4" />
-                                  </AvatarFallback>
-                                </Avatar>
-                              )}
-                              <motion.div
-                                initial={{ scale: 0.9 }}
-                                animate={{ scale: 1 }}
-                                transition={{ duration: 0.2, delay: 0.1 }}
-                                className={`max-w-[85%] p-3 rounded-2xl ${
-                                  msg.type === "user"
-                                    ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white"
-                                    : "bg-muted text-muted-foreground"
-                                }`}
-                              >
-                                <p className="text-sm whitespace-pre-line">{msg.message}</p>
-                                <p className="text-xs opacity-70 mt-1">{msg.time}</p>
-                              </motion.div>
-                              {msg.type === "user" && (
-                                <Avatar className="w-8 h-8 flex-shrink-0">
-                                  <AvatarFallback className="bg-gray-500 text-white">
-                                    <User className="w-4 h-4" />
-                                  </AvatarFallback>
-                                </Avatar>
-                              )}
+                              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                              <span className="text-slate-600 font-medium">{result}</span>
                             </motion.div>
                           ))}
-                        </AnimatePresence>
+                        </div>
+                      </div>
 
-                        {isTyping && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3 }}
-                            className="flex gap-3 justify-start"
-                          >
-                            <Avatar className="w-8 h-8">
-                              <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-                                <Bot className="w-4 h-4" />
-                              </AvatarFallback>
-                            </Avatar>
-                            <div className="bg-muted p-3 rounded-2xl">
-                              <div className="flex space-x-1">
+                      {/* Tech Stack */}
+                      <div>
+                        <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-lg">
+                          <Database className="w-5 h-5 text-purple-500" />
+                          Stack Tecnológico
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {useCase.techStack.map((tech, index) => (
+                            <motion.div
+                              key={tech}
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
+                            >
+                              <Badge className="bg-slate-100 text-slate-700 border-slate-200 font-medium">{tech}</Badge>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Right Column - Interactive Chat Demo */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="sticky top-8"
+                  >
+                    <Card className="bg-white border border-slate-200 shadow-xl rounded-2xl overflow-hidden">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-200">
+                          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                          <span className="font-bold text-slate-900">{useCase.title}</span>
+                          <Badge className="ml-auto bg-slate-100 text-slate-700 border-slate-200 font-medium">
+                            <Bot className="w-3 h-3 mr-1" />
+                            Agente IA
+                          </Badge>
+                        </div>
+
+                        <div
+                          className="space-y-4 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100"
+                          key={`${activeTab}-${animationKey}`}
+                        >
+                          <AnimatePresence mode="sync">
+                            {!isAnimationPaused &&
+                              useCase.chat.slice(0, currentMessageIndex + 1).map((msg, index) => (
                                 <motion.div
-                                  className="w-2 h-2 bg-muted-foreground rounded-full"
-                                  animate={{ y: [0, -4, 0] }}
-                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0 }}
-                                />
-                                <motion.div
-                                  className="w-2 h-2 bg-muted-foreground rounded-full"
-                                  animate={{ y: [0, -4, 0] }}
-                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.2 }}
-                                />
-                                <motion.div
-                                  className="w-2 h-2 bg-muted-foreground rounded-full"
-                                  animate={{ y: [0, -4, 0] }}
-                                  transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.4 }}
-                                />
+                                  key={`${activeTab}-${index}-${animationKey}`}
+                                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                  transition={{
+                                    duration: 0.5,
+                                    delay: index * 0.1,
+                                    ease: "easeOut",
+                                  }}
+                                  className={`flex gap-3 ${msg.type === "user" ? "justify-end" : "justify-start"}`}
+                                >
+                                  {msg.type === "bot" && (
+                                    <Avatar className="w-8 h-8 flex-shrink-0">
+                                      <AvatarFallback className="bg-slate-900 text-white">
+                                        <Bot className="w-4 h-4" />
+                                      </AvatarFallback>
+                                    </Avatar>
+                                  )}
+                                  <motion.div
+                                    initial={{ scale: 0.9 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ duration: 0.3, delay: 0.1 }}
+                                    className={`max-w-[85%] p-3 rounded-2xl shadow-sm ${
+                                      msg.type === "user"
+                                        ? "bg-slate-900 text-white"
+                                        : "bg-slate-100 text-slate-800 border border-slate-200"
+                                    }`}
+                                  >
+                                    <p className="text-sm whitespace-pre-line font-medium leading-relaxed">
+                                      {msg.message}
+                                    </p>
+                                    <p className="text-xs opacity-70 mt-2 font-medium">{msg.time}</p>
+                                  </motion.div>
+                                  {msg.type === "user" && (
+                                    <Avatar className="w-8 h-8 flex-shrink-0">
+                                      <AvatarFallback className="bg-slate-600 text-white">
+                                        <User className="w-4 h-4" />
+                                      </AvatarFallback>
+                                    </Avatar>
+                                  )}
+                                </motion.div>
+                              ))}
+                          </AnimatePresence>
+
+                          {isTyping && !isAnimationPaused && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.4 }}
+                              className="flex gap-3 justify-start"
+                            >
+                              <Avatar className="w-8 h-8">
+                                <AvatarFallback className="bg-slate-900 text-white">
+                                  <Bot className="w-4 h-4" />
+                                </AvatarFallback>
+                              </Avatar>
+                              <div className="bg-slate-100 border border-slate-200 p-3 rounded-2xl shadow-sm">
+                                <div className="flex space-x-1">
+                                  <motion.div
+                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    animate={{ y: [0, -4, 0] }}
+                                    transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0 }}
+                                  />
+                                  <motion.div
+                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    animate={{ y: [0, -4, 0] }}
+                                    transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.2 }}
+                                  />
+                                  <motion.div
+                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    animate={{ y: [0, -4, 0] }}
+                                    transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.4 }}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                            </motion.div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
 
-                  {/* Full Stack Architecture Highlight */}
-                  <Card className="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-blue-200 dark:border-blue-800">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Cloud className="w-4 h-4 text-blue-600" />
-                        <span className="font-semibold text-blue-900 dark:text-blue-100 text-sm">
-                          Arquitectura Full Stack
-                        </span>
-                      </div>
-                      <p className="text-xs text-blue-700 dark:text-blue-300">
-                        Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
-                      </p>
-                    </CardContent>
-                  </Card>
+                    {/* Full Stack Architecture Highlight */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.8 }}
+                    >
+                      <Card className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                        <CardContent className="p-4">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Cloud className="w-4 h-4 text-slate-700" />
+                            <span className="font-bold text-slate-900 text-sm">Arquitectura Full Stack</span>
+                          </div>
+                          <p className="text-xs text-slate-600 font-medium">
+                            Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </motion.div>
                 </motion.div>
-              </div>
-            </TabsContent>
-          ))}
+              </TabsContent>
+            ))}
+          </AnimatePresence>
         </Tabs>
 
         <motion.div
@@ -453,7 +500,7 @@ export function UseCasesSection() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
             asChild
           >
             <a

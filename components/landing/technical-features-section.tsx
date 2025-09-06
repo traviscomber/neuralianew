@@ -1,115 +1,184 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Cpu, Shield, BarChart3, Zap, Code } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Code2, Database, Cloud, Cpu, Lock, Monitor, ArrowRight, CheckCircle, MessageCircle } from "lucide-react"
 
-const features = [
+const technicalFeatures = [
   {
-    title: "Real-time Processing",
-    description:
-      "Arquitectura distribuida con procesamiento en tiempo real, cache inteligente y APIs optimizadas para máximo rendimiento",
-    icon: Zap,
-    badge: "< 100ms",
-    color: "from-blue-500 to-cyan-600",
+    icon: Code2,
+    title: "APIs RESTful Robustas",
+    description: "Integración perfecta con sistemas existentes mediante APIs documentadas y SDKs completos.",
     details: [
-      "Microservicios con Node.js y Python",
-      "Cache distribuido con Redis y CDN global",
-      "APIs REST y GraphQL optimizadas",
-      "Balanceador de carga con failover automático",
+      "Documentación OpenAPI 3.0",
+      "SDKs en Python, JavaScript, PHP",
+      "Rate limiting y autenticación OAuth2",
+      "Webhooks para eventos en tiempo real",
     ],
+    category: "Integración",
   },
   {
-    title: "Enterprise Security",
-    description:
-      "Seguridad de nivel bancario con encriptación end-to-end, autenticación robusta y cumplimiento de estándares internacionales",
-    icon: Shield,
-    badge: "Bank-level",
-    color: "from-green-500 to-emerald-600",
+    icon: Database,
+    title: "Base de Datos Escalable",
+    description: "Arquitectura de datos optimizada para alto rendimiento y disponibilidad 99.9%.",
     details: [
-      "Encriptación AES-256 end-to-end",
-      "Cumplimiento SOC 2 Type II y GDPR",
-      "Autenticación multifactor y JWT",
-      "Auditorías de seguridad trimestrales",
+      "PostgreSQL con replicación automática",
+      "Backup incremental cada 15 minutos",
+      "Sharding horizontal automático",
+      "Índices optimizados para consultas IA",
     ],
+    category: "Infraestructura",
   },
   {
-    title: "Advanced Analytics",
-    description:
-      "Dashboards interactivos, analytics predictivos con machine learning y business intelligence en tiempo real",
-    icon: BarChart3,
-    badge: "Predictive",
-    color: "from-purple-500 to-pink-600",
+    icon: Cloud,
+    title: "Despliegue Multi-Cloud",
+    description: "Infraestructura distribuida en AWS, Google Cloud y Azure para máxima disponibilidad.",
     details: [
-      "Dashboards React con visualizaciones D3.js",
-      "Machine Learning con TensorFlow/PyTorch",
-      "Data warehouses con PostgreSQL/MongoDB",
-      "Reportes automáticos y alertas inteligentes",
+      "Auto-scaling basado en demanda",
+      "CDN global para baja latencia",
+      "Disaster recovery automático",
+      "Monitoreo 24/7 con alertas",
     ],
+    category: "Infraestructura",
   },
+  {
+    icon: Cpu,
+    title: "Procesamiento IA Avanzado",
+    description: "Modelos de lenguaje optimizados con GPUs dedicadas para respuestas instantáneas.",
+    details: [
+      "GPT-4 Turbo con fine-tuning",
+      "Procesamiento en <200ms",
+      "Modelos especializados por industria",
+      "Caché inteligente de respuestas",
+    ],
+    category: "Inteligencia Artificial",
+  },
+  {
+    icon: Lock,
+    title: "Seguridad Empresarial",
+    description: "Encriptación end-to-end y cumplimiento con estándares internacionales de seguridad.",
+    details: [
+      "Encriptación AES-256 en reposo",
+      "TLS 1.3 para datos en tránsito",
+      "Auditorías SOC 2 Type II",
+      "Cumplimiento GDPR y LOPD",
+    ],
+    category: "Seguridad",
+  },
+  {
+    icon: Monitor,
+    title: "Dashboard Analytics",
+    description: "Métricas en tiempo real con visualizaciones interactivas y reportes automatizados.",
+    details: [
+      "Métricas de conversación en vivo",
+      "Análisis de sentimientos avanzado",
+      "Reportes PDF automatizados",
+      "Alertas personalizables",
+    ],
+    category: "Analytics",
+  },
+]
+
+const architectureComponents = [
+  { name: "Frontend React/Next.js", status: "Optimizado", color: "bg-blue-500" },
+  { name: "Backend Node.js/Python", status: "Escalable", color: "bg-green-500" },
+  { name: "Base de Datos PostgreSQL", status: "Alta Disponibilidad", color: "bg-purple-500" },
+  { name: "Cache Redis", status: "Sub-segundo", color: "bg-red-500" },
+  { name: "Queue System", status: "Asíncrono", color: "bg-yellow-500" },
+  { name: "Monitoring", status: "24/7", color: "bg-indigo-500" },
 ]
 
 export function TechnicalFeaturesSection() {
   return (
-    <section id="technical-features" className="py-16 bg-gradient-to-br from-background to-muted/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="technical-features" className="py-24 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
-            <Code className="w-4 h-4 mr-2" />
-            Infraestructura Full Stack
+          <Badge className="mb-6 bg-slate-100 text-slate-700 border border-slate-200 hover:bg-slate-200 text-lg px-6 py-2 font-semibold">
+            <Code2 className="w-4 h-4 mr-2" />
+            Arquitectura Técnica
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-            Tecnología de{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Vanguardia
-            </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 tracking-tight">
+            Tecnología{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              enterprise-grade
+            </span>{" "}
+            probada
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Infraestructura robusta y escalable que garantiza rendimiento, seguridad y confiabilidad empresarial en cada
-            capa del stack tecnológico.
+          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+            Infraestructura robusta, APIs modernas y arquitectura escalable diseñada para empresas que requieren máximo
+            rendimiento y confiabilidad.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
-          {features.map((feature, index) => (
+        {/* Architecture Overview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <Card className="bg-slate-50 border border-slate-200 rounded-2xl">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Stack Tecnológico Completo</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {architectureComponents.map((component, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="text-center"
+                  >
+                    <div className={`w-4 h-4 ${component.color} rounded-full mx-auto mb-2`}></div>
+                    <div className="text-sm font-bold text-slate-900 mb-1">{component.name}</div>
+                    <div className="text-xs text-slate-600 font-medium">{component.status}</div>
+                  </motion.div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Technical Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {technicalFeatures.map((feature, index) => (
             <motion.div
-              key={feature.title}
+              key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="bg-card hover:shadow-xl dark:hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-border h-full">
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div
-                      className={`w-12 h-12 rounded-lg bg-gradient-to-r ${feature.color} flex items-center justify-center flex-shrink-0`}
-                    >
-                      <feature.icon className="w-6 h-6 text-white" />
+              <Card className="bg-white border border-slate-200 hover:shadow-xl hover:border-slate-300 transition-all duration-300 group h-full rounded-2xl">
+                <CardContent className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <feature.icon className="w-7 h-7 text-white" />
                     </div>
-                    <Badge
-                      variant="secondary"
-                      className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700"
-                    >
-                      {feature.badge}
+                    <Badge className="bg-slate-100 text-slate-700 border-slate-200 font-semibold">
+                      {feature.category}
                     </Badge>
                   </div>
 
-                  <h3 className="text-xl font-bold text-card-foreground mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                  <p className="text-slate-600 leading-relaxed mb-6 text-lg">{feature.description}</p>
 
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     {feature.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div>
-                        <span className="text-sm text-muted-foreground">{detail}</span>
+                      <div key={detailIndex} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-slate-600 font-medium text-sm">{detail}</span>
                       </div>
                     ))}
                   </div>
@@ -119,21 +188,62 @@ export function TechnicalFeaturesSection() {
           ))}
         </div>
 
-        {/* Full Stack Architecture Badge */}
+        {/* Performance Metrics */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <Card className="bg-slate-900 text-white border-0 rounded-2xl">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-8 text-center">Métricas de Rendimiento</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div className="text-center">
+                  <div className="text-4xl font-black mb-2">99.9%</div>
+                  <div className="text-slate-300 font-semibold">Uptime SLA</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-black mb-2">{"<200ms"}</div>
+                  <div className="text-slate-300 font-semibold">Latencia API</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-black mb-2">10K+</div>
+                  <div className="text-slate-300 font-semibold">Req/segundo</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-black mb-2">24/7</div>
+                  <div className="text-slate-300 font-semibold">Monitoreo</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <Badge
-            variant="outline"
-            className="text-lg px-6 py-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700"
+          <Button
+            size="lg"
+            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
+            asChild
           >
-            <Cpu className="w-5 h-5 mr-2" />
-            Powered by Full Stack Engineering & Advanced AI
-          </Badge>
+            <a
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20los%20detalles%20técnicos"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Consulta técnica especializada
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
+          </Button>
         </motion.div>
       </div>
     </section>

@@ -6,7 +6,19 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { X, Send, Sparkles, Mail, MessageCircle } from "lucide-react"
+import {
+  X,
+  Send,
+  Sparkles,
+  Mail,
+  MessageCircle,
+  Zap,
+  Globe,
+  Clock,
+  CheckCircle2,
+  Users,
+  Headphones,
+} from "lucide-react"
 
 // Custom Brain Icon Component
 const BrainIcon = ({ className }: { className?: string }) => (
@@ -70,16 +82,21 @@ const chatResponses = [
 ]
 
 const quickQuestions = [
-  { text: "🚀 ¿Qué soluciones full stack ofrecen?", trigger: "servicios" },
-  { text: "💰 ¿Cuánto cuesta un proyecto completo?", trigger: "precios" },
-  { text: "🏆 Ver casos de éxito completos", trigger: "casos" },
-  { text: "📱 Hablar con el equipo técnico", trigger: "contacto" },
-  { text: "👥 Soporte global 24/7", trigger: "equipo" },
-  { text: "🛠️ Stack tecnológico", trigger: "tecnologia" },
+  { text: "🚀 ¿Qué soluciones full stack ofrecen?", trigger: "servicios", icon: Zap },
+  { text: "💰 ¿Cuánto cuesta un proyecto completo?", trigger: "precios", icon: CheckCircle2 },
+  { text: "🏆 Ver casos de éxito completos", trigger: "casos", icon: Users },
+  { text: "📱 Hablar con el equipo técnico", trigger: "contacto", icon: MessageCircle },
+  { text: "👥 Soporte global 24/7", trigger: "equipo", icon: Globe },
+  { text: "🛠️ Stack tecnológico", trigger: "tecnologia", icon: Headphones },
 ]
 
-export function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false)
+interface ChatWidgetProps {
+  isOpen?: boolean
+  onToggle?: (isOpen: boolean) => void
+}
+
+export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps = {}) {
+  const [internalIsOpen, setInternalIsOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -91,6 +108,9 @@ export function ChatWidget() {
   const [showQuickQuestions, setShowQuickQuestions] = useState(true)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
+  // Use external state if provided, otherwise use internal state
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
@@ -98,6 +118,13 @@ export function ChatWidget() {
   useEffect(() => {
     scrollToBottom()
   }, [messages])
+
+  // Auto-open when externally controlled and reset quick questions
+  useEffect(() => {
+    if (externalIsOpen) {
+      setShowQuickQuestions(true)
+    }
+  }, [externalIsOpen])
 
   const getResponse = (userInput: string) => {
     const lowerInput = userInput.toLowerCase()
@@ -137,7 +164,7 @@ export function ChatWidget() {
     }
   }
 
-  const handleQuickQuestion = (question: { text: string; trigger: string }) => {
+  const handleQuickQuestion = (question: { text: string; trigger: string; icon: any }) => {
     const userMessage = { role: "user", content: question.text }
     const assistantMessage = { role: "assistant", content: getResponse(question.trigger) }
     setMessages((prev) => [...prev, userMessage, assistantMessage])
@@ -152,7 +179,12 @@ export function ChatWidget() {
   }
 
   const toggleChat = () => {
-    setIsOpen(!isOpen)
+    const newState = !isOpen
+    if (onToggle) {
+      onToggle(newState)
+    } else {
+      setInternalIsOpen(newState)
+    }
   }
 
   return (
@@ -166,18 +198,30 @@ export function ChatWidget() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-20 right-4 w-[90vw] max-w-sm h-[70vh] max-h-[600px] z-50 sm:w-96 sm:h-[600px]"
           >
-            <Card className="h-full flex flex-col shadow-2xl border-2 border-purple-200 dark:border-purple-800 bg-white dark:bg-gray-900 overflow-hidden">
-              <CardHeader className="pb-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white flex-shrink-0">
+            <Card className="h-full flex flex-col shadow-2xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+              <CardHeader className="pb-3 bg-gradient-to-r from-slate-800 to-slate-900 text-white flex-shrink-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 relative">
                       <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white animate-pulse" />
+                      {/* AI Status Indicator with Icon */}
+                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center">
+                        <CheckCircle2 className="w-2 h-2 text-white" />
+                      </div>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <CardTitle className="text-sm font-semibold truncate">N3uralia AI Assistant</CardTitle>
-                      <Badge variant="secondary" className="text-xs bg-green-100 text-green-700 border-0 mt-1">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-1 flex-shrink-0"></div>
-                        Full Stack Online 24/7
+                      <CardTitle className="text-sm font-semibold truncate text-white flex items-center gap-2">
+                        N3uralia AI Assistant
+                        <Zap className="w-3 h-3 text-yellow-300 animate-pulse" />
+                      </CardTitle>
+                      <Badge
+                        variant="secondary"
+                        className="text-xs bg-emerald-100 text-emerald-800 border-0 mt-1 flex items-center gap-1"
+                      >
+                        <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse flex-shrink-0"></div>
+                        <Globe className="w-3 h-3 flex-shrink-0" />
+                        <span className="truncate">Full Stack Online 24/7</span>
+                        <Clock className="w-3 h-3 flex-shrink-0 ml-1" />
                       </Badge>
                     </div>
                   </div>
@@ -193,72 +237,91 @@ export function ChatWidget() {
               </CardHeader>
 
               <CardContent className="flex-1 flex flex-col p-0 min-h-0">
-                <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+                <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600 scrollbar-track-transparent">
                   {messages.map((message, index) => (
                     <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
                       <div
                         className={`max-w-[85%] p-2.5 sm:p-3 rounded-lg text-xs sm:text-sm whitespace-pre-line break-words ${
                           message.role === "user"
-                            ? "bg-gradient-to-r from-purple-500 to-blue-500 text-white"
-                            : "bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100"
+                            ? "bg-gradient-to-r from-slate-700 to-slate-800 text-white"
+                            : "bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100"
                         }`}
                       >
+                        {message.role === "assistant" && (
+                          <div className="flex items-center gap-2 mb-2 pb-2 border-b border-slate-200 dark:border-slate-600">
+                            <BrainIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+                            <span className="text-xs font-medium text-slate-600 dark:text-slate-400">AI Assistant</span>
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                          </div>
+                        )}
                         {message.content}
                       </div>
                     </div>
                   ))}
 
-                  {/* Quick Questions - Always visible */}
+                  {/* Quick Questions - Always visible with enhanced icons */}
                   {showQuickQuestions && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="space-y-2 sm:space-y-3"
                     >
-                      <div className="text-xs text-gray-500 dark:text-gray-400 text-center font-medium px-2">
-                        👆 Selecciona una pregunta o escribe la tuya:
+                      <div className="text-xs text-slate-600 dark:text-slate-400 text-center font-medium px-2 flex items-center justify-center gap-2">
+                        <Sparkles className="w-3 h-3" />
+                        <span>Selecciona una pregunta o escribe la tuya:</span>
+                        <Sparkles className="w-3 h-3" />
                       </div>
                       <div className="grid grid-cols-1 gap-1.5 sm:gap-2 px-1">
-                        {quickQuestions.map((question, index) => (
-                          <Button
-                            key={index}
-                            variant="outline"
-                            size="sm"
-                            className="text-xs h-8 sm:h-10 justify-start hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-900/20 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-200 px-2 sm:px-3"
-                            onClick={() => handleQuickQuestion(question)}
-                          >
-                            <span className="truncate">{question.text}</span>
-                          </Button>
-                        ))}
+                        {quickQuestions.map((question, index) => {
+                          const IconComponent = question.icon
+                          return (
+                            <Button
+                              key={index}
+                              variant="outline"
+                              size="sm"
+                              className="text-xs h-8 sm:h-10 justify-start hover:bg-slate-100 hover:border-slate-400 dark:hover:bg-slate-700 bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-200 hover:text-slate-900 dark:hover:text-slate-100 transition-all duration-200 px-2 sm:px-3"
+                              onClick={() => handleQuickQuestion(question)}
+                            >
+                              <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0 text-slate-600 dark:text-slate-400" />
+                              <span className="truncate">{question.text}</span>
+                            </Button>
+                          )
+                        })}
                       </div>
                     </motion.div>
                   )}
 
-                  {/* Contact Buttons */}
+                  {/* Contact Buttons with enhanced icons */}
                   {!showQuickQuestions && messages.length > 2 && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="space-y-2 px-1"
                     >
-                      <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                        ¿Listo para tu proyecto full stack? 👇
+                      <div className="text-xs text-slate-600 dark:text-slate-400 text-center flex items-center justify-center gap-2">
+                        <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                        <span>¿Listo para tu proyecto full stack?</span>
+                        <Zap className="w-3 h-3 text-yellow-500" />
                       </div>
                       <div className="grid grid-cols-1 gap-2">
                         <Button
                           onClick={handleWhatsAppClick}
-                          className="bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3"
+                          className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2"
                         >
-                          <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
+                          <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <CheckCircle2 className="w-3 h-3 text-emerald-200 flex-shrink-0" />
                           <span className="truncate">WhatsApp: +56 9 4094 6660</span>
+                          <Clock className="w-3 h-3 text-emerald-200 flex-shrink-0" />
                         </Button>
                         <Button
                           onClick={() => window.open("mailto:hello@n3uralia.com", "_blank")}
                           variant="outline"
-                          className="text-xs sm:text-sm h-8 sm:h-10 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2 sm:px-3"
+                          className="text-xs sm:text-sm h-8 sm:h-10 hover:bg-slate-100 dark:hover:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-200 px-2 sm:px-3 flex items-center gap-2"
                         >
-                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 flex-shrink-0" />
+                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <CheckCircle2 className="w-3 h-3 text-slate-500 flex-shrink-0" />
                           <span className="truncate">hello@n3uralia.com</span>
+                          <Zap className="w-3 h-3 text-slate-500 flex-shrink-0" />
                         </Button>
                       </div>
                     </motion.div>
@@ -267,22 +330,26 @@ export function ChatWidget() {
                   <div ref={messagesEndRef} />
                 </div>
 
-                <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
+                <div className="p-3 sm:p-4 border-t border-slate-200 dark:border-slate-700 flex-shrink-0">
                   <div className="flex gap-2">
-                    <input
-                      type="text"
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      placeholder="Pregúntame sobre soluciones full stack..."
-                      className="flex-1 px-2 sm:px-3 py-2 text-xs sm:text-sm border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 min-w-0"
-                    />
+                    <div className="relative flex-1">
+                      <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        placeholder="Pregúntame sobre soluciones full stack..."
+                        className="w-full pl-8 pr-3 py-2 text-xs sm:text-sm border border-slate-300 dark:border-slate-600 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400"
+                      />
+                      <MessageCircle className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400" />
+                    </div>
                     <Button
                       size="sm"
                       onClick={handleSend}
-                      className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white flex-shrink-0 px-2 sm:px-3"
+                      className="bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white flex-shrink-0 px-2 sm:px-3 flex items-center gap-1"
                     >
                       <Send className="h-3 w-3 sm:h-4 sm:w-4" />
+                      <Zap className="h-2 w-2 text-yellow-300" />
                     </Button>
                   </div>
                 </div>
@@ -292,13 +359,13 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Floating Chat Button with Pulsating Effect and Brain Icon */}
+      {/* Floating Chat Button with enhanced status indicators */}
       {!isOpen && (
         <motion.div className="fixed bottom-4 right-4 z-50" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           {/* Pulsating Ring Effect */}
           <div className="absolute inset-0 rounded-full">
             <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-30"
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-400 to-slate-500 opacity-30"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.1, 0.3],
@@ -310,7 +377,7 @@ export function ChatWidget() {
               }}
             />
             <motion.div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 opacity-20"
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-slate-400 to-slate-500 opacity-20"
               animate={{
                 scale: [1, 1.4, 1],
                 opacity: [0.2, 0.05, 0.2],
@@ -327,7 +394,7 @@ export function ChatWidget() {
           <Button
             onClick={toggleChat}
             size="lg"
-            className="relative rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 border-4 border-white dark:border-gray-800 transition-all duration-300"
+            className="relative rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 border-4 border-white dark:border-slate-800 transition-all duration-300"
           >
             <motion.div
               animate={{
@@ -338,9 +405,21 @@ export function ChatWidget() {
                 repeat: Number.POSITIVE_INFINITY,
                 ease: "easeInOut",
               }}
+              className="flex items-center justify-center"
             >
               <BrainIcon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
             </motion.div>
+
+            {/* Status indicators on floating button */}
+            <div className="absolute -top-1 -right-1 flex items-center gap-1">
+              <div className="w-4 h-4 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-2.5 h-2.5 text-white" />
+              </div>
+            </div>
+
+            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
+              <Zap className="w-2 h-2 text-slate-800" />
+            </div>
           </Button>
         </motion.div>
       )}

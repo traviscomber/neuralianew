@@ -11,7 +11,7 @@ import { LLMOOptimizedContent } from "@/components/landing/llmo-optimized-conten
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950">
+    <div className="min-h-screen bg-white">
       <Navigation />
 
       {/* LLMO Optimized Content - Hidden but crawlable */}
