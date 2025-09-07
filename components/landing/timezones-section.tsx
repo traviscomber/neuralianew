@@ -28,20 +28,20 @@ export function TimezonesSection() {
       workingHours: "9:00 - 18:00 CLT",
     },
     {
+      city: "Kaliningrado",
+      timezone: "Europe/Kaliningrad",
+      country: "Rusia",
+      flag: "🇷🇺",
+      coordinates: { x: 52, y: 32 },
+      workingHours: "9:00 - 18:00 KALT",
+    },
+    {
       city: "Singapur",
       timezone: "Asia/Singapore",
       country: "Singapur",
       flag: "🇸🇬",
       coordinates: { x: 75, y: 60 },
       workingHours: "9:00 - 18:00 SGT",
-    },
-    {
-      city: "Moscú",
-      timezone: "Europe/Moscow",
-      country: "Rusia",
-      flag: "🇷🇺",
-      coordinates: { x: 60, y: 35 },
-      workingHours: "9:00 - 18:00 MSK",
     },
   ]
 
@@ -74,6 +74,11 @@ export function TimezonesSection() {
     return () => clearInterval(interval)
   }, [])
 
+  // Calculate if at least one team is always on duty
+  const isAlwaysOnDuty = () => {
+    return Object.values(workingStatus).some((status) => status)
+  }
+
   return (
     <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Background Effects */}
@@ -99,6 +104,20 @@ export function TimezonesSection() {
             Nuestros equipos de ingenieros especializados en IA trabajan las 24 horas para garantizar que tus agentes
             conversacionales funcionen perfectamente en cualquier momento del día.
           </p>
+
+          {/* Always On Duty Indicator */}
+          <div
+            className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium ${
+              isAlwaysOnDuty()
+                ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+            }`}
+          >
+            <div
+              className={`w-2 h-2 rounded-full ${isAlwaysOnDuty() ? "bg-green-400" : "bg-yellow-400"} animate-pulse`}
+            ></div>
+            <span>{isAlwaysOnDuty() ? "Equipo N3uralia siempre disponible" : "Verificando cobertura"}</span>
+          </div>
         </div>
 
         {/* World Map with Floating Cards */}
@@ -144,8 +163,20 @@ export function TimezonesSection() {
               >
                 {/* Pulsing Pin */}
                 <div className="relative">
-                  <div className="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
-                  <div className="absolute inset-0 w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-ping opacity-75"></div>
+                  <div
+                    className={`w-4 h-4 rounded-full animate-pulse ${
+                      workingStatus[tz.city]
+                        ? "bg-gradient-to-r from-green-500 to-emerald-500"
+                        : "bg-gradient-to-r from-blue-500 to-purple-500"
+                    }`}
+                  ></div>
+                  <div
+                    className={`absolute inset-0 w-4 h-4 rounded-full animate-ping opacity-75 ${
+                      workingStatus[tz.city]
+                        ? "bg-gradient-to-r from-green-500 to-emerald-500"
+                        : "bg-gradient-to-r from-blue-500 to-purple-500"
+                    }`}
+                  ></div>
                 </div>
 
                 {/* Floating Card */}
@@ -162,7 +193,9 @@ export function TimezonesSection() {
                         </div>
                       </div>
                       <div
-                        className={`w-2 h-2 rounded-full ${workingStatus[tz.city] ? "bg-green-400" : "bg-red-400"} animate-pulse`}
+                        className={`w-2 h-2 rounded-full ${
+                          workingStatus[tz.city] ? "bg-green-400" : "bg-red-400"
+                        } animate-pulse`}
                       ></div>
                     </div>
                     <div className="text-lg font-mono text-blue-300 mb-1">{currentTimes[tz.city] || "00:00"}</div>
@@ -170,7 +203,7 @@ export function TimezonesSection() {
                     <div
                       className={`text-xs font-medium ${workingStatus[tz.city] ? "text-green-400" : "text-red-400"}`}
                     >
-                      {workingStatus[tz.city] ? "🟢 En línea" : "🔴 Fuera de horario"}
+                      {workingStatus[tz.city] ? "Equipo en línea" : "Fuera de horario"}
                     </div>
                   </CardContent>
                 </Card>
@@ -180,7 +213,7 @@ export function TimezonesSection() {
         </div>
 
         {/* Live Clocks Section */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {timezones.map((tz) => (
             <Card
               key={tz.city}
@@ -211,7 +244,9 @@ export function TimezonesSection() {
                     }`}
                   >
                     <div
-                      className={`w-2 h-2 rounded-full ${workingStatus[tz.city] ? "bg-green-400" : "bg-red-400"} animate-pulse`}
+                      className={`w-2 h-2 rounded-full ${
+                        workingStatus[tz.city] ? "bg-green-400" : "bg-red-400"
+                      } animate-pulse`}
                     ></div>
                     <span>{workingStatus[tz.city] ? "Equipo en línea" : "Fuera de horario"}</span>
                   </div>
@@ -219,6 +254,24 @@ export function TimezonesSection() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Coverage Statistics */}
+        <div className="mt-12 text-center">
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <div className="bg-slate-800/30 rounded-lg p-6 border border-slate-700/50">
+              <div className="text-3xl font-bold text-green-400 mb-2">24/7</div>
+              <div className="text-slate-300">Cobertura Continua</div>
+            </div>
+            <div className="bg-slate-800/30 rounded-lg p-6 border border-slate-700/50">
+              <div className="text-3xl font-bold text-blue-400 mb-2">3</div>
+              <div className="text-slate-300">Continentes</div>
+            </div>
+            <div className="bg-slate-800/30 rounded-lg p-6 border border-slate-700/50">
+              <div className="text-3xl font-bold text-purple-400 mb-2">&lt; 1h</div>
+              <div className="text-slate-300">Tiempo de Respuesta</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -26,6 +25,15 @@ interface MobileTestCategory {
   icon: React.ComponentType<{ className?: string }>
 }
 
+interface DeviceInfo {
+  userAgent: string
+  screenWidth: number
+  screenHeight: number
+  devicePixelRatio: number
+  touchSupport: boolean
+  orientation: string
+}
+
 export default function MobileHeroTest() {
   const [isRunning, setIsRunning] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -34,7 +42,7 @@ export default function MobileHeroTest() {
   const [overallScore, setOverallScore] = useState(0)
   const [testStartTime, setTestStartTime] = useState<Date | null>(null)
   const [testEndTime, setTestEndTime] = useState<Date | null>(null)
-  const [deviceInfo, setDeviceInfo] = useState({
+  const [deviceInfo, setDeviceInfo] = useState<DeviceInfo>({
     userAgent: "",
     screenWidth: 0,
     screenHeight: 0,
@@ -42,6 +50,7 @@ export default function MobileHeroTest() {
     touchSupport: false,
     orientation: "",
   })
+  const [isClient, setIsClient] = useState(false)
 
   const testCategories: MobileTestCategory[] = [
     {
@@ -228,21 +237,27 @@ export default function MobileHeroTest() {
     },
   ]
 
+  // Initialize client-side only data
+  useEffect(() => {
+    setIsClient(true)
+
+    if (typeof window !== "undefined") {
+      setDeviceInfo({
+        userAgent: navigator.userAgent,
+        screenWidth: window.screen?.width || 0,
+        screenHeight: window.screen?.height || 0,
+        devicePixelRatio: window.devicePixelRatio || 1,
+        touchSupport: "ontouchstart" in window,
+        orientation: window.screen?.orientation?.type || "unknown",
+      })
+    }
+  }, [])
+
   const runMobileTests = async () => {
     setIsRunning(true)
     setProgress(0)
     setTestStartTime(new Date())
     setTestEndTime(null)
-
-    // Collect device information
-    setDeviceInfo({
-      userAgent: navigator.userAgent,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      devicePixelRatio: window.devicePixelRatio,
-      touchSupport: "ontouchstart" in window,
-      orientation: window.screen.orientation?.type || "unknown",
-    })
 
     const totalTests = testCategories.reduce((sum, category) => sum + category.tests.length, 0)
     let completedTests = 0
@@ -309,16 +324,44 @@ export default function MobileHeroTest() {
   }
 
   const getDeviceType = () => {
+    if (!isClient || typeof window === "undefined") return "Unknown"
     const width = window.innerWidth
     if (width < 481) return "Mobile"
     if (width < 769) return "Tablet"
     return "Desktop"
   }
 
+  const getCurrentViewport = () => {
+    if (!isClient || typeof window === "undefined") return "0x0"
+    return `${window.innerWidth}x${window.innerHeight}`
+  }
+
+  // Auto-run tests on component mount (client-side only)
   useEffect(() => {
-    // Auto-run tests on component mount
-    runMobileTests()
-  }, [])
+    if (isClient) {
+      runMobileTests()
+    }
+  }, [isClient])
+
+  // Show loading state during SSR
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl font-bold text-slate-900">Mobile Hero Section Test Suite</h1>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">Loading mobile testing environment...</p>
+          </div>
+          <Card className="border-2 border-slate-200">
+            <CardContent className="p-8 text-center">
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-slate-400" />
+              <p className="text-slate-600">Initializing mobile test suite...</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
@@ -357,7 +400,7 @@ export default function MobileHeroTest() {
                 <strong>Orientation:</strong> {deviceInfo.orientation}
               </div>
               <div>
-                <strong>Viewport:</strong> {window.innerWidth}x{window.innerHeight}
+                <strong>Viewport:</strong> {getCurrentViewport()}
               </div>
             </div>
           </CardContent>

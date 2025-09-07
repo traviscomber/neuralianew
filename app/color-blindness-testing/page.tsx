@@ -4,13 +4,11 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Progress } from "@/components/ui/progress"
 import { ChatWidget } from "@/components/chat/chat-widget"
 import {
   Eye,
-  Palette,
   CheckCircle,
   AlertTriangle,
   XCircle,
@@ -731,145 +729,6 @@ export default function ColorBlindnessTesting() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Detailed Results */}
-          <Tabs defaultValue="results" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 bg-white border border-slate-200">
-              <TabsTrigger value="results" className="font-semibold">
-                <Palette className="w-4 h-4 mr-2" />
-                Test Results
-              </TabsTrigger>
-              <TabsTrigger value="improvements" className="font-semibold">
-                <TrendingUp className="w-4 h-4 mr-2" />
-                Improvements
-              </TabsTrigger>
-              <TabsTrigger value="strengths" className="font-semibold">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                Strengths
-              </TabsTrigger>
-              <TabsTrigger value="icons" className="font-semibold">
-                <Sparkles className="w-4 h-4 mr-2" />
-                Icon Benefits
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="results" className="space-y-4">
-              <Card className="bg-white border border-slate-200">
-                <CardHeader>
-                  <CardTitle>Enhanced Test Results by Color Vision Type</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {results.testResults.map((test, index) => (
-                      <div key={index} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                        <div className="flex items-center gap-4">
-                          {getUsabilityIcon(test.testResults.usability)}
-                          <div>
-                            <div className="font-semibold text-slate-900 flex items-center gap-2">
-                              {test.name}
-                              {getSeverityBadge(test.severity)}
-                              <Badge className="bg-green-100 text-green-800 border-green-200 text-xs">
-                                <TrendingUp className="w-3 h-3 mr-1" />+{test.testResults.improvement}
-                              </Badge>
-                            </div>
-                            <div className="text-sm text-slate-600">{test.description}</div>
-                            <div className="text-xs text-slate-500 flex items-center gap-2 mt-1">
-                              <Users className="w-3 h-3" />
-                              Affects {test.prevalence}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="text-right space-y-2">
-                          <div className="font-bold text-slate-900">{test.testResults.overallScore}/100</div>
-                          <div className="text-xs text-green-600">Previous: {test.testResults.previousScore}/100</div>
-                          <div className="flex gap-2">{getUsabilityBadge(test.testResults.usability)}</div>
-                          <div className="text-xs text-slate-600">
-                            Contrast: {test.testResults.contrast} | Clarity: {test.testResults.distinguishability}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="improvements" className="space-y-4">
-              <Card className="bg-white border border-slate-200">
-                <CardHeader>
-                  <CardTitle>Score Improvements by Condition</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {results.testResults
-                      .sort((a, b) => b.testResults.improvement - a.testResults.improvement)
-                      .map((test, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-                          <div className="flex items-center gap-4">
-                            <TrendingUp className="w-6 h-6 text-green-500" />
-                            <div>
-                              <div className="font-semibold text-green-900">{test.name}</div>
-                              <div className="text-sm text-green-700">
-                                {test.testResults.previousScore}% → {test.testResults.overallScore}%
-                              </div>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-green-600">+{test.testResults.improvement}</div>
-                            <div className="text-sm text-green-700">points</div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="strengths" className="space-y-4">
-              <Card className="bg-white border border-slate-200">
-                <CardHeader>
-                  <CardTitle>Enhanced Design Strengths</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {results.summary.strengths.map((strength, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
-                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        <span className="text-green-800">{strength}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="icons" className="space-y-4">
-              <Card className="bg-white border border-slate-200">
-                <CardHeader>
-                  <CardTitle>Icon Enhancement Benefits</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    {results.summary.iconImprovements.map((improvement, index) => (
-                      <div key={index} className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
-                        <Sparkles className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                        <span className="text-blue-800">{improvement}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <Alert className="bg-purple-50 border-purple-200 mt-6">
-                    <Award className="h-4 w-4 text-purple-600" />
-                    <AlertDescription className="text-purple-800">
-                      <strong>Outstanding Achievement:</strong> The icon enhancement system has achieved a{" "}
-                      {results.totalImprovement}-point average improvement across all color vision conditions, making
-                      the chat widget accessible to {results.totalPopulationCovered}% of the global population.
-                    </AlertDescription>
-                  </Alert>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
 
           {/* Actions */}
           <div className="flex gap-4 justify-center">
