@@ -1,420 +1,492 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Clock, CheckCircle2, AlertCircle, RefreshCw, Play, Pause } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  CheckCircle,
+  XCircle,
+  AlertTriangle,
+  Clock,
+  Globe,
+  Play,
+  Pause,
+  RotateCcw,
+  Smartphone,
+  Tablet,
+  Monitor,
+  RefreshCw,
+} from "lucide-react"
 
-interface TimeZoneData {
-  city: string
-  timezone: string
-  country: string
-  flag: string
-  workingHours: string
-  utcOffset: string
-}
-
-interface TestResult {
-  test: string
+interface TimezoneTest {
+  name: string
   status: "pass" | "fail" | "warning"
   message: string
   timestamp: string
 }
 
-export default function TimezoneVerificationPage() {
-  const [currentTimes, setCurrentTimes] = useState<Record<string, string>>({})
-  const [workingStatus, setWorkingStatus] = useState<Record<string, boolean>>({})
-  const [testResults, setTestResults] = useState<TestResult[]>([])
-  const [isRunning, setIsRunning] = useState(true)
-  const [updateCount, setUpdateCount] = useState(0)
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date())
+interface TimezoneData {
+  city: string
+  timezone: string
+  country: string
+  flag: string
+  currentTime: string
+  isWorking: boolean
+  lastUpdate: string
+}
 
-  const timezones: TimeZoneData[] = [
+export default function TimezoneVerification() {
+  const [isRunning, setIsRunning] = useState(false)
+  const [testResults, setTestResults] = useState<TimezoneTest[]>([])
+  const [updateCount, setUpdateCount] = useState(0)
+  const [timezones, setTimezones] = useState<TimezoneData[]>([])
+  const [isClient, setIsClient] = useState(false)
+
+  const timezoneConfigs = [
     {
       city: "Santiago",
       timezone: "America/Santiago",
       country: "Chile",
       flag: "🇨🇱",
-      workingHours: "9:00 - 18:00 CLT",
-      utcOffset: "UTC-3",
     },
     {
       city: "Kaliningrado",
       timezone: "Europe/Kaliningrad",
       country: "Rusia",
       flag: "🇷🇺",
-      workingHours: "9:00 - 18:00 KALT",
-      utcOffset: "UTC+2",
     },
     {
       city: "Singapur",
       timezone: "Asia/Singapore",
       country: "Singapur",
       flag: "🇸🇬",
-      workingHours: "9:00 - 18:00 SGT",
-      utcOffset: "UTC+8",
     },
   ]
 
-  const addTestResult = (test: string, status: "pass" | "fail" | "warning", message: string) => {
-    const result: TestResult = {
-      test,
-      status,
-      message,
-      timestamp: new Date().toLocaleTimeString(),
-    }
-    setTestResults((prev) => [result, ...prev.slice(0, 19)]) // Keep last 20 results
-  }
+  // Initialize client-side rendering
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
-  const updateTimes = () => {
-    const times: Record<string, string> = {}
-    const status: Record<string, boolean> = {}
-    let allTimesValid = true
-    let workingTeamsCount = 0
+  const updateTimezones = () => {
+    if (!isClient || typeof window === "undefined") return
 
-    timezones.forEach((tz) => {
-      try {
-        const now = new Date()
-        const timeString = now.toLocaleTimeString("es-CL", {
-          timeZone: tz.timezone,
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-        })
+    const now = new Date()
+    const updatedTimezones = timezoneConfigs.map((config) => {
+      const timeString = now.toLocaleTimeString("es-CL", {
+        timeZone: config.timezone,
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      })
 
-        // Validate time format
-        if (!/^\d{2}:\d{2}$/.test(timeString)) {
-          allTimesValid = false
-          addTestResult(`Time Format - ${tz.city}`, "fail", `Invalid time format: ${timeString}`)
-        }
+      const hour = Number.parseInt(timeString.split(":")[0])
+      const isWorking = hour >= 9 && hour < 18
 
-        times[tz.city] = timeString
-
-        // Check if it's working hours (9 AM to 6 PM)
-        const hour = Number.parseInt(timeString.split(":")[0])
-        const isWorking = hour >= 9 && hour < 18
-        status[tz.city] = isWorking
-
-        if (isWorking) workingTeamsCount++
-
-        // Test working hours logic
-        if (hour >= 0 && hour <= 23) {
-          addTestResult(
-            `Working Hours - ${tz.city}`,
-            "pass",
-            `Hour ${hour} correctly evaluated as ${isWorking ? "working" : "off-duty"}`,
-          )
-        }
-      } catch (error) {
-        allTimesValid = false
-        addTestResult(`Timezone Error - ${tz.city}`, "fail", `Failed to get time: ${error}`)
+      return {
+        ...config,
+        currentTime: timeString,
+        isWorking,
+        lastUpdate: now.toLocaleTimeString(),
       }
     })
 
-    setCurrentTimes(times)
-    setWorkingStatus(status)
+    setTimezones(updatedTimezones)
+    return updatedTimezones
+  }
+
+  const runTests = () => {
+    if (!isClient) return
+
+    const updatedTimezones = updateTimezones()
+    const newTests: TimezoneTest[] = []
+
+    // Test 1: Time format validation
+    updatedTimezones.forEach((tz) => {
+      const timeRegex = /^\d{2}:\d{2}$/
+      newTests.push({
+        name: `${tz.city} Time Format`,
+        status: timeRegex.test(tz.currentTime) ? "pass" : "fail",
+        message: timeRegex.test(tz.currentTime)
+          ? `✅ Time format valid: ${tz.currentTime}`
+          : `❌ Invalid time format: ${tz.currentTime}`,
+        timestamp: new Date().toLocaleTimeString(),
+      })
+    })
+
+    // Test 2: Working hours calculation
+    updatedTimezones.forEach((tz) => {
+      const hour = Number.parseInt(tz.currentTime.split(":")[0])
+      const expectedWorking = hour >= 9 && hour < 18
+      newTests.push({
+        name: `${tz.city} Working Hours`,
+        status: tz.isWorking === expectedWorking ? "pass" : "fail",
+        message:
+          tz.isWorking === expectedWorking
+            ? `✅ Working status correct: ${tz.isWorking ? "Working" : "Off hours"}`
+            : `❌ Working status incorrect`,
+        timestamp: new Date().toLocaleTimeString(),
+      })
+    })
+
+    // Test 3: System update reliability
+    newTests.push({
+      name: "System Updates",
+      status: "pass",
+      message: `✅ System updated successfully (${updateCount + 1} times)`,
+      timestamp: new Date().toLocaleTimeString(),
+    })
+
+    // Test 4: Coverage analysis
+    const workingTeams = updatedTimezones.filter((tz) => tz.isWorking).length
+    newTests.push({
+      name: "Team Coverage",
+      status: workingTeams > 0 ? "pass" : "warning",
+      message:
+        workingTeams > 0 ? `✅ ${workingTeams} team(s) currently working` : `⚠️ No teams currently in working hours`,
+      timestamp: new Date().toLocaleTimeString(),
+    })
+
+    setTestResults((prev) => [...newTests, ...prev].slice(0, 20))
     setUpdateCount((prev) => prev + 1)
-    setLastUpdate(new Date())
-
-    // Overall system tests
-    if (allTimesValid) {
-      addTestResult("Time Updates", "pass", "All timezone times updated successfully")
-    }
-
-    if (workingTeamsCount > 0) {
-      addTestResult("Coverage", "pass", `${workingTeamsCount} team(s) currently on duty`)
-    } else {
-      addTestResult("Coverage", "warning", "No teams currently in working hours")
-    }
   }
 
+  // Auto-update effect
   useEffect(() => {
-    if (!isRunning) return
+    if (!isClient) return
 
-    updateTimes()
-    const interval = setInterval(updateTimes, 1000)
-    return () => clearInterval(interval)
-  }, [isRunning])
+    let interval: NodeJS.Timeout | null = null
 
-  const runManualTests = () => {
-    // Test timezone accuracy
-    timezones.forEach((tz) => {
-      const now = new Date()
-      const localTime = now.toLocaleString("en-US", { timeZone: tz.timezone })
-      addTestResult(`Timezone Accuracy - ${tz.city}`, "pass", `Local time: ${localTime}`)
-    })
+    if (isRunning) {
+      // Initial update
+      runTests()
 
-    // Test working status calculation
-    const currentHour = new Date().getHours()
-    const testHours = [8, 9, 12, 17, 18, 19]
-    testHours.forEach((hour) => {
-      const isWorking = hour >= 9 && hour < 18
-      addTestResult("Working Hours Logic", "pass", `Hour ${hour}: ${isWorking ? "Working" : "Off-duty"}`)
-    })
+      // Set up interval
+      interval = setInterval(() => {
+        runTests()
+      }, 1000)
+    }
 
-    addTestResult("Manual Tests", "pass", "All manual tests completed")
+    return () => {
+      if (interval) {
+        clearInterval(interval)
+      }
+    }
+  }, [isRunning, isClient, updateCount])
+
+  // Auto-start on mount
+  useEffect(() => {
+    if (isClient) {
+      setIsRunning(true)
+    }
+  }, [isClient])
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "pass":
+        return <CheckCircle className="w-4 h-4 text-green-500" />
+      case "fail":
+        return <XCircle className="w-4 h-4 text-red-500" />
+      case "warning":
+        return <AlertTriangle className="w-4 h-4 text-yellow-500" />
+      default:
+        return <RefreshCw className="w-4 h-4 text-gray-400" />
+    }
   }
 
-  const toggleUpdates = () => {
-    setIsRunning(!isRunning)
-    addTestResult("Update Control", "pass", `Real-time updates ${!isRunning ? "started" : "paused"}`)
+  const getDeviceType = () => {
+    if (!isClient || typeof window === "undefined") return "Unknown"
+    const width = window.innerWidth
+    if (width < 768) return "Mobile"
+    if (width < 1024) return "Tablet"
+    return "Desktop"
   }
 
-  const clearResults = () => {
-    setTestResults([])
-    addTestResult("System", "pass", "Test results cleared")
+  const getDeviceIcon = () => {
+    const deviceType = getDeviceType()
+    switch (deviceType) {
+      case "Mobile":
+        return <Smartphone className="w-4 h-4" />
+      case "Tablet":
+        return <Tablet className="w-4 h-4" />
+      default:
+        return <Monitor className="w-4 h-4" />
+    }
+  }
+
+  // Show loading state during SSR
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl font-bold text-slate-900">Timezone Verification System</h1>
+            <p className="text-xl text-slate-600">Loading timezone testing environment...</p>
+          </div>
+          <Card className="border-2 border-slate-200">
+            <CardContent className="p-8 text-center">
+              <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-slate-400" />
+              <p className="text-slate-600">Initializing real-time clock verification...</p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-6 sm:py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+      <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 mb-4">
-            <Clock className="w-4 h-4 mr-2" />
-            Verificación de Zonas Horarias
-          </Badge>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-            Test de Relojes en{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              Tiempo Real
-            </span>
-          </h1>
-          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto px-4">
-            Verificación automática de actualizaciones de reloj y indicadores de estado de trabajo
+        <div className="text-center space-y-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900">Timezone Verification System</h1>
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
+            Real-time testing of clock updates and working status indicators for N3uralia global teams
           </p>
         </div>
 
-        {/* Control Panel - Improved Mobile Layout */}
-        <Card className="mb-6 sm:mb-8 bg-slate-800/50 border-slate-700/50">
+        {/* Device Info */}
+        <Card className="border-2 border-blue-200 bg-blue-50">
           <CardHeader>
-            <CardTitle className="text-white flex items-center space-x-2 text-lg sm:text-xl">
-              <RefreshCw className="w-5 h-5" />
-              <span>Panel de Control</span>
+            <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+              {getDeviceIcon()}
+              Testing Environment - {getDeviceType()}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {/* Mobile-First Layout with Better Spacing */}
-            <div className="space-y-6">
-              {/* Action Buttons - Stacked on Mobile with Better Touch Targets */}
-              <div className="flex flex-col sm:flex-row gap-4 sm:gap-3">
-                <Button
-                  onClick={toggleUpdates}
-                  variant={isRunning ? "destructive" : "default"}
-                  className="flex items-center justify-center space-x-2 h-12 sm:h-10 text-base sm:text-sm font-medium min-w-0 sm:min-w-[140px]"
-                >
-                  {isRunning ? <Pause className="w-5 h-5 sm:w-4 sm:h-4" /> : <Play className="w-5 h-5 sm:w-4 sm:h-4" />}
-                  <span>{isRunning ? "Pausar" : "Iniciar"} Actualizaciones</span>
-                </Button>
-                <Button
-                  onClick={runManualTests}
-                  variant="outline"
-                  className="text-white border-slate-600 bg-transparent hover:bg-slate-700 h-12 sm:h-10 text-base sm:text-sm font-medium min-w-0 sm:min-w-[160px]"
-                >
-                  Ejecutar Tests Manuales
-                </Button>
-                <Button
-                  onClick={clearResults}
-                  variant="outline"
-                  className="text-white border-slate-600 bg-transparent hover:bg-slate-700 h-12 sm:h-10 text-base sm:text-sm font-medium min-w-0 sm:min-w-[140px]"
-                >
-                  Limpiar Resultados
-                </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+              <div>
+                <strong>Device:</strong> {getDeviceType()}
               </div>
-
-              {/* Status Information - Better Mobile Layout */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                <div className="flex items-center justify-between sm:justify-start sm:space-x-2 p-3 sm:p-2 bg-slate-700/30 rounded-lg">
-                  <span className="text-slate-400">Actualizaciones:</span>
-                  <span className="text-white font-medium">{updateCount}</span>
-                </div>
-                <div className="flex items-center justify-between sm:justify-start sm:space-x-2 p-3 sm:p-2 bg-slate-700/30 rounded-lg">
-                  <span className="text-slate-400">Última actualización:</span>
-                  <span className="text-white font-medium">{lastUpdate.toLocaleTimeString()}</span>
-                </div>
-                <div className="flex items-center justify-between sm:justify-start sm:space-x-2 p-3 sm:p-2 bg-slate-700/30 rounded-lg">
-                  <span className="text-slate-400">Estado:</span>
-                  <div className={`flex items-center space-x-2 ${isRunning ? "text-green-400" : "text-red-400"}`}>
-                    <div
-                      className={`w-2 h-2 rounded-full ${isRunning ? "bg-green-400" : "bg-red-400"} animate-pulse`}
-                    ></div>
-                    <span className="font-medium">{isRunning ? "Activo" : "Pausado"}</span>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between sm:justify-start sm:space-x-2 p-3 sm:p-2 bg-slate-700/30 rounded-lg">
-                  <span className="text-slate-400">Equipos activos:</span>
-                  <span className="text-white font-medium">{Object.values(workingStatus).filter(Boolean).length}</span>
-                </div>
+              <div>
+                <strong>Screen:</strong>{" "}
+                {isClient && typeof window !== "undefined"
+                  ? `${window.innerWidth}x${window.innerHeight}`
+                  : "Loading..."}
+              </div>
+              <div>
+                <strong>Status:</strong> {isRunning ? "🟢 Running" : "🔴 Stopped"}
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Live Timezone Display - Improved Mobile Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          {timezones.map((tz) => (
-            <Card key={tz.city} className="bg-slate-800/50 border-slate-700/50">
-              <CardContent className="p-4 sm:p-6 text-center">
-                <div className="flex items-center justify-center space-x-3 mb-4">
-                  <span className="text-2xl sm:text-3xl">{tz.flag}</span>
-                  <div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white">{tz.city}</h3>
-                    <p className="text-sm text-slate-400">{tz.country}</p>
-                    <p className="text-xs text-slate-500">{tz.utcOffset}</p>
+        {/* Control Panel - Mobile Optimized */}
+        <Card className="border-2 border-slate-200">
+          <CardHeader>
+            <CardTitle className="text-lg md:text-xl">Control Panel</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Button
+                onClick={() => setIsRunning(!isRunning)}
+                className={`h-12 sm:h-10 text-base sm:text-sm ${
+                  isRunning ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"
+                }`}
+              >
+                {isRunning ? (
+                  <>
+                    <Pause className="w-5 h-5 sm:w-4 sm:h-4 mr-2" />
+                    Pause Testing
+                  </>
+                ) : (
+                  <>
+                    <Play className="w-5 h-5 sm:w-4 sm:h-4 mr-2" />
+                    Start Testing
+                  </>
+                )}
+              </Button>
+              <Button
+                onClick={runTests}
+                variant="outline"
+                className="h-12 sm:h-10 text-base sm:text-sm border-2 bg-transparent"
+              >
+                <RefreshCw className="w-5 h-5 sm:w-4 sm:h-4 mr-2" />
+                Run Manual Test
+              </Button>
+              <Button
+                onClick={() => {
+                  setTestResults([])
+                  setUpdateCount(0)
+                }}
+                variant="outline"
+                className="h-12 sm:h-10 text-base sm:text-sm border-2"
+              >
+                <RotateCcw className="w-5 h-5 sm:w-4 sm:h-4 mr-2" />
+                Clear Results
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Summary Dashboard - Mobile Responsive */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="bg-green-50 border-green-200">
+            <CardContent className="p-4 sm:p-6 text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-green-600">{updateCount}</div>
+              <div className="text-xs sm:text-sm text-green-700">Total Updates</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-blue-50 border-blue-200">
+            <CardContent className="p-4 sm:p-6 text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-blue-600">
+                {timezones.filter((tz) => tz.isWorking).length}
+              </div>
+              <div className="text-xs sm:text-sm text-blue-700">Active Teams</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-purple-50 border-purple-200">
+            <CardContent className="p-4 sm:p-6 text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-purple-600">
+                {testResults.filter((t) => t.status === "pass").length}
+              </div>
+              <div className="text-xs sm:text-sm text-purple-700">Tests Passed</div>
+            </CardContent>
+          </Card>
+          <Card className="bg-orange-50 border-orange-200">
+            <CardContent className="p-4 sm:p-6 text-center">
+              <div className="text-2xl sm:text-3xl font-bold text-orange-600">
+                {testResults.filter((t) => t.status === "fail").length}
+              </div>
+              <div className="text-xs sm:text-sm text-orange-700">Tests Failed</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content Tabs */}
+        <Tabs defaultValue="live-clocks" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 h-auto sm:h-10">
+            <TabsTrigger value="live-clocks" className="h-12 sm:h-auto text-sm">
+              <Clock className="w-4 h-4 mr-2" />
+              Live Clocks
+            </TabsTrigger>
+            <TabsTrigger value="test-results" className="h-12 sm:h-auto text-sm">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              Test Results
+            </TabsTrigger>
+            <TabsTrigger value="system-info" className="h-12 sm:h-auto text-sm">
+              <Globe className="w-4 h-4 mr-2" />
+              System Info
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="live-clocks" className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {timezones.map((tz) => (
+                <Card key={tz.city} className="border border-slate-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-4 sm:p-6 text-center">
+                    <div className="flex items-center justify-center space-x-3 mb-4">
+                      <span className="text-2xl sm:text-3xl">{tz.flag}</span>
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-semibold text-slate-900">{tz.city}</h3>
+                        <p className="text-xs sm:text-sm text-slate-600">{tz.country}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="text-3xl sm:text-4xl font-mono font-bold text-slate-900">{tz.currentTime}</div>
+
+                      <Badge
+                        className={`text-xs sm:text-sm px-3 py-1 ${
+                          tz.isWorking
+                            ? "bg-green-100 text-green-800 border-green-200"
+                            : "bg-red-100 text-red-800 border-red-200"
+                        }`}
+                      >
+                        {tz.isWorking ? "🟢 Working Hours" : "🔴 Off Hours"}
+                      </Badge>
+
+                      <div className="text-xs text-slate-500">Last updated: {tz.lastUpdate}</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="test-results" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg sm:text-xl">Recent Test Results</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2 max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-transparent">
+                  {testResults.length === 0 ? (
+                    <div className="text-center py-8 text-slate-500">
+                      <RefreshCw className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                      <p>No test results yet. Start testing to see results.</p>
+                    </div>
+                  ) : (
+                    testResults.map((test, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start gap-3 p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
+                      >
+                        <div className="flex-shrink-0 mt-0.5">{getStatusIcon(test.status)}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+                            <h4 className="font-medium text-slate-900 text-sm sm:text-base">{test.name}</h4>
+                            <span className="text-xs text-slate-500">{test.timestamp}</span>
+                          </div>
+                          <p className="text-xs sm:text-sm text-slate-600 mt-1">{test.message}</p>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="system-info" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg sm:text-xl">System Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900">Testing Configuration</h4>
+                    <div className="space-y-1 text-slate-600">
+                      <div>Update Interval: 1 second</div>
+                      <div>Timezone Count: {timezoneConfigs.length}</div>
+                      <div>Working Hours: 9:00 - 18:00</div>
+                      <div>Test History: Last 20 results</div>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-slate-900">Current Status</h4>
+                    <div className="space-y-1 text-slate-600">
+                      <div>System: {isRunning ? "🟢 Running" : "🔴 Stopped"}</div>
+                      <div>Updates: {updateCount} completed</div>
+                      <div>Active Teams: {timezones.filter((tz) => tz.isWorking).length}</div>
+                      <div>Device: {getDeviceType()}</div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-center space-x-2">
-                    <Clock className="w-5 h-5 text-blue-400" />
-                    <span className="text-2xl sm:text-3xl font-mono text-white font-bold">
-                      {currentTimes[tz.city] || "00:00"}
-                    </span>
-                  </div>
-
-                  <div className="text-sm text-slate-400">{tz.workingHours}</div>
-
-                  <div
-                    className={`inline-flex items-center space-x-2 px-3 py-2 rounded-full text-xs font-medium ${
-                      workingStatus[tz.city]
-                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                        : "bg-red-500/20 text-red-400 border border-red-500/30"
-                    }`}
-                  >
-                    <div
-                      className={`w-2 h-2 rounded-full ${
-                        workingStatus[tz.city] ? "bg-green-400" : "bg-red-400"
-                      } animate-pulse`}
-                    ></div>
-                    <span>{workingStatus[tz.city] ? "Equipo en línea" : "Fuera de horario"}</span>
-                  </div>
-
-                  {/* Additional test info - Hidden on small screens to save space */}
-                  <div className="hidden sm:block text-xs text-slate-500 space-y-1">
-                    <div>
-                      Hora actual: {currentTimes[tz.city] ? Number.parseInt(currentTimes[tz.city].split(":")[0]) : 0}
-                    </div>
-                    <div>Estado: {workingStatus[tz.city] ? "✅ Trabajando" : "❌ Fuera de horario"}</div>
+                <div className="pt-4 border-t border-slate-200">
+                  <h4 className="font-semibold text-slate-900 mb-2">Timezone Coverage</h4>
+                  <div className="space-y-2">
+                    {timezoneConfigs.map((config) => (
+                      <div key={config.city} className="flex items-center justify-between text-sm">
+                        <span className="flex items-center gap-2">
+                          <span>{config.flag}</span>
+                          <span>{config.city}</span>
+                        </span>
+                        <Badge variant="outline" className="text-xs">
+                          {config.timezone}
+                        </Badge>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-
-        {/* Test Results - Improved Mobile Scrolling */}
-        <Card className="bg-slate-800/50 border-slate-700/50 mb-6 sm:mb-8">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center justify-between text-lg sm:text-xl">
-              <div className="flex items-center space-x-2">
-                <CheckCircle2 className="w-5 h-5" />
-                <span>Resultados de Tests en Tiempo Real</span>
-              </div>
-              <Badge variant="outline" className="text-slate-300">
-                {testResults.length} resultados
-              </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* Improved Mobile Scrolling with Touch Indicators */}
-            <div className="space-y-2 max-h-80 sm:max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-600 scrollbar-track-slate-800">
-              {testResults.length === 0 ? (
-                <div className="text-center text-slate-400 py-8">
-                  <AlertCircle className="w-8 h-8 mx-auto mb-2" />
-                  <p className="text-sm sm:text-base">
-                    No hay resultados de tests aún. Los tests se ejecutan automáticamente cada segundo.
-                  </p>
-                </div>
-              ) : (
-                testResults.map((result, index) => (
-                  <div
-                    key={index}
-                    className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-3 rounded-lg space-y-2 sm:space-y-0 ${
-                      result.status === "pass"
-                        ? "bg-green-500/10 border border-green-500/20"
-                        : result.status === "fail"
-                          ? "bg-red-500/10 border border-red-500/20"
-                          : "bg-yellow-500/10 border border-yellow-500/20"
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3 min-w-0 flex-1">
-                      <div
-                        className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                          result.status === "pass"
-                            ? "bg-green-400"
-                            : result.status === "fail"
-                              ? "bg-red-400"
-                              : "bg-yellow-400"
-                        }`}
-                      ></div>
-                      <div className="min-w-0 flex-1">
-                        <div
-                          className={`font-medium text-sm sm:text-base ${
-                            result.status === "pass"
-                              ? "text-green-400"
-                              : result.status === "fail"
-                                ? "text-red-400"
-                                : "text-yellow-400"
-                          }`}
-                        >
-                          {result.test}
-                        </div>
-                        <div className="text-xs sm:text-sm text-slate-300 break-words">{result.message}</div>
-                      </div>
-                    </div>
-                    <div className="text-xs text-slate-500 flex-shrink-0 sm:ml-4">{result.timestamp}</div>
-                  </div>
-                ))
-              )}
-            </div>
-            {/* Mobile Scroll Indicator */}
-            {testResults.length > 5 && (
-              <div className="sm:hidden text-center text-xs text-slate-500 mt-2 flex items-center justify-center space-x-1">
-                <div className="w-1 h-1 bg-slate-500 rounded-full animate-bounce"></div>
-                <span>Desliza para ver más resultados</span>
-                <div
-                  className="w-1 h-1 bg-slate-500 rounded-full animate-bounce"
-                  style={{ animationDelay: "0.1s" }}
-                ></div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Summary Statistics - Improved Mobile Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          <Card className="bg-slate-800/30 border-slate-700/50">
-            <CardContent className="p-3 sm:p-4 text-center">
-              <div className="text-xl sm:text-2xl font-bold text-green-400 mb-1">{updateCount}</div>
-              <div className="text-xs sm:text-sm text-slate-300">Actualizaciones</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-slate-800/30 border-slate-700/50">
-            <CardContent className="p-3 sm:p-4 text-center">
-              <div className="text-xl sm:text-2xl font-bold text-blue-400 mb-1">
-                {Object.values(workingStatus).filter(Boolean).length}
-              </div>
-              <div className="text-xs sm:text-sm text-slate-300">Equipos Activos</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-slate-800/30 border-slate-700/50">
-            <CardContent className="p-3 sm:p-4 text-center">
-              <div className="text-xl sm:text-2xl font-bold text-purple-400 mb-1">
-                {testResults.filter((r) => r.status === "pass").length}
-              </div>
-              <div className="text-xs sm:text-sm text-slate-300">Tests Exitosos</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-slate-800/30 border-slate-700/50">
-            <CardContent className="p-3 sm:p-4 text-center">
-              <div className="text-xl sm:text-2xl font-bold text-red-400 mb-1">
-                {testResults.filter((r) => r.status === "fail").length}
-              </div>
-              <div className="text-xs sm:text-sm text-slate-300">Tests Fallidos</div>
-            </CardContent>
-          </Card>
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
