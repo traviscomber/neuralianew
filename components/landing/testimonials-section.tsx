@@ -41,7 +41,7 @@ const testimonials = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <section className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,17 +50,17 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
             <Building className="w-4 h-4 mr-2" />
             Testimonios de Proyectos Full Stack
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-colors duration-300">
             Lo que dicen nuestros clientes sobre nuestras{" "}
-            <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
               soluciones completas
             </span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground dark:text-slate-300 max-w-3xl mx-auto transition-colors duration-300">
             Empresas que confiaron en N3uralia para desarrollar ecosistemas tecnológicos completos, no solo agentes
             conversacionales.
           </p>
@@ -86,19 +86,28 @@ export function TestimonialsSection() {
 
                   {/* Quote */}
                   <div className="relative mb-6">
-                    <Quote className="w-8 h-8 text-blue-200 dark:text-blue-800 absolute -top-2 -left-2" />
-                    <p className="text-gray-700 dark:text-gray-300 italic pl-6">{testimonial.text}</p>
+                    <Quote className="w-8 h-8 text-blue-200 dark:text-blue-800 absolute -top-2 -left-2 transition-colors duration-300" />
+                    <p className="text-gray-700 dark:text-gray-300 italic pl-6 transition-colors duration-300">
+                      {testimonial.text}
+                    </p>
                   </div>
 
                   {/* Project Info */}
                   <div className="mb-4">
-                    <Badge variant="outline" className="mb-2 text-xs">
+                    <Badge
+                      variant="outline"
+                      className="mb-2 text-xs border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 transition-colors duration-300"
+                    >
                       <Code className="w-3 h-3 mr-1" />
                       {testimonial.project}
                     </Badge>
                     <div className="flex flex-wrap gap-1">
                       {testimonial.techStack.map((tech) => (
-                        <Badge key={tech} variant="secondary" className="text-xs">
+                        <Badge
+                          key={tech}
+                          variant="secondary"
+                          className="text-xs bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors duration-300"
+                        >
                           {tech}
                         </Badge>
                       ))}
@@ -106,10 +115,10 @@ export function TestimonialsSection() {
                   </div>
 
                   {/* Author */}
-                  <div className="flex items-center gap-3 pt-4 border-t border-gray-200 dark:border-slate-700">
+                  <div className="flex items-center gap-3 pt-4 border-t border-gray-200 dark:border-slate-700 transition-colors duration-300">
                     <Avatar className="w-10 h-10">
                       <AvatarImage src={testimonial.image || "/placeholder.svg"} alt={testimonial.name} />
-                      <AvatarFallback className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                      <AvatarFallback className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 transition-colors duration-300">
                         {testimonial.name
                           .split(" ")
                           .map((n) => n[0])
@@ -117,9 +126,15 @@ export function TestimonialsSection() {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</div>
-                      <div className="text-sm text-blue-600 dark:text-blue-400">{testimonial.company}</div>
+                      <div className="font-semibold text-gray-900 dark:text-white transition-colors duration-300">
+                        {testimonial.name}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">
+                        {testimonial.role}
+                      </div>
+                      <div className="text-sm text-blue-600 dark:text-blue-400 transition-colors duration-300">
+                        {testimonial.company}
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -136,7 +151,7 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6 max-w-3xl mx-auto">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg p-6 max-w-3xl mx-auto">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Database className="w-5 h-5" />
               <span className="text-lg font-semibold">Soluciones Full Stack Completas</span>

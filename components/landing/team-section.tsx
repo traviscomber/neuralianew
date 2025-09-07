@@ -1,281 +1,295 @@
 "use client"
 
+import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Users, MapPin, Linkedin, Github, Mail, Code, Brain, Rocket, Globe, Award, BookOpen } from "lucide-react"
-import Image from "next/image"
+import {
+  Users,
+  Code,
+  Palette,
+  Brain,
+  MessageCircle,
+  ArrowRight,
+  MapPin,
+  Award,
+  Briefcase,
+  GraduationCap,
+} from "lucide-react"
+
+const teamMembers = [
+  {
+    name: "Rafael Vial",
+    role: "Ingeniero Frontend",
+    education: "Ingeniero PuC UI",
+    location: "Santiago, Chile",
+    flag: "🇨🇱",
+    specialties: ["React/Next.js", "UI/UX Implementation", "Frontend Architecture", "Performance Optimization"],
+    description: "Especialista en interfaces de usuario modernas y experiencias web optimizadas",
+    icon: Code,
+    color: "from-blue-500 to-blue-600",
+    experience: "5+ años",
+    projects: "Frontend de EcosueloLab, Parrotfy UI, Despega Tu Carrera",
+  },
+  {
+    name: "Irina Lebedeva",
+    role: "UX Designer - Frontend",
+    education: "Design Systems Specialist",
+    location: "Moscú, Rusia",
+    flag: "🇷🇺",
+    specialties: ["UX Research", "Design Systems", "Frontend Design", "User Psychology"],
+    description: "Diseñadora UX con enfoque en psicología del usuario y sistemas de diseño escalables",
+    icon: Palette,
+    color: "from-purple-500 to-purple-600",
+    experience: "6+ años",
+    projects: "Design System N3uralia, UX Research, Interface Design",
+  },
+  {
+    name: "Juan Vial",
+    role: "Fullstack AI Engineer",
+    education: "AI & Machine Learning Specialist",
+    location: "Santiago, Chile",
+    flag: "🇨🇱",
+    specialties: ["AI Development", "Backend Architecture", "Machine Learning", "System Integration"],
+    description: "Ingeniero fullstack especializado en IA conversacional y arquitecturas escalables",
+    icon: Brain,
+    color: "from-green-500 to-green-600",
+    experience: "7+ años",
+    projects: "AI Engine N3uralia, Backend Systems, ML Models",
+  },
+]
+
+const teamStats = [
+  { icon: Users, label: "Equipo Global", value: "35+", description: "Especialistas distribuidos" },
+  { icon: MapPin, label: "Países", value: "3", description: "Chile, Singapur, Rusia" },
+  { icon: Award, label: "Experiencia", value: "15+", description: "Años promedio" },
+  { icon: Briefcase, label: "Proyectos", value: "50+", description: "Casos de éxito" },
+]
 
 export function TeamSection() {
-  const teamMembers = [
-    {
-      name: "Dr. Carlos Mendoza",
-      role: "CEO & AI Research Director",
-      location: "Santiago, Chile",
-      flag: "🇨🇱",
-      image: "/placeholder-user.jpg",
-      bio: "PhD en Machine Learning, ex-Google AI. 15+ años liderando proyectos de IA conversacional.",
-      skills: ["Deep Learning", "NLP", "Strategic Leadership", "Research"],
-      achievements: ["50+ papers publicados", "3 patentes en IA", "TEDx Speaker"],
-      social: {
-        linkedin: "https://linkedin.com/in/carlos-mendoza",
-        github: "https://github.com/cmendoza",
-        email: "carlos@n3uralia.com",
-      },
-    },
-    {
-      name: "Elena Volkov",
-      role: "CTO & Full Stack Architect",
-      location: "Moscow, Russia",
-      flag: "🇷🇺",
-      image: "/placeholder-user.jpg",
-      bio: "Ex-Yandex Senior Engineer. Especialista en arquitecturas escalables y sistemas distribuidos.",
-      skills: ["System Architecture", "DevOps", "Cloud Computing", "AI Integration"],
-      achievements: ["Sistemas para 10M+ usuarios", "AWS Certified", "Open Source Contributor"],
-      social: {
-        linkedin: "https://linkedin.com/in/elena-volkov",
-        github: "https://github.com/evolkov",
-        email: "elena@n3uralia.com",
-      },
-    },
-    {
-      name: "Dr. Wei Chen",
-      role: "Head of AI Engineering",
-      location: "Singapore",
-      flag: "🇸🇬",
-      image: "/placeholder-user.jpg",
-      bio: "PhD en Computer Science, ex-Microsoft Research. Experto en LLMs y sistemas conversacionales.",
-      skills: ["LLM Fine-tuning", "Conversational AI", "MLOps", "Research"],
-      achievements: ["20+ modelos en producción", "Microsoft MVP", "AI Conference Speaker"],
-      social: {
-        linkedin: "https://linkedin.com/in/wei-chen",
-        github: "https://github.com/wchen",
-        email: "wei@n3uralia.com",
-      },
-    },
-    {
-      name: "María González",
-      role: "Lead Product Designer",
-      location: "Santiago, Chile",
-      flag: "🇨🇱",
-      image: "/placeholder-user.jpg",
-      bio: "10+ años diseñando experiencias conversacionales. Ex-Uber, especialista en UX para IA.",
-      skills: ["UX/UI Design", "Conversational Design", "User Research", "Prototyping"],
-      achievements: ["Productos usados por 5M+ usuarios", "Design Awards", "UX Mentor"],
-      social: {
-        linkedin: "https://linkedin.com/in/maria-gonzalez",
-        github: "https://github.com/mgonzalez",
-        email: "maria@n3uralia.com",
-      },
-    },
-    {
-      name: "Alex Thompson",
-      role: "Senior DevOps Engineer",
-      location: "Remote - Global",
-      flag: "🌍",
-      image: "/placeholder-user.jpg",
-      bio: "Especialista en infraestructura cloud y CI/CD. Garantiza 99.9% uptime en todos nuestros sistemas.",
-      skills: ["Kubernetes", "AWS/GCP", "Monitoring", "Security"],
-      achievements: ["Zero-downtime deployments", "Cost optimization 40%", "Security Expert"],
-      social: {
-        linkedin: "https://linkedin.com/in/alex-thompson",
-        github: "https://github.com/athompson",
-        email: "alex@n3uralia.com",
-      },
-    },
-    {
-      name: "Dr. Priya Sharma",
-      role: "AI Ethics & Safety Lead",
-      location: "Singapore",
-      flag: "🇸🇬",
-      image: "/placeholder-user.jpg",
-      bio: "PhD en AI Ethics, ex-OpenAI Safety Team. Garantiza que nuestros agentes sean seguros y éticos.",
-      skills: ["AI Safety", "Ethics", "Bias Detection", "Compliance"],
-      achievements: ["AI Ethics Framework", "Industry Standards", "Academic Publications"],
-      social: {
-        linkedin: "https://linkedin.com/in/priya-sharma",
-        github: "https://github.com/psharma",
-        email: "priya@n3uralia.com",
-      },
-    },
-  ]
-
-  const stats = [
-    { icon: Users, value: "25+", label: "Ingenieros Expertos" },
-    { icon: Globe, value: "3", label: "Continentes" },
-    { icon: Award, value: "50+", label: "Proyectos Exitosos" },
-    { icon: BookOpen, value: "100+", label: "Papers & Patents" },
-  ]
-
   return (
-    <section id="team" className="py-20 bg-gradient-to-br from-slate-950 to-slate-900 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="team" className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
+      <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <Badge className="mb-6 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
             <Users className="w-4 h-4 mr-2" />
-            Equipo de Clase Mundial
+            Equipo Especializado
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Los Mejores Talentos en{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              IA y Tecnología
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
+            Los expertos detrás de{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+              N3uralia
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Nuestro equipo multidisciplinario combina décadas de experiencia en IA, ingeniería de software y diseño de
-            productos para crear soluciones que realmente transforman negocios.
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
+            Conoce al equipo de ingenieros, diseñadores y especialistas en IA que hacen posible la transformación
+            digital de tu empresa.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon
-            return (
-              <Card key={index} className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm text-center">
-                <CardContent className="p-6">
-                  <Icon className="w-8 h-8 mx-auto mb-3 text-blue-400" />
-                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-slate-400">{stat.label}</div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
-
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {teamMembers.map((member, index) => (
+        {/* Team Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+        >
+          {teamStats.map((stat, index) => (
             <Card
               key={index}
-              className="bg-slate-800/50 border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/70 transition-all duration-300 group"
+              className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 rounded-2xl"
             >
-              <CardContent className="p-6">
-                {/* Profile Header */}
-                <div className="flex items-start space-x-4 mb-4">
-                  <div className="relative">
-                    <Image
-                      src={member.image || "/placeholder.svg"}
-                      alt={member.name}
-                      width={64}
-                      height={64}
-                      className="rounded-full border-2 border-slate-600"
-                    />
-                    <div className="absolute -bottom-1 -right-1 text-lg">{member.flag}</div>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-white group-hover:text-blue-300 transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-blue-400 text-sm font-medium">{member.role}</p>
-                    <div className="flex items-center text-slate-400 text-sm mt-1">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {member.location}
-                    </div>
-                  </div>
+              <CardContent className="p-6 text-center">
+                <stat.icon className="w-8 h-8 text-slate-700 dark:text-slate-300 mx-auto mb-3 transition-colors duration-300" />
+                <div className="text-3xl font-black text-slate-900 dark:text-white mb-1 transition-colors duration-300">
+                  {stat.value}
                 </div>
-
-                {/* Bio */}
-                <p className="text-slate-300 text-sm mb-4 leading-relaxed">{member.bio}</p>
-
-                {/* Skills */}
-                <div className="mb-4">
-                  <div className="flex flex-wrap gap-1">
-                    {member.skills.map((skill, skillIndex) => (
-                      <Badge key={skillIndex} className="bg-slate-700/50 text-slate-300 text-xs">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
+                <div className="text-sm text-slate-900 dark:text-white font-bold mb-1 transition-colors duration-300">
+                  {stat.label}
                 </div>
-
-                {/* Achievements */}
-                <div className="mb-4">
-                  <h4 className="text-sm font-medium text-white mb-2">Logros Destacados:</h4>
-                  <ul className="space-y-1">
-                    {member.achievements.map((achievement, achIndex) => (
-                      <li key={achIndex} className="text-xs text-slate-400 flex items-center">
-                        <Award className="w-3 h-3 mr-1 text-yellow-500 flex-shrink-0" />
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Social Links */}
-                <div className="flex space-x-3 pt-4 border-t border-slate-700">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="p-2 h-8 w-8 text-slate-400 hover:text-blue-400"
-                    onClick={() => window.open(member.social.linkedin, "_blank")}
-                  >
-                    <Linkedin className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="p-2 h-8 w-8 text-slate-400 hover:text-purple-400"
-                    onClick={() => window.open(member.social.github, "_blank")}
-                  >
-                    <Github className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="p-2 h-8 w-8 text-slate-400 hover:text-green-400"
-                    onClick={() => window.open(`mailto:${member.social.email}`, "_blank")}
-                  >
-                    <Mail className="w-4 h-4" />
-                  </Button>
+                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
+                  {stat.description}
                 </div>
               </CardContent>
             </Card>
           ))}
+        </motion.div>
+
+        {/* Core Team Members */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group h-full rounded-2xl">
+                <CardContent className="p-8">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-r ${member.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        <member.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white transition-colors duration-300">
+                          {member.name}
+                        </h3>
+                        <p className="text-slate-600 dark:text-slate-400 font-semibold transition-colors duration-300">
+                          {member.role}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl mb-1">{member.flag}</div>
+                      <Badge className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium text-xs transition-colors duration-300">
+                        {member.experience}
+                      </Badge>
+                    </div>
+                  </div>
+
+                  {/* Education & Location */}
+                  <div className="mb-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <GraduationCap className="w-4 h-4 text-slate-600 dark:text-slate-400 transition-colors duration-300" />
+                      <span className="text-slate-600 dark:text-slate-400 font-medium text-sm transition-colors duration-300">
+                        {member.education}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-slate-600 dark:text-slate-400 transition-colors duration-300" />
+                      <span className="text-slate-600 dark:text-slate-400 font-medium text-sm transition-colors duration-300">
+                        {member.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 transition-colors duration-300">
+                    {member.description}
+                  </p>
+
+                  {/* Specialties */}
+                  <div className="mb-6">
+                    <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-3 transition-colors duration-300">
+                      Especialidades:
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {member.specialties.map((specialty, specialtyIndex) => (
+                        <Badge
+                          key={specialtyIndex}
+                          className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium text-xs transition-colors duration-300"
+                        >
+                          {specialty}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Projects */}
+                  <div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-2 transition-colors duration-300">
+                      Proyectos Destacados:
+                    </h4>
+                    <p className="text-slate-600 dark:text-slate-300 text-sm font-medium transition-colors duration-300">
+                      {member.projects}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
 
-        {/* Culture & Values */}
-        <div className="grid md:grid-cols-3 gap-8">
-          <Card className="bg-gradient-to-br from-blue-900/30 to-blue-800/30 border-blue-700/50 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <Code className="w-12 h-12 mx-auto mb-4 text-blue-400" />
-              <h3 className="text-xl font-semibold text-white mb-2">Excelencia Técnica</h3>
-              <p className="text-slate-300 text-sm">
-                Nos comprometemos con los más altos estándares de calidad en código, arquitectura y mejores prácticas de
-                la industria.
-              </p>
+        {/* Global Team Highlight */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 rounded-2xl transition-colors duration-300">
+            <CardContent className="p-8">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <h3 className="text-2xl font-bold mb-4">Equipo Global Distribuido</h3>
+                  <p className="text-blue-100 leading-relaxed mb-6">
+                    Más allá del equipo core, contamos con 35+ especialistas distribuidos en Chile, Singapur y Rusia.
+                    Cada proyecto cuenta con expertos locales que entienden tu mercado y cultura empresarial.
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-black mb-1">🇨🇱 15+</div>
+                      <div className="text-blue-100 text-sm font-semibold">Chile</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-black mb-1">🇸🇬 8+</div>
+                      <div className="text-blue-100 text-sm font-semibold">Singapur</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-black mb-1">🇷🇺 12+</div>
+                      <div className="text-blue-100 text-sm font-semibold">Rusia</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <h4 className="font-bold mb-2">Especialidades por Región</h4>
+                    <div className="space-y-2 text-sm">
+                      <div>
+                        🇨🇱 <strong>Chile:</strong> IA en Español, Mercado Latinoamericano
+                      </div>
+                      <div>
+                        🇸🇬 <strong>Singapur:</strong> Expansión Asia-Pacífico, Mercados en Inglés
+                      </div>
+                      <div>
+                        🇷🇺 <strong>Rusia:</strong> I+D Avanzado, Desarrollo Técnico
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </CardContent>
           </Card>
+        </motion.div>
 
-          <Card className="bg-gradient-to-br from-purple-900/30 to-purple-800/30 border-purple-700/50 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <Brain className="w-12 h-12 mx-auto mb-4 text-purple-400" />
-              <h3 className="text-xl font-semibold text-white mb-2">Innovación Continua</h3>
-              <p className="text-slate-300 text-sm">
-                Investigamos y adoptamos las últimas tecnologías en IA para mantener a nuestros clientes a la
-                vanguardia.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-green-900/30 to-green-800/30 border-green-700/50 backdrop-blur-sm">
-            <CardContent className="p-6 text-center">
-              <Rocket className="w-12 h-12 mx-auto mb-4 text-green-400" />
-              <h3 className="text-xl font-semibold text-white mb-2">Impacto Real</h3>
-              <p className="text-slate-300 text-sm">
-                Cada proyecto que desarrollamos está diseñado para generar valor medible y transformar realmente los
-                negocios.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Button
+            size="lg"
+            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
+            asChild
+          >
+            <a
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20el%20equipo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Conocer al equipo completo
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
+          </Button>
+        </motion.div>
       </div>
     </section>
   )

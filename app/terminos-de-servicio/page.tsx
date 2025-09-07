@@ -1,139 +1,188 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/landing/footer"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Shield, FileText, Users, Clock } from "lucide-react"
 
-export default function TerminosDeServicio() {
+export default function TerminosDeServicioPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
       <Navigation />
-
-      <main className="container mx-auto px-4 py-16 max-w-4xl">
-        <h1 className="text-4xl font-bold text-gray-900 mb-8">Términos de Servicio</h1>
-
-        <div className="prose prose-lg max-w-none">
-          <p className="text-gray-600 mb-8">
-            <strong>Última actualización:</strong> {new Date().toLocaleDateString("es-ES")}
-          </p>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Aceptación de los Términos</h2>
-            <p className="text-gray-700 mb-4">
-              Al acceder y utilizar los servicios de Neuralia ("nosotros", "nuestro" o "la empresa"), usted acepta estar
-              sujeto a estos Términos de Servicio. Si no está de acuerdo con alguna parte de estos términos, no debe
-              utilizar nuestros servicios.
+      <main className="pt-20 pb-16 bg-white dark:bg-slate-950">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="flex justify-center mb-4">
+              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                <FileText className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+            </div>
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Términos de Servicio</h1>
+            <p className="text-xl text-slate-600 dark:text-slate-300">
+              Condiciones de uso de los servicios de N3uralia
             </p>
-          </section>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Última actualización: 1 de enero de 2024</p>
+          </div>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Descripción del Servicio</h2>
-            <p className="text-gray-700 mb-4">
-              Neuralia proporciona servicios de inteligencia artificial conversacional, incluyendo pero no limitado a:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 mb-4">
-              <li>Desarrollo de chatbots y asistentes virtuales</li>
-              <li>Integración de IA en sistemas existentes</li>
-              <li>Consultoría en automatización de atención al cliente</li>
-              <li>Plataformas especializadas como EcosueloLab y Parrotfy</li>
-            </ul>
-          </section>
+          {/* Content */}
+          <div className="space-y-8">
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="flex items-center text-slate-900 dark:text-white">
+                  <Users className="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400" />
+                  1. Aceptación de los Términos
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  Al acceder y utilizar los servicios de N3uralia ("nosotros", "nuestro" o "la empresa"), usted acepta
+                  estar sujeto a estos Términos de Servicio y todas las leyes y regulaciones aplicables.
+                </p>
+                <p>
+                  Si no está de acuerdo con alguno de estos términos, tiene prohibido usar o acceder a este sitio y
+                  nuestros servicios.
+                </p>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Registro y Cuentas de Usuario</h2>
-            <p className="text-gray-700 mb-4">
-              Para acceder a ciertos servicios, puede ser necesario crear una cuenta. Usted es responsable de mantener
-              la confidencialidad de su información de cuenta y de todas las actividades que ocurran bajo su cuenta.
-            </p>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="flex items-center text-slate-900 dark:text-white">
+                  <Shield className="w-5 h-5 mr-2 text-green-600 dark:text-green-400" />
+                  2. Descripción del Servicio
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  N3uralia proporciona servicios de desarrollo e implementación de agentes conversacionales inteligentes
+                  y sistemas de inteligencia artificial para empresas.
+                </p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-2">Nuestros servicios incluyen:</h4>
+                  <ul className="list-disc list-inside space-y-1 text-slate-600 dark:text-slate-400">
+                    <li>Desarrollo de agentes conversacionales personalizados</li>
+                    <li>Integración con plataformas de mensajería (WhatsApp, etc.)</li>
+                    <li>Consultoría en inteligencia artificial</li>
+                    <li>Soporte técnico y mantenimiento</li>
+                    <li>Capacitación y documentación</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Uso Aceptable</h2>
-            <p className="text-gray-700 mb-4">
-              Usted se compromete a utilizar nuestros servicios únicamente para fines legales y de acuerdo con estos
-              términos. Está prohibido:
-            </p>
-            <ul className="list-disc pl-6 text-gray-700 mb-4">
-              <li>Usar los servicios para actividades ilegales o no autorizadas</li>
-              <li>Intentar acceder a sistemas o datos sin autorización</li>
-              <li>Interferir con el funcionamiento de nuestros servicios</li>
-              <li>Transmitir contenido malicioso o dañino</li>
-            </ul>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="flex items-center text-slate-900 dark:text-white">
+                  <Clock className="w-5 h-5 mr-2 text-purple-600 dark:text-purple-400" />
+                  3. Condiciones de Uso
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <h4 className="font-semibold text-slate-900 dark:text-white">3.1 Uso Permitido</h4>
+                <p>
+                  Usted puede usar nuestros servicios únicamente para fines comerciales legítimos y de acuerdo con estos
+                  términos.
+                </p>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Propiedad Intelectual</h2>
-            <p className="text-gray-700 mb-4">
-              Todos los derechos de propiedad intelectual en nuestros servicios y tecnología pertenecen a Neuralia. Los
-              clientes mantienen la propiedad de sus datos, pero nos otorgan una licencia para procesarlos según sea
-              necesario para proporcionar nuestros servicios.
-            </p>
-          </section>
+                <h4 className="font-semibold text-slate-900 dark:text-white">3.2 Restricciones</h4>
+                <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+                  <p className="text-red-800 dark:text-red-300 font-medium mb-2">Está prohibido:</p>
+                  <ul className="list-disc list-inside space-y-1 text-red-700 dark:text-red-400">
+                    <li>Usar los servicios para actividades ilegales o no autorizadas</li>
+                    <li>Intentar acceder a sistemas o datos no autorizados</li>
+                    <li>Interferir con el funcionamiento de nuestros servicios</li>
+                    <li>Reproducir, duplicar o copiar nuestros servicios sin autorización</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Privacidad y Protección de Datos</h2>
-            <p className="text-gray-700 mb-4">
-              El manejo de sus datos personales se rige por nuestra Política de Privacidad, que forma parte integral de
-              estos términos. Cumplimos con las regulaciones aplicables de protección de datos en Chile, Singapur y
-              otras jurisdicciones donde operamos.
-            </p>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-slate-900 dark:text-white">4. Propiedad Intelectual</CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  Los servicios y su contenido original, características y funcionalidad son y seguirán siendo propiedad
+                  exclusiva de N3uralia y sus licenciantes.
+                </p>
+                <p>
+                  Los servicios están protegidos por derechos de autor, marcas comerciales, patentes, secretos
+                  comerciales y otras leyes de propiedad intelectual.
+                </p>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Pagos y Facturación</h2>
-            <p className="text-gray-700 mb-4">
-              Los términos de pago se especifican en los contratos individuales de servicio. Los pagos vencidos pueden
-              resultar en la suspensión del servicio. Todos los precios están sujetos a los impuestos aplicables.
-            </p>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-slate-900 dark:text-white">5. Privacidad y Datos</CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  Su privacidad es importante para nosotros. Consulte nuestra Política de Privacidad para obtener
+                  información sobre cómo recopilamos, usamos y protegemos su información.
+                </p>
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-blue-800 dark:text-blue-300">
+                    <strong>Compromiso de Seguridad:</strong> Implementamos medidas de seguridad técnicas y
+                    organizacionales apropiadas para proteger sus datos personales.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Limitación de Responsabilidad</h2>
-            <p className="text-gray-700 mb-4">
-              En la máxima medida permitida por la ley, Neuralia no será responsable por daños indirectos, incidentales,
-              especiales o consecuentes que resulten del uso de nuestros servicios.
-            </p>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-slate-900 dark:text-white">6. Limitación de Responsabilidad</CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  En ningún caso N3uralia, sus directores, empleados, socios, agentes, proveedores o afiliados serán
+                  responsables de daños indirectos, incidentales, especiales, consecuenciales o punitivos.
+                </p>
+                <p>
+                  Nuestra responsabilidad total hacia usted por todas las reclamaciones relacionadas con los servicios
+                  no excederá el monto pagado por usted a N3uralia en los 12 meses anteriores a la reclamación.
+                </p>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Terminación</h2>
-            <p className="text-gray-700 mb-4">
-              Cualquiera de las partes puede terminar el servicio con previo aviso. Nos reservamos el derecho de
-              suspender o terminar cuentas que violen estos términos.
-            </p>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-slate-900 dark:text-white">7. Modificaciones</CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>
+                  Nos reservamos el derecho de modificar o reemplazar estos términos en cualquier momento. Si una
+                  revisión es material, intentaremos proporcionar un aviso de al menos 30 días antes de que entren en
+                  vigencia los nuevos términos.
+                </p>
+              </CardContent>
+            </Card>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Ley Aplicable</h2>
-            <p className="text-gray-700 mb-4">
-              Estos términos se rigen por las leyes de Chile para clientes en América Latina y por las leyes de Singapur
-              para clientes en Asia-Pacífico. Las disputas se resolverán en la jurisdicción correspondiente.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Modificaciones</h2>
-            <p className="text-gray-700 mb-4">
-              Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios significativos se
-              notificarán con al menos 30 días de anticipación.
-            </p>
-          </section>
-
-          <section className="mb-8">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">12. Contacto</h2>
-            <p className="text-gray-700 mb-4">Para preguntas sobre estos términos, contáctenos en:</p>
-            <ul className="list-none text-gray-700">
-              <li>
-                <strong>Email:</strong> hello@n3uralia.com
-              </li>
-              <li>
-                <strong>WhatsApp:</strong> +56940946660
-              </li>
-              <li>
-                <strong>Oficinas:</strong> Santiago, Chile | Singapur
-              </li>
-            </ul>
-          </section>
+            <Card className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700">
+              <CardHeader>
+                <CardTitle className="text-slate-900 dark:text-white">8. Contacto</CardTitle>
+              </CardHeader>
+              <CardContent className="text-slate-700 dark:text-slate-300 space-y-4">
+                <p>Si tiene preguntas sobre estos Términos de Servicio, puede contactarnos:</p>
+                <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg">
+                  <ul className="space-y-2">
+                    <li>
+                      <strong>Email:</strong> legal@n3uralia.com
+                    </li>
+                    <li>
+                      <strong>WhatsApp:</strong> +56 9 4094 6660
+                    </li>
+                    <li>
+                      <strong>Dirección:</strong> Santiago, Chile
+                    </li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
-
       <Footer />
     </div>
   )

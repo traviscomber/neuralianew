@@ -82,7 +82,10 @@ export function FAQSection() {
   const currentCategory = faqCategories.find((cat) => cat.id === activeCategory)
 
   return (
-    <section id="faq" className="py-20 bg-gradient-to-br from-background to-muted/20">
+    <section
+      id="faq"
+      className="py-20 bg-gradient-to-br from-background to-muted/20 dark:from-slate-950 dark:to-slate-900/50 transition-colors duration-300"
+    >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -91,21 +94,21 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2">
+          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
             <HelpCircle className="w-4 h-4 mr-2" />
             Preguntas sobre Soluciones Full Stack
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-colors duration-300">
             Preguntas Frecuentes
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground dark:text-slate-300 transition-colors duration-300">
             Todo lo que necesitas saber sobre nuestras soluciones tecnológicas completas
           </p>
         </motion.div>
 
         {/* Category Tabs */}
         <div className="flex justify-center mb-8">
-          <div className="flex bg-muted rounded-lg p-1">
+          <div className="flex bg-muted dark:bg-slate-800 rounded-lg p-1 transition-colors duration-300">
             {faqCategories.map((category) => {
               const Icon = category.icon
               return (
@@ -117,8 +120,8 @@ export function FAQSection() {
                   }}
                   className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
                     activeCategory === category.id
-                      ? "bg-background text-foreground shadow-sm"
-                      : "text-muted-foreground hover:text-foreground"
+                      ? "bg-background dark:bg-slate-700 text-foreground dark:text-white shadow-sm"
+                      : "text-muted-foreground dark:text-slate-400 hover:text-foreground dark:hover:text-slate-200"
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -141,15 +144,20 @@ export function FAQSection() {
               className="space-y-4"
             >
               {currentCategory.questions.map((faq, index) => (
-                <Card key={index} className="bg-card border border-border">
+                <Card
+                  key={index}
+                  className="bg-card dark:bg-slate-800 border border-border dark:border-slate-700 transition-colors duration-300"
+                >
                   <CardContent className="p-0">
                     <button
                       onClick={() => setOpenQuestion(openQuestion === index ? null : index)}
-                      className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/50 transition-colors"
+                      className="w-full p-6 text-left flex items-center justify-between hover:bg-muted/50 dark:hover:bg-slate-700/50 transition-colors"
                     >
-                      <span className="font-semibold text-card-foreground pr-4">{faq.question}</span>
+                      <span className="font-semibold text-card-foreground dark:text-white pr-4 transition-colors duration-300">
+                        {faq.question}
+                      </span>
                       <ChevronDown
-                        className={`w-5 h-5 text-muted-foreground transition-transform ${
+                        className={`w-5 h-5 text-muted-foreground dark:text-slate-400 transition-transform ${
                           openQuestion === index ? "rotate-180" : ""
                         }`}
                       />
@@ -163,7 +171,7 @@ export function FAQSection() {
                           transition={{ duration: 0.3 }}
                           className="overflow-hidden"
                         >
-                          <div className="px-6 pb-6 text-muted-foreground leading-relaxed border-t border-border pt-4">
+                          <div className="px-6 pb-6 text-muted-foreground dark:text-slate-300 leading-relaxed border-t border-border dark:border-slate-700 pt-4 transition-colors duration-300">
                             {faq.answer}
                           </div>
                         </motion.div>
@@ -184,7 +192,7 @@ export function FAQSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6">
+          <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg p-6">
             <div className="flex items-center justify-center gap-2 mb-2">
               <Code className="w-5 h-5" />
               <span className="text-lg font-semibold">¿Necesitas una solución personalizada?</span>

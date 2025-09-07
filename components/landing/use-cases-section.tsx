@@ -227,7 +227,10 @@ export function UseCasesSection() {
   if (!activeCase) return null
 
   return (
-    <section id="use-cases" className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <section
+      id="use-cases"
+      className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-950 transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -236,30 +239,30 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 text-lg px-6 py-2 font-semibold">
+          <Badge className="mb-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
             <Code className="w-4 h-4 mr-2" />
             Soluciones Full Stack Completas
           </Badge>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-slate-900 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
             Ecosistemas tecnológicos que{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               transformaron
             </span>{" "}
             industrias
           </h2>
-          <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
             No solo desarrollamos agentes conversacionales. Creamos <strong>ecosistemas tecnológicos completos</strong>:
             frontend, backend, bases de datos, APIs, integraciones y agentes de IA especializados.
           </p>
         </motion.div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-slate-200 rounded-xl p-1 shadow-sm">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl p-1 shadow-sm transition-colors duration-300">
             {useCases.map((useCase) => (
               <TabsTrigger
                 key={useCase.id}
                 value={useCase.id}
-                className="flex items-center gap-2 data-[state=active]:bg-slate-900 data-[state=active]:text-white rounded-lg font-semibold transition-all duration-300 hover:bg-slate-50 data-[state=active]:hover:bg-slate-800"
+                className="flex items-center gap-2 data-[state=active]:bg-slate-900 data-[state=active]:text-white dark:data-[state=active]:bg-slate-700 rounded-lg font-semibold transition-all duration-300 hover:bg-slate-50 dark:hover:bg-slate-700 data-[state=active]:hover:bg-slate-800 dark:data-[state=active]:hover:bg-slate-600 text-slate-700 dark:text-slate-300"
               >
                 <useCase.icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{useCase.title}</span>
@@ -284,40 +287,53 @@ export function UseCasesSection() {
                     transition={{ duration: 0.6, delay: 0.2 }}
                   >
                     <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-slate-900 dark:bg-slate-700 rounded-xl flex items-center justify-center transition-colors duration-300">
                         <useCase.icon className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-slate-900">{useCase.title}</h3>
-                        <p className="text-slate-600">{useCase.subtitle}</p>
+                        <h3 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors duration-300">
+                          {useCase.title}
+                        </h3>
+                        <p className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                          {useCase.subtitle}
+                        </p>
                       </div>
-                      <Badge variant="outline" className="ml-auto border-slate-200 text-slate-700">
+                      <Badge
+                        variant="outline"
+                        className="ml-auto border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 transition-colors duration-300"
+                      >
                         {useCase.industry}
                       </Badge>
                     </div>
 
-                    <p className="text-lg text-slate-600 mb-8 leading-relaxed">{useCase.description}</p>
+                    <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed transition-colors duration-300">
+                      {useCase.description}
+                    </p>
 
                     <div className="space-y-6">
                       <div>
-                        <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2 text-lg">
-                          <Clock className="w-5 h-5 text-red-500" />
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2 text-lg transition-colors duration-300">
+                          <Clock className="w-5 h-5 text-red-500 dark:text-red-400" />
                           Desafío Empresarial
                         </h4>
-                        <p className="text-slate-600 leading-relaxed">{useCase.challenge}</p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
+                          {useCase.challenge}
+                        </p>
                       </div>
 
                       <div>
-                        <h4 className="font-bold text-slate-900 mb-3 flex items-center gap-2 text-lg">
-                          <Code className="w-5 h-5 text-blue-500" />
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2 text-lg transition-colors duration-300">
+                          <Code className="w-5 h-5 text-blue-500 dark:text-blue-400" />
                           Solución Full Stack N3uralia
                         </h4>
-                        <p className="text-slate-600 leading-relaxed">{useCase.solution}</p>
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
+                          {useCase.solution}
+                        </p>
                       </div>
 
                       <div>
-                        <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-lg">
-                          <TrendingUp className="w-5 h-5 text-green-500" />
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg transition-colors duration-300">
+                          <TrendingUp className="w-5 h-5 text-green-500 dark:text-green-400" />
                           Componentes Desarrollados
                         </h4>
                         <div className="grid grid-cols-1 gap-3">
@@ -329,8 +345,10 @@ export function UseCasesSection() {
                               transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
                               className="flex items-center gap-3"
                             >
-                              <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                              <span className="text-slate-600 font-medium">{result}</span>
+                              <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 transition-colors duration-300" />
+                              <span className="text-slate-600 dark:text-slate-300 font-medium transition-colors duration-300">
+                                {result}
+                              </span>
                             </motion.div>
                           ))}
                         </div>
@@ -338,8 +356,8 @@ export function UseCasesSection() {
 
                       {/* Tech Stack */}
                       <div>
-                        <h4 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-lg">
-                          <Database className="w-5 h-5 text-purple-500" />
+                        <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg transition-colors duration-300">
+                          <Database className="w-5 h-5 text-purple-500 dark:text-purple-400" />
                           Stack Tecnológico
                         </h4>
                         <div className="flex flex-wrap gap-2">
@@ -350,7 +368,9 @@ export function UseCasesSection() {
                               animate={{ opacity: 1, scale: 1 }}
                               transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
                             >
-                              <Badge className="bg-slate-100 text-slate-700 border-slate-200 font-medium">{tech}</Badge>
+                              <Badge className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 font-medium transition-colors duration-300">
+                                {tech}
+                              </Badge>
                             </motion.div>
                           ))}
                         </div>
@@ -365,19 +385,21 @@ export function UseCasesSection() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                     className="sticky top-8"
                   >
-                    <Card className="bg-white border border-slate-200 shadow-xl rounded-2xl overflow-hidden">
+                    <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-xl rounded-2xl overflow-hidden transition-colors duration-300">
                       <CardContent className="p-6">
-                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-200">
-                          <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                          <span className="font-bold text-slate-900">{useCase.title}</span>
-                          <Badge className="ml-auto bg-slate-100 text-slate-700 border-slate-200 font-medium">
+                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-slate-700 transition-colors duration-300">
+                          <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full animate-pulse"></div>
+                          <span className="font-bold text-slate-900 dark:text-white transition-colors duration-300">
+                            {useCase.title}
+                          </span>
+                          <Badge className="ml-auto bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium transition-colors duration-300">
                             <Bot className="w-3 h-3 mr-1" />
                             Agente IA
                           </Badge>
                         </div>
 
                         <div
-                          className="space-y-4 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100"
+                          className="space-y-4 h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-600 scrollbar-track-slate-100 dark:scrollbar-track-slate-800"
                           key={`${activeTab}-${animationKey}`}
                         >
                           <AnimatePresence mode="sync">
@@ -397,7 +419,7 @@ export function UseCasesSection() {
                                 >
                                   {msg.type === "bot" && (
                                     <Avatar className="w-8 h-8 flex-shrink-0">
-                                      <AvatarFallback className="bg-slate-900 text-white">
+                                      <AvatarFallback className="bg-slate-900 dark:bg-slate-700 text-white transition-colors duration-300">
                                         <Bot className="w-4 h-4" />
                                       </AvatarFallback>
                                     </Avatar>
@@ -408,9 +430,9 @@ export function UseCasesSection() {
                                     transition={{ duration: 0.3, delay: 0.1 }}
                                     className={`max-w-[85%] p-3 rounded-2xl shadow-sm ${
                                       msg.type === "user"
-                                        ? "bg-slate-900 text-white"
-                                        : "bg-slate-100 text-slate-800 border border-slate-200"
-                                    }`}
+                                        ? "bg-slate-900 dark:bg-slate-700 text-white"
+                                        : "bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-600"
+                                    } transition-colors duration-300`}
                                   >
                                     <p className="text-sm whitespace-pre-line font-medium leading-relaxed">
                                       {msg.message}
@@ -419,7 +441,7 @@ export function UseCasesSection() {
                                   </motion.div>
                                   {msg.type === "user" && (
                                     <Avatar className="w-8 h-8 flex-shrink-0">
-                                      <AvatarFallback className="bg-slate-600 text-white">
+                                      <AvatarFallback className="bg-slate-600 dark:bg-slate-500 text-white transition-colors duration-300">
                                         <User className="w-4 h-4" />
                                       </AvatarFallback>
                                     </Avatar>
@@ -437,24 +459,24 @@ export function UseCasesSection() {
                               className="flex gap-3 justify-start"
                             >
                               <Avatar className="w-8 h-8">
-                                <AvatarFallback className="bg-slate-900 text-white">
+                                <AvatarFallback className="bg-slate-900 dark:bg-slate-700 text-white transition-colors duration-300">
                                   <Bot className="w-4 h-4" />
                                 </AvatarFallback>
                               </Avatar>
-                              <div className="bg-slate-100 border border-slate-200 p-3 rounded-2xl shadow-sm">
+                              <div className="bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 p-3 rounded-2xl shadow-sm transition-colors duration-300">
                                 <div className="flex space-x-1">
                                   <motion.div
-                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    className="w-2 h-2 bg-slate-600 dark:bg-slate-400 rounded-full"
                                     animate={{ y: [0, -4, 0] }}
                                     transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0 }}
                                   />
                                   <motion.div
-                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    className="w-2 h-2 bg-slate-600 dark:bg-slate-400 rounded-full"
                                     animate={{ y: [0, -4, 0] }}
                                     transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.2 }}
                                   />
                                   <motion.div
-                                    className="w-2 h-2 bg-slate-600 rounded-full"
+                                    className="w-2 h-2 bg-slate-600 dark:bg-slate-400 rounded-full"
                                     animate={{ y: [0, -4, 0] }}
                                     transition={{ duration: 0.6, repeat: Number.POSITIVE_INFINITY, delay: 0.4 }}
                                   />
@@ -472,13 +494,15 @@ export function UseCasesSection() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.8 }}
                     >
-                      <Card className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                      <Card className="mt-6 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl transition-colors duration-300">
                         <CardContent className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Cloud className="w-4 h-4 text-slate-700" />
-                            <span className="font-bold text-slate-900 text-sm">Arquitectura Full Stack</span>
+                            <Cloud className="w-4 h-4 text-slate-700 dark:text-slate-300 transition-colors duration-300" />
+                            <span className="font-bold text-slate-900 dark:text-white text-sm transition-colors duration-300">
+                              Arquitectura Full Stack
+                            </span>
                           </div>
-                          <p className="text-xs text-slate-600 font-medium">
+                          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
                             Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
                           </p>
                         </CardContent>
@@ -500,7 +524,7 @@ export function UseCasesSection() {
         >
           <Button
             size="lg"
-            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
+            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
             asChild
           >
             <a
