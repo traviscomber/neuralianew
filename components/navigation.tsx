@@ -256,18 +256,6 @@ export function Navigation() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating Theme Toggle (Hero Section) */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 1 }}
-        className="fixed top-20 right-4 z-40 lg:hidden"
-      >
-        <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full p-2 shadow-lg border border-slate-200 dark:border-slate-700 transition-colors duration-300">
-          <ThemeToggle />
-        </div>
-      </motion.div>
     </>
   )
 }

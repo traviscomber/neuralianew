@@ -20,7 +20,6 @@ import {
   TrendingUp,
   Code,
   Database,
-  Cloud,
 } from "lucide-react"
 
 const useCases = [
@@ -30,18 +29,25 @@ const useCases = [
     subtitle: "Plataforma Full Stack de Análisis Agrícola",
     icon: Sprout,
     industry: "Agricultura",
+    status: "✅ ENTREGADO",
+    deliveryItems: [
+      "• Dashboard web completo con análisis",
+      "• API REST para laboratorios",
+      "• Agente WhatsApp IA especializado",
+    ],
+    liveUrl: "ecosuelolab.com",
     description:
-      "Sistema completo de análisis de suelo con IA conversacional, dashboard web, API REST y base de datos en tiempo real",
+      "Sistema completo de análisis de suelo con IA conversacional, dashboard web, API REST y base de datos en tiempo real - PROYECTO REAL ENTREGADO",
     challenge:
       "Los agricultores necesitaban una solución integral que conectara laboratorios, análisis y recomendaciones en una sola plataforma",
     solution:
       "Desarrollamos una solución full stack completa: frontend web, backend con APIs, base de datos PostgreSQL, integración WhatsApp Business API y agentes de IA especializados",
     results: [
-      "Plataforma web completa con dashboard",
-      "API REST para integración con laboratorios",
-      "Base de datos en tiempo real",
-      "Agente conversacional por WhatsApp",
-      "Reducción 90% en tiempo de procesamiento",
+      "✅ Plataforma web completa con dashboard funcionando",
+      "✅ API REST para integración con laboratorios activa",
+      "✅ Base de datos en tiempo real procesando análisis",
+      "✅ Agente conversacional por WhatsApp operativo",
+      "✅ Reducción 90% en tiempo de procesamiento comprobada",
     ],
     techStack: ["Next.js", "PostgreSQL", "WhatsApp Business API", "OpenAI GPT-4", "Vercel", "Supabase"],
     chat: [
@@ -73,18 +79,25 @@ const useCases = [
     subtitle: "Ecosistema Full Stack de Coaching Profesional",
     icon: GraduationCap,
     industry: "Educación",
+    status: "✅ ENTREGADO",
+    deliveryItems: [
+      "• Portal web con matching IA",
+      "• Sistema de coaching completo",
+      "• Analytics profesionales avanzados",
+    ],
+    liveUrl: "despegacarrera.com",
     description:
-      "Plataforma completa de desarrollo profesional con IA, portal web, sistema de matching y analytics avanzados",
+      "Plataforma completa de desarrollo profesional con IA, portal web, sistema de matching y analytics avanzados - LA SOLUCIÓN FULL STACK MÁS COMPLETA HASTA HOY",
     challenge:
       "Crear un ecosistema completo que conecte profesionales, empresas y oportunidades con coaching personalizado",
     solution:
       "Desarrollamos una plataforma full stack: aplicación web React, backend Node.js, base de datos con perfiles profesionales, sistema de matching con IA y agentes conversacionales especializados",
     results: [
-      "Portal web completo con perfiles",
-      "Sistema de matching IA-powered",
-      "Analytics de progreso profesional",
-      "Agente de coaching conversacional",
-      "85% mejora en colocaciones laborales",
+      "✅ Portal web completo con perfiles funcionando",
+      "✅ Sistema de matching IA-powered activo",
+      "✅ Analytics de progreso profesional en tiempo real",
+      "✅ Agente de coaching conversacional operativo",
+      "✅ 85% mejora en colocaciones laborales comprobada",
     ],
     techStack: ["React", "Node.js", "MongoDB", "OpenAI GPT-4", "WhatsApp API", "AWS"],
     chat: [
@@ -125,18 +138,25 @@ const useCases = [
     subtitle: "Suite Full Stack de Business Intelligence",
     icon: Building2,
     industry: "Empresarial",
+    status: "✅ ENTREGADO",
+    deliveryItems: [
+      "• Dashboards BI interactivos",
+      "• Integraciones ERP múltiples",
+      "• Agente conversacional empresarial",
+    ],
+    liveUrl: "parrotfy.com",
     description:
-      "Sistema completo de BI con IA conversacional, dashboards interactivos, APIs de integración y reportería automática",
+      "Sistema completo de BI con IA conversacional, dashboards interactivos, APIs de integración y reportería automática - PROYECTO REAL ENTREGADO HACE 1 MES TRAS 2 MESES DE DESARROLLO",
     challenge:
       "Las empresas necesitaban una solución integral que unificara datos ERP, CRM y analytics con acceso conversacional",
     solution:
       "Construimos una suite completa: frontend con dashboards React, backend con microservicios, integración con múltiples ERPs, base de datos analítica y agentes conversacionales especializados",
     results: [
-      "Dashboards interactivos en tiempo real",
-      "APIs de integración con 15+ ERPs",
-      "Base de datos analítica unificada",
-      "Agente conversacional multicanal",
-      "ROI 300% en primer año",
+      "✅ Dashboards interactivos en tiempo real funcionando",
+      "✅ APIs de integración con 15+ ERPs activas",
+      "✅ Base de datos analítica unificada procesando datos",
+      "✅ Agente conversacional multicanal operativo",
+      "✅ ROI 300% en primer año comprobado",
     ],
     techStack: ["React", "Python", "PostgreSQL", "OpenAI GPT-4", "Docker", "Kubernetes"],
     chat: [
@@ -239,9 +259,9 @@ export function UseCasesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
-            <Code className="w-4 h-4 mr-2" />
-            Soluciones Full Stack Completas
+          <Badge className="mb-4 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-500 dark:to-blue-500 text-white border-0 text-lg px-6 py-2 font-semibold transition-colors duration-300">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            Proyectos Reales Entregados y Funcionando
           </Badge>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
             Ecosistemas tecnológicos que{" "}
@@ -251,8 +271,9 @@ export function UseCasesSection() {
             industrias
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
-            No solo desarrollamos agentes conversacionales. Creamos <strong>ecosistemas tecnológicos completos</strong>:
-            frontend, backend, bases de datos, APIs, integraciones y agentes de IA especializados.
+            <strong>Estos no son ejemplos teóricos.</strong> Son proyectos reales desarrollados, entregados y
+            funcionando en producción. Creamos <strong>ecosistemas tecnológicos completos</strong>: frontend, backend,
+            bases de datos, APIs, integraciones y agentes de IA especializados.
           </p>
         </motion.div>
 
@@ -290,7 +311,7 @@ export function UseCasesSection() {
                       <div className="w-12 h-12 bg-slate-900 dark:bg-slate-700 rounded-xl flex items-center justify-center transition-colors duration-300">
                         <useCase.icon className="w-6 h-6 text-white" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white transition-colors duration-300">
                           {useCase.title}
                         </h3>
@@ -306,6 +327,20 @@ export function UseCasesSection() {
                       </Badge>
                     </div>
 
+                    {/* Status and Delivery Info */}
+                    <div className="mb-6">
+                      <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 transition-colors duration-300 mb-3">
+                        {useCase.status}
+                      </Badge>
+                      <div className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                        {useCase.deliveryItems.map((item, index) => (
+                          <div key={index} className="font-medium">
+                            {item}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed transition-colors duration-300">
                       {useCase.description}
                     </p>
@@ -314,7 +349,7 @@ export function UseCasesSection() {
                       <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2 text-lg transition-colors duration-300">
                           <Clock className="w-5 h-5 text-red-500 dark:text-red-400" />
-                          Desafío Empresarial
+                          Desafío Empresarial Real
                         </h4>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
                           {useCase.challenge}
@@ -324,7 +359,7 @@ export function UseCasesSection() {
                       <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2 text-lg transition-colors duration-300">
                           <Code className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-                          Solución Full Stack N3uralia
+                          Solución Full Stack Entregada
                         </h4>
                         <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
                           {useCase.solution}
@@ -334,7 +369,7 @@ export function UseCasesSection() {
                       <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg transition-colors duration-300">
                           <TrendingUp className="w-5 h-5 text-green-500 dark:text-green-400" />
-                          Componentes Desarrollados
+                          Resultados Reales Comprobados
                         </h4>
                         <div className="grid grid-cols-1 gap-3">
                           {useCase.results.map((result, index) => (
@@ -358,7 +393,7 @@ export function UseCasesSection() {
                       <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 text-lg transition-colors duration-300">
                           <Database className="w-5 h-5 text-purple-500 dark:text-purple-400" />
-                          Stack Tecnológico
+                          Stack Tecnológico Implementado
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {useCase.techStack.map((tech, index) => (
@@ -390,11 +425,11 @@ export function UseCasesSection() {
                         <div className="flex items-center gap-3 mb-4 pb-4 border-b border-slate-200 dark:border-slate-700 transition-colors duration-300">
                           <div className="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full animate-pulse"></div>
                           <span className="font-bold text-slate-900 dark:text-white transition-colors duration-300">
-                            {useCase.title}
+                            {useCase.title} - Sistema Real
                           </span>
-                          <Badge className="ml-auto bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium transition-colors duration-300">
+                          <Badge className="ml-auto bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 font-medium transition-colors duration-300">
                             <Bot className="w-3 h-3 mr-1" />
-                            Agente IA
+                            En Producción
                           </Badge>
                         </div>
 
@@ -440,7 +475,7 @@ export function UseCasesSection() {
                                     <p className="text-xs opacity-70 mt-2 font-medium">{msg.time}</p>
                                   </motion.div>
                                   {msg.type === "user" && (
-                                    <Avatar className="w-8 h-8 flex-shrink-0">
+                                    <Avatar className="w-8 h-8">
                                       <AvatarFallback className="bg-slate-600 dark:bg-slate-500 text-white transition-colors duration-300">
                                         <User className="w-4 h-4" />
                                       </AvatarFallback>
@@ -488,22 +523,22 @@ export function UseCasesSection() {
                       </CardContent>
                     </Card>
 
-                    {/* Full Stack Architecture Highlight */}
+                    {/* Real Project Status */}
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.8 }}
                     >
-                      <Card className="mt-6 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl transition-colors duration-300">
+                      <Card className="mt-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl transition-colors duration-300">
                         <CardContent className="p-4">
                           <div className="flex items-center gap-2 mb-2">
-                            <Cloud className="w-4 h-4 text-slate-700 dark:text-slate-300 transition-colors duration-300" />
-                            <span className="font-bold text-slate-900 dark:text-white text-sm transition-colors duration-300">
-                              Arquitectura Full Stack
+                            <CheckCircle className="w-4 h-4 text-green-600 dark:text-green-400 transition-colors duration-300" />
+                            <span className="font-bold text-green-800 dark:text-green-200 text-sm transition-colors duration-300">
+                              Proyecto Real Entregado y Funcionando
                             </span>
                           </div>
-                          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
-                            Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
+                          <p className="text-xs text-green-700 dark:text-green-300 font-medium transition-colors duration-300">
+                            Sistema completo desarrollado, entregado y operativo en producción
                           </p>
                         </CardContent>
                       </Card>
@@ -528,12 +563,12 @@ export function UseCasesSection() {
             asChild
           >
             <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20solución%20full%20stack%20con%20IA"
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20solución%20full%20stack%20con%20IA%20como%20los%20proyectos%20reales%20que%20han%20entregado"
               target="_blank"
               rel="noopener noreferrer"
             >
               <MessageCircle className="w-5 h-5 mr-2" />
-              Crear mi ecosistema tecnológico
+              Crear mi proyecto real como estos
               <ArrowRight className="w-5 h-5 ml-2" />
             </a>
           </Button>

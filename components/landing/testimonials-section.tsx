@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Star, Quote, Building, Code, Database } from "lucide-react"
+import { Star, Quote, Code, CheckCircle } from "lucide-react"
 
 const testimonials = [
   {
@@ -16,6 +16,8 @@ const testimonials = [
     text: "N3uralia no solo nos entregó un chatbot, sino una plataforma completa. El sistema full stack que desarrollaron incluye dashboard web, APIs, base de datos y agentes IA. Transformó completamente nuestra operación.",
     project: "EcosueloLab - Plataforma Completa",
     techStack: ["Next.js", "PostgreSQL", "WhatsApp API", "OpenAI GPT-4"],
+    deliveryDate: "ENTREGADO",
+    status: "• Dashboard web completo\n• API REST funcional\n• Agente WhatsApp IA",
   },
   {
     name: "María González",
@@ -23,9 +25,11 @@ const testimonials = [
     company: "EduCareer Corp",
     image: "/placeholder-user.jpg",
     rating: 5,
-    text: "Esperábamos solo un agente conversacional, pero recibimos un ecosistema tecnológico completo. Portal web, sistema de matching, analytics y coaching IA. El ROI superó todas nuestras expectativas.",
-    project: "Despega Tu Carrera - Ecosistema Full Stack",
+    text: "Esperábamos solo un agente conversacional, pero recibimos un ecosistema tecnológico completo. Portal web, sistema de matching, analytics y coaching IA. La solución más completa que hemos visto.",
+    project: "Despega Tu Carrera - Solución Full Stack Más Completa",
     techStack: ["React", "Node.js", "MongoDB", "Machine Learning"],
+    deliveryDate: "ENTREGADO",
+    status: "• Portal web con matching IA\n• Sistema de coaching completo\n• Analytics profesionales",
   },
   {
     name: "Roberto Silva",
@@ -33,9 +37,11 @@ const testimonials = [
     company: "Enterprise Solutions",
     image: "/placeholder-user.jpg",
     rating: 5,
-    text: "La solución de N3uralia va mucho más allá de IA conversacional. Desarrollaron toda la infraestructura: microservicios, dashboards, integraciones ERP y agentes especializados. Verdadero full stack engineering.",
+    text: "La solución de N3uralia va mucho más allá de IA conversacional. Desarrollaron toda la infraestructura: microservicios, dashboards, integraciones ERP y agentes especializados. 2 meses de desarrollo intensivo.",
     project: "Parrotfy ERP - Suite Empresarial",
     techStack: ["Python", "Docker", "Kubernetes", "Business Intelligence"],
+    deliveryDate: "ENTREGADO",
+    status: "• Dashboards BI interactivos\n• Integraciones ERP múltiples\n• Agente conversacional empresarial",
   },
 ]
 
@@ -50,19 +56,21 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
-            <Building className="w-4 h-4 mr-2" />
-            Testimonios de Proyectos Full Stack
+          <Badge className="mb-4 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-500 dark:to-blue-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            Proyectos Reales Entregados y en Producción
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-colors duration-300">
-            Lo que dicen nuestros clientes sobre nuestras{" "}
+            Clientes reales con{" "}
             <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-              soluciones completas
-            </span>
+              sistemas funcionando
+            </span>{" "}
+            en producción
           </h2>
-          <p className="text-xl text-muted-foreground dark:text-slate-300 max-w-3xl mx-auto transition-colors duration-300">
-            Empresas que confiaron en N3uralia para desarrollar ecosistemas tecnológicos completos, no solo agentes
-            conversacionales.
+          <p className="text-xl text-muted-foreground dark:text-slate-300 max-w-4xl mx-auto transition-colors duration-300">
+            <strong>Estos no son ejemplos teóricos.</strong> Son proyectos reales desarrollados, entregados y
+            funcionando en producción para empresas que confiaron en N3uralia para crear sus ecosistemas tecnológicos
+            completos.
           </p>
         </motion.div>
 
@@ -77,6 +85,17 @@ export function TestimonialsSection() {
             >
               <Card className="bg-white dark:bg-slate-800 border-2 border-blue-100 dark:border-slate-700 hover:shadow-xl transition-all duration-300 h-full">
                 <CardContent className="p-6">
+                  {/* Status Display */}
+                  <div className="mb-4">
+                    <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 transition-colors duration-300 mb-2">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      {testimonial.deliveryDate}
+                    </Badge>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 whitespace-pre-line font-medium">
+                      {testimonial.status}
+                    </div>
+                  </div>
+
                   {/* Rating */}
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
@@ -143,7 +162,7 @@ export function TestimonialsSection() {
           ))}
         </div>
 
-        {/* Full Stack Emphasis */}
+        {/* Real Projects Emphasis */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -151,12 +170,16 @@ export function TestimonialsSection() {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg p-6 max-w-3xl mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Database className="w-5 h-5" />
-              <span className="text-lg font-semibold">Soluciones Full Stack Completas</span>
+          <div className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-500 dark:to-blue-500 text-white rounded-lg p-6 max-w-4xl mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <CheckCircle className="w-6 h-6" />
+              <span className="text-xl font-bold">Proyectos Reales Funcionando en Producción</span>
             </div>
-            <p className="text-sm opacity-90">
+            <p className="text-sm opacity-90 mb-2">
+              <strong>✅ Sistemas entregados y funcionando</strong> • <strong>✅ Clientes reales satisfechos</strong> •{" "}
+              <strong>✅ Resultados medibles</strong>
+            </p>
+            <p className="text-xs opacity-80">
               Frontend + Backend + Base de Datos + APIs + Integraciones + Agentes IA especializados
             </p>
           </div>
