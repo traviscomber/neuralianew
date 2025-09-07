@@ -12,6 +12,8 @@ interface TimeZoneData {
   flag: string
   coordinates: { x: number; y: number }
   workingHours: string
+  shiftStart: number
+  shiftEnd: number
 }
 
 export function TimezonesSection() {
@@ -26,6 +28,8 @@ export function TimezonesSection() {
       flag: "🇨🇱",
       coordinates: { x: 25, y: 75 },
       workingHours: "9:00 - 18:00 CLT",
+      shiftStart: 9,
+      shiftEnd: 18,
     },
     {
       city: "Kaliningrado",
@@ -33,7 +37,9 @@ export function TimezonesSection() {
       country: "Rusia",
       flag: "🇷🇺",
       coordinates: { x: 52, y: 32 },
-      workingHours: "9:00 - 18:00 KALT",
+      workingHours: "18:00 - 3:00 KALT",
+      shiftStart: 18,
+      shiftEnd: 3,
     },
     {
       city: "Singapur",
@@ -41,7 +47,9 @@ export function TimezonesSection() {
       country: "Singapur",
       flag: "🇸🇬",
       coordinates: { x: 75, y: 60 },
-      workingHours: "9:00 - 18:00 SGT",
+      workingHours: "3:00 - 12:00 SGT",
+      shiftStart: 3,
+      shiftEnd: 12,
     },
   ]
 
@@ -60,9 +68,19 @@ export function TimezonesSection() {
         })
         times[tz.city] = timeString
 
-        // Check if it's working hours (9 AM to 6 PM)
+        // Check if it's working hours with new shift logic
         const hour = Number.parseInt(timeString.split(":")[0])
-        status[tz.city] = hour >= 9 && hour < 18
+        let isWorking: boolean
+
+        if (tz.shiftStart > tz.shiftEnd) {
+          // Overnight shift
+          isWorking = hour >= tz.shiftStart || hour < tz.shiftEnd
+        } else {
+          // Regular shift
+          isWorking = hour >= tz.shiftStart && hour < tz.shiftEnd
+        }
+
+        status[tz.city] = isWorking
       })
 
       setCurrentTimes(times)
