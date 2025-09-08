@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Code2, Database, Cloud, Cpu, Lock, Monitor, ArrowRight, CheckCircle, MessageCircle } from "lucide-react"
+import { Code2, Database, Cloud, Cpu, Lock, Monitor, ArrowRight, CheckCircle, MessageCircle, Zap } from "lucide-react"
 
 const technicalFeatures = [
   {
@@ -82,12 +82,101 @@ const technicalFeatures = [
 ]
 
 const architectureComponents = [
-  { name: "Frontend React/Next.js", status: "Optimizado", color: "bg-blue-500" },
-  { name: "Backend Node.js/Python", status: "Escalable", color: "bg-green-500" },
-  { name: "Base de Datos PostgreSQL", status: "Alta Disponibilidad", color: "bg-purple-500" },
-  { name: "Cache Redis", status: "Sub-segundo", color: "bg-red-500" },
-  { name: "Queue System", status: "Asíncrono", color: "bg-yellow-500" },
-  { name: "Monitoring", status: "24/7", color: "bg-indigo-500" },
+  {
+    name: "Frontend React/Next.js",
+    status: "Optimizado",
+    icon: "/tech-icons/react-logo.png",
+    bgColor: "bg-blue-50 dark:bg-blue-900/20",
+  },
+  {
+    name: "Backend Node.js/Python",
+    status: "Escalable",
+    icon: "/tech-icons/nodejs-logo.png",
+    bgColor: "bg-green-50 dark:bg-green-900/20",
+  },
+  {
+    name: "Base de Datos PostgreSQL",
+    status: "Alta Disponibilidad",
+    icon: "/tech-icons/postgresql-logo.png",
+    bgColor: "bg-purple-50 dark:bg-purple-900/20",
+  },
+  {
+    name: "Cache Redis",
+    status: "Sub-segundo",
+    icon: "/tech-icons/redis-logo.png",
+    bgColor: "bg-red-50 dark:bg-red-900/20",
+  },
+  {
+    name: "Deployment Vercel",
+    status: "Edge Network",
+    icon: "/tech-icons/vercel-logo.svg",
+    bgColor: "bg-slate-50 dark:bg-slate-900/20",
+  },
+  {
+    name: "Database Supabase",
+    status: "Real-time",
+    icon: "/tech-icons/supabase-logo.svg",
+    bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
+  },
+]
+
+const integrationComponents = [
+  {
+    name: "WhatsApp Business",
+    status: "Mensajería",
+    icon: "/tech-icons/whatsapp-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Integración nativa con WhatsApp Business API",
+  },
+  {
+    name: "Telegram Bot",
+    status: "Chat Bot",
+    icon: "/tech-icons/telegram-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Bots inteligentes para Telegram",
+  },
+  {
+    name: "Twilio SMS",
+    status: "Comunicaciones",
+    icon: "/tech-icons/twilio-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "SMS y llamadas programáticas",
+  },
+  {
+    name: "Zapier Connect",
+    status: "Automatización",
+    icon: "/tech-icons/zapier-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Conecta con 5000+ aplicaciones",
+  },
+  {
+    name: "n8n Workflows",
+    status: "Flujos de Trabajo",
+    icon: "/tech-icons/n8n-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Automatización avanzada de procesos",
+  },
+  {
+    name: "Meta Platforms",
+    status: "Social Media",
+    icon: "/tech-icons/meta-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Facebook, Instagram, Messenger",
+  },
+  {
+    name: "OpenAI GPT-4",
+    status: "IA Generativa",
+    icon: "/tech-icons/openai-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Modelos de lenguaje avanzados",
+  },
+  {
+    name: "Intel AI",
+    status: "Procesamiento",
+    icon: "/tech-icons/intel-bw.jpg",
+    bgColor: "bg-slate-50 dark:bg-slate-800/50",
+    description: "Optimización de hardware IA",
+  },
 ]
 
 export function TechnicalFeaturesSection() {
@@ -142,7 +231,20 @@ export function TechnicalFeaturesSection() {
                     viewport={{ once: true }}
                     className="text-center"
                   >
-                    <div className={`w-4 h-4 ${component.color} rounded-full mx-auto mb-2`}></div>
+                    <div
+                      className={`w-16 h-16 ${component.bgColor} rounded-xl mx-auto mb-3 flex items-center justify-center p-2 transition-colors duration-300 hover:scale-105 transform`}
+                    >
+                      <img
+                        src={component.icon || "/placeholder.svg"}
+                        alt={component.name}
+                        className="w-10 h-10 object-contain"
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.currentTarget as HTMLImageElement
+                          target.src = "/placeholder.svg?height=40&width=40"
+                        }}
+                      />
+                    </div>
                     <div className="text-sm font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">
                       {component.name}
                     </div>
@@ -154,6 +256,82 @@ export function TechnicalFeaturesSection() {
               </div>
             </CardContent>
           </Card>
+        </motion.div>
+
+        {/* Integrations Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
+              <Zap className="w-4 h-4 mr-2" />
+              Integraciones Nativas
+            </Badge>
+            <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4 transition-colors duration-300">
+              Conecta con tu{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                ecosistema digital
+              </span>
+            </h3>
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto transition-colors duration-300">
+              Integración perfecta con las plataformas y herramientas que ya utilizas. Sin configuraciones complejas,
+              sin interrupciones.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            {integrationComponents.map((integration, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                viewport={{ once: true }}
+                className="group"
+              >
+                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 rounded-xl">
+                  <CardContent className="p-4 text-center">
+                    <div
+                      className={`w-12 h-12 ${integration.bgColor} rounded-lg mx-auto mb-3 flex items-center justify-center p-2 transition-all duration-300 group-hover:scale-110`}
+                    >
+                      <img
+                        src={integration.icon || "/placeholder.svg"}
+                        alt={integration.name}
+                        className="w-8 h-8 object-contain opacity-70 dark:opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                        loading="lazy"
+                        onError={(e) => {
+                          const target = e.currentTarget as HTMLImageElement
+                          target.src = "/placeholder.svg?height=32&width=32"
+                        }}
+                      />
+                    </div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">
+                      {integration.name}
+                    </div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
+                      {integration.status}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="text-center mt-8"
+          >
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium transition-colors duration-300">
+              + Más de 50 integraciones disponibles mediante APIs y webhooks
+            </p>
+          </motion.div>
         </motion.div>
 
         {/* Technical Features Grid */}
