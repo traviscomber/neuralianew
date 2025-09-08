@@ -83,242 +83,297 @@ const technicalFeatures = [
 
 const architectureComponents = [
   {
-    name: "Frontend React/Next.js",
-    status: "Optimizado",
-    icon: "/placeholder.svg?height=40&width=40&text=REACT",
-    bgColor: "bg-blue-50 dark:bg-blue-900/20",
+    name: "React",
+    status: "Frontend",
+    icon: "/tech-icons/react-logo.png",
   },
   {
-    name: "Backend Node.js/Python",
-    status: "Escalable",
-    icon: "/placeholder.svg?height=40&width=40&text=NODE",
-    bgColor: "bg-green-50 dark:bg-green-900/20",
+    name: "Node.js",
+    status: "Backend",
+    icon: "/tech-icons/nodejs-logo.png",
   },
   {
-    name: "Base de Datos PostgreSQL",
-    status: "Alta Disponibilidad",
-    icon: "/placeholder.svg?height=40&width=40&text=PG",
-    bgColor: "bg-purple-50 dark:bg-purple-900/20",
+    name: "PostgreSQL",
+    status: "Database",
+    icon: "/tech-icons/postgresql-logo.png",
   },
   {
-    name: "Cache Redis",
-    status: "Sub-segundo",
-    icon: "/placeholder.svg?height=40&width=40&text=REDIS",
-    bgColor: "bg-red-50 dark:bg-red-900/20",
+    name: "Redis",
+    status: "Cache",
+    icon: "/tech-icons/redis-logo.png",
   },
   {
-    name: "Deployment Vercel",
-    status: "Edge Network",
-    icon: "/placeholder.svg?height=40&width=40&text=▲",
-    bgColor: "bg-slate-50 dark:bg-slate-900/20",
+    name: "Vercel",
+    status: "Deployment",
+    icon: "/tech-icons/vercel-logo.svg",
   },
   {
-    name: "Database Supabase",
-    status: "Real-time",
-    icon: "/placeholder.svg?height=40&width=40&text=SB",
-    bgColor: "bg-emerald-50 dark:bg-emerald-900/20",
+    name: "Supabase",
+    status: "Backend",
+    icon: "/tech-icons/supabase-logo.svg",
   },
 ]
 
 const integrationComponents = [
   {
     name: "WhatsApp Business",
-    status: "Mensajería",
-    icon: "/placeholder.svg?height=32&width=32&text=WA",
-    bgColor: "bg-green-50 dark:bg-green-900/20",
-    description: "Integración nativa con WhatsApp Business API",
+    icon: "/tech-icons/whatsapp-logo.png",
   },
   {
-    name: "Telegram Bot",
-    status: "Chat Bot",
-    icon: "/placeholder.svg?height=32&width=32&text=TG",
-    bgColor: "bg-blue-50 dark:bg-blue-900/20",
-    description: "Bots inteligentes para Telegram",
+    name: "Telegram",
+    icon: "/tech-icons/telegram-logo.png",
   },
   {
-    name: "Twilio SMS",
-    status: "Comunicaciones",
-    icon: "/placeholder.svg?height=32&width=32&text=TW",
-    bgColor: "bg-red-50 dark:bg-red-900/20",
-    description: "SMS y llamadas programáticas",
+    name: "Twilio",
+    icon: "/tech-icons/twilio-logo.png",
   },
   {
-    name: "Zapier Connect",
-    status: "Automatización",
-    icon: "/placeholder.svg?height=32&width=32&text=ZP",
-    bgColor: "bg-orange-50 dark:bg-orange-900/20",
-    description: "Conecta con 5000+ aplicaciones",
+    name: "Zapier",
+    icon: "/tech-icons/zapier-logo.png",
   },
   {
-    name: "n8n Workflows",
-    status: "Flujos de Trabajo",
-    icon: "/placeholder.svg?height=32&width=32&text=N8",
-    bgColor: "bg-pink-50 dark:bg-pink-900/20",
-    description: "Automatización avanzada de procesos",
+    name: "n8n",
+    icon: "/tech-icons/n8n-logo.png",
   },
   {
-    name: "Meta Platforms",
-    status: "Social Media",
-    icon: "/placeholder.svg?height=32&width=32&text=META",
-    bgColor: "bg-blue-50 dark:bg-blue-900/20",
-    description: "Facebook, Instagram, Messenger",
+    name: "Meta",
+    icon: "/tech-icons/meta-logo.png",
   },
   {
-    name: "OpenAI GPT-4",
-    status: "IA Generativa",
-    icon: "/placeholder.svg?height=32&width=32&text=AI",
-    bgColor: "bg-slate-50 dark:bg-slate-900/20",
-    description: "Modelos de lenguaje avanzados",
+    name: "OpenAI",
+    icon: "/tech-icons/openai-logo.png",
   },
   {
     name: "Intel AI",
-    status: "Procesamiento",
-    icon: "/placeholder.svg?height=32&width=32&text=INTEL",
-    bgColor: "bg-indigo-50 dark:bg-indigo-900/20",
-    description: "Optimización de hardware IA",
+    icon: "/tech-icons/intel-logo.png",
   },
 ]
 
 export function TechnicalFeaturesSection() {
   return (
-    <section id="technical-features" className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
-      <div className="container mx-auto px-4">
+    <section
+      id="technical-features"
+      className="py-16 sm:py-20 lg:py-24 bg-white dark:bg-slate-950 transition-colors duration-300"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <Badge className="mb-6 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
-            <Code2 className="w-4 h-4 mr-2" />
+          <Badge className="mb-4 sm:mb-6 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-sm sm:text-lg px-4 sm:px-6 py-2 font-semibold transition-colors duration-300">
+            <Code2 className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
             Arquitectura Técnica
           </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
             Tecnología{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
               enterprise-grade
             </span>{" "}
             probada
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
             Infraestructura robusta, APIs modernas y arquitectura escalable diseñada para empresas que requieren máximo
             rendimiento y confiabilidad.
           </p>
         </motion.div>
 
-        {/* Architecture Overview */}
+        {/* Stack Tecnológico - Netflix-style Horizontal Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
-          <Card className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl transition-colors duration-300">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 text-center transition-colors duration-300">
-                Stack Tecnológico Completo
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {architectureComponents.map((component, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                  >
-                    <div
-                      className={`w-16 h-16 ${component.bgColor} rounded-xl mx-auto mb-3 flex items-center justify-center p-2 transition-colors duration-300 hover:scale-105 transform`}
-                    >
-                      <img
-                        src={component.icon || "/placeholder.svg"}
-                        alt={component.name}
-                        className="w-10 h-10 object-contain"
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.currentTarget as HTMLImageElement
-                          target.src = "/placeholder.svg?height=40&width=40"
-                        }}
-                      />
-                    </div>
-                    <div className="text-sm font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">
-                      {component.name}
-                    </div>
-                    <div className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
-                      {component.status}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div className="text-center mb-8">
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              Stack Tecnológico Completo
+            </h3>
+          </div>
+
+          <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-900 rounded-2xl py-8">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+
+            {/* Endless scrolling banner with performance optimizations */}
+            <div className="flex animate-scroll" style={{ width: "max-content" }}>
+              {/* First set */}
+              {architectureComponents.map((component, index) => (
+                <div key={`first-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={component.icon || "/placeholder.svg"}
+                      alt={component.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {component.name}
+                  </div>
+                  <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors duration-300">
+                    {component.status}
+                  </div>
+                </div>
+              ))}
+
+              {/* Second set for seamless loop */}
+              {architectureComponents.map((component, index) => (
+                <div key={`second-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={component.icon || "/placeholder.svg"}
+                      alt={component.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {component.name}
+                  </div>
+                  <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors duration-300">
+                    {component.status}
+                  </div>
+                </div>
+              ))}
+
+              {/* Third set for extra smoothness on larger screens */}
+              {architectureComponents.map((component, index) => (
+                <div key={`third-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={component.icon || "/placeholder.svg"}
+                      alt={component.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {component.name}
+                  </div>
+                  <div className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors duration-300">
+                    {component.status}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
-        {/* Integrations Section */}
+        {/* Integrations Section - Netflix-style Horizontal Banner (Reverse Direction) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
-          <div className="text-center mb-12">
-            <Badge className="mb-4 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
-              <Zap className="w-4 h-4 mr-2" />
-              Integraciones Nativas
+          <div className="text-center mb-8">
+            <Badge className="mb-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-sm px-4 py-2 font-medium">
+              <Zap className="w-3 h-3 mr-2" />
+              Integraciones
             </Badge>
-            <h3 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white mb-4 transition-colors duration-300">
-              Conecta con tu{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                ecosistema digital
-              </span>
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+              Conecta con tu ecosistema digital
             </h3>
-            <p className="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto transition-colors duration-300">
-              Integración perfecta con las plataformas y herramientas que ya utilizas. Sin configuraciones complejas,
-              sin interrupciones.
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              Integración perfecta con las plataformas que ya utilizas
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            {integrationComponents.map((integration, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className="group"
-              >
-                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 rounded-xl">
-                  <CardContent className="p-4 text-center">
-                    <div
-                      className={`w-12 h-12 ${integration.bgColor} rounded-lg mx-auto mb-3 flex items-center justify-center p-2 transition-all duration-300 group-hover:scale-110`}
-                    >
-                      <img
-                        src={integration.icon || "/placeholder.svg"}
-                        alt={integration.name}
-                        className="w-8 h-8 object-contain opacity-70 dark:opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                        loading="lazy"
-                        onError={(e) => {
-                          const target = e.currentTarget as HTMLImageElement
-                          target.src = "/placeholder.svg?height=32&width=32"
-                        }}
-                      />
-                    </div>
-                    <div className="text-xs font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">
-                      {integration.name}
-                    </div>
-                    <div className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
-                      {integration.status}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="relative overflow-hidden bg-slate-50 dark:bg-slate-900 rounded-2xl py-8">
+            {/* Gradient overlays for smooth edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-slate-50 dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+
+            {/* Endless scrolling banner - reverse direction with performance optimizations */}
+            <div className="flex animate-scroll-reverse" style={{ width: "max-content" }}>
+              {/* First set */}
+              {integrationComponents.map((integration, index) => (
+                <div key={`first-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={integration.icon || "/placeholder.svg"}
+                      alt={integration.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {integration.name}
+                  </div>
+                </div>
+              ))}
+
+              {/* Second set for seamless loop */}
+              {integrationComponents.map((integration, index) => (
+                <div key={`second-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={integration.icon || "/placeholder.svg"}
+                      alt={integration.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {integration.name}
+                  </div>
+                </div>
+              ))}
+
+              {/* Third set for extra smoothness on larger screens */}
+              {integrationComponents.map((integration, index) => (
+                <div key={`third-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                    <img
+                      src={integration.icon || "/placeholder.svg"}
+                      alt={integration.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        const target = e.currentTarget as HTMLImageElement
+                        target.src = "/placeholder.svg?height=64&width=64"
+                      }}
+                    />
+                  </div>
+                  <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
+                    {integration.name}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <motion.div
@@ -326,16 +381,16 @@ export function TechnicalFeaturesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
-            className="text-center mt-8"
+            className="text-center mt-6"
           >
-            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium transition-colors duration-300">
+            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
               + Más de 50 integraciones disponibles mediante APIs y webhooks
             </p>
           </motion.div>
         </motion.div>
 
         {/* Technical Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {technicalFeatures.map((feature, index) => (
             <motion.div
               key={index}
@@ -345,28 +400,28 @@ export function TechnicalFeaturesSection() {
               viewport={{ once: true }}
             >
               <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group h-full rounded-2xl">
-                <CardContent className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-14 h-14 bg-slate-900 dark:bg-slate-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <feature.icon className="w-7 h-7 text-white" />
+                <CardContent className="p-6 sm:p-8">
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-slate-900 dark:bg-slate-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
-                    <Badge className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-semibold transition-colors duration-300">
+                    <Badge className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-semibold transition-colors duration-300 text-xs sm:text-sm">
                       {feature.category}
                     </Badge>
                   </div>
 
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 transition-colors duration-300">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 text-lg transition-colors duration-300">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 sm:mb-6 text-base sm:text-lg transition-colors duration-300">
                     {feature.description}
                   </p>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {feature.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5 transition-colors duration-300" />
-                        <span className="text-slate-600 dark:text-slate-300 font-medium text-sm transition-colors duration-300">
+                      <div key={detailIndex} className="flex items-start gap-2 sm:gap-3">
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5 transition-colors duration-300" />
+                        <span className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm transition-colors duration-300">
                           {detail}
                         </span>
                       </div>
@@ -384,27 +439,27 @@ export function TechnicalFeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12 sm:mb-16"
         >
           <Card className="bg-slate-900 dark:bg-slate-800 text-white border-0 rounded-2xl transition-colors duration-300">
-            <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-8 text-center">Métricas de Rendimiento</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <CardContent className="p-6 sm:p-8">
+              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center">Métricas de Rendimiento</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
                 <div className="text-center">
-                  <div className="text-4xl font-black mb-2">99.9%</div>
-                  <div className="text-slate-300 font-semibold">Uptime SLA</div>
+                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">99.9%</div>
+                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Uptime SLA</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-black mb-2">{"<200ms"}</div>
-                  <div className="text-slate-300 font-semibold">Latencia API</div>
+                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">{"<200ms"}</div>
+                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Latencia API</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-black mb-2">10K+</div>
-                  <div className="text-slate-300 font-semibold">Req/segundo</div>
+                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">10K+</div>
+                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Req/segundo</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-black mb-2">24/7</div>
-                  <div className="text-slate-300 font-semibold">Monitoreo</div>
+                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">24/7</div>
+                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Monitoreo</div>
                 </div>
               </div>
             </CardContent>
@@ -421,7 +476,7 @@ export function TechnicalFeaturesSection() {
         >
           <Button
             size="lg"
-            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
+            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl w-full sm:w-auto"
             asChild
           >
             <a
@@ -429,9 +484,9 @@ export function TechnicalFeaturesSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <MessageCircle className="w-5 h-5 mr-2" />
+              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Consulta técnica especializada
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
             </a>
           </Button>
         </motion.div>
