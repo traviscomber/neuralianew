@@ -1,261 +1,379 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Menu, X, MessageCircle, Brain, Code, Users, Clock, HelpCircle, ExternalLink, ChevronDown } from "lucide-react"
+import { AuthButton } from "@/components/auth/auth-button"
+import {
+  Menu,
+  Home,
+  Settings,
+  BarChart3,
+  Bell,
+  Target,
+  Monitor,
+  Shield,
+  Users,
+  Activity,
+  Clock,
+  TrendingUp,
+  Database,
+  Cpu,
+  Globe,
+  Smartphone,
+} from "lucide-react"
+import { cn } from "@/lib/utils"
 
 const navigationItems = [
-  { name: "Características", href: "#features", icon: Brain },
-  { name: "Casos de Éxito", href: "#use-cases", icon: Code },
-  { name: "Arquitectura", href: "#technical-features", icon: Code },
-  { name: "Equipo Global", href: "#team", icon: Users },
-  { name: "Soporte 24/7", href: "#timezones", icon: Clock },
-  { name: "FAQ", href: "#faq", icon: HelpCircle },
+  {
+    title: "Home",
+    href: "/",
+    icon: Home,
+    description: "Return to the main landing page",
+  },
+  {
+    title: "Monitoring",
+    icon: Monitor,
+    description: "Performance monitoring and analytics",
+    items: [
+      {
+        title: "Performance Dashboard",
+        href: "/logo-performance-monitor",
+        icon: Activity,
+        description: "Real-time logo performance monitoring",
+        badge: "Live",
+      },
+      {
+        title: "Alert Management",
+        href: "/performance-alerts",
+        icon: Bell,
+        description: "Configure and manage performance alerts",
+        badge: "New",
+      },
+      {
+        title: "Custom Thresholds",
+        href: "/custom-thresholds",
+        icon: Target,
+        description: "Create custom alert thresholds with guided wizard",
+        badge: "Smart",
+      },
+      {
+        title: "Advanced Metrics",
+        href: "/advanced-metrics",
+        icon: BarChart3,
+        description: "Detailed performance analytics and insights",
+      },
+    ],
+  },
+  {
+    title: "Testing",
+    icon: Shield,
+    description: "Quality assurance and testing tools",
+    items: [
+      {
+        title: "Site Verification",
+        href: "/site-verification",
+        icon: Shield,
+        description: "Comprehensive site health verification",
+      },
+      {
+        title: "Accessibility Test",
+        href: "/accessibility-test",
+        icon: Users,
+        description: "WCAG compliance and accessibility testing",
+      },
+      {
+        title: "Mobile Testing",
+        href: "/mobile-responsiveness-test",
+        icon: Smartphone,
+        description: "Mobile responsiveness and touch testing",
+      },
+      {
+        title: "Performance Audit",
+        href: "/lighthouse-audit",
+        icon: TrendingUp,
+        description: "Lighthouse performance auditing",
+      },
+    ],
+  },
+  {
+    title: "System",
+    icon: Settings,
+    description: "System administration and configuration",
+    items: [
+      {
+        title: "System Health",
+        href: "/system-check",
+        icon: Cpu,
+        description: "System health monitoring and diagnostics",
+      },
+      {
+        title: "Database Monitor",
+        href: "/admin",
+        icon: Database,
+        description: "Database performance and health monitoring",
+        requiresAuth: true,
+      },
+      {
+        title: "Deployment Status",
+        href: "/deployment-monitor",
+        icon: Globe,
+        description: "Monitor deployment status and health",
+      },
+      {
+        title: "Timezone Config",
+        href: "/timezone-verification",
+        icon: Clock,
+        description: "Timezone configuration and verification",
+      },
+    ],
+  },
 ]
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > 10)
     }
+
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  const scrollToSection = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-        setIsOpen(false)
-      }
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/"
     }
+    return pathname.startsWith(href)
   }
 
   return (
-    <>
-      {/* Main Navigation */}
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-lg border-b border-slate-200 dark:border-slate-700"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="flex items-center gap-3"
-            >
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-lg">N3</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl font-black text-slate-900 dark:text-white transition-colors duration-300">
-                  N3uralia
-                </h1>
-                <p className="text-xs text-slate-600 dark:text-slate-400 font-semibold -mt-1 transition-colors duration-300">
-                  Agentes IA Inteligentes
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8">
-              {navigationItems.map((item, index) => (
-                <motion.button
-                  key={item.name}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
-                  onClick={() => scrollToSection(item.href)}
-                  className="flex items-center gap-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white font-semibold transition-colors duration-300 group"
-                >
-                  <item.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                  {item.name}
-                </motion.button>
-              ))}
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
+        scrolled ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm" : "bg-white/80 backdrop-blur-sm",
+      )}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">N3</span>
             </div>
+            <span className="font-bold text-xl text-slate-900">N3uralia</span>
+          </Link>
 
-            {/* Right Side Actions */}
-            <div className="flex items-center gap-4">
-              {/* Theme Toggle - Always Visible */}
-              <div className="flex items-center">
-                <ThemeToggle />
-              </div>
-
-              {/* WhatsApp CTA - Desktop */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="hidden md:block"
-              >
-                <Button
-                  size="sm"
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  asChild
-                >
-                  <a
-                    href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20sus%20agentes%20de%20IA"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    Consulta Gratis
-                    <ExternalLink className="w-4 h-4 ml-2" />
-                  </a>
-                </Button>
-              </motion.div>
-
-              {/* Mobile Menu Button */}
-              <motion.button
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300"
-              >
-                {isOpen ? (
-                  <X className="w-5 h-5 text-slate-700 dark:text-slate-300" />
-                ) : (
-                  <Menu className="w-5 h-5 text-slate-700 dark:text-slate-300" />
-                )}
-              </motion.button>
-            </div>
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1">
+            <NavigationMenu>
+              <NavigationMenuList>
+                {navigationItems.map((item) => (
+                  <NavigationMenuItem key={item.title}>
+                    {item.items ? (
+                      <>
+                        <NavigationMenuTrigger
+                          className={cn(
+                            "h-9 px-3 text-sm font-medium transition-colors",
+                            "hover:bg-slate-100 hover:text-slate-900",
+                            "focus:bg-slate-100 focus:text-slate-900",
+                            "data-[active]:bg-slate-100 data-[active]:text-slate-900",
+                            "data-[state=open]:bg-slate-100 data-[state=open]:text-slate-900",
+                          )}
+                        >
+                          <item.icon className="w-4 h-4 mr-2" />
+                          {item.title}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <div className="grid gap-3 p-6 w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                            <div className="row-span-3">
+                              <NavigationMenuLink asChild>
+                                <div className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-slate-50 to-slate-100 p-6 no-underline outline-none focus:shadow-md">
+                                  <item.icon className="h-6 w-6 text-slate-600" />
+                                  <div className="mb-2 mt-4 text-lg font-medium text-slate-900">{item.title}</div>
+                                  <p className="text-sm leading-tight text-slate-600">{item.description}</p>
+                                </div>
+                              </NavigationMenuLink>
+                            </div>
+                            <div className="grid gap-2">
+                              {item.items.map((subItem) => (
+                                <NavigationMenuLink key={subItem.title} asChild>
+                                  <Link
+                                    href={subItem.href}
+                                    className={cn(
+                                      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
+                                      "hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900",
+                                      isActive(subItem.href) && "bg-slate-100 text-slate-900",
+                                    )}
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center space-x-2">
+                                        <subItem.icon className="w-4 h-4" />
+                                        <div className="text-sm font-medium leading-none">{subItem.title}</div>
+                                      </div>
+                                      {subItem.badge && (
+                                        <Badge
+                                          variant={
+                                            subItem.badge === "Live"
+                                              ? "default"
+                                              : subItem.badge === "New"
+                                                ? "destructive"
+                                                : subItem.badge === "Smart"
+                                                  ? "secondary"
+                                                  : "outline"
+                                          }
+                                          className="text-xs"
+                                        >
+                                          {subItem.badge}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <p className="line-clamp-2 text-xs leading-snug text-slate-600">
+                                      {subItem.description}
+                                    </p>
+                                  </Link>
+                                </NavigationMenuLink>
+                              ))}
+                            </div>
+                          </div>
+                        </NavigationMenuContent>
+                      </>
+                    ) : (
+                      <NavigationMenuLink asChild>
+                        <Link
+                          href={item.href}
+                          className={cn(
+                            "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                            "hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900",
+                            "disabled:pointer-events-none disabled:opacity-50",
+                            isActive(item.href) && "bg-slate-100 text-slate-900",
+                          )}
+                        >
+                          <item.icon className="w-4 h-4 mr-2" />
+                          {item.title}
+                        </Link>
+                      </NavigationMenuLink>
+                    )}
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
-        </div>
-      </motion.nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 lg:hidden"
-          >
-            {/* Backdrop */}
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          {/* Right Side Actions */}
+          <div className="flex items-center space-x-2">
+            <ThemeToggle />
+            <AuthButton />
 
-            {/* Menu Panel */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 h-full w-80 bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-700 transition-colors duration-300"
-            >
-              <div className="p-6">
-                {/* Mobile Header */}
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 rounded-xl flex items-center justify-center">
-                      <span className="text-white font-black text-lg">N3</span>
+            {/* Mobile Menu Button */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="lg:hidden">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center space-x-2">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-600 to-purple-600 rounded-md flex items-center justify-center">
+                      <span className="text-white font-bold text-xs">N3</span>
                     </div>
-                    <div>
-                      <h2 className="text-lg font-black text-slate-900 dark:text-white transition-colors duration-300">
-                        N3uralia
-                      </h2>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 font-semibold -mt-1 transition-colors duration-300">
-                        Menú de Navegación
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="w-8 h-8 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300"
-                  >
-                    <X className="w-4 h-4 text-slate-700 dark:text-slate-300" />
-                  </button>
-                </div>
+                    <span>N3uralia Navigation</span>
+                  </SheetTitle>
+                  <SheetDescription>Access all monitoring and testing tools</SheetDescription>
+                </SheetHeader>
 
-                {/* Mobile Navigation Items */}
-                <div className="space-y-2 mb-8">
-                  {navigationItems.map((item, index) => (
-                    <motion.button
-                      key={item.name}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
-                      onClick={() => scrollToSection(item.href)}
-                      className="w-full flex items-center gap-3 p-3 text-left text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg font-semibold transition-all duration-300 group"
-                    >
-                      <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                      {item.name}
-                      <ChevronDown className="w-4 h-4 ml-auto opacity-50" />
-                    </motion.button>
+                <div className="mt-6 space-y-4">
+                  {navigationItems.map((item) => (
+                    <div key={item.title} className="space-y-2">
+                      {item.items ? (
+                        <div>
+                          <div className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-slate-900">
+                            <item.icon className="w-4 h-4" />
+                            <span>{item.title}</span>
+                          </div>
+                          <div className="ml-6 space-y-1">
+                            {item.items.map((subItem) => (
+                              <Link
+                                key={subItem.title}
+                                href={subItem.href}
+                                onClick={() => setIsOpen(false)}
+                                className={cn(
+                                  "flex items-center justify-between space-x-2 px-3 py-2 text-sm rounded-md transition-colors",
+                                  "hover:bg-slate-100 hover:text-slate-900",
+                                  isActive(subItem.href) && "bg-slate-100 text-slate-900",
+                                )}
+                              >
+                                <div className="flex items-center space-x-2">
+                                  <subItem.icon className="w-4 h-4" />
+                                  <span>{subItem.title}</span>
+                                </div>
+                                {subItem.badge && (
+                                  <Badge
+                                    variant={
+                                      subItem.badge === "Live"
+                                        ? "default"
+                                        : subItem.badge === "New"
+                                          ? "destructive"
+                                          : subItem.badge === "Smart"
+                                            ? "secondary"
+                                            : "outline"
+                                    }
+                                    className="text-xs"
+                                  >
+                                    {subItem.badge}
+                                  </Badge>
+                                )}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={cn(
+                            "flex items-center space-x-2 px-3 py-2 text-sm rounded-md transition-colors",
+                            "hover:bg-slate-100 hover:text-slate-900",
+                            isActive(item.href) && "bg-slate-100 text-slate-900",
+                          )}
+                        >
+                          <item.icon className="w-4 h-4" />
+                          <span>{item.title}</span>
+                        </Link>
+                      )}
+                    </div>
                   ))}
                 </div>
 
-                {/* Mobile Theme Toggle */}
-                <div className="mb-6 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg transition-colors duration-300">
+                <div className="mt-8 pt-6 border-t border-slate-200">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-700 dark:text-slate-300 font-semibold transition-colors duration-300">
-                      Tema
-                    </span>
+                    <span className="text-sm text-slate-600">Theme</span>
                     <ThemeToggle />
                   </div>
                 </div>
-
-                {/* Mobile CTA */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.3 }}
-                  className="space-y-3"
-                >
-                  <Button
-                    size="lg"
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300"
-                    asChild
-                  >
-                    <a
-                      href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20sus%20agentes%20de%20IA"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <MessageCircle className="w-5 h-5 mr-2" />
-                      Consulta Gratis por WhatsApp
-                      <ExternalLink className="w-4 h-4 ml-2" />
-                    </a>
-                  </Button>
-
-                  <div className="text-center">
-                    <Badge className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 font-semibold transition-colors duration-300">
-                      <Clock className="w-3 h-3 mr-1" />
-                      Respuesta en 15 minutos
-                    </Badge>
-                  </div>
-                </motion.div>
-
-                {/* Mobile Footer */}
-                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700 text-center transition-colors duration-300">
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium transition-colors duration-300">
-                    Soporte 24/7 • Chile, Singapur, Rusia
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </div>
+    </header>
   )
 }

@@ -1,10 +1,13 @@
 "use client"
 
+import type React from "react"
+import { useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Code2, Database, Cloud, Cpu, Lock, Monitor, ArrowRight, CheckCircle, MessageCircle, Zap } from "lucide-react"
+import { logoPerformanceMonitor } from "@/lib/logo-performance-monitor"
 
 const technicalFeatures = [
   {
@@ -86,31 +89,37 @@ const architectureComponents = [
     name: "React",
     status: "Frontend",
     icon: "/tech-icons/react-logo.png",
+    fallback: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   },
   {
     name: "Node.js",
     status: "Backend",
     icon: "/tech-icons/nodejs-logo.png",
+    fallback: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   },
   {
     name: "PostgreSQL",
     status: "Database",
     icon: "/tech-icons/postgresql-logo.png",
+    fallback: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
   },
   {
     name: "Redis",
     status: "Cache",
     icon: "/tech-icons/redis-logo.png",
+    fallback: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
   },
   {
     name: "Vercel",
     status: "Deployment",
     icon: "/tech-icons/vercel-logo.svg",
+    fallback: "https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png",
   },
   {
     name: "Supabase",
     status: "Backend",
     icon: "/tech-icons/supabase-logo.svg",
+    fallback: "https://supabase.com/brand-assets/supabase-logo-icon.png",
   },
 ]
 
@@ -118,38 +127,107 @@ const integrationComponents = [
   {
     name: "WhatsApp Business",
     icon: "/tech-icons/whatsapp-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
   },
   {
     name: "Telegram",
     icon: "/tech-icons/telegram-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg",
   },
   {
     name: "Twilio",
     icon: "/tech-icons/twilio-logo.png",
+    fallback: "https://www.twilio.com/content/dam/twilio-com/global/en/blog/legacy/2017/TwilioLogo_Red.png",
   },
   {
     name: "Zapier",
     icon: "/tech-icons/zapier-logo.png",
+    fallback: "https://cdn.zapier.com/storage/photos/9ec65c79de8ae54080c98384d4e7b2ad.png",
   },
   {
     name: "n8n",
     icon: "/tech-icons/n8n-logo.png",
+    fallback: "https://n8n.io/n8n-logo.svg",
   },
   {
     name: "Meta",
     icon: "/tech-icons/meta-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg",
   },
   {
     name: "OpenAI",
     icon: "/tech-icons/openai-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg",
   },
   {
     name: "Intel AI",
     icon: "/tech-icons/intel-logo.png",
+    fallback: "https://upload.wikimedia.org/wikipedia/commons/7/7d/Intel_logo_%282006-2020%29.svg",
   },
 ]
 
 export function TechnicalFeaturesSection() {
+  useEffect(() => {
+    // Start monitoring when component mounts
+    logoPerformanceMonitor.startMonitoring()
+
+    return () => {
+      // Optional: Stop monitoring when component unmounts
+      // logoPerformanceMonitor.stopMonitoring()
+    }
+  }, [])
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, fallback: string, logoName: string) => {
+    const target = e.currentTarget as HTMLImageElement
+    const startTime = performance.now()
+
+    if (target.src !== fallback) {
+      // Record primary failure and try fallback
+      logoPerformanceMonitor.recordLogoLoad(logoName, target.src, fallback, startTime, false, "primary_failed")
+
+      target.src = fallback
+    } else {
+      // Fallback also failed
+      logoPerformanceMonitor.recordLogoLoad(logoName, fallback, undefined, startTime, false, "fallback_failed")
+
+      // Use generic placeholder
+      target.src = "/placeholder.svg?height=64&width=64&text=" + encodeURIComponent(logoName)
+    }
+  }
+
+  const handleImageLoad = (
+    e: React.SyntheticEvent<HTMLImageElement>,
+    logoName: string,
+    primaryUrl: string,
+    fallbackUrl: string,
+  ) => {
+    const target = e.currentTarget as HTMLImageElement
+    const loadTime = performance.now() - (target.dataset.startTime ? Number.parseFloat(target.dataset.startTime) : 0)
+
+    const usedFallback = target.src === fallbackUrl
+    logoPerformanceMonitor.recordLogoLoad(
+      logoName,
+      primaryUrl,
+      fallbackUrl,
+      performance.now() - loadTime,
+      true,
+      usedFallback ? "fallback_used" : undefined,
+    )
+  }
+
+  const createImageProps = (component: { name: string; icon: string; fallback: string }) => ({
+    src: component.icon || "/placeholder.svg",
+    alt: component.name,
+    className:
+      "w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300",
+    loading: "lazy" as const,
+    decoding: "async" as const,
+    "data-start-time": performance.now().toString(),
+    onLoad: (e: React.SyntheticEvent<HTMLImageElement>) =>
+      handleImageLoad(e, component.name, component.icon, component.fallback),
+    onError: (e: React.SyntheticEvent<HTMLImageElement>) => handleImageError(e, component.fallback, component.name),
+  })
+
   return (
     <section
       id="technical-features"
@@ -206,17 +284,7 @@ export function TechnicalFeaturesSection() {
               {architectureComponents.map((component, index) => (
                 <div key={`first-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={component.icon || "/placeholder.svg"}
-                      alt={component.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(component)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {component.name}
@@ -231,17 +299,7 @@ export function TechnicalFeaturesSection() {
               {architectureComponents.map((component, index) => (
                 <div key={`second-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={component.icon || "/placeholder.svg"}
-                      alt={component.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(component)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {component.name}
@@ -256,17 +314,7 @@ export function TechnicalFeaturesSection() {
               {architectureComponents.map((component, index) => (
                 <div key={`third-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={component.icon || "/placeholder.svg"}
-                      alt={component.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(component)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 mb-1 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {component.name}
@@ -312,17 +360,7 @@ export function TechnicalFeaturesSection() {
               {integrationComponents.map((integration, index) => (
                 <div key={`first-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={integration.icon || "/placeholder.svg"}
-                      alt={integration.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(integration)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {integration.name}
@@ -334,17 +372,7 @@ export function TechnicalFeaturesSection() {
               {integrationComponents.map((integration, index) => (
                 <div key={`second-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={integration.icon || "/placeholder.svg"}
-                      alt={integration.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(integration)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {integration.name}
@@ -356,17 +384,7 @@ export function TechnicalFeaturesSection() {
               {integrationComponents.map((integration, index) => (
                 <div key={`third-${index}`} className="flex-shrink-0 mx-6 sm:mx-8 text-center group cursor-pointer">
                   <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-3 sm:mb-4 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
-                    <img
-                      src={integration.icon || "/placeholder.svg"}
-                      alt={integration.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 object-contain filter grayscale opacity-60 group-hover:opacity-90 group-hover:grayscale-0 transition-all duration-300"
-                      loading="lazy"
-                      decoding="async"
-                      onError={(e) => {
-                        const target = e.currentTarget as HTMLImageElement
-                        target.src = "/placeholder.svg?height=64&width=64"
-                      }}
-                    />
+                    <img {...createImageProps(integration)} />
                   </div>
                   <div className="text-sm sm:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors duration-300">
                     {integration.name}
