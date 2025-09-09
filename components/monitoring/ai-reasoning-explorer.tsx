@@ -7,35 +7,42 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { TooltipProvider } from "@/components/ui/tooltip"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import {
   Brain,
   BarChart3,
-  TrendingUp,
   Target,
-  Shield,
+  TrendingUp,
   Lightbulb,
-  Database,
-  DollarSign,
+  Shield,
+  Clock,
   Users,
+  DollarSign,
+  Zap,
   AlertTriangle,
   CheckCircle,
-  Clock,
-  Zap,
   Eye,
+  Download,
+  Share,
+  BookOpen,
+  Cpu,
+  Network,
   Activity,
-  Globe,
-  Server,
+  Gauge,
   LineChart,
   PieChart,
-  Settings,
+  MapPin,
   Award,
   Sparkles,
-  ArrowRight,
-  TrendingDown,
 } from "lucide-react"
-import { aiThresholdAnalyzer, type AIThresholdRecommendation } from "@/lib/ai-threshold-analyzer"
+import { useAIThresholdRecommendations, type AIThresholdRecommendation } from "@/lib/ai-threshold-analyzer"
 import { toast } from "@/hooks/use-toast"
 
 interface AIReasoningExplorerProps {
@@ -45,9 +52,11 @@ interface AIReasoningExplorerProps {
 }
 
 export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReasoningExplorerProps) {
+  const [activeTab, setActiveTab] = useState("overview")
   const [comprehensiveAnalysis, setComprehensiveAnalysis] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState("overview")
+
+  const { getComprehensiveAnalysis } = useAIThresholdRecommendations()
 
   useEffect(() => {
     if (isOpen && recommendation) {
@@ -58,17 +67,67 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
   const loadComprehensiveAnalysis = async () => {
     setIsLoading(true)
     try {
-      const analysis = aiThresholdAnalyzer.getComprehensiveAnalysis(recommendation.id)
+      const analysis = await getComprehensiveAnalysis(recommendation.id)
       setComprehensiveAnalysis(analysis)
     } catch (error) {
       console.error("Failed to load comprehensive analysis:", error)
       toast({
         title: "Analysis Error",
-        description: "Failed to load detailed AI reasoning.",
+        description: "Failed to load detailed AI analysis.",
         variant: "destructive",
       })
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  const exportAnalysis = () => {
+    const analysisData = {
+      recommendation,
+      comprehensiveAnalysis,
+      exportedAt: new Date().toISOString(),
+    }
+
+    const blob = new Blob([JSON.stringify(analysisData, null, 2)], { type: "application/json" })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `ai-analysis-${recommendation.metric}-${Date.now()}.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
+
+    toast({
+      title: "Analysis Exported",
+      description: "Comprehensive AI analysis has been downloaded.",
+    })
+  }
+
+  const shareAnalysis = async () => {
+    const shareData = {
+      title: `AI Analysis: ${recommendation.metric.replace(/([A-Z])/g, " $1")}`,
+      text: `AI Recommendation with ${recommendation.confidence}% confidence: ${recommendation.reasoning}`,
+      url: window.location.href,
+    }
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+        toast({
+          title: "Analysis Shared",
+          description: "AI analysis has been shared successfully.",
+        })
+      } catch (error) {
+        console.log("Share cancelled")
+      }
+    } else {
+      // Fallback to clipboard
+      await navigator.clipboard.writeText(`${shareData.title}\n\n${shareData.text}\n\n${shareData.url}`)
+      toast({
+        title: "Copied to Clipboard",
+        description: "Analysis details copied to clipboard.",
+      })
     }
   }
 
@@ -100,689 +159,786 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
     }
   }
 
-  if (isLoading) {
-    return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Brain className="w-6 h-6 animate-pulse text-blue-600" />
-              Loading AI Analysis...
-            </DialogTitle>
-          </DialogHeader>
-          <div className="flex items-center justify-center py-12">
-            <div className="text-center">
-              <Brain className="w-16 h-16 text-blue-600 animate-pulse mx-auto mb-4" />
-              <p className="text-lg font-semibold mb-2">Analyzing Performance Data</p>
-              <p className="text-muted-foreground">Generating comprehensive AI insights...</p>
-              <Progress value={75} className="w-64 mx-auto mt-4" />
+  const renderOverviewTab = () => (
+    <div className="space-y-6">
+      {/* Executive Summary */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="w-5 h-5 text-blue-600" />
+            Executive Summary
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+              <p className="text-sm leading-relaxed text-slate-700">
+                {comprehensiveAnalysis?.overview || "Loading comprehensive analysis..."}
+              </p>
+            </div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
+                <div className="text-2xl font-bold text-green-700">{recommendation.confidence}%</div>
+                <div className="text-sm text-green-600">AI Confidence</div>
+              </div>
+              <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-2xl font-bold text-blue-700">
+                  {recommendation.recommendedValue}
+                  {recommendation.metric === "averageLoadTime" ? "ms" : "%"}
+                </div>
+                <div className="text-sm text-blue-600">Threshold Value</div>
+              </div>
+              <div className="text-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="text-2xl font-bold text-purple-700 capitalize">{recommendation.priority}</div>
+                <div className="text-sm text-purple-600">Priority Level</div>
+              </div>
+              <div className="text-center p-3 bg-orange-50 rounded-lg border border-orange-200">
+                <div className="text-2xl font-bold text-orange-700">{recommendation.relatedMetrics.length}</div>
+                <div className="text-sm text-orange-600">Related Metrics</div>
+              </div>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
-    )
-  }
+        </CardContent>
+      </Card>
 
-  if (!comprehensiveAnalysis) {
-    return null
-  }
+      {/* Quick Insights */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Lightbulb className="w-4 h-4 text-yellow-500" />
+              Key Insights
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm">
+                <span className="font-medium">High Confidence:</span> This recommendation has achieved{" "}
+                {recommendation.confidence}% confidence through comprehensive data analysis.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Target className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm">
+                <span className="font-medium">Optimal Threshold:</span> AI-calculated value balances sensitivity with
+                false positive prevention.
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm">
+                <span className="font-medium">Expected Impact:</span> {recommendation.expectedImpact}
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <Shield className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm">
+                <span className="font-medium">Risk Level:</span>{" "}
+                {recommendation.riskAssessment.includes("Low")
+                  ? "Low risk implementation"
+                  : "Moderate risk with mitigation strategies"}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <BarChart3 className="w-4 h-4 text-green-600" />
+              Business Value
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+              <div className="text-sm font-medium text-green-800 mb-1">Primary Benefits</div>
+              <div className="text-sm text-green-700">{recommendation.businessImpact}</div>
+            </div>
+            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="text-sm font-medium text-blue-800 mb-1">Technical Value</div>
+              <div className="text-sm text-blue-700">{recommendation.technicalJustification}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+
+  const renderDataAnalysisTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.dataAnalysis && (
+        <>
+          {/* Current Metrics */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Gauge className="w-5 h-5 text-blue-600" />
+                Current Performance Metrics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {Object.entries(comprehensiveAnalysis.dataAnalysis.currentMetrics).map(([key, value]) => (
+                  <div key={key} className="text-center p-3 bg-slate-50 rounded-lg border">
+                    <div className="text-lg font-bold text-slate-700">
+                      {typeof value === "number" ? value.toFixed(1) : value}
+                    </div>
+                    <div className="text-xs text-slate-600 capitalize">{key.replace(/([A-Z])/g, " $1")}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Historical Trends */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <LineChart className="w-5 h-5 text-green-600" />
+                Historical Trends Analysis
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.dataAnalysis.historicalTrends.map((trend: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{trend}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Performance Patterns */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieChart className="w-5 h-5 text-purple-600" />
+                Performance Patterns
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.dataAnalysis.performancePatterns.map((pattern: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200"
+                  >
+                    <Activity className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-purple-800">{pattern}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Anomaly Detection */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-orange-600" />
+                Anomaly Detection Insights
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.dataAnalysis.anomalyDetection.map((anomaly: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200"
+                  >
+                    <Eye className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-orange-800">{anomaly}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
+
+  const renderAIReasoningTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.aiReasoning && (
+        <>
+          {/* Confidence Breakdown */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Brain className="w-5 h-5 text-blue-600" />
+                AI Confidence Breakdown
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {Object.entries(comprehensiveAnalysis.aiReasoning.confidenceBreakdown).map(([factor, score]) => (
+                  <div key={factor} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium capitalize">{factor.replace(/([A-Z])/g, " $1")}</span>
+                      <span className="text-sm font-bold">{score}%</span>
+                    </div>
+                    <Progress value={score as number} className="h-2" />
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Primary Factors */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="w-5 h-5 text-green-600" />
+                Primary Analysis Factors
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.aiReasoning.primaryFactors.map((factor: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{factor}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Secondary Factors */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lightbulb className="w-5 h-5 text-yellow-500" />
+                Secondary Considerations
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.aiReasoning.secondaryFactors.map((factor: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200"
+                  >
+                    <Lightbulb className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-yellow-800">{factor}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Algorithmic Approach */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-purple-600" />
+                Algorithmic Approach
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <p className="text-sm text-purple-800 leading-relaxed">
+                  {comprehensiveAnalysis.aiReasoning.algorithmicApproach}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
+
+  const renderBusinessContextTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.businessContext && (
+        <>
+          {/* Industry Benchmarks */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-blue-600" />
+                Industry Benchmarks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.businessContext.industryBenchmarks.map((benchmark: string, index: number) => (
+                  <div key={index} className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <BarChart3 className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-blue-800">{benchmark}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Competitive Analysis */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                Competitive Analysis
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.businessContext.competitiveAnalysis.map((analysis: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{analysis}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* User Impact Assessment */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-purple-600" />
+                User Impact Assessment
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <p className="text-sm text-purple-800 leading-relaxed">
+                  {comprehensiveAnalysis.businessContext.userImpactAssessment}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Revenue Implications */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-green-600" />
+                Revenue Implications
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-sm text-green-800 leading-relaxed">
+                  {comprehensiveAnalysis.businessContext.revenueImplications}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
+
+  const renderTechnicalTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.technicalDeepDive && (
+        <>
+          {/* Infrastructure Considerations */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Network className="w-5 h-5 text-blue-600" />
+                Infrastructure Considerations
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.technicalDeepDive.infrastructureConsiderations.map(
+                  (consideration: string, index: number) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200"
+                    >
+                      <Network className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-sm text-blue-800">{consideration}</div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Scalability Factors */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                Scalability Factors
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.technicalDeepDive.scalabilityFactors.map((factor: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{factor}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Performance Bottlenecks */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-orange-600" />
+                Performance Bottlenecks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.technicalDeepDive.performanceBottlenecks.map(
+                  (bottleneck: string, index: number) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200"
+                    >
+                      <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-sm text-orange-800">{bottleneck}</div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Optimization Opportunities */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Zap className="w-5 h-5 text-yellow-500" />
+                Optimization Opportunities
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.technicalDeepDive.optimizationOpportunities.map(
+                  (opportunity: string, index: number) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200"
+                    >
+                      <Zap className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-sm text-yellow-800">{opportunity}</div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
+
+  const renderRiskAnalysisTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.riskAnalysis && (
+        <>
+          {/* Implementation Risks */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-red-600" />
+                Implementation Risks
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.riskAnalysis.implementationRisks.map((risk: string, index: number) => (
+                  <div key={index} className="flex items-start gap-3 p-3 bg-red-50 rounded-lg border border-red-200">
+                    <AlertTriangle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-red-800">{risk}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Mitigation Strategies */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-green-600" />
+                Mitigation Strategies
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.riskAnalysis.mitigationStrategies.map((strategy: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <Shield className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{strategy}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Rollback Plan */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-blue-600" />
+                Rollback Plan
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  {comprehensiveAnalysis.riskAnalysis.rollbackPlan}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Monitoring Requirements */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Activity className="w-5 h-5 text-purple-600" />
+                Monitoring Requirements
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.riskAnalysis.monitoringRequirements.map((requirement: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200"
+                  >
+                    <Activity className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-purple-800">{requirement}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
+
+  const renderPredictiveTab = () => (
+    <div className="space-y-6">
+      {comprehensiveAnalysis?.predictiveInsights && (
+        <>
+          {/* Success Probability */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-gold-600" />
+                Success Probability
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center space-y-4">
+                <div className="text-6xl font-bold text-green-600">
+                  {comprehensiveAnalysis.predictiveInsights.successProbability}%
+                </div>
+                <div className="text-lg text-muted-foreground">Predicted Success Rate</div>
+                <Progress value={comprehensiveAnalysis.predictiveInsights.successProbability} className="h-3" />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Expected Outcomes */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-600" />
+                Expected Outcomes
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.predictiveInsights.expectedOutcomes.map((outcome: string, index: number) => (
+                  <div
+                    key={index}
+                    className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200"
+                  >
+                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-sm text-green-800">{outcome}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Time to Impact */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-blue-600" />
+                Time to Impact
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-800 leading-relaxed">
+                  {comprehensiveAnalysis.predictiveInsights.timeToImpact}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Alternative Scenarios */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-purple-600" />
+                Alternative Scenarios
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {comprehensiveAnalysis.predictiveInsights.alternativeScenarios.map(
+                  (scenario: string, index: number) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200"
+                    >
+                      <MapPin className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-sm text-purple-800">{scenario}</div>
+                    </div>
+                  ),
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </>
+      )}
+    </div>
+  )
 
   return (
-    <TooltipProvider>
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden p-0">
-          <DialogHeader className="p-6 pb-0">
-            <DialogTitle className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                {getMetricIcon(recommendation.metric)}
-                <span className="capitalize">{recommendation.metric.replace(/([A-Z])/g, " $1")}</span>
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Brain className="w-6 h-6 text-blue-600" />
+            Comprehensive AI Analysis
+            <Badge className="bg-gold-100 text-gold-800 border-gold-200">{recommendation.confidence}% Confidence</Badge>
+          </DialogTitle>
+          <DialogDescription>
+            Deep dive into the AI reasoning behind this {recommendation.metric.replace(/([A-Z])/g, " $1")}{" "}
+            recommendation
+          </DialogDescription>
+        </DialogHeader>
+
+        {/* Recommendation Header */}
+        <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200 mb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {getMetricIcon(recommendation.metric)}
+              <div>
+                <h3 className="font-semibold text-lg capitalize">
+                  {recommendation.metric.replace(/([A-Z])/g, " $1")} Optimization
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <Badge className={getPriorityColor(recommendation.priority)} size="sm">
+                    {recommendation.priority} priority
+                  </Badge>
+                  <span className="text-sm text-muted-foreground">
+                    Alert when {recommendation.condition} {recommendation.recommendedValue}
+                    {recommendation.metric === "averageLoadTime" ? "ms" : "%"}
+                  </span>
+                </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-muted-foreground" />
-              <div className="flex items-center gap-2">
-                <Brain className="w-5 h-5 text-blue-600" />
-                <span>Comprehensive AI Analysis</span>
-                <Badge className="bg-gold-100 text-gold-800 border-gold-200">
-                  {recommendation.confidence}% Confidence
-                </Badge>
-              </div>
-            </DialogTitle>
-            <DialogDescription>
-              Deep dive into the AI reasoning, data analysis, and predictive insights behind this high-confidence
-              recommendation
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="flex-1 overflow-hidden">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="h-full flex flex-col">
-              <div className="px-6">
-                <TabsList className="grid w-full grid-cols-7">
-                  <TabsTrigger value="overview" className="flex items-center gap-1">
-                    <Eye className="w-3 h-3" />
-                    Overview
-                  </TabsTrigger>
-                  <TabsTrigger value="data" className="flex items-center gap-1">
-                    <Database className="w-3 h-3" />
-                    Data
-                  </TabsTrigger>
-                  <TabsTrigger value="ai" className="flex items-center gap-1">
-                    <Brain className="w-3 h-3" />
-                    AI Logic
-                  </TabsTrigger>
-                  <TabsTrigger value="business" className="flex items-center gap-1">
-                    <DollarSign className="w-3 h-3" />
-                    Business
-                  </TabsTrigger>
-                  <TabsTrigger value="technical" className="flex items-center gap-1">
-                    <Server className="w-3 h-3" />
-                    Technical
-                  </TabsTrigger>
-                  <TabsTrigger value="risk" className="flex items-center gap-1">
-                    <Shield className="w-3 h-3" />
-                    Risk
-                  </TabsTrigger>
-                  <TabsTrigger value="predictions" className="flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" />
-                    Insights
-                  </TabsTrigger>
-                </TabsList>
-              </div>
-
-              <div className="flex-1 overflow-hidden px-6 pb-6">
-                <ScrollArea className="h-full">
-                  <div className="space-y-6 py-4">
-                    {/* Overview Tab */}
-                    <TabsContent value="overview" className="mt-0 space-y-6">
-                      <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Award className="w-5 h-5 text-gold-600" />
-                            Executive Summary
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-slate-700 leading-relaxed">{comprehensiveAnalysis.overview}</p>
-                        </CardContent>
-                      </Card>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Target className="w-4 h-4 text-blue-600" />
-                              Recommendation Details
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Threshold Value:</span>
-                              <span className="font-bold text-lg">
-                                {recommendation.condition} {recommendation.recommendedValue}
-                                {recommendation.metric === "averageLoadTime" ? "ms" : "%"}
-                              </span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Priority Level:</span>
-                              <Badge className={getPriorityColor(recommendation.priority)}>
-                                {recommendation.priority}
-                              </Badge>
-                            </div>
-                            <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">AI Confidence:</span>
-                              <div className="flex items-center gap-2">
-                                <Progress value={recommendation.confidence} className="w-20 h-2" />
-                                <span className="font-bold text-green-600">{recommendation.confidence}%</span>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <TrendingUp className="w-4 h-4 text-green-600" />
-                              Expected Impact
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-slate-700 mb-4">{recommendation.expectedImpact}</p>
-                            <div className="space-y-2">
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-600" />
-                                <span className="text-sm">Improved monitoring accuracy</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-600" />
-                                <span className="text-sm">Reduced false positives</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="w-4 h-4 text-green-600" />
-                                <span className="text-sm">Enhanced user experience</span>
-                              </div>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </TabsContent>
-
-                    {/* Data Analysis Tab */}
-                    <TabsContent value="data" className="mt-0 space-y-6">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <BarChart3 className="w-5 h-5 text-blue-600" />
-                            Current Performance Metrics
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {Object.entries(comprehensiveAnalysis.dataAnalysis.currentMetrics).map(([key, value]) => (
-                              <div key={key} className="text-center p-3 bg-slate-50 rounded-lg">
-                                <div className="text-2xl font-bold text-blue-600">
-                                  {typeof value === "number" ? value.toFixed(1) : value}
-                                </div>
-                                <div className="text-sm text-muted-foreground capitalize">
-                                  {key.replace(/([A-Z])/g, " $1")}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <LineChart className="w-4 h-4 text-green-600" />
-                              Historical Trends
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.dataAnalysis.historicalTrends.map(
-                                (trend: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{trend}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Activity className="w-4 h-4 text-purple-600" />
-                              Performance Patterns
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.dataAnalysis.performancePatterns.map(
-                                (pattern: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <PieChart className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{pattern}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </div>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <AlertTriangle className="w-4 h-4 text-orange-600" />
-                            Anomaly Detection Insights
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {comprehensiveAnalysis.dataAnalysis.anomalyDetection.map(
-                              (anomaly: string, index: number) => (
-                                <div key={index} className="flex items-start gap-2 p-3 bg-orange-50 rounded-lg">
-                                  <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-slate-700">{anomaly}</span>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* AI Reasoning Tab */}
-                    <TabsContent value="ai" className="mt-0 space-y-6">
-                      <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Brain className="w-5 h-5 text-purple-600" />
-                            Algorithmic Approach
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-slate-700 leading-relaxed">
-                            {comprehensiveAnalysis.aiReasoning.algorithmicApproach}
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Zap className="w-4 h-4 text-blue-600" />
-                              Primary Factors
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-3">
-                              {comprehensiveAnalysis.aiReasoning.primaryFactors.map((factor: string, index: number) => (
-                                <li key={index} className="flex items-start gap-2">
-                                  <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <span className="text-xs font-bold text-blue-600">{index + 1}</span>
-                                  </div>
-                                  <span className="text-sm text-slate-700">{factor}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Settings className="w-4 h-4 text-gray-600" />
-                              Secondary Factors
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-3">
-                              {comprehensiveAnalysis.aiReasoning.secondaryFactors.map(
-                                (factor: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <div className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                      <span className="text-xs font-bold text-gray-600">{index + 1}</span>
-                                    </div>
-                                    <span className="text-sm text-slate-700">{factor}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </div>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <BarChart3 className="w-4 h-4 text-green-600" />
-                            Confidence Score Breakdown
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-4">
-                            {Object.entries(comprehensiveAnalysis.aiReasoning.confidenceBreakdown).map(
-                              ([factor, score]) => (
-                                <div key={factor} className="space-y-2">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-sm font-medium capitalize">
-                                      {factor.replace(/([A-Z])/g, " $1")}
-                                    </span>
-                                    <span className="text-sm font-bold">{score}%</span>
-                                  </div>
-                                  <Progress value={score as number} className="h-2" />
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* Business Context Tab */}
-                    <TabsContent value="business" className="mt-0 space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <BarChart3 className="w-4 h-4 text-blue-600" />
-                              Industry Benchmarks
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.businessContext.industryBenchmarks.map(
-                                (benchmark: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <Target className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{benchmark}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Globe className="w-4 h-4 text-green-600" />
-                              Competitive Analysis
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.businessContext.competitiveAnalysis.map(
-                                (analysis: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{analysis}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </div>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Users className="w-4 h-4 text-purple-600" />
-                            User Impact Assessment
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-slate-700 leading-relaxed">
-                            {comprehensiveAnalysis.businessContext.userImpactAssessment}
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <DollarSign className="w-4 h-4 text-green-600" />
-                            Revenue Implications
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-slate-700 leading-relaxed">
-                            {comprehensiveAnalysis.businessContext.revenueImplications}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* Technical Deep Dive Tab */}
-                    <TabsContent value="technical" className="mt-0 space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Server className="w-4 h-4 text-blue-600" />
-                              Infrastructure
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.technicalDeepDive.infrastructureConsiderations.map(
-                                (consideration: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <Server className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{consideration}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <TrendingUp className="w-4 h-4 text-green-600" />
-                              Scalability
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.technicalDeepDive.scalabilityFactors.map(
-                                (factor: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <TrendingUp className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{factor}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </div>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <AlertTriangle className="w-4 h-4 text-orange-600" />
-                            Performance Bottlenecks
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {comprehensiveAnalysis.technicalDeepDive.performanceBottlenecks.map(
-                              (bottleneck: string, index: number) => (
-                                <div key={index} className="flex items-start gap-2 p-3 bg-orange-50 rounded-lg">
-                                  <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-slate-700">{bottleneck}</span>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card className="bg-gradient-to-r from-blue-50 to-cyan-50 border-blue-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Zap className="w-4 h-4 text-blue-600" />
-                            Optimization Opportunities
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {comprehensiveAnalysis.technicalDeepDive.optimizationOpportunities.map(
-                              (opportunity: string, index: number) => (
-                                <div key={index} className="flex items-start gap-2 p-3 bg-white rounded-lg border">
-                                  <Lightbulb className="w-4 h-4 text-yellow-500 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-slate-700">{opportunity}</span>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* Risk Analysis Tab */}
-                    <TabsContent value="risk" className="mt-0 space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <AlertTriangle className="w-4 h-4 text-red-600" />
-                              Implementation Risks
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.riskAnalysis.implementationRisks.map(
-                                (risk: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <AlertTriangle className="w-4 h-4 text-red-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{risk}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-
-                        <Card>
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <Shield className="w-4 h-4 text-green-600" />
-                              Mitigation Strategies
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <ul className="space-y-2">
-                              {comprehensiveAnalysis.riskAnalysis.mitigationStrategies.map(
-                                (strategy: string, index: number) => (
-                                  <li key={index} className="flex items-start gap-2">
-                                    <Shield className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                    <span className="text-sm text-slate-700">{strategy}</span>
-                                  </li>
-                                ),
-                              )}
-                            </ul>
-                          </CardContent>
-                        </Card>
-                      </div>
-
-                      <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <TrendingDown className="w-4 h-4 text-orange-600" />
-                            Rollback Plan
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-slate-700 leading-relaxed">
-                            {comprehensiveAnalysis.riskAnalysis.rollbackPlan}
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Activity className="w-4 h-4 text-blue-600" />
-                            Monitoring Requirements
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <ul className="space-y-2">
-                            {comprehensiveAnalysis.riskAnalysis.monitoringRequirements.map(
-                              (requirement: string, index: number) => (
-                                <li key={index} className="flex items-start gap-2">
-                                  <CheckCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-slate-700">{requirement}</span>
-                                </li>
-                              ),
-                            )}
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* Predictive Insights Tab */}
-                    <TabsContent value="predictions" className="mt-0 space-y-6">
-                      <Card className="bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Sparkles className="w-5 h-5 text-purple-600" />
-                            Success Probability
-                            <Badge className="bg-green-100 text-green-800 border-green-200">
-                              {comprehensiveAnalysis.predictiveInsights.successProbability}%
-                            </Badge>
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="flex items-center gap-4 mb-4">
-                            <Progress
-                              value={comprehensiveAnalysis.predictiveInsights.successProbability}
-                              className="flex-1 h-3"
-                            />
-                            <span className="text-2xl font-bold text-green-600">
-                              {comprehensiveAnalysis.predictiveInsights.successProbability}%
-                            </span>
-                          </div>
-                          <p className="text-slate-700">
-                            <strong>Time to Impact:</strong> {comprehensiveAnalysis.predictiveInsights.timeToImpact}
-                          </p>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <TrendingUp className="w-4 h-4 text-green-600" />
-                            Expected Outcomes
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {comprehensiveAnalysis.predictiveInsights.expectedOutcomes.map(
-                              (outcome: string, index: number) => (
-                                <div key={index} className="flex items-start gap-2 p-3 bg-green-50 rounded-lg">
-                                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                                  <span className="text-sm text-slate-700">{outcome}</span>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Settings className="w-4 h-4 text-blue-600" />
-                            Alternative Scenarios
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="space-y-3">
-                            {comprehensiveAnalysis.predictiveInsights.alternativeScenarios.map(
-                              (scenario: string, index: number) => (
-                                <div key={index} className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                  <div className="flex items-start gap-2">
-                                    <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                      <span className="text-xs font-bold text-blue-600">{index + 1}</span>
-                                    </div>
-                                    <span className="text-sm text-slate-700">{scenario}</span>
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-                  </div>
-                </ScrollArea>
-              </div>
-            </Tabs>
-          </div>
-
-          <div className="p-6 pt-0 border-t">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Brain className="w-4 h-4 text-blue-600" />
-                <span className="text-sm text-muted-foreground">
-                  AI Analysis completed with {recommendation.confidence}% confidence
-                </span>
-              </div>
-              <Button onClick={onClose}>Close Analysis</Button>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={shareAnalysis}>
+                <Share className="w-4 h-4 mr-2" />
+                Share
+              </Button>
+              <Button variant="outline" size="sm" onClick={exportAnalysis}>
+                <Download className="w-4 h-4 mr-2" />
+                Export
+              </Button>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
-    </TooltipProvider>
+        </div>
+
+        {/* Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
+          <TabsList className="grid w-full grid-cols-6">
+            <TabsTrigger value="overview" className="text-xs">
+              <BookOpen className="w-3 h-3 mr-1" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="data" className="text-xs">
+              <BarChart3 className="w-3 h-3 mr-1" />
+              Data
+            </TabsTrigger>
+            <TabsTrigger value="ai" className="text-xs">
+              <Brain className="w-3 h-3 mr-1" />
+              AI Logic
+            </TabsTrigger>
+            <TabsTrigger value="business" className="text-xs">
+              <DollarSign className="w-3 h-3 mr-1" />
+              Business
+            </TabsTrigger>
+            <TabsTrigger value="technical" className="text-xs">
+              <Cpu className="w-3 h-3 mr-1" />
+              Technical
+            </TabsTrigger>
+            <TabsTrigger value="predictive" className="text-xs">
+              <Sparkles className="w-3 h-3 mr-1" />
+              Predictive
+            </TabsTrigger>
+          </TabsList>
+
+          <ScrollArea className="flex-1 mt-4">
+            <TabsContent value="overview" className="mt-0">
+              {renderOverviewTab()}
+            </TabsContent>
+            <TabsContent value="data" className="mt-0">
+              {renderDataAnalysisTab()}
+            </TabsContent>
+            <TabsContent value="ai" className="mt-0">
+              {renderAIReasoningTab()}
+            </TabsContent>
+            <TabsContent value="business" className="mt-0">
+              {renderBusinessContextTab()}
+            </TabsContent>
+            <TabsContent value="technical" className="mt-0">
+              {renderTechnicalTab()}
+            </TabsContent>
+            <TabsContent value="predictive" className="mt-0">
+              {renderPredictiveTab()}
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Close Analysis
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
