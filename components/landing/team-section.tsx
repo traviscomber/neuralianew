@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
   Users,
   Code,
-  Palette,
   Brain,
   MessageCircle,
   ArrowRight,
@@ -37,19 +36,6 @@ const humanTeam = [
     color: "from-blue-500 to-blue-600",
     experience: "5+ años",
     projects: "Frontend de EcosueloLab, Parrotfy UI, Despega Tu Carrera",
-  },
-  {
-    name: "Irina Lebedeva",
-    role: "UX Designer - Frontend",
-    education: "Design Systems Specialist",
-    location: "Moscú, Rusia",
-    flag: "🇷🇺",
-    specialties: ["UX Research", "Design Systems", "Frontend Design", "User Psychology"],
-    description: "Diseñadora UX con enfoque en psicología del usuario y sistemas de diseño escalables",
-    icon: Palette,
-    color: "from-purple-500 to-purple-600",
-    experience: "6+ años",
-    projects: "Design System N3uralia, UX Research, Interface Design",
   },
   {
     name: "Juan Vial",
@@ -130,7 +116,7 @@ const aiAgentFleet = [
 ]
 
 const teamStats = [
-  { icon: Users, label: "Humanos + IA", value: "3+6", description: "Equipo híbrido" },
+  { icon: Users, label: "Humanos + IA", value: "2+6", description: "Equipo híbrido" },
   { icon: Bot, label: "Agentes IA", value: "6", description: "Especializados activos" },
   { icon: Zap, label: "Capacidad", value: "24/7", description: "Operación continua" },
   { icon: Award, label: "Metodología", value: "HitM", description: "Human in the Middle" },
@@ -204,7 +190,7 @@ export function TeamSection() {
           <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center transition-colors duration-300">
             👥 Equipo Humano Core
           </h3>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {humanTeam.map((member, index) => (
               <motion.div
                 key={index}
@@ -399,7 +385,7 @@ export function TeamSection() {
                   </p>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-black mb-1">👥 3</div>
+                      <div className="text-2xl font-black mb-1">👥 2</div>
                       <div className="text-blue-100 text-sm font-semibold">Humanos Core</div>
                     </div>
                     <div>
