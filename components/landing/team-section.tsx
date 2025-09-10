@@ -4,128 +4,97 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Users,
-  Code,
-  Brain,
-  MessageCircle,
-  ArrowRight,
-  MapPin,
-  Award,
-  GraduationCap,
-  Bot,
-  Zap,
-  Shield,
-  Database,
-  Globe,
-  Cpu,
-  Network,
-  BarChart3,
-} from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Users, MapPin, Clock, MessageSquare, ArrowRight, Bot, Brain, Code, Database, Zap, Globe } from "lucide-react"
 
 const humanTeam = [
   {
     name: "Rafael Vial",
-    role: "Ingeniero Frontend",
-    education: "Ingeniero PuC UI",
+    role: "Frontend Engineer",
     location: "Santiago, Chile",
-    flag: "🇨🇱",
-    specialties: ["React/Next.js", "UI/UX Implementation", "Frontend Architecture", "Performance Optimization"],
-    description: "Especialista en interfaces de usuario modernas y experiencias web optimizadas",
-    icon: Code,
-    color: "from-blue-500 to-blue-600",
-    experience: "5+ años",
-    projects: "Frontend de EcosueloLab, Parrotfy UI, Despega Tu Carrera",
+    timezone: "CLT (UTC-3)",
+    image: "/placeholder-user.jpg",
+    expertise: ["React", "Next.js", "TypeScript", "UI/UX"],
+    description: "Especialista en interfaces de usuario modernas y experiencias conversacionales intuitivas.",
+    availability: "Lun-Vie 9:00-18:00 CLT",
   },
   {
     name: "Juan Vial",
     role: "Fullstack AI Engineer",
-    education: "AI & Machine Learning Specialist",
     location: "Santiago, Chile",
-    flag: "🇨🇱",
-    specialties: ["AI Development", "Backend Architecture", "Machine Learning", "System Integration"],
-    description: "Ingeniero fullstack especializado en IA conversacional y arquitecturas escalables",
-    icon: Brain,
-    color: "from-green-500 to-green-600",
-    experience: "7+ años",
-    projects: "AI Engine N3uralia, Backend Systems, ML Models",
+    timezone: "CLT (UTC-3)",
+    image: "/placeholder-user.jpg",
+    expertise: ["Python", "OpenAI", "Node.js", "PostgreSQL"],
+    description: "Arquitecto de sistemas IA y desarrollador full-stack con experiencia en soluciones empresariales.",
+    availability: "Lun-Vie 9:00-18:00 CLT",
   },
 ]
 
-const aiAgentFleet = [
+const aiAgents = [
   {
-    name: "Neural Executive",
-    role: "Agente Estratégico Senior",
-    specialties: ["Análisis de Mercado", "Estrategia Empresarial", "Toma de Decisiones", "Planificación"],
-    description: "Agente IA especializado en análisis estratégico y toma de decisiones empresariales complejas",
-    icon: BarChart3,
-    color: "from-indigo-500 to-indigo-600",
-    status: "ACTIVO",
-    capabilities: "Procesa 1000+ variables de mercado simultáneamente",
+    name: "CodeMaster",
+    role: "Senior Developer",
+    specialty: "Full-stack Development",
+    icon: Code,
+    color: "from-blue-500 to-blue-600",
+    availability: "24/7",
   },
   {
-    name: "Code Architect",
-    role: "Agente de Desarrollo",
-    specialties: ["Arquitectura de Software", "Code Review", "Optimización", "Testing"],
-    description: "Agente IA que diseña arquitecturas de software y optimiza código en tiempo real",
-    icon: Cpu,
-    color: "from-cyan-500 to-cyan-600",
-    status: "ACTIVO",
-    capabilities: "Genera y revisa 10,000+ líneas de código por hora",
-  },
-  {
-    name: "Data Orchestrator",
-    role: "Agente de Datos",
-    specialties: ["ETL Processes", "Data Analysis", "ML Pipeline", "Database Optimization"],
-    description: "Agente IA que gestiona flujos de datos complejos y optimiza bases de datos automáticamente",
+    name: "DataWiz",
+    role: "Database Architect",
+    specialty: "Data Engineering",
     icon: Database,
-    color: "from-emerald-500 to-emerald-600",
-    status: "ACTIVO",
-    capabilities: "Procesa 1TB+ de datos en tiempo real",
+    color: "from-green-500 to-green-600",
+    availability: "24/7",
   },
   {
-    name: "Security Guardian",
-    role: "Agente de Seguridad",
-    specialties: ["Threat Detection", "Security Audit", "Compliance", "Risk Assessment"],
-    description: "Agente IA que monitorea seguridad 24/7 y detecta amenazas en tiempo real",
-    icon: Shield,
-    color: "from-red-500 to-red-600",
-    status: "ACTIVO",
-    capabilities: "Monitorea 100,000+ eventos de seguridad por minuto",
+    name: "AICore",
+    role: "ML Engineer",
+    specialty: "Machine Learning",
+    icon: Brain,
+    color: "from-purple-500 to-purple-600",
+    availability: "24/7",
   },
   {
-    name: "Integration Master",
-    role: "Agente de Integraciones",
-    specialties: ["API Management", "System Integration", "Workflow Automation", "Data Sync"],
-    description: "Agente IA que gestiona integraciones complejas entre sistemas empresariales",
-    icon: Network,
-    color: "from-orange-500 to-orange-600",
-    status: "ACTIVO",
-    capabilities: "Gestiona 500+ integraciones simultáneas",
+    name: "SpeedBot",
+    role: "Performance Expert",
+    specialty: "Optimization",
+    icon: Zap,
+    color: "from-yellow-500 to-yellow-600",
+    availability: "24/7",
   },
   {
-    name: "Global Communicator",
-    role: "Agente Multiidioma",
-    specialties: ["Natural Language", "Translation", "Cultural Context", "Communication"],
-    description: "Agente IA que maneja comunicación en 50+ idiomas con contexto cultural",
+    name: "GlobalSync",
+    role: "Integration Specialist",
+    specialty: "API Development",
     icon: Globe,
-    color: "from-pink-500 to-pink-600",
-    status: "ACTIVO",
-    capabilities: "Traduce y contextualiza en tiempo real",
+    color: "from-indigo-500 to-indigo-600",
+    availability: "24/7",
+  },
+  {
+    name: "QualityGuard",
+    role: "QA Engineer",
+    specialty: "Testing & Security",
+    icon: Bot,
+    color: "from-red-500 to-red-600",
+    availability: "24/7",
   },
 ]
 
 const teamStats = [
-  { icon: Users, label: "Humanos + IA", value: "2+6", description: "Equipo híbrido" },
-  { icon: Bot, label: "Agentes IA", value: "6", description: "Especializados activos" },
-  { icon: Zap, label: "Capacidad", value: "24/7", description: "Operación continua" },
-  { icon: Award, label: "Metodología", value: "HitM", description: "Human in the Middle" },
+  { number: "2+6", label: "Equipo Híbrido", icon: Users },
+  { number: "3", label: "Países", icon: MapPin },
+  { number: "24/7", label: "Disponibilidad", icon: Clock },
+  { number: "15min", label: "SLA Respuesta", icon: MessageSquare },
 ]
 
 export function TeamSection() {
   return (
-    <section id="team" className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300">
-      <div className="container mx-auto px-4">
+    <section
+      id="team"
+      className="py-20 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 transition-colors duration-300"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -134,19 +103,19 @@ export function TeamSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-6 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 text-lg px-6 py-2 font-semibold transition-colors duration-300">
+          <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
             <Users className="w-4 h-4 mr-2" />
-            Equipo Híbrido: Humanos + IA
+            Equipo Global Híbrido
           </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
-            Metodología{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Human in the Middle
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-colors duration-300">
+            Humanos + IA trabajando{" "}
+            <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
+              en perfecta sincronía
             </span>
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
-            Combinamos la creatividad y experiencia humana con la potencia de nuestros agentes IA especializados. El
-            resultado: proyectos más rápidos, precisos y escalables.
+          <p className="text-xl text-muted-foreground dark:text-slate-300 max-w-4xl mx-auto transition-colors duration-300">
+            Metodología "Human in the Middle": Combinamos la creatividad humana con la eficiencia de la IA para entregar
+            soluciones excepcionales con cobertura global 24/7.
           </p>
         </motion.div>
 
@@ -161,33 +130,30 @@ export function TeamSection() {
           {teamStats.map((stat, index) => (
             <Card
               key={index}
-              className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 rounded-2xl"
+              className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 rounded-2xl"
             >
               <CardContent className="p-6 text-center">
                 <stat.icon className="w-8 h-8 text-slate-700 dark:text-slate-300 mx-auto mb-3 transition-colors duration-300" />
                 <div className="text-3xl font-black text-slate-900 dark:text-white mb-1 transition-colors duration-300">
-                  {stat.value}
+                  {stat.number}
                 </div>
-                <div className="text-sm text-slate-900 dark:text-white font-bold mb-1 transition-colors duration-300">
+                <div className="text-sm text-slate-600 dark:text-slate-400 font-semibold transition-colors duration-300">
                   {stat.label}
-                </div>
-                <div className="text-xs text-slate-600 dark:text-slate-400 font-medium transition-colors duration-300">
-                  {stat.description}
                 </div>
               </CardContent>
             </Card>
           ))}
         </motion.div>
 
-        {/* Human Team Members */}
+        {/* Human Team */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center transition-colors duration-300">
+          <h3 className="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white transition-colors duration-300">
             👥 Equipo Humano Core
           </h3>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -199,79 +165,58 @@ export function TeamSection() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group h-full rounded-2xl">
+                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300 h-full rounded-2xl">
                   <CardContent className="p-8">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-6">
-                      <div className="flex items-center gap-4">
-                        <div
-                          className={`w-16 h-16 bg-gradient-to-r ${member.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <member.icon className="w-8 h-8 text-white" />
+                    <div className="flex items-center gap-4 mb-6">
+                      <Avatar className="w-16 h-16">
+                        <AvatarImage src={member.image || "/placeholder.svg"} alt={member.name} />
+                        <AvatarFallback className="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-lg font-bold transition-colors duration-300">
+                          {member.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-1 transition-colors duration-300">
+                          {member.name}
+                        </h4>
+                        <p className="text-blue-600 dark:text-blue-400 font-semibold mb-2 transition-colors duration-300">
+                          {member.role}
+                        </p>
+                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                          <MapPin className="w-4 h-4" />
+                          <span>{member.location}</span>
                         </div>
-                        <div>
-                          <h3 className="text-xl font-bold text-slate-900 dark:text-white transition-colors duration-300">
-                            {member.name}
-                          </h3>
-                          <p className="text-slate-600 dark:text-slate-400 font-semibold transition-colors duration-300">
-                            {member.role}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-2xl mb-1">{member.flag}</div>
-                        <Badge className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium text-xs transition-colors duration-300">
-                          {member.experience}
-                        </Badge>
                       </div>
                     </div>
 
-                    {/* Education & Location */}
-                    <div className="mb-6">
-                      <div className="flex items-center gap-2 mb-2">
-                        <GraduationCap className="w-4 h-4 text-slate-600 dark:text-slate-400 transition-colors duration-300" />
-                        <span className="text-slate-600 dark:text-slate-400 font-medium text-sm transition-colors duration-300">
-                          {member.education}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-slate-600 dark:text-slate-400 transition-colors duration-300" />
-                        <span className="text-slate-600 dark:text-slate-400 font-medium text-sm transition-colors duration-300">
-                          {member.location}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 transition-colors duration-300">
+                    <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed transition-colors duration-300">
                       {member.description}
                     </p>
 
-                    {/* Specialties */}
-                    <div className="mb-6">
-                      <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-3 transition-colors duration-300">
-                        Especialidades:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {member.specialties.map((specialty, specialtyIndex) => (
-                          <Badge
-                            key={specialtyIndex}
-                            className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-medium text-xs transition-colors duration-300"
-                          >
-                            {specialty}
-                          </Badge>
-                        ))}
+                    <div className="space-y-4">
+                      <div>
+                        <h5 className="font-semibold text-slate-900 dark:text-white mb-2 transition-colors duration-300">
+                          Especialidades:
+                        </h5>
+                        <div className="flex flex-wrap gap-2">
+                          {member.expertise.map((skill) => (
+                            <Badge
+                              key={skill}
+                              variant="secondary"
+                              className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors duration-300"
+                            >
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Projects */}
-                    <div>
-                      <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-2 transition-colors duration-300">
-                        Proyectos Destacados:
-                      </h4>
-                      <p className="text-slate-600 dark:text-slate-300 text-sm font-medium transition-colors duration-300">
-                        {member.projects}
-                      </p>
+                      <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                        <Clock className="w-4 h-4" />
+                        <span>{member.availability}</span>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -280,19 +225,19 @@ export function TeamSection() {
           </div>
         </motion.div>
 
-        {/* AI Agent Fleet */}
+        {/* AI Agents */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center transition-colors duration-300">
-            🤖 Flota de Agentes IA Especializados
+          <h3 className="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white transition-colors duration-300">
+            🤖 Agentes IA Especializados
           </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {aiAgentFleet.map((agent, index) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {aiAgents.map((agent, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -300,63 +245,33 @@ export function TeamSection() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group h-full rounded-2xl">
+                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 h-full rounded-2xl">
                   <CardContent className="p-6">
-                    {/* Header */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          <agent.icon className="w-6 h-6 text-white" />
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-300">
-                            {agent.name}
-                          </h4>
-                          <p className="text-slate-600 dark:text-slate-400 font-semibold text-sm transition-colors duration-300">
-                            {agent.role}
-                          </p>
-                        </div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div
+                        className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center`}
+                      >
+                        <agent.icon className="w-6 h-6 text-white" />
                       </div>
-                      <Badge className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700 font-bold text-xs transition-colors duration-300">
-                        {agent.status}
-                      </Badge>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-slate-900 dark:text-white transition-colors duration-300">
+                          {agent.name}
+                        </h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                          {agent.role}
+                        </p>
+                      </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 text-sm transition-colors duration-300">
-                      {agent.description}
+                    <p className="text-slate-600 dark:text-slate-300 mb-4 transition-colors duration-300">
+                      {agent.specialty}
                     </p>
 
-                    {/* Capabilities */}
-                    <div className="mb-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-4 h-4 text-amber-500" />
-                        <span className="text-slate-900 dark:text-white font-bold text-sm transition-colors duration-300">
-                          Capacidad:
-                        </span>
-                      </div>
-                      <p className="text-slate-600 dark:text-slate-300 text-sm font-medium transition-colors duration-300">
-                        {agent.capabilities}
-                      </p>
-                    </div>
-
-                    {/* Specialties */}
-                    <div>
-                      <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-2 transition-colors duration-300">
-                        Especialidades:
-                      </h5>
-                      <div className="flex flex-wrap gap-1">
-                        {agent.specialties.map((specialty, specialtyIndex) => (
-                          <Badge
-                            key={specialtyIndex}
-                            className="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 font-medium text-xs transition-colors duration-300"
-                          >
-                            {specialty}
-                          </Badge>
-                        ))}
-                      </div>
+                    <div className="flex items-center justify-between">
+                      <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 transition-colors duration-300">
+                        {agent.availability}
+                      </Badge>
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                     </div>
                   </CardContent>
                 </Card>
@@ -365,82 +280,38 @@ export function TeamSection() {
           </div>
         </motion.div>
 
-        {/* Human in the Middle Methodology */}
+        {/* Methodology Explanation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 rounded-2xl transition-colors duration-300">
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 className="text-2xl font-bold mb-4">Metodología "Human in the Middle"</h3>
-                  <p className="text-blue-100 leading-relaxed mb-6">
-                    Nuestros agentes IA trabajan bajo supervisión humana constante. Los humanos definen estrategia,
-                    creatividad y toma de decisiones críticas, mientras los agentes IA ejecutan tareas complejas a
-                    velocidad y escala imposibles para humanos solos.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-black mb-1">👥 2</div>
-                      <div className="text-blue-100 text-sm font-semibold">Humanos Core</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-black mb-1">🤖 6</div>
-                      <div className="text-blue-100 text-sm font-semibold">Agentes IA</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-bold mb-2">Ventajas del Equipo Híbrido</h4>
-                    <div className="space-y-2 text-sm">
-                      <div>
-                        ⚡ <strong>Velocidad:</strong> 10x más rápido que equipos tradicionales
-                      </div>
-                      <div>
-                        🎯 <strong>Precisión:</strong> Supervisión humana + ejecución IA
-                      </div>
-                      <div>
-                        📈 <strong>Escalabilidad:</strong> Capacidad 24/7 sin límites
-                      </div>
-                      <div>
-                        💡 <strong>Creatividad:</strong> Innovación humana + potencia IA
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <Button
-            size="lg"
-            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-8 py-4 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl"
-            asChild
-          >
-            <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20la%20metodología%20Human%20in%20the%20Middle"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Conocer la metodología completa
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </a>
-          </Button>
+          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 rounded-2xl max-w-4xl mx-auto">
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-4">Metodología "Human in the Middle"</h3>
+              <p className="text-lg mb-6 opacity-90">
+                👥 <strong>2 Humanos Core</strong> supervisan y dirigen • 🤖 <strong>6 Agentes IA</strong> ejecutan
+                tareas especializadas • 🌍 <strong>Cobertura Global</strong> 24/7 sin interrupciones
+              </p>
+              <Button
+                size="lg"
+                className="bg-white text-purple-600 hover:bg-gray-100 font-bold px-8 py-3 rounded-xl"
+                asChild
+              >
+                <a
+                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20su%20metodología%20Human%20in%20the%20Middle"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageSquare className="w-5 h-5 mr-2" />
+                  Conocer la Metodología
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>
