@@ -5,7 +5,20 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Users, MapPin, Clock, MessageSquare, ArrowRight, Bot, Brain, Code, Database, Zap, Globe } from "lucide-react"
+import {
+  Users,
+  MapPin,
+  Clock,
+  MessageSquare,
+  ArrowRight,
+  Bot,
+  Code,
+  Database,
+  Globe,
+  Network,
+  Layers,
+  Workflow,
+} from "lucide-react"
 
 const humanTeam = [
   {
@@ -30,62 +43,50 @@ const humanTeam = [
   },
 ]
 
-const aiAgents = [
+const coreCapabilities = [
   {
-    name: "CodeMaster",
-    role: "Senior Developer",
-    specialty: "Full-stack Development",
-    icon: Code,
+    title: "Agentes IA Personalizados",
+    description: "Creamos agentes especializados según las necesidades específicas de cada cliente",
+    icon: Bot,
     color: "from-blue-500 to-blue-600",
-    availability: "24/7",
   },
   {
-    name: "DataWiz",
-    role: "Database Architect",
-    specialty: "Data Engineering",
+    title: "Conexiones MCP",
+    description: "Implementamos Model Context Protocol para integrar cualquier herramienta o sistema",
+    icon: Network,
+    color: "from-purple-500 to-purple-600",
+  },
+  {
+    title: "Sistemas RAG",
+    description: "Desarrollamos Retrieval-Augmented Generation para conocimiento empresarial específico",
     icon: Database,
     color: "from-green-500 to-green-600",
-    availability: "24/7",
   },
   {
-    name: "AICore",
-    role: "ML Engineer",
-    specialty: "Machine Learning",
-    icon: Brain,
-    color: "from-purple-500 to-purple-600",
-    availability: "24/7",
+    title: "APIs Universales",
+    description: "Conectamos CUALQUIER API existente - REST, GraphQL, WebSockets, gRPC",
+    icon: Workflow,
+    color: "from-orange-500 to-orange-600",
   },
   {
-    name: "SpeedBot",
-    role: "Performance Expert",
-    specialty: "Optimization",
-    icon: Zap,
-    color: "from-yellow-500 to-yellow-600",
-    availability: "24/7",
+    title: "Multi-Lenguaje",
+    description: "Programamos en Python, JavaScript, Go, Rust, Java - el lenguaje que necesites",
+    icon: Code,
+    color: "from-cyan-500 to-cyan-600",
   },
   {
-    name: "GlobalSync",
-    role: "Integration Specialist",
-    specialty: "API Development",
-    icon: Globe,
-    color: "from-indigo-500 to-indigo-600",
-    availability: "24/7",
-  },
-  {
-    name: "QualityGuard",
-    role: "QA Engineer",
-    specialty: "Testing & Security",
-    icon: Bot,
+    title: "Arquitectura Escalable",
+    description: "Diseñamos sistemas que crecen con tu empresa - desde startup hasta enterprise",
+    icon: Layers,
     color: "from-red-500 to-red-600",
-    availability: "24/7",
   },
 ]
 
 const teamStats = [
-  { number: "2+6", label: "Equipo Híbrido", icon: Users },
-  { number: "3", label: "Países", icon: MapPin },
+  { number: "2", label: "Humanos Core", icon: Users },
+  { number: "∞", label: "Agentes IA", icon: Bot },
+  { number: "ANY", label: "API/Lenguaje", icon: Globe },
   { number: "24/7", label: "Disponibilidad", icon: Clock },
-  { number: "15min", label: "SLA Respuesta", icon: MessageSquare },
 ]
 
 export function TeamSection() {
@@ -105,17 +106,19 @@ export function TeamSection() {
         >
           <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 text-lg px-6 py-2 transition-colors duration-300">
             <Users className="w-4 h-4 mr-2" />
-            Equipo Global Híbrido
+            Equipo Core + Agentes Ilimitados
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent transition-colors duration-300">
-            Humanos + IA trabajando{" "}
+            Somos el{" "}
             <span className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-400 dark:to-blue-400 bg-clip-text text-transparent">
-              en perfecta sincronía
-            </span>
+              CORE
+            </span>{" "}
+            que conecta todo
           </h2>
           <p className="text-xl text-muted-foreground dark:text-slate-300 max-w-4xl mx-auto transition-colors duration-300">
-            Metodología "Human in the Middle": Combinamos la creatividad humana con la eficiencia de la IA para entregar
-            soluciones excepcionales con cobertura global 24/7.
+            <strong>2 humanos expertos</strong> + <strong>agentes IA ilimitados</strong> que creamos según necesites.
+            Conectamos <strong>CUALQUIER API</strong>, programamos en <strong>CUALQUIER lenguaje</strong>, implementamos{" "}
+            <strong>MCP</strong> y <strong>RAG</strong> como requiera tu proyecto.
           </p>
         </motion.div>
 
@@ -145,11 +148,61 @@ export function TeamSection() {
           ))}
         </motion.div>
 
-        {/* Human Team */}
+        {/* Core Capabilities */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <h3 className="text-3xl font-bold text-center mb-4 text-slate-900 dark:text-white transition-colors duration-300">
+            🚀 Capacidades Core Ilimitadas
+          </h3>
+          <p className="text-center text-lg text-slate-600 dark:text-slate-300 mb-12 max-w-4xl mx-auto">
+            No somos solo un equipo fijo. Somos el <strong>núcleo técnico</strong> que crea, conecta y despliega
+            <strong> cualquier solución IA</strong> que necesites, usando <strong>cualquier tecnología</strong>{" "}
+            disponible.
+          </p>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {coreCapabilities.map((capability, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 h-full rounded-2xl group">
+                  <CardContent className="p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-r ${capability.color} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                      >
+                        <capability.icon className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">
+                          {capability.title}
+                        </h4>
+                      </div>
+                    </div>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed transition-colors duration-300">
+                      {capability.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Human Team */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
           className="mb-16"
         >
@@ -225,88 +278,86 @@ export function TeamSection() {
           </div>
         </motion.div>
 
-        {/* AI Agents */}
+        {/* Universal Integration Showcase */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           viewport={{ once: true }}
           className="mb-16"
         >
-          <h3 className="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white transition-colors duration-300">
-            🤖 Agentes IA Especializados
-          </h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {aiAgents.map((agent, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-lg transition-all duration-300 h-full rounded-2xl">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div
-                        className={`w-12 h-12 bg-gradient-to-r ${agent.color} rounded-xl flex items-center justify-center`}
-                      >
-                        <agent.icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-bold text-slate-900 dark:text-white transition-colors duration-300">
-                          {agent.name}
-                        </h4>
-                        <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
-                          {agent.role}
-                        </p>
-                      </div>
-                    </div>
+          <Card className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-500 dark:via-purple-500 dark:to-pink-500 text-white border-0 rounded-2xl">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-bold mb-4">🌐 Conectividad Universal</h3>
+                <p className="text-xl opacity-90 max-w-4xl mx-auto">
+                  <strong>CUALQUIER API</strong> • <strong>CUALQUIER Lenguaje</strong> •{" "}
+                  <strong>CUALQUIER Sistema</strong>
+                </p>
+              </div>
 
-                    <p className="text-slate-600 dark:text-slate-300 mb-4 transition-colors duration-300">
-                      {agent.specialty}
-                    </p>
+              <div className="grid md:grid-cols-3 gap-8 text-center">
+                <div className="bg-white/10 rounded-xl p-6">
+                  <Network className="w-12 h-12 mx-auto mb-4" />
+                  <h4 className="text-lg font-bold mb-2">APIs & Protocolos</h4>
+                  <p className="text-sm opacity-90">REST • GraphQL • WebSockets • gRPC • SOAP • MCP</p>
+                </div>
 
-                    <div className="flex items-center justify-between">
-                      <Badge className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-200 dark:border-green-700 transition-colors duration-300">
-                        {agent.availability}
-                      </Badge>
-                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                <div className="bg-white/10 rounded-xl p-6">
+                  <Code className="w-12 h-12 mx-auto mb-4" />
+                  <h4 className="text-lg font-bold mb-2">Lenguajes</h4>
+                  <p className="text-sm opacity-90">Python • JavaScript • Go • Rust • Java • C# • PHP</p>
+                </div>
+
+                <div className="bg-white/10 rounded-xl p-6">
+                  <Database className="w-12 h-12 mx-auto mb-4" />
+                  <h4 className="text-lg font-bold mb-2">Sistemas</h4>
+                  <p className="text-sm opacity-90">SQL • NoSQL • Vector DB • Cloud • On-Premise</p>
+                </div>
+              </div>
+
+              <div className="text-center mt-8">
+                <p className="text-lg mb-6 opacity-90">
+                  <strong>No importa qué tecnología uses</strong> - nosotros nos adaptamos y conectamos todo.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Methodology Explanation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
           className="text-center"
         >
-          <Card className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white border-0 rounded-2xl max-w-4xl mx-auto">
+          <Card className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-500 dark:to-blue-500 text-white border-0 rounded-2xl max-w-4xl mx-auto">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-4">Metodología "Human in the Middle"</h3>
               <p className="text-lg mb-6 opacity-90">
-                👥 <strong>2 Humanos Core</strong> supervisan y dirigen • 🤖 <strong>6 Agentes IA</strong> ejecutan
-                tareas especializadas • 🌍 <strong>Cobertura Global</strong> 24/7 sin interrupciones
+                👥 <strong>2 Humanos Core</strong> diseñan y supervisan • 🤖 <strong>Agentes IA Ilimitados</strong> que
+                creamos según necesites • 🔗 <strong>Conexiones Universales</strong> a cualquier sistema existente
               </p>
+              <div className="flex flex-wrap justify-center gap-4 mb-6">
+                <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">MCP Protocol</Badge>
+                <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">RAG Systems</Badge>
+                <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">Custom Agents</Badge>
+                <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">Universal APIs</Badge>
+              </div>
               <Button
                 size="lg"
-                className="bg-white text-purple-600 hover:bg-gray-100 font-bold px-8 py-3 rounded-xl"
+                className="bg-white text-blue-600 hover:bg-gray-100 font-bold px-8 py-3 rounded-xl"
                 asChild
               >
                 <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20su%20metodología%20Human%20in%20the%20Middle"
+                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20necesito%20conectar%20mi%20sistema%20con%20IA%20-%20¿pueden%20ayudarme%3F"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <MessageSquare className="w-5 h-5 mr-2" />
-                  Conocer la Metodología
+                  Conectar Mi Sistema
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </a>
               </Button>
