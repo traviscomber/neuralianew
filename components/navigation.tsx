@@ -167,17 +167,19 @@ export function Navigation() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
-        scrolled ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm" : "bg-white/80 backdrop-blur-sm",
+        scrolled
+          ? "bg-black/95 dark:bg-black/95 backdrop-blur-md border-b border-slate-800 shadow-lg"
+          : "bg-black/80 dark:bg-black/80 backdrop-blur-sm",
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">N3</span>
             </div>
-            <span className="font-bold text-xl text-slate-900">N3uralia</span>
+            <span className="font-bold text-xl text-white">N3uralia</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -190,11 +192,11 @@ export function Navigation() {
                       <>
                         <NavigationMenuTrigger
                           className={cn(
-                            "h-9 px-3 text-sm font-medium transition-colors",
-                            "hover:bg-slate-100 hover:text-slate-900",
-                            "focus:bg-slate-100 focus:text-slate-900",
-                            "data-[active]:bg-slate-100 data-[active]:text-slate-900",
-                            "data-[state=open]:bg-slate-100 data-[state=open]:text-slate-900",
+                            "h-9 px-3 text-sm font-medium transition-colors text-white",
+                            "hover:bg-slate-800 hover:text-white",
+                            "focus:bg-slate-800 focus:text-white",
+                            "data-[active]:bg-slate-800 data-[active]:text-white",
+                            "data-[state=open]:bg-slate-800 data-[state=open]:text-white",
                           )}
                         >
                           <item.icon className="w-4 h-4 mr-2" />
@@ -217,9 +219,9 @@ export function Navigation() {
                                   <Link
                                     href={subItem.href}
                                     className={cn(
-                                      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors",
-                                      "hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900",
-                                      isActive(subItem.href) && "bg-slate-100 text-slate-900",
+                                      "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors text-white",
+                                      "hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white",
+                                      isActive(subItem.href) && "bg-slate-800 text-white",
                                     )}
                                   >
                                     <div className="flex items-center justify-between">
@@ -259,10 +261,10 @@ export function Navigation() {
                         <Link
                           href={item.href}
                           className={cn(
-                            "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                            "hover:bg-slate-100 hover:text-slate-900 focus:bg-slate-100 focus:text-slate-900",
+                            "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors text-white",
+                            "hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white",
                             "disabled:pointer-events-none disabled:opacity-50",
-                            isActive(item.href) && "bg-slate-100 text-slate-900",
+                            isActive(item.href) && "bg-slate-800 text-white",
                           )}
                         >
                           <item.icon className="w-4 h-4 mr-2" />
@@ -292,12 +294,12 @@ export function Navigation() {
               <SheetContent side="right" className="w-80">
                 <SheetHeader>
                   <SheetTitle className="flex items-center space-x-2">
-                    <div className="w-6 h-6 bg-gradient-to-br from-blue-600 to-purple-600 rounded-md flex items-center justify-center">
+                    <div className="w-6 h-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-md flex items-center justify-center">
                       <span className="text-white font-bold text-xs">N3</span>
                     </div>
-                    <span>N3uralia Navigation</span>
+                    <span className="text-white">N3uralia Navigation</span>
                   </SheetTitle>
-                  <SheetDescription>Access all monitoring and testing tools</SheetDescription>
+                  <SheetDescription className="text-white">Access all monitoring and testing tools</SheetDescription>
                 </SheetHeader>
 
                 <div className="mt-6 space-y-4">
@@ -305,7 +307,7 @@ export function Navigation() {
                     <div key={item.title} className="space-y-2">
                       {item.items ? (
                         <div>
-                          <div className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-slate-900">
+                          <div className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-white">
                             <item.icon className="w-4 h-4" />
                             <span>{item.title}</span>
                           </div>
@@ -316,9 +318,9 @@ export function Navigation() {
                                 href={subItem.href}
                                 onClick={() => setIsOpen(false)}
                                 className={cn(
-                                  "flex items-center justify-between space-x-2 px-3 py-2 text-sm rounded-md transition-colors",
-                                  "hover:bg-slate-100 hover:text-slate-900",
-                                  isActive(subItem.href) && "bg-slate-100 text-slate-900",
+                                  "flex items-center justify-between space-x-2 px-3 py-2 text-sm rounded-md transition-colors text-white",
+                                  "hover:bg-slate-800 hover:text-white",
+                                  isActive(subItem.href) && "bg-slate-800 text-white",
                                 )}
                               >
                                 <div className="flex items-center space-x-2">
@@ -350,9 +352,10 @@ export function Navigation() {
                           href={item.href}
                           onClick={() => setIsOpen(false)}
                           className={cn(
-                            "flex items-center space-x-2 px-3 py-2 text-sm rounded-md transition-colors",
-                            "hover:bg-slate-100 hover:text-slate-900",
-                            isActive(item.href) && "bg-slate-100 text-slate-900",
+                            "flex items-center space-x-2 px-3 py-2 text-sm rounded-md transition-colors text-white",
+                            "hover:bg-slate-800 hover:text-white focus:bg-slate-800 focus:text-white",
+                            "disabled:pointer-events-none disabled:opacity-50",
+                            isActive(item.href) && "bg-slate-800 text-white",
                           )}
                         >
                           <item.icon className="w-4 h-4" />
@@ -363,9 +366,9 @@ export function Navigation() {
                   ))}
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-200">
+                <div className="mt-8 pt-6 border-t border-slate-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-600">Theme</span>
+                    <span className="text-sm text-white">Theme</span>
                     <ThemeToggle />
                   </div>
                 </div>

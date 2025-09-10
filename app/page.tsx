@@ -1,4 +1,6 @@
 import { HeroSection } from "@/components/landing/hero-section"
+import { ClientLogosSection } from "@/components/landing/client-logos-section"
+import { InteractiveDemoSection } from "@/components/landing/interactive-demo-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { UseCasesSection } from "@/components/landing/use-cases-section"
@@ -12,10 +14,12 @@ import { Navigation } from "@/components/navigation"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-950 transition-colors duration-300">
       <Navigation />
-      <main className="bg-white dark:bg-slate-950">
+      <main className="bg-slate-950">
         <HeroSection />
+        <ClientLogosSection />
+        <InteractiveDemoSection />
         <TestimonialsSection />
         <FeaturesSection />
         <UseCasesSection />
