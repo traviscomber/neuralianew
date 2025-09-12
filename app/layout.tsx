@@ -5,97 +5,65 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
 import { ChatWidget } from "@/components/chat/chat-widget"
+import { LanguageProvider } from "@/lib/language-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    default: "N3uralia - Agentes Conversacionales Inteligentes | Full Stack IA Systems",
-    template: "%s | N3uralia - IA Conversacional",
+    default: "N3uralia - Enterprise AI Solutions | Intelligent Conversational Agents",
+    template: "%s | N3uralia - Enterprise AI",
   },
   description:
-    "N3uralia desarrolla agentes conversacionales inteligentes y sistemas de IA full stack para empresas. Especialistas en automatización empresarial, flota agéntica, integración WhatsApp Business API, y soluciones de inteligencia artificial bilingües (español/inglés). ROI promedio 250%, 99.9% uptime, soporte 24/7 global en Chile, Singapur y Rusia.",
+    "N3uralia develops complete enterprise AI solutions with intelligent conversational agents. Specialists in business automation, full-stack development, WhatsApp Business API integration, and bilingual artificial intelligence solutions. 250% average ROI, 99.9% uptime, 24/7 global support across Chile, Singapore, and Russia.",
   keywords: [
-    // Core Spanish IA keywords
-    "agentes conversacionales inteligentes",
-    "IA conversacional empresarial",
-    "chatbots IA avanzados",
-    "automatización empresarial IA",
-    "sistemas IA full stack",
-    "flota agéntica especializada",
-    "inteligencia artificial Chile",
-    "agentes IA empresariales",
-    "IA para empresas Chile",
-    "WhatsApp IA integración certificada",
-    "consultoría IA estratégica",
-    "desarrollo IA personalizado",
-    "machine learning empresarial",
-    "procesamiento lenguaje natural español",
-    "automatización procesos empresariales",
     // Core English AI keywords
-    "conversational AI agents enterprise",
-    "intelligent chatbots business",
-    "AI business automation platform",
-    "full stack AI systems development",
-    "artificial intelligence solutions enterprise",
-    "enterprise AI agents deployment",
-    "agentic fleet AI architecture",
-    "custom AI development services",
-    "bilingual AI solutions Spanish English",
-    "WhatsApp AI integration certified",
-    "AI automation platform enterprise",
-    "machine learning business solutions",
-    "natural language processing Spanish",
-    "conversational AI 24/7 support",
-    // Technical AI keywords
-    "OpenAI GPT-4 integration certified",
-    "machine learning models proprietary",
-    "neural networks conversational AI",
-    "AI system architecture microservices",
-    "conversational AI platform enterprise",
-    "AI agent development framework",
-    "natural language understanding Spanish",
-    "AI response optimization algorithms",
-    "machine learning pipeline automation",
-    "AI model training specialized",
-    // Industry-specific keywords
-    "IA agricultura análisis suelos",
-    "AI agriculture soil analysis",
-    "IA ERP integración nativa",
-    "AI ERP integration native",
-    "IA coaching profesional educación",
-    "AI career coaching education",
-    // Geographic keywords
-    "IA Chile Santiago empresa",
-    "inteligencia artificial Latinoamérica",
-    "IA Argentina México Perú",
-    "IA global soporte 24/7",
-    "IA Singapur operaciones Asia",
-    "IA Rusia desarrollo tecnológico",
-    // Brand keywords
-    "N3uralia",
-    "IA conversacional",
-    "agentes inteligentes",
+    "enterprise AI solutions",
+    "intelligent conversational agents",
+    "business automation platform",
+    "full stack AI development",
+    "conversational AI enterprise",
+    "AI chatbots business",
+    "WhatsApp AI integration",
+    "enterprise chatbots",
+    "AI business solutions",
+    "machine learning enterprise",
+    "natural language processing",
+    "AI automation platform",
+    "custom AI development",
+    "enterprise AI consulting",
+    "bilingual AI solutions",
+    // Core Spanish IA keywords
+    "soluciones IA empresariales",
+    "agentes conversacionales inteligentes",
+    "automatización empresarial IA",
+    "desarrollo IA full stack",
+    "IA conversacional empresarial",
+    "chatbots IA empresariales",
+    "integración IA WhatsApp",
     "chatbots empresariales",
-    "automatización IA",
-    "WhatsApp Business",
-    "integración CRM",
-    "integración ERP",
-    "OpenAI GPT-4",
-    "full stack IA",
-    "agentic fleet",
-    "custom agents",
-    "soporte 24/7",
-    "Chile",
-    "Singapur",
-    "Rusia",
-    "EcosueloLab",
-    "Parrotfy",
-    "Despega Tu Carrera",
+    "soluciones IA negocio",
+    "machine learning empresarial",
+    "procesamiento lenguaje natural",
+    "plataforma automatización IA",
+    "desarrollo IA personalizado",
+    "consultoría IA empresarial",
+    "soluciones IA bilingües",
+    // Geographic and brand keywords
+    "N3uralia",
+    "Chile AI solutions",
+    "Singapore AI development",
+    "Russia AI consulting",
+    "Latin America AI",
+    "global AI support",
+    "ISO 27001 AI",
+    "OpenAI GPT-4 integration",
+    "enterprise AI Chile",
+    "AI solutions Santiago",
   ],
-  authors: [{ name: "N3uralia Team - Agentes Conversacionales Inteligentes" }],
-  creator: "N3uralia - Full Stack IA Systems",
-  publisher: "N3uralia - Conversational AI Agents",
+  authors: [{ name: "N3uralia Team - Enterprise AI Solutions" }],
+  creator: "N3uralia - Intelligent Conversational Agents",
+  publisher: "N3uralia - Enterprise AI Solutions",
   formatDetection: {
     email: false,
     address: false,
@@ -105,14 +73,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      "es-CL": "/es",
       "en-US": "/en",
+      "es-CL": "/es",
     },
   },
   openGraph: {
-    title: "N3uralia - Full Stack IA Systems | Agentes Conversacionales Inteligentes",
+    title: "N3uralia - Enterprise AI Solutions | Intelligent Conversational Agents",
     description:
-      "Transformamos tu negocio con agentes conversacionales inteligentes que realmente entienden a tus usuarios. Full Stack Engineering, Agentic Fleet + Custom AGENTS, Next Level AI TOOLS. Soporte 24/7 global con equipos en Chile, Singapur y Rusia.",
+      "Complete enterprise AI solutions with intelligent conversational agents. Full-stack development, business automation, and 24/7 global support with teams in Chile, Singapore, and Russia.",
     url: "https://n3uralia.com",
     siteName: "N3uralia",
     images: [
@@ -120,16 +88,16 @@ export const metadata: Metadata = {
         url: "/n3uralia-logo-new.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - Full Stack IA Systems",
+        alt: "N3uralia - Enterprise AI Solutions",
       },
     ],
-    locale: "es_CL",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia - Full Stack IA Systems",
-    description: "Agentes conversacionales inteligentes que transforman negocios. Soporte 24/7 global.",
+    title: "N3uralia - Enterprise AI Solutions",
+    description: "Intelligent conversational agents that transform businesses. 24/7 global support.",
     images: ["/n3uralia-logo-new.png"],
     creator: "@n3uralia",
   },
@@ -588,12 +556,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Essential visible metadata */}
         <link rel="canonical" href="https://n3uralia.com" />
-        <link rel="alternate" hrefLang="es-CL" href="https://n3uralia.com/es" />
         <link rel="alternate" hrefLang="en-US" href="https://n3uralia.com/en" />
+        <link rel="alternate" hrefLang="es-CL" href="https://n3uralia.com/es" />
 
         {/* Geographic targeting */}
         <meta name="geo.region" content="CL-RM" />
@@ -808,9 +776,11 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-          <ChatWidget />
-          <Toaster />
+          <LanguageProvider>
+            {children}
+            <ChatWidget />
+            <Toaster />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

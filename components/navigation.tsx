@@ -5,18 +5,21 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, MessageSquare } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
-
-const navigation = [
-  { name: "Inicio", href: "#hero" },
-  { name: "Casos de Uso", href: "#use-cases" },
-  { name: "Características", href: "#features" },
-  { name: "Equipo", href: "#team" },
-  { name: "Contacto", href: "#contact" },
-]
+import { LanguageToggle } from "./language-toggle"
+import { useLanguage } from "@/lib/language-context"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { t } = useLanguage()
+
+  const navigation = [
+    { name: t("nav.home"), href: "#hero" },
+    { name: t("nav.useCases"), href: "#use-cases" },
+    { name: t("nav.features"), href: "#features" },
+    { name: t("nav.team"), href: "#team" },
+    { name: t("nav.contact"), href: "#contact" },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,18 +74,20 @@ export function Navigation() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+            <LanguageToggle />
             <ThemeToggle />
             <Button
               onClick={() => window.open("https://wa.me/56940946660", "_blank")}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              Contactar
+              {t("nav.contact.button")}
             </Button>
           </div>
 
           {/* Mobile Menu */}
           <div className="md:hidden flex items-center space-x-2">
+            <LanguageToggle />
             <ThemeToggle />
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -106,7 +111,7 @@ export function Navigation() {
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold mt-4"
                   >
                     <MessageSquare className="w-4 h-4 mr-2" />
-                    Contactar
+                    {t("nav.contact.button")}
                   </Button>
                 </div>
               </SheetContent>

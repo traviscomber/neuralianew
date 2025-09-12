@@ -15,15 +15,17 @@ import {
   BarChart3,
 } from "lucide-react"
 import { HeroChatInterface } from "./hero-chat-interface"
+import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
   const [currentMetric, setCurrentMetric] = useState(0)
+  const { t } = useLanguage()
 
   const metrics = [
-    { value: "95%", label: "Satisfacción Cliente", icon: TrendingUp, color: "text-green-400" },
-    { value: "60%", label: "Reducción Costos", icon: BarChart3, color: "text-blue-400" },
-    { value: "48h", label: "Tiempo Setup", icon: Clock, color: "text-purple-400" },
-    { value: "99.9%", label: "Uptime SLA", icon: Shield, color: "text-emerald-400" },
+    { value: "95%", label: t("hero.metrics.satisfaction"), icon: TrendingUp, color: "text-green-400" },
+    { value: "60%", label: t("hero.metrics.cost"), icon: BarChart3, color: "text-blue-400" },
+    { value: "48h", label: t("hero.metrics.setup"), icon: Clock, color: "text-purple-400" },
+    { value: "99.9%", label: t("hero.metrics.uptime"), icon: Shield, color: "text-emerald-400" },
   ]
 
   useEffect(() => {
@@ -63,31 +65,27 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-center lg:justify-start">
               <Badge className="bg-slate-800 text-slate-200 border border-slate-700 text-sm px-4 py-2 font-medium">
                 <Building2 className="w-4 h-4 mr-2" />
-                Enterprise Solutions
+                {t("hero.badge.enterprise")}
               </Badge>
               <Badge className="bg-slate-800 text-slate-200 border border-slate-700 text-sm px-4 py-2 font-medium">
                 <Users className="w-4 h-4 mr-2" />
-                Full-Stack Development
+                {t("hero.badge.fullstack")}
               </Badge>
               <Badge className="bg-slate-800 text-slate-200 border border-slate-700 text-sm px-4 py-2 font-medium">
                 <Shield className="w-4 h-4 mr-2" />
-                ISO 27001 Certified
+                {t("hero.badge.certified")}
               </Badge>
             </div>
 
             {/* Professional Heading */}
             <div className="space-y-6">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-                Soluciones IA{" "}
+                {t("hero.title").split(" ").slice(0, 2).join(" ")}{" "}
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                  Empresariales
-                </span>{" "}
-                Completas
+                  {t("hero.title").split(" ").slice(2).join(" ")}
+                </span>
               </h1>
-              <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Desarrollamos ecosistemas tecnológicos completos con agentes conversacionales inteligentes para empresas
-                que buscan <span className="text-white font-semibold">automatización real y resultados medibles</span>.
-              </p>
+              <p className="text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">{t("hero.subtitle")}</p>
             </div>
 
             {/* Professional Metrics */}
@@ -137,7 +135,7 @@ export function HeroSection() {
                 className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-4 text-lg rounded-xl transition-all duration-300"
               >
                 <MessageSquare className="w-5 h-5 mr-3" />
-                Solicitar Consulta
+                {t("hero.cta.primary")}
                 <ArrowRight className="w-5 h-5 ml-3" />
               </Button>
               <Button
@@ -146,7 +144,7 @@ export function HeroSection() {
                 onClick={() => scrollToSection("use-cases")}
                 className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300 px-8 py-4 text-lg rounded-xl"
               >
-                Ver Casos de Éxito
+                {t("hero.cta.secondary")}
               </Button>
             </div>
 
@@ -154,15 +152,15 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-8 pt-6">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5 text-green-400" />
-                <span className="text-sm text-slate-300 font-medium">50+ Proyectos Entregados</span>
+                <span className="text-sm text-slate-300 font-medium">{t("hero.trust.projects")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Shield className="w-5 h-5 text-blue-400" />
-                <span className="text-sm text-slate-300 font-medium">Certificación ISO 27001</span>
+                <span className="text-sm text-slate-300 font-medium">{t("hero.trust.certification")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="w-5 h-5 text-purple-400" />
-                <span className="text-sm text-slate-300 font-medium">Soporte 24/7</span>
+                <span className="text-sm text-slate-300 font-medium">{t("hero.trust.support")}</span>
               </div>
             </div>
           </div>
