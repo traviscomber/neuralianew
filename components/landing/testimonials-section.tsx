@@ -1,123 +1,137 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Star, CheckCircle, TrendingUp, Clock, Users } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Star, Quote } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function TestimonialsSection() {
-  const { t } = useLanguage()
+  const { language } = useLanguage()
 
   const testimonials = [
     {
-      name: t("testimonials.carlos.name"),
-      role: t("testimonials.carlos.role"),
-      text: t("testimonials.carlos.text"),
-      project: t("testimonials.carlos.project"),
-      delivered: t("testimonials.carlos.delivered"),
+      name: "María González",
+      role: language === "en" ? "CTO, TechCorp" : "CTO, TechCorp",
+      content:
+        language === "en"
+          ? "N3uralia transformed our customer service operations completely. Response times improved by 80% and customer satisfaction reached unprecedented levels."
+          : "N3uralia transformó completamente nuestras operaciones de atención al cliente. Los tiempos de respuesta mejoraron un 80% y la satisfacción del cliente alcanzó niveles sin precedentes.",
       rating: 5,
-      technologies: ["OpenAI GPT-4", "WhatsApp API", "React", "Node.js", "PostgreSQL"],
     },
     {
-      name: t("testimonials.maria.name"),
-      role: t("testimonials.maria.role"),
-      text: t("testimonials.maria.text"),
-      project: t("testimonials.maria.project"),
-      delivered: t("testimonials.maria.delivered"),
+      name: "Carlos Mendoza",
+      role: language === "en" ? "CEO, InnovateLab" : "CEO, InnovateLab",
+      content:
+        language === "en"
+          ? "The AI agents created with N3uralia handle complex queries with impressive accuracy. Our team can now focus on strategic initiatives while AI handles routine tasks."
+          : "Los agentes de IA creados con N3uralia manejan consultas complejas con una precisión impresionante. Nuestro equipo ahora puede enfocarse en iniciativas estratégicas mientras la IA maneja tareas rutinarias.",
       rating: 5,
-      technologies: ["AI Coaching", "LinkedIn API", "Gamification", "Analytics", "Mobile App"],
     },
     {
-      name: t("testimonials.roberto.name"),
-      role: t("testimonials.roberto.role"),
-      text: t("testimonials.roberto.text"),
-      project: t("testimonials.roberto.project"),
-      delivered: t("testimonials.roberto.delivered"),
+      name: "Ana Rodríguez",
+      role: language === "en" ? "Operations Director, GlobalTech" : "Directora de Operaciones, GlobalTech",
+      content:
+        language === "en"
+          ? "Implementation was seamless and the results immediate. N3uralia's platform integrated perfectly with our existing systems and workflow."
+          : "La implementación fue perfecta y los resultados inmediatos. La plataforma de N3uralia se integró perfectamente con nuestros sistemas y flujo de trabajo existentes.",
       rating: 5,
-      technologies: ["SAP Integration", "ERP Systems", "Real-time Analytics", "Multi-language", "Enterprise API"],
     },
-  ]
-
-  const stats = [
-    { value: "50+", label: t("testimonials.stats.projects"), icon: CheckCircle, color: "text-green-400" },
-    { value: "95%", label: t("testimonials.stats.satisfaction"), icon: Users, color: "text-blue-400" },
-    { value: "250%", label: t("testimonials.stats.roi"), icon: TrendingUp, color: "text-purple-400" },
-    { value: "48h", label: t("testimonials.stats.setup"), icon: Clock, color: "text-emerald-400" },
   ]
 
   return (
-    <section id="testimonials" className="py-24 bg-slate-950">
+    <section id="testimonials" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <Badge className="bg-green-600 text-white mb-4 px-4 py-2 text-sm font-semibold">
-            <CheckCircle className="w-4 h-4 mr-2" />
-            {t("testimonials.title")}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
+            {language === "en" ? "Testimonials" : "Testimonios"}
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">{t("testimonials.title")}</h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">{t("testimonials.subtitle")}</p>
-        </div>
+          <h2 className="text-5xl font-light text-black mb-6">
+            {language === "en" ? "What Our Clients Say" : "Lo Que Dicen Nuestros Clientes"}
+          </h2>
+          <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
+            {language === "en"
+              ? "Real experiences from companies that have transformed their operations with N3uralia"
+              : "Experiencias reales de empresas que han transformado sus operaciones con N3uralia"}
+          </p>
+        </motion.div>
 
         {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card
+            <motion.div
               key={index}
-              className="bg-slate-900/50 border-slate-800 hover:border-slate-700 transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true }}
             >
-              <CardContent className="p-6">
-                {/* Rating */}
-                <div className="flex items-center space-x-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
+              <Card className="bg-white border-gray-200 hover:shadow-lg transition-all duration-300 h-full">
+                <CardContent className="p-8">
+                  {/* Quote Icon */}
+                  <div className="mb-6">
+                    <Quote className="w-8 h-8 text-gray-300" />
+                  </div>
 
-                {/* Testimonial Text */}
-                <p className="text-slate-300 mb-6 leading-relaxed">"{testimonial.text}"</p>
+                  {/* Content */}
+                  <p className="text-gray-700 font-light leading-relaxed mb-6 text-lg">"{testimonial.content}"</p>
 
-                {/* Author */}
-                <div className="mb-4">
-                  <div className="font-semibold text-white">{testimonial.name}</div>
-                  <div className="text-sm text-slate-400">{testimonial.role}</div>
-                </div>
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-black text-black" />
+                    ))}
+                  </div>
 
-                {/* Project Info */}
-                <div className="mb-4">
-                  <div className="text-sm font-medium text-blue-400">{testimonial.project}</div>
-                  <div className="text-xs text-slate-500">{testimonial.delivered}</div>
-                </div>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2">
-                  {testimonial.technologies.map((tech, techIndex) => (
-                    <Badge key={techIndex} variant="outline" className="text-xs border-slate-700 text-slate-400">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                  {/* Author */}
+                  <div className="border-t border-gray-100 pt-6">
+                    <div className="font-semibold text-black text-lg">{testimonial.name}</div>
+                    <div className="text-gray-500 font-light">{testimonial.role}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon
-            return (
-              <div key={index} className="text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="p-3 bg-slate-900 rounded-xl">
-                    <Icon className={`w-8 h-8 ${stat.color}`} />
-                  </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="bg-black rounded-2xl p-12">
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-4xl font-light text-white mb-2">500+</div>
+                <div className="text-gray-300 font-light">
+                  {language === "en" ? "Happy Clients" : "Clientes Satisfechos"}
                 </div>
-                <div className={`text-3xl font-bold ${stat.color} mb-2`}>{stat.value}</div>
-                <div className="text-slate-400 font-medium">{stat.label}</div>
               </div>
-            )
-          })}
-        </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">99.9%</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Uptime" : "Tiempo Activo"}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">24/7</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Support" : "Soporte"}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">50+</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Countries" : "Países"}</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

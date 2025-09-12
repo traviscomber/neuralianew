@@ -3,31 +3,41 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, MessageSquare } from "lucide-react"
-import { ThemeToggle } from "./theme-toggle"
+import { Menu, X } from "lucide-react"
 import { LanguageToggle } from "./language-toggle"
 import { useLanguage } from "@/lib/language-context"
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { t } = useLanguage()
-
-  const navigation = [
-    { name: t("nav.home"), href: "#hero" },
-    { name: t("nav.useCases"), href: "#use-cases" },
-    { name: t("nav.features"), href: "#features" },
-    { name: t("nav.team"), href: "#team" },
-    { name: t("nav.contact"), href: "#contact" },
-  ]
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { language } = useLanguage()
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
+      setIsScrolled(window.scrollY > 50)
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  const navItems = [
+    {
+      label: language === "en" ? "Agents" : "Agentes",
+      href: "#solutions",
+    },
+    {
+      label: language === "en" ? "Systems" : "Sistemas",
+      href: "#flow",
+    },
+    {
+      label: language === "en" ? "Products" : "Productos",
+      href: "#products",
+    },
+    {
+      label: language === "en" ? "Contacts" : "Contactos",
+      href: "#contact",
+    },
+  ]
 
   const scrollToSection = (href: string) => {
     const element = document.getElementById(href.replace("#", ""))
@@ -37,82 +47,87 @@ export function Navigation() {
       const offsetPosition = elementPosition - navHeight
       window.scrollTo({ top: offsetPosition, behavior: "smooth" })
     }
-    setMobileMenuOpen(false)
+    setIsMobileMenuOpen(false)
   }
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-slate-950/95 backdrop-blur-md border-b border-slate-800" : "bg-transparent"
+        isScrolled ? "bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200" : "bg-black shadow-lg"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="relative w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-              <span className="text-white font-black text-lg">N3</span>
+          {/* Minimalist Logo */}
+          <div className="flex items-center space-x-3 group cursor-pointer">
+            <div
+              className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                isScrolled ? "bg-black" : "bg-white"
+              }`}
+            >
+              <span className={`text-xl font-bold transition-colors ${isScrolled ? "text-white" : "text-black"}`}>
+                N3
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-white font-bold text-xl tracking-tight">N3uralia</span>
-              <span className="text-slate-400 text-xs font-medium">Enterprise AI Solutions</span>
+              <span
+                className={`text-xl font-bold tracking-tight transition-colors ${
+                  isScrolled ? "text-black" : "text-white"
+                }`}
+              >
+                N3URALIA
+              </span>
+              <span
+                className={`text-xs font-medium transition-colors ${isScrolled ? "text-gray-500" : "text-gray-300"}`}
+              >
+                Enterprise AI Solutions
+              </span>
             </div>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+            {navItems.map((item) => (
               <button
-                key={item.name}
+                key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-slate-300 hover:text-white transition-colors duration-200 font-medium"
+                className={`relative font-medium transition-all duration-300 ${
+                  isScrolled ? "text-gray-700 hover:text-black" : "text-gray-300 hover:text-white"
+                }`}
               >
-                {item.name}
+                {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-black transition-all duration-300 hover:w-full"></span>
               </button>
             ))}
-          </div>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
             <LanguageToggle />
-            <ThemeToggle />
-            <Button
-              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
-            >
-              <MessageSquare className="w-4 h-4 mr-2" />
-              {t("nav.contact.button")}
-            </Button>
           </div>
 
           {/* Mobile Menu */}
-          <div className="md:hidden flex items-center space-x-2">
+          <div className="md:hidden flex items-center space-x-4">
             <LanguageToggle />
-            <ThemeToggle />
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="text-white">
-                  <Menu className="h-6 w-6" />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`transition-colors ${
+                    isScrolled ? "text-black hover:text-gray-600" : "text-white hover:text-gray-300"
+                  }`}
+                >
+                  {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-950 border-slate-800">
-                <div className="flex flex-col space-y-6 mt-8">
-                  {navigation.map((item) => (
+              <SheetContent side="right" className="bg-white border-l border-gray-200">
+                <div className="flex flex-col space-y-8 mt-12">
+                  {navItems.map((item) => (
                     <button
-                      key={item.name}
+                      key={item.href}
                       onClick={() => scrollToSection(item.href)}
-                      className="text-slate-300 hover:text-white transition-colors duration-200 font-medium text-left"
+                      className="text-black hover:text-gray-600 transition-colors duration-200 font-medium text-left text-lg"
                     >
-                      {item.name}
+                      {item.label}
                     </button>
                   ))}
-                  <Button
-                    onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold mt-4"
-                  >
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    {t("nav.contact.button")}
-                  </Button>
                 </div>
               </SheetContent>
             </Sheet>

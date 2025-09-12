@@ -1,20 +1,20 @@
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
-import { TestimonialsSection } from "@/components/landing/testimonials-section"
+import { ServicesSection } from "@/components/landing/services-section"
 import { UseCasesSection } from "@/components/landing/use-cases-section"
-import { FeaturesSection } from "@/components/landing/features-section"
-import { TeamSection } from "@/components/landing/team-section"
+import { TechnicalFeaturesSection } from "@/components/landing/technical-features-section"
+import { ContactSection } from "@/components/landing/contact-section"
 import { Footer } from "@/components/landing/footer"
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-950">
+    <main className="min-h-screen bg-white">
       <Navigation />
       <HeroSection />
-      <TestimonialsSection />
+      <ServicesSection />
       <UseCasesSection />
-      <FeaturesSection />
-      <TeamSection />
+      <TechnicalFeaturesSection />
+      <ContactSection />
       <Footer />
     </main>
   )

@@ -1,25 +1,21 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { useLanguage } from "@/lib/language-context"
 import { Globe } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
-
-  const toggleLanguage = () => {
-    setLanguage(language === "en" ? "es" : "en")
-  }
 
   return (
     <Button
       variant="ghost"
       size="sm"
-      onClick={toggleLanguage}
-      className="text-slate-300 hover:text-white hover:bg-slate-800 transition-colors duration-200"
+      onClick={() => setLanguage(language === "en" ? "es" : "en")}
+      className="flex items-center gap-2 text-sm font-medium hover:bg-gray-100 transition-colors"
     >
-      <Globe className="w-4 h-4 mr-2" />
-      <span className="font-medium">{language === "en" ? "ES" : "EN"}</span>
+      <Globe className="w-4 h-4" />
+      <span className="uppercase font-bold">{language}</span>
     </Button>
   )
 }

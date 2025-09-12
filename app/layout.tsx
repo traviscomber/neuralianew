@@ -10,12 +10,9 @@ import { LanguageProvider } from "@/lib/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: {
-    default: "N3uralia - Enterprise AI Solutions | Intelligent Conversational Agents",
-    template: "%s | N3uralia - Enterprise AI",
-  },
+  title: "N3uralia - Building Bridges to AI",
   description:
-    "N3uralia develops complete enterprise AI solutions with intelligent conversational agents. Specialists in business automation, full-stack development, WhatsApp Business API integration, and bilingual artificial intelligence solutions. 250% average ROI, 99.9% uptime, 24/7 global support across Chile, Singapore, and Russia.",
+    "At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights.",
   keywords: [
     // Core English AI keywords
     "enterprise AI solutions",
@@ -300,10 +297,6 @@ const hiddenStructuredData = {
     "AI Agriculture Solutions EcosueloLab Success",
     "AI ERP Integration Parrotfy Native Connection",
     "AI Career Coaching Education Placement Rate",
-    "Multi-channel AI Deployment Omnichannel",
-    "AI System Architecture Microservices Scalable",
-    "Enterprise AI Consulting Strategic Implementation",
-    "AI Performance Optimization Real-time Analytics",
     // Technical AI terms with implementation details
     "OpenAI GPT-4 Integration Certified Partnership",
     "Custom Machine Learning Models Specialized Training",
@@ -556,7 +549,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         {/* Essential visible metadata */}
         <link rel="canonical" href="https://n3uralia.com" />
@@ -775,7 +768,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <LanguageProvider>
             {children}
             <ChatWidget />

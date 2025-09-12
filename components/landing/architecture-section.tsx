@@ -4,32 +4,35 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Database, Brain, MessageSquare, ArrowRight, Cloud, Layers } from "lucide-react"
-
-const layers = [
-  {
-    icon: Database,
-    title: "Backend & Data",
-    description: "Infraestructura robusta",
-    color: "from-blue-500 to-blue-600",
-    examples: ["PostgreSQL", "APIs REST", "Microservicios"],
-  },
-  {
-    icon: Brain,
-    title: "IA & Processing",
-    description: "Inteligencia artificial",
-    color: "from-purple-500 to-purple-600",
-    examples: ["GPT-4", "ML Models", "Analytics"],
-  },
-  {
-    icon: MessageSquare,
-    title: "Frontend & UX",
-    description: "Interfaces de usuario",
-    color: "from-green-500 to-green-600",
-    examples: ["React", "WhatsApp", "Dashboards"],
-  },
-]
+import { useLanguage } from "@/lib/language-context"
 
 export function ArchitectureSection() {
+  const { t, language } = useLanguage()
+
+  const layers = [
+    {
+      icon: Database,
+      title: t("architecture.backend.title"),
+      description: t("architecture.backend.description"),
+      color: "from-blue-500 to-blue-600",
+      examples: ["PostgreSQL", "APIs REST", "Microservices"],
+    },
+    {
+      icon: Brain,
+      title: t("architecture.ai.title"),
+      description: t("architecture.ai.description"),
+      color: "from-purple-500 to-purple-600",
+      examples: ["GPT-4", "ML Models", "Analytics"],
+    },
+    {
+      icon: MessageSquare,
+      title: t("architecture.frontend.title"),
+      description: t("architecture.frontend.description"),
+      color: "from-green-500 to-green-600",
+      examples: ["React", "WhatsApp", "Dashboards"],
+    },
+  ]
+
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
@@ -46,19 +49,18 @@ export function ArchitectureSection() {
             className="mb-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 transition-colors duration-300"
           >
             <Layers className="w-4 h-4 mr-2" />
-            Arquitectura Full Stack
+            {t("architecture.badge")}
           </Badge>
 
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-gray-900 dark:text-white transition-colors duration-300">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-              Ecosistema Tecnológico Completo
+              {t("architecture.title")}
             </span>{" "}
-            en 3 Capas
+            {t("architecture.subtitle")}
           </h2>
 
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
-            Desarrollamos cada componente del stack: desde la base de datos hasta la interfaz de usuario, con IA
-            integrada en cada capa
+            {t("architecture.description")}
           </p>
         </motion.div>
 
@@ -129,20 +131,18 @@ export function ArchitectureSection() {
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg p-6 max-w-2xl mx-auto">
             <div className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
               <Cloud className="w-5 h-5" />
-              Backend + IA + Frontend = Solución Completa
+              {t("architecture.summary.title")}
             </div>
-            <p className="text-sm opacity-90 mb-4">Cada componente desarrollado y optimizado por nuestro equipo</p>
+            <p className="text-sm opacity-90 mb-4">{t("architecture.summary.description")}</p>
 
             <a
-              href={`https://wa.me/56940946660?text=${encodeURIComponent(
-                "¡Hola! Quiero conocer más sobre las soluciones full stack de N3uralia.",
-              )}`}
+              href={`https://wa.me/56940946660?text=${encodeURIComponent(t("architecture.whatsapp.message"))}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm"
             >
               <MessageSquare className="w-4 h-4" />
-              Ver Arquitectura Completa
+              {t("architecture.whatsapp.button")}
             </a>
           </div>
         </motion.div>
