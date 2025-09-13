@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, MessageCircle } from "lucide-react"
+import { ArrowRight, MessageCircle, ChevronDown } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
@@ -15,114 +15,180 @@ export function HeroSection() {
     }
   }
 
+  const scrollToServices = () => {
+    const element = document.querySelector("#services")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   const openWhatsApp = () => {
-    window.open("https://wa.me/56931234567", "_blank")
+    window.open(
+      "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20una%20consulta%20sobre%20sus%20servicios%20de%20desarrollo%20y%20automatización",
+      "_blank",
+    )
   }
 
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 opacity-20">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-white/10 to-gray-300/10 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-gray-300/10 to-white/10 rounded-full blur-3xl"
+        />
+      </div>
+
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Main Heading */}
+        {/* Main Content */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-8"
+          className="mb-12"
         >
-          <h1 className="text-5xl md:text-7xl font-light mb-6 leading-tight">
+          {/* Subtitle */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-6"
+          >
+            <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-medium text-gray-300">
+              {language === "en" ? "Enterprise Technology Solutions" : "Soluciones Tecnológicas Empresariales"}
+            </span>
+          </motion.div>
+
+          {/* Main Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-5xl md:text-7xl font-light mb-8 leading-tight"
+          >
             {language === "en" ? (
               <>
-                AI Agents for
+                Professional
                 <br />
-                <span className="text-gray-300">Business Automation</span>
+                <span className="text-gray-300 font-extralight">AI Development</span>
               </>
             ) : (
               <>
-                Agentes de IA para
+                Desarrollo
                 <br />
-                <span className="text-gray-300">Automatización Empresarial</span>
+                <span className="text-gray-300 font-extralight">Profesional con IA</span>
               </>
             )}
-          </h1>
+          </motion.h1>
 
-          <p className="text-xl md:text-2xl text-gray-300 font-light max-w-3xl mx-auto leading-relaxed">
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="text-xl md:text-2xl text-gray-300 font-light max-w-4xl mx-auto leading-relaxed mb-12"
+          >
             {language === "en"
-              ? "Transform your business processes with intelligent AI agents that work 24/7 to optimize operations and drive growth."
-              : "Transforma tus procesos empresariales con agentes de IA inteligentes que trabajan 24/7 para optimizar operaciones e impulsar el crecimiento."}
-          </p>
-        </motion.div>
+              ? "We deliver enterprise-grade AI solutions and full-stack development services that transform business operations through intelligent automation and cutting-edge technology."
+              : "Entregamos soluciones de IA de nivel empresarial y servicios de desarrollo full-stack que transforman las operaciones comerciales a través de automatización inteligente y tecnología de vanguardia."}
+          </motion.p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-        >
-          <Button
-            onClick={scrollToContact}
-            size="lg"
-            className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-2 group"
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
           >
-            {language === "en" ? "Start Implementation" : "Comenzar Implementación"}
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                onClick={scrollToContact}
+                size="lg"
+                className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-3 group min-w-[200px]"
+              >
+                {language === "en" ? "Start Project" : "Iniciar Proyecto"}
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </motion.div>
 
-          <Button
-            onClick={openWhatsApp}
-            variant="outline"
-            size="lg"
-            className="border-2 border-gray-400 text-gray-300 hover:bg-gray-800 hover:text-white px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-2 bg-transparent"
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button
+                onClick={openWhatsApp}
+                variant="outline"
+                size="lg"
+                className="border-2 border-gray-400 text-gray-300 hover:bg-white/10 hover:text-white hover:border-white px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-3 bg-transparent min-w-[200px]"
+              >
+                <MessageCircle className="w-5 h-5" />
+                {language === "en" ? "Consultation" : "Consultoría"}
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Key Metrics */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
           >
-            <MessageCircle className="w-5 h-5" />
-            {language === "en" ? "Contact Human" : "Contactar Humano"}
-          </Button>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-light text-white mb-2">24/7</div>
+              <div className="text-gray-400 font-light text-lg">
+                {language === "en" ? "System Availability" : "Disponibilidad del Sistema"}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-light text-white mb-2">99.9%</div>
+              <div className="text-gray-400 font-light text-lg">
+                {language === "en" ? "Uptime Guarantee" : "Garantía de Funcionamiento"}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-light text-white mb-2">50%</div>
+              <div className="text-gray-400 font-light text-lg">
+                {language === "en" ? "Efficiency Improvement" : "Mejora de Eficiencia"}
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+        {/* Scroll Indicator */}
+        <motion.button
+          onClick={scrollToServices}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1 }}
+          whileHover={{ y: -5 }}
+          className="text-gray-400 hover:text-white transition-colors duration-300"
         >
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-light text-white mb-2">24/7</div>
-            <div className="text-gray-400 font-light">
-              {language === "en" ? "Continuous Operation" : "Operación Continua"}
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-light text-white mb-2">90%</div>
-            <div className="text-gray-400 font-light">
-              {language === "en" ? "Process Automation" : "Automatización de Procesos"}
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl md:text-4xl font-light text-white mb-2">50%</div>
-            <div className="text-gray-400 font-light">
-              {language === "en" ? "Cost Reduction" : "Reducción de Costos"}
-            </div>
-          </div>
-        </motion.div>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+          >
+            <ChevronDown className="w-8 h-8" />
+          </motion.div>
+        </motion.button>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce"></div>
-        </div>
-      </motion.div>
+      {/* Bottom Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/50 to-transparent"></div>
     </section>
   )
 }
