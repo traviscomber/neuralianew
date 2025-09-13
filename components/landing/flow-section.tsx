@@ -1,122 +1,156 @@
 "use client"
 
+import { motion } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, MessageCircle, Zap, Brain, Cog, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function FlowSection() {
   const { language } = useLanguage()
 
-  const flowSteps = [
+  const steps = [
     {
-      title: "Data Source",
-      titleEs: "Fuente de Datos",
-      description: "Use your cloud or create new Database from scratch",
-      descriptionEs: "Usa tu nube o crea nueva Base de Datos desde cero",
-      logos: [
-        {
-          name: "Google Drive",
-          src: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg",
-        },
-        { name: "Cloudify", src: "https://www.cloudify.co/wp-content/uploads/2019/08/cloudify-logo.svg" },
-        { name: "PostgreSQL", src: "/tech-icons/postgresql-logo.png" },
-        { name: "Meta", src: "/tech-icons/meta-logo.png" },
-        { name: "Twilio", src: "/tech-icons/twilio-logo.png" },
-      ],
+      icon: MessageCircle,
+      title: language === "en" ? "1. Consultation" : "1. Consulta",
+      description:
+        language === "en"
+          ? "We analyze your business needs and identify AI opportunities"
+          : "Analizamos las necesidades de tu negocio e identificamos oportunidades de IA",
+      duration: language === "en" ? "1-2 days" : "1-2 días",
     },
     {
-      title: "AI API Connection",
-      titleEs: "Conexión API IA",
-      description: "Connect or create AI tool and process data",
-      descriptionEs: "Conecta o crea herramienta IA y procesa datos",
-      logos: [
-        { name: "Manus", src: "https://manus.ai/favicon.ico" },
-        { name: "Circle", src: "https://via.placeholder.com/60x60/666/fff?text=O" },
-        { name: "Star", src: "https://via.placeholder.com/60x60/ff6b35/fff?text=★" },
-        { name: "Intel", src: "/tech-icons/intel-logo.png" },
-        { name: "Migration", src: "https://via.placeholder.com/60x60/4a90e2/fff?text=🐦" },
-      ],
+      icon: Brain,
+      title: language === "en" ? "2. AI Design" : "2. Diseño IA",
+      description:
+        language === "en"
+          ? "Custom AI agents and workflows designed for your specific use case"
+          : "Agentes IA personalizados y flujos de trabajo diseñados para tu caso específico",
+      duration: language === "en" ? "3-5 days" : "3-5 días",
     },
     {
-      title: "Multiple Outputs",
-      titleEs: "Múltiples Salidas",
-      description: "Collect results or create an automated action",
-      descriptionEs: "Recolecta resultados o crea una acción automatizada",
-      logos: [
-        { name: "Instagram", src: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" },
-        { name: "Circles", src: "https://via.placeholder.com/60x60/ff4444/fff?text=●●●" },
-        { name: "Facebook", src: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" },
-        { name: "LinkedIn", src: "https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" },
-        { name: "X", src: "https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" },
-        { name: "WhatsApp", src: "/tech-icons/whatsapp-logo.png" },
-      ],
+      icon: Cog,
+      title: language === "en" ? "3. Development" : "3. Desarrollo",
+      description:
+        language === "en"
+          ? "Full-stack development with modern technologies and best practices"
+          : "Desarrollo full-stack con tecnologías modernas y mejores prácticas",
+      duration: language === "en" ? "1-3 weeks" : "1-3 semanas",
+    },
+    {
+      icon: Zap,
+      title: language === "en" ? "4. Deployment" : "4. Despliegue",
+      description:
+        language === "en"
+          ? "Seamless integration with your existing systems and infrastructure"
+          : "Integración perfecta con tus sistemas e infraestructura existentes",
+      duration: language === "en" ? "1-2 days" : "1-2 días",
     },
   ]
 
   return (
-    <section id="flow" className="bg-[#e8e8e8] py-24 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        {/* Section Title */}
-        <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-light text-[#666666]">N3uralia's Flow</h2>
-        </div>
+    <section id="flow" className="bg-white py-20 sm:py-24 lg:py-32 px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16 lg:mb-24"
+        >
+          <Badge className="bg-gray-100 text-gray-700 border-0 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
+            {language === "en" ? "Our Process" : "Nuestro Proceso"}
+          </Badge>
 
-        {/* Flow Steps */}
-        <div className="max-w-6xl mx-auto space-y-16">
-          {flowSteps.map((step, index) => (
-            <div key={index} className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Left side - Text */}
-              <div className="text-left">
-                <h3 className="text-2xl font-light text-gray-600 mb-4">
-                  {language === "en" ? step.title : step.titleEs}
-                </h3>
-                <p className="text-lg text-gray-500 font-light leading-relaxed">
-                  {language === "en" ? step.description : step.descriptionEs}
-                </p>
-              </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 lg:mb-8 leading-[1.1] tracking-tight">
+            {language === "en" ? "From Idea to" : "De la Idea a la"}
+            <br />
+            <span className="font-bold text-black">{language === "en" ? "Implementation" : "Implementación"}</span>
+          </h2>
 
-              {/* Right side - Logo container */}
-              <div className="bg-[#d0d0d0] rounded-lg p-8">
-                <div className="flex flex-wrap items-center justify-center gap-6">
-                  {step.logos.map((logo, logoIndex) => (
-                    <div key={logoIndex} className="w-12 h-12 flex items-center justify-center">
-                      <img
-                        src={logo.src || "/placeholder.svg"}
-                        alt={logo.name}
-                        className="max-w-full max-h-full object-contain opacity-80 hover:opacity-100 transition-opacity"
-                        onError={(e) => {
-                          const target = e.currentTarget as HTMLImageElement
-                          target.style.display = "none"
-                          const placeholder = document.createElement("div")
-                          placeholder.className =
-                            "w-12 h-12 bg-gray-400 rounded flex items-center justify-center text-white text-xs font-bold"
-                          placeholder.textContent = logo.name.substring(0, 2).toUpperCase()
-                          target.parentNode?.replaceChild(placeholder, target)
-                        }}
-                      />
-                    </div>
-                  ))}
+          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
+            {language === "en"
+              ? "Our streamlined process ensures rapid deployment of AI solutions tailored to your business needs."
+              : "Nuestro proceso optimizado asegura el despliegue rápido de soluciones IA adaptadas a las necesidades de tu negocio."}
+          </p>
+        </motion.div>
+
+        {/* Process Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-16 lg:mb-24">
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <Card className="bg-gray-50 border border-gray-200 rounded-2xl hover:shadow-lg transition-all duration-300 h-full">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  {/* Icon */}
+                  <div className="w-16 h-16 lg:w-20 lg:h-20 mx-auto mb-6 lg:mb-8 bg-white rounded-2xl flex items-center justify-center shadow-sm">
+                    <step.icon className="w-8 h-8 lg:w-10 lg:h-10 text-gray-600" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-800 mb-4 lg:mb-6">
+                    {step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 lg:mb-6">{step.description}</p>
+
+                  {/* Duration */}
+                  <Badge className="bg-white text-gray-700 border border-gray-300 text-xs sm:text-sm font-medium">
+                    {step.duration}
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              {/* Arrow connector (hidden on mobile) */}
+              {index < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2">
+                  <ArrowRight className="w-6 h-6 text-gray-400" />
                 </div>
-              </div>
-            </div>
+              )}
+            </motion.div>
           ))}
         </div>
 
-        {/* Statistics Section */}
-        <div className="mt-32 bg-[#4a4a4a] rounded-lg py-16 px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-6xl md:text-7xl font-light text-gray-400 mb-4">300%</div>
-              <div className="text-xl font-light text-gray-400 tracking-wider">ROI</div>
-            </div>
-            <div>
-              <div className="text-6xl md:text-7xl font-light text-gray-400 mb-4">60%</div>
-              <div className="text-xl font-light text-gray-400 tracking-wider">AUTOMATION</div>
-            </div>
-            <div>
-              <div className="text-6xl md:text-7xl font-light text-gray-400 mb-4">95%</div>
-              <div className="text-xl font-light text-gray-400 tracking-wider">SATISFACTION</div>
-            </div>
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <div className="bg-gray-50 rounded-3xl p-8 sm:p-12 lg:p-16 max-w-4xl mx-auto">
+            <CheckCircle className="w-16 h-16 lg:w-20 lg:h-20 text-green-500 mx-auto mb-6 lg:mb-8" />
+
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-800 mb-4 lg:mb-6">
+              {language === "en" ? "Ready to get started?" : "¿Listo para comenzar?"}
+            </h3>
+
+            <p className="text-lg sm:text-xl text-gray-600 font-light mb-8 lg:mb-10 max-w-2xl mx-auto leading-relaxed">
+              {language === "en"
+                ? "Let's discuss your project and create a custom AI solution for your business."
+                : "Hablemos de tu proyecto y creemos una solución IA personalizada para tu negocio."}
+            </p>
+
+            <Button
+              size="lg"
+              className="bg-black hover:bg-gray-800 text-white font-medium px-10 py-5 rounded-full text-lg sm:text-xl transition-all duration-300 hover:scale-105"
+              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
+            >
+              <MessageCircle className="w-5 h-5 mr-3" />
+              {language === "en" ? "Start Your Project" : "Iniciar Tu Proyecto"}
+            </Button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

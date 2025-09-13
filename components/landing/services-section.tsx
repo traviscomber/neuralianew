@@ -31,33 +31,35 @@ export function ServicesSection() {
   ]
 
   return (
-    <section id="services" className="bg-[#e8e8e8] py-24 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        {/* Header */}
+    <section id="services" className="bg-[#e8e8e8] py-20 sm:py-24 lg:py-32 px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header - Proper typography hierarchy */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 md:mb-20"
+          className="text-center mb-16 lg:mb-24"
         >
-          <Badge className="bg-black text-white border-0 text-sm md:text-lg px-6 md:px-8 py-2 md:py-3 rounded-full mb-4 md:mb-6">
+          <Badge className="bg-black text-white border-0 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
             {language === "en" ? "Our Services" : "Nuestros Servicios"}
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-light text-black mb-4 md:mb-6">
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black mb-6 lg:mb-8 leading-[1.1] tracking-tight">
             {language === "en" ? "AI-Powered" : "Soluciones"}
             <br />
             <span className="font-bold">{language === "en" ? "Solutions" : "Potenciadas por IA"}</span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
+
+          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
             {language === "en"
               ? "Comprehensive AI solutions designed to transform your business operations and enhance customer experiences across all touchpoints."
               : "Soluciones integrales de IA diseñadas para transformar las operaciones de tu negocio y mejorar las experiencias del cliente en todos los puntos de contacto."}
           </p>
         </motion.div>
 
-        {/* Services Grid - Only 3 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {/* Services Grid - Proper spacing and responsive design */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-5xl mx-auto">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -65,25 +67,25 @@ export function ServicesSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               className="group"
             >
-              <Card className="bg-white border border-gray-300 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
-                <CardContent className="p-12 text-center">
-                  {/* Icon */}
-                  <div className="w-20 h-20 mx-auto mb-8 flex items-center justify-center">
-                    <service.icon className="w-16 h-16 text-gray-400 stroke-1" />
+              <Card className="bg-white border border-gray-300 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 h-full">
+                <CardContent className="p-8 sm:p-10 lg:p-12 text-center flex flex-col h-full">
+                  {/* Icon - Proper sizing and spacing */}
+                  <div className="w-20 h-20 lg:w-24 lg:h-24 mx-auto mb-8 lg:mb-10 flex items-center justify-center">
+                    <service.icon className="w-14 h-14 lg:w-16 lg:h-16 text-gray-400 stroke-1" />
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-light text-gray-600 mb-8 leading-relaxed whitespace-pre-line">
+                  {/* Title - Proper typography */}
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-gray-600 mb-8 lg:mb-10 leading-relaxed whitespace-pre-line flex-grow">
                     {language === "en" ? service.titleEn : service.title}
                   </h3>
 
-                  {/* Read more link */}
+                  {/* Read more link - Proper spacing */}
                   <a
                     href={service.link}
-                    className="text-gray-500 hover:text-gray-700 text-sm underline transition-colors"
+                    className="text-gray-500 hover:text-gray-700 text-sm lg:text-base underline transition-colors duration-300 mt-auto"
                   >
                     {language === "en" ? "Read more" : "Leer más"}
                   </a>
