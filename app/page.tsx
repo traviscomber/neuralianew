@@ -2,35 +2,22 @@ import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
 import { ServicesSection } from "@/components/landing/services-section"
 import { FlowSection } from "@/components/landing/flow-section"
-import { SolutionsSection } from "@/components/landing/solutions-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
-import { ClientsSection } from "@/components/landing/clients-section"
-import { ProductsSection } from "@/components/landing/products-section"
-import { DeploySection } from "@/components/landing/deploy-section"
-import { TrustSection } from "@/components/landing/trust-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
 import { Footer } from "@/components/landing/footer"
-import { LanguageProvider } from "@/lib/language-context"
 
 export default function HomePage() {
   return (
-    <LanguageProvider>
-      <div className="min-h-screen bg-white">
-        <Navigation />
-        <HeroSection />
-        <ServicesSection />
-        <FlowSection />
-        <SolutionsSection />
-        <TestimonialsSection />
-        <ClientsSection />
-        <ProductsSection />
-        <DeploySection />
-        <TrustSection />
-        <FAQSection />
-        <ContactSection />
-        <Footer />
-      </div>
-    </LanguageProvider>
+    <main className="min-h-screen">
+      <Navigation />
+      <HeroSection />
+      <ServicesSection />
+      <FlowSection />
+      <TestimonialsSection />
+      <FAQSection />
+      <ContactSection />
+      <Footer />
+    </main>
   )
 }

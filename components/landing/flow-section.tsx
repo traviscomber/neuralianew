@@ -8,44 +8,32 @@ import { ArrowRight, MessageCircle, Zap, Brain, Cog, CheckCircle } from "lucide-
 import { useLanguage } from "@/lib/language-context"
 
 export function FlowSection() {
-  const { language } = useLanguage()
+  const { t } = useLanguage()
 
   const steps = [
     {
       icon: MessageCircle,
-      title: language === "en" ? "1. Consultation" : "1. Consulta",
-      description:
-        language === "en"
-          ? "We analyze your business needs and identify AI opportunities"
-          : "Analizamos las necesidades de tu negocio e identificamos oportunidades de IA",
-      duration: language === "en" ? "1-2 days" : "1-2 días",
+      title: t("flow.step1.title"),
+      description: t("flow.step1.desc"),
+      duration: t("flow.step1.duration"),
     },
     {
       icon: Brain,
-      title: language === "en" ? "2. AI Design" : "2. Diseño IA",
-      description:
-        language === "en"
-          ? "Custom AI agents and workflows designed for your specific use case"
-          : "Agentes IA personalizados y flujos de trabajo diseñados para tu caso específico",
-      duration: language === "en" ? "3-5 days" : "3-5 días",
+      title: t("flow.step2.title"),
+      description: t("flow.step2.desc"),
+      duration: t("flow.step2.duration"),
     },
     {
       icon: Cog,
-      title: language === "en" ? "3. Development" : "3. Desarrollo",
-      description:
-        language === "en"
-          ? "Full-stack development with modern technologies and best practices"
-          : "Desarrollo full-stack con tecnologías modernas y mejores prácticas",
-      duration: language === "en" ? "1-3 weeks" : "1-3 semanas",
+      title: t("flow.step3.title"),
+      description: t("flow.step3.desc"),
+      duration: t("flow.step3.duration"),
     },
     {
       icon: Zap,
-      title: language === "en" ? "4. Deployment" : "4. Despliegue",
-      description:
-        language === "en"
-          ? "Seamless integration with your existing systems and infrastructure"
-          : "Integración perfecta con tus sistemas e infraestructura existentes",
-      duration: language === "en" ? "1-2 days" : "1-2 días",
+      title: t("flow.step4.title"),
+      description: t("flow.step4.desc"),
+      duration: t("flow.step4.duration"),
     },
   ]
 
@@ -61,19 +49,17 @@ export function FlowSection() {
           className="text-center mb-16 lg:mb-24"
         >
           <Badge className="bg-gray-100 text-gray-700 border-0 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
-            {language === "en" ? "Our Process" : "Nuestro Proceso"}
+            {t("flow.badge")}
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {language === "en" ? "From Idea to" : "De la Idea a la"}
+            {t("flow.title")}
             <br />
-            <span className="font-bold text-black">{language === "en" ? "Implementation" : "Implementación"}</span>
+            <span className="font-bold text-black">{t("flow.titleBold")}</span>
           </h2>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
-            {language === "en"
-              ? "Our streamlined process ensures rapid deployment of AI solutions tailored to your business needs."
-              : "Nuestro proceso optimizado asegura el despliegue rápido de soluciones IA adaptadas a las necesidades de tu negocio."}
+            {t("flow.subtitle")}
           </p>
         </motion.div>
 
@@ -132,13 +118,11 @@ export function FlowSection() {
             <CheckCircle className="w-16 h-16 lg:w-20 lg:h-20 text-green-500 mx-auto mb-6 lg:mb-8" />
 
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-800 mb-4 lg:mb-6">
-              {language === "en" ? "Ready to get started?" : "¿Listo para comenzar?"}
+              {t("flow.cta.title")}
             </h3>
 
             <p className="text-lg sm:text-xl text-gray-600 font-light mb-8 lg:mb-10 max-w-2xl mx-auto leading-relaxed">
-              {language === "en"
-                ? "Let's discuss your project and create a custom AI solution for your business."
-                : "Hablemos de tu proyecto y creemos una solución IA personalizada para tu negocio."}
+              {t("flow.cta.subtitle")}
             </p>
 
             <Button
@@ -147,7 +131,7 @@ export function FlowSection() {
               onClick={() => window.open("https://wa.me/56940946660", "_blank")}
             >
               <MessageCircle className="w-5 h-5 mr-3" />
-              {language === "en" ? "Start Your Project" : "Iniciar Tu Proyecto"}
+              {t("flow.cta.button")}
             </Button>
           </div>
         </motion.div>

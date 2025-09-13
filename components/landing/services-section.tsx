@@ -7,25 +7,22 @@ import { User, Network, Wrench } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function ServicesSection() {
-  const { language } = useLanguage()
+  const { t } = useLanguage()
 
   const services = [
     {
       icon: User,
-      title: "AGENTS and\nAUTOMATIONS",
-      titleEn: "AGENTS and\nAUTOMATIONS",
+      title: t("services.agents.title"),
       link: "#agents",
     },
     {
       icon: Network,
-      title: "MULTITASK\nAGENTIC SYSTEMS",
-      titleEn: "MULTITASK\nAGENTIC SYSTEMS",
+      title: t("services.multitask.title"),
       link: "#systems",
     },
     {
       icon: Wrench,
-      title: "FULL STACK\nPROJECTS",
-      titleEn: "FULL STACK\nPROJECTS",
+      title: t("services.fullstack.title"),
       link: "#projects",
     },
   ]
@@ -42,19 +39,17 @@ export function ServicesSection() {
           className="text-center mb-16 lg:mb-24"
         >
           <Badge className="bg-black text-white border-0 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
-            {language === "en" ? "Our Services" : "Nuestros Servicios"}
+            {t("services.badge")}
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-black mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {language === "en" ? "AI-Powered" : "Soluciones"}
+            {t("services.title")}
             <br />
-            <span className="font-bold">{language === "en" ? "Solutions" : "Potenciadas por IA"}</span>
+            <span className="font-bold">{t("services.titleBold")}</span>
           </h2>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
-            {language === "en"
-              ? "Comprehensive AI solutions designed to transform your business operations and enhance customer experiences across all touchpoints."
-              : "Soluciones integrales de IA diseñadas para transformar las operaciones de tu negocio y mejorar las experiencias del cliente en todos los puntos de contacto."}
+            {t("services.subtitle")}
           </p>
         </motion.div>
 
@@ -79,7 +74,7 @@ export function ServicesSection() {
 
                   {/* Title - Proper typography */}
                   <h3 className="text-lg sm:text-xl lg:text-2xl font-light text-gray-600 mb-8 lg:mb-10 leading-relaxed whitespace-pre-line flex-grow">
-                    {language === "en" ? service.titleEn : service.title}
+                    {service.title}
                   </h3>
 
                   {/* Read more link - Proper spacing */}
@@ -87,7 +82,7 @@ export function ServicesSection() {
                     href={service.link}
                     className="text-gray-500 hover:text-gray-700 text-sm lg:text-base underline transition-colors duration-300 mt-auto"
                   >
-                    {language === "en" ? "Read more" : "Leer más"}
+                    {t("services.readmore")}
                   </a>
                 </CardContent>
               </Card>

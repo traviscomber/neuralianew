@@ -7,7 +7,7 @@ import { useLanguage } from "@/lib/language-context"
 import { Star, Quote } from "lucide-react"
 
 export function TestimonialsSection() {
-  const { language } = useLanguage()
+  const { t, language } = useLanguage()
 
   const testimonials = [
     {
@@ -60,19 +60,17 @@ export function TestimonialsSection() {
           className="text-center mb-16 lg:mb-24"
         >
           <Badge className="bg-white text-gray-700 border border-gray-200 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
-            {language === "en" ? "Client Success Stories" : "Historias de Éxito"}
+            {t("testimonials.badge")}
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {language === "en" ? "What Our" : "Lo Que Dicen"}
+            {t("testimonials.title")}
             <br />
-            <span className="font-bold text-black">{language === "en" ? "Clients Say" : "Nuestros Clientes"}</span>
+            <span className="font-bold text-black">{t("testimonials.titleBold")}</span>
           </h2>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
-            {language === "en"
-              ? "Real feedback from businesses that have transformed their operations with our AI solutions."
-              : "Comentarios reales de empresas que han transformado sus operaciones con nuestras soluciones de IA."}
+            {t("testimonials.subtitle")}
           </p>
         </motion.div>
 
@@ -126,19 +124,19 @@ export function TestimonialsSection() {
               <div>
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 lg:mb-4">98%</div>
                 <div className="text-sm sm:text-base lg:text-lg text-gray-600 font-medium">
-                  {language === "en" ? "Client Satisfaction" : "Satisfacción del Cliente"}
+                  {t("testimonials.stats.satisfaction")}
                 </div>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 lg:mb-4">50+</div>
                 <div className="text-sm sm:text-base lg:text-lg text-gray-600 font-medium">
-                  {language === "en" ? "Projects Delivered" : "Proyectos Entregados"}
+                  {t("testimonials.stats.projects")}
                 </div>
               </div>
               <div>
                 <div className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 lg:mb-4">24/7</div>
                 <div className="text-sm sm:text-base lg:text-lg text-gray-600 font-medium">
-                  {language === "en" ? "Support Available" : "Soporte Disponible"}
+                  {t("testimonials.stats.support")}
                 </div>
               </div>
             </div>

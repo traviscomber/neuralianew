@@ -7,11 +7,11 @@ import { MessageSquare, Mail, Phone, MapPin, ExternalLink, Code, Users, Shield, 
 import { useLanguage } from "@/lib/language-context"
 
 export function Footer() {
-  const { language } = useLanguage()
+  const { t, language } = useLanguage()
 
   const footerSections = [
     {
-      title: language === "en" ? "Services" : "Servicios",
+      title: t("footer.services"),
       links: [
         { name: language === "en" ? "AI Agents" : "Agentes IA", href: "#solutions" },
         { name: language === "en" ? "Full Stack Development" : "Desarrollo Full Stack", href: "#services" },
@@ -20,7 +20,7 @@ export function Footer() {
       ],
     },
     {
-      title: language === "en" ? "Company" : "Empresa",
+      title: t("footer.company"),
       links: [
         { name: language === "en" ? "About Us" : "Acerca de Nosotros", href: "#team" },
         { name: language === "en" ? "Our Team" : "Nuestro Equipo", href: "#team" },
@@ -29,7 +29,7 @@ export function Footer() {
       ],
     },
     {
-      title: language === "en" ? "Resources" : "Recursos",
+      title: t("footer.resources"),
       links: [
         { name: language === "en" ? "Documentation" : "Documentación", href: "#" },
         { name: language === "en" ? "API Reference" : "Referencia API", href: "#" },
@@ -38,7 +38,7 @@ export function Footer() {
       ],
     },
     {
-      title: language === "en" ? "Legal" : "Legal",
+      title: t("footer.legal"),
       links: [
         { name: language === "en" ? "Privacy Policy" : "Política de Privacidad", href: "/politicas-de-privacidad" },
         { name: language === "en" ? "Terms of Service" : "Términos de Servicio", href: "/terminos-de-servicio" },
@@ -94,9 +94,7 @@ export function Footer() {
                 </div>
 
                 <p className="text-gray-300 leading-relaxed mb-8 lg:mb-10 font-light text-base lg:text-lg">
-                  {language === "en"
-                    ? "Building bridges to AI with cutting-edge solutions that transform businesses worldwide. Full-stack development, intelligent agents, and enterprise-grade support."
-                    : "Construyendo puentes hacia la IA con soluciones de vanguardia que transforman empresas a nivel mundial. Desarrollo full-stack, agentes inteligentes y soporte de nivel empresarial."}
+                  {t("footer.description")}
                 </p>
 
                 {/* Contact Info */}
@@ -166,9 +164,9 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-8">
             <div className="flex flex-col md:flex-row items-center gap-6 lg:gap-8">
               <p className="text-gray-400 text-sm lg:text-base font-light flex items-center gap-2">
-                © 2024 N3uralia. {language === "en" ? "Made with" : "Hecho con"}
+                © 2024 N3uralia. {t("footer.madeWith")}
                 <Heart className="w-4 h-4 text-red-500 fill-current" />
-                {language === "en" ? "in Chile" : "en Chile"}
+                {t("footer.inChile")}
               </p>
 
               <div className="flex items-center gap-4 lg:gap-6">
@@ -193,7 +191,7 @@ export function Footer() {
                 className="bg-white text-black hover:bg-gray-100 font-semibold px-6 lg:px-8 py-3 lg:py-4 rounded-xl text-sm lg:text-base transition-all duration-300 hover:scale-105"
               >
                 <MessageSquare className="w-4 h-4 mr-2" />
-                {language === "en" ? "Start Project" : "Iniciar Proyecto"}
+                {t("footer.startProject")}
               </Button>
             </div>
           </div>

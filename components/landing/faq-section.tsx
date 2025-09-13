@@ -6,7 +6,7 @@ import { useLanguage } from "@/lib/language-context"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export function FAQSection() {
-  const { language } = useLanguage()
+  const { t, language } = useLanguage()
 
   const faqs = [
     {
@@ -66,20 +66,16 @@ export function FAQSection() {
           className="text-center mb-16 lg:mb-24"
         >
           <Badge className="bg-gray-100 text-gray-700 border-0 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
-            {language === "en" ? "FAQ" : "Preguntas Frecuentes"}
+            {t("faq.badge")}
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {language === "en" ? "Frequently Asked" : "Preguntas"}
+            {t("faq.title")}
             <br />
-            <span className="font-bold text-black">{language === "en" ? "Questions" : "Frecuentes"}</span>
+            <span className="font-bold text-black">{t("faq.titleBold")}</span>
           </h2>
 
-          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light leading-relaxed">
-            {language === "en"
-              ? "Everything you need to know about our AI solutions and services."
-              : "Todo lo que necesitas saber sobre nuestras soluciones y servicios de IA."}
-          </p>
+          <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light leading-relaxed">{t("faq.subtitle")}</p>
         </motion.div>
 
         {/* FAQ Accordion */}

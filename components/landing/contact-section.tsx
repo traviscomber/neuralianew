@@ -11,29 +11,29 @@ import { Badge } from "@/components/ui/badge"
 import { Mail, Phone, MapPin, MessageSquare, Send, Clock, Shield } from "lucide-react"
 
 export function ContactSection() {
-  const { language } = useLanguage()
+  const { t } = useLanguage()
 
   const contactInfo = [
     {
       icon: Mail,
-      title: language === "en" ? "Email" : "Correo",
+      title: t("contact.info.email"),
       value: "contact@n3uralia.com",
       href: "mailto:contact@n3uralia.com",
-      description: language === "en" ? "Get in touch via email" : "Contáctanos por correo",
+      description: t("contact.info.emailDesc"),
     },
     {
       icon: Phone,
-      title: language === "en" ? "Phone" : "Teléfono",
+      title: t("contact.info.phone"),
       value: "+56 9 4094 6660",
       href: "tel:+56940946660",
-      description: language === "en" ? "Call us directly" : "Llámanos directamente",
+      description: t("contact.info.phoneDesc"),
     },
     {
       icon: MapPin,
-      title: language === "en" ? "Location" : "Ubicación",
+      title: t("contact.info.location"),
       value: "Santiago, Chile",
       href: "#",
-      description: language === "en" ? "Our headquarters" : "Nuestra sede principal",
+      description: t("contact.info.locationDesc"),
     },
   ]
 
@@ -49,19 +49,17 @@ export function ContactSection() {
           className="text-center mb-16 lg:mb-24"
         >
           <Badge className="bg-white text-gray-700 border border-gray-200 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-2 sm:py-3 rounded-full mb-6 lg:mb-8 font-medium">
-            {language === "en" ? "Get In Touch" : "Contáctanos"}
+            {t("contact.badge")}
           </Badge>
 
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {language === "en" ? "Let's Build" : "Construyamos"}
+            {t("contact.title")}
             <br />
-            <span className="font-bold text-black">{language === "en" ? "Together" : "Juntos"}</span>
+            <span className="font-bold text-black">{t("contact.titleBold")}</span>
           </h2>
 
           <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
-            {language === "en"
-              ? "Ready to transform your business with AI? Get in touch with our team and let's discuss your project."
-              : "¿Listo para transformar tu negocio con IA? Ponte en contacto con nuestro equipo y hablemos de tu proyecto."}
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -76,55 +74,53 @@ export function ContactSection() {
             <Card className="bg-white border border-gray-200 rounded-3xl shadow-sm">
               <CardContent className="p-8 sm:p-10 lg:p-12">
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-800 mb-8 lg:mb-10">
-                  {language === "en" ? "Send us a message" : "Envíanos un mensaje"}
+                  {t("contact.form.title")}
                 </h3>
 
                 <form className="space-y-6 lg:space-y-8">
                   <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
                     <div>
                       <Label htmlFor="name" className="text-gray-700 font-medium mb-3 block text-base lg:text-lg">
-                        {language === "en" ? "Name" : "Nombre"}
+                        {t("contact.form.name")}
                       </Label>
                       <Input
                         id="name"
                         className="border-2 border-gray-200 focus:border-gray-400 rounded-xl h-12 lg:h-14 text-base lg:text-lg"
-                        placeholder={language === "en" ? "Your name" : "Tu nombre"}
+                        placeholder={t("contact.form.namePlaceholder")}
                       />
                     </div>
                     <div>
                       <Label htmlFor="email" className="text-gray-700 font-medium mb-3 block text-base lg:text-lg">
-                        {language === "en" ? "Email" : "Correo"}
+                        {t("contact.form.email")}
                       </Label>
                       <Input
                         id="email"
                         type="email"
                         className="border-2 border-gray-200 focus:border-gray-400 rounded-xl h-12 lg:h-14 text-base lg:text-lg"
-                        placeholder={language === "en" ? "your@email.com" : "tu@correo.com"}
+                        placeholder={t("contact.form.emailPlaceholder")}
                       />
                     </div>
                   </div>
 
                   <div>
                     <Label htmlFor="subject" className="text-gray-700 font-medium mb-3 block text-base lg:text-lg">
-                      {language === "en" ? "Subject" : "Asunto"}
+                      {t("contact.form.subject")}
                     </Label>
                     <Input
                       id="subject"
                       className="border-2 border-gray-200 focus:border-gray-400 rounded-xl h-12 lg:h-14 text-base lg:text-lg"
-                      placeholder={language === "en" ? "How can we help?" : "¿Cómo podemos ayudar?"}
+                      placeholder={t("contact.form.subjectPlaceholder")}
                     />
                   </div>
 
                   <div>
                     <Label htmlFor="message" className="text-gray-700 font-medium mb-3 block text-base lg:text-lg">
-                      {language === "en" ? "Message" : "Mensaje"}
+                      {t("contact.form.message")}
                     </Label>
                     <Textarea
                       id="message"
                       className="border-2 border-gray-200 focus:border-gray-400 rounded-xl min-h-[140px] lg:min-h-[160px] resize-none text-base lg:text-lg"
-                      placeholder={
-                        language === "en" ? "Tell us about your project..." : "Cuéntanos sobre tu proyecto..."
-                      }
+                      placeholder={t("contact.form.messagePlaceholder")}
                     />
                   </div>
 
@@ -134,7 +130,7 @@ export function ContactSection() {
                       className="flex-1 bg-gray-800 hover:bg-gray-900 text-white font-medium px-8 py-4 lg:py-5 rounded-xl h-auto text-base lg:text-lg transition-all duration-300 hover:scale-105"
                     >
                       <Send className="w-5 h-5 mr-3" />
-                      {language === "en" ? "Send Message" : "Enviar Mensaje"}
+                      {t("contact.form.send")}
                     </Button>
                     <Button
                       type="button"
@@ -160,7 +156,7 @@ export function ContactSection() {
           >
             <div>
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-light text-gray-800 mb-8 lg:mb-10">
-                {language === "en" ? "Get in touch" : "Ponte en contacto"}
+                {t("contact.info.title")}
               </h3>
 
               <div className="space-y-6 lg:space-y-8">
@@ -189,23 +185,18 @@ export function ContactSection() {
               <CardContent className="p-6 lg:p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Clock className="w-6 h-6 lg:w-7 lg:h-7 text-gray-600" />
-                  <h4 className="text-xl lg:text-2xl font-medium text-gray-800">
-                    {language === "en" ? "Office Hours" : "Horario de Oficina"}
-                  </h4>
+                  <h4 className="text-xl lg:text-2xl font-medium text-gray-800">{t("contact.hours.title")}</h4>
                 </div>
 
                 <div className="space-y-3 text-gray-600">
                   <p className="text-base lg:text-lg">
-                    <span className="font-medium">{language === "en" ? "Monday - Friday:" : "Lunes - Viernes:"}</span>{" "}
-                    9:00 AM - 6:00 PM (CLT)
+                    <span className="font-medium">{t("contact.hours.weekdays")}</span> 9:00 AM - 6:00 PM (CLT)
                   </p>
                   <p className="text-base lg:text-lg">
-                    <span className="font-medium">{language === "en" ? "Saturday:" : "Sábado:"}</span> 10:00 AM - 2:00
-                    PM (CLT)
+                    <span className="font-medium">{t("contact.hours.saturday")}</span> 10:00 AM - 2:00 PM (CLT)
                   </p>
                   <p className="text-base lg:text-lg">
-                    <span className="font-medium">{language === "en" ? "Sunday:" : "Domingo:"}</span>{" "}
-                    {language === "en" ? "Closed" : "Cerrado"}
+                    <span className="font-medium">{t("contact.hours.sunday")}</span> {t("contact.hours.closed")}
                   </p>
                 </div>
               </CardContent>
@@ -216,15 +207,11 @@ export function ContactSection() {
               <CardContent className="p-6 lg:p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <Shield className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
-                  <h4 className="text-xl lg:text-2xl font-medium">
-                    {language === "en" ? "Emergency Support" : "Soporte de Emergencia"}
-                  </h4>
+                  <h4 className="text-xl lg:text-2xl font-medium">{t("contact.emergency.title")}</h4>
                 </div>
 
                 <p className="text-gray-300 mb-6 lg:mb-8 font-light text-base lg:text-lg leading-relaxed">
-                  {language === "en"
-                    ? "Need urgent assistance? Our emergency support is available 24/7 for critical issues and system outages."
-                    : "¿Necesitas asistencia urgente? Nuestro soporte de emergencia está disponible 24/7 para problemas críticos y caídas del sistema."}
+                  {t("contact.emergency.desc")}
                 </p>
 
                 <Button
@@ -232,7 +219,7 @@ export function ContactSection() {
                   className="bg-white text-gray-800 hover:bg-gray-100 font-medium px-6 lg:px-8 py-3 lg:py-4 rounded-xl text-base lg:text-lg transition-all duration-300 hover:scale-105"
                 >
                   <MessageSquare className="w-5 h-5 mr-3" />
-                  {language === "en" ? "Emergency Contact" : "Contacto de Emergencia"}
+                  {t("contact.emergency.button")}
                 </Button>
               </CardContent>
             </Card>
