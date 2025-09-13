@@ -10,8 +10,6 @@ import { DeploySection } from "@/components/landing/deploy-section"
 import { TrustSection } from "@/components/landing/trust-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
-import { TeamSection } from "@/components/landing/team-section"
-import { TechnicalFeaturesSection } from "@/components/landing/technical-features-section"
 import { Footer } from "@/components/landing/footer"
 
 export default function Home() {
@@ -25,8 +23,6 @@ export default function Home() {
       <TestimonialsSection />
       <ClientsSection />
       <ProductsSection />
-      <TeamSection />
-      <TechnicalFeaturesSection />
       <DeploySection />
       <TrustSection />
       <FAQSection />
