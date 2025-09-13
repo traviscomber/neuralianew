@@ -1,33 +1,42 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import type React from "react"
+
 import { motion } from "framer-motion"
-import { Zap, Shield, TrendingUp } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, MessageCircle, Zap, Globe, Users, CheckCircle2 } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { ChatWidget } from "@/components/chat/chat-widget"
+import { useState } from "react"
 
 export function HeroSection() {
-  const [currentMetric, setCurrentMetric] = useState(0)
   const { language } = useLanguage()
+  const [isChatOpen, setIsChatOpen] = useState(false)
 
-  const metrics = [
-    { value: "95%", label: "Client Satisfaction", icon: TrendingUp },
-    { value: "60%", label: "Cost Reduction", icon: TrendingUp },
-    { value: "48h", label: "Quick Setup", icon: Zap },
-    { value: "99.9%", label: "Uptime SLA", icon: Shield },
-  ]
+  const handleKeyDown = (e: React.KeyboardEvent, action: () => void) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      action()
+    }
+  }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMetric((prev) => (prev + 1) % metrics.length)
-    }, 3000)
-    return () => clearInterval(interval)
-  }, [])
+  const handleChatToggle = () => {
+    setIsChatOpen(!isChatOpen)
+  }
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
+  const handleWhatsAppClick = () => {
+    window.open(
+      "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20una%20solución%20completa%20con%20IA",
+      "_blank",
+    )
+  }
+
+  const handleLearnMoreClick = () => {
+    const element = document.getElementById("solutions")
     if (element) {
-      const navHeight = window.innerWidth < 768 ? 70 : 80
+      const navHeight = 80
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
       const offsetPosition = elementPosition - navHeight
       window.scrollTo({ top: offsetPosition, behavior: "smooth" })
@@ -35,87 +44,215 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gray-50 pt-16 sm:pt-20 px-4">
-      {/* Minimalist Background Pattern */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:50px_50px]"></div>
-      </div>
-
-      {/* Floating Elements - Adjusted for mobile */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.1, 0.3, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 left-1/6 w-24 h-24 sm:w-40 sm:h-40 bg-gray-400/10 rounded-full blur-2xl sm:blur-3xl"
-        />
-        <motion.div
-          animate={{
-            y: [0, 15, 0],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 4,
-          }}
-          className="absolute bottom-1/3 right-1/6 w-20 h-20 sm:w-32 sm:h-32 bg-gray-400/10 rounded-full blur-xl sm:blur-2xl"
-        />
-      </div>
-
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-6 sm:space-y-8"
-        >
-          {/* Mobile-optimized heading */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-gray-900 leading-tight px-2">
-            <span className="block sm:inline">Building Bridges</span>
-            <span className="block sm:inline"> to AI</span>
-          </h1>
-
-          {/* Mobile-optimized description */}
-          <p className="text-lg sm:text-xl md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed px-4">
-            {language === "en"
-              ? "At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights."
-              : "En N3uralia, nos especializamos en soluciones de IA de vanguardia diseñadas para elevar tu negocio a nuevas alturas."}
-          </p>
-
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-            {language === "en"
-              ? "Our intuitive platforms harness the power of artificial intelligence, transforming complex data into actionable insights."
-              : "Nuestras plataformas intuitivas aprovechan el poder de la inteligencia artificial, transformando datos complejos en insights accionables."}
-          </p>
-
-          {/* Mobile-optimized buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 sm:pt-8 px-4">
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("solutions")}
-              className="bg-gray-900 hover:bg-gray-800 text-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-full border-0 min-h-[48px] sm:min-h-[56px] w-full sm:w-auto"
+    <section className="relative pt-20 sm:pt-24 pb-16 sm:pb-24 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left Column - Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
+          >
+            {/* Status Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-8 shadow-sm"
             >
-              {language === "en" ? "Explore Solutions" : "Explorar Soluciones"}
-            </Button>
-            <Button
-              size="lg"
-              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-              variant="outline"
-              className="border-2 border-gray-700 text-gray-900 hover:bg-gray-100 bg-white px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg rounded-full min-h-[48px] sm:min-h-[56px] w-full sm:w-auto"
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium text-gray-700">
+                {language === "en" ? "AI Systems Online 24/7" : "Sistemas IA Online 24/7"}
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            </motion.div>
+
+            {/* Main Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-light text-gray-900 mb-6 leading-tight"
             >
-              {language === "en" ? "Contact Human" : "Contactar Humano"}
-            </Button>
-          </div>
-        </motion.div>
+              {language === "en" ? (
+                <>
+                  Complete AI
+                  <br />
+                  <span className="font-normal">Ecosystems</span>
+                </>
+              ) : (
+                <>
+                  Ecosistemas IA
+                  <br />
+                  <span className="font-normal">Completos</span>
+                </>
+              )}
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto lg:mx-0"
+            >
+              {language === "en"
+                ? "Full-stack development with integrated AI agents. From frontend to backend, databases to intelligent conversations."
+                : "Desarrollo full-stack con agentes IA integrados. Desde frontend hasta backend, bases de datos hasta conversaciones inteligentes."}
+            </motion.p>
+
+            {/* CTA Buttons - Enhanced keyboard accessibility */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+            >
+              <Button
+                onClick={handleWhatsAppClick}
+                onKeyDown={(e) => handleKeyDown(e, handleWhatsAppClick)}
+                size="lg"
+                className="bg-gray-900 hover:bg-gray-800 focus:bg-gray-800 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 min-h-[56px]"
+                aria-label="Start WhatsApp conversation to get started"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                {language === "en" ? "Get Started" : "Comenzar"}
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+
+              <Button
+                onClick={handleLearnMoreClick}
+                onKeyDown={(e) => handleKeyDown(e, handleLearnMoreClick)}
+                variant="outline"
+                size="lg"
+                className="border-2 border-gray-300 hover:border-gray-400 focus:border-gray-400 text-gray-700 hover:text-gray-900 focus:text-gray-900 px-8 py-4 rounded-full text-lg font-medium hover:bg-gray-50 focus:bg-gray-50 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 min-h-[56px]"
+                aria-label="Learn more about our solutions"
+              >
+                {language === "en" ? "Learn More" : "Saber Más"}
+              </Button>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="grid grid-cols-3 gap-6 sm:gap-8"
+            >
+              <div className="text-center lg:text-left">
+                <div className="text-2xl sm:text-3xl font-light text-gray-900 mb-1">35+</div>
+                <div className="text-sm text-gray-600">{language === "en" ? "AI Projects" : "Proyectos IA"}</div>
+              </div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl sm:text-3xl font-light text-gray-900 mb-1">24/7</div>
+                <div className="text-sm text-gray-600">{language === "en" ? "Global Support" : "Soporte Global"}</div>
+              </div>
+              <div className="text-center lg:text-left">
+                <div className="text-2xl sm:text-3xl font-light text-gray-900 mb-1">99.9%</div>
+                <div className="text-sm text-gray-600">{language === "en" ? "Uptime" : "Disponibilidad"}</div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Interactive Demo */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="relative"
+          >
+            <Card className="bg-white border border-gray-200 rounded-3xl shadow-2xl overflow-hidden">
+              <CardContent className="p-0">
+                {/* Demo Header */}
+                <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                        <Zap className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg">N3uralia AI Assistant</h3>
+                        <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 text-xs">
+                          <Globe className="w-3 h-3 mr-1" />
+                          {language === "en" ? "Online" : "En línea"}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                      <span className="text-sm">{language === "en" ? "Active" : "Activo"}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Demo Content */}
+                <div className="p-6 space-y-4">
+                  <div className="bg-gray-50 rounded-2xl p-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Users className="w-4 h-4 text-gray-600" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-sm text-gray-700 mb-2">
+                          {language === "en"
+                            ? "Hello! I'm your AI assistant. I can help you with:"
+                            : "¡Hola! Soy tu asistente IA. Puedo ayudarte con:"}
+                        </p>
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                            {language === "en" ? "Full-stack development" : "Desarrollo full-stack"}
+                          </div>
+                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                            {language === "en" ? "AI integration" : "Integración IA"}
+                          </div>
+                          <div className="flex items-center gap-2 text-xs text-gray-600">
+                            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                            {language === "en" ? "24/7 support" : "Soporte 24/7"}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Chat Button - Keyboard accessible */}
+                  <Button
+                    onClick={handleChatToggle}
+                    onKeyDown={(e) => handleKeyDown(e, handleChatToggle)}
+                    className="w-full bg-gray-900 hover:bg-gray-800 focus:bg-gray-800 text-white py-3 rounded-full font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                    aria-label={isChatOpen ? "Close chat demo" : "Open chat demo"}
+                  >
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    {language === "en" ? "Try Live Demo" : "Probar Demo en Vivo"}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Floating Elements */}
+            <motion.div
+              animate={{ y: [-10, 10, -10] }}
+              transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 w-20 h-20 bg-white rounded-2xl shadow-lg border border-gray-200 flex items-center justify-center"
+            >
+              <Zap className="w-8 h-8 text-gray-700" />
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [10, -10, 10] }}
+              transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+              className="absolute -bottom-4 -left-4 w-16 h-16 bg-white rounded-xl shadow-lg border border-gray-200 flex items-center justify-center"
+            >
+              <Globe className="w-6 h-6 text-gray-700" />
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
+
+      {/* Chat Widget */}
+      <ChatWidget isOpen={isChatOpen} onToggle={setIsChatOpen} />
     </section>
   )
 }
