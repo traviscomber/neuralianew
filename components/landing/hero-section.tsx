@@ -2,65 +2,112 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { MessageSquare, ArrowRight } from "lucide-react"
+import { ArrowRight, MessageCircle } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
-  const { t } = useLanguage()
+  const { language } = useLanguage()
+
+  const scrollToContact = () => {
+    const element = document.querySelector("#contact")
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
+  const openWhatsApp = () => {
+    window.open("https://wa.me/56931234567", "_blank")
+  }
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-50 flex items-center justify-center overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gray-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gray-300/20 rounded-full blur-3xl"></div>
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* Main Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-6 sm:space-y-8 lg:space-y-10"
+          className="mb-8"
         >
-          {/* Badge */}
-          <Badge className="bg-black text-white border-0 text-sm sm:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full">
-            {t("hero.badge")}
-          </Badge>
-
-          {/* Main Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-light text-gray-800 leading-[1.1] tracking-tight">
-            {t("hero.title")}
-            <br />
-            <span className="font-bold text-black">{t("hero.titleBold")}</span>
+          <h1 className="text-5xl md:text-7xl font-light mb-6 leading-tight">
+            {language === "en" ? (
+              <>
+                AI Agents for
+                <br />
+                <span className="text-gray-300">Business Automation</span>
+              </>
+            ) : (
+              <>
+                Agentes de IA para
+                <br />
+                <span className="text-gray-300">Automatización Empresarial</span>
+              </>
+            )}
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed px-4">
-            {t("hero.subtitle")}
+          <p className="text-xl md:text-2xl text-gray-300 font-light max-w-3xl mx-auto leading-relaxed">
+            {language === "en"
+              ? "Transform your business processes with intelligent AI agents that work 24/7 to optimize operations and drive growth."
+              : "Transforma tus procesos empresariales con agentes de IA inteligentes que trabajan 24/7 para optimizar operaciones e impulsar el crecimiento."}
           </p>
+        </motion.div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 pt-4 sm:pt-6 lg:pt-8">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto bg-black text-white hover:bg-gray-800 font-semibold px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg lg:text-xl transition-all duration-300 hover:scale-105 shadow-2xl"
-              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-              {t("hero.cta.primary")}
-            </Button>
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+        >
+          <Button
+            onClick={scrollToContact}
+            size="lg"
+            className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-2 group"
+          >
+            {language === "en" ? "Start Implementation" : "Comenzar Implementación"}
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:w-auto bg-gray-800 hover:bg-gray-900 text-white border-gray-800 hover:border-gray-900 font-semibold px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg lg:text-xl transition-all duration-300 hover:scale-105"
-              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-            >
-              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
-              {t("hero.cta.secondary")}
-            </Button>
+          <Button
+            onClick={openWhatsApp}
+            variant="outline"
+            size="lg"
+            className="border-2 border-gray-400 text-gray-300 hover:bg-gray-800 hover:text-white px-8 py-4 text-lg font-medium rounded-lg transition-all duration-300 flex items-center gap-2 bg-transparent"
+          >
+            <MessageCircle className="w-5 h-5" />
+            {language === "en" ? "Contact Human" : "Contactar Humano"}
+          </Button>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+        >
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-light text-white mb-2">24/7</div>
+            <div className="text-gray-400 font-light">
+              {language === "en" ? "Continuous Operation" : "Operación Continua"}
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-light text-white mb-2">90%</div>
+            <div className="text-gray-400 font-light">
+              {language === "en" ? "Process Automation" : "Automatización de Procesos"}
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl md:text-4xl font-light text-white mb-2">50%</div>
+            <div className="text-gray-400 font-light">
+              {language === "en" ? "Cost Reduction" : "Reducción de Costos"}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -69,15 +116,11 @@ export function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
         <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY }}
-            className="w-1 h-3 bg-gray-500 rounded-full mt-2"
-          />
+          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce"></div>
         </div>
       </motion.div>
     </section>

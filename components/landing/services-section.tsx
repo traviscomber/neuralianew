@@ -2,119 +2,174 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Bot, Code, Zap } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { Bot, Zap, Shield, ArrowRight } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 export function ServicesSection() {
-  const { t, language } = useLanguage()
+  const { language } = useLanguage()
+  const router = useRouter()
 
   const services = [
     {
+      title: language === "en" ? "AI Agent Development" : "Desarrollo de Agentes de IA",
+      shortDescription:
+        language === "en"
+          ? "Custom AI agents tailored to your specific business needs and processes."
+          : "Agentes de IA personalizados adaptados a tus necesidades y procesos empresariales específicos.",
+      fullDescription:
+        language === "en"
+          ? "We develop intelligent conversational agents that understand your business context, automate complex workflows, and provide 24/7 customer support with natural language processing capabilities."
+          : "Desarrollamos agentes conversacionales inteligentes que entienden el contexto de tu negocio, automatizan flujos de trabajo complejos y brindan soporte al cliente 24/7 con capacidades de procesamiento de lenguaje natural.",
+      features:
+        language === "en"
+          ? ["Custom Training", "Process Integration", "24/7 Operation", "Scalable Architecture"]
+          : ["Entrenamiento Personalizado", "Integración de Procesos", "Operación 24/7", "Arquitectura Escalable"],
       icon: Bot,
-      title: language === "en" ? "AI Agent Development" : "Desarrollo de Agentes IA",
-      description:
-        language === "en"
-          ? "Custom AI agents that understand your business context and automate complex workflows with natural language processing."
-          : "Agentes IA personalizados que entienden el contexto de tu negocio y automatizan flujos de trabajo complejos con procesamiento de lenguaje natural.",
-      features: [
-        language === "en" ? "Natural Language Processing" : "Procesamiento de Lenguaje Natural",
-        language === "en" ? "Custom Training" : "Entrenamiento Personalizado",
-        language === "en" ? "Multi-platform Integration" : "Integración Multiplataforma",
-      ],
+      href: "/services",
+      metrics: language === "en" ? "95% Customer Satisfaction" : "95% Satisfacción del Cliente",
     },
     {
-      icon: Code,
-      title: language === "en" ? "Full-Stack Development" : "Desarrollo Full-Stack",
-      description:
+      title: language === "en" ? "Process Automation" : "Automatización de Procesos",
+      shortDescription:
         language === "en"
-          ? "End-to-end development solutions using modern technologies like React, Node.js, and cloud infrastructure."
-          : "Soluciones de desarrollo end-to-end usando tecnologías modernas como React, Node.js e infraestructura en la nube.",
-      features: [
-        language === "en" ? "Modern Tech Stack" : "Stack Tecnológico Moderno",
-        language === "en" ? "Scalable Architecture" : "Arquitectura Escalable",
-        language === "en" ? "Cloud Deployment" : "Despliegue en la Nube",
-      ],
-    },
-    {
+          ? "Streamline your workflows with intelligent automation that adapts to your business."
+          : "Optimiza tus flujos de trabajo con automatización inteligente que se adapta a tu negocio.",
+      fullDescription:
+        language === "en"
+          ? "Transform your business operations with AI-powered automation that reduces manual tasks, eliminates errors, and increases efficiency across all departments and processes."
+          : "Transforma tus operaciones empresariales con automatización impulsada por IA que reduce tareas manuales, elimina errores y aumenta la eficiencia en todos los departamentos y procesos.",
+      features:
+        language === "en"
+          ? ["Workflow Optimization", "Task Automation", "Error Reduction", "Performance Analytics"]
+          : ["Optimización de Flujos", "Automatización de Tareas", "Reducción de Errores", "Análisis de Rendimiento"],
       icon: Zap,
-      title: language === "en" ? "System Integration" : "Integración de Sistemas",
-      description:
+      href: "/process-automation",
+      metrics: language === "en" ? "70% Time Reduction" : "70% Reducción de Tiempo",
+    },
+    {
+      title: language === "en" ? "Enterprise Integration" : "Integración Empresarial",
+      shortDescription:
         language === "en"
-          ? "Seamless integration with your existing systems, APIs, and databases to create unified business solutions."
-          : "Integración perfecta con tus sistemas existentes, APIs y bases de datos para crear soluciones empresariales unificadas.",
-      features: [
-        language === "en" ? "API Integration" : "Integración de APIs",
-        language === "en" ? "Database Migration" : "Migración de Bases de Datos",
-        language === "en" ? "Legacy System Support" : "Soporte de Sistemas Legacy",
-      ],
+          ? "Seamlessly integrate AI solutions with your existing systems and infrastructure."
+          : "Integra sin problemas las soluciones de IA con tus sistemas e infraestructura existentes.",
+      fullDescription:
+        language === "en"
+          ? "Connect your AI agents with existing CRM, ERP, and business systems for unified operations. We ensure secure, compliant, and scalable integrations with enterprise-grade support."
+          : "Conecta tus agentes de IA con sistemas CRM, ERP y empresariales existentes para operaciones unificadas. Garantizamos integraciones seguras, compatibles y escalables con soporte de nivel empresarial.",
+      features:
+        language === "en"
+          ? ["System Integration", "Data Security", "Compliance", "Support & Maintenance"]
+          : ["Integración de Sistemas", "Seguridad de Datos", "Cumplimiento", "Soporte y Mantenimiento"],
+      icon: Shield,
+      href: "/enterprise-integration",
+      metrics: language === "en" ? "99.9% Uptime" : "99.9% Tiempo Activo",
     },
   ]
 
+  const handleCardClick = (href: string) => {
+    router.push(href)
+  }
+
   return (
-    <section id="services" className="py-16 sm:py-20 lg:py-24 xl:py-32 bg-gray-50 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section id="services" className="py-24 bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16 lg:mb-20"
+          className="text-center mb-16"
         >
-          <Badge className="bg-white text-gray-700 border-0 text-sm sm:text-base lg:text-lg px-4 sm:px-6 lg:px-8 py-2 sm:py-3 rounded-full mb-4 sm:mb-6 lg:mb-8 font-medium shadow-sm">
-            {t("services.badge")}
-          </Badge>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-4 sm:mb-6 lg:mb-8 leading-[1.1] tracking-tight">
-            {t("services.title")}
-            <br />
-            <span className="font-bold text-black">{t("services.titleBold")}</span>
+          <h2 className="text-6xl font-light text-gray-900 mb-4">
+            {language === "en" ? "Our Services" : "Nuestros Servicios"}
           </h2>
-
-          <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
-            {t("services.subtitle")}
+          <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
+            {language === "en"
+              ? "Comprehensive AI solutions designed to transform your business operations"
+              : "Soluciones integrales de IA diseñadas para transformar tus operaciones empresariales"}
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+        <div className="grid md:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
+              className="group perspective-1000 h-80"
             >
-              <Card className="bg-white border border-gray-200 rounded-2xl hover:shadow-xl transition-all duration-300 h-full group hover:-translate-y-1">
-                <CardContent className="p-6 sm:p-8 lg:p-10">
-                  {/* Icon */}
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 sm:mb-8 group-hover:bg-gray-200 transition-colors">
-                    <service.icon className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 text-gray-600" />
-                  </div>
+              <div
+                className="relative w-full h-full transform-style-preserve-3d transition-transform duration-700 group-hover:rotate-y-180 cursor-pointer"
+                onClick={() => handleCardClick(service.href)}
+              >
+                {/* Front of Card */}
+                <Card className="absolute inset-0 w-full h-full backface-hidden border-0 shadow-lg group-hover:shadow-xl transition-all duration-300 bg-white group-hover:bg-black">
+                  <CardContent className="p-8 h-full flex flex-col justify-between">
+                    {/* Icon */}
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gray-100 group-hover:bg-gray-800 rounded-2xl flex items-center justify-center transition-colors duration-300">
+                        <service.icon className="w-8 h-8 text-gray-700 group-hover:text-white transition-colors duration-300" />
+                      </div>
+                    </div>
 
-                  {/* Title */}
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-4 sm:mb-6">
-                    {service.title}
-                  </h3>
+                    {/* Title */}
+                    <h3 className="text-2xl font-light text-gray-900 group-hover:text-white mb-4 transition-colors duration-300">
+                      {service.title}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6 sm:mb-8">
-                    {service.description}
-                  </p>
+                    {/* Description */}
+                    <p className="text-gray-600 group-hover:text-gray-300 font-light mb-6 leading-relaxed transition-colors duration-300">
+                      {service.shortDescription}
+                    </p>
 
-                  {/* Features */}
-                  <ul className="space-y-2 sm:space-y-3">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm sm:text-base text-gray-700">
-                        <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gray-400 rounded-full mr-3 sm:mr-4"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
+                    {/* Metrics */}
+                    <div className="mt-auto">
+                      <div className="bg-gray-100 group-hover:bg-gray-800 text-gray-700 group-hover:text-white px-4 py-2 rounded-full text-sm font-light transition-colors duration-300 inline-block">
+                        {service.metrics}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Back of Card */}
+                <Card className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 border-0 shadow-xl bg-black text-white">
+                  <CardContent className="p-8 h-full flex flex-col justify-between">
+                    {/* Icon */}
+                    <div className="mb-6">
+                      <div className="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center">
+                        <service.icon className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl font-light text-white mb-4">{service.title}</h3>
+
+                    {/* Full Description */}
+                    <p className="text-gray-300 font-light mb-6 leading-relaxed text-sm">{service.fullDescription}</p>
+
+                    {/* Features */}
+                    <div className="space-y-2 mb-6">
+                      {service.features.slice(0, 2).map((feature, featureIndex) => (
+                        <div key={featureIndex} className="flex items-center text-sm text-gray-300">
+                          <div className="w-2 h-2 bg-white rounded-full mr-3"></div>
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* CTA */}
+                    <div className="mt-auto flex items-center text-white font-light">
+                      <span className="mr-2">{language === "en" ? "Learn More" : "Saber Más"}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </motion.div>
           ))}
         </div>
