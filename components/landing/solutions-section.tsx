@@ -2,68 +2,42 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Database, HeadphonesIcon, FileText, BookOpen, Calendar, Workflow } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { User, Network, Wrench } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function SolutionsSection() {
-  const { t, language } = useLanguage()
+  const { language } = useLanguage()
 
   const solutions = [
     {
-      icon: Database,
-      title: "Data Extraction",
-      description: "Extract actionable insights",
+      icon: User,
+      title: language === "en" ? "AGENTS and AUTOMATIONS" : "AGENTES y AUTOMATIZACIONES",
+      description:
+        language === "en"
+          ? "Intelligent agents that automate your workflows"
+          : "Agentes inteligentes que automatizan tus flujos de trabajo",
     },
     {
-      icon: HeadphonesIcon,
-      title: "Customer Support",
-      description: "Automated interactions",
+      icon: Network,
+      title: language === "en" ? "MULTITASK AGENTIC SYSTEMS" : "SISTEMAS AGÉNTICOS MULTITAREA",
+      description:
+        language === "en"
+          ? "Complex systems handling multiple tasks simultaneously"
+          : "Sistemas complejos que manejan múltiples tareas simultáneamente",
     },
     {
-      icon: FileText,
-      title: "Output Automation",
-      description: "Report generation",
-    },
-    {
-      icon: BookOpen,
-      title: "Knowledge Management",
-      description: "Organize information",
-    },
-    {
-      icon: Calendar,
-      title: "Scheduling",
-      description: "Optimize your calendars",
-    },
-    {
-      icon: Workflow,
-      title: "Output",
-      description: "Streamline your processes",
+      icon: Wrench,
+      title: language === "en" ? "FULL STACK PROJECTS" : "PROYECTOS FULL STACK",
+      description: language === "en" ? "Complete end-to-end solutions" : "Soluciones completas de extremo a extremo",
     },
   ]
 
   return (
-    <section id="solutions" className="py-24 bg-gray-50">
+    <section id="solutions" className="py-16 sm:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Minimalist Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
-            {language === "en" ? "AI Solutions" : "Soluciones IA"}
-          </Badge>
-          <h2 className="text-5xl font-light text-black mb-4">{language === "en" ? "Solutions" : "Soluciones"}</h2>
-          <p className="text-2xl font-medium text-gray-600">
-            {language === "en" ? "Popular AI Agents" : "Agentes de IA Populares"}
-          </p>
-        </motion.div>
-
-        {/* Minimalist Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Mobile-optimized grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {solutions.map((solution, index) => (
             <motion.div
               key={index}
@@ -71,24 +45,30 @@ export function SolutionsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="group"
             >
-              <Card className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 h-full rounded-2xl">
-                <CardContent className="p-8 text-center">
-                  {/* Minimalist Icon */}
-                  <div className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-gray-100 group-hover:bg-black transition-colors duration-300 p-4">
-                    <solution.icon className="w-full h-full text-black group-hover:text-white transition-colors duration-300" />
+              <Card className="bg-white border border-gray-300 rounded-2xl h-full hover:shadow-lg transition-shadow duration-300 touch-manipulation">
+                <CardContent className="p-6 sm:p-8 text-center">
+                  {/* Mobile-optimized icon */}
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 sm:mb-6 bg-gray-100 rounded-2xl flex items-center justify-center">
+                    <solution.icon className="w-7 h-7 sm:w-8 sm:h-8 text-gray-700" />
                   </div>
 
-                  {/* Clean Typography */}
-                  <h3 className="text-xl font-bold text-black mb-4">{solution.title}</h3>
+                  {/* Mobile-optimized text */}
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+                    {solution.title}
+                  </h3>
+                  <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
+                    {solution.description}
+                  </p>
 
-                  <p className="text-gray-600 leading-relaxed font-light">{solution.description}</p>
+                  {/* Mobile-optimized button */}
+                  <Button
+                    variant="outline"
+                    className="border-2 border-gray-600 text-gray-900 hover:bg-gray-50 bg-white rounded-full px-4 sm:px-6 py-2 text-sm sm:text-base min-h-[44px] w-full sm:w-auto"
+                  >
+                    {language === "en" ? "Read more" : "Leer más"}
+                  </Button>
                 </CardContent>
-
-                {/* Subtle Bottom Accent */}
-                <div className="h-1 bg-gray-200 group-hover:bg-black transition-colors duration-300 rounded-b-2xl"></div>
               </Card>
             </motion.div>
           ))}

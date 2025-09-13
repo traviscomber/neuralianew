@@ -1,169 +1,105 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, MessageSquare, Brain, Zap, Shield } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import Image from "next/image"
 
 export function ProductsSection() {
   const { language } = useLanguage()
 
   const products = [
     {
-      name: "ChatBot AI",
-      description:
-        language === "en"
-          ? "Intelligent conversational agents that understand context and provide accurate responses 24/7"
-          : "Agentes conversacionales inteligentes que entienden el contexto y brindan respuestas precisas 24/7",
-      icon: MessageSquare,
-      features: [
-        language === "en" ? "Natural Language Processing" : "Procesamiento de Lenguaje Natural",
-        language === "en" ? "Multi-language Support" : "Soporte Multi-idioma",
-        language === "en" ? "Context Awareness" : "Conciencia de Contexto",
-      ],
-      price: language === "en" ? "From $99/month" : "Desde $99/mes",
+      logo: "/n3uralia-logo-new.png",
+      title: "Full Dome and VR Studio",
+      subtitle: "360°",
+      description: "Mathematical art created for Dome 360 projection or immersive VR environments content",
     },
     {
-      name: "Neural Engine",
+      logo: "/placeholder.svg?height=60&width=120&text=HabboHotel",
+      title: "AI Meeting Rooms",
+      subtitle: "HabboHotel",
       description:
-        language === "en"
-          ? "Advanced AI processing engine that learns and adapts to your business needs automatically"
-          : "Motor de procesamiento IA avanzado que aprende y se adapta automáticamente a las necesidades de tu negocio",
-      icon: Brain,
-      features: [
-        language === "en" ? "Machine Learning" : "Aprendizaje Automático",
-        language === "en" ? "Predictive Analytics" : "Análisis Predictivo",
-        language === "en" ? "Auto-optimization" : "Auto-optimización",
-      ],
-      price: language === "en" ? "From $299/month" : "Desde $299/mes",
+        "Soil analysis, nutrients recommendation based on real time satellite data. Is a Full Stack project.",
     },
     {
-      name: "Automation Suite",
-      description:
-        language === "en"
-          ? "Complete workflow automation platform that integrates with your existing tools seamlessly"
-          : "Plataforma completa de automatización de flujos de trabajo que se integra perfectamente con tus herramientas existentes",
-      icon: Zap,
-      features: [
-        language === "en" ? "Workflow Designer" : "Diseñador de Flujos",
-        language === "en" ? "API Integrations" : "Integraciones API",
-        language === "en" ? "Real-time Monitoring" : "Monitoreo en Tiempo Real",
-      ],
-      price: language === "en" ? "From $199/month" : "Desde $199/mes",
-    },
-    {
-      name: "Enterprise Shield",
-      description:
-        language === "en"
-          ? "Enterprise-grade security and compliance features for mission-critical applications"
-          : "Características de seguridad y cumplimiento de nivel empresarial para aplicaciones críticas",
-      icon: Shield,
-      features: [
-        language === "en" ? "Data Encryption" : "Cifrado de Datos",
-        language === "en" ? "Compliance Monitoring" : "Monitoreo de Cumplimiento",
-        language === "en" ? "Access Controls" : "Controles de Acceso",
-      ],
-      price: language === "en" ? "Custom Pricing" : "Precio Personalizado",
+      logo: "/placeholder.svg?height=60&width=120&text=Rosetta",
+      title: "Crypto Trading Co-Pilot",
+      subtitle: "Rosetta",
+      description: "N3uralia's platform will predict next market move with 90% accuracy. Apply to any coin.",
     },
   ]
 
   return (
-    <section id="products" className="py-24 bg-gray-50">
+    <section id="products" className="py-16 sm:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
-            {language === "en" ? "Our Products" : "Nuestros Productos"}
-          </Badge>
-          <h2 className="text-5xl font-light text-black mb-6">
-            {language === "en" ? "AI Solutions for Every Business" : "Soluciones IA para Cada Negocio"}
-          </h2>
-          <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
-            {language === "en"
-              ? "Comprehensive suite of AI tools designed to transform your business operations"
-              : "Suite completa de herramientas IA diseñadas para transformar las operaciones de tu negocio"}
-          </p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 px-4">Our Products</h2>
+          <p className="text-lg sm:text-xl text-gray-700">N3uralia's Ecosystem</p>
         </motion.div>
 
-        {/* Products Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {products.map((product, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Card className="bg-white border-gray-200 hover:shadow-lg transition-all duration-300 h-full group">
-                <CardContent className="p-8">
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-gray-100 group-hover:bg-black rounded-2xl p-4 mb-6 transition-all duration-300">
-                    <product.icon className="w-full h-full text-black group-hover:text-white transition-all duration-300" />
-                  </div>
+        {/* Mobile-optimized Products Grid */}
+        <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {products.map((product, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="bg-gray-900 text-white rounded-2xl h-full touch-manipulation">
+                  <CardContent className="p-6 sm:p-8">
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                      <Image
+                        src={product.logo || "/placeholder.svg"}
+                        alt={product.title}
+                        width={50}
+                        height={50}
+                        className="w-12 h-12 sm:w-15 sm:h-15 object-contain grayscale"
+                      />
+                      <span className="text-xs sm:text-sm text-gray-400">{product.subtitle}</span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 leading-tight">{product.title}</h3>
+                    <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                      {product.description}
+                    </p>
+                    <Button
+                      variant="outline"
+                      className="border-2 border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent text-sm sm:text-base min-h-[44px] w-full sm:w-auto"
+                    >
+                      More
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
 
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-black mb-4">{product.name}</h3>
-                  <p className="text-gray-600 font-light leading-relaxed mb-6">{product.description}</p>
-
-                  {/* Features */}
-                  <ul className="space-y-2 mb-6">
-                    {product.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="text-sm text-gray-500 font-light flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Price */}
-                  <div className="text-black font-semibold text-lg mb-6">{product.price}</div>
-
-                  {/* CTA */}
-                  <Button
-                    variant="outline"
-                    className="w-full border-black text-black hover:bg-black hover:text-white bg-transparent"
-                  >
-                    {language === "en" ? "Learn More" : "Saber Más"}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <div className="bg-black rounded-2xl p-12">
-            <h3 className="text-3xl font-light text-white mb-6">
-              {language === "en" ? "Ready to Transform Your Business?" : "¿Listo para Transformar tu Negocio?"}
-            </h3>
-            <p className="text-gray-300 font-light text-lg mb-8 max-w-2xl mx-auto">
-              {language === "en"
-                ? "Get started with our AI solutions today and see the difference in your operations"
-                : "Comienza con nuestras soluciones IA hoy y ve la diferencia en tus operaciones"}
-            </p>
-            <Button size="lg" className="bg-white text-black hover:bg-gray-100">
-              {language === "en" ? "Start Free Trial" : "Iniciar Prueba Gratuita"}
-              <ArrowRight className="w-5 h-5 ml-2" />
+          {/* Mobile-optimized Navigation */}
+          <div className="flex justify-between items-center mt-6 sm:mt-8 px-4">
+            <Button variant="ghost" size="sm" className="text-gray-600 border-0 min-h-[44px] px-2">
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-1" />
+              <span className="text-sm sm:text-base">..</span>
+            </Button>
+            <Button variant="ghost" size="sm" className="text-gray-700 border-0 min-h-[44px] px-4">
+              <span className="text-sm sm:text-base">Load more</span>
+            </Button>
+            <Button variant="ghost" size="sm" className="text-gray-600 border-0 min-h-[44px] px-2">
+              <span className="text-sm sm:text-base">..</span>
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1" />
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
