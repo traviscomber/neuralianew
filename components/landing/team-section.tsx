@@ -4,10 +4,8 @@ import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Users,
-  MapPin,
   Clock,
   MessageSquare,
   ArrowRight,
@@ -17,76 +15,159 @@ import {
   Database,
   Shield,
   Workflow,
+  Globe,
+  Zap,
+  Target,
 } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
-const humanTeam = [
+const teamSchedules = [
   {
-    name: "Rafael Vial",
-    role: "Frontend Engineer",
-    education: "Ingeniero PuC UI",
-    location: "Santiago, Chile",
-    timezone: "CLT (UTC-3)",
-    image: "/placeholder-user.jpg",
-    expertise: ["React/Next.js", "TypeScript", "UI/UX Design", "Performance Optimization"],
-    description:
-      "Especialista en desarrollo frontend con enfoque en experiencias de usuario optimizadas y arquitecturas escalables.",
-    availability: "Lun-Vie 9:00-18:00 CLT",
-    experience: "5+ años",
+    region: {
+      en: "Americas Team",
+      es: "Equipo Américas",
+    },
+    timezone: "UTC-3 to UTC-8",
+    hours: "06:00 - 18:00",
+    roles: {
+      en: ["Frontend Engineers", "UX/UI Designers", "Project Managers"],
+      es: ["Ingenieros Frontend", "Diseñadores UX/UI", "Gestores de Proyecto"],
+    },
+    icon: Globe,
+    color: "bg-blue-600",
   },
   {
-    name: "Juan Vial",
-    role: "Fullstack AI Engineer",
-    education: "AI & Machine Learning Specialist",
-    location: "Santiago, Chile",
-    timezone: "CLT (UTC-3)",
-    image: "/placeholder-user.jpg",
-    expertise: ["Python", "OpenAI GPT-4", "Node.js", "PostgreSQL"],
-    description:
-      "Arquitecto de sistemas IA con experiencia en desarrollo full-stack y soluciones empresariales complejas.",
-    availability: "Lun-Vie 9:00-18:00 CLT",
-    experience: "7+ años",
+    region: {
+      en: "Europe & Africa Team",
+      es: "Equipo Europa & África",
+    },
+    timezone: "UTC+0 to UTC+3",
+    hours: "08:00 - 20:00",
+    roles: {
+      en: ["Backend Engineers", "AI Specialists", "DevOps Engineers"],
+      es: ["Ingenieros Backend", "Especialistas IA", "Ingenieros DevOps"],
+    },
+    icon: Brain,
+    color: "bg-green-600",
+  },
+  {
+    region: {
+      en: "Asia-Pacific Team",
+      es: "Equipo Asia-Pacífico",
+    },
+    timezone: "UTC+5 to UTC+12",
+    hours: "09:00 - 21:00",
+    roles: {
+      en: ["AI Researchers", "Data Scientists", "Quality Assurance"],
+      es: ["Investigadores IA", "Científicos de Datos", "Control de Calidad"],
+    },
+    icon: Zap,
+    color: "bg-purple-600",
   },
 ]
 
 const coreCapabilities = [
   {
-    title: "Agentes IA Personalizados",
-    description: "Desarrollamos agentes conversacionales específicos para cada caso de uso empresarial",
+    title: {
+      en: "Custom AI Agents",
+      es: "Agentes IA Personalizados",
+    },
+    description: {
+      en: "We develop conversational agents specific to each business use case",
+      es: "Desarrollamos agentes conversacionales específicos para cada caso de uso empresarial",
+    },
     icon: Brain,
   },
   {
-    title: "Integraciones API",
-    description: "Conectamos cualquier sistema existente: REST, GraphQL, WebSockets, gRPC",
+    title: {
+      en: "API Integrations",
+      es: "Integraciones API",
+    },
+    description: {
+      en: "We connect any existing system: REST, GraphQL, WebSockets, gRPC",
+      es: "Conectamos cualquier sistema existente: REST, GraphQL, WebSockets, gRPC",
+    },
     icon: Network,
   },
   {
-    title: "Sistemas RAG",
-    description: "Implementamos Retrieval-Augmented Generation para conocimiento empresarial",
+    title: {
+      en: "RAG Systems",
+      es: "Sistemas RAG",
+    },
+    description: {
+      en: "We implement Retrieval-Augmented Generation for enterprise knowledge",
+      es: "Implementamos Retrieval-Augmented Generation para conocimiento empresarial",
+    },
     icon: Database,
   },
   {
-    title: "Desarrollo Full-Stack",
-    description: "Soluciones completas desde frontend hasta backend y base de datos",
+    title: {
+      en: "Full-Stack Development",
+      es: "Desarrollo Full-Stack",
+    },
+    description: {
+      en: "Complete solutions from frontend to backend and database",
+      es: "Soluciones completas desde frontend hasta backend y base de datos",
+    },
     icon: Code,
   },
   {
-    title: "Seguridad Enterprise",
-    description: "Cumplimiento ISO 27001, encriptación end-to-end y auditorías de seguridad",
+    title: {
+      en: "Enterprise Security",
+      es: "Seguridad Enterprise",
+    },
+    description: {
+      en: "ISO 27001 compliance, end-to-end encryption and security audits",
+      es: "Cumplimiento ISO 27001, encriptación end-to-end y auditorías de seguridad",
+    },
     icon: Shield,
   },
   {
-    title: "Automatización de Procesos",
-    description: "Workflows automatizados que integran IA con sistemas empresariales existentes",
+    title: {
+      en: "Process Automation",
+      es: "Automatización de Procesos",
+    },
+    description: {
+      en: "Automated workflows that integrate AI with existing enterprise systems",
+      es: "Workflows automatizados que integran IA con sistemas empresariales existentes",
+    },
     icon: Workflow,
   },
 ]
 
 const teamStats = [
-  { number: "2", label: "Ingenieros Core", icon: Users },
-  { number: "50+", label: "Proyectos", icon: Code },
-  { number: "24/7", label: "Soporte", icon: Clock },
-  { number: "48h", label: "Setup", icon: MessageSquare },
+  {
+    number: "24/7",
+    label: {
+      en: "Global Coverage",
+      es: "Cobertura Global",
+    },
+    icon: Clock,
+  },
+  {
+    number: "50+",
+    label: {
+      en: "Projects Delivered",
+      es: "Proyectos Entregados",
+    },
+    icon: Target,
+  },
+  {
+    number: "3",
+    label: {
+      en: "Time Zones",
+      es: "Zonas Horarias",
+    },
+    icon: Globe,
+  },
+  {
+    number: "48h",
+    label: {
+      en: "Setup Time",
+      es: "Tiempo de Setup",
+    },
+    icon: Zap,
+  },
 ]
 
 export function TeamSection() {
@@ -105,15 +186,18 @@ export function TeamSection() {
         >
           <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
             <Users className="w-5 h-5 mr-2" />
-            {language === "en" ? "Our Team" : "Nuestro Equipo"}
+            {language === "en" ? "About Us" : "Nosotros"}
           </Badge>
           <h2 className="text-5xl font-light text-black mb-6">
-            {language === "en" ? "Expert Engineers" : "Ingenieros Expertos"}
+            {language === "en" ? "Global Team of" : "Equipo Global de"}
+            <span className="font-bold block">
+              {language === "en" ? "Engineers, Designers & AI" : "Ingenieros, Diseñadores e IA"}
+            </span>
           </h2>
           <p className="text-xl text-gray-600 font-light max-w-4xl mx-auto">
             {language === "en"
-              ? "Specialized engineers with proven experience in complex AI systems and scalable enterprise solutions."
-              : "Ingenieros especializados con experiencia comprobada en sistemas de IA complejos y soluciones empresariales escalables."}
+              ? "We are a distributed team of specialized engineers, creative designers, and advanced AI systems working together across three time zones to deliver exceptional results 24/7."
+              : "Somos un equipo distribuido de ingenieros especializados, diseñadores creativos y sistemas de IA avanzados trabajando juntos en tres zonas horarias para entregar resultados excepcionales 24/7."}
           </p>
         </motion.div>
 
@@ -130,17 +214,77 @@ export function TeamSection() {
               <CardContent className="p-6 text-center">
                 <stat.icon className="w-8 h-8 text-black mx-auto mb-3" />
                 <div className="text-3xl font-bold text-black mb-1">{stat.number}</div>
-                <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-sm text-gray-600 font-medium">{stat.label[language]}</div>
               </CardContent>
             </Card>
           ))}
+        </motion.div>
+
+        {/* Global Schedule */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <h3 className="text-2xl font-bold text-center mb-12 text-black">
+            {language === "en" ? "24/7 Global Operations" : "Operaciones Globales 24/7"}
+          </h3>
+          <div className="grid md:grid-cols-3 gap-8">
+            {teamSchedules.map((schedule, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+              >
+                <Card className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 h-full">
+                  <CardContent className="p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className={`w-12 h-12 ${schedule.color} rounded-xl flex items-center justify-center`}>
+                        <schedule.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg font-bold text-black">{schedule.region[language]}</h4>
+                        <p className="text-sm text-gray-500">{schedule.timezone}</p>
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <div className="flex items-center gap-2 mb-4">
+                        <Clock className="w-4 h-4 text-gray-500" />
+                        <span className="text-sm font-medium text-gray-700">
+                          {language === "en" ? "Active Hours:" : "Horario Activo:"} {schedule.hours}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <h5 className="font-semibold text-black mb-3">
+                        {language === "en" ? "Team Roles:" : "Roles del Equipo:"}
+                      </h5>
+                      {schedule.roles[language].map((role, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                          <span className="text-sm text-gray-600">{role}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Core Capabilities */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
           className="mb-20"
         >
@@ -163,9 +307,9 @@ export function TeamSection() {
                       <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center">
                         <capability.icon className="w-6 h-6 text-white" />
                       </div>
-                      <h4 className="text-lg font-bold text-black">{capability.title}</h4>
+                      <h4 className="text-lg font-bold text-black">{capability.title[language]}</h4>
                     </div>
-                    <p className="text-gray-600 leading-relaxed font-light">{capability.description}</p>
+                    <p className="text-gray-600 leading-relaxed font-light">{capability.description[language]}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -173,95 +317,52 @@ export function TeamSection() {
           </div>
         </motion.div>
 
-        {/* Human Team */}
+        {/* Collaboration Philosophy */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="text-center mb-16"
         >
-          <h3 className="text-2xl font-bold text-center mb-12 text-black">
-            {language === "en" ? "Engineering Team" : "Equipo de Ingeniería"}
-          </h3>
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {humanTeam.map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <Card className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 h-full">
-                  <CardContent className="p-8">
-                    <div className="flex items-center gap-4 mb-6">
-                      <Avatar className="w-16 h-16">
-                        <AvatarImage src={member.image || "/placeholder.svg"} alt={member.name} />
-                        <AvatarFallback className="bg-black text-white text-lg font-bold">
-                          {member.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <h4 className="text-xl font-bold text-black mb-1">{member.name}</h4>
-                        <p className="text-gray-600 font-semibold mb-2">{member.role}</p>
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <MapPin className="w-4 h-4" />
-                          <span>{member.location}</span>
-                        </div>
-                      </div>
-                      <Badge className="bg-gray-100 text-gray-700 font-medium border-0">{member.experience}</Badge>
-                    </div>
-
-                    <p className="text-gray-600 mb-6 leading-relaxed font-light">{member.description}</p>
-
-                    <div className="space-y-4">
-                      <div>
-                        <h5 className="font-semibold text-black mb-3">
-                          {language === "en" ? "Specialties:" : "Especialidades:"}
-                        </h5>
-                        <div className="flex flex-wrap gap-2">
-                          {member.expertise.map((skill) => (
-                            <Badge key={skill} className="bg-gray-100 text-gray-700 border-0 text-xs">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2 text-sm text-gray-500">
-                        <Clock className="w-4 h-4" />
-                        <span>{member.availability}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          <Card className="bg-gradient-to-r from-gray-900 to-black text-white border-0 max-w-4xl mx-auto rounded-2xl">
+            <CardContent className="p-10">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <Users className="w-8 h-8" />
+                <Brain className="w-8 h-8" />
+                <Code className="w-8 h-8" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4">
+                {language === "en" ? "Human + AI Collaboration" : "Colaboración Humano + IA"}
+              </h3>
+              <p className="text-lg mb-6 text-gray-300 font-light">
+                {language === "en"
+                  ? "Our unique approach combines human creativity and expertise with AI efficiency and precision. This synergy allows us to deliver solutions that are both innovative and reliable, working around the clock to meet your business needs."
+                  : "Nuestro enfoque único combina la creatividad y experiencia humana con la eficiencia y precisión de la IA. Esta sinergia nos permite entregar soluciones que son tanto innovadoras como confiables, trabajando las 24 horas para satisfacer las necesidades de tu negocio."}
+              </p>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Professional CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           viewport={{ once: true }}
           className="text-center"
         >
           <Card className="bg-black text-white border-0 max-w-4xl mx-auto rounded-2xl">
             <CardContent className="p-10">
               <h3 className="text-2xl font-bold mb-4">
-                {language === "en" ? "Need an enterprise AI solution?" : "¿Necesitas una solución IA empresarial?"}
+                {language === "en"
+                  ? "Ready to work with our global team?"
+                  : "¿Listo para trabajar con nuestro equipo global?"}
               </h3>
               <p className="text-lg mb-8 text-gray-300 font-light">
                 {language === "en"
-                  ? "Our team of specialized engineers can develop the exact solution your company needs, with proven technologies and measurable results."
-                  : "Nuestro equipo de ingenieros especializados puede desarrollar la solución exacta que tu empresa necesita, con tecnologías probadas y resultados medibles."}
+                  ? "Our distributed team of engineers, designers, and AI systems is ready to tackle your most complex challenges. Let's discuss how we can help transform your business."
+                  : "Nuestro equipo distribuido de ingenieros, diseñadores y sistemas de IA está listo para abordar tus desafíos más complejos. Hablemos de cómo podemos ayudar a transformar tu negocio."}
               </p>
               <Button
                 size="lg"
@@ -274,7 +375,7 @@ export function TeamSection() {
                   rel="noopener noreferrer"
                 >
                   <MessageSquare className="w-5 h-5 mr-2" />
-                  {language === "en" ? "Request Technical Consultation" : "Solicitar Consulta Técnica"}
+                  {language === "en" ? "Start Conversation" : "Iniciar Conversación"}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </a>
               </Button>
