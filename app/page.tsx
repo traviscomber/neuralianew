@@ -1,7 +1,11 @@
+"use client"
+
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
 import { ServicesSection } from "@/components/landing/services-section"
 import { FlowSection } from "@/components/landing/flow-section"
+import { ClientsSection } from "@/components/landing/clients-section"
+import { TrustSection } from "@/components/landing/trust-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
@@ -14,6 +18,8 @@ export default function HomePage() {
       <HeroSection />
       <ServicesSection />
       <FlowSection />
+      <ClientsSection />
+      <TrustSection />
       <TestimonialsSection />
       <FAQSection />
       <ContactSection />

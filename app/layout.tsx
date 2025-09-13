@@ -2,116 +2,33 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { ChatWidget } from "@/components/chat/chat-widget"
 import { LanguageProvider } from "@/lib/language-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "N3uralia - Building Bridges to AI",
+  title: "N3uralia - Enterprise AI Solutions",
   description:
-    "At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights.",
-  keywords: [
-    // Core English AI keywords
-    "enterprise AI solutions",
-    "intelligent conversational agents",
-    "business automation platform",
-    "full stack AI development",
-    "conversational AI enterprise",
-    "AI chatbots business",
-    "WhatsApp AI integration",
-    "enterprise chatbots",
-    "AI business solutions",
-    "machine learning enterprise",
-    "natural language processing",
-    "AI automation platform",
-    "custom AI development",
-    "enterprise AI consulting",
-    "bilingual AI solutions",
-    // Core Spanish IA keywords
-    "soluciones IA empresariales",
-    "agentes conversacionales inteligentes",
-    "automatización empresarial IA",
-    "desarrollo IA full stack",
-    "IA conversacional empresarial",
-    "chatbots IA empresariales",
-    "integración IA WhatsApp",
-    "chatbots empresariales",
-    "soluciones IA negocio",
-    "machine learning empresarial",
-    "procesamiento lenguaje natural",
-    "plataforma automatización IA",
-    "desarrollo IA personalizado",
-    "consultoría IA empresarial",
-    "soluciones IA bilingües",
-    // Geographic and brand keywords
-    "N3uralia",
-    "Chile AI solutions",
-    "Singapore AI development",
-    "Russia AI consulting",
-    "Latin America AI",
-    "global AI support",
-    "ISO 27001 AI",
-    "OpenAI GPT-4 integration",
-    "enterprise AI Chile",
-    "AI solutions Santiago",
-  ],
-  authors: [{ name: "N3uralia Team - Enterprise AI Solutions" }],
-  creator: "N3uralia - Intelligent Conversational Agents",
-  publisher: "N3uralia - Enterprise AI Solutions",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL("https://n3uralia.com"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-US": "/en",
-      "es-CL": "/es",
-    },
-  },
+    "Building bridges to AI with cutting-edge solutions that transform businesses worldwide. Full-stack development, intelligent agents, and enterprise-grade support.",
+  keywords:
+    "AI, artificial intelligence, machine learning, full-stack development, enterprise solutions, automation, chatbots, AI agents",
+  authors: [{ name: "N3uralia Team" }],
+  creator: "N3uralia",
+  publisher: "N3uralia",
+  robots: "index, follow",
   openGraph: {
-    title: "N3uralia - Enterprise AI Solutions | Intelligent Conversational Agents",
-    description:
-      "Complete enterprise AI solutions with intelligent conversational agents. Full-stack development, business automation, and 24/7 global support with teams in Chile, Singapore, and Russia.",
-    url: "https://n3uralia.com",
-    siteName: "N3uralia",
-    images: [
-      {
-        url: "/n3uralia-logo-new.png",
-        width: 1200,
-        height: 630,
-        alt: "N3uralia - Enterprise AI Solutions",
-      },
-    ],
-    locale: "en_US",
     type: "website",
+    locale: "en_US",
+    url: "https://n3uralia.com",
+    title: "N3uralia - Enterprise AI Solutions",
+    description: "Building bridges to AI with cutting-edge solutions that transform businesses worldwide.",
+    siteName: "N3uralia",
   },
   twitter: {
     card: "summary_large_image",
     title: "N3uralia - Enterprise AI Solutions",
-    description: "Intelligent conversational agents that transform businesses. 24/7 global support.",
-    images: ["/n3uralia-logo-new.png"],
+    description: "Building bridges to AI with cutting-edge solutions that transform businesses worldwide.",
     creator: "@n3uralia",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: "your-google-verification-code",
-    yandex: "your-yandex-verification-code",
   },
     generator: 'v0.app'
 }
@@ -549,19 +466,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Essential visible metadata */}
-        <link rel="canonical" href="https://n3uralia.com" />
-        <link rel="alternate" hrefLang="en-US" href="https://n3uralia.com/en" />
-        <link rel="alternate" hrefLang="es-CL" href="https://n3uralia.com/es" />
-
-        {/* Geographic targeting */}
-        <meta name="geo.region" content="CL-RM" />
-        <meta name="geo.placename" content="Santiago, Chile" />
-        <meta name="geo.position" content="-33.4489;-70.6693" />
-        <meta name="ICBM" content="-33.4489, -70.6693" />
-
         {/* HIDDEN: Comprehensive structured data for search engines and AI crawlers */}
         {/* This extensive metadata is NOT visible to users but provides rich context for SEO */}
         <script
@@ -768,13 +674,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <LanguageProvider>
-            {children}
-            <ChatWidget />
-            <Toaster />
-          </LanguageProvider>
-        </ThemeProvider>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   )
