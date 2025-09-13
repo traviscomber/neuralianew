@@ -1,26 +1,45 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/lib/language-context"
-import Image from "next/image"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function ClientsSection() {
   const { language } = useLanguage()
 
   const clients = [
-    { name: "TechCorp", logo: "/tech-icons/react-logo.png" },
-    { name: "InnovateLab", logo: "/tech-icons/nodejs-logo.png" },
-    { name: "GlobalTech", logo: "/tech-icons/postgresql-logo.png" },
-    { name: "DataFlow", logo: "/tech-icons/supabase-logo.svg" },
-    { name: "CloudSync", logo: "/tech-icons/vercel-logo.svg" },
-    { name: "AICore", logo: "/tech-icons/openai-logo.png" },
-    { name: "NextGen", logo: "/tech-icons/intel-logo.png" },
-    { name: "SmartSys", logo: "/tech-icons/redis-logo.svg" },
+    {
+      name: "Parrotfy",
+      logo: "🦜",
+      category: language === "en" ? "ERP AI Assistant" : "Asistente IA ERP",
+      description:
+        language === "en"
+          ? "Conversational natural language AI Agentic Nano System."
+          : "Sistema Nano Agéntico de IA de lenguaje natural conversacional.",
+    },
+    {
+      name: "Ecosuelolab",
+      logo: "🌱",
+      category: language === "en" ? "Agricultural Helper" : "Asistente Agrícola",
+      description:
+        language === "en"
+          ? "Soil analysis, nutrients recommendation based on real time satellite...."
+          : "Análisis de suelo, recomendación de nutrientes basado en satélite en tiempo real....",
+    },
+    {
+      name: "AxentAI",
+      logo: "⚡",
+      category: language === "en" ? "Team Management" : "Gestión de Equipos",
+      description:
+        language === "en"
+          ? "Documents and permissions. Check and get advanced...."
+          : "Documentos y permisos. Verificar y obtener avanzado....",
+    },
   ]
 
   return (
-    <section id="clients" className="py-24 bg-white">
+    <section id="clients" className="py-24 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -30,65 +49,60 @@ export function ClientsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
+          <h2 className="text-5xl font-light text-gray-700 mb-4">
             {language === "en" ? "Our Clients" : "Nuestros Clientes"}
-          </Badge>
-          <h2 className="text-5xl font-light text-black mb-6">
-            {language === "en" ? "Trusted by Industry Leaders" : "Confiado por Líderes de la Industria"}
           </h2>
-          <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
+          <p className="text-xl text-blue-600 font-light">
             {language === "en"
-              ? "Companies worldwide trust N3uralia to transform their operations with AI"
-              : "Empresas en todo el mundo confían en N3uralia para transformar sus operaciones con IA"}
+              ? "Full Stack Solutions Developed by N3uralia"
+              : "Soluciones Full Stack Desarrolladas por N3uralia"}
           </p>
         </motion.div>
 
-        {/* Clients Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {/* Client Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {clients.map((client, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-gray-50 hover:bg-gray-100 rounded-2xl p-8 flex items-center justify-center transition-all duration-300 cursor-pointer group min-h-[120px]"
+              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300"
             >
-              <div className="text-center">
-                <Image
-                  src={client.logo || "/placeholder.svg"}
-                  alt={client.name}
-                  width={64}
-                  height={64}
-                  className="w-16 h-16 object-contain mx-auto mb-3 filter grayscale group-hover:grayscale-0 transition-all duration-300"
-                />
-                <div className="text-black font-medium">{client.name}</div>
+              {/* Logo and Name */}
+              <div className="flex items-center gap-3 mb-6">
+                <div className="text-2xl">{client.logo}</div>
+                <h3 className="text-xl font-semibold text-black">{client.name}</h3>
               </div>
+
+              {/* Category */}
+              <h4 className="text-lg font-medium text-gray-600 mb-4">{client.category}</h4>
+
+              {/* Description */}
+              <p className="text-gray-700 text-sm leading-relaxed mb-6">{client.description}</p>
+
+              {/* More Link */}
+              <button className="text-blue-600 text-sm font-medium hover:text-blue-700 transition-colors">
+                {language === "en" ? "More" : "Más"}
+              </button>
             </motion.div>
           ))}
         </div>
 
-        {/* Moving Banner */}
-        <div className="mt-16 overflow-hidden">
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-            className="flex gap-8 whitespace-nowrap"
-          >
-            {[...clients, ...clients].map((client, index) => (
-              <div key={index} className="flex items-center gap-4 bg-black text-white px-6 py-3 rounded-full min-w-max">
-                <Image
-                  src={client.logo || "/placeholder.svg"}
-                  alt={client.name}
-                  width={24}
-                  height={24}
-                  className="w-6 h-6 object-contain filter brightness-0 invert"
-                />
-                <span className="font-light">{client.name}</span>
-              </div>
-            ))}
-          </motion.div>
+        {/* Navigation */}
+        <div className="flex items-center justify-center gap-8">
+          <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+
+          <button className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+            {language === "en" ? "Load more" : "Cargar más"}
+          </button>
+
+          <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-800">
+            <ChevronRight className="w-5 h-5" />
+          </Button>
         </div>
       </div>
     </section>

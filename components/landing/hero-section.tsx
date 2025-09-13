@@ -1,150 +1,47 @@
 "use client"
+
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
   const { language } = useLanguage()
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      const navHeight = 80
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-      const offsetPosition = elementPosition - navHeight
-      window.scrollTo({ top: offsetPosition, behavior: "smooth" })
-    }
-  }
-
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Minimalist Background */}
-      <div className="absolute inset-0 bg-white">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-      </div>
+    <section className="bg-[#e8e8e8] min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto text-center max-w-4xl">
+        {/* Main Heading */}
+        <h1 className="text-5xl md:text-7xl font-light text-[#666666] mb-12 leading-tight">Building Bridges to AI</h1>
 
-      {/* Subtle Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/4 left-1/4 w-32 h-32 bg-black/5 rounded-full blur-xl"
-        />
-        <motion.div
-          animate={{
-            y: [0, 15, 0],
-            opacity: [0.1, 0.15, 0.1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 3,
-          }}
-          className="absolute bottom-1/3 right-1/4 w-24 h-24 bg-black/5 rounded-full blur-xl"
-        />
-      </div>
+        {/* Description Paragraphs */}
+        <div className="space-y-8 mb-16 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-[#888888] font-light leading-relaxed">
+            At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights.
+          </p>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 w-full">
-        <div className="text-center space-y-12">
-          {/* Minimalist Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+          <p className="text-xl md:text-2xl text-[#888888] font-light leading-relaxed">
+            Our intuitive platforms harness the power of artificial intelligence, transforming complex data into
+            actionable insights.
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button
+            size="lg"
+            className="bg-[#2c3e50] hover:bg-[#34495e] text-white font-medium px-8 py-4 rounded-full text-lg min-w-[200px]"
+            onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
           >
-            <Badge className="bg-black text-white border-0 text-sm px-6 py-2 rounded-full">
-              {language === "en" ? "Next-Gen AI Solutions" : "Soluciones IA de Nueva Generación"}
-            </Badge>
+            Explore Solutions
+          </Button>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-light leading-tight">
-              <span className="text-black">
-                {language === "en" ? "Building Bridges to" : "Construyendo Puentes hacia"}
-              </span>
-              <br />
-              <span className="text-black font-bold">{language === "en" ? "AI" : "IA"}</span>
-            </h1>
-
-            <div className="max-w-4xl mx-auto space-y-6">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-xl text-gray-600 leading-relaxed font-light"
-              >
-                {language === "en"
-                  ? "At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights."
-                  : "En N3uralia, nos especializamos en soluciones de IA de vanguardia diseñadas para elevar tu negocio a nuevas alturas."}
-              </motion.p>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl text-gray-600 leading-relaxed font-light"
-              >
-                {language === "en"
-                  ? "Our intuitive platforms harness the power of artificial intelligence, transforming complex data into actionable insights."
-                  : "Nuestras plataformas intuitivas aprovechan el poder de la inteligencia artificial, transformando datos complejos en insights accionables."}
-              </motion.p>
-            </div>
-          </motion.div>
-
-          {/* Minimalist CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          <Button
+            size="lg"
+            variant="outline"
+            className="bg-[#5a6c7d] hover:bg-[#6b7d8f] text-white border-[#5a6c7d] hover:border-[#6b7d8f] font-medium px-8 py-4 rounded-full text-lg min-w-[200px]"
+            onClick={() => window.open("https://wa.me/56940946660", "_blank")}
           >
-            <Button
-              size="lg"
-              onClick={() => scrollToSection("solutions")}
-              className="group bg-black hover:bg-gray-800 text-white font-medium px-10 py-4 text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              {language === "en" ? "Explore Solutions" : "Explorar Soluciones"}
-              <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              size="lg"
-              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-              variant="outline"
-              className="group border-2 border-black text-black hover:bg-black hover:text-white font-medium px-10 py-4 text-lg rounded-xl transition-all duration-300"
-            >
-              {language === "en" ? "Contact Human" : "Contactar Humano"}
-            </Button>
-          </motion.div>
-
-          {/* Minimalist Trust Indicators */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500"
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-              <span>50+ Projects Delivered</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-              <span>ISO 27001 Certified</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-black rounded-full"></div>
-              <span>24/7 Global Support</span>
-            </div>
-          </motion.div>
+            Contact Human
+          </Button>
         </div>
       </div>
     </section>

@@ -11,23 +11,26 @@ import { TrustSection } from "@/components/landing/trust-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
 import { Footer } from "@/components/landing/footer"
+import { LanguageProvider } from "@/lib/language-context"
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white">
-      <Navigation />
-      <HeroSection />
-      <ServicesSection />
-      <FlowSection />
-      <SolutionsSection />
-      <TestimonialsSection />
-      <ClientsSection />
-      <ProductsSection />
-      <DeploySection />
-      <TrustSection />
-      <FAQSection />
-      <ContactSection />
-      <Footer />
-    </main>
+    <LanguageProvider>
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <HeroSection />
+        <ServicesSection />
+        <FlowSection />
+        <SolutionsSection />
+        <TestimonialsSection />
+        <ClientsSection />
+        <ProductsSection />
+        <DeploySection />
+        <TrustSection />
+        <FAQSection />
+        <ContactSection />
+        <Footer />
+      </div>
+    </LanguageProvider>
   )
 }

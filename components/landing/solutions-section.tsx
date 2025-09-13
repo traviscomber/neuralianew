@@ -2,93 +2,87 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Database, HeadphonesIcon, FileText, BookOpen, Calendar, Workflow } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { Monitor, Users, Cloud, FolderOpen, Calendar, Network } from "lucide-react"
 
 export function SolutionsSection() {
-  const { t, language } = useLanguage()
+  const { language } = useLanguage()
 
   const solutions = [
     {
-      icon: Database,
-      title: "Data Extraction",
-      description: "Extract actionable insights",
+      title: language === "en" ? "Data\nExtraction" : "Extracción\nde Datos",
+      description: language === "en" ? "Extract\nactionable insights" : "Extraer\ninformación procesable",
+      icon: Monitor,
     },
     {
-      icon: HeadphonesIcon,
-      title: "Customer Support",
-      description: "Automated interactions",
+      title: language === "en" ? "Customer\nSupport" : "Soporte\nal Cliente",
+      description: language === "en" ? "Automated\ninteractions" : "Interacciones\nautomatizadas",
+      icon: Users,
     },
     {
-      icon: FileText,
-      title: "Output Automation",
-      description: "Report generation",
+      title: language === "en" ? "Output\nAutomation" : "Automatización\nde Salida",
+      description: language === "en" ? "Report generation" : "Generación de reportes",
+      icon: Cloud,
     },
     {
-      icon: BookOpen,
-      title: "Knowledge Management",
-      description: "Organize information",
+      title: language === "en" ? "Knowledge\nManagement" : "Gestión del\nConocimiento",
+      description: language === "en" ? "Organize\ninformation" : "Organizar\ninformación",
+      icon: FolderOpen,
     },
     {
+      title: language === "en" ? "Scheduling" : "Programación",
+      description: language === "en" ? "Optimize your\ncalendars" : "Optimizar tus\ncalendarios",
       icon: Calendar,
-      title: "Scheduling",
-      description: "Optimize your calendars",
     },
     {
-      icon: Workflow,
-      title: "Output",
-      description: "Streamline your processes",
+      title: language === "en" ? "Output" : "Salida",
+      description: language === "en" ? "Streamline your\nprocesses" : "Optimizar tus\nprocesos",
+      icon: Network,
     },
   ]
 
   return (
-    <section id="solutions" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Minimalist Header */}
+    <section id="solutions" className="py-24 bg-gray-100">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
-            {language === "en" ? "AI Solutions" : "Soluciones IA"}
-          </Badge>
-          <h2 className="text-5xl font-light text-black mb-4">{language === "en" ? "Solutions" : "Soluciones"}</h2>
-          <p className="text-2xl font-medium text-gray-600">
+          <h2 className="text-6xl font-light text-gray-700 mb-4">{language === "en" ? "Solutions" : "Soluciones"}</h2>
+          <p className="text-xl text-blue-600 font-light">
             {language === "en" ? "Popular AI Agents" : "Agentes de IA Populares"}
           </p>
         </motion.div>
 
-        {/* Minimalist Solutions Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Solutions Grid */}
+        <div className="grid md:grid-cols-3 gap-8">
           {solutions.map((solution, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -5, scale: 1.02 }}
-              className="group"
             >
-              <Card className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 h-full rounded-2xl">
+              <Card className="bg-white border-0 rounded-2xl h-full hover:shadow-lg transition-all duration-300">
                 <CardContent className="p-8 text-center">
-                  {/* Minimalist Icon */}
-                  <div className="w-16 h-16 mx-auto mb-8 rounded-2xl bg-gray-100 group-hover:bg-black transition-colors duration-300 p-4">
-                    <solution.icon className="w-full h-full text-black group-hover:text-white transition-colors duration-300" />
+                  {/* Title */}
+                  <h3 className="text-xl font-light text-gray-600 mb-8 whitespace-pre-line leading-tight">
+                    {solution.title}
+                  </h3>
+
+                  {/* Icon */}
+                  <div className="mb-8 flex justify-center">
+                    <solution.icon className="w-16 h-16 text-gray-600 stroke-1" />
                   </div>
 
-                  {/* Clean Typography */}
-                  <h3 className="text-xl font-bold text-black mb-4">{solution.title}</h3>
-
-                  <p className="text-gray-600 leading-relaxed font-light">{solution.description}</p>
+                  {/* Description */}
+                  <p className="text-gray-700 font-light whitespace-pre-line leading-relaxed">{solution.description}</p>
                 </CardContent>
-
-                {/* Subtle Bottom Accent */}
-                <div className="h-1 bg-gray-200 group-hover:bg-black transition-colors duration-300 rounded-b-2xl"></div>
               </Card>
             </motion.div>
           ))}
