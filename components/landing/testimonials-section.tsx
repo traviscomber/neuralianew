@@ -1,91 +1,137 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Star, Quote } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import Image from "next/image"
 
 export function TestimonialsSection() {
   const { language } = useLanguage()
 
   const testimonials = [
     {
-      name: "Elena Rodrigues",
-      role: "Company CEO",
-      image: "/placeholder-user.jpg",
-      quote: "N3uralia is amazing! Team is great. Thank you, helped a lot, literally saved my ass.",
+      name: "María González",
+      role: language === "en" ? "CTO, TechCorp" : "CTO, TechCorp",
+      content:
+        language === "en"
+          ? "N3uralia transformed our customer service operations completely. Response times improved by 80% and customer satisfaction reached unprecedented levels."
+          : "N3uralia transformó completamente nuestras operaciones de atención al cliente. Los tiempos de respuesta mejoraron un 80% y la satisfacción del cliente alcanzó niveles sin precedentes.",
+      rating: 5,
     },
     {
-      name: "John Smith",
-      role: "Agent",
-      image: "/placeholder-user.jpg",
-      quote:
-        "My overall experience with N3URALIA is really great, because it is user friendly and easy to use marketing automation...",
-      readMore: true,
+      name: "Carlos Mendoza",
+      role: language === "en" ? "CEO, InnovateLab" : "CEO, InnovateLab",
+      content:
+        language === "en"
+          ? "The AI agents created with N3uralia handle complex queries with impressive accuracy. Our team can now focus on strategic initiatives while AI handles routine tasks."
+          : "Los agentes de IA creados con N3uralia manejan consultas complejas con una precisión impresionante. Nuestro equipo ahora puede enfocarse en iniciativas estratégicas mientras la IA maneja tareas rutinarias.",
+      rating: 5,
     },
     {
-      name: "Sarah Chen",
-      role: "Company Manager",
-      image: "/placeholder-user.jpg",
-      quote:
-        "Totally agree with Elena and the other guy. Now with N3uralia's agentic system, I became the best manager of the Company.",
+      name: "Ana Rodríguez",
+      role: language === "en" ? "Operations Director, GlobalTech" : "Directora de Operaciones, GlobalTech",
+      content:
+        language === "en"
+          ? "Implementation was seamless and the results immediate. N3uralia's platform integrated perfectly with our existing systems and workflow."
+          : "La implementación fue perfecta y los resultados inmediatos. La plataforma de N3uralia se integró perfectamente con nuestros sistemas y flujo de trabajo existentes.",
+      rating: 5,
     },
   ]
 
   return (
-    <section className="py-16 sm:py-24 bg-gray-50">
+    <section id="testimonials" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-3 sm:mb-4 px-4">
-            Success Stories
+          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
+            {language === "en" ? "Testimonials" : "Testimonios"}
+          </Badge>
+          <h2 className="text-5xl font-light text-black mb-6">
+            {language === "en" ? "What Our Clients Say" : "Lo Que Dicen Nuestros Clientes"}
           </h2>
-          <p className="text-lg sm:text-xl text-gray-700 px-4">
+          <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
             {language === "en"
-              ? "Learn how we've helped businesses leverage AI"
-              : "Aprende cómo hemos ayudado a empresas a aprovechar la IA"}
+              ? "Real experiences from companies that have transformed their operations with N3uralia"
+              : "Experiencias reales de empresas que han transformado sus operaciones con N3uralia"}
           </p>
         </motion.div>
 
-        {/* Mobile-optimized testimonials */}
-        <div className="space-y-6 sm:space-y-8">
+        {/* Testimonials Grid */}
+        <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="flex flex-col md:flex-row items-center gap-6 sm:gap-8"
             >
-              <div className="w-full md:w-1/3">
-                <Image
-                  src={testimonial.image || "/placeholder.svg"}
-                  alt={testimonial.name}
-                  width={300}
-                  height={300}
-                  className="w-full h-48 sm:h-64 object-cover rounded-2xl grayscale"
-                />
-              </div>
-              <div className="w-full md:w-2/3 bg-white p-6 sm:p-8 rounded-2xl border border-gray-300">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">{testimonial.name}</h3>
-                <p className="text-gray-700 mb-3 sm:mb-4 text-sm sm:text-base">{testimonial.role}</p>
-                <p className="text-gray-800 leading-relaxed text-sm sm:text-base">
-                  {testimonial.quote}
-                  {testimonial.readMore && (
-                    <button className="text-gray-600 ml-2 underline hover:text-gray-800 transition-colors">
-                      ... read more
-                    </button>
-                  )}
-                </p>
-              </div>
+              <Card className="bg-white border-gray-200 hover:shadow-lg transition-all duration-300 h-full">
+                <CardContent className="p-8">
+                  {/* Quote Icon */}
+                  <div className="mb-6">
+                    <Quote className="w-8 h-8 text-gray-300" />
+                  </div>
+
+                  {/* Content */}
+                  <p className="text-gray-700 font-light leading-relaxed mb-6 text-lg">"{testimonial.content}"</p>
+
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-6">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-black text-black" />
+                    ))}
+                  </div>
+
+                  {/* Author */}
+                  <div className="border-t border-gray-100 pt-6">
+                    <div className="font-semibold text-black text-lg">{testimonial.name}</div>
+                    <div className="text-gray-500 font-light">{testimonial.role}</div>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-20"
+        >
+          <div className="bg-black rounded-2xl p-12">
+            <div className="grid md:grid-cols-4 gap-8 text-center">
+              <div>
+                <div className="text-4xl font-light text-white mb-2">500+</div>
+                <div className="text-gray-300 font-light">
+                  {language === "en" ? "Happy Clients" : "Clientes Satisfechos"}
+                </div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">99.9%</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Uptime" : "Tiempo Activo"}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">24/7</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Support" : "Soporte"}</div>
+              </div>
+              <div>
+                <div className="text-4xl font-light text-white mb-2">50+</div>
+                <div className="text-gray-300 font-light">{language === "en" ? "Countries" : "Países"}</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

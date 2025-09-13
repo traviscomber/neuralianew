@@ -3,6 +3,9 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
+import { ChatWidget } from "@/components/chat/chat-widget"
+import { LanguageProvider } from "@/lib/language-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -10,25 +13,534 @@ export const metadata: Metadata = {
   title: "N3uralia - Building Bridges to AI",
   description:
     "At N3uralia, we specialize in cutting-edge AI solutions designed to elevate your business to new heights.",
-  keywords: "AI, artificial intelligence, automation, agents, full stack, Chile, Santiago",
-  authors: [{ name: "N3uralia Team" }],
-  creator: "N3uralia",
-  publisher: "N3uralia",
-  robots: "index, follow",
+  keywords: [
+    // Core English AI keywords
+    "enterprise AI solutions",
+    "intelligent conversational agents",
+    "business automation platform",
+    "full stack AI development",
+    "conversational AI enterprise",
+    "AI chatbots business",
+    "WhatsApp AI integration",
+    "enterprise chatbots",
+    "AI business solutions",
+    "machine learning enterprise",
+    "natural language processing",
+    "AI automation platform",
+    "custom AI development",
+    "enterprise AI consulting",
+    "bilingual AI solutions",
+    // Core Spanish IA keywords
+    "soluciones IA empresariales",
+    "agentes conversacionales inteligentes",
+    "automatización empresarial IA",
+    "desarrollo IA full stack",
+    "IA conversacional empresarial",
+    "chatbots IA empresariales",
+    "integración IA WhatsApp",
+    "chatbots empresariales",
+    "soluciones IA negocio",
+    "machine learning empresarial",
+    "procesamiento lenguaje natural",
+    "plataforma automatización IA",
+    "desarrollo IA personalizado",
+    "consultoría IA empresarial",
+    "soluciones IA bilingües",
+    // Geographic and brand keywords
+    "N3uralia",
+    "Chile AI solutions",
+    "Singapore AI development",
+    "Russia AI consulting",
+    "Latin America AI",
+    "global AI support",
+    "ISO 27001 AI",
+    "OpenAI GPT-4 integration",
+    "enterprise AI Chile",
+    "AI solutions Santiago",
+  ],
+  authors: [{ name: "N3uralia Team - Enterprise AI Solutions" }],
+  creator: "N3uralia - Intelligent Conversational Agents",
+  publisher: "N3uralia - Enterprise AI Solutions",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://n3uralia.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-US": "/en",
+      "es-CL": "/es",
+    },
+  },
   openGraph: {
-    type: "website",
-    locale: "en_US",
+    title: "N3uralia - Enterprise AI Solutions | Intelligent Conversational Agents",
+    description:
+      "Complete enterprise AI solutions with intelligent conversational agents. Full-stack development, business automation, and 24/7 global support with teams in Chile, Singapore, and Russia.",
     url: "https://n3uralia.com",
-    title: "N3uralia - Building Bridges to AI",
-    description: "Cutting-edge AI solutions for modern businesses",
     siteName: "N3uralia",
+    images: [
+      {
+        url: "/n3uralia-logo-new.png",
+        width: 1200,
+        height: 630,
+        alt: "N3uralia - Enterprise AI Solutions",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia - Building Bridges to AI",
-    description: "Cutting-edge AI solutions for modern businesses",
+    title: "N3uralia - Enterprise AI Solutions",
+    description: "Intelligent conversational agents that transform businesses. 24/7 global support.",
+    images: ["/n3uralia-logo-new.png"],
+    creator: "@n3uralia",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+    yandex: "your-yandex-verification-code",
   },
     generator: 'v0.app'
+}
+
+// Hidden comprehensive structured data for search engines and AI crawlers
+// This data is NOT visible to users but provides rich context for SEO
+const hiddenStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "TechCompany",
+  name: "N3uralia",
+  alternateName: [
+    "N3uralia - Agentes Conversacionales Inteligentes",
+    "N3uralia AI",
+    "N3uralia IA",
+    "Neuralia",
+    "Full Stack IA Systems",
+    "Conversational AI Agents",
+    "Agentic Fleet Solutions",
+    "N3uralia Conversational AI",
+    "N3uralia IA Conversacional",
+  ],
+  description: {
+    es: "N3uralia desarrolla sistemas completos de IA conversacional empresarial con flota agéntica especializada para automatización empresarial, integración WhatsApp Business API, y soluciones de inteligencia artificial bilingües con ROI promedio 250%, 99.9% uptime, y soporte 24/7 global en Chile, Singapur y Rusia",
+    en: "N3uralia develops intelligent conversational agents and full-stack AI systems for businesses. Specialists in agentic fleet, business automation, WhatsApp Business API integration, and bilingual artificial intelligence solutions. FULL STACK Engineering ■ Agentic Fleet + Custom AGENTS ■ Next Level AI TOOLS for Your Business with 250% average ROI, 99.9% uptime, and 24/7 global support",
+  },
+  url: "https://n3uralia.com",
+  logo: {
+    "@type": "ImageObject",
+    url: "https://n3uralia.com/n3uralia-logo-new.png",
+    width: 1200,
+    height: 630,
+  },
+  image: "https://n3uralia.com/n3uralia-logo-new.png",
+  sameAs: [
+    "https://www.instagram.com/n3uralia",
+    "https://www.instagram.com/n3uraliart",
+    "https://linkedin.com/company/n3uralia",
+    "https://twitter.com/n3uralia",
+    "https://wa.me/56940946660",
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+56-9-4094-6660",
+      contactType: "customer service",
+      availableLanguage: ["Spanish", "English", "Español", "Inglés"],
+      areaServed: ["CL", "AR", "PE", "CO", "MX", "US", "ES"],
+      hoursAvailable: "24/7",
+      description: "Soporte técnico y atención al cliente 24/7 con SLA de 15 minutos para issues críticos",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+65-XXXX-XXXX",
+      contactType: "sales",
+      availableLanguage: ["English", "Spanish"],
+      areaServed: ["SG", "US", "GB", "AU", "NZ"],
+      hoursAvailable: "Mo-Fr 09:00-17:00 SGT",
+      description: "Sales and business development for Asia-Pacific and English markets",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+7-XXX-XXX-XXXX",
+      contactType: "technical support",
+      availableLanguage: ["English", "Russian", "Spanish"],
+      areaServed: "Global",
+      hoursAvailable: "24/7",
+      description: "Advanced technical support and development center with specialized AI expertise",
+    },
+  ],
+  address: [
+    {
+      "@type": "PostalAddress",
+      addressLocality: "Santiago",
+      addressRegion: "Región Metropolitana",
+      addressCountry: "CL",
+      name: "N3uralia Chile - Sede Principal",
+      description: "Headquarters and Latin America operations center for conversational AI solutions",
+    },
+    {
+      "@type": "PostalAddress",
+      addressLocality: "Singapore",
+      addressCountry: "SG",
+      name: "N3uralia Singapore - Asia-Pacific Operations",
+      description: "Asia-Pacific expansion and English market support with specialized AI consulting",
+    },
+    {
+      "@type": "PostalAddress",
+      addressCountry: "RU",
+      addressLocality: "Moscow",
+      name: "N3uralia Russia - Development Center",
+      description: "Research, development, and 24/7 technical operations for advanced AI systems",
+    },
+  ],
+  areaServed: [
+    {
+      "@type": "Country",
+      name: "Chile",
+      description: "Primary market with comprehensive AI solutions and local Spanish support",
+    },
+    {
+      "@type": "Country",
+      name: "Argentina",
+      description: "Full conversational AI services in Spanish with cultural adaptation",
+    },
+    {
+      "@type": "Country",
+      name: "México",
+      description: "Bilingual AI solutions with cultural adaptation and local business integration",
+    },
+    {
+      "@type": "Country",
+      name: "Perú",
+      description: "Spanish conversational AI with local integration and industry expertise",
+    },
+    {
+      "@type": "Country",
+      name: "Colombia",
+      description: "Enterprise AI solutions with regional expertise and cultural understanding",
+    },
+    {
+      "@type": "Place",
+      name: "Latin America",
+      description: "Comprehensive Spanish AI solutions across the region with proven success cases",
+    },
+    {
+      "@type": "Place",
+      name: "North America",
+      description: "English AI solutions for US and Canadian markets with enterprise focus",
+    },
+    {
+      "@type": "Place",
+      name: "Europe",
+      description: "GDPR-compliant AI solutions for European businesses with data privacy focus",
+    },
+    {
+      "@type": "Place",
+      name: "Asia-Pacific",
+      description: "English AI solutions with Singapore operations base and regional expertise",
+    },
+    {
+      "@type": "Place",
+      name: "Global",
+      description: "Worldwide operations and support with 24/7 availability and multi-language support",
+    },
+  ],
+  // Extensive knowledge base for AI search engines (hidden from users)
+  knowsAbout: [
+    // Enhanced Spanish IA terms with business context
+    "Agentes Conversacionales Inteligentes para Empresas",
+    "IA Conversacional Empresarial con ROI 250%",
+    "Flota Agéntica Especializada Multi-industria",
+    "Agentic Fleet Personalizada para Automatización",
+    "Inteligencia Artificial Chile Mercado Principal",
+    "Sistemas IA Full Stack Arquitectura Escalable",
+    "Automatización Empresarial IA Procesos Completos",
+    "Chatbots IA Avanzados Integración Nativa",
+    "Agentes IA Empresariales Soporte 24/7",
+    "Soluciones IA Bilingües Español Inglés",
+    "IA Empresarial Chile Casos Éxito Verificados",
+    "Tecnología IA Conversacional OpenAI GPT-4",
+    "Plataforma IA Multicanal WhatsApp CRM ERP",
+    "Desarrollo IA Personalizado Industrias Específicas",
+    "Integración WhatsApp IA Certificada Business API",
+    "Machine Learning Empresarial Modelos Propietarios",
+    "Procesamiento Lenguaje Natural Español Optimizado",
+    "IA Agricultura EcosueloLab 95% Satisfacción",
+    "IA Software Empresarial Parrotfy 92% Satisfacción",
+    "IA Educación Coaching Carrera 88% Colocación",
+    // Enhanced English AI terms with business context
+    "Conversational AI Agents Enterprise Deployment",
+    "Intelligent Chatbots Business Automation Platform",
+    "Agentic Fleet Architecture Scalable Solutions",
+    "Artificial Intelligence Solutions Enterprise Grade",
+    "AI Full Stack Systems Development Custom",
+    "Business Automation AI ROI 250% Verified",
+    "Enterprise AI Agents 24/7 Support Global",
+    "Bilingual AI Solutions Spanish English Markets",
+    "AI Technology Platform Multi-channel Integration",
+    "Custom AI Development Industry Specific",
+    "WhatsApp AI Integration Certified Business API",
+    "Machine Learning Business Solutions Proprietary",
+    "Natural Language Processing Spanish Optimized",
+    "AI Agriculture Solutions EcosueloLab Success",
+    "AI ERP Integration Parrotfy Native Connection",
+    "AI Career Coaching Education Placement Rate",
+    // Technical AI terms with implementation details
+    "OpenAI GPT-4 Integration Certified Partnership",
+    "Custom Machine Learning Models Specialized Training",
+    "Neural Networks Conversational AI Advanced Architecture",
+    "AI Microservices Architecture Cloud Native",
+    "Real-time AI Processing Sub-200ms Response",
+    "AI Analytics Dashboard Executive Reporting",
+    "AI Security Compliance ISO 27001 SOC 2",
+    "AI Scalability Solutions 100k+ Concurrent Users",
+    "AI Integration APIs RESTful GraphQL Webhooks",
+    "AI Monitoring Systems Real-time Performance",
+    "AI Model Training Continuous Learning Optimization",
+    "AI Response Quality Assurance Automated Testing",
+    "AI Conversation Flow Management State Machine",
+    "AI Knowledge Base Management Dynamic Updates",
+    "AI User Intent Recognition Multi-language",
+    // Industry-specific AI applications with metrics
+    "IA Agricultura Análisis Suelos Precisión 95%",
+    "AI Agriculture Soil Analysis 70% Time Reduction",
+    "IA ERP Integración Nativa 80% Query Automation",
+    "AI ERP Integration Native 90% Response Improvement",
+    "IA Coaching Profesional 88% Job Placement Rate",
+    "AI Career Coaching Education 60% Completion Increase",
+    "IA E-commerce Automatización Ventas Conversión",
+    "AI E-commerce Automation Sales Conversion Optimization",
+    "IA Servicios Financieros Compliance Regulatorio",
+    "AI Financial Services Regulatory Compliance Automation",
+    "IA Salud Asistentes Virtuales Telemedicina",
+    "AI Healthcare Virtual Assistants Telemedicine Support",
+    "IA Inmobiliaria Leads Scoring Calificación",
+    "AI Real Estate Lead Scoring Qualification Automation",
+    "IA Manufactura Optimización Procesos Predictivo",
+    "AI Manufacturing Process Optimization Predictive Maintenance",
+    "IA Hospitalidad Reservas Gestión Huéspedes",
+    "AI Hospitality Booking Management Guest Experience",
+    "IA Servicios Legales Documentos Procesamiento",
+    "AI Legal Services Document Processing Contract Analysis",
+    "IA Gobierno Servicios Ciudadanos Automatización",
+    "AI Government Citizen Services Automation Digital",
+  ],
+  // Comprehensive service offerings (hidden from visual display)
+  offers: [
+    {
+      "@type": "Offer",
+      name: "Proyectos Básicos IA Conversacional",
+      description:
+        "Agente conversacional simple con integración 1 canal, implementación 2 semanas, soporte 3 meses, knowledge base hasta 100 documentos, respuestas automatizadas 24/7, panel administrativo básico",
+      category: "Basic AI Solutions",
+      price: "2000",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: "2024-01-01",
+      priceValidUntil: "2024-12-31",
+      includesObject: [
+        "1 Conversational AI Agent Specialized",
+        "1 Channel Integration (WhatsApp or Web)",
+        "Basic Knowledge Base up to 100 documents",
+        "2-week Implementation with Testing",
+        "4-hour Team Training Comprehensive",
+        "3-month Technical Support Included",
+        "24/7 Automated Responses Guaranteed",
+        "Basic Admin Panel with Analytics",
+        "Monthly Performance Reports",
+        "Basic Maintenance and Updates",
+      ],
+    },
+    {
+      "@type": "Offer",
+      name: "Proyectos Medianos IA Flota Agéntica",
+      description:
+        "Flota agéntica 2-4 agentes especializados, integración multicanal, conexión profunda CRM/ERP, implementación 4-6 semanas, soporte 6 meses, analytics avanzados, dashboard ejecutivo",
+      category: "Medium AI Solutions",
+      priceRange: "5000-15000",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: "2024-01-01",
+      priceValidUntil: "2024-12-31",
+      includesObject: [
+        "2-4 Specialized AI Agents Coordinated",
+        "Multi-channel Integration (WhatsApp + Web + Mobile)",
+        "Deep CRM/ERP Connection Native",
+        "Unlimited Knowledge Base Management",
+        "Advanced Conversation Analytics Real-time",
+        "Executive Dashboard with KPIs",
+        "4-6 week Implementation with Optimization",
+        "12-hour Advanced Training Program",
+        "6-month Premium Support Included",
+        "Monthly Optimization and Updates",
+        "Performance Guarantee with SLA",
+        "Custom Integrations Available",
+      ],
+    },
+    {
+      "@type": "Offer",
+      name: "Proyectos Empresariales IA Full Stack",
+      description:
+        "Flota agéntica completa 5+ agentes especializados, automatización empresarial completa, arquitectura escalable 100k+ usuarios, analytics predictivos, implementación 8-12 semanas, soporte premium 24/7",
+      category: "Enterprise AI Solutions",
+      price: "15000",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      validFrom: "2024-01-01",
+      priceValidUntil: "2024-12-31",
+      includesObject: [
+        "5+ Specialized AI Agents Fleet",
+        "Complete Business Automation End-to-End",
+        "Scalable Architecture 100k+ Concurrent Users",
+        "Predictive AI Analytics with ML Models",
+        "Enterprise Implementation 8-12 weeks",
+        "Executive Training 40+ hours Comprehensive",
+        "24/7 Premium Support with 15-min SLA",
+        "Strategic AI Consulting Ongoing",
+        "Performance Guarantee with Penalties",
+        "Weekly Updates and Optimizations",
+        "Custom AI Model Development",
+        "Enterprise Security and Compliance",
+        "Dedicated Account Manager",
+        "Priority Feature Development",
+      ],
+    },
+  ],
+  // Verified customer reviews and success metrics (hidden from display)
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    ratingCount: "127",
+    bestRating: "5",
+    worstRating: "4",
+    description:
+      "Based on 50+ completed projects with verified customer satisfaction surveys conducted by independent auditors quarterly",
+  },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Organization",
+        name: "EcosueloLab",
+      },
+      reviewBody:
+        "N3uralia transformó nuestro servicio de análisis de suelos con IA conversacional. Logramos 95% de satisfacción de nuestros agricultores y reducimos 70% el tiempo de análisis. La integración WhatsApp fue perfecta y procesamos 10,000+ consultas mensuales automatizadas. ROI del 300% en el primer año con métricas verificadas por auditoría independiente.",
+      datePublished: "2024-01-15",
+      publisher: {
+        "@type": "Organization",
+        name: "EcosueloLab",
+      },
+    },
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Organization",
+        name: "Parrotfy ERP",
+      },
+      reviewBody:
+        "La integración de N3uralia con nuestro sistema ERP fue excepcional. Automatizamos 80% de las consultas de usuarios y mejoramos 90% el tiempo de respuesta. Procesamos 50,000+ transacciones mensuales con 92% de satisfacción. ROI del 350% en el primer año con integración nativa SAP, Oracle y Microsoft Dynamics.",
+      datePublished: "2024-02-20",
+      publisher: {
+        "@type": "Organization",
+        name: "Parrotfy ERP",
+      },
+    },
+    {
+      "@type": "Review",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: "5",
+        bestRating: "5",
+      },
+      author: {
+        "@type": "Organization",
+        name: "Despega Tu Carrera",
+      },
+      reviewBody:
+        "El sistema de coaching con IA de N3uralia revolucionó nuestro servicio educativo. Alcanzamos 88% de tasa de colocación laboral verificada a 12 meses y seguimiento personalizado de 5,000+ estudiantes activos. Aumentamos 60% la finalización de programas vía gamificación. Soporte 24/7 excepcional con integración LinkedIn e Indeed.",
+      datePublished: "2024-03-10",
+      publisher: {
+        "@type": "Organization",
+        name: "Despega Tu Carrera",
+      },
+    },
+  ],
+  // Technical specifications and certifications (hidden from users)
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "OpenAI GPT-4 Certified Partner",
+      credentialCategory: "AI Technology Partnership",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "OpenAI",
+      },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "WhatsApp Business API Certified Integration",
+      credentialCategory: "Messaging Platform Integration",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "Meta (WhatsApp Business)",
+      },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "ISO 27001:2013 Information Security Management",
+      credentialCategory: "Security Certification",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "SGS International",
+      },
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "SOC 2 Type II Compliance",
+      credentialCategory: "Security and Availability",
+      recognizedBy: {
+        "@type": "Organization",
+        name: "Deloitte Audit",
+      },
+    },
+  ],
+  // Detailed performance metrics (hidden from visual display)
+  performanceMetrics: {
+    averageROI: "250% verified by independent auditors over 24 months",
+    uptime: "99.9% with contractual SLA guarantee and compensation for non-compliance",
+    responseTime: "sub-200ms guaranteed with average 150ms measured globally",
+    customerSatisfaction: "95% measured quarterly via independent NPS surveys",
+    projectsCompleted: "50+ with documented success metrics and verified results",
+    supportAvailability: "24/7 Global with 15-minute SLA for critical issues",
+    globalPresence: "Chile (Santiago HQ), Singapore (Asia-Pacific), Russia (Development Center)",
+    teamDistribution: "35+ professionals: 15+ Chile, 8+ Singapore, 12+ Russia",
+    languageSupport: "Spanish (native with regional variants), English (native), Portuguese (basic)",
+    industryExpertise: "11+ industries with specialized AI solutions and proven success cases",
+    technicalStack: "OpenAI GPT-4 Turbo, Next.js 14, React 18, Node.js 20, Python 3.12, PostgreSQL 16",
+    securityCompliance: "ISO 27001:2013, SOC 2 Type II, GDPR, CCPA, PCI DSS Level 1",
+  },
 }
 
 export default function RootLayout({
@@ -37,7 +549,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         {/* Essential visible metadata */}
         <link rel="canonical" href="https://n3uralia.com" />
@@ -55,392 +567,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "TechCompany",
-              name: "N3uralia",
-              alternateName: [
-                "N3uralia - Agentes Conversacionales Inteligentes",
-                "N3uralia AI",
-                "N3uralia IA",
-                "Neuralia",
-                "Full Stack IA Systems",
-                "Conversational AI Agents",
-                "Agentic Fleet Solutions",
-                "N3uralia Conversational AI",
-                "N3uralia IA Conversacional",
-              ],
-              description: {
-                es: "N3uralia desarrolla sistemas completos de IA conversacional empresarial con flota agéntica especializada para automatización empresarial, integración WhatsApp Business API, y soluciones de inteligencia artificial bilingües con ROI promedio 250%, 99.9% uptime, y soporte 24/7 global en Chile, Singapur y Rusia",
-                en: "N3uralia develops intelligent conversational agents and full-stack AI systems for businesses. Specialists in agentic fleet, business automation, WhatsApp Business API integration, and bilingual artificial intelligence solutions. FULL STACK Engineering ■ Agentic Fleet + Custom AGENTS ■ Next Level AI TOOLS for Your Business with 250% average ROI, 99.9% uptime, and 24/7 global support",
-              },
-              url: "https://n3uralia.com",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://n3uralia.com/n3uralia-logo-new.png",
-                width: 1200,
-                height: 630,
-              },
-              image: "https://n3uralia.com/n3uralia-logo-new.png",
-              sameAs: [
-                "https://www.instagram.com/n3uralia",
-                "https://www.instagram.com/n3uraliart",
-                "https://linkedin.com/company/n3uralia",
-                "https://twitter.com/n3uralia",
-                "https://wa.me/56940946660",
-              ],
-              contactPoint: [
-                {
-                  "@type": "ContactPoint",
-                  telephone: "+56-9-4094-6660",
-                  contactType: "customer service",
-                  availableLanguage: ["Spanish", "English", "Español", "Inglés"],
-                  areaServed: ["CL", "AR", "PE", "CO", "MX", "US", "ES"],
-                  hoursAvailable: "24/7",
-                  description: "Soporte técnico y atención al cliente 24/7 con SLA de 15 minutos para issues críticos",
-                },
-                {
-                  "@type": "ContactPoint",
-                  telephone: "+65-XXXX-XXXX",
-                  contactType: "sales",
-                  availableLanguage: ["English", "Spanish"],
-                  areaServed: ["SG", "US", "GB", "AU", "NZ"],
-                  hoursAvailable: "Mo-Fr 09:00-17:00 SGT",
-                  description: "Sales and business development for Asia-Pacific and English markets",
-                },
-                {
-                  "@type": "ContactPoint",
-                  telephone: "+7-XXX-XXX-XXXX",
-                  contactType: "technical support",
-                  availableLanguage: ["English", "Russian", "Spanish"],
-                  areaServed: "Global",
-                  hoursAvailable: "24/7",
-                  description: "Advanced technical support and development center with specialized AI expertise",
-                },
-              ],
-              address: [
-                {
-                  "@type": "PostalAddress",
-                  addressLocality: "Santiago",
-                  addressRegion: "Región Metropolitana",
-                  addressCountry: "CL",
-                  name: "N3uralia Chile - Sede Principal",
-                  description: "Headquarters and Latin America operations center for conversational AI solutions",
-                },
-                {
-                  "@type": "PostalAddress",
-                  addressLocality: "Singapore",
-                  addressCountry: "SG",
-                  name: "N3uralia Singapore - Asia-Pacific Operations",
-                  description: "Asia-Pacific expansion and English market support with specialized AI consulting",
-                },
-                {
-                  "@type": "PostalAddress",
-                  addressCountry: "RU",
-                  addressLocality: "Moscow",
-                  name: "N3uralia Russia - Development Center",
-                  description: "Research, development, and 24/7 technical operations for advanced AI systems",
-                },
-              ],
-              areaServed: [
-                {
-                  "@type": "Country",
-                  name: "Chile",
-                  description: "Primary market with comprehensive AI solutions and local Spanish support",
-                },
-                {
-                  "@type": "Country",
-                  name: "Argentina",
-                  description: "Full conversational AI services in Spanish with cultural adaptation",
-                },
-                {
-                  "@type": "Country",
-                  name: "México",
-                  description: "Bilingual AI solutions with cultural adaptation and local business integration",
-                },
-                {
-                  "@type": "Country",
-                  name: "Perú",
-                  description: "Spanish conversational AI with local integration and industry expertise",
-                },
-                {
-                  "@type": "Country",
-                  name: "Colombia",
-                  description: "Enterprise AI solutions with regional expertise and cultural understanding",
-                },
-                {
-                  "@type": "Place",
-                  name: "Latin America",
-                  description: "Comprehensive Spanish AI solutions across the region with proven success cases",
-                },
-                {
-                  "@type": "Place",
-                  name: "North America",
-                  description: "English AI solutions for US and Canadian markets with enterprise focus",
-                },
-                {
-                  "@type": "Place",
-                  name: "Europe",
-                  description: "GDPR-compliant AI solutions for European businesses with data privacy focus",
-                },
-                {
-                  "@type": "Place",
-                  name: "Asia-Pacific",
-                  description: "English AI solutions with Singapore operations base and regional expertise",
-                },
-                {
-                  "@type": "Place",
-                  name: "Global",
-                  description: "Worldwide operations and support with 24/7 availability and multi-language support",
-                },
-              ],
-              knowsAbout: [
-                "Agentes Conversacionales Inteligentes para Empresas",
-                "IA Conversacional Empresarial con ROI 250%",
-                "Flota Agéntica Especializada Multi-industria",
-                "Agentic Fleet Personalizada para Automatización",
-                "Inteligencia Artificial Chile Mercado Principal",
-                "Sistemas IA Full Stack Arquitectura Escalable",
-                "Automatización Empresarial IA Procesos Completos",
-                "Chatbots IA Avanzados Integración Nativa",
-                "Agentes IA Empresariales Soporte 24/7",
-                "Soluciones IA Bilingües Español Inglés",
-                "IA Empresarial Chile Casos Éxito Verificados",
-                "Tecnología IA Conversacional OpenAI GPT-4",
-                "Plataforma IA Multicanal WhatsApp CRM ERP",
-                "Desarrollo IA Personalizado Industrias Específicas",
-                "Integración WhatsApp IA Certificada Business API",
-                "Machine Learning Empresarial Modelos Propietarios",
-                "Procesamiento Lenguaje Natural Español Optimizado",
-                "IA Agricultura EcosueloLab 95% Satisfacción",
-                "IA Software Empresarial Parrotfy 92% Satisfacción",
-                "IA Educación Coaching Carrera 88% Colocación",
-                "Conversational AI Agents Enterprise Deployment",
-                "Intelligent Chatbots Business Automation Platform",
-                "Agentic Fleet Architecture Scalable Solutions",
-                "Artificial Intelligence Solutions Enterprise Grade",
-                "AI Full Stack Systems Development Custom",
-                "Business Automation AI ROI 250% Verified",
-                "Enterprise AI Agents 24/7 Support Global",
-                "Bilingual AI Solutions Spanish English Markets",
-                "AI Technology Platform Multi-channel Integration",
-                "Custom AI Development Industry Specific",
-                "WhatsApp AI Integration Certified Business API",
-                "Machine Learning Business Solutions Proprietary",
-                "Natural Language Processing Spanish Optimized",
-                "AI Agriculture Solutions EcosueloLab Success",
-                "AI ERP Integration Parrotfy Native Connection",
-                "AI Career Coaching Education Placement Rate",
-                "IA E-commerce Automatización Ventas Conversión",
-                "IA Servicios Financieros Compliance Regulatorio",
-                "IA Salud Asistentes Virtuales Telemedicina",
-                "IA Inmobiliaria Leads Scoring Calificación",
-                "IA Manufactura Optimización Procesos Predictivo",
-                "IA Hospitalidad Reservas Gestión Huéspedes",
-                "IA Servicios Legales Documentos Procesamiento",
-                "IA Gobierno Servicios Ciudadanos Automatización",
-              ],
-              offers: [
-                {
-                  "@type": "Offer",
-                  name: "Proyectos Básicos IA Conversacional",
-                  description:
-                    "Agente conversacional simple con integración 1 canal, implementación 2 semanas, soporte 3 meses, knowledge base hasta 100 documentos, respuestas automatizadas 24/7, panel administrativo básico",
-                  category: "Basic AI Solutions",
-                  price: "2000",
-                  priceCurrency: "USD",
-                  availability: "https://schema.org/InStock",
-                  validFrom: "2024-01-01",
-                  priceValidUntil: "2024-12-31",
-                  includesObject: [
-                    "1 Conversational AI Agent Specialized",
-                    "1 Channel Integration (WhatsApp or Web)",
-                    "Basic Knowledge Base up to 100 documents",
-                    "2-week Implementation with Testing",
-                    "4-hour Team Training Comprehensive",
-                    "3-month Technical Support Included",
-                    "24/7 Automated Responses Guaranteed",
-                    "Basic Admin Panel with Analytics",
-                    "Monthly Performance Reports",
-                    "Basic Maintenance and Updates",
-                  ],
-                },
-                {
-                  "@type": "Offer",
-                  name: "Proyectos Medianos IA Flota Agéntica",
-                  description:
-                    "Flota agéntica 2-4 agentes especializados, integración multicanal, conexión profunda CRM/ERP, implementación 4-6 semanas, soporte 6 meses, analytics avanzados, dashboard ejecutivo",
-                  category: "Medium AI Solutions",
-                  priceRange: "5000-15000",
-                  priceCurrency: "USD",
-                  availability: "https://schema.org/InStock",
-                  validFrom: "2024-01-01",
-                  priceValidUntil: "2024-12-31",
-                  includesObject: [
-                    "2-4 Specialized AI Agents Coordinated",
-                    "Multi-channel Integration (WhatsApp + Web + Mobile)",
-                    "Deep CRM/ERP Connection Native",
-                    "Unlimited Knowledge Base Management",
-                    "Advanced Conversation Analytics Real-time",
-                    "Executive Dashboard with KPIs",
-                    "4-6 week Implementation with Optimization",
-                    "12-hour Advanced Training Program",
-                    "6-month Premium Support Included",
-                    "Monthly Optimization and Updates",
-                    "Performance Guarantee with SLA",
-                    "Custom Integrations Available",
-                  ],
-                },
-                {
-                  "@type": "Offer",
-                  name: "Proyectos Empresariales IA Full Stack",
-                  description:
-                    "Flota agéntica completa 5+ agentes especializados, automatización empresarial completa, arquitectura escalable 100k+ usuarios, analytics predictivos, implementación 8-12 semanas, soporte premium 24/7",
-                  category: "Enterprise AI Solutions",
-                  price: "15000",
-                  priceCurrency: "USD",
-                  availability: "https://schema.org/InStock",
-                  validFrom: "2024-01-01",
-                  priceValidUntil: "2024-12-31",
-                  includesObject: [
-                    "5+ Specialized AI Agents Fleet",
-                    "Complete Business Automation End-to-End",
-                    "Scalable Architecture 100k+ Concurrent Users",
-                    "Predictive AI Analytics with ML Models",
-                    "Enterprise Implementation 8-12 weeks",
-                    "Executive Training 40+ hours Comprehensive",
-                    "24/7 Premium Support with 15-min SLA",
-                    "Strategic AI Consulting Ongoing",
-                    "Performance Guarantee with Penalties",
-                    "Weekly Updates and Optimizations",
-                    "Custom AI Model Development",
-                    "Enterprise Security and Compliance",
-                    "Dedicated Account Manager",
-                    "Priority Feature Development",
-                  ],
-                },
-              ],
-              aggregateRating: {
-                "@type": "AggregateRating",
-                ratingValue: "4.9",
-                ratingCount: "127",
-                bestRating: "5",
-                worstRating: "4",
-                description:
-                  "Based on 50+ completed projects with verified customer satisfaction surveys conducted by independent auditors quarterly",
-              },
-              review: [
-                {
-                  "@type": "Review",
-                  reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: "5",
-                    bestRating: "5",
-                  },
-                  author: {
-                    "@type": "Organization",
-                    name: "EcosueloLab",
-                  },
-                  reviewBody:
-                    "N3uralia transformó nuestro servicio de análisis de suelos con IA conversacional. Logramos 95% de satisfacción de nuestros agricultores y reducimos 70% el tiempo de análisis. La integración WhatsApp fue perfecta y procesamos 10,000+ consultas mensuales automatizadas. ROI del 300% en el primer año con métricas verificadas por auditoría independiente.",
-                  datePublished: "2024-01-15",
-                  publisher: {
-                    "@type": "Organization",
-                    name: "EcosueloLab",
-                  },
-                },
-                {
-                  "@type": "Review",
-                  reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: "5",
-                    bestRating: "5",
-                  },
-                  author: {
-                    "@type": "Organization",
-                    name: "Parrotfy ERP",
-                  },
-                  reviewBody:
-                    "La integración de N3uralia con nuestro sistema ERP fue excepcional. Automatizamos 80% de las consultas de usuarios y mejoramos 90% el tiempo de respuesta. Procesamos 50,000+ transacciones mensuales con 92% de satisfacción. ROI del 350% en el primer año con integración nativa SAP, Oracle y Microsoft Dynamics.",
-                  datePublished: "2024-02-20",
-                  publisher: {
-                    "@type": "Organization",
-                    name: "Parrotfy ERP",
-                  },
-                },
-                {
-                  "@type": "Review",
-                  reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: "5",
-                    bestRating: "5",
-                  },
-                  author: {
-                    "@type": "Organization",
-                    name: "Despega Tu Carrera",
-                  },
-                  reviewBody:
-                    "El sistema de coaching con IA de N3uralia revolucionó nuestro servicio educativo. Alcanzamos 88% de tasa de colocación laboral verificada a 12 meses y seguimiento personalizado de 5,000+ estudiantes activos. Aumentamos 60% la finalización de programas vía gamificación. Soporte 24/7 excepcional con integración LinkedIn e Indeed.",
-                  datePublished: "2024-03-10",
-                  publisher: {
-                    "@type": "Organization",
-                    name: "Despega Tu Carrera",
-                  },
-                },
-              ],
-              hasCredential: [
-                {
-                  "@type": "EducationalOccupationalCredential",
-                  name: "OpenAI GPT-4 Certified Partner",
-                  credentialCategory: "AI Technology Partnership",
-                  recognizedBy: {
-                    "@type": "Organization",
-                    name: "OpenAI",
-                  },
-                },
-                {
-                  "@type": "EducationalOccupationalCredential",
-                  name: "WhatsApp Business API Certified Integration",
-                  credentialCategory: "Messaging Platform Integration",
-                  recognizedBy: {
-                    "@type": "Organization",
-                    name: "Meta (WhatsApp Business)",
-                  },
-                },
-                {
-                  "@type": "EducationalOccupationalCredential",
-                  name: "ISO 27001:2013 Information Security Management",
-                  credentialCategory: "Security Certification",
-                  recognizedBy: {
-                    "@type": "Organization",
-                    name: "SGS International",
-                  },
-                },
-                {
-                  "@type": "EducationalOccupationalCredential",
-                  name: "SOC 2 Type II Compliance",
-                  credentialCategory: "Security and Availability",
-                  recognizedBy: {
-                    "@type": "Organization",
-                    name: "Deloitte Audit",
-                  },
-                },
-              ],
-              performanceMetrics: {
-                averageROI: "250% verified by independent auditors over 24 months",
-                uptime: "99.9% with contractual SLA guarantee and compensation for non-compliance",
-                responseTime: "sub-200ms guaranteed with average 150ms measured globally",
-                customerSatisfaction: "95% measured quarterly via independent NPS surveys",
-                projectsCompleted: "50+ with documented success metrics and verified results",
-                supportAvailability: "24/7 Global with 15-minute SLA for critical issues",
-                globalPresence: "Chile (Santiago HQ), Singapore (Asia-Pacific), Russia (Development Center)",
-                teamDistribution: "35+ professionals: 15+ Chile, 8+ Singapore, 12+ Russia",
-                languageSupport: "Spanish (native with regional variants), English (native), Portuguese (basic)",
-                industryExpertise: "11+ industries with specialized AI solutions and proven success cases",
-                technicalStack: "OpenAI GPT-4 Turbo, Next.js 14, React 18, Node.js 20, Python 3.12, PostgreSQL 16",
-                securityCompliance: "ISO 27001:2013, SOC 2 Type II, GDPR, CCPA, PCI DSS Level 1",
-              },
-            }).replace(/</g, "\\u003c"),
+            __html: JSON.stringify(hiddenStructuredData).replace(/</g, "\\u003c"),
           }}
         />
 
@@ -642,7 +769,11 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          {children}
+          <LanguageProvider>
+            {children}
+            <ChatWidget />
+            <Toaster />
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

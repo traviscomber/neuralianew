@@ -2,220 +2,189 @@
 
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Database, Cpu, MessageSquare } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import Image from "next/image"
+
+const flowSteps = [
+  {
+    id: 1,
+    title: "Fuente de Datos",
+    titleEn: "Data Source",
+    description: "Conectamos con tus sistemas existentes para obtener información en tiempo real",
+    descriptionEn: "We connect with your existing systems to get real-time information",
+    icon: Database,
+    logos: [
+      { name: "PostgreSQL", icon: "/tech-icons/postgresql-logo.png" },
+      { name: "Supabase", icon: "/tech-icons/supabase-logo.svg" },
+      { name: "Redis", icon: "/tech-icons/redis-logo.png" },
+      { name: "RabbitMQ", icon: "/tech-icons/rabbitmq-logo.png" },
+      { name: "Grafana", icon: "/tech-icons/grafana-logo.png" },
+    ],
+  },
+  {
+    id: 2,
+    title: "Conexión API IA",
+    titleEn: "AI API Connection",
+    description: "Procesamos la información con modelos de IA avanzados para generar respuestas inteligentes",
+    descriptionEn: "We process information with advanced AI models to generate intelligent responses",
+    icon: Cpu,
+    logos: [
+      { name: "OpenAI", icon: "/tech-icons/openai-logo.png" },
+      { name: "Intel", icon: "/tech-icons/intel-logo.png" },
+      { name: "React", icon: "/tech-icons/react-logo.png" },
+      { name: "Node.js", icon: "/tech-icons/nodejs-logo.png" },
+      { name: "Vercel", icon: "/tech-icons/vercel-logo.svg" },
+    ],
+  },
+  {
+    id: 3,
+    title: "Múltiples Salidas",
+    titleEn: "Multiple Outputs",
+    description: "Distribuimos las respuestas a través de todos tus canales de comunicación",
+    descriptionEn: "We distribute responses across all your communication channels",
+    icon: MessageSquare,
+    logos: [
+      { name: "WhatsApp", icon: "/tech-icons/whatsapp-logo.png" },
+      { name: "Telegram", icon: "/tech-icons/telegram-logo.png" },
+      { name: "Zapier", icon: "/tech-icons/zapier-logo.png" },
+      { name: "Meta", icon: "/tech-icons/meta-logo.png" },
+    ],
+  },
+]
 
 export function FlowSection() {
   const { language } = useLanguage()
 
-  const dataSourceLogos = [
-    { name: "Google Drive", src: "/tech-icons/react-logo.png" },
-    { name: "Cloudify", src: "/tech-icons/nodejs-logo.png" },
-    { name: "PostgreSQL", src: "/tech-icons/postgresql-logo.png" },
-    { name: "Meta", src: "/tech-icons/meta-logo.png" },
-    { name: "Twilio", src: "/tech-icons/twilio-logo.png" },
-  ]
-
-  const aiApiLogos = [
-    { name: "Manus", src: "/tech-icons/openai-logo.png" },
-    { name: "OpenAI", src: "/tech-icons/intel-logo.png" },
-    { name: "Intel", src: "/tech-icons/redis-logo.svg" },
-    { name: "Vercel", src: "/tech-icons/vercel-logo.svg" },
-    { name: "Supabase", src: "/tech-icons/supabase-logo.svg" },
-  ]
-
-  const outputLogos = [
-    { name: "Instagram", src: "/tech-icons/whatsapp-logo.png" },
-    { name: "DaVinci", src: "/tech-icons/telegram-logo.png" },
-    { name: "Facebook", src: "/tech-icons/meta-logo.png" },
-    { name: "LinkedIn", src: "/tech-icons/zapier-logo.png" },
-    { name: "Twitter", src: "/tech-icons/n8n-logo.png" },
-    { name: "WhatsApp", src: "/tech-icons/whatsapp-logo.png" },
-  ]
-
-  const techStack = [
-    { name: "Redis", src: "/tech-icons/redis-logo.svg" },
-    { name: "Node.js", src: "/tech-icons/nodejs-logo.png" },
-    { name: "React", src: "/tech-icons/react-logo.png" },
-    { name: "Next.js", src: "/placeholder.svg?height=40&width=40&text=Next" },
-    { name: "Python", src: "/placeholder.svg?height=40&width=40&text=Py" },
-    { name: "Vercel", src: "/tech-icons/vercel-logo.svg" },
-  ]
-
   return (
-    <section id="flow" className="py-16 sm:py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="flow" className="py-24 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-6 sm:mb-8 px-4">
-            N3uralia's Flow
+          <Badge className="bg-black text-white border-0 text-lg px-8 py-3 rounded-full mb-6">
+            {language === "en" ? "How it Works" : "Cómo Funciona"}
+          </Badge>
+          <h2 className="text-5xl font-light text-black mb-6">
+            {language === "en" ? "N3uralia" : "Flujo de"}
+            <br />
+            <span className="font-bold">{language === "en" ? "Workflow" : "N3uralia"}</span>
           </h2>
+          <p className="text-xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
+            {language === "en"
+              ? "A simple and powerful three-step process that transforms your data into intelligent conversations across all your communication channels."
+              : "Un proceso simple y poderoso de tres pasos que transforma tus datos en conversaciones inteligentes a través de todos tus canales de comunicación."}
+          </p>
         </motion.div>
 
-        {/* Mobile-optimized Flow Diagram */}
-        <div className="space-y-8 sm:space-y-12">
-          {/* Data Source */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8"
-          >
-            <div className="w-full lg:w-1/3 text-center lg:text-left">
-              <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-3 sm:mb-4">Data Source</h3>
-              <p className="text-gray-700 text-sm sm:text-base px-4 lg:px-0">
-                {language === "en"
-                  ? "Use your cloud or create new Database from scratch"
-                  : "Usa tu nube o crea nueva Base de Datos desde cero"}
-              </p>
-            </div>
-            <Card className="w-full lg:w-2/3 bg-white border border-gray-300 rounded-2xl">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-                  {dataSourceLogos.map((logo, index) => (
-                    <div key={index} className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center grayscale">
-                      <Image
-                        src={logo.src || "/placeholder.svg"}
-                        alt={logo.name}
-                        width={40}
-                        height={40}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+        {/* Flow Steps */}
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {flowSteps.map((step, index) => (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <Card className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 group h-full rounded-2xl">
+                <CardContent className="p-8">
+                  {/* Step Number */}
+                  <div className="absolute -top-4 -left-4 w-8 h-8 bg-black text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    {step.id}
+                  </div>
 
-          {/* AI API Connection */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col lg:flex-row-reverse items-center gap-6 sm:gap-8"
-          >
-            <div className="w-full lg:w-1/3 text-center lg:text-left">
-              <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-3 sm:mb-4">AI API Connection</h3>
-              <p className="text-gray-700 text-sm sm:text-base px-4 lg:px-0">
-                {language === "en"
-                  ? "Connect or create AI tool and process data"
-                  : "Conecta o crea herramienta IA y procesa datos"}
-              </p>
-            </div>
-            <Card className="w-full lg:w-2/3 bg-white border border-gray-300 rounded-2xl">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-                  {aiApiLogos.map((logo, index) => (
-                    <div key={index} className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center grayscale">
-                      <Image
-                        src={logo.src || "/placeholder.svg"}
-                        alt={logo.name}
-                        width={40}
-                        height={40}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+                  {/* Icon */}
+                  <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-gray-200 transition-colors duration-300">
+                    <step.icon className="w-8 h-8 text-black" />
+                  </div>
 
-          {/* Multiple Outputs */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-col lg:flex-row items-center gap-6 sm:gap-8"
-          >
-            <div className="w-full lg:w-1/3 text-center lg:text-left">
-              <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-3 sm:mb-4">Multiple Outputs</h3>
-              <p className="text-gray-700 text-sm sm:text-base px-4 lg:px-0">
-                {language === "en"
-                  ? "Collect results or create an automated action"
-                  : "Recolecta resultados o crea una acción automatizada"}
-              </p>
-            </div>
-            <Card className="w-full lg:w-2/3 bg-white border border-gray-300 rounded-2xl">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
-                  {outputLogos.map((logo, index) => (
-                    <div key={index} className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center grayscale">
-                      <Image
-                        src={logo.src || "/placeholder.svg"}
-                        alt={logo.name}
-                        width={40}
-                        height={40}
-                        className="w-full h-full object-contain"
-                      />
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-black mb-4">
+                    {language === "en" ? step.titleEn : step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 leading-relaxed mb-8 font-light">
+                    {language === "en" ? step.descriptionEn : step.description}
+                  </p>
+
+                  {/* Technology Logos */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+                      {language === "en" ? "Technologies" : "Tecnologías"}
+                    </h4>
+                    <div className="flex flex-wrap gap-3">
+                      {step.logos.map((logo, logoIndex) => (
+                        <div
+                          key={logoIndex}
+                          className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center group/logo hover:bg-gray-100 transition-colors duration-300"
+                        >
+                          <img
+                            src={logo.icon || "/placeholder.svg"}
+                            alt={logo.name}
+                            className="w-6 h-6 object-contain filter grayscale opacity-60 group-hover/logo:opacity-90 group-hover/logo:grayscale-0 transition-all duration-300"
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement
+                              target.style.display = "none"
+                              const placeholder = document.createElement("div")
+                              placeholder.className =
+                                "w-6 h-6 bg-gray-200 rounded flex items-center justify-center text-xs font-bold text-gray-500"
+                              placeholder.textContent = logo.name.substring(0, 2).toUpperCase()
+                              target.parentNode?.replaceChild(placeholder, target)
+                            }}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Arrow between steps */}
+              {index < flowSteps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+                  <div className="w-8 h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center shadow-sm">
+                    <ArrowRight className="w-4 h-4 text-gray-400" />
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          </motion.div>
+              )}
+            </motion.div>
+          ))}
         </div>
 
-        {/* Mobile-optimized Stats */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-16 sm:mt-20"
+          className="text-center"
         >
-          <Card className="bg-gray-900 text-white rounded-2xl">
-            <CardContent className="p-8 sm:p-12">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
-                <div>
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-light mb-2 sm:mb-4">300%</div>
-                  <div className="text-lg sm:text-xl text-gray-300">ROI</div>
-                </div>
-                <div>
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-light mb-2 sm:mb-4">60%</div>
-                  <div className="text-lg sm:text-xl text-gray-300">AUTOMATION</div>
-                </div>
-                <div>
-                  <div className="text-4xl sm:text-5xl lg:text-6xl font-light mb-2 sm:mb-4">95%</div>
-                  <div className="text-lg sm:text-xl text-gray-300">SATISFACTION</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* Mobile-optimized Tech Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-12 sm:mt-16"
-        >
-          <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8">
-            {techStack.map((tech, index) => (
-              <div
-                key={index}
-                className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center opacity-60 hover:opacity-100 transition-opacity grayscale"
-              >
-                <Image
-                  src={tech.src || "/placeholder.svg"}
-                  alt={tech.name}
-                  width={48}
-                  height={48}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            ))}
+          <div className="bg-white rounded-2xl p-8 border border-gray-200">
+            <h3 className="text-2xl font-bold text-black mb-4">
+              {language === "en" ? "Ready to get started?" : "¿Listo para comenzar?"}
+            </h3>
+            <p className="text-gray-600 mb-6 font-light">
+              {language === "en"
+                ? "Transform your business with intelligent AI conversations in just a few steps."
+                : "Transforma tu negocio con conversaciones IA inteligentes en solo unos pasos."}
+            </p>
+            <a
+              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20el%20flujo%20completo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-black hover:bg-gray-800 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              {language === "en" ? "Start Implementation" : "Comenzar Implementación"}
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
           </div>
         </motion.div>
       </div>
