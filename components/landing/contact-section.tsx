@@ -15,7 +15,7 @@ export function ContactSection() {
       title: "WhatsApp",
       description: language === "en" ? "Instant messaging" : "Mensajería instantánea",
       action: language === "en" ? "Chat Now" : "Chatear Ahora",
-      onClick: () => window.open("https://wa.me/56931234567", "_blank"),
+      onClick: () => window.open("https://wa.me/56940946660", "_blank"),
       color: "hover:bg-gray-900",
     },
     {
@@ -23,7 +23,7 @@ export function ContactSection() {
       title: "Email",
       description: language === "en" ? "Send us a message" : "Envíanos un mensaje",
       action: language === "en" ? "Send Email" : "Enviar Email",
-      onClick: () => window.open("mailto:contact@neuralia.ai", "_blank"),
+      onClick: () => window.open("mailto:hello@n3uralia.com", "_blank"),
       color: "hover:bg-gray-900",
     },
     {
@@ -31,7 +31,7 @@ export function ContactSection() {
       title: language === "en" ? "Phone" : "Teléfono",
       description: language === "en" ? "Direct consultation" : "Consulta directa",
       action: language === "en" ? "Call Now" : "Llamar Ahora",
-      onClick: () => window.open("tel:+56931234567", "_blank"),
+      onClick: () => window.open("tel:+56940946660", "_blank"),
       color: "hover:bg-gray-900",
     },
     {
@@ -165,7 +165,7 @@ export function ContactSection() {
                   : "Obtén una consulta gratuita y descubre cómo la IA puede transformar tu negocio."}
               </p>
               <Button
-                onClick={() => window.open("https://wa.me/56931234567", "_blank")}
+                onClick={() => window.open("https://wa.me/56940946660", "_blank")}
                 className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-300"
               >
                 {language === "en" ? "Start Free Consultation" : "Iniciar Consulta Gratuita"}

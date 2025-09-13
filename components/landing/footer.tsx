@@ -40,18 +40,18 @@ export function Footer() {
   const contactInfo = [
     {
       icon: Mail,
-      label: "contact@neuralia.ai",
-      href: "mailto:contact@neuralia.ai",
+      label: "hello@n3uralia.com",
+      href: "mailto:hello@n3uralia.com",
     },
     {
       icon: Phone,
-      label: "+56 9 3123 4567",
-      href: "tel:+56931234567",
+      label: "+56 9 4094 6660",
+      href: "tel:+56940946660",
     },
     {
       icon: MessageCircle,
       label: "WhatsApp",
-      href: "https://wa.me/56931234567",
+      href: "https://wa.me/56940946660",
     },
     {
       icon: MapPin,
