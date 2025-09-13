@@ -1,29 +1,12 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
-import { TrendingUp, Clock, Shield, BarChart3, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function HeroSection() {
-  const [currentMetric, setCurrentMetric] = useState(0)
-  const { t, language } = useLanguage()
-
-  const metrics = [
-    { value: "95%", label: "Client Satisfaction", icon: TrendingUp },
-    { value: "60%", label: "Cost Reduction", icon: BarChart3 },
-    { value: "48h", label: "Quick Setup", icon: Clock },
-    { value: "99.9%", label: "Uptime SLA", icon: Shield },
-  ]
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMetric((prev) => (prev + 1) % metrics.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
+  const { language } = useLanguage()
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -117,55 +100,11 @@ export function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Minimalist Metrics */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="relative"
-          >
-            <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm max-w-4xl mx-auto">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                {metrics.map((metric, index) => {
-                  const Icon = metric.icon
-                  const isActive = index === currentMetric
-                  return (
-                    <motion.div
-                      key={index}
-                      animate={{
-                        scale: isActive ? 1.05 : 1,
-                        opacity: isActive ? 1 : 0.7,
-                      }}
-                      transition={{ duration: 0.3 }}
-                      className="text-center"
-                    >
-                      <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gray-100 p-3">
-                        <Icon className="w-full h-full text-black" />
-                      </div>
-                      <div className="text-3xl font-bold text-black mb-2">{metric.value}</div>
-                      <div className="text-sm text-gray-600 font-medium">{metric.label}</div>
-                    </motion.div>
-                  )
-                })}
-              </div>
-              <div className="flex justify-center mt-6 space-x-2">
-                {metrics.map((_, index) => (
-                  <div
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentMetric ? "bg-black w-8" : "bg-gray-300"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
           {/* Minimalist CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
             <Button
@@ -190,7 +129,7 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500"
           >
             <div className="flex items-center gap-2">

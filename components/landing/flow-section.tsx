@@ -327,7 +327,7 @@ export function FlowSection() {
           </p>
         </motion.div>
 
-        {/* Bottom CTA - Mobile Optimized */}
+        {/* Bottom CTA - Simplified */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -337,12 +337,22 @@ export function FlowSection() {
         >
           <div className="bg-white rounded-2xl p-6 md:p-8 border border-gray-200">
             <h3 className="text-xl md:text-2xl font-bold text-black mb-3 md:mb-4">
-              {language === "en" ? "Ready to get started?" : "¿Listo para comenzar?"}
+              {language === "en" ? "Transform your business today" : "Transforma tu negocio hoy"}
             </h3>
             <p className="text-gray-600 mb-4 md:mb-6 font-light text-sm md:text-base">
-              {language === "en"
-                ? "Transform your business with intelligent AI conversations in just a few steps."
-                : "Transforma tu negocio con conversaciones IA inteligentes en solo unos pasos."}
+              {language === "en" ? (
+                <>
+                  Implement intelligent AI conversations in just a few steps
+                  <br />
+                  Get started now
+                </>
+              ) : (
+                <>
+                  Implementa conversaciones IA inteligentes en solo unos pasos
+                  <br />
+                  Comienza ahora
+                </>
+              )}
             </p>
             <a
               href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20implementar%20el%20flujo%20completo"
