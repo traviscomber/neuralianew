@@ -2,20 +2,32 @@
 
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
-import { Globe } from "lucide-react"
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
 
   return (
-    <Button
-      variant="ghost"
-      size="sm"
-      onClick={() => setLanguage(language === "en" ? "es" : "en")}
-      className="flex items-center space-x-2 text-gray-600 hover:text-black transition-colors"
-    >
-      <Globe className="h-4 w-4" />
-      <span className="font-medium">{language === "en" ? "ES" : "EN"}</span>
-    </Button>
+    <div className="flex items-center bg-gray-100 rounded-lg p-1">
+      <Button
+        variant={language === "en" ? "default" : "ghost"}
+        size="sm"
+        onClick={() => setLanguage("en")}
+        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+          language === "en" ? "bg-black text-white shadow-sm" : "text-gray-600 hover:text-black hover:bg-gray-200"
+        }`}
+      >
+        EN
+      </Button>
+      <Button
+        variant={language === "es" ? "default" : "ghost"}
+        size="sm"
+        onClick={() => setLanguage("es")}
+        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+          language === "es" ? "bg-black text-white shadow-sm" : "text-gray-600 hover:text-black hover:bg-gray-200"
+        }`}
+      >
+        ES
+      </Button>
+    </div>
   )
 }
