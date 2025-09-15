@@ -1,268 +1,278 @@
 "use client"
 
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/landing/footer"
-import { LanguageProvider } from "@/lib/language-context"
-import { useLanguage } from "@/lib/language-context"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Bot, MessageSquare, Zap, Shield, Users, BarChart3, ArrowRight, MessageCircle, Mail } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { MessageSquare, Zap, Globe, BarChart3, CheckCircle, ArrowRight, Users, Brain } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
-function AIAgentDevelopmentContent() {
+export default function AIAgentDevelopmentPage() {
   const { language } = useLanguage()
 
   const content = {
     en: {
-      hero: {
-        badge: "AI Agent Development",
-        title: "Custom AI Agents Built for Your Business",
-        subtitle:
-          "Transform your operations with intelligent AI agents that understand your business, automate complex processes, and deliver exceptional results 24/7.",
-        cta: {
-          primary: "Start Your Project",
-          secondary: "View Case Studies",
+      badge: "AI Agent Development",
+      title: "Custom AI Agents That Understand Your Business",
+      subtitle:
+        "Deploy intelligent conversational agents that provide personalized customer experiences, automate support, and drive engagement across all channels.",
+      cta: "Start Building Your AI Agent",
+      demo: "Request Demo",
+      features: [
+        {
+          icon: MessageSquare,
+          title: "Natural Language Processing",
+          description:
+            "Advanced NLP capabilities that understand context, intent, and emotion in customer conversations.",
         },
-      },
-      features: {
-        title: "Why Choose Our AI Agent Development",
-        subtitle:
-          "We build AI agents that go beyond simple chatbots - intelligent systems that truly understand and adapt to your business needs.",
-        items: [
-          {
-            icon: Bot,
-            title: "Custom AI Training",
-            description:
-              "Agents trained specifically on your business data, processes, and industry knowledge for maximum accuracy and relevance.",
-          },
-          {
-            icon: MessageSquare,
-            title: "Natural Conversations",
-            description:
-              "Human-like interactions that understand context, intent, and nuance in multiple languages with cultural awareness.",
-          },
-          {
-            icon: Zap,
-            title: "Real-time Processing",
-            description:
-              "Lightning-fast response times under 200ms ensuring seamless customer experiences and instant problem resolution.",
-          },
-          {
-            icon: Shield,
-            title: "Enterprise Security",
-            description:
-              "Bank-level encryption, SOC 2 compliance, and advanced security protocols to protect your sensitive business data.",
-          },
-          {
-            icon: Users,
-            title: "Multi-channel Integration",
-            description:
-              "Deploy across WhatsApp, Telegram, web chat, email, voice, and integrate with your existing business systems.",
-          },
-          {
-            icon: BarChart3,
-            title: "Advanced Analytics",
-            description:
-              "Comprehensive insights into performance, customer behavior, and business metrics with real-time dashboards.",
-          },
-        ],
-      },
-      process: {
-        title: "Our Development Process",
-        subtitle:
-          "From concept to deployment, we follow a proven methodology that ensures your AI agent delivers exceptional results.",
-        steps: [
-          {
-            number: "01",
-            title: "Discovery & Analysis",
-            description:
-              "We analyze your business processes, customer interactions, and specific requirements to design the perfect AI solution.",
-          },
-          {
-            number: "02",
-            title: "Custom Training",
-            description:
-              "Your AI agent is trained on your specific data, industry knowledge, and business rules for maximum accuracy.",
-          },
-          {
-            number: "03",
-            title: "Integration & Testing",
-            description:
-              "Seamless integration with your existing systems followed by comprehensive testing to ensure optimal performance.",
-          },
-          {
-            number: "04",
-            title: "Deployment & Optimization",
-            description:
-              "Launch your AI agent with ongoing monitoring, optimization, and continuous learning capabilities.",
-          },
-        ],
-      },
+        {
+          icon: Globe,
+          title: "Multi-Channel Support",
+          description: "Deploy across WhatsApp, web chat, email, voice, and social media platforms seamlessly.",
+        },
+        {
+          icon: Brain,
+          title: "Custom Training",
+          description: "Train agents on your specific business data, processes, and customer interaction patterns.",
+        },
+        {
+          icon: Zap,
+          title: "Real-Time Learning",
+          description: "Agents continuously improve through machine learning and customer feedback loops.",
+        },
+        {
+          icon: Users,
+          title: "Smart Escalation",
+          description: "Intelligent handoff to human agents when complex issues require personal attention.",
+        },
+        {
+          icon: BarChart3,
+          title: "Advanced Analytics",
+          description:
+            "Comprehensive insights into conversation patterns, customer satisfaction, and performance metrics.",
+        },
+      ],
       benefits: {
-        title: "Transform Your Business Operations",
+        title: "Measurable Business Impact",
         subtitle:
-          "See the measurable impact AI agents can have on your business performance and customer satisfaction.",
-        items: [
-          { metric: "85%", label: "Reduction in Response Time" },
-          { metric: "60%", label: "Cost Savings" },
-          { metric: "95%", label: "Customer Satisfaction" },
-          { metric: "24/7", label: "Availability" },
+          "Our AI agents deliver quantifiable results that transform your customer experience and operational efficiency.",
+        metrics: [
+          { value: "90%", label: "Faster Response Times" },
+          { value: "24/7", label: "Customer Support" },
+          { value: "50+", label: "Languages Supported" },
+          { value: "99.9%", label: "Uptime Guarantee" },
         ],
       },
-      cta: {
-        title: "Ready to Build Your Custom AI Agent?",
-        subtitle:
-          "Join hundreds of businesses that have transformed their operations with our intelligent AI solutions.",
-        button: "Get Started Today",
+      useCases: {
+        title: "AI Agent Use Cases",
+        subtitle: "Versatile solutions for every business need and industry vertical.",
+        cases: [
+          {
+            title: "Customer Support",
+            description: "Automate first-level support, handle FAQs, and provide instant assistance to customers.",
+            benefits: ["Reduce support tickets by 70%", "24/7 availability", "Consistent service quality"],
+          },
+          {
+            title: "Sales Assistant",
+            description: "Qualify leads, provide product information, and guide customers through the sales funnel.",
+            benefits: ["Increase conversion rates", "Capture leads 24/7", "Personalized recommendations"],
+          },
+          {
+            title: "Appointment Booking",
+            description: "Handle scheduling, confirmations, and reminders automatically across all channels.",
+            benefits: ["Reduce no-shows by 60%", "Automated reminders", "Calendar integration"],
+          },
+          {
+            title: "Order Management",
+            description: "Process orders, track shipments, and handle returns with intelligent automation.",
+            benefits: ["Faster order processing", "Real-time updates", "Reduced errors"],
+          },
+        ],
+      },
+      faq: {
+        title: "Frequently Asked Questions",
+        subtitle: "Everything you need to know about our AI agent development services.",
+        questions: [
+          {
+            question: "How long does it take to develop a custom AI agent?",
+            answer:
+              "Most AI agents can be developed and deployed within 1-2 weeks. Simple chatbots can be ready in 2-3 days, while complex enterprise solutions may take 2-4 weeks depending on customization requirements.",
+          },
+          {
+            question: "Can the AI agent integrate with my existing systems?",
+            answer:
+              "Yes, our AI agents can integrate with most existing systems including CRM, helpdesk, e-commerce platforms, and custom APIs. We provide comprehensive integration support.",
+          },
+          {
+            question: "What languages can the AI agent support?",
+            answer:
+              "Our AI agents support 50+ languages with native-level understanding. They can automatically detect the customer's language and respond appropriately.",
+          },
+          {
+            question: "How do you ensure the AI agent understands my business?",
+            answer:
+              "We train the AI agent on your specific business data, processes, and customer interaction patterns. The training includes your FAQs, product information, and historical customer conversations.",
+          },
+          {
+            question: "What happens when the AI agent can't help a customer?",
+            answer:
+              "Our smart escalation system seamlessly transfers complex queries to human agents with full conversation context. You can customize escalation rules based on your preferences.",
+          },
+        ],
       },
     },
     es: {
-      hero: {
-        badge: "Desarrollo de Agentes de IA",
-        title: "Agentes de IA Personalizados Construidos para Tu Negocio",
-        subtitle:
-          "Transforma tus operaciones con agentes de IA inteligentes que entienden tu negocio, automatizan procesos complejos y entregan resultados excepcionales 24/7.",
-        cta: {
-          primary: "Iniciar Tu Proyecto",
-          secondary: "Ver Casos de Estudio",
+      badge: "Desarrollo de Agentes de IA",
+      title: "Agentes de IA Personalizados Que Entienden Tu Negocio",
+      subtitle:
+        "Despliega agentes conversacionales inteligentes que brindan experiencias personalizadas al cliente, automatizan el soporte e impulsan el engagement en todos los canales.",
+      cta: "Comienza a Construir Tu Agente de IA",
+      demo: "Solicitar Demo",
+      features: [
+        {
+          icon: MessageSquare,
+          title: "Procesamiento de Lenguaje Natural",
+          description:
+            "Capacidades avanzadas de PLN que entienden contexto, intención y emoción en conversaciones de clientes.",
         },
-      },
-      features: {
-        title: "Por Qué Elegir Nuestro Desarrollo de Agentes de IA",
-        subtitle:
-          "Construimos agentes de IA que van más allá de simples chatbots - sistemas inteligentes que verdaderamente entienden y se adaptan a las necesidades de tu negocio.",
-        items: [
-          {
-            icon: Bot,
-            title: "Entrenamiento de IA Personalizado",
-            description:
-              "Agentes entrenados específicamente en los datos, procesos y conocimiento de tu industria para máxima precisión y relevancia.",
-          },
-          {
-            icon: MessageSquare,
-            title: "Conversaciones Naturales",
-            description:
-              "Interacciones similares a las humanas que entienden contexto, intención y matices en múltiples idiomas con conciencia cultural.",
-          },
-          {
-            icon: Zap,
-            title: "Procesamiento en Tiempo Real",
-            description:
-              "Tiempos de respuesta ultra rápidos bajo 200ms asegurando experiencias de cliente fluidas y resolución instantánea de problemas.",
-          },
-          {
-            icon: Shield,
-            title: "Seguridad Empresarial",
-            description:
-              "Encriptación de nivel bancario, cumplimiento SOC 2 y protocolos de seguridad avanzados para proteger tus datos empresariales sensibles.",
-          },
-          {
-            icon: Users,
-            title: "Integración Multicanal",
-            description:
-              "Despliega a través de WhatsApp, Telegram, chat web, email, voz e integra con tus sistemas empresariales existentes.",
-          },
-          {
-            icon: BarChart3,
-            title: "Análisis Avanzado",
-            description:
-              "Insights comprehensivos sobre rendimiento, comportamiento del cliente y métricas empresariales con dashboards en tiempo real.",
-          },
-        ],
-      },
-      process: {
-        title: "Nuestro Proceso de Desarrollo",
-        subtitle:
-          "Del concepto al despliegue, seguimos una metodología probada que asegura que tu agente de IA entregue resultados excepcionales.",
-        steps: [
-          {
-            number: "01",
-            title: "Descubrimiento y Análisis",
-            description:
-              "Analizamos tus procesos empresariales, interacciones con clientes y requisitos específicos para diseñar la solución de IA perfecta.",
-          },
-          {
-            number: "02",
-            title: "Entrenamiento Personalizado",
-            description:
-              "Tu agente de IA es entrenado en tus datos específicos, conocimiento de la industria y reglas empresariales para máxima precisión.",
-          },
-          {
-            number: "03",
-            title: "Integración y Pruebas",
-            description:
-              "Integración perfecta con tus sistemas existentes seguida de pruebas comprehensivas para asegurar rendimiento óptimo.",
-          },
-          {
-            number: "04",
-            title: "Despliegue y Optimización",
-            description:
-              "Lanza tu agente de IA con monitoreo continuo, optimización y capacidades de aprendizaje continuo.",
-          },
-        ],
-      },
+        {
+          icon: Globe,
+          title: "Soporte Multicanal",
+          description: "Despliega en WhatsApp, chat web, email, voz y plataformas de redes sociales sin problemas.",
+        },
+        {
+          icon: Brain,
+          title: "Entrenamiento Personalizado",
+          description:
+            "Entrena agentes con tus datos específicos de negocio, procesos y patrones de interacción con clientes.",
+        },
+        {
+          icon: Zap,
+          title: "Aprendizaje en Tiempo Real",
+          description:
+            "Los agentes mejoran continuamente a través de machine learning y bucles de retroalimentación del cliente.",
+        },
+        {
+          icon: Users,
+          title: "Escalación Inteligente",
+          description:
+            "Transferencia inteligente a agentes humanos cuando problemas complejos requieren atención personal.",
+        },
+        {
+          icon: BarChart3,
+          title: "Análisis Avanzados",
+          description:
+            "Insights comprehensivos sobre patrones de conversación, satisfacción del cliente y métricas de rendimiento.",
+        },
+      ],
       benefits: {
-        title: "Transforma las Operaciones de Tu Negocio",
+        title: "Impacto Empresarial Medible",
         subtitle:
-          "Ve el impacto medible que los agentes de IA pueden tener en el rendimiento de tu negocio y satisfacción del cliente.",
-        items: [
-          { metric: "85%", label: "Reducción en Tiempo de Respuesta" },
-          { metric: "60%", label: "Ahorro de Costos" },
-          { metric: "95%", label: "Satisfacción del Cliente" },
-          { metric: "24/7", label: "Disponibilidad" },
+          "Nuestros agentes de IA entregan resultados cuantificables que transforman tu experiencia del cliente y eficiencia operacional.",
+        metrics: [
+          { value: "90%", label: "Tiempos de Respuesta Más Rápidos" },
+          { value: "24/7", label: "Soporte al Cliente" },
+          { value: "50+", label: "Idiomas Soportados" },
+          { value: "99.9%", label: "Garantía de Tiempo de Actividad" },
         ],
       },
-      cta: {
-        title: "¿Listo para Construir Tu Agente de IA Personalizado?",
-        subtitle:
-          "Únete a cientos de negocios que han transformado sus operaciones con nuestras soluciones inteligentes de IA.",
-        button: "Comenzar Hoy",
+      useCases: {
+        title: "Casos de Uso de Agentes de IA",
+        subtitle: "Soluciones versátiles para cada necesidad empresarial y vertical de industria.",
+        cases: [
+          {
+            title: "Soporte al Cliente",
+            description: "Automatiza soporte de primer nivel, maneja FAQs y brinda asistencia instantánea a clientes.",
+            benefits: ["Reduce tickets de soporte en 70%", "Disponibilidad 24/7", "Calidad de servicio consistente"],
+          },
+          {
+            title: "Asistente de Ventas",
+            description:
+              "Califica leads, proporciona información de productos y guía clientes a través del embudo de ventas.",
+            benefits: ["Aumenta tasas de conversión", "Captura leads 24/7", "Recomendaciones personalizadas"],
+          },
+          {
+            title: "Reserva de Citas",
+            description: "Maneja programación, confirmaciones y recordatorios automáticamente en todos los canales.",
+            benefits: ["Reduce no-shows en 60%", "Recordatorios automatizados", "Integración de calendario"],
+          },
+          {
+            title: "Gestión de Pedidos",
+            description: "Procesa pedidos, rastrea envíos y maneja devoluciones con automatización inteligente.",
+            benefits: ["Procesamiento de pedidos más rápido", "Actualizaciones en tiempo real", "Errores reducidos"],
+          },
+        ],
+      },
+      faq: {
+        title: "Preguntas Frecuentes",
+        subtitle: "Todo lo que necesitas saber sobre nuestros servicios de desarrollo de agentes de IA.",
+        questions: [
+          {
+            question: "¿Cuánto tiempo toma desarrollar un agente de IA personalizado?",
+            answer:
+              "La mayoría de los agentes de IA pueden desarrollarse y desplegarse en 1-2 semanas. Los chatbots simples pueden estar listos en 2-3 días, mientras que las soluciones empresariales complejas pueden tomar 2-4 semanas dependiendo de los requisitos de personalización.",
+          },
+          {
+            question: "¿Puede el agente de IA integrarse con mis sistemas existentes?",
+            answer:
+              "Sí, nuestros agentes de IA pueden integrarse con la mayoría de sistemas existentes incluyendo CRM, helpdesk, plataformas de e-commerce y APIs personalizadas. Proporcionamos soporte integral de integración.",
+          },
+          {
+            question: "¿Qué idiomas puede soportar el agente de IA?",
+            answer:
+              "Nuestros agentes de IA soportan más de 50 idiomas con comprensión de nivel nativo. Pueden detectar automáticamente el idioma del cliente y responder apropiadamente.",
+          },
+          {
+            question: "¿Cómo aseguran que el agente de IA entienda mi negocio?",
+            answer:
+              "Entrenamos el agente de IA con tus datos específicos de negocio, procesos y patrones de interacción con clientes. El entrenamiento incluye tus FAQs, información de productos y conversaciones históricas de clientes.",
+          },
+          {
+            question: "¿Qué pasa cuando el agente de IA no puede ayudar a un cliente?",
+            answer:
+              "Nuestro sistema de escalación inteligente transfiere sin problemas consultas complejas a agentes humanos con contexto completo de la conversación. Puedes personalizar reglas de escalación según tus preferencias.",
+          },
+        ],
       },
     },
   }
 
   const t = content[language]
 
+  const whatsappMessage =
+    language === "es"
+      ? "Hola, me interesa desarrollar un agente de IA personalizado para mi negocio"
+      : "Hello, I'm interested in developing a custom AI agent for my business"
+
+  const whatsappUrl = `https://wa.me/56944444649?text=${encodeURIComponent(whatsappMessage)}`
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge className="mb-6 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10">
-              {t.hero.badge}
+            <Badge
+              variant="secondary"
+              className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+            >
+              {t.badge}
             </Badge>
-
-            <h1 className="text-4xl md:text-6xl font-bold text-black mb-6 leading-tight">{t.hero.title}</h1>
-
-            <p className="text-xl text-gray-600 mb-12 leading-relaxed">{t.hero.subtitle}</p>
-
+            <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">{t.title}</h1>
+            <p className="text-lg text-gray-600 mb-12 max-w-3xl mx-auto">{t.subtitle}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg font-semibold"
-                asChild
-              >
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20desarrollar%20un%20agente%20de%20IA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  {t.hero.cta.primary}
+              <Button size="lg" className="bg-black text-white hover:bg-gray-800 px-8 py-4 text-lg" asChild>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  {t.cta}
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-
               <Button
                 size="lg"
                 variant="outline"
-                className="border-black text-black hover:bg-black hover:text-white px-8 py-4 text-lg font-semibold bg-transparent"
-                asChild
+                className="border-black text-black hover:bg-black hover:text-white px-8 py-4 text-lg bg-transparent"
               >
-                <a href="/case-studies">
-                  {t.hero.cta.secondary}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                {t.demo}
               </Button>
             </div>
           </div>
@@ -270,52 +280,17 @@ function AIAgentDevelopmentContent() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.features.title}</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.features.subtitle}</p>
-          </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {t.features.items.map((feature, index) => (
-              <Card
-                key={index}
-                className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg"
-              >
-                <CardHeader>
+            {t.features.map((feature, index) => (
+              <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-shadow">
+                <CardContent className="p-6">
                   <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-white" />
                   </div>
-                  <CardTitle className="text-xl font-bold text-black">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.process.title}</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.process.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {t.process.steps.map((step, index) => (
-              <Card
-                key={index}
-                className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg bg-white"
-              >
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold text-black mb-4">{step.number}</div>
-                  <h3 className="text-xl font-bold text-black mb-3">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  <h3 className="text-lg font-semibold text-black mb-2">{feature.title}</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -324,22 +299,44 @@ function AIAgentDevelopmentContent() {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.benefits.title}</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.benefits.subtitle}</p>
           </div>
+          <div className="grid md:grid-cols-4 gap-8">
+            {t.benefits.metrics.map((metric, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl font-bold text-black mb-2">{metric.value}</div>
+                <div className="text-gray-600">{metric.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {t.benefits.items.map((benefit, index) => (
-              <Card
-                key={index}
-                className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg text-center"
-              >
+      {/* Use Cases Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.useCases.title}</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.useCases.subtitle}</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {t.useCases.cases.map((useCase, index) => (
+              <Card key={index} className="border-2 border-gray-100 hover:border-black transition-colors">
                 <CardContent className="p-8">
-                  <div className="text-4xl md:text-5xl font-bold text-black mb-4">{benefit.metric}</div>
-                  <div className="text-gray-600 font-medium">{benefit.label}</div>
+                  <h3 className="text-xl font-semibold text-black mb-4">{useCase.title}</h3>
+                  <p className="text-gray-600 mb-6">{useCase.description}</p>
+                  <ul className="space-y-2">
+                    {useCase.benefits.map((benefit, benefitIndex) => (
+                      <li key={benefitIndex} className="flex items-center text-sm text-gray-600">
+                        <CheckCircle className="h-4 w-4 text-green-500 mr-3 flex-shrink-0" />
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
@@ -347,48 +344,51 @@ function AIAgentDevelopmentContent() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">{t.cta.title}</h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">{t.cta.subtitle}</p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg font-semibold" asChild>
-              <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20comenzar%20mi%20proyecto%20de%20IA"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="mr-2 h-5 w-5" />
-                {t.cta.button}
-              </a>
-            </Button>
-
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-semibold bg-transparent"
-              asChild
-            >
-              <a href="mailto:hello@n3uralia.com?subject=AI Agent Development Inquiry">
-                <Mail className="mr-2 h-5 w-5" />
-                {language === "en" ? "Email Us" : "Enviar Email"}
-              </a>
-            </Button>
+      {/* FAQ Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.faq.title}</h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.faq.subtitle}</p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <Accordion type="single" collapsible className="space-y-4">
+              {t.faq.questions.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border border-gray-200 rounded-lg px-6 hover:border-black transition-colors"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-black hover:no-underline py-6">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 leading-relaxed pb-6">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </div>
       </section>
-    </div>
-  )
-}
 
-export default function AIAgentDevelopmentPage() {
-  return (
-    <LanguageProvider>
-      <Navigation />
-      <AIAgentDevelopmentContent />
-      <Footer />
-    </LanguageProvider>
+      {/* CTA Section */}
+      <section className="py-20 bg-black text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            {language === "es" ? "¿Listo para Crear Tu Agente de IA?" : "Ready to Build Your AI Agent?"}
+          </h2>
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-12">
+            {language === "es"
+              ? "Comienza tu transformación digital hoy y experimenta el poder de los agentes de IA personalizados."
+              : "Start your digital transformation today and experience the power of custom AI agents."}
+          </p>
+          <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg" asChild>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              {t.cta}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </a>
+          </Button>
+        </div>
+      </section>
+    </div>
   )
 }

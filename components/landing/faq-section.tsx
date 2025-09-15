@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useLanguage } from "@/lib/language-context"
 
-export function FaqSection() {
+export function FAQSection() {
   const { language } = useLanguage()
 
   const content = {

@@ -25,6 +25,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const browserLanguage = navigator.language.toLowerCase()
       if (browserLanguage.startsWith("es")) {
         setLanguage("es")
+      } else {
+        setLanguage("en")
       }
     }
   }, [])

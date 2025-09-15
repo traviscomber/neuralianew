@@ -1,8 +1,6 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Building2, ShoppingCart, Heart, GraduationCap, Car, Plane } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function ClientsSection() {
@@ -11,95 +9,28 @@ export function ClientsSection() {
   const content = {
     en: {
       badge: "Trusted by Industry Leaders",
-      title: "Powering Success Across Industries",
+      title: "Join 500+ Companies Already Transforming with AI",
       subtitle:
-        "From startups to Fortune 500 companies, businesses worldwide trust N3uralia to transform their operations with AI.",
-      clients: [
-        {
-          icon: Building2,
-          name: "TechCorp Solutions",
-          industry: "Technology",
-          description: "Automated customer support reducing response time by 85%",
-        },
-        {
-          icon: ShoppingCart,
-          name: "RetailMax",
-          industry: "E-commerce",
-          description: "AI-powered sales assistant increasing conversion by 40%",
-        },
-        {
-          icon: Heart,
-          name: "HealthFirst Clinic",
-          industry: "Healthcare",
-          description: "Patient scheduling automation saving 20 hours weekly",
-        },
-        {
-          icon: GraduationCap,
-          name: "EduTech Academy",
-          industry: "Education",
-          description: "Intelligent tutoring system improving student outcomes",
-        },
-        {
-          icon: Car,
-          name: "AutoDrive Motors",
-          industry: "Automotive",
-          description: "Service booking automation with 95% accuracy",
-        },
-        {
-          icon: Plane,
-          name: "SkyHigh Airlines",
-          industry: "Travel",
-          description: "Multi-language customer service across 12 countries",
-        },
-      ],
+        "From startups to Fortune 500 companies, businesses worldwide trust N3uralia to deliver intelligent AI solutions.",
     },
     es: {
       badge: "Confianza de Líderes de la Industria",
-      title: "Impulsando el Éxito en Todas las Industrias",
+      title: "Únete a Más de 500 Empresas Ya Transformándose con IA",
       subtitle:
-        "Desde startups hasta empresas Fortune 500, negocios en todo el mundo confían en N3uralia para transformar sus operaciones con IA.",
-      clients: [
-        {
-          icon: Building2,
-          name: "TechCorp Solutions",
-          industry: "Tecnología",
-          description: "Soporte al cliente automatizado reduciendo tiempo de respuesta en 85%",
-        },
-        {
-          icon: ShoppingCart,
-          name: "RetailMax",
-          industry: "E-commerce",
-          description: "Asistente de ventas con IA aumentando conversión en 40%",
-        },
-        {
-          icon: Heart,
-          name: "HealthFirst Clinic",
-          industry: "Salud",
-          description: "Automatización de citas de pacientes ahorrando 20 horas semanales",
-        },
-        {
-          icon: GraduationCap,
-          name: "EduTech Academy",
-          industry: "Educación",
-          description: "Sistema de tutoría inteligente mejorando resultados estudiantiles",
-        },
-        {
-          icon: Car,
-          name: "AutoDrive Motors",
-          industry: "Automotriz",
-          description: "Automatización de reservas de servicio con 95% de precisión",
-        },
-        {
-          icon: Plane,
-          name: "SkyHigh Airlines",
-          industry: "Viajes",
-          description: "Servicio al cliente multiidioma en 12 países",
-        },
-      ],
+        "Desde startups hasta empresas Fortune 500, negocios en todo el mundo confían en N3uralia para entregar soluciones inteligentes de IA.",
     },
   }
 
   const t = content[language]
+
+  const clients = [
+    { name: "TechCorp", logo: "/placeholder.svg?height=60&width=120&text=TechCorp" },
+    { name: "InnovateLab", logo: "/placeholder.svg?height=60&width=120&text=InnovateLab" },
+    { name: "GlobalSoft", logo: "/placeholder.svg?height=60&width=120&text=GlobalSoft" },
+    { name: "DataFlow", logo: "/placeholder.svg?height=60&width=120&text=DataFlow" },
+    { name: "CloudTech", logo: "/placeholder.svg?height=60&width=120&text=CloudTech" },
+    { name: "AIVentures", logo: "/placeholder.svg?height=60&width=120&text=AIVentures" },
+  ]
 
   return (
     <section className="py-20 bg-white">
@@ -115,28 +46,41 @@ export function ClientsSection() {
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {t.clients.map((client, index) => (
-            <Card
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+          {clients.map((client, index) => (
+            <div
               key={index}
-              className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg"
+              className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300"
             >
-              <CardContent className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mr-4">
-                    <client.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-black">{client.name}</h3>
-                    <Badge variant="outline" className="text-xs border-gray-300 text-gray-600">
-                      {client.industry}
-                    </Badge>
-                  </div>
-                </div>
-                <p className="text-gray-600 leading-relaxed">{client.description}</p>
-              </CardContent>
-            </Card>
+              <img
+                src={client.logo || "/placeholder.svg"}
+                alt={client.name}
+                className="max-h-12 w-auto opacity-60 hover:opacity-100 transition-opacity"
+              />
+            </div>
           ))}
+        </div>
+
+        {/* Stats */}
+        <div className="grid md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gray-200">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-black mb-2">500+</div>
+            <div className="text-gray-600">{language === "es" ? "Empresas Activas" : "Active Companies"}</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-black mb-2">10M+</div>
+            <div className="text-gray-600">
+              {language === "es" ? "Conversaciones Procesadas" : "Conversations Processed"}
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-black mb-2">99.9%</div>
+            <div className="text-gray-600">{language === "es" ? "Tiempo de Actividad" : "Uptime"}</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-black mb-2">50+</div>
+            <div className="text-gray-600">{language === "es" ? "Idiomas Soportados" : "Languages Supported"}</div>
+          </div>
         </div>
       </div>
     </section>
