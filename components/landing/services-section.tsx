@@ -1,7 +1,8 @@
 "use client"
 
-import Link from "next/link"
-import { Bot, Cog, Building2, ArrowRight } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Bot, Cog, Building } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function ServicesSection() {
@@ -15,22 +16,23 @@ export function ServicesSection() {
         {
           icon: Bot,
           title: "AI Agent Development",
-          description:
-            "Custom intelligent agents that automate complex business processes and provide 24/7 customer support.",
-          href: "/ai-agent-development",
+          description: "Custom AI agents designed specifically for your business processes and customer interactions.",
+          features: ["Natural Language Processing", "Custom Training", "Multi-platform Integration", "24/7 Operation"],
+          cta: "Learn More",
         },
         {
           icon: Cog,
           title: "Process Automation",
-          description:
-            "Streamline operations with intelligent workflow automation that reduces costs and improves efficiency.",
-          href: "/process-automation",
+          description: "Intelligent automation solutions that streamline operations and reduce manual workload.",
+          features: ["Workflow Optimization", "Data Processing", "Task Automation", "Performance Analytics"],
+          cta: "Explore Solutions",
         },
         {
-          icon: Building2,
+          icon: Building,
           title: "Enterprise Integration",
           description: "Seamless integration of AI solutions with your existing enterprise systems and infrastructure.",
-          href: "/enterprise-integration",
+          features: ["System Integration", "API Development", "Security Compliance", "Scalable Architecture"],
+          cta: "Get Started",
         },
       ],
     },
@@ -41,21 +43,41 @@ export function ServicesSection() {
         {
           icon: Bot,
           title: "Desarrollo de Agentes de IA",
-          description: "Agentes inteligentes personalizados que automatizan procesos complejos y brindan soporte 24/7.",
-          href: "/ai-agent-development",
+          description:
+            "Agentes de IA personalizados diseñados específicamente para tus procesos de negocio e interacciones con clientes.",
+          features: [
+            "Procesamiento de Lenguaje Natural",
+            "Entrenamiento Personalizado",
+            "Integración Multi-plataforma",
+            "Operación 24/7",
+          ],
+          cta: "Saber Más",
         },
         {
           icon: Cog,
           title: "Automatización de Procesos",
-          description: "Optimiza operaciones con automatización inteligente que reduce costos y mejora la eficiencia.",
-          href: "/process-automation",
+          description:
+            "Soluciones de automatización inteligente que optimizan operaciones y reducen la carga de trabajo manual.",
+          features: [
+            "Optimización de Flujos",
+            "Procesamiento de Datos",
+            "Automatización de Tareas",
+            "Análisis de Rendimiento",
+          ],
+          cta: "Explorar Soluciones",
         },
         {
-          icon: Building2,
+          icon: Building,
           title: "Integración Empresarial",
           description:
-            "Integración perfecta de soluciones de IA con tus sistemas e infraestructura empresarial existente.",
-          href: "/enterprise-integration",
+            "Integración perfecta de soluciones de IA con tus sistemas e infraestructura empresarial existentes.",
+          features: [
+            "Integración de Sistemas",
+            "Desarrollo de APIs",
+            "Cumplimiento de Seguridad",
+            "Arquitectura Escalable",
+          ],
+          cta: "Comenzar",
         },
       ],
     },
@@ -64,33 +86,53 @@ export function ServicesSection() {
   const t = content[language]
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+    <section className="py-16 md:py-20 lg:py-24 bg-gray-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">{t.title}</h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {t.services.map((service, index) => (
-            <Link
+            <Card
               key={index}
-              href={service.href}
-              className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-gray-200 group block"
+              className="border border-gray-200 hover:border-black transition-all duration-300 group bg-white"
             >
-              <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-black transition-colors duration-300">
-                <service.icon className="w-8 h-8 text-gray-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h3 className="text-2xl font-bold text-black mb-4">{service.title}</h3>
-              <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
-              <div className="flex items-center text-black font-semibold group-hover:translate-x-2 transition-transform duration-300">
-                Learn More
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </div>
-            </Link>
+              <CardContent className="p-6 sm:p-8">
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-6 group-hover:bg-black transition-colors duration-300">
+                  <service.icon className="w-6 h-6 text-gray-600 group-hover:text-white transition-colors duration-300" />
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-bold text-black mb-4 group-hover:text-gray-900 transition-colors duration-300">
+                  {service.title}
+                </h3>
+
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+
+                <ul className="space-y-2 mb-8">
+                  {service.features.map((feature, featureIndex) => (
+                    <li key={featureIndex} className="flex items-center text-sm text-gray-600">
+                      <div className="w-1.5 h-1.5 bg-black rounded-full mr-3 flex-shrink-0"></div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <Button
+                  variant="outline"
+                  className="w-full border-black text-black hover:bg-black hover:text-white transition-all duration-300 bg-transparent"
+                >
+                  {service.cta}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
     </section>
   )
 }
+
+export default ServicesSection

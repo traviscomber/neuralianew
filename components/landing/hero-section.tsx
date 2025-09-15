@@ -49,13 +49,19 @@ export function HeroSection() {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Content */}
-          <h1 className="text-5xl lg:text-7xl font-bold text-black mb-6 tracking-tight">{t.title}</h1>
-          <h2 className="text-2xl lg:text-3xl text-gray-600 mb-8 font-light">{t.subtitle}</h2>
-          <p className="text-lg lg:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">{t.description}</p>
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-black mb-6 tracking-tight">{t.title}</h1>
+          <h2 className="text-xl md:text-2xl lg:text-3xl text-gray-600 mb-8 font-light">{t.subtitle}</h2>
+          <p className="text-base md:text-lg lg:text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed px-4">
+            {t.description}
+          </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg font-semibold" asChild>
+            <Button
+              size="lg"
+              className="bg-black hover:bg-gray-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold"
+              asChild
+            >
               <a
                 href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20iniciar%20mi%20viaje%20con%20IA"
                 target="_blank"
@@ -69,7 +75,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-black text-black hover:bg-black hover:text-white px-8 py-4 text-lg font-semibold bg-transparent"
+              className="border-2 border-black text-black hover:bg-black hover:text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold bg-transparent"
               asChild
             >
               <a
@@ -84,11 +90,11 @@ export function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {t.stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl lg:text-4xl font-bold text-black mb-2">{stat.value}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-black mb-2">{stat.value}</div>
+                <div className="text-sm md:text-base text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -97,3 +103,5 @@ export function HeroSection() {
     </section>
   )
 }
+
+export default HeroSection

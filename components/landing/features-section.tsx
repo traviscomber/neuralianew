@@ -1,6 +1,8 @@
 "use client"
 
-import { Bot, Zap, Shield, Brain, Globe, Users, BarChart3, Clock, CheckCircle } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Brain, MessageSquare, Zap, Shield, BarChart3, Clock, Users, Globe, Cpu } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function FeaturesSection() {
@@ -9,107 +11,121 @@ export function FeaturesSection() {
   const content = {
     en: {
       title: "Powerful AI Features",
-      subtitle: "Comprehensive solutions designed to transform your business operations",
+      subtitle: "Everything you need to build and deploy intelligent AI solutions",
       features: [
         {
-          icon: Bot,
-          title: "Custom AI Agents",
-          description: "Tailored AI assistants that understand your business needs and provide intelligent automation.",
+          icon: Brain,
+          title: "Advanced AI Models",
+          description: "State-of-the-art language models and machine learning algorithms",
+          badge: "Core",
+        },
+        {
+          icon: MessageSquare,
+          title: "Natural Conversations",
+          description: "Human-like interactions with context awareness and memory",
+          badge: "Popular",
         },
         {
           icon: Zap,
-          title: "Process Automation",
-          description: "Streamline workflows and eliminate repetitive tasks with intelligent automation systems.",
+          title: "Lightning Fast",
+          description: "Sub-second response times with optimized infrastructure",
+          badge: "Performance",
         },
         {
           icon: Shield,
           title: "Enterprise Security",
-          description: "Bank-level security with encryption, compliance, and data protection protocols.",
-        },
-        {
-          icon: Brain,
-          title: "Machine Learning",
-          description: "Advanced ML algorithms that learn and adapt to improve performance over time.",
-        },
-        {
-          icon: Globe,
-          title: "Multi-Platform Integration",
-          description: "Seamless integration with existing systems, APIs, and third-party applications.",
-        },
-        {
-          icon: Users,
-          title: "24/7 Support",
-          description: "Round-the-clock technical support and monitoring to ensure optimal performance.",
+          description: "Bank-level encryption and compliance with industry standards",
+          badge: "Security",
         },
         {
           icon: BarChart3,
-          title: "Analytics & Insights",
-          description: "Comprehensive reporting and analytics to track performance and ROI.",
+          title: "Analytics Dashboard",
+          description: "Real-time insights and performance metrics for your AI agents",
+          badge: "Analytics",
         },
         {
           icon: Clock,
-          title: "Real-time Processing",
-          description: "Instant responses and real-time data processing for immediate results.",
+          title: "24/7 Availability",
+          description: "Round-the-clock operation with 99.9% uptime guarantee",
+          badge: "Reliability",
         },
         {
-          icon: CheckCircle,
-          title: "Quality Assurance",
-          description: "Rigorous testing and quality control to ensure reliable AI solutions.",
+          icon: Users,
+          title: "Multi-User Support",
+          description: "Concurrent conversations with unlimited user capacity",
+          badge: "Scalability",
+        },
+        {
+          icon: Globe,
+          title: "Global Deployment",
+          description: "Worldwide infrastructure with low-latency edge computing",
+          badge: "Global",
+        },
+        {
+          icon: Cpu,
+          title: "Custom Integration",
+          description: "Seamless integration with your existing systems and workflows",
+          badge: "Integration",
         },
       ],
     },
     es: {
       title: "Características Poderosas de IA",
-      subtitle: "Soluciones integrales diseñadas para transformar las operaciones de tu negocio",
+      subtitle: "Todo lo que necesitas para construir y desplegar soluciones inteligentes de IA",
       features: [
         {
-          icon: Bot,
-          title: "Agentes de IA Personalizados",
-          description:
-            "Asistentes de IA adaptados que entienden las necesidades de tu negocio y proporcionan automatización inteligente.",
+          icon: Brain,
+          title: "Modelos de IA Avanzados",
+          description: "Modelos de lenguaje de vanguardia y algoritmos de aprendizaje automático",
+          badge: "Principal",
+        },
+        {
+          icon: MessageSquare,
+          title: "Conversaciones Naturales",
+          description: "Interacciones similares a las humanas con conciencia contextual y memoria",
+          badge: "Popular",
         },
         {
           icon: Zap,
-          title: "Automatización de Procesos",
-          description:
-            "Optimiza flujos de trabajo y elimina tareas repetitivas con sistemas de automatización inteligente.",
+          title: "Súper Rápido",
+          description: "Tiempos de respuesta de menos de un segundo con infraestructura optimizada",
+          badge: "Rendimiento",
         },
         {
           icon: Shield,
           title: "Seguridad Empresarial",
-          description:
-            "Seguridad de nivel bancario con encriptación, cumplimiento y protocolos de protección de datos.",
-        },
-        {
-          icon: Brain,
-          title: "Aprendizaje Automático",
-          description:
-            "Algoritmos avanzados de ML que aprenden y se adaptan para mejorar el rendimiento con el tiempo.",
-        },
-        {
-          icon: Globe,
-          title: "Integración Multiplataforma",
-          description: "Integración perfecta con sistemas existentes, APIs y aplicaciones de terceros.",
-        },
-        {
-          icon: Users,
-          title: "Soporte 24/7",
-          description: "Soporte técnico y monitoreo las 24 horas para asegurar un rendimiento óptimo.",
+          description: "Encriptación de nivel bancario y cumplimiento con estándares industriales",
+          badge: "Seguridad",
         },
         {
           icon: BarChart3,
-          title: "Análisis e Insights",
-          description: "Reportes integrales y análisis para rastrear el rendimiento y ROI.",
+          title: "Panel de Análisis",
+          description: "Insights en tiempo real y métricas de rendimiento para tus agentes de IA",
+          badge: "Análisis",
         },
         {
           icon: Clock,
-          title: "Procesamiento en Tiempo Real",
-          description: "Respuestas instantáneas y procesamiento de datos en tiempo real para resultados inmediatos.",
+          title: "Disponibilidad 24/7",
+          description: "Operación las 24 horas con garantía de 99.9% de tiempo activo",
+          badge: "Confiabilidad",
         },
         {
-          icon: CheckCircle,
-          title: "Aseguramiento de Calidad",
-          description: "Pruebas rigurosas y control de calidad para asegurar soluciones de IA confiables.",
+          icon: Users,
+          title: "Soporte Multi-Usuario",
+          description: "Conversaciones concurrentes con capacidad ilimitada de usuarios",
+          badge: "Escalabilidad",
+        },
+        {
+          icon: Globe,
+          title: "Despliegue Global",
+          description: "Infraestructura mundial con computación de borde de baja latencia",
+          badge: "Global",
+        },
+        {
+          icon: Cpu,
+          title: "Integración Personalizada",
+          description: "Integración perfecta con tus sistemas y flujos de trabajo existentes",
+          badge: "Integración",
         },
       ],
     },
@@ -118,28 +134,42 @@ export function FeaturesSection() {
   const t = content[language]
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+    <section className="hidden md:block py-16 md:py-20 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-4">{t.title}</h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {t.features.map((feature, index) => (
-            <div
+            <Card
               key={index}
-              className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-gray-200 group"
+              className="border border-gray-200 hover:border-black transition-all duration-300 group bg-white"
             >
-              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-black transition-colors duration-300">
-                <feature.icon className="w-6 h-6 text-gray-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              <h3 className="text-xl font-semibold text-black mb-3">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-            </div>
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center group-hover:bg-black transition-colors duration-300">
+                    <feature.icon className="w-6 h-6 text-gray-600 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <Badge
+                    variant="secondary"
+                    className="bg-gray-100 text-gray-800 hover:bg-gray-200 text-xs font-medium"
+                  >
+                    {feature.badge}
+                  </Badge>
+                </div>
+                <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-gray-900 transition-colors duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
     </section>
   )
 }
+
+export default FeaturesSection
