@@ -80,7 +80,7 @@ export function FaqSection() {
   }
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
@@ -89,10 +89,10 @@ export function FaqSection() {
 
         <div className="max-w-3xl mx-auto">
           {t.faqs.map((faq, index) => (
-            <div key={index} className="bg-white rounded-xl mb-4 border border-gray-100 overflow-hidden">
+            <div key={index} className="bg-gray-50 rounded-xl mb-4 border border-gray-100 overflow-hidden">
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-100 transition-colors duration-200"
               >
                 <h3 className="text-lg font-semibold text-black pr-4">{faq.question}</h3>
                 {openIndex === index ? (

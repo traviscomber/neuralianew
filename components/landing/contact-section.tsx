@@ -45,7 +45,7 @@ export function ContactSection() {
   const t = content[language]
 
   return (
-    <section id="contact" className="py-24 bg-white">
+    <section id="contact" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
@@ -102,7 +102,7 @@ export function ContactSection() {
           </div>
 
           {/* Office Info */}
-          <div className="bg-gray-50 rounded-xl p-8">
+          <div className="bg-white rounded-xl p-8 border border-gray-100">
             <h3 className="text-2xl font-bold text-black mb-6">{t.office.title}</h3>
 
             <div className="space-y-4">

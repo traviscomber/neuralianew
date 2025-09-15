@@ -118,7 +118,7 @@ export function FeaturesSection() {
   const t = content[language]
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>

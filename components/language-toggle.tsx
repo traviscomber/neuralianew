@@ -7,27 +7,13 @@ export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
 
   return (
-    <div className="flex items-center bg-gray-100 rounded-lg p-1">
-      <Button
-        variant={language === "en" ? "default" : "ghost"}
-        size="sm"
-        onClick={() => setLanguage("en")}
-        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-          language === "en" ? "bg-black text-white shadow-sm" : "text-gray-600 hover:text-black hover:bg-gray-200"
-        }`}
-      >
-        EN
-      </Button>
-      <Button
-        variant={language === "es" ? "default" : "ghost"}
-        size="sm"
-        onClick={() => setLanguage("es")}
-        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-          language === "es" ? "bg-black text-white shadow-sm" : "text-gray-600 hover:text-black hover:bg-gray-200"
-        }`}
-      >
-        ES
-      </Button>
-    </div>
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setLanguage(language === "en" ? "es" : "en")}
+      className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent font-medium"
+    >
+      {language === "en" ? "ES" : "EN"}
+    </Button>
   )
 }

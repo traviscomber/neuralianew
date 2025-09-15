@@ -45,7 +45,7 @@ export function HeroSection() {
   const t = content[language]
 
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 lg:py-32">
+    <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 lg:py-32 mt-16">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Content */}
