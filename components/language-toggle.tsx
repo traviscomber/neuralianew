@@ -1,19 +1,29 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage()
 
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setLanguage(language === "en" ? "es" : "en")}
-      className="border-gray-300 text-gray-700 hover:bg-gray-100 bg-transparent font-medium"
-    >
-      {language === "en" ? "ES" : "EN"}
-    </Button>
+    <div className="flex items-center space-x-2">
+      <button
+        onClick={() => setLanguage("en")}
+        className={`px-2 py-1 text-sm font-medium transition-colors ${
+          language === "en" ? "text-black" : "text-gray-500 hover:text-gray-700"
+        }`}
+      >
+        EN
+      </button>
+      <span className="text-gray-300">|</span>
+      <button
+        onClick={() => setLanguage("es")}
+        className={`px-2 py-1 text-sm font-medium transition-colors ${
+          language === "es" ? "text-black" : "text-gray-500 hover:text-gray-700"
+        }`}
+      >
+        ES
+      </button>
+    </div>
   )
 }

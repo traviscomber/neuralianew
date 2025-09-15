@@ -16,13 +16,15 @@ export default function HomePage() {
     <LanguageProvider>
       <div className="min-h-screen bg-white">
         <Navigation />
-        <HeroSection />
-        <ServicesSection />
-        <FeaturesSection />
-        <ClientsSection />
-        <TestimonialsSection />
-        <FaqSection />
-        <ContactSection />
+        <main>
+          <HeroSection />
+          <ServicesSection />
+          <FeaturesSection />
+          <ClientsSection />
+          <TestimonialsSection />
+          <FaqSection />
+          <ContactSection />
+        </main>
         <Footer />
       </div>
     </LanguageProvider>
