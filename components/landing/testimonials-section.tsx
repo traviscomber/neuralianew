@@ -1,6 +1,8 @@
 "use client"
 
-import { Star } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Star, Quote } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function TestimonialsSection() {
@@ -8,56 +10,101 @@ export function TestimonialsSection() {
 
   const content = {
     en: {
-      title: "What Our Clients Say",
-      subtitle: "Trusted by leading companies worldwide",
+      badge: "Client Success Stories",
+      title: "What Our Clients Say About N3uralia",
+      subtitle: "Real results from real businesses that have transformed their operations with our AI solutions.",
       testimonials: [
         {
+          name: "Sarah Johnson",
+          position: "CEO, TechStart Inc.",
+          company: "Technology Startup",
+          rating: 5,
+          text: "N3uralia's AI agents transformed our customer service completely. We went from 24-hour response times to instant replies, and our customer satisfaction scores increased by 60%. The ROI was evident within the first month.",
+        },
+        {
           name: "Carlos Rodriguez",
-          position: "CTO, TechCorp",
-          content:
-            "N3uralia transformed our customer service with their AI agents. We've seen a 60% reduction in response time and 40% increase in customer satisfaction.",
+          position: "Operations Director",
+          company: "Global Retail Chain",
           rating: 5,
+          text: "The automation capabilities are incredible. What used to take our team 8 hours daily now happens automatically in minutes. N3uralia didn't just save us time - they revolutionized how we work.",
         },
         {
-          name: "Maria Gonzalez",
-          position: "Operations Director, RetailPlus",
-          content:
-            "The process automation solution has streamlined our entire workflow. We're now processing 3x more orders with the same team size.",
+          name: "Dr. Emily Chen",
+          position: "Practice Manager",
+          company: "Healthcare Clinic",
           rating: 5,
+          text: "Patient scheduling was our biggest bottleneck. N3uralia's AI handles appointments, reminders, and follow-ups seamlessly. Our staff can now focus on patient care instead of administrative tasks.",
         },
         {
-          name: "David Chen",
-          position: "CEO, StartupX",
-          content:
-            "Exceptional technical expertise and support. The AI integration was seamless and delivered results beyond our expectations.",
+          name: "Michael Thompson",
+          position: "CTO, FinanceFlow",
+          company: "Financial Services",
           rating: 5,
+          text: "Security was our top concern, and N3uralia exceeded all expectations. Their enterprise-grade security combined with powerful AI capabilities gave us the confidence to fully automate our client interactions.",
+        },
+        {
+          name: "Ana Martinez",
+          position: "Marketing Director",
+          company: "E-commerce Platform",
+          rating: 5,
+          text: "The multi-language support opened new markets for us. Our AI agents communicate fluently in Spanish, English, and Portuguese, helping us expand across Latin America with consistent quality.",
+        },
+        {
+          name: "James Wilson",
+          position: "Founder & CEO",
+          company: "SaaS Startup",
+          rating: 5,
+          text: "From concept to deployment in just 2 weeks. N3uralia's team understood our vision and delivered beyond expectations. Our users love the intelligent chat support - it feels completely natural.",
         },
       ],
     },
     es: {
-      title: "Lo Que Dicen Nuestros Clientes",
-      subtitle: "Confiado por empresas líderes a nivel mundial",
+      badge: "Historias de Éxito de Clientes",
+      title: "Lo Que Nuestros Clientes Dicen Sobre N3uralia",
+      subtitle:
+        "Resultados reales de negocios reales que han transformado sus operaciones con nuestras soluciones de IA.",
       testimonials: [
         {
+          name: "Sarah Johnson",
+          position: "CEO, TechStart Inc.",
+          company: "Startup Tecnológica",
+          rating: 5,
+          text: "Los agentes de IA de N3uralia transformaron completamente nuestro servicio al cliente. Pasamos de tiempos de respuesta de 24 horas a respuestas instantáneas, y nuestros puntajes de satisfacción del cliente aumentaron en 60%. El ROI fue evidente en el primer mes.",
+        },
+        {
           name: "Carlos Rodriguez",
-          position: "CTO, TechCorp",
-          content:
-            "N3uralia transformó nuestro servicio al cliente con sus agentes de IA. Hemos visto una reducción del 60% en tiempo de respuesta y 40% de aumento en satisfacción.",
+          position: "Director de Operaciones",
+          company: "Cadena de Retail Global",
           rating: 5,
+          text: "Las capacidades de automatización son increíbles. Lo que solía tomar a nuestro equipo 8 horas diarias ahora sucede automáticamente en minutos. N3uralia no solo nos ahorró tiempo - revolucionaron cómo trabajamos.",
         },
         {
-          name: "Maria Gonzalez",
-          position: "Directora de Operaciones, RetailPlus",
-          content:
-            "La solución de automatización ha optimizado todo nuestro flujo de trabajo. Ahora procesamos 3x más pedidos con el mismo equipo.",
+          name: "Dr. Emily Chen",
+          position: "Gerente de Práctica",
+          company: "Clínica de Salud",
           rating: 5,
+          text: "La programación de pacientes era nuestro mayor cuello de botella. La IA de N3uralia maneja citas, recordatorios y seguimientos sin problemas. Nuestro personal ahora puede enfocarse en la atención al paciente en lugar de tareas administrativas.",
         },
         {
-          name: "David Chen",
-          position: "CEO, StartupX",
-          content:
-            "Experiencia técnica excepcional y soporte. La integración de IA fue perfecta y entregó resultados más allá de nuestras expectativas.",
+          name: "Michael Thompson",
+          position: "CTO, FinanceFlow",
+          company: "Servicios Financieros",
           rating: 5,
+          text: "La seguridad era nuestra principal preocupación, y N3uralia superó todas las expectativas. Su seguridad de nivel empresarial combinada con poderosas capacidades de IA nos dio la confianza para automatizar completamente nuestras interacciones con clientes.",
+        },
+        {
+          name: "Ana Martinez",
+          position: "Directora de Marketing",
+          company: "Plataforma E-commerce",
+          rating: 5,
+          text: "El soporte multiidioma nos abrió nuevos mercados. Nuestros agentes de IA se comunican fluidamente en español, inglés y portugués, ayudándonos a expandirnos por Latinoamérica con calidad consistente.",
+        },
+        {
+          name: "James Wilson",
+          position: "Fundador y CEO",
+          company: "Startup SaaS",
+          rating: 5,
+          text: "Del concepto al despliegue en solo 2 semanas. El equipo de N3uralia entendió nuestra visión y entregó más allá de las expectativas. Nuestros usuarios aman el soporte de chat inteligente - se siente completamente natural.",
         },
       ],
     },
@@ -66,30 +113,46 @@ export function TestimonialsSection() {
   const t = content[language]
 
   return (
-    <section className="py-24 bg-gray-50">
+    <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+          <Badge
+            variant="secondary"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+          >
+            {t.badge}
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {t.testimonials.map((testimonial, index) => (
-            <div
+            <Card
               key={index}
-              className="bg-white rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-all duration-300"
+              className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg bg-white"
             >
-              <div className="flex items-center mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-black fill-current" />
-                ))}
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-6 italic">"{testimonial.content}"</p>
-              <div>
-                <div className="font-semibold text-black">{testimonial.name}</div>
-                <div className="text-gray-600">{testimonial.position}</div>
-              </div>
-            </div>
+              <CardContent className="p-6">
+                <div className="flex items-center mb-4">
+                  <Quote className="h-8 w-8 text-black mr-3" />
+                  <div className="flex">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-gray-700 mb-6 leading-relaxed italic">"{testimonial.text}"</p>
+
+                <div className="border-t border-gray-200 pt-4">
+                  <div className="font-bold text-black">{testimonial.name}</div>
+                  <div className="text-sm text-gray-600">{testimonial.position}</div>
+                  <Badge variant="outline" className="mt-2 text-xs border-gray-300 text-gray-600">
+                    {testimonial.company}
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>

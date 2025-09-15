@@ -1,73 +1,103 @@
 "use client"
-
-import { useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useLanguage } from "@/lib/language-context"
 
 export function FaqSection() {
   const { language } = useLanguage()
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const content = {
     en: {
-      title: "Frequently Asked Questions",
-      subtitle: "Everything you need to know about our AI solutions",
+      badge: "Frequently Asked Questions",
+      title: "Everything You Need to Know About N3uralia",
+      subtitle: "Get answers to the most common questions about our AI solutions and services.",
       faqs: [
         {
-          question: "How long does it take to implement an AI solution?",
+          question: "How quickly can I deploy an AI agent for my business?",
           answer:
-            "Implementation time varies depending on complexity, but most projects are completed within 4-12 weeks. We provide detailed timelines during the consultation phase.",
+            "Most AI agents can be deployed within 1-2 weeks. Simple chatbots can be ready in 2-3 days, while complex enterprise solutions may take 2-4 weeks depending on integration requirements and customization needs.",
         },
         {
-          question: "Do you provide ongoing support and maintenance?",
+          question: "What platforms and channels do your AI agents support?",
           answer:
-            "Yes, we offer 24/7 technical support, regular updates, and continuous monitoring to ensure optimal performance of your AI systems.",
+            "Our AI agents work across all major platforms including WhatsApp, Telegram, Facebook Messenger, web chat, email, voice calls, and can integrate with your existing CRM, helpdesk, or business systems.",
         },
         {
-          question: "Can your AI solutions integrate with our existing systems?",
+          question: "How secure is my data with N3uralia's AI solutions?",
           answer:
-            "Absolutely. Our solutions are designed to integrate seamlessly with existing CRM, ERP, and other enterprise systems through APIs and custom connectors.",
+            "We maintain enterprise-grade security with SOC 2 compliance, end-to-end encryption, regular security audits, and data processing in secure cloud environments. Your data never leaves our protected infrastructure.",
         },
         {
-          question: "What industries do you serve?",
+          question: "Can the AI agents handle multiple languages?",
           answer:
-            "We serve various industries including retail, healthcare, finance, manufacturing, and technology. Our solutions are customized for each sector's specific needs.",
+            "Yes, our AI agents support 50+ languages with native-level understanding. They can automatically detect the customer's language and respond appropriately, maintaining context and cultural nuances.",
         },
         {
-          question: "How do you ensure data security and privacy?",
+          question: "What happens if the AI agent can't handle a customer inquiry?",
           answer:
-            "We implement bank-level security with end-to-end encryption, comply with GDPR and other regulations, and maintain ISO 27001 certification for data protection.",
+            "Our smart escalation system seamlessly transfers complex queries to human agents with full conversation context. You can set custom rules for when and how escalations occur.",
+        },
+        {
+          question: "How much does it cost to implement N3uralia's AI solutions?",
+          answer:
+            "Pricing varies based on your specific needs, volume, and features required. We offer flexible plans starting from $99/month for small businesses to enterprise solutions. Contact us for a custom quote.",
+        },
+        {
+          question: "Do I need technical expertise to manage the AI agents?",
+          answer:
+            "No technical expertise required. Our intuitive dashboard allows you to manage conversations, update responses, view analytics, and modify agent behavior through a user-friendly interface.",
+        },
+        {
+          question: "Can I integrate N3uralia with my existing business tools?",
+          answer:
+            "Absolutely. We offer 50+ pre-built integrations with popular tools like Salesforce, HubSpot, Shopify, Zapier, and custom API integrations for your specific business systems.",
         },
       ],
     },
     es: {
-      title: "Preguntas Frecuentes",
-      subtitle: "Todo lo que necesitas saber sobre nuestras soluciones de IA",
+      badge: "Preguntas Frecuentes",
+      title: "Todo Lo Que Necesitas Saber Sobre N3uralia",
+      subtitle: "Obtén respuestas a las preguntas más comunes sobre nuestras soluciones y servicios de IA.",
       faqs: [
         {
-          question: "¿Cuánto tiempo toma implementar una solución de IA?",
+          question: "¿Qué tan rápido puedo desplegar un agente de IA para mi negocio?",
           answer:
-            "El tiempo de implementación varía según la complejidad, pero la mayoría de proyectos se completan en 4-12 semanas. Proporcionamos cronogramas detallados durante la fase de consulta.",
+            "La mayoría de los agentes de IA pueden desplegarse en 1-2 semanas. Los chatbots simples pueden estar listos en 2-3 días, mientras que las soluciones empresariales complejas pueden tomar 2-4 semanas dependiendo de los requisitos de integración y personalización.",
         },
         {
-          question: "¿Proporcionan soporte y mantenimiento continuo?",
+          question: "¿Qué plataformas y canales soportan sus agentes de IA?",
           answer:
-            "Sí, ofrecemos soporte técnico 24/7, actualizaciones regulares y monitoreo continuo para asegurar el rendimiento óptimo de tus sistemas de IA.",
+            "Nuestros agentes de IA funcionan en todas las plataformas principales incluyendo WhatsApp, Telegram, Facebook Messenger, chat web, email, llamadas de voz, y pueden integrarse con tu CRM existente, helpdesk, o sistemas empresariales.",
         },
         {
-          question: "¿Pueden sus soluciones de IA integrarse con nuestros sistemas existentes?",
+          question: "¿Qué tan segura está mi información con las soluciones de IA de N3uralia?",
           answer:
-            "Absolutamente. Nuestras soluciones están diseñadas para integrarse perfectamente con CRM, ERP y otros sistemas empresariales existentes a través de APIs y conectores personalizados.",
+            "Mantenemos seguridad de nivel empresarial con cumplimiento SOC 2, encriptación de extremo a extremo, auditorías de seguridad regulares, y procesamiento de datos en entornos de nube seguros. Tus datos nunca salen de nuestra infraestructura protegida.",
         },
         {
-          question: "¿Qué industrias atienden?",
+          question: "¿Pueden los agentes de IA manejar múltiples idiomas?",
           answer:
-            "Atendemos varias industrias incluyendo retail, salud, finanzas, manufactura y tecnología. Nuestras soluciones se personalizan para las necesidades específicas de cada sector.",
+            "Sí, nuestros agentes de IA soportan más de 50 idiomas con comprensión de nivel nativo. Pueden detectar automáticamente el idioma del cliente y responder apropiadamente, manteniendo contexto y matices culturales.",
         },
         {
-          question: "¿Cómo aseguran la seguridad y privacidad de los datos?",
+          question: "¿Qué pasa si el agente de IA no puede manejar una consulta del cliente?",
           answer:
-            "Implementamos seguridad de nivel bancario con encriptación de extremo a extremo, cumplimos con GDPR y otras regulaciones, y mantenemos certificación ISO 27001 para protección de datos.",
+            "Nuestro sistema de escalación inteligente transfiere sin problemas consultas complejas a agentes humanos con contexto completo de la conversación. Puedes establecer reglas personalizadas para cuándo y cómo ocurren las escalaciones.",
+        },
+        {
+          question: "¿Cuánto cuesta implementar las soluciones de IA de N3uralia?",
+          answer:
+            "Los precios varían según tus necesidades específicas, volumen y características requeridas. Ofrecemos planes flexibles desde $99/mes para pequeñas empresas hasta soluciones empresariales. Contáctanos para una cotización personalizada.",
+        },
+        {
+          question: "¿Necesito experiencia técnica para gestionar los agentes de IA?",
+          answer:
+            "No se requiere experiencia técnica. Nuestro dashboard intuitivo te permite gestionar conversaciones, actualizar respuestas, ver análisis y modificar el comportamiento del agente a través de una interfaz fácil de usar.",
+        },
+        {
+          question: "¿Puedo integrar N3uralia con mis herramientas empresariales existentes?",
+          answer:
+            "Absolutamente. Ofrecemos más de 50 integraciones pre-construidas con herramientas populares como Salesforce, HubSpot, Shopify, Zapier, e integraciones API personalizadas para tus sistemas empresariales específicos.",
         },
       ],
     },
@@ -75,39 +105,35 @@ export function FaqSection() {
 
   const t = content[language]
 
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
-  }
-
   return (
-    <section className="py-24 bg-white">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+          <Badge
+            variant="secondary"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+          >
+            {t.badge}
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {t.faqs.map((faq, index) => (
-            <div key={index} className="bg-gray-50 rounded-xl mb-4 border border-gray-100 overflow-hidden">
-              <button
-                onClick={() => toggleFaq(index)}
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-100 transition-colors duration-200"
+        <div className="max-w-4xl mx-auto">
+          <Accordion type="single" collapsible className="space-y-4">
+            {t.faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="border border-gray-200 rounded-lg px-6 hover:border-black transition-colors"
               >
-                <h3 className="text-lg font-semibold text-black pr-4">{faq.question}</h3>
-                {openIndex === index ? (
-                  <ChevronUp className="w-5 h-5 text-gray-600 flex-shrink-0" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-600 flex-shrink-0" />
-                )}
-              </button>
-              {openIndex === index && (
-                <div className="px-8 pb-6">
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </div>
-              )}
-            </div>
-          ))}
+                <AccordionTrigger className="text-left font-semibold text-black hover:no-underline py-6">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-gray-600 leading-relaxed pb-6">{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </div>
     </section>

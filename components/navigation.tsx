@@ -3,41 +3,41 @@
 import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Menu, X, MessageCircle } from "lucide-react"
-import { useLanguage } from "@/lib/language-context"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu, MessageCircle } from "lucide-react"
 import { LanguageToggle } from "@/components/language-toggle"
+import { useLanguage } from "@/lib/language-context"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const { language } = useLanguage()
 
-  const content = {
-    en: {
-      nav: {
-        home: "Home",
-        services: "Services",
-        about: "About",
-        contact: "Contact",
-      },
-      cta: "Get Started",
-    },
-    es: {
-      nav: {
-        home: "Inicio",
-        services: "Servicios",
-        about: "Nosotros",
-        contact: "Contacto",
-      },
-      cta: "Comenzar",
-    },
+  const navItems = {
+    en: [
+      { name: "Home", href: "/" },
+      { name: "Services", href: "/services" },
+      { name: "About", href: "#about" },
+      { name: "Contact", href: "#contact" },
+    ],
+    es: [
+      { name: "Inicio", href: "/" },
+      { name: "Servicios", href: "/services" },
+      { name: "Nosotros", href: "#about" },
+      { name: "Contacto", href: "#contact" },
+    ],
   }
 
-  const t = content[language]
+  const cta = {
+    en: "Get Started",
+    es: "Comenzar",
+  }
+
+  const items = navItems[language]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
@@ -48,89 +48,64 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-black transition-colors font-medium">
-              {t.nav.home}
-            </Link>
-            <Link href="/services" className="text-gray-700 hover:text-black transition-colors font-medium">
-              {t.nav.services}
-            </Link>
-            <Link href="#about" className="text-gray-700 hover:text-black transition-colors font-medium">
-              {t.nav.about}
-            </Link>
-            <Link href="#contact" className="text-gray-700 hover:text-black transition-colors font-medium">
-              {t.nav.contact}
-            </Link>
-          </div>
-
-          {/* Desktop CTA & Language Toggle */}
-          <div className="hidden md:flex items-center space-x-4">
+            {items.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-gray-600 hover:text-black transition-colors font-medium"
+              >
+                {item.name}
+              </Link>
+            ))}
             <LanguageToggle />
-            <Button className="bg-black hover:bg-gray-800 text-white font-semibold" asChild>
+            <Button asChild className="bg-black hover:bg-gray-800 text-white">
               <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20comenzar%20con%20sus%20servicios"
+                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20saber%20más%20sobre%20sus%20servicios"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="w-4 h-4 mr-2" />
-                {t.cta}
+                <MessageCircle className="mr-2 h-4 w-4" />
+                {cta[language]}
               </a>
             </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center space-x-4">
             <LanguageToggle />
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-700 hover:text-black transition-colors">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <div className="flex flex-col space-y-4 mt-8">
+                  {items.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="text-lg font-medium text-gray-600 hover:text-black transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  ))}
+                  <Button asChild className="bg-black hover:bg-gray-800 text-white mt-6">
+                    <a
+                      href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20saber%20más%20sobre%20sus%20servicios"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <MessageCircle className="mr-2 h-4 w-4" />
+                      {cta[language]}
+                    </a>
+                  </Button>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-4">
-              <Link
-                href="/"
-                className="text-gray-700 hover:text-black transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {t.nav.home}
-              </Link>
-              <Link
-                href="/services"
-                className="text-gray-700 hover:text-black transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {t.nav.services}
-              </Link>
-              <Link
-                href="#about"
-                className="text-gray-700 hover:text-black transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {t.nav.about}
-              </Link>
-              <Link
-                href="#contact"
-                className="text-gray-700 hover:text-black transition-colors font-medium"
-                onClick={() => setIsOpen(false)}
-              >
-                {t.nav.contact}
-              </Link>
-              <Button className="bg-black hover:bg-gray-800 text-white font-semibold w-full" asChild>
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20comenzar%20con%20sus%20servicios"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  {t.cta}
-                </a>
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   )

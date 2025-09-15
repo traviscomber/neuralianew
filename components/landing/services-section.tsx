@@ -1,12 +1,10 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Bot, MessageSquare, BarChart3, Cog, ArrowRight, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { motion } from "framer-motion"
-import { Brain, Cog, Zap, ArrowRight, MessageSquare } from "lucide-react"
-import Link from "next/link"
 
 export function ServicesSection() {
   const { language } = useLanguage()
@@ -14,91 +12,93 @@ export function ServicesSection() {
   const content = {
     en: {
       badge: "Our Services",
-      title: "Comprehensive AI Solutions",
+      title: "Comprehensive AI Solutions for Every Business Need",
       subtitle:
-        "From custom AI development to enterprise integration, we provide end-to-end solutions for your business needs.",
+        "From intelligent chatbots to complex automation systems, we deliver AI solutions that drive real business results.",
       services: [
         {
-          icon: Brain,
+          icon: Bot,
           title: "AI Agent Development",
-          description: "Custom AI agents trained on your business data and processes for maximum efficiency.",
+          description: "Custom AI agents tailored to your specific business processes and requirements.",
           features: [
-            "Custom training on your data",
-            "Natural language processing",
-            "Multi-language support",
-            "24/7 operation capability",
+            "Natural Language Processing",
+            "Multi-platform Integration",
+            "Custom Training Models",
+            "Real-time Learning",
           ],
-          link: "/ai-agent-development",
-          badge: "Most Popular",
+          cta: "Learn More",
+        },
+        {
+          icon: MessageSquare,
+          title: "Intelligent Chatbots",
+          description: "Advanced conversational AI that provides exceptional customer service 24/7.",
+          features: ["Multi-language Support", "Context Awareness", "Human Handoff", "Analytics Dashboard"],
+          cta: "Get Started",
+        },
+        {
+          icon: BarChart3,
+          title: "Business Analytics",
+          description: "AI-powered insights that help you make data-driven decisions with confidence.",
+          features: ["Predictive Analytics", "Real-time Reporting", "Custom Dashboards", "Automated Insights"],
+          cta: "Explore",
         },
         {
           icon: Cog,
           title: "Process Automation",
-          description: "Streamline your operations with intelligent automation that learns and adapts.",
-          features: [
-            "Workflow optimization",
-            "Intelligent decision making",
-            "Integration with existing systems",
-            "Real-time monitoring",
-          ],
-          link: "/process-automation",
-          badge: "Enterprise",
-        },
-        {
-          icon: Zap,
-          title: "Enterprise Integration",
-          description: "Seamlessly integrate AI capabilities into your existing business infrastructure.",
-          features: ["API development", "System integration", "Security compliance", "Scalable architecture"],
-          link: "/enterprise-integration",
-          badge: "Custom",
+          description: "Streamline operations with intelligent automation that adapts to your workflow.",
+          features: ["Workflow Optimization", "Error Reduction", "Cost Savings", "Scalable Solutions"],
+          cta: "Automate Now",
         },
       ],
     },
     es: {
       badge: "Nuestros Servicios",
-      title: "Soluciones Integrales de IA",
+      title: "Soluciones de IA Integrales para Cada Necesidad Empresarial",
       subtitle:
-        "Desde desarrollo personalizado de IA hasta integración empresarial, proporcionamos soluciones completas para las necesidades de tu negocio.",
+        "Desde chatbots inteligentes hasta sistemas de automatización complejos, entregamos soluciones de IA que generan resultados empresariales reales.",
       services: [
         {
-          icon: Brain,
+          icon: Bot,
           title: "Desarrollo de Agentes de IA",
-          description:
-            "Agentes de IA personalizados entrenados con los datos y procesos de tu negocio para máxima eficiencia.",
+          description: "Agentes de IA personalizados adaptados a tus procesos y requisitos empresariales específicos.",
           features: [
-            "Entrenamiento personalizado con tus datos",
-            "Procesamiento de lenguaje natural",
-            "Soporte multiidioma",
-            "Capacidad de operación 24/7",
+            "Procesamiento de Lenguaje Natural",
+            "Integración Multiplataforma",
+            "Modelos de Entrenamiento Personalizados",
+            "Aprendizaje en Tiempo Real",
           ],
-          link: "/ai-agent-development",
-          badge: "Más Popular",
+          cta: "Saber Más",
+        },
+        {
+          icon: MessageSquare,
+          title: "Chatbots Inteligentes",
+          description: "IA conversacional avanzada que proporciona servicio al cliente excepcional 24/7.",
+          features: ["Soporte Multiidioma", "Conciencia Contextual", "Transferencia Humana", "Panel de Análisis"],
+          cta: "Comenzar",
+        },
+        {
+          icon: BarChart3,
+          title: "Análisis Empresarial",
+          description: "Insights impulsados por IA que te ayudan a tomar decisiones basadas en datos con confianza.",
+          features: [
+            "Análisis Predictivo",
+            "Reportes en Tiempo Real",
+            "Dashboards Personalizados",
+            "Insights Automatizados",
+          ],
+          cta: "Explorar",
         },
         {
           icon: Cog,
           title: "Automatización de Procesos",
-          description: "Optimiza tus operaciones con automatización inteligente que aprende y se adapta.",
+          description: "Optimiza operaciones con automatización inteligente que se adapta a tu flujo de trabajo.",
           features: [
-            "Optimización de flujos de trabajo",
-            "Toma de decisiones inteligente",
-            "Integración con sistemas existentes",
-            "Monitoreo en tiempo real",
+            "Optimización de Flujo de Trabajo",
+            "Reducción de Errores",
+            "Ahorro de Costos",
+            "Soluciones Escalables",
           ],
-          link: "/process-automation",
-          badge: "Empresarial",
-        },
-        {
-          icon: Zap,
-          title: "Integración Empresarial",
-          description: "Integra sin problemas las capacidades de IA en tu infraestructura empresarial existente.",
-          features: [
-            "Desarrollo de APIs",
-            "Integración de sistemas",
-            "Cumplimiento de seguridad",
-            "Arquitectura escalable",
-          ],
-          link: "/enterprise-integration",
-          badge: "Personalizado",
+          cta: "Automatizar Ahora",
         },
       ],
     },
@@ -107,102 +107,54 @@ export function ServicesSection() {
   const t = content[language]
 
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+    <section id="services" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <Badge
+            variant="secondary"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
           >
-            <Badge className="bg-gray-100 text-gray-700 border-0 mb-6">{t.badge}</Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900 mb-6">{t.title}</h2>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">{t.subtitle}</p>
-          </motion.div>
+            {t.badge}
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+        </div>
 
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {t.services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  <CardContent className="p-8">
-                    {/* Badge */}
-                    <div className="flex justify-between items-start mb-6">
-                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center group-hover:bg-black transition-colors duration-300">
-                        <service.icon className="w-8 h-8 text-gray-700 group-hover:text-white transition-colors duration-300" />
-                      </div>
-                      <Badge className="bg-black text-white text-xs">{service.badge}</Badge>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {t.services.map((service, index) => (
+            <Card
+              key={index}
+              className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg"
+            >
+              <CardHeader>
+                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                  <service.icon className="h-6 w-6 text-white" />
+                </div>
+                <CardTitle className="text-xl font-bold text-black mb-3">{service.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+
+                <div className="space-y-3 mb-6">
+                  {service.features.map((feature, featureIndex) => (
+                    <div key={featureIndex} className="flex items-center text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-600 mr-2 flex-shrink-0" />
+                      <span className="text-gray-700">{feature}</span>
                     </div>
+                  ))}
+                </div>
 
-                    {/* Content */}
-                    <h3 className="text-2xl font-light text-gray-900 mb-4">{service.title}</h3>
-
-                    <p className="text-gray-600 font-light mb-6 leading-relaxed">{service.description}</p>
-
-                    {/* Features */}
-                    <ul className="space-y-3 mb-8">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                          <div className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-3"></div>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* CTA */}
-                    <Button
-                      variant="outline"
-                      className="w-full border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black transition-all duration-300 bg-transparent"
-                      asChild
-                    >
-                      <Link href={service.link}>
-                        {language === "en" ? "Learn More" : "Saber Más"}
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mt-16"
-          >
-            <p className="text-lg text-gray-600 font-light mb-6">
-              {language === "en"
-                ? "Need a custom solution? Let's discuss your specific requirements."
-                : "¿Necesitas una solución personalizada? Hablemos sobre tus requisitos específicos."}
-            </p>
-            <Button size="lg" className="bg-black hover:bg-gray-800 text-white font-semibold" asChild>
-              <a
-                href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20consulta%20personalizada"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageSquare className="w-5 h-5 mr-2" />
-                {language === "en" ? "Get Custom Quote" : "Obtener Cotización Personalizada"}
-              </a>
-            </Button>
-          </motion.div>
+                <Button className="w-full bg-black hover:bg-gray-800 text-white font-semibold" asChild>
+                  <a href="/services">
+                    {service.cta}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
   )
 }
-
-export default ServicesSection

@@ -1,5 +1,3 @@
-"use client"
-
 import { Navigation } from "@/components/navigation"
 import { HeroSection } from "@/components/landing/hero-section"
 import { ServicesSection } from "@/components/landing/services-section"
@@ -16,15 +14,13 @@ export default function HomePage() {
     <LanguageProvider>
       <div className="min-h-screen bg-white">
         <Navigation />
-        <main>
-          <HeroSection />
-          <ServicesSection />
-          <FeaturesSection />
-          <ClientsSection />
-          <TestimonialsSection />
-          <FaqSection />
-          <ContactSection />
-        </main>
+        <HeroSection />
+        <ServicesSection />
+        <FeaturesSection />
+        <ClientsSection />
+        <TestimonialsSection />
+        <FaqSection />
+        <ContactSection />
         <Footer />
       </div>
     </LanguageProvider>

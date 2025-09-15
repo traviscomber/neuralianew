@@ -2,123 +2,127 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Zap, Shield, Globe, BarChart3, MessageSquare, Cog, Users, Clock, TrendingUp } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import { motion } from "framer-motion"
-import { Brain, MessageSquare, Zap, Shield, Clock, Users, BarChart3, Globe, Cpu } from "lucide-react"
 
 export function FeaturesSection() {
   const { language } = useLanguage()
 
   const content = {
     en: {
-      badge: "Powerful AI Features",
-      title: "Advanced Capabilities",
-      subtitle: "Enterprise-grade AI technology built for your success",
+      badge: "Key Features",
+      title: "Why Choose N3uralia for Your AI Transformation",
+      subtitle:
+        "Our platform combines cutting-edge AI technology with enterprise-grade reliability to deliver exceptional results.",
       features: [
         {
-          icon: Brain,
-          title: "Advanced AI Training",
-          description:
-            "Custom training on your specific business data and processes for maximum accuracy and relevance.",
-        },
-        {
-          icon: MessageSquare,
-          title: "Natural Conversations",
-          description: "Human-like interactions that understand context, intent, and nuance in multiple languages.",
-        },
-        {
           icon: Zap,
-          title: "Real-time Processing",
-          description: "Sub-200ms response times ensuring instant customer satisfaction and seamless experiences.",
+          title: "Lightning Fast Processing",
+          description:
+            "Process thousands of requests per second with sub-millisecond response times for real-time interactions.",
         },
         {
           icon: Shield,
           title: "Enterprise Security",
-          description: "ISO 27001 certified with end-to-end encryption and compliance with global security standards.",
+          description:
+            "Bank-level encryption, SOC 2 compliance, and advanced security protocols protect your sensitive data.",
+        },
+        {
+          icon: Globe,
+          title: "Multi-Language Support",
+          description:
+            "Communicate with customers in 50+ languages with native-level understanding and cultural context.",
+        },
+        {
+          icon: BarChart3,
+          title: "Advanced Analytics",
+          description:
+            "Deep insights into customer behavior, performance metrics, and business intelligence dashboards.",
+        },
+        {
+          icon: MessageSquare,
+          title: "Omnichannel Integration",
+          description: "Seamlessly connect across WhatsApp, Telegram, web chat, email, and voice channels.",
+        },
+        {
+          icon: Cog,
+          title: "No-Code Automation",
+          description: "Build complex workflows and automations without technical expertise using our visual builder.",
+        },
+        {
+          icon: Users,
+          title: "Team Collaboration",
+          description: "Multi-user workspaces with role-based permissions and real-time collaboration tools.",
         },
         {
           icon: Clock,
           title: "24/7 Operation",
-          description: "Never miss a customer inquiry with round-the-clock availability and consistent performance.",
+          description: "Round-the-clock availability with 99.9% uptime guarantee and automatic failover systems.",
         },
         {
-          icon: Users,
-          title: "Multi-language Support",
-          description: "Native Spanish and English support with cultural adaptation and localized responses.",
-        },
-        {
-          icon: BarChart3,
-          title: "Analytics & Insights",
-          description: "Comprehensive analytics dashboard with real-time metrics and performance insights.",
-        },
-        {
-          icon: Globe,
-          title: "Global Scalability",
-          description: "Cloud-native architecture that scales automatically with your business growth worldwide.",
-        },
-        {
-          icon: Cpu,
-          title: "Smart Integration",
-          description: "Seamless integration with existing systems, CRMs, and business tools through robust APIs.",
+          icon: TrendingUp,
+          title: "Scalable Infrastructure",
+          description: "Auto-scaling cloud infrastructure that grows with your business from startup to enterprise.",
         },
       ],
     },
     es: {
-      badge: "Características Poderosas de IA",
-      title: "Capacidades Avanzadas",
-      subtitle: "Tecnología de IA de nivel empresarial construida para tu éxito",
+      badge: "Características Clave",
+      title: "Por Qué Elegir N3uralia para Tu Transformación de IA",
+      subtitle:
+        "Nuestra plataforma combina tecnología de IA de vanguardia con confiabilidad de nivel empresarial para entregar resultados excepcionales.",
       features: [
         {
-          icon: Brain,
-          title: "Entrenamiento Avanzado de IA",
-          description:
-            "Entrenamiento personalizado en tus datos y procesos empresariales específicos para máxima precisión y relevancia.",
-        },
-        {
-          icon: MessageSquare,
-          title: "Conversaciones Naturales",
-          description:
-            "Interacciones similares a las humanas que entienden contexto, intención y matices en múltiples idiomas.",
-        },
-        {
           icon: Zap,
-          title: "Procesamiento en Tiempo Real",
+          title: "Procesamiento Ultra Rápido",
           description:
-            "Tiempos de respuesta sub-200ms asegurando satisfacción instantánea del cliente y experiencias fluidas.",
+            "Procesa miles de solicitudes por segundo con tiempos de respuesta sub-milisegundo para interacciones en tiempo real.",
         },
         {
           icon: Shield,
           title: "Seguridad Empresarial",
           description:
-            "Certificado ISO 27001 con cifrado de extremo a extremo y cumplimiento con estándares de seguridad globales.",
+            "Encriptación de nivel bancario, cumplimiento SOC 2 y protocolos de seguridad avanzados protegen tus datos sensibles.",
+        },
+        {
+          icon: Globe,
+          title: "Soporte Multiidioma",
+          description: "Comunícate con clientes en más de 50 idiomas con comprensión nativa y contexto cultural.",
+        },
+        {
+          icon: BarChart3,
+          title: "Análisis Avanzado",
+          description:
+            "Insights profundos sobre comportamiento del cliente, métricas de rendimiento y dashboards de inteligencia empresarial.",
+        },
+        {
+          icon: MessageSquare,
+          title: "Integración Omnicanal",
+          description: "Conecta sin problemas a través de WhatsApp, Telegram, chat web, email y canales de voz.",
+        },
+        {
+          icon: Cog,
+          title: "Automatización Sin Código",
+          description:
+            "Construye flujos de trabajo complejos y automatizaciones sin experiencia técnica usando nuestro constructor visual.",
+        },
+        {
+          icon: Users,
+          title: "Colaboración en Equipo",
+          description:
+            "Espacios de trabajo multiusuario con permisos basados en roles y herramientas de colaboración en tiempo real.",
         },
         {
           icon: Clock,
           title: "Operación 24/7",
           description:
-            "Nunca pierdas una consulta de cliente con disponibilidad las 24 horas y rendimiento consistente.",
+            "Disponibilidad las 24 horas con garantía de 99.9% de tiempo activo y sistemas de failover automático.",
         },
         {
-          icon: Users,
-          title: "Soporte Multiidioma",
-          description: "Soporte nativo en español e inglés con adaptación cultural y respuestas localizadas.",
-        },
-        {
-          icon: BarChart3,
-          title: "Análisis e Insights",
-          description: "Panel de análisis integral con métricas en tiempo real e insights de rendimiento.",
-        },
-        {
-          icon: Globe,
-          title: "Escalabilidad Global",
+          icon: TrendingUp,
+          title: "Infraestructura Escalable",
           description:
-            "Arquitectura nativa en la nube que escala automáticamente con el crecimiento de tu negocio mundialmente.",
-        },
-        {
-          icon: Cpu,
-          title: "Integración Inteligente",
-          description:
-            "Integración perfecta con sistemas existentes, CRMs y herramientas empresariales a través de APIs robustas.",
+            "Infraestructura en la nube con auto-escalado que crece con tu negocio desde startup hasta empresa.",
         },
       ],
     },
@@ -127,50 +131,36 @@ export function FeaturesSection() {
   const t = content[language]
 
   return (
-    <section className="hidden md:block py-16 md:py-24 bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
+    <section className="py-20 bg-gray-50 hidden md:block">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <Badge
+            variant="secondary"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
           >
-            <Badge className="bg-black text-white border-0 mb-6">{t.badge}</Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light text-gray-900 mb-6">{t.title}</h2>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">{t.subtitle}</p>
-          </motion.div>
+            {t.badge}
+          </Badge>
+          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+        </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {t.features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-black transition-colors duration-300">
-                      <feature.icon className="w-8 h-8 text-gray-700 group-hover:text-white transition-colors duration-300" />
-                    </div>
-
-                    <h3 className="text-2xl font-light text-gray-900 mb-4">{feature.title}</h3>
-
-                    <p className="text-gray-600 font-light leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {t.features.map((feature, index) => (
+            <Card
+              key={index}
+              className="border-gray-200 hover:border-black transition-all duration-300 hover:shadow-lg bg-white"
+            >
+              <CardContent className="p-6">
+                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-black mb-3">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
   )
 }
-
-export default FeaturesSection
