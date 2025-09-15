@@ -1,29 +1,14 @@
 "use client"
 
 import { Navigation } from "@/components/navigation"
-import { Button } from "@/components/ui/button"
+import { Footer } from "@/components/landing/footer"
+import { FaqSection } from "@/components/landing/faq-section"
+import { useLanguage } from "@/lib/language-context"
+import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useLanguage } from "@/lib/language-context"
-import {
-  Cog,
-  MessageSquare,
-  Zap,
-  Users,
-  BarChart3,
-  Shield,
-  Clock,
-  CheckCircle,
-  ArrowRight,
-  Workflow,
-  Database,
-  TrendingUp,
-  RefreshCw,
-  FileText,
-  Mail,
-  Calendar,
-  DollarSign,
-} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Workflow, Clock, Target, BarChart3, Shield, RefreshCw, CheckCircle, ArrowRight } from "lucide-react"
 
 export default function ProcessAutomationPage() {
   const { language } = useLanguage()
@@ -31,231 +16,109 @@ export default function ProcessAutomationPage() {
   const features = [
     {
       icon: Workflow,
-      title: language === "en" ? "Intelligent Workflows" : "Flujos Inteligentes",
+      title: language === "en" ? "Intelligent Workflows" : "Flujos de Trabajo Inteligentes",
       description:
         language === "en"
-          ? "AI-powered workflows that adapt and optimize based on real-time data and business conditions"
-          : "Flujos de trabajo potenciados por IA que se adaptan y optimizan basándose en datos en tiempo real y condiciones de negocio",
+          ? "Automate complex business processes with AI-driven decision making and adaptive workflows"
+          : "Automatiza procesos empresariales complejos con toma de decisiones impulsada por IA y flujos de trabajo adaptativos",
     },
     {
-      icon: RefreshCw,
-      title: language === "en" ? "Continuous Optimization" : "Optimización Continua",
+      icon: Clock,
+      title: language === "en" ? "24/7 Operations" : "Operaciones 24/7",
       description:
         language === "en"
-          ? "Self-improving processes that learn from patterns and automatically enhance efficiency over time"
-          : "Procesos que se auto-mejoran, aprenden de patrones y automáticamente mejoran la eficiencia con el tiempo",
+          ? "Continuous process execution without human intervention, ensuring round-the-clock productivity"
+          : "Ejecución continua de procesos sin intervención humana, asegurando productividad las 24 horas",
     },
     {
-      icon: Database,
-      title: language === "en" ? "System Integration" : "Integración de Sistemas",
+      icon: Target,
+      title: language === "en" ? "Precision Automation" : "Automatización de Precisión",
       description:
         language === "en"
-          ? "Seamless connection with your existing CRM, ERP, and business systems for unified operations"
-          : "Conexión perfecta con tus sistemas CRM, ERP y de negocio existentes para operaciones unificadas",
+          ? "99.9% accuracy in process execution with intelligent error handling and recovery"
+          : "99.9% de precisión en la ejecución de procesos con manejo inteligente de errores y recuperación",
     },
     {
       icon: BarChart3,
-      title: language === "en" ? "Real-time Analytics" : "Análisis en Tiempo Real",
+      title: language === "en" ? "Performance Analytics" : "Análisis de Rendimiento",
       description:
         language === "en"
-          ? "Comprehensive dashboards and reports that provide insights into process performance and ROI"
-          : "Dashboards y reportes integrales que proporcionan insights sobre rendimiento de procesos y ROI",
+          ? "Real-time monitoring and analytics to optimize process performance and identify bottlenecks"
+          : "Monitoreo y análisis en tiempo real para optimizar el rendimiento de procesos e identificar cuellos de botella",
+    },
+    {
+      icon: RefreshCw,
+      title: language === "en" ? "Adaptive Learning" : "Aprendizaje Adaptativo",
+      description:
+        language === "en"
+          ? "Processes that learn and improve over time, adapting to changing business requirements"
+          : "Procesos que aprenden y mejoran con el tiempo, adaptándose a los requisitos empresariales cambiantes",
     },
     {
       icon: Shield,
-      title: language === "en" ? "Compliance & Security" : "Cumplimiento y Seguridad",
+      title: language === "en" ? "Secure Processing" : "Procesamiento Seguro",
       description:
         language === "en"
-          ? "Built-in compliance monitoring and security protocols to meet industry standards and regulations"
-          : "Monitoreo de cumplimiento integrado y protocolos de seguridad para cumplir estándares y regulaciones de la industria",
-    },
-    {
-      icon: Zap,
-      title: language === "en" ? "Rapid Deployment" : "Despliegue Rápido",
-      description:
-        language === "en"
-          ? "Quick implementation with minimal disruption to your current business operations"
-          : "Implementación rápida con mínima interrupción a tus operaciones de negocio actuales",
+          ? "Enterprise-grade security with audit trails, compliance monitoring, and data protection"
+          : "Seguridad de nivel empresarial con pistas de auditoría, monitoreo de cumplimiento y protección de datos",
     },
   ]
 
   const automationAreas = [
     {
-      icon: Mail,
-      title: language === "en" ? "Email & Communication" : "Email y Comunicación",
-      description:
-        language === "en"
-          ? "Automated email responses, follow-ups, and communication workflows"
-          : "Respuestas automáticas de email, seguimientos y flujos de comunicación",
-      processes: [
-        language === "en" ? "Lead nurturing sequences" : "Secuencias de nutrición de leads",
-        language === "en" ? "Customer onboarding emails" : "Emails de incorporación de clientes",
-        language === "en" ? "Support ticket routing" : "Enrutamiento de tickets de soporte",
-        language === "en" ? "Newsletter automation" : "Automatización de newsletters",
-      ],
-      savings: language === "en" ? "70% time reduction" : "70% reducción de tiempo",
-    },
-    {
-      icon: FileText,
       title: language === "en" ? "Document Processing" : "Procesamiento de Documentos",
       description:
         language === "en"
-          ? "Intelligent document analysis, data extraction, and workflow routing"
-          : "Análisis inteligente de documentos, extracción de datos y enrutamiento de flujos",
-      processes: [
-        language === "en" ? "Invoice processing" : "Procesamiento de facturas",
-        language === "en" ? "Contract analysis" : "Análisis de contratos",
-        language === "en" ? "Data entry automation" : "Automatización de entrada de datos",
-        language === "en" ? "Compliance checking" : "Verificación de cumplimiento",
-      ],
-      savings: language === "en" ? "85% accuracy improvement" : "85% mejora en precisión",
+          ? "Intelligent extraction, classification, and processing of documents with OCR and NLP"
+          : "Extracción, clasificación y procesamiento inteligente de documentos con OCR y PLN",
+      benefits: ["90% faster processing", "99% accuracy", "Zero manual errors"],
+      icon: CheckCircle,
     },
     {
-      icon: Calendar,
-      title: language === "en" ? "Scheduling & Planning" : "Programación y Planificación",
+      title: language === "en" ? "Data Integration" : "Integración de Datos",
       description:
         language === "en"
-          ? "Smart scheduling systems that optimize resources and manage appointments"
-          : "Sistemas de programación inteligentes que optimizan recursos y gestionan citas",
-      processes: [
-        language === "en" ? "Meeting coordination" : "Coordinación de reuniones",
-        language === "en" ? "Resource allocation" : "Asignación de recursos",
-        language === "en" ? "Project timeline management" : "Gestión de cronogramas de proyectos",
-        language === "en" ? "Staff scheduling" : "Programación de personal",
-      ],
-      savings: language === "en" ? "60% scheduling conflicts reduced" : "60% reducción de conflictos de programación",
+          ? "Seamless data flow between systems with real-time synchronization and validation"
+          : "Flujo de datos sin problemas entre sistemas con sincronización y validación en tiempo real",
+      benefits: ["Real-time sync", "Data validation", "Error prevention"],
+      icon: ArrowRight,
     },
     {
-      icon: DollarSign,
+      title: language === "en" ? "Customer Onboarding" : "Incorporación de Clientes",
+      description:
+        language === "en"
+          ? "Automated customer verification, document collection, and account setup processes"
+          : "Verificación automatizada de clientes, recopilación de documentos y procesos de configuración de cuentas",
+      benefits: ["75% faster onboarding", "Improved experience", "Compliance assured"],
+      icon: Target,
+    },
+    {
       title: language === "en" ? "Financial Operations" : "Operaciones Financieras",
       description:
         language === "en"
-          ? "Automated financial processes including invoicing, payments, and reporting"
-          : "Procesos financieros automatizados incluyendo facturación, pagos y reportes",
-      processes: [
-        language === "en" ? "Automated invoicing" : "Facturación automatizada",
-        language === "en" ? "Payment processing" : "Procesamiento de pagos",
-        language === "en" ? "Expense tracking" : "Seguimiento de gastos",
-        language === "en" ? "Financial reporting" : "Reportes financieros",
-      ],
-      savings: language === "en" ? "90% faster processing" : "90% procesamiento más rápido",
+          ? "Automated invoicing, payment processing, and financial reporting with audit trails"
+          : "Facturación automatizada, procesamiento de pagos e informes financieros con pistas de auditoría",
+      benefits: ["Reduced errors", "Faster processing", "Audit compliance"],
+      icon: BarChart3,
     },
   ]
 
   const benefits = [
     {
-      icon: Clock,
-      title: language === "en" ? "Time Savings" : "Ahorro de Tiempo",
-      description:
-        language === "en"
-          ? "Reduce manual work by up to 80% with intelligent process automation"
-          : "Reduce el trabajo manual hasta en 80% con automatización inteligente de procesos",
-      metric: language === "en" ? "80% Time Reduction" : "80% Reducción de Tiempo",
+      metric: "80%",
+      label: language === "en" ? "Time Reduction" : "Reducción de Tiempo",
     },
     {
-      icon: TrendingUp,
-      title: language === "en" ? "Increased Accuracy" : "Mayor Precisión",
-      description:
-        language === "en"
-          ? "Eliminate human errors and ensure consistent, accurate process execution"
-          : "Elimina errores humanos y asegura ejecución de procesos consistente y precisa",
-      metric: language === "en" ? "99.5% Accuracy" : "99.5% Precisión",
+      metric: "99.9%",
+      label: language === "en" ? "Accuracy Rate" : "Tasa de Precisión",
     },
     {
-      icon: DollarSign,
-      title: language === "en" ? "Cost Reduction" : "Reducción de Costos",
-      description:
-        language === "en"
-          ? "Lower operational costs through efficient automation and resource optimization"
-          : "Menores costos operacionales a través de automatización eficiente y optimización de recursos",
-      metric: language === "en" ? "40% Cost Savings" : "40% Ahorro en Costos",
+      metric: "60%",
+      label: language === "en" ? "Cost Savings" : "Ahorro de Costos",
     },
     {
-      icon: Users,
-      title: language === "en" ? "Employee Satisfaction" : "Satisfacción del Empleado",
-      description:
-        language === "en"
-          ? "Free your team from repetitive tasks to focus on strategic, high-value work"
-          : "Libera a tu equipo de tareas repetitivas para enfocarse en trabajo estratégico de alto valor",
-      metric: language === "en" ? "90% Employee Satisfaction" : "90% Satisfacción del Empleado",
-    },
-  ]
-
-  const process = [
-    {
-      step: "01",
-      title: language === "en" ? "Process Assessment" : "Evaluación de Procesos",
-      description:
-        language === "en"
-          ? "Comprehensive analysis of your current processes to identify automation opportunities and bottlenecks"
-          : "Análisis integral de tus procesos actuales para identificar oportunidades de automatización y cuellos de botella",
-    },
-    {
-      step: "02",
-      title: language === "en" ? "Automation Design" : "Diseño de Automatización",
-      description:
-        language === "en"
-          ? "Create detailed automation workflows with decision trees, triggers, and integration points"
-          : "Crear flujos de automatización detallados con árboles de decisión, disparadores y puntos de integración",
-    },
-    {
-      step: "03",
-      title: language === "en" ? "System Integration" : "Integración de Sistemas",
-      description:
-        language === "en"
-          ? "Connect automation workflows with your existing business systems and databases"
-          : "Conectar flujos de automatización con tus sistemas de negocio y bases de datos existentes",
-    },
-    {
-      step: "04",
-      title: language === "en" ? "Testing & Validation" : "Pruebas y Validación",
-      description:
-        language === "en"
-          ? "Rigorous testing to ensure automation works correctly and meets business requirements"
-          : "Pruebas rigurosas para asegurar que la automatización funcione correctamente y cumpla los requisitos de negocio",
-    },
-    {
-      step: "05",
-      title: language === "en" ? "Deployment & Monitoring" : "Despliegue y Monitoreo",
-      description:
-        language === "en"
-          ? "Launch automation with continuous monitoring, optimization, and support"
-          : "Lanzar automatización con monitoreo continuo, optimización y soporte",
-    },
-  ]
-
-  const industries = [
-    {
-      name: language === "en" ? "Healthcare" : "Salud",
-      processes: [
-        language === "en" ? "Patient scheduling" : "Programación de pacientes",
-        language === "en" ? "Insurance processing" : "Procesamiento de seguros",
-        language === "en" ? "Medical records management" : "Gestión de registros médicos",
-      ],
-    },
-    {
-      name: language === "en" ? "Finance" : "Finanzas",
-      processes: [
-        language === "en" ? "Loan processing" : "Procesamiento de préstamos",
-        language === "en" ? "Compliance reporting" : "Reportes de cumplimiento",
-        language === "en" ? "Risk assessment" : "Evaluación de riesgos",
-      ],
-    },
-    {
-      name: language === "en" ? "Manufacturing" : "Manufactura",
-      processes: [
-        language === "en" ? "Supply chain management" : "Gestión de cadena de suministro",
-        language === "en" ? "Quality control" : "Control de calidad",
-        language === "en" ? "Inventory optimization" : "Optimización de inventario",
-      ],
-    },
-    {
-      name: language === "en" ? "Retail" : "Retail",
-      processes: [
-        language === "en" ? "Order processing" : "Procesamiento de pedidos",
-        language === "en" ? "Customer service" : "Servicio al cliente",
-        language === "en" ? "Inventory management" : "Gestión de inventario",
-      ],
+      metric: "24/7",
+      label: language === "en" ? "Operation" : "Operación",
     },
   ]
 
@@ -263,274 +126,224 @@ export default function ProcessAutomationPage() {
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <Badge className="bg-black text-white border-0 text-lg px-6 py-2">
-                <Cog className="w-5 h-5 mr-2" />
+      <main>
+        {/* Hero Section */}
+        <section className="pt-32 pb-24 bg-gradient-to-b from-black to-gray-900">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <Badge className="bg-white/10 text-white border-white/20 mb-6">
                 {language === "en" ? "Process Automation" : "Automatización de Procesos"}
               </Badge>
-            </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-black mb-6 leading-tight">
-              {language === "en" ? (
-                <>
-                  Intelligent Process
-                  <br />
-                  <span className="text-gray-600">Automation</span>
-                </>
-              ) : (
-                <>
-                  Automatización Inteligente
-                  <br />
-                  <span className="text-gray-600">de Procesos</span>
-                </>
-              )}
-            </h1>
+              <h1 className="text-6xl font-light text-white mb-6">
+                {language === "en" ? "Intelligent Process" : "Automatización de Procesos"}
+                <br />
+                <span className="font-bold">{language === "en" ? "Automation" : "Inteligente"}</span>
+              </h1>
 
-            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {language === "en"
-                ? "Transform your business operations with AI-powered automation that eliminates manual work, reduces errors, and accelerates growth while maintaining quality and compliance."
-                : "Transforma tus operaciones de negocio con automatización potenciada por IA que elimina trabajo manual, reduce errores y acelera el crecimiento manteniendo calidad y cumplimiento."}
-            </p>
+              <p className="text-xl text-gray-300 font-light max-w-3xl mx-auto mb-8">
+                {language === "en"
+                  ? "Transform your business operations with AI-powered automation that learns, adapts, and optimizes your processes for maximum efficiency and accuracy."
+                  : "Transforma tus operaciones empresariales con automatización impulsada por IA que aprende, se adapta y optimiza tus procesos para máxima eficiencia y precisión."}
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg" asChild>
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20automatizar%20mis%20procesos%20de%20negocio"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-100">
+                  {language === "en" ? "Automate Now" : "Automatizar Ahora"}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black bg-transparent"
                 >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  {language === "en" ? "Automate Your Processes" : "Automatizar tus Procesos"}
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-black text-black hover:bg-gray-50 px-8 py-4 text-lg bg-transparent"
-              >
-                {language === "en" ? "Process Assessment" : "Evaluación de Procesos"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Automation Capabilities" : "Capacidades de Automatización"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Advanced automation features designed to streamline your business operations"
-                : "Características avanzadas de automatización diseñadas para optimizar tus operaciones de negocio"}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Automation Areas Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Key Automation Areas" : "Áreas Clave de Automatización"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Transform critical business processes with intelligent automation solutions"
-                : "Transforma procesos críticos de negocio con soluciones de automatización inteligente"}
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8">
-            {automationAreas.map((area, index) => (
-              <Card key={index} className="bg-gray-50 border border-gray-200">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4 mb-6">
-                    <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
-                      <area.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-xl font-semibold text-black">{area.title}</h3>
-                        <Badge className="bg-white text-black border border-gray-300">{area.savings}</Badge>
-                      </div>
-                      <p className="text-gray-600 leading-relaxed mb-4">{area.description}</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    {area.processes.map((process, processIndex) => (
-                      <div key={processIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-black flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{process}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Proven Business Results" : "Resultados de Negocio Comprobados"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Measurable improvements that directly impact your bottom line"
-                : "Mejoras medibles que impactan directamente en tus resultados finales"}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="bg-white border border-gray-200">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-xl font-semibold text-black">{benefit.title}</h3>
-                        <Badge className="bg-gray-100 text-black border border-gray-300">{benefit.metric}</Badge>
-                      </div>
-                      <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industries Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Industry Applications" : "Aplicaciones por Industria"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Specialized automation solutions tailored for different industries"
-                : "Soluciones de automatización especializadas adaptadas para diferentes industrias"}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {industries.map((industry, index) => (
-              <Card key={index} className="bg-gray-50 border border-gray-200">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-semibold text-black mb-4">{industry.name}</h3>
-                  <div className="space-y-2">
-                    {industry.processes.map((process, processIndex) => (
-                      <div key={processIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-black flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{process}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Our Automation Process" : "Nuestro Proceso de Automatización"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "A systematic approach to implementing successful process automation"
-                : "Un enfoque sistemático para implementar automatización de procesos exitosa"}
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {process.map((step, index) => (
-              <div key={index} className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-black text-white rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-lg font-bold">{step.step}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-black mb-2">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                </div>
+                  {language === "en" ? "See Demo" : "Ver Demo"}
+                </Button>
               </div>
-            ))}
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {language === "en" ? "Ready to Automate Your Processes?" : "¿Listo para Automatizar tus Procesos?"}
-            </h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              {language === "en"
-                ? "Start your automation journey today and transform your business operations for maximum efficiency and growth."
-                : "Comienza tu viaje de automatización hoy y transforma tus operaciones de negocio para máxima eficiencia y crecimiento."}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg" asChild>
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20evaluación%20gratuita%20de%20automatización%20de%20procesos"
-                  target="_blank"
-                  rel="noopener noreferrer"
+        {/* Benefits Section */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Measurable Impact" : "Impacto Medible"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "Real results from intelligent process automation"
+                  : "Resultados reales de la automatización inteligente de procesos"}
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-4 gap-8">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
                 >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  {language === "en" ? "Get Free Assessment" : "Evaluación Gratuita"}
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg bg-transparent"
-              >
-                {language === "en" ? "View Success Stories" : "Ver Casos de Éxito"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+                  <div className="text-5xl font-light text-black mb-2">{benefit.metric}</div>
+                  <div className="text-gray-600 font-light">{benefit.label}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Advanced Automation Features" : "Características de Automatización Avanzada"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "Enterprise-grade automation technology for complex business processes"
+                  : "Tecnología de automatización de nivel empresarial para procesos empresariales complejos"}
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-6">
+                        <feature.icon className="w-8 h-8 text-gray-700" />
+                      </div>
+                      <h3 className="text-2xl font-light text-gray-900 mb-4">{feature.title}</h3>
+                      <p className="text-gray-600 font-light leading-relaxed">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Automation Areas Section */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Automation Solutions" : "Soluciones de Automatización"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "Comprehensive automation across all business functions"
+                  : "Automatización integral en todas las funciones empresariales"}
+              </p>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-8">
+              {automationAreas.map((area, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="h-full border-0 shadow-lg">
+                    <CardContent className="p-8">
+                      <div className="flex items-center mb-4">
+                        <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mr-4">
+                          <area.icon className="w-6 h-6 text-gray-700" />
+                        </div>
+                        <h3 className="text-2xl font-light text-gray-900">{area.title}</h3>
+                      </div>
+                      <p className="text-gray-600 font-light leading-relaxed mb-6">{area.description}</p>
+                      <div className="space-y-2">
+                        {area.benefits.map((benefit, benefitIndex) => (
+                          <div key={benefitIndex} className="flex items-center">
+                            <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
+                            <span className="text-sm text-gray-700">{benefit}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <FaqSection />
+
+        {/* CTA Section */}
+        <section className="py-24 bg-black">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-5xl font-light text-white mb-6">
+                {language === "en" ? "Ready to Automate" : "Listo para Automatizar"}
+                <br />
+                <span className="font-bold">{language === "en" ? "Your Processes?" : "Tus Procesos?"}</span>
+              </h2>
+              <p className="text-xl text-gray-300 font-light mb-8">
+                {language === "en"
+                  ? "Transform your operations with intelligent automation that works 24/7"
+                  : "Transforma tus operaciones con automatización inteligente que funciona 24/7"}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-100">
+                  {language === "en" ? "Start Automation" : "Iniciar Automatización"}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black bg-transparent"
+                >
+                  {language === "en" ? "Book Consultation" : "Reservar Consulta"}
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   )
 }

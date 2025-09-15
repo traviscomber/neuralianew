@@ -1,153 +1,125 @@
 "use client"
 
+import Link from "next/link"
+import { MessageCircle, Mail, Phone } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import Image from "next/image"
-import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
 
 export function Footer() {
   const { language } = useLanguage()
 
-  const footerSections = [
-    {
-      title: language === "en" ? "Services" : "Servicios",
-      links: [
-        { label: language === "en" ? "AI Agent Development" : "Desarrollo de Agentes IA", href: "#services" },
-        { label: language === "en" ? "Process Automation" : "Automatización de Procesos", href: "#services" },
-        { label: language === "en" ? "Enterprise Integration" : "Integración Empresarial", href: "#services" },
-        { label: language === "en" ? "Consulting" : "Consultoría", href: "#contact" },
-      ],
+  const content = {
+    en: {
+      company: {
+        name: "N3uralia",
+        description:
+          "Enterprise AI solutions that transform businesses through intelligent automation and custom AI agents.",
+      },
+      links: {
+        services: "Services",
+        about: "About",
+        contact: "Contact",
+        privacy: "Privacy Policy",
+        terms: "Terms of Service",
+      },
+      contact: {
+        title: "Contact",
+        phone: "+56 9 4094 6660",
+        email: "contacto@n3uralia.com",
+        address: "Santiago, Chile",
+      },
+      copyright: "© 2024 N3uralia. All rights reserved.",
     },
-    {
-      title: language === "en" ? "Company" : "Empresa",
-      links: [
-        { label: language === "en" ? "About Us" : "Acerca de Nosotros", href: "#" },
-        { label: language === "en" ? "Our Team" : "Nuestro Equipo", href: "#" },
-        { label: language === "en" ? "Careers" : "Carreras", href: "#" },
-        { label: language === "en" ? "Blog" : "Blog", href: "#" },
-      ],
+    es: {
+      company: {
+        name: "N3uralia",
+        description:
+          "Soluciones empresariales de IA que transforman negocios a través de automatización inteligente y agentes de IA personalizados.",
+      },
+      links: {
+        services: "Servicios",
+        about: "Nosotros",
+        contact: "Contacto",
+        privacy: "Política de Privacidad",
+        terms: "Términos de Servicio",
+      },
+      contact: {
+        title: "Contacto",
+        phone: "+56 9 4094 6660",
+        email: "contacto@n3uralia.com",
+        address: "Santiago, Chile",
+      },
+      copyright: "© 2024 N3uralia. Todos los derechos reservados.",
     },
-    {
-      title: language === "en" ? "Support" : "Soporte",
-      links: [
-        { label: language === "en" ? "Documentation" : "Documentación", href: "#" },
-        { label: language === "en" ? "Help Center" : "Centro de Ayuda", href: "#" },
-        { label: language === "en" ? "Contact Support" : "Contactar Soporte", href: "#contact" },
-        { label: language === "en" ? "Status" : "Estado", href: "#" },
-      ],
-    },
-  ]
-
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "hello@n3uralia.com",
-      href: "mailto:hello@n3uralia.com",
-    },
-    {
-      icon: Phone,
-      label: "+56 9 4094 6660",
-      href: "tel:+56940946660",
-    },
-    {
-      icon: MessageCircle,
-      label: "WhatsApp",
-      href: "https://wa.me/56940946660",
-    },
-    {
-      icon: MapPin,
-      label: "Santiago, Chile",
-      href: "#",
-    },
-  ]
-
-  const scrollToSection = (href: string) => {
-    if (href.startsWith("#")) {
-      const element = document.querySelector(href)
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" })
-      }
-    } else {
-      window.open(href, "_blank")
-    }
   }
 
-  return (
-    <footer className="bg-black text-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Company Info */}
-          <div className="lg:col-span-2">
-            <div className="mb-6">
-              <Image
-                src="/n3uralia-logo-new.png"
-                alt="Neuralia Logo"
-                width={150}
-                height={50}
-                className="h-10 w-auto filter brightness-0 invert"
-              />
-            </div>
-            <p className="text-gray-400 font-light mb-6 leading-relaxed">
-              {language === "en"
-                ? "Transforming businesses with intelligent AI agents that automate processes, enhance productivity, and drive growth."
-                : "Transformando empresas con agentes de IA inteligentes que automatizan procesos, mejoran la productividad e impulsan el crecimiento."}
-            </p>
+  const t = content[language]
 
-            {/* Contact Info */}
-            <div className="space-y-3">
-              {contactInfo.map((contact, index) => (
-                <button
-                  key={index}
-                  onClick={() => scrollToSection(contact.href)}
-                  className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors group"
-                >
-                  {contact.icon && <contact.icon className="w-4 h-4 group-hover:scale-110 transition-transform" />}
-                  <span className="font-light">{contact.label}</span>
-                </button>
-              ))}
+  return (
+    <footer className="bg-black text-white py-16">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* Company Info */}
+          <div className="md:col-span-2">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <span className="text-black font-bold text-sm">N3</span>
+              </div>
+              <span className="text-2xl font-bold">{t.company.name}</span>
+            </div>
+            <p className="text-gray-300 leading-relaxed max-w-md">{t.company.description}</p>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <div className="space-y-2">
+              <Link href="/services" className="block text-gray-300 hover:text-white transition-colors">
+                {t.links.services}
+              </Link>
+              <Link href="#about" className="block text-gray-300 hover:text-white transition-colors">
+                {t.links.about}
+              </Link>
+              <Link href="#contact" className="block text-gray-300 hover:text-white transition-colors">
+                {t.links.contact}
+              </Link>
+              <Link href="/politicas-de-privacidad" className="block text-gray-300 hover:text-white transition-colors">
+                {t.links.privacy}
+              </Link>
+              <Link href="/terminos-de-servicio" className="block text-gray-300 hover:text-white transition-colors">
+                {t.links.terms}
+              </Link>
             </div>
           </div>
 
-          {/* Footer Links */}
-          {footerSections.map((section, index) => (
-            <div key={index}>
-              <h3 className="text-white font-medium mb-4">{section.title}</h3>
-              <ul className="space-y-3">
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <button
-                      onClick={() => scrollToSection(link.href)}
-                      className="text-gray-400 hover:text-white font-light transition-colors"
-                    >
-                      {link.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+          {/* Contact Info */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">{t.contact.title}</h3>
+            <div className="space-y-3">
+              <a
+                href="https://wa.me/56940946660"
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>{t.contact.phone}</span>
+              </a>
+              <a
+                href="mailto:contacto@n3uralia.com"
+                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                <span>{t.contact.email}</span>
+              </a>
+              <div className="flex items-center space-x-2 text-gray-300">
+                <Phone className="w-4 h-4" />
+                <span>{t.contact.address}</span>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-gray-400 font-light text-sm">
-              © 2024 Neuralia. {language === "en" ? "All rights reserved." : "Todos los derechos reservados."}
-            </div>
-            <div className="flex space-x-6">
-              <button
-                onClick={() => scrollToSection("/politicas-de-privacidad")}
-                className="text-gray-400 hover:text-white font-light text-sm transition-colors"
-              >
-                {language === "en" ? "Privacy Policy" : "Política de Privacidad"}
-              </button>
-              <button
-                onClick={() => scrollToSection("/terminos-de-servicio")}
-                className="text-gray-400 hover:text-white font-light text-sm transition-colors"
-              >
-                {language === "en" ? "Terms of Service" : "Términos de Servicio"}
-              </button>
-            </div>
-          </div>
+        {/* Copyright */}
+        <div className="border-t border-gray-800 pt-8 text-center">
+          <p className="text-gray-400">{t.copyright}</p>
         </div>
       </div>
     </footer>

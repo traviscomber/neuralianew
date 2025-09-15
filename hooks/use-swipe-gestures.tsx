@@ -1,8 +1,6 @@
 "use client"
 
-import type React from "react"
-
-import { useRef, useCallback } from "react"
+import { useEffect, useRef } from "react"
 
 interface SwipeGestureOptions {
   onSwipeLeft?: () => void
@@ -10,7 +8,6 @@ interface SwipeGestureOptions {
   onSwipeUp?: () => void
   onSwipeDown?: () => void
   threshold?: number
-  maxTime?: number
 }
 
 export function useSwipeGestures({
@@ -19,73 +16,63 @@ export function useSwipeGestures({
   onSwipeUp,
   onSwipeDown,
   threshold = 50,
-  maxTime = 300,
 }: SwipeGestureOptions) {
-  const touchStart = useRef<{ x: number; y: number; time: number } | null>(null)
+  const touchStartX = useRef<number>(0)
+  const touchStartY = useRef<number>(0)
+  const touchEndX = useRef<number>(0)
+  const touchEndY = useRef<number>(0)
 
-  const onTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    touchStart.current = {
-      x: touch.clientX,
-      y: touch.clientY,
-      time: Date.now(),
-    }
-  }, [])
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX
+    touchStartY.current = e.targetTouches[0].clientY
+  }
 
-  const onTouchMove = useCallback((e: React.TouchEvent) => {
-    // Prevent default to avoid scrolling while swiping
-    if (touchStart.current) {
-      e.preventDefault()
-    }
-  }, [])
+  const handleTouchMove = (e: TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX
+    touchEndY.current = e.targetTouches[0].clientY
+  }
 
-  const onTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (!touchStart.current) return
+  const handleTouchEnd = () => {
+    const deltaX = touchEndX.current - touchStartX.current
+    const deltaY = touchEndY.current - touchStartY.current
+    const absDeltaX = Math.abs(deltaX)
+    const absDeltaY = Math.abs(deltaY)
 
-      const touch = e.changedTouches[0]
-      const deltaX = touch.clientX - touchStart.current.x
-      const deltaY = touch.clientY - touchStart.current.y
-      const deltaTime = Date.now() - touchStart.current.time
-
-      // Check if the swipe was fast enough
-      if (deltaTime > maxTime) {
-        touchStart.current = null
-        return
-      }
-
-      const absDeltaX = Math.abs(deltaX)
-      const absDeltaY = Math.abs(deltaY)
-
-      // Determine if it's a horizontal or vertical swipe
-      if (absDeltaX > absDeltaY) {
-        // Horizontal swipe
-        if (absDeltaX > threshold) {
-          if (deltaX > 0) {
-            onSwipeRight?.()
-          } else {
-            onSwipeLeft?.()
-          }
-        }
+    // Determine if it's a horizontal or vertical swipe
+    if (absDeltaX > absDeltaY && absDeltaX > threshold) {
+      // Horizontal swipe
+      if (deltaX > 0) {
+        onSwipeRight?.()
       } else {
-        // Vertical swipe
-        if (absDeltaY > threshold) {
-          if (deltaY > 0) {
-            onSwipeDown?.()
-          } else {
-            onSwipeUp?.()
-          }
-        }
+        onSwipeLeft?.()
       }
+    } else if (absDeltaY > absDeltaX && absDeltaY > threshold) {
+      // Vertical swipe
+      if (deltaY > 0) {
+        onSwipeDown?.()
+      } else {
+        onSwipeUp?.()
+      }
+    }
+  }
 
-      touchStart.current = null
-    },
-    [onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, threshold, maxTime],
-  )
+  useEffect(() => {
+    const element = document.body
+
+    element.addEventListener("touchstart", handleTouchStart, { passive: true })
+    element.addEventListener("touchmove", handleTouchMove, { passive: true })
+    element.addEventListener("touchend", handleTouchEnd, { passive: true })
+
+    return () => {
+      element.removeEventListener("touchstart", handleTouchStart)
+      element.removeEventListener("touchmove", handleTouchMove)
+      element.removeEventListener("touchend", handleTouchEnd)
+    }
+  }, [onSwipeLeft, onSwipeRight, onSwipeUp, onSwipeDown, threshold])
 
   return {
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
+    onTouchStart: handleTouchStart,
+    onTouchMove: handleTouchMove,
+    onTouchEnd: handleTouchEnd,
   }
 }

@@ -1,221 +1,144 @@
 "use client"
-import { motion } from "framer-motion"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Code2,
-  Brain,
-  Shield,
-  Zap,
-  HeadphonesIcon,
-  ArrowRight,
-  CheckCircle,
-  MessageCircle,
-  Database,
-} from "lucide-react"
+
+import { Bot, Zap, Shield, Brain, Globe, Users, BarChart3, Clock, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function FeaturesSection() {
-  const { t } = useLanguage()
+  const { language } = useLanguage()
 
-  const features = [
-    {
-      icon: Code2,
-      title: t("features.fullstack.title"),
-      description: t("features.fullstack.description"),
-      details: [
-        "React, Next.js, TypeScript",
-        "Node.js, Python, PostgreSQL",
-        "AWS, Docker, Kubernetes",
-        "CI/CD, Monitoring, Analytics",
+  const content = {
+    en: {
+      title: "Powerful AI Features",
+      subtitle: "Comprehensive solutions designed to transform your business operations",
+      features: [
+        {
+          icon: Bot,
+          title: "Custom AI Agents",
+          description: "Tailored AI assistants that understand your business needs and provide intelligent automation.",
+        },
+        {
+          icon: Zap,
+          title: "Process Automation",
+          description: "Streamline workflows and eliminate repetitive tasks with intelligent automation systems.",
+        },
+        {
+          icon: Shield,
+          title: "Enterprise Security",
+          description: "Bank-level security with encryption, compliance, and data protection protocols.",
+        },
+        {
+          icon: Brain,
+          title: "Machine Learning",
+          description: "Advanced ML algorithms that learn and adapt to improve performance over time.",
+        },
+        {
+          icon: Globe,
+          title: "Multi-Platform Integration",
+          description: "Seamless integration with existing systems, APIs, and third-party applications.",
+        },
+        {
+          icon: Users,
+          title: "24/7 Support",
+          description: "Round-the-clock technical support and monitoring to ensure optimal performance.",
+        },
+        {
+          icon: BarChart3,
+          title: "Analytics & Insights",
+          description: "Comprehensive reporting and analytics to track performance and ROI.",
+        },
+        {
+          icon: Clock,
+          title: "Real-time Processing",
+          description: "Instant responses and real-time data processing for immediate results.",
+        },
+        {
+          icon: CheckCircle,
+          title: "Quality Assurance",
+          description: "Rigorous testing and quality control to ensure reliable AI solutions.",
+        },
       ],
-      category: "Development",
     },
-    {
-      icon: Brain,
-      title: t("features.ai.title"),
-      description: t("features.ai.description"),
-      details: [
-        "OpenAI GPT-4 Turbo Integration",
-        "Custom Fine-tuned Models",
-        "Natural Language Processing",
-        "Sentiment Analysis & Intent Recognition",
+    es: {
+      title: "Características Poderosas de IA",
+      subtitle: "Soluciones integrales diseñadas para transformar las operaciones de tu negocio",
+      features: [
+        {
+          icon: Bot,
+          title: "Agentes de IA Personalizados",
+          description:
+            "Asistentes de IA adaptados que entienden las necesidades de tu negocio y proporcionan automatización inteligente.",
+        },
+        {
+          icon: Zap,
+          title: "Automatización de Procesos",
+          description:
+            "Optimiza flujos de trabajo y elimina tareas repetitivas con sistemas de automatización inteligente.",
+        },
+        {
+          icon: Shield,
+          title: "Seguridad Empresarial",
+          description:
+            "Seguridad de nivel bancario con encriptación, cumplimiento y protocolos de protección de datos.",
+        },
+        {
+          icon: Brain,
+          title: "Aprendizaje Automático",
+          description:
+            "Algoritmos avanzados de ML que aprenden y se adaptan para mejorar el rendimiento con el tiempo.",
+        },
+        {
+          icon: Globe,
+          title: "Integración Multiplataforma",
+          description: "Integración perfecta con sistemas existentes, APIs y aplicaciones de terceros.",
+        },
+        {
+          icon: Users,
+          title: "Soporte 24/7",
+          description: "Soporte técnico y monitoreo las 24 horas para asegurar un rendimiento óptimo.",
+        },
+        {
+          icon: BarChart3,
+          title: "Análisis e Insights",
+          description: "Reportes integrales y análisis para rastrear el rendimiento y ROI.",
+        },
+        {
+          icon: Clock,
+          title: "Procesamiento en Tiempo Real",
+          description: "Respuestas instantáneas y procesamiento de datos en tiempo real para resultados inmediatos.",
+        },
+        {
+          icon: CheckCircle,
+          title: "Aseguramiento de Calidad",
+          description: "Pruebas rigurosas y control de calidad para asegurar soluciones de IA confiables.",
+        },
       ],
-      category: "AI/ML",
     },
-    {
-      icon: Database,
-      title: t("features.scalable.title"),
-      description: t("features.scalable.description"),
-      details: [
-        "Microservices Architecture",
-        "Auto-scaling Infrastructure",
-        "Load Balancing & CDN",
-        "99.9% Uptime SLA",
-      ],
-      category: "Architecture",
-    },
-    {
-      icon: Shield,
-      title: t("features.security.title"),
-      description: t("features.security.description"),
-      details: ["ISO 27001 Certified", "SOC 2 Type II Compliance", "End-to-end Encryption", "GDPR & LOPD Compliant"],
-      category: "Security",
-    },
-    {
-      icon: Zap,
-      title: t("features.integration.title"),
-      description: t("features.integration.description"),
-      details: [
-        "WhatsApp Business API",
-        "CRM/ERP Native Integration",
-        "REST APIs & Webhooks",
-        "Zapier & n8n Connectors",
-      ],
-      category: "Integration",
-    },
-    {
-      icon: HeadphonesIcon,
-      title: t("features.support.title"),
-      description: t("features.support.description"),
-      details: [
-        "15-minute SLA for Critical Issues",
-        "Multi-timezone Coverage",
-        "Technical Documentation",
-        "Training & Onboarding",
-      ],
-      category: "Support",
-    },
-  ]
+  }
+
+  const t = content[language]
 
   return (
-    <section
-      id="features"
-      className="py-16 sm:py-20 lg:py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
-        >
-          <Badge className="mb-4 sm:mb-6 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-sm sm:text-lg px-4 sm:px-6 py-2 font-semibold transition-colors duration-300">
-            <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-2" />
-            {t("features.title")}
-          </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 sm:mb-6 text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
-            {t("features.title")}
-          </h2>
-          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300">
-            {t("features.subtitle")}
-          </p>
-        </motion.div>
-
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group h-full rounded-2xl">
-                <CardContent className="p-6 sm:p-8">
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
-                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-slate-900 dark:bg-slate-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                    </div>
-                    <Badge className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 font-semibold transition-colors duration-300 text-xs sm:text-sm">
-                      {feature.category}
-                    </Badge>
-                  </div>
-
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2 sm:mb-3 transition-colors duration-300">
-                    {feature.title}
-                  </h3>
-                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-4 sm:mb-6 text-base sm:text-lg transition-colors duration-300">
-                    {feature.description}
-                  </p>
-
-                  <div className="space-y-2 sm:space-y-3">
-                    {feature.details.map((detail, detailIndex) => (
-                      <div key={detailIndex} className="flex items-start gap-2 sm:gap-3">
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5 transition-colors duration-300" />
-                        <span className="text-slate-600 dark:text-slate-300 font-medium text-xs sm:text-sm transition-colors duration-300">
-                          {detail}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        {/* Performance Metrics */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mb-12 sm:mb-16"
-        >
-          <Card className="bg-slate-900 dark:bg-slate-800 text-white border-0 rounded-2xl transition-colors duration-300">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-center">Performance Metrics</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
-                <div className="text-center">
-                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">99.9%</div>
-                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Uptime SLA</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">{"<200ms"}</div>
-                  <div className="text-slate-300 font-semibold text-xs sm:text-base">API Latency</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">100K+</div>
-                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Concurrent Users</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">24/7</div>
-                  <div className="text-slate-300 font-semibold text-xs sm:text-base">Global Support</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <Button
-            size="lg"
-            className="bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white font-bold px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-xl w-full sm:w-auto"
-            asChild
-          >
-            <a
-              href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20conocer%20más%20sobre%20sus%20capacidades%20empresariales"
-              target="_blank"
-              rel="noopener noreferrer"
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {t.features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-gray-200 group"
             >
-              <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-              {t("nav.contact.button")}
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
-            </a>
-          </Button>
-        </motion.div>
+              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-black transition-colors duration-300">
+                <feature.icon className="w-6 h-6 text-gray-600 group-hover:text-white transition-colors duration-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-black mb-3">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

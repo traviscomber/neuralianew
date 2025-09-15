@@ -2,7 +2,7 @@
 
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/landing/footer"
-import { FAQSection } from "@/components/landing/faq-section"
+import { FaqSection } from "@/components/landing/faq-section"
 import { useLanguage } from "@/lib/language-context"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
@@ -288,7 +288,7 @@ export default function ServicesPage() {
         </section>
 
         {/* FAQ Section */}
-        <FAQSection />
+        <FaqSection />
 
         {/* CTA Section */}
         <section className="py-24 bg-black">

@@ -1,25 +1,14 @@
 "use client"
 
 import { Navigation } from "@/components/navigation"
-import { Button } from "@/components/ui/button"
+import { Footer } from "@/components/landing/footer"
+import { FaqSection } from "@/components/landing/faq-section"
+import { useLanguage } from "@/lib/language-context"
+import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useLanguage } from "@/lib/language-context"
-import {
-  Bot,
-  MessageSquare,
-  Zap,
-  BarChart3,
-  Shield,
-  Clock,
-  CheckCircle,
-  ArrowRight,
-  Brain,
-  Target,
-  Settings,
-  Database,
-  TrendingUp,
-} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Brain, MessageSquare, Shield, Code, Database, Cpu } from "lucide-react"
 
 export default function AIAgentDevelopmentPage() {
   const { language } = useLanguage()
@@ -27,90 +16,51 @@ export default function AIAgentDevelopmentPage() {
   const features = [
     {
       icon: Brain,
-      title: language === "en" ? "Advanced AI Models" : "Modelos IA Avanzados",
+      title: language === "en" ? "Custom AI Training" : "Entrenamiento de IA Personalizado",
       description:
         language === "en"
-          ? "GPT-4 powered agents with custom training for your specific industry and use cases"
-          : "Agentes potenciados por GPT-4 con entrenamiento personalizado para tu industria y casos de uso específicos",
+          ? "Train AI agents on your specific business data, processes, and industry knowledge"
+          : "Entrena agentes de IA con tus datos empresariales específicos, procesos y conocimiento de la industria",
     },
     {
       icon: MessageSquare,
-      title: language === "en" ? "Natural Conversations" : "Conversaciones Naturales",
+      title: language === "en" ? "Natural Language Processing" : "Procesamiento de Lenguaje Natural",
       description:
         language === "en"
-          ? "Human-like interactions that understand context, intent, and maintain conversation flow"
-          : "Interacciones similares a humanos que entienden contexto, intención y mantienen el flujo conversacional",
+          ? "Advanced NLP capabilities for understanding context, intent, and nuanced conversations"
+          : "Capacidades avanzadas de PLN para entender contexto, intención y conversaciones matizadas",
+    },
+    {
+      icon: Code,
+      title: language === "en" ? "API Integration" : "Integración de APIs",
+      description:
+        language === "en"
+          ? "Seamless integration with your existing systems, CRMs, and business tools"
+          : "Integración perfecta con tus sistemas existentes, CRMs y herramientas empresariales",
     },
     {
       icon: Database,
-      title: language === "en" ? "Knowledge Integration" : "Integración de Conocimiento",
+      title: language === "en" ? "Knowledge Management" : "Gestión del Conocimiento",
       description:
         language === "en"
-          ? "Seamless integration with your existing databases, documents, and knowledge systems"
-          : "Integración perfecta con tus bases de datos, documentos y sistemas de conocimiento existentes",
+          ? "Intelligent knowledge base management with real-time learning capabilities"
+          : "Gestión inteligente de base de conocimientos con capacidades de aprendizaje en tiempo real",
     },
     {
-      icon: Settings,
-      title: language === "en" ? "Custom Workflows" : "Flujos Personalizados",
+      icon: Cpu,
+      title: language === "en" ? "Multi-Model Architecture" : "Arquitectura Multi-Modelo",
       description:
         language === "en"
-          ? "Tailored conversation flows and business logic specific to your operational needs"
-          : "Flujos de conversación y lógica de negocio adaptados a tus necesidades operacionales específicas",
+          ? "Leverage multiple AI models for optimal performance across different tasks"
+          : "Aprovecha múltiples modelos de IA para rendimiento óptimo en diferentes tareas",
     },
     {
       icon: Shield,
       title: language === "en" ? "Enterprise Security" : "Seguridad Empresarial",
       description:
         language === "en"
-          ? "Bank-level security with encryption, compliance, and data protection standards"
-          : "Seguridad nivel bancario con encriptación, cumplimiento y estándares de protección de datos",
-    },
-    {
-      icon: BarChart3,
-      title: language === "en" ? "Analytics & Insights" : "Análisis e Insights",
-      description:
-        language === "en"
-          ? "Comprehensive analytics dashboard with conversation insights and performance metrics"
-          : "Dashboard de análisis integral con insights de conversación y métricas de rendimiento",
-    },
-  ]
-
-  const benefits = [
-    {
-      icon: Clock,
-      title: language === "en" ? "24/7 Availability" : "Disponibilidad 24/7",
-      description:
-        language === "en"
-          ? "Your AI agents work around the clock, providing instant responses to customers and employees"
-          : "Tus agentes IA trabajan las 24 horas, proporcionando respuestas instantáneas a clientes y empleados",
-      metric: language === "en" ? "100% Uptime" : "100% Tiempo Activo",
-    },
-    {
-      icon: TrendingUp,
-      title: language === "en" ? "Scalable Operations" : "Operaciones Escalables",
-      description:
-        language === "en"
-          ? "Handle thousands of simultaneous conversations without additional staffing costs"
-          : "Maneja miles de conversaciones simultáneas sin costos adicionales de personal",
-      metric: language === "en" ? "10,000+ Concurrent Users" : "10,000+ Usuarios Concurrentes",
-    },
-    {
-      icon: Target,
-      title: language === "en" ? "Precision Accuracy" : "Precisión Exacta",
-      description:
-        language === "en"
-          ? "Industry-specific training ensures accurate responses and proper context understanding"
-          : "Entrenamiento específico de industria asegura respuestas precisas y comprensión adecuada del contexto",
-      metric: language === "en" ? "95%+ Accuracy" : "95%+ Precisión",
-    },
-    {
-      icon: Zap,
-      title: language === "en" ? "Instant Deployment" : "Despliegue Instantáneo",
-      description:
-        language === "en"
-          ? "Quick implementation with minimal disruption to your existing business processes"
-          : "Implementación rápida con mínima interrupción a tus procesos de negocio existentes",
-      metric: language === "en" ? "2-4 Week Setup" : "Configuración 2-4 Semanas",
+          ? "Bank-level security with encryption, compliance, and data protection"
+          : "Seguridad de nivel bancario con cifrado, cumplimiento y protección de datos",
     },
   ]
 
@@ -119,14 +69,9 @@ export default function AIAgentDevelopmentPage() {
       title: language === "en" ? "Customer Support" : "Soporte al Cliente",
       description:
         language === "en"
-          ? "Automated customer service with escalation to human agents when needed"
-          : "Servicio al cliente automatizado con escalación a agentes humanos cuando sea necesario",
-      features: [
-        language === "en" ? "Ticket resolution" : "Resolución de tickets",
-        language === "en" ? "FAQ automation" : "Automatización de FAQ",
-        language === "en" ? "Multi-language support" : "Soporte multiidioma",
-        language === "en" ? "Sentiment analysis" : "Análisis de sentimientos",
-      ],
+          ? "24/7 intelligent customer service with escalation to human agents when needed"
+          : "Servicio al cliente inteligente 24/7 con escalación a agentes humanos cuando sea necesario",
+      metrics: ["95% satisfaction", "60% cost reduction", "24/7 availability"],
     },
     {
       title: language === "en" ? "Sales Assistant" : "Asistente de Ventas",
@@ -134,68 +79,50 @@ export default function AIAgentDevelopmentPage() {
         language === "en"
           ? "Lead qualification, product recommendations, and sales process automation"
           : "Calificación de leads, recomendaciones de productos y automatización del proceso de ventas",
-      features: [
-        language === "en" ? "Lead scoring" : "Puntuación de leads",
-        language === "en" ? "Product catalog" : "Catálogo de productos",
-        language === "en" ? "Price quotes" : "Cotizaciones",
-        language === "en" ? "CRM integration" : "Integración CRM",
-      ],
+      metrics: ["40% more leads", "25% higher conversion", "50% faster response"],
     },
     {
-      title: language === "en" ? "Internal Assistant" : "Asistente Interno",
+      title: language === "en" ? "Internal Operations" : "Operaciones Internas",
       description:
         language === "en"
-          ? "Employee support for HR, IT, and operational queries with knowledge base access"
-          : "Soporte a empleados para consultas de RRHH, TI y operacionales con acceso a base de conocimiento",
-      features: [
-        language === "en" ? "Policy queries" : "Consultas de políticas",
-        language === "en" ? "IT support" : "Soporte TI",
-        language === "en" ? "HR assistance" : "Asistencia RRHH",
-        language === "en" ? "Document search" : "Búsqueda de documentos",
-      ],
+          ? "Automate internal processes, employee queries, and workflow management"
+          : "Automatiza procesos internos, consultas de empleados y gestión de flujos de trabajo",
+      metrics: ["70% time saved", "90% accuracy", "24/7 operation"],
     },
   ]
 
   const process = [
     {
       step: "01",
-      title: language === "en" ? "Discovery & Analysis" : "Descubrimiento y Análisis",
+      title: language === "en" ? "Discovery & Planning" : "Descubrimiento y Planificación",
       description:
         language === "en"
-          ? "We analyze your business needs, existing processes, and identify automation opportunities"
-          : "Analizamos tus necesidades de negocio, procesos existentes e identificamos oportunidades de automatización",
+          ? "We analyze your business needs, existing systems, and define the AI agent's scope and capabilities"
+          : "Analizamos tus necesidades empresariales, sistemas existentes y definimos el alcance y capacidades del agente de IA",
     },
     {
       step: "02",
-      title: language === "en" ? "Custom Design" : "Diseño Personalizado",
+      title: language === "en" ? "Data Preparation" : "Preparación de Datos",
       description:
         language === "en"
-          ? "Design conversation flows, integrate with your systems, and create specialized knowledge bases"
-          : "Diseñamos flujos de conversación, integramos con tus sistemas y creamos bases de conocimiento especializadas",
+          ? "Collect, clean, and structure your business data for optimal AI training and performance"
+          : "Recopilamos, limpiamos y estructuramos tus datos empresariales para entrenamiento y rendimiento óptimo de IA",
     },
     {
       step: "03",
-      title: language === "en" ? "Development & Training" : "Desarrollo y Entrenamiento",
+      title: language === "en" ? "AI Development" : "Desarrollo de IA",
       description:
         language === "en"
-          ? "Build and train your AI agents with industry-specific data and business logic"
-          : "Construimos y entrenamos tus agentes IA con datos específicos de la industria y lógica de negocio",
+          ? "Custom development of your AI agent with advanced NLP, machine learning, and integration capabilities"
+          : "Desarrollo personalizado de tu agente de IA con PLN avanzado, aprendizaje automático y capacidades de integración",
     },
     {
       step: "04",
-      title: language === "en" ? "Testing & Optimization" : "Pruebas y Optimización",
+      title: language === "en" ? "Testing & Deployment" : "Pruebas y Despliegue",
       description:
         language === "en"
-          ? "Comprehensive testing, performance optimization, and fine-tuning for maximum effectiveness"
-          : "Pruebas integrales, optimización de rendimiento y ajuste fino para máxima efectividad",
-    },
-    {
-      step: "05",
-      title: language === "en" ? "Deployment & Support" : "Despliegue y Soporte",
-      description:
-        language === "en"
-          ? "Launch your AI agents with full monitoring, ongoing support, and continuous improvement"
-          : "Lanzamos tus agentes IA con monitoreo completo, soporte continuo y mejora constante",
+          ? "Comprehensive testing, gradual rollout, and full deployment with monitoring and support"
+          : "Pruebas exhaustivas, implementación gradual y despliegue completo con monitoreo y soporte",
     },
   ]
 
@@ -203,230 +130,224 @@ export default function AIAgentDevelopmentPage() {
     <div className="min-h-screen bg-white">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="flex justify-center mb-6">
-              <Badge className="bg-black text-white border-0 text-lg px-6 py-2">
-                <Bot className="w-5 h-5 mr-2" />
-                {language === "en" ? "AI Agent Development" : "Desarrollo de Agentes IA"}
+      <main>
+        {/* Hero Section */}
+        <section className="pt-32 pb-24 bg-gradient-to-b from-black to-gray-900">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <Badge className="bg-white/10 text-white border-white/20 mb-6">
+                {language === "en" ? "AI Agent Development" : "Desarrollo de Agentes de IA"}
               </Badge>
-            </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold text-black mb-6 leading-tight">
-              {language === "en" ? (
-                <>
-                  Intelligent AI Agents
-                  <br />
-                  <span className="text-gray-600">Built for Your Business</span>
-                </>
-              ) : (
-                <>
-                  Agentes IA Inteligentes
-                  <br />
-                  <span className="text-gray-600">Construidos para tu Negocio</span>
-                </>
-              )}
-            </h1>
+              <h1 className="text-6xl font-light text-white mb-6">
+                {language === "en" ? "Custom AI Agents" : "Agentes de IA Personalizados"}
+                <br />
+                <span className="font-bold">
+                  {language === "en" ? "Built for Your Business" : "Construidos para Tu Negocio"}
+                </span>
+              </h1>
 
-            <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {language === "en"
-                ? "Transform your business operations with custom AI agents that understand your industry, integrate with your systems, and deliver exceptional results 24/7."
-                : "Transforma tus operaciones de negocio con agentes IA personalizados que entienden tu industria, se integran con tus sistemas y entregan resultados excepcionales 24/7."}
-            </p>
+              <p className="text-xl text-gray-300 font-light max-w-3xl mx-auto mb-8">
+                {language === "en"
+                  ? "Transform your business operations with intelligent AI agents that understand your industry, speak your language, and integrate seamlessly with your existing systems."
+                  : "Transforma tus operaciones empresariales con agentes de IA inteligentes que entienden tu industria, hablan tu idioma e se integran perfectamente con tus sistemas existentes."}
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-black hover:bg-gray-800 text-white px-8 py-4 text-lg" asChild>
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20desarrollar%20agentes%20IA%20personalizados"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-100">
+                  {language === "en" ? "Start Development" : "Iniciar Desarrollo"}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black bg-transparent"
                 >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  {language === "en" ? "Start Your Project" : "Iniciar tu Proyecto"}
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-black text-black hover:bg-gray-50 px-8 py-4 text-lg bg-transparent"
-              >
-                {language === "en" ? "View Demo" : "Ver Demo"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Advanced AI Capabilities" : "Capacidades IA Avanzadas"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Our AI agents are built with cutting-edge technology and industry-specific expertise"
-                : "Nuestros agentes IA están construidos con tecnología de vanguardia y experiencia específica de la industria"}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-black mb-3">{feature.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Measurable Business Impact" : "Impacto Empresarial Medible"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "See real results with quantifiable improvements to your business operations"
-                : "Ve resultados reales con mejoras cuantificables en tus operaciones de negocio"}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="bg-gray-50 border border-gray-200">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-xl font-semibold text-black">{benefit.title}</h3>
-                        <Badge className="bg-white text-black border border-gray-300">{benefit.metric}</Badge>
-                      </div>
-                      <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Common Use Cases" : "Casos de Uso Comunes"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "Discover how AI agents can transform different areas of your business"
-                : "Descubre cómo los agentes IA pueden transformar diferentes áreas de tu negocio"}
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-8">
-            {useCases.map((useCase, index) => (
-              <Card key={index} className="bg-white border border-gray-200">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold text-black mb-3">{useCase.title}</h3>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{useCase.description}</p>
-                  <div className="space-y-2">
-                    {useCase.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-center space-x-2">
-                        <CheckCircle className="w-4 h-4 text-black flex-shrink-0" />
-                        <span className="text-gray-700 text-sm">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {language === "en" ? "Our Development Process" : "Nuestro Proceso de Desarrollo"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {language === "en"
-                ? "A proven methodology that ensures successful AI agent implementation"
-                : "Una metodología probada que asegura la implementación exitosa de agentes IA"}
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {process.map((step, index) => (
-              <div key={index} className="flex items-start space-x-6">
-                <div className="w-16 h-16 bg-black text-white rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-lg font-bold">{step.step}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-black mb-2">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                </div>
+                  {language === "en" ? "View Demo" : "Ver Demo"}
+                </Button>
               </div>
-            ))}
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-black text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {language === "en" ? "Ready to Build Your AI Agents?" : "¿Listo para Construir tus Agentes IA?"}
-            </h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              {language === "en"
-                ? "Let's discuss your specific needs and create AI agents that will transform your business operations."
-                : "Hablemos de tus necesidades específicas y creemos agentes IA que transformarán tus operaciones de negocio."}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white hover:bg-gray-100 text-black px-8 py-4 text-lg" asChild>
-                <a
-                  href="https://wa.me/56940946660?text=Hola%20N3uralia%2C%20quiero%20una%20consulta%20sobre%20desarrollo%20de%20agentes%20IA"
-                  target="_blank"
-                  rel="noopener noreferrer"
+        {/* Features Section */}
+        <section className="py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Advanced AI Capabilities" : "Capacidades Avanzadas de IA"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "Enterprise-grade AI technology tailored to your specific needs"
+                  : "Tecnología de IA de nivel empresarial adaptada a tus necesidades específicas"}
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
                 >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  {language === "en" ? "Get Free Consultation" : "Consulta Gratuita"}
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg bg-transparent"
-              >
-                {language === "en" ? "Download Case Studies" : "Descargar Casos de Estudio"}
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
+                  <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <CardContent className="p-8">
+                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-6">
+                        <feature.icon className="w-8 h-8 text-gray-700" />
+                      </div>
+                      <h3 className="text-2xl font-light text-gray-900 mb-4">{feature.title}</h3>
+                      <p className="text-gray-600 font-light leading-relaxed">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="py-24 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Real-World Applications" : "Aplicaciones del Mundo Real"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "See how AI agents transform different aspects of your business"
+                  : "Ve cómo los agentes de IA transforman diferentes aspectos de tu negocio"}
+              </p>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+              {useCases.map((useCase, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="h-full border-0 shadow-lg">
+                    <CardContent className="p-8">
+                      <h3 className="text-2xl font-light text-gray-900 mb-4">{useCase.title}</h3>
+                      <p className="text-gray-600 font-light leading-relaxed mb-6">{useCase.description}</p>
+                      <div className="space-y-2">
+                        {useCase.metrics.map((metric, metricIndex) => (
+                          <div key={metricIndex} className="flex items-center">
+                            <div className="w-2 h-2 bg-black rounded-full mr-3"></div>
+                            <span className="text-sm text-gray-700">{metric}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-5xl font-light text-gray-900 mb-4">
+                {language === "en" ? "Development Process" : "Proceso de Desarrollo"}
+              </h2>
+              <p className="text-xl text-gray-600 font-light">
+                {language === "en"
+                  ? "From concept to deployment in 4 strategic phases"
+                  : "Del concepto al despliegue en 4 fases estratégicas"}
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {process.map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-black text-white rounded-2xl flex items-center justify-center mx-auto mb-6 text-2xl font-light">
+                    {step.step}
+                  </div>
+                  <h3 className="text-xl font-light text-gray-900 mb-4">{step.title}</h3>
+                  <p className="text-gray-600 font-light text-sm leading-relaxed">{step.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <FaqSection />
+
+        {/* CTA Section */}
+        <section className="py-24 bg-black">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-5xl font-light text-white mb-6">
+                {language === "en" ? "Ready to Build" : "Listo para Construir"}
+                <br />
+                <span className="font-bold">{language === "en" ? "Your AI Agent?" : "Tu Agente de IA?"}</span>
+              </h2>
+              <p className="text-xl text-gray-300 font-light mb-8">
+                {language === "en"
+                  ? "Start your AI transformation journey with a custom consultation"
+                  : "Inicia tu viaje de transformación de IA con una consulta personalizada"}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-white text-black hover:bg-gray-100">
+                  {language === "en" ? "Start Project" : "Iniciar Proyecto"}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-black bg-transparent"
+                >
+                  {language === "en" ? "Schedule Call" : "Agendar Llamada"}
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   )
 }

@@ -1,5 +1,14 @@
-import { notFound } from "next/navigation"
-import { CaseStudyClientPage } from "./CaseStudyClientPage"
+"use client"
+
+import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/landing/footer"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { ArrowLeft, ArrowRight, Building2, Clock, Users, Award, Target, CheckCircle } from "lucide-react"
+import Link from "next/link"
+import { useLanguage } from "@/lib/language-context"
+import { useParams } from "next/navigation"
 
 const caseStudyData: Record<string, any> = {
   "retail-automation": {
@@ -87,95 +96,10 @@ const caseStudyData: Record<string, any> = {
     },
     image: "/placeholder.svg?height=400&width=600&text=Retail+Dashboard",
   },
-  "healthcare-ai": {
+  "banking-chatbot": {
     title: {
-      en: "Healthcare AI Diagnosis",
-      es: "Diagnóstico de IA en Salud",
-    },
-    client: "HealthPlus Inc",
-    industry: {
-      en: "Healthcare",
-      es: "Salud",
-    },
-    overview: {
-      en: "HealthPlus Inc aimed to improve patient diagnosis accuracy and reduce healthcare costs through AI-driven diagnostic tools.",
-      es: "HealthPlus Inc buscaba mejorar la precisión del diagnóstico de pacientes y reducir los costos de salud a través de herramientas de diagnóstico impulsadas por IA.",
-    },
-    challenge: {
-      en: "Manual diagnosis processes were time-consuming and prone to errors, leading to higher healthcare costs and less accurate patient outcomes.",
-      es: "Los procesos de diagnóstico manuales eran tediosos y propensos a errores, llevando a mayores costos de salud y resultados de pacientes menos precisos.",
-    },
-    solution: {
-      en: "We developed an AI-powered diagnostic system that analyzes patient data and provides accurate, quick diagnoses.",
-      es: "Desarrollamos un sistema de diagnóstico impulsado por IA que analiza datos de pacientes y proporciona diagnósticos precisos y rápidos.",
-    },
-    results: [
-      {
-        metric: "95%",
-        label: { en: "Increase in diagnosis accuracy", es: "Aumento en precisión del diagnóstico" },
-      },
-      {
-        metric: "$1.5M",
-        label: { en: "Annual cost savings", es: "Ahorro anual de costos" },
-      },
-      {
-        metric: "30%",
-        label: { en: "Reduction in patient wait time", es: "Reducción en tiempo de espera de pacientes" },
-      },
-      {
-        metric: "98%",
-        label: { en: "System reliability", es: "Fiabilidad del sistema" },
-      },
-    ],
-    technologies: ["Python", "PyTorch", "MongoDB", "AWS", "Docker", "Kubernetes"],
-    timeline: [
-      {
-        phase: { en: "Data Collection & Analysis", es: "Recopilación y Análisis de Datos" },
-        duration: "5 weeks",
-        description: {
-          en: "Collected and analyzed medical data to train AI models",
-          es: "Recopiló y analizó datos médicos para entrenar modelos de IA",
-        },
-      },
-      {
-        phase: { en: "Model Development", es: "Desarrollo de Modelo" },
-        duration: "10 weeks",
-        description: {
-          en: "Developed and tested AI diagnostic models",
-          es: "Desarrolló y probó modelos de diagnóstico de IA",
-        },
-      },
-      {
-        phase: { en: "Integration & Testing", es: "Integración y Pruebas" },
-        duration: "8 weeks",
-        description: {
-          en: "Integrated the AI system with existing healthcare infrastructure and conducted extensive testing",
-          es: "Integró el sistema de IA con la infraestructura de salud existente y realizó pruebas extensivas",
-        },
-      },
-      {
-        phase: { en: "Deployment & Training", es: "Despliegue y Entrenamiento" },
-        duration: "5 weeks",
-        description: {
-          en: "Deployed the system to hospitals, trained medical staff, and established monitoring systems",
-          es: "Desplegó el sistema en hospitales, entrenó al personal médico, y estableció sistemas de monitoreo",
-        },
-      },
-    ],
-    testimonial: {
-      quote: {
-        en: "The AI diagnostic system has been a game-changer for our healthcare facility. Patient outcomes have improved significantly, and we've saved a substantial amount on healthcare costs.",
-        es: "El sistema de diagnóstico de IA ha sido un cambio revolucionario para nuestra instalación de salud. Los resultados de los pacientes han mejorado significativamente, y hemos ahorrado una cantidad sustancial en costos de salud.",
-      },
-      author: "Dr. Ana Lopez",
-      position: { en: "Chief Medical Officer", es: "Directora Médica" },
-    },
-    image: "/placeholder.svg?height=400&width=600&text=Healthcare+AI",
-  },
-  "financial-services": {
-    title: {
-      en: "Financial Services AI",
-      es: "IA en Servicios Financieros",
+      en: "Banking Customer Service AI",
+      es: "IA de Atención al Cliente Bancario",
     },
     client: "SecureBank International",
     industry: {
@@ -342,213 +266,240 @@ const caseStudyData: Record<string, any> = {
     },
     image: "/placeholder.svg?height=400&width=600&text=Manufacturing+Analytics",
   },
-  "education-platform": {
-    title: {
-      en: "Education Platform Personalization",
-      es: "Personalización de Plataforma Educativa",
-    },
-    client: "LearnSmart Inc",
-    industry: {
-      en: "Education",
-      es: "Educación",
-    },
-    overview: {
-      en: "LearnSmart Inc aimed to enhance student learning experiences through personalized educational content and AI-driven analytics.",
-      es: "LearnSmart Inc buscaba mejorar las experiencias de aprendizaje de los estudiantes a través de contenido educativo personalizado y análisis impulsados por IA.",
-    },
-    challenge: {
-      en: "One-size-fits-all educational approaches were not effective, leading to lower student engagement and achievement.",
-      es: "Los enfoques educativos de un solo tamaño no eran efectivos, llevando a menor participación y logro de los estudiantes.",
-    },
-    solution: {
-      en: "We created an AI-powered education platform that personalizes content based on student performance and learning styles.",
-      es: "Creamos una plataforma educativa impulsada por IA que personaliza el contenido según el rendimiento y los estilos de aprendizaje de los estudiantes.",
-    },
-    results: [
-      {
-        metric: "40%",
-        label: { en: "Increase in student engagement", es: "Aumento en participación de estudiantes" },
-      },
-      {
-        metric: "30%",
-        label: { en: "Improvement in student achievement", es: "Mejora en logro de estudiantes" },
-      },
-      {
-        metric: "20%",
-        label: { en: "Reduction in teacher workload", es: "Reducción en carga de trabajo de profesores" },
-      },
-      {
-        metric: "99%",
-        label: { en: "System reliability", es: "Fiabilidad del sistema" },
-      },
-    ],
-    technologies: ["JavaScript", "React", "MongoDB", "AWS", "Docker", "Kubernetes"],
-    timeline: [
-      {
-        phase: { en: "Requirements Gathering", es: "Recolección de Requisitos" },
-        duration: "4 weeks",
-        description: {
-          en: "Met with educators and students to understand needs and challenges",
-          es: "Se reunió con educadores y estudiantes para entender necesidades y desafíos",
-        },
-      },
-      {
-        phase: { en: "Platform Development", es: "Desarrollo de Plataforma" },
-        duration: "12 weeks",
-        description: {
-          en: "Built the platform with personalized content delivery and AI analytics",
-          es: "Construyó la plataforma con entrega de contenido personalizado y análisis de IA",
-        },
-      },
-      {
-        phase: { en: "Testing & Feedback", es: "Pruebas y Retroalimentación" },
-        duration: "6 weeks",
-        description: {
-          en: "Conducted user testing and gathered feedback to refine the platform",
-          es: "Realizó pruebas de usuario y recopiló retroalimentación para afinar la plataforma",
-        },
-      },
-      {
-        phase: { en: "Deployment & Training", es: "Despliegue y Entrenamiento" },
-        duration: "4 weeks",
-        description: {
-          en: "Deployed the platform to schools, trained educators, and established support systems",
-          es: "Desplegó la plataforma en escuelas, entrenó a educadores, y estableció sistemas de soporte",
-        },
-      },
-    ],
-    testimonial: {
-      quote: {
-        en: "The personalized education platform has made a significant difference in our students' learning experiences. Engagement and achievement have improved, and our teachers are more efficient.",
-        es: "La plataforma educativa personalizada ha hecho una diferencia significativa en las experiencias de aprendizaje de nuestros estudiantes. La participación y el logro han mejorado, y nuestros profesores son más eficientes.",
-      },
-      author: "Mr. John Doe",
-      position: { en: "Principal", es: "Director" },
-    },
-    image: "/placeholder.svg?height=400&width=600&text=Education+Platform",
-  },
-  "logistics-automation": {
-    title: {
-      en: "Logistics Automation",
-      es: "Automatización de Logística",
-    },
-    client: "GlobalLogistics Inc",
-    industry: {
-      en: "Logistics",
-      es: "Logística",
-    },
-    overview: {
-      en: "GlobalLogistics Inc needed to optimize their logistics operations to reduce costs and improve delivery times. Our AI-powered solution automated various logistics processes.",
-      es: "GlobalLogistics Inc necesitaba optimizar sus operaciones de logística para reducir costos e mejorar los tiempos de entrega. Nuestra solución impulsada por IA automatizó varios procesos de logística.",
-    },
-    challenge: {
-      en: "Manual logistics processes were inefficient, leading to higher costs and longer delivery times.",
-      es: "Los procesos de logística manuales eran ineficientes, llevando a mayores costos y tiempos de entrega más largos.",
-    },
-    solution: {
-      en: "We implemented an AI-powered logistics automation system that optimizes routes, schedules deliveries, and tracks shipments in real-time.",
-      es: "Implementamos un sistema de automatización de logística impulsado por IA que optimiza rutas, programa entregas, y realiza un seguimiento de envíos en tiempo real.",
-    },
-    results: [
-      {
-        metric: "25%",
-        label: { en: "Reduction in logistics costs", es: "Reducción en costos de logística" },
-      },
-      {
-        metric: "15%",
-        label: { en: "Improvement in delivery times", es: "Mejora en tiempos de entrega" },
-      },
-      {
-        metric: "95%",
-        label: { en: "Accuracy in shipment tracking", es: "Precisión en seguimiento de envíos" },
-      },
-      {
-        metric: "99.5%",
-        label: { en: "System uptime", es: "Tiempo de actividad del sistema" },
-      },
-    ],
-    technologies: ["Python", "TensorFlow", "PostgreSQL", "AWS", "Docker", "Kubernetes"],
-    timeline: [
-      {
-        phase: { en: "Analysis & Design", es: "Análisis y Diseño" },
-        duration: "5 weeks",
-        description: {
-          en: "Analyzed logistics workflows and designed automation architecture",
-          es: "Analizó flujos de trabajo de logística y diseñó arquitectura de automatización",
-        },
-      },
-      {
-        phase: { en: "Model Development", es: "Desarrollo de Modelo" },
-        duration: "10 weeks",
-        description: {
-          en: "Developed AI models for route optimization and delivery scheduling",
-          es: "Desarrolló modelos de IA para optimización de rutas y programación de entregas",
-        },
-      },
-      {
-        phase: { en: "Integration & Testing", es: "Integración y Pruebas" },
-        duration: "8 weeks",
-        description: {
-          en: "Integrated AI models with logistics systems and conducted extensive testing",
-          es: "Integró modelos de IA con sistemas de logística y realizó pruebas extensivas",
-        },
-      },
-      {
-        phase: { en: "Deployment & Training", es: "Despliegue y Entrenamiento" },
-        duration: "5 weeks",
-        description: {
-          en: "Deployed the system to warehouses, trained logistics staff, and established monitoring systems",
-          es: "Desplegó el sistema en almacenes, entrenó al personal de logística, y estableció sistemas de monitoreo",
-        },
-      },
-    ],
-    testimonial: {
-      quote: {
-        en: "The AI logistics automation system has been a game-changer for our company. We've seen significant reductions in costs and improvements in delivery times.",
-        es: "El sistema de automatización de logística de IA ha sido un cambio revolucionario para nuestra empresa. Hemos visto reducciones significativas en costos e mejoras en tiempos de entrega.",
-      },
-      author: "Ms. Jane Smith",
-      position: { en: "Logistics Manager", es: "Gerente de Logística" },
-    },
-    image: "/placeholder.svg?height=400&width=600&text=Logistics+Automation",
-  },
 }
 
-// Generate static params for all case studies
-export async function generateStaticParams() {
-  const caseStudies = [
-    { id: "retail-automation" },
-    { id: "healthcare-ai" },
-    { id: "financial-services" },
-    { id: "manufacturing-optimization" },
-    { id: "education-platform" },
-    { id: "logistics-automation" },
-  ]
+export default function CaseStudyClientPage() {
+  const params = useParams()
+  const { language } = useLanguage()
+  const caseId = params.id as string
+  const caseStudy = caseStudyData[caseId]
 
-  return caseStudies.map((study) => ({
-    id: study.id,
-  }))
-}
-
-interface CaseStudyPageProps {
-  params: {
-    id: string
-  }
-}
-
-export default function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const validIds = [
-    "retail-automation",
-    "healthcare-ai",
-    "financial-services",
-    "manufacturing-optimization",
-    "education-platform",
-    "logistics-automation",
-  ]
-
-  if (!validIds.includes(params.id)) {
-    notFound()
+  if (!caseStudy) {
+    return (
+      <div className="min-h-screen bg-white">
+        <Navigation />
+        <div className="pt-32 pb-16 text-center">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {language === "en" ? "Case Study Not Found" : "Caso de Estudio No Encontrado"}
+          </h1>
+          <Link href="/case-studies">
+            <Button className="bg-gray-900 hover:bg-gray-800 text-white">
+              {language === "en" ? "Back to Case Studies" : "Volver a Casos de Estudio"}
+            </Button>
+          </Link>
+        </div>
+        <Footer />
+      </div>
+    )
   }
 
-  return <CaseStudyClientPage caseStudyId={params.id} />
+  return (
+    <div className="min-h-screen bg-white">
+      <Navigation />
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-16 bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <Link
+              href="/case-studies"
+              className="inline-flex items-center text-gray-300 hover:text-white mb-8 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              {language === "en" ? "Back to Case Studies" : "Volver a Casos de Estudio"}
+            </Link>
+
+            <Badge variant="outline" className="mb-6 border-white/20 text-white">
+              {caseStudy.industry[language]}
+            </Badge>
+
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">{caseStudy.title[language]}</h1>
+
+            <div className="flex flex-wrap items-center gap-6 text-gray-300 mb-8">
+              <div className="flex items-center">
+                <Building2 className="w-5 h-5 mr-2" />
+                {caseStudy.client}
+              </div>
+              <div className="flex items-center">
+                <Clock className="w-5 h-5 mr-2" />
+                {caseStudy.timeline.reduce((total: number, phase: any) => {
+                  const weeks = Number.parseInt(phase.duration.split(" ")[0])
+                  return total + weeks
+                }, 0)}{" "}
+                {language === "en" ? "weeks total" : "semanas total"}
+              </div>
+              <div className="flex items-center">
+                <Users className="w-5 h-5 mr-2" />
+                {language === "en" ? "12 specialists" : "12 especialistas"}
+              </div>
+            </div>
+
+            <p className="text-xl text-gray-300 leading-relaxed">{caseStudy.overview[language]}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Hero Image */}
+      <section className="py-0">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <img
+              src={caseStudy.image || "/placeholder.svg"}
+              alt={caseStudy.title[language]}
+              className="w-full h-96 object-cover rounded-lg shadow-2xl -mt-16 relative z-10"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
+              {language === "en" ? "Key Results" : "Resultados Clave"}
+            </h2>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {caseStudy.results.map((result: any, index: number) => (
+                <Card key={index} className="text-center border-0 shadow-lg">
+                  <CardContent className="p-8">
+                    <div className="text-5xl font-bold text-gray-900 mb-4">{result.metric}</div>
+                    <div className="text-gray-600 font-medium">{result.label[language]}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Challenge & Solution */}
+      <section className="py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16">
+              <div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                  <Target className="w-8 h-8 mr-3 text-gray-600" />
+                  {language === "en" ? "The Challenge" : "El Desafío"}
+                </h3>
+                <p className="text-lg text-gray-700 leading-relaxed">{caseStudy.challenge[language]}</p>
+              </div>
+
+              <div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+                  <CheckCircle className="w-8 h-8 mr-3 text-gray-600" />
+                  {language === "en" ? "Our Solution" : "Nuestra Solución"}
+                </h3>
+                <p className="text-lg text-gray-700 leading-relaxed">{caseStudy.solution[language]}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
+              {language === "en" ? "Project Timeline" : "Cronograma del Proyecto"}
+            </h2>
+
+            <div className="space-y-8">
+              {caseStudy.timeline.map((phase: any, index: number) => (
+                <div key={index} className="flex items-start">
+                  <div className="flex-shrink-0 w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold mr-6">
+                    {index + 1}
+                  </div>
+                  <div className="flex-grow">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                      <h4 className="text-xl font-bold text-gray-900">{phase.phase[language]}</h4>
+                      <Badge variant="outline" className="w-fit">
+                        {phase.duration}
+                      </Badge>
+                    </div>
+                    <p className="text-gray-700">{phase.description[language]}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technologies */}
+      <section className="py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-12">
+              {language === "en" ? "Technologies Used" : "Tecnologías Utilizadas"}
+            </h2>
+
+            <div className="flex flex-wrap justify-center gap-4">
+              {caseStudy.technologies.map((tech: string, index: number) => (
+                <Badge key={index} variant="secondary" className="text-lg px-4 py-2">
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className="py-24 bg-gradient-to-r from-gray-900 to-gray-800 text-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <Award className="w-16 h-16 mx-auto mb-8 text-gray-400" />
+            <blockquote className="text-2xl font-light italic mb-8 leading-relaxed">
+              "{caseStudy.testimonial.quote[language]}"
+            </blockquote>
+            <div>
+              <div className="font-bold text-xl">{caseStudy.testimonial.author}</div>
+              <div className="text-gray-300">{caseStudy.testimonial.position[language]}</div>
+              <div className="text-gray-400">{caseStudy.client}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+            {language === "en" ? "Ready to Transform Your Business?" : "¿Listo para Transformar tu Negocio?"}
+          </h2>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            {language === "en"
+              ? "Let's discuss how our AI solutions can deliver similar results for your organization."
+              : "Hablemos sobre cómo nuestras soluciones de IA pueden entregar resultados similares para tu organización."}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact">
+              <Button size="lg" className="bg-gray-900 hover:bg-gray-800 text-white">
+                {language === "en" ? "Start Your Project" : "Iniciar tu Proyecto"}
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+            <Link href="https://wa.me/56940946660">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
+              >
+                {language === "en" ? "Schedule Consultation" : "Agendar Consulta"}
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  )
 }
+
+// Add this line at the very end of the file, after the default export
+export { CaseStudyClientPage }
