@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Star } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import Image from "next/image"
 
 export function TestimonialsSection() {
   const { language } = useLanguage()
@@ -12,63 +13,68 @@ export function TestimonialsSection() {
     en: {
       badge: "Customer Success Stories",
       title: "What Our Clients Say About N3uralia",
-      subtitle: "Real results from real businesses that have transformed their operations with our AI solutions.",
+      subtitle: "Real results from real businesses that have transformed their operations with our AI agents.",
       testimonials: [
         {
           name: "Sarah Johnson",
           role: "CEO, TechStart Inc.",
           company: "TechStart Inc.",
-          content:
-            "N3uralia's AI agents reduced our customer response time by 90% and increased satisfaction scores dramatically. The implementation was seamless and the results were immediate.",
+          image: "/placeholder.svg?height=60&width=60&text=SJ",
           rating: 5,
+          quote:
+            "N3uralia's AI agents reduced our customer support workload by 70% while improving response times. The ROI was evident within the first month.",
         },
         {
           name: "Carlos Rodriguez",
           role: "Operations Director, GlobalCorp",
           company: "GlobalCorp",
-          content:
-            "The process automation capabilities have transformed our workflow efficiency. We've saved over 40 hours per week on routine tasks and can focus on strategic initiatives.",
+          image: "/placeholder.svg?height=60&width=60&text=CR",
           rating: 5,
+          quote:
+            "The seamless integration across all our communication channels was impressive. Our customers love the instant, accurate responses they get 24/7.",
         },
         {
           name: "Emily Chen",
-          role: "CTO, InnovateHub",
-          company: "InnovateHub",
-          content:
-            "The enterprise integration was flawless. N3uralia's team understood our complex requirements and delivered a solution that exceeded our expectations.",
+          role: "Marketing Manager, InnovateLab",
+          company: "InnovateLab",
+          image: "/placeholder.svg?height=60&width=60&text=EC",
           rating: 5,
+          quote:
+            "Our lead qualification process is now completely automated. We're capturing 3x more qualified leads and our sales team can focus on closing deals.",
         },
       ],
     },
     es: {
       badge: "Historias de Éxito de Clientes",
       title: "Lo Que Nuestros Clientes Dicen Sobre N3uralia",
-      subtitle:
-        "Resultados reales de negocios reales que han transformado sus operaciones con nuestras soluciones de IA.",
+      subtitle: "Resultados reales de negocios reales que han transformado sus operaciones con nuestros agentes de IA.",
       testimonials: [
         {
           name: "Sarah Johnson",
           role: "CEO, TechStart Inc.",
           company: "TechStart Inc.",
-          content:
-            "Los agentes de IA de N3uralia redujeron nuestro tiempo de respuesta al cliente en un 90% y aumentaron dramáticamente los puntajes de satisfacción. La implementación fue perfecta y los resultados fueron inmediatos.",
+          image: "/placeholder.svg?height=60&width=60&text=SJ",
           rating: 5,
+          quote:
+            "Los agentes de IA de N3uralia redujeron nuestra carga de soporte al cliente en 70% mientras mejoraron los tiempos de respuesta. El ROI fue evidente en el primer mes.",
         },
         {
           name: "Carlos Rodriguez",
           role: "Director de Operaciones, GlobalCorp",
           company: "GlobalCorp",
-          content:
-            "Las capacidades de automatización de procesos han transformado la eficiencia de nuestro flujo de trabajo. Hemos ahorrado más de 40 horas por semana en tareas rutinarias y podemos enfocarnos en iniciativas estratégicas.",
+          image: "/placeholder.svg?height=60&width=60&text=CR",
           rating: 5,
+          quote:
+            "La integración perfecta en todos nuestros canales de comunicación fue impresionante. Nuestros clientes aman las respuestas instantáneas y precisas que reciben 24/7.",
         },
         {
           name: "Emily Chen",
-          role: "CTO, InnovateHub",
-          company: "InnovateHub",
-          content:
-            "La integración empresarial fue impecable. El equipo de N3uralia entendió nuestros requisitos complejos y entregó una solución que superó nuestras expectativas.",
+          role: "Gerente de Marketing, InnovateLab",
+          company: "InnovateLab",
+          image: "/placeholder.svg?height=60&width=60&text=EC",
           rating: 5,
+          quote:
+            "Nuestro proceso de calificación de leads ahora está completamente automatizado. Estamos capturando 3x más leads calificados y nuestro equipo de ventas puede enfocarse en cerrar tratos.",
         },
       ],
     },
@@ -82,35 +88,34 @@ export function TestimonialsSection() {
         <div className="text-center mb-16">
           <Badge
             variant="secondary"
-            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-green-50 text-green-700 border-green-200"
           >
             {t.badge}
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">{t.title}</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {t.testimonials.map((testimonial, index) => (
             <Card key={index} className="border-0 shadow-sm hover:shadow-md transition-shadow bg-white">
-              <CardContent className="p-8">
+              <CardContent className="p-6">
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <blockquote className="text-gray-700 mb-6 leading-relaxed">"{testimonial.content}"</blockquote>
+                <blockquote className="text-gray-700 mb-6 leading-relaxed">"{testimonial.quote}"</blockquote>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                    <span className="text-gray-600 font-semibold text-sm">
-                      {testimonial.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </span>
-                  </div>
+                  <Image
+                    src={testimonial.image || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    width={48}
+                    height={48}
+                    className="rounded-full mr-4"
+                  />
                   <div>
-                    <div className="font-semibold text-black">{testimonial.name}</div>
+                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
                     <div className="text-sm text-gray-600">{testimonial.role}</div>
                   </div>
                 </div>

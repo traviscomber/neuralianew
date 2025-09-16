@@ -2,10 +2,14 @@
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Bot, Workflow, Building2, ArrowRight, CheckCircle } from "lucide-react"
-import Link from "next/link"
+import { Bot, Workflow, Building2, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { Navigation } from "@/components/navigation"
+import { ServicesSection } from "@/components/landing/services-section"
+import { FeaturesSection } from "@/components/landing/features-section"
+import { FAQSection } from "@/components/landing/faq-section"
+import { ContactSection } from "@/components/landing/contact-section"
+import { Footer } from "@/components/landing/footer"
 
 export default function ServicesPage() {
   const { language } = useLanguage()
@@ -198,6 +202,7 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Navigation />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto px-4">
@@ -215,70 +220,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-3 gap-8">
-            {t.services.map((service, index) => (
-              <Card
-                key={index}
-                className="border-2 border-gray-100 hover:border-black transition-all duration-300 hover:shadow-xl group"
-              >
-                <CardContent className="p-8">
-                  <div className="mb-6">
-                    <div className="w-16 h-16 bg-black rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                      <service.icon className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-black mb-4">{service.title}</h3>
-                    <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
-                  </div>
-
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-black mb-3">Features:</h4>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                          <CheckCircle className="h-4 w-4 text-green-500 mr-3 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mb-8">
-                    <h4 className="font-semibold text-black mb-3">Benefits:</h4>
-                    <ul className="space-y-2">
-                      {service.benefits.map((benefit, benefitIndex) => (
-                        <li key={benefitIndex} className="flex items-center text-sm text-gray-600">
-                          <div className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0" />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Button asChild className="w-full bg-black text-white hover:bg-gray-800">
-                      <Link href={service.href}>
-                        {t.learnMore}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="w-full border-black text-black hover:bg-black hover:text-white bg-transparent"
-                    >
-                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                        {t.getStarted}
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ServicesSection services={t.services} learnMore={t.learnMore} getStarted={t.getStarted} />
 
       {/* Process Section */}
       <section className="py-20 bg-gray-50">
@@ -302,6 +244,15 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* FAQ Section */}
+      <FAQSection />
+
+      {/* Contact Section */}
+      <ContactSection />
+
       {/* CTA Section */}
       <section className="py-20 bg-black text-white">
         <div className="container mx-auto px-4 text-center">
@@ -321,6 +272,9 @@ export default function ServicesPage() {
           </Button>
         </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }

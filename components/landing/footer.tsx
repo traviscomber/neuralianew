@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function Footer() {
@@ -9,168 +10,227 @@ export function Footer() {
   const content = {
     en: {
       company: "Company",
-      services: "Services",
+      about: "About Us",
+      careers: "Careers",
+      press: "Press",
+      blog: "Blog",
+      products: "Products",
+      aiAgents: "AI Agents",
+      automation: "Automation",
+      integrations: "Integrations",
+      pricing: "Pricing",
       support: "Support",
+      documentation: "Documentation",
+      helpCenter: "Help Center",
+      community: "Community",
+      contact: "Contact",
       legal: "Legal",
-      links: {
-        about: "About Us",
-        careers: "Careers",
-        blog: "Blog",
-        aiAgents: "AI Agents",
-        automation: "Automation",
-        integration: "Integration",
-        help: "Help Center",
-        documentation: "Documentation",
-        contact: "Contact",
-        privacy: "Privacy Policy",
-        terms: "Terms of Service",
-        cookies: "Cookie Policy",
-      },
+      privacy: "Privacy Policy",
+      terms: "Terms of Service",
+      cookies: "Cookie Policy",
       description:
-        "Transform your business with intelligent AI solutions. From custom agents to enterprise automation, N3uralia delivers cutting-edge technology that drives real results.",
-      copyright: "© 2024 N3uralia. All rights reserved.",
-      builtWith: "Built with ❤️ in Santiago, Chile",
+        "Transform your business with intelligent AI agents that automate customer service, boost sales, and streamline operations.",
+      rights: "All rights reserved.",
+      address: "Santiago, Chile",
+      email: "hello@n3uralia.com",
+      phone: "+56 9 4444 4649",
     },
     es: {
       company: "Empresa",
-      services: "Servicios",
+      about: "Nosotros",
+      careers: "Carreras",
+      press: "Prensa",
+      blog: "Blog",
+      products: "Productos",
+      aiAgents: "Agentes IA",
+      automation: "Automatización",
+      integrations: "Integraciones",
+      pricing: "Precios",
       support: "Soporte",
+      documentation: "Documentación",
+      helpCenter: "Centro de Ayuda",
+      community: "Comunidad",
+      contact: "Contacto",
       legal: "Legal",
-      links: {
-        about: "Nosotros",
-        careers: "Carreras",
-        blog: "Blog",
-        aiAgents: "Agentes de IA",
-        automation: "Automatización",
-        integration: "Integración",
-        help: "Centro de Ayuda",
-        documentation: "Documentación",
-        contact: "Contacto",
-        privacy: "Política de Privacidad",
-        terms: "Términos de Servicio",
-        cookies: "Política de Cookies",
-      },
+      privacy: "Política de Privacidad",
+      terms: "Términos de Servicio",
+      cookies: "Política de Cookies",
       description:
-        "Transforma tu negocio con soluciones inteligentes de IA. Desde agentes personalizados hasta automatización empresarial, N3uralia entrega tecnología de vanguardia que genera resultados reales.",
-      copyright: "© 2024 N3uralia. Todos los derechos reservados.",
-      builtWith: "Hecho con ❤️ en Santiago, Chile",
+        "Transforma tu negocio con agentes de IA inteligentes que automatizan el servicio al cliente, impulsan las ventas y optimizan las operaciones.",
+      rights: "Todos los derechos reservados.",
+      address: "Santiago, Chile",
+      email: "hello@n3uralia.com",
+      phone: "+56 9 4444 4649",
     },
   }
 
   const t = content[language]
 
+  const whatsappMessage =
+    language === "es"
+      ? "Hola, me interesa conocer más sobre las soluciones de IA de N3uralia"
+      : "Hello, I'm interested in learning more about N3uralia's AI solutions"
+
+  const whatsappUrl = `https://wa.me/56944444649?text=${encodeURIComponent(whatsappMessage)}`
+
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-5 gap-8 mb-12">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-black font-bold text-sm">N3</span>
+    <footer className="bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Company Info */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 flex items-center justify-center">
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="text-white"
+                >
+                  <circle cx="8" cy="8" r="2" fill="currentColor" />
+                  <circle cx="20" cy="8" r="2" fill="currentColor" />
+                  <circle cx="32" cy="8" r="2" fill="currentColor" />
+                  <circle cx="8" cy="20" r="2" fill="currentColor" />
+                  <circle cx="20" cy="20" r="2" fill="currentColor" />
+                  <circle cx="32" cy="20" r="2" fill="currentColor" />
+                  <circle cx="8" cy="32" r="2" fill="currentColor" />
+                  <circle cx="20" cy="32" r="2" fill="currentColor" />
+                  <circle cx="32" cy="32" r="2" fill="currentColor" />
+                  <path d="M8 10v8M20 10v8M32 10v8M8 22v8M20 22v8M32 22v8" stroke="currentColor" strokeWidth="1" />
+                  <path d="M10 8h8M22 8h8M10 20h8M22 20h8M10 32h8M22 32h8" stroke="currentColor" strokeWidth="1" />
+                </svg>
               </div>
               <span className="font-bold text-xl">N3uralia</span>
-            </Link>
-            <p className="text-gray-400 leading-relaxed mb-6 max-w-md">{t.description}</p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">Twitter</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-                </svg>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <span className="sr-only">LinkedIn</span>
-                <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </a>
+            </div>
+            <p className="text-gray-400 mb-6 leading-relaxed">{t.description}</p>
+            <div className="space-y-2">
+              <div className="flex items-center space-x-3">
+                <MapPin className="h-4 w-4 text-gray-400" />
+                <span className="text-gray-400">{t.address}</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="h-4 w-4 text-gray-400" />
+                <a href={`mailto:${t.email}`} className="text-gray-400 hover:text-white transition-colors">
+                  {t.email}
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone className="h-4 w-4 text-gray-400" />
+                <a href={`tel:${t.phone}`} className="text-gray-400 hover:text-white transition-colors">
+                  {t.phone}
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <MessageCircle className="h-4 w-4 text-gray-400" />
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Company */}
+          {/* Company Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">{t.company}</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-white mb-4">{t.company}</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="#about" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.about}
+                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                  {t.about}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.careers}
+                <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">
+                  {t.careers}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.blog}
+                <Link href="/press" className="text-gray-400 hover:text-white transition-colors">
+                  {t.press}
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
+                  {t.blog}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Products Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">{t.services}</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-white mb-4">{t.products}</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="/ai-agent-development" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.aiAgents}
+                <Link href="/agents" className="text-gray-400 hover:text-white transition-colors">
+                  {t.aiAgents}
                 </Link>
               </li>
               <li>
-                <Link href="/process-automation" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.automation}
+                <Link href="/automation" className="text-gray-400 hover:text-white transition-colors">
+                  {t.automation}
                 </Link>
               </li>
               <li>
-                <Link href="/enterprise-integration" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.integration}
+                <Link href="/integrations" className="text-gray-400 hover:text-white transition-colors">
+                  {t.integrations}
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">
+                  {t.pricing}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Support Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">{t.support}</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-white mb-4">{t.support}</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.help}
+                <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">
+                  {t.documentation}
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.documentation}
+                <Link href="/help" className="text-gray-400 hover:text-white transition-colors">
+                  {t.helpCenter}
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="text-gray-400 hover:text-white transition-colors">
-                  {t.links.contact}
+                <Link href="/community" className="text-gray-400 hover:text-white transition-colors">
+                  {t.community}
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
+                  {t.contact}
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="border-t border-gray-800 pt-8">
+        {/* Bottom Section */}
+        <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 mb-4 md:mb-0">
-              <p className="text-gray-400 text-sm">{t.copyright}</p>
-              <p className="text-gray-400 text-sm">{t.builtWith}</p>
-            </div>
+            <div className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 N3uralia. {t.rights}</div>
             <div className="flex space-x-6">
-              <Link
-                href="/politicas-de-privacidad"
-                className="text-gray-400 hover:text-white transition-colors text-sm"
-              >
-                {t.links.privacy}
+              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
+                {t.privacy}
               </Link>
-              <Link href="/terminos-de-servicio" className="text-gray-400 hover:text-white transition-colors text-sm">
-                {t.links.terms}
+              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">
+                {t.terms}
+              </Link>
+              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors text-sm">
+                {t.cookies}
               </Link>
             </div>
           </div>

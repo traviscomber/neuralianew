@@ -1,96 +1,92 @@
 "use client"
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Bot, Workflow, Building2, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Bot, ArrowRight, MessageSquare, Calendar, ShoppingCart } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import Link from "next/link"
 
 export function ServicesSection() {
   const { language } = useLanguage()
 
   const content = {
     en: {
-      badge: "Our Services",
-      title: "Comprehensive AI Solutions for Every Business Need",
-      subtitle:
-        "From intelligent chatbots to enterprise automation, we deliver AI solutions that drive real business results.",
+      badge: "AI Agent Use Cases",
+      title: "Versatile solutions for every business need and industry vertical",
       services: [
         {
+          icon: MessageSquare,
+          title: "Customer Support",
+          description: "Automate first-level support, handle FAQs, and provide instant assistance to customers.",
+          benefits: ["Reduce support tickets by 70%", "24/7 availability", "Consistent service quality"],
+          href: "/agents/customer-support",
+          cta: "Learn More",
+        },
+        {
           icon: Bot,
-          title: "AI Agent Development",
-          description:
-            "Custom AI agents that understand your business context and deliver personalized customer experiences across all channels.",
-          features: ["Natural Language Processing", "Multi-channel Support", "Custom Training", "Real-time Learning"],
-          href: "/ai-agent-development",
+          title: "Sales Assistant",
+          description: "Qualify leads, provide product information, and guide customers through the sales funnel.",
+          benefits: ["Increase conversion rates", "Capture leads 24/7", "Personalized recommendations"],
+          href: "/agents/sales-assistant",
+          cta: "Learn More",
         },
         {
-          icon: Workflow,
-          title: "Process Automation",
-          description:
-            "Intelligent automation that streamlines operations, reduces costs, and eliminates repetitive tasks with precision.",
-          features: ["Workflow Optimization", "Task Automation", "Data Processing", "Quality Assurance"],
-          href: "/process-automation",
+          icon: Calendar,
+          title: "Appointment Booking",
+          description: "Handle scheduling, confirmations, and reminders automatically across all channels.",
+          benefits: ["Reduce no-shows by 60%", "Automated reminders", "Calendar integration"],
+          href: "/agents/appointment-booking",
+          cta: "Learn More",
         },
         {
-          icon: Building2,
-          title: "Enterprise Integration",
-          description:
-            "Seamless integration with existing systems, ensuring AI solutions work harmoniously with your current infrastructure.",
-          features: ["Legacy System Integration", "API Development", "Cloud Migration", "Security Compliance"],
-          href: "/enterprise-integration",
+          icon: ShoppingCart,
+          title: "Order Management",
+          description: "Process orders, track shipments, and handle returns with intelligent automation.",
+          benefits: ["Faster order processing", "Real-time updates", "Reduced errors"],
+          href: "/agents/order-management",
+          cta: "Learn More",
         },
       ],
-      learnMore: "Learn More",
     },
     es: {
-      badge: "Nuestros Servicios",
-      title: "Soluciones Integrales de IA para Cada Necesidad Empresarial",
-      subtitle:
-        "Desde chatbots inteligentes hasta automatización empresarial, entregamos soluciones de IA que generan resultados reales.",
+      badge: "Casos de Uso de Agentes IA",
+      title: "Soluciones versátiles para cada necesidad empresarial y vertical de industria",
       services: [
         {
+          icon: MessageSquare,
+          title: "Soporte al Cliente",
+          description:
+            "Automatiza soporte de primer nivel, maneja FAQs y proporciona asistencia instantánea a clientes.",
+          benefits: ["Reduce tickets de soporte en 70%", "Disponibilidad 24/7", "Calidad de servicio consistente"],
+          href: "/agents/customer-support",
+          cta: "Saber Más",
+        },
+        {
           icon: Bot,
-          title: "Desarrollo de Agentes de IA",
-          description:
-            "Agentes de IA personalizados que entienden el contexto de tu negocio y brindan experiencias personalizadas en todos los canales.",
-          features: [
-            "Procesamiento de Lenguaje Natural",
-            "Soporte Multicanal",
-            "Entrenamiento Personalizado",
-            "Aprendizaje en Tiempo Real",
-          ],
-          href: "/ai-agent-development",
+          title: "Asistente de Ventas",
+          description: "Califica leads, proporciona información de productos y guía clientes por el embudo de ventas.",
+          benefits: ["Aumenta tasas de conversión", "Captura leads 24/7", "Recomendaciones personalizadas"],
+          href: "/agents/sales-assistant",
+          cta: "Saber Más",
         },
         {
-          icon: Workflow,
-          title: "Automatización de Procesos",
-          description:
-            "Automatización inteligente que optimiza operaciones, reduce costos y elimina tareas repetitivas con precisión.",
-          features: [
-            "Optimización de Flujos",
-            "Automatización de Tareas",
-            "Procesamiento de Datos",
-            "Control de Calidad",
-          ],
-          href: "/process-automation",
+          icon: Calendar,
+          title: "Reserva de Citas",
+          description: "Maneja programación, confirmaciones y recordatorios automáticamente en todos los canales.",
+          benefits: ["Reduce ausencias en 60%", "Recordatorios automatizados", "Integración de calendario"],
+          href: "/agents/appointment-booking",
+          cta: "Saber Más",
         },
         {
-          icon: Building2,
-          title: "Integración Empresarial",
-          description:
-            "Integración perfecta con sistemas existentes, asegurando que las soluciones de IA trabajen en armonía con tu infraestructura actual.",
-          features: [
-            "Integración de Sistemas Legacy",
-            "Desarrollo de APIs",
-            "Migración a la Nube",
-            "Cumplimiento de Seguridad",
-          ],
-          href: "/enterprise-integration",
+          icon: ShoppingCart,
+          title: "Gestión de Pedidos",
+          description: "Procesa pedidos, rastrea envíos y maneja devoluciones con automatización inteligente.",
+          benefits: ["Procesamiento más rápido de pedidos", "Actualizaciones en tiempo real", "Errores reducidos"],
+          href: "/agents/order-management",
+          cta: "Saber Más",
         },
       ],
-      learnMore: "Saber Más",
     },
   }
 
@@ -102,47 +98,38 @@ export function ServicesSection() {
         <div className="text-center mb-16">
           <Badge
             variant="secondary"
-            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-gray-100 text-gray-800 border-gray-200"
           >
             {t.badge}
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">{t.title}</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {t.services.map((service, index) => (
             <Card
               key={index}
-              className="border-2 border-gray-100 hover:border-black transition-all duration-300 hover:shadow-lg group"
+              className="border-2 border-gray-100 hover:border-blue-200 transition-all duration-300 hover:shadow-lg"
             >
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <service.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-black mb-3">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{service.description}</p>
+              <CardHeader className="pb-4">
+                <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+                  <service.icon className="h-6 w-6 text-blue-600" />
                 </div>
-
-                <div className="mb-6">
-                  <ul className="space-y-2">
-                    {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                        <div className="w-1.5 h-1.5 bg-black rounded-full mr-3" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                <CardTitle className="text-xl font-bold text-gray-900">{service.title}</CardTitle>
+                <CardDescription className="text-gray-600 leading-relaxed">{service.description}</CardDescription>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="space-y-3 mb-6">
+                  {service.benefits.map((benefit, benefitIndex) => (
+                    <div key={benefitIndex} className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
+                      <span className="text-sm text-gray-700">{benefit}</span>
+                    </div>
+                  ))}
                 </div>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="w-full border-black text-black hover:bg-black hover:text-white group bg-transparent"
-                >
+                <Button asChild variant="outline" className="w-full group bg-transparent">
                   <Link href={service.href}>
-                    {t.learnMore}
+                    {service.cta}
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>

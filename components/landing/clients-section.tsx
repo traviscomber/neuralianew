@@ -2,6 +2,7 @@
 
 import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/lib/language-context"
+import Image from "next/image"
 
 export function ClientsSection() {
   const { language } = useLanguage()
@@ -9,15 +10,15 @@ export function ClientsSection() {
   const content = {
     en: {
       badge: "Trusted by Industry Leaders",
-      title: "Join 500+ Companies Already Transforming with AI",
+      title: "Join 500+ Companies Already Using N3uralia",
       subtitle:
-        "From startups to Fortune 500 companies, businesses worldwide trust N3uralia to deliver intelligent AI solutions.",
+        "From startups to Fortune 500 companies, businesses worldwide trust N3uralia to power their AI transformation.",
     },
     es: {
-      badge: "Confianza de Líderes de la Industria",
-      title: "Únete a Más de 500 Empresas Ya Transformándose con IA",
+      badge: "Confiado por Líderes de la Industria",
+      title: "Únete a Más de 500 Empresas que Ya Usan N3uralia",
       subtitle:
-        "Desde startups hasta empresas Fortune 500, negocios en todo el mundo confían en N3uralia para entregar soluciones inteligentes de IA.",
+        "Desde startups hasta empresas Fortune 500, negocios mundiales confían en N3uralia para impulsar su transformación con IA.",
     },
   }
 
@@ -38,11 +39,11 @@ export function ClientsSection() {
         <div className="text-center mb-16">
           <Badge
             variant="secondary"
-            className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-blue-50 text-blue-700 border-blue-200"
           >
             {t.badge}
           </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.title}</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">{t.title}</h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
         </div>
 
@@ -52,34 +53,29 @@ export function ClientsSection() {
               key={index}
               className="flex items-center justify-center p-4 grayscale hover:grayscale-0 transition-all duration-300"
             >
-              <img
+              <Image
                 src={client.logo || "/placeholder.svg"}
-                alt={client.name}
-                className="max-h-12 w-auto opacity-60 hover:opacity-100 transition-opacity"
+                alt={`${client.name} logo`}
+                width={120}
+                height={60}
+                className="max-w-full h-auto opacity-60 hover:opacity-100 transition-opacity"
               />
             </div>
           ))}
         </div>
 
-        {/* Stats */}
-        <div className="grid md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-gray-200">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-black mb-2">500+</div>
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">500+</div>
             <div className="text-gray-600">{language === "es" ? "Empresas Activas" : "Active Companies"}</div>
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-black mb-2">10M+</div>
-            <div className="text-gray-600">
-              {language === "es" ? "Conversaciones Procesadas" : "Conversations Processed"}
-            </div>
+          <div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">50+</div>
+            <div className="text-gray-600">{language === "es" ? "Países" : "Countries"}</div>
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-black mb-2">99.9%</div>
+          <div>
+            <div className="text-3xl font-bold text-gray-900 mb-2">99.9%</div>
             <div className="text-gray-600">{language === "es" ? "Tiempo de Actividad" : "Uptime"}</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-black mb-2">50+</div>
-            <div className="text-gray-600">{language === "es" ? "Idiomas Soportados" : "Languages Supported"}</div>
           </div>
         </div>
       </div>
