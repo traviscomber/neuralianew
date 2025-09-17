@@ -1,173 +1,104 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, Phone, Mail, MapPin, Clock } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
 
 export function ContactSection() {
   const { language } = useLanguage()
 
   const content = {
     en: {
-      badge: "Get in Touch",
+      badge: "Get Started Today",
       title: "Ready to Transform Your Business with AI?",
-      subtitle: "Contact our team of AI experts to discuss your project and get a personalized solution.",
-      whatsappTitle: "WhatsApp",
-      whatsappDesc: "Get instant support and quick answers",
-      whatsappButton: "Chat on WhatsApp",
-      phoneTitle: "Phone",
-      phoneDesc: "Speak directly with our AI specialists",
-      phoneButton: "Call Now",
-      emailTitle: "Email",
-      emailDesc: "Send us your detailed requirements",
-      emailButton: "Send Email",
-      officeTitle: "Office",
-      officeDesc: "Visit our headquarters in Santiago",
-      officeAddress: "Santiago, Chile",
-      hoursTitle: "Business Hours",
-      hoursDesc: "Monday to Friday, 9:00 AM - 6:00 PM (CLT)",
-      consultationButton: "Schedule Free Consultation",
+      subtitle:
+        "Join hundreds of companies already using N3uralia to automate processes, enhance customer experience, and drive growth.",
+      startButton: "Start Your AI Journey",
+      contactButton: "Contact Our Experts",
+      whatsapp: "WhatsApp Support",
+      email: "Email Us",
+      call: "Call Us",
+      visit: "Visit Our Office",
+      phone: "+56 9 4444 4649",
+      emailAddress: "hello@n3uralia.com",
+      location: "Santiago, Chile",
     },
     es: {
-      badge: "Contáctanos",
-      title: "¿Listo para Transformar Tu Negocio con IA?",
+      badge: "Comienza Hoy",
+      title: "¿Listo para Transformar tu Negocio con IA?",
       subtitle:
-        "Contacta a nuestro equipo de expertos en IA para discutir tu proyecto y obtener una solución personalizada.",
-      whatsappTitle: "WhatsApp",
-      whatsappDesc: "Obtén soporte instantáneo y respuestas rápidas",
-      whatsappButton: "Chatear en WhatsApp",
-      phoneTitle: "Teléfono",
-      phoneDesc: "Habla directamente con nuestros especialistas en IA",
-      phoneButton: "Llamar Ahora",
-      emailTitle: "Email",
-      emailDesc: "Envíanos tus requerimientos detallados",
-      emailButton: "Enviar Email",
-      officeTitle: "Oficina",
-      officeDesc: "Visita nuestra sede en Santiago",
-      officeAddress: "Santiago, Chile",
-      hoursTitle: "Horario de Atención",
-      hoursDesc: "Lunes a Viernes, 9:00 AM - 6:00 PM (CLT)",
-      consultationButton: "Agendar Consulta Gratuita",
+        "Únete a cientos de empresas que ya usan N3uralia para automatizar procesos, mejorar la experiencia del cliente e impulsar el crecimiento.",
+      startButton: "Inicia tu Viaje con IA",
+      contactButton: "Contacta a Nuestros Expertos",
+      whatsapp: "Soporte WhatsApp",
+      email: "Envíanos un Email",
+      call: "Llámanos",
+      visit: "Visita Nuestra Oficina",
+      phone: "+56 9 4444 4649",
+      emailAddress: "hello@n3uralia.com",
+      location: "Santiago, Chile",
     },
   }
 
   const t = content[language]
 
-  const handleWhatsApp = () => {
-    const message = encodeURIComponent(
-      language === "es"
-        ? "Hola N3uralia, me interesa conocer más sobre sus soluciones de IA para mi empresa"
-        : "Hello N3uralia, I'm interested in learning more about your AI solutions for my business",
-    )
-    window.open(`https://wa.me/56940946660?text=${message}`, "_blank")
-  }
-
-  const handlePhone = () => {
-    window.open("tel:+56940946660", "_self")
-  }
-
-  const handleEmail = () => {
-    const subject = encodeURIComponent(
-      language === "es" ? "Consulta sobre Soluciones de IA" : "Inquiry about AI Solutions",
-    )
-    const body = encodeURIComponent(
-      language === "es"
-        ? "Hola, me interesa conocer más sobre las soluciones de IA de N3uralia para mi empresa."
-        : "Hello, I'm interested in learning more about N3uralia's AI solutions for my business.",
-    )
-    window.open(`mailto:info@n3uralia.com?subject=${subject}&body=${body}`, "_self")
-  }
-
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-black text-white">
       <div className="container mx-auto px-4">
+        {/* Main CTA Section */}
         <div className="text-center mb-16">
-          <Badge
-            variant="secondary"
-            className="mb-4 px-4 py-2 text-sm font-medium bg-blue-50 text-blue-700 border-blue-200"
-          >
+          <div className="inline-block px-4 py-2 bg-gray-800 text-gray-300 text-sm font-medium rounded-full mb-6">
             {t.badge}
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">{t.title}</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
-        </div>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{t.title}</h2>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-12">{t.subtitle}</p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {/* WhatsApp */}
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-green-50">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t.whatsappTitle}</h3>
-              <p className="text-sm text-gray-600 mb-4">{t.whatsappDesc}</p>
-              <Button onClick={handleWhatsApp} className="bg-green-600 hover:bg-green-700 text-white w-full">
-                {t.whatsappButton}
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Phone */}
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-blue-50">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Phone className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t.phoneTitle}</h3>
-              <p className="text-sm text-gray-600 mb-4">{t.phoneDesc}</p>
-              <Button onClick={handlePhone} className="bg-blue-600 hover:bg-blue-700 text-white w-full">
-                {t.phoneButton}
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Email */}
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-purple-50">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t.emailTitle}</h3>
-              <p className="text-sm text-gray-600 mb-4">{t.emailDesc}</p>
-              <Button onClick={handleEmail} className="bg-purple-600 hover:bg-purple-700 text-white w-full">
-                {t.emailButton}
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Office */}
-          <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow bg-orange-50">
-            <CardContent className="p-6 text-center">
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-6 h-6 text-orange-600" />
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-2">{t.officeTitle}</h3>
-              <p className="text-sm text-gray-600 mb-4">{t.officeDesc}</p>
-              <p className="text-sm font-medium text-orange-600">{t.officeAddress}</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Business Hours */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center space-x-2 bg-gray-100 rounded-full px-6 py-3">
-            <Clock className="w-5 h-5 text-gray-600" />
-            <span className="font-medium text-gray-900">{t.hoursTitle}:</span>
-            <span className="text-gray-600">{t.hoursDesc}</span>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-8 py-3 text-lg font-semibold">
+              <MessageCircle className="mr-2 h-5 w-5" />
+              {t.startButton}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-black px-8 py-3 text-lg font-semibold bg-transparent"
+            >
+              <Mail className="mr-2 h-5 w-5" />
+              {t.contactButton}
+            </Button>
           </div>
         </div>
 
-        {/* CTA Button */}
-        <div className="text-center">
-          <Button
-            onClick={handleWhatsApp}
-            size="lg"
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          >
-            {t.consultationButton}
-          </Button>
+        {/* Contact Information */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          {/* WhatsApp Support */}
+          <div className="flex flex-col items-center">
+            <MessageCircle className="h-8 w-8 text-gray-400 mb-3" />
+            <h3 className="text-white font-semibold mb-2">{t.whatsapp}</h3>
+            <p className="text-gray-400">{t.phone}</p>
+          </div>
+
+          {/* Email Us */}
+          <div className="flex flex-col items-center">
+            <Mail className="h-8 w-8 text-gray-400 mb-3" />
+            <h3 className="text-white font-semibold mb-2">{t.email}</h3>
+            <p className="text-gray-400">{t.emailAddress}</p>
+          </div>
+
+          {/* Call Us */}
+          <div className="flex flex-col items-center">
+            <Phone className="h-8 w-8 text-gray-400 mb-3" />
+            <h3 className="text-white font-semibold mb-2">{t.call}</h3>
+            <p className="text-gray-400">{t.phone}</p>
+          </div>
+
+          {/* Visit Our Office */}
+          <div className="flex flex-col items-center">
+            <MapPin className="h-8 w-8 text-gray-400 mb-3" />
+            <h3 className="text-white font-semibold mb-2">{t.visit}</h3>
+            <p className="text-gray-400">{t.location}</p>
+          </div>
         </div>
       </div>
     </section>
