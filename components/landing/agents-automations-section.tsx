@@ -195,8 +195,8 @@ export function AgentsAutomationsSection() {
             {t.agents.map((agent, index) => (
               <div key={index} className="group perspective-1000">
                 <div className="relative w-full h-96 transform-style-preserve-3d transition-transform duration-700 group-hover:rotate-y-180">
-                  {/* Front of card */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden bg-white rounded-2xl shadow-lg border border-gray-200 p-8 flex flex-col items-center justify-center text-center">
+                  {/* Front of card with 20% transparency */}
+                  <div className="absolute inset-0 w-full h-full backface-hidden bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border border-gray-200/60 p-8 flex flex-col items-center justify-center text-center">
                     <div className="w-20 h-20 mb-6 flex items-center justify-center">
                       <img
                         src={agent.icon || "/placeholder.svg"}
@@ -205,18 +205,18 @@ export function AgentsAutomationsSection() {
                       />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-800 mb-4">{agent.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{agent.shortDescription}</p>
+                    <p className="text-gray-700 leading-relaxed font-medium">{agent.shortDescription}</p>
                   </div>
 
-                  {/* Back of card */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-black/90 backdrop-blur-sm rounded-2xl border border-white/10 p-8 flex flex-col justify-center text-white">
+                  {/* Back of card with 30% transparency */}
+                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 bg-black/70 backdrop-blur-md rounded-2xl border border-white/20 p-8 flex flex-col justify-center text-white">
                     <h3 className="text-xl font-bold mb-4 text-center">{agent.title}</h3>
-                    <p className="text-white/90 leading-relaxed mb-6">{agent.fullDescription}</p>
+                    <p className="text-white/95 leading-relaxed mb-6 font-medium">{agent.fullDescription}</p>
                     <ul className="space-y-2 mb-6">
                       {agent.features.map((feature, featureIndex) => (
                         <li key={featureIndex} className="flex items-center text-sm">
                           <div className="w-2 h-2 bg-white rounded-full mr-3 flex-shrink-0"></div>
-                          <span className="text-white/80">{feature}</span>
+                          <span className="text-white/90 font-medium">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -225,7 +225,7 @@ export function AgentsAutomationsSection() {
                         href={`https://wa.me/56940946660?text=${encodeURIComponent(`Hola, me interesa el ${agent.title}`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center px-4 py-2 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 text-sm"
+                        className="inline-flex items-center px-4 py-2 bg-white/95 text-black rounded-full font-semibold hover:bg-white transition-colors duration-300 text-sm shadow-lg"
                       >
                         Consultar por WhatsApp
                       </a>
