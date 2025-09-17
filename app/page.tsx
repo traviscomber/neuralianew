@@ -2,6 +2,7 @@ import { HeroSection } from "@/components/landing/hero-section"
 import { CosmicServicesSection } from "@/components/landing/cosmic-services-section"
 import { AgentsAutomationsSection } from "@/components/landing/agents-automations-section"
 import { MultitaskSystemsSection } from "@/components/landing/multitask-systems-section"
+import { SuccessStoriesSection } from "@/components/landing/success-stories-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { ClientsSection } from "@/components/landing/clients-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
@@ -16,6 +17,7 @@ export default function HomePage() {
       <CosmicServicesSection />
       <AgentsAutomationsSection />
       <MultitaskSystemsSection />
+      <SuccessStoriesSection />
       <FeaturesSection />
       <ClientsSection />
       <TestimonialsSection />
