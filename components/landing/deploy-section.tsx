@@ -5,25 +5,34 @@ import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { Send, MessageSquare } from "lucide-react"
+import { useState } from "react"
 
 export function DeploySection() {
   const { language } = useLanguage()
+  const [formData, setFormData] = useState({
+    role: "",
+    industry: "",
+    challenge: "",
+    contactInfo: "",
+  })
 
-  const techLogos = [
-    { name: "Redis", color: "text-red-600" },
-    { name: "Node.js", color: "text-green-600" },
-    { name: "API", color: "text-pink-500" },
-    { name: "Next.js", color: "text-black" },
-    { name: "Python", color: "text-blue-600" },
-    { name: "Deploy", color: "text-green-500" },
-  ]
+  const handleInputChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
+
+  const handleSendRequest = () => {
+    // Handle send request logic
+    console.log("Send Request:", formData)
+  }
+
+  const handleContactDeveloper = () => {
+    // Handle contact developer logic
+    console.log("Contact Developer")
+  }
 
   return (
-    <section id="deploy" className="py-24 bg-gray-100">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <section className="py-24 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -31,112 +40,81 @@ export function DeploySection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-light text-gray-700 mb-8 leading-tight">
-            {language === "en" ? "Deploy Personal AI Agent in 48 Hours" : "Despliega Agente IA Personal en 48 Horas"}
+          <h2 className="text-5xl md:text-6xl font-light text-gray-800 mb-8">
+            {language === "en"
+              ? "Deploy Personal AI Agent in 48 Hours"
+              : "Despliega tu Agente de IA Personal en 48 Horas"}
           </h2>
         </motion.div>
 
-        {/* Form */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="space-y-12"
+          className="max-w-2xl mx-auto"
         >
-          {/* Role Field */}
-          <div>
-            <Label htmlFor="role" className="text-xl text-gray-600 font-light mb-4 block">
-              {language === "en" ? "Role" : "Rol"}
-            </Label>
-            <div className="border-b-2 border-gray-400 pb-2">
+          <div className="space-y-8">
+            {/* Role Field */}
+            <div className="relative">
               <Input
-                id="role"
-                className="border-0 bg-transparent text-lg p-0 focus:ring-0 focus:border-0 placeholder:text-gray-400"
-                placeholder=""
+                type="text"
+                placeholder={language === "en" ? "Role" : "Rol"}
+                value={formData.role}
+                onChange={(e) => handleInputChange("role", e.target.value)}
+                className="w-full bg-transparent border-0 border-b-2 border-gray-300 rounded-none px-0 py-4 text-lg placeholder-gray-500 focus:border-gray-600 focus:ring-0"
               />
             </div>
-          </div>
 
-          {/* Industry Field */}
-          <div>
-            <Label htmlFor="industry" className="text-xl text-gray-600 font-light mb-4 block">
-              {language === "en" ? "Industry" : "Industria"}
-            </Label>
-            <div className="border-b-2 border-gray-400 pb-2">
+            {/* Industry Field */}
+            <div className="relative">
               <Input
-                id="industry"
-                className="border-0 bg-transparent text-lg p-0 focus:ring-0 focus:border-0 placeholder:text-gray-400"
-                placeholder=""
+                type="text"
+                placeholder={language === "en" ? "Industry" : "Industria"}
+                value={formData.industry}
+                onChange={(e) => handleInputChange("industry", e.target.value)}
+                className="w-full bg-transparent border-0 border-b-2 border-gray-300 rounded-none px-0 py-4 text-lg placeholder-gray-500 focus:border-gray-600 focus:ring-0"
               />
             </div>
-          </div>
 
-          {/* Challenge Field */}
-          <div>
-            <Label htmlFor="challenge" className="text-xl text-gray-600 font-light mb-4 block">
-              {language === "en" ? "Challenge" : "Desafío"}
-            </Label>
-            <div className="border-b-2 border-gray-400 pb-2">
+            {/* Challenge Field */}
+            <div className="relative">
               <Textarea
-                id="challenge"
-                className="border-0 bg-transparent text-lg p-0 focus:ring-0 focus:border-0 placeholder:text-gray-400 resize-none min-h-[60px]"
-                placeholder=""
+                placeholder={language === "en" ? "Challenge" : "Desafío"}
+                value={formData.challenge}
+                onChange={(e) => handleInputChange("challenge", e.target.value)}
+                className="w-full bg-transparent border-0 border-b-2 border-gray-300 rounded-none px-0 py-4 text-lg placeholder-gray-500 focus:border-gray-600 focus:ring-0 resize-none"
+                rows={1}
               />
             </div>
-          </div>
 
-          {/* Contact Info Field */}
-          <div>
-            <Label htmlFor="contact" className="text-xl text-gray-600 font-light mb-4 block">
-              {language === "en" ? "Contact Info" : "Información de Contacto"}
-            </Label>
-            <div className="border-b-2 border-gray-400 pb-2">
+            {/* Contact Info Field */}
+            <div className="relative">
               <Input
-                id="contact"
-                className="border-0 bg-transparent text-lg p-0 focus:ring-0 focus:border-0 placeholder:text-gray-400"
-                placeholder=""
+                type="text"
+                placeholder={language === "en" ? "Contact Info" : "Información de Contacto"}
+                value={formData.contactInfo}
+                onChange={(e) => handleInputChange("contactInfo", e.target.value)}
+                className="w-full bg-transparent border-0 border-b-2 border-gray-300 rounded-none px-0 py-4 text-lg placeholder-gray-500 focus:border-gray-600 focus:ring-0"
               />
             </div>
-          </div>
 
-          {/* Buttons */}
-          <div className="flex gap-6 pt-8">
-            <Button className="bg-gray-800 hover:bg-gray-900 text-white px-8 py-3 rounded-lg text-lg font-medium">
-              <Send className="w-5 h-5 mr-2" />
-              {language === "en" ? "Send Request" : "Enviar Solicitud"}
-            </Button>
-            <Button
-              onClick={() => window.open("https://wa.me/56940946660", "_blank")}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium"
-            >
-              <MessageSquare className="w-5 h-5 mr-2" />
-              {language === "en" ? "Contact Developer" : "Contactar Desarrollador"}
-            </Button>
-          </div>
-        </motion.div>
-
-        {/* Tech Stack */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-20"
-        >
-          <div className="flex justify-center items-center gap-12 flex-wrap">
-            {techLogos.map((tech, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="flex items-center justify-center"
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-8">
+              <Button
+                onClick={handleSendRequest}
+                className="flex-1 bg-gray-900 hover:bg-gray-800 text-white py-4 px-8 rounded-lg text-lg font-medium transition-colors"
               >
-                <span className={`text-2xl font-bold ${tech.color}`}>{tech.name}</span>
-              </motion.div>
-            ))}
+                {language === "en" ? "Send Request" : "Enviar Solicitud"}
+              </Button>
+              <Button
+                onClick={handleContactDeveloper}
+                variant="outline"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white border-blue-600 py-4 px-8 rounded-lg text-lg font-medium transition-colors"
+              >
+                {language === "en" ? "Contact Developer" : "Contactar Desarrollador"}
+              </Button>
+            </div>
           </div>
         </motion.div>
       </div>
