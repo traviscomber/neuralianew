@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { MessageCircle, Phone, Mail, MapPin, Linkedin, Twitter, Github } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function Footer() {
@@ -11,56 +12,60 @@ export function Footer() {
     en: {
       company: "Company",
       about: "About Us",
+      services: "Services",
       careers: "Careers",
-      press: "Press",
-      blog: "Blog",
-      products: "Products",
-      aiAgents: "AI Agents",
-      automation: "Automation",
-      integrations: "Integrations",
-      pricing: "Pricing",
-      support: "Support",
-      documentation: "Documentation",
-      helpCenter: "Help Center",
-      community: "Community",
       contact: "Contact",
-      legal: "Legal",
+      solutions: "Solutions",
+      aiAgents: "AI Agents",
+      automation: "Process Automation",
+      integration: "Enterprise Integration",
+      consulting: "AI Consulting",
+      resources: "Resources",
+      blog: "Blog",
+      documentation: "Documentation",
+      support: "Support",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
-      cookies: "Cookie Policy",
-      description:
-        "Transform your business with intelligent AI agents that automate customer service, boost sales, and streamline operations.",
-      rights: "All rights reserved.",
+      legal: "Legal",
+      contactInfo: "Contact Information",
       address: "Santiago, Chile",
-      email: "hello@n3uralia.com",
-      phone: "+56 9 4444 4649",
+      email: "info@n3uralia.com",
+      phone: "+56 9 4094 6660",
+      whatsapp: "WhatsApp",
+      followUs: "Follow Us",
+      description:
+        "N3uralia specializes in developing intelligent AI agents that transform business operations, automate customer service, and drive growth through cutting-edge artificial intelligence solutions.",
+      copyright: "© 2024 N3uralia. All rights reserved.",
+      madeWith: "Made with ❤️ in Chile",
     },
     es: {
       company: "Empresa",
-      about: "Nosotros",
+      about: "Acerca de Nosotros",
+      services: "Servicios",
       careers: "Carreras",
-      press: "Prensa",
-      blog: "Blog",
-      products: "Productos",
-      aiAgents: "Agentes IA",
-      automation: "Automatización",
-      integrations: "Integraciones",
-      pricing: "Precios",
-      support: "Soporte",
-      documentation: "Documentación",
-      helpCenter: "Centro de Ayuda",
-      community: "Comunidad",
       contact: "Contacto",
-      legal: "Legal",
+      solutions: "Soluciones",
+      aiAgents: "Agentes de IA",
+      automation: "Automatización de Procesos",
+      integration: "Integración Empresarial",
+      consulting: "Consultoría en IA",
+      resources: "Recursos",
+      blog: "Blog",
+      documentation: "Documentación",
+      support: "Soporte",
       privacy: "Política de Privacidad",
       terms: "Términos de Servicio",
-      cookies: "Política de Cookies",
-      description:
-        "Transforma tu negocio con agentes de IA inteligentes que automatizan el servicio al cliente, impulsan las ventas y optimizan las operaciones.",
-      rights: "Todos los derechos reservados.",
+      legal: "Legal",
+      contactInfo: "Información de Contacto",
       address: "Santiago, Chile",
-      email: "hello@n3uralia.com",
-      phone: "+56 9 4444 4649",
+      email: "info@n3uralia.com",
+      phone: "+56 9 4094 6660",
+      whatsapp: "WhatsApp",
+      followUs: "Síguenos",
+      description:
+        "N3uralia se especializa en desarrollar agentes de IA inteligentes que transforman las operaciones comerciales, automatizan el servicio al cliente e impulsan el crecimiento a través de soluciones de inteligencia artificial de vanguardia.",
+      copyright: "© 2024 N3uralia. Todos los derechos reservados.",
+      madeWith: "Hecho con ❤️ en Chile",
     },
   }
 
@@ -68,169 +73,148 @@ export function Footer() {
 
   const whatsappMessage =
     language === "es"
-      ? "Hola, me interesa conocer más sobre las soluciones de IA de N3uralia"
-      : "Hello, I'm interested in learning more about N3uralia's AI solutions"
+      ? "Hola N3uralia, me interesa conocer más sobre sus servicios de IA"
+      : "Hello N3uralia, I'm interested in learning more about your AI services"
 
-  const whatsappUrl = `https://wa.me/56944444649?text=${encodeURIComponent(whatsappMessage)}`
+  const whatsappUrl = `https://wa.me/56940946660?text=${encodeURIComponent(whatsappMessage)}`
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-slate-900 text-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 flex items-center justify-center">
-                <svg
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="text-white"
-                >
-                  <circle cx="8" cy="8" r="2" fill="currentColor" />
-                  <circle cx="20" cy="8" r="2" fill="currentColor" />
-                  <circle cx="32" cy="8" r="2" fill="currentColor" />
-                  <circle cx="8" cy="20" r="2" fill="currentColor" />
-                  <circle cx="20" cy="20" r="2" fill="currentColor" />
-                  <circle cx="32" cy="20" r="2" fill="currentColor" />
-                  <circle cx="8" cy="32" r="2" fill="currentColor" />
-                  <circle cx="20" cy="32" r="2" fill="currentColor" />
-                  <circle cx="32" cy="32" r="2" fill="currentColor" />
-                  <path d="M8 10v8M20 10v8M32 10v8M8 22v8M20 22v8M32 22v8" stroke="currentColor" strokeWidth="1" />
-                  <path d="M10 8h8M22 8h8M10 20h8M22 20h8M10 32h8M22 32h8" stroke="currentColor" strokeWidth="1" />
-                </svg>
+          <div className="lg:col-span-1">
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">N3</span>
               </div>
-              <span className="font-bold text-xl">N3uralia</span>
+              <span className="text-xl font-bold">N3uralia</span>
             </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">{t.description}</p>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-400">{t.address}</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-gray-400" />
-                <a href={`mailto:${t.email}`} className="text-gray-400 hover:text-white transition-colors">
-                  {t.email}
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-gray-400" />
-                <a href={`tel:${t.phone}`} className="text-gray-400 hover:text-white transition-colors">
-                  {t.phone}
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MessageCircle className="h-4 w-4 text-gray-400" />
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  WhatsApp
-                </a>
-              </div>
+            <p className="text-slate-300 mb-6 leading-relaxed">{t.description}</p>
+            <div className="flex space-x-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-600 text-slate-300 hover:text-white hover:bg-slate-800 bg-transparent"
+              >
+                <Linkedin className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-600 text-slate-300 hover:text-white hover:bg-slate-800 bg-transparent"
+              >
+                <Twitter className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-slate-600 text-slate-300 hover:text-white hover:bg-slate-800 bg-transparent"
+              >
+                <Github className="h-4 w-4" />
+              </Button>
             </div>
           </div>
 
           {/* Company Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t.company}</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-6">{t.company}</h3>
+            <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/about" className="text-slate-300 hover:text-white transition-colors">
                   {t.about}
                 </Link>
               </li>
               <li>
-                <Link href="/careers" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/services" className="text-slate-300 hover:text-white transition-colors">
+                  {t.services}
+                </Link>
+              </li>
+              <li>
+                <Link href="/careers" className="text-slate-300 hover:text-white transition-colors">
                   {t.careers}
                 </Link>
               </li>
               <li>
-                <Link href="/press" className="text-gray-400 hover:text-white transition-colors">
-                  {t.press}
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
-                  {t.blog}
+                <Link href="/contact" className="text-slate-300 hover:text-white transition-colors">
+                  {t.contact}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Products Links */}
+          {/* Solutions Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t.products}</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-semibold mb-6">{t.solutions}</h3>
+            <ul className="space-y-3">
               <li>
-                <Link href="/agents" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/agents" className="text-slate-300 hover:text-white transition-colors">
                   {t.aiAgents}
                 </Link>
               </li>
               <li>
-                <Link href="/automation" className="text-gray-400 hover:text-white transition-colors">
+                <Link href="/automation" className="text-slate-300 hover:text-white transition-colors">
                   {t.automation}
                 </Link>
               </li>
               <li>
-                <Link href="/integrations" className="text-gray-400 hover:text-white transition-colors">
-                  {t.integrations}
+                <Link href="/integration" className="text-slate-300 hover:text-white transition-colors">
+                  {t.integration}
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-gray-400 hover:text-white transition-colors">
-                  {t.pricing}
+                <Link href="/consulting" className="text-slate-300 hover:text-white transition-colors">
+                  {t.consulting}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Support Links */}
+          {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-white mb-4">{t.support}</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/docs" className="text-gray-400 hover:text-white transition-colors">
-                  {t.documentation}
-                </Link>
+            <h3 className="text-lg font-semibold mb-6">{t.contactInfo}</h3>
+            <ul className="space-y-4">
+              <li className="flex items-center space-x-3">
+                <MapPin className="h-5 w-5 text-slate-400" />
+                <span className="text-slate-300">{t.address}</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Mail className="h-5 w-5 text-slate-400" />
+                <a href="mailto:info@n3uralia.com" className="text-slate-300 hover:text-white transition-colors">
+                  {t.email}
+                </a>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Phone className="h-5 w-5 text-slate-400" />
+                <a href="tel:+56940946660" className="text-slate-300 hover:text-white transition-colors">
+                  {t.phone}
+                </a>
               </li>
               <li>
-                <Link href="/help" className="text-gray-400 hover:text-white transition-colors">
-                  {t.helpCenter}
-                </Link>
-              </li>
-              <li>
-                <Link href="/community" className="text-gray-400 hover:text-white transition-colors">
-                  {t.community}
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
-                  {t.contact}
-                </Link>
+                <Button asChild size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {t.whatsapp}
+                  </a>
+                </Button>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">© 2024 N3uralia. {t.rights}</div>
+        <div className="border-t border-slate-800 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
+              <p className="text-slate-400 text-sm">{t.copyright}</p>
+              <p className="text-slate-400 text-sm">{t.madeWith}</p>
+            </div>
             <div className="flex space-x-6">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors text-sm">
+              <Link href="/privacy" className="text-slate-400 hover:text-white text-sm transition-colors">
                 {t.privacy}
               </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors text-sm">
+              <Link href="/terms" className="text-slate-400 hover:text-white text-sm transition-colors">
                 {t.terms}
-              </Link>
-              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors text-sm">
-                {t.cookies}
               </Link>
             </div>
           </div>

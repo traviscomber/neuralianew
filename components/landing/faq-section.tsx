@@ -11,74 +11,74 @@ export function FAQSection() {
     en: {
       badge: "Frequently Asked Questions",
       title: "Everything You Need to Know About N3uralia",
-      subtitle: "Get answers to the most common questions about our AI agent platform and services.",
+      subtitle: "Get answers to the most common questions about our AI solutions and services.",
       faqs: [
         {
-          question: "How quickly can I deploy an AI agent?",
+          question: "What types of AI agents does N3uralia develop?",
           answer:
-            "Most AI agents can be deployed within 2-5 business days, depending on complexity and integration requirements. Our streamlined process includes consultation, configuration, testing, and deployment with full support throughout.",
+            "We develop custom AI agents for customer service, sales automation, lead qualification, appointment scheduling, order processing, and technical support. Each agent is tailored to your specific business needs and industry requirements.",
         },
         {
-          question: "What platforms do your AI agents support?",
+          question: "How long does it take to implement an AI solution?",
           answer:
-            "Our AI agents work across all major platforms including WhatsApp, Telegram, web chat, email, voice calls, Facebook Messenger, Instagram, and can integrate with 50+ business tools like CRM systems, calendars, and e-commerce platforms.",
-        },
-        {
-          question: "How secure is my data with N3uralia?",
-          answer:
-            "We maintain bank-level security with SOC 2 compliance, end-to-end encryption, regular security audits, and strict data privacy protocols. Your data is never shared with third parties and remains completely under your control.",
-        },
-        {
-          question: "Can the AI agents handle multiple languages?",
-          answer:
-            "Yes, our AI agents support 50+ languages with native-level understanding and can automatically detect and respond in the customer's preferred language, making them perfect for global businesses.",
-        },
-        {
-          question: "What kind of ROI can I expect?",
-          answer:
-            "Most clients see 60-80% reduction in operational costs, 3x faster response times, and 40% improvement in customer satisfaction within the first 3 months. ROI typically becomes evident within 30-60 days of deployment.",
+            "Implementation time varies depending on complexity, but most projects are completed within 2-4 weeks. Simple chatbots can be deployed in days, while complex multi-agent systems may take 4-6 weeks. We provide a detailed timeline during our initial consultation.",
         },
         {
           question: "Do you provide ongoing support and maintenance?",
           answer:
-            "Absolutely. We provide 24/7 technical support, regular performance monitoring, continuous optimization, and free updates to ensure your AI agents perform at their best and evolve with your business needs.",
+            "Yes, we offer comprehensive support packages including 24/7 monitoring, regular updates, performance optimization, and continuous training of your AI agents. Our support team ensures your systems run smoothly and evolve with your business needs.",
+        },
+        {
+          question: "Can N3uralia integrate with our existing systems?",
+          answer:
+            "Absolutely. Our AI solutions integrate seamlessly with popular CRM systems, e-commerce platforms, communication tools, and custom applications. We use APIs and webhooks to ensure smooth data flow between systems.",
+        },
+        {
+          question: "What languages do your AI agents support?",
+          answer:
+            "Our AI agents support over 10 languages including Spanish, English, Portuguese, French, and more. We can customize language support based on your target markets and customer base.",
+        },
+        {
+          question: "How do you ensure data security and privacy?",
+          answer:
+            "We implement bank-level security measures including end-to-end encryption, secure data storage, regular security audits, and compliance with international data protection regulations. Your data privacy is our top priority.",
         },
       ],
     },
     es: {
       badge: "Preguntas Frecuentes",
       title: "Todo Lo Que Necesitas Saber Sobre N3uralia",
-      subtitle: "Obtén respuestas a las preguntas más comunes sobre nuestra plataforma de agentes de IA y servicios.",
+      subtitle: "Obtén respuestas a las preguntas más comunes sobre nuestras soluciones y servicios de IA.",
       faqs: [
         {
-          question: "¿Qué tan rápido puedo desplegar un agente de IA?",
+          question: "¿Qué tipos de agentes de IA desarrolla N3uralia?",
           answer:
-            "La mayoría de los agentes de IA pueden desplegarse en 2-5 días hábiles, dependiendo de la complejidad y requisitos de integración. Nuestro proceso optimizado incluye consulta, configuración, pruebas y despliegue con soporte completo.",
+            "Desarrollamos agentes de IA personalizados para servicio al cliente, automatización de ventas, calificación de leads, programación de citas, procesamiento de pedidos y soporte técnico. Cada agente se adapta a las necesidades específicas de tu negocio y requisitos de la industria.",
         },
         {
-          question: "¿Qué plataformas soportan sus agentes de IA?",
+          question: "¿Cuánto tiempo toma implementar una solución de IA?",
           answer:
-            "Nuestros agentes de IA funcionan en todas las plataformas principales incluyendo WhatsApp, Telegram, chat web, email, llamadas de voz, Facebook Messenger, Instagram, y pueden integrarse con más de 50 herramientas empresariales como sistemas CRM, calendarios y plataformas de e-commerce.",
-        },
-        {
-          question: "¿Qué tan segura está mi información con N3uralia?",
-          answer:
-            "Mantenemos seguridad de nivel bancario con cumplimiento SOC 2, encriptación de extremo a extremo, auditorías de seguridad regulares y protocolos estrictos de privacidad de datos. Tu información nunca se comparte con terceros y permanece completamente bajo tu control.",
-        },
-        {
-          question: "¿Pueden los agentes de IA manejar múltiples idiomas?",
-          answer:
-            "Sí, nuestros agentes de IA soportan más de 50 idiomas con comprensión de nivel nativo y pueden detectar automáticamente y responder en el idioma preferido del cliente, haciéndolos perfectos para negocios globales.",
-        },
-        {
-          question: "¿Qué tipo de ROI puedo esperar?",
-          answer:
-            "La mayoría de los clientes ven una reducción del 60-80% en costos operacionales, tiempos de respuesta 3x más rápidos y 40% de mejora en satisfacción del cliente en los primeros 3 meses. El ROI típicamente se hace evidente en 30-60 días del despliegue.",
+            "El tiempo de implementación varía según la complejidad, pero la mayoría de los proyectos se completan en 2-4 semanas. Los chatbots simples pueden desplegarse en días, mientras que los sistemas multi-agente complejos pueden tomar 4-6 semanas. Proporcionamos un cronograma detallado durante nuestra consulta inicial.",
         },
         {
           question: "¿Proporcionan soporte y mantenimiento continuo?",
           answer:
-            "Absolutamente. Proporcionamos soporte técnico 24/7, monitoreo regular de rendimiento, optimización continua y actualizaciones gratuitas para asegurar que tus agentes de IA funcionen al máximo y evolucionen con las necesidades de tu negocio.",
+            "Sí, ofrecemos paquetes de soporte integral que incluyen monitoreo 24/7, actualizaciones regulares, optimización de rendimiento y entrenamiento continuo de tus agentes de IA. Nuestro equipo de soporte asegura que tus sistemas funcionen sin problemas y evolucionen con las necesidades de tu negocio.",
+        },
+        {
+          question: "¿Puede N3uralia integrarse con nuestros sistemas existentes?",
+          answer:
+            "Absolutamente. Nuestras soluciones de IA se integran perfectamente con sistemas CRM populares, plataformas de e-commerce, herramientas de comunicación y aplicaciones personalizadas. Usamos APIs y webhooks para asegurar un flujo de datos fluido entre sistemas.",
+        },
+        {
+          question: "¿Qué idiomas soportan sus agentes de IA?",
+          answer:
+            "Nuestros agentes de IA soportan más de 10 idiomas incluyendo español, inglés, portugués, francés y más. Podemos personalizar el soporte de idiomas basado en tus mercados objetivo y base de clientes.",
+        },
+        {
+          question: "¿Cómo aseguran la seguridad y privacidad de los datos?",
+          answer:
+            "Implementamos medidas de seguridad de nivel bancario incluyendo encriptación de extremo a extremo, almacenamiento seguro de datos, auditorías de seguridad regulares y cumplimiento con regulaciones internacionales de protección de datos. La privacidad de tus datos es nuestra máxima prioridad.",
         },
       ],
     },
@@ -87,12 +87,12 @@ export function FAQSection() {
   const t = content[language]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge
             variant="secondary"
-            className="mb-4 px-4 py-2 text-sm font-medium bg-purple-50 text-purple-700 border-purple-200"
+            className="mb-4 px-4 py-2 text-sm font-medium bg-orange-50 text-orange-700 border-orange-200"
           >
             {t.badge}
           </Badge>
@@ -103,11 +103,11 @@ export function FAQSection() {
         <div className="max-w-4xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
             {t.faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border border-gray-200 rounded-lg px-6">
-                <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg shadow-sm border-0">
+                <AccordionTrigger className="px-6 py-4 text-left font-semibold text-gray-900 hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 leading-relaxed pt-2 pb-4">{faq.answer}</AccordionContent>
+                <AccordionContent className="px-6 pb-4 text-gray-600 leading-relaxed">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
