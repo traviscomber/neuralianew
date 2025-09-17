@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
-import { motion } from "framer-motion"
 
 export function HeroSection() {
   const { language } = useLanguage()
@@ -40,12 +39,7 @@ export function HeroSection() {
   return (
     <section className="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-20">
       <div className="container mx-auto max-w-4xl text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-8"
-        >
+        <div className="space-y-8 animate-fade-in">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight">{t.title}</h1>
 
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">{t.subtitle}</p>
@@ -68,7 +62,7 @@ export function HeroSection() {
               {t.contactButton}
             </Button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
