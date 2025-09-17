@@ -1,222 +1,425 @@
 "use client"
 
-import { Badge } from "@/components/ui/badge"
+import type React from "react"
+
+import { useState } from "react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { MessageCircle, Mail, Phone, Calendar, MapPin, Clock } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Badge } from "@/components/ui/badge"
+import {
+  MessageCircle,
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Globe,
+  Send,
+  CheckCircle,
+  Zap,
+  Users,
+  Building,
+  Calendar,
+  X,
+} from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+
+const translations = {
+  en: {
+    title: "Contact Us",
+    subtitle:
+      "Get in touch with our global team of AI and full-stack experts. We're here to help transform your business.",
+    formTitle: "Send us a message",
+    name: "Full Name",
+    email: "Email Address",
+    company: "Company Name",
+    message: "Tell us about your project",
+    send: "Send Message",
+    sending: "Sending...",
+    whatsappButton: "WhatsApp Business",
+    callButton: "Schedule Call",
+    emailButton: "Send Email",
+    contactInfo: "Contact Information",
+    phone: "Phone",
+    email: "Email",
+    address: "Global Offices",
+    hours: "Business Hours",
+    response: "Response Time",
+    coverage: "Global Coverage",
+    team: "Expert Team",
+    locations: {
+      chile: "Santiago, Chile - Main Office",
+      singapore: "Singapore - Asia Pacific Hub",
+      russia: "Moscow, Russia - Development Center",
+    },
+    features: {
+      response: "< 1 hour response",
+      coverage: "24/7 global support",
+      team: "35+ specialists",
+    },
+    success: "Message sent successfully! We'll get back to you within 1 hour.",
+    error: "Failed to send message. Please try WhatsApp instead.",
+    schedule: "Schedule a Meeting",
+    availability: "Available 24/7",
+    expertise: "AI & Full-Stack Experts",
+  },
+  es: {
+    title: "Contáctanos",
+    subtitle:
+      "Conecta con nuestro equipo global de expertos en IA y desarrollo full-stack. Estamos aquí para ayudar a transformar tu negocio.",
+    formTitle: "Envíanos un mensaje",
+    name: "Nombre Completo",
+    email: "Correo Electrónico",
+    company: "Nombre de la Empresa",
+    message: "Cuéntanos sobre tu proyecto",
+    send: "Enviar Mensaje",
+    sending: "Enviando...",
+    whatsappButton: "WhatsApp Business",
+    callButton: "Programar Llamada",
+    emailButton: "Enviar Email",
+    contactInfo: "Información de Contacto",
+    phone: "Teléfono",
+    email: "Email",
+    address: "Oficinas Globales",
+    hours: "Horario de Atención",
+    response: "Tiempo de Respuesta",
+    coverage: "Cobertura Global",
+    team: "Equipo Experto",
+    locations: {
+      chile: "Santiago, Chile - Oficina Principal",
+      singapore: "Singapur - Hub Asia Pacífico",
+      russia: "Moscú, Rusia - Centro de Desarrollo",
+    },
+    features: {
+      response: "Respuesta < 1 hora",
+      coverage: "Soporte global 24/7",
+      team: "35+ especialistas",
+    },
+    success: "¡Mensaje enviado exitosamente! Te responderemos en menos de 1 hora.",
+    error: "Error al enviar mensaje. Por favor intenta por WhatsApp.",
+    schedule: "Programar Reunión",
+    availability: "Disponible 24/7",
+    expertise: "Expertos en IA y Full-Stack",
+  },
+}
 
 export default function ContactsPage() {
   const { language } = useLanguage()
+  const t = translations[language]
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
 
-  const content = {
-    en: {
-      badge: "Contact Us",
-      title: "Get in Touch with N3uralia",
-      subtitle: "Ready to transform your business with AI? Our team is here to help you get started.",
-      contactInfo: {
-        address: "Santiago, Chile",
-        email: "hello@n3uralia.com",
-        phone: "+56 9 4444 4649",
-        hours: "Monday - Friday: 9:00 AM - 6:00 PM (CLT)",
-      },
-      contactMethods: [
-        {
-          icon: MessageCircle,
-          title: "WhatsApp",
-          description: "Get instant support and start your consultation",
-          action: "Chat Now",
-          primary: true,
-        },
-        {
-          icon: Calendar,
-          title: "Schedule Demo",
-          description: "Book a personalized demo of our AI agents",
-          action: "Book Now",
-        },
-        {
-          icon: Mail,
-          title: "Email Us",
-          description: "Send us your questions and requirements",
-          action: "Send Email",
-        },
-        {
-          icon: Phone,
-          title: "Call Us",
-          description: "Speak directly with our AI specialists",
-          action: "Call Now",
-        },
-      ],
-    },
-    es: {
-      badge: "Contáctanos",
-      title: "Ponte en Contacto con N3uralia",
-      subtitle: "¿Listo para transformar tu negocio con IA? Nuestro equipo está aquí para ayudarte a comenzar.",
-      contactInfo: {
-        address: "Santiago, Chile",
-        email: "hello@n3uralia.com",
-        phone: "+56 9 4444 4649",
-        hours: "Lunes - Viernes: 9:00 AM - 6:00 PM (CLT)",
-      },
-      contactMethods: [
-        {
-          icon: MessageCircle,
-          title: "WhatsApp",
-          description: "Obtén soporte instantáneo e inicia tu consulta",
-          action: "Chatear Ahora",
-          primary: true,
-        },
-        {
-          icon: Calendar,
-          title: "Programar Demo",
-          description: "Reserva una demo personalizada de nuestros agentes de IA",
-          action: "Reservar Ahora",
-        },
-        {
-          icon: Mail,
-          title: "Envíanos Email",
-          description: "Envíanos tus preguntas y requerimientos",
-          action: "Enviar Email",
-        },
-        {
-          icon: Phone,
-          title: "Llámanos",
-          description: "Habla directamente con nuestros especialistas en IA",
-          action: "Llamar Ahora",
-        },
-      ],
-    },
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
   }
 
-  const t = content[language]
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  const whatsappMessage =
-    language === "es"
-      ? "Hola, me interesa conocer más sobre las soluciones de IA de N3uralia"
-      : "Hello, I'm interested in learning more about N3uralia's AI solutions"
+    try {
+      // Simulate form submission
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      setSubmitStatus("success")
+      setFormData({ name: "", email: "", company: "", message: "" })
+    } catch (error) {
+      setSubmitStatus("error")
+    } finally {
+      setIsSubmitting(false)
+      setTimeout(() => setSubmitStatus("idle"), 5000)
+    }
+  }
 
-  const whatsappUrl = `https://wa.me/56944444649?text=${encodeURIComponent(whatsappMessage)}`
+  const handleWhatsAppClick = () => {
+    const message = encodeURIComponent(
+      language === "es"
+        ? `Hola N3uralia, me interesa conocer más sobre sus soluciones de IA y desarrollo full-stack para mi empresa ${formData.company || "[Empresa]"}.`
+        : `Hello N3uralia, I'm interested in learning more about your AI and full-stack development solutions for my company ${formData.company || "[Company]"}.`,
+    )
+    window.open(`https://wa.me/56940946660?text=${message}`, "_blank")
+  }
+
+  const handleCallClick = () => {
+    window.open("tel:+56940946660", "_self")
+  }
+
+  const handleEmailClick = () => {
+    const subject = encodeURIComponent(
+      language === "es" ? "Consulta sobre soluciones N3uralia" : "Inquiry about N3uralia solutions",
+    )
+    const body = encodeURIComponent(
+      `${language === "es" ? "Hola," : "Hello,"}\n\n${language === "es" ? "Me interesa conocer más sobre sus soluciones." : "I'm interested in learning more about your solutions."}\n\n${language === "es" ? "Saludos," : "Best regards,"}\n${formData.name || "[Your Name]"}`,
+    )
+    window.open(`mailto:hello@n3uralia.com?subject=${subject}&body=${body}`, "_self")
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="pt-20">
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <Badge
-                variant="secondary"
-                className="mb-4 px-4 py-2 text-sm font-medium bg-gray-100 text-gray-800 border-gray-200"
-              >
-                {t.badge}
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">{t.title}</h1>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <Badge variant="outline" className="mb-4 text-slate-600 border-slate-300">
+            <MessageCircle className="w-4 h-4 mr-2" />
+            {language === "es" ? "Contacto" : "Contact"}
+          </Badge>
+          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">{t.title}</h1>
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">{t.subtitle}</p>
+        </motion.div>
 
-            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-              {/* Contact Methods */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-8">
-                  {language === "es" ? "Formas de Contacto" : "Contact Methods"}
-                </h2>
-                <div className="grid gap-6">
-                  {t.contactMethods.map((method, index) => (
-                    <Card
-                      key={index}
-                      className={`border-2 transition-all duration-300 hover:shadow-lg ${
-                        method.primary ? "border-blue-200 bg-blue-50" : "border-gray-100 hover:border-blue-200"
-                      }`}
-                    >
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                          <div
-                            className={`w-12 h-12 rounded-lg flex items-center justify-center ${
-                              method.primary ? "bg-blue-600" : "bg-gray-100"
-                            }`}
-                          >
-                            <method.icon className={`h-6 w-6 ${method.primary ? "text-white" : "text-gray-600"}`} />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">{method.title}</h3>
-                            <p className="text-gray-600 mb-4">{method.description}</p>
-                            <Button
-                              variant={method.primary ? "default" : "outline"}
-                              size="sm"
-                              className={method.primary ? "bg-blue-600 hover:bg-blue-700" : ""}
-                              asChild
-                            >
-                              {method.title === "WhatsApp" ? (
-                                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                                  {method.action}
-                                </a>
-                              ) : (
-                                <button>{method.action}</button>
-                              )}
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-
-              {/* Contact Information */}
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-8">
-                  {language === "es" ? "Información de Contacto" : "Contact Information"}
-                </h2>
-                <Card className="border-0 shadow-sm bg-gray-50">
-                  <CardContent className="p-8">
-                    <div className="space-y-6">
-                      <div className="flex items-start space-x-4">
-                        <MapPin className="h-6 w-6 text-gray-600 mt-1" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">
-                            {language === "es" ? "Dirección" : "Address"}
-                          </h3>
-                          <p className="text-gray-600">{t.contactInfo.address}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start space-x-4">
-                        <Mail className="h-6 w-6 text-gray-600 mt-1" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                          <a href={`mailto:${t.contactInfo.email}`} className="text-blue-600 hover:text-blue-700">
-                            {t.contactInfo.email}
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start space-x-4">
-                        <Phone className="h-6 w-6 text-gray-600 mt-1" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">
-                            {language === "es" ? "Teléfono" : "Phone"}
-                          </h3>
-                          <a href={`tel:${t.contactInfo.phone}`} className="text-blue-600 hover:text-blue-700">
-                            {t.contactInfo.phone}
-                          </a>
-                        </div>
-                      </div>
-
-                      <div className="flex items-start space-x-4">
-                        <Clock className="h-6 w-6 text-gray-600 mt-1" />
-                        <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">
-                            {language === "es" ? "Horarios" : "Business Hours"}
-                          </h3>
-                          <p className="text-gray-600">{t.contactInfo.hours}</p>
-                        </div>
-                      </div>
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
+            <Card className="shadow-xl border-2 border-slate-200 dark:border-slate-700">
+              <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+                <CardTitle className="flex items-center gap-2">
+                  <Send className="w-5 h-5" />
+                  {t.formTitle}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        {t.name}
+                      </label>
+                      <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="border-slate-300 dark:border-slate-600"
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        {t.email}
+                      </label>
+                      <Input
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="border-slate-300 dark:border-slate-600"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      {t.company}
+                    </label>
+                    <Input
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      className="border-slate-300 dark:border-slate-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                      {t.message}
+                    </label>
+                    <Textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={4}
+                      required
+                      className="border-slate-300 dark:border-slate-600"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-slate-800 hover:bg-slate-900 text-white"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <motion.div
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                          className="w-4 h-4 mr-2"
+                        >
+                          <Zap className="w-4 h-4" />
+                        </motion.div>
+                        {t.sending}
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        {t.send}
+                      </>
+                    )}
+                  </Button>
+
+                  {submitStatus === "success" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-2 text-green-600 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg"
+                    >
+                      <CheckCircle className="w-5 h-5" />
+                      {t.success}
+                    </motion.div>
+                  )}
+
+                  {submitStatus === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-2 text-red-600 bg-red-50 dark:bg-red-900/20 p-3 rounded-lg"
+                    >
+                      <X className="w-5 h-5" />
+                      {t.error}
+                    </motion.div>
+                  )}
+                </form>
+
+                {/* Quick Contact Buttons */}
+                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-700">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <Button onClick={handleWhatsAppClick} className="bg-green-600 hover:bg-green-700 text-white">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      {t.whatsappButton}
+                    </Button>
+                    <Button
+                      onClick={handleCallClick}
+                      variant="outline"
+                      className="border-slate-300 dark:border-slate-600 bg-transparent"
+                    >
+                      <Phone className="w-4 h-4 mr-2" />
+                      {t.callButton}
+                    </Button>
+                    <Button
+                      onClick={handleEmailClick}
+                      variant="outline"
+                      className="border-slate-300 dark:border-slate-600 bg-transparent"
+                    >
+                      <Mail className="w-4 h-4 mr-2" />
+                      {t.emailButton}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-6"
+          >
+            <Card className="shadow-xl border-2 border-slate-200 dark:border-slate-700">
+              <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+                <CardTitle className="flex items-center gap-2">
+                  <Building className="w-5 h-5" />
+                  {t.contactInfo}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
+                    <Phone className="w-6 h-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 dark:text-white">{t.phone}</h3>
+                    <p className="text-slate-600 dark:text-slate-300">+56 9 4094 6660</p>
+                    <Badge variant="secondary" className="bg-green-100 text-green-800 border-0 mt-1">
+                      {t.availability}
+                    </Badge>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 dark:text-white">{t.email}</h3>
+                    <p className="text-slate-600 dark:text-slate-300">hello@n3uralia.com</p>
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-800 border-0 mt-1">
+                      {t.expertise}
+                    </Badge>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-slate-900 dark:text-white">{t.address}</h3>
+                    <div className="text-slate-600 dark:text-slate-300 space-y-1">
+                      <p>{t.locations.chile}</p>
+                      <p>{t.locations.singapore}</p>
+                      <p>{t.locations.russia}</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Features */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Card className="text-center p-4 border-2 border-slate-200 dark:border-slate-700">
+                <Clock className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{t.response}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">{t.features.response}</p>
+              </Card>
+
+              <Card className="text-center p-4 border-2 border-slate-200 dark:border-slate-700">
+                <Globe className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{t.coverage}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">{t.features.coverage}</p>
+              </Card>
+
+              <Card className="text-center p-4 border-2 border-slate-200 dark:border-slate-700">
+                <Users className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                <h3 className="font-semibold text-slate-900 dark:text-white text-sm">{t.team}</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300">{t.features.team}</p>
+              </Card>
             </div>
-          </div>
-        </section>
+
+            {/* Schedule Meeting */}
+            <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-xl border-0">
+              <CardContent className="p-6 text-center">
+                <Calendar className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+                <h3 className="text-xl font-bold mb-2">{t.schedule}</h3>
+                <p className="text-slate-300 mb-4">
+                  {language === "es"
+                    ? "Programa una reunión personalizada con nuestros expertos"
+                    : "Schedule a personalized meeting with our experts"}
+                </p>
+                <Button onClick={handleWhatsAppClick} className="bg-green-600 hover:bg-green-700 text-white w-full">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  {language === "es" ? "Programar Ahora" : "Schedule Now"}
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
       </div>
     </div>
   )
