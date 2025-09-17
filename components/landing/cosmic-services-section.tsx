@@ -1,8 +1,6 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
 import { Bot, Wrench, Network } from "lucide-react"
 
 export function CosmicServicesSection() {
@@ -11,61 +9,61 @@ export function CosmicServicesSection() {
   const content = {
     en: {
       title: "Our Services",
-      subtitle: "Comprehensive AI Solutions for Modern Businesses",
+      subtitle: "Transforming Business Through AI Innovation",
       services: [
         {
           title: "AGENTS and AUTOMATIONS",
           description:
-            "Intelligent AI agents that automate complex business processes, enhance customer interactions, and streamline operations with advanced machine learning capabilities.",
+            "Custom AI agents that handle repetitive tasks, qualify leads, provide customer support, and automate complex workflows with intelligent decision-making capabilities.",
           icon: Bot,
-          buttonText: "Visit Nano Agency",
           link: "/agents",
+          buttonText: "Visit Nano Agency",
         },
         {
           title: "FULL STACK PROJECTS",
           description:
-            "Complete end-to-end development solutions from concept to deployment, integrating AI capabilities with modern web technologies and scalable architectures.",
+            "Complete end-to-end solutions from concept to deployment, including web applications, mobile apps, and enterprise systems with AI integration.",
           icon: Wrench,
+          link: "/projects",
           buttonText: "Learn more",
-          link: "/services",
         },
         {
           title: "OWN ECOSYSTEM",
           description:
-            "Build your proprietary AI ecosystem with custom models, integrated workflows, and personalized solutions tailored to your specific business requirements.",
+            "Build your proprietary AI ecosystem with custom models, data pipelines, and integrated platforms tailored to your specific business needs.",
           icon: Network,
+          link: "/ecosystem",
           buttonText: "Learn more",
-          link: "/products",
         },
       ],
     },
     es: {
       title: "Nuestros Servicios",
-      subtitle: "Soluciones Integrales de IA para Empresas Modernas",
+      subtitle: "Transformando Negocios a Través de la Innovación en IA",
       services: [
         {
           title: "AGENTES y AUTOMATIZACIONES",
           description:
-            "Agentes de IA inteligentes que automatizan procesos empresariales complejos, mejoran las interacciones con clientes y optimizan operaciones con capacidades avanzadas de aprendizaje automático.",
+            "Agentes de IA personalizados que manejan tareas repetitivas, califican leads, brindan soporte al cliente y automatizan flujos de trabajo complejos con capacidades de toma de decisiones inteligentes.",
           icon: Bot,
+          link: "/agentes",
           buttonText: "Visitar Nano Agency",
-          link: "/agents",
         },
         {
           title: "PROYECTOS FULL STACK",
           description:
-            "Soluciones completas de desarrollo de extremo a extremo desde el concepto hasta el despliegue, integrando capacidades de IA con tecnologías web modernas y arquitecturas escalables.",
+            "Soluciones completas de extremo a extremo desde el concepto hasta el despliegue, incluyendo aplicaciones web, apps móviles y sistemas empresariales con integración de IA.",
           icon: Wrench,
+          link: "/proyectos",
           buttonText: "Saber más",
-          link: "/services",
         },
         {
           title: "ECOSISTEMA PROPIO",
           description:
-            "Construye tu ecosistema de IA propietario con modelos personalizados, flujos de trabajo integrados y soluciones personalizadas adaptadas a tus requisitos empresariales específicos.",
+            "Construye tu ecosistema de IA propietario con modelos personalizados, pipelines de datos y plataformas integradas adaptadas a tus necesidades específicas de negocio.",
           icon: Network,
+          link: "/ecosistema",
           buttonText: "Saber más",
-          link: "/products",
         },
       ],
     },
@@ -74,101 +72,123 @@ export function CosmicServicesSection() {
   const t = content[language]
 
   return (
-    <section
-      className="relative py-20 min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: `url('/cosmic-services-background.png')`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/20"></div>
+    <section className="relative py-20 min-h-screen flex items-center">
+      {/* High Resolution Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed"
+        style={{
+          backgroundImage: `url('/cosmic-background.jpeg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundAttachment: "fixed",
+          filter: "brightness(0.8) contrast(1.1)",
+        }}
+      />
 
-      {/* Geometric network overlay */}
-      <div className="absolute inset-0 opacity-30">
-        <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      {/* Geometric Network Overlay */}
+      <div className="absolute inset-0 opacity-20">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-              <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+            <pattern id="cosmic-network" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.4)" />
+              <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+              <line x1="0" y1="0" x2="100" y2="100" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
+              <line x1="100" y1="0" x2="0" y2="100" stroke="rgba(255,255,255,0.1)" strokeWidth="1" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-
-          {/* Network nodes and connections */}
-          <g stroke="rgba(255,255,255,0.2)" strokeWidth="1" fill="rgba(255,255,255,0.1)">
-            <line x1="100" y1="150" x2="300" y2="200" />
-            <line x1="300" y1="200" x2="500" y2="180" />
-            <line x1="500" y1="180" x2="700" y2="220" />
-            <line x1="700" y1="220" x2="900" y2="160" />
-            <line x1="200" y1="400" x2="400" y2="450" />
-            <line x1="400" y1="450" x2="600" y2="420" />
-            <line x1="600" y1="420" x2="800" y2="480" />
-            <line x1="150" y1="600" x2="350" y2="650" />
-            <line x1="350" y1="650" x2="550" y2="630" />
-            <line x1="550" y1="630" x2="750" y2="680" />
-
-            <circle cx="100" cy="150" r="4" />
-            <circle cx="300" cy="200" r="4" />
-            <circle cx="500" cy="180" r="4" />
-            <circle cx="700" cy="220" r="4" />
-            <circle cx="900" cy="160" r="4" />
-            <circle cx="200" cy="400" r="4" />
-            <circle cx="400" cy="450" r="4" />
-            <circle cx="600" cy="420" r="4" />
-            <circle cx="800" cy="480" r="4" />
-            <circle cx="150" cy="600" r="4" />
-            <circle cx="350" cy="650" r="4" />
-            <circle cx="550" cy="630" r="4" />
-            <circle cx="750" cy="680" r="4" />
-          </g>
+          <rect width="100%" height="100%" fill="url(#cosmic-network)" />
         </svg>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Title Section */}
-        <div className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">{t.title}</h2>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed drop-shadow-md">
-            {t.subtitle}
-          </p>
-        </div>
+      {/* Floating Cosmic Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-cyan-400 rounded-full animate-pulse opacity-70 glow-cyan"></div>
+        <div className="absolute top-1/3 right-1/3 w-3 h-3 bg-purple-400 rounded-full animate-pulse opacity-50 animation-delay-1000 glow-purple"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-5 h-5 bg-pink-400 rounded-full animate-pulse opacity-60 animation-delay-2000 glow-pink"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-3 h-3 bg-blue-400 rounded-full animate-pulse opacity-80 animation-delay-3000 glow-blue"></div>
+        <div className="absolute top-1/2 left-1/6 w-4 h-4 bg-teal-400 rounded-full animate-pulse opacity-55 animation-delay-4000 glow-teal"></div>
+        <div className="absolute top-3/4 right-1/6 w-3 h-3 bg-indigo-400 rounded-full animate-pulse opacity-65 animation-delay-5000 glow-indigo"></div>
+      </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {t.services.map((service, index) => {
             const IconComponent = service.icon
             return (
-              <Card
+              <div
                 key={index}
-                className="group bg-white/95 backdrop-blur-sm border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:bg-white"
+                className="group relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 hover:transform hover:scale-105 hover:bg-white/15"
               >
-                <CardContent className="p-8 text-center h-full flex flex-col justify-between">
-                  <div>
-                    <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center bg-gray-100 rounded-full group-hover:bg-blue-50 transition-colors duration-300">
-                      <IconComponent className="w-10 h-10 text-gray-600 group-hover:text-blue-600 transition-colors duration-300" />
-                    </div>
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
 
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 leading-tight">{service.title}</h3>
-
-                    <p className="text-gray-600 leading-relaxed mb-8 text-lg">{service.description}</p>
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center bg-white/20 rounded-2xl backdrop-blur-sm group-hover:bg-white/30 transition-all duration-300">
+                    <IconComponent className="w-8 h-8 text-white" />
                   </div>
 
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="w-full py-4 text-lg font-semibold border-2 border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 bg-transparent"
-                    onClick={() => (window.location.href = service.link)}
-                  >
-                    {service.buttonText}
-                  </Button>
-                </CardContent>
-              </Card>
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-white mb-4 text-center tracking-wide">{service.title}</h3>
+
+                  {/* Description */}
+                  <p className="text-white/80 text-center leading-relaxed mb-8 text-sm">{service.description}</p>
+
+                  {/* Button */}
+                  <div className="text-center">
+                    <a
+                      href={service.link}
+                      className="inline-flex items-center px-6 py-3 bg-white/20 hover:bg-white/30 text-white rounded-full font-semibold transition-all duration-300 backdrop-blur-sm border border-white/30 hover:border-white/50 hover:transform hover:scale-105"
+                    >
+                      {service.buttonText}
+                    </a>
+                  </div>
+                </div>
+              </div>
             )
           })}
         </div>
       </div>
+
+      <style jsx>{`
+        .glow-cyan {
+          box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+        }
+        .glow-purple {
+          box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        .glow-pink {
+          box-shadow: 0 0 20px rgba(244, 114, 182, 0.5);
+        }
+        .glow-blue {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        .glow-teal {
+          box-shadow: 0 0 20px rgba(20, 184, 166, 0.5);
+        }
+        .glow-indigo {
+          box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+        }
+        .animation-delay-1000 {
+          animation-delay: 1s;
+        }
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        .animation-delay-3000 {
+          animation-delay: 3s;
+        }
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        .animation-delay-5000 {
+          animation-delay: 5s;
+        }
+      `}</style>
     </section>
   )
 }
