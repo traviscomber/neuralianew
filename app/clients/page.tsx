@@ -1,60 +1,91 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   Users,
   Star,
-  Quote,
   MessageCircle,
   ArrowRight,
   Building,
-  TrendingUp,
-  CheckCircle,
-  Zap,
   Globe,
   Award,
+  Database,
+  MessageSquare,
+  Zap,
 } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import Image from "next/image"
 
 const translations = {
   en: {
     title: "Our Clients",
     subtitle:
-      "Trusted by leading companies worldwide to deliver exceptional AI solutions and drive digital transformation.",
+      "Trusted by leading companies worldwide to deliver exceptional AI solutions that connect to any API and transform data into natural conversation.",
     getStarted: "Get Started",
     learnMore: "Learn More",
-    whatsappText: "Hello N3uralia, I'd like to learn more about your client success stories",
-    testimonials: {
-      ecosuelolab: {
-        company: "EcosueloLab",
-        industry: "Agriculture Technology",
-        person: "Dr. María González",
-        role: "CTO",
-        testimonial:
-          "N3uralia transformed our agricultural analysis platform. The AI integration reduced analysis time by 70% and improved accuracy significantly. Their full-stack approach delivered exactly what we needed.",
-        results: ["70% faster analysis", "95% client satisfaction", "40% cost reduction"],
-      },
+    whatsappText: "Hello N3uralia, I'd like to learn more about your conversational AI solutions",
+    keyCapability: "Key Capability",
+    apiIntegration: "API Integration & Conversational AI",
+    clients: {
       parrotfyia: {
         company: "ParrotfyIA",
         industry: "Business Intelligence",
-        person: "Carlos Mendoza",
-        role: "CEO",
-        testimonial:
-          "The AI-powered ERP system N3uralia built for us revolutionized our operations. Real-time insights and automated processes have increased our efficiency by 80%.",
-        results: ["80% efficiency increase", "92% user satisfaction", "60% faster decisions"],
+        description:
+          "Advanced conversational AI system that connects to any ERP API and transforms complex business data into natural language responses. Users can ask questions about inventory, sales, finances, and operations in plain language and receive intelligent, contextual answers.",
+        capabilities: [
+          "Connects to any ERP system API (SAP, Oracle, Microsoft Dynamics, custom systems)",
+          "Transforms complex database queries into natural language conversations",
+          "Real-time data processing and intelligent response generation",
+          "Multi-language support for global business operations",
+          "Context-aware conversations that understand business relationships",
+          "Secure API authentication and data encryption protocols",
+        ],
+        examples: [
+          "User: 'How are our Q3 sales performing?' → AI: 'Your Q3 sales are up 15% compared to last quarter, with the highest growth in the electronics division at $2.3M...'",
+          "User: 'Do we have enough inventory for the Johnson order?' → AI: 'Yes, we have sufficient stock. The Johnson order requires 500 units and we currently have 1,200 units available...'",
+          "User: 'Show me our top customers this month' → AI: 'Here are your top 5 customers by revenue this month: TechCorp ($45K), GlobalSoft ($38K)...'",
+        ],
+      },
+      ecosuelolab: {
+        company: "EcosueloLab",
+        industry: "Agriculture Technology",
+        description:
+          "Intelligent agricultural system that connects to satellite data APIs, weather services, and soil sensor networks to provide conversational insights about crop conditions. Farmers can ask natural language questions and receive detailed, actionable responses.",
+        capabilities: [
+          "Integrates with satellite imagery APIs (NASA, ESA, commercial providers)",
+          "Connects to weather service APIs and IoT soil sensors",
+          "Processes multi-source agricultural data in real-time",
+          "Converts complex agricultural analytics into simple conversations",
+          "Provides personalized farming recommendations based on specific field conditions",
+          "Supports multiple languages for international agricultural operations",
+        ],
+        examples: [
+          "Farmer: 'How is my corn field doing?' → AI: 'Your corn field in sector 3 is showing healthy growth. Satellite data indicates 85% crop coverage with good chlorophyll levels...'",
+          "Farmer: 'What nutrients does sector 5 need?' → AI: 'Based on soil analysis, sector 5 needs nitrogen supplementation. I recommend applying 40kg/hectare of urea fertilizer...'",
+          "Farmer: 'Should I irrigate tomorrow?' → AI: 'Weather forecast shows 15mm of rain expected tomorrow afternoon. I recommend delaying irrigation until Thursday...'",
+        ],
       },
       despegacarrera: {
         company: "Despega Tu Carrera",
         industry: "Education Technology",
-        person: "Ana Rodríguez",
-        role: "Founder",
-        testimonial:
-          "The complete educational platform with AI coaching that N3uralia developed has achieved an 88% job placement rate for our students. Outstanding results!",
-        results: ["88% placement rate", "90% student retention", "50% faster matching"],
+        description:
+          "Comprehensive AI-powered career coaching platform that connects to job market APIs, professional development resources, and career databases to provide personalized mentoring through natural conversation.",
+        capabilities: [
+          "Integrates with job board APIs (LinkedIn, Indeed, local job markets)",
+          "Connects to professional development and certification databases",
+          "Processes career data and market trends in real-time",
+          "Provides personalized career guidance through natural dialogue",
+          "Offers contextual advice based on individual career profiles",
+          "Supports career development in multiple languages and markets",
+        ],
+        examples: [
+          "User: 'What skills should I learn for data science?' → AI: 'Based on current market trends, focus on Python, SQL, and machine learning. I see 340 data science jobs requiring these skills...'",
+          "User: 'How should I prepare for my marketing interview?' → AI: 'For your marketing interview at TechStart, prepare examples of campaign ROI. Research their recent product launch and suggest improvement strategies...'",
+          "User: 'Is my resume competitive?' → AI: 'Your resume shows strong technical skills, but add more quantified achievements. For example, instead of managed projects, say managed 5 projects worth $2M...'",
+        ],
       },
     },
     stats: {
@@ -63,41 +94,76 @@ const translations = {
       projects: "200+ Projects",
       countries: "15+ Countries",
     },
+    ctaTitle: "Ready to Transform Your Data into Conversations?",
+    ctaSubtitle:
+      "Discover how N3uralia can connect your APIs and databases to create intelligent conversational experiences for your users.",
   },
   es: {
     title: "Nuestros Clientes",
     subtitle:
-      "Confiado por empresas líderes a nivel mundial para entregar soluciones IA excepcionales e impulsar la transformación digital.",
+      "Confiado por empresas líderes a nivel mundial para entregar soluciones IA excepcionales que se conectan a cualquier API y transforman datos en conversación natural.",
     getStarted: "Comenzar",
     learnMore: "Saber Más",
-    whatsappText: "Hola N3uralia, me gustaría conocer más sobre sus casos de éxito con clientes",
-    testimonials: {
-      ecosuelolab: {
-        company: "EcosueloLab",
-        industry: "Tecnología Agrícola",
-        person: "Dra. María González",
-        role: "CTO",
-        testimonial:
-          "N3uralia transformó nuestra plataforma de análisis agrícola. La integración de IA redujo el tiempo de análisis en 70% y mejoró significativamente la precisión. Su enfoque full-stack entregó exactamente lo que necesitábamos.",
-        results: ["70% análisis más rápido", "95% satisfacción del cliente", "40% reducción de costos"],
-      },
+    whatsappText: "Hola N3uralia, me gustaría conocer más sobre sus soluciones IA conversacionales",
+    keyCapability: "Capacidad Clave",
+    apiIntegration: "Integración de APIs e IA Conversacional",
+    clients: {
       parrotfyia: {
         company: "ParrotfyIA",
         industry: "Inteligencia de Negocios",
-        person: "Carlos Mendoza",
-        role: "CEO",
-        testimonial:
-          "El sistema ERP impulsado por IA que N3uralia construyó para nosotros revolucionó nuestras operaciones. Los insights en tiempo real y procesos automatizados han aumentado nuestra eficiencia en 80%.",
-        results: ["80% aumento de eficiencia", "92% satisfacción del usuario", "60% decisiones más rápidas"],
+        description:
+          "Sistema avanzado de IA conversacional que se conecta a cualquier API de ERP y transforma datos empresariales complejos en respuestas de lenguaje natural. Los usuarios pueden hacer preguntas sobre inventario, ventas, finanzas y operaciones en lenguaje simple y recibir respuestas inteligentes y contextuales.",
+        capabilities: [
+          "Se conecta a cualquier API de sistema ERP (SAP, Oracle, Microsoft Dynamics, sistemas personalizados)",
+          "Transforma consultas complejas de base de datos en conversaciones de lenguaje natural",
+          "Procesamiento de datos en tiempo real y generación inteligente de respuestas",
+          "Soporte multiidioma para operaciones comerciales globales",
+          "Conversaciones conscientes del contexto que entienden relaciones comerciales",
+          "Protocolos seguros de autenticación API y encriptación de datos",
+        ],
+        examples: [
+          "Usuario: '¿Cómo van nuestras ventas del Q3?' → IA: 'Sus ventas del Q3 han aumentado 15% comparado al trimestre pasado, con el mayor crecimiento en la división de electrónicos con $2.3M...'",
+          "Usuario: '¿Tenemos suficiente inventario para el pedido de Johnson?' → IA: 'Sí, tenemos stock suficiente. El pedido de Johnson requiere 500 unidades y actualmente tenemos 1,200 unidades disponibles...'",
+          "Usuario: 'Muéstrame nuestros mejores clientes este mes' → IA: 'Aquí están sus 5 mejores clientes por ingresos este mes: TechCorp ($45K), GlobalSoft ($38K)...'",
+        ],
+      },
+      ecosuelolab: {
+        company: "EcosueloLab",
+        industry: "Tecnología Agrícola",
+        description:
+          "Sistema agrícola inteligente que se conecta a APIs de datos satelitales, servicios meteorológicos y redes de sensores de suelo para proporcionar insights conversacionales sobre condiciones de cultivos. Los agricultores pueden hacer preguntas en lenguaje natural y recibir respuestas detalladas y accionables.",
+        capabilities: [
+          "Se integra con APIs de imágenes satelitales (NASA, ESA, proveedores comerciales)",
+          "Se conecta a APIs de servicios meteorológicos y sensores IoT de suelo",
+          "Procesa datos agrícolas de múltiples fuentes en tiempo real",
+          "Convierte análisis agrícolas complejos en conversaciones simples",
+          "Proporciona recomendaciones agrícolas personalizadas basadas en condiciones específicas del campo",
+          "Soporta múltiples idiomas para operaciones agrícolas internacionales",
+        ],
+        examples: [
+          "Agricultor: '¿Cómo está mi campo de maíz?' → IA: 'Su campo de maíz en el sector 3 muestra crecimiento saludable. Los datos satelitales indican 85% de cobertura de cultivo con buenos niveles de clorofila...'",
+          "Agricultor: '¿Qué nutrientes necesita el sector 5?' → IA: 'Basado en el análisis de suelo, el sector 5 necesita suplementación de nitrógeno. Recomiendo aplicar 40kg/hectárea de fertilizante de urea...'",
+          "Agricultor: '¿Debo regar mañana?' → IA: 'El pronóstico del tiempo muestra 15mm de lluvia esperada mañana por la tarde. Recomiendo retrasar el riego hasta el jueves...'",
+        ],
       },
       despegacarrera: {
         company: "Despega Tu Carrera",
         industry: "Tecnología Educativa",
-        person: "Ana Rodríguez",
-        role: "Fundadora",
-        testimonial:
-          "La plataforma educativa completa con coaching IA que N3uralia desarrolló ha logrado una tasa de colocación laboral del 88% para nuestros estudiantes. ¡Resultados excepcionales!",
-        results: ["88% tasa de colocación", "90% retención de estudiantes", "50% matching más rápido"],
+        description:
+          "Plataforma integral de coaching profesional impulsada por IA que se conecta a APIs del mercado laboral, recursos de desarrollo profesional y bases de datos de carreras para proporcionar mentoría personalizada a través de conversación natural.",
+        capabilities: [
+          "Se integra con APIs de bolsas de trabajo (LinkedIn, Indeed, mercados laborales locales)",
+          "Se conecta a bases de datos de desarrollo profesional y certificación",
+          "Procesa datos de carrera y tendencias del mercado en tiempo real",
+          "Proporciona orientación profesional personalizada a través de diálogo natural",
+          "Ofrece consejos contextuales basados en perfiles profesionales individuales",
+          "Soporta desarrollo profesional en múltiples idiomas y mercados",
+        ],
+        examples: [
+          "Usuario: '¿Qué habilidades debo aprender para ciencia de datos?' → IA: 'Basado en tendencias actuales del mercado, enfócate en Python, SQL y aprendizaje automático. Veo 340 trabajos de ciencia de datos que requieren estas habilidades...'",
+          "Usuario: '¿Cómo debo prepararme para mi entrevista de marketing?' → IA: 'Para tu entrevista de marketing en TechStart, prepara ejemplos de ROI de campañas. Investiga su lanzamiento de producto reciente y sugiere estrategias de mejora...'",
+          "Usuario: '¿Es competitivo mi currículum?' → IA: 'Tu currículum muestra habilidades técnicas sólidas, pero agrega más logros cuantificados. Por ejemplo, en lugar de gestioné proyectos, di gestioné 5 proyectos valorados en $2M...'",
+        ],
       },
     },
     stats: {
@@ -106,6 +172,9 @@ const translations = {
       projects: "200+ Proyectos",
       countries: "15+ Países",
     },
+    ctaTitle: "¿Listo para Transformar Tus Datos en Conversaciones?",
+    ctaSubtitle:
+      "Descubre cómo N3uralia puede conectar tus APIs y bases de datos para crear experiencias conversacionales inteligentes para tus usuarios.",
   },
 }
 
@@ -118,8 +187,23 @@ export default function ClientsPage() {
     window.open(`https://wa.me/56940946660?text=${message}`, "_blank")
   }
 
+  const getLogoSize = (key: string) => {
+    if (key === "parrotfyia" || key === "despegacarrera") {
+      return {
+        width: 180,
+        height: 90,
+        className: "h-20 w-auto object-contain filter brightness-0 invert",
+      }
+    }
+    return {
+      width: 120,
+      height: 60,
+      className: "h-12 w-auto object-contain filter brightness-0 invert",
+    }
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20">
+    <div className="min-h-screen bg-white pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Header */}
         <motion.div
@@ -128,12 +212,33 @@ export default function ClientsPage() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <Badge variant="outline" className="mb-4 text-slate-600 border-slate-300">
+          <Badge variant="outline" className="mb-4 text-gray-600 border-gray-300 bg-white">
             <Users className="w-4 h-4 mr-2" />
             {language === "es" ? "Clientes" : "Clients"}
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">{t.title}</h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">{t.subtitle}</p>
+          <h1 className="text-4xl md:text-6xl font-light text-gray-900 mb-6">{t.title}</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-light">{t.subtitle}</p>
+          <div className="w-24 h-px bg-gray-400 mx-auto mt-8"></div>
+        </motion.div>
+
+        {/* Key Capability Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-16"
+        >
+          <Card className="bg-gray-50 border border-gray-200 shadow-sm">
+            <CardContent className="p-8 text-center">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Database className="w-8 h-8 text-gray-600" />
+                <MessageSquare className="w-8 h-8 text-gray-600" />
+                <Zap className="w-8 h-8 text-gray-600" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-light text-gray-900 mb-4">{t.keyCapability}</h2>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto font-light">{t.apiIntegration}</p>
+            </CardContent>
+          </Card>
         </motion.div>
 
         {/* Stats */}
@@ -144,138 +249,91 @@ export default function ClientsPage() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
         >
           {Object.entries(t.stats).map(([key, stat], index) => (
-            <Card key={key} className="text-center p-6 shadow-lg border-2 border-slate-200 dark:border-slate-700">
-              <div className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{stat}</div>
-              <div className="text-sm text-slate-600 dark:text-slate-300 capitalize">
-                {key === "clients" && <Users className="w-4 h-4 mx-auto mb-1" />}
-                {key === "satisfaction" && <Star className="w-4 h-4 mx-auto mb-1" />}
-                {key === "projects" && <Building className="w-4 h-4 mx-auto mb-1" />}
-                {key === "countries" && <Globe className="w-4 h-4 mx-auto mb-1" />}
+            <Card key={key} className="text-center p-6 bg-white border border-gray-200 shadow-sm">
+              <div className="text-3xl font-light text-gray-900 mb-2">{stat}</div>
+              <div className="text-sm text-gray-600 capitalize">
+                {key === "clients" && <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
+                {key === "satisfaction" && <Star className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
+                {key === "projects" && <Building className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
+                {key === "countries" && <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
               </div>
             </Card>
           ))}
         </motion.div>
 
-        {/* Testimonials */}
-        <div className="grid lg:grid-cols-1 gap-8 mb-16">
-          {Object.entries(t.testimonials).map(([key, testimonial], index) => (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-            >
-              <Card className="shadow-xl border-2 border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300">
-                <CardHeader className="pb-4">
-                  <div className="flex items-start gap-4">
-                    <Avatar className="w-16 h-16">
-                      <AvatarFallback className="bg-slate-800 text-white text-lg font-bold">
-                        {testimonial.person
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">
-                          {testimonial.company}
-                        </CardTitle>
-                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 border-0">
-                          {testimonial.industry}
-                        </Badge>
-                      </div>
-                      <p className="text-slate-600 dark:text-slate-300 font-medium">
-                        {testimonial.person} - {testimonial.role}
-                      </p>
-                      <div className="flex items-center gap-1 mt-2">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+        {/* Detailed Client Cases */}
+        <div className="space-y-12 mb-16">
+          {Object.entries(t.clients).map(([key, client], index) => {
+            const logoSize = getLogoSize(key)
+            return (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+              >
+                <Card className="bg-white border border-gray-200 shadow-sm overflow-hidden">
+                  {/* Client Header - Black banner with logo only */}
+                  <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+                    <div className="flex items-center justify-center py-4">
+                      <Image
+                        src={`/logos/${key === "ecosuelolab" ? "ecosuelo-logo.png" : key === "parrotfyia" ? "parrotfy-logo.png" : "despega-tu-carrera-logo.png"}`}
+                        alt={client.company}
+                        width={logoSize.width}
+                        height={logoSize.height}
+                        className={logoSize.className}
+                      />
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="p-8">
+                    {/* Description */}
+                    <div className="mb-8">
+                      <p className="text-gray-700 text-lg leading-relaxed font-light">{client.description}</p>
+                    </div>
+
+                    {/* Capabilities */}
+                    <div className="mb-8">
+                      <h3 className="flex items-center gap-2 text-xl font-light text-gray-900 mb-4">
+                        <Database className="w-6 h-6 text-gray-500" />
+                        {language === "en" ? "Technical Capabilities" : "Capacidades Técnicas"}
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {client.capabilities.map((capability, capIndex) => (
+                          <div
+                            key={capIndex}
+                            className="flex items-start gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200"
+                          >
+                            <Zap className="w-4 h-4 text-gray-500 flex-shrink-0 mt-0.5" />
+                            <span className="text-gray-700 text-sm">{capability}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="mb-6">
-                    <Quote className="w-8 h-8 text-slate-400 mb-3" />
-                    <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed italic">
-                      "{testimonial.testimonial}"
-                    </p>
-                  </div>
-                  <div className="grid md:grid-cols-3 gap-4">
-                    {testimonial.results.map((result, resultIndex) => (
-                      <div
-                        key={resultIndex}
-                        className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg"
-                      >
-                        <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                        <span className="text-green-800 dark:text-green-300 font-medium text-sm">{result}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
 
-        {/* Success Metrics */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-16"
-        >
-          <Card className="shadow-xl border-2 border-slate-200 dark:border-slate-700">
-            <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
-              <CardTitle className="flex items-center gap-2 text-2xl">
-                <Award className="w-6 h-6" />
-                {language === "es" ? "Métricas de Éxito" : "Success Metrics"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <TrendingUp className="w-10 h-10 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Crecimiento Promedio" : "Average Growth"}
-                  </h3>
-                  <p className="text-4xl font-bold text-green-600 mb-2">65%</p>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {language === "es" ? "Aumento en eficiencia operacional" : "Increase in operational efficiency"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Users className="w-10 h-10 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Satisfacción del Cliente" : "Client Satisfaction"}
-                  </h3>
-                  <p className="text-4xl font-bold text-blue-600 mb-2">96%</p>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {language === "es" ? "Tasa de satisfacción promedio" : "Average satisfaction rate"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-10 h-10 text-purple-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Tiempo de Implementación" : "Implementation Time"}
-                  </h3>
-                  <p className="text-4xl font-bold text-purple-600 mb-2">30%</p>
-                  <p className="text-slate-600 dark:text-slate-300">
-                    {language === "es" ? "Más rápido que la competencia" : "Faster than competitors"}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+                    {/* Conversation Examples */}
+                    <div>
+                      <h3 className="flex items-center gap-2 text-xl font-light text-gray-900 mb-4">
+                        <MessageSquare className="w-6 h-6 text-gray-500" />
+                        {language === "en" ? "Conversation Examples" : "Ejemplos de Conversación"}
+                      </h3>
+                      <div className="space-y-4">
+                        {client.examples.map((example, exampleIndex) => (
+                          <div
+                            key={exampleIndex}
+                            className="p-4 bg-gray-50 rounded-lg border border-gray-200 border-l-4 border-l-gray-400"
+                          >
+                            <p className="text-gray-700 text-sm font-mono leading-relaxed">{example}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )
+          })}
+        </div>
 
         {/* CTA Section */}
         <motion.div
@@ -284,28 +342,20 @@ export default function ClientsPage() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center"
         >
-          <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-2xl border-0">
+          <Card className="bg-gray-900 text-white shadow-lg border-0">
             <CardContent className="p-12">
               <div className="flex items-center justify-center gap-2 mb-4">
-                <Star className="w-6 h-6 text-yellow-400" />
-                <Award className="w-6 h-6 text-yellow-400" />
-                <Star className="w-6 h-6 text-yellow-400" />
+                <Star className="w-6 h-6 text-gray-400" />
+                <Award className="w-6 h-6 text-gray-400" />
+                <Star className="w-6 h-6 text-gray-400" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                {language === "es"
-                  ? "¿Listo para unirte a nuestros clientes exitosos?"
-                  : "Ready to join our successful clients?"}
-              </h2>
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                {language === "es"
-                  ? "Descubre cómo podemos transformar tu negocio con soluciones IA personalizadas y soporte de clase mundial."
-                  : "Discover how we can transform your business with custom AI solutions and world-class support."}
-              </p>
+              <h2 className="text-3xl md:text-4xl font-light mb-4">{t.ctaTitle}</h2>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto font-light">{t.ctaSubtitle}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button
                   onClick={handleWhatsAppClick}
                   size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   <MessageCircle className="w-5 h-5 mr-2" />
                   {t.getStarted}
@@ -314,7 +364,7 @@ export default function ClientsPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-slate-900 bg-transparent"
+                  className="border-white text-white hover:bg-white hover:text-gray-900 bg-transparent"
                   onClick={() => window.open("mailto:hello@n3uralia.com", "_blank")}
                 >
                   <Users className="w-5 h-5 mr-2" />
