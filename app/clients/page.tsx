@@ -4,18 +4,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Users,
-  Star,
-  MessageCircle,
-  ArrowRight,
-  Building,
-  Globe,
-  Award,
-  Database,
-  MessageSquare,
-  Zap,
-} from "lucide-react"
+import { Users, Star, MessageCircle, ArrowRight, Award, Database, MessageSquare, Zap } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import Image from "next/image"
 
@@ -87,12 +76,6 @@ const translations = {
           "User: 'Is my resume competitive?' → AI: 'Your resume shows strong technical skills, but add more quantified achievements. For example, instead of managed projects, say managed 5 projects worth $2M...'",
         ],
       },
-    },
-    stats: {
-      clients: "50+ Clients",
-      satisfaction: "96% Satisfaction",
-      projects: "200+ Projects",
-      countries: "15+ Countries",
     },
     ctaTitle: "Ready to Transform Your Data into Conversations?",
     ctaSubtitle:
@@ -166,12 +149,6 @@ const translations = {
         ],
       },
     },
-    stats: {
-      clients: "50+ Clientes",
-      satisfaction: "96% Satisfacción",
-      projects: "200+ Proyectos",
-      countries: "15+ Países",
-    },
     ctaTitle: "¿Listo para Transformar Tus Datos en Conversaciones?",
     ctaSubtitle:
       "Descubre cómo N3uralia puede conectar tus APIs y bases de datos para crear experiencias conversacionales inteligentes para tus usuarios.",
@@ -239,26 +216,6 @@ export default function ClientsPage() {
               <p className="text-xl text-gray-600 max-w-4xl mx-auto font-light">{t.apiIntegration}</p>
             </CardContent>
           </Card>
-        </motion.div>
-
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
-        >
-          {Object.entries(t.stats).map(([key, stat], index) => (
-            <Card key={key} className="text-center p-6 bg-white border border-gray-200 shadow-sm">
-              <div className="text-3xl font-light text-gray-900 mb-2">{stat}</div>
-              <div className="text-sm text-gray-600 capitalize">
-                {key === "clients" && <Users className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
-                {key === "satisfaction" && <Star className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
-                {key === "projects" && <Building className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
-                {key === "countries" && <Globe className="w-4 h-4 mx-auto mb-1 text-gray-400" />}
-              </div>
-            </Card>
-          ))}
         </motion.div>
 
         {/* Detailed Client Cases */}
