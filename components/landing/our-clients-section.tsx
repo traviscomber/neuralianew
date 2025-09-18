@@ -11,11 +11,11 @@ export function OurClientsSection() {
     {
       logo: "/logos/parrotfy-logo.png",
       name: "Parrotfy",
-      title: language === "en" ? "ERP AI Assistant" : "Asistente ERP IA",
+      title: language === "en" ? "ERP AI Assistant" : "Asistente IA ERP",
       description:
         language === "en"
           ? "Conversational natural language AI Agentic Nano System for enterprise resource planning and business process automation."
-          : "Sistema Nano Agéntico de IA de lenguaje natural conversacional para planificación de recursos empresariales y automatización de procesos comerciales.",
+          : "Sistema Nano Agéntico de IA de lenguaje natural conversacional para planificación de recursos empresariales y automatización de procesos de negocio.",
     },
     {
       logo: "/logos/ecosuelo-logo.png",
@@ -24,7 +24,7 @@ export function OurClientsSection() {
       description:
         language === "en"
           ? "Soil analysis, nutrients recommendation based on real time satellite data with precision agriculture insights and crop optimization."
-          : "Análisis de suelo, recomendación de nutrientes basada en datos satelitales en tiempo real con información de agricultura de precisión y optimización de cultivos.",
+          : "Análisis de suelo, recomendación de nutrientes basada en datos satelitales en tiempo real con insights de agricultura de precisión y optimización de cultivos.",
     },
     {
       logo: "/logos/despega-tu-carrera-logo.png",
@@ -33,13 +33,12 @@ export function OurClientsSection() {
       description:
         language === "en"
           ? "AI-powered career coaching and professional development platform with personalized guidance and automated mentoring systems."
-          : "Plataforma de coaching profesional y desarrollo personal impulsada por IA con orientación personalizada y sistemas de mentoría automatizada.",
-      isGrayscale: true,
+          : "Plataforma de coaching profesional y desarrollo impulsada por IA con orientación personalizada y sistemas de mentoría automatizados.",
     },
   ]
 
   return (
-    <section className="bg-gray-100 py-16">
+    <section className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -48,9 +47,7 @@ export function OurClientsSection() {
               {language === "en" ? "Our Clients" : "Nuestros Clientes"}
             </h2>
             <p className="text-xl text-gray-600 font-light">
-              {language === "en"
-                ? "Full Stack Solutions Developed by N3uralia"
-                : "Soluciones Full Stack Desarrolladas por N3uralia"}
+              {language === "en" ? "Trusted by innovative companies" : "Confiado por empresas innovadoras"}
             </p>
             <div className="w-24 h-px bg-gray-400 mx-auto mt-6"></div>
           </div>
@@ -61,49 +58,46 @@ export function OurClientsSection() {
           {clients.map((client, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up hover:scale-105"
+              className="bg-white rounded-lg p-8 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up group"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
-              {/* Logo */}
-              <div className="mb-8">
-                <div className="flex items-center justify-start mb-4 h-16">
-                  <Image
-                    src={client.logo || "/placeholder.svg"}
-                    alt={client.name}
-                    width={140}
-                    height={64}
-                    className={`h-16 w-auto object-contain object-left ${client.isGrayscale ? "filter grayscale" : ""}`}
-                    style={{ maxWidth: "140px", maxHeight: "64px" }}
-                  />
-                </div>
-                <div className="w-16 h-px bg-gray-300"></div>
+              {/* Logo Container */}
+              <div className="mb-8 h-16 flex items-center">
+                <Image
+                  src={client.logo || "/placeholder.svg"}
+                  alt={client.name}
+                  width={140}
+                  height={64}
+                  className="h-full w-auto object-contain object-left filter grayscale hover:grayscale-0 transition-all duration-300"
+                  style={{ maxWidth: "140px", maxHeight: "64px" }}
+                />
               </div>
 
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-gray-800 mb-6">{client.title}</h3>
-
-              {/* Description */}
-              <p className="text-gray-600 leading-relaxed mb-8 text-sm">{client.description}</p>
-
-              {/* More Link */}
-              <button className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium group">
-                More
-                <span className="inline-block ml-1 transition-transform group-hover:translate-x-1">→</span>
-              </button>
+              {/* Content */}
+              <div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+                  {client.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed mb-6 text-sm">{client.description}</p>
+                <button className="text-blue-600 hover:text-blue-700 transition-colors text-sm font-medium group">
+                  More
+                  <span className="inline-block ml-1 transition-transform group-hover:translate-x-1">→</span>
+                </button>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Navigation */}
         <div className="flex items-center justify-between">
-          <button className="flex items-center text-blue-500 hover:text-blue-600 transition-colors group">
+          <button className="flex items-center text-blue-600 hover:text-blue-700 transition-colors group">
             <ChevronLeft className="w-6 h-6 mr-2 transition-transform group-hover:-translate-x-1" />
             <span className="text-sm">Previous</span>
           </button>
 
-          <span className="text-blue-500 text-sm font-medium">Load more</span>
+          <span className="text-blue-600 text-sm font-medium">Load more</span>
 
-          <button className="flex items-center text-blue-500 hover:text-blue-600 transition-colors group">
+          <button className="flex items-center text-blue-600 hover:text-blue-700 transition-colors group">
             <span className="text-sm">Next</span>
             <ChevronRight className="w-6 h-6 ml-2 transition-transform group-hover:translate-x-1" />
           </button>

@@ -18,8 +18,8 @@ export function ContactSection() {
         {
           icon: MessageCircle,
           title: "WhatsApp Support",
-          value: "+56 9 4444 4649",
-          link: "https://wa.me/56944444649",
+          value: "+56 9 4094 6660",
+          link: "https://wa.me/56940946660",
         },
         {
           icon: Mail,
@@ -30,8 +30,8 @@ export function ContactSection() {
         {
           icon: Phone,
           title: "Call Us",
-          value: "+56 9 4444 4649",
-          link: "tel:+56944444649",
+          value: "+56 9 4094 6660",
+          link: "tel:+56940946660",
         },
         {
           icon: MapPin,
@@ -51,8 +51,8 @@ export function ContactSection() {
         {
           icon: MessageCircle,
           title: "Soporte WhatsApp",
-          value: "+56 9 4444 4649",
-          link: "https://wa.me/56944444649",
+          value: "+56 9 4094 6660",
+          link: "https://wa.me/56940946660",
         },
         {
           icon: Mail,
@@ -63,8 +63,8 @@ export function ContactSection() {
         {
           icon: Phone,
           title: "Llámanos",
-          value: "+56 9 4444 4649",
-          link: "tel:+56944444649",
+          value: "+56 9 4094 6660",
+          link: "tel:+56940946660",
         },
         {
           icon: MapPin,

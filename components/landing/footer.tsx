@@ -29,7 +29,7 @@ export function Footer() {
       legal: "Legal",
       contactInfo: "Contact Information",
       address: "Santiago, Chile",
-      email: "info@n3uralia.com",
+      email: "hello@n3uralia.com",
       phone: "+56 9 4094 6660",
       whatsapp: "WhatsApp",
       followUs: "Follow Us",
@@ -58,7 +58,7 @@ export function Footer() {
       legal: "Legal",
       contactInfo: "Información de Contacto",
       address: "Santiago, Chile",
-      email: "info@n3uralia.com",
+      email: "hello@n3uralia.com",
       phone: "+56 9 4094 6660",
       whatsapp: "WhatsApp",
       followUs: "Síguenos",
@@ -180,7 +180,7 @@ export function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-slate-400" />
-                <a href="mailto:info@n3uralia.com" className="text-slate-300 hover:text-white transition-colors">
+                <a href="mailto:hello@n3uralia.com" className="text-slate-300 hover:text-white transition-colors">
                   {t.email}
                 </a>
               </li>

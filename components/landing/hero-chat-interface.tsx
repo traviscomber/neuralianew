@@ -208,7 +208,7 @@ export function HeroChatInterface() {
               className="w-full bg-green-600 hover:bg-green-700 text-white font-bold text-xs lg:text-sm"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              Comenzar mi proyecto full stack
+              Comenzar mi proyecto full stack con el asistente de WhatsApp +56 9 4094 6660
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
