@@ -34,12 +34,12 @@ export function SuccessStoriesSection() {
               "N3uralia's AI system streamlined our environmental consulting processes. The automated analysis saves us hours of manual work every day.",
           },
           {
-            name: "Juan Francisco Pumpin",
-            title: "Owner, ConstructIA",
-            company: "ConstructIA",
+            name: "Carlos Martinez",
+            title: "Community Manager, HAWO",
+            company: "HAWO",
             image: "/testimonials/juan-francisco-pumpkin.jpg",
             quote:
-              "N3uralia's team management AI for our electricity tower projects keeps everyone coordinated and informed in real-time.",
+              "N3uralia's AI chat room moderation system transformed our virtual hotel experience. The AI handles thousands of conversations simultaneously while maintaining community standards and creating engaging interactions.",
           },
         ],
         [
@@ -95,12 +95,12 @@ export function SuccessStoriesSection() {
               "El sistema de IA de N3uralia optimizó nuestros procesos de consultoría ambiental. El análisis automatizado nos ahorra horas de trabajo manual cada día.",
           },
           {
-            name: "Juan Francisco Pumpin",
-            title: "Propietario, ConstructIA",
-            company: "ConstructIA",
+            name: "Carlos Martinez",
+            title: "Community Manager, HAWO",
+            company: "HAWO",
             image: "/testimonials/juan-francisco-pumpkin.jpg",
             quote:
-              "La IA de gestión de equipos de N3uralia para nuestros proyectos de torres eléctricas mantiene a todos coordinados e informados en tiempo real.",
+              "El sistema de moderación de salas de chat IA de N3uralia transformó nuestra experiencia de hotel virtual. La IA maneja miles de conversaciones simultáneamente mientras mantiene los estándares de la comunidad y crea interacciones atractivas.",
           },
         ],
         [

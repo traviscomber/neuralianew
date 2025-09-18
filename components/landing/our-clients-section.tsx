@@ -27,13 +27,13 @@ export function OurClientsSection() {
           : "Análisis de suelo, recomendación de nutrientes basada en datos satelitales en tiempo real...",
     },
     {
-      logo: "/logos/axentai-logo.jpg",
-      name: "AxentAI",
-      title: language === "en" ? "Team Management" : "Gestión de Equipos",
+      logo: "/logos/hawo-hotel-logo.png",
+      name: "HAWO",
+      title: language === "en" ? "AI Chat Rooms" : "Salas de Chat IA",
       description:
         language === "en"
-          ? "Documents and permissions. Check and get advanced...."
-          : "Documentos y permisos. Verificar y obtener avanzado....",
+          ? "Virtual hotel chat rooms with AI moderators and intelligent conversation systems..."
+          : "Salas de chat de hotel virtual con moderadores IA y sistemas de conversación inteligente...",
       isGrayscale: true,
     },
   ]
@@ -105,6 +105,39 @@ export function OurClientsSection() {
           </button>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-up {
+          animation: slide-up 0.6s ease-out forwards;
+          opacity: 0;
+        }
+      `}</style>
     </section>
   )
 }
