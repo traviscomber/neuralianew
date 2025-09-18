@@ -66,13 +66,14 @@ export function OurClientsSection() {
             >
               {/* Logo */}
               <div className="mb-8">
-                <div className="flex items-center mb-4 h-12">
+                <div className="flex items-center justify-start mb-4 h-16">
                   <Image
                     src={client.logo || "/placeholder.svg"}
                     alt={client.name}
-                    width={120}
-                    height={48}
-                    className={`max-h-12 w-auto object-contain ${client.isGrayscale ? "filter grayscale" : ""}`}
+                    width={140}
+                    height={64}
+                    className={`h-16 w-auto object-contain object-left ${client.isGrayscale ? "filter grayscale" : ""}`}
+                    style={{ maxWidth: "140px", maxHeight: "64px" }}
                   />
                 </div>
                 <div className="w-16 h-px bg-gray-300"></div>
