@@ -18,13 +18,13 @@ export function ProductsSection() {
           : "Arte matemático creado para proyección Dome 360 o contenido de entornos VR inmersivos",
     },
     {
-      logo: "/placeholder.svg?height=40&width=120",
-      name: "HabboHotel",
+      logo: "/logos/hawo-hotel-ai-meeting-rooms.png",
+      name: "HAWO Hotel",
       title: language === "en" ? "AI Meeting Rooms" : "Salas de Reuniones IA",
       description:
         language === "en"
-          ? "Soil analysis, nutrients recommendation based on real time satellite data. Is a Full Stack project."
-          : "Análisis de suelo, recomendación de nutrientes basada en datos satelitales en tiempo real. Es un proyecto Full Stack.",
+          ? "Virtual hotel meeting rooms with AI-powered moderation, real-time translation, and intelligent scheduling systems for seamless collaboration."
+          : "Salas de reuniones de hotel virtual con moderación impulsada por IA, traducción en tiempo real y sistemas de programación inteligente para colaboración perfecta.",
     },
     {
       logo: "/logos/rosetta-logo.png",
@@ -58,7 +58,7 @@ export function ProductsSection() {
           {products.map((product, index) => (
             <div
               key={index}
-              className="bg-gray-700 rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up"
+              className="bg-gray-700 rounded-lg p-8 shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up hover:bg-gray-600"
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               {/* Logo */}
@@ -82,26 +82,66 @@ export function ProductsSection() {
               <p className="text-gray-300 leading-relaxed mb-8 text-sm">{product.description}</p>
 
               {/* More Link */}
-              <button className="text-gray-400 hover:text-gray-200 transition-colors text-sm font-medium">More</button>
+              <button className="text-gray-400 hover:text-gray-200 transition-colors text-sm font-medium group">
+                More
+                <span className="inline-block ml-1 transition-transform group-hover:translate-x-1">→</span>
+              </button>
             </div>
           ))}
         </div>
 
         {/* Navigation */}
         <div className="flex items-center justify-between">
-          <button className="flex items-center text-blue-400 hover:text-blue-300 transition-colors">
-            <ChevronLeft className="w-6 h-6 mr-2" />
-            <span className="text-sm">...</span>
+          <button className="flex items-center text-blue-400 hover:text-blue-300 transition-colors group">
+            <ChevronLeft className="w-6 h-6 mr-2 transition-transform group-hover:-translate-x-1" />
+            <span className="text-sm">Previous</span>
           </button>
 
-          <span className="text-blue-400 text-sm font-medium">Load more</span>
+          <div className="flex items-center space-x-2">
+            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+            <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+            <div className="w-2 h-2 bg-gray-600 rounded-full"></div>
+          </div>
 
-          <button className="flex items-center text-blue-400 hover:text-blue-300 transition-colors">
-            <span className="text-sm">...</span>
-            <ChevronRight className="w-6 h-6 ml-2" />
+          <button className="flex items-center text-blue-400 hover:text-blue-300 transition-colors group">
+            <span className="text-sm">Next</span>
+            <ChevronRight className="w-6 h-6 ml-2 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slide-up {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-up {
+          animation: slide-up 0.6s ease-out forwards;
+          opacity: 0;
+        }
+      `}</style>
     </section>
   )
 }

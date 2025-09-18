@@ -34,12 +34,13 @@ export function SuccessStoriesSection() {
               "N3uralia's AI system streamlined our environmental consulting processes. The automated analysis saves us hours of manual work every day.",
           },
           {
-            name: "Carlos Martinez",
-            title: "Community Manager, HAWO",
-            company: "HAWO",
+            name: "Joaquin Covarrubias",
+            title: "Founder, Despega Tu Carrera",
+            company: "Despega Tu Carrera",
+            companyUrl: "https://www.despegatucarrera.com",
             image: "/testimonials/juan-francisco-pumpkin.jpg",
             quote:
-              "N3uralia's AI chat room moderation system transformed our virtual hotel experience. The AI handles thousands of conversations simultaneously while maintaining community standards and creating engaging interactions.",
+              "The career coaching automation system N3uralia built helps us provide personalized guidance to our clients 24/7. Our platform has transformed how we deliver professional development services.",
           },
         ],
         [
@@ -52,13 +53,12 @@ export function SuccessStoriesSection() {
               "N3uralia's conversational AI agent transformed our ERP system. Now our team can access any business data just by asking in natural language.",
           },
           {
-            name: "Joaquin Covarrubias",
-            title: "Founder, Despega Tu Carrera",
-            company: "Despega Tu Carrera",
-            companyUrl: "https://www.despegatucarrera.com",
+            name: "Carlos Martinez",
+            title: "Community Manager, HAWO Hotel",
+            company: "HAWO Hotel",
             image: "/testimonials/john-smith.jpg",
             quote:
-              "The career coaching automation system N3uralia built helps us provide personalized guidance to our clients 24/7.",
+              "HAWO's AI meeting room system has revolutionized our virtual hotel conferences. The AI handles scheduling, moderation, and real-time translation seamlessly.",
           },
           {
             name: "Sofia Chen",
@@ -95,12 +95,13 @@ export function SuccessStoriesSection() {
               "El sistema de IA de N3uralia optimizó nuestros procesos de consultoría ambiental. El análisis automatizado nos ahorra horas de trabajo manual cada día.",
           },
           {
-            name: "Carlos Martinez",
-            title: "Community Manager, HAWO",
-            company: "HAWO",
+            name: "Joaquin Covarrubias",
+            title: "Fundador, Despega Tu Carrera",
+            company: "Despega Tu Carrera",
+            companyUrl: "https://www.despegatucarrera.com",
             image: "/testimonials/juan-francisco-pumpkin.jpg",
             quote:
-              "El sistema de moderación de salas de chat IA de N3uralia transformó nuestra experiencia de hotel virtual. La IA maneja miles de conversaciones simultáneamente mientras mantiene los estándares de la comunidad y crea interacciones atractivas.",
+              "El sistema de automatización de coaching profesional que N3uralia construyó nos ayuda a proporcionar orientación personalizada a nuestros clientes 24/7. Nuestra plataforma ha transformado cómo entregamos servicios de desarrollo profesional.",
           },
         ],
         [
@@ -113,13 +114,12 @@ export function SuccessStoriesSection() {
               "El agente conversacional de IA de N3uralia transformó nuestro sistema ERP. Ahora nuestro equipo puede acceder a cualquier dato empresarial simplemente preguntando en lenguaje natural.",
           },
           {
-            name: "Joaquin Covarrubias",
-            title: "Fundador, Despega Tu Carrera",
-            company: "Despega Tu Carrera",
-            companyUrl: "https://www.despegatucarrera.com",
+            name: "Carlos Martinez",
+            title: "Community Manager, HAWO Hotel",
+            company: "HAWO Hotel",
             image: "/testimonials/john-smith.jpg",
             quote:
-              "El sistema de automatización de coaching profesional que N3uralia construyó nos ayuda a proporcionar orientación personalizada a nuestros clientes 24/7.",
+              "El sistema de salas de reuniones IA de HAWO ha revolucionado nuestras conferencias de hotel virtual. La IA maneja la programación, moderación y traducción en tiempo real sin problemas.",
           },
           {
             name: "Sofia Chen",
