@@ -27,7 +27,7 @@ export function OurClientsSection() {
           : "Análisis de suelo, recomendación de nutrientes basada en datos satelitales en tiempo real con información de agricultura de precisión y optimización de cultivos.",
     },
     {
-      logo: "/placeholder.svg?height=40&width=120&text=Despega+Tu+Carrera",
+      logo: "/logos/despega-tu-carrera-logo.jpg",
       name: "Despega Tu Carrera",
       title: language === "en" ? "Career Coaching Platform" : "Plataforma de Coaching Profesional",
       description:
