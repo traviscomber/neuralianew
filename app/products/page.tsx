@@ -352,7 +352,7 @@ export default function ProductsPage() {
                       <Image
                         src={
                           key === "neuralia360"
-                            ? "/logos/n3u360-logo.png"
+                            ? "/logos/n3uralia-360-new-logo.png"
                             : key === "hawo"
                               ? "/logos/hawo-final-logo.png"
                               : "/logos/rosetta-logo.png"
