@@ -27,6 +27,7 @@ export function Navigation() {
       home: "Home",
       services: "Services",
       products: "Products",
+      agents: "Agents",
       clients: "Clients",
       contact: "Contact",
       whatsappText: "Hello N3uralia! I'm interested in learning more about your AI solutions.",
@@ -35,6 +36,7 @@ export function Navigation() {
       home: "Inicio",
       services: "Servicios",
       products: "Productos",
+      agents: "Agentes",
       clients: "Clientes",
       contact: "Contacto",
       whatsappText: "¡Hola N3uralia! Me interesa conocer más sobre sus soluciones de IA.",
@@ -47,6 +49,7 @@ export function Navigation() {
     { href: "/", label: t.home },
     { href: "/services", label: t.services },
     { href: "/products", label: t.products },
+    { href: "/agents", label: t.agents },
     { href: "/clients", label: t.clients },
     { href: "/contacts", label: t.contact },
   ]
