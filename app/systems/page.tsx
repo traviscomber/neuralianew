@@ -41,7 +41,6 @@ const translations = {
     edgeServerlessReady: "EDGE & SERVERLESS READY",
     secureByDefault: "SECURE by DEFAULT",
     visualAdminTools: "VISUAL ADMIN TOOLS",
-    whyItMatters: "Why it matters?",
 
     // Key Features detailed descriptions
     aiFirstDesc: "Designed from the ground up to plug into OpenAI, Claude, Gemini, and custom ML models.",
@@ -91,7 +90,6 @@ const translations = {
     edgeServerlessReady: "EDGE & SERVERLESS READY",
     secureByDefault: "SEGURO POR DEFECTO",
     visualAdminTools: "HERRAMIENTAS VISUALES",
-    whyItMatters: "¿Por qué importa?",
 
     // Key Features detailed descriptions
     aiFirstDesc: "Diseñado desde cero para conectar con OpenAI, Claude, Gemini y modelos ML personalizados.",
@@ -269,11 +267,8 @@ export default function SystemsPage() {
                       {/* Front of card */}
                       <Card className="absolute inset-0 bg-white/80 backdrop-blur-sm border border-gray-300/50 rounded-2xl hover:bg-white/90 transition-all duration-300 backface-hidden shadow-lg">
                         <CardContent className="p-8 text-center h-full flex flex-col justify-center">
-                          <IconComponent className="w-12 h-12 text-gray-700 mb-4 mx-auto" />
-                          <h3 className="text-lg font-bold text-gray-800 mb-4">{feature.title}</h3>
-                          <button className="text-gray-600 hover:text-gray-800 underline transition-colors text-sm">
-                            {t.whyItMatters}
-                          </button>
+                          <IconComponent className="w-12 h-12 text-gray-700 mb-6 mx-auto" />
+                          <h3 className="text-lg font-bold text-gray-800">{feature.title}</h3>
                         </CardContent>
                       </Card>
 
