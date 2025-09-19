@@ -1,265 +1,324 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {
-  Server,
-  Database,
-  Cloud,
-  Shield,
-  Zap,
-  Globe,
-  MessageCircle,
-  ArrowRight,
-  CheckCircle,
-  Star,
-  Cpu,
-  Network,
-  Lock,
-  BarChart3,
-} from "lucide-react"
+import { MessageCircle, ArrowRight, Zap, Rocket, Settings, Globe, Shield, BarChart3 } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 const translations = {
   en: {
-    title: "AI Infrastructure Systems",
-    subtitle: "Enterprise-grade infrastructure powering intelligent automation and scalable AI solutions.",
+    title: "N3uralia Full-Stack Development",
+    subtitle: "From frontend finesse to backend power—built for speed, scale, and AI-native experiences.",
+
+    // Core Services
+    coreServices: "Core Services",
+
+    // Service titles
+    aiReadyFrontend: "AI-READY FRONTEND",
+    scalableBackends: "SCALABLE BACKENDS",
+    realtimeDatabases: "REAL-TIME DATABASES",
+    workflowAutomation: "WORKFLOW AUTOMATION",
+    secureAuth: "SECURE AUTH & ROLES",
+    devopsDeployment: "DevOps & DEPLOYMENT",
+
+    // Detailed descriptions (flip content)
+    frontendDesc:
+      "Fast, reactive, and stunning interfaces built with Next.js, React, and Tailwind—ready to integrate any LLM or AI feature.",
+    backendDesc: "Lightning-fast APIs and logic layers using Node.js, Python, Supabase, and serverless functions.",
+    databaseDesc: "Instant updates and real-time sync using PostgreSQL, Supabase, Firestore, or Neon for dynamic apps.",
+    automationDesc: "Connect tools like Notion, Slack, WhatsApp, Stripe, and Zapier into seamless business flows.",
+    authDesc: "OAuth, Auth0, and RBAC systems with custom user dashboards and access control.",
+    deploymentDesc:
+      "End-to-end deployment on Vercel, Render, or custom infrastructure with CI/CD, monitoring, and scaling.",
+
+    // Key Features
+    keyFeatures: "Key Features",
+    aiFirstArchitecture: "AI-FIRST ARCHITECTURE",
+    ultraFastDeployment: "ULTRA-FAST DEPLOYMENT",
+    composableApis: "COMPOSABLE APIs",
+    edgeServerlessReady: "EDGE & SERVERLESS READY",
+    secureByDefault: "SECURE by DEFAULT",
+    visualAdminTools: "VISUAL ADMIN TOOLS",
+    whyItMatters: "Why it matters?",
+
+    // Key Features detailed descriptions
+    aiFirstDesc: "Designed from the ground up to plug into OpenAI, Claude, Gemini, and custom ML models.",
+    ultraFastDesc: "One-click deploys to Vercel or Render—production-ready in hours, not weeks.",
+    composableDesc: "Modular API endpoints for agents, automations, and user logic—easily reused and scaled.",
+    edgeServerlessDesc: "Built with edge functions and serverless tech for global speed and minimal latency.",
+    secureDefaultDesc: "Roles, auth, rate limiting, and secure API keys baked in—no extra work needed.",
+    visualToolsDesc: "Built-in dashboards for monitoring workflows, users, performance, and custom actions.",
+
+    // CTA
     getStarted: "Get Started",
-    learnMore: "Learn More",
-    whatsappText: "Hello N3uralia, I'm interested in AI Infrastructure Systems for my business",
-    systems: {
-      cloudInfrastructure: {
-        title: "Cloud Infrastructure",
-        description:
-          "Scalable cloud architecture designed for AI workloads with automatic scaling and global distribution.",
-        features: ["Auto-scaling capabilities", "Global CDN distribution", "99.9% uptime guarantee"],
-      },
-      dataManagement: {
-        title: "Data Management",
-        description:
-          "Advanced data pipelines and storage solutions optimized for AI training and real-time processing.",
-        features: ["Real-time data processing", "Secure data encryption", "Automated backups"],
-      },
-      securityFramework: {
-        title: "Security Framework",
-        description:
-          "Enterprise-grade security with end-to-end encryption, compliance monitoring, and threat detection.",
-        features: ["End-to-end encryption", "SOC 2 compliance", "24/7 threat monitoring"],
-      },
-      performanceMonitoring: {
-        title: "Performance Monitoring",
-        description: "Advanced monitoring and analytics platform providing real-time insights into system performance.",
-        features: ["Real-time analytics", "Predictive maintenance", "Custom dashboards"],
-      },
-    },
+    whatsappText: "Hello N3uralia, I'm interested in your Full-Stack Development services for my business",
   },
   es: {
-    title: "Sistemas de Infraestructura IA",
+    title: "Desarrollo Full-Stack N3uralia",
     subtitle:
-      "Infraestructura de nivel empresarial que impulsa la automatización inteligente y soluciones IA escalables.",
-    getStarted: "Comenzar",
-    learnMore: "Saber Más",
-    whatsappText: "Hola N3uralia, me interesan los Sistemas de Infraestructura IA para mi empresa",
-    systems: {
-      cloudInfrastructure: {
-        title: "Infraestructura en la Nube",
-        description:
-          "Arquitectura en la nube escalable diseñada para cargas de trabajo IA con escalado automático y distribución global.",
-        features: ["Capacidades de auto-escalado", "Distribución CDN global", "Garantía de 99.9% uptime"],
-      },
-      dataManagement: {
-        title: "Gestión de Datos",
-        description:
-          "Pipelines de datos avanzados y soluciones de almacenamiento optimizadas para entrenamiento IA y procesamiento en tiempo real.",
-        features: ["Procesamiento de datos en tiempo real", "Encriptación segura de datos", "Respaldos automatizados"],
-      },
-      securityFramework: {
-        title: "Marco de Seguridad",
-        description:
-          "Seguridad de nivel empresarial con encriptación de extremo a extremo, monitoreo de cumplimiento y detección de amenazas.",
-        features: ["Encriptación de extremo a extremo", "Cumplimiento SOC 2", "Monitoreo de amenazas 24/7"],
-      },
-      performanceMonitoring: {
-        title: "Monitoreo de Rendimiento",
-        description:
-          "Plataforma avanzada de monitoreo y análisis que proporciona insights en tiempo real sobre el rendimiento del sistema.",
-        features: ["Análisis en tiempo real", "Mantenimiento predictivo", "Dashboards personalizados"],
-      },
-    },
-  },
-}
+      "Desde la elegancia del frontend hasta la potencia del backend—construido para velocidad, escala y experiencias nativas de IA.",
 
-const systemIcons = {
-  cloudInfrastructure: Cloud,
-  dataManagement: Database,
-  securityFramework: Shield,
-  performanceMonitoring: BarChart3,
+    // Core Services
+    coreServices: "Servicios Principales",
+
+    // Service titles
+    aiReadyFrontend: "FRONTEND LISTO PARA IA",
+    scalableBackends: "BACKENDS ESCALABLES",
+    realtimeDatabases: "BASES DE DATOS EN TIEMPO REAL",
+    workflowAutomation: "AUTOMATIZACIÓN DE FLUJOS",
+    secureAuth: "AUTENTICACIÓN Y ROLES SEGUROS",
+    devopsDeployment: "DevOps Y DESPLIEGUE",
+
+    // Detailed descriptions (flip content)
+    frontendDesc:
+      "Interfaces rápidas, reactivas y sorprendentes construidas con Next.js, React y Tailwind—listas para integrar cualquier LLM o función de IA.",
+    backendDesc: "APIs ultrarrápidas y capas de lógica usando Node.js, Python, Supabase y funciones serverless.",
+    databaseDesc:
+      "Actualizaciones instantáneas y sincronización en tiempo real usando PostgreSQL, Supabase, Firestore o Neon para aplicaciones dinámicas.",
+    automationDesc:
+      "Conecta herramientas como Notion, Slack, WhatsApp, Stripe y Zapier en flujos de negocio perfectos.",
+    authDesc: "Sistemas OAuth, Auth0 y RBAC con dashboards de usuario personalizados y control de acceso.",
+    deploymentDesc:
+      "Despliegue end-to-end en Vercel, Render o infraestructura personalizada con CI/CD, monitoreo y escalado.",
+
+    // Key Features
+    keyFeatures: "Características Clave",
+    aiFirstArchitecture: "ARQUITECTURA AI-FIRST",
+    ultraFastDeployment: "DESPLIEGUE ULTRA-RÁPIDO",
+    composableApis: "APIs COMPONIBLES",
+    edgeServerlessReady: "EDGE & SERVERLESS READY",
+    secureByDefault: "SEGURO POR DEFECTO",
+    visualAdminTools: "HERRAMIENTAS VISUALES",
+    whyItMatters: "¿Por qué importa?",
+
+    // Key Features detailed descriptions
+    aiFirstDesc: "Diseñado desde cero para conectar con OpenAI, Claude, Gemini y modelos ML personalizados.",
+    ultraFastDesc: "Despliegues de un clic a Vercel o Render—listo para producción en horas, no semanas.",
+    composableDesc:
+      "Endpoints API modulares para agentes, automatizaciones y lógica de usuario—fácilmente reutilizables y escalables.",
+    edgeServerlessDesc:
+      "Construido con funciones edge y tecnología serverless para velocidad global y latencia mínima.",
+    secureDefaultDesc:
+      "Roles, autenticación, limitación de velocidad y claves API seguras incluidas—sin trabajo extra necesario.",
+    visualToolsDesc:
+      "Dashboards integrados para monitorear flujos de trabajo, usuarios, rendimiento y acciones personalizadas.",
+
+    // CTA
+    getStarted: "Comenzar",
+    whatsappText: "Hola N3uralia, me interesan sus servicios de Desarrollo Full-Stack para mi empresa",
+  },
 }
 
 export default function SystemsPage() {
   const { language } = useLanguage()
   const t = translations[language]
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
+  const [hoveredFeatureCard, setHoveredFeatureCard] = useState<number | null>(null)
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(t.whatsappText)
     window.open(`https://wa.me/56940946660?text=${message}`, "_blank")
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <Badge variant="outline" className="mb-4 text-slate-600 border-slate-300">
-            <Server className="w-4 h-4 mr-2" />
-            {language === "es" ? "Sistemas IA" : "AI Systems"}
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">{t.title}</h1>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">{t.subtitle}</p>
-        </motion.div>
+  const coreServices = [
+    { title: t.aiReadyFrontend, description: t.frontendDesc },
+    { title: t.scalableBackends, description: t.backendDesc },
+    { title: t.realtimeDatabases, description: t.databaseDesc },
+    { title: t.workflowAutomation, description: t.automationDesc },
+    { title: t.secureAuth, description: t.authDesc },
+    { title: t.devopsDeployment, description: t.deploymentDesc },
+  ]
 
-        {/* Systems Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {Object.entries(t.systems).map(([key, system], index) => {
-            const IconComponent = systemIcons[key as keyof typeof systemIcons]
-            return (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-              >
-                <Card className="h-full shadow-xl border-2 border-slate-200 dark:border-slate-700 hover:shadow-2xl transition-all duration-300 group">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center group-hover:bg-slate-200 dark:group-hover:bg-slate-700 transition-colors">
-                        <IconComponent className="w-6 h-6 text-slate-700 dark:text-slate-300" />
-                      </div>
-                      <CardTitle className="text-xl font-bold text-slate-900 dark:text-white">{system.title}</CardTitle>
-                    </div>
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{system.description}</p>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="space-y-3">
-                      {system.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                          <span className="text-slate-700 dark:text-slate-300 font-medium">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )
-          })}
+  const keyFeatures = [
+    { title: t.aiFirstArchitecture, description: t.aiFirstDesc, icon: Zap },
+    { title: t.ultraFastDeployment, description: t.ultraFastDesc, icon: Rocket },
+    { title: t.composableApis, description: t.composableDesc, icon: Settings },
+    { title: t.edgeServerlessReady, description: t.edgeServerlessDesc, icon: Globe },
+    { title: t.secureByDefault, description: t.secureDefaultDesc, icon: Shield },
+    { title: t.visualAdminTools, description: t.visualToolsDesc, icon: BarChart3 },
+  ]
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section - Systems1 */}
+      <div className="bg-gray-200 pt-20 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight">{t.title}</h1>
+            <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">{t.subtitle}</p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Core Services Section - Systems2 with cosmic background header and light background cards */}
+      <div className="relative">
+        {/* Cosmic background header */}
+        <div
+          className="py-16 relative"
+          style={{
+            backgroundImage: `url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Systems.png-p9QzmEarhA29HSLB3z2iE38G2E8OGH.jpeg')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="relative z-10 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl font-bold text-white"
+            >
+              {t.coreServices}
+            </motion.h2>
+          </div>
         </div>
 
-        {/* Architecture Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-16"
-        >
-          <Card className="shadow-xl border-2 border-slate-200 dark:border-slate-700">
-            <CardHeader className="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
-              <CardTitle className="flex items-center gap-2 text-2xl">
-                <Network className="w-6 h-6" />
-                {language === "es" ? "Arquitectura del Sistema" : "System Architecture"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-8">
-              <div className="grid md:grid-cols-4 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Cpu className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Procesamiento IA" : "AI Processing"}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {language === "es"
-                      ? "Motores de IA optimizados para procesamiento en tiempo real"
-                      : "Optimized AI engines for real-time processing"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Database className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Almacenamiento" : "Data Storage"}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {language === "es"
-                      ? "Bases de datos distribuidas con alta disponibilidad"
-                      : "Distributed databases with high availability"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Lock className="w-8 h-8 text-purple-600" />
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Seguridad" : "Security"}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {language === "es"
-                      ? "Protección multicapa con encriptación avanzada"
-                      : "Multi-layer protection with advanced encryption"}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Globe className="w-8 h-8 text-orange-600" />
-                  </div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white mb-2">
-                    {language === "es" ? "Distribución" : "Distribution"}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300">
-                    {language === "es"
-                      ? "Red global con baja latencia y alta velocidad"
-                      : "Global network with low latency and high speed"}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+        {/* Light background with cards */}
+        <div className="bg-gray-200 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-3 gap-8">
+              {coreServices.map((service, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  className="perspective-1000"
+                  onMouseEnter={() => setHoveredCard(index)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                >
+                  <div
+                    className={`relative w-full h-[250px] transition-transform duration-700 transform-style-preserve-3d ${
+                      hoveredCard === index ? "rotate-y-180" : ""
+                    }`}
+                  >
+                    {/* Front of card */}
+                    <Card className="absolute inset-0 bg-white/80 backdrop-blur-sm border border-gray-300/50 rounded-2xl hover:bg-white/90 transition-all duration-300 backface-hidden shadow-lg">
+                      <CardContent className="p-8 text-center h-full flex flex-col justify-center">
+                        <h3 className="text-xl font-bold text-gray-800">{service.title}</h3>
+                      </CardContent>
+                    </Card>
 
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center"
+                    {/* Back of card */}
+                    <Card className="absolute inset-0 bg-black text-white rounded-2xl rotate-y-180 backface-hidden shadow-lg">
+                      <CardContent className="p-8 h-full flex items-center justify-center">
+                        <p className="text-lg leading-relaxed text-center">{service.description}</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Subtle Separator */}
+      <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+
+      {/* Key Features Section - Systems3 with cosmic background header and light background cards */}
+      <div className="relative">
+        {/* Cosmic background header */}
+        <div
+          className="py-16 relative"
+          style={{
+            backgroundImage: `url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Systems.png-p9QzmEarhA29HSLB3z2iE38G2E8OGH.jpeg')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
         >
-          <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-2xl border-0">
-            <CardContent className="p-12">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Zap className="w-6 h-6 text-yellow-400" />
-                <Star className="w-6 h-6 text-yellow-400" />
-                <Zap className="w-6 h-6 text-yellow-400" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                {language === "es"
-                  ? "¿Listo para modernizar tu infraestructura?"
-                  : "Ready to modernize your infrastructure?"}
-              </h2>
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                {language === "es"
-                  ? "Nuestros expertos en infraestructura te ayudarán a construir sistemas escalables y seguros."
-                  : "Our infrastructure experts will help you build scalable and secure systems."}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="relative z-10 text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-4xl md:text-5xl font-bold text-white"
+            >
+              {t.keyFeatures}
+            </motion.h2>
+          </div>
+        </div>
+
+        {/* Light background with cards */}
+        <div className="bg-gray-200 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid md:grid-cols-3 gap-8">
+              {keyFeatures.map((feature, index) => {
+                const IconComponent = feature.icon
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: index * 0.1 }}
+                    className="perspective-1000"
+                    onMouseEnter={() => setHoveredFeatureCard(index)}
+                    onMouseLeave={() => setHoveredFeatureCard(null)}
+                  >
+                    <div
+                      className={`relative w-full h-[250px] transition-transform duration-700 transform-style-preserve-3d ${
+                        hoveredFeatureCard === index ? "rotate-y-180" : ""
+                      }`}
+                    >
+                      {/* Front of card */}
+                      <Card className="absolute inset-0 bg-white/80 backdrop-blur-sm border border-gray-300/50 rounded-2xl hover:bg-white/90 transition-all duration-300 backface-hidden shadow-lg">
+                        <CardContent className="p-8 text-center h-full flex flex-col justify-center">
+                          <IconComponent className="w-12 h-12 text-gray-700 mb-4 mx-auto" />
+                          <h3 className="text-lg font-bold text-gray-800 mb-4">{feature.title}</h3>
+                          <button className="text-gray-600 hover:text-gray-800 underline transition-colors text-sm">
+                            {t.whyItMatters}
+                          </button>
+                        </CardContent>
+                      </Card>
+
+                      {/* Back of card */}
+                      <Card className="absolute inset-0 bg-black text-white rounded-2xl rotate-y-180 backface-hidden shadow-lg">
+                        <CardContent className="p-8 h-full flex items-center justify-center">
+                          <p className="text-lg leading-relaxed text-center">{feature.description}</p>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* CTA Section */}
+      <div
+        className="py-20 relative"
+        style={{
+          backgroundImage: `url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Systems.png-p9QzmEarhA29HSLB3z2iE38G2E8OGH.jpeg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <Card className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl">
+              <CardContent className="p-12">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                  {language === "es" ? "¿Listo para construir el futuro?" : "Ready to build the future?"}
+                </h2>
+                <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                  {language === "es"
+                    ? "Nuestros expertos en desarrollo full-stack te ayudarán a crear soluciones escalables y potenciadas por IA."
+                    : "Our full-stack development experts will help you create scalable, AI-powered solutions."}
+                </p>
                 <Button
                   onClick={handleWhatsAppClick}
                   size="lg"
@@ -269,20 +328,26 @@ export default function SystemsPage() {
                   {t.getStarted}
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-slate-900 bg-transparent"
-                  onClick={() => window.open("mailto:hello@n3uralia.com", "_blank")}
-                >
-                  <Server className="w-5 h-5 mr-2" />
-                  {t.learnMore}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
       </div>
+
+      <style jsx>{`
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .transform-style-preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+      `}</style>
     </div>
   )
 }

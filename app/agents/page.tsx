@@ -10,10 +10,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Badge } from "@/components/ui/badge"
 import {
   CheckCircle,
-  ExternalLink,
-  MessageCircle,
   Headphones,
   TrendingUp,
   Calendar,
@@ -22,6 +21,9 @@ import {
   Database,
   Users,
   BarChart3,
+  Zap,
+  ArrowRight,
+  Sparkles,
 } from "lucide-react"
 
 function AgentsPageContent() {
@@ -185,11 +187,14 @@ Contact Info: ${formData.contactInfo}`
       },
       // CTA Section
       cta: {
-        title: "Start Your AI Journey Today",
-        subtitle:
-          "Join hundreds of companies already using N3uralia to automate processes, enhance customer experience, and drive growth.",
-        tryButton: "Try Free Agents",
-        customButton: "Get Custom Agent Quote",
+        limitedOffer: "Limited Time Offer",
+        title: "Ready to Experience the Future?",
+        subtitle: "Test Our Nano Agents for FREE",
+        description:
+          "Discover the power of N3uralia's advanced AI agents. No commitment, no credit card required. Experience the future of automation today.",
+        features: ["Instant Access", "No Setup Required", "Real AI Capabilities"],
+        button: "TEST FOR FREE NOW",
+        disclaimer: "✓ No Credit Card Required • ✓ Instant Access • ✓ Full Features Available",
       },
     },
     es: {
@@ -329,11 +334,14 @@ Contact Info: ${formData.contactInfo}`
       },
       // CTA Section
       cta: {
-        title: "Comienza Tu Viaje con IA Hoy",
-        subtitle:
-          "Únete a cientos de empresas que ya usan N3uralia para automatizar procesos, mejorar la experiencia del cliente e impulsar el crecimiento.",
-        tryButton: "Probar Agentes Gratis",
-        customButton: "Obtener Cotización de Agente Personalizado",
+        limitedOffer: "Oferta por Tiempo Limitado",
+        title: "¿Listo para Experimentar el Futuro?",
+        subtitle: "Prueba Nuestros Agentes Nano GRATIS",
+        description:
+          "Descubre el poder de los agentes IA avanzados de N3uralia. Sin compromiso, sin tarjeta de crédito requerida. Experimenta el futuro de la automatización hoy.",
+        features: ["Acceso Instantáneo", "Sin Configuración Requerida", "Capacidades IA Reales"],
+        button: "PRUEBA GRATIS AHORA",
+        disclaimer: "✓ Sin Tarjeta de Crédito Requerida • ✓ Acceso Instantáneo • ✓ Todas las Funciones Disponibles",
       },
     },
   }
@@ -516,60 +524,119 @@ Contact Info: ${formData.contactInfo}`
             </CardContent>
           </Card>
 
-          {/* Tech Stack Icons */}
-          <div className="flex justify-center items-center gap-8 mt-12 opacity-60">
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/redis-new-logo.png" alt="Redis" className="w-10 h-10 object-contain" />
+          {/* Tech Stack Icons with Hover Effects */}
+          <div className="flex justify-center items-center gap-8 mt-12">
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/redis-new-logo.png"
+                alt="Redis"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/js-new-logo.png" alt="JavaScript" className="w-10 h-10 object-contain" />
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/js-new-logo.png"
+                alt="JavaScript"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/n8n-new-logo.png" alt="n8n" className="w-10 h-10 object-contain" />
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/n8n-new-logo.png"
+                alt="n8n"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/nextjs-logo.png" alt="Next.js" className="w-10 h-10 object-contain" />
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/nextjs-logo.png"
+                alt="Next.js"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/python-new-logo.png" alt="Python" className="w-10 h-10 object-contain" />
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/python-new-logo.png"
+                alt="Python"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
-            <div className="w-12 h-12 flex items-center justify-center">
-              <img src="/tech-icons/supabase-new-logo.png" alt="Supabase" className="w-10 h-10 object-contain" />
+            <div className="w-12 h-12 flex items-center justify-center transition-all duration-300 hover:scale-110 opacity-60 hover:opacity-100 cursor-pointer">
+              <img
+                src="/tech-icons/supabase-new-logo.png"
+                alt="Supabase"
+                className="w-10 h-10 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Single CTA Section - Keep the test for free button */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">{t.cta.title}</h2>
-          <p className="text-xl mb-12 opacity-90">{t.cta.subtitle}</p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 font-semibold"
-              onClick={() => window.open("https://www.n3uralianano.com", "_blank")}
-            >
-              <ExternalLink className="w-5 h-5 mr-2" />
-              {t.cta.tryButton}
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 font-semibold bg-transparent"
-              onClick={() =>
-                window.open(
-                  "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20obtener%20una%20cotización%20para%20un%20agente%20personalizado",
-                  "_blank",
-                )
-              }
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              {t.cta.customButton}
-            </Button>
+      {/* Enhanced CTA Section - Test For Free */}
+      <section className="relative py-20 px-4 bg-slate-900 text-white overflow-hidden">
+        {/* Background cosmic elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10">
+            <Sparkles className="w-4 h-4 text-blue-400 opacity-60" />
           </div>
+          <div className="absolute top-20 right-20">
+            <Sparkles className="w-3 h-3 text-purple-400 opacity-40" />
+          </div>
+          <div className="absolute bottom-20 left-20">
+            <Sparkles className="w-5 h-5 text-blue-300 opacity-50" />
+          </div>
+          <div className="absolute bottom-10 right-10">
+            <Sparkles className="w-4 h-4 text-purple-300 opacity-60" />
+          </div>
+          <div className="absolute top-1/2 left-1/4">
+            <Sparkles className="w-3 h-3 text-blue-200 opacity-30" />
+          </div>
+          <div className="absolute top-1/3 right-1/3">
+            <Sparkles className="w-4 h-4 text-purple-200 opacity-40" />
+          </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          {/* Limited Time Offer Badge */}
+          <Badge
+            variant="outline"
+            className="mb-8 text-blue-300 border-blue-400 bg-blue-500/20 px-4 py-2 text-sm font-medium"
+          >
+            <Zap className="w-4 h-4 mr-2" />
+            {t.cta.limitedOffer}
+          </Badge>
+
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">{t.cta.title}</h2>
+          <h3 className="text-2xl md:text-3xl font-semibold mb-8 text-blue-300">{t.cta.subtitle}</h3>
+          <p className="text-xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">{t.cta.description}</p>
+
+          {/* Feature badges */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {t.cta.features.map((feature, index) => (
+              <Badge
+                key={index}
+                variant="outline"
+                className="text-green-300 border-green-400 bg-green-500/20 px-4 py-2"
+              >
+                <CheckCircle className="w-4 h-4 mr-2" />
+                {feature}
+              </Badge>
+            ))}
+          </div>
+
+          {/* Main CTA Button */}
+          <Button
+            size="lg"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold px-12 py-6 text-xl rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            onClick={() => window.open("https://www.n3uralianano.com", "_blank")}
+          >
+            <Zap className="w-6 h-6 mr-3" />
+            {t.cta.button}
+            <ArrowRight className="w-6 h-6 ml-3" />
+          </Button>
+
+          {/* Disclaimer */}
+          <p className="text-sm text-blue-200 mt-8 opacity-80">{t.cta.disclaimer}</p>
         </div>
       </section>
 
