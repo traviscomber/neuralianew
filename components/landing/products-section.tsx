@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 import Image from "next/image"
+import Link from "next/link"
 
 export function ProductsSection() {
   const { language } = useLanguage()
@@ -23,6 +24,7 @@ export function ProductsSection() {
           description: "Mathematical art created for Dome 360 projection or immersive VR environments content",
           logo: "/logos/n3u360-logo.png",
           moreText: "More",
+          anchor: "#neuralia360",
         },
         {
           name: "Hawo AI Meeting Rooms",
@@ -31,6 +33,7 @@ export function ProductsSection() {
             "Virtual hotel meeting rooms with AI-powered moderation, real-time translation, and intelligent scheduling systems for seamless collaboration",
           logo: "/logos/hawo-final-logo.png",
           moreText: "More",
+          anchor: "#hawo",
         },
         {
           name: "Rosetta",
@@ -38,6 +41,7 @@ export function ProductsSection() {
           description: "N3uralia's platform will predict next market move with 90% accuracy. Apply to any coin",
           logo: "/logos/rosetta-logo.png",
           moreText: "More",
+          anchor: "#rosetta",
         },
       ],
     },
@@ -51,6 +55,7 @@ export function ProductsSection() {
           description: "Arte matemático creado para proyección Dome 360 o contenido de entornos VR inmersivos",
           logo: "/logos/n3u360-logo.png",
           moreText: "Más",
+          anchor: "#neuralia360",
         },
         {
           name: "Salas de Reuniones IA Hawo",
@@ -59,6 +64,7 @@ export function ProductsSection() {
             "Salas de reuniones hoteleras virtuales con moderación impulsada por IA, traducción en tiempo real y sistemas de programación inteligente para colaboración perfecta",
           logo: "/logos/hawo-final-logo.png",
           moreText: "Más",
+          anchor: "#hawo",
         },
         {
           name: "Rosetta",
@@ -67,6 +73,7 @@ export function ProductsSection() {
             "La plataforma de N3uralia predecirá el próximo movimiento del mercado con 90% de precisión. Aplicable a cualquier moneda",
           logo: "/logos/rosetta-logo.png",
           moreText: "Más",
+          anchor: "#rosetta",
         },
       ],
     },
@@ -145,13 +152,15 @@ export function ProductsSection() {
 
                   {/* Button */}
                   <div className="text-center">
-                    <Button
-                      variant="outline"
-                      className="border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400 bg-transparent group-hover:border-blue-500 group-hover:text-blue-400 transition-all duration-300"
-                    >
-                      {product.moreText}
-                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                    </Button>
+                    <Link href={`/products${product.anchor}`}>
+                      <Button
+                        variant="outline"
+                        className="border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400 bg-transparent group-hover:border-blue-500 group-hover:text-blue-400 transition-all duration-300"
+                      >
+                        {product.moreText}
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -197,13 +206,15 @@ export function ProductsSection() {
 
                     {/* Button */}
                     <div className="text-center">
-                      <Button
-                        variant="outline"
-                        className="border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400 bg-transparent transition-all duration-300"
-                      >
-                        {t.products[currentIndex].moreText}
-                        <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
+                      <Link href={`/products${t.products[currentIndex].anchor}`}>
+                        <Button
+                          variant="outline"
+                          className="border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400 bg-transparent transition-all duration-300"
+                        >
+                          {t.products[currentIndex].moreText}
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </Link>
                     </div>
                   </CardContent>
                 </Card>
