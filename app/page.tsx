@@ -7,7 +7,6 @@ import { ProductsSection } from "@/components/landing/products-section"
 import { OurClientsSection } from "@/components/landing/our-clients-section"
 import { SuccessStoriesSection } from "@/components/landing/success-stories-section"
 import { TestimonialsSection } from "@/components/landing/testimonials-section"
-import { WhyTrustSection } from "@/components/landing/why-trust-section"
 import { TestFreeCTASection } from "@/components/landing/test-free-cta-section"
 import { ContactSection } from "@/components/landing/contact-section"
 import { Footer } from "@/components/landing/footer"
@@ -27,7 +26,6 @@ export default function HomePage() {
       <OurClientsSection />
       <SuccessStoriesSection />
       <TestimonialsSection />
-      <WhyTrustSection />
       <TestFreeCTASection />
       <ContactSection />
       <Footer />
