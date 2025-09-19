@@ -24,19 +24,17 @@ export function Navigation() {
 
   const translations = {
     en: {
-      home: "Home",
-      services: "Services",
-      products: "Products",
       agents: "Agents",
+      products: "Products",
+      systems: "Systems",
       clients: "Clients",
       contact: "Contact",
       whatsappText: "Hello N3uralia! I'm interested in learning more about your AI solutions.",
     },
     es: {
-      home: "Inicio",
-      services: "Servicios",
-      products: "Productos",
       agents: "Agentes",
+      products: "Productos",
+      systems: "Sistemas",
       clients: "Clientes",
       contact: "Contacto",
       whatsappText: "¡Hola N3uralia! Me interesa conocer más sobre sus soluciones de IA.",
@@ -46,10 +44,9 @@ export function Navigation() {
   const t = translations[language]
 
   const menuItems = [
-    { href: "/", label: t.home },
-    { href: "/services", label: t.services },
-    { href: "/products", label: t.products },
     { href: "/agents", label: t.agents },
+    { href: "/products", label: t.products },
+    { href: "/services", label: t.systems },
     { href: "/clients", label: t.clients },
     { href: "/contacts", label: t.contact },
   ]

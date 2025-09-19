@@ -3,29 +3,14 @@
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Bot,
-  MessageCircle,
-  Calendar,
-  ShoppingCart,
-  Headphones,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  Zap,
-  ArrowRight,
-  Star,
-} from "lucide-react"
+import { Bot, Calendar, ShoppingCart, Headphones, TrendingUp, CheckCircle } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
+import { TestFreeCTASection } from "@/components/landing/test-free-cta-section"
 
 const translations = {
   en: {
     title: "AI Agent Use Cases",
     subtitle: "Versatile solutions for every business need and industry vertical.",
-    getStarted: "Get Started",
-    learnMore: "Learn More",
-    whatsappText: "Hello N3uralia, I'm interested in AI Agent solutions for my business",
     useCases: {
       customerSupport: {
         title: "Customer Support",
@@ -52,9 +37,6 @@ const translations = {
   es: {
     title: "Casos de Uso de Agentes IA",
     subtitle: "Soluciones versátiles para cada necesidad empresarial y vertical de industria.",
-    getStarted: "Comenzar",
-    learnMore: "Saber Más",
-    whatsappText: "Hola N3uralia, me interesan las soluciones de Agentes IA para mi empresa",
     useCases: {
       customerSupport: {
         title: "Soporte al Cliente",
@@ -92,11 +74,6 @@ const useCaseIcons = {
 export default function AgentsPage() {
   const { language } = useLanguage()
   const t = translations[language]
-
-  const handleWhatsAppClick = () => {
-    const message = encodeURIComponent(t.whatsappText)
-    window.open(`https://wa.me/56940946660?text=${message}`, "_blank")
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 pt-20">
@@ -154,53 +131,10 @@ export default function AgentsPage() {
             )
           })}
         </div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="text-center"
-        >
-          <Card className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-2xl border-0">
-            <CardContent className="p-12">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Zap className="w-6 h-6 text-yellow-400" />
-                <Star className="w-6 h-6 text-yellow-400" />
-                <Zap className="w-6 h-6 text-yellow-400" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                {language === "es" ? "¿Listo para implementar tu agente IA?" : "Ready to implement your AI agent?"}
-              </h2>
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                {language === "es"
-                  ? "Nuestro equipo de expertos te ayudará a diseñar e implementar la solución perfecta para tu negocio."
-                  : "Our team of experts will help you design and implement the perfect solution for your business."}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  onClick={handleWhatsAppClick}
-                  size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  {t.getStarted}
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-white text-white hover:bg-white hover:text-slate-900 bg-transparent"
-                  onClick={() => window.open("mailto:hello@n3uralia.com", "_blank")}
-                >
-                  <Clock className="w-5 h-5 mr-2" />
-                  {t.learnMore}
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
       </div>
+
+      {/* Test Free CTA Section */}
+      <TestFreeCTASection />
     </div>
   )
 }
