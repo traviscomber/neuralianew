@@ -40,12 +40,12 @@ export function Navigation() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-800/95 backdrop-blur-sm border-b border-gray-700">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/n3uralia-logo-new.png" alt="N3uralia" className="h-8 w-auto" />
+            <img src="/n3uralia-logo-new.png" alt="N3uralia" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Menu */}
@@ -87,7 +87,7 @@ export function Navigation() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden py-4 border-t border-gray-700"
+            className="md:hidden py-4 border-t border-gray-800"
           >
             <div className="flex flex-col space-y-4">
               {menuItems.map((item) => (
@@ -100,7 +100,7 @@ export function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              <div className="pt-2 border-t border-gray-700">
+              <div className="pt-2 border-t border-gray-800">
                 <ThemeToggle />
               </div>
             </div>
