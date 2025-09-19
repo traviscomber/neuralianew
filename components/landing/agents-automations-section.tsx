@@ -222,12 +222,12 @@ export function AgentsAutomationsSection() {
                     </ul>
                     <div className="text-center">
                       <a
-                        href={`https://wa.me/56940946660?text=${encodeURIComponent(`Hola, me interesa el ${agent.title}`)}`}
+                        href="https://www.n3uralianano.com"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center px-4 py-2 bg-white/95 text-black rounded-full font-semibold hover:bg-white transition-colors duration-300 text-sm shadow-lg"
                       >
-                        Consultar por WhatsApp
+                        {language === "en" ? "Visit Nano Agency" : "Visitar Nano Agency"}
                       </a>
                     </div>
                   </div>
