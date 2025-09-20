@@ -1,184 +1,144 @@
-import { createClient } from "./supabase"
+import { supabase } from "./supabase"
+import type { UserSession, PageView, UserEvent, HeatmapData, PerformanceMetric } from "./supabase"
 
-export interface AnalyticsEvent {
-  session_id: string
-  page_url: string
-  event_type: string
-  element_selector?: string
-  element_text?: string
-  element_attributes?: Record<string, any>
-  coordinates?: { x: number; y: number; viewport_width: number; viewport_height: number }
-  event_data?: Record<string, any>
-}
-
-export interface PageView {
-  session_id: string
-  page_url: string
-  page_title?: string
-  referrer?: string
-  load_time_ms?: number
-  scroll_depth?: number
-  time_on_page_seconds?: number
-}
-
-export interface UserSession {
-  session_id?: string
-  user_id?: string
-  device_info: Record<string, any>
-  browser_info: Record<string, any>
-  location: Record<string, any>
-  utm_source?: string
-  utm_medium?: string
-  utm_campaign?: string
-  referrer?: string
-  ip_address?: string
-  user_agent: string
-}
-
-class AnalyticsManager {
-  private supabase = createClient()
+export class AnalyticsManager {
   private sessionId: string | null = null
-  private pageStartTime: number = Date.now()
-  private maxScrollDepth = 0
-  private isTracking = false
+  private isInitialized = false
+  private initPromise: Promise<void> | null = null
+  private sessionCreated = false
 
   constructor() {
     if (typeof window !== "undefined") {
-      this.initializeSession()
-      this.setupEventListeners()
+      this.initPromise = this.initialize()
     }
   }
 
-  private async initializeSession() {
-    // Get or create session ID
-    this.sessionId = sessionStorage.getItem("analytics_session_id")
+  private async initialize(): Promise<void> {
+    try {
+      // Generate or retrieve session ID
+      this.sessionId = this.getOrCreateSessionId()
 
-    if (!this.sessionId) {
-      this.sessionId = this.generateSessionId()
-      sessionStorage.setItem("analytics_session_id", this.sessionId)
-
-      // Create new session record
+      // Create session record and wait for it to complete
       await this.createSession()
+
+      // Set up event listeners
+      this.setupEventListeners()
+
+      // Set up performance tracking
+      this.setupPerformanceTracking()
+
+      this.isInitialized = true
+      console.log("Analytics initialized with session:", this.sessionId)
+    } catch (error) {
+      console.error("Failed to initialize analytics:", error)
+      // Continue with fallback session ID
+      this.sessionId = this.generateSessionId()
+      this.isInitialized = true
     }
+  }
 
-    this.isTracking = true
-
-    // Track initial page view
-    await this.trackPageView()
+  private getOrCreateSessionId(): string {
+    let sessionId = sessionStorage.getItem("analytics_session_id")
+    if (!sessionId) {
+      sessionId = this.generateSessionId()
+      sessionStorage.setItem("analytics_session_id", sessionId)
+    }
+    return sessionId
   }
 
   private generateSessionId(): string {
     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  private async createSession() {
-    if (!this.sessionId) return
-
-    const sessionData: UserSession = {
-      session_id: this.sessionId,
-      device_info: this.getDeviceInfo(),
-      browser_info: this.getBrowserInfo(),
-      location: await this.getLocationInfo(),
-      utm_source: this.getUrlParameter("utm_source"),
-      utm_medium: this.getUrlParameter("utm_medium"),
-      utm_campaign: this.getUrlParameter("utm_campaign"),
-      referrer: document.referrer || null,
-      user_agent: navigator.userAgent,
-    }
+  private async createSession(): Promise<void> {
+    if (!this.sessionId || this.sessionCreated) return
 
     try {
-      const { error } = await this.supabase.from("user_sessions").insert(sessionData)
+      // Get location info with timeout
+      const locationInfo = await Promise.race([
+        this.getLocationInfo(),
+        new Promise<{ country: string; city: string }>((resolve) =>
+          setTimeout(() => resolve({ country: "Unknown", city: "Unknown" }), 3000),
+        ),
+      ])
+
+      const sessionData: UserSession = {
+        session_id: this.sessionId,
+        user_agent: navigator.userAgent,
+        device_type: this.getDeviceType(),
+        browser: this.getBrowserName(),
+        os: this.getOperatingSystem(),
+        screen_resolution: `${screen.width}x${screen.height}`,
+        referrer: document.referrer || null,
+        utm_source: this.getUrlParameter("utm_source"),
+        utm_medium: this.getUrlParameter("utm_medium"),
+        utm_campaign: this.getUrlParameter("utm_campaign"),
+        country: locationInfo.country,
+        city: locationInfo.city,
+      }
+
+      const { data, error } = await supabase.from("user_sessions").insert(sessionData).select()
 
       if (error) {
         console.error("Failed to create session:", error)
+        throw error
       }
+
+      this.sessionCreated = true
+      console.log("Session created successfully:", data)
     } catch (error) {
       console.error("Session creation error:", error)
+      // Mark as created to prevent infinite retries
+      this.sessionCreated = true
+      throw error
     }
   }
 
-  private getDeviceInfo() {
-    const width = window.innerWidth
-    let deviceType = "desktop"
+  private async getLocationInfo(): Promise<{ country: string; city: string }> {
+    try {
+      const response = await fetch("https://ipapi.co/json/")
+      if (!response.ok) throw new Error("Failed to fetch location")
 
-    if (width <= 768) deviceType = "mobile"
-    else if (width <= 1024) deviceType = "tablet"
-
-    return {
-      type: deviceType,
-      screen_width: window.screen.width,
-      screen_height: window.screen.height,
-      viewport_width: window.innerWidth,
-      viewport_height: window.innerHeight,
-      pixel_ratio: window.devicePixelRatio || 1,
-      os: this.getOperatingSystem(),
-      touch_support: "ontouchstart" in window,
+      const data = await response.json()
+      return {
+        country: data.country_name || "Unknown",
+        city: data.city || "Unknown",
+      }
+    } catch (error) {
+      console.warn("Failed to get location info:", error)
+      return { country: "Unknown", city: "Unknown" }
     }
   }
 
-  private getBrowserInfo() {
-    const ua = navigator.userAgent
-    let browserName = "Unknown"
-    let browserVersion = "Unknown"
-
-    if (ua.includes("Chrome")) {
-      browserName = "Chrome"
-      browserVersion = ua.match(/Chrome\/([0-9.]+)/)?.[1] || "Unknown"
-    } else if (ua.includes("Firefox")) {
-      browserName = "Firefox"
-      browserVersion = ua.match(/Firefox\/([0-9.]+)/)?.[1] || "Unknown"
-    } else if (ua.includes("Safari")) {
-      browserName = "Safari"
-      browserVersion = ua.match(/Version\/([0-9.]+)/)?.[1] || "Unknown"
-    } else if (ua.includes("Edge")) {
-      browserName = "Edge"
-      browserVersion = ua.match(/Edge\/([0-9.]+)/)?.[1] || "Unknown"
+  private getDeviceType(): string {
+    const userAgent = navigator.userAgent.toLowerCase()
+    if (/tablet|ipad|playbook|silk/.test(userAgent)) {
+      return "tablet"
     }
-
-    return {
-      name: browserName,
-      version: browserVersion,
-      language: navigator.language,
-      languages: navigator.languages,
-      cookie_enabled: navigator.cookieEnabled,
-      do_not_track: navigator.doNotTrack === "1",
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    if (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile/.test(userAgent)) {
+      return "mobile"
     }
+    return "desktop"
   }
 
-  private getOperatingSystem(): string {
-    const ua = navigator.userAgent
-    if (ua.includes("Windows")) return "Windows"
-    if (ua.includes("Mac")) return "macOS"
-    if (ua.includes("Linux")) return "Linux"
-    if (ua.includes("Android")) return "Android"
-    if (ua.includes("iOS")) return "iOS"
+  private getBrowserName(): string {
+    const userAgent = navigator.userAgent
+    if (userAgent.includes("Chrome")) return "Chrome"
+    if (userAgent.includes("Firefox")) return "Firefox"
+    if (userAgent.includes("Safari")) return "Safari"
+    if (userAgent.includes("Edge")) return "Edge"
+    if (userAgent.includes("Opera")) return "Opera"
     return "Unknown"
   }
 
-  private async getLocationInfo() {
-    try {
-      // Use a geolocation service or IP-based location
-      const response = await fetch("https://ipapi.co/json/")
-      const data = await response.json()
-
-      return {
-        country: data.country_name,
-        country_code: data.country_code,
-        region: data.region,
-        city: data.city,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        timezone: data.timezone,
-        isp: data.org,
-      }
-    } catch (error) {
-      console.error("Failed to get location:", error)
-      return {
-        country: "Unknown",
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      }
-    }
+  private getOperatingSystem(): string {
+    const userAgent = navigator.userAgent
+    if (userAgent.includes("Windows")) return "Windows"
+    if (userAgent.includes("Mac")) return "macOS"
+    if (userAgent.includes("Linux")) return "Linux"
+    if (userAgent.includes("Android")) return "Android"
+    if (userAgent.includes("iOS")) return "iOS"
+    return "Unknown"
   }
 
   private getUrlParameter(name: string): string | null {
@@ -186,314 +146,242 @@ class AnalyticsManager {
     return urlParams.get(name)
   }
 
-  private setupEventListeners() {
-    if (typeof window === "undefined") return
+  private setupEventListeners(): void {
+    // Track page visibility changes
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        this.trackEvent("page_hidden", { timestamp: Date.now() })
+      } else {
+        this.trackEvent("page_visible", { timestamp: Date.now() })
+      }
+    })
+
+    // Track beforeunload
+    window.addEventListener("beforeunload", () => {
+      this.trackEvent("page_unload", { timestamp: Date.now() })
+    })
+
+    // Track scroll events
+    let scrollTimeout: NodeJS.Timeout
+    window.addEventListener("scroll", () => {
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(() => {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100)
+        this.trackEvent("scroll", { scroll_depth: scrollDepth })
+      }, 250)
+    })
 
     // Track clicks
     document.addEventListener("click", (event) => {
-      this.trackClick(event)
-    })
-
-    // Track scroll depth
-    let scrollTimeout: NodeJS.Timeout
-    document.addEventListener("scroll", () => {
-      clearTimeout(scrollTimeout)
-      scrollTimeout = setTimeout(() => {
-        this.trackScrollDepth()
-      }, 100)
-    })
-
-    // Track page unload
-    window.addEventListener("beforeunload", () => {
-      this.trackPageExit()
-    })
-
-    // Track visibility changes
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        this.trackPageExit()
-      } else {
-        this.pageStartTime = Date.now()
+      const target = event.target as HTMLElement
+      if (target) {
+        this.trackClick(target, event.clientX, event.clientY)
       }
     })
+  }
 
-    // Track form submissions
-    document.addEventListener("submit", (event) => {
-      this.trackFormSubmission(event)
+  private setupPerformanceTracking(): void {
+    // Track Core Web Vitals and basic performance metrics
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
+        if (navigation) {
+          this.trackPerformanceMetric("page_load_time", navigation.loadEventEnd - navigation.loadEventStart)
+          this.trackPerformanceMetric(
+            "dom_content_loaded",
+            navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+          )
+          this.trackPerformanceMetric("first_contentful_paint", navigation.loadEventEnd - navigation.fetchStart)
+        }
+      }, 100)
     })
+  }
 
-    // Track performance metrics
-    if ("performance" in window) {
-      window.addEventListener("load", () => {
-        setTimeout(() => this.trackPerformanceMetrics(), 1000)
-      })
+  async waitForInitialization(): Promise<void> {
+    if (this.initPromise) {
+      await this.initPromise
     }
   }
 
-  async trackPageView(customData?: Partial<PageView>) {
-    if (!this.sessionId || !this.isTracking) return
+  isReady(): boolean {
+    return this.isInitialized && this.sessionId !== null && this.sessionCreated
+  }
+
+  async trackPageView(url: string, title?: string): Promise<void> {
+    await this.waitForInitialization()
+
+    if (!this.sessionId || !this.sessionCreated) {
+      console.warn("Cannot track page view: session not ready")
+      return
+    }
 
     const pageViewData: PageView = {
       session_id: this.sessionId,
-      page_url: window.location.href,
-      page_title: document.title,
+      page_url: url,
+      page_title: title || document.title,
       referrer: document.referrer || null,
-      load_time_ms: performance.now(),
-      ...customData,
+      load_time: Math.round(performance.now()),
     }
 
     try {
-      const { error } = await this.supabase.from("page_views").insert(pageViewData)
+      const { data, error } = await supabase.from("page_views").insert(pageViewData).select()
 
       if (error) {
         console.error("Failed to track page view:", error)
+        return
       }
+
+      console.log("Page view tracked:", url)
     } catch (error) {
       console.error("Page view tracking error:", error)
     }
   }
 
-  async trackEvent(eventData: Partial<AnalyticsEvent>) {
-    if (!this.sessionId || !this.isTracking) return
+  async trackEvent(eventType: string, eventData?: Record<string, any>): Promise<void> {
+    await this.waitForInitialization()
 
-    const event: AnalyticsEvent = {
+    if (!this.sessionId || !this.sessionCreated) {
+      console.warn("Cannot track event: session not ready")
+      return
+    }
+
+    const userEventData: UserEvent = {
       session_id: this.sessionId,
-      page_url: window.location.href,
-      event_type: "custom",
-      ...eventData,
+      event_type: eventType,
+      event_data: eventData || {},
+      page_url: window.location.pathname,
     }
 
     try {
-      const { error } = await this.supabase.from("user_events").insert(event)
+      const { data, error } = await supabase.from("user_events").insert(userEventData).select()
 
       if (error) {
         console.error("Failed to track event:", error)
+        return
       }
+
+      console.log("Event tracked:", eventType, eventData)
     } catch (error) {
       console.error("Event tracking error:", error)
     }
   }
 
-  private async trackClick(event: MouseEvent) {
-    const target = event.target as HTMLElement
-    if (!target) return
+  async trackClick(element: HTMLElement, x: number, y: number): Promise<void> {
+    await this.waitForInitialization()
 
-    const elementSelector = this.getElementSelector(target)
-    const elementText = target.textContent?.trim().substring(0, 100) || ""
+    if (!this.sessionId || !this.sessionCreated) {
+      console.warn("Cannot track click: session not ready")
+      return
+    }
 
-    // Track heatmap data
-    await this.trackHeatmapClick(event.clientX, event.clientY)
+    // Track as user event
+    const elementSelector = this.getElementSelector(element)
+    const elementText = element.textContent?.trim().substring(0, 100) || ""
 
-    // Track click event
-    await this.trackEvent({
-      event_type: "click",
+    await this.trackEvent("click", {
       element_selector: elementSelector,
       element_text: elementText,
-      element_attributes: this.getElementAttributes(target),
-      coordinates: {
-        x: event.clientX,
-        y: event.clientY,
-        viewport_width: window.innerWidth,
-        viewport_height: window.innerHeight,
-      },
+      coordinates: { x, y },
+      element_tag: element.tagName.toLowerCase(),
     })
+
+    // Track as heatmap data
+    await this.trackHeatmapClick(x, y, elementSelector)
   }
 
-  private async trackHeatmapClick(x: number, y: number) {
-    if (!this.sessionId) return
+  async trackHeatmapClick(x: number, y: number, elementSelector?: string): Promise<void> {
+    await this.waitForInitialization()
 
-    const deviceInfo = this.getDeviceInfo()
+    if (!this.sessionId || !this.sessionCreated) {
+      console.warn("Cannot track heatmap click: session not ready")
+      return
+    }
+
+    const heatmapData: HeatmapData = {
+      session_id: this.sessionId,
+      page_url: window.location.pathname,
+      x_coordinate: Math.round(x),
+      y_coordinate: Math.round(y),
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight,
+      device_type: this.getDeviceType(),
+      element_selector: elementSelector || null,
+    }
 
     try {
-      const { error } = await this.supabase.from("heatmap_data").insert({
-        session_id: this.sessionId,
-        page_url: window.location.href,
-        click_x: x,
-        click_y: y,
-        viewport_width: window.innerWidth,
-        viewport_height: window.innerHeight,
-        device_type: deviceInfo.type,
-      })
+      const { data, error } = await supabase.from("heatmap_data").insert(heatmapData).select()
 
       if (error) {
         console.error("Failed to track heatmap click:", error)
+        return
       }
+
+      console.log("Heatmap click tracked:", { x, y })
     } catch (error) {
       console.error("Heatmap tracking error:", error)
     }
   }
 
-  private trackScrollDepth() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-    const windowHeight = window.innerHeight
-    const documentHeight = document.documentElement.scrollHeight
+  async trackPerformanceMetric(metricName: string, value: number): Promise<void> {
+    await this.waitForInitialization()
 
-    const scrollPercentage = Math.round(((scrollTop + windowHeight) / documentHeight) * 100)
-
-    if (scrollPercentage > this.maxScrollDepth) {
-      this.maxScrollDepth = scrollPercentage
-
-      // Track milestone scroll depths
-      const milestones = [25, 50, 75, 90]
-      const milestone = milestones.find((m) => scrollPercentage >= m && this.maxScrollDepth < m)
-
-      if (milestone) {
-        this.trackEvent({
-          event_type: "scroll",
-          event_data: {
-            scroll_depth: scrollPercentage,
-            milestone: milestone,
-          },
-        })
-      }
-    }
-  }
-
-  private trackPageExit() {
-    if (!this.sessionId) return
-
-    const timeOnPage = Math.round((Date.now() - this.pageStartTime) / 1000)
-
-    // Update page view with exit data
-    this.supabase
-      .from("page_views")
-      .update({
-        time_on_page_seconds: timeOnPage,
-        scroll_depth: this.maxScrollDepth,
-        exit_page: true,
-      })
-      .eq("session_id", this.sessionId)
-      .eq("page_url", window.location.href)
-      .then(({ error }) => {
-        if (error) {
-          console.error("Failed to update page exit:", error)
-        }
-      })
-  }
-
-  private async trackFormSubmission(event: SubmitEvent) {
-    const form = event.target as HTMLFormElement
-    if (!form) return
-
-    const formData = new FormData(form)
-    const formFields = Array.from(formData.keys())
-
-    await this.trackEvent({
-      event_type: "form_submit",
-      element_selector: this.getElementSelector(form),
-      event_data: {
-        form_id: form.id,
-        form_action: form.action,
-        form_method: form.method,
-        field_count: formFields.length,
-        fields: formFields,
-      },
-    })
-  }
-
-  private async trackPerformanceMetrics() {
-    if (!("performance" in window) || !this.sessionId) return
-
-    const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
-    const paint = performance.getEntriesByType("paint")
-
-    const metrics = [
-      { name: "TTFB", value: navigation.responseStart - navigation.requestStart },
-      { name: "DOM_LOAD", value: navigation.domContentLoadedEventEnd - navigation.navigationStart },
-      { name: "WINDOW_LOAD", value: navigation.loadEventEnd - navigation.navigationStart },
-    ]
-
-    // Add paint metrics
-    paint.forEach((entry) => {
-      metrics.push({
-        name: entry.name.toUpperCase().replace("-", "_"),
-        value: entry.startTime,
-      })
-    })
-
-    // Track Core Web Vitals if available
-    if ("web-vitals" in window) {
-      // This would require importing web-vitals library
-      // For now, we'll track basic metrics
+    if (!this.sessionId || !this.sessionCreated) {
+      console.warn("Cannot track performance metric: session not ready")
+      return
     }
 
-    for (const metric of metrics) {
-      try {
-        await this.supabase.from("performance_metrics").insert({
-          session_id: this.sessionId,
-          page_url: window.location.href,
-          metric_name: metric.name,
-          metric_value: metric.value,
-        })
-      } catch (error) {
+    const performanceData: PerformanceMetric = {
+      session_id: this.sessionId,
+      page_url: window.location.pathname,
+      metric_name: metricName,
+      metric_value: value,
+    }
+
+    try {
+      const { data, error } = await supabase.from("performance_metrics").insert(performanceData).select()
+
+      if (error) {
         console.error("Failed to track performance metric:", error)
+        return
       }
+
+      console.log("Performance metric tracked:", metricName, value)
+    } catch (error) {
+      console.error("Performance tracking error:", error)
     }
   }
 
   private getElementSelector(element: HTMLElement): string {
-    if (element.id) return `#${element.id}`
-    if (element.className) return `.${element.className.split(" ").join(".")}`
+    // Generate a CSS selector for the element
+    if (element.id) {
+      return `#${element.id}`
+    }
+
+    if (element.className) {
+      const classes = element.className
+        .split(" ")
+        .filter((c) => c.trim())
+        .join(".")
+      if (classes) {
+        return `.${classes}`
+      }
+    }
+
+    // Fallback to tag name with position
+    const parent = element.parentElement
+    if (parent) {
+      const siblings = Array.from(parent.children).filter((child) => child.tagName === element.tagName)
+      const index = siblings.indexOf(element)
+      return `${element.tagName.toLowerCase()}:nth-of-type(${index + 1})`
+    }
+
     return element.tagName.toLowerCase()
   }
 
-  private getElementAttributes(element: HTMLElement): Record<string, any> {
-    const attributes: Record<string, any> = {}
-
-    for (let i = 0; i < element.attributes.length; i++) {
-      const attr = element.attributes[i]
-      attributes[attr.name] = attr.value
-    }
-
-    return attributes
-  }
-
-  // Public methods for manual tracking
-  async trackConversion(conversionType: string, value?: number, additionalData?: Record<string, any>) {
-    if (!this.sessionId) return
-
-    try {
-      const { error } = await this.supabase.from("conversions").insert({
-        session_id: this.sessionId,
-        conversion_type: conversionType,
-        conversion_value: value,
-        source_page: window.location.href,
-        conversion_data: additionalData || {},
-      })
-
-      if (error) {
-        console.error("Failed to track conversion:", error)
-      }
-    } catch (error) {
-      console.error("Conversion tracking error:", error)
-    }
-  }
-
-  async trackCustomEvent(eventType: string, eventData?: Record<string, any>) {
-    await this.trackEvent({
-      event_type: eventType,
-      event_data: eventData,
-    })
-  }
-
-  // Get session ID for external use
   getSessionId(): string | null {
     return this.sessionId
   }
-
-  // Stop tracking
-  stopTracking() {
-    this.isTracking = false
-  }
-
-  // Resume tracking
-  startTracking() {
-    this.isTracking = true
-  }
 }
 
-// Create singleton instance
+// Export singleton instance
 export const analytics = new AnalyticsManager()
-
-// Export for use in React components
-export default analytics
