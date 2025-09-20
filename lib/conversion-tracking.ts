@@ -1,105 +1,145 @@
-import { supabase } from "./supabase"
-import type { ConversionEvent } from "./supabase"
+import { analytics } from "./analytics"
+
+export type ConversionType =
+  | "page_view"
+  | "button_click"
+  | "form_submission"
+  | "download"
+  | "signup"
+  | "purchase"
+  | "contact"
+
+export interface ConversionConfig {
+  type: ConversionType
+  value?: number
+  data?: Record<string, any>
+}
 
 export class ConversionTracker {
-  private sessionId: string | null = null
-  private trackedConversions = new Set<string>()
+  private static instance: ConversionTracker
+  private trackedConversions: Set<string> = new Set()
 
-  setSessionId(sessionId: string | null) {
-    this.sessionId = sessionId
+  public static getInstance(): ConversionTracker {
+    if (!ConversionTracker.instance) {
+      ConversionTracker.instance = new ConversionTracker()
+    }
+    return ConversionTracker.instance
   }
 
-  resetTracking() {
-    this.trackedConversions.clear()
-  }
-
-  async trackConversion(type: string, value = 0, additionalData?: Record<string, any>): Promise<void> {
-    if (!this.sessionId) {
+  public async trackConversion(config: ConversionConfig): Promise<void> {
+    const sessionId = analytics.getSessionId()
+    if (!sessionId) {
       console.warn("Cannot track conversion: no session ID")
       return
     }
 
-    // Prevent duplicate conversions in the same session
-    const conversionKey = `${this.sessionId}_${type}`
+    // Create unique key for this conversion
+    const conversionKey = `${sessionId}_${config.type}`
+
+    // Check if already tracked to prevent duplicates
     if (this.trackedConversions.has(conversionKey)) {
-      console.log("Conversion already tracked in this session:", type)
+      console.log(`Conversion ${config.type} already tracked for this session`)
       return
     }
 
     try {
-      const conversionData: ConversionEvent = {
-        session_id: this.sessionId,
-        conversion_type: type,
-        conversion_value: value,
-        page_url: window.location.pathname,
-        additional_data: additionalData || {},
-      }
-
-      const { data, error } = await supabase.from("conversion_events").insert(conversionData).select()
-
-      if (error) {
-        console.error("Failed to track conversion:", error)
-        return
-      }
+      await analytics.trackConversion({
+        conversion_type: config.type,
+        conversion_value: config.value || 0,
+        conversion_data: config.data || {},
+        page_url: window.location.href,
+      })
 
       // Mark as tracked
       this.trackedConversions.add(conversionKey)
-      console.log("Conversion tracked:", type, value)
+
+      console.log(`Conversion tracked: ${config.type}`, config)
     } catch (error) {
-      console.error("Conversion tracking error:", error)
+      console.error("Failed to track conversion:", error)
     }
   }
 
-  // Pre-defined conversion methods
-  async trackHeroCTA(): Promise<void> {
-    await this.trackConversion("hero_cta", 15, {
-      source: "hero_section",
-      action: "cta_click",
+  public async trackPageView(): Promise<void> {
+    await this.trackConversion({
+      type: "page_view",
+      data: {
+        page: window.location.pathname,
+        title: document.title,
+        referrer: document.referrer,
+      },
     })
   }
 
-  async trackContactForm(): Promise<void> {
-    await this.trackConversion("contact_form", 25, {
-      source: "contact_section",
-      action: "form_submit",
+  public async trackButtonClick(buttonText: string, buttonId?: string): Promise<void> {
+    await this.trackConversion({
+      type: "button_click",
+      data: {
+        button_text: buttonText,
+        button_id: buttonId,
+        page: window.location.pathname,
+      },
     })
   }
 
-  async trackDemoRequest(): Promise<void> {
-    await this.trackConversion("demo_request", 30, {
-      source: "demo_section",
-      action: "demo_request",
+  public async trackFormSubmission(formId: string, formData?: Record<string, any>): Promise<void> {
+    await this.trackConversion({
+      type: "form_submission",
+      data: {
+        form_id: formId,
+        form_data: formData,
+        page: window.location.pathname,
+      },
     })
   }
 
-  async trackWhatsAppClick(): Promise<void> {
-    await this.trackConversion("whatsapp_click", 10, {
-      source: "contact_widget",
-      action: "whatsapp_click",
+  public async trackDownload(fileName: string, fileType?: string): Promise<void> {
+    await this.trackConversion({
+      type: "download",
+      data: {
+        file_name: fileName,
+        file_type: fileType,
+        page: window.location.pathname,
+      },
     })
   }
 
-  async trackNewsletterSignup(): Promise<void> {
-    await this.trackConversion("newsletter_signup", 5, {
-      source: "newsletter_form",
-      action: "email_submit",
+  public async trackSignup(method?: string): Promise<void> {
+    await this.trackConversion({
+      type: "signup",
+      value: 1,
+      data: {
+        signup_method: method,
+        page: window.location.pathname,
+      },
     })
   }
 
-  async trackServiceInquiry(): Promise<void> {
-    await this.trackConversion("service_inquiry", 20, {
-      source: "services_page",
-      action: "inquiry_submit",
+  public async trackPurchase(amount: number, currency = "USD", productId?: string): Promise<void> {
+    await this.trackConversion({
+      type: "purchase",
+      value: amount,
+      data: {
+        currency,
+        product_id: productId,
+        page: window.location.pathname,
+      },
     })
   }
 
-  async trackCaseStudyView(): Promise<void> {
-    await this.trackConversion("case_study_view", 8, {
-      source: "case_studies",
-      action: "case_study_click",
+  public async trackContact(method: string): Promise<void> {
+    await this.trackConversion({
+      type: "contact",
+      data: {
+        contact_method: method,
+        page: window.location.pathname,
+      },
     })
+  }
+
+  public clearTrackedConversions(): void {
+    this.trackedConversions.clear()
   }
 }
 
 // Export singleton instance
-export const conversionTracker = new ConversionTracker()
+export const conversionTracker = ConversionTracker.getInstance()

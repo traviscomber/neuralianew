@@ -3,115 +3,262 @@ import { createClient } from "@supabase/supabase-js"
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-  },
-  global: {
-    headers: {
-      "x-application-name": "neuralia-analytics",
-    },
-  },
-})
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Server-side client for API routes
-export function createServerClient() {
-  return createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  })
+export default supabase
+
+// Helper function to handle Supabase errors
+export function handleSupabaseError(error: any, context: string) {
+  console.error(`Supabase error in ${context}:`, error)
+
+  if (error?.code === "PGRST116") {
+    console.warn(`Table not found in ${context}. This might be expected during initial setup.`)
+  }
+
+  return null
 }
 
-// Database types
-export interface UserSession {
-  id?: string
-  session_id: string
-  user_agent?: string | null
-  ip_address?: string | null
-  country?: string | null
-  city?: string | null
-  device_type?: string | null
-  browser?: string | null
-  os?: string | null
-  screen_resolution?: string | null
-  language?: string | null
-  timezone?: string | null
-  referrer?: string | null
-  utm_source?: string | null
-  utm_medium?: string | null
-  utm_campaign?: string | null
-  utm_term?: string | null
-  utm_content?: string | null
-  created_at?: string
-  updated_at?: string
+// Test connection function
+export async function testSupabaseConnection() {
+  try {
+    const { data, error } = await supabase.from("profiles").select("count").limit(1)
+
+    if (error) {
+      console.error("Supabase connection test failed:", error)
+      return false
+    }
+
+    console.log("Supabase connection successful")
+    return true
+  } catch (error) {
+    console.error("Supabase connection test error:", error)
+    return false
+  }
 }
 
-export interface PageView {
-  id?: string
-  session_id: string
-  page_url: string
-  page_title?: string | null
-  referrer?: string | null
-  load_time?: number | null
-  time_on_page?: number
-  scroll_depth?: number
-  created_at?: string
-}
-
-export interface UserEvent {
-  id?: string
-  session_id: string
-  event_type: string
-  event_data?: Record<string, any>
-  page_url?: string | null
-  page_title?: string | null
-  element_selector?: string | null
-  timestamp?: string
-}
-
-export interface HeatmapData {
-  id?: string
-  session_id: string
-  page_url: string
-  x_coordinate: number
-  y_coordinate: number
-  viewport_width?: number | null
-  viewport_height?: number | null
-  device_type?: string | null
-  element_selector?: string | null
-  click_timestamp?: string
-}
-
-export interface PerformanceMetric {
-  id?: string
-  session_id: string
-  page_url: string
-  metric_name: string
-  metric_value: number
-  timestamp?: string
-}
-
-export interface ConversionEvent {
-  id?: string
-  session_id: string
-  conversion_type: string
-  conversion_value?: number
-  page_url?: string | null
-  element_selector?: string | null
-  additional_data?: Record<string, any>
-  timestamp?: string
-}
-
-export interface SessionStats {
-  id?: string
-  session_id: string
-  total_page_views?: number
-  total_events?: number
-  total_time_spent?: number
-  bounce_rate?: number
-  created_at?: string
-  updated_at?: string
+export type Database = {
+  public: {
+    Tables: {
+      user_sessions: {
+        Row: {
+          session_id: string
+          user_id: string | null
+          created_at: string
+          updated_at: string
+          expires_at: string
+          user_agent: string | null
+          ip_address: string | null
+          device_type: string | null
+          browser: string | null
+          os: string | null
+          screen_resolution: string | null
+          timezone: string | null
+          language: string | null
+          referrer: string | null
+          utm_source: string | null
+          utm_medium: string | null
+          utm_campaign: string | null
+          utm_term: string | null
+          utm_content: string | null
+          is_active: boolean
+          last_activity: string
+        }
+        Insert: {
+          session_id?: string
+          user_id?: string | null
+          created_at?: string
+          updated_at?: string
+          expires_at?: string
+          user_agent?: string | null
+          ip_address?: string | null
+          device_type?: string | null
+          browser?: string | null
+          os?: string | null
+          screen_resolution?: string | null
+          timezone?: string | null
+          language?: string | null
+          referrer?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          utm_term?: string | null
+          utm_content?: string | null
+          is_active?: boolean
+          last_activity?: string
+        }
+        Update: {
+          session_id?: string
+          user_id?: string | null
+          created_at?: string
+          updated_at?: string
+          expires_at?: string
+          user_agent?: string | null
+          ip_address?: string | null
+          device_type?: string | null
+          browser?: string | null
+          os?: string | null
+          screen_resolution?: string | null
+          timezone?: string | null
+          language?: string | null
+          referrer?: string | null
+          utm_source?: string | null
+          utm_medium?: string | null
+          utm_campaign?: string | null
+          utm_term?: string | null
+          utm_content?: string | null
+          is_active?: boolean
+          last_activity?: string
+        }
+      }
+      page_views: {
+        Row: {
+          id: string
+          session_id: string
+          user_id: string | null
+          page_url: string
+          page_title: string | null
+          referrer: string | null
+          created_at: string
+          time_on_page: number
+          scroll_depth: number
+          bounce: boolean
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          user_id?: string | null
+          page_url: string
+          page_title?: string | null
+          referrer?: string | null
+          created_at?: string
+          time_on_page?: number
+          scroll_depth?: number
+          bounce?: boolean
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          user_id?: string | null
+          page_url?: string
+          page_title?: string | null
+          referrer?: string | null
+          created_at?: string
+          time_on_page?: number
+          scroll_depth?: number
+          bounce?: boolean
+        }
+      }
+      user_events: {
+        Row: {
+          id: string
+          session_id: string
+          user_id: string | null
+          event_type: string
+          event_name: string
+          event_data: any
+          page_url: string | null
+          created_at: string
+          element_id: string | null
+          element_class: string | null
+          element_text: string | null
+          x_coordinate: number | null
+          y_coordinate: number | null
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          user_id?: string | null
+          event_type: string
+          event_name: string
+          event_data?: any
+          page_url?: string | null
+          created_at?: string
+          element_id?: string | null
+          element_class?: string | null
+          element_text?: string | null
+          x_coordinate?: number | null
+          y_coordinate?: number | null
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          user_id?: string | null
+          event_type?: string
+          event_name?: string
+          event_data?: any
+          page_url?: string | null
+          created_at?: string
+          element_id?: string | null
+          element_class?: string | null
+          element_text?: string | null
+          x_coordinate?: number | null
+          y_coordinate?: number | null
+        }
+      }
+      conversion_events: {
+        Row: {
+          id: string
+          session_id: string
+          user_id: string | null
+          conversion_type: string
+          conversion_value: number
+          conversion_data: any
+          page_url: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          user_id?: string | null
+          conversion_type: string
+          conversion_value?: number
+          conversion_data?: any
+          page_url?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          user_id?: string | null
+          conversion_type?: string
+          conversion_value?: number
+          conversion_data?: any
+          page_url?: string | null
+          created_at?: string
+        }
+      }
+      performance_metrics: {
+        Row: {
+          id: string
+          session_id: string
+          page_url: string
+          metric_name: string
+          metric_value: number
+          created_at: string
+          user_agent: string | null
+          connection_type: string | null
+        }
+        Insert: {
+          id?: string
+          session_id: string
+          page_url: string
+          metric_name: string
+          metric_value: number
+          created_at?: string
+          user_agent?: string | null
+          connection_type?: string | null
+        }
+        Update: {
+          id?: string
+          session_id?: string
+          page_url?: string
+          metric_name?: string
+          metric_value?: number
+          created_at?: string
+          user_agent?: string | null
+          connection_type?: string | null
+        }
+      }
+    }
+  }
 }
