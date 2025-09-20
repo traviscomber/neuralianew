@@ -1,320 +1,282 @@
-import { analytics } from "./analytics"
-
-export type ConversionType =
-  | "whatsapp_click"
-  | "form_submit"
-  | "email_signup"
-  | "demo_request"
-  | "contact_form"
-  | "hero_cta"
-  | "services_cta"
+import analytics from "./analytics"
 
 export interface ConversionGoal {
-  type: ConversionType
+  id: string
   name: string
-  description: string
-  value?: number
+  type: "click" | "form" | "scroll" | "time" | "page_view"
   selector?: string
-  event?: string
+  value?: number
+  conditions?: Record<string, any>
 }
 
 export const CONVERSION_GOALS: ConversionGoal[] = [
   {
-    type: "whatsapp_click",
-    name: "WhatsApp Contact",
-    description: "User clicked WhatsApp contact button",
-    value: 10,
+    id: "whatsapp_click",
+    name: "WhatsApp Contact Click",
+    type: "click",
     selector: '[data-conversion="whatsapp_click"]',
-    event: "click",
+    value: 10,
   },
   {
-    type: "hero_cta",
+    id: "hero_cta",
     name: "Hero CTA Click",
-    description: "User clicked main hero call-to-action",
-    value: 5,
+    type: "click",
     selector: '[data-conversion="hero_cta"]',
-    event: "click",
-  },
-  {
-    type: "services_cta",
-    name: "Services CTA Click",
-    description: "User clicked services call-to-action",
-    value: 3,
-    selector: '[data-conversion="services_cta"]',
-    event: "click",
-  },
-  {
-    type: "contact_form",
-    name: "Contact Form Submit",
-    description: "User submitted contact form",
     value: 15,
+  },
+  {
+    id: "contact_form",
+    name: "Contact Form Submission",
+    type: "form",
     selector: '[data-conversion="contact_form"]',
-    event: "submit",
+    value: 25,
   },
   {
-    type: "demo_request",
+    id: "demo_request",
     name: "Demo Request",
-    description: "User requested a demo",
-    value: 20,
+    type: "click",
     selector: '[data-conversion="demo_request"]',
-    event: "click",
+    value: 30,
   },
   {
-    type: "email_signup",
-    name: "Email Signup",
-    description: "User signed up for newsletter",
+    id: "newsletter_signup",
+    name: "Newsletter Signup",
+    type: "form",
+    selector: '[data-conversion="newsletter_signup"]',
+    value: 5,
+  },
+  {
+    id: "scroll_engagement",
+    name: "Deep Scroll Engagement",
+    type: "scroll",
+    conditions: { scroll_depth: 80 },
     value: 2,
-    selector: '[data-conversion="email_signup"]',
-    event: "submit",
+  },
+  {
+    id: "time_engagement",
+    name: "Time Engagement",
+    type: "time",
+    conditions: { time_on_page: 120 }, // 2 minutes
+    value: 3,
   },
 ]
 
 class ConversionTracker {
-  private goals: ConversionGoal[] = CONVERSION_GOALS
-  private isInitialized = false
+  private trackedConversions = new Set<string>()
+  private timeEngagementTracked = false
+  private scrollEngagementTracked = false
+  private pageStartTime = Date.now()
 
   constructor() {
-    this.initialize()
-  }
-
-  private initialize() {
-    if (this.isInitialized || typeof window === "undefined") return
-
-    // Wait for DOM to be ready
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", () => this.setupTracking())
-    } else {
-      this.setupTracking()
+    if (typeof window !== "undefined") {
+      this.initializeTracking()
     }
-
-    this.isInitialized = true
   }
 
-  private setupTracking() {
-    // Set up automatic conversion tracking for all goals
-    this.goals.forEach((goal) => {
-      if (goal.selector && goal.event) {
-        this.setupGoalTracking(goal)
-      }
-    })
+  private initializeTracking() {
+    // Track click conversions
+    this.setupClickTracking()
 
-    // Set up scroll-based micro-conversions
+    // Track form conversions
+    this.setupFormTracking()
+
+    // Track scroll conversions
     this.setupScrollTracking()
 
-    // Set up time-based engagement tracking
+    // Track time-based conversions
     this.setupTimeTracking()
 
-    // Set up exit intent tracking
+    // Track exit intent
     this.setupExitIntentTracking()
   }
 
-  private setupGoalTracking(goal: ConversionGoal) {
-    const elements = document.querySelectorAll(goal.selector!)
+  private setupClickTracking() {
+    document.addEventListener("click", (event) => {
+      const target = event.target as HTMLElement
+      const conversionType = target.getAttribute("data-conversion")
 
-    elements.forEach((element) => {
-      element.addEventListener(goal.event!, (event) => {
-        this.trackConversion(goal.type, {
-          value: goal.value,
-          element: goal.selector,
-          goalName: goal.name,
-          timestamp: Date.now(),
-        })
+      if (conversionType) {
+        this.trackConversion(conversionType, target)
+      }
+    })
+  }
 
-        // Track additional context for forms
-        if (goal.event === "submit" && element instanceof HTMLFormElement) {
-          const formData = new FormData(element)
-          const formFields = Object.fromEntries(formData.entries())
+  private setupFormTracking() {
+    document.addEventListener("submit", (event) => {
+      const form = event.target as HTMLFormElement
+      const conversionType = form.getAttribute("data-conversion")
 
-          analytics.trackCustomEvent("form_conversion", {
-            conversion_type: goal.type,
-            form_fields: Object.keys(formFields),
-            field_count: Object.keys(formFields).length,
-          })
-        }
-
-        // Track additional context for links
-        if (goal.event === "click" && element instanceof HTMLAnchorElement) {
-          analytics.trackCustomEvent("link_conversion", {
-            conversion_type: goal.type,
-            href: element.href,
-            text: element.textContent?.trim(),
-          })
-        }
-      })
+      if (conversionType) {
+        this.trackConversion(conversionType, form)
+      }
     })
   }
 
   private setupScrollTracking() {
     let maxScrollDepth = 0
-    const scrollMilestones = [25, 50, 75, 90]
-    const trackedMilestones = new Set<number>()
 
-    const trackScrollMilestone = (depth: number) => {
-      if (!trackedMilestones.has(depth)) {
-        trackedMilestones.add(depth)
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      const windowHeight = window.innerHeight
+      const documentHeight = document.documentElement.scrollHeight
 
-        analytics.trackCustomEvent("scroll_milestone", {
-          scroll_depth: depth,
-          is_conversion: depth >= 80, // 80%+ scroll is considered a micro-conversion
-        })
+      const scrollPercentage = Math.round(((scrollTop + windowHeight) / documentHeight) * 100)
 
-        // Track 80%+ scroll as a micro-conversion
-        if (depth >= 80) {
-          this.trackConversion("hero_cta", {
-            value: 1,
-            conversionSubtype: "scroll_engagement",
-            scrollDepth: depth,
-          })
+      if (scrollPercentage > maxScrollDepth) {
+        maxScrollDepth = scrollPercentage
+
+        // Check for scroll-based conversions
+        const scrollGoal = CONVERSION_GOALS.find(
+          (goal) =>
+            goal.type === "scroll" &&
+            goal.conditions?.scroll_depth <= scrollPercentage &&
+            !this.scrollEngagementTracked,
+        )
+
+        if (scrollGoal) {
+          this.trackConversion(scrollGoal.id)
+          this.scrollEngagementTracked = true
         }
       }
     }
 
-    window.addEventListener("scroll", () => {
-      const scrollPercent = Math.round(
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
-      )
-
-      if (scrollPercent > maxScrollDepth) {
-        maxScrollDepth = scrollPercent
-
-        scrollMilestones.forEach((milestone) => {
-          if (scrollPercent >= milestone) {
-            trackScrollMilestone(milestone)
-          }
-        })
-      }
+    let scrollTimeout: NodeJS.Timeout
+    document.addEventListener("scroll", () => {
+      clearTimeout(scrollTimeout)
+      scrollTimeout = setTimeout(handleScroll, 100)
     })
   }
 
   private setupTimeTracking() {
-    const engagementMilestones = [30, 120, 300] // 30s, 2min, 5min
-    const trackedEngagement = new Set<number>()
+    // Track time milestones
+    const timeGoals = CONVERSION_GOALS.filter((goal) => goal.type === "time")
 
-    engagementMilestones.forEach((seconds) => {
+    timeGoals.forEach((goal) => {
+      const timeThreshold = goal.conditions?.time_on_page * 1000 // Convert to ms
+
       setTimeout(() => {
-        if (!trackedEngagement.has(seconds)) {
-          trackedEngagement.add(seconds)
-
-          analytics.trackCustomEvent("engagement_milestone", {
-            time_on_page: seconds * 1000,
-            is_conversion: seconds >= 120, // 2+ minutes is considered engaged
-          })
-
-          // Track 2+ minutes as engagement conversion
-          if (seconds >= 120) {
-            this.trackConversion("hero_cta", {
-              value: 2,
-              conversionSubtype: "time_engagement",
-              timeOnPage: seconds,
-            })
-          }
+        if (!this.timeEngagementTracked) {
+          this.trackConversion(goal.id)
+          this.timeEngagementTracked = true
         }
-      }, seconds * 1000)
+      }, timeThreshold)
+    })
+
+    // Track engagement milestones
+    const engagementMilestones = [30000, 120000, 300000] // 30s, 2min, 5min
+
+    engagementMilestones.forEach((milestone) => {
+      setTimeout(() => {
+        this.trackConversion(`time_engagement_${milestone / 1000}s`, null, {
+          milestone: milestone / 1000,
+          time_on_page: (Date.now() - this.pageStartTime) / 1000,
+        })
+      }, milestone)
     })
   }
 
   private setupExitIntentTracking() {
     let exitIntentTracked = false
 
-    const trackExitIntent = () => {
-      if (!exitIntentTracked) {
-        exitIntentTracked = true
-
-        analytics.trackCustomEvent("exit_intent", {
-          time_on_page: Date.now() - performance.timing.navigationStart,
-          scroll_depth: Math.round(
-            (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
-          ),
-        })
-      }
-    }
-
-    // Track mouse leaving viewport (desktop)
+    // Mouse leave detection
     document.addEventListener("mouseleave", (event) => {
-      if (event.clientY <= 0) {
-        trackExitIntent()
+      if (event.clientY <= 0 && !exitIntentTracked) {
+        this.trackConversion("exit_intent", null, {
+          trigger: "mouse_leave",
+          time_on_page: (Date.now() - this.pageStartTime) / 1000,
+        })
+        exitIntentTracked = true
       }
     })
 
-    // Track page visibility change (mobile/tab switching)
+    // Tab visibility change
     document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        trackExitIntent()
+      if (document.hidden && !exitIntentTracked) {
+        this.trackConversion("exit_intent", null, {
+          trigger: "tab_hidden",
+          time_on_page: (Date.now() - this.pageStartTime) / 1000,
+        })
+        exitIntentTracked = true
       }
     })
   }
 
-  public trackConversion(type: ConversionType, data?: Record<string, any>) {
-    const goal = this.goals.find((g) => g.type === type)
+  async trackConversion(conversionType: string, element?: HTMLElement | null, additionalData?: Record<string, any>) {
+    // Prevent duplicate tracking
+    const conversionKey = `${conversionType}_${Date.now()}`
+    if (this.trackedConversions.has(conversionKey)) return
 
-    analytics.trackCustomConversion(type, goal?.value, {
-      goalName: goal?.name,
-      goalDescription: goal?.description,
-      ...data,
-    })
+    this.trackedConversions.add(conversionKey)
 
-    // Also track as a custom event for additional analytics
-    analytics.trackCustomEvent("conversion", {
-      conversion_type: type,
-      conversion_value: goal?.value,
-      ...data,
-    })
+    // Find conversion goal
+    const goal = CONVERSION_GOALS.find((g) => g.id === conversionType)
+    const value = goal?.value || 0
 
-    console.log(`🎯 Conversion tracked: ${type}`, data)
+    // Prepare conversion data
+    const conversionData = {
+      conversion_type: conversionType,
+      conversion_value: value,
+      source_page: window.location.href,
+      target_element: element ? this.getElementSelector(element) : null,
+      conversion_data: {
+        goal_name: goal?.name,
+        element_text: element?.textContent?.trim().substring(0, 100),
+        timestamp: new Date().toISOString(),
+        ...additionalData,
+      },
+    }
+
+    // Track via analytics
+    await analytics.trackConversion(conversionType, value, conversionData)
+
+    // Dispatch custom event for other listeners
+    window.dispatchEvent(
+      new CustomEvent("conversion", {
+        detail: conversionData,
+      }),
+    )
+
+    console.log("Conversion tracked:", conversionData)
   }
 
-  public addCustomGoal(goal: ConversionGoal) {
-    this.goals.push(goal)
+  private getElementSelector(element: HTMLElement): string {
+    if (element.id) return `#${element.id}`
+    if (element.className) return `.${element.className.split(" ").join(".")}`
+    return element.tagName.toLowerCase()
+  }
 
-    if (goal.selector && goal.event && this.isInitialized) {
-      this.setupGoalTracking(goal)
+  // Public methods
+  addConversionGoal(goal: ConversionGoal) {
+    CONVERSION_GOALS.push(goal)
+  }
+
+  removeConversionGoal(goalId: string) {
+    const index = CONVERSION_GOALS.findIndex((g) => g.id === goalId)
+    if (index > -1) {
+      CONVERSION_GOALS.splice(index, 1)
     }
   }
 
-  public getGoals(): ConversionGoal[] {
-    return [...this.goals]
+  getConversionGoals(): ConversionGoal[] {
+    return [...CONVERSION_GOALS]
   }
 
-  public getGoal(type: ConversionType): ConversionGoal | undefined {
-    return this.goals.find((g) => g.type === type)
+  // Manual conversion tracking
+  async manualTrackConversion(conversionType: string, value?: number, data?: Record<string, any>) {
+    await this.trackConversion(conversionType, null, { manual: true, ...data })
   }
 
-  // Manual conversion tracking methods
-  public trackWhatsAppClick(data?: Record<string, any>) {
-    this.trackConversion("whatsapp_click", data)
-  }
-
-  public trackHeroCTA(data?: Record<string, any>) {
-    this.trackConversion("hero_cta", data)
-  }
-
-  public trackServicesCTA(data?: Record<string, any>) {
-    this.trackConversion("services_cta", data)
-  }
-
-  public trackContactForm(data?: Record<string, any>) {
-    this.trackConversion("contact_form", data)
-  }
-
-  public trackDemoRequest(data?: Record<string, any>) {
-    this.trackConversion("demo_request", data)
-  }
-
-  public trackEmailSignup(data?: Record<string, any>) {
-    this.trackConversion("email_signup", data)
-  }
-
-  // Utility methods
-  public getConversionValue(type: ConversionType): number {
-    const goal = this.getGoal(type)
-    return goal?.value || 0
-  }
-
-  public getTotalPotentialValue(): number {
-    return this.goals.reduce((sum, goal) => sum + (goal.value || 0), 0)
+  // Reset tracking state (useful for SPA navigation)
+  resetTracking() {
+    this.trackedConversions.clear()
+    this.timeEngagementTracked = false
+    this.scrollEngagementTracked = false
+    this.pageStartTime = Date.now()
   }
 }
 
-// Export singleton instance
+// Create singleton instance
 export const conversionTracker = new ConversionTracker()
+
+// Export for use in React components
 export default conversionTracker

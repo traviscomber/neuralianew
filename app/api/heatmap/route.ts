@@ -1,74 +1,51 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase-server"
+import { createServerClient } from "@/lib/supabase-server"
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createServerClient()
     const body = await request.json()
 
-    const {
-      session_id,
-      page_url,
-      click_x,
-      click_y,
-      viewport_width,
-      viewport_height,
-      element_selector,
-      scroll_depth,
-      device_type,
-    } = body
-
-    if (!session_id || !page_url || click_x === undefined || click_y === undefined) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
-    }
-
-    // Insert heatmap data
-    const { error } = await supabase.from("heatmap_data").insert({
-      session_id,
-      page_url,
-      click_x,
-      click_y,
-      viewport_width,
-      viewport_height,
-      element_selector,
-      scroll_depth: scroll_depth || 0,
-      device_type,
-    })
+    const { data, error } = await supabase.from("heatmap_data").insert(body)
 
     if (error) {
-      console.error("Failed to insert heatmap data:", error)
-      return NextResponse.json({ error: "Failed to track heatmap data" }, { status: 500 })
+      console.error("Heatmap insert error:", error)
+      return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, data })
   } catch (error) {
-    console.error("Heatmap POST error:", error)
+    console.error("Heatmap API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createServerClient()
     const { searchParams } = new URL(request.url)
 
-    const page = searchParams.get("page") || "/"
-    const deviceType = searchParams.get("deviceType")
     const timeRange = searchParams.get("timeRange") || "24h"
+    const page = searchParams.get("page") || window?.location?.pathname || "/"
+    const deviceType = searchParams.get("deviceType")
 
-    // Convert time range to milliseconds
-    const intervalMap: Record<string, number> = {
-      "1h": 60 * 60 * 1000,
-      "24h": 24 * 60 * 60 * 1000,
-      "7d": 7 * 24 * 60 * 60 * 1000,
-      "30d": 30 * 24 * 60 * 60 * 1000,
+    // Convert time range to hours
+    const timeRangeMap: Record<string, number> = {
+      "1h": 1,
+      "24h": 24,
+      "7d": 168,
+      "30d": 720,
     }
 
-    const interval = intervalMap[timeRange] || 24 * 60 * 60 * 1000
-    const startTime = new Date(Date.now() - interval).toISOString()
+    const hours = timeRangeMap[timeRange] || 24
+    const startTime = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
     // Build query
-    let query = supabase.from("heatmap_data").select("*").eq("page_url", page).gte("timestamp", startTime)
+    let query = supabase.from("heatmap_data").select("*").gte("timestamp", startTime)
+
+    if (page) {
+      query = query.eq("page_url", page)
+    }
 
     if (deviceType) {
       query = query.eq("device_type", deviceType)
@@ -77,8 +54,8 @@ export async function GET(request: NextRequest) {
     const { data: heatmapData, error } = await query.order("timestamp", { ascending: false })
 
     if (error) {
-      console.error("Heatmap query error:", error)
-      return NextResponse.json({ error: "Failed to fetch heatmap data" }, { status: 500 })
+      console.error("Heatmap fetch error:", error)
+      return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
     // Process heatmap data for visualization
@@ -93,120 +70,151 @@ export async function GET(request: NextRequest) {
       deviceType,
     })
   } catch (error) {
-    console.error("Heatmap API error:", error)
+    console.error("Heatmap API GET error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
 function processHeatmapData(data: any[]) {
-  // Group clicks by proximity (within 50px radius)
-  const clusters: Array<{
-    x: number
-    y: number
-    intensity: number
-    clicks: number
-    elements: string[]
-  }> = []
+  if (!data.length) return { clusters: [], density: [], maxIntensity: 0 }
 
-  const CLUSTER_RADIUS = 50
+  // Group clicks by proximity (clustering)
+  const clusters = clusterClicks(data, 50) // 50px radius
 
-  data.forEach((click) => {
-    let addedToCluster = false
+  // Create density map
+  const density = createDensityMap(data)
 
-    // Try to add to existing cluster
-    for (const cluster of clusters) {
-      const distance = Math.sqrt(Math.pow(click.click_x - cluster.x, 2) + Math.pow(click.click_y - cluster.y, 2))
+  // Find max intensity for normalization
+  const maxIntensity = Math.max(...density.map((d) => d.intensity))
 
-      if (distance <= CLUSTER_RADIUS) {
-        // Update cluster center (weighted average)
-        const totalClicks = cluster.clicks + 1
-        cluster.x = (cluster.x * cluster.clicks + click.click_x) / totalClicks
-        cluster.y = (cluster.y * cluster.clicks + click.click_y) / totalClicks
-        cluster.clicks = totalClicks
-        cluster.intensity = Math.min(cluster.intensity + 0.1, 1)
+  // Device breakdown
+  const deviceBreakdown = data.reduce((acc: Record<string, number>, click) => {
+    const device = click.device_type || "unknown"
+    acc[device] = (acc[device] || 0) + 1
+    return acc
+  }, {})
 
-        if (click.element_selector && !cluster.elements.includes(click.element_selector)) {
-          cluster.elements.push(click.element_selector)
-        }
+  // Viewport size analysis
+  const viewportSizes = data.reduce((acc: Record<string, number>, click) => {
+    const size = `${click.viewport_width}x${click.viewport_height}`
+    acc[size] = (acc[size] || 0) + 1
+    return acc
+  }, {})
 
-        addedToCluster = true
-        break
-      }
+  // Click distribution by hour
+  const clicksByHour = data.reduce((acc: Record<number, number>, click) => {
+    const hour = new Date(click.timestamp).getHours()
+    acc[hour] = (acc[hour] || 0) + 1
+    return acc
+  }, {})
+
+  // Fill missing hours
+  for (let i = 0; i < 24; i++) {
+    if (!(i in clicksByHour)) {
+      clicksByHour[i] = 0
     }
-
-    // Create new cluster if not added to existing one
-    if (!addedToCluster) {
-      clusters.push({
-        x: click.click_x,
-        y: click.click_y,
-        intensity: 0.1,
-        clicks: 1,
-        elements: click.element_selector ? [click.element_selector] : [],
-      })
-    }
-  })
-
-  // Sort clusters by intensity (most clicked first)
-  clusters.sort((a, b) => b.intensity - a.intensity)
-
-  // Calculate statistics
-  const stats = {
-    totalClicks: data.length,
-    uniqueElements: [...new Set(data.map((d) => d.element_selector).filter(Boolean))].length,
-    avgClicksPerSession: data.length > 0 ? data.length / new Set(data.map((d) => d.session_id)).size : 0,
-    deviceBreakdown: data.reduce(
-      (acc, click) => {
-        const device = click.device_type || "unknown"
-        acc[device] = (acc[device] || 0) + 1
-        return acc
-      },
-      {} as Record<string, number>,
-    ),
-    topElements: getTopElements(data),
-    clicksByHour: getClicksByHour(data),
   }
+
+  // Element analysis (if element_selector is available)
+  const elementClicks = data.reduce((acc: Record<string, number>, click) => {
+    if (click.element_selector) {
+      acc[click.element_selector] = (acc[click.element_selector] || 0) + 1
+    }
+    return acc
+  }, {})
+
+  const topElements = Object.entries(elementClicks)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([selector, count]) => ({ selector, count }))
 
   return {
     clusters,
-    stats,
+    density,
+    maxIntensity,
+    deviceBreakdown,
+    viewportSizes: Object.entries(viewportSizes)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 5)
+      .map(([size, count]) => ({ size, count })),
+    clicksByHour: Object.entries(clicksByHour)
+      .sort(([a], [b]) => Number.parseInt(a) - Number.parseInt(b))
+      .map(([hour, count]) => ({ hour: Number.parseInt(hour), count })),
+    topElements,
+    totalClicks: data.length,
   }
 }
 
-function getTopElements(data: any[]) {
-  const elementCounts = data.reduce(
-    (acc, click) => {
-      if (click.element_selector) {
-        acc[click.element_selector] = (acc[click.element_selector] || 0) + 1
-      }
-      return acc
-    },
-    {} as Record<string, number>,
-  )
+function clusterClicks(clicks: any[], radius: number) {
+  const clusters: any[] = []
+  const processed = new Set<number>()
 
-  return Object.entries(elementCounts)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 10)
-    .map(([element, count]) => ({ element, count }))
+  clicks.forEach((click, index) => {
+    if (processed.has(index)) return
+
+    const cluster = {
+      x: click.click_x,
+      y: click.click_y,
+      count: 1,
+      clicks: [click],
+    }
+
+    // Find nearby clicks
+    clicks.forEach((otherClick, otherIndex) => {
+      if (index === otherIndex || processed.has(otherIndex)) return
+
+      const distance = Math.sqrt(
+        Math.pow(click.click_x - otherClick.click_x, 2) + Math.pow(click.click_y - otherClick.click_y, 2),
+      )
+
+      if (distance <= radius) {
+        cluster.clicks.push(otherClick)
+        cluster.count++
+        processed.add(otherIndex)
+      }
+    })
+
+    // Calculate cluster center
+    if (cluster.clicks.length > 1) {
+      cluster.x = cluster.clicks.reduce((sum, c) => sum + c.click_x, 0) / cluster.clicks.length
+      cluster.y = cluster.clicks.reduce((sum, c) => sum + c.click_y, 0) / cluster.clicks.length
+    }
+
+    clusters.push(cluster)
+    processed.add(index)
+  })
+
+  return clusters.sort((a, b) => b.count - a.count)
 }
 
-function getClicksByHour(data: any[]) {
-  const hourCounts = data.reduce(
-    (acc, click) => {
-      const hour = new Date(click.timestamp).getHours()
-      acc[hour] = (acc[hour] || 0) + 1
-      return acc
-    },
-    {} as Record<number, number>,
-  )
+function createDensityMap(clicks: any[], gridSize = 20) {
+  if (!clicks.length) return []
 
-  // Fill in missing hours with 0
-  for (let i = 0; i < 24; i++) {
-    if (!(i in hourCounts)) {
-      hourCounts[i] = 0
+  // Find bounds
+  const minX = Math.min(...clicks.map((c) => c.click_x))
+  const maxX = Math.max(...clicks.map((c) => c.click_x))
+  const minY = Math.min(...clicks.map((c) => c.click_y))
+  const maxY = Math.max(...clicks.map((c) => c.click_y))
+
+  const density: Array<{ x: number; y: number; intensity: number }> = []
+
+  // Create grid
+  for (let x = minX; x <= maxX; x += gridSize) {
+    for (let y = minY; y <= maxY; y += gridSize) {
+      let intensity = 0
+
+      // Count clicks in this grid cell
+      clicks.forEach((click) => {
+        if (click.click_x >= x && click.click_x < x + gridSize && click.click_y >= y && click.click_y < y + gridSize) {
+          intensity++
+        }
+      })
+
+      if (intensity > 0) {
+        density.push({ x, y, intensity })
+      }
     }
   }
 
-  return Object.entries(hourCounts)
-    .sort(([a], [b]) => Number.parseInt(a) - Number.parseInt(b))
-    .map(([hour, count]) => ({ hour: Number.parseInt(hour), count }))
+  return density
 }

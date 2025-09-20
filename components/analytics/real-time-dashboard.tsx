@@ -6,44 +6,46 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
-import { Users, Eye, TrendingUp, Clock, Smartphone, Monitor, Tablet, RefreshCw, Download } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Users, Eye, MousePointer, Target, Clock, Smartphone, Monitor, Tablet, Download, RefreshCw } from "lucide-react"
 
 interface AnalyticsData {
-  events: any[]
-  sessions: any[]
-  conversions: any[]
   metrics: {
-    uniqueSessions: number
+    activeSessions: number
     totalPageViews: number
-    totalClicks: number
+    totalEvents: number
     totalConversions: number
     conversionRate: number
-    bounceRate: number
-    avgSessionDuration: number
-    deviceBreakdown: Record<string, number>
-    browserBreakdown: Record<string, number>
-    topPages: Record<string, number>
+    avgLoadTime: number
+    avgScrollDepth: number
   }
+  deviceBreakdown: Record<string, number>
+  browserBreakdown: Record<string, number>
+  topPages: Array<{ url: string; count: number }>
+  eventTypes: Record<string, number>
+  conversionTypes: Record<string, number>
+  performanceMetrics: Record<string, number>
+  locationBreakdown: Record<string, number>
+  activeSessions: Array<{
+    session_id: string
+    start_time: string
+    device_type: string
+    browser: string
+    country: string
+  }>
 }
 
-interface RealTimeDashboardProps {
-  className?: string
-}
-
-export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
+export function RealTimeDashboard() {
   const [data, setData] = useState<AnalyticsData | null>(null)
   const [loading, setLoading] = useState(true)
   const [timeRange, setTimeRange] = useState("24h")
   const [autoRefresh, setAutoRefresh] = useState(true)
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date())
 
   const fetchAnalytics = async () => {
     try {
-      setLoading(true)
       const response = await fetch(`/api/analytics?timeRange=${timeRange}`)
       const analyticsData = await response.json()
       setData(analyticsData)
-      setLastUpdated(new Date())
     } catch (error) {
       console.error("Failed to fetch analytics:", error)
     } finally {
@@ -56,27 +58,36 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
   }, [timeRange])
 
   useEffect(() => {
-    if (autoRefresh) {
-      const interval = setInterval(fetchAnalytics, 30000) // Refresh every 30 seconds
-      return () => clearInterval(interval)
-    }
+    if (!autoRefresh) return
+
+    const interval = setInterval(fetchAnalytics, 30000) // Refresh every 30 seconds
+    return () => clearInterval(interval)
   }, [autoRefresh, timeRange])
 
-  const formatNumber = (num: number) => {
-    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
-    if (num >= 1000) return `${(num / 1000).toFixed(1)}K`
-    return num.toString()
+  const exportData = () => {
+    if (!data) return
+
+    const exportData = {
+      timestamp: new Date().toISOString(),
+      timeRange,
+      ...data,
+    }
+
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {
+      type: "application/json",
+    })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a")
+    a.href = url
+    a.download = `analytics-${timeRange}-${Date.now()}.json`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    URL.revokeObjectURL(url)
   }
 
-  const formatDuration = (seconds: number) => {
-    if (seconds < 60) return `${seconds}s`
-    const minutes = Math.floor(seconds / 60)
-    const remainingSeconds = seconds % 60
-    return `${minutes}m ${remainingSeconds}s`
-  }
-
-  const getDeviceIcon = (device: string) => {
-    switch (device.toLowerCase()) {
+  const getDeviceIcon = (deviceType: string) => {
+    switch (deviceType) {
       case "mobile":
         return <Smartphone className="h-4 w-4" />
       case "tablet":
@@ -88,40 +99,17 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
     }
   }
 
-  const exportData = () => {
-    if (!data) return
-
-    const exportData = {
-      timestamp: new Date().toISOString(),
-      timeRange,
-      metrics: data.metrics,
-      events: data.events,
-      sessions: data.sessions,
-      conversions: data.conversions,
-    }
-
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `analytics-${timeRange}-${new Date().toISOString().split("T")[0]}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
-
-  if (loading && !data) {
+  if (loading) {
     return (
-      <div className={`space-y-6 ${className}`}>
+      <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <Card key={i}>
               <CardHeader className="pb-2">
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                <Skeleton className="h-4 w-24" />
               </CardHeader>
               <CardContent>
-                <div className="h-8 bg-gray-200 rounded w-1/2"></div>
+                <Skeleton className="h-8 w-16" />
               </CardContent>
             </Card>
           ))}
@@ -130,17 +118,27 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
     )
   }
 
+  if (!data) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <p className="text-center text-muted-foreground">Failed to load analytics data</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
-    <div className={`space-y-6 ${className}`}>
+    <div className="space-y-6">
       {/* Header Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Real-Time Analytics</h2>
-          <p className="text-muted-foreground">Last updated: {lastUpdated.toLocaleTimeString()}</p>
+          <h1 className="text-3xl font-bold">Real-Time Analytics</h1>
+          <p className="text-muted-foreground">Live insights into user behavior and conversions</p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             {["1h", "24h", "7d", "30d"].map((range) => (
               <Button
                 key={range}
@@ -153,14 +151,9 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
             ))}
           </div>
 
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setAutoRefresh(!autoRefresh)}
-            className={autoRefresh ? "bg-green-50 border-green-200" : ""}
-          >
+          <Button variant="outline" size="sm" onClick={() => setAutoRefresh(!autoRefresh)}>
             <RefreshCw className={`h-4 w-4 mr-2 ${autoRefresh ? "animate-spin" : ""}`} />
-            Auto
+            Auto Refresh
           </Button>
 
           <Button variant="outline" size="sm" onClick={exportData}>
@@ -178,10 +171,8 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatNumber(data?.metrics.uniqueSessions || 0)}</div>
-            <Badge variant="secondary" className="mt-1">
-              {timeRange} period
-            </Badge>
+            <div className="text-2xl font-bold">{data.metrics.activeSessions}</div>
+            <p className="text-xs text-muted-foreground">Currently browsing</p>
           </CardContent>
         </Card>
 
@@ -191,38 +182,30 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
             <Eye className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatNumber(data?.metrics.totalPageViews || 0)}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {data?.metrics.uniqueSessions
-                ? `${(data.metrics.totalPageViews / data.metrics.uniqueSessions).toFixed(1)} per session`
-                : "0 per session"}
-            </p>
+            <div className="text-2xl font-bold">{data.metrics.totalPageViews}</div>
+            <p className="text-xs text-muted-foreground">Total views in {timeRange}</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">User Events</CardTitle>
+            <MousePointer className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{data.metrics.totalEvents}</div>
+            <p className="text-xs text-muted-foreground">Clicks, scrolls, interactions</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Conversions</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Target className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatNumber(data?.metrics.totalConversions || 0)}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {data?.metrics.conversionRate?.toFixed(1) || 0}% conversion rate
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Session</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">{formatDuration(data?.metrics.avgSessionDuration || 0)}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              {data?.metrics.bounceRate?.toFixed(1) || 0}% bounce rate
-            </p>
+            <div className="text-2xl font-bold">{data.metrics.totalConversions}</div>
+            <p className="text-xs text-muted-foreground">{data.metrics.conversionRate.toFixed(1)}% conversion rate</p>
           </CardContent>
         </Card>
       </div>
@@ -233,82 +216,147 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="devices">Devices</TabsTrigger>
           <TabsTrigger value="pages">Pages</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
+          <TabsTrigger value="conversions">Conversions</TabsTrigger>
+          <TabsTrigger value="performance">Performance</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Active Sessions */}
             <Card>
               <CardHeader>
-                <CardTitle>Device Breakdown</CardTitle>
-                <CardDescription>Visitors by device type</CardDescription>
+                <CardTitle>Active Sessions</CardTitle>
+                <CardDescription>Currently active user sessions</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {Object.entries(data?.metrics.deviceBreakdown || {}).map(([device, count]) => {
-                  const total = Object.values(data?.metrics.deviceBreakdown || {}).reduce((a, b) => a + b, 0)
-                  const percentage = total > 0 ? (count / total) * 100 : 0
-
-                  return (
-                    <div key={device} className="flex items-center justify-between">
+              <CardContent>
+                <div className="space-y-2">
+                  {data.activeSessions.slice(0, 5).map((session) => (
+                    <div key={session.session_id} className="flex items-center justify-between p-2 border rounded">
                       <div className="flex items-center gap-2">
-                        {getDeviceIcon(device)}
-                        <span className="capitalize">{device}</span>
+                        {getDeviceIcon(session.device_type)}
+                        <div>
+                          <p className="text-sm font-medium">{session.browser}</p>
+                          <p className="text-xs text-muted-foreground">{session.country}</p>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <Progress value={percentage} className="w-20" />
-                        <span className="text-sm font-medium w-12 text-right">{count}</span>
-                      </div>
+                      <Badge variant="secondary">
+                        {Math.round((Date.now() - new Date(session.start_time).getTime()) / 60000)}m ago
+                      </Badge>
                     </div>
-                  )
-                })}
+                  ))}
+                </div>
               </CardContent>
             </Card>
 
+            {/* Performance Metrics */}
             <Card>
               <CardHeader>
-                <CardTitle>Browser Breakdown</CardTitle>
-                <CardDescription>Visitors by browser</CardDescription>
+                <CardTitle>Performance Metrics</CardTitle>
+                <CardDescription>Average load times and Core Web Vitals</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {Object.entries(data?.metrics.browserBreakdown || {})
-                  .slice(0, 5)
-                  .map(([browser, count]) => {
-                    const total = Object.values(data?.metrics.browserBreakdown || {}).reduce((a, b) => a + b, 0)
-                    const percentage = total > 0 ? (count / total) * 100 : 0
-
-                    return (
-                      <div key={browser} className="flex items-center justify-between">
-                        <span>{browser}</span>
-                        <div className="flex items-center gap-2">
-                          <Progress value={percentage} className="w-20" />
-                          <span className="text-sm font-medium w-12 text-right">{count}</span>
-                        </div>
-                      </div>
-                    )
-                  })}
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Average Load Time</span>
+                    <span className="text-sm font-medium">{data.metrics.avgLoadTime.toFixed(0)}ms</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Average Scroll Depth</span>
+                    <span className="text-sm font-medium">{data.metrics.avgScrollDepth.toFixed(0)}%</span>
+                  </div>
+                  {Object.entries(data.performanceMetrics).map(([metric, value]) => (
+                    <div key={metric} className="flex items-center justify-between">
+                      <span className="text-sm">{metric}</span>
+                      <span className="text-sm font-medium">{value.toFixed(0)}ms</span>
+                    </div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>
         </TabsContent>
 
         <TabsContent value="devices" className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Device Breakdown */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Device Types</CardTitle>
+                <CardDescription>Sessions by device type</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {Object.entries(data.deviceBreakdown).map(([device, count]) => {
+                    const percentage = (count / data.metrics.activeSessions) * 100
+                    return (
+                      <div key={device} className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            {getDeviceIcon(device)}
+                            <span className="text-sm font-medium capitalize">{device}</span>
+                          </div>
+                          <span className="text-sm text-muted-foreground">
+                            {count} ({percentage.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <Progress value={percentage} className="h-2" />
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Browser Breakdown */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Browsers</CardTitle>
+                <CardDescription>Sessions by browser</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {Object.entries(data.browserBreakdown).map(([browser, count]) => {
+                    const percentage = (count / data.metrics.activeSessions) * 100
+                    return (
+                      <div key={browser} className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">{browser}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {count} ({percentage.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <Progress value={percentage} className="h-2" />
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="pages" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Device Analytics</CardTitle>
-              <CardDescription>Detailed breakdown by device type</CardDescription>
+              <CardTitle>Top Pages</CardTitle>
+              <CardDescription>Most visited pages in the selected time range</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Object.entries(data?.metrics.deviceBreakdown || {}).map(([device, count]) => {
-                  const total = Object.values(data?.metrics.deviceBreakdown || {}).reduce((a, b) => a + b, 0)
-                  const percentage = total > 0 ? (count / total) * 100 : 0
-
+              <div className="space-y-3">
+                {data.topPages.map((page, index) => {
+                  const percentage = (page.count / data.metrics.totalPageViews) * 100
                   return (
-                    <div key={device} className="text-center p-4 border rounded-lg">
-                      <div className="flex justify-center mb-2">{getDeviceIcon(device)}</div>
-                      <h3 className="font-semibold capitalize">{device}</h3>
-                      <p className="text-2xl font-bold">{count}</p>
-                      <p className="text-sm text-muted-foreground">{percentage.toFixed(1)}%</p>
+                    <div key={page.url} className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="outline">#{index + 1}</Badge>
+                          <span className="text-sm font-medium truncate max-w-md">{page.url}</span>
+                        </div>
+                        <span className="text-sm text-muted-foreground">
+                          {page.count} views ({percentage.toFixed(1)}%)
+                        </span>
+                      </div>
+                      <Progress value={percentage} className="h-2" />
                     </div>
                   )
                 })}
@@ -317,60 +365,87 @@ export function RealTimeDashboard({ className }: RealTimeDashboardProps) {
           </Card>
         </TabsContent>
 
-        <TabsContent value="pages" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Top Pages</CardTitle>
-              <CardDescription>Most visited pages</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                {Object.entries(data?.metrics.topPages || {})
-                  .slice(0, 10)
-                  .map(([page, views]) => {
-                    const maxViews = Math.max(...Object.values(data?.metrics.topPages || {}))
-                    const percentage = maxViews > 0 ? (views / maxViews) * 100 : 0
-
+        <TabsContent value="conversions" className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Conversion Types */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Conversion Types</CardTitle>
+                <CardDescription>Breakdown by conversion goal</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {Object.entries(data.conversionTypes).map(([type, count]) => {
+                    const percentage = (count / data.metrics.totalConversions) * 100
                     return (
-                      <div key={page} className="flex items-center justify-between">
-                        <span className="font-mono text-sm">{page}</span>
-                        <div className="flex items-center gap-2">
-                          <Progress value={percentage} className="w-20" />
-                          <span className="text-sm font-medium w-12 text-right">{views}</span>
+                      <div key={type} className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium">{type.replace("_", " ")}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {count} ({percentage.toFixed(1)}%)
+                          </span>
                         </div>
+                        <Progress value={percentage} className="h-2" />
                       </div>
                     )
                   })}
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Event Types */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Event Types</CardTitle>
+                <CardDescription>User interaction breakdown</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {Object.entries(data.eventTypes).map(([type, count]) => {
+                    const percentage = (count / data.metrics.totalEvents) * 100
+                    return (
+                      <div key={type} className="space-y-1">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium capitalize">{type}</span>
+                          <span className="text-sm text-muted-foreground">
+                            {count} ({percentage.toFixed(1)}%)
+                          </span>
+                        </div>
+                        <Progress value={percentage} className="h-2" />
+                      </div>
+                    )
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
-        <TabsContent value="activity" className="space-y-4">
+        <TabsContent value="performance" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
-              <CardDescription>Latest user events</CardDescription>
+              <CardTitle>Performance Overview</CardTitle>
+              <CardDescription>Site performance metrics and Core Web Vitals</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2 max-h-96 overflow-y-auto">
-                {data?.events.slice(0, 50).map((event, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">
-                        {event.event_type}
-                      </Badge>
-                      <span className="text-sm">{event.page_url}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      {getDeviceIcon(event.device_type)}
-                      <span>{new Date(event.timestamp).toLocaleTimeString()}</span>
-                    </div>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center p-4 border rounded">
+                  <Clock className="h-8 w-8 mx-auto mb-2 text-blue-500" />
+                  <div className="text-2xl font-bold">{data.metrics.avgLoadTime.toFixed(0)}ms</div>
+                  <p className="text-sm text-muted-foreground">Average Load Time</p>
+                </div>
+
+                <div className="text-center p-4 border rounded">
+                  <Target className="h-8 w-8 mx-auto mb-2 text-green-500" />
+                  <div className="text-2xl font-bold">{data.metrics.avgScrollDepth.toFixed(0)}%</div>
+                  <p className="text-sm text-muted-foreground">Average Scroll Depth</p>
+                </div>
+
+                <div className="text-center p-4 border rounded">
+                  <Users className="h-8 w-8 mx-auto mb-2 text-purple-500" />
+                  <div className="text-2xl font-bold">{data.metrics.conversionRate.toFixed(1)}%</div>
+                  <p className="text-sm text-muted-foreground">Conversion Rate</p>
+                </div>
               </div>
             </CardContent>
           </Card>

@@ -1,157 +1,167 @@
--- Drop existing tables if they exist to avoid conflicts
-DROP TABLE IF EXISTS ab_tests CASCADE;
-DROP TABLE IF EXISTS conversions CASCADE;
-DROP TABLE IF EXISTS heatmap_data CASCADE;
-DROP TABLE IF EXISTS user_sessions CASCADE;
-DROP TABLE IF EXISTS user_analytics CASCADE;
+-- Create analytics tables for comprehensive tracking
+-- This script creates all necessary tables for user analytics, heatmaps, and conversion tracking
 
--- Create user_sessions table first (referenced by other tables)
-CREATE TABLE user_sessions (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id TEXT UNIQUE NOT NULL,
-    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+-- Enable required extensions
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pg_stat_statements";
+
+-- User Sessions Table
+CREATE TABLE IF NOT EXISTS user_sessions (
+    session_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
     start_time TIMESTAMPTZ DEFAULT NOW(),
     end_time TIMESTAMPTZ,
+    duration_seconds INTEGER,
     page_views INTEGER DEFAULT 0,
-    total_time INTEGER DEFAULT 0, -- in milliseconds
-    bounce_rate BOOLEAN DEFAULT FALSE,
-    conversion_count INTEGER DEFAULT 0,
     device_info JSONB DEFAULT '{}',
+    browser_info JSONB DEFAULT '{}',
     location JSONB DEFAULT '{}',
+    utm_source TEXT,
+    utm_medium TEXT,
+    utm_campaign TEXT,
+    referrer TEXT,
+    ip_address INET,
+    user_agent TEXT,
+    is_bot BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create user_analytics table for tracking all user events
-CREATE TABLE user_analytics (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id TEXT NOT NULL,
-    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-    event_type TEXT NOT NULL CHECK (event_type IN ('page_view', 'click', 'scroll', 'form_submit', 'conversion', 'heatmap', 'ab_test', 'page_unload')),
-    event_data JSONB DEFAULT '{}',
+-- Page Views Table
+CREATE TABLE IF NOT EXISTS page_views (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
     page_url TEXT NOT NULL,
-    user_agent TEXT,
-    ip_address TEXT,
+    page_title TEXT,
+    referrer TEXT,
     timestamp TIMESTAMPTZ DEFAULT NOW(),
-    device_type TEXT CHECK (device_type IN ('desktop', 'tablet', 'mobile')),
-    browser TEXT,
-    country TEXT,
-    city TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
+    load_time_ms INTEGER,
+    scroll_depth INTEGER DEFAULT 0,
+    time_on_page_seconds INTEGER DEFAULT 0,
+    exit_page BOOLEAN DEFAULT FALSE,
+    bounce BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create heatmap_data table for tracking click heatmaps
-CREATE TABLE heatmap_data (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id TEXT NOT NULL,
+-- User Events Table (clicks, scrolls, form interactions)
+CREATE TABLE IF NOT EXISTS user_events (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
+    page_url TEXT NOT NULL,
+    event_type TEXT NOT NULL, -- 'click', 'scroll', 'form_submit', 'form_focus', 'hover'
+    element_selector TEXT,
+    element_text TEXT,
+    element_attributes JSONB DEFAULT '{}',
+    coordinates JSONB DEFAULT '{}', -- {x, y, viewport_width, viewport_height}
+    timestamp TIMESTAMPTZ DEFAULT NOW(),
+    event_data JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Heatmap Data Table
+CREATE TABLE IF NOT EXISTS heatmap_data (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
     page_url TEXT NOT NULL,
     element_selector TEXT,
     click_x INTEGER NOT NULL,
     click_y INTEGER NOT NULL,
     viewport_width INTEGER NOT NULL,
     viewport_height INTEGER NOT NULL,
-    scroll_depth INTEGER DEFAULT 0,
+    device_type TEXT, -- 'desktop', 'tablet', 'mobile'
     timestamp TIMESTAMPTZ DEFAULT NOW(),
-    device_type TEXT CHECK (device_type IN ('desktop', 'tablet', 'mobile')),
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create conversions table for tracking conversion events
-CREATE TABLE conversions (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id TEXT NOT NULL,
-    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-    conversion_type TEXT NOT NULL CHECK (conversion_type IN ('whatsapp_click', 'form_submit', 'email_signup', 'demo_request', 'contact_form', 'hero_cta', 'services_cta')),
+-- Conversions Table
+CREATE TABLE IF NOT EXISTS conversions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
+    conversion_type TEXT NOT NULL, -- 'whatsapp_click', 'hero_cta', 'contact_form', etc.
     conversion_value DECIMAL(10,2),
     source_page TEXT NOT NULL,
-    funnel_step INTEGER DEFAULT 1,
+    target_element TEXT,
     timestamp TIMESTAMPTZ DEFAULT NOW(),
-    user_data JSONB DEFAULT '{}',
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
+    conversion_data JSONB DEFAULT '{}',
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Create ab_tests table for A/B testing tracking
-CREATE TABLE ab_tests (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    test_name TEXT NOT NULL,
-    variant TEXT NOT NULL,
-    session_id TEXT NOT NULL,
-    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+-- Performance Metrics Table
+CREATE TABLE IF NOT EXISTS performance_metrics (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
     page_url TEXT NOT NULL,
+    metric_name TEXT NOT NULL, -- 'FCP', 'LCP', 'CLS', 'FID', 'TTFB'
+    metric_value DECIMAL(10,3),
     timestamp TIMESTAMPTZ DEFAULT NOW(),
-    converted BOOLEAN DEFAULT FALSE,
-    conversion_timestamp TIMESTAMPTZ,
-    created_at TIMESTAMPTZ DEFAULT NOW(),
-    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- User Behavior Patterns Table
+CREATE TABLE IF NOT EXISTS user_behavior_patterns (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID REFERENCES user_sessions(session_id) ON DELETE CASCADE,
+    pattern_type TEXT NOT NULL, -- 'scroll_pattern', 'click_pattern', 'navigation_pattern'
+    pattern_data JSONB NOT NULL,
+    confidence_score DECIMAL(3,2), -- 0.00 to 1.00
+    timestamp TIMESTAMPTZ DEFAULT NOW(),
+    created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Create indexes for better performance
-CREATE INDEX idx_user_sessions_session_id ON user_sessions(session_id);
-CREATE INDEX idx_user_sessions_start_time ON user_sessions(start_time);
-CREATE INDEX idx_user_sessions_user_id ON user_sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_sessions_start_time ON user_sessions(start_time);
+CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_sessions_device_info ON user_sessions USING GIN(device_info);
 
-CREATE INDEX idx_user_analytics_session_id ON user_analytics(session_id);
-CREATE INDEX idx_user_analytics_timestamp ON user_analytics(timestamp);
-CREATE INDEX idx_user_analytics_event_type ON user_analytics(event_type);
-CREATE INDEX idx_user_analytics_page_url ON user_analytics(page_url);
-CREATE INDEX idx_user_analytics_device_type ON user_analytics(device_type);
+CREATE INDEX IF NOT EXISTS idx_page_views_session_id ON page_views(session_id);
+CREATE INDEX IF NOT EXISTS idx_page_views_timestamp ON page_views(timestamp);
+CREATE INDEX IF NOT EXISTS idx_page_views_page_url ON page_views(page_url);
 
-CREATE INDEX idx_heatmap_data_session_id ON heatmap_data(session_id);
-CREATE INDEX idx_heatmap_data_page_url ON heatmap_data(page_url);
-CREATE INDEX idx_heatmap_data_timestamp ON heatmap_data(timestamp);
-CREATE INDEX idx_heatmap_data_device_type ON heatmap_data(device_type);
+CREATE INDEX IF NOT EXISTS idx_user_events_session_id ON user_events(session_id);
+CREATE INDEX IF NOT EXISTS idx_user_events_timestamp ON user_events(timestamp);
+CREATE INDEX IF NOT EXISTS idx_user_events_event_type ON user_events(event_type);
+CREATE INDEX IF NOT EXISTS idx_user_events_page_url ON user_events(page_url);
 
-CREATE INDEX idx_conversions_session_id ON conversions(session_id);
-CREATE INDEX idx_conversions_timestamp ON conversions(timestamp);
-CREATE INDEX idx_conversions_type ON conversions(conversion_type);
-CREATE INDEX idx_conversions_source_page ON conversions(source_page);
+CREATE INDEX IF NOT EXISTS idx_heatmap_data_session_id ON heatmap_data(session_id);
+CREATE INDEX IF NOT EXISTS idx_heatmap_data_page_url ON heatmap_data(page_url);
+CREATE INDEX IF NOT EXISTS idx_heatmap_data_timestamp ON heatmap_data(timestamp);
 
-CREATE INDEX idx_ab_tests_test_name ON ab_tests(test_name);
-CREATE INDEX idx_ab_tests_session_id ON ab_tests(session_id);
-CREATE INDEX idx_ab_tests_timestamp ON ab_tests(timestamp);
+CREATE INDEX IF NOT EXISTS idx_conversions_session_id ON conversions(session_id);
+CREATE INDEX IF NOT EXISTS idx_conversions_timestamp ON conversions(timestamp);
+CREATE INDEX IF NOT EXISTS idx_conversions_type ON conversions(conversion_type);
+CREATE INDEX IF NOT EXISTS idx_conversions_source_page ON conversions(source_page);
 
--- Create function to update session end time
-CREATE OR REPLACE FUNCTION update_session_end_time()
-RETURNS TRIGGER AS $$
-BEGIN
-    UPDATE user_sessions 
-    SET end_time = NEW.timestamp, updated_at = NOW()
-    WHERE session_id = NEW.session_id;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+CREATE INDEX IF NOT EXISTS idx_performance_metrics_session_id ON performance_metrics(session_id);
+CREATE INDEX IF NOT EXISTS idx_performance_metrics_timestamp ON performance_metrics(timestamp);
+CREATE INDEX IF NOT EXISTS idx_performance_metrics_name ON performance_metrics(metric_name);
 
--- Create trigger to automatically update session end time
-CREATE TRIGGER trigger_update_session_end_time
-    AFTER INSERT ON user_analytics
-    FOR EACH ROW
-    EXECUTE FUNCTION update_session_end_time();
-
--- Create function to calculate conversion rate
+-- Create functions for analytics calculations
 CREATE OR REPLACE FUNCTION get_conversion_rate(
-    time_range INTERVAL DEFAULT INTERVAL '24 hours',
+    time_range TEXT DEFAULT '24 hours',
     page_filter TEXT DEFAULT NULL
 )
-RETURNS DECIMAL AS $$
+RETURNS DECIMAL(5,2) AS $$
 DECLARE
     total_sessions INTEGER;
     total_conversions INTEGER;
-    conversion_rate DECIMAL;
+    conversion_rate DECIMAL(5,2);
 BEGIN
-    -- Get total unique sessions in time range
+    -- Get total sessions in time range
     SELECT COUNT(DISTINCT session_id) INTO total_sessions
-    FROM user_analytics
-    WHERE timestamp >= NOW() - time_range
-    AND (page_filter IS NULL OR page_url = page_filter);
+    FROM user_sessions
+    WHERE start_time >= NOW() - INTERVAL time_range;
     
     -- Get total conversions in time range
-    SELECT COUNT(*) INTO total_conversions
-    FROM conversions
-    WHERE timestamp >= NOW() - time_range
-    AND (page_filter IS NULL OR source_page = page_filter);
+    IF page_filter IS NOT NULL THEN
+        SELECT COUNT(*) INTO total_conversions
+        FROM conversions
+        WHERE timestamp >= NOW() - INTERVAL time_range
+        AND source_page = page_filter;
+    ELSE
+        SELECT COUNT(*) INTO total_conversions
+        FROM conversions
+        WHERE timestamp >= NOW() - INTERVAL time_range;
+    END IF;
     
     -- Calculate conversion rate
     IF total_sessions > 0 THEN
@@ -164,72 +174,158 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Create function to get funnel analysis
+-- Function for funnel analysis
 CREATE OR REPLACE FUNCTION get_funnel_analysis(
-    time_range INTERVAL DEFAULT INTERVAL '24 hours'
+    time_range TEXT DEFAULT '24 hours'
 )
 RETURNS TABLE(
-    step INTEGER,
     step_name TEXT,
-    visitors INTEGER,
-    conversion_rate DECIMAL
+    step_order INTEGER,
+    users_count INTEGER,
+    conversion_rate DECIMAL(5,2)
 ) AS $$
 BEGIN
     RETURN QUERY
     WITH funnel_steps AS (
-        SELECT 1 as step, 'Landing Page' as step_name, '^/$' as page_pattern
-        UNION ALL
-        SELECT 2, 'Services View', '^/(services|products|agents|systems)'
-        UNION ALL
-        SELECT 3, 'Contact Intent', '^/contact'
-        UNION ALL
-        SELECT 4, 'Conversion', '.*'
-    ),
-    step_visitors AS (
         SELECT 
-            fs.step,
-            fs.step_name,
-            COUNT(DISTINCT ua.session_id) as visitors
-        FROM funnel_steps fs
-        LEFT JOIN user_analytics ua ON ua.page_url ~ fs.page_pattern
-            AND ua.timestamp >= NOW() - time_range
-            AND ua.event_type = 'page_view'
-        GROUP BY fs.step, fs.step_name
+            'page_view' as step_name,
+            1 as step_order,
+            COUNT(DISTINCT session_id) as users_count
+        FROM page_views 
+        WHERE timestamp >= NOW() - INTERVAL time_range
+        
+        UNION ALL
+        
+        SELECT 
+            'engagement' as step_name,
+            2 as step_order,
+            COUNT(DISTINCT session_id) as users_count
+        FROM user_events 
+        WHERE timestamp >= NOW() - INTERVAL time_range
+        AND event_type IN ('click', 'scroll')
+        
+        UNION ALL
+        
+        SELECT 
+            'conversion' as step_name,
+            3 as step_order,
+            COUNT(DISTINCT session_id) as users_count
+        FROM conversions 
+        WHERE timestamp >= NOW() - INTERVAL time_range
     ),
-    conversion_visitors AS (
-        SELECT COUNT(DISTINCT session_id) as total_conversions
-        FROM conversions
-        WHERE timestamp >= NOW() - time_range
+    total_users AS (
+        SELECT users_count as total FROM funnel_steps WHERE step_order = 1
     )
     SELECT 
-        sv.step,
-        sv.step_name,
-        sv.visitors,
+        f.step_name,
+        f.step_order,
+        f.users_count,
         CASE 
-            WHEN sv.step = 4 THEN 
-                CASE WHEN (SELECT visitors FROM step_visitors WHERE step = 1) > 0 
-                THEN ROUND((cv.total_conversions::DECIMAL / (SELECT visitors FROM step_visitors WHERE step = 1)::DECIMAL) * 100, 2)
-                ELSE 0 END
-            WHEN LAG(sv.visitors) OVER (ORDER BY sv.step) > 0 THEN 
-                ROUND((sv.visitors::DECIMAL / LAG(sv.visitors) OVER (ORDER BY sv.step)::DECIMAL) * 100, 2)
-            ELSE 0 
+            WHEN t.total > 0 THEN ROUND((f.users_count::DECIMAL / t.total::DECIMAL) * 100, 2)
+            ELSE 0::DECIMAL(5,2)
         END as conversion_rate
-    FROM step_visitors sv
-    CROSS JOIN conversion_visitors cv
-    ORDER BY sv.step;
+    FROM funnel_steps f
+    CROSS JOIN total_users t
+    ORDER BY f.step_order;
 END;
 $$ LANGUAGE plpgsql;
 
--- Grant permissions
-GRANT SELECT, INSERT, UPDATE ON user_analytics TO authenticated;
-GRANT SELECT, INSERT, UPDATE ON user_sessions TO authenticated;
-GRANT SELECT, INSERT, UPDATE ON heatmap_data TO authenticated;
-GRANT SELECT, INSERT, UPDATE ON conversions TO authenticated;
-GRANT SELECT, INSERT, UPDATE ON ab_tests TO authenticated;
+-- Function to update session duration
+CREATE OR REPLACE FUNCTION update_session_duration()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Update session duration when page views are added
+    UPDATE user_sessions 
+    SET 
+        end_time = NEW.timestamp,
+        duration_seconds = EXTRACT(EPOCH FROM (NEW.timestamp - start_time))::INTEGER,
+        page_views = page_views + 1,
+        updated_at = NOW()
+    WHERE session_id = NEW.session_id;
+    
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- Grant usage on sequences
-GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+-- Create trigger for automatic session updates
+DROP TRIGGER IF EXISTS trigger_update_session_duration ON page_views;
+CREATE TRIGGER trigger_update_session_duration
+    AFTER INSERT ON page_views
+    FOR EACH ROW
+    EXECUTE FUNCTION update_session_duration();
 
--- Insert sample session for testing
-INSERT INTO user_sessions (session_id, device_info) VALUES 
-('sample_session_123', '{"type": "desktop", "browser": "Chrome"}');
+-- Function to detect and mark bot sessions
+CREATE OR REPLACE FUNCTION detect_bot_sessions()
+RETURNS VOID AS $$
+BEGIN
+    UPDATE user_sessions 
+    SET is_bot = TRUE
+    WHERE (
+        user_agent ILIKE '%bot%' OR
+        user_agent ILIKE '%crawler%' OR
+        user_agent ILIKE '%spider%' OR
+        user_agent ILIKE '%scraper%' OR
+        duration_seconds < 2 OR
+        page_views > 50
+    ) AND is_bot = FALSE;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a function to clean old analytics data (older than 90 days)
+CREATE OR REPLACE FUNCTION cleanup_old_analytics_data()
+RETURNS VOID AS $$
+BEGIN
+    DELETE FROM performance_metrics WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM user_behavior_patterns WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM heatmap_data WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM user_events WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM conversions WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM page_views WHERE created_at < NOW() - INTERVAL '90 days';
+    DELETE FROM user_sessions WHERE created_at < NOW() - INTERVAL '90 days';
+END;
+$$ LANGUAGE plpgsql;
+
+-- Insert sample data for testing
+INSERT INTO user_sessions (session_id, start_time, device_info, browser_info, location, utm_source, referrer) VALUES
+(uuid_generate_v4(), NOW() - INTERVAL '2 hours', '{"type": "desktop", "os": "Windows"}', '{"name": "Chrome", "version": "120"}', '{"country": "US", "city": "New York"}', 'google', 'https://google.com'),
+(uuid_generate_v4(), NOW() - INTERVAL '1 hour', '{"type": "mobile", "os": "iOS"}', '{"name": "Safari", "version": "17"}', '{"country": "CA", "city": "Toronto"}', 'direct', null),
+(uuid_generate_v4(), NOW() - INTERVAL '30 minutes', '{"type": "tablet", "os": "Android"}', '{"name": "Chrome", "version": "119"}', '{"country": "UK", "city": "London"}', 'social', 'https://linkedin.com');
+
+-- Grant necessary permissions
+GRANT ALL ON ALL TABLES IN SCHEMA public TO authenticated;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO authenticated;
+
+-- Create RLS policies for security
+ALTER TABLE user_sessions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE page_views ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_events ENABLE ROW LEVEL SECURITY;
+ALTER TABLE heatmap_data ENABLE ROW LEVEL SECURITY;
+ALTER TABLE conversions ENABLE ROW LEVEL SECURITY;
+ALTER TABLE performance_metrics ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_behavior_patterns ENABLE ROW LEVEL SECURITY;
+
+-- Allow all operations for authenticated users (adjust as needed for your security requirements)
+CREATE POLICY "Allow all for authenticated users" ON user_sessions FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON page_views FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON user_events FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON heatmap_data FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON conversions FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON performance_metrics FOR ALL TO authenticated USING (true);
+CREATE POLICY "Allow all for authenticated users" ON user_behavior_patterns FOR ALL TO authenticated USING (true);
+
+-- Allow anonymous access for analytics collection
+CREATE POLICY "Allow anonymous analytics" ON user_sessions FOR INSERT TO anon USING (true);
+CREATE POLICY "Allow anonymous analytics" ON page_views FOR INSERT TO anon USING (true);
+CREATE POLICY "Allow anonymous analytics" ON user_events FOR INSERT TO anon USING (true);
+CREATE POLICY "Allow anonymous analytics" ON heatmap_data FOR INSERT TO anon USING (true);
+CREATE POLICY "Allow anonymous analytics" ON conversions FOR INSERT TO anon USING (true);
+CREATE POLICY "Allow anonymous analytics" ON performance_metrics FOR INSERT TO anon USING (true);
+
+COMMENT ON TABLE user_sessions IS 'Tracks user sessions with device, browser, and location information';
+COMMENT ON TABLE page_views IS 'Records individual page views with performance metrics';
+COMMENT ON TABLE user_events IS 'Captures user interactions like clicks, scrolls, and form submissions';
+COMMENT ON TABLE heatmap_data IS 'Stores click coordinates for heatmap visualization';
+COMMENT ON TABLE conversions IS 'Tracks conversion events and goals';
+COMMENT ON TABLE performance_metrics IS 'Records web performance metrics like Core Web Vitals';
+COMMENT ON TABLE user_behavior_patterns IS 'Analyzes user behavior patterns using AI/ML';

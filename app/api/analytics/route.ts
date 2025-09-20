@@ -1,183 +1,190 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@/lib/supabase-server"
-
-function getMilliseconds(interval: string): number {
-  const intervalMap: Record<string, number> = {
-    "1 hour": 60 * 60 * 1000,
-    "24 hours": 24 * 60 * 60 * 1000,
-    "7 days": 7 * 24 * 60 * 60 * 1000,
-    "30 days": 30 * 24 * 60 * 60 * 1000,
-  }
-
-  return intervalMap[interval] || 24 * 60 * 60 * 1000
-}
-
-function calculateMetrics(events: any[], sessions: any[], conversions: any[]) {
-  const uniqueSessions = new Set(events.map((e) => e.session_id)).size
-  const totalPageViews = events.filter((e) => e.event_type === "page_view").length
-  const totalClicks = events.filter((e) => e.event_type === "click").length
-  const totalConversions = conversions.length
-
-  // Device breakdown
-  const deviceBreakdown = events.reduce((acc, event) => {
-    const device = event.device_type || "unknown"
-    acc[device] = (acc[device] || 0) + 1
-    return acc
-  }, {})
-
-  // Browser breakdown
-  const browserBreakdown = events.reduce((acc, event) => {
-    const browser = event.browser || "unknown"
-    acc[browser] = (acc[browser] || 0) + 1
-    return acc
-  }, {})
-
-  // Top pages
-  const pageViews = events.filter((e) => e.event_type === "page_view")
-  const topPages = pageViews.reduce((acc, event) => {
-    const page = event.page_url
-    acc[page] = (acc[page] || 0) + 1
-    return acc
-  }, {})
-
-  // Conversion rate
-  const conversionRate = uniqueSessions > 0 ? (totalConversions / uniqueSessions) * 100 : 0
-
-  // Bounce rate (sessions with only 1 page view and < 30s)
-  const bounceRate =
-    sessions.length > 0
-      ? (sessions.filter((s) => s.page_views <= 1 && s.total_time < 30000).length / sessions.length) * 100
-      : 0
-
-  // Average session duration
-  const avgSessionDuration =
-    sessions.length > 0 ? sessions.reduce((sum, s) => sum + (s.total_time || 0), 0) / sessions.length : 0
-
-  return {
-    uniqueSessions,
-    totalPageViews,
-    totalClicks,
-    totalConversions,
-    conversionRate: Math.round(conversionRate * 100) / 100,
-    bounceRate: Math.round(bounceRate * 100) / 100,
-    avgSessionDuration: Math.round(avgSessionDuration / 1000), // in seconds
-    deviceBreakdown,
-    browserBreakdown,
-    topPages: Object.entries(topPages)
-      .sort(([, a], [, b]) => (b as number) - (a as number))
-      .slice(0, 10)
-      .reduce((acc, [page, count]) => ({ ...acc, [page]: count }), {}),
-  }
-}
+import { createServerClient } from "@/lib/supabase-server"
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createServerClient()
     const body = await request.json()
 
-    const { event_type, event_data, session_id } = body
+    const { table, data } = body
 
-    if (!event_type || !session_id) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    if (!table || !data) {
+      return NextResponse.json({ error: "Missing table or data" }, { status: 400 })
     }
 
-    // Insert analytics event
-    const { error } = await supabase.from("user_analytics").insert({
-      session_id,
-      event_type,
-      event_data: event_data || {},
-      page_url: body.page_url || "/",
-      user_agent: body.user_agent,
-      device_type: body.device_type,
-      browser: body.browser,
-      country: body.country,
-      city: body.city,
-    })
+    const { data: result, error } = await supabase.from(table).insert(data)
 
     if (error) {
-      console.error("Failed to insert analytics event:", error)
-      return NextResponse.json({ error: "Failed to track event" }, { status: 500 })
+      console.error(`Analytics insert error for ${table}:`, error)
+      return NextResponse.json({ error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, data: result })
   } catch (error) {
-    console.error("Analytics POST error:", error)
+    console.error("Analytics API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createServerClient()
     const { searchParams } = new URL(request.url)
 
     const timeRange = searchParams.get("timeRange") || "24h"
+    const metric = searchParams.get("metric")
     const page = searchParams.get("page")
-    const deviceType = searchParams.get("deviceType")
 
-    // Convert time range to SQL interval
-    const intervalMap: Record<string, string> = {
-      "1h": "1 hour",
-      "24h": "24 hours",
-      "7d": "7 days",
-      "30d": "30 days",
+    // Convert time range to hours
+    const timeRangeMap: Record<string, number> = {
+      "1h": 1,
+      "24h": 24,
+      "7d": 168,
+      "30d": 720,
     }
 
-    const interval = intervalMap[timeRange] || "24 hours"
+    const hours = timeRangeMap[timeRange] || 24
+    const startTime = new Date(Date.now() - hours * 60 * 60 * 1000).toISOString()
 
-    // Build base query
-    let query = supabase
-      .from("user_analytics")
-      .select("*")
-      .gte("timestamp", new Date(Date.now() - getMilliseconds(interval)).toISOString())
+    // Get real-time metrics
+    const queries = await Promise.allSettled([
+      // Active sessions
+      supabase
+        .from("user_sessions")
+        .select("session_id, start_time, device_info, browser_info, location")
+        .gte("start_time", startTime)
+        .is("end_time", null),
 
-    // Apply filters
-    if (page) {
-      query = query.eq("page_url", page)
-    }
+      // Page views
+      supabase
+        .from("page_views")
+        .select("page_url, timestamp, load_time_ms, scroll_depth")
+        .gte("timestamp", startTime),
 
-    if (deviceType) {
-      query = query.eq("device_type", deviceType)
-    }
+      // User events
+      supabase
+        .from("user_events")
+        .select("event_type, timestamp, page_url")
+        .gte("timestamp", startTime),
 
-    const { data: events, error } = await query.order("timestamp", { ascending: false })
+      // Conversions
+      supabase
+        .from("conversions")
+        .select("conversion_type, timestamp, source_page, conversion_value")
+        .gte("timestamp", startTime),
 
-    if (error) {
-      console.error("Analytics query error:", error)
-      return NextResponse.json({ error: "Failed to fetch analytics data" }, { status: 500 })
-    }
+      // Performance metrics
+      supabase
+        .from("performance_metrics")
+        .select("metric_name, metric_value, timestamp")
+        .gte("timestamp", startTime),
+    ])
 
-    // Get session data
-    const { data: sessions, error: sessionError } = await supabase
-      .from("user_sessions")
-      .select("*")
-      .gte("start_time", new Date(Date.now() - getMilliseconds(interval)).toISOString())
+    const [sessionsResult, pageViewsResult, eventsResult, conversionsResult, performanceResult] = queries
 
-    if (sessionError) {
-      console.error("Session query error:", sessionError)
-    }
-
-    // Get conversion data
-    const { data: conversions, error: conversionError } = await supabase
-      .from("conversions")
-      .select("*")
-      .gte("timestamp", new Date(Date.now() - getMilliseconds(interval)).toISOString())
-
-    if (conversionError) {
-      console.error("Conversion query error:", conversionError)
-    }
+    // Process results
+    const activeSessions = sessionsResult.status === "fulfilled" ? sessionsResult.value.data || [] : []
+    const pageViews = pageViewsResult.status === "fulfilled" ? pageViewsResult.value.data || [] : []
+    const events = eventsResult.status === "fulfilled" ? eventsResult.value.data || [] : []
+    const conversions = conversionsResult.status === "fulfilled" ? conversionsResult.value.data || [] : []
+    const performance = performanceResult.status === "fulfilled" ? performanceResult.value.data || [] : []
 
     // Calculate metrics
-    const metrics = calculateMetrics(events || [], sessions || [], conversions || [])
+    const metrics = {
+      activeSessions: activeSessions.length,
+      totalPageViews: pageViews.length,
+      totalEvents: events.length,
+      totalConversions: conversions.length,
+      conversionRate: activeSessions.length > 0 ? (conversions.length / activeSessions.length) * 100 : 0,
+      avgLoadTime:
+        pageViews.length > 0 ? pageViews.reduce((sum, pv) => sum + (pv.load_time_ms || 0), 0) / pageViews.length : 0,
+      avgScrollDepth:
+        pageViews.length > 0 ? pageViews.reduce((sum, pv) => sum + (pv.scroll_depth || 0), 0) / pageViews.length : 0,
+    }
+
+    // Device breakdown
+    const deviceBreakdown = activeSessions.reduce((acc: Record<string, number>, session) => {
+      const deviceType = session.device_info?.type || "unknown"
+      acc[deviceType] = (acc[deviceType] || 0) + 1
+      return acc
+    }, {})
+
+    // Browser breakdown
+    const browserBreakdown = activeSessions.reduce((acc: Record<string, number>, session) => {
+      const browserName = session.browser_info?.name || "unknown"
+      acc[browserName] = (acc[browserName] || 0) + 1
+      return acc
+    }, {})
+
+    // Top pages
+    const topPages = pageViews.reduce((acc: Record<string, number>, pv) => {
+      acc[pv.page_url] = (acc[pv.page_url] || 0) + 1
+      return acc
+    }, {})
+
+    const sortedPages = Object.entries(topPages)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10)
+      .map(([url, count]) => ({ url, count }))
+
+    // Event types breakdown
+    const eventTypes = events.reduce((acc: Record<string, number>, event) => {
+      acc[event.event_type] = (acc[event.event_type] || 0) + 1
+      return acc
+    }, {})
+
+    // Conversion types breakdown
+    const conversionTypes = conversions.reduce((acc: Record<string, number>, conversion) => {
+      acc[conversion.conversion_type] = (acc[conversion.conversion_type] || 0) + 1
+      return acc
+    }, {})
+
+    // Performance metrics breakdown
+    const performanceMetrics = performance.reduce(
+      (acc: Record<string, number[]>, metric) => {
+        if (!acc[metric.metric_name]) acc[metric.metric_name] = []
+        acc[metric.metric_name].push(metric.metric_value)
+        return acc
+      },
+      {} as Record<string, number[]>,
+    )
+
+    // Calculate average performance metrics
+    const avgPerformanceMetrics = Object.entries(performanceMetrics).reduce(
+      (acc, [name, values]) => {
+        acc[name] = values.reduce((sum, val) => sum + val, 0) / values.length
+        return acc
+      },
+      {} as Record<string, number>,
+    )
+
+    // Location breakdown
+    const locationBreakdown = activeSessions.reduce((acc: Record<string, number>, session) => {
+      const country = session.location?.country || "unknown"
+      acc[country] = (acc[country] || 0) + 1
+      return acc
+    }, {})
 
     return NextResponse.json({
-      events: events || [],
-      sessions: sessions || [],
-      conversions: conversions || [],
       metrics,
+      deviceBreakdown,
+      browserBreakdown,
+      topPages: sortedPages,
+      eventTypes,
+      conversionTypes,
+      performanceMetrics: avgPerformanceMetrics,
+      locationBreakdown,
+      timeRange,
+      activeSessions: activeSessions.map((session) => ({
+        session_id: session.session_id,
+        start_time: session.start_time,
+        device_type: session.device_info?.type,
+        browser: session.browser_info?.name,
+        country: session.location?.country,
+      })),
     })
   } catch (error) {
-    console.error("Analytics API error:", error)
+    console.error("Analytics API GET error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
