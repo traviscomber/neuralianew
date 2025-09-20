@@ -1,23 +1,12 @@
--- Create user_analytics table for tracking all user events
-CREATE TABLE IF NOT EXISTS user_analytics (
-    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    session_id TEXT NOT NULL,
-    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-    event_type TEXT NOT NULL CHECK (event_type IN ('page_view', 'click', 'scroll', 'form_submit', 'conversion', 'heatmap', 'ab_test')),
-    event_data JSONB DEFAULT '{}',
-    page_url TEXT NOT NULL,
-    user_agent TEXT,
-    ip_address TEXT,
-    timestamp TIMESTAMPTZ DEFAULT NOW(),
-    device_type TEXT CHECK (device_type IN ('desktop', 'tablet', 'mobile')),
-    browser TEXT,
-    country TEXT,
-    city TEXT,
-    created_at TIMESTAMPTZ DEFAULT NOW()
-);
+-- Drop existing tables if they exist to avoid conflicts
+DROP TABLE IF EXISTS ab_tests CASCADE;
+DROP TABLE IF EXISTS conversions CASCADE;
+DROP TABLE IF EXISTS heatmap_data CASCADE;
+DROP TABLE IF EXISTS user_sessions CASCADE;
+DROP TABLE IF EXISTS user_analytics CASCADE;
 
--- Create user_sessions table for tracking user sessions
-CREATE TABLE IF NOT EXISTS user_sessions (
+-- Create user_sessions table first (referenced by other tables)
+CREATE TABLE user_sessions (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     session_id TEXT UNIQUE NOT NULL,
     user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
@@ -33,8 +22,27 @@ CREATE TABLE IF NOT EXISTS user_sessions (
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- Create user_analytics table for tracking all user events
+CREATE TABLE user_analytics (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    session_id TEXT NOT NULL,
+    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    event_type TEXT NOT NULL CHECK (event_type IN ('page_view', 'click', 'scroll', 'form_submit', 'conversion', 'heatmap', 'ab_test', 'page_unload')),
+    event_data JSONB DEFAULT '{}',
+    page_url TEXT NOT NULL,
+    user_agent TEXT,
+    ip_address TEXT,
+    timestamp TIMESTAMPTZ DEFAULT NOW(),
+    device_type TEXT CHECK (device_type IN ('desktop', 'tablet', 'mobile')),
+    browser TEXT,
+    country TEXT,
+    city TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
+);
+
 -- Create heatmap_data table for tracking click heatmaps
-CREATE TABLE IF NOT EXISTS heatmap_data (
+CREATE TABLE heatmap_data (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     session_id TEXT NOT NULL,
     page_url TEXT NOT NULL,
@@ -46,25 +54,27 @@ CREATE TABLE IF NOT EXISTS heatmap_data (
     scroll_depth INTEGER DEFAULT 0,
     timestamp TIMESTAMPTZ DEFAULT NOW(),
     device_type TEXT CHECK (device_type IN ('desktop', 'tablet', 'mobile')),
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
 );
 
 -- Create conversions table for tracking conversion events
-CREATE TABLE IF NOT EXISTS conversions (
+CREATE TABLE conversions (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     session_id TEXT NOT NULL,
     user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
-    conversion_type TEXT NOT NULL CHECK (conversion_type IN ('whatsapp_click', 'form_submit', 'email_signup', 'demo_request', 'contact_form')),
+    conversion_type TEXT NOT NULL CHECK (conversion_type IN ('whatsapp_click', 'form_submit', 'email_signup', 'demo_request', 'contact_form', 'hero_cta', 'services_cta')),
     conversion_value DECIMAL(10,2),
     source_page TEXT NOT NULL,
     funnel_step INTEGER DEFAULT 1,
     timestamp TIMESTAMPTZ DEFAULT NOW(),
     user_data JSONB DEFAULT '{}',
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
 );
 
 -- Create ab_tests table for A/B testing tracking
-CREATE TABLE IF NOT EXISTS ab_tests (
+CREATE TABLE ab_tests (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     test_name TEXT NOT NULL,
     variant TEXT NOT NULL,
@@ -74,33 +84,34 @@ CREATE TABLE IF NOT EXISTS ab_tests (
     timestamp TIMESTAMPTZ DEFAULT NOW(),
     converted BOOLEAN DEFAULT FALSE,
     conversion_timestamp TIMESTAMPTZ,
-    created_at TIMESTAMPTZ DEFAULT NOW()
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    FOREIGN KEY (session_id) REFERENCES user_sessions(session_id) ON DELETE CASCADE
 );
 
 -- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_user_analytics_session_id ON user_analytics(session_id);
-CREATE INDEX IF NOT EXISTS idx_user_analytics_timestamp ON user_analytics(timestamp);
-CREATE INDEX IF NOT EXISTS idx_user_analytics_event_type ON user_analytics(event_type);
-CREATE INDEX IF NOT EXISTS idx_user_analytics_page_url ON user_analytics(page_url);
-CREATE INDEX IF NOT EXISTS idx_user_analytics_device_type ON user_analytics(device_type);
+CREATE INDEX idx_user_sessions_session_id ON user_sessions(session_id);
+CREATE INDEX idx_user_sessions_start_time ON user_sessions(start_time);
+CREATE INDEX idx_user_sessions_user_id ON user_sessions(user_id);
 
-CREATE INDEX IF NOT EXISTS idx_user_sessions_session_id ON user_sessions(session_id);
-CREATE INDEX IF NOT EXISTS idx_user_sessions_start_time ON user_sessions(start_time);
-CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON user_sessions(user_id);
+CREATE INDEX idx_user_analytics_session_id ON user_analytics(session_id);
+CREATE INDEX idx_user_analytics_timestamp ON user_analytics(timestamp);
+CREATE INDEX idx_user_analytics_event_type ON user_analytics(event_type);
+CREATE INDEX idx_user_analytics_page_url ON user_analytics(page_url);
+CREATE INDEX idx_user_analytics_device_type ON user_analytics(device_type);
 
-CREATE INDEX IF NOT EXISTS idx_heatmap_data_session_id ON heatmap_data(session_id);
-CREATE INDEX IF NOT EXISTS idx_heatmap_data_page_url ON heatmap_data(page_url);
-CREATE INDEX IF NOT EXISTS idx_heatmap_data_timestamp ON heatmap_data(timestamp);
-CREATE INDEX IF NOT EXISTS idx_heatmap_data_device_type ON heatmap_data(device_type);
+CREATE INDEX idx_heatmap_data_session_id ON heatmap_data(session_id);
+CREATE INDEX idx_heatmap_data_page_url ON heatmap_data(page_url);
+CREATE INDEX idx_heatmap_data_timestamp ON heatmap_data(timestamp);
+CREATE INDEX idx_heatmap_data_device_type ON heatmap_data(device_type);
 
-CREATE INDEX IF NOT EXISTS idx_conversions_session_id ON conversions(session_id);
-CREATE INDEX IF NOT EXISTS idx_conversions_timestamp ON conversions(timestamp);
-CREATE INDEX IF NOT EXISTS idx_conversions_type ON conversions(conversion_type);
-CREATE INDEX IF NOT EXISTS idx_conversions_source_page ON conversions(source_page);
+CREATE INDEX idx_conversions_session_id ON conversions(session_id);
+CREATE INDEX idx_conversions_timestamp ON conversions(timestamp);
+CREATE INDEX idx_conversions_type ON conversions(conversion_type);
+CREATE INDEX idx_conversions_source_page ON conversions(source_page);
 
-CREATE INDEX IF NOT EXISTS idx_ab_tests_test_name ON ab_tests(test_name);
-CREATE INDEX IF NOT EXISTS idx_ab_tests_session_id ON ab_tests(session_id);
-CREATE INDEX IF NOT EXISTS idx_ab_tests_timestamp ON ab_tests(timestamp);
+CREATE INDEX idx_ab_tests_test_name ON ab_tests(test_name);
+CREATE INDEX idx_ab_tests_session_id ON ab_tests(session_id);
+CREATE INDEX idx_ab_tests_timestamp ON ab_tests(timestamp);
 
 -- Create function to update session end time
 CREATE OR REPLACE FUNCTION update_session_end_time()
@@ -209,12 +220,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Insert sample data for testing (optional)
--- INSERT INTO user_analytics (session_id, event_type, page_url, device_type, browser) VALUES
--- ('test_session_1', 'page_view', '/', 'desktop', 'Chrome'),
--- ('test_session_1', 'click', '/', 'desktop', 'Chrome'),
--- ('test_session_2', 'page_view', '/services', 'mobile', 'Safari');
-
 -- Grant permissions
 GRANT SELECT, INSERT, UPDATE ON user_analytics TO authenticated;
 GRANT SELECT, INSERT, UPDATE ON user_sessions TO authenticated;
@@ -224,3 +229,7 @@ GRANT SELECT, INSERT, UPDATE ON ab_tests TO authenticated;
 
 -- Grant usage on sequences
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+
+-- Insert sample session for testing
+INSERT INTO user_sessions (session_id, device_info) VALUES 
+('sample_session_123', '{"type": "desktop", "browser": "Chrome"}');

@@ -1,32 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { createClient } from "@supabase/supabase-js"
-
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+import { createClient } from "@/lib/supabase-server"
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createClient()
     const body = await request.json()
 
-    const conversionData = {
-      session_id: body.session_id,
-      user_id: body.user_id || null,
-      conversion_type: body.conversion_type,
-      conversion_value: body.conversion_value || null,
-      source_page: body.source_page,
-      funnel_step: body.funnel_step,
-      timestamp: body.timestamp,
-      user_data: body.user_data || {},
-    }
-
-    const { data, error } = await supabase.from("conversions").insert([conversionData])
+    const { data, error } = await supabase.from("conversions").insert(body)
 
     if (error) {
       console.error("Conversion insert error:", error)
-      return NextResponse.json({ error: "Failed to save conversion" }, { status: 500 })
+      return NextResponse.json({ error: error.message }, { status: 400 })
     }
-
-    // Update session conversion count
-    await updateSessionConversions(body.session_id)
 
     return NextResponse.json({ success: true, data })
   } catch (error) {
@@ -37,123 +22,160 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    const supabase = createClient()
     const { searchParams } = new URL(request.url)
+
     const timeRange = searchParams.get("timeRange") || "24h"
-    const conversionType = searchParams.get("conversionType")
+    const conversionType = searchParams.get("type")
     const sourcePage = searchParams.get("sourcePage")
 
-    let query = supabase.from("conversions").select("*").order("timestamp", { ascending: false })
-
-    // Apply time range filter
-    const now = new Date()
-    const startTime = new Date()
-
-    switch (timeRange) {
-      case "1h":
-        startTime.setHours(now.getHours() - 1)
-        break
-      case "24h":
-        startTime.setDate(now.getDate() - 1)
-        break
-      case "7d":
-        startTime.setDate(now.getDate() - 7)
-        break
-      case "30d":
-        startTime.setDate(now.getDate() - 30)
-        break
+    // Convert time range to milliseconds
+    const intervalMap: Record<string, number> = {
+      "1h": 60 * 60 * 1000,
+      "24h": 24 * 60 * 60 * 1000,
+      "7d": 7 * 24 * 60 * 60 * 1000,
+      "30d": 30 * 24 * 60 * 60 * 1000,
     }
 
-    query = query.gte("timestamp", startTime.toISOString())
+    const interval = intervalMap[timeRange] || 24 * 60 * 60 * 1000
+    const startTime = new Date(Date.now() - interval).toISOString()
+
+    // Build conversions query
+    let conversionsQuery = supabase.from("conversions").select("*").gte("timestamp", startTime)
 
     if (conversionType) {
-      query = query.eq("conversion_type", conversionType)
+      conversionsQuery = conversionsQuery.eq("conversion_type", conversionType)
     }
 
     if (sourcePage) {
-      query = query.eq("source_page", sourcePage)
+      conversionsQuery = conversionsQuery.eq("source_page", sourcePage)
     }
 
-    const { data, error } = await query.limit(1000)
+    const { data: conversions, error: conversionsError } = await conversionsQuery.order("timestamp", {
+      ascending: false,
+    })
 
-    if (error) {
+    if (conversionsError) {
+      console.error("Conversions query error:", conversionsError)
       return NextResponse.json({ error: "Failed to fetch conversions" }, { status: 500 })
     }
 
+    // Get session data for conversion rate calculation
+    const { data: sessions, error: sessionsError } = await supabase
+      .from("user_sessions")
+      .select("session_id, start_time")
+      .gte("start_time", startTime)
+
+    if (sessionsError) {
+      console.error("Sessions query error:", sessionsError)
+    }
+
+    // Calculate funnel data
+    const { data: funnelData, error: funnelError } = await supabase.rpc("get_funnel_analysis", {
+      time_range: `${interval / 1000} seconds`,
+    })
+
+    if (funnelError) {
+      console.error("Funnel query error:", funnelError)
+    }
+
     // Process conversion data
-    const processedData = processConversionData(data)
+    const processedData = processConversionData(conversions || [], sessions || [])
 
     return NextResponse.json({
-      success: true,
-      data: processedData,
-      raw: data,
+      conversions: conversions || [],
+      funnel: funnelData || [],
+      metrics: processedData,
+      timeRange,
     })
   } catch (error) {
-    console.error("Conversion GET error:", error)
+    console.error("Conversions API error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
-async function updateSessionConversions(sessionId: string) {
-  try {
-    const { data: session } = await supabase
-      .from("user_sessions")
-      .select("conversion_count")
-      .eq("session_id", sessionId)
-      .single()
+function processConversionData(conversions: any[], sessions: any[]) {
+  const totalSessions = sessions.length
+  const totalConversions = conversions.length
 
-    if (session) {
-      await supabase
-        .from("user_sessions")
-        .update({
-          conversion_count: (session.conversion_count || 0) + 1,
-        })
-        .eq("session_id", sessionId)
+  // Conversion rate
+  const conversionRate = totalSessions > 0 ? (totalConversions / totalSessions) * 100 : 0
+
+  // Conversion types breakdown
+  const conversionTypes = conversions.reduce(
+    (acc, conversion) => {
+      const type = conversion.conversion_type
+      acc[type] = (acc[type] || 0) + 1
+      return acc
+    },
+    {} as Record<string, number>,
+  )
+
+  // Source pages breakdown
+  const sourcePages = conversions.reduce(
+    (acc, conversion) => {
+      const page = conversion.source_page
+      acc[page] = (acc[page] || 0) + 1
+      return acc
+    },
+    {} as Record<string, number>,
+  )
+
+  // Conversions by hour
+  const conversionsByHour = conversions.reduce(
+    (acc, conversion) => {
+      const hour = new Date(conversion.timestamp).getHours()
+      acc[hour] = (acc[hour] || 0) + 1
+      return acc
+    },
+    {} as Record<number, number>,
+  )
+
+  // Fill in missing hours with 0
+  for (let i = 0; i < 24; i++) {
+    if (!(i in conversionsByHour)) {
+      conversionsByHour[i] = 0
     }
-  } catch (error) {
-    console.error("Session conversion update error:", error)
-  }
-}
-
-function processConversionData(data: any[]) {
-  const processed = {
-    totalConversions: data.length,
-    conversionsByType: {},
-    conversionsByPage: {},
-    conversionsByFunnelStep: {},
-    conversionRate: 0,
-    averageTimeToConversion: 0,
-    topConvertingPages: {},
-    conversionTrends: [],
   }
 
-  data.forEach((conversion) => {
-    // Conversions by type
-    const type = conversion.conversion_type
-    processed.conversionsByType[type] = (processed.conversionsByType[type] || 0) + 1
+  // Average conversion value
+  const conversionsWithValue = conversions.filter((c) => c.conversion_value)
+  const avgConversionValue =
+    conversionsWithValue.length > 0
+      ? conversionsWithValue.reduce((sum, c) => sum + c.conversion_value, 0) / conversionsWithValue.length
+      : 0
 
-    // Conversions by page
-    const page = conversion.source_page
-    processed.conversionsByPage[page] = (processed.conversionsByPage[page] || 0) + 1
+  // Time to conversion (from session start)
+  const timeToConversion = conversions
+    .map((conversion) => {
+      const session = sessions.find((s) => s.session_id === conversion.session_id)
+      if (session) {
+        const sessionStart = new Date(session.start_time).getTime()
+        const conversionTime = new Date(conversion.timestamp).getTime()
+        return conversionTime - sessionStart
+      }
+      return 0
+    })
+    .filter((time) => time > 0)
 
-    // Conversions by funnel step
-    const step = conversion.funnel_step
-    processed.conversionsByFunnelStep[step] = (processed.conversionsByFunnelStep[step] || 0) + 1
+  const avgTimeToConversion =
+    timeToConversion.length > 0 ? timeToConversion.reduce((sum, time) => sum + time, 0) / timeToConversion.length : 0
 
-    // Top converting pages
-    processed.topConvertingPages[page] = (processed.topConvertingPages[page] || 0) + 1
-  })
-
-  // Calculate conversion trends (hourly)
-  const hourlyConversions = Array(24).fill(0)
-  data.forEach((conversion) => {
-    const hour = new Date(conversion.timestamp).getHours()
-    hourlyConversions[hour]++
-  })
-
-  processed.conversionTrends = hourlyConversions.map((count, hour) => ({
-    hour,
-    conversions: count,
-  }))
-
-  return processed
+  return {
+    totalSessions,
+    totalConversions,
+    conversionRate: Math.round(conversionRate * 100) / 100,
+    conversionTypes: Object.entries(conversionTypes)
+      .sort(([, a], [, b]) => b - a)
+      .reduce((acc, [type, count]) => ({ ...acc, [type]: count }), {}),
+    sourcePages: Object.entries(sourcePages)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10)
+      .reduce((acc, [page, count]) => ({ ...acc, [page]: count }), {}),
+    conversionsByHour: Object.entries(conversionsByHour)
+      .sort(([a], [b]) => Number.parseInt(a) - Number.parseInt(b))
+      .map(([hour, count]) => ({ hour: Number.parseInt(hour), count })),
+    avgConversionValue: Math.round(avgConversionValue * 100) / 100,
+    avgTimeToConversion: Math.round(avgTimeToConversion / 1000), // in seconds
+  }
 }

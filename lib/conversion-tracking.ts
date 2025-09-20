@@ -1,224 +1,320 @@
+import { analytics } from "./analytics"
+
+export type ConversionType =
+  | "whatsapp_click"
+  | "form_submit"
+  | "email_signup"
+  | "demo_request"
+  | "contact_form"
+  | "hero_cta"
+  | "services_cta"
+
 export interface ConversionGoal {
-  id: string
+  type: ConversionType
   name: string
-  type: "whatsapp_click" | "form_submit" | "email_signup" | "demo_request" | "contact_form"
-  value: number
+  description: string
+  value?: number
   selector?: string
-  url_pattern?: string
-  event_name?: string
+  event?: string
 }
 
-export interface FunnelStep {
-  id: string
-  name: string
-  page_pattern: string
-  required_action?: string
-  order: number
-}
+export const CONVERSION_GOALS: ConversionGoal[] = [
+  {
+    type: "whatsapp_click",
+    name: "WhatsApp Contact",
+    description: "User clicked WhatsApp contact button",
+    value: 10,
+    selector: '[data-conversion="whatsapp_click"]',
+    event: "click",
+  },
+  {
+    type: "hero_cta",
+    name: "Hero CTA Click",
+    description: "User clicked main hero call-to-action",
+    value: 5,
+    selector: '[data-conversion="hero_cta"]',
+    event: "click",
+  },
+  {
+    type: "services_cta",
+    name: "Services CTA Click",
+    description: "User clicked services call-to-action",
+    value: 3,
+    selector: '[data-conversion="services_cta"]',
+    event: "click",
+  },
+  {
+    type: "contact_form",
+    name: "Contact Form Submit",
+    description: "User submitted contact form",
+    value: 15,
+    selector: '[data-conversion="contact_form"]',
+    event: "submit",
+  },
+  {
+    type: "demo_request",
+    name: "Demo Request",
+    description: "User requested a demo",
+    value: 20,
+    selector: '[data-conversion="demo_request"]',
+    event: "click",
+  },
+  {
+    type: "email_signup",
+    name: "Email Signup",
+    description: "User signed up for newsletter",
+    value: 2,
+    selector: '[data-conversion="email_signup"]',
+    event: "submit",
+  },
+]
 
-export interface ConversionFunnel {
-  id: string
-  name: string
-  steps: FunnelStep[]
-  goals: ConversionGoal[]
-}
-
-export class ConversionTracker {
-  private goals: ConversionGoal[] = []
-  private funnels: ConversionFunnel[] = []
-  private sessionData: Map<string, any> = new Map()
+class ConversionTracker {
+  private goals: ConversionGoal[] = CONVERSION_GOALS
+  private isInitialized = false
 
   constructor() {
-    this.initializeDefaultGoals()
-    this.initializeDefaultFunnels()
+    this.initialize()
   }
 
-  private initializeDefaultGoals() {
-    this.goals = [
-      {
-        id: "whatsapp_contact",
-        name: "WhatsApp Contact",
-        type: "whatsapp_click",
-        value: 100,
-        selector: 'a[href*="wa.me"], a[href*="whatsapp"]',
-      },
-      {
-        id: "contact_form",
-        name: "Contact Form Submission",
-        type: "form_submit",
-        value: 150,
-        selector: 'form[data-conversion="contact"]',
-      },
-      {
-        id: "demo_request",
-        name: "Demo Request",
-        type: "demo_request",
-        value: 200,
-        selector: '[data-conversion="demo"]',
-      },
-      {
-        id: "email_signup",
-        name: "Email Newsletter Signup",
-        type: "email_signup",
-        value: 50,
-        selector: 'form[data-conversion="newsletter"]',
-      },
-    ]
-  }
+  private initialize() {
+    if (this.isInitialized || typeof window === "undefined") return
 
-  private initializeDefaultFunnels() {
-    this.funnels = [
-      {
-        id: "main_conversion_funnel",
-        name: "Main Conversion Funnel",
-        steps: [
-          {
-            id: "landing",
-            name: "Landing Page Visit",
-            page_pattern: "^/$",
-            order: 1,
-          },
-          {
-            id: "services_view",
-            name: "Services Page View",
-            page_pattern: "^/(services|products|agents|systems)",
-            order: 2,
-          },
-          {
-            id: "contact_intent",
-            name: "Contact Intent",
-            page_pattern: "^/contact",
-            required_action: "page_view",
-            order: 3,
-          },
-          {
-            id: "conversion",
-            name: "Conversion",
-            page_pattern: ".*",
-            required_action: "conversion",
-            order: 4,
-          },
-        ],
-        goals: this.goals,
-      },
-    ]
-  }
-
-  public trackConversionGoal(goalId: string, sessionId: string, additionalData?: any) {
-    const goal = this.goals.find((g) => g.id === goalId)
-    if (!goal) return
-
-    // Send conversion event
-    fetch("/api/conversions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        session_id: sessionId,
-        conversion_type: goal.type,
-        conversion_value: goal.value,
-        source_page: window.location.pathname,
-        funnel_step: this.getCurrentFunnelStep(sessionId),
-        timestamp: new Date(),
-        user_data: {
-          goal_id: goalId,
-          goal_name: goal.name,
-          ...additionalData,
-        },
-      }),
-    }).catch((error) => console.error("Conversion tracking error:", error))
-
-    // Update session data
-    this.updateSessionConversionData(sessionId, goal)
-  }
-
-  public trackFunnelStep(sessionId: string, currentPage: string) {
-    const funnel = this.funnels[0] // Use main funnel for now
-    const currentStep = this.findCurrentFunnelStep(currentPage, funnel)
-
-    if (currentStep) {
-      const sessionData = this.sessionData.get(sessionId) || {}
-      sessionData.currentFunnelStep = currentStep.order
-      sessionData.funnelProgress = sessionData.funnelProgress || []
-
-      if (!sessionData.funnelProgress.includes(currentStep.id)) {
-        sessionData.funnelProgress.push(currentStep.id)
-      }
-
-      this.sessionData.set(sessionId, sessionData)
+    // Wait for DOM to be ready
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => this.setupTracking())
+    } else {
+      this.setupTracking()
     }
+
+    this.isInitialized = true
   }
 
-  private findCurrentFunnelStep(currentPage: string, funnel: ConversionFunnel): FunnelStep | null {
-    return (
-      funnel.steps.find((step) => {
-        const regex = new RegExp(step.page_pattern)
-        return regex.test(currentPage)
-      }) || null
-    )
-  }
-
-  private getCurrentFunnelStep(sessionId: string): number {
-    const sessionData = this.sessionData.get(sessionId)
-    return sessionData?.currentFunnelStep || 1
-  }
-
-  private updateSessionConversionData(sessionId: string, goal: ConversionGoal) {
-    const sessionData = this.sessionData.get(sessionId) || {}
-    sessionData.conversions = sessionData.conversions || []
-    sessionData.conversions.push({
-      goalId: goal.id,
-      goalName: goal.name,
-      value: goal.value,
-      timestamp: new Date(),
+  private setupTracking() {
+    // Set up automatic conversion tracking for all goals
+    this.goals.forEach((goal) => {
+      if (goal.selector && goal.event) {
+        this.setupGoalTracking(goal)
+      }
     })
-    sessionData.totalConversionValue = (sessionData.totalConversionValue || 0) + goal.value
-    this.sessionData.set(sessionId, sessionData)
+
+    // Set up scroll-based micro-conversions
+    this.setupScrollTracking()
+
+    // Set up time-based engagement tracking
+    this.setupTimeTracking()
+
+    // Set up exit intent tracking
+    this.setupExitIntentTracking()
   }
 
-  public getConversionRate(timeRange = "24h"): Promise<number> {
-    return fetch(`/api/analytics/conversion-rate?timeRange=${timeRange}`)
-      .then((response) => response.json())
-      .then((data) => data.conversionRate || 0)
-      .catch(() => 0)
-  }
+  private setupGoalTracking(goal: ConversionGoal) {
+    const elements = document.querySelectorAll(goal.selector!)
 
-  public getFunnelAnalysis(funnelId: string, timeRange = "24h"): Promise<any> {
-    return fetch(`/api/analytics/funnel-analysis?funnelId=${funnelId}&timeRange=${timeRange}`)
-      .then((response) => response.json())
-      .then((data) => data.funnelData || {})
-      .catch(() => ({}))
-  }
+    elements.forEach((element) => {
+      element.addEventListener(goal.event!, (event) => {
+        this.trackConversion(goal.type, {
+          value: goal.value,
+          element: goal.selector,
+          goalName: goal.name,
+          timestamp: Date.now(),
+        })
 
-  public getTopConvertingPages(timeRange = "24h"): Promise<any[]> {
-    return fetch(`/api/conversions?timeRange=${timeRange}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const pages = data.data?.topConvertingPages || {}
-        return Object.entries(pages)
-          .map(([page, conversions]) => ({ page, conversions }))
-          .sort((a, b) => (b.conversions as number) - (a.conversions as number))
+        // Track additional context for forms
+        if (goal.event === "submit" && element instanceof HTMLFormElement) {
+          const formData = new FormData(element)
+          const formFields = Object.fromEntries(formData.entries())
+
+          analytics.trackCustomEvent("form_conversion", {
+            conversion_type: goal.type,
+            form_fields: Object.keys(formFields),
+            field_count: Object.keys(formFields).length,
+          })
+        }
+
+        // Track additional context for links
+        if (goal.event === "click" && element instanceof HTMLAnchorElement) {
+          analytics.trackCustomEvent("link_conversion", {
+            conversion_type: goal.type,
+            href: element.href,
+            text: element.textContent?.trim(),
+          })
+        }
       })
-      .catch(() => [])
+    })
+  }
+
+  private setupScrollTracking() {
+    let maxScrollDepth = 0
+    const scrollMilestones = [25, 50, 75, 90]
+    const trackedMilestones = new Set<number>()
+
+    const trackScrollMilestone = (depth: number) => {
+      if (!trackedMilestones.has(depth)) {
+        trackedMilestones.add(depth)
+
+        analytics.trackCustomEvent("scroll_milestone", {
+          scroll_depth: depth,
+          is_conversion: depth >= 80, // 80%+ scroll is considered a micro-conversion
+        })
+
+        // Track 80%+ scroll as a micro-conversion
+        if (depth >= 80) {
+          this.trackConversion("hero_cta", {
+            value: 1,
+            conversionSubtype: "scroll_engagement",
+            scrollDepth: depth,
+          })
+        }
+      }
+    }
+
+    window.addEventListener("scroll", () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
+      )
+
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent
+
+        scrollMilestones.forEach((milestone) => {
+          if (scrollPercent >= milestone) {
+            trackScrollMilestone(milestone)
+          }
+        })
+      }
+    })
+  }
+
+  private setupTimeTracking() {
+    const engagementMilestones = [30, 120, 300] // 30s, 2min, 5min
+    const trackedEngagement = new Set<number>()
+
+    engagementMilestones.forEach((seconds) => {
+      setTimeout(() => {
+        if (!trackedEngagement.has(seconds)) {
+          trackedEngagement.add(seconds)
+
+          analytics.trackCustomEvent("engagement_milestone", {
+            time_on_page: seconds * 1000,
+            is_conversion: seconds >= 120, // 2+ minutes is considered engaged
+          })
+
+          // Track 2+ minutes as engagement conversion
+          if (seconds >= 120) {
+            this.trackConversion("hero_cta", {
+              value: 2,
+              conversionSubtype: "time_engagement",
+              timeOnPage: seconds,
+            })
+          }
+        }
+      }, seconds * 1000)
+    })
+  }
+
+  private setupExitIntentTracking() {
+    let exitIntentTracked = false
+
+    const trackExitIntent = () => {
+      if (!exitIntentTracked) {
+        exitIntentTracked = true
+
+        analytics.trackCustomEvent("exit_intent", {
+          time_on_page: Date.now() - performance.timing.navigationStart,
+          scroll_depth: Math.round(
+            (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
+          ),
+        })
+      }
+    }
+
+    // Track mouse leaving viewport (desktop)
+    document.addEventListener("mouseleave", (event) => {
+      if (event.clientY <= 0) {
+        trackExitIntent()
+      }
+    })
+
+    // Track page visibility change (mobile/tab switching)
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        trackExitIntent()
+      }
+    })
+  }
+
+  public trackConversion(type: ConversionType, data?: Record<string, any>) {
+    const goal = this.goals.find((g) => g.type === type)
+
+    analytics.trackCustomConversion(type, goal?.value, {
+      goalName: goal?.name,
+      goalDescription: goal?.description,
+      ...data,
+    })
+
+    // Also track as a custom event for additional analytics
+    analytics.trackCustomEvent("conversion", {
+      conversion_type: type,
+      conversion_value: goal?.value,
+      ...data,
+    })
+
+    console.log(`🎯 Conversion tracked: ${type}`, data)
   }
 
   public addCustomGoal(goal: ConversionGoal) {
     this.goals.push(goal)
-  }
 
-  public removeGoal(goalId: string) {
-    this.goals = this.goals.filter((g) => g.id !== goalId)
+    if (goal.selector && goal.event && this.isInitialized) {
+      this.setupGoalTracking(goal)
+    }
   }
 
   public getGoals(): ConversionGoal[] {
     return [...this.goals]
   }
 
-  public getFunnels(): ConversionFunnel[] {
-    return [...this.funnels]
+  public getGoal(type: ConversionType): ConversionGoal | undefined {
+    return this.goals.find((g) => g.type === type)
+  }
+
+  // Manual conversion tracking methods
+  public trackWhatsAppClick(data?: Record<string, any>) {
+    this.trackConversion("whatsapp_click", data)
+  }
+
+  public trackHeroCTA(data?: Record<string, any>) {
+    this.trackConversion("hero_cta", data)
+  }
+
+  public trackServicesCTA(data?: Record<string, any>) {
+    this.trackConversion("services_cta", data)
+  }
+
+  public trackContactForm(data?: Record<string, any>) {
+    this.trackConversion("contact_form", data)
+  }
+
+  public trackDemoRequest(data?: Record<string, any>) {
+    this.trackConversion("demo_request", data)
+  }
+
+  public trackEmailSignup(data?: Record<string, any>) {
+    this.trackConversion("email_signup", data)
+  }
+
+  // Utility methods
+  public getConversionValue(type: ConversionType): number {
+    const goal = this.getGoal(type)
+    return goal?.value || 0
+  }
+
+  public getTotalPotentialValue(): number {
+    return this.goals.reduce((sum, goal) => sum + (goal.value || 0), 0)
   }
 }
 
-// Singleton instance
+// Export singleton instance
 export const conversionTracker = new ConversionTracker()
+export default conversionTracker

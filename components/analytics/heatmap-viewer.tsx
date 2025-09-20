@@ -4,132 +4,139 @@ import { useState, useEffect, useRef } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
-import { MousePointer, Smartphone, Monitor, Tablet, RefreshCw, Download, Settings } from "lucide-react"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Download, Eye, EyeOff, RotateCcw, Smartphone, Monitor, Tablet, MousePointer } from "lucide-react"
 
-interface HeatmapPoint {
-  x: number
-  y: number
-  intensity: number
-  viewport_width: number
-  viewport_height: number
-  device_type: string
-  timestamp: string
+interface HeatmapData {
+  heatmapData: any[]
+  processedData: {
+    clusters: Array<{
+      x: number
+      y: number
+      intensity: number
+      clicks: number
+      elements: string[]
+    }>
+    stats: {
+      totalClicks: number
+      uniqueElements: number
+      avgClicksPerSession: number
+      deviceBreakdown: Record<string, number>
+      topElements: Array<{ element: string; count: number }>
+      clicksByHour: Array<{ hour: number; count: number }>
+    }
+  }
+  totalClicks: number
+  timeRange: string
+  page: string
+  deviceType?: string
 }
 
 interface HeatmapViewerProps {
-  pageUrl?: string
-  timeRange?: string
+  className?: string
 }
 
-export function HeatmapViewer({ pageUrl = "/", timeRange = "24h" }: HeatmapViewerProps) {
-  const [heatmapData, setHeatmapData] = useState<HeatmapPoint[]>([])
+export function HeatmapViewer({ className }: HeatmapViewerProps) {
+  const [data, setData] = useState<HeatmapData | null>(null)
   const [loading, setLoading] = useState(true)
-  const [deviceFilter, setDeviceFilter] = useState<string>("all")
-  const [intensity, setIntensity] = useState([50])
-  const [showOverlay, setShowOverlay] = useState(true)
+  const [page, setPage] = useState("/")
+  const [deviceType, setDeviceType] = useState<string>("")
+  const [timeRange, setTimeRange] = useState("24h")
+  const [showHeatmap, setShowHeatmap] = useState(true)
+  const [intensity, setIntensity] = useState([0.7])
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    fetchHeatmapData()
-  }, [pageUrl, timeRange, deviceFilter])
-
-  useEffect(() => {
-    if (heatmapData.length > 0 && canvasRef.current) {
-      renderHeatmap()
-    }
-  }, [heatmapData, intensity, showOverlay])
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const fetchHeatmapData = async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams({
-        pageUrl,
+        page,
         timeRange,
-        ...(deviceFilter !== "all" && { deviceType: deviceFilter }),
+        ...(deviceType && { deviceType }),
       })
 
       const response = await fetch(`/api/heatmap?${params}`)
-      const data = await response.json()
-
-      if (data.success && data.raw) {
-        const processedPoints: HeatmapPoint[] = data.raw.map((point: any) => ({
-          x: point.click_x,
-          y: point.click_y,
-          intensity: 1,
-          viewport_width: point.viewport_width,
-          viewport_height: point.viewport_height,
-          device_type: point.device_type,
-          timestamp: point.timestamp,
-        }))
-
-        setHeatmapData(processedPoints)
-      }
+      const heatmapData = await response.json()
+      setData(heatmapData)
     } catch (error) {
-      console.error("Heatmap data fetch error:", error)
+      console.error("Failed to fetch heatmap data:", error)
     } finally {
       setLoading(false)
     }
   }
 
-  const renderHeatmap = () => {
+  useEffect(() => {
+    fetchHeatmapData()
+  }, [page, deviceType, timeRange])
+
+  useEffect(() => {
+    if (data && showHeatmap && canvasRef.current && containerRef.current) {
+      drawHeatmap()
+    }
+  }, [data, showHeatmap, intensity])
+
+  const drawHeatmap = () => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    const container = containerRef.current
+    if (!canvas || !container || !data) return
 
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Set canvas size to match viewport
-    const rect = canvas.getBoundingClientRect()
+    // Set canvas size to match container
+    const rect = container.getBoundingClientRect()
     canvas.width = rect.width
     canvas.height = rect.height
 
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    // Create gradient for heatmap
-    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, 25)
-    gradient.addColorStop(0, `rgba(255, 0, 0, ${intensity[0] / 100})`)
-    gradient.addColorStop(0.3, `rgba(255, 165, 0, ${intensity[0] / 150})`)
-    gradient.addColorStop(0.6, `rgba(255, 255, 0, ${intensity[0] / 200})`)
-    gradient.addColorStop(1, "rgba(255, 255, 0, 0)")
+    // Draw heatmap clusters
+    data.processedData.clusters.forEach((cluster) => {
+      const radius = Math.max(20, cluster.clicks * 5)
+      const alpha = Math.min(cluster.intensity * intensity[0], 1)
 
-    // Draw heatmap points
-    heatmapData.forEach((point) => {
-      // Scale coordinates to canvas size
-      const scaledX = (point.x / point.viewport_width) * canvas.width
-      const scaledY = (point.y / point.viewport_height) * canvas.height
+      // Create radial gradient
+      const gradient = ctx.createRadialGradient(cluster.x, cluster.y, 0, cluster.x, cluster.y, radius)
 
-      ctx.save()
-      ctx.translate(scaledX, scaledY)
+      gradient.addColorStop(0, `rgba(255, 0, 0, ${alpha})`)
+      gradient.addColorStop(0.5, `rgba(255, 165, 0, ${alpha * 0.7})`)
+      gradient.addColorStop(1, `rgba(255, 255, 0, 0)`)
+
       ctx.fillStyle = gradient
       ctx.beginPath()
-      ctx.arc(0, 0, 25, 0, Math.PI * 2)
+      ctx.arc(cluster.x, cluster.y, radius, 0, 2 * Math.PI)
       ctx.fill()
-      ctx.restore()
-    })
 
-    // Apply blur effect
-    ctx.filter = "blur(15px)"
-    ctx.globalCompositeOperation = "multiply"
+      // Draw click count
+      if (cluster.clicks > 1) {
+        ctx.fillStyle = "white"
+        ctx.font = "12px Arial"
+        ctx.textAlign = "center"
+        ctx.fillText(cluster.clicks.toString(), cluster.x, cluster.y + 4)
+      }
+    })
   }
 
-  const exportHeatmapData = () => {
-    const dataStr = JSON.stringify(heatmapData, null, 2)
-    const dataBlob = new Blob([dataStr], { type: "application/json" })
-    const url = URL.createObjectURL(dataBlob)
+  const exportHeatmap = () => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
     const link = document.createElement("a")
-    link.href = url
-    link.download = `heatmap-${pageUrl.replace("/", "home")}-${timeRange}.json`
+    link.download = `heatmap-${page.replace("/", "home")}-${timeRange}.png`
+    link.href = canvas.toDataURL()
     link.click()
-    URL.revokeObjectURL(url)
+  }
+
+  const resetView = () => {
+    setIntensity([0.7])
+    setShowHeatmap(true)
   }
 
   const getDeviceIcon = (device: string) => {
-    switch (device) {
+    switch (device.toLowerCase()) {
       case "mobile":
         return <Smartphone className="h-4 w-4" />
       case "tablet":
@@ -141,184 +148,220 @@ export function HeatmapViewer({ pageUrl = "/", timeRange = "24h" }: HeatmapViewe
     }
   }
 
-  const deviceStats = heatmapData.reduce(
-    (acc, point) => {
-      acc[point.device_type] = (acc[point.device_type] || 0) + 1
-      return acc
-    },
-    {} as Record<string, number>,
-  )
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold">Heatmap Analysis</h2>
-          <p className="text-muted-foreground">Visual representation of user interactions on {pageUrl}</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm" onClick={exportHeatmapData} disabled={heatmapData.length === 0}>
-            <Download className="h-4 w-4 mr-2" />
-            Export
-          </Button>
-          <Button variant="outline" size="sm" onClick={fetchHeatmapData} disabled={loading}>
-            <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
-            Refresh
-          </Button>
-        </div>
-      </div>
-
-      {/* Controls */}
-      <div className="flex flex-wrap items-center gap-4 p-4 bg-muted/50 rounded-lg">
-        <div className="flex items-center space-x-2">
-          <label className="text-sm font-medium">Device:</label>
-          <Select value={deviceFilter} onValueChange={setDeviceFilter}>
-            <SelectTrigger className="w-32">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Devices</SelectItem>
-              <SelectItem value="desktop">Desktop</SelectItem>
-              <SelectItem value="tablet">Tablet</SelectItem>
-              <SelectItem value="mobile">Mobile</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <label className="text-sm font-medium">Intensity:</label>
-          <div className="w-32">
-            <Slider value={intensity} onValueChange={setIntensity} max={100} min={10} step={10} />
-          </div>
-          <span className="text-sm text-muted-foreground">{intensity[0]}%</span>
-        </div>
-
-        <Button variant="outline" size="sm" onClick={() => setShowOverlay(!showOverlay)}>
-          <Settings className="h-4 w-4 mr-2" />
-          {showOverlay ? "Hide" : "Show"} Overlay
-        </Button>
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
-            <MousePointer className="h-4 w-4 text-muted-foreground" />
+  if (loading) {
+    return (
+      <div className={`space-y-6 ${className}`}>
+        <Card className="animate-pulse">
+          <CardHeader>
+            <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{heatmapData.length}</div>
+            <div className="h-96 bg-gray-200 rounded"></div>
           </CardContent>
         </Card>
+      </div>
+    )
+  }
 
-        {Object.entries(deviceStats).map(([device, count]) => (
-          <Card key={device}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium capitalize">{device}</CardTitle>
-              {getDeviceIcon(device)}
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{count}</div>
-              <p className="text-xs text-muted-foreground">
-                {heatmapData.length > 0 ? Math.round((count / heatmapData.length) * 100) : 0}% of clicks
-              </p>
-            </CardContent>
-          </Card>
-        ))}
+  return (
+    <div className={`space-y-6 ${className}`}>
+      {/* Header Controls */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold">Click Heatmap</h2>
+          <p className="text-muted-foreground">
+            {data?.totalClicks || 0} clicks on {page} ({timeRange})
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            {["/", "/services", "/products", "/contact"].map((pagePath) => (
+              <Button
+                key={pagePath}
+                variant={page === pagePath ? "default" : "outline"}
+                size="sm"
+                onClick={() => setPage(pagePath)}
+              >
+                {pagePath === "/" ? "Home" : pagePath.slice(1)}
+              </Button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {["", "desktop", "tablet", "mobile"].map((device) => (
+              <Button
+                key={device}
+                variant={deviceType === device ? "default" : "outline"}
+                size="sm"
+                onClick={() => setDeviceType(device)}
+              >
+                {device ? getDeviceIcon(device) : "All"}
+              </Button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {["1h", "24h", "7d", "30d"].map((range) => (
+              <Button
+                key={range}
+                variant={timeRange === range ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeRange(range)}
+              >
+                {range}
+              </Button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Heatmap Visualization */}
       <Card>
         <CardHeader>
-          <CardTitle>Click Heatmap</CardTitle>
-          <CardDescription>
-            Red areas indicate high interaction, yellow areas indicate moderate interaction
-          </CardDescription>
+          <div className="flex justify-between items-center">
+            <div>
+              <CardTitle>Interactive Heatmap</CardTitle>
+              <CardDescription>
+                Click density visualization with {data?.processedData.clusters.length || 0} clusters
+              </CardDescription>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={() => setShowHeatmap(!showHeatmap)}>
+                {showHeatmap ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </Button>
+
+              <Button variant="outline" size="sm" onClick={resetView}>
+                <RotateCcw className="h-4 w-4" />
+              </Button>
+
+              <Button variant="outline" size="sm" onClick={exportHeatmap}>
+                <Download className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+
+          {showHeatmap && (
+            <div className="flex items-center gap-4 mt-4">
+              <span className="text-sm font-medium">Intensity:</span>
+              <Slider value={intensity} onValueChange={setIntensity} max={1} min={0.1} step={0.1} className="w-32" />
+              <span className="text-sm text-muted-foreground">{Math.round(intensity[0] * 100)}%</span>
+            </div>
+          )}
         </CardHeader>
+
         <CardContent>
-          <div className="relative w-full h-96 bg-gray-100 rounded-lg overflow-hidden">
-            {loading ? (
-              <div className="flex items-center justify-center h-full">
-                <RefreshCw className="h-8 w-8 animate-spin" />
-                <span className="ml-2">Loading heatmap...</span>
-              </div>
-            ) : (
-              <>
-                <canvas
-                  ref={canvasRef}
-                  className="absolute inset-0 w-full h-full"
-                  style={{ mixBlendMode: "multiply" }}
-                />
-                {showOverlay && (
-                  <div ref={overlayRef} className="absolute inset-0 pointer-events-none">
-                    {heatmapData.map((point, index) => (
-                      <div
-                        key={index}
-                        className="absolute w-2 h-2 bg-red-500 rounded-full opacity-50"
-                        style={{
-                          left: `${(point.x / point.viewport_width) * 100}%`,
-                          top: `${(point.y / point.viewport_height) * 100}%`,
-                          transform: "translate(-50%, -50%)",
-                        }}
-                      />
-                    ))}
-                  </div>
-                )}
-              </>
+          <div ref={containerRef} className="relative w-full h-96 bg-gray-50 border rounded-lg overflow-hidden">
+            {showHeatmap && (
+              <canvas
+                ref={canvasRef}
+                className="absolute inset-0 pointer-events-none"
+                style={{ mixBlendMode: "multiply" }}
+              />
             )}
+
+            {/* Simulated page content for context */}
+            <div className="absolute inset-0 p-4 text-gray-400">
+              <div className="h-16 bg-gray-200 rounded mb-4 flex items-center justify-center">Header / Navigation</div>
+              <div className="h-32 bg-gray-200 rounded mb-4 flex items-center justify-center">Hero Section</div>
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <div className="h-24 bg-gray-200 rounded flex items-center justify-center">Feature 1</div>
+                <div className="h-24 bg-gray-200 rounded flex items-center justify-center">Feature 2</div>
+                <div className="h-24 bg-gray-200 rounded flex items-center justify-center">Feature 3</div>
+              </div>
+              <div className="h-20 bg-gray-200 rounded flex items-center justify-center">Footer</div>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Detailed Analysis */}
-      <Tabs defaultValue="clicks" className="space-y-4">
+      {/* Analytics Tabs */}
+      <Tabs defaultValue="stats" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="clicks">Click Analysis</TabsTrigger>
-          <TabsTrigger value="scroll">Scroll Behavior</TabsTrigger>
-          <TabsTrigger value="elements">Element Popularity</TabsTrigger>
+          <TabsTrigger value="stats">Statistics</TabsTrigger>
+          <TabsTrigger value="elements">Top Elements</TabsTrigger>
+          <TabsTrigger value="activity">Activity Timeline</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="clicks" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Click Distribution</CardTitle>
-              <CardDescription>Analysis of click patterns by device and time</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {Object.entries(deviceStats).map(([device, count]) => (
-                  <div key={device} className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      {getDeviceIcon(device)}
-                      <span className="capitalize">{device}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full"
-                          style={{
-                            width: `${heatmapData.length > 0 ? (count / heatmapData.length) * 100 : 0}%`,
-                          }}
-                        />
-                      </div>
-                      <Badge variant="secondary">{count}</Badge>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+        <TabsContent value="stats" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Total Clicks</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{data?.processedData.stats.totalClicks || 0}</div>
+                <Badge variant="secondary" className="mt-1">
+                  <MousePointer className="h-3 w-3 mr-1" />
+                  {data?.processedData.clusters.length || 0} clusters
+                </Badge>
+              </CardContent>
+            </Card>
 
-        <TabsContent value="scroll" className="space-y-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Unique Elements</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{data?.processedData.stats.uniqueElements || 0}</div>
+                <p className="text-xs text-muted-foreground mt-1">Interactive elements clicked</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Avg. Clicks/Session</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.processedData.stats.avgClicksPerSession.toFixed(1) || "0.0"}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">User engagement level</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium">Peak Hour</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">
+                  {data?.processedData.stats.clicksByHour.reduce((max, curr) => (curr.count > max.count ? curr : max), {
+                    hour: 0,
+                    count: 0,
+                  }).hour || 0}
+                  :00
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">Most active time</p>
+              </CardContent>
+            </Card>
+          </div>
+
           <Card>
             <CardHeader>
-              <CardTitle>Scroll Behavior</CardTitle>
-              <CardDescription>How users scroll through the page</CardDescription>
+              <CardTitle>Device Breakdown</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">Scroll behavior analysis will be available with more data points.</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {Object.entries(data?.processedData.stats.deviceBreakdown || {}).map(([device, count]) => {
+                  const total = Object.values(data?.processedData.stats.deviceBreakdown || {}).reduce(
+                    (a, b) => a + b,
+                    0,
+                  )
+                  const percentage = total > 0 ? (count / total) * 100 : 0
+
+                  return (
+                    <div key={device} className="text-center p-4 border rounded-lg">
+                      <div className="flex justify-center mb-2">{getDeviceIcon(device)}</div>
+                      <h3 className="font-semibold capitalize">{device}</h3>
+                      <p className="text-2xl font-bold">{count}</p>
+                      <p className="text-sm text-muted-foreground">{percentage.toFixed(1)}%</p>
+                    </div>
+                  )
+                })}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -326,13 +369,48 @@ export function HeatmapViewer({ pageUrl = "/", timeRange = "24h" }: HeatmapViewe
         <TabsContent value="elements" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Element Popularity</CardTitle>
-              <CardDescription>Most clicked elements on the page</CardDescription>
+              <CardTitle>Most Clicked Elements</CardTitle>
+              <CardDescription>Top interactive elements by click count</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground">
-                Element popularity analysis will be available with element selector data.
-              </p>
+              <div className="space-y-3">
+                {data?.processedData.stats.topElements.map((element, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div>
+                      <code className="text-sm bg-gray-100 px-2 py-1 rounded">{element.element}</code>
+                    </div>
+                    <Badge variant="outline">{element.count} clicks</Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="activity" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Hourly Activity</CardTitle>
+              <CardDescription>Click distribution throughout the day</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-12 gap-1">
+                {data?.processedData.stats.clicksByHour.map((hourData) => {
+                  const maxClicks = Math.max(...(data?.processedData.stats.clicksByHour.map((h) => h.count) || [1]))
+                  const height = maxClicks > 0 ? (hourData.count / maxClicks) * 100 : 0
+
+                  return (
+                    <div key={hourData.hour} className="text-center">
+                      <div
+                        className="bg-blue-500 rounded-t mb-1 transition-all duration-300 hover:bg-blue-600"
+                        style={{ height: `${Math.max(height, 4)}px` }}
+                        title={`${hourData.hour}:00 - ${hourData.count} clicks`}
+                      />
+                      <span className="text-xs text-muted-foreground">{hourData.hour}</span>
+                    </div>
+                  )
+                })}
+              </div>
             </CardContent>
           </Card>
         </TabsContent>

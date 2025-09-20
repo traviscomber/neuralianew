@@ -1,413 +1,110 @@
+import { createClient } from "@/lib/supabase-browser"
+
 export interface AnalyticsEvent {
-  id?: string
   session_id: string
-  user_id?: string
-  event_type: "page_view" | "click" | "scroll" | "form_submit" | "conversion" | "heatmap" | "ab_test"
+  event_type: "page_view" | "click" | "scroll" | "form_submit" | "conversion" | "heatmap" | "ab_test" | "page_unload"
   event_data: Record<string, any>
   page_url: string
-  user_agent: string
-  ip_address?: string
-  timestamp: Date
-  device_type: "desktop" | "tablet" | "mobile"
-  browser: string
+  user_agent?: string
+  device_type?: "desktop" | "tablet" | "mobile"
+  browser?: string
   country?: string
   city?: string
 }
 
-export interface ConversionEvent {
-  id?: string
+export interface UserSession {
   session_id: string
   user_id?: string
-  conversion_type: "whatsapp_click" | "form_submit" | "email_signup" | "demo_request" | "contact_form"
-  conversion_value?: number
-  source_page: string
-  funnel_step: number
-  timestamp: Date
-  user_data?: Record<string, any>
+  device_info: Record<string, any>
+  location: Record<string, any>
 }
 
 export interface HeatmapData {
-  id?: string
   session_id: string
   page_url: string
-  element_selector: string
+  element_selector?: string
   click_x: number
   click_y: number
   viewport_width: number
   viewport_height: number
-  scroll_depth: number
-  timestamp: Date
-  device_type: "desktop" | "tablet" | "mobile"
+  scroll_depth?: number
+  device_type?: "desktop" | "tablet" | "mobile"
 }
 
-export interface UserSession {
-  id?: string
+export interface ConversionEvent {
   session_id: string
   user_id?: string
-  start_time: Date
-  end_time?: Date
-  page_views: number
-  total_time: number
-  bounce_rate: boolean
-  conversion_count: number
-  device_info: {
-    type: "desktop" | "tablet" | "mobile"
-    browser: string
-    os: string
-    screen_resolution: string
-  }
-  location?: {
-    country: string
-    city: string
-    timezone: string
-  }
+  conversion_type:
+    | "whatsapp_click"
+    | "form_submit"
+    | "email_signup"
+    | "demo_request"
+    | "contact_form"
+    | "hero_cta"
+    | "services_cta"
+  conversion_value?: number
+  source_page: string
+  funnel_step?: number
+  user_data?: Record<string, any>
 }
 
-export class AnalyticsTracker {
+class AnalyticsService {
+  private supabase = createClient()
   private sessionId: string
-  private userId?: string
-  private startTime: Date
-  private pageStartTime: Date
+  private startTime: number
+  private pageViews = 0
   private scrollDepth = 0
-  private maxScrollDepth = 0
-  private interactions = 0
-  private isTracking = true
+  private timeOnPage = 0
+  private isTracking = false
 
   constructor() {
     this.sessionId = this.generateSessionId()
-    this.startTime = new Date()
-    this.pageStartTime = new Date()
-    this.initializeTracking()
+    this.startTime = Date.now()
+    this.initializeSession()
+    this.setupEventListeners()
   }
 
   private generateSessionId(): string {
     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  private initializeTracking() {
-    if (typeof window === "undefined") return
-
-    // Track page views
-    this.trackPageView()
-
-    // Track scroll depth
-    this.trackScrollDepth()
-
-    // Track clicks
-    this.trackClicks()
-
-    // Track form submissions
-    this.trackFormSubmissions()
-
-    // Track page unload
-    this.trackPageUnload()
-
-    // Track mouse movements for heatmap
-    this.trackMouseMovements()
-  }
-
-  private async sendEvent(event: Partial<AnalyticsEvent>) {
-    if (!this.isTracking) return
-
+  private async initializeSession() {
     try {
-      await fetch("/api/analytics", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...event,
-          session_id: this.sessionId,
-          user_id: this.userId,
-          timestamp: new Date(),
-          user_agent: navigator.userAgent,
-          device_type: this.getDeviceType(),
-          browser: this.getBrowser(),
-        }),
+      const deviceInfo = this.getDeviceInfo()
+      const location = await this.getLocationInfo()
+
+      const { error } = await this.supabase.from("user_sessions").insert({
+        session_id: this.sessionId,
+        device_info: deviceInfo,
+        location: location,
+        start_time: new Date().toISOString(),
       })
+
+      if (error) {
+        console.error("Failed to initialize session:", error)
+      } else {
+        this.isTracking = true
+      }
     } catch (error) {
-      console.error("Analytics tracking error:", error)
+      console.error("Session initialization error:", error)
     }
   }
 
-  private trackPageView() {
-    this.sendEvent({
-      event_type: "page_view",
-      page_url: window.location.pathname,
-      event_data: {
-        referrer: document.referrer,
-        title: document.title,
-        viewport: {
-          width: window.innerWidth,
-          height: window.innerHeight,
-        },
-      },
-    })
-  }
+  private getDeviceInfo() {
+    const userAgent = navigator.userAgent
+    const deviceType = this.getDeviceType()
+    const browser = this.getBrowser()
 
-  private trackScrollDepth() {
-    let ticking = false
-
-    const updateScrollDepth = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      this.scrollDepth = Math.round((scrollTop / docHeight) * 100)
-
-      if (this.scrollDepth > this.maxScrollDepth) {
-        this.maxScrollDepth = this.scrollDepth
-
-        // Send scroll milestone events
-        if (this.maxScrollDepth >= 25 && this.maxScrollDepth < 50) {
-          this.sendEvent({
-            event_type: "scroll",
-            page_url: window.location.pathname,
-            event_data: { depth: 25, milestone: "25%" },
-          })
-        } else if (this.maxScrollDepth >= 50 && this.maxScrollDepth < 75) {
-          this.sendEvent({
-            event_type: "scroll",
-            page_url: window.location.pathname,
-            event_data: { depth: 50, milestone: "50%" },
-          })
-        } else if (this.maxScrollDepth >= 75 && this.maxScrollDepth < 90) {
-          this.sendEvent({
-            event_type: "scroll",
-            page_url: window.location.pathname,
-            event_data: { depth: 75, milestone: "75%" },
-          })
-        } else if (this.maxScrollDepth >= 90) {
-          this.sendEvent({
-            event_type: "scroll",
-            page_url: window.location.pathname,
-            event_data: { depth: 90, milestone: "90%" },
-          })
-        }
-      }
-
-      ticking = false
-    }
-
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateScrollDepth)
-        ticking = true
-      }
-    }
-
-    window.addEventListener("scroll", onScroll, { passive: true })
-  }
-
-  private trackClicks() {
-    document.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement
-      const elementInfo = this.getElementInfo(target)
-
-      this.interactions++
-
-      this.sendEvent({
-        event_type: "click",
-        page_url: window.location.pathname,
-        event_data: {
-          element: elementInfo,
-          coordinates: {
-            x: event.clientX,
-            y: event.clientY,
-          },
-          interactions_count: this.interactions,
-        },
-      })
-
-      // Track heatmap data
-      this.trackHeatmapClick(event)
-
-      // Check for conversion events
-      this.checkConversionClick(target, event)
-    })
-  }
-
-  private trackFormSubmissions() {
-    document.addEventListener("submit", (event) => {
-      const form = event.target as HTMLFormElement
-      const formData = new FormData(form)
-      const formFields: Record<string, any> = {}
-
-      formData.forEach((value, key) => {
-        formFields[key] = value
-      })
-
-      this.sendEvent({
-        event_type: "form_submit",
-        page_url: window.location.pathname,
-        event_data: {
-          form_id: form.id,
-          form_action: form.action,
-          form_method: form.method,
-          fields: Object.keys(formFields),
-          field_count: Object.keys(formFields).length,
-        },
-      })
-
-      // Track as conversion
-      this.trackConversion("form_submit", {
-        form_id: form.id,
-        fields: formFields,
-      })
-    })
-  }
-
-  private trackPageUnload() {
-    window.addEventListener("beforeunload", () => {
-      const timeOnPage = Date.now() - this.pageStartTime.getTime()
-
-      navigator.sendBeacon(
-        "/api/analytics",
-        JSON.stringify({
-          session_id: this.sessionId,
-          user_id: this.userId,
-          event_type: "page_unload",
-          page_url: window.location.pathname,
-          event_data: {
-            time_on_page: timeOnPage,
-            max_scroll_depth: this.maxScrollDepth,
-            interactions: this.interactions,
-          },
-          timestamp: new Date(),
-          user_agent: navigator.userAgent,
-          device_type: this.getDeviceType(),
-          browser: this.getBrowser(),
-        }),
-      )
-    })
-  }
-
-  private trackMouseMovements() {
-    let mousePositions: Array<{ x: number; y: number; timestamp: number }> = []
-    let lastSent = Date.now()
-
-    document.addEventListener("mousemove", (event) => {
-      mousePositions.push({
-        x: event.clientX,
-        y: event.clientY,
-        timestamp: Date.now(),
-      })
-
-      // Send mouse data every 5 seconds
-      if (Date.now() - lastSent > 5000 && mousePositions.length > 0) {
-        this.sendEvent({
-          event_type: "heatmap",
-          page_url: window.location.pathname,
-          event_data: {
-            mouse_positions: mousePositions,
-            viewport: {
-              width: window.innerWidth,
-              height: window.innerHeight,
-            },
-          },
-        })
-
-        mousePositions = []
-        lastSent = Date.now()
-      }
-    })
-  }
-
-  private trackHeatmapClick(event: MouseEvent) {
-    const target = event.target as HTMLElement
-
-    fetch("/api/heatmap", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        session_id: this.sessionId,
-        page_url: window.location.pathname,
-        element_selector: this.getElementSelector(target),
-        click_x: event.clientX,
-        click_y: event.clientY,
-        viewport_width: window.innerWidth,
-        viewport_height: window.innerHeight,
-        scroll_depth: this.scrollDepth,
-        timestamp: new Date(),
-        device_type: this.getDeviceType(),
-      }),
-    }).catch((error) => console.error("Heatmap tracking error:", error))
-  }
-
-  private checkConversionClick(target: HTMLElement, event: MouseEvent) {
-    // Check for WhatsApp clicks
-    if (target.closest('a[href*="wa.me"]') || target.closest('a[href*="whatsapp"]')) {
-      this.trackConversion("whatsapp_click", {
-        element: this.getElementInfo(target),
-        coordinates: { x: event.clientX, y: event.clientY },
-      })
-    }
-
-    // Check for contact form clicks
-    if (target.closest('[data-conversion="contact"]')) {
-      this.trackConversion("contact_form", {
-        element: this.getElementInfo(target),
-      })
-    }
-
-    // Check for demo request clicks
-    if (target.closest('[data-conversion="demo"]')) {
-      this.trackConversion("demo_request", {
-        element: this.getElementInfo(target),
-      })
-    }
-  }
-
-  public trackConversion(type: ConversionEvent["conversion_type"], data?: Record<string, any>) {
-    fetch("/api/conversions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        session_id: this.sessionId,
-        user_id: this.userId,
-        conversion_type: type,
-        source_page: window.location.pathname,
-        funnel_step: this.getFunnelStep(),
-        timestamp: new Date(),
-        user_data: data,
-      }),
-    }).catch((error) => console.error("Conversion tracking error:", error))
-  }
-
-  public trackABTest(testName: string, variant: string) {
-    this.sendEvent({
-      event_type: "ab_test",
-      page_url: window.location.pathname,
-      event_data: {
-        test_name: testName,
-        variant: variant,
-        session_id: this.sessionId,
-      },
-    })
-  }
-
-  private getElementInfo(element: HTMLElement) {
     return {
-      tag: element.tagName.toLowerCase(),
-      id: element.id,
-      classes: Array.from(element.classList),
-      text: element.textContent?.slice(0, 100),
-      href: element.getAttribute("href"),
-      type: element.getAttribute("type"),
+      user_agent: userAgent,
+      device_type: deviceType,
+      browser: browser,
+      screen_resolution: `${screen.width}x${screen.height}`,
+      viewport_size: `${window.innerWidth}x${window.innerHeight}`,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      language: navigator.language,
+      platform: navigator.platform,
     }
-  }
-
-  private getElementSelector(element: HTMLElement): string {
-    if (element.id) return `#${element.id}`
-
-    let selector = element.tagName.toLowerCase()
-    if (element.className) {
-      selector += "." + Array.from(element.classList).join(".")
-    }
-
-    return selector
   }
 
   private getDeviceType(): "desktop" | "tablet" | "mobile" {
@@ -426,26 +123,287 @@ export class AnalyticsTracker {
     return "Unknown"
   }
 
-  private getFunnelStep(): number {
-    const path = window.location.pathname
-    if (path === "/") return 1
-    if (path.includes("/services") || path.includes("/products")) return 2
-    if (path.includes("/contact") || path.includes("/demo")) return 3
-    return 1
+  private async getLocationInfo() {
+    try {
+      // Use a geolocation API or IP-based service
+      const response = await fetch("https://ipapi.co/json/")
+      const data = await response.json()
+      return {
+        country: data.country_name,
+        city: data.city,
+        region: data.region,
+        timezone: data.timezone,
+        ip: data.ip,
+      }
+    } catch (error) {
+      return {
+        country: "Unknown",
+        city: "Unknown",
+        region: "Unknown",
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      }
+    }
   }
 
-  public setUserId(userId: string) {
-    this.userId = userId
+  private setupEventListeners() {
+    // Track page views
+    this.trackPageView()
+
+    // Track clicks
+    document.addEventListener("click", (event) => {
+      this.trackClick(event)
+    })
+
+    // Track scroll depth
+    let maxScrollDepth = 0
+    window.addEventListener("scroll", () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100,
+      )
+
+      if (scrollPercent > maxScrollDepth) {
+        maxScrollDepth = scrollPercent
+        this.scrollDepth = scrollPercent
+
+        // Track milestone scroll events
+        if ([25, 50, 75, 90].includes(scrollPercent)) {
+          this.trackEvent({
+            event_type: "scroll",
+            event_data: {
+              scroll_depth: scrollPercent,
+              milestone: true,
+            },
+          })
+        }
+      }
+    })
+
+    // Track page unload
+    window.addEventListener("beforeunload", () => {
+      this.trackPageUnload()
+    })
+
+    // Track time on page
+    setInterval(() => {
+      this.timeOnPage += 1000
+
+      // Track engagement milestones
+      if ([30000, 120000, 300000].includes(this.timeOnPage)) {
+        this.trackEvent({
+          event_type: "scroll",
+          event_data: {
+            time_on_page: this.timeOnPage,
+            engagement_milestone: true,
+          },
+        })
+      }
+    }, 1000)
+
+    // Track form submissions
+    document.addEventListener("submit", (event) => {
+      this.trackFormSubmit(event)
+    })
+  }
+
+  async trackEvent(eventData: Partial<AnalyticsEvent>) {
+    if (!this.isTracking) return
+
+    const event: AnalyticsEvent = {
+      session_id: this.sessionId,
+      event_type: eventData.event_type || "page_view",
+      event_data: eventData.event_data || {},
+      page_url: window.location.pathname,
+      user_agent: navigator.userAgent,
+      device_type: this.getDeviceType(),
+      browser: this.getBrowser(),
+      ...eventData,
+    }
+
+    try {
+      const { error } = await this.supabase.from("user_analytics").insert(event)
+
+      if (error) {
+        console.error("Failed to track event:", error)
+      }
+    } catch (error) {
+      console.error("Event tracking error:", error)
+    }
+  }
+
+  trackPageView() {
+    this.pageViews++
+    this.trackEvent({
+      event_type: "page_view",
+      event_data: {
+        page_title: document.title,
+        referrer: document.referrer,
+        page_views: this.pageViews,
+        load_time: performance.now(),
+      },
+    })
+  }
+
+  trackClick(event: MouseEvent) {
+    const target = event.target as HTMLElement
+    const elementInfo = {
+      tag_name: target.tagName,
+      class_name: target.className,
+      id: target.id,
+      text_content: target.textContent?.slice(0, 100),
+      href: target.getAttribute("href"),
+      data_attributes: this.getDataAttributes(target),
+    }
+
+    this.trackEvent({
+      event_type: "click",
+      event_data: {
+        element: elementInfo,
+        coordinates: { x: event.clientX, y: event.clientY },
+        scroll_depth: this.scrollDepth,
+      },
+    })
+
+    // Track heatmap data
+    this.trackHeatmapData({
+      click_x: event.clientX,
+      click_y: event.clientY,
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight,
+      element_selector: this.getElementSelector(target),
+      scroll_depth: this.scrollDepth,
+    })
+  }
+
+  trackFormSubmit(event: SubmitEvent) {
+    const form = event.target as HTMLFormElement
+    const formData = new FormData(form)
+    const formFields = Object.fromEntries(formData.entries())
+
+    this.trackEvent({
+      event_type: "form_submit",
+      event_data: {
+        form_id: form.id,
+        form_action: form.action,
+        form_method: form.method,
+        field_count: Object.keys(formFields).length,
+        fields: Object.keys(formFields),
+      },
+    })
+  }
+
+  trackPageUnload() {
+    const timeOnPage = Date.now() - this.startTime
+
+    this.trackEvent({
+      event_type: "page_unload",
+      event_data: {
+        time_on_page: timeOnPage,
+        page_views: this.pageViews,
+        max_scroll_depth: this.scrollDepth,
+        bounce: this.pageViews === 1 && timeOnPage < 30000,
+      },
+    })
+  }
+
+  async trackHeatmapData(data: Partial<HeatmapData>) {
+    if (!this.isTracking) return
+
+    const heatmapData: HeatmapData = {
+      session_id: this.sessionId,
+      page_url: window.location.pathname,
+      click_x: data.click_x || 0,
+      click_y: data.click_y || 0,
+      viewport_width: data.viewport_width || window.innerWidth,
+      viewport_height: data.viewport_height || window.innerHeight,
+      device_type: this.getDeviceType(),
+      ...data,
+    }
+
+    try {
+      const { error } = await this.supabase.from("heatmap_data").insert(heatmapData)
+
+      if (error) {
+        console.error("Failed to track heatmap data:", error)
+      }
+    } catch (error) {
+      console.error("Heatmap tracking error:", error)
+    }
+  }
+
+  async trackConversion(conversionData: Partial<ConversionEvent>) {
+    if (!this.isTracking) return
+
+    const conversion: ConversionEvent = {
+      session_id: this.sessionId,
+      conversion_type: conversionData.conversion_type || "hero_cta",
+      source_page: window.location.pathname,
+      funnel_step: 1,
+      ...conversionData,
+    }
+
+    try {
+      const { error } = await this.supabase.from("conversions").insert(conversion)
+
+      if (error) {
+        console.error("Failed to track conversion:", error)
+      }
+    } catch (error) {
+      console.error("Conversion tracking error:", error)
+    }
+  }
+
+  private getDataAttributes(element: HTMLElement): Record<string, string> {
+    const dataAttrs: Record<string, string> = {}
+    for (const attr of element.attributes) {
+      if (attr.name.startsWith("data-")) {
+        dataAttrs[attr.name] = attr.value
+      }
+    }
+    return dataAttrs
+  }
+
+  private getElementSelector(element: HTMLElement): string {
+    if (element.id) return `#${element.id}`
+    if (element.className) return `.${element.className.split(" ").join(".")}`
+    return element.tagName.toLowerCase()
+  }
+
+  // Public methods for manual tracking
+  public trackCustomEvent(eventType: string, eventData: Record<string, any>) {
+    this.trackEvent({
+      event_type: eventType as any,
+      event_data: eventData,
+    })
+  }
+
+  public trackCustomConversion(
+    type: ConversionEvent["conversion_type"],
+    value?: number,
+    userData?: Record<string, any>,
+  ) {
+    this.trackConversion({
+      conversion_type: type,
+      conversion_value: value,
+      user_data: userData,
+    })
   }
 
   public getSessionId(): string {
     return this.sessionId
   }
 
-  public stopTracking() {
-    this.isTracking = false
+  public getAnalyticsData() {
+    return {
+      sessionId: this.sessionId,
+      pageViews: this.pageViews,
+      timeOnPage: Date.now() - this.startTime,
+      scrollDepth: this.scrollDepth,
+      deviceType: this.getDeviceType(),
+      browser: this.getBrowser(),
+    }
   }
 }
 
-// Singleton instance
-export const analyticsTracker = new AnalyticsTracker()
+// Export singleton instance
+export const analytics = new AnalyticsService()
+export default analytics

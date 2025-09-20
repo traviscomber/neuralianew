@@ -2,15 +2,15 @@
 
 import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
-import { analyticsTracker } from "@/lib/analytics"
+import { analytics } from "@/lib/analytics"
 import { conversionTracker } from "@/lib/conversion-tracking"
 
 interface AnalyticsContextType {
+  isTracking: boolean
   sessionId: string
-  trackEvent: (eventType: string, eventData: any) => void
-  trackConversion: (goalId: string, additionalData?: any) => void
-  trackABTest: (testName: string, variant: string) => void
-  setUserId: (userId: string) => void
+  trackEvent: (eventType: string, eventData: Record<string, any>) => void
+  trackConversion: (type: string, data?: Record<string, any>) => void
+  getAnalyticsData: () => any
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType | null>(null)
@@ -25,79 +25,94 @@ export function useAnalytics() {
 
 interface AnalyticsProviderProps {
   children: React.ReactNode
+  enableTracking?: boolean
 }
 
-export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
-  const [sessionId, setSessionId] = useState<string>("")
+export function AnalyticsProvider({ children, enableTracking = true }: AnalyticsProviderProps) {
+  const [isTracking, setIsTracking] = useState(false)
+  const [sessionId, setSessionId] = useState("")
 
   useEffect(() => {
-    // Initialize analytics tracking
-    const id = analyticsTracker.getSessionId()
-    setSessionId(id)
+    if (enableTracking && typeof window !== "undefined") {
+      // Initialize analytics
+      setSessionId(analytics.getSessionId())
+      setIsTracking(true)
 
-    // Track initial page view and funnel step
-    conversionTracker.trackFunnelStep(id, window.location.pathname)
+      // Track initial page load
+      analytics.trackPageView()
 
-    // Set up page change tracking for SPA navigation
-    const handleRouteChange = () => {
-      conversionTracker.trackFunnelStep(id, window.location.pathname)
+      console.log("🔍 Analytics initialized:", {
+        sessionId: analytics.getSessionId(),
+        tracking: true,
+      })
     }
+  }, [enableTracking])
 
-    // Listen for popstate events (back/forward navigation)
-    window.addEventListener("popstate", handleRouteChange)
-
-    // Listen for pushstate/replacestate (programmatic navigation)
-    const originalPushState = history.pushState
-    const originalReplaceState = history.replaceState
-
-    history.pushState = (...args) => {
-      originalPushState.apply(history, args)
-      setTimeout(handleRouteChange, 0)
+  const trackEvent = (eventType: string, eventData: Record<string, any>) => {
+    if (isTracking) {
+      analytics.trackCustomEvent(eventType, eventData)
     }
-
-    history.replaceState = (...args) => {
-      originalReplaceState.apply(history, args)
-      setTimeout(handleRouteChange, 0)
-    }
-
-    return () => {
-      window.removeEventListener("popstate", handleRouteChange)
-      history.pushState = originalPushState
-      history.replaceState = originalReplaceState
-    }
-  }, [])
-
-  const trackEvent = (eventType: string, eventData: any) => {
-    analyticsTracker.sendEvent({
-      event_type: eventType as any,
-      page_url: window.location.pathname,
-      event_data: eventData,
-    })
   }
 
-  const trackConversion = (goalId: string, additionalData?: any) => {
-    conversionTracker.trackConversionGoal(goalId, sessionId, additionalData)
+  const trackConversion = (type: string, data?: Record<string, any>) => {
+    if (isTracking) {
+      conversionTracker.trackConversion(type as any, data)
+    }
   }
 
-  const trackABTest = (testName: string, variant: string) => {
-    analyticsTracker.trackABTest(testName, variant)
+  const getAnalyticsData = () => {
+    return analytics.getAnalyticsData()
   }
 
-  const setUserId = (userId: string) => {
-    analyticsTracker.setUserId(userId)
+  const contextValue: AnalyticsContextType = {
+    isTracking,
+    sessionId,
+    trackEvent,
+    trackConversion,
+    getAnalyticsData,
   }
 
-  return (
-    <AnalyticsContext.Provider
-      value={{
-        sessionId,
-        trackEvent,
-        trackConversion,
-        trackABTest,
-        setUserId,
-      }}
-    >
-      {children}
-    </AnalyticsContext.Provider>
-  )
+  return <AnalyticsContext.Provider value={contextValue}>{children}</AnalyticsContext.Provider>
+}
+
+// HOC for automatic conversion tracking
+export function withConversionTracking<T extends Record<string, any>>(
+  Component: React.ComponentType<T>,
+  conversionType: string,
+  conversionData?: Record<string, any>,
+) {
+  return function ConversionTrackedComponent(props: T) {
+    const { trackConversion } = useAnalytics()
+
+    const handleClick = (originalOnClick?: () => void) => {
+      return () => {
+        trackConversion(conversionType, conversionData)
+        originalOnClick?.()
+      }
+    }
+
+    return <Component {...props} onClick={handleClick(props.onClick)} />
+  }
+}
+
+// Hook for manual conversion tracking
+export function useConversionTracking() {
+  const { trackConversion, trackEvent } = useAnalytics()
+
+  return {
+    trackWhatsApp: (data?: Record<string, any>) => trackConversion("whatsapp_click", data),
+
+    trackHeroCTA: (data?: Record<string, any>) => trackConversion("hero_cta", data),
+
+    trackServicesCTA: (data?: Record<string, any>) => trackConversion("services_cta", data),
+
+    trackContactForm: (data?: Record<string, any>) => trackConversion("contact_form", data),
+
+    trackDemoRequest: (data?: Record<string, any>) => trackConversion("demo_request", data),
+
+    trackEmailSignup: (data?: Record<string, any>) => trackConversion("email_signup", data),
+
+    trackCustomEvent: trackEvent,
+    trackCustomConversion: trackConversion,
+  }
 }
