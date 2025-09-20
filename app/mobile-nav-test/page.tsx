@@ -1,126 +1,180 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Navigation } from "@/components/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Smartphone, Tablet, Monitor, Laptop } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Smartphone, Tablet, Monitor, CheckCircle, XCircle, Eye, Navigation } from "lucide-react"
+
+interface ScreenInfo {
+  width: number
+  height: number
+  breakpoint: string
+  isMobile: boolean
+}
+
+const deviceSizes = [
+  { name: "iPhone SE", width: 375, height: 667, icon: Smartphone },
+  { name: "iPhone 12", width: 390, height: 844, icon: Smartphone },
+  { name: "Samsung Galaxy", width: 412, height: 915, icon: Smartphone },
+  { name: "iPad Mini", width: 768, height: 1024, icon: Tablet },
+  { name: "iPad Pro", width: 1024, height: 1366, icon: Tablet },
+  { name: "Laptop", width: 1366, height: 768, icon: Monitor },
+  { name: "Desktop", width: 1920, height: 1080, icon: Monitor },
+]
+
+const breakpoints = [
+  { name: "xs", min: 0, max: 639, description: "Extra Small (Mobile)" },
+  { name: "sm", min: 640, max: 767, description: "Small (Large Mobile)" },
+  { name: "md", min: 768, max: 1023, description: "Medium (Tablet)" },
+  { name: "lg", min: 1024, max: 1279, description: "Large (Small Desktop)" },
+  { name: "xl", min: 1280, max: 1535, description: "Extra Large (Desktop)" },
+  { name: "2xl", min: 1536, max: 9999, description: "2X Large (Large Desktop)" },
+]
 
 export default function MobileNavTest() {
-  const [screenSize, setScreenSize] = useState({ width: 0, height: 0 })
-  const [currentBreakpoint, setCurrentBreakpoint] = useState("")
+  const [screenInfo, setScreenInfo] = useState<ScreenInfo>({
+    width: 0,
+    height: 0,
+    breakpoint: "",
+    isMobile: false,
+  })
 
-  useEffect(() => {
-    const updateScreenSize = () => {
-      setScreenSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
+  const updateScreenInfo = () => {
+    const width = window.innerWidth
+    const height = window.innerHeight
+    const isMobile = width < 768
 
-      // Determine current breakpoint
-      if (window.innerWidth < 640) {
-        setCurrentBreakpoint("Mobile (< 640px)")
-      } else if (window.innerWidth < 768) {
-        setCurrentBreakpoint("Small Mobile (640px - 768px)")
-      } else if (window.innerWidth < 1024) {
-        setCurrentBreakpoint("Tablet (768px - 1024px)")
-      } else if (window.innerWidth < 1280) {
-        setCurrentBreakpoint("Desktop (1024px - 1280px)")
-      } else {
-        setCurrentBreakpoint("Large Desktop (> 1280px)")
+    let breakpoint = "xs"
+    for (const bp of breakpoints) {
+      if (width >= bp.min && width <= bp.max) {
+        breakpoint = bp.name
+        break
       }
     }
 
-    updateScreenSize()
-    window.addEventListener("resize", updateScreenSize)
-    return () => window.removeEventListener("resize", updateScreenSize)
+    setScreenInfo({ width, height, breakpoint, isMobile })
+  }
+
+  useEffect(() => {
+    updateScreenInfo()
+    window.addEventListener("resize", updateScreenInfo)
+    return () => window.removeEventListener("resize", updateScreenInfo)
   }, [])
 
-  const testSizes = [
-    { name: "iPhone SE", width: 375, height: 667, icon: Smartphone },
-    { name: "iPhone 12", width: 390, height: 844, icon: Smartphone },
-    { name: "Samsung Galaxy", width: 412, height: 915, icon: Smartphone },
-    { name: "iPad Mini", width: 768, height: 1024, icon: Tablet },
-    { name: "iPad Pro", width: 1024, height: 1366, icon: Tablet },
-    { name: "Laptop", width: 1366, height: 768, icon: Laptop },
-    { name: "Desktop", width: 1920, height: 1080, icon: Monitor },
-  ]
+  const simulateDevice = (width: number, height: number) => {
+    // This would typically require browser dev tools or a testing framework
+    // For demonstration, we'll just show what the dimensions would be
+    alert(
+      `Simulating device: ${width}×${height}px\n\nTo test this size:\n1. Open browser dev tools (F12)\n2. Toggle device toolbar\n3. Set custom dimensions to ${width}×${height}`,
+    )
+  }
 
-  const simulateScreenSize = (width: number, height: number) => {
-    // This would typically require iframe or viewport manipulation
-    // For demo purposes, we'll show the information
-    alert(`Simulating ${width}x${height} screen size. Please resize your browser window to test.`)
+  const getBreakpointColor = (bp: string) => {
+    const colors = {
+      xs: "bg-red-100 text-red-800",
+      sm: "bg-orange-100 text-orange-800",
+      md: "bg-yellow-100 text-yellow-800",
+      lg: "bg-green-100 text-green-800",
+      xl: "bg-blue-100 text-blue-800",
+      "2xl": "bg-purple-100 text-purple-800",
+    }
+    return colors[bp as keyof typeof colors] || "bg-gray-100 text-gray-800"
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Navigation Component Being Tested */}
-      <Navigation />
-
-      <div className="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4">Mobile Navigation Test</h1>
-          <p className="text-gray-300 text-lg">Testing navigation responsiveness across different screen sizes</p>
-        </div>
-
-        {/* Current Screen Info */}
-        <Card className="mb-8 bg-gray-800/50 border-gray-700">
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white flex items-center gap-2">
-              <Monitor className="h-5 w-5" />
-              Current Screen Information
+            <CardTitle className="flex items-center gap-2">
+              <Navigation className="w-6 h-6" />
+              Mobile Navigation Test Interface
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center">
-                <p className="text-gray-400 text-sm">Screen Size</p>
-                <p className="text-white font-mono text-lg">
-                  {screenSize.width} × {screenSize.height}
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-gray-400 text-sm">Breakpoint</p>
-                <Badge variant="outline" className="text-white border-gray-600">
-                  {currentBreakpoint}
-                </Badge>
-              </div>
-              <div className="text-center">
-                <p className="text-gray-400 text-sm">Navigation Mode</p>
-                <Badge
-                  variant={screenSize.width < 768 ? "destructive" : "default"}
-                  className={screenSize.width < 768 ? "bg-blue-600" : "bg-green-600"}
-                >
-                  {screenSize.width < 768 ? "Mobile Menu" : "Desktop Menu"}
-                </Badge>
-              </div>
-            </div>
+            <p className="text-gray-600">
+              Test the navigation behavior across different screen sizes. The navigation switches to mobile mode at
+              768px (md breakpoint).
+            </p>
           </CardContent>
         </Card>
 
-        {/* Test Different Screen Sizes */}
-        <Card className="mb-8 bg-gray-800/50 border-gray-700">
+        {/* Current Screen Info */}
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Eye className="w-5 h-5" />
+                Current Screen
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="text-2xl font-bold">
+                {screenInfo.width} × {screenInfo.height}px
+              </div>
+              <Badge className={getBreakpointColor(screenInfo.breakpoint)}>
+                {screenInfo.breakpoint.toUpperCase()} Breakpoint
+              </Badge>
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Navigation Mode:</span>
+                <Badge variant={screenInfo.isMobile ? "destructive" : "default"}>
+                  {screenInfo.isMobile ? "Mobile Menu" : "Desktop Menu"}
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Navigation Features</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div className="space-y-2">
+                <h4 className="font-medium">Desktop (≥768px):</h4>
+                <ul className="text-sm space-y-1 text-gray-600">
+                  <li>• Logo: 64px height (100% bigger)</li>
+                  <li>• Background: Black navigation bar</li>
+                  <li>• Menu: Horizontal layout</li>
+                  <li>• Toggles: Theme & Language visible</li>
+                </ul>
+              </div>
+              <div className="space-y-2">
+                <h4 className="font-medium">Mobile (&lt;768px):</h4>
+                <ul className="text-sm space-y-1 text-gray-600">
+                  <li>• Logo: 64px height maintained</li>
+                  <li>• Background: Black navigation bar</li>
+                  <li>• Menu: Hamburger menu</li>
+                  <li>• Layout: Collapsible navigation</li>
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Device Testing */}
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white">Test Different Screen Sizes</CardTitle>
+            <CardTitle>Device Size Testing</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {testSizes.map((size) => {
-                const Icon = size.icon
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+              {deviceSizes.map((device) => {
+                const IconComponent = device.icon
                 return (
                   <Button
-                    key={size.name}
+                    key={device.name}
                     variant="outline"
-                    className="h-auto p-4 flex flex-col items-center gap-2 bg-gray-700/50 border-gray-600 hover:bg-gray-600/50 text-white"
-                    onClick={() => simulateScreenSize(size.width, size.height)}
+                    className="h-auto p-3 flex flex-col items-center gap-2 bg-transparent"
+                    onClick={() => simulateDevice(device.width, device.height)}
                   >
-                    <Icon className="h-6 w-6" />
+                    <IconComponent className="w-6 h-6" />
                     <div className="text-center">
-                      <p className="font-medium">{size.name}</p>
-                      <p className="text-xs text-gray-400">
-                        {size.width} × {size.height}
-                      </p>
+                      <div className="font-medium text-xs">{device.name}</div>
+                      <div className="text-xs text-gray-500">
+                        {device.width}×{device.height}
+                      </div>
                     </div>
                   </Button>
                 )
@@ -129,152 +183,83 @@ export default function MobileNavTest() {
           </CardContent>
         </Card>
 
-        {/* Navigation Features Test */}
-        <Card className="mb-8 bg-gray-800/50 border-gray-700">
+        {/* Breakpoint Table */}
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white">Navigation Features Checklist</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <h3 className="text-white font-medium">Desktop Features (≥768px)</h3>
-                  <ul className="space-y-1 text-sm text-gray-300">
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      Logo visible at 64px height (100% bigger)
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      Horizontal menu items visible
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      Language and theme toggles visible
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      Black background with proper contrast
-                    </li>
-                  </ul>
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-white font-medium">Mobile Features (&lt;768px)</h3>
-                  <ul className="space-y-1 text-sm text-gray-300">
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      Hamburger menu button visible
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      Logo still prominent and visible
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      Collapsible menu with smooth animation
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      Language toggle accessible in mobile
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Responsive Breakpoints */}
-        <Card className="mb-8 bg-gray-800/50 border-gray-700">
-          <CardHeader>
-            <CardTitle className="text-white">Tailwind CSS Breakpoints</CardTitle>
+            <CardTitle>Tailwind CSS Breakpoints</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-600">
-                    <th className="text-left py-2 text-gray-300">Breakpoint</th>
-                    <th className="text-left py-2 text-gray-300">Min Width</th>
-                    <th className="text-left py-2 text-gray-300">Navigation Behavior</th>
-                    <th className="text-left py-2 text-gray-300">Status</th>
+                  <tr className="border-b">
+                    <th className="text-left p-2">Breakpoint</th>
+                    <th className="text-left p-2">Range</th>
+                    <th className="text-left p-2">Description</th>
+                    <th className="text-left p-2">Navigation</th>
+                    <th className="text-left p-2">Status</th>
                   </tr>
                 </thead>
-                <tbody className="text-gray-300">
-                  <tr className="border-b border-gray-700">
-                    <td className="py-2">sm</td>
-                    <td className="py-2">640px</td>
-                    <td className="py-2">Mobile menu (hamburger)</td>
-                    <td className="py-2">
-                      <Badge variant={screenSize.width >= 640 ? "default" : "secondary"}>
-                        {screenSize.width >= 640 ? "Active" : "Inactive"}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-700">
-                    <td className="py-2">md</td>
-                    <td className="py-2">768px</td>
-                    <td className="py-2">Desktop menu (horizontal)</td>
-                    <td className="py-2">
-                      <Badge variant={screenSize.width >= 768 ? "default" : "secondary"}>
-                        {screenSize.width >= 768 ? "Active" : "Inactive"}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr className="border-b border-gray-700">
-                    <td className="py-2">lg</td>
-                    <td className="py-2">1024px</td>
-                    <td className="py-2">Full desktop layout</td>
-                    <td className="py-2">
-                      <Badge variant={screenSize.width >= 1024 ? "default" : "secondary"}>
-                        {screenSize.width >= 1024 ? "Active" : "Inactive"}
-                      </Badge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="py-2">xl</td>
-                    <td className="py-2">1280px</td>
-                    <td className="py-2">Large desktop optimizations</td>
-                    <td className="py-2">
-                      <Badge variant={screenSize.width >= 1280 ? "default" : "secondary"}>
-                        {screenSize.width >= 1280 ? "Active" : "Inactive"}
-                      </Badge>
-                    </td>
-                  </tr>
+                <tbody>
+                  {breakpoints.map((bp) => {
+                    const isActive = screenInfo.breakpoint === bp.name
+                    const navMode = bp.min < 768 ? "Mobile" : "Desktop"
+
+                    return (
+                      <tr key={bp.name} className={`border-b ${isActive ? "bg-blue-50" : ""}`}>
+                        <td className="p-2">
+                          <Badge className={getBreakpointColor(bp.name)}>{bp.name}</Badge>
+                        </td>
+                        <td className="p-2 font-mono">
+                          {bp.min}px - {bp.max === 9999 ? "∞" : `${bp.max}px`}
+                        </td>
+                        <td className="p-2">{bp.description}</td>
+                        <td className="p-2">
+                          <Badge variant={navMode === "Mobile" ? "destructive" : "default"}>{navMode}</Badge>
+                        </td>
+                        <td className="p-2">
+                          {isActive ? (
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <XCircle className="w-4 h-4 text-gray-300" />
+                          )}
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
           </CardContent>
         </Card>
 
-        {/* Test Instructions */}
-        <Card className="bg-gray-800/50 border-gray-700">
+        {/* Testing Instructions */}
+        <Card>
           <CardHeader>
-            <CardTitle className="text-white">Testing Instructions</CardTitle>
+            <CardTitle>Testing Instructions</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-gray-300">
-              <div>
-                <h3 className="text-white font-medium mb-2">Manual Testing Steps:</h3>
-                <ol className="list-decimal list-inside space-y-1 text-sm">
-                  <li>Resize your browser window to different widths</li>
-                  <li>Observe the navigation behavior at 768px breakpoint</li>
-                  <li>Test the hamburger menu functionality on mobile</li>
-                  <li>Verify logo visibility and size across all breakpoints</li>
-                  <li>Check that all menu items are accessible</li>
-                  <li>Test language and theme toggles on both desktop and mobile</li>
-                </ol>
-              </div>
-              <div>
-                <h3 className="text-white font-medium mb-2">Key Things to Verify:</h3>
-                <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Logo is 100% bigger (64px height) and clearly visible on black background</li>
-                  <li>Navigation switches from desktop to mobile at 768px breakpoint</li>
-                  <li>Mobile menu opens/closes smoothly with proper animations</li>
-                  <li>All interactive elements have proper hover states</li>
-                  <li>Text remains readable across all screen sizes</li>
-                </ul>
-              </div>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 className="font-medium mb-2">Manual Testing:</h4>
+              <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
+                <li>Resize your browser window to different widths</li>
+                <li>Watch the navigation mode change at 768px breakpoint</li>
+                <li>Verify logo remains 64px height (100% bigger) at all sizes</li>
+                <li>Test hamburger menu functionality on mobile sizes</li>
+                <li>Confirm black background provides good logo contrast</li>
+                <li>Check that all navigation links work in both modes</li>
+              </ol>
+            </div>
+
+            <div>
+              <h4 className="font-medium mb-2">Key Verification Points:</h4>
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
+                <li>Logo visibility: 64px height clearly visible on black background</li>
+                <li>Breakpoint accuracy: Mobile menu activates below 768px</li>
+                <li>Animation smoothness: Menu transitions are fluid</li>
+                <li>Touch targets: All buttons properly sized for mobile</li>
+                <li>Accessibility: All controls remain accessible</li>
+              </ul>
             </div>
           </CardContent>
         </Card>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -114,6 +114,11 @@ export default function SystemsPage() {
   const t = translations[language]
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
   const [hoveredFeatureCard, setHoveredFeatureCard] = useState<number | null>(null)
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(t.whatsappText)

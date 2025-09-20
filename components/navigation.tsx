@@ -1,12 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import Link from "next/link"
-import { Menu, X } from "lucide-react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { LanguageToggle } from "@/components/language-toggle"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Menu } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { LanguageToggle } from "@/components/language-toggle"
 import { useLanguage } from "@/lib/language-context"
 
 const translations = {
@@ -31,7 +32,7 @@ export function Navigation() {
   const { language } = useLanguage()
   const t = translations[language]
 
-  const menuItems = [
+  const navItems = [
     { href: "/agents", label: t.agents },
     { href: "/systems", label: t.systems },
     { href: "/products", label: t.products },
@@ -42,74 +43,68 @@ export function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo - 100% bigger and clearly visible */}
-          <Link href="/" className="flex items-center py-2">
-            <img
+        <div className="flex justify-between items-center h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <Image
               src="/n3uralia-logo-new.png"
-              alt="N3uralia"
-              className="h-16 w-auto transition-opacity hover:opacity-80"
+              alt="N3uralia Logo"
+              width={64}
+              height={64}
+              className="h-16 w-auto"
+              priority
             />
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm uppercase tracking-wide"
+                className="text-white hover:text-gray-300 transition-colors font-medium uppercase tracking-wide text-sm"
               >
                 {item.label}
               </Link>
             ))}
+
+            <div className="flex items-center space-x-4 ml-6 pl-6 border-l border-gray-700">
+              <ThemeToggle />
+              <LanguageToggle />
+            </div>
           </div>
 
-          {/* Right side controls */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Mobile Navigation */}
+          <div className="md:hidden flex items-center space-x-4">
             <LanguageToggle />
-            <ThemeToggle />
-          </div>
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:text-gray-300 hover:bg-gray-800">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] bg-black/95 border-gray-800 text-white">
+                <div className="flex flex-col space-y-6 mt-8">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="text-white hover:text-gray-300 transition-colors font-medium uppercase tracking-wide text-lg py-2"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <LanguageToggle />
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-white hover:bg-gray-800"
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+                  <div className="pt-6 border-t border-gray-700">
+                    <ThemeToggle />
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="md:hidden py-4 border-t border-gray-800 bg-black/98"
-          >
-            <div className="flex flex-col space-y-4">
-              {menuItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-gray-300 hover:text-white transition-colors duration-200 font-medium px-2 py-2 text-sm uppercase tracking-wide"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="pt-2 border-t border-gray-800">
-                <ThemeToggle />
-              </div>
-            </div>
-          </motion.div>
-        )}
       </div>
     </nav>
   )
