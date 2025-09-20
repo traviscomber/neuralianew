@@ -6,6 +6,11 @@ export class AnalyticsManager {
   private isInitialized = false
   private initPromise: Promise<void> | null = null
   private sessionCreated = false
+  private sessionVerified = false
+  private retryCount = 0
+  private maxRetries = 5
+  private initializationAttempts = 0
+  private maxInitAttempts = 3
 
   constructor() {
     if (typeof window !== "undefined") {
@@ -14,26 +19,82 @@ export class AnalyticsManager {
   }
 
   private async initialize(): Promise<void> {
+    this.initializationAttempts++
+
     try {
+      console.log(`Analytics initialization attempt ${this.initializationAttempts}`)
+
       // Generate or retrieve session ID
       this.sessionId = this.getOrCreateSessionId()
+      console.log("Generated session ID:", this.sessionId)
 
-      // Create session record and wait for it to complete
-      await this.createSession()
+      // Create session with comprehensive retry logic
+      await this.createSessionWithRetry()
 
-      // Set up event listeners
-      this.setupEventListeners()
+      // Double-check session exists before marking as ready
+      if (this.sessionCreated && this.sessionVerified) {
+        await this.finalVerifySession()
+      }
 
-      // Set up performance tracking
-      this.setupPerformanceTracking()
-
-      this.isInitialized = true
-      console.log("Analytics initialized with session:", this.sessionId)
+      // Only set up listeners after session is confirmed to exist
+      if (this.sessionCreated && this.sessionVerified) {
+        this.setupEventListeners()
+        this.setupPerformanceTracking()
+        this.isInitialized = true
+        console.log("Analytics initialized successfully with session:", this.sessionId)
+      } else {
+        throw new Error("Session creation or verification failed")
+      }
     } catch (error) {
-      console.error("Failed to initialize analytics:", error)
-      // Continue with fallback session ID
-      this.sessionId = this.generateSessionId()
-      this.isInitialized = true
+      console.error(`Analytics initialization attempt ${this.initializationAttempts} failed:`, error)
+
+      if (this.initializationAttempts < this.maxInitAttempts) {
+        // Reset state and retry
+        this.sessionCreated = false
+        this.sessionVerified = false
+        this.sessionId = null
+
+        // Wait before retry
+        await new Promise((resolve) => setTimeout(resolve, 2000 * this.initializationAttempts))
+        return this.initialize()
+      } else {
+        // Final fallback - mark as initialized but don't track
+        console.error("All initialization attempts failed, running in fallback mode")
+        this.sessionId = this.generateSessionId()
+        this.isInitialized = true
+        this.sessionCreated = false
+        this.sessionVerified = false
+      }
+    }
+  }
+
+  private async createSessionWithRetry(): Promise<void> {
+    for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
+      try {
+        console.log(`Session creation attempt ${attempt + 1}/${this.maxRetries + 1}`)
+
+        await this.ensureSessionExists()
+
+        if (this.sessionCreated && this.sessionVerified) {
+          console.log(`Session created and verified successfully on attempt ${attempt + 1}`)
+          return
+        }
+      } catch (error) {
+        console.error(`Session creation attempt ${attempt + 1} failed:`, error)
+
+        if (attempt === this.maxRetries) {
+          throw new Error(`Session creation failed after ${this.maxRetries + 1} attempts: ${error}`)
+        }
+
+        // Reset state before retry
+        this.sessionCreated = false
+        this.sessionVerified = false
+
+        // Exponential backoff
+        const delay = Math.min(1000 * Math.pow(2, attempt), 10000)
+        console.log(`Waiting ${delay}ms before retry...`)
+        await new Promise((resolve) => setTimeout(resolve, delay))
+      }
     }
   }
 
@@ -50,15 +111,56 @@ export class AnalyticsManager {
     return `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   }
 
-  private async createSession(): Promise<void> {
-    if (!this.sessionId || this.sessionCreated) return
+  private async ensureSessionExists(): Promise<void> {
+    if (!this.sessionId) {
+      throw new Error("No session ID available")
+    }
+
+    try {
+      // First, check if session already exists
+      console.log("Checking if session exists:", this.sessionId)
+      const { data: existingSession, error: checkError } = await supabase
+        .from("user_sessions")
+        .select("session_id, id")
+        .eq("session_id", this.sessionId)
+        .maybeSingle()
+
+      if (checkError) {
+        console.error("Error checking existing session:", checkError)
+        throw checkError
+      }
+
+      if (existingSession) {
+        // Session exists, mark as created and verified
+        this.sessionCreated = true
+        this.sessionVerified = true
+        console.log("Found existing session:", this.sessionId)
+        return
+      }
+
+      // Create new session
+      console.log("Creating new session:", this.sessionId)
+      await this.createNewSession()
+
+      // Verify the session was created successfully
+      await this.verifySessionExists()
+    } catch (error) {
+      console.error("Session creation/verification error:", error)
+      throw error
+    }
+  }
+
+  private async createNewSession(): Promise<void> {
+    if (!this.sessionId) {
+      throw new Error("No session ID available for creation")
+    }
 
     try {
       // Get location info with timeout
       const locationInfo = await Promise.race([
         this.getLocationInfo(),
         new Promise<{ country: string; city: string }>((resolve) =>
-          setTimeout(() => resolve({ country: "Unknown", city: "Unknown" }), 3000),
+          setTimeout(() => resolve({ country: "Unknown", city: "Unknown" }), 1500),
         ),
       ])
 
@@ -69,34 +171,109 @@ export class AnalyticsManager {
         browser: this.getBrowserName(),
         os: this.getOperatingSystem(),
         screen_resolution: `${screen.width}x${screen.height}`,
+        language: navigator.language,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         referrer: document.referrer || null,
         utm_source: this.getUrlParameter("utm_source"),
         utm_medium: this.getUrlParameter("utm_medium"),
         utm_campaign: this.getUrlParameter("utm_campaign"),
+        utm_term: this.getUrlParameter("utm_term"),
+        utm_content: this.getUrlParameter("utm_content"),
         country: locationInfo.country,
         city: locationInfo.city,
       }
 
-      const { data, error } = await supabase.from("user_sessions").insert(sessionData).select()
+      console.log("Inserting session data:", { session_id: sessionData.session_id })
+
+      const { data, error } = await supabase.from("user_sessions").insert(sessionData).select().single()
 
       if (error) {
+        if (error.code === "23505") {
+          // Unique constraint violation - session already exists
+          console.log("Session already exists during creation (unique constraint)")
+          this.sessionCreated = true
+          return
+        }
         console.error("Failed to create session:", error)
         throw error
       }
 
       this.sessionCreated = true
-      console.log("Session created successfully:", data)
+      console.log("New session created successfully:", data?.session_id)
     } catch (error) {
-      console.error("Session creation error:", error)
-      // Mark as created to prevent infinite retries
-      this.sessionCreated = true
+      console.error("Failed to create new session:", error)
+      throw error
+    }
+  }
+
+  private async verifySessionExists(): Promise<void> {
+    if (!this.sessionId || !this.sessionCreated) {
+      throw new Error("Cannot verify session: not created or no session ID")
+    }
+
+    try {
+      console.log("Verifying session exists:", this.sessionId)
+
+      const { data: verifySession, error: verifyError } = await supabase
+        .from("user_sessions")
+        .select("session_id")
+        .eq("session_id", this.sessionId)
+        .single()
+
+      if (verifyError) {
+        console.error("Session verification error:", verifyError)
+        throw verifyError
+      }
+
+      if (verifySession) {
+        this.sessionVerified = true
+        console.log("Session verified successfully:", this.sessionId)
+      } else {
+        throw new Error("Session verification failed - session not found")
+      }
+    } catch (error) {
+      console.error("Session verification failed:", error)
+      this.sessionVerified = false
+      throw error
+    }
+  }
+
+  private async finalVerifySession(): Promise<void> {
+    if (!this.sessionId) return
+
+    try {
+      console.log("Final session verification:", this.sessionId)
+
+      const { data, error } = await supabase
+        .from("user_sessions")
+        .select("session_id")
+        .eq("session_id", this.sessionId)
+        .single()
+
+      if (error || !data) {
+        console.error("Final verification failed:", error)
+        this.sessionVerified = false
+        throw new Error("Final session verification failed")
+      }
+
+      console.log("Final verification successful:", data.session_id)
+    } catch (error) {
+      console.error("Final verification error:", error)
       throw error
     }
   }
 
   private async getLocationInfo(): Promise<{ country: string; city: string }> {
     try {
-      const response = await fetch("https://ipapi.co/json/")
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 1500)
+
+      const response = await fetch("https://ipapi.co/json/", {
+        signal: controller.signal,
+      })
+
+      clearTimeout(timeoutId)
+
       if (!response.ok) throw new Error("Failed to fetch location")
 
       const data = await response.json()
@@ -161,22 +338,14 @@ export class AnalyticsManager {
       this.trackEvent("page_unload", { timestamp: Date.now() })
     })
 
-    // Track scroll events
+    // Track scroll events (heavily throttled)
     let scrollTimeout: NodeJS.Timeout
     window.addEventListener("scroll", () => {
       clearTimeout(scrollTimeout)
       scrollTimeout = setTimeout(() => {
         const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100)
-        this.trackEvent("scroll", { scroll_depth: scrollDepth })
-      }, 250)
-    })
-
-    // Track clicks
-    document.addEventListener("click", (event) => {
-      const target = event.target as HTMLElement
-      if (target) {
-        this.trackClick(target, event.clientX, event.clientY)
-      }
+        this.trackEvent("scroll", { scroll_depth: Math.min(100, Math.max(0, scrollDepth || 0)) })
+      }, 1000) // Increased throttle to reduce events
     })
   }
 
@@ -184,16 +353,20 @@ export class AnalyticsManager {
     // Track Core Web Vitals and basic performance metrics
     window.addEventListener("load", () => {
       setTimeout(() => {
-        const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
-        if (navigation) {
-          this.trackPerformanceMetric("page_load_time", navigation.loadEventEnd - navigation.loadEventStart)
-          this.trackPerformanceMetric(
-            "dom_content_loaded",
-            navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
-          )
-          this.trackPerformanceMetric("first_contentful_paint", navigation.loadEventEnd - navigation.fetchStart)
+        try {
+          const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming
+          if (navigation) {
+            this.trackPerformanceMetric("page_load_time", navigation.loadEventEnd - navigation.loadEventStart)
+            this.trackPerformanceMetric(
+              "dom_content_loaded",
+              navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+            )
+            this.trackPerformanceMetric("first_contentful_paint", navigation.loadEventEnd - navigation.fetchStart)
+          }
+        } catch (error) {
+          console.warn("Performance tracking failed:", error)
         }
-      }, 100)
+      }, 2000) // Increased delay to ensure session is ready
     })
   }
 
@@ -204,115 +377,179 @@ export class AnalyticsManager {
   }
 
   isReady(): boolean {
-    return this.isInitialized && this.sessionId !== null && this.sessionCreated
+    return this.isInitialized && this.sessionId !== null && this.sessionCreated && this.sessionVerified
   }
 
   async trackPageView(url: string, title?: string): Promise<void> {
-    await this.waitForInitialization()
-
-    if (!this.sessionId || !this.sessionCreated) {
-      console.warn("Cannot track page view: session not ready")
-      return
-    }
-
-    const pageViewData: PageView = {
-      session_id: this.sessionId,
-      page_url: url,
-      page_title: title || document.title,
-      referrer: document.referrer || null,
-      load_time: Math.round(performance.now()),
-    }
-
     try {
+      await this.waitForInitialization()
+
+      if (!this.isReady()) {
+        console.warn("Cannot track page view: session not ready or verified")
+        return
+      }
+
+      // Double-check session exists before tracking
+      await this.ensureSessionStillExists()
+
+      const pageViewData: PageView = {
+        session_id: this.sessionId!,
+        page_url: url,
+        page_title: title || document.title,
+        referrer: document.referrer || null,
+        load_time: Math.round(performance.now()),
+      }
+
+      console.log("Tracking page view:", { session_id: pageViewData.session_id, page_url: pageViewData.page_url })
+
       const { data, error } = await supabase.from("page_views").insert(pageViewData).select()
 
       if (error) {
         console.error("Failed to track page view:", error)
+
+        // If foreign key error, try to recreate session
+        if (error.code === "23503") {
+          console.log("Foreign key error in page view, attempting to recreate session")
+          await this.handleForeignKeyError()
+        }
         return
       }
 
-      console.log("Page view tracked:", url)
+      console.log("Page view tracked successfully:", url)
     } catch (error) {
       console.error("Page view tracking error:", error)
     }
   }
 
-  async trackEvent(eventType: string, eventData?: Record<string, any>): Promise<void> {
-    await this.waitForInitialization()
-
-    if (!this.sessionId || !this.sessionCreated) {
-      console.warn("Cannot track event: session not ready")
-      return
-    }
-
-    const userEventData: UserEvent = {
-      session_id: this.sessionId,
-      event_type: eventType,
-      event_data: eventData || {},
-      page_url: window.location.pathname,
-    }
+  private async ensureSessionStillExists(): Promise<void> {
+    if (!this.sessionId) return
 
     try {
+      const { data, error } = await supabase
+        .from("user_sessions")
+        .select("session_id")
+        .eq("session_id", this.sessionId)
+        .single()
+
+      if (error || !data) {
+        console.warn("Session no longer exists, recreating...")
+        await this.handleForeignKeyError()
+      }
+    } catch (error) {
+      console.warn("Error checking session existence:", error)
+    }
+  }
+
+  private async handleForeignKeyError(): Promise<void> {
+    console.log("Handling foreign key error - recreating session")
+
+    // Reset state
+    this.sessionCreated = false
+    this.sessionVerified = false
+
+    // Generate new session ID
+    this.sessionId = this.generateSessionId()
+    sessionStorage.setItem("analytics_session_id", this.sessionId)
+
+    // Recreate session
+    try {
+      await this.createSessionWithRetry()
+    } catch (error) {
+      console.error("Failed to recreate session after foreign key error:", error)
+    }
+  }
+
+  async trackEvent(eventType: string, eventData?: Record<string, any>): Promise<void> {
+    try {
+      await this.waitForInitialization()
+
+      if (!this.isReady()) {
+        console.warn("Cannot track event: session not ready or verified")
+        return
+      }
+
+      const userEventData: UserEvent = {
+        session_id: this.sessionId!,
+        event_type: eventType,
+        event_data: eventData || {},
+        page_url: window.location.pathname,
+        page_title: document.title,
+      }
+
       const { data, error } = await supabase.from("user_events").insert(userEventData).select()
 
       if (error) {
         console.error("Failed to track event:", error)
+
+        // If foreign key error, try to recreate session
+        if (error.code === "23503") {
+          console.log("Foreign key error in event tracking, attempting to recreate session")
+          await this.handleForeignKeyError()
+        }
         return
       }
 
-      console.log("Event tracked:", eventType, eventData)
+      console.log("Event tracked:", eventType)
     } catch (error) {
       console.error("Event tracking error:", error)
     }
   }
 
   async trackClick(element: HTMLElement, x: number, y: number): Promise<void> {
-    await this.waitForInitialization()
+    try {
+      await this.waitForInitialization()
 
-    if (!this.sessionId || !this.sessionCreated) {
-      console.warn("Cannot track click: session not ready")
-      return
+      if (!this.isReady()) {
+        console.warn("Cannot track click: session not ready or verified")
+        return
+      }
+
+      // Track as user event
+      const elementSelector = this.getElementSelector(element)
+      const elementText = element.textContent?.trim().substring(0, 100) || ""
+
+      await this.trackEvent("click", {
+        element_selector: elementSelector,
+        element_text: elementText,
+        coordinates: { x, y },
+        element_tag: element.tagName.toLowerCase(),
+      })
+
+      // Track as heatmap data
+      await this.trackHeatmapClick(x, y, elementSelector)
+    } catch (error) {
+      console.error("Click tracking error:", error)
     }
-
-    // Track as user event
-    const elementSelector = this.getElementSelector(element)
-    const elementText = element.textContent?.trim().substring(0, 100) || ""
-
-    await this.trackEvent("click", {
-      element_selector: elementSelector,
-      element_text: elementText,
-      coordinates: { x, y },
-      element_tag: element.tagName.toLowerCase(),
-    })
-
-    // Track as heatmap data
-    await this.trackHeatmapClick(x, y, elementSelector)
   }
 
   async trackHeatmapClick(x: number, y: number, elementSelector?: string): Promise<void> {
-    await this.waitForInitialization()
-
-    if (!this.sessionId || !this.sessionCreated) {
-      console.warn("Cannot track heatmap click: session not ready")
-      return
-    }
-
-    const heatmapData: HeatmapData = {
-      session_id: this.sessionId,
-      page_url: window.location.pathname,
-      x_coordinate: Math.round(x),
-      y_coordinate: Math.round(y),
-      viewport_width: window.innerWidth,
-      viewport_height: window.innerHeight,
-      device_type: this.getDeviceType(),
-      element_selector: elementSelector || null,
-    }
-
     try {
+      await this.waitForInitialization()
+
+      if (!this.isReady()) {
+        console.warn("Cannot track heatmap click: session not ready or verified")
+        return
+      }
+
+      const heatmapData: HeatmapData = {
+        session_id: this.sessionId!,
+        page_url: window.location.pathname,
+        x_coordinate: Math.round(x),
+        y_coordinate: Math.round(y),
+        viewport_width: window.innerWidth,
+        viewport_height: window.innerHeight,
+        device_type: this.getDeviceType(),
+        element_selector: elementSelector || null,
+      }
+
       const { data, error } = await supabase.from("heatmap_data").insert(heatmapData).select()
 
       if (error) {
         console.error("Failed to track heatmap click:", error)
+
+        if (error.code === "23503") {
+          await this.handleForeignKeyError()
+        }
         return
       }
 
@@ -323,25 +560,29 @@ export class AnalyticsManager {
   }
 
   async trackPerformanceMetric(metricName: string, value: number): Promise<void> {
-    await this.waitForInitialization()
-
-    if (!this.sessionId || !this.sessionCreated) {
-      console.warn("Cannot track performance metric: session not ready")
-      return
-    }
-
-    const performanceData: PerformanceMetric = {
-      session_id: this.sessionId,
-      page_url: window.location.pathname,
-      metric_name: metricName,
-      metric_value: value,
-    }
-
     try {
+      await this.waitForInitialization()
+
+      if (!this.isReady()) {
+        console.warn("Cannot track performance metric: session not ready or verified")
+        return
+      }
+
+      const performanceData: PerformanceMetric = {
+        session_id: this.sessionId!,
+        page_url: window.location.pathname,
+        metric_name: metricName,
+        metric_value: value,
+      }
+
       const { data, error } = await supabase.from("performance_metrics").insert(performanceData).select()
 
       if (error) {
         console.error("Failed to track performance metric:", error)
+
+        if (error.code === "23503") {
+          await this.handleForeignKeyError()
+        }
         return
       }
 

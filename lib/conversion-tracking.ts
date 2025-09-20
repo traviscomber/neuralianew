@@ -1,34 +1,40 @@
 import { supabase } from "./supabase"
-import { analytics } from "./analytics"
 import type { ConversionEvent } from "./supabase"
 
 export class ConversionTracker {
+  private sessionId: string | null = null
   private trackedConversions = new Set<string>()
 
-  async trackConversion(conversionType: string, value = 0, additionalData?: Record<string, any>): Promise<void> {
-    const sessionId = analytics.getSessionId()
+  setSessionId(sessionId: string | null) {
+    this.sessionId = sessionId
+  }
 
-    if (!sessionId || !analytics.isReady()) {
-      console.warn("Cannot track conversion: session not ready")
+  resetTracking() {
+    this.trackedConversions.clear()
+  }
+
+  async trackConversion(type: string, value = 0, additionalData?: Record<string, any>): Promise<void> {
+    if (!this.sessionId) {
+      console.warn("Cannot track conversion: no session ID")
       return
     }
 
-    // Prevent duplicate conversions within the same session
-    const conversionKey = `${sessionId}-${conversionType}`
+    // Prevent duplicate conversions in the same session
+    const conversionKey = `${this.sessionId}_${type}`
     if (this.trackedConversions.has(conversionKey)) {
-      console.log("Conversion already tracked for this session:", conversionType)
+      console.log("Conversion already tracked in this session:", type)
       return
-    }
-
-    const conversionData: ConversionEvent = {
-      session_id: sessionId,
-      conversion_type: conversionType,
-      conversion_value: value,
-      page_url: window.location.pathname,
-      additional_data: additionalData || {},
     }
 
     try {
+      const conversionData: ConversionEvent = {
+        session_id: this.sessionId,
+        conversion_type: type,
+        conversion_value: value,
+        page_url: window.location.pathname,
+        additional_data: additionalData || {},
+      }
+
       const { data, error } = await supabase.from("conversion_events").insert(conversionData).select()
 
       if (error) {
@@ -38,78 +44,62 @@ export class ConversionTracker {
 
       // Mark as tracked
       this.trackedConversions.add(conversionKey)
-
-      // Also track as a regular event
-      await analytics.trackEvent("conversion", {
-        conversion_type: conversionType,
-        conversion_value: value,
-        ...additionalData,
-      })
-
-      console.log("Conversion tracked:", conversionType, value)
+      console.log("Conversion tracked:", type, value)
     } catch (error) {
       console.error("Conversion tracking error:", error)
     }
   }
 
-  // Pre-defined conversion types
-  async trackContactForm(formData?: Record<string, any>): Promise<void> {
-    await this.trackConversion("contact_form", 1, formData)
+  // Pre-defined conversion methods
+  async trackHeroCTA(): Promise<void> {
+    await this.trackConversion("hero_cta", 15, {
+      source: "hero_section",
+      action: "cta_click",
+    })
   }
 
-  async trackHeroCTA(): Promise<void> {
-    await this.trackConversion("hero_cta", 1)
+  async trackContactForm(): Promise<void> {
+    await this.trackConversion("contact_form", 25, {
+      source: "contact_section",
+      action: "form_submit",
+    })
   }
 
   async trackDemoRequest(): Promise<void> {
-    await this.trackConversion("demo_request", 1)
+    await this.trackConversion("demo_request", 30, {
+      source: "demo_section",
+      action: "demo_request",
+    })
+  }
+
+  async trackWhatsAppClick(): Promise<void> {
+    await this.trackConversion("whatsapp_click", 10, {
+      source: "contact_widget",
+      action: "whatsapp_click",
+    })
   }
 
   async trackNewsletterSignup(): Promise<void> {
-    await this.trackConversion("newsletter_signup", 1)
+    await this.trackConversion("newsletter_signup", 5, {
+      source: "newsletter_form",
+      action: "email_submit",
+    })
   }
 
-  async trackDownload(fileName?: string): Promise<void> {
-    await this.trackConversion("download", 1, { file_name: fileName })
+  async trackServiceInquiry(): Promise<void> {
+    await this.trackConversion("service_inquiry", 20, {
+      source: "services_page",
+      action: "inquiry_submit",
+    })
   }
 
-  async trackPurchase(amount: number, productId?: string): Promise<void> {
-    await this.trackConversion("purchase", amount, { product_id: productId })
-  }
-
-  async trackSignup(): Promise<void> {
-    await this.trackConversion("signup", 1)
+  async trackCaseStudyView(): Promise<void> {
+    await this.trackConversion("case_study_view", 8, {
+      source: "case_studies",
+      action: "case_study_click",
+    })
   }
 }
 
 // Export singleton instance
 export const conversionTracker = new ConversionTracker()
-
-// Auto-track conversions based on data attributes
-if (typeof window !== "undefined") {
-  document.addEventListener("click", (event) => {
-    const target = event.target as HTMLElement
-    const conversionType = target.getAttribute("data-conversion")
-
-    if (conversionType) {
-      const conversionValue = Number.parseFloat(target.getAttribute("data-conversion-value") || "1")
-      conversionTracker.trackConversion(conversionType, conversionValue)
-    }
-  })
-
-  // Track form submissions
-  document.addEventListener("submit", (event) => {
-    const form = event.target as HTMLFormElement
-    const conversionType = form.getAttribute("data-conversion")
-
-    if (conversionType) {
-      const formData = new FormData(form)
-      const data: Record<string, any> = {}
-      formData.forEach((value, key) => {
-        data[key] = value
-      })
-
-      conversionTracker.trackConversion(conversionType, 1, data)
-    }
-  })
-}

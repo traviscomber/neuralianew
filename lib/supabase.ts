@@ -3,7 +3,27 @@ import { createClient } from "@supabase/supabase-js"
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+  global: {
+    headers: {
+      "x-application-name": "neuralia-analytics",
+    },
+  },
+})
+
+// Server-side client for API routes
+export function createServerClient() {
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+    },
+  })
+}
 
 // Database types
 export interface UserSession {
@@ -17,10 +37,14 @@ export interface UserSession {
   browser?: string | null
   os?: string | null
   screen_resolution?: string | null
+  language?: string | null
+  timezone?: string | null
   referrer?: string | null
   utm_source?: string | null
   utm_medium?: string | null
   utm_campaign?: string | null
+  utm_term?: string | null
+  utm_content?: string | null
   created_at?: string
   updated_at?: string
 }
@@ -43,6 +67,7 @@ export interface UserEvent {
   event_type: string
   event_data?: Record<string, any>
   page_url?: string | null
+  page_title?: string | null
   element_selector?: string | null
   timestamp?: string
 }
@@ -78,4 +103,15 @@ export interface ConversionEvent {
   element_selector?: string | null
   additional_data?: Record<string, any>
   timestamp?: string
+}
+
+export interface SessionStats {
+  id?: string
+  session_id: string
+  total_page_views?: number
+  total_events?: number
+  total_time_spent?: number
+  bounce_rate?: number
+  created_at?: string
+  updated_at?: string
 }
