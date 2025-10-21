@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CheckCircle2, XCircle, Loader2, Mail, Shield, Server, AlertCircle } from "lucide-react"
+import { CheckCircle2, XCircle, Loader2, Mail, Shield, Server, AlertCircle, RefreshCw } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
 interface DNSStatus {
@@ -26,6 +26,7 @@ interface EmailResult {
   error?: string
   details?: string
   data?: any
+  message?: string
 }
 
 export default function EmailVerificationPage() {
@@ -80,9 +81,10 @@ export default function EmailVerificationPage() {
           to: testEmail,
           name: "Usuario de Prueba",
           message: "Este es un email de prueba desde N3uralia",
-          resetLink: "https://n3uralia.com/reset-password?token=test",
+          resetLink: "https://n3uralia.com/reset-password?token=test123",
           agentName: "Test AI Agent",
           status: "success",
+          company: "Empresa Demo",
         }),
       })
 
@@ -141,7 +143,7 @@ export default function EmailVerificationPage() {
             ) : dnsStatus ? (
               <>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div className="p-4 bg-slate-700 rounded-lg">
+                  <div className="p-4 bg-slate-700 rounded-lg transition-all hover:bg-slate-600">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <Shield className="w-4 h-4 text-blue-400" />
@@ -159,7 +161,7 @@ export default function EmailVerificationPage() {
                     <p className="text-xs text-gray-400 mt-2">Prevents email spoofing</p>
                   </div>
 
-                  <div className="p-4 bg-slate-700 rounded-lg">
+                  <div className="p-4 bg-slate-700 rounded-lg transition-all hover:bg-slate-600">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <Shield className="w-4 h-4 text-purple-400" />
@@ -177,7 +179,7 @@ export default function EmailVerificationPage() {
                     <p className="text-xs text-gray-400 mt-2">Verifies email authenticity</p>
                   </div>
 
-                  <div className="p-4 bg-slate-700 rounded-lg">
+                  <div className="p-4 bg-slate-700 rounded-lg transition-all hover:bg-slate-600">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
                         <Mail className="w-4 h-4 text-green-400" />
@@ -233,7 +235,10 @@ export default function EmailVerificationPage() {
                   Checking...
                 </>
               ) : (
-                "Refresh Status"
+                <>
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  Refresh Status
+                </>
               )}
             </Button>
           </CardContent>
@@ -259,7 +264,9 @@ export default function EmailVerificationPage() {
                 className="bg-slate-700 border-purple-500/20 text-white placeholder:text-gray-500"
                 disabled={!dnsStatus?.configured}
               />
-              {!dnsStatus?.configured && <p className="text-xs text-red-400 mt-1">Configure API key first</p>}
+              {!dnsStatus?.configured && (
+                <p className="text-xs text-red-400 mt-1">⚠️ Configure API key first to enable testing</p>
+              )}
             </div>
 
             <Tabs defaultValue="welcome" className="w-full">
@@ -285,7 +292,7 @@ export default function EmailVerificationPage() {
                   disabled={loading || !dnsStatus?.configured}
                   className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Mail className="w-4 h-4 mr-2" />}
                   {loading ? "Sending..." : "Send Welcome Email"}
                 </Button>
               </TabsContent>
@@ -297,7 +304,7 @@ export default function EmailVerificationPage() {
                   disabled={loading || !dnsStatus?.configured}
                   className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Shield className="w-4 h-4 mr-2" />}
                   {loading ? "Sending..." : "Send Reset Email"}
                 </Button>
               </TabsContent>
@@ -309,7 +316,7 @@ export default function EmailVerificationPage() {
                   disabled={loading || !dnsStatus?.configured}
                   className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Mail className="w-4 h-4 mr-2" />}
                   {loading ? "Sending..." : "Send Contact Email"}
                 </Button>
               </TabsContent>
@@ -321,7 +328,11 @@ export default function EmailVerificationPage() {
                   disabled={loading || !dnsStatus?.configured}
                   className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
                 >
-                  {loading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                  {loading ? (
+                    <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4 mr-2" />
+                  )}
                   {loading ? "Sending..." : "Send Deployment Email"}
                 </Button>
               </TabsContent>
@@ -329,10 +340,8 @@ export default function EmailVerificationPage() {
 
             {result && (
               <div
-                className={`p-4 rounded-lg ${
-                  result.success
-                    ? "bg-green-900/20 border border-green-500/20"
-                    : "bg-red-900/20 border border-red-500/20"
+                className={`p-4 rounded-lg border ${
+                  result.success ? "bg-green-900/20 border-green-500/50" : "bg-red-900/20 border-red-500/50"
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
@@ -342,26 +351,34 @@ export default function EmailVerificationPage() {
                     <XCircle className="w-5 h-5 text-red-400" />
                   )}
                   <span className="font-semibold text-white">
-                    {result.success ? "Email Sent Successfully!" : "Email Failed"}
+                    {result.success ? "✅ Email Sent Successfully!" : "❌ Email Failed"}
                   </span>
                 </div>
                 {result.success ? (
-                  <p className="text-sm text-green-300">Check your inbox (and spam folder) for the test email.</p>
+                  <div className="space-y-2">
+                    <p className="text-sm text-green-300">Check your inbox (and spam folder) for the test email.</p>
+                    {result.message && <p className="text-xs text-green-400">{result.message}</p>}
+                  </div>
                 ) : (
-                  <div className="text-sm text-red-300">
+                  <div className="text-sm text-red-300 space-y-1">
                     <p>
                       <strong>Error:</strong> {result.error || "Unknown error"}
                     </p>
                     {result.details && (
-                      <p className="text-xs mt-1">
+                      <p className="text-xs">
                         <strong>Details:</strong> {result.details}
                       </p>
                     )}
                   </div>
                 )}
-                <pre className="text-xs text-gray-400 overflow-auto mt-2 bg-slate-900 p-2 rounded">
-                  {JSON.stringify(result, null, 2)}
-                </pre>
+                <details className="mt-3">
+                  <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-300">
+                    Show technical details
+                  </summary>
+                  <pre className="text-xs text-gray-400 overflow-auto mt-2 bg-slate-900/50 p-2 rounded">
+                    {JSON.stringify(result, null, 2)}
+                  </pre>
+                </details>
               </div>
             )}
           </CardContent>
@@ -374,17 +391,17 @@ export default function EmailVerificationPage() {
             <CardDescription>Add these DNS records to your domain</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6 text-gray-300">
-            <div className="space-y-3">
-              <div className="flex items-start gap-2">
-                <div className="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
                   1
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white mb-1">MX Record</h3>
-                  <code className="block p-3 bg-slate-900 rounded text-sm">
-                    Name: send
-                    <br />
+                  <h3 className="font-semibold text-white mb-2">MX Record</h3>
+                  <code className="block p-3 bg-slate-900 rounded text-xs font-mono">
                     Type: MX
+                    <br />
+                    Host: send
                     <br />
                     Value: feedback-smtp.ap-northeast-1.amazonses.com
                     <br />
@@ -395,16 +412,16 @@ export default function EmailVerificationPage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <div className="bg-purple-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="flex items-start gap-3">
+                <div className="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
                   2
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white mb-1">SPF Record (TXT)</h3>
-                  <code className="block p-3 bg-slate-900 rounded text-sm">
-                    Name: send
-                    <br />
+                  <h3 className="font-semibold text-white mb-2">SPF Record (TXT)</h3>
+                  <code className="block p-3 bg-slate-900 rounded text-xs font-mono">
                     Type: TXT
+                    <br />
+                    Host: send
                     <br />
                     Value: v=spf1 include:amazonses.com ~all
                     <br />
@@ -413,18 +430,38 @@ export default function EmailVerificationPage() {
                 </div>
               </div>
 
-              <div className="flex items-start gap-2">
-                <div className="bg-pink-500 text-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div className="flex items-start gap-3">
+                <div className="bg-pink-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
                   3
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white mb-1">DKIM Record (TXT)</h3>
-                  <code className="block p-3 bg-slate-900 rounded text-sm">
-                    Name: resend._domainkey
-                    <br />
+                  <h3 className="font-semibold text-white mb-2">DKIM Record (TXT)</h3>
+                  <code className="block p-3 bg-slate-900 rounded text-xs font-mono overflow-x-auto">
                     Type: TXT
                     <br />
-                    Value: p=MIGfMA0GCSqGSIb3DQEB... (copy from Resend)
+                    Host: resend._domainkey
+                    <br />
+                    Value: p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDBWynraG8S...
+                    <br />
+                    <span className="text-yellow-400">↑ Copy full key from Resend dashboard</span>
+                    <br />
+                    TTL: Auto
+                  </code>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">
+                  4
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-white mb-2">DMARC Record (Recommended)</h3>
+                  <code className="block p-3 bg-slate-900 rounded text-xs font-mono">
+                    Type: TXT
+                    <br />
+                    Host: _dmarc
+                    <br />
+                    Value: v=DMARC1; p=none;
                     <br />
                     TTL: Auto
                   </code>
@@ -432,20 +469,18 @@ export default function EmailVerificationPage() {
               </div>
             </div>
 
-            <div className="p-4 bg-blue-900/20 border border-blue-500/20 rounded-lg">
-              <div className="flex gap-2">
-                <AlertCircle className="w-5 h-5 text-blue-400 flex-shrink-0 mt-0.5" />
-                <div className="text-sm">
-                  <p className="font-semibold text-blue-300 mb-1">Important Notes:</p>
-                  <ul className="list-disc list-inside space-y-1 text-blue-200">
-                    <li>DNS propagation can take 24-48 hours</li>
-                    <li>Add RESEND_API_KEY to environment variables</li>
-                    <li>Verify your domain in Resend dashboard</li>
-                    <li>Check spam folder when testing</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <Alert className="bg-blue-900/20 border-blue-500/20">
+              <AlertCircle className="h-4 w-4 text-blue-400" />
+              <AlertDescription className="text-blue-200">
+                <p className="font-semibold mb-2">Important Notes:</p>
+                <ul className="list-disc list-inside space-y-1 text-sm">
+                  <li>DNS propagation can take 24-48 hours</li>
+                  <li>Add RESEND_API_KEY to Vercel environment variables</li>
+                  <li>Verify your domain in Resend dashboard</li>
+                  <li>Check spam folder when testing</li>
+                </ul>
+              </AlertDescription>
+            </Alert>
 
             <div className="grid gap-3">
               <Button
@@ -453,14 +488,14 @@ export default function EmailVerificationPage() {
                 variant="outline"
                 className="w-full border-purple-500/20 text-white hover:bg-purple-500/10"
               >
-                Open Resend Dashboard
+                🚀 Open Resend Dashboard
               </Button>
               <Button
                 onClick={() => window.open("/docs/EMAIL_SETUP.md", "_blank")}
                 variant="outline"
                 className="w-full border-purple-500/20 text-white hover:bg-purple-500/10"
               >
-                View Full Documentation
+                📖 View Full Documentation
               </Button>
             </div>
           </CardContent>
