@@ -1,11 +1,29 @@
-import { createClient } from "@supabase/supabase-js"
+import { createBrowserClient as createSupabaseClient } from "@supabase/ssr"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// Browser client (singleton pattern)
+let browserClient: ReturnType<typeof createSupabaseClient> | null = null
 
-export default supabase
+export function createBrowserClient() {
+  if (browserClient) return browserClient
+  browserClient = createSupabaseClient(supabaseUrl, supabaseAnonKey)
+  return browserClient
+}
+
+// Server client for API routes
+export function createServerClient() {
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!serviceRoleKey) throw new Error("SUPABASE_SERVICE_ROLE_KEY missing")
+
+  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  })
+}
+
+// Default export for convenience
+export default createBrowserClient
 
 // Helper function to handle Supabase errors
 export function handleSupabaseError(error: any, context: string) {
@@ -21,7 +39,8 @@ export function handleSupabaseError(error: any, context: string) {
 // Test connection function
 export async function testSupabaseConnection() {
   try {
-    const { data, error } = await supabase.from("profiles").select("count").limit(1)
+    const client = createBrowserClient()
+    const { data, error } = await client.from("profiles").select("count").limit(1)
 
     if (error) {
       console.error("Supabase connection test failed:", error)

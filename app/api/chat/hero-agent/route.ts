@@ -1,14 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { generateText } from "ai"
+import { generateText, streamText } from "ai"
 import { openai } from "@ai-sdk/openai"
+
+export const runtime = "edge"
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, scenario } = await request.json()
-
-    if (!message) {
-      return NextResponse.json({ error: "Message is required" }, { status: 400 })
-    }
+    const { message, scenario, messages } = await request.json()
 
     // Define scenario-specific system prompts
     const systemPrompts = {
@@ -82,23 +80,44 @@ CAPACIDADES:
 - Preparación para entrevistas y networking
 
 Responde como si fueras este coach de carrera con IA.`,
+
+      n3uralia: `You are N3uralia's AI assistant on the homepage. 
+      You help visitors learn about:
+      - AI Agents and automation solutions
+      - Enterprise integration capabilities  
+      - Custom AI development services
+      - Workflow automation
+      
+      Be conversational, helpful, and enthusiastic about AI technology.
+      Keep responses concise (2-3 sentences) for the hero section.`,
     }
 
-    const systemPrompt = systemPrompts[scenario as keyof typeof systemPrompts] || systemPrompts.ecosuelolab
+    let response, systemPrompt
 
-    const { text } = await generateText({
-      model: openai("gpt-4"),
-      system: systemPrompt,
-      prompt: message,
-      maxTokens: 300,
-      temperature: 0.7,
-    })
+    if (scenario) {
+      systemPrompt = systemPrompts[scenario as keyof typeof systemPrompts] || systemPrompts.ecosuelolab
+      const { text } = await generateText({
+        model: openai("gpt-4"),
+        system: systemPrompt,
+        prompt: message,
+        maxTokens: 300,
+        temperature: 0.7,
+      })
+      response = NextResponse.json({
+        response: text,
+        scenario: scenario,
+        timestamp: new Date().toISOString(),
+      })
+    } else {
+      const result = await streamText({
+        model: openai("gpt-4o"),
+        messages,
+        system: systemPrompts.n3uralia,
+      })
+      response = result.toDataStreamResponse()
+    }
 
-    return NextResponse.json({
-      response: text,
-      scenario: scenario,
-      timestamp: new Date().toISOString(),
-    })
+    return response
   } catch (error) {
     console.error("Error in hero-agent route:", error)
     return NextResponse.json({ error: "Error processing request" }, { status: 500 })

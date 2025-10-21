@@ -26,7 +26,7 @@ export function HeroSection() {
   const t = content[language]
 
   const scrollToServices = () => {
-    const servicesSection = document.getElementById("services")
+    const servicesSection = document.getElementById("services-section")
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: "smooth" })
     }

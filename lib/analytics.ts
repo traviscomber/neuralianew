@@ -1,120 +1,68 @@
-import { createClient } from "@supabase/supabase-js"
+import { createBrowserClient } from "./supabase"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
-export class Analytics {
-  private supabase = createClient(supabaseUrl, supabaseAnonKey)
+class AnalyticsService {
+  private supabase = createBrowserClient()
   private sessionId: string | null = null
   private initialized = false
 
-  async init() {
+  async initialize(): Promise<void> {
     if (this.initialized) return
 
     try {
-      // Generate session ID
       this.sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
-      // Get user agent and other session data
-      const userAgent = typeof window !== "undefined" ? window.navigator.userAgent : ""
-      const referrer = typeof document !== "undefined" ? document.referrer : ""
-
-      // Create session record
-      const { error } = await this.supabase.from("analytics_sessions").insert({
-        id: this.sessionId,
-        user_agent: userAgent,
-        referrer: referrer,
-        session_start: new Date().toISOString(),
-        last_activity: new Date().toISOString(),
-      })
-
-      if (error) {
-        console.warn("Analytics session creation failed:", error)
-      } else {
-        this.initialized = true
-        console.log("Analytics initialized successfully")
-      }
-    } catch (error) {
-      console.warn("Analytics initialization failed:", error)
-    }
-  }
-
-  async trackEvent(eventName: string, properties: Record<string, any> = {}) {
-    if (!this.initialized || !this.sessionId) {
-      await this.init()
-    }
-
-    try {
-      const { error } = await this.supabase.from("analytics_events").insert({
+      const { error } = await this.supabase.from("user_sessions").insert({
         session_id: this.sessionId,
-        event_name: eventName,
-        event_properties: properties,
-        page_url: typeof window !== "undefined" ? window.location.href : "",
-        timestamp: new Date().toISOString(),
+        device_type: window.innerWidth < 768 ? "mobile" : "desktop",
+        browser: navigator.userAgent.includes("Chrome") ? "Chrome" : "Other",
+        os: navigator.userAgent.includes("Mac") ? "macOS" : "Other",
+        language: navigator.language,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        active: true,
       })
 
-      if (error) {
-        console.warn("Event tracking failed:", error)
-      }
+      if (error) throw error
+
+      this.initialized = true
+      console.log("✅ Analytics initialized:", this.sessionId)
+
+      await this.trackPageView(window.location.pathname, document.title)
     } catch (error) {
-      console.warn("Event tracking error:", error)
+      console.error("❌ Analytics failed:", error)
     }
   }
 
-  async trackPageView(url?: string) {
-    const pageUrl = url || (typeof window !== "undefined" ? window.location.href : "")
-    await this.trackEvent("page_view", { page_url: pageUrl })
-  }
-
-  async trackConversion(type: string, value?: number) {
-    if (!this.initialized || !this.sessionId) {
-      await this.init()
-    }
-
-    try {
-      const { error } = await this.supabase.from("analytics_conversions").insert({
-        session_id: this.sessionId,
-        conversion_type: type,
-        conversion_value: value || 0,
-        page_url: typeof window !== "undefined" ? window.location.href : "",
-        timestamp: new Date().toISOString(),
-      })
-
-      if (error) {
-        console.warn("Conversion tracking failed:", error)
-      }
-    } catch (error) {
-      console.warn("Conversion tracking error:", error)
-    }
-  }
-
-  async updateSessionActivity() {
+  async trackPageView(url: string, title: string): Promise<void> {
     if (!this.sessionId) return
 
     try {
-      const { error } = await this.supabase
-        .from("analytics_sessions")
-        .update({
-          last_activity: new Date().toISOString(),
-        })
-        .eq("id", this.sessionId)
-
-      if (error) {
-        console.warn("Session activity update failed:", error)
-      }
+      await this.supabase.from("page_views").insert({
+        session_id: this.sessionId,
+        page_url: url,
+        page_title: title,
+      })
+      console.log("✅ Page tracked:", url)
     } catch (error) {
-      console.warn("Session activity update error:", error)
+      console.error("❌ Track failed:", error)
+    }
+  }
+
+  async trackEvent(type: string, name: string, data?: any): Promise<void> {
+    if (!this.sessionId) return
+
+    try {
+      await this.supabase.from("user_events").insert({
+        session_id: this.sessionId,
+        event_type: type,
+        event_name: name,
+        event_data: data,
+        page_url: window.location.pathname,
+      })
+      console.log("✅ Event tracked:", name)
+    } catch (error) {
+      console.error("❌ Event failed:", error)
     }
   }
 }
 
-// Export singleton instance
-const analytics = new Analytics()
-export default analytics
-
-// Named exports for compatibility
-export const initializeAnalytics = () => analytics.init()
-export const trackEvent = (eventName: string, properties?: Record<string, any>) =>
-  analytics.trackEvent(eventName, properties)
-export const trackPageView = (url?: string) => analytics.trackPageView(url)
-export const trackConversion = (type: string, value?: number) => analytics.trackConversion(type, value)
+export const analytics = new AnalyticsService()
