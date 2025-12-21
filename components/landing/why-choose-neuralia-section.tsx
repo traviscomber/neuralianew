@@ -1,70 +1,59 @@
 "use client"
+import { CheckCircle } from "lucide-react"
 
-import { useLanguage } from "@/lib/language-context"
-import { Card, CardContent } from "@/components/ui/card"
-import { Bot, Zap, Shield, TrendingUp } from "lucide-react"
-
-export function WhyChooseNeuraliaSection() {
-  const { t, language } = useLanguage()
-
+const WhyChooseNeuraliaSection = () => {
   const features = [
     {
-      icon: <Bot className="w-12 h-12 text-purple-400" />,
-      title: { es: "Agentes Inteligentes", en: "Intelligent Agents" },
-      description: {
-        es: "IA avanzada que aprende y se adapta a tu negocio",
-        en: "Advanced AI that learns and adapts to your business",
-      },
+      title: "Personalized Approach",
+      description: "Tailored AI solutions designed to fit your business needs.",
     },
     {
-      icon: <Zap className="w-12 h-12 text-yellow-400" />,
-      title: { es: "Automatización Total", en: "Total Automation" },
-      description: {
-        es: "Procesos automatizados que ahorran tiempo y costos",
-        en: "Automated processes that save time and costs",
-      },
+      title: "Cutting-Edge Technology",
+      description: "Leveraging the latest advancements in artificial intelligence.",
     },
     {
-      icon: <Shield className="w-12 h-12 text-blue-400" />,
-      title: { es: "Seguridad Garantizada", en: "Guaranteed Security" },
-      description: {
-        es: "Datos protegidos con los más altos estándares",
-        en: "Data protected with the highest standards",
-      },
+      title: "Experienced Team",
+      description: "Experts in AI, data science, and software engineering.",
     },
     {
-      icon: <TrendingUp className="w-12 h-12 text-green-400" />,
-      title: { es: "Resultados Medibles", en: "Measurable Results" },
-      description: {
-        es: "Analytics y métricas en tiempo real",
-        en: "Real-time analytics and metrics",
-      },
+      title: "Measurable Results",
+      description: "Data-driven outcomes with clear metrics and ROI.",
+    },
+    {
+      title: "Seamless Integration",
+      description: "Effortless implementation with existing systems.",
+    },
+    {
+      title: "Ongoing Support",
+      description: "Continuous monitoring, maintenance, and updates.",
     },
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-purple-900/20">
+    <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">{t("why.title")}</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t("why.subtitle")}</p>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose N3uralia?</h2>
+          <p className="text-lg text-gray-600">
+            We provide expert-driven solutions to address all your AI needs with quantifiable impacts and continuous
+            support.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="bg-black/50 border-purple-500/30 hover:border-purple-400 transition-all duration-300 hover:transform hover:scale-105"
-            >
-              <CardContent className="p-6 text-center">
-                <div className="flex justify-center mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title[language]}</h3>
-                <p className="text-gray-400">{feature.description[language]}</p>
-              </CardContent>
-            </Card>
+            <div key={index} className="p-6 bg-white rounded-lg border border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900 mb-2 flex items-center">
+                <CheckCircle className="w-5 h-5 mr-2 text-green-500" />
+                {feature.title}
+              </h3>
+              <p className="text-gray-600">{feature.description}</p>
+            </div>
           ))}
         </div>
       </div>
     </section>
   )
 }
+
+export default WhyChooseNeuraliaSection

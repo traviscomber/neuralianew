@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
-export default function Navigation() {
+export function Navigation() {
   const { language, setLanguage, t } = useLanguage()
   const [open, setOpen] = useState(false)
 
@@ -19,22 +19,22 @@ export default function Navigation() {
 
         <div className="hidden md:flex gap-6">
           <Link href="/" className="hover:text-blue-600">
-            {t("nav.home")}
+            {language === "en" ? "Home" : "Inicio"}
           </Link>
-          <Link href="/agents" className="hover:text-blue-600">
-            {t("nav.agents")}
+          <Link href="/capabilities" className="hover:text-blue-600">
+            {language === "en" ? "Capabilities" : "Capacidades"}
           </Link>
-          <Link href="/systems" className="hover:text-blue-600">
-            {t("nav.systems")}
+          <Link href="/outcomes" className="hover:text-blue-600">
+            {language === "en" ? "Outcomes" : "Resultados"}
           </Link>
-          <Link href="/products" className="hover:text-blue-600">
-            {t("nav.products")}
+          <Link href="/about" className="hover:text-blue-600">
+            {language === "en" ? "About" : "Acerca de"}
           </Link>
-          <Link href="/clients" className="hover:text-blue-600">
-            {t("nav.clients")}
+          <Link href="/pricing" className="hover:text-blue-600">
+            {language === "en" ? "Pricing" : "Precios"}
           </Link>
-          <Link href="/contacts" className="hover:text-blue-600">
-            {t("nav.contact")}
+          <Link href="/contact" className="hover:text-blue-600">
+            {language === "en" ? "Contact" : "Contacto"}
           </Link>
         </div>
 
@@ -50,25 +50,27 @@ export default function Navigation() {
       {open && (
         <div className="md:hidden border-t bg-white p-4 space-y-4">
           <Link href="/" onClick={() => setOpen(false)} className="block">
-            {t("nav.home")}
+            {language === "en" ? "Home" : "Inicio"}
           </Link>
-          <Link href="/agents" onClick={() => setOpen(false)} className="block">
-            {t("nav.agents")}
+          <Link href="/capabilities" onClick={() => setOpen(false)} className="block">
+            {language === "en" ? "Capabilities" : "Capacidades"}
           </Link>
-          <Link href="/systems" onClick={() => setOpen(false)} className="block">
-            {t("nav.systems")}
+          <Link href="/outcomes" onClick={() => setOpen(false)} className="block">
+            {language === "en" ? "Outcomes" : "Resultados"}
           </Link>
-          <Link href="/products" onClick={() => setOpen(false)} className="block">
-            {t("nav.products")}
+          <Link href="/about" onClick={() => setOpen(false)} className="block">
+            {language === "en" ? "About" : "Acerca de"}
           </Link>
-          <Link href="/clients" onClick={() => setOpen(false)} className="block">
-            {t("nav.clients")}
+          <Link href="/pricing" onClick={() => setOpen(false)} className="block">
+            {language === "en" ? "Pricing" : "Precios"}
           </Link>
-          <Link href="/contacts" onClick={() => setOpen(false)} className="block">
-            {t("nav.contact")}
+          <Link href="/contact" onClick={() => setOpen(false)} className="block">
+            {language === "en" ? "Contact" : "Contacto"}
           </Link>
         </div>
       )}
     </nav>
   )
 }
+
+export default Navigation

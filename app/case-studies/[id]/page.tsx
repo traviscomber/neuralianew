@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation"
 import { CaseStudyClientPage } from "./CaseStudyClientPage"
 
 const caseStudyData: Record<string, any> = {
@@ -530,25 +529,9 @@ export async function generateStaticParams() {
   }))
 }
 
-interface CaseStudyPageProps {
-  params: {
-    id: string
-  }
+// This is the server component that renders the client component
+const CaseStudyPage = () => {
+  return <CaseStudyClientPage />
 }
 
-export default function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const validIds = [
-    "retail-automation",
-    "healthcare-ai",
-    "financial-services",
-    "manufacturing-optimization",
-    "education-platform",
-    "logistics-automation",
-  ]
-
-  if (!validIds.includes(params.id)) {
-    notFound()
-  }
-
-  return <CaseStudyClientPage caseStudyId={params.id} />
-}
+export default CaseStudyPage

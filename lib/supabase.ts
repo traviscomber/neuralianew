@@ -12,6 +12,9 @@ export function createBrowserClient() {
   return browserClient
 }
 
+// Named export for backwards compatibility
+export const supabase = createBrowserClient()
+
 // Server client for API routes
 export function createServerClient() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY

@@ -1,6 +1,6 @@
 "use client"
 
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Activity, BarChart3, Shield, Search, Users, Eye, Smartphone } from "lucide-react"
 
@@ -64,58 +64,18 @@ export default function AdvancedMetricsLoading() {
               ))}
             </div>
 
-            <Card className="p-8">
-              <div className="flex items-center mb-6">
-                <BarChart3 className="w-6 h-6 mr-2 text-blue-600" />
-                <Skeleton className="h-6 w-48" />
-              </div>
-
-              {/* Core Web Vitals Skeleton */}
-              <div className="mb-8">
-                <Skeleton className="h-5 w-32 mb-4" />
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="p-4 rounded-lg border border-slate-200 bg-white">
-                      <div className="text-center mb-3">
-                        <Skeleton className="w-8 h-8 mx-auto mb-2 rounded" />
-                        <Skeleton className="h-4 w-20 mx-auto mb-2" />
-                        <Skeleton className="h-4 w-16 mx-auto" />
-                      </div>
-                      <div className="space-y-2">
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <div key={j} className="flex justify-between">
-                            <Skeleton className="h-3 w-8" />
-                            <Skeleton className="h-3 w-12" />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Table Skeleton */}
-              <div className="mb-8">
-                <Skeleton className="h-5 w-48 mb-4" />
-                <div className="overflow-x-auto">
-                  <div className="min-w-full">
-                    <div className="border-b border-slate-200 pb-3 mb-3">
-                      <div className="grid grid-cols-7 gap-4">
-                        {Array.from({ length: 7 }).map((_, i) => (
-                          <Skeleton key={i} className="h-4 w-full" />
-                        ))}
-                      </div>
-                    </div>
-                    {Array.from({ length: 3 }).map((_, i) => (
-                      <div key={i} className="grid grid-cols-7 gap-4 py-3 border-b border-slate-100">
-                        {Array.from({ length: 7 }).map((_, j) => (
-                          <Skeleton key={j} className="h-4 w-full" />
-                        ))}
-                      </div>
-                    ))}
+            <Card className="w-full max-w-md animate-pulse">
+              <CardContent className="p-8">
+                <div className="space-y-3">
+                  <div className="h-6 bg-gray-300 rounded-md w-3/4"></div>
+                  <div className="h-4 bg-gray-300 rounded-md w-1/2"></div>
+                  <div className="h-12 bg-gray-300 rounded-md"></div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="h-4 bg-gray-300 rounded-md"></div>
+                    <div className="h-4 bg-gray-300 rounded-md"></div>
                   </div>
                 </div>
-              </div>
+              </CardContent>
             </Card>
           </div>
 

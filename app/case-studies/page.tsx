@@ -1,6 +1,6 @@
 "use client"
 
-import { Navigation } from "@/components/navigation"
+import Navigation from "@/components/navigation"
 import { Footer } from "@/components/landing/footer"
 import { useLanguage } from "@/lib/language-context"
 import { motion } from "framer-motion"
