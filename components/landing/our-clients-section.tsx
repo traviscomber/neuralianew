@@ -16,8 +16,8 @@ export function OurClientsSection() {
       title: language === "en" ? "ERP AI Assistant" : "Asistente IA ERP",
       description:
         language === "en"
-          ? "Advanced conversational AI system that connects to any ERP API and transforms complex business data into natural language responses. Users can ask questions about inventory, sales, finances, and operations in plain language and receive intelligent, contextual answers. The system integrates with existing ERP databases, processes real-time information, and delivers insights through natural conversation, making enterprise data accessible to everyone in the organization."
-          : "Sistema avanzado de IA conversacional que se conecta a cualquier API de ERP y transforma datos empresariales complejos en respuestas de lenguaje natural. Los usuarios pueden hacer preguntas sobre inventario, ventas, finanzas y operaciones en lenguaje simple y recibir respuestas inteligentes y contextuales. El sistema se integra con bases de datos ERP existentes, procesa información en tiempo real y entrega insights a través de conversación natural, haciendo los datos empresariales accesibles para todos en la organización.",
+          ? "Advanced conversational AI system that connects to any ERP API and transforms complex business data into natural language responses. Users can ask questions about inventory, sales, finances, and operations in plain language and receive intelligent, contextual answers."
+          : "Sistema avanzado de IA conversacional que se conecta a cualquier API de ERP y transforma datos empresariales complejos en respuestas de lenguaje natural. Los usuarios pueden hacer preguntas sobre inventario, ventas, finanzas y operaciones en lenguaje simple y recibir respuestas inteligentes y contextuales.",
     },
     {
       logo: "/logos/ecosuelo-logo.png",
@@ -25,8 +25,8 @@ export function OurClientsSection() {
       title: language === "en" ? "Agricultural AI Assistant" : "Asistente IA Agrícola",
       description:
         language === "en"
-          ? "Intelligent agricultural system that connects to satellite data APIs, weather services, and soil sensor networks to provide conversational insights about crop conditions. Farmers can ask natural language questions like 'How is my corn field doing?' or 'What nutrients does sector 5 need?' and receive detailed, actionable responses. The AI processes real-time satellite imagery, weather patterns, soil composition data, and historical agricultural information to deliver personalized farming recommendations through natural conversation."
-          : "Sistema agrícola inteligente que se conecta a APIs de datos satelitales, servicios meteorológicos y redes de sensores de suelo para proporcionar insights conversacionales sobre condiciones de cultivos. Los agricultores pueden hacer preguntas en lenguaje natural como '¿Cómo está mi campo de maíz?' o '¿Qué nutrientes necesita el sector 5?' y recibir respuestas detalladas y accionables. La IA procesa imágenes satelitales en tiempo real, patrones climáticos, datos de composición del suelo e información agrícola histórica para entregar recomendaciones agrícolas personalizadas a través de conversación natural.",
+          ? "Intelligent agricultural system that connects to satellite data APIs, weather services, and soil sensor networks to provide conversational insights about crop conditions. Farmers can ask natural language questions and receive detailed, actionable responses."
+          : "Sistema agrícola inteligente que se conecta a APIs de datos satelitales, servicios meteorológicos y redes de sensores de suelo para proporcionar insights conversacionales sobre condiciones de cultivos. Los agricultores pueden hacer preguntas en lenguaje natural y recibir respuestas detalladas y accionables.",
     },
     {
       logo: "/logos/despega-tu-carrera-logo.png",
@@ -34,8 +34,26 @@ export function OurClientsSection() {
       title: language === "en" ? "AI Career Mentoring Platform" : "Plataforma de Mentoría Profesional con IA",
       description:
         language === "en"
-          ? "Comprehensive AI-powered career coaching platform that connects to job market APIs, professional development resources, and career databases to provide personalized mentoring through natural conversation. Users can discuss their career goals, ask for interview preparation, request resume feedback, and receive guidance on professional development paths. The AI mentor understands individual career contexts and provides tailored advice, skill recommendations, and job market insights through engaging, supportive dialogue."
-          : "Plataforma integral de coaching profesional impulsada por IA que se conecta a APIs del mercado laboral, recursos de desarrollo profesional y bases de datos de carreras para proporcionar mentoría personalizada a través de conversación natural. Los usuarios pueden discutir sus objetivos profesionales, pedir preparación para entrevistas, solicitar retroalimentación de currículum y recibir orientación sobre trayectorias de desarrollo profesional. El mentor IA comprende contextos profesionales individuales y proporciona consejos personalizados, recomendaciones de habilidades e insights del mercado laboral a través de diálogo atractivo y de apoyo.",
+          ? "Comprehensive AI-powered career coaching platform that connects to job market APIs and career databases to provide personalized mentoring. Users can discuss career goals, ask for interview preparation, and receive guidance on professional development paths."
+          : "Plataforma integral de coaching profesional impulsada por IA que se conecta a APIs del mercado laboral y bases de datos de carreras para proporcionar mentoría personalizada. Los usuarios pueden discutir objetivos profesionales, pedir preparación para entrevistas y recibir orientación sobre trayectorias de desarrollo profesional.",
+    },
+    {
+      logo: "/logos/seguralia-logo.png",
+      name: "Seguralia",
+      title: language === "en" ? "Security AI Platform" : "Plataforma de Seguridad IA",
+      description:
+        language === "en"
+          ? "Advanced security system leveraging AI for threat detection, risk assessment, and incident response. Provides real-time security intelligence and automated threat mitigation through natural language interaction with security teams."
+          : "Sistema de seguridad avanzado que aprovecha la IA para detección de amenazas, evaluación de riesgos y respuesta ante incidentes. Proporciona inteligencia de seguridad en tiempo real y mitigación automática de amenazas a través de interacción con lenguaje natural.",
+    },
+    {
+      logo: "/logos/doublec-information-logo.png",
+      name: "DoubleC Information",
+      title: language === "en" ? "Enterprise IT Solutions" : "Soluciones TI Empresariales",
+      description:
+        language === "en"
+          ? "Comprehensive IT infrastructure and management platform enhanced with AI for system optimization, predictive maintenance, and intelligent resource allocation. Delivers enterprise-grade solutions through conversational AI interfaces."
+          : "Plataforma integral de infraestructura y gestión TI mejorada con IA para optimización de sistemas, mantenimiento predictivo y asignación inteligente de recursos. Entrega soluciones de nivel empresarial a través de interfaces de IA conversacionales.",
     },
   ]
 

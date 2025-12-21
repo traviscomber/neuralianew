@@ -1,3 +1,5 @@
+"use client"
+
 import { NewHeroSection } from "@/components/landing/new-hero-section"
 import { AiCoreDiagram } from "@/components/landing/ai-core-diagram"
 import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
@@ -9,6 +11,17 @@ import { HeroProblemSection } from "@/components/landing/hero-problem-section"
 import { InteractiveDemoSection } from "@/components/landing/interactive-demo-section"
 import { SocialProofSection } from "@/components/landing/social-proof-section"
 import { ComparisonSection } from "@/components/landing/comparison-section"
+import { useLanguage } from "@/lib/language-context"
+
+function SectionHeader({ titleKey, subtitleKey }: { titleKey: string; subtitleKey: string }) {
+  const { t } = useLanguage()
+  return (
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">{t(titleKey)}</h2>
+      <p className="text-xl text-slate-600">{t(subtitleKey)}</p>
+    </div>
+  )
+}
 
 export default function HomePage() {
   return (
@@ -19,20 +32,14 @@ export default function HomePage() {
 
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">The N3uralia Core</h2>
-            <p className="text-xl text-slate-600">Five interconnected systems orchestrated as one</p>
-          </div>
+          <SectionHeader titleKey="sections.core_title" subtitleKey="sections.core_subtitle" />
           <AiCoreDiagram />
         </div>
       </section>
 
       <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Five Doors Into AI</h2>
-            <p className="text-xl text-slate-600">Complete capabilities for every part of your infrastructure</p>
-          </div>
+          <SectionHeader titleKey="sections.capabilities_title" subtitleKey="sections.capabilities_subtitle" />
           <CapabilitiesGrid />
         </div>
       </section>
@@ -41,10 +48,7 @@ export default function HomePage() {
 
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Real Outcomes</h2>
-            <p className="text-xl text-slate-600">From cities to enterprises, proven impact</p>
-          </div>
+          <SectionHeader titleKey="sections.outcomes_title" subtitleKey="sections.outcomes_subtitle" />
           <OutcomesShowcase />
         </div>
       </section>

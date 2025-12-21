@@ -36,9 +36,16 @@ export function WhyTrustSection() {
 
   return (
     <section className="relative py-20 overflow-hidden">
-      {/* Cosmic Background */}
-      <div className="absolute inset-0">
-        <Image src="/cosmic-background.jpeg" alt="Cosmic Background" fill className="object-cover" priority />
+      <div className="absolute inset-0 will-change-auto">
+        <Image
+          src="/cosmic-background.jpeg"
+          alt="Cosmic Background"
+          fill
+          className="object-cover"
+          priority={false}
+          loading="lazy"
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
@@ -64,7 +71,7 @@ export function WhyTrustSection() {
           <Card className="bg-white/10 backdrop-blur-md border-white/20 hover:bg-white/15 transition-all duration-300">
             <CardContent className="p-8 text-center">
               <div className="w-16 h-16 mx-auto mb-6 flex items-center justify-center">
-                <Image src="/icons/iso-logo.png" alt="ISO Certification" width={64} height={64} />
+                <Image src="/icons/iso-logo.png" alt="ISO Certification" width={64} height={64} loading="lazy" />
               </div>
               <h3 className="text-xl font-semibold text-gray-300 mb-2">{t.security}</h3>
             </CardContent>
@@ -94,6 +101,7 @@ export function WhyTrustSection() {
                 width={logo.width}
                 height={logo.height}
                 className="object-contain"
+                loading="lazy"
               />
             </div>
           ))}

@@ -6,32 +6,7 @@ import { motion } from "framer-motion"
 import { ArrowRight, Zap, Shield, Cpu } from "lucide-react"
 
 export function NewHeroSection() {
-  const { language } = useLanguage()
-
-  const content = {
-    en: {
-      badge: "Trusted by 500+ companies",
-      title: "AI Orchestration Made Simple",
-      subtitle: "Connect agents, automate workflows, and scale intelligent systems in minutes.",
-      cta1: "Start Building",
-      cta2: "See Demo",
-      benefit1: "99.99% Uptime",
-      benefit2: "Deploy in Minutes",
-      benefit3: "Production Ready",
-    },
-    es: {
-      badge: "Confiado por 500+ empresas",
-      title: "Orquestación de IA Simplificada",
-      subtitle: "Conecta agentes, automatiza flujos y escala sistemas inteligentes en minutos.",
-      cta1: "Comenzar",
-      cta2: "Ver Demo",
-      benefit1: "99.99% Uptime",
-      benefit2: "Deploy en Minutos",
-      benefit3: "Listo para Producción",
-    },
-  }
-
-  const t = content[language]
+  const { t } = useLanguage()
 
   return (
     <section className="relative overflow-hidden bg-white pt-12 pb-20 md:pt-20 md:pb-32">
@@ -78,7 +53,7 @@ export function NewHeroSection() {
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             />
-            <span className="text-sm font-medium text-slate-700">{t.badge}</span>
+            <span className="text-sm font-medium text-slate-700">{t("hero.badge")}</span>
           </motion.div>
 
           <motion.h1
@@ -87,7 +62,7 @@ export function NewHeroSection() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight tracking-tight"
           >
-            {t.title}
+            {t("hero.title")}
           </motion.h1>
 
           <motion.p
@@ -96,7 +71,7 @@ export function NewHeroSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed"
           >
-            {t.subtitle}
+            {t("hero.subtitle")}
           </motion.p>
 
           <motion.div
@@ -107,15 +82,15 @@ export function NewHeroSection() {
           >
             <div className="flex items-center gap-2 text-slate-700">
               <Shield className="w-5 h-5 text-emerald-600" />
-              {t.benefit1}
+              {t("hero.benefit1")}
             </div>
             <div className="flex items-center gap-2 text-slate-700">
               <Zap className="w-5 h-5 text-emerald-600" />
-              {t.benefit2}
+              {t("hero.benefit2")}
             </div>
             <div className="flex items-center gap-2 text-slate-700">
               <Cpu className="w-5 h-5 text-emerald-600" />
-              {t.benefit3}
+              {t("hero.benefit3")}
             </div>
           </motion.div>
 
@@ -129,7 +104,7 @@ export function NewHeroSection() {
               size="lg"
               className="px-8 bg-slate-900 hover:bg-slate-800 text-white gap-2 transition-all font-semibold shadow-lg hover:shadow-xl"
             >
-              {t.cta1}
+              {t("hero.cta1")}
               <ArrowRight className="w-4 h-4" />
             </Button>
             <Button
@@ -137,7 +112,7 @@ export function NewHeroSection() {
               variant="outline"
               className="px-8 border-slate-300 text-slate-900 hover:bg-slate-50 bg-white transition-all"
             >
-              {t.cta2}
+              {t("hero.cta2")}
             </Button>
           </motion.div>
         </div>
@@ -159,9 +134,9 @@ export function NewHeroSection() {
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {/* Stat cards with animation */}
                 {[
-                  { label: "Active Agents", value: "47", icon: "🤖" },
-                  { label: "Workflows Running", value: "128", icon: "⚡" },
-                  { label: "Success Rate", value: "99.8%", icon: "✓" },
+                  { label: "hero.stat1_label", value: "hero.stat1_value", icon: "🤖" },
+                  { label: "hero.stat2_label", value: "hero.stat2_value", icon: "⚡" },
+                  { label: "hero.stat3_label", value: "hero.stat3_value", icon: "✓" },
                 ].map((stat, i) => (
                   <motion.div
                     key={i}
@@ -171,8 +146,8 @@ export function NewHeroSection() {
                     className="rounded-lg border border-slate-200 p-4 text-center hover:border-emerald-300 hover:shadow-md transition-all duration-300"
                   >
                     <div className="text-2xl mb-2">{stat.icon}</div>
-                    <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-                    <div className="text-xs text-slate-500 mt-1">{stat.label}</div>
+                    <div className="text-2xl font-bold text-slate-900">{t(stat.value)}</div>
+                    <div className="text-xs text-slate-500 mt-1">{t(stat.label)}</div>
                   </motion.div>
                 ))}
               </div>

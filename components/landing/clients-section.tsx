@@ -51,6 +51,21 @@ export function ClientsSection() {
       description: "AI consulting services",
       grayscale: true,
     },
+    {
+      name: "Seguralia",
+      logo: "/logos/seguralia-logo.png",
+      description: "Security solutions",
+    },
+    {
+      name: "Despega Tu Carrera",
+      logo: "/logos/despega-tu-carrera-logo.png",
+      description: "Career coaching platform",
+    },
+    {
+      name: "DoubleC Information",
+      logo: "/logos/doublec-information-logo.png",
+      description: "Information technology services",
+    },
   ]
 
   return (

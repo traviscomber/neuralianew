@@ -1,126 +1,81 @@
 "use client"
 
-import { motion } from "framer-motion"
 import { Brain, Zap, Shield, Eye, Database } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
 export function AiCoreDiagram() {
+  const { t } = useLanguage()
+
   const modules = [
-    { icon: Brain, label: "Agent Systems", color: "from-slate-600 to-slate-700" },
-    { icon: Zap, label: "AI Platforms", color: "from-slate-600 to-slate-700" },
-    { icon: Eye, label: "Creative Engines", color: "from-slate-600 to-slate-700" },
-    { icon: Database, label: "Data & Memory", color: "from-slate-600 to-slate-700" },
-    { icon: Shield, label: "Automation", color: "from-slate-600 to-slate-700" },
+    {
+      icon: Brain,
+      label: { en: "AI Agents", es: "Agentes de IA" },
+      description: { en: "Intelligent assistants", es: "Asistentes inteligentes" },
+      color: "from-accent to-accent/90",
+    },
+    {
+      icon: Eye,
+      label: { en: "User Interfaces", es: "Interfaces de Usuario" },
+      description: { en: "Seamless experiences", es: "Experiencias fluidas" },
+      color: "from-tertiary to-tertiary/90",
+    },
+    {
+      icon: Zap,
+      label: { en: "Orchestrator", es: "Orquestador" },
+      description: { en: "Central coordination", es: "Coordinación central" },
+      color: "from-secondary to-secondary/90",
+    },
+    {
+      icon: Database,
+      label: { en: "Distributed Memory", es: "Memoria Distribuida" },
+      description: { en: "Persistent intelligence", es: "Inteligencia persistente" },
+      color: "from-primary to-primary/90",
+    },
+    {
+      icon: Shield,
+      label: { en: "Automations & APIs", es: "Automatizaciones y APIs" },
+      description: { en: "Seamless integrations", es: "Integraciones fluidas" },
+      color: "from-accent/90 to-primary/90",
+    },
   ]
 
-  const orbitVariants = {
-    animate: {
-      rotate: 360,
-      transition: {
-        duration: 25,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "linear",
-      },
-    },
-  }
-
-  const coreVariants = {
-    pulse: {
-      scale: [1, 1.02, 1],
-      boxShadow: ["0 0 0px rgba(15, 23, 42, 0.1)", "0 0 12px rgba(15, 23, 42, 0.2)", "0 0 0px rgba(15, 23, 42, 0.1)"],
-    },
-  }
-
   return (
-    <div className="relative w-full h-96 flex items-center justify-center py-12">
-      <motion.div variants={orbitVariants} animate="animate" className="absolute w-96 h-96">
-        <motion.div
-          initial={{ scale: 0 }}
-          whileInView={{ scale: 1 }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-          variants={coreVariants}
-          animate="pulse"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-slate-800 to-slate-900 rounded-full flex items-center justify-center shadow-lg border border-slate-500/30"
-        >
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
-          >
-            <Brain className="w-10 h-10 text-slate-400" />
-          </motion.div>
-        </motion.div>
+    <div className="relative w-full min-h-[600px] flex items-center justify-center py-16">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-50/50 opacity-60" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(61,143,127,0.03)_1px,transparent_1px)] [background-size:24px_24px]" />
 
+      <div className="relative w-[500px] h-[500px]">
+        {/* Core center circle */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-primary via-primary/90 to-accent rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(61,143,127,0.25)] border-2 border-accent/30 backdrop-blur-sm z-10 will-change-transform">
+          <div className="absolute inset-2 rounded-full border border-accent/20" />
+          <Brain className="w-14 h-14 text-white drop-shadow-lg" />
+        </div>
+
+        {/* Module cards positioned around center */}
         {modules.map((module, i) => {
-          const angle = (i / modules.length) * Math.PI * 2
-          const x = Math.cos(angle) * 140
-          const y = Math.sin(angle) * 140
+          const angle = (i / modules.length) * Math.PI * 2 - Math.PI / 2
+          const x = Math.cos(angle) * 180
+          const y = Math.sin(angle) * 180
 
           return (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: i * 0.15, type: "spring" }}
-              className="absolute left-1/2 top-1/2"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{
-                x: x - 32,
-                y: y - 32,
+                transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
               }}
             >
-              <motion.div
-                whileHover={{
-                  scale: 1.08,
-                  boxShadow: "0 4px 16px rgba(15, 23, 42, 0.15)",
-                }}
-                className={`w-16 h-16 rounded-lg bg-gradient-to-br ${module.color} flex items-center justify-center shadow-md cursor-pointer transition-all border border-slate-500/20`}
+              <div
+                className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${module.color} flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-white/40 backdrop-blur-sm overflow-hidden`}
               >
-                <motion.div
-                  animate={{ y: [0, -2, 0] }}
-                  transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: i * 0.2 }}
-                >
-                  <module.icon className="w-6 h-6 text-slate-200" />
-                </motion.div>
-              </motion.div>
-              <motion.div
-                className="text-center mt-3 text-xs font-semibold text-slate-600 whitespace-nowrap"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: i * 0.15 + 0.3 }}
-              >
-                {module.label}
-              </motion.div>
-            </motion.div>
+                <div className="relative z-10">
+                  <module.icon className="w-8 h-8 text-white drop-shadow-md" />
+                </div>
+              </div>
+            </div>
           )
         })}
-      </motion.div>
-
-      <svg className="absolute w-full h-full" style={{ pointerEvents: "none" }}>
-        <defs>
-          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(100, 116, 139, 0.15)" />
-            <stop offset="50%" stopColor="rgba(100, 116, 139, 0.25)" />
-            <stop offset="100%" stopColor="rgba(100, 116, 139, 0.15)" />
-          </linearGradient>
-        </defs>
-        {modules.map((_, i) => {
-          const angle = (i / modules.length) * Math.PI * 2
-          const x = Math.cos(angle) * 140
-          const y = Math.sin(angle) * 140
-          return (
-            <motion.line
-              key={i}
-              x1="50%"
-              y1="50%"
-              x2={`calc(50% + ${x}px)`}
-              y2={`calc(50% + ${y}px)`}
-              stroke="url(#lineGradient)"
-              strokeWidth="1.5"
-              initial={{ pathLength: 0, opacity: 0 }}
-              whileInView={{ pathLength: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: i * 0.15 }}
-            />
-          )
-        })}
-      </svg>
+      </div>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Play, MessageSquare, Code, CheckCircle, ArrowRight, Bot, User, Monitor } from "lucide-react"
+import { Play, MessageSquare, CheckCircle, ArrowRight, Bot, User } from "lucide-react"
 
 const demoTypes = [
   {
@@ -14,24 +14,8 @@ const demoTypes = [
     title: "Agente Conversacional",
     description: "Prueba nuestro agente IA especializado",
     icon: MessageSquare,
-    color: "from-blue-500 to-blue-600",
+    color: "from-slate-800 to-emerald-700",
     features: ["Procesamiento Natural", "Respuestas Contextuales", "Integración WhatsApp"],
-  },
-  {
-    id: "dashboard",
-    title: "Dashboard Ejecutivo",
-    description: "Visualiza métricas en tiempo real",
-    icon: Monitor,
-    color: "from-purple-500 to-purple-600",
-    features: ["Analytics en Tiempo Real", "KPIs Personalizados", "Reportes Automáticos"],
-  },
-  {
-    id: "api",
-    title: "API Integration",
-    description: "Conecta con tus sistemas existentes",
-    icon: Code,
-    color: "from-green-500 to-green-600",
-    features: ["REST APIs", "Webhooks", "SDK Personalizado"],
   },
 ]
 
@@ -52,35 +36,6 @@ const liveDemo = {
       time: "14:34",
     },
   ],
-  dashboard: [
-    { type: "system", message: "Cargando Dashboard Ejecutivo...", time: "14:35" },
-    { type: "system", message: "📊 Métricas en Tiempo Real Cargadas", time: "14:35" },
-    { type: "system", message: "💼 Proyectos Activos: 12", time: "14:35" },
-    { type: "system", message: "⚡ Uptime: 99.9%", time: "14:35" },
-    { type: "system", message: "👥 Usuarios Activos: 2,847", time: "14:36" },
-    { type: "system", message: "📈 ROI Promedio: 250%", time: "14:36" },
-  ],
-  api: [
-    { type: "code", message: "// Ejemplo de integración API N3uralia", time: "14:37" },
-    {
-      type: "code",
-      message:
-        "const n3uralia = new N3uraliaAPI({\n  apiKey: 'your-api-key',\n  endpoint: 'https://api.n3uralia.com'\n});",
-      time: "14:37",
-    },
-    {
-      type: "code",
-      message:
-        "// Crear agente conversacional\nconst agent = await n3uralia.createAgent({\n  name: 'Mi Asistente',\n  language: 'es',\n  industry: 'agriculture'\n});",
-      time: "14:38",
-    },
-    {
-      type: "code",
-      message:
-        '// Respuesta del sistema\n{\n  "id": "agent_123",\n  "status": "active",\n  "capabilities": ["nlp", "whatsapp", "analytics"]\n}',
-      time: "14:38",
-    },
-  ],
 }
 
 export function InteractiveDemoSection() {
@@ -89,12 +44,11 @@ export function InteractiveDemoSection() {
 
   const startDemo = () => {
     setIsPlaying(true)
-    // Auto-stop after demo duration
     setTimeout(() => setIsPlaying(false), 10000)
   }
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-950 via-blue-950/20 to-purple-950/20">
+    <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -104,29 +58,29 @@ export function InteractiveDemoSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0 text-lg px-6 py-2 font-semibold">
+          <Badge className="mb-4 bg-gradient-to-r from-slate-700 to-emerald-600 text-white border-0 text-lg px-6 py-2 font-semibold">
             <Play className="w-4 h-4 mr-2" />
             Demo Interactivo en Vivo
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-black mb-6 text-white tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 text-slate-900 tracking-tight">
             Prueba nuestros{" "}
-            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-800 to-emerald-700 bg-clip-text text-transparent">
               sistemas reales
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Estos no son mockups. Son sistemas reales funcionando en producción que puedes probar ahora mismo.
           </p>
         </motion.div>
 
         <Tabs value={activeDemo} onValueChange={setActiveDemo} className="w-full">
           {/* Demo Type Selector */}
-          <TabsList className="grid w-full grid-cols-3 mb-8 bg-slate-900/50 border border-slate-700 rounded-2xl p-2 backdrop-blur-sm">
+          <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-slate-200 rounded-2xl p-2">
             {demoTypes.map((demo) => (
               <TabsTrigger
                 key={demo.id}
                 value={demo.id}
-                className="flex items-center gap-2 data-[state=active]:bg-slate-800 data-[state=active]:text-white rounded-xl font-semibold transition-all duration-300 text-slate-300 py-3"
+                className="flex items-center gap-2 data-[state=active]:bg-slate-900 data-[state=active]:text-white data-[state=active]:shadow-md rounded-xl font-semibold transition-all duration-300 text-slate-600 py-3"
               >
                 <demo.icon className="w-4 h-4" />
                 <span className="hidden sm:inline">{demo.title}</span>
@@ -147,23 +101,23 @@ export function InteractiveDemoSection() {
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
                     <div
-                      className={`w-16 h-16 bg-gradient-to-r ${demo.color} rounded-2xl flex items-center justify-center`}
+                      className={`w-16 h-16 bg-gradient-to-r ${demo.color} rounded-2xl flex items-center justify-center shadow-lg`}
                     >
                       <demo.icon className="w-8 h-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold text-white">{demo.title}</h3>
-                      <p className="text-slate-300">{demo.description}</p>
+                      <h3 className="text-2xl font-bold text-slate-900">{demo.title}</h3>
+                      <p className="text-slate-600">{demo.description}</p>
                     </div>
                   </div>
 
                   <div className="space-y-4">
-                    <h4 className="text-lg font-bold text-white">Características Principales:</h4>
+                    <h4 className="text-lg font-bold text-slate-900">Características Principales:</h4>
                     <div className="grid gap-3">
                       {demo.features.map((feature, index) => (
                         <div key={index} className="flex items-center gap-3">
-                          <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                          <span className="text-slate-300 font-medium">{feature}</span>
+                          <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                          <span className="text-slate-700 font-medium">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -173,14 +127,14 @@ export function InteractiveDemoSection() {
                     <Button
                       onClick={startDemo}
                       disabled={isPlaying}
-                      className={`bg-gradient-to-r ${demo.color} hover:opacity-90 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105`}
+                      className={`bg-gradient-to-r ${demo.color} hover:opacity-90 text-white font-bold px-6 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-md`}
                     >
                       <Play className="w-4 h-4 mr-2" />
                       {isPlaying ? "Demo en Curso..." : "Iniciar Demo"}
                     </Button>
                     <Button
                       variant="outline"
-                      className="border-slate-600 text-white hover:bg-slate-800 px-6 py-3 rounded-xl bg-transparent"
+                      className="border-slate-300 text-slate-900 hover:bg-slate-50 px-6 py-3 rounded-xl bg-white"
                       onClick={() => window.open("https://wa.me/56940946660", "_blank")}
                     >
                       <MessageSquare className="w-4 h-4 mr-2" />
@@ -190,22 +144,22 @@ export function InteractiveDemoSection() {
                 </div>
 
                 {/* Right: Interactive Demo */}
-                <Card className="bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl overflow-hidden">
+                <Card className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-md">
                   <CardContent className="p-0">
                     {/* Demo Header */}
-                    <div className="flex items-center justify-between p-4 border-b border-slate-700 bg-slate-800/50">
+                    <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50">
                       <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                        <span className="text-white font-semibold">{demo.title} - Sistema Real</span>
+                        <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                        <span className="text-slate-900 font-semibold">{demo.title} - Sistema Real</span>
                       </div>
-                      <Badge className="bg-green-100 text-green-800 border-green-200 text-xs">
+                      <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 text-xs">
                         <Bot className="w-3 h-3 mr-1" />
                         En Producción
                       </Badge>
                     </div>
 
                     {/* Demo Content */}
-                    <div className="h-96 overflow-y-auto p-4 space-y-4">
+                    <div className="h-96 overflow-y-auto p-4 space-y-4 bg-white">
                       {liveDemo[activeDemo as keyof typeof liveDemo].map((msg, index) => (
                         <motion.div
                           key={index}
@@ -217,24 +171,26 @@ export function InteractiveDemoSection() {
                               ? "justify-end"
                               : msg.type === "system"
                                 ? "justify-center"
-                                : "justify-start"
+                                : msg.type === "code"
+                                  ? "justify-start"
+                                  : "justify-start"
                           }`}
                         >
                           {msg.type === "bot" && (
-                            <div className="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center flex-shrink-0">
-                              <Bot className="w-4 h-4 text-blue-400" />
+                            <div className="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center flex-shrink-0">
+                              <Bot className="w-4 h-4 text-slate-700" />
                             </div>
                           )}
 
                           <div
                             className={`max-w-[85%] p-3 rounded-2xl ${
                               msg.type === "user"
-                                ? "bg-blue-600 text-white"
+                                ? "bg-slate-800 text-white"
                                 : msg.type === "system"
-                                  ? "bg-slate-700 text-slate-300 text-center"
+                                  ? "bg-slate-100 text-slate-700 text-center"
                                   : msg.type === "code"
-                                    ? "bg-slate-800 text-green-400 font-mono text-sm"
-                                    : "bg-slate-700 text-slate-200"
+                                    ? "bg-slate-900 text-emerald-400 font-mono text-sm"
+                                    : "bg-slate-100 text-slate-800"
                             }`}
                           >
                             <p className="text-sm whitespace-pre-line">{msg.message}</p>
@@ -242,7 +198,7 @@ export function InteractiveDemoSection() {
                           </div>
 
                           {msg.type === "user" && (
-                            <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center flex-shrink-0">
+                            <div className="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0">
                               <User className="w-4 h-4 text-white" />
                             </div>
                           )}
@@ -266,7 +222,7 @@ export function InteractiveDemoSection() {
         >
           <Button
             size="lg"
-            className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold px-8 py-4 text-lg shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 rounded-2xl"
+            className="bg-gradient-to-r from-slate-800 to-emerald-700 hover:from-slate-900 hover:to-emerald-800 text-white font-bold px-8 py-4 text-lg shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-105 rounded-2xl"
             onClick={() => window.open("https://wa.me/56940946660", "_blank")}
           >
             <MessageSquare className="w-5 h-5 mr-3" />

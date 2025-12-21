@@ -14,21 +14,21 @@ export function ArchitectureSection() {
       icon: Database,
       title: t("architecture.backend.title"),
       description: t("architecture.backend.description"),
-      color: "from-blue-500 to-blue-600",
+      color: "from-slate-700 to-slate-800", // replaced blue gradient with sophisticated slate
       examples: ["PostgreSQL", "APIs REST", "Microservices"],
     },
     {
       icon: Brain,
       title: t("architecture.ai.title"),
       description: t("architecture.ai.description"),
-      color: "from-purple-500 to-purple-600",
+      color: "from-amber-900 to-amber-800", // replaced purple gradient with warm taupe
       examples: ["GPT-4", "ML Models", "Analytics"],
     },
     {
       icon: MessageSquare,
       title: t("architecture.frontend.title"),
       description: t("architecture.frontend.description"),
-      color: "from-green-500 to-green-600",
+      color: "from-teal-700 to-teal-800", // replaced green gradient with elegant emerald
       examples: ["React", "WhatsApp", "Dashboards"],
     },
   ]
@@ -46,14 +46,16 @@ export function ArchitectureSection() {
         >
           <Badge
             variant="secondary"
-            className="mb-3 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 transition-colors duration-300"
+            className="mb-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-300 dark:border-slate-600 transition-colors duration-300" // updated to slate palette
           >
             <Layers className="w-4 h-4 mr-2" />
             {t("architecture.badge")}
           </Badge>
 
           <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-gray-900 dark:text-white transition-colors duration-300">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-800 to-teal-700 dark:from-slate-300 dark:to-teal-400 bg-clip-text text-transparent">
+              {" "}
+              {/* elegant slate to emerald gradient */}
               {t("architecture.title")}
             </span>{" "}
             {t("architecture.subtitle")}
@@ -128,18 +130,19 @@ export function ArchitectureSection() {
           viewport={{ once: true }}
           className="text-center mt-8"
         >
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white rounded-lg p-6 max-w-2xl mx-auto">
+          <div className="bg-gradient-to-r from-slate-800 to-teal-700 dark:from-slate-700 dark:to-teal-600 text-white rounded-lg p-6 max-w-2xl mx-auto">
+            {" "}
+            {/* elegant gradient replacing blue-purple */}
             <div className="text-lg font-semibold mb-2 flex items-center justify-center gap-2">
               <Cloud className="w-5 h-5" />
               {t("architecture.summary.title")}
             </div>
             <p className="text-sm opacity-90 mb-4">{t("architecture.summary.description")}</p>
-
             <a
               href={`https://wa.me/56940946660?text=${encodeURIComponent(t("architecture.whatsapp.message"))}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-sm"
+              className="inline-flex items-center gap-2 bg-white text-slate-800 px-4 py-2 rounded-lg font-semibold hover:bg-slate-50 transition-colors text-sm" // updated text color to slate
             >
               <MessageSquare className="w-4 h-4" />
               {t("architecture.whatsapp.button")}
