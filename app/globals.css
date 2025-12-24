@@ -4,47 +4,47 @@
 
 @layer base {
   :root {
-    /* Premium, Elegant Color Palette */
+    /* Minimalist Black & White Color Palette */
 
-    /* Light Mode - Refined and Sophisticated */
-    --background: 0 0% 99.5%; /* Almost white, warm cream */
-    --foreground: 12 15% 12%; /* Deep chocolate-charcoal */
+    /* Light Mode - Pure Minimalism */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 0 0% 0%; /* Pure black */
     --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 12 15% 12%; /* Deep chocolate */
+    --card-foreground: 0 0% 0%; /* Black text */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 12 15% 12%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Primary: Elegant deep navy (luxury, premium feel) */
-    --primary: 220 25% 20%; /* #1a2d3f - Deep navy */
-    --primary-foreground: 0 0% 100%;
+    /* Primary: Black (premium, minimalist) */
+    --primary: 0 0% 0%; /* #000000 - Pure black */
+    --primary-foreground: 0 0% 100%; /* White text */
 
-    /* Secondary: Sophisticated warm taupe (refined neutrality) */
-    --secondary: 30 20% 55%; /* #8B7D70 - Warm taupe */
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary: Dark gray (neutral elegance) */
+    --secondary: 0 0% 25%; /* #404040 - Dark gray */
+    --secondary-foreground: 0 0% 100%; /* White text */
 
-    /* Accent: Rich emerald (subtle sophistication) */
-    --accent: 150 35% 45%; /* #3d8f7f - Rich emerald green */
-    --accent-foreground: 0 0% 100%;
+    /* Accent: Black with contrast (action elements) */
+    --accent: 0 0% 0%; /* #000000 - Black */
+    --accent-foreground: 0 0% 100%; /* White */
 
-    /* Tertiary: Elegant gold accent (luxury accent) */
-    --tertiary: 40 70% 55%; /* #D4A574 - Elegant gold */
-    --tertiary-foreground: 0 0% 100%;
+    /* Tertiary: Light gray (subtle accents) */
+    --tertiary: 0 0% 90%; /* #E6E6E6 - Light gray */
+    --tertiary-foreground: 0 0% 0%; /* Black text */
 
-    /* Neutral palette (carefully curated grays) */
-    --muted: 220 15% 85%; /* #D4DDE6 - Soft gray */
-    --muted-foreground: 220 10% 40%; /* #4A5568 - Medium gray */
+    /* Neutral palette (refined grays) */
+    --muted: 0 0% 85%; /* #D9D9D9 - Medium-light gray */
+    --muted-foreground: 0 0% 40%; /* #666666 - Medium gray */
 
     /* UI Elements */
-    --destructive: 0 84% 60%; /* #DC4A4A */
+    --destructive: 0 84% 60%; /* #DC4A4A - Red for errors */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 92%; /* #E8EFF7 - Soft border */
-    --input: 220 15% 96%; /* #F2F5F9 - Soft input background */
-    --ring: 150 35% 45%; /* Emerald focus ring */
+    --border: 0 0% 90%; /* #E6E6E6 - Light gray border */
+    --input: 0 0% 97%; /* #F7F7F7 - Almost white input */
+    --ring: 0 0% 0%; /* Black focus ring */
 
     /* Spacing & Radius */
-    --radius: 0.625rem; /* 10px - more refined corners */
+    --radius: 0.625rem; /* 10px */
 
     /* Semantic spacing tokens */
     --spacing-xs: 0.25rem; /* 4px */
@@ -55,52 +55,52 @@
     --spacing-2xl: 3rem; /* 48px */
     --spacing-3xl: 4rem; /* 64px */
 
-    /* Elevation/Shadow tokens - premium shadows */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.12);
-    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.15);
+    /* Elevation/Shadow tokens - minimalist shadows */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.08);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
   }
 
   .dark {
-    /* Dark mode - Premium darkness */
-    --background: 220 25% 8%; /* #0f1a28 - Deep dark blue */
-    --foreground: 0 0% 95%; /* #f2f2f2 - Almost white */
-    --card: 220 25% 13%; /* #1a2e42 - Card dark */
-    --card-foreground: 0 0% 95%;
+    /* Dark mode - Pure black background */
+    --background: 0 0% 8%; /* #141414 - Near black */
+    --foreground: 0 0% 100%; /* White text */
+    --card: 0 0% 13%; /* #212121 - Dark card */
+    --card-foreground: 0 0% 100%; /* White text */
 
-    --popover: 220 25% 13%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 13%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 92%; /* Light gray */
-    --primary-foreground: 220 25% 15%;
+    --primary: 0 0% 100%; /* White text on dark */
+    --primary-foreground: 0 0% 8%;
 
-    --secondary: 30 20% 65%; /* Light taupe */
-    --secondary-foreground: 220 25% 15%;
+    --secondary: 0 0% 75%; /* Light gray */
+    --secondary-foreground: 0 0% 8%;
 
-    --accent: 150 35% 55%; /* Lighter emerald */
-    --accent-foreground: 220 25% 15%;
+    --accent: 0 0% 100%; /* White accent */
+    --accent-foreground: 0 0% 8%;
 
-    --tertiary: 40 70% 60%; /* Lighter gold */
-    --tertiary-foreground: 220 25% 15%;
+    --tertiary: 0 0% 25%; /* Dark gray */
+    --tertiary-foreground: 0 0% 100%;
 
-    --muted: 220 20% 28%; /* Dark neutral */
-    --muted-foreground: 220 15% 75%; /* Light neutral text */
+    --muted: 0 0% 30%; /* Dark muted */
+    --muted-foreground: 0 0% 75%; /* Light text */
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 25% 20%; /* Dark border */
-    --input: 220 25% 18%; /* Dark input */
-    --ring: 150 35% 55%; /* Emerald ring */
+    --border: 0 0% 20%; /* Dark border */
+    --input: 0 0% 15%; /* Dark input */
+    --ring: 0 0% 100%; /* White focus ring */
 
     /* Shadows for dark mode */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.6);
-    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.7);
+    --shadow-xs: 0 1px 2px rgba(255, 255, 255, 0.05);
+    --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.08);
+    --shadow-md: 0 4px 8px rgba(255, 255, 255, 0.1);
+    --shadow-lg: 0 8px 16px rgba(255, 255, 255, 0.12);
+    --shadow-xl: 0 12px 24px rgba(255, 255, 255, 0.15);
   }
 }
 

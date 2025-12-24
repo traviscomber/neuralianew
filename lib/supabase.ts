@@ -1,13 +1,20 @@
 import { createBrowserClient as createSupabaseClient } from "@supabase/ssr"
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-
 // Browser client (singleton pattern)
 let browserClient: ReturnType<typeof createSupabaseClient> | null = null
 
 export function createBrowserClient() {
   if (browserClient) return browserClient
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error(
+      "Supabase URL and Anon Key are required. Check your environment variables: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    )
+  }
+
   browserClient = createSupabaseClient(supabaseUrl, supabaseAnonKey)
   return browserClient
 }
@@ -20,7 +27,7 @@ export function createServerClient() {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!serviceRoleKey) throw new Error("SUPABASE_SERVICE_ROLE_KEY missing")
 
-  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
+  return createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   })
 }

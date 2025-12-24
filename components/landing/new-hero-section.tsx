@@ -2,184 +2,214 @@
 
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/lib/language-context"
-import { motion } from "framer-motion"
 import { ArrowRight, Zap, Shield, Cpu } from "lucide-react"
 
 export function NewHeroSection() {
   const { t } = useLanguage()
 
   return (
-    <section className="relative overflow-hidden bg-white pt-12 pb-20 md:pt-20 md:pb-32">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 pt-20">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100" />
-        <motion.div
-          className="absolute -top-1/2 -right-1/4 w-1/2 h-1/2 bg-gradient-to-bl from-blue-50 to-transparent rounded-full blur-3xl opacity-40"
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-          }}
+        {/* Navy gradient base */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-slate-900 to-slate-950" />
+
+        {/* Animated emerald glow - top right */}
+        <div
+          className="absolute top-0 right-0 w-1/3 h-1/2 bg-gradient-radial from-accent/40 via-accent/10 to-transparent rounded-full blur-3xl animate-pulse"
+          style={{ animation: "float 8s ease-in-out infinite" }}
         />
-        <motion.div
-          className="absolute -bottom-1/3 -left-1/4 w-1/2 h-1/2 bg-gradient-to-tr from-slate-100 to-transparent rounded-full blur-3xl opacity-30"
-          animate={{
-            x: [0, -50, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 17,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            delay: 1,
-          }}
+
+        {/* Animated gold accent - bottom left */}
+        <div
+          className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gradient-radial from-tertiary/30 via-tertiary/5 to-transparent rounded-full blur-3xl"
+          style={{ animation: "float 10s ease-in-out infinite 2s" }}
         />
+
+        {/* Grid pattern subtle */}
+        <div className="absolute inset-0 bg-grid-slate-900/[0.04] bg-[size:50px_50px]" />
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Header Section - Compact */}
-        <div className="text-center mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-6"
-          >
-            <motion.span
-              className="w-2 h-2 rounded-full bg-emerald-500"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-            />
-            <span className="text-sm font-medium text-slate-700">{t("hero.badge")}</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 mb-6 leading-tight tracking-tight"
-          >
-            {t("hero.title")}
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto mb-10 leading-relaxed"
-          >
-            {t("hero.subtitle")}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-wrap justify-center gap-8 mb-12 text-sm font-medium"
-          >
-            <div className="flex items-center gap-2 text-slate-700">
-              <Shield className="w-5 h-5 text-emerald-600" />
-              {t("hero.benefit1")}
-            </div>
-            <div className="flex items-center gap-2 text-slate-700">
-              <Zap className="w-5 h-5 text-emerald-600" />
-              {t("hero.benefit2")}
-            </div>
-            <div className="flex items-center gap-2 text-slate-700">
-              <Cpu className="w-5 h-5 text-emerald-600" />
-              {t("hero.benefit3")}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
-          >
-            <Button
-              size="lg"
-              className="px-8 bg-slate-900 hover:bg-slate-800 text-white gap-2 transition-all font-semibold shadow-lg hover:shadow-xl"
-            >
-              {t("hero.cta1")}
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="px-8 border-slate-300 text-slate-900 hover:bg-slate-50 bg-white transition-all"
-            >
-              {t("hero.cta2")}
-            </Button>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="relative"
-        >
-          <div className="rounded-lg overflow-hidden border border-slate-200 bg-white shadow-2xl">
-            <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-4 py-3 border-b border-slate-200 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[calc(100vh-80px)]">
+          {/* Left Column - Content */}
+          <div className="flex flex-col justify-center">
+            <div className="inline-flex w-fit items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 mb-8 backdrop-blur-sm">
+              <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+              <span className="text-sm font-medium text-slate-200">{t("hero.badge")}</span>
             </div>
 
-            <div className="p-8 md:p-12 bg-white">
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                {/* Stat cards with animation */}
-                {[
-                  { label: "hero.stat1_label", value: "hero.stat1_value", icon: "🤖" },
-                  { label: "hero.stat2_label", value: "hero.stat2_value", icon: "⚡" },
-                  { label: "hero.stat3_label", value: "hero.stat3_value", icon: "✓" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 + i * 0.1 }}
-                    className="rounded-lg border border-slate-200 p-4 text-center hover:border-emerald-300 hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="text-2xl mb-2">{stat.icon}</div>
-                    <div className="text-2xl font-bold text-slate-900">{t(stat.value)}</div>
-                    <div className="text-xs text-slate-500 mt-1">{t(stat.label)}</div>
-                  </motion.div>
-                ))}
-              </div>
+            <h1 className="text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 leading-tight tracking-tight">
+              <span className="text-white">{t("hero.title").split(" ").slice(0, 2).join(" ")}</span>
+              <br />
+              <span className="bg-gradient-to-r from-accent via-emerald-300 to-accent bg-clip-text text-transparent">
+                {t("hero.title").split(" ").slice(2).join(" ")}
+              </span>
+            </h1>
 
-              {/* Workflow visualization */}
-              <div className="space-y-3">
-                {["Extract Data", "Validate Input", "Generate Response", "Store Result"].map((step, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + i * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-bold">
-                      ✓
-                    </div>
-                    <span className="text-sm font-medium text-slate-700">{step}</span>
-                    {i < 3 && <div className="flex-1 h-px bg-gradient-to-r from-emerald-200 to-transparent" />}
-                  </motion.div>
-                ))}
-              </div>
+            <p className="text-xl text-slate-300 mb-8 leading-relaxed max-w-lg">{t("hero.subtitle")}</p>
+
+            <div className="flex flex-col gap-4 mb-12">
+              {[
+                { icon: Shield, text: t("hero.benefit1") },
+                { icon: Zap, text: t("hero.benefit2") },
+                { icon: Cpu, text: t("hero.benefit3") },
+              ].map((benefit, i) => {
+                const Icon = benefit.icon
+                return (
+                  <div key={i} className="flex items-center gap-3 text-slate-200">
+                    <Icon className="w-5 h-5 text-accent flex-shrink-0" />
+                    <span className="font-medium">{benefit.text}</span>
+                  </div>
+                )
+              })}
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                className="px-8 bg-accent hover:bg-emerald-500 text-slate-950 font-semibold rounded-full gap-2 shadow-lg hover:shadow-emerald-500/30 transition-all"
+              >
+                {t("hero.cta1")}
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-8 border-slate-700 text-slate-200 hover:bg-slate-800/50 hover:border-slate-600 rounded-full font-semibold transition-all backdrop-blur-sm bg-transparent"
+              >
+                {t("hero.cta2")}
+              </Button>
             </div>
           </div>
 
-          <motion.div
-            className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-lg blur-2xl -z-10 opacity-0"
-            animate={{ opacity: [0, 0.3, 0] }}
-            transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
-          />
-        </motion.div>
+          {/* Right Column - Interactive Code Panel */}
+          <div className="hidden lg:block relative">
+            <div className="relative">
+              {/* Glow effect behind panel */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-tertiary/20 rounded-xl blur-2xl opacity-50" />
+
+              {/* Code Panel */}
+              <div className="relative bg-slate-800/40 backdrop-blur-md border border-slate-700 rounded-xl overflow-hidden">
+                {/* Header */}
+                <div className="px-6 py-4 border-b border-slate-700 bg-slate-900/50 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                    <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">N3uralia.system</span>
+                </div>
+
+                {/* Code Content */}
+                <div className="p-6 font-mono text-sm">
+                  <div className="space-y-4">
+                    {/* Line 1 */}
+                    <div className="flex gap-4">
+                      <span className="text-slate-600 w-6 text-right">1</span>
+                      <div>
+                        <span className="text-tertiary">const</span>
+                        <span className="text-slate-200"> orchestration = </span>
+                        <span className="text-emerald-400">"AI Simplified"</span>
+                      </div>
+                    </div>
+
+                    {/* Line 2 */}
+                    <div className="flex gap-4">
+                      <span className="text-slate-600 w-6 text-right">2</span>
+                      <div>
+                        <span className="text-tertiary">const</span>
+                        <span className="text-slate-200"> agents = </span>
+                        <span className="text-tertiary">[</span>
+                      </div>
+                    </div>
+
+                    {/* Line 3 */}
+                    <div className="flex gap-4 pl-8">
+                      <span className="text-slate-600 w-6 text-right">3</span>
+                      <div>
+                        <span className="text-emerald-400">"Conversational"</span>
+                        <span className="text-slate-400">,</span>
+                      </div>
+                    </div>
+
+                    {/* Line 4 */}
+                    <div className="flex gap-4 pl-8">
+                      <span className="text-slate-600 w-6 text-right">4</span>
+                      <div>
+                        <span className="text-emerald-400">"Autonomous"</span>
+                        <span className="text-slate-400">,</span>
+                      </div>
+                    </div>
+
+                    {/* Line 5 */}
+                    <div className="flex gap-4 pl-8">
+                      <span className="text-slate-600 w-6 text-right">5</span>
+                      <div>
+                        <span className="text-emerald-400">"Predictive"</span>
+                      </div>
+                    </div>
+
+                    {/* Line 6 */}
+                    <div className="flex gap-4">
+                      <span className="text-slate-600 w-6 text-right">6</span>
+                      <span className="text-tertiary">]</span>
+                    </div>
+
+                    {/* Line 7 */}
+                    <div className="flex gap-4 pt-2">
+                      <span className="text-slate-400">{">"}</span>
+                      <span className="w-2 h-5 bg-accent animate-pulse" />
+                    </div>
+                  </div>
+
+                  {/* Cursor blink */}
+                  <div className="mt-4 flex gap-2">
+                    <span className="text-slate-400">{">"}</span>
+                    <span className="w-2 h-5 bg-accent animate-pulse" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating stats cards */}
+              <div className="absolute -bottom-12 -left-12 bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-lg p-4 shadow-2xl">
+                <div className="text-tertiary text-2xl font-bold">500+</div>
+                <div className="text-slate-300 text-xs">{t("hero.badge")}</div>
+              </div>
+
+              <div className="absolute -top-6 -right-12 bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-lg p-4 shadow-2xl">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-accent" />
+                  <span className="text-slate-200 text-sm font-medium">Live</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          50% { transform: translateY(-40px) translateX(0px); }
+          75% { transform: translateY(-20px) translateX(-10px); }
+        }
+        
+        @keyframes grid {
+          0% { opacity: 0.03; }
+          50% { opacity: 0.08; }
+          100% { opacity: 0.03; }
+        }
+
+        .bg-grid-slate-900 {
+          background-image: linear-gradient(rgba(15, 23, 42, 0.4) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.4) 1px, transparent 1px);
+        }
+
+        .bg-gradient-radial {
+          background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
+        }
+      `}</style>
     </section>
   )
 }
