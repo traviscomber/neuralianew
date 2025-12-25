@@ -60,19 +60,21 @@ export function Navigation() {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-2 text-sm hover:text-gray-600 transition-colors"
+              className="flex items-center gap-2 text-sm hover:text-gray-600 transition-colors cursor-pointer"
+              type="button"
             >
               <Globe className="w-4 h-4" />
               <span className="font-medium">{language.toUpperCase()}</span>
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-8 bg-white border border-gray-200 rounded-lg shadow-lg p-2 min-w-24">
+              <div className="absolute right-0 top-8 bg-white border border-gray-200 rounded-lg shadow-lg p-2 min-w-24 z-10">
                 <button
                   onClick={() => {
                     setLanguage("es")
                     setLangOpen(false)
                   }}
-                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100 ${
+                  type="button"
+                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100 cursor-pointer ${
                     language === "es" ? "font-bold text-black" : "text-gray-600"
                   }`}
                 >
@@ -83,7 +85,8 @@ export function Navigation() {
                     setLanguage("en")
                     setLangOpen(false)
                   }}
-                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100 ${
+                  type="button"
+                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-gray-100 cursor-pointer ${
                     language === "en" ? "font-bold text-black" : "text-gray-600"
                   }`}
                 >
@@ -127,7 +130,11 @@ export function Navigation() {
           </Link>
 
           <div className="pt-3 border-t">
-            <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-2 text-sm font-medium mb-2">
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer"
+              type="button"
+            >
               <Globe className="w-4 h-4" />
               {language.toUpperCase()}
             </button>
@@ -139,7 +146,8 @@ export function Navigation() {
                     setLangOpen(false)
                     setOpen(false)
                   }}
-                  className={`block text-sm ${language === "es" ? "font-bold" : "text-gray-600"}`}
+                  type="button"
+                  className={`block text-sm cursor-pointer ${language === "es" ? "font-bold" : "text-gray-600"}`}
                 >
                   Español
                 </button>
@@ -149,7 +157,8 @@ export function Navigation() {
                     setLangOpen(false)
                     setOpen(false)
                   }}
-                  className={`block text-sm ${language === "en" ? "font-bold" : "text-gray-600"}`}
+                  type="button"
+                  className={`block text-sm cursor-pointer ${language === "en" ? "font-bold" : "text-gray-600"}`}
                 >
                   English
                 </button>
