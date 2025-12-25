@@ -1,29 +1,31 @@
 "use client"
 
+import { useLanguage } from "@/lib/language-context"
+import { translations } from "@/lib/translations"
+
 export function MinimalistCore() {
+  const { language } = useLanguage()
+  const t = translations[language as keyof typeof translations]
+
   const systems = [
     {
-      title: "Agentes Conversacionales",
-      description:
-        "Asistentes de IA que entienden, responden y aprenden en lenguaje natural. Perfectos para atención al cliente, soporte técnico y consultoría.",
+      title: t.conversational,
+      description: t.conversationalDesc,
       icon: "💬",
     },
     {
-      title: "Automatización Inteligente",
-      description:
-        "Flujos de trabajo que se ejecutan solos, toman decisiones y se adaptan. Reduce tareas manuales hasta 80% en tu operación.",
+      title: t.automation,
+      description: t.automationDesc,
       icon: "⚡",
     },
     {
-      title: "Integración Sin Fricción",
-      description:
-        "Conecta con Salesforce, SAP, Facturación Electrónica, sistemas legados. Una API que habla con todo tu ecosistema.",
+      title: t.integration,
+      description: t.integrationDesc,
       icon: "🔗",
     },
     {
-      title: "Análisis en Tiempo Real",
-      description:
-        "Métricas claras sobre rendimiento, decisiones y ROI. Dashboards que entienden lo que importa a tu negocio.",
+      title: t.analytics,
+      description: t.analyticsDesc,
       icon: "📊",
     },
   ]
@@ -32,8 +34,8 @@ export function MinimalistCore() {
     <section className="bg-white py-24 border-t border-gray-200">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-black mb-6">Lo que Hacemos</h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Cuatro pilares que transforman operaciones en Chile</p>
+          <h2 className="text-5xl md:text-6xl font-bold text-black mb-6">{t.whatWeDo}</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">{t.whatWeDoDescription}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

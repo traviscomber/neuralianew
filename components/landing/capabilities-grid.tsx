@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Brain, Cog, Palette, Settings, Database } from "lucide-react"
+import { ArrowRight, Brain, Cog, Palette, Settings, Database, Zap } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
 
 export function CapabilitiesGrid() {
@@ -31,7 +31,7 @@ export function CapabilitiesGrid() {
       },
       {
         icon: Settings,
-        title: "Automation for Business",
+        title: "Business Automation",
         description: "WhatsApp, Telegram, and operational automation for enterprises",
         features: ["WhatsApp/Telegram", "Process automation", "Integration"],
       },
@@ -40,6 +40,12 @@ export function CapabilitiesGrid() {
         title: "Data & Memory",
         description: "Vector databases, knowledge management, and intelligent decisions",
         features: ["Vector memory", "Knowledge graph", "Decision engine"],
+      },
+      {
+        icon: Zap,
+        title: "Blockchain Development",
+        description: "Smart contracts, decentralized systems and Web3 integration",
+        features: ["Smart contracts", "Decentralized systems", "Web3 integration"],
       },
     ],
     es: [
@@ -72,6 +78,12 @@ export function CapabilitiesGrid() {
         title: "Datos y Memoria",
         description: "Bases de datos vectoriales, gestión del conocimiento y decisiones",
         features: ["Memoria vectorial", "Grafo de conocimiento", "Motor de decisiones"],
+      },
+      {
+        icon: Zap,
+        title: "Desarrollos en Blockchain",
+        description: "Smart contracts, sistemas descentralizados e integración Web3",
+        features: ["Smart contracts", "Sistemas descentralizados", "Integración Web3"],
       },
     ],
   }

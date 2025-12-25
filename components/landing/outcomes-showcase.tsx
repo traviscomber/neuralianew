@@ -1,9 +1,7 @@
 "use client"
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { motion } from "framer-motion"
 import { useLanguage } from "@/lib/language-context"
-import { CheckCircle, TrendingUp, Users, Zap } from "lucide-react"
+import { TrendingUp, Zap, Users, BarChart3 } from "lucide-react"
 
 export function OutcomesShowcase() {
   const { language } = useLanguage()
@@ -11,144 +9,94 @@ export function OutcomesShowcase() {
   const outcomes = {
     en: [
       {
-        title: "Municipal Workflow Automation",
-        description: "A Chilean city deployed AI agents for permit processing and citizen queries",
-        impact: "80% reduction in processing time",
+        title: "Blockchain Development",
+        description: "Smart contracts and decentralized solutions powered by AI orchestration",
+        impact: "80% faster development",
+        metric: "+250 contracts/month",
         icon: Zap,
       },
       {
-        title: "Creative Content Pipeline",
-        description: "Museum executed world engine with 360° content generation and QA",
-        impact: "10x faster content production",
+        title: "Creative Production",
+        description: "360° content generation and quality assurance for creative studio",
+        impact: "10x faster output",
+        metric: "5000+ assets/month",
         icon: TrendingUp,
       },
       {
         title: "Enterprise Operations",
-        description: "Enterprise automated customer service with multi-channel support",
+        description: "Multi-channel customer service automation across all touchpoints",
         impact: "60% cost reduction",
+        metric: "10k+ interactions/day",
         icon: Users,
       },
       {
-        title: "AI-Powered Data Hub",
-        description: "Knowledge platform with vector memory and intelligent decision engine",
-        impact: "Real-time insights",
-        icon: CheckCircle,
+        title: "Data Intelligence",
+        description: "Real-time analytics and intelligent decision engine for enterprises",
+        impact: "Instant insights",
+        metric: "Real-time processing",
+        icon: BarChart3,
       },
     ],
     es: [
       {
-        title: "Automatización de Procesos Municipales",
-        description: "Una ciudad chilena desplegó agentes de IA para procesamiento de permisos",
-        impact: "80% reducción en tiempo de procesamiento",
+        title: "Desarrollos en Blockchain",
+        description: "Contratos inteligentes y soluciones descentralizadas potenciadas por orquestación de IA",
+        impact: "80% más rápido",
+        metric: "+250 contratos/mes",
         icon: Zap,
       },
       {
-        title: "Pipeline de Contenido Creativo",
-        description: "Museo ejecutó world engine con generación 360° y QA",
-        impact: "10x más rápido en producción",
+        title: "Producción Creativa",
+        description: "Generación 360° de contenido y aseguramiento de calidad para estudio creativo",
+        impact: "10x más rápido",
+        metric: "5000+ assets/mes",
         icon: TrendingUp,
       },
       {
         title: "Operaciones Empresariales",
-        description: "Empresa automatizó servicio al cliente con soporte multicanal",
+        description: "Automatización de servicio al cliente multicanal en todos los puntos de contacto",
         impact: "60% reducción de costos",
+        metric: "10k+ interacciones/día",
         icon: Users,
       },
       {
-        title: "Hub de Datos con IA",
-        description: "Plataforma de conocimiento con memoria vectorial y motor de decisiones",
-        impact: "Insights en tiempo real",
-        icon: CheckCircle,
+        title: "Inteligencia de Datos",
+        description: "Análisis en tiempo real y motor de decisiones inteligente para empresas",
+        impact: "Insights instantáneos",
+        metric: "Procesamiento en vivo",
+        icon: BarChart3,
       },
     ],
   }
 
   const t = outcomes[language]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.6, type: "spring", stiffness: 100 },
-    },
-  }
-
   return (
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.2 }}
-      className="grid grid-cols-1 md:grid-cols-2 gap-6"
-    >
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {t.map((outcome, i) => (
-        <motion.div
+        <div
           key={i}
-          variants={itemVariants}
-          whileHover={{
-            y: -8,
-            boxShadow: "0 20px 40px rgba(59, 130, 246, 0.15)",
-            transition: { duration: 0.3 },
-          }}
-          className="group"
+          className="group border border-gray-200 p-8 hover:border-black transition-all duration-300 bg-white hover:bg-gray-50 cursor-pointer"
         >
-          <Card className="h-full border-slate-200 hover:border-blue-400 transition-all duration-300 bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-white overflow-hidden relative">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100"
-              transition={{ duration: 0.4 }}
-            />
+          <div className="mb-6">
+            <div className="w-14 h-14 bg-black text-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <outcome.icon className="w-7 h-7" />
+            </div>
+          </div>
 
-            <CardHeader className="relative z-10">
-              <div className="flex items-start justify-between">
-                <h3 className="text-lg font-semibold text-slate-900 flex-1 group-hover:text-blue-600 transition-colors">
-                  {outcome.title}
-                </h3>
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "mirror" }}
-                  whileHover={{ scale: 1.2, rotate: 360 }}
-                >
-                  <outcome.icon className="w-6 h-6 text-emerald-600 flex-shrink-0" />
-                </motion.div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4 relative z-10">
-              <motion.p
-                className="text-sm text-slate-600 group-hover:text-slate-700 transition-colors"
-                initial={{ opacity: 0.8 }}
-                whileHover={{ opacity: 1 }}
-              >
-                {outcome.description}
-              </motion.p>
-              <motion.div
-                className="pt-2 border-t border-slate-200"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ delay: i * 0.15 + 0.3, duration: 0.5 }}
-                style={{ originX: 0 }}
-              >
-                <motion.p
-                  className="text-sm font-semibold text-emerald-600 group-hover:text-emerald-700 transition-colors"
-                  animate={{ x: [0, 4, 0] }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                >
-                  {outcome.impact}
-                </motion.p>
-              </motion.div>
-            </CardContent>
-          </Card>
-        </motion.div>
+          <h3 className="text-xl font-bold text-black mb-3 group-hover:text-gray-700 transition-colors">
+            {outcome.title}
+          </h3>
+          <p className="text-gray-600 text-sm mb-6 leading-relaxed">{outcome.description}</p>
+
+          <div className="pt-6 border-t border-gray-200">
+            <div className="mb-3">
+              <p className="text-sm font-semibold text-black">{outcome.impact}</p>
+            </div>
+            <p className="text-xs text-gray-500 font-medium">{outcome.metric}</p>
+          </div>
+        </div>
       ))}
-    </motion.div>
+    </div>
   )
 }

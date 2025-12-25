@@ -3,6 +3,7 @@
 import { MinimalistHero } from "@/components/landing/minimalist-hero"
 import { MinimalistCore } from "@/components/landing/minimalist-core"
 import { MinimalistClients } from "@/components/landing/minimalist-clients"
+import { MinimalistTestimonials } from "@/components/landing/minimalist-testimonials"
 import { Footer } from "@/components/landing/footer"
 
 export default function HomePage() {
@@ -11,6 +12,7 @@ export default function HomePage() {
       <MinimalistHero />
       <MinimalistCore />
       <MinimalistClients />
+      <MinimalistTestimonials />
       <Footer />
     </main>
   )

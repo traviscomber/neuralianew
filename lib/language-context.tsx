@@ -95,6 +95,8 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+export { LanguageContext }
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("es")
   const [mounted, setMounted] = useState(false)
