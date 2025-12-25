@@ -1,6 +1,4 @@
 "use client"
-
-import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/landing/footer"
 import { useLanguage } from "@/lib/language-context"
@@ -12,7 +10,7 @@ export default function AboutPage() {
   const content = {
     en: {
       title: "About N3uralia",
-      subtitle: "Building the AI development gateway for the future",
+      subtitle: "Orchestrating AI for the future",
       mission: "Our Mission",
       missionText:
         "We orchestrate AI complexity. From multi-agent systems to creative pipelines, N3uralia connects every part of your AI infrastructure into one seamless platform.",
@@ -27,7 +25,7 @@ export default function AboutPage() {
     },
     es: {
       title: "Acerca de N3uralia",
-      subtitle: "Construyendo la puerta de entrada al desarrollo de IA del futuro",
+      subtitle: "Orquestando IA para el futuro",
       mission: "Nuestra Misión",
       missionText:
         "Orquestamos la complejidad de la IA. Desde sistemas multi-agente hasta pipelines creativos, N3uralia conecta cada parte de tu infraestructura de IA.",
@@ -45,60 +43,44 @@ export default function AboutPage() {
   const t = content[language]
 
   return (
-    <main className="min-h-screen">
-      <section className="py-20 bg-gradient-to-br from-blue-900 to-slate-900 text-white">
+    <main className="min-h-screen pt-16">
+      <section className="py-20 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
-          >
-            {t.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto"
-          >
-            {t.subtitle}
-          </motion.p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-black">{t.title}</h1>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
       </section>
 
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.mission}</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">{t.missionText}</p>
+            <h2 className="text-3xl font-bold text-black mb-4">{t.mission}</h2>
+            <p className="text-lg text-gray-600 leading-relaxed">{t.missionText}</p>
           </div>
 
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.vision}</h2>
-            <p className="text-lg text-slate-600 leading-relaxed">{t.visionText}</p>
+            <h2 className="text-3xl font-bold text-black mb-4">{t.vision}</h2>
+            <p className="text-lg text-gray-600 leading-relaxed">{t.visionText}</p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-gray-50 border-t border-gray-200">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Our Values</h2>
+          <h2 className="text-3xl font-bold text-black mb-12 text-center">
+            {language === "en" ? "Our Values" : "Nuestros Valores"}
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.values.map((value, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Card className="h-full border-slate-200">
+              <div key={i}>
+                <Card className="h-full border-gray-200 bg-white">
                   <CardContent className="p-6 text-center">
-                    <value.icon className="w-8 h-8 text-blue-600 mx-auto mb-4" />
-                    <h3 className="font-semibold text-slate-900 mb-2">{value.title}</h3>
-                    <p className="text-sm text-slate-600">{value.description}</p>
+                    <value.icon className="w-8 h-8 text-black mx-auto mb-4" />
+                    <h3 className="font-semibold text-black mb-2">{value.title}</h3>
+                    <p className="text-sm text-gray-600">{value.description}</p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

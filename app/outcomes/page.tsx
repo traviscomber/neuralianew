@@ -1,6 +1,4 @@
 "use client"
-
-import { motion } from "framer-motion"
 import { OutcomesShowcase } from "@/components/landing/outcomes-showcase"
 import { Footer } from "@/components/landing/footer"
 import { useLanguage } from "@/lib/language-context"
@@ -10,46 +8,26 @@ export default function OutcomesPage() {
 
   const content = {
     en: {
-      title: "Real Outcomes",
-      subtitle: "Proven impact across industries",
-      intro: "See how N3uralia transforms businesses and cities across Chile and beyond",
+      title: "Results",
+      subtitle: "Proven impact for our clients",
+      intro: "See how N3uralia delivers real results across industries",
     },
     es: {
-      title: "Resultados Reales",
-      subtitle: "Impacto comprobado en múltiples industrias",
-      intro: "Mira cómo N3uralia transforma empresas y ciudades en Chile y más allá",
+      title: "Resultados",
+      subtitle: "Impacto comprobado para nuestros clientes",
+      intro: "Mira cómo N3uralia entrega resultados reales en múltiples industrias",
     },
   }
 
   const t = content[language]
 
   return (
-    <main className="min-h-screen">
-      <section className="py-20 bg-gradient-to-br from-emerald-900 to-slate-900 text-white">
+    <main className="min-h-screen pt-16">
+      <section className="py-20 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6"
-          >
-            {t.title}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl text-slate-300 max-w-2xl mx-auto mb-4"
-          >
-            {t.subtitle}
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-slate-400 max-w-2xl mx-auto"
-          >
-            {t.intro}
-          </motion.p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-black">{t.title}</h1>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-4">{t.subtitle}</p>
+          <p className="text-gray-500 max-w-2xl mx-auto">{t.intro}</p>
         </div>
       </section>
 
