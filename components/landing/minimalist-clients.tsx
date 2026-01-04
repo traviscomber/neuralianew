@@ -9,9 +9,8 @@ export function MinimalistClients() {
     { name: "EcosueloLab", logo: "/logos/ecosuelo.png" },
     { name: "N3uralia360", logo: "/logos/n3uralia360.png" },
     { name: "Seguralia", logo: "/logos/seguralia.png" },
-    { name: "Despega Tu Carrera", logo: "/logos/despega.png" },
-    { name: "DoubleC", logo: "/logos/doublec.png" },
     { name: "Rosetta", logo: "/logos/rosetta.png" },
+    { name: "Backswan Facility Core", logo: "/logos/backswan.png" },
   ]
 
   return (

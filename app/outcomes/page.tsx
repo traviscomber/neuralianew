@@ -2,6 +2,8 @@
 import { OutcomesShowcase } from "@/components/landing/outcomes-showcase"
 import { Footer } from "@/components/landing/footer"
 import { useLanguage } from "@/lib/language-context"
+import { MinimalistTestimonials } from "@/components/landing/minimalist-testimonials"
+import { MinimalistSolutions } from "@/components/landing/minimalist-solutions"
 
 export default function OutcomesPage() {
   const { language } = useLanguage()
@@ -62,8 +64,11 @@ export default function OutcomesPage() {
             <p className="text-lg text-gray-600 max-w-2xl">{t.sectionDesc}</p>
           </div>
           <OutcomesShowcase />
+          <MinimalistTestimonials />
         </div>
       </section>
+
+      <MinimalistSolutions />
 
       <section className="py-24 bg-black border-t border-gray-900">
         <div className="container mx-auto px-4 text-center">

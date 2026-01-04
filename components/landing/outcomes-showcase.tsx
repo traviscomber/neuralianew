@@ -36,6 +36,26 @@ export function OutcomesShowcase() {
         metric: "Real-time processing",
         icon: BarChart3,
       },
+      {
+        title: "Sports Facilities Management",
+        description:
+          "Blackswan FC - Intelligent management of sports facilities and operations powered by N3uralia AI orchestration",
+        impact: "65% efficiency gain",
+        metric: "12+ facilities managed",
+        icon: Users,
+        ceo: "Santiago Colvin",
+        company: "Blackswan Facility Core",
+      },
+      {
+        title: "Hospitality Operations & Waste Management",
+        description:
+          "Evergreen Guesthouse - AI-powered waste management system and intelligent booking optimization in Thailand",
+        impact: "30% waste reduction",
+        metric: "80+ bookings/month managed",
+        icon: Users,
+        location: "Phuket, Thailand",
+        company: "Evergreen Guesthouse",
+      },
     ],
     es: [
       {
@@ -66,6 +86,26 @@ export function OutcomesShowcase() {
         metric: "Procesamiento en vivo",
         icon: BarChart3,
       },
+      {
+        title: "Gestión de Instalaciones Deportivas",
+        description:
+          "Blackswan FC - Gestión inteligente de instalaciones deportivas y operaciones potenciada por orquestación de IA N3uralia",
+        impact: "65% ganancia en eficiencia",
+        metric: "12+ instalaciones gestionadas",
+        icon: Users,
+        ceo: "Santiago Colvin",
+        company: "Blackswan Facility Core",
+      },
+      {
+        title: "Operaciones Hoteleras y Gestión de Residuos",
+        description:
+          "Evergreen Guesthouse - Sistema de IA para gestión de residuos y optimización inteligente de reservas en Tailandia",
+        impact: "30% reducción de residuos",
+        metric: "80+ reservas/mes gestionadas",
+        icon: Users,
+        location: "Phuket, Tailandia",
+        company: "Evergreen Guesthouse",
+      },
     ],
   }
 
@@ -94,6 +134,13 @@ export function OutcomesShowcase() {
               <p className="text-sm font-semibold text-black">{outcome.impact}</p>
             </div>
             <p className="text-xs text-gray-500 font-medium">{outcome.metric}</p>
+            {outcome.ceo && (
+              <p className="text-xs text-gray-400 mt-3 font-medium">
+                {language === "es" ? "CEO: " : "CEO: "}
+                {outcome.ceo} ({outcome.company})
+              </p>
+            )}
+            {outcome.location && <p className="text-xs text-gray-400 mt-3 font-medium">{`📍 ${outcome.location}`}</p>}
           </div>
         </div>
       ))}

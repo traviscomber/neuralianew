@@ -1,26 +1,40 @@
 import { createBrowserClient as createSupabaseClient } from "@supabase/ssr"
 
-// Browser client (singleton pattern)
+// Browser client (singleton pattern) - lazy initialization
 let browserClient: ReturnType<typeof createSupabaseClient> | null = null
 
 export function createBrowserClient() {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.warn("Supabase environment variables not configured yet")
+    return null as any
+  }
+
   if (browserClient) return browserClient
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error(
-      "Supabase URL and Anon Key are required. Check your environment variables: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    )
-  }
-
   browserClient = createSupabaseClient(supabaseUrl, supabaseAnonKey)
   return browserClient
 }
 
-// Named export for backwards compatibility
-export const supabase = createBrowserClient()
+export const supabase = {
+  get client() {
+    return createBrowserClient()
+  },
+  // Proxy auth methods for backwards compatibility
+  auth: {
+    signUp: (credentials: any) => createBrowserClient()?.auth.signUp(credentials),
+    signInWithPassword: (credentials: any) => createBrowserClient()?.auth.signInWithPassword(credentials),
+    signInWithOAuth: (options: any) => createBrowserClient()?.auth.signInWithOAuth(options),
+    signOut: () => createBrowserClient()?.auth.signOut(),
+    resetPasswordForEmail: (email: string, options: any) =>
+      createBrowserClient()?.auth.resetPasswordForEmail(email, options),
+    updateUser: (updates: any) => createBrowserClient()?.auth.updateUser(updates),
+    getUser: () => createBrowserClient()?.auth.getUser(),
+  },
+  from: (table: string) => createBrowserClient()?.from(table),
+}
 
 // Server client for API routes
 export function createServerClient() {
@@ -31,9 +45,6 @@ export function createServerClient() {
     auth: { persistSession: false, autoRefreshToken: false },
   })
 }
-
-// Default export for convenience
-export default createBrowserClient
 
 // Helper function to handle Supabase errors
 export function handleSupabaseError(error: any, context: string) {
@@ -50,6 +61,8 @@ export function handleSupabaseError(error: any, context: string) {
 export async function testSupabaseConnection() {
   try {
     const client = createBrowserClient()
+    if (!client) return false
+
     const { data, error } = await client.from("profiles").select("count").limit(1)
 
     if (error) {
@@ -291,3 +304,6 @@ export type Database = {
     }
   }
 }
+
+// Default export for convenience
+export default createBrowserClient

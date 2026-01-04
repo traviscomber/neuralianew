@@ -38,6 +38,42 @@ export function MinimalistTestimonials() {
           image: "/testimonials/juan-francisco-pumpkin.jpg",
           rating: 5,
         },
+        {
+          quote:
+            "N3uralia's facility management automation improved our operational efficiency by 25% and streamlined resource allocation across our facilities.",
+          author: "Santiago Colvin",
+          role: "CEO",
+          company: "Backswan Facility Core",
+          image: "/testimonials/santiago-colvin.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "The blockchain integration solution N3uralia built enabled us to scale our operations securely and transparently across multiple regions.",
+          author: "María González",
+          role: "CEO",
+          company: "Mermazero",
+          image: "/testimonials/maria-gonzalez.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "Mermazero reduced our waste by 18% in the first month with real-time monitoring and AI-powered alerts. Implementation was quick and seamless.",
+          author: "María González",
+          role: "Operations Director",
+          company: "Mermazero",
+          image: "/testimonials/maria-gonzalez.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "N3uralia's waste management system reduced our operational costs by 30% and the booking optimization freed up staff time significantly. Perfect solution for our guesthouse in Thailand.",
+          author: "Bahn",
+          role: "Owner",
+          company: "Evergreen Guesthouse",
+          image: "/testimonials/bahn.jpg",
+          rating: 5,
+        },
       ],
     },
     es: {
@@ -68,6 +104,42 @@ export function MinimalistTestimonials() {
           role: "Fundador",
           company: "Despega Tu Carrera",
           image: "/testimonials/juan-francisco-pumpkin.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "La automatización de gestión de instalaciones de N3uralia mejoró nuestra eficiencia operacional en 25% y optimizó la asignación de recursos en nuestras instalaciones.",
+          author: "Santiago Colvin",
+          role: "CEO",
+          company: "Backswan Facility Core",
+          image: "/testimonials/santiago-colvin.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "La solución de integración blockchain que N3uralia construyó nos permitió escalar nuestras operaciones de forma segura y transparente en múltiples regiones.",
+          author: "María González",
+          role: "CEO",
+          company: "Mermazero",
+          image: "/testimonials/maria-gonzalez.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "Mermazero redujo nuestro desperdicio en 18% en el primer mes con monitoreo en tiempo real y alertas potenciadas por IA. La implementación fue rápida y sin complicaciones.",
+          author: "María González",
+          role: "Directora de Operaciones",
+          company: "Mermazero",
+          image: "/testimonials/maria-gonzalez.jpg",
+          rating: 5,
+        },
+        {
+          quote:
+            "El sistema de gestión de residuos de N3uralia redujo nuestros costos operacionales en 30% y la optimización de reservas liberó significativamente tiempo del personal. Solución perfecta para nuestro guesthouse en Tailandia.",
+          author: "Bahn",
+          role: "Propietario",
+          company: "Evergreen Guesthouse",
+          image: "/testimonials/bahn.jpg",
           rating: 5,
         },
       ],

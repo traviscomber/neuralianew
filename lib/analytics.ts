@@ -1,7 +1,7 @@
 import { createBrowserClient } from "./supabase"
 
 class AnalyticsService {
-  private supabase = createBrowserClient()
+  private supabase: any = null
   private sessionId: string | null = null
   private initialized = false
 
@@ -9,6 +9,12 @@ class AnalyticsService {
     if (this.initialized) return
 
     try {
+      this.supabase = createBrowserClient()
+      if (!this.supabase) {
+        console.warn("⚠️ Supabase not configured, analytics disabled")
+        return
+      }
+
       this.sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
       const { error } = await this.supabase.from("user_sessions").insert({
@@ -33,7 +39,7 @@ class AnalyticsService {
   }
 
   async trackPageView(url: string, title: string): Promise<void> {
-    if (!this.sessionId) return
+    if (!this.sessionId || !this.supabase) return
 
     try {
       await this.supabase.from("page_views").insert({
@@ -48,7 +54,7 @@ class AnalyticsService {
   }
 
   async trackEvent(type: string, name: string, data?: any): Promise<void> {
-    if (!this.sessionId) return
+    if (!this.sessionId || !this.supabase) return
 
     try {
       await this.supabase.from("user_events").insert({

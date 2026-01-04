@@ -18,7 +18,7 @@ import {
   CheckCircle,
   RefreshCw,
 } from "lucide-react"
-import { supabase } from "@/lib/supabase"
+import { createBrowserClient } from "@/lib/supabase"
 
 interface DatabaseMetrics {
   totalUsers: number
@@ -60,6 +60,13 @@ export function DatabaseMonitor() {
   const loadMetrics = async () => {
     try {
       setLoading(true)
+
+      const supabase = createBrowserClient()
+
+      if (!supabase) {
+        console.error("Supabase client not initialized")
+        return
+      }
 
       // Load basic metrics
       const [usersResult, chatsResult, agentsResult, systemsResult] = await Promise.all([
