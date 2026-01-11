@@ -50,7 +50,7 @@ export function MinimalistHero() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-8 max-w-xl mx-auto border-t border-gray-200 pt-12">
           <div>
-            <div className="text-3xl font-bold text-black mb-2">500+</div>
+            <div className="text-3xl font-bold text-black mb-2">50+</div>
             <p className="text-sm text-gray-600">{language === "es" ? "Empresas en Chile" : "Companies in Chile"}</p>
           </div>
           <div>

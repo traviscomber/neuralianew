@@ -1,8 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Menu, X, Globe } from "lucide-react"
+import { Menu, X, Globe, MessageCircle } from "lucide-react"
 import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
 
@@ -18,7 +17,6 @@ export function Navigation() {
       resultados: "Resultados",
       acerca: "Acerca de",
       contacto: "Contacto",
-      hablar: "Hablar con Equipo",
     },
     en: {
       inicio: "Home",
@@ -26,11 +24,12 @@ export function Navigation() {
       resultados: "Results",
       acerca: "About",
       contacto: "Contact",
-      hablar: "Talk to Team",
     },
   }
 
   const t = navContent[language]
+  const whatsappNumber = "56993826127"
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-white/90 backdrop-blur border-b border-gray-200">
@@ -97,12 +96,15 @@ export function Navigation() {
           </div>
         </div>
 
-        <Button
-          size="sm"
-          className="hidden md:inline-flex px-4 bg-black text-white hover:bg-gray-900 rounded-lg text-sm"
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-black text-white hover:bg-gray-900 rounded-lg text-sm transition-colors"
         >
-          {t.hablar}
-        </Button>
+          <MessageCircle className="w-4 h-4" />
+          WhatsApp
+        </a>
 
         {/* Mobile Menu Button */}
         <button className="md:hidden" onClick={() => setOpen(!open)}>
@@ -130,9 +132,20 @@ export function Navigation() {
           </Link>
 
           <div className="pt-3 border-t">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer hover:text-gray-600 transition-colors"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
+
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer"
+              className="flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer"
               type="button"
             >
               <Globe className="w-4 h-4" />

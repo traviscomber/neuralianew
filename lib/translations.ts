@@ -1,7 +1,7 @@
 export const translations = {
   es: {
     // Hero
-    trustedBy: "Confiado por más de 500 empresas",
+    trustedBy: "Confiado por más de 50 empresas",
     orchestration: "Orquestación",
     simplified: "de IA Simplificada",
     heroDescription:
@@ -30,7 +30,7 @@ export const translations = {
   },
   en: {
     // Hero
-    trustedBy: "Trusted by 500+ companies",
+    trustedBy: "Trusted by 50+ companies",
     orchestration: "AI Orchestration",
     simplified: "Simplified",
     heroDescription:

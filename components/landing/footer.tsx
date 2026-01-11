@@ -30,7 +30,7 @@ export function Footer() {
       contactInfo: "Contact Information",
       address: "Santiago, Chile",
       email: "hello@n3uralia.com",
-      phone: "+56 9 4094 6660",
+      phone: "+56 9 9382 6127",
       whatsapp: "WhatsApp",
       followUs: "Follow Us",
       description:
@@ -59,7 +59,7 @@ export function Footer() {
       contactInfo: "Información de Contacto",
       address: "Santiago, Chile",
       email: "hello@n3uralia.com",
-      phone: "+56 9 4094 6660",
+      phone: "+56 9 9382 6127",
       whatsapp: "WhatsApp",
       followUs: "Síguenos",
       description:
@@ -76,7 +76,7 @@ export function Footer() {
       ? "Hola N3uralia, me interesa conocer más sobre sus servicios de IA"
       : "Hello N3uralia, I'm interested in learning more about your AI services"
 
-  const whatsappUrl = `https://wa.me/56940946660?text=${encodeURIComponent(whatsappMessage)}`
+  const whatsappUrl = `https://wa.me/56993826127?text=${encodeURIComponent(whatsappMessage)}`
 
   return (
     <footer className="bg-slate-900 text-white">
@@ -186,7 +186,7 @@ export function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-slate-400" />
-                <a href="tel:+56940946660" className="text-slate-300 hover:text-white transition-colors">
+                <a href="tel:+56993826127" className="text-slate-300 hover:text-white transition-colors">
                   {t.phone}
                 </a>
               </li>

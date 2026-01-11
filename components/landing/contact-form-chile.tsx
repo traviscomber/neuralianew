@@ -24,7 +24,7 @@ export function ContactFormChile() {
       message: "Message",
       cta: "Send Message",
       whatsapp: "Chat on WhatsApp",
-      phone: "+56 9 4094 6660",
+      phone: "+56 9 9382 6127",
       thanks: "Thanks for reaching out! We'll be in touch soon.",
     },
     es: {
@@ -36,7 +36,7 @@ export function ContactFormChile() {
       message: "Mensaje",
       cta: "Enviar Mensaje",
       whatsapp: "Chatear por WhatsApp",
-      phone: "+56 9 4094 6660",
+      phone: "+56 9 9382 6127",
       thanks: "¡Gracias por contactarnos! Nos comunicaremos pronto.",
     },
   }
@@ -181,7 +181,7 @@ export function ContactFormChile() {
             viewport={{ once: false }}
             whileHover="hover"
             className="p-6 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 group cursor-pointer"
-            onClick={() => window.open("https://wa.me/56940946660", "_blank")}
+            onClick={() => window.open("https://wa.me/56993826127", "_blank")}
           >
             <motion.div
               className="flex items-center gap-3 mb-3"
@@ -220,7 +220,7 @@ export function ContactFormChile() {
             <p className="text-lg font-semibold text-slate-900 mb-4">{t.phone}</p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button asChild variant="outline" className="w-full border-emerald-300 text-emerald-700 bg-transparent">
-                <a href="tel:+56940946660">{language === "en" ? "Call Us" : "Llámanos"}</a>
+                <a href="tel:+56993826127">{language === "en" ? "Call Us" : "Llámanos"}</a>
               </Button>
             </motion.div>
           </motion.div>

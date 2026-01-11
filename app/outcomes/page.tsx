@@ -43,7 +43,7 @@ export default function OutcomesPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { metric: "500+", label: language === "es" ? "Empresas" : "Companies" },
+              { metric: "50+", label: language === "es" ? "Empresas" : "Companies" },
               { metric: "99.8%", label: language === "es" ? "Uptime" : "Uptime" },
               { metric: "80%", label: language === "es" ? "Reducción promedio" : "Avg reduction" },
               { metric: "24/7", label: language === "es" ? "Soporte local" : "Local support" },
