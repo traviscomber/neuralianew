@@ -14,70 +14,70 @@ export default function ServicesPage() {
 
   const content = {
     es: {
-      badge: "Nuestros Servicios",
-      title: "Soluciones Completas de IA para Cada Necesidad Empresarial",
+      badge: "Qué Ofrecemos",
+      title: "Lo Que Construimos Para Ti",
       subtitle:
-        "Transforma tus operaciones con nuestra suite de servicios de IA inteligentes diseñados para impulsar el crecimiento, la eficiencia y la innovación.",
+        "No vendemos soluciones genéricas. Construimos lo que tu negocio necesita: sistemas inteligentes que funcionan, que escalan, y que crecen contigo.",
       services: [
         {
           icon: Bot,
-          title: "Desarrollo de Agentes de IA",
+          title: "Agentes Inteligentes",
           description:
-            "Agentes de IA personalizados que entienden el contexto de tu negocio y entregan experiencias de cliente personalizadas en todos los canales.",
-          features: ["Procesamiento de Lenguaje Natural", "Soporte Multicanal", "Entrenamiento Personalizado", "Aprendizaje en Tiempo Real"],
+            "Bots que entienden tu negocio. Atienden clientes 24/7, resuelven problemas, aprenden con cada interacción. Tu servicio al cliente, automatizado.",
+          features: ["Conversación Natural", "Multi-canal", "Aprendizaje Continuo", "Escalada Humana"],
           benefits: [
-            "90% más rápido en tiempos de respuesta",
-            "Soporte de cliente 24/7",
-            "Soporte para 50+ idiomas",
-            "Escalada fluida a humanos",
+            "Clientes felices día y noche",
+            "Menos tickets repetidos",
+            "Respuestas en segundos",
+            "Tus reglas, tus datos",
           ],
           href: "/ai-agent-development",
         },
         {
           icon: Workflow,
-          title: "Automatización de Procesos",
+          title: "Automatización Inteligente",
           description:
-            "Automatización inteligente que optimiza operaciones, reduce costos y elimina tareas repetitivas con precisión.",
-          features: ["Optimización de Flujos", "Automatización de Tareas", "Procesamiento de Datos", "Aseguramiento de Calidad"],
+            "Procesos que se hacen solos. Menos errores. Menos tiempo gastado en lo repetitivo. Más tiempo en lo que importa.",
+          features: ["Flujos Optimizados", "Sin Errores Humanos", "Integración Total", "Monitoreo Real"],
           benefits: [
-            "70% reducción en tareas manuales",
-            "99.9% precisión en procesamiento",
-            "40+ horas ahorradas por semana",
-            "Monitoreo en tiempo real y alertas",
+            "Tareas manuales que desaparecen",
+            "Precisión al 99.9%",
+            "Horas ahorradas cada semana",
+            "Alertas cuando importa",
           ],
           href: "/process-automation",
         },
         {
           icon: Building2,
-          title: "Enterprise Integration",
+          title: "Plataformas Personalizadas",
           description:
-            "Seamless integration with existing systems, ensuring AI solutions work harmoniously with your current infrastructure.",
-          features: ["Legacy System Integration", "API Development", "Cloud Migration", "Security Compliance"],
+            "Tu visión, hecha realidad. Desarrollo full-stack con IA integrada desde el día uno. No templates. No compromisos. Tu solución.",
+          features: ["Desarrollo Personalizado", "Arquitectura Robusta", "Integración Perfecta", "Seguridad Empresarial"],
           benefits: [
-            "Zero downtime deployment",
-            "Enterprise-grade security",
-            "Scalable architecture",
-            "24/7 technical support",
+            "Construido para tu negocio",
+            "Sin deudas técnicas",
+            "Lanzamiento rápido",
+            "Soporte 24/7 local",
           ],
           href: "/enterprise-integration",
         },
       ],
-      learnMore: "Learn More",
-      getStarted: "Get Started",
-      whyChoose: "Why Choose Our Services",
-      whyChooseDesc: "Our comprehensive approach ensures successful AI implementation with measurable results.",
-      processTitle: "Our Implementation Process",
+      learnMore: "Conocer Más",
+      getStarted: "Comenzar",
+      whyChoose: "Por Qué N3uralia",
+      whyChooseDesc: "No creemos en soluciones de caja. Creemos en asociaciones que funcionan.",
+      processTitle: "Cómo Trabajamos",
       processSteps: [
         {
           step: "1",
-          title: "Discovery & Analysis",
+          title: "Te Escuchamos",
           description:
-            "We analyze your business needs and identify the best AI solutions for your specific requirements.",
+            "Charla sin presión. Entendemos qué quieres lograr, dónde están tus pain points, qué es lo urgente.",
         },
         {
           step: "2",
-          title: "Custom Development",
-          description: "Our team develops tailored AI solutions using cutting-edge technology and best practices.",
+          title: "Construimos",
+          description: "Nuestro equipo diseña y desarrolla tu solución. Iteramos rápido, enseñamos en el proceso, adaptamos sobre la marcha.",
         },
         {
           step: "3",
@@ -86,104 +86,9 @@ export default function ServicesPage() {
             "Seamless integration with your existing systems followed by comprehensive testing and optimization.",
         },
         {
-          step: "4",
-          title: "Launch & Support",
-          description: "Go-live support with ongoing monitoring, maintenance, and continuous improvement.",
-        },
-      ],
-    },
-    es: {
-      badge: "Nuestros Servicios",
-      title: "Soluciones Integrales de IA para Cada Necesidad Empresarial",
-      subtitle:
-        "Transforma tus operaciones con nuestra suite de servicios inteligentes de IA diseñados para impulsar el crecimiento, la eficiencia y la innovación.",
-      services: [
-        {
-          icon: Bot,
-          title: "Desarrollo de Agentes de IA",
-          description:
-            "Agentes de IA personalizados que entienden el contexto de tu negocio y brindan experiencias personalizadas en todos los canales.",
-          features: [
-            "Procesamiento de Lenguaje Natural",
-            "Soporte Multicanal",
-            "Entrenamiento Personalizado",
-            "Aprendizaje en Tiempo Real",
-          ],
-          benefits: [
-            "90% más rápido en respuestas",
-            "Soporte al cliente 24/7",
-            "Soporte para más de 50 idiomas",
-            "Escalación perfecta a humanos",
-          ],
-          href: "/ai-agent-development",
-        },
-        {
-          icon: Workflow,
-          title: "Automatización de Procesos",
-          description:
-            "Automatización inteligente que optimiza operaciones, reduce costos y elimina tareas repetitivas con precisión.",
-          features: [
-            "Optimización de Flujos",
-            "Automatización de Tareas",
-            "Procesamiento de Datos",
-            "Control de Calidad",
-          ],
-          benefits: [
-            "70% reducción en tareas manuales",
-            "99.9% precisión en procesamiento",
-            "Más de 40 horas ahorradas por semana",
-            "Monitoreo y alertas en tiempo real",
-          ],
-          href: "/process-automation",
-        },
-        {
-          icon: Building2,
-          title: "Integración Empresarial",
-          description:
-            "Integración perfecta con sistemas existentes, asegurando que las soluciones de IA trabajen en armonía con tu infraestructura actual.",
-          features: [
-            "Integración de Sistemas Legacy",
-            "Desarrollo de APIs",
-            "Migración a la Nube",
-            "Cumplimiento de Seguridad",
-          ],
-          benefits: [
-            "Despliegue sin tiempo de inactividad",
-            "Seguridad de nivel empresarial",
-            "Arquitectura escalable",
-            "Soporte técnico 24/7",
-          ],
-          href: "/enterprise-integration",
-        },
-      ],
-      learnMore: "Saber Más",
-      getStarted: "Comenzar",
-      whyChoose: "Por Qué Elegir Nuestros Servicios",
-      whyChooseDesc: "Nuestro enfoque integral asegura una implementación exitosa de IA con resultados medibles.",
-      processTitle: "Nuestro Proceso de Implementación",
-      processSteps: [
-        {
-          step: "1",
-          title: "Descubrimiento y Análisis",
-          description:
-            "Analizamos las necesidades de tu negocio e identificamos las mejores soluciones de IA para tus requisitos específicos.",
-        },
-        {
-          step: "2",
-          title: "Desarrollo Personalizado",
-          description:
-            "Nuestro equipo desarrolla soluciones de IA a medida usando tecnología de vanguardia y mejores prácticas.",
-        },
-        {
           step: "3",
-          title: "Integración y Pruebas",
-          description:
-            "Integración perfecta con tus sistemas existentes seguida de pruebas exhaustivas y optimización.",
-        },
-        {
-          step: "4",
-          title: "Lanzamiento y Soporte",
-          description: "Soporte de lanzamiento con monitoreo continuo, mantenimiento y mejora continua.",
+          title: "Lanzamiento",
+          description: "Deploy a producción. Soporte completo, alertas, optimización. Estamos aquí si algo cambia.",
         },
       ],
     },

@@ -46,12 +46,12 @@ export function MinimalistSolutions() {
   ]
 
   return (
-    <section className="bg-white py-20 border-t border-gray-200">
+    <section className="bg-background py-20 border-t border-border">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <p className="text-sm font-medium text-gray-600 uppercase tracking-wide mb-4">
+        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
           {language === "es" ? "Nuestras Soluciones" : "Our Solutions"}
         </p>
-        <h2 className="text-3xl font-bold text-black mb-12">
+        <h2 className="text-3xl font-bold text-foreground mb-12">
           {language === "es" ? "Productos que Desarrollamos" : "Products We Build"}
         </h2>
 
@@ -62,17 +62,17 @@ export function MinimalistSolutions() {
               href={solution.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-gray-200 p-8 bg-gray-50 hover:bg-white hover:border-black transition-all cursor-pointer group"
+              className="border border-border p-8 bg-card hover:bg-card/80 hover:border-primary/40 transition-all cursor-pointer group"
             >
-              <p className="text-gray-700 font-semibold text-lg">{solution.name}</p>
-              <p className="text-gray-500 text-sm mt-2">{solution.description}</p>
+              <p className="text-foreground font-semibold text-lg">{solution.name}</p>
+              <p className="text-muted-foreground text-sm mt-2">{solution.description}</p>
               {solution.ceo && (
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-muted-foreground text-xs mt-3">
                   <span className="font-medium">{language === "es" ? "CEO: " : "CEO: "}</span>
                   {solution.ceo}
                 </p>
               )}
-              <p className="text-gray-400 text-xs mt-4 group-hover:text-black transition-colors">
+              <p className="text-muted-foreground text-xs mt-4 group-hover:text-foreground transition-colors">
                 {language === "es" ? "Visitar Sitio →" : "Visit Site →"}
               </p>
             </a>

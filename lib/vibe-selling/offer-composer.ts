@@ -30,7 +30,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 4,
     technology: ["Next.js", "Supabase", "Agentes de IA"],
     pricingModel: "monthly",
-    estimatedBudget: "$2K-5K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Portal", "Datasets", "Documentación"],
   },
   "explorer-mid-market": {
@@ -39,7 +39,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 8,
     technology: ["Next.js", "Supabase", "Agentes de IA", "Analytics personalizado"],
     pricingModel: "monthly",
-    estimatedBudget: "$5K-15K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Portales duales", "Datasets", "Analytics", "Capacitación"],
   },
   "explorer-enterprise": {
@@ -48,7 +48,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 16,
     technology: ["Next.js", "Supabase", "Agentes de IA", "WebGL", "VR.js"],
     pricingModel: "fixed",
-    estimatedBudget: "$50K-200K",
+    estimatedBudget: "desde 1 millón",
     deliverables: ["Multi-Portal", "Datasets completos", "Experiencia inmersiva", "Soporte"],
   },
 
@@ -58,7 +58,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 2,
     technology: ["Node.js", "Vercel", "Supabase"],
     pricingModel: "monthly",
-    estimatedBudget: "$500-1K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["APIs", "Código de inicio", "Documentación"],
   },
   "builder-mid-market": {
@@ -67,7 +67,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 6,
     technology: ["Node.js/Python", "Infraestructura personalizada", "Vercel/AWS"],
     pricingModel: "monthly",
-    estimatedBudget: "$3K-10K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["APIs", "Código personalizado", "Infraestructura", "Soporte 24/7"],
   },
   "builder-enterprise": {
@@ -76,7 +76,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 12,
     technology: ["Stack personalizado", "Infraestructura empresarial", "Multi-región"],
     pricingModel: "fixed",
-    estimatedBudget: "$100K-500K",
+    estimatedBudget: "desde 1 millón",
     deliverables: ["Plataforma White-label", "Soporte completo", "Desarrollo personalizado"],
   },
 
@@ -86,7 +86,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 1,
     technology: ["Solución lista"],
     pricingModel: "monthly",
-    estimatedBudget: "$1K-2K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Portal listo para usar", "Datos básicos"],
   },
   "buyer-mid-market": {
@@ -95,7 +95,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 4,
     technology: ["Next.js", "Supabase", "Auth personalizado"],
     pricingModel: "monthly",
-    estimatedBudget: "$5K-20K/mes",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Plataforma lista", "Datos", "Reportes mensuales"],
   },
   "buyer-enterprise": {
@@ -104,7 +104,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 8,
     technology: ["Stack empresarial", "Seguridad personalizada"],
     pricingModel: "fixed",
-    estimatedBudget: "$200K-1M",
+    estimatedBudget: "desde 1 millón",
     deliverables: ["Plataforma empresarial", "Librería de datos completa", "Soporte dedicado"],
   },
 
@@ -114,7 +114,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 2,
     technology: ["Infraestructura compartida"],
     pricingModel: "revenue-share",
-    estimatedBudget: "30% de ingresos",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Integración", "Co-promoción", "División de ingresos"],
   },
   "partner-mid-market": {
@@ -123,7 +123,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 6,
     technology: ["Compartida + personalizada"],
     pricingModel: "revenue-share",
-    estimatedBudget: "20-40% de ingresos",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["White-label", "Estrategia GTM", "División de ingresos"],
   },
   "partner-enterprise": {
@@ -132,7 +132,7 @@ const offerTemplates: Record<string, OfferScope> = {
     timelineWeeks: 12,
     technology: ["Infraestructura compartida empresarial"],
     pricingModel: "revenue-share",
-    estimatedBudget: "15-30% de ingresos",
+    estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Plataforma co-desarrollada", "Acceso completo a APIs", "Soporte 24/7"],
   },
 
@@ -170,18 +170,17 @@ export function composeOffer(intent: BuyerIntent): LiveOffer {
   const scope = offerTemplates[templateKey] || offerTemplates["explorer-mid-market"]
 
   const headlines: Record<string, string> = {
-    explorer:
-      "Aquí está cómo se ve una exploración típica para equipos como el tuyo – sin compromiso, total transparencia.",
-    builder: "Aquí está el stack de tecnología y cronograma que recomendaríamos para tu proyecto:",
-    buyer: "Esto es exactamente lo que desplegaríamos para tu caso de uso – llave en mano, listo para usar:",
-    partner: "Construyamos algo más grande juntos – aquí está la estructura de la asociación:",
+    explorer: "Mira, acá está lo que podríamos hacer para algo como lo tuyo:",
+    builder: "Dale, aquí va el stack que te recomiendo, así no reinventás la rueda:",
+    buyer: "Perfecto, esto es llave en mano. Entregamos esto. Te va a servir.",
+    partner: "Hagamos algo grande juntos. Acá va la propuesta:",
   }
 
   const vibes: Record<string, string> = {
-    explorer: "Curioso. Colaborativo. Te mostramos qué es posible.",
-    builder: "Técnico. Escalable. Construimos lo que envisionas.",
-    buyer: "Eficiente. Enfocado en resultados. Entregamos lo que necesitas.",
-    partner: "Visionario. Alineado. Crecemos juntos.",
+    explorer: "Amigable. Sin presión. Te muestro lo posible.",
+    builder: "Técnico pero accesible. Lo construimos.",
+    buyer: "Al grano. Rápido, sin sorpresas.",
+    partner: "Colaborativo. Crecemos juntos.",
   }
 
   return {
@@ -195,10 +194,10 @@ export function composeOffer(intent: BuyerIntent): LiveOffer {
 
 function generateNextSteps(intent: BuyerIntent): string[] {
   const steps: Record<string, string[]> = {
-    explorer: ["1. Agenda una llamada de descubrimiento de 20 min", "2. Esbozaremos tu visión", "3. Obtén una propuesta personalizada"],
-    builder: ["1. Comparte tus requisitos técnicos", "2. Diseñamos una solución", "3. Comenzamos a construir"],
-    buyer: ["1. Confirma tu cronograma", "2. Provisioamos infraestructura", "3. Lanzamiento en días"],
-    partner: ["1. Agenda llamada de asociación", "2. Revisa términos", "3. Firma MoU y alinea hoja de ruta"],
+    explorer: ["Hablamos en 30 min y vemos si encaja?", "Te muestro cosas parecidas a lo tuyo", "Preparamos una propuesta personalizada"],
+    builder: ["Compartís tus requisitos técnicos", "Armamos una solución que funcione", "Empezamos"],
+    buyer: ["Confirmás tu timeline", "Infraestructura lista en 24-48hs", "A producción rápido"],
+    partner: ["Una llamada rápida", "Vemos los términos", "Alineamos y arrancamos"],
   }
   return steps[intent.intent]
 }

@@ -104,7 +104,7 @@ export function VibeConversation() {
         <div className="border-2 border-primary p-6 rounded-lg bg-primary/5">
           <h3 className="text-lg font-bold text-foreground mb-4">{offer.headline}</h3>
 
-          <div className="bg-white p-4 rounded border border-primary/20 mb-4">
+          <div className="bg-card p-4 rounded border border-primary/20 mb-4">
             <div className="text-sm font-mono text-muted-foreground mb-4">{offer.visualPreview}</div>
 
             <div className="space-y-3">
@@ -119,7 +119,7 @@ export function VibeConversation() {
                 </ul>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-200">
+              <div className="grid grid-cols-2 gap-4 pt-3 border-t border-border">
                 <div>
                   <p className="text-xs font-medium text-muted-foreground">TIEMPO</p>
                   <p className="text-sm font-semibold text-foreground">{offer.scope.timelineWeeks} semanas</p>
@@ -146,16 +146,16 @@ export function VibeConversation() {
       )}
 
       {/* Chat Interface */}
-      <div className="border border-gray-200 rounded-lg overflow-hidden flex flex-col h-96">
+      <div className="border border-border rounded-lg overflow-hidden flex flex-col h-96 bg-card">
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-card">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
               <div
                 className={`max-w-xs px-4 py-2 rounded-lg ${
                   msg.role === "user"
                     ? "bg-primary text-primary-foreground rounded-br-none"
-                    : "bg-gray-100 text-foreground rounded-bl-none"
+                    : "bg-muted text-foreground rounded-bl-none"
                 }`}
               >
                 <p className="text-sm">{msg.content}</p>
@@ -164,7 +164,7 @@ export function VibeConversation() {
           ))}
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 text-foreground px-4 py-2 rounded-lg rounded-bl-none">
+              <div className="bg-muted text-foreground px-4 py-2 rounded-lg rounded-bl-none">
                 <p className="text-sm">Componiendo propuesta...</p>
               </div>
             </div>
@@ -173,13 +173,13 @@ export function VibeConversation() {
         </div>
 
         {/* Input */}
-        <form onSubmit={handleSend} className="border-t border-gray-200 p-4 bg-white flex gap-2">
+        <form onSubmit={handleSend} className="border-t border-border p-4 bg-card flex gap-2">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Cuéntame qué estás construyendo..."
-            className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary text-sm"
+            className="flex-1 px-4 py-2 border border-border bg-background text-foreground rounded-lg focus:outline-none focus:border-primary text-sm placeholder-muted-foreground"
             disabled={loading}
           />
           <button

@@ -92,10 +92,10 @@ export function ContactFormChile() {
         whileInView="visible"
         viewport={{ once: false, amount: 0.2 }}
       >
-        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+        <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl font-bold text-foreground mb-3">
           {t.title}
         </motion.h2>
-        <motion.p variants={itemVariants} className="text-lg text-slate-600">
+        <motion.p variants={itemVariants} className="text-lg text-muted-foreground">
           {t.subtitle}
         </motion.p>
       </motion.div>
@@ -113,7 +113,7 @@ export function ContactFormChile() {
           <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
             <Input
               placeholder={t.name}
-              className="bg-white border-slate-200 focus:border-blue-500 transition-colors"
+              className="bg-background border-border text-foreground focus:border-primary transition-colors placeholder-muted-foreground"
               required
             />
           </motion.div>
@@ -121,21 +121,21 @@ export function ContactFormChile() {
             <Input
               placeholder={t.email}
               type="email"
-              className="bg-white border-slate-200 focus:border-blue-500 transition-colors"
+              className="bg-background border-border text-foreground focus:border-primary transition-colors placeholder-muted-foreground"
               required
             />
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
             <Input
               placeholder={t.company}
-              className="bg-white border-slate-200 focus:border-blue-500 transition-colors"
+              className="bg-background border-border text-foreground focus:border-primary transition-colors placeholder-muted-foreground"
             />
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
             <Textarea
               placeholder={t.message}
               rows={4}
-              className="bg-white border-slate-200 focus:border-blue-500 transition-colors"
+              className="bg-background border-border text-foreground focus:border-primary transition-colors placeholder-muted-foreground"
               required
             />
           </motion.div>
@@ -147,7 +147,7 @@ export function ContactFormChile() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-2 bg-emerald-100 text-emerald-700 px-4 py-3 rounded-lg font-semibold"
+                className="flex items-center gap-2 bg-primary/10 text-primary px-4 py-3 rounded-lg font-semibold border border-primary/20"
               >
                 <CheckCircle className="w-5 h-5" />
                 {t.thanks}
@@ -156,7 +156,7 @@ export function ContactFormChile() {
               <motion.div key="button" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-blue-500/50 transition-all"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg transition-all"
                 >
                   {t.cta}
                 </Button>
@@ -180,7 +180,7 @@ export function ContactFormChile() {
             whileInView="visible"
             viewport={{ once: false }}
             whileHover="hover"
-            className="p-6 rounded-lg bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 group cursor-pointer"
+            className="p-6 rounded-lg bg-card border border-primary/20 group cursor-pointer hover:border-primary/40 transition-colors"
             onClick={() => window.open("https://wa.me/56993826127", "_blank")}
           >
             <motion.div
@@ -188,14 +188,14 @@ export function ContactFormChile() {
               animate={{ rotate: [0, 5, -5, 0] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "mirror" }}
             >
-              <MessageCircle className="w-5 h-5 text-blue-600" />
-              <h3 className="font-semibold text-slate-900">WhatsApp</h3>
+              <MessageCircle className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">WhatsApp</h3>
             </motion.div>
-            <p className="text-sm text-slate-600 mb-4 group-hover:text-slate-700 transition-colors">
+            <p className="text-sm text-muted-foreground mb-4 group-hover:text-foreground transition-colors">
               {language === "en" ? "Chat with us directly on WhatsApp" : "Chatea con nosotros directamente en WhatsApp"}
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button className="w-full bg-green-600 hover:bg-green-700">{t.whatsapp}</Button>
+              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">{t.whatsapp}</Button>
             </motion.div>
           </motion.div>
 
@@ -207,19 +207,19 @@ export function ContactFormChile() {
             viewport={{ once: false }}
             transition={{ delay: 0.1 }}
             whileHover="hover"
-            className="p-6 rounded-lg bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 group"
+            className="p-6 rounded-lg bg-card border border-border group hover:border-primary/40 transition-colors"
           >
             <motion.div
               className="flex items-center gap-3 mb-3"
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             >
-              <Phone className="w-5 h-5 text-emerald-600" />
-              <h3 className="font-semibold text-slate-900">{language === "en" ? "Phone" : "Teléfono"}</h3>
+              <Phone className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">{language === "en" ? "Phone" : "Teléfono"}</h3>
             </motion.div>
-            <p className="text-lg font-semibold text-slate-900 mb-4">{t.phone}</p>
+            <p className="text-lg font-semibold text-foreground mb-4">{t.phone}</p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild variant="outline" className="w-full border-emerald-300 text-emerald-700 bg-transparent">
+              <Button asChild variant="outline" className="w-full border-border text-foreground hover:bg-muted bg-background">
                 <a href="tel:+56993826127">{language === "en" ? "Call Us" : "Llámanos"}</a>
               </Button>
             </motion.div>
@@ -233,19 +233,19 @@ export function ContactFormChile() {
             viewport={{ once: false }}
             transition={{ delay: 0.2 }}
             whileHover="hover"
-            className="p-6 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 border border-indigo-200 group"
+            className="p-6 rounded-lg bg-card border border-border group hover:border-primary/40 transition-colors"
           >
             <motion.div
               className="flex items-center gap-3 mb-3"
               animate={{ y: [0, -3, 0] }}
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
             >
-              <Mail className="w-5 h-5 text-indigo-600" />
-              <h3 className="font-semibold text-slate-900">{language === "en" ? "Email" : "Correo"}</h3>
+              <Mail className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">{language === "en" ? "Email" : "Correo"}</h3>
             </motion.div>
-            <p className="text-slate-600 mb-4 group-hover:text-slate-700 transition-colors">hello@n3uralia.com</p>
+            <p className="text-muted-foreground mb-4 group-hover:text-foreground transition-colors">hello@n3uralia.com</p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild variant="outline" className="w-full border-indigo-300 text-indigo-700 bg-transparent">
+              <Button asChild variant="outline" className="w-full border-border text-foreground hover:bg-muted bg-background">
                 <a href="mailto:hello@n3uralia.com">{language === "en" ? "Email Us" : "Envíanos un Email"}</a>
               </Button>
             </motion.div>

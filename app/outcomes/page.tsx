@@ -10,26 +10,26 @@ export default function OutcomesPage() {
 
   const content = {
     en: {
-      title: "Results",
-      subtitle: "Real impact across industries",
-      intro: "See how N3uralia delivers measurable outcomes for enterprises worldwide",
-      sectionTitle: "Client Success Stories",
-      sectionDesc: "From automation to innovation, our clients transform their operations",
+      title: "Resultados",
+      subtitle: "Lo que pasó después",
+      intro: "Estas no son promesas. Son historias reales de empresas que confiaron en N3uralia.",
+      sectionTitle: "Cómo Transformamos Negocios",
+      sectionDesc: "Desde la automatización hasta la innovación, nuestros clientes ahorran tiempo, dinero y dolores de cabeza",
     },
     es: {
       title: "Resultados",
-      subtitle: "Impacto real en múltiples industrias",
-      intro: "Mira cómo N3uralia entrega resultados medibles para empresas en todo el mundo",
-      sectionTitle: "Historias de Éxito",
-      sectionDesc: "De la automatización a la innovación, nuestros clientes transforman sus operaciones",
+      subtitle: "Lo que pasó después",
+      intro: "Estas no son promesas. Son historias reales de empresas que confiaron en N3uralia.",
+      sectionTitle: "Cómo Transformamos Negocios",
+      sectionDesc: "Desde la automatización hasta la innovación, nuestros clientes ahorran tiempo, dinero y dolores de cabeza",
     },
   }
 
   const t = content[language]
 
   return (
-    <main className="min-h-screen pt-16 bg-white">
-      <section className="relative bg-white text-foreground py-32 border-b border-primary/20">
+    <main className="min-h-screen pt-16 bg-background">
+      <section className="relative bg-background text-foreground py-32 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <p className="text-sm font-medium text-muted-foreground mb-4 tracking-wide uppercase">{t.subtitle}</p>
@@ -39,7 +39,7 @@ export default function OutcomesPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white border-b border-primary/20">
+      <section className="py-20 bg-background border-b border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -57,7 +57,7 @@ export default function OutcomesPage() {
         </div>
       </section>
 
-      <section className="py-32 bg-white border-t border-primary/20">
+      <section className="py-32 bg-background border-t border-border">
         <div className="container mx-auto px-4">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t.sectionTitle}</h2>
@@ -70,7 +70,7 @@ export default function OutcomesPage() {
 
       <MinimalistSolutions />
 
-      <section className="py-24 bg-white border-t border-primary/20">
+      <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-5xl font-bold text-foreground mb-6">
             {language === "es" ? "¿Listo para tu transformación?" : "Ready to transform?"}
@@ -80,9 +80,9 @@ export default function OutcomesPage() {
               ? "Únete a empresas líderes que ya están automatizando con N3uralia"
               : "Join leading companies already automating with N3uralia"}
           </p>
-          <button className="bg-primary text-primary-foreground px-8 py-3 font-semibold rounded-lg hover:bg-primary/90 transition-colors border border-primary">
+          <a href="/contact" className="inline-block bg-primary text-primary-foreground px-8 py-3 font-semibold rounded-lg hover:bg-primary/90 transition-colors border border-primary">
             {language === "es" ? "Hablar con Equipo" : "Talk to Team"}
-          </button>
+          </a>
         </div>
       </section>
 

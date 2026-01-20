@@ -126,31 +126,31 @@ export function OutcomesShowcase() {
       {t.map((outcome, i) => (
         <div
           key={i}
-          className="group border border-gray-200 p-8 hover:border-black transition-all duration-300 bg-white hover:bg-gray-50 cursor-pointer"
+          className="group border border-border p-8 hover:border-primary/40 transition-all duration-300 bg-card hover:bg-card/80 cursor-pointer"
         >
           <div className="mb-6">
-            <div className="w-14 h-14 bg-black text-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 bg-primary text-primary-foreground rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
               <outcome.icon className="w-7 h-7" />
             </div>
           </div>
 
-          <h3 className="text-xl font-bold text-black mb-3 group-hover:text-gray-700 transition-colors">
+          <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
             {outcome.title}
           </h3>
-          <p className="text-gray-600 text-sm mb-6 leading-relaxed">{outcome.description}</p>
+          <p className="text-muted-foreground text-sm mb-6 leading-relaxed">{outcome.description}</p>
 
-          <div className="pt-6 border-t border-gray-200">
+          <div className="pt-6 border-t border-border">
             <div className="mb-3">
-              <p className="text-sm font-semibold text-black">{outcome.impact}</p>
+              <p className="text-sm font-semibold text-foreground">{outcome.impact}</p>
             </div>
-            <p className="text-xs text-gray-500 font-medium">{outcome.metric}</p>
+            <p className="text-xs text-muted-foreground font-medium">{outcome.metric}</p>
             {outcome.ceo && (
-              <p className="text-xs text-gray-400 mt-3 font-medium">
+              <p className="text-xs text-muted-foreground mt-3 font-medium">
                 {language === "es" ? "CEO: " : "CEO: "}
                 {outcome.ceo} ({outcome.company})
               </p>
             )}
-            {outcome.location && <p className="text-xs text-gray-400 mt-3 font-medium">{`📍 ${outcome.location}`}</p>}
+            {outcome.location && <p className="text-xs text-muted-foreground mt-3 font-medium">{`📍 ${outcome.location}`}</p>}
           </div>
         </div>
       ))}

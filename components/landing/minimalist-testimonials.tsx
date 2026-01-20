@@ -131,27 +131,27 @@ export function MinimalistTestimonials() {
   const t = content[language]
 
   return (
-    <section className="py-20 bg-white border-t border-gray-200">
+    <section className="py-20 bg-background border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">{t.title}</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {t.testimonials.map((testimonial, i) => (
             <div
               key={i}
-              className="bg-white border border-gray-200 rounded-lg p-8 hover:border-gray-300 transition-colors"
+              className="bg-card border border-border rounded-lg p-8 hover:border-primary/40 transition-colors"
             >
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, j) => (
-                  <Star key={j} size={16} className="fill-black text-black" />
+                  <Star key={j} size={16} className="fill-primary text-primary" />
                 ))}
               </div>
 
-              <p className="text-gray-700 mb-6 leading-relaxed text-sm">"{testimonial.quote}"</p>
+              <p className="text-muted-foreground mb-6 leading-relaxed text-sm">"{testimonial.quote}"</p>
 
-              <div className="flex items-center gap-3 pt-6 border-t border-gray-200">
+              <div className="flex items-center gap-3 pt-6 border-t border-border">
                 <Image
                   src={testimonial.image || "/placeholder.svg"}
                   alt={testimonial.author}
@@ -160,8 +160,8 @@ export function MinimalistTestimonials() {
                   className="w-11 h-11 rounded-full object-cover"
                 />
                 <div>
-                  <p className="font-semibold text-black text-sm">{testimonial.author}</p>
-                  <p className="text-gray-600 text-xs">{testimonial.company}</p>
+                  <p className="font-semibold text-foreground text-sm">{testimonial.author}</p>
+                  <p className="text-muted-foreground text-xs">{testimonial.company}</p>
                 </div>
               </div>
             </div>

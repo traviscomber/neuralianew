@@ -34,7 +34,7 @@ export function Footer() {
       whatsapp: "WhatsApp",
       followUs: "Follow Us",
       description:
-        "N3uralia specializes in developing intelligent AI agents that transform business operations, automate customer service, and drive growth through cutting-edge artificial intelligence solutions.",
+        "N3uralia combina IA con desarrollo para construir sistemas inteligentes que funcionan. Atención al cliente que escala, automatización que libera tiempo, plataformas que crecen contigo.",
       copyright: "© 2024 N3uralia. All rights reserved.",
       madeWith: "Made with ❤️ in Chile",
     },

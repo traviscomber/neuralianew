@@ -40,7 +40,7 @@ export function CouncilVoting({ title, scenario, agents, decision, confidence }:
   }[language]
 
   return (
-    <div className="border border-primary/20 rounded-lg p-8 bg-white">
+    <div className="border border-primary/20 rounded-lg p-8 bg-card">
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-2 h-2 bg-primary rounded-full" />
@@ -48,7 +48,7 @@ export function CouncilVoting({ title, scenario, agents, decision, confidence }:
             {t.expertCouncil}
           </span>
         </div>
-        <h3 className="text-2xl font-bold mb-4">{title}</h3>
+        <h3 className="text-2xl font-bold mb-4 text-foreground">{title}</h3>
       </div>
 
       {/* Scenario */}
@@ -62,12 +62,12 @@ export function CouncilVoting({ title, scenario, agents, decision, confidence }:
         <p className="text-xs font-semibold text-muted-foreground mb-4 uppercase">{t.agents}</p>
         <div className="grid md:grid-cols-5 gap-3">
           {agents.map((agent, i) => (
-            <div key={i} className={`border rounded-lg p-3 ${agent.vote === 'approve' ? 'border-green-500/30 bg-green-50/50' : 'border-amber-500/30 bg-amber-50/50'}`}>
+            <div key={i} className={`border rounded-lg p-3 bg-muted/50 ${agent.vote === 'approve' ? 'border-primary/40' : 'border-amber-600/40'}`}>
               <div className="flex items-center gap-2 mb-2">
                 {agent.vote === 'approve' ? (
-                  <ThumbsUp className="w-4 h-4 text-green-600" />
+                  <ThumbsUp className="w-4 h-4 text-primary" />
                 ) : (
-                  <AlertCircle className="w-4 h-4 text-amber-600" />
+                  <AlertCircle className="w-4 h-4 text-amber-500" />
                 )}
                 <span className="text-xs font-semibold text-foreground">{agent.name}</span>
               </div>
@@ -87,7 +87,7 @@ export function CouncilVoting({ title, scenario, agents, decision, confidence }:
         <div>
           <p className="text-xs font-semibold text-muted-foreground mb-2 uppercase">{t.confidence}</p>
           <div className="flex items-center gap-2">
-            <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-primary transition-all"
                 style={{ width: `${confidence}%` }}

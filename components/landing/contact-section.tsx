@@ -79,18 +79,18 @@ export function ContactSection() {
   const t = content[language]
 
   return (
-    <section className="bg-black py-20">
+    <section className="bg-background py-20 border-t border-border">
       <div className="container mx-auto px-4">
         {/* Main CTA Section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{t.title}</h2>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed mb-12">{t.subtitle}</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">{t.title}</h2>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed mb-12">{t.subtitle}</p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Button
               size="lg"
-              className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300"
               onClick={() => (window.location.href = "/dashboard")}
             >
               <MessageCircle className="w-5 h-5 mr-2" />
@@ -100,7 +100,7 @@ export function ContactSection() {
             <Button
               variant="outline"
               size="lg"
-              className="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 bg-transparent"
+              className="border-2 border-primary text-primary hover:bg-primary/10 px-8 py-4 text-lg font-semibold rounded-full transition-all duration-300 bg-transparent"
               onClick={() => (window.location.href = "/contacts")}
             >
               <Mail className="w-5 h-5 mr-2" />
@@ -121,13 +121,13 @@ export function ContactSection() {
                   rel="noopener noreferrer"
                   className="block hover:scale-105 transition-transform duration-300"
                 >
-                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-gray-800 rounded-full group-hover:bg-gray-700 transition-colors duration-300">
-                    <IconComponent className="w-8 h-8 text-gray-400 group-hover:text-white transition-colors duration-300" />
+                  <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center bg-card border border-border rounded-full group-hover:bg-muted transition-colors duration-300">
+                    <IconComponent className="w-8 h-8 text-muted-foreground group-hover:text-foreground transition-colors duration-300" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-gray-300 transition-colors duration-300">
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
                     {contact.title}
                   </h3>
-                  <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                     {contact.value}
                   </p>
                 </a>

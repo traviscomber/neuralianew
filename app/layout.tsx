@@ -3,17 +3,19 @@ import type { Metadata } from "next"
 import { Inter, Montserrat } from "next/font/google"
 import "./globals.css"
 import { LanguageProvider } from "@/lib/language-context"
+import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "block",
   preload: true,
+  variable: "--font-inter",
 })
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  display: "swap",
+  display: "block",
   preload: true,
   variable: "--font-montserrat",
   weight: ["300", "400", "500", "600", "700"],
@@ -62,16 +64,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className="dark">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={`${montserrat.variable} ${inter.className} font-montserrat`} suppressHydrationWarning>
-        <LanguageProvider>
-          <Navigation />
-          {children}
-        </LanguageProvider>
+      <body className={`${montserrat.variable} ${inter.variable} antialiased font-sans`} suppressHydrationWarning>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <LanguageProvider>
+            <Navigation />
+            {children}
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
