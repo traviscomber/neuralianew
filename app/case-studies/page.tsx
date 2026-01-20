@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, TrendingUp, Users, Clock, DollarSign } from "lucide-react"
 import Link from "next/link"
 
+export const dynamic = "force-dynamic"
+
 export default function CaseStudiesPage() {
   const { language } = useLanguage()
 
@@ -190,8 +192,6 @@ export default function CaseStudiesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
-
       <main>
         {/* Hero Section */}
         <section className="pt-32 pb-24 bg-gradient-to-b from-black to-gray-900">
@@ -282,8 +282,6 @@ export default function CaseStudiesPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   )
 }
