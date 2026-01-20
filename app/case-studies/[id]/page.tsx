@@ -1,4 +1,4 @@
-import { CaseStudyClientPage } from "./CaseStudyClientPage"
+import { CaseStudyContent } from "./CaseStudyContent"
 
 const caseStudyData: Record<string, any> = {
   "retail-automation": {
@@ -513,25 +513,9 @@ const caseStudyData: Record<string, any> = {
   },
 }
 
-// Generate static params for all case studies
-export async function generateStaticParams() {
-  const caseStudies = [
-    { id: "retail-automation" },
-    { id: "healthcare-ai" },
-    { id: "financial-services" },
-    { id: "manufacturing-optimization" },
-    { id: "education-platform" },
-    { id: "logistics-automation" },
-  ]
-
-  return caseStudies.map((study) => ({
-    id: study.id,
-  }))
-}
-
 // This is the server component that renders the client component
 const CaseStudyPage = () => {
-  return <CaseStudyClientPage />
+  return <CaseStudyContent />
 }
 
 export default CaseStudyPage

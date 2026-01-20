@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Montserrat } from "next/font/google"
 import "./globals.css"
+import { LanguageProvider } from "@/lib/language-context"
 import Navigation from "@/components/navigation"
 
 const inter = Inter({
@@ -67,8 +68,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${montserrat.variable} ${inter.className} font-montserrat`} suppressHydrationWarning>
-        <Navigation />
-        {children}
+        <LanguageProvider>
+          <Navigation />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

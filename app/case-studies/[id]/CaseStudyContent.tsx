@@ -5,10 +5,11 @@ import { Footer } from "@/components/landing/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, ArrowRight, Building2, Clock, Users, Award, Target, CheckCircle } from "lucide-react"
+import { ArrowLeft, Building2, Clock, Users, Target, CheckCircle, ArrowRight, Award } from "lucide-react"
 import Link from "next/link"
-import { useLanguage } from "@/lib/language-context"
 import { useParams } from "next/navigation"
+import { useLanguage } from "@/hooks/useLanguage" // Import useLanguage hook
+import { useState } from "react"
 
 const caseStudyData: Record<string, any> = {
   "retail-automation": {
@@ -268,7 +269,7 @@ const caseStudyData: Record<string, any> = {
   },
 }
 
-export default function CaseStudyClientPage() {
+export function CaseStudyContent() {
   const params = useParams()
   const { language } = useLanguage()
   const caseId = params.id as string
@@ -500,6 +501,3 @@ export default function CaseStudyClientPage() {
     </div>
   )
 }
-
-// Add this line at the very end of the file, after the default export
-export { CaseStudyClientPage }

@@ -2,10 +2,10 @@
 import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
 import { CouncilVoting } from "@/components/landing/council-voting"
 import { Footer } from "@/components/landing/footer"
-import { useLanguage } from "@/lib/language-context"
+import { useState } from "react"
 
 export default function CapabilitiesPage() {
-  const { language } = useLanguage()
+  const [language] = useState("es")
 
   const content = {
     en: {

@@ -1,7 +1,5 @@
 "use client"
 
-import Navigation from "@/components/navigation"
-import { Footer } from "@/components/landing/footer"
 import { useLanguage } from "@/lib/language-context"
 import { motion } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
@@ -281,105 +279,6 @@ export default function CaseStudiesPage() {
                 </motion.div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Stats Section */}
-        <section className="py-24 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-5xl font-light text-gray-900 mb-4">
-                {language === "en" ? "Proven Impact" : "Impacto Comprobado"}
-              </h2>
-              <p className="text-xl text-gray-600 font-light">
-                {language === "en"
-                  ? "Aggregate results across all our AI implementations"
-                  : "Resultados agregados de todas nuestras implementaciones de IA"}
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-4 gap-8">
-              {[
-                {
-                  icon: TrendingUp,
-                  metric: "73%",
-                  label: language === "en" ? "Average Efficiency Gain" : "Ganancia Promedio de Eficiencia",
-                },
-                {
-                  icon: DollarSign,
-                  metric: "$12.4M",
-                  label: language === "en" ? "Total Client Savings" : "Ahorro Total de Clientes",
-                },
-                {
-                  icon: Users,
-                  metric: "50+",
-                  label: language === "en" ? "Successful Projects" : "Proyectos Exitosos",
-                },
-                {
-                  icon: Clock,
-                  metric: "99.9%",
-                  label: language === "en" ? "System Uptime" : "Tiempo de Actividad del Sistema",
-                },
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-center"
-                >
-                  <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <stat.icon className="w-8 h-8 text-gray-700" />
-                  </div>
-                  <div className="text-4xl font-light text-black mb-2">{stat.metric}</div>
-                  <div className="text-gray-600 font-light">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-24 bg-black">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-5xl font-light text-white mb-6">
-                {language === "en" ? "Ready to Join" : "Listo para Unirte"}
-                <br />
-                <span className="font-bold">
-                  {language === "en" ? "Our Success Stories?" : "A Nuestras Historias de Éxito?"}
-                </span>
-              </h2>
-              <p className="text-xl text-gray-300 font-light mb-8">
-                {language === "en"
-                  ? "Let's discuss how AI can transform your business and deliver measurable results"
-                  : "Hablemos sobre cómo la IA puede transformar tu negocio y entregar resultados medibles"}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-black hover:bg-gray-100">
-                  {language === "en" ? "Start Your Project" : "Iniciar Tu Proyecto"}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-black bg-transparent"
-                >
-                  {language === "en" ? "Schedule Consultation" : "Agendar Consulta"}
-                </Button>
-              </div>
-            </motion.div>
           </div>
         </section>
       </main>

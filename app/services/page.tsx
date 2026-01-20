@@ -4,12 +4,10 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Bot, Workflow, Building2, ArrowRight } from "lucide-react"
 import { useLanguage } from "@/lib/language-context"
-import Navigation from "@/components/navigation"
 import { ServicesSection } from "@/components/landing/services-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
-import { Footer } from "@/components/landing/footer"
 
 export default function ServicesPage() {
   const { language } = useLanguage()
@@ -202,7 +200,6 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
       {/* Hero Section */}
       <section className="py-20 bg-white border-b border-primary/20">
         <div className="container mx-auto px-4">
@@ -252,29 +249,6 @@ export default function ServicesPage() {
 
       {/* Contact Section */}
       <ContactSection />
-
-      {/* CTA Section */}
-      <section className="py-20 bg-white border-t border-primary/20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
-            {language === "es" ? "¿Listo para Comenzar?" : "Ready to Get Started?"}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12">
-            {language === "es"
-              ? "Únete a cientos de empresas que ya están transformando sus operaciones con nuestras soluciones de IA."
-              : "Join hundreds of companies already transforming their operations with our AI solutions."}
-          </p>
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg border border-primary" asChild>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-              {t.getStarted}
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <Footer />
     </div>
   )
 }
