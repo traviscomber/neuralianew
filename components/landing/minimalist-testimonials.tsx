@@ -1,11 +1,11 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
+import { useState } from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
 
 export function MinimalistTestimonials() {
-  const { language } = useLanguage()
+  const [language] = useState("es")
 
   const content = {
     en: {
@@ -40,10 +40,10 @@ export function MinimalistTestimonials() {
         },
         {
           quote:
-            "N3uralia's facility management automation improved our operational efficiency by 25% and streamlined resource allocation across our facilities.",
+            "Blackswan FC's field management system improved our operational efficiency by 65% and enabled us to manage our productive operations seamlessly with AI-powered insights.",
           author: "Santiago Colvin",
           role: "CEO",
-          company: "Backswan Facility Core",
+          company: "Blackswan Facility Core",
           image: "/testimonials/santiago-colvin.jpg",
           rating: 5,
         },
@@ -52,15 +52,6 @@ export function MinimalistTestimonials() {
             "The blockchain integration solution N3uralia built enabled us to scale our operations securely and transparently across multiple regions.",
           author: "María González",
           role: "CEO",
-          company: "Mermazero",
-          image: "/testimonials/maria-gonzalez.jpg",
-          rating: 5,
-        },
-        {
-          quote:
-            "Mermazero reduced our waste by 18% in the first month with real-time monitoring and AI-powered alerts. Implementation was quick and seamless.",
-          author: "María González",
-          role: "Operations Director",
           company: "Mermazero",
           image: "/testimonials/maria-gonzalez.jpg",
           rating: 5,
@@ -108,10 +99,10 @@ export function MinimalistTestimonials() {
         },
         {
           quote:
-            "La automatización de gestión de instalaciones de N3uralia mejoró nuestra eficiencia operacional en 25% y optimizó la asignación de recursos en nuestras instalaciones.",
+            "El sistema de gestión de campos productivos de Blackswan FC mejoró nuestra eficiencia operacional en 65% y nos permitió gestionar nuestras operaciones productivas de forma automatizada con insights potenciados por IA.",
           author: "Santiago Colvin",
           role: "CEO",
-          company: "Backswan Facility Core",
+          company: "Blackswan Facility Core",
           image: "/testimonials/santiago-colvin.jpg",
           rating: 5,
         },
@@ -120,15 +111,6 @@ export function MinimalistTestimonials() {
             "La solución de integración blockchain que N3uralia construyó nos permitió escalar nuestras operaciones de forma segura y transparente en múltiples regiones.",
           author: "María González",
           role: "CEO",
-          company: "Mermazero",
-          image: "/testimonials/maria-gonzalez.jpg",
-          rating: 5,
-        },
-        {
-          quote:
-            "Mermazero redujo nuestro desperdicio en 18% en el primer mes con monitoreo en tiempo real y alertas potenciadas por IA. La implementación fue rápida y sin complicaciones.",
-          author: "María González",
-          role: "Directora de Operaciones",
           company: "Mermazero",
           image: "/testimonials/maria-gonzalez.jpg",
           rating: 5,
@@ -161,17 +143,14 @@ export function MinimalistTestimonials() {
               key={i}
               className="bg-white border border-gray-200 rounded-lg p-8 hover:border-gray-300 transition-colors"
             >
-              {/* Star rating */}
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, j) => (
                   <Star key={j} size={16} className="fill-black text-black" />
                 ))}
               </div>
 
-              {/* Quote */}
               <p className="text-gray-700 mb-6 leading-relaxed text-sm">"{testimonial.quote}"</p>
 
-              {/* Author info */}
               <div className="flex items-center gap-3 pt-6 border-t border-gray-200">
                 <Image
                   src={testimonial.image || "/placeholder.svg"}

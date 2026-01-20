@@ -100,7 +100,7 @@ export function Navigation() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-black text-white hover:bg-gray-900 rounded-lg text-sm transition-colors"
+          className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-primary text-white hover:bg-primary/90 rounded-lg text-sm transition-colors font-medium"
         >
           <MessageCircle className="w-4 h-4" />
           WhatsApp

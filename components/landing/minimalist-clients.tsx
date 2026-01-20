@@ -1,9 +1,9 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
+import { useState } from "react"
 
 export function MinimalistClients() {
-  const { language } = useLanguage()
+  const [language] = useState("es")
 
   const clients = [
     { name: "EcosueloLab", logo: "/logos/ecosuelo.png" },

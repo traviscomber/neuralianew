@@ -33,11 +33,11 @@ export function CompetitiveAdvantages() {
     },
     {
       icon: Shield,
-      title: language === "es" ? "Datos en Chile" : "Data in Chile",
+      title: language === "es" ? "Infraestructura en Vercel" : "Vercel Infrastructure",
       description:
         language === "es"
-          ? "Opción de hosting local para cumplimiento con regulaciones chilenas"
-          : "Local hosting option for Chilean compliance requirements",
+          ? "Escalabilidad global, uptime de 99.9% y seguridad enterprise con CDN distribuido"
+          : "Global scalability, 99.9% uptime and enterprise security with distributed CDN",
     },
     {
       icon: Globe2,

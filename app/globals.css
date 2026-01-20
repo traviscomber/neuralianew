@@ -4,9 +4,13 @@
 
 @layer base {
   :root {
-    /* Minimalist Black & White Color Palette */
+    /* N3uralia Official Brandbook Colors */
 
-    /* Light Mode - Pure Minimalism */
+    /* Primary: Teal RGB(115, 150, 150) - Official brand color */
+    --primary: 166 26% 46%; /* Teal #739696 */
+    --primary-foreground: 0 0% 100%; /* White text */
+
+    /* Light Mode */
     --background: 0 0% 100%; /* Pure white */
     --foreground: 0 0% 0%; /* Pure black */
     --card: 0 0% 100%; /* Pure white */
@@ -15,92 +19,92 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 0%;
 
-    /* Primary: Black (premium, minimalist) */
-    --primary: 0 0% 0%; /* #000000 - Pure black */
-    --primary-foreground: 0 0% 100%; /* White text */
+    /* Secondary: Light teal - complementary to primary */
+    --secondary: 166 20% 65%; /* Light teal variant */
+    --secondary-foreground: 0 0% 0%; /* Dark text */
 
-    /* Secondary: Dark gray (neutral elegance) */
-    --secondary: 0 0% 25%; /* #404040 - Dark gray */
-    --secondary-foreground: 0 0% 100%; /* White text */
-
-    /* Accent: Black with contrast (action elements) */
-    --accent: 0 0% 0%; /* #000000 - Black */
+    /* Accent: Teal - same as primary for consistency */
+    --accent: 166 26% 46%; /* Teal #739696 */
     --accent-foreground: 0 0% 100%; /* White */
 
     /* Tertiary: Light gray (subtle accents) */
-    --tertiary: 0 0% 90%; /* #E6E6E6 - Light gray */
+    --tertiary: 0 0% 90%; /* #E6E6E6 */
     --tertiary-foreground: 0 0% 0%; /* Black text */
 
-    /* Neutral palette (refined grays) */
-    --muted: 0 0% 85%; /* #D9D9D9 - Medium-light gray */
-    --muted-foreground: 0 0% 40%; /* #666666 - Medium gray */
+    /* Neutral palette */
+    --muted: 0 0% 85%; /* #D9D9D9 */
+    --muted-foreground: 0 0% 40%; /* #666666 */
 
     /* UI Elements */
-    --destructive: 0 84% 60%; /* #DC4A4A - Red for errors */
+    --destructive: 0 84% 60%; /* #DC4A4A */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%; /* #E6E6E6 - Light gray border */
-    --input: 0 0% 97%; /* #F7F7F7 - Almost white input */
-    --ring: 0 0% 0%; /* Black focus ring */
+    /* Border: Light teal tint */
+    --border: 166 15% 88%; /* Subtle teal tint */
+    --input: 0 0% 97%; /* #F7F7F7 */
+    --ring: 166 26% 46%; /* Teal focus ring */
 
     /* Spacing & Radius */
     --radius: 0.625rem; /* 10px */
 
     /* Semantic spacing tokens */
-    --spacing-xs: 0.25rem; /* 4px */
-    --spacing-sm: 0.5rem; /* 8px */
-    --spacing-md: 1rem; /* 16px */
-    --spacing-lg: 1.5rem; /* 24px */
-    --spacing-xl: 2rem; /* 32px */
-    --spacing-2xl: 3rem; /* 48px */
-    --spacing-3xl: 4rem; /* 64px */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
 
-    /* Elevation/Shadow tokens - minimalist shadows */
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.08);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
-    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.2);
+    /* Elevation/Shadow tokens */
+    --shadow-xs: 0 1px 2px rgba(115, 150, 150, 0.08);
+    --shadow-sm: 0 2px 4px rgba(115, 150, 150, 0.1);
+    --shadow-md: 0 4px 8px rgba(115, 150, 150, 0.12);
+    --shadow-lg: 0 8px 16px rgba(115, 150, 150, 0.15);
+    --shadow-xl: 0 12px 24px rgba(115, 150, 150, 0.2);
   }
 
   .dark {
-    /* Dark mode - Pure black background */
-    --background: 0 0% 8%; /* #141414 - Near black */
-    --foreground: 0 0% 100%; /* White text */
-    --card: 0 0% 13%; /* #212121 - Dark card */
-    --card-foreground: 0 0% 100%; /* White text */
+    /* Dark mode */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 13%;
+    --card-foreground: 0 0% 100%;
 
     --popover: 0 0% 13%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 0 0% 100%; /* White text on dark */
+    /* Dark mode primary: Light teal */
+    --primary: 166 35% 70%; /* Light teal for dark backgrounds */
     --primary-foreground: 0 0% 8%;
 
-    --secondary: 0 0% 75%; /* Light gray */
+    /* Secondary: Teal accent */
+    --secondary: 166 26% 46%; /* Standard teal */
     --secondary-foreground: 0 0% 8%;
 
-    --accent: 0 0% 100%; /* White accent */
+    /* Accent: Light teal */
+    --accent: 166 35% 70%; /* Light teal */
     --accent-foreground: 0 0% 8%;
 
-    --tertiary: 0 0% 25%; /* Dark gray */
+    --tertiary: 0 0% 25%;
     --tertiary-foreground: 0 0% 100%;
 
-    --muted: 0 0% 30%; /* Dark muted */
-    --muted-foreground: 0 0% 75%; /* Light text */
+    --muted: 0 0% 30%;
+    --muted-foreground: 0 0% 75%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%; /* Dark border */
-    --input: 0 0% 15%; /* Dark input */
-    --ring: 0 0% 100%; /* White focus ring */
+    /* Dark mode border: Teal tint */
+    --border: 166 20% 25%; /* Teal-tinted dark border */
+    --input: 0 0% 15%;
+    --ring: 166 35% 70%; /* Light teal focus ring */
 
-    /* Shadows for dark mode */
-    --shadow-xs: 0 1px 2px rgba(255, 255, 255, 0.05);
-    --shadow-sm: 0 2px 4px rgba(255, 255, 255, 0.08);
-    --shadow-md: 0 4px 8px rgba(255, 255, 255, 0.1);
-    --shadow-lg: 0 8px 16px rgba(255, 255, 255, 0.12);
-    --shadow-xl: 0 12px 24px rgba(255, 255, 255, 0.15);
+    --shadow-xs: 0 1px 2px rgba(115, 150, 150, 0.1);
+    --shadow-sm: 0 2px 4px rgba(115, 150, 150, 0.15);
+    --shadow-md: 0 4px 8px rgba(115, 150, 150, 0.2);
+    --shadow-lg: 0 8px 16px rgba(115, 150, 150, 0.25);
+    --shadow-xl: 0 12px 24px rgba(115, 150, 150, 0.3);
   }
 }
 

@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Montserrat } from "next/font/google"
 import "./globals.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { LanguageProvider } from "@/lib/language-context"
@@ -10,6 +10,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+})
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-montserrat",
+  weight: ["300", "400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -60,7 +68,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className={inter.className} suppressHydrationWarning>
+      <body className={`${montserrat.variable} ${inter.className} font-montserrat`} suppressHydrationWarning>
         <LanguageProvider>
           <AnalyticsProvider>
             <Navigation />

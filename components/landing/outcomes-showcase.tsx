@@ -32,18 +32,11 @@ export function OutcomesShowcase() {
         icon: Users,
       },
       {
-        title: "Data Intelligence",
-        description: "Real-time analytics and intelligent decision engine for enterprises",
-        impact: "Instant insights",
-        metric: "Real-time processing",
-        icon: BarChart3,
-      },
-      {
-        title: "Sports Facilities Management",
+        title: "Productive Field Management",
         description:
-          "Blackswan FC - Intelligent management of sports facilities and operations powered by N3uralia AI orchestration",
+          "Blackswan FC - Complete system for managing productive operations powered by N3uralia AI orchestration",
         impact: "65% efficiency gain",
-        metric: "12+ facilities managed",
+        metric: "Comprehensive field operations",
         icon: Users,
         ceo: "Santiago Colvin",
         company: "Blackswan Facility Core",
@@ -57,6 +50,16 @@ export function OutcomesShowcase() {
         icon: Users,
         location: "Phuket, Thailand",
         company: "Evergreen Guesthouse",
+      },
+      {
+        title: "Agricultural Nutrient Monitoring",
+        description:
+          "EcosueloLab - Satellite-based soil nutrient analysis integrated with IrriWatch irrigation system for optimal crop yields",
+        impact: "35% water savings",
+        metric: "Real-time soil monitoring",
+        icon: BarChart3,
+        ceo: "Sebastian Puelma",
+        company: "EcosueloLab",
       },
     ],
     es: [
@@ -82,18 +85,11 @@ export function OutcomesShowcase() {
         icon: Users,
       },
       {
-        title: "Inteligencia de Datos",
-        description: "Análisis en tiempo real y motor de decisiones inteligente para empresas",
-        impact: "Insights instantáneos",
-        metric: "Procesamiento en vivo",
-        icon: BarChart3,
-      },
-      {
-        title: "Gestión de Instalaciones Deportivas",
+        title: "Gestión de Campos Productivos",
         description:
-          "Blackswan FC - Gestión inteligente de instalaciones deportivas y operaciones potenciada por orquestación de IA N3uralia",
+          "Blackswan FC - Sistema completo para la gestión de operaciones productivas potenciada por orquestación de IA N3uralia",
         impact: "65% ganancia en eficiencia",
-        metric: "12+ instalaciones gestionadas",
+        metric: "Gestión integral de operaciones",
         icon: Users,
         ceo: "Santiago Colvin",
         company: "Blackswan Facility Core",
@@ -101,12 +97,22 @@ export function OutcomesShowcase() {
       {
         title: "Operaciones Hoteleras y Gestión de Residuos",
         description:
-          "Evergreen Guesthouse - Sistema de IA para gestión de residuos y optimización inteligente de reservas en Tailandia",
+          "Evergreen Guesthouse - Sistema de IA para gestión de residuos, optimización inteligente de reservas y sistema de booking eficiente en Tailandia",
         impact: "30% reducción de residuos",
         metric: "80+ reservas/mes gestionadas",
         icon: Users,
         location: "Phuket, Tailandia",
         company: "Evergreen Guesthouse",
+      },
+      {
+        title: "Monitoreo de Nutrientes Agrícolas",
+        description:
+          "EcosueloLab - Análisis de nutrientes de suelo basado en satélite integrado con sistema de riego IrriWatch para maximizar rendimientos",
+        impact: "35% ahorro de agua",
+        metric: "Monitoreo de suelo en tiempo real",
+        icon: BarChart3,
+        ceo: "Sebastian Puelma",
+        company: "EcosueloLab",
       },
     ],
   }

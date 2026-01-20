@@ -1,9 +1,9 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
+import { useState } from "react"
 
 export function MinimalistSolutions() {
-  const { language } = useLanguage()
+  const [language] = useState("es")
 
   const solutions = [
     {
@@ -38,8 +38,8 @@ export function MinimalistSolutions() {
       logo: "/logos/blackswanfc.png",
       description:
         language === "es"
-          ? "Gestión integral de instalaciones y operaciones de lujo"
-          : "Comprehensive luxury facility and operations management",
+          ? "Sistema completo de gestión de campos productivos con IA"
+          : "Complete productive field management system with AI",
       link: "https://blackswanfc.vercel.app",
       ceo: "Santiago Colvin",
     },

@@ -1,11 +1,11 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
+import { useState } from "react"
 import Image from "next/image"
 import { Star } from "lucide-react"
 
 export function MinimalistTestimonialsFeatured() {
-  const { language } = useLanguage()
+  const [language] = useState("es")
 
   const content = {
     en: {
