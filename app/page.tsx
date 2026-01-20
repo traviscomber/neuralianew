@@ -5,24 +5,24 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center pt-20 pb-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+        <div className="max-w-4xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">Plataforma de IA Empresarial</span>
           </div>
 
-          <h1 className="text-7xl md:text-8xl font-bold tracking-tight mb-8 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight">
             AI Orchestration
             <br />
             <span className="text-primary/70">Simplified</span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
             Conecta agentes inteligentes, automatiza procesos y escala sistemas de IA. Soluciones para empresas chilenas.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
             <Link
               href="/contact"
               className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
@@ -32,40 +32,40 @@ export default function HomePage() {
             </Link>
             <Link
               href="/capabilities"
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
             >
               Ver Capacidades
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-8 max-w-xl mx-auto border-t border-primary/20 pt-12">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">50+</div>
-              <p className="text-sm text-gray-600">Empresas en Chile</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">50+</div>
+              <p className="text-xs sm:text-sm text-gray-600">Empresas en Chile</p>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">99.8%</div>
-              <p className="text-sm text-gray-600">Disponibilidad</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.8%</div>
+              <p className="text-xs sm:text-sm text-gray-600">Disponibilidad</p>
             </div>
             <div>
-              <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-              <p className="text-sm text-gray-600">Soporte Local</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
+              <p className="text-xs sm:text-sm text-gray-600">Soporte Local</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Core Capabilities */}
-      <section className="bg-white py-24 border-t border-gray-200">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-bold text-black mb-6">Capacidades Principales</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+      <section className="bg-white py-16 sm:py-24 border-t border-gray-200 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12 sm:mb-20">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-black mb-4 sm:mb-6">Capacidades Principales</h2>
+            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
               Soluciones completas para orquestar IA en tu negocio
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {[
               {
                 title: "Conversacional",
@@ -84,9 +84,9 @@ export default function HomePage() {
                 desc: "Insights en tiempo real para tomar decisiones mejores",
               },
             ].map((item, i) => (
-              <div key={i} className="p-8 border border-primary/20 rounded-lg hover:border-primary/40 transition-colors">
-                <h3 className="text-2xl font-bold text-primary mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+              <div key={i} className="p-6 sm:p-8 border border-primary/20 rounded-lg hover:border-primary/40 transition-colors">
+                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3">{item.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -94,13 +94,13 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 bg-white border-t border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">Empresas que confían en nosotros</h2>
+      <section className="py-16 sm:py-20 bg-white border-t border-gray-200 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-5xl font-bold text-black mb-4">Empresas que confían en nosotros</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
             {[
               {
                 quote: "El sistema optimizó nuestros procesos de consultoría ambiental. El análisis automatizado nos ahorra horas diarias.",
@@ -114,7 +114,7 @@ export default function HomePage() {
               },
             ].map((item, i) => (
               <div key={i} className="bg-white border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors">
-                <p className="text-gray-700 mb-4 leading-relaxed text-sm">"{item.quote}"</p>
+                <p className="text-gray-700 mb-4 leading-relaxed text-sm">{'"' + item.quote + '"'}</p>
                 <div className="pt-4 border-t border-gray-200">
                   <p className="font-semibold text-black text-sm">{item.author}</p>
                   <p className="text-gray-600 text-xs">{item.company}</p>
@@ -132,10 +132,10 @@ export default function HomePage() {
       </section>
 
       {/* CTA Footer */}
-      <section className="py-20 bg-gray-50 border-t border-gray-200">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-black mb-6">¿Listo para comenzar?</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+      <section className="py-16 sm:py-20 bg-gray-50 border-t border-gray-200 px-4">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-black mb-4 sm:mb-6">¿Listo para comenzar?</h2>
+          <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
             Conecta con nuestro equipo técnico para explorar soluciones personalizadas
           </p>
           <Link
@@ -149,9 +149,9 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white py-12 border-t border-slate-800">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <footer className="bg-slate-900 text-white py-12 border-t border-slate-800 px-4">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
             <div>
               <p className="font-bold mb-4">N3uralia</p>
               <p className="text-slate-300 text-sm">Soluciones de IA inteligentes para empresas chilenas</p>

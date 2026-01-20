@@ -82,7 +82,7 @@ export default function CapabilitiesPage() {
         </section>
 
         {/* Expert Council Section */}
-        <section className="py-24 bg-gradient-to-b from-white to-primary/5">
+        <section className="py-24 bg-white border-t border-primary/20">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-primary mb-4">{t.councilTitle}</h2>

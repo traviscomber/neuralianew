@@ -44,40 +44,40 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen pt-16">
-      <section className="py-20 bg-white border-b border-gray-200">
+      <section className="py-20 bg-white border-b border-primary/20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-black">{t.title}</h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto">{t.subtitle}</p>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">{t.title}</h1>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white border-b border-primary/20">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-black mb-4">{t.mission}</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">{t.missionText}</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t.mission}</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">{t.missionText}</p>
           </div>
 
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-black mb-4">{t.vision}</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">{t.visionText}</p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t.vision}</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">{t.visionText}</p>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50 border-t border-gray-200">
+      <section className="py-20 bg-white border-t border-primary/20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-black mb-12 text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
             {language === "en" ? "Our Values" : "Nuestros Valores"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {t.values.map((value, i) => (
               <div key={i}>
-                <Card className="h-full border-gray-200 bg-white">
+                <Card className="h-full border-primary/20 bg-white">
                   <CardContent className="p-6 text-center">
-                    <value.icon className="w-8 h-8 text-black mx-auto mb-4" />
-                    <h3 className="font-semibold text-black mb-2">{value.title}</h3>
-                    <p className="text-sm text-gray-600">{value.description}</p>
+                    <value.icon className="w-8 h-8 text-primary mx-auto mb-4" />
+                    <h3 className="font-semibold text-foreground mb-2">{value.title}</h3>
+                    <p className="text-sm text-muted-foreground">{value.description}</p>
                   </CardContent>
                 </Card>
               </div>

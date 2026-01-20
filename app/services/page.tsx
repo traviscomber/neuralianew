@@ -204,17 +204,17 @@ export default function ServicesPage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-20 bg-white border-b border-primary/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge
               variant="secondary"
-              className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 text-black border-black/10"
+              className="mb-4 px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20"
             >
               {t.badge}
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-black mb-6">{t.title}</h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.subtitle}</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">{t.title}</h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t.subtitle}</p>
           </div>
         </div>
       </section>
@@ -223,21 +223,21 @@ export default function ServicesPage() {
       <ServicesSection services={t.services} learnMore={t.learnMore} getStarted={t.getStarted} />
 
       {/* Process Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white border-t border-primary/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-black mb-6">{t.processTitle}</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">{t.whyChooseDesc}</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">{t.processTitle}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t.whyChooseDesc}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {t.processSteps.map((step, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-6">
+                <div className="w-16 h-16 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6">
                   {step.step}
                 </div>
-                <h3 className="text-xl font-semibold text-black mb-4">{step.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <h3 className="text-xl font-semibold text-foreground mb-4">{step.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             ))}
           </div>
@@ -254,17 +254,17 @@ export default function ServicesPage() {
       <ContactSection />
 
       {/* CTA Section */}
-      <section className="py-20 bg-black text-white">
+      <section className="py-20 bg-white border-t border-primary/20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">
             {language === "es" ? "¿Listo para Comenzar?" : "Ready to Get Started?"}
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto mb-12">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-12">
             {language === "es"
               ? "Únete a cientos de empresas que ya están transformando sus operaciones con nuestras soluciones de IA."
               : "Join hundreds of companies already transforming their operations with our AI solutions."}
           </p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg" asChild>
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 text-lg border border-primary" asChild>
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
               {t.getStarted}
               <ArrowRight className="ml-2 h-5 w-5" />

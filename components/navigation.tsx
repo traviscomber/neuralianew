@@ -3,12 +3,11 @@
 import Link from "next/link"
 import { Menu, X, Globe, MessageCircle } from "lucide-react"
 import { useState } from "react"
-import { useLanguage } from "@/lib/language-context"
 
 export function Navigation() {
   const [open, setOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
-  const { language, setLanguage } = useLanguage()
+  const [language, setLanguage] = useState("es")
 
   const navContent = {
     es: {
