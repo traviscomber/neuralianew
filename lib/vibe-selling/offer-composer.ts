@@ -25,87 +25,115 @@ export interface LiveOffer {
 
 const offerTemplates: Record<string, OfferScope> = {
   "explorer-startup": {
-    components: ["1x Immersive Portal", "5x Heritage Datasets", "1x AI Curator"],
+    components: ["1x Portal Inmersivo", "5x Datasets Heritage", "1x Curador de IA"],
     datasets: 5,
     timelineWeeks: 4,
-    technology: ["Next.js", "Supabase", "AI Agents"],
+    technology: ["Next.js", "Supabase", "Agentes de IA"],
     pricingModel: "monthly",
-    estimatedBudget: "$2K-5K/month",
-    deliverables: ["Portal", "Datasets", "Documentation"],
+    estimatedBudget: "$2K-5K/mes",
+    deliverables: ["Portal", "Datasets", "Documentación"],
   },
   "explorer-mid-market": {
-    components: ["2x Portals", "12x Datasets", "1x AI Curator", "Analytics Dashboard"],
+    components: ["2x Portales", "12x Datasets", "1x Curador de IA", "Dashboard de Analytics"],
     datasets: 12,
     timelineWeeks: 8,
-    technology: ["Next.js", "Supabase", "AI Agents", "Custom Analytics"],
+    technology: ["Next.js", "Supabase", "Agentes de IA", "Analytics personalizado"],
     pricingModel: "monthly",
-    estimatedBudget: "$5K-15K/month",
-    deliverables: ["Dual Portals", "Datasets", "Analytics", "Training"],
+    estimatedBudget: "$5K-15K/mes",
+    deliverables: ["Portales duales", "Datasets", "Analytics", "Capacitación"],
   },
   "explorer-enterprise": {
-    components: ["N3x Portals", "30x Datasets", "Multi-AI Curators", "Dome Integration", "VR Support"],
+    components: ["N3x Portales", "30x Datasets", "Múltiples Curadores de IA", "Integración Dome", "Soporte VR"],
     datasets: 30,
     timelineWeeks: 16,
-    technology: ["Next.js", "Supabase", "AI Agents", "WebGL", "VR.js"],
+    technology: ["Next.js", "Supabase", "Agentes de IA", "WebGL", "VR.js"],
     pricingModel: "fixed",
     estimatedBudget: "$50K-200K",
-    deliverables: ["Multi-Portal", "Full Datasets", "Immersive Experience", "Support"],
+    deliverables: ["Multi-Portal", "Datasets completos", "Experiencia inmersiva", "Soporte"],
   },
 
   "builder-startup": {
-    components: ["API Access", "Code Templates", "Deployment Guide"],
+    components: ["Acceso a APIs", "Plantillas de código", "Guía de deployment"],
     datasets: 2,
     timelineWeeks: 2,
     technology: ["Node.js", "Vercel", "Supabase"],
     pricingModel: "monthly",
-    estimatedBudget: "$500-1K/month",
-    deliverables: ["APIs", "Starter Code", "Docs"],
+    estimatedBudget: "$500-1K/mes",
+    deliverables: ["APIs", "Código de inicio", "Documentación"],
   },
   "builder-mid-market": {
-    components: ["Full API Suite", "Custom Stack", "Infra Setup", "Monitoring"],
+    components: ["Suite completa de APIs", "Stack personalizado", "Configuración de infraestructura", "Monitoreo"],
     datasets: 8,
     timelineWeeks: 6,
-    technology: ["Node.js/Python", "Custom Infra", "Vercel/AWS"],
+    technology: ["Node.js/Python", "Infraestructura personalizada", "Vercel/AWS"],
     pricingModel: "monthly",
-    estimatedBudget: "$3K-10K/month",
-    deliverables: ["APIs", "Custom Code", "Infrastructure", "24/7 Support"],
+    estimatedBudget: "$3K-10K/mes",
+    deliverables: ["APIs", "Código personalizado", "Infraestructura", "Soporte 24/7"],
   },
   "builder-enterprise": {
-    components: ["Enterprise APIs", "White-label Option", "Managed Service", "SLA"],
+    components: ["APIs empresariales", "Opción White-label", "Servicio gestionado", "SLA"],
     datasets: 50,
     timelineWeeks: 12,
-    technology: ["Custom Stack", "Enterprise Infra", "Multi-region"],
+    technology: ["Stack personalizado", "Infraestructura empresarial", "Multi-región"],
     pricingModel: "fixed",
     estimatedBudget: "$100K-500K",
-    deliverables: ["White-label Platform", "Full Support", "Custom Development"],
+    deliverables: ["Plataforma White-label", "Soporte completo", "Desarrollo personalizado"],
   },
 
   "buyer-startup": {
-    components: ["Pre-built Solution", "1x Portal", "Basic Support"],
+    components: ["Solución preconstruida", "1x Portal", "Soporte básico"],
     datasets: 3,
     timelineWeeks: 1,
-    technology: ["Off-the-shelf"],
+    technology: ["Solución lista"],
     pricingModel: "monthly",
-    estimatedBudget: "$1K-2K/month",
-    deliverables: ["Ready-to-use Portal", "Basic Data"],
+    estimatedBudget: "$1K-2K/mes",
+    deliverables: ["Portal listo para usar", "Datos básicos"],
   },
   "buyer-mid-market": {
-    components: ["Customized Solution", "2-3x Portals", "Data Integration", "Reporting"],
+    components: ["Solución personalizada", "2-3x Portales", "Integración de datos", "Reportes"],
     datasets: 15,
     timelineWeeks: 4,
-    technology: ["Next.js", "Supabase", "Custom Auth"],
+    technology: ["Next.js", "Supabase", "Auth personalizado"],
     pricingModel: "monthly",
-    estimatedBudget: "$5K-20K/month",
-    deliverables: ["Turnkey Platform", "Data", "Monthly Reports"],
+    estimatedBudget: "$5K-20K/mes",
+    deliverables: ["Plataforma lista", "Datos", "Reportes mensuales"],
   },
   "buyer-enterprise": {
-    components: ["Enterprise Solution", "Multi-portal", "SSO", "Advanced Analytics", "Compliance"],
+    components: ["Solución empresarial", "Multi-portal", "SSO", "Analytics avanzados", "Cumplimiento normativo"],
     datasets: 100,
     timelineWeeks: 8,
-    technology: ["Enterprise Stack", "Custom Security"],
+    technology: ["Stack empresarial", "Seguridad personalizada"],
     pricingModel: "fixed",
     estimatedBudget: "$200K-1M",
-    deliverables: ["Enterprise Platform", "Full Data Library", "Dedicated Support"],
+    deliverables: ["Plataforma empresarial", "Librería de datos completa", "Soporte dedicado"],
+  },
+
+  "partner-startup": {
+    components: ["Participación de ingresos: 30%", "Co-marketing", "Acceso a API"],
+    datasets: 5,
+    timelineWeeks: 2,
+    technology: ["Infraestructura compartida"],
+    pricingModel: "revenue-share",
+    estimatedBudget: "30% de ingresos",
+    deliverables: ["Integración", "Co-promoción", "División de ingresos"],
+  },
+  "partner-mid-market": {
+    components: ["Participación de ingresos: 20-40%", "Go-to-market conjunto", "Opción White-label"],
+    datasets: 20,
+    timelineWeeks: 6,
+    technology: ["Compartida + personalizada"],
+    pricingModel: "revenue-share",
+    estimatedBudget: "20-40% de ingresos",
+    deliverables: ["White-label", "Estrategia GTM", "División de ingresos"],
+  },
+  "partner-enterprise": {
+    components: ["Asociación estratégica", "Co-desarrollo", "Integración profunda", "Revenue share: 15-30%"],
+    datasets: 100,
+    timelineWeeks: 12,
+    technology: ["Infraestructura compartida empresarial"],
+    pricingModel: "revenue-share",
+    estimatedBudget: "15-30% de ingresos",
+    deliverables: ["Plataforma co-desarrollada", "Acceso completo a APIs", "Soporte 24/7"],
   },
 
   "partner-startup": {
@@ -143,17 +171,17 @@ export function composeOffer(intent: BuyerIntent): LiveOffer {
 
   const headlines: Record<string, string> = {
     explorer:
-      "Here's what a typical exploration looks like for teams like yours – no commitment, full transparency.",
-    builder: "Here's the tech stack and timeline we'd recommend for your build:",
-    buyer: "This is exactly what we'd deploy for your use case – turnkey, ready to go:",
-    partner: "Let's build something bigger together – here's the partnership structure:",
+      "Aquí está cómo se ve una exploración típica para equipos como el tuyo – sin compromiso, total transparencia.",
+    builder: "Aquí está el stack de tecnología y cronograma que recomendaríamos para tu proyecto:",
+    buyer: "Esto es exactamente lo que desplegaríamos para tu caso de uso – llave en mano, listo para usar:",
+    partner: "Construyamos algo más grande juntos – aquí está la estructura de la asociación:",
   }
 
   const vibes: Record<string, string> = {
-    explorer: "Curious. Collaborative. We show you what's possible.",
-    builder: "Technical. Scalable. We build what you envision.",
-    buyer: "Efficient. Results-focused. We deliver what you need.",
-    partner: "Visionary. Aligned. We grow together.",
+    explorer: "Curioso. Colaborativo. Te mostramos qué es posible.",
+    builder: "Técnico. Escalable. Construimos lo que envisionas.",
+    buyer: "Eficiente. Enfocado en resultados. Entregamos lo que necesitas.",
+    partner: "Visionario. Alineado. Crecemos juntos.",
   }
 
   return {
@@ -167,10 +195,10 @@ export function composeOffer(intent: BuyerIntent): LiveOffer {
 
 function generateNextSteps(intent: BuyerIntent): string[] {
   const steps: Record<string, string[]> = {
-    explorer: ["1. Book a 20-min discovery call", "2. We'll sketch your vision", "3. Get a custom proposal"],
-    builder: ["1. Share your tech requirements", "2. We architect a solution", "3. Start building"],
-    buyer: ["1. Confirm your timeline", "2. We provision infrastructure", "3. Go live in days"],
-    partner: ["1. Schedule partnership call", "2. Review terms", "3. Sign MoU & align on roadmap"],
+    explorer: ["1. Agenda una llamada de descubrimiento de 20 min", "2. Esbozaremos tu visión", "3. Obtén una propuesta personalizada"],
+    builder: ["1. Comparte tus requisitos técnicos", "2. Diseñamos una solución", "3. Comenzamos a construir"],
+    buyer: ["1. Confirma tu cronograma", "2. Provisioamos infraestructura", "3. Lanzamiento en días"],
+    partner: ["1. Agenda llamada de asociación", "2. Revisa términos", "3. Firma MoU y alinea hoja de ruta"],
   }
   return steps[intent.intent]
 }

@@ -7,9 +7,9 @@ export default function ContactPage() {
     <main className="min-h-screen pt-32 pb-20 px-4">
       <section className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Let's Talk</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Conversemos</h1>
           <p className="text-lg text-muted-foreground">
-            No generic forms. We understand what you need by talking to you.
+            Sin formularios genéricos. Entendemos lo que necesitas conversando contigo.
           </p>
         </div>
 
@@ -17,13 +17,13 @@ export default function ContactPage() {
 
         <div className="mt-12 pt-12 border-t border-gray-200 text-center">
           <p className="text-sm text-muted-foreground mb-4">
-            Prefer to email? Reach out directly at{" "}
+            ¿Prefieres email? Contacta directamente a{" "}
             <a href="mailto:hello@n3uralia.com" className="text-primary font-semibold hover:underline">
               hello@n3uralia.com
             </a>
           </p>
           <p className="text-sm text-muted-foreground">
-            Or call +56 9 9382 6127 on WhatsApp
+            O llama al +56 9 9382 6127 en WhatsApp
           </p>
         </div>
       </section>

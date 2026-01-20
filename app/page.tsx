@@ -13,9 +13,9 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight">
-            AI Orchestration
+            Orquestación de IA
             <br />
-            <span className="text-primary/70">Simplified</span>
+            <span className="text-primary/70">Simplificada</span>
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">

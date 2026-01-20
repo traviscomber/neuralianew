@@ -91,7 +91,7 @@ export function VibeConversation() {
       if (data.offer) setOffer(data.offer)
     } catch (error) {
       console.error("Failed to send message:", error)
-      setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, something went wrong. Please try again." }])
+      setMessages((prev) => [...prev, { role: "assistant", content: "Disculpa, algo salió mal. Por favor intenta de nuevo." }])
     } finally {
       setLoading(false)
     }
@@ -109,7 +109,7 @@ export function VibeConversation() {
 
             <div className="space-y-3">
               <div>
-                <p className="text-xs font-medium text-muted-foreground mb-1">COMPONENTS</p>
+                <p className="text-xs font-medium text-muted-foreground mb-1">COMPONENTES</p>
                 <ul className="text-sm space-y-1">
                   {offer.scope.components.map((comp, i) => (
                     <li key={i} className="text-foreground">
@@ -121,11 +121,11 @@ export function VibeConversation() {
 
               <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-200">
                 <div>
-                  <p className="text-xs font-medium text-muted-foreground">TIMELINE</p>
-                  <p className="text-sm font-semibold text-foreground">{offer.scope.timelineWeeks} weeks</p>
+                  <p className="text-xs font-medium text-muted-foreground">TIEMPO</p>
+                  <p className="text-sm font-semibold text-foreground">{offer.scope.timelineWeeks} semanas</p>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-muted-foreground">BUDGET</p>
+                  <p className="text-xs font-medium text-muted-foreground">PRESUPUESTO</p>
                   <p className="text-sm font-semibold text-primary">{offer.scope.estimatedBudget}</p>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export function VibeConversation() {
           <p className="text-sm text-muted-foreground italic mb-4">"{offer.vibes}"</p>
 
           <div className="space-y-2">
-            <p className="text-xs font-medium text-muted-foreground">NEXT STEPS:</p>
+            <p className="text-xs font-medium text-muted-foreground">PRÓXIMOS PASOS:</p>
             {offer.nextSteps.map((step, i) => (
               <p key={i} className="text-sm text-foreground">
                 {step}
@@ -165,7 +165,7 @@ export function VibeConversation() {
           {loading && (
             <div className="flex justify-start">
               <div className="bg-gray-100 text-foreground px-4 py-2 rounded-lg rounded-bl-none">
-                <p className="text-sm">Composing offer...</p>
+                <p className="text-sm">Componiendo propuesta...</p>
               </div>
             </div>
           )}
@@ -178,7 +178,7 @@ export function VibeConversation() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Tell me what you're building..."
+            placeholder="Cuéntame qué estás construyendo..."
             className="flex-1 px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-primary text-sm"
             disabled={loading}
           />

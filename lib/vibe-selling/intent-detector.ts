@@ -67,10 +67,10 @@ export function detectIntent(signals: VibeSignals): BuyerIntent {
 
 export function generateVibeMessage(intent: BuyerIntent): string {
   const templates = {
-    explorer: "Based on your exploration, here are 3 ways teams like yours usually work with us:",
-    builder: "I see you're diving into the tech. Let me show you what we can build together:",
-    buyer: "Perfect timing. Here's exactly what we'd deliver for your use case:",
-    partner: "You're thinking big picture. Let's explore a revenue-sharing partnership:",
+    explorer: "Basado en tu exploración, aquí hay 3 formas en que equipos como el tuyo generalmente trabajan con nosotros:",
+    builder: "Veo que estás profundizando en la tecnología. Déjame mostrarte qué podemos construir juntos:",
+    buyer: "Timing perfecto. Aquí está exactamente lo que entregaríamos para tu caso de uso:",
+    partner: "Estás pensando en grande. Exploremos una asociación de participación de ingresos:",
   }
 
   return templates[intent.intent]

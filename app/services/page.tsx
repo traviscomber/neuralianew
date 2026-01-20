@@ -13,37 +13,37 @@ export default function ServicesPage() {
   const { language } = useLanguage()
 
   const content = {
-    en: {
-      badge: "Our Services",
-      title: "Comprehensive AI Solutions for Every Business Need",
+    es: {
+      badge: "Nuestros Servicios",
+      title: "Soluciones Completas de IA para Cada Necesidad Empresarial",
       subtitle:
-        "Transform your operations with our suite of intelligent AI services designed to drive growth, efficiency, and innovation.",
+        "Transforma tus operaciones con nuestra suite de servicios de IA inteligentes diseñados para impulsar el crecimiento, la eficiencia y la innovación.",
       services: [
         {
           icon: Bot,
-          title: "AI Agent Development",
+          title: "Desarrollo de Agentes de IA",
           description:
-            "Custom AI agents that understand your business context and deliver personalized customer experiences across all channels.",
-          features: ["Natural Language Processing", "Multi-channel Support", "Custom Training", "Real-time Learning"],
+            "Agentes de IA personalizados que entienden el contexto de tu negocio y entregan experiencias de cliente personalizadas en todos los canales.",
+          features: ["Procesamiento de Lenguaje Natural", "Soporte Multicanal", "Entrenamiento Personalizado", "Aprendizaje en Tiempo Real"],
           benefits: [
-            "90% faster response times",
-            "24/7 customer support",
-            "50+ language support",
-            "Seamless escalation to humans",
+            "90% más rápido en tiempos de respuesta",
+            "Soporte de cliente 24/7",
+            "Soporte para 50+ idiomas",
+            "Escalada fluida a humanos",
           ],
           href: "/ai-agent-development",
         },
         {
           icon: Workflow,
-          title: "Process Automation",
+          title: "Automatización de Procesos",
           description:
-            "Intelligent automation that streamlines operations, reduces costs, and eliminates repetitive tasks with precision.",
-          features: ["Workflow Optimization", "Task Automation", "Data Processing", "Quality Assurance"],
+            "Automatización inteligente que optimiza operaciones, reduce costos y elimina tareas repetitivas con precisión.",
+          features: ["Optimización de Flujos", "Automatización de Tareas", "Procesamiento de Datos", "Aseguramiento de Calidad"],
           benefits: [
-            "70% reduction in manual tasks",
-            "99.9% accuracy in processing",
-            "40+ hours saved per week",
-            "Real-time monitoring and alerts",
+            "70% reducción en tareas manuales",
+            "99.9% precisión en procesamiento",
+            "40+ horas ahorradas por semana",
+            "Monitoreo en tiempo real y alertas",
           ],
           href: "/process-automation",
         },
