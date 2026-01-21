@@ -53,7 +53,7 @@ export function Navigation() {
             {t.contacto}
           </Link>
 
-          <div className="relative">
+          <div className="relative hidden">
             <button
               onClick={() => setLangOpen(!langOpen)}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -139,7 +139,7 @@ export function Navigation() {
 
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer text-foreground"
+              className="hidden flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer text-foreground"
               type="button"
             >
               <Globe className="w-4 h-4" />
