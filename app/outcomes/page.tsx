@@ -1,6 +1,6 @@
 "use client"
 import { OutcomesShowcase } from "@/components/landing/outcomes-showcase"
-import { Footer } from "@/components/landing/footer"
+import { Footer } from "@/components/layout/footer"
 import { useLanguage } from "@/lib/language-context"
 import { MinimalistTestimonials } from "@/components/landing/minimalist-testimonials"
 import { MinimalistSolutions } from "@/components/landing/minimalist-solutions"
@@ -33,8 +33,8 @@ export default function OutcomesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <p className="text-sm font-medium text-muted-foreground mb-4 tracking-wide uppercase">{t.subtitle}</p>
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight text-foreground">{t.title}</h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">{t.intro}</p>
+            <h1 className="h1-light mb-6 leading-tight">{t.title}</h1>
+            <p className="body-lg text-muted-foreground leading-relaxed">{t.intro}</p>
           </div>
         </div>
       </section>
@@ -60,8 +60,8 @@ export default function OutcomesPage() {
       <section className="py-32 bg-background border-t border-border">
         <div className="container mx-auto px-4">
           <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t.sectionTitle}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl">{t.sectionDesc}</p>
+            <h2 className="h2 text-foreground mb-4">{t.sectionTitle}</h2>
+            <p className="body text-muted-foreground max-w-2xl">{t.sectionDesc}</p>
           </div>
           <OutcomesShowcase />
           <MinimalistTestimonials />
@@ -72,10 +72,10 @@ export default function OutcomesPage() {
 
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold text-foreground mb-6">
+          <h2 className="h1-light mb-6">
             {language === "es" ? "¿Listo para tu transformación?" : "Ready to transform?"}
           </h2>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             {language === "es"
               ? "Únete a empresas líderes que ya están automatizando con N3uralia"
               : "Join leading companies already automating with N3uralia"}

@@ -51,7 +51,7 @@ export function MinimalistSolutions() {
         <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
           {language === "es" ? "Nuestras Soluciones" : "Our Solutions"}
         </p>
-        <h2 className="text-3xl font-bold text-foreground mb-12">
+        <h2 className="h2 text-foreground mb-12">
           {language === "es" ? "Productos que Desarrollamos" : "Products We Build"}
         </h2>
 

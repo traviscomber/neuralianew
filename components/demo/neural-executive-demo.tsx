@@ -135,9 +135,8 @@ const EXECUTIVE_CONFIGS = {
   ceo: {
     name: "CEO Neural Orchestrator",
     icon: Crown,
-    color: "from-purple-600 to-indigo-600",
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-700",
+    bgColor: "bg-primary/5",
+    textColor: "text-primary",
     description: "Strategic leadership & executive decision-making",
     expertise: ["Strategic Planning", "Market Analysis", "Crisis Management", "Executive Decision Trees"],
     sampleQuestions: [
@@ -199,9 +198,8 @@ const EXECUTIVE_CONFIGS = {
   cmo: {
     name: "CMO Growth Engine",
     icon: TrendingUp,
-    color: "from-green-600 to-emerald-600",
-    bgColor: "bg-green-50",
-    textColor: "text-green-700",
+    bgColor: "bg-primary/5",
+    textColor: "text-primary",
     description: "Marketing strategy & growth optimization",
     expertise: ["Customer Segmentation", "Campaign Optimization", "Growth Hacking", "ROI Analysis"],
     sampleQuestions: [
@@ -263,9 +261,8 @@ const EXECUTIVE_CONFIGS = {
   cto: {
     name: "CTO Innovation Architect",
     icon: Zap,
-    color: "from-blue-600 to-cyan-600",
-    bgColor: "bg-blue-50",
-    textColor: "text-blue-700",
+    bgColor: "bg-primary/5",
+    textColor: "text-primary",
     description: "Technology strategy & innovation leadership",
     expertise: ["Technology Roadmaps", "Architecture Design", "Innovation Strategy", "Security & Compliance"],
     sampleQuestions: [

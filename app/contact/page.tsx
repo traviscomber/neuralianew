@@ -1,14 +1,15 @@
 "use client"
 
 import { ContactConversation } from "@/components/contact/contact-conversation"
+import { Footer } from "@/components/layout/footer"
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen pt-32 pb-20 px-4 md:px-6 lg:px-8 bg-background">
+    <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
       <section className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Hablemos de tu proyecto</h1>
-          <p className="text-lg text-muted-foreground">
+        <div className="text-center mb-16 py-12">
+          <h1 className="h1-light mb-4 text-foreground">Hablemos de tu proyecto</h1>
+          <p className="body text-muted-foreground">
             Cuéntanos qué necesitas construir. Nuestro equipo te responderá con una propuesta clara y realista.
           </p>
         </div>
@@ -30,6 +31,8 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
+
+      <Footer />
     </main>
   )
 }

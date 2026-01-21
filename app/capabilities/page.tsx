@@ -1,7 +1,7 @@
 "use client"
 import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
 import { CouncilVoting } from "@/components/landing/council-voting"
-import { Footer } from "@/components/landing/footer"
+import { Footer } from "@/components/layout/footer"
 import { useState } from "react"
 
 export default function CapabilitiesPage() {
@@ -69,9 +69,9 @@ export default function CapabilitiesPage() {
       <main className="min-h-screen pt-16 bg-background">
         <section className="py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 text-foreground">{t.title}</h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-4">{t.subtitle}</p>
-            <p className="text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
+            <h1 className="h1-light mb-6 text-foreground">{t.title}</h1>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-4">{t.subtitle}</p>
+            <p className="body text-muted-foreground max-w-2xl mx-auto">{t.intro}</p>
           </div>
         </section>
 
@@ -85,8 +85,8 @@ export default function CapabilitiesPage() {
         <section className="py-24 bg-background border-t border-border">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-primary mb-4">{t.councilTitle}</h2>
-              <p className="text-muted-foreground">{t.councilScenario}</p>
+              <h2 className="h2 text-primary mb-4">{t.councilTitle}</h2>
+              <p className="body text-muted-foreground">{t.councilScenario}</p>
             </div>
             <CouncilVoting
               title={t.councilTitle}

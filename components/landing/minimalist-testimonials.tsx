@@ -134,7 +134,7 @@ export function MinimalistTestimonials() {
     <section className="py-20 bg-background border-t border-border">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{t.title}</h2>
+          <h2 className="h2 text-foreground mb-4">{t.title}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -373,11 +373,11 @@ Remember: Every response should make them feel valued, understood, and excited a
       <div className="fixed bottom-6 right-6 z-50">
         <Button
           onClick={onToggle}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg rounded-full w-14 h-14 p-0 animate-pulse"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 text-white shadow-lg rounded-full w-14 h-14 p-0 animate-pulse"
         >
           <MessageCircle className="h-6 w-6" />
         </Button>
-        <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-bounce"></div>
+        <div className="absolute -top-2 -right-2 w-4 h-4 bg-primary rounded-full animate-bounce"></div>
         <div className="absolute -top-12 -left-8 bg-black text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           💡 Ask me complex business questions!
         </div>
@@ -388,11 +388,11 @@ Remember: Every response should make them feel valued, understood, and excited a
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <Card
-        className={`w-96 shadow-2xl border-2 border-blue-200 transition-all duration-300 ${
+        className={`w-96 shadow-2xl border-2 border-primary/30 transition-all duration-300 ${
           isMinimized ? "h-16" : "h-[600px]"
         }`}
       >
-        <CardHeader className="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-lg p-4">
+        <CardHeader className="bg-primary text-primary-foreground rounded-t-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="relative">
@@ -403,8 +403,8 @@ Remember: Every response should make them feel valued, understood, and excited a
               </div>
               <div>
                 <CardTitle className="text-lg font-semibold">Neuralia AI Support</CardTitle>
-                <div className="flex items-center space-x-2 text-sm text-blue-100">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="flex items-center space-x-2 text-sm text-primary-foreground/80">
+                  <div className="w-2 h-2 bg-primary-foreground rounded-full animate-pulse"></div>
                   <span>Expert support • Human specialists available • 0.2s avg</span>
                 </div>
               </div>
@@ -438,12 +438,12 @@ Remember: Every response should make them feel valued, understood, and excited a
                     >
                       <div className="flex-shrink-0">
                         {message.sender === "agent" ? (
-                          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                            <Bot className="h-4 w-4 text-white" />
+                          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                            <Bot className="h-4 w-4 text-primary-foreground" />
                           </div>
                         ) : (
-                          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                            <User className="h-4 w-4 text-gray-600" />
+                          <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                            <User className="h-4 w-4 text-muted-foreground" />
                           </div>
                         )}
                       </div>
@@ -451,22 +451,22 @@ Remember: Every response should make them feel valued, understood, and excited a
                       <div className={`max-w-[80%] ${message.sender === "user" ? "text-right" : ""}`}>
                         <div
                           className={`rounded-lg px-4 py-2 ${
-                            message.sender === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
+                            message.sender === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
                           }`}
                         >
                           <div className="text-sm whitespace-pre-line">{message.content}</div>
                         </div>
 
                         {message.metadata && message.sender === "agent" && (
-                          <div className="flex items-center space-x-2 mt-1 text-xs text-gray-500">
-                            <Zap className="h-3 w-3 text-green-500" />
+                          <div className="flex items-center space-x-2 mt-1 text-xs text-muted-foreground">
+                            <Zap className="h-3 w-3 text-primary" />
                             <span>{message.metadata.processingTime?.toFixed(2)}s</span>
-                            <CheckCircle className="h-3 w-3 text-green-500" />
+                            <CheckCircle className="h-3 w-3 text-primary" />
                             <span>{Math.round((message.metadata.confidence || 0) * 100)}% confident</span>
                           </div>
                         )}
 
-                        <div className="text-xs text-gray-400 mt-1">
+                        <div className="text-xs text-muted-foreground mt-1">
                           {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                         </div>
                       </div>
@@ -480,7 +480,7 @@ Remember: Every response should make them feel valued, understood, and excited a
                             variant="outline"
                             size="sm"
                             onClick={() => handleQuickReply(reply)}
-                            className="text-xs bg-white hover:bg-blue-50 border-blue-200 text-blue-700 hover:border-blue-400 transition-all duration-200 hover:shadow-sm"
+                            className="text-xs bg-card hover:bg-primary/5 border-primary/30 text-primary hover:border-primary/50 transition-all duration-200 hover:shadow-sm"
                           >
                             {reply}
                           </Button>
@@ -492,18 +492,18 @@ Remember: Every response should make them feel valued, understood, and excited a
 
                 {isTyping && (
                   <div className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-white" />
+                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                      <Bot className="h-4 w-4 text-primary-foreground" />
                     </div>
-                    <div className="bg-gray-100 rounded-lg px-4 py-2">
+                    <div className="bg-muted rounded-lg px-4 py-2">
                       <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
                         <div
-                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-primary rounded-full animate-bounce"
                           style={{ animationDelay: "0.1s" }}
                         ></div>
                         <div
-                          className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                          className="w-2 h-2 bg-primary rounded-full animate-bounce"
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>

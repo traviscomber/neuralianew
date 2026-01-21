@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
 
 export default function HomePage() {
   return (
@@ -12,13 +13,13 @@ export default function HomePage() {
             <span className="text-sm font-medium text-primary">IA + Desarrollo</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-tight">
+          <h1 className="h1-light mb-8">
             Soluciones inteligentes
             <br />
             <span className="text-primary/70">que funcionan</span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+          <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
             Combinamos IA con desarrollo para construir sistemas que automatizan, escalan y crecen con tu negocio.
           </p>
 
@@ -59,8 +60,8 @@ export default function HomePage() {
       <section className="bg-background py-16 sm:py-24 border-t border-border px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-20">
-            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 sm:mb-6">Qué construimos</h2>
-            <p className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="h2 text-foreground mb-4 sm:mb-6">Qué construimos</h2>
+            <p className="body text-muted-foreground max-w-2xl mx-auto">
               IA + Desarrollo. Arquitectura robusta. Resultados reales.
             </p>
           </div>
@@ -97,7 +98,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto">
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-3xl sm:text-5xl font-bold text-foreground mb-4">Empresas que confían en nosotros</h2>
+            <h2 className="h2 text-foreground mb-4">Empresas que confían en nosotros</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
@@ -134,8 +135,8 @@ export default function HomePage() {
       {/* CTA Footer */}
       <section className="py-16 sm:py-20 bg-card border-t border-border px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">¿Listo para comenzar?</h2>
-          <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <h2 className="h1-light mb-4 sm:mb-6">¿Listo para comenzar?</h2>
+          <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Conecta con nuestro equipo técnico para explorar soluciones personalizadas
           </p>
           <Link
@@ -148,65 +149,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-background text-foreground py-12 border-t border-border px-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <p className="font-bold mb-4 text-foreground">N3uralia</p>
-              <p className="text-muted-foreground text-sm">Soluciones de IA inteligentes para empresas chilenas</p>
-            </div>
-            <div>
-              <p className="font-bold mb-4 text-foreground">Empresa</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link href="/about" className="hover:text-foreground transition-colors">
-                    Acerca de Nosotros
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="hover:text-foreground transition-colors">
-                    Contacto
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p className="font-bold mb-4 text-foreground">Soluciones</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <Link href="/capabilities" className="hover:text-foreground transition-colors">
-                    Capacidades
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/outcomes" className="hover:text-foreground transition-colors">
-                    Resultados
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p className="font-bold mb-4 text-foreground">Contacto</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>
-                  <a href="mailto:hello@n3uralia.com" className="hover:text-foreground transition-colors">
-                    hello@n3uralia.com
-                  </a>
-                </li>
-                <li>
-                  <a href="tel:+56993826127" className="hover:text-foreground transition-colors">
-                    +56 9 9382 6127
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>© 2024 N3uralia. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }

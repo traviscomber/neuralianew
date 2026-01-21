@@ -130,8 +130,8 @@ export function PricingCards() {
   return (
     <div>
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">{t.title}</h2>
-        <p className="text-xl text-slate-600">{t.subtitle}</p>
+        <h2 className="h2 text-foreground mb-4">{t.title}</h2>
+        <p className="body text-muted-foreground">{t.subtitle}</p>
       </div>
 
       <motion.div
@@ -143,27 +143,27 @@ export function PricingCards() {
         {t.plans.map((plan, i) => (
           <motion.div key={i} variants={itemVariants} className={plan.highlighted ? "md:scale-105" : ""}>
             <Card
-              className={`h-full flex flex-col ${plan.highlighted ? "border-blue-500 shadow-xl" : "border-slate-200"}`}
+              className={`h-full flex flex-col ${plan.highlighted ? "border-primary shadow-lg" : "border-border"}`}
             >
               <CardHeader>
-                {plan.badge && <Badge className="w-fit mb-3 bg-blue-600">{plan.badge}</Badge>}
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                <CardDescription>{plan.description}</CardDescription>
+                {plan.badge && <Badge className="w-fit mb-3 bg-primary text-primary-foreground">{plan.badge}</Badge>}
+                <CardTitle className="text-2xl text-foreground">{plan.name}</CardTitle>
+                <CardDescription className="text-muted-foreground">{plan.description}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-3xl font-bold text-slate-900">{plan.price}</span>
+                  <span className="text-3xl font-bold text-foreground">{plan.price}</span>
                 </div>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <ul className="space-y-3 mb-8 flex-1">
                   {plan.features.map((feature, j) => (
                     <li key={j} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                      <span className="text-slate-700">{feature}</span>
+                      <Check className="w-5 h-5 text-primary flex-shrink-0" />
+                      <span className="text-foreground">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button
-                  className={`w-full ${plan.highlighted ? "bg-blue-600 hover:bg-blue-700" : ""}`}
+                  className={`w-full ${plan.highlighted ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""}`}
                   variant={plan.highlighted ? "default" : "outline"}
                 >
                   {plan.cta}

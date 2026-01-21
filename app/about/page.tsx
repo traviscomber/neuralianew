@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent } from "@/components/ui/card"
-import { Footer } from "@/components/landing/footer"
+import { Footer } from "@/components/layout/footer"
 import { useLanguage } from "@/lib/language-context"
 import { Zap, Shield, Users, Target } from "lucide-react"
 
@@ -86,8 +86,8 @@ export default function AboutPage() {
           <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
             {language === "en" ? "Who We Are" : "Quiénes Somos"}
           </p>
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight">{t.title}</h1>
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">{t.heroText}</p>
+          <h1 className="h1-light mb-8 text-foreground">{t.title}</h1>
+          <p className="body-lg text-muted-foreground leading-relaxed">{t.heroText}</p>
         </div>
       </section>
 
@@ -98,8 +98,8 @@ export default function AboutPage() {
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
               {language === "en" ? "The Why" : "El Por Qué"}
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8 leading-tight">{t.mission}</h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">{t.missionText}</p>
+            <h2 className="h2 text-foreground mb-8 leading-tight">{t.mission}</h2>
+            <p className="body text-muted-foreground leading-relaxed">{t.missionText}</p>
           </div>
         </div>
       </section>
@@ -111,8 +111,8 @@ export default function AboutPage() {
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
               {language === "en" ? "The Vision" : "La Visión"}
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-8 leading-tight">{t.vision}</h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">{t.visionText}</p>
+            <h2 className="h2 text-foreground mb-8 leading-tight">{t.vision}</h2>
+            <p className="body text-muted-foreground leading-relaxed">{t.visionText}</p>
           </div>
         </div>
       </section>
@@ -124,8 +124,8 @@ export default function AboutPage() {
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
               {language === "en" ? "Our Approach" : "Nuestro Enfoque"}
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">{t.valuesTitle}</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="h2 text-foreground mb-6">{t.valuesTitle}</h2>
+            <p className="body text-muted-foreground">
               {language === "en"
                 ? "These aren't just words on a wall. They're how we operate, every single day."
                 : "Estas no son solo palabras en una pared. Es cómo operamos, todos los días."}

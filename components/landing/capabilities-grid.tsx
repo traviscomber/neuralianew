@@ -155,10 +155,10 @@ export function CapabilitiesGrid() {
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
-                      <div>
-                        <h2 className="text-2xl font-bold text-foreground">{t[selectedCapability].title}</h2>
-                        <p className="text-muted-foreground mt-2">{t[selectedCapability].description}</p>
-                      </div>
+                    <div>
+                      <h2 className="h3 text-foreground mb-4">{t[selectedCapability].title}</h2>
+                      <p className="body text-muted-foreground mt-2">{t[selectedCapability].description}</p>
+                    </div>
                     </div>
                     <button
                       onClick={() => setSelectedCapability(null)}
@@ -169,7 +169,7 @@ export function CapabilitiesGrid() {
                   </div>
 
                   <div className="mb-6">
-                    <h3 className="font-semibold text-foreground mb-3">
+                    <h3 className="font-normal text-foreground mb-3">
                       {language === "en" ? "Key Features" : "Características Principales"}
                     </h3>
                     <ul className="space-y-2">
@@ -221,19 +221,17 @@ export function CapabilitiesGrid() {
                     {capability.icon && <capability.icon className="w-6 h-6 text-primary" />}
                   </motion.div>
                 </motion.div>
-                <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                <h3 className="h3 text-foreground group-hover:text-primary transition-colors">
                   {capability.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mt-2 group-hover:text-foreground transition-colors font-light">
-                  {capability.description}
-                </p>
+                <p className="body text-muted-foreground mt-2 group-hover:text-foreground transition-colors">{capability.description}</p>
               </CardHeader>
               <CardContent className="pt-0 space-y-4">
                 <ul className="space-y-2">
                   {capability.features.map((feature, j) => (
                     <motion.li
                       key={j}
-                      className="flex items-center text-sm text-muted-foreground group-hover:text-foreground"
+                      className="flex items-center body text-muted-foreground group-hover:text-foreground"
                       initial={{ opacity: 0, x: -8 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: j * 0.08 }}

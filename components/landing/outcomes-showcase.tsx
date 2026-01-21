@@ -6,8 +6,6 @@ import { TrendingUp, Zap, Users, BarChart3 } from "lucide-react"
 export function OutcomesShowcase() {
   const { language } = useLanguage()
 
-  console.log("[v0] OutcomesShowcase rendered with language:", language)
-
   const outcomes = {
     en: [
       {
@@ -118,8 +116,6 @@ export function OutcomesShowcase() {
   }
 
   const t = outcomes[language]
-
-  console.log("[v0] Outcomes data loaded:", t.length, "items")
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
