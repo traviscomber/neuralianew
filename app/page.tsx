@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { MultiAgentRoles } from "@/components/landing/multi-agent-roles"
+import { HumanContextEngine } from "@/components/landing/human-context-engine"
 
 export default function HomePage() {
   return (
@@ -56,43 +58,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Core Capabilities */}
-      <section className="bg-background py-16 sm:py-24 border-t border-border px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-20">
-            <h2 className="h2 text-foreground mb-4 sm:mb-6">Qué construimos</h2>
-            <p className="body text-muted-foreground max-w-2xl mx-auto">
-              IA + Desarrollo. Arquitectura robusta. Resultados reales.
-            </p>
-          </div>
+      {/* Core Capabilities - REPLACED WITH MULTI-AGENT ROLES */}
+      <MultiAgentRoles />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {[
-              {
-                title: "Agentes Inteligentes",
-                desc: "Bots que entienden, resuelven y aprenden. Atención al cliente que funciona sola",
-              },
-              {
-                title: "Automatización Inteligente",
-                desc: "Procesos que se optimizan solos. Errores menos, velocidad más",
-              },
-              {
-                title: "Plataformas Personalizadas",
-                desc: "Desarrollo full-stack con IA integrada. Tu visión hecha realidad",
-              },
-              {
-                title: "Integración Total",
-                desc: "Se conecta con lo que tienes. Sin complicaciones, todo fluye",
-              },
-            ].map((item, i) => (
-              <div key={i} className="p-6 sm:p-8 border border-border rounded-lg hover:border-primary/40 transition-colors bg-card">
-                <h3 className="text-xl sm:text-2xl font-bold text-primary mb-3">{item.title}</h3>
-                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Human Context Engine */}
+      <HumanContextEngine />
 
       {/* Testimonials */}
       <section className="py-16 sm:py-20 bg-background border-t border-border px-4">

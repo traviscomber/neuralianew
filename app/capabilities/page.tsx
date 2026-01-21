@@ -2,6 +2,7 @@
 import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
 import { CouncilVoting } from "@/components/landing/council-voting"
 import { Footer } from "@/components/layout/footer"
+import { PersistentIntelligenceMemory } from "@/components/landing/persistent-memory"
 import { useState } from "react"
 
 export default function CapabilitiesPage() {
@@ -97,6 +98,9 @@ export default function CapabilitiesPage() {
             />
           </div>
         </section>
+
+        {/* Persistent Intelligence Memory */}
+        <PersistentIntelligenceMemory />
 
         <Footer />
       </main>
