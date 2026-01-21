@@ -5,6 +5,7 @@ import "./globals.css"
 import { LanguageProvider } from "@/lib/language-context"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
+import { ScrollToTop } from "@/components/scroll-to-top"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} ${inter.variable} antialiased font-sans`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <LanguageProvider>
+            <ScrollToTop />
             <Navigation />
             {children}
           </LanguageProvider>
