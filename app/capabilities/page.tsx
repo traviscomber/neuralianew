@@ -2,7 +2,7 @@
 import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
 import { CouncilVoting } from "@/components/landing/council-voting"
 import { Footer } from "@/components/layout/footer"
-import { PersistentIntelligenceMemory } from "@/components/landing/persistent-memory"
+import { MemoryOperatingSystem } from "@/components/landing/memory-operating-system"
 import { useState } from "react"
 
 export default function CapabilitiesPage() {
@@ -29,38 +29,38 @@ export default function CapabilitiesPage() {
 
   const councilAgents = [
     {
-      name: "Domain",
-      role: "Análisis Empresarial",
+      name: "Dominio",
+      role: "Analisis Empresarial",
       vote: "approve" as const,
       reasoning: "Alineado con objetivos",
       color: "#739696",
     },
     {
-      name: "Logic",
-      role: "Validación Lógica",
+      name: "Logica",
+      role: "Validacion Estructural",
       vote: "approve" as const,
       reasoning: "Coherencia verificada",
       color: "#739696",
     },
     {
-      name: "Risk",
-      role: "Gestión de Riesgos",
+      name: "Riesgo",
+      role: "Gestion de Riesgos",
       vote: "caution" as const,
-      reasoning: "Requiere validación",
+      reasoning: "Requiere validacion",
       color: "#739696",
     },
     {
-      name: "Compliance",
-      role: "Normativas",
+      name: "Normativa",
+      role: "Cumplimiento Legal",
       vote: "approve" as const,
       reasoning: "Conforme regulaciones",
       color: "#739696",
     },
     {
-      name: "Performance",
-      role: "Optimización",
+      name: "Rendimiento",
+      role: "Optimizacion",
       vote: "approve" as const,
-      reasoning: "Dentro de límites",
+      reasoning: "Dentro de limites",
       color: "#739696",
     },
   ]
@@ -99,8 +99,8 @@ export default function CapabilitiesPage() {
           </div>
         </section>
 
-        {/* Persistent Intelligence Memory */}
-        <PersistentIntelligenceMemory />
+        {/* Memory Operating System */}
+        <MemoryOperatingSystem />
 
         <Footer />
       </main>

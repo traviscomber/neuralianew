@@ -6,23 +6,23 @@ const contextPillars = [
   {
     id: "human",
     icon: User,
-    title: "Entiende Quién Eres",
-    description: "Conoce tu contexto personal, objetivos, estilo de trabajo. Cada interacción mejora su comprensión.",
+    title: "Perfil Cognitivo",
+    description: "Construye un modelo de tu contexto, objetivos y estilo. Cada interaccion refina la comprension.",
     details: ["Perfil de usuario persistente", "Preferencias aprendidas", "Historial de decisiones"],
   },
   {
     id: "world",
     icon: Globe,
-    title: "Entiende Tu Mundo",
-    description: "Domina tu industria, mercado y competencia. Sabe qué funciona en tu contexto específico.",
-    details: ["Análisis de industria", "Inteligencia de mercado", "Benchmarking competitivo"],
+    title: "Inteligencia de Dominio",
+    description: "Domina tu industria, mercado y competencia. Sabe que funciona en tu contexto especifico.",
+    details: ["Analisis de industria", "Inteligencia de mercado", "Benchmarking competitivo"],
   },
   {
     id: "assist",
     icon: Lightbulb,
-    title: "Asiste Inteligentemente",
-    description: "Propone soluciones adaptadas a ti. No respuestas genéricas, sino recomendaciones personalizadas.",
-    details: ["Soluciones contextualizadas", "Automatización inteligente", "Optimización continua"],
+    title: "Asistencia Adaptativa",
+    description: "Propone soluciones calibradas a ti. No respuestas genericas, sino recomendaciones de precision.",
+    details: ["Soluciones contextualizadas", "Automatizacion inteligente", "Optimizacion continua"],
   },
 ]
 
@@ -31,9 +31,9 @@ export function HumanContextEngine() {
     <section className="bg-background py-24 border-t border-border px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="h2 text-foreground mb-4">El Motor de Contexto Humano</h2>
+          <h2 className="h2 text-foreground mb-4">Motor de Contexto Inteligente</h2>
           <p className="body text-muted-foreground max-w-2xl mx-auto">
-            N3uralia no es una herramienta genérica. Es un sistema que te entiende a ti, tu negocio y tu mundo.
+            Un sistema que te entiende a ti, tu negocio y tu mundo. Contexto persistente, no conversaciones aisladas.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ export function HumanContextEngine() {
 
         {/* Context Engine Workflow */}
         <div className="p-8 rounded-lg border border-border bg-card">
-          <h3 className="h3 text-foreground mb-6 text-center">Cómo Funciona el Contexto</h3>
+          <h3 className="h3 text-foreground mb-6 text-center">Ciclo de Contexto</h3>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
             {/* Step 1 */}

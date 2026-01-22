@@ -5,38 +5,38 @@ import { Eye, Brain, Wand2, CheckCircle2 } from "lucide-react"
 const agents = [
   {
     id: "observer",
-    name: "Observer Agent",
-    role: "Inteligencia Perceptual",
+    name: "Agente Centinela",
+    role: "Percepcion Cognitiva",
     description: "Analiza contexto, datos y patrones. Entiende tu negocio profundamente.",
     icon: Eye,
-    capabilities: ["Análisis de datos en tiempo real", "Detección de patrones ocultos", "Contextualización automática"],
+    capabilities: ["Analisis de datos en tiempo real", "Deteccion de patrones ocultos", "Contextualizacion automatica"],
     color: "#739696",
   },
   {
     id: "strategist",
-    name: "Strategist Agent",
+    name: "Agente Estratega",
     role: "Inteligencia Decisiva",
-    description: "Propone decisiones inteligentes basadas en análisis. Minimiza riesgos, maximiza oportunidades.",
+    description: "Propone decisiones inteligentes basadas en analisis. Minimiza riesgos, maximiza oportunidades.",
     icon: Brain,
-    capabilities: ["Evaluación multi-criterio", "Simulación de escenarios", "Recomendaciones basadas en IA"],
+    capabilities: ["Evaluacion multi-criterio", "Simulacion de escenarios", "Recomendaciones predictivas"],
     color: "#739696",
   },
   {
     id: "creator",
-    name: "Creator Agent",
-    role: "Inteligencia Ejecutiva",
+    name: "Agente Arquitecto",
+    role: "Motor de Ejecucion",
     description: "Genera soluciones, contenido y automatizaciones. Transforma ideas en realidad.",
     icon: Wand2,
-    capabilities: ["Generación de contenido personalizado", "Automatización inteligente", "Integración full-stack"],
+    capabilities: ["Generacion de contenido", "Automatizacion inteligente", "Integracion full-stack"],
     color: "#739696",
   },
   {
     id: "verifier",
-    name: "Verifier Agent",
-    role: "Inteligencia Verificadora",
+    name: "Agente Guardian",
+    role: "Control de Calidad",
     description: "Valida resultados en tiempo real. Garantiza calidad y consistencia.",
     icon: CheckCircle2,
-    capabilities: ["Control de calidad continuo", "Validación en tiempo real", "Alertas proactivas"],
+    capabilities: ["Control de calidad continuo", "Validacion en tiempo real", "Alertas proactivas"],
     color: "#739696",
   },
 ]
@@ -46,10 +46,10 @@ export function MultiAgentRoles() {
     <section className="bg-background py-24 border-t border-border px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="h2 text-foreground mb-4">Los Cuatro Agentes Inteligentes de N3uralia</h2>
+          <h2 className="h2 text-foreground mb-4">Arquitectura Multi-Agente</h2>
           <p className="body text-muted-foreground max-w-2xl mx-auto">
-            No es solo IA. Son cuatro roles cognitivos que trabajan juntos como un equipo humano,
-            pero con velocidad y precisión de máquina.
+            Cuatro agentes cognitivos especializados que operan en sincronía.
+            Velocidad de maquina, precision humana.
           </p>
         </div>
 
@@ -104,10 +104,10 @@ export function MultiAgentRoles() {
         {/* Integration Note */}
         <div className="mt-16 p-8 rounded-lg border border-primary/20 bg-primary/5">
           <p className="text-center text-sm text-muted-foreground">
-            <span className="font-semibold text-foreground">Los 4 agentes trabajan en sincronía.</span>
+            <span className="font-semibold text-foreground">Orquestacion Inteligente.</span>
             {" "}
-            Observer proporciona inteligencia, Strategist decide, Creator ejecuta, Verifier valida.
-            Esto es lo que hace a N3uralia diferente: no es una herramienta, es un equipo cognitivo.
+            Centinela percibe, Estratega decide, Arquitecto ejecuta, Guardian valida.
+            Un ecosistema cognitivo completo, no una herramienta aislada.
           </p>
         </div>
       </div>
