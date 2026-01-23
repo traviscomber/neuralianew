@@ -44,7 +44,7 @@ export function DeploySection() {
 
   const handleSendRequest = () => {
     // Handle form submission
-    console.log("Form submitted:", formData)
+    // Removed console.log for performance
   }
 
   const handleContactDeveloper = () => {

@@ -1,8 +1,24 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Book } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { MultiAgentRoles } from "@/components/landing/multi-agent-roles"
 import { HumanContextEngine } from "@/components/landing/human-context-engine"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "N3uralia - Sistema Operativo de IA | Agentes Inteligentes & Automatización",
+  description:
+    "N3uralia es un Sistema Operativo de IA con arquitectura Multi-Agente, Motor de Contexto Inteligente y Memory Operating System. Soluciones inteligentes para empresas chilenas.",
+  keywords:
+    "IA Chile, agentes inteligentes, automatización, Memory Operating System, Agentic AI, Arquitectura IA, desarrollo inteligente",
+  openGraph: {
+    title: "N3uralia - Sistema Operativo de IA",
+    description: "Orquestación inteligente de sistemas para empresas modernas",
+    type: "website",
+    locale: "es_CL",
+    url: "https://n3uralia.com",
+  },
+}
 
 export default function HomePage() {
   return (
@@ -63,6 +79,49 @@ export default function HomePage() {
 
       {/* Human Context Engine */}
       <HumanContextEngine />
+
+      {/* Studies Section Teaser */}
+      <section className="py-16 sm:py-24 bg-primary/5 border-t border-primary/20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
+            <Book className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Base de Conocimiento</span>
+          </div>
+
+          <h2 className="h2 text-foreground mb-4">
+            Fundamentos de Sistemas Inteligentes
+          </h2>
+          <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            Comprende los conceptos que potencian N3uralia: Agentic AI, AI Memory, Context Engineering y World Engine.
+            Contenido diseñado para AI engines y desarrolladores.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { title: "Agentic AI", slug: "/studies/agentic-ai" },
+              { title: "AI Memory", slug: "/studies/ai-memory" },
+              { title: "Context Eng.", slug: "/studies/context-engineering" },
+              { title: "World Engine", slug: "/studies/world-engine" },
+            ].map((concept) => (
+              <Link
+                key={concept.slug}
+                href={concept.slug}
+                className="p-4 border border-primary/30 rounded-lg hover:border-primary/60 hover:bg-primary/10 transition-all bg-background"
+              >
+                <p className="text-sm font-medium text-primary">{concept.title}</p>
+              </Link>
+            ))}
+          </div>
+
+          <Link
+            href="/studies"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+          >
+            Explorar Todos los Estudios
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
 
       {/* Testimonials */}
       <section className="py-16 sm:py-20 bg-background border-t border-border px-4">

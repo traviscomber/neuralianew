@@ -24,11 +24,11 @@ const config: Config = {
         mono: ["var(--font-inter)", "monospace"],
       },
       fontSize: {
-        "h1": ["64px", { lineHeight: "1.1", fontWeight: "300" }], /* Montserrat Light */
-        "h1-medium": ["64px", { lineHeight: "1.1", fontWeight: "500" }], /* Montserrat Medium */
-        "h2": ["48px", { lineHeight: "1.2", fontWeight: "300" }], /* Montserrat Light */
-        "h3": ["32px", { lineHeight: "1.3", fontWeight: "400" }], /* Montserrat Regular */
-        "body-lg": ["24px", { lineHeight: "1.6", fontWeight: "400" }], /* Montserrat Regular */
+        "h1": ["64px", { lineHeight: "1.1", fontWeight: "300" }],
+        "h1-medium": ["64px", { lineHeight: "1.1", fontWeight: "500" }],
+        "h2": ["48px", { lineHeight: "1.2", fontWeight: "300" }],
+        "h3": ["32px", { lineHeight: "1.3", fontWeight: "400" }],
+        "body-lg": ["24px", { lineHeight: "1.6", fontWeight: "400" }],
         "body": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
         "body-sm": ["14px", { lineHeight: "1.5", fontWeight: "400" }],
       },
@@ -89,6 +89,9 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
+  corePlugins: {
+    preflight: true,
+  },
 } satisfies Config
 
 export default config

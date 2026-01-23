@@ -1,31 +1,25 @@
 "use client"
 import { OutcomesShowcase } from "@/components/landing/outcomes-showcase"
 import { Footer } from "@/components/layout/footer"
-import { useLanguage } from "@/lib/language-context"
 import { MinimalistTestimonials } from "@/components/landing/minimalist-testimonials"
 import { MinimalistSolutions } from "@/components/landing/minimalist-solutions"
 
 export default function OutcomesPage() {
-  const { language } = useLanguage()
 
   const content = {
-    en: {
-      title: "Resultados",
-      subtitle: "Lo que pasó después",
-      intro: "Estas no son promesas. Son historias reales de empresas que confiaron en N3uralia.",
-      sectionTitle: "Cómo Transformamos Negocios",
-      sectionDesc: "Desde la automatización hasta la innovación, nuestros clientes ahorran tiempo, dinero y dolores de cabeza",
-    },
     es: {
       title: "Resultados",
       subtitle: "Lo que pasó después",
       intro: "Estas no son promesas. Son historias reales de empresas que confiaron en N3uralia.",
       sectionTitle: "Cómo Transformamos Negocios",
       sectionDesc: "Desde la automatización hasta la innovación, nuestros clientes ahorran tiempo, dinero y dolores de cabeza",
+      transformationTitle: "¿Listo para tu transformación?",
+      transformationDesc: "Únete a empresas líderes que ya están automatizando con N3uralia",
+      ctaButton: "Hablar con Equipo",
     },
   }
 
-  const t = content[language]
+  const t = content.es
 
   return (
     <main className="min-h-screen pt-16 bg-background">
@@ -43,10 +37,10 @@ export default function OutcomesPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { metric: "50+", label: language === "es" ? "Empresas" : "Companies" },
-              { metric: "99.8%", label: language === "es" ? "Uptime" : "Uptime" },
-              { metric: "80%", label: language === "es" ? "Reducción promedio" : "Avg reduction" },
-              { metric: "24/7", label: language === "es" ? "Soporte local" : "Local support" },
+              { metric: "50+", label: "Empresas" },
+              { metric: "99.8%", label: "Uptime" },
+              { metric: "80%", label: "Reducción promedio" },
+              { metric: "24/7", label: "Soporte local" },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <div className="text-5xl font-bold text-primary mb-2">{item.metric}</div>
@@ -73,15 +67,13 @@ export default function OutcomesPage() {
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <h2 className="h1-light mb-6">
-            {language === "es" ? "¿Listo para tu transformación?" : "Ready to transform?"}
+            {t.transformationTitle}
           </h2>
           <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {language === "es"
-              ? "Únete a empresas líderes que ya están automatizando con N3uralia"
-              : "Join leading companies already automating with N3uralia"}
+            {t.transformationDesc}
           </p>
           <a href="/contact" className="inline-block bg-primary text-primary-foreground px-8 py-3 font-semibold rounded-lg hover:bg-primary/90 transition-colors border border-primary">
-            {language === "es" ? "Hablar con Equipo" : "Talk to Team"}
+            {t.ctaButton}
           </a>
         </div>
       </section>

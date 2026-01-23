@@ -14,6 +14,7 @@ export function Navigation() {
     es: {
       inicio: "Inicio",
       capacidades: "Capacidades",
+      coordinacion: "Coordinación",
       resultados: "Resultados",
       acerca: "Acerca de",
       contacto: "Contacto",
@@ -21,6 +22,7 @@ export function Navigation() {
     en: {
       inicio: "Home",
       capacidades: "Capabilities",
+      coordinacion: "Coordination",
       resultados: "Results",
       acerca: "About",
       contacto: "Contact",
@@ -42,6 +44,9 @@ export function Navigation() {
         <div className="hidden md:flex gap-8 items-center">
           <Link href="/capabilities" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.capacidades}
+          </Link>
+          <Link href="/coordination" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            {t.coordinacion}
           </Link>
           <Link href="/outcomes" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.resultados}
@@ -114,6 +119,9 @@ export function Navigation() {
         <div className="md:hidden border-t border-border bg-background p-4 space-y-3">
           <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
             {t.capacidades}
+          </Link>
+          <Link href="/coordination" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+            {t.coordinacion}
           </Link>
           <Link href="/outcomes" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
             {t.resultados}
