@@ -20,6 +20,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/studies" className="hover:text-foreground transition-colors">
+                  Estudios
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="hover:text-foreground transition-colors">
                   Contacto
                 </Link>
@@ -32,6 +37,11 @@ export function Footer() {
               <li>
                 <Link href="/capabilities" className="hover:text-foreground transition-colors">
                   Capacidades
+                </Link>
+              </li>
+              <li>
+                <Link href="/coordination" className="hover:text-foreground transition-colors">
+                  Coordinación
                 </Link>
               </li>
               <li>
@@ -58,7 +68,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 N3uralia. Todos los derechos reservados.</p>
+          <p>© 2025 N3uralia. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

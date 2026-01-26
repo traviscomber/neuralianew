@@ -1,19 +1,17 @@
 import Link from "next/link"
 import { ArrowRight, Book } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { MultiAgentRoles } from "@/components/landing/multi-agent-roles"
-import { HumanContextEngine } from "@/components/landing/human-context-engine"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistema Operativo de IA | Agentes Inteligentes & Automatización",
+  title: "N3uralia - IA + Full-Stack Engineering | Agentes en Producción",
   description:
-    "N3uralia es un Sistema Operativo de IA con arquitectura Multi-Agente, Motor de Contexto Inteligente y Memory Operating System. Soluciones inteligentes para empresas chilenas.",
+    "Arquitectura multi-agente, sistemas inteligentes y automatización—desde desarrollo a producción. Full-stack IA para empresas chilenas.",
   keywords:
-    "IA Chile, agentes inteligentes, automatización, Memory Operating System, Agentic AI, Arquitectura IA, desarrollo inteligente",
+    "IA productiva, multi-agent systems, full-stack development, agentes en producción, automatización empresarial, Chile",
   openGraph: {
-    title: "N3uralia - Sistema Operativo de IA",
-    description: "Orquestación inteligente de sistemas para empresas modernas",
+    title: "N3uralia - IA + Full-Stack Engineering",
+    description: "Agentes inteligentes funcionando en producción. Hoy.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -28,17 +26,17 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">IA + Desarrollo</span>
+            <span className="text-sm font-medium text-primary">Constructores, No Consultores</span>
           </div>
 
           <h1 className="h1-light mb-8">
-            Soluciones inteligentes
+            IA + Full-Stack Engineering
             <br />
-            <span className="text-primary/70">que funcionan</span>
+            <span className="text-primary/70">que funciona en producción</span>
           </h1>
 
           <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Combinamos IA con desarrollo para construir sistemas que automatizan, escalan y crecen con tu negocio.
+            Arquitectura multi-agente especializada, sistemas inteligentes integrados y automatización escalable. Desde desarrollo hasta producción—entregamos código que trabaja.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -73,12 +71,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Core Capabilities - REPLACED WITH MULTI-AGENT ROLES */}
-      <MultiAgentRoles />
-
-      {/* Human Context Engine */}
-      <HumanContextEngine />
 
       {/* Studies Section Teaser */}
       <section className="py-16 sm:py-24 bg-primary/5 border-t border-primary/20 px-4">

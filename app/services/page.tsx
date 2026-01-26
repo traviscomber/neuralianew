@@ -1,139 +1,121 @@
-"use client"
-
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Bot, Workflow, Building2, ArrowRight } from "lucide-react"
-import { useLanguage } from "@/lib/language-context"
+import { Bot, Workflow, Building2 } from "lucide-react"
 import { ServicesSection } from "@/components/landing/services-section"
 import { FeaturesSection } from "@/components/landing/features-section"
 import { FAQSection } from "@/components/landing/faq-section"
 import { ContactSection } from "@/components/landing/contact-section"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Servicios de N3uralia | Agentes IA y Automatización",
+  description: "Agentes inteligentes, automatización empresarial y plataformas personalizadas para tu negocio.",
+}
+
+const services = [
+  {
+    icon: Bot,
+    title: "Agentes en Producción",
+    description:
+      "IA que trabaja dentro de tu infraestructura. Resuelve problemas reales en paralelo. Integración total con tus sistemas. Sin APIs externas, sin dependencias.",
+    features: ["Multi-agente coordinado", "Integración nativa", "Escalabilidad", "24/7 operativo"],
+    benefits: [
+      "Resuelve problemas en paralelo",
+      "Sin latencia de APIs externas",
+      "Tu stack, tu control",
+      "Confiabilidad empresarial",
+    ],
+    href: "/ai-agent-development",
+  },
+  {
+    icon: Workflow,
+    title: "Automatización que Funciona",
+    description:
+      "Procesos que ejecutan solos dentro de tu workflow. No fake automation. Integración real con tus bases de datos, APIs y servicios.",
+    features: ["Workflows reales", "Integración total", "Monitoreo continuo", "Alertas inteligentes"],
+    benefits: [
+      "Tareas manuales = automatizadas",
+      "Precisión al 99.99%",
+      "Horas ahorradas documentadas",
+      "ROI medible en semanas",
+    ],
+    href: "/process-automation",
+  },
+  {
+    icon: Building2,
+    title: "Plataformas Full-Stack",
+    description:
+      "Backend + IA integrados desde el arquitecto. No templates. No compromisos. Infraestructura que escala. Código limpio. Deploy listo.",
+    features: ["Desarrollo full-stack", "Arquitectura productiva", "Seguridad empresarial", "DevOps incluido"],
+    benefits: [
+      "Construido para tu caso específico",
+      "Sin deuda técnica inicial",
+      "Deploy en semanas",
+      "Escalable a millones de requests",
+    ],
+    href: "/enterprise-integration",
+  },
+]
+
+const processSteps = [
+  {
+    step: "1",
+    title: "Diagnosis Técnico",
+    description:
+      "Evaluamos tu stack, tus pain points, qué necesita IA. Sin fluff. Propuesta concreta.",
+  },
+  {
+    step: "2",
+    title: "Arquitectura + Diseño",
+    description: "Diseño de sistema que funciona dentro de tu infraestructura. Code review completo. Aprobación antes de desarrollar.",
+  },
+  {
+    step: "3",
+    title: "Desarrollo + Testing",
+    description:
+      "Construcción iterativa con testing continuo. Integración temprana con tus sistemas. Sin sorpresas en producción.",
+  },
+  {
+    step: "4",
+    title: "Deploy + Operación",
+    description: "Lanzamiento a producción. Monitoreo 24/7. Optimización continua. Estamos aquí si algo falla.",
+  },
+]
 
 export default function ServicesPage() {
-  const { language } = useLanguage()
-
-  const content = {
-    es: {
-      badge: "Qué Ofrecemos",
-      title: "Lo Que Construimos Para Ti",
-      subtitle:
-        "No vendemos soluciones genéricas. Construimos lo que tu negocio necesita: sistemas inteligentes que funcionan, que escalan, y que crecen contigo.",
-      services: [
-        {
-          icon: Bot,
-          title: "Agentes Inteligentes",
-          description:
-            "Bots que entienden tu negocio. Atienden clientes 24/7, resuelven problemas, aprenden con cada interacción. Tu servicio al cliente, automatizado.",
-          features: ["Conversación Natural", "Multi-canal", "Aprendizaje Continuo", "Escalada Humana"],
-          benefits: [
-            "Clientes felices día y noche",
-            "Menos tickets repetidos",
-            "Respuestas en segundos",
-            "Tus reglas, tus datos",
-          ],
-          href: "/ai-agent-development",
-        },
-        {
-          icon: Workflow,
-          title: "Automatización Inteligente",
-          description:
-            "Procesos que se hacen solos. Menos errores. Menos tiempo gastado en lo repetitivo. Más tiempo en lo que importa.",
-          features: ["Flujos Optimizados", "Sin Errores Humanos", "Integración Total", "Monitoreo Real"],
-          benefits: [
-            "Tareas manuales que desaparecen",
-            "Precisión al 99.9%",
-            "Horas ahorradas cada semana",
-            "Alertas cuando importa",
-          ],
-          href: "/process-automation",
-        },
-        {
-          icon: Building2,
-          title: "Plataformas Personalizadas",
-          description:
-            "Tu visión, hecha realidad. Desarrollo full-stack con IA integrada desde el día uno. No templates. No compromisos. Tu solución.",
-          features: ["Desarrollo Personalizado", "Arquitectura Robusta", "Integración Perfecta", "Seguridad Empresarial"],
-          benefits: [
-            "Construido para tu negocio",
-            "Sin deudas técnicas",
-            "Lanzamiento rápido",
-            "Soporte 24/7 local",
-          ],
-          href: "/enterprise-integration",
-        },
-      ],
-      learnMore: "Conocer Más",
-      getStarted: "Comenzar",
-      whyChoose: "Por Qué N3uralia",
-      whyChooseDesc: "No creemos en soluciones de caja. Creemos en asociaciones que funcionan.",
-      processTitle: "Cómo Trabajamos",
-      processSteps: [
-        {
-          step: "1",
-          title: "Te Escuchamos",
-          description:
-            "Charla sin presión. Entendemos qué quieres lograr, dónde están tus pain points, qué es lo urgente.",
-        },
-        {
-          step: "2",
-          title: "Construimos",
-          description: "Nuestro equipo diseña y desarrolla tu solución. Iteramos rápido, enseñamos en el proceso, adaptamos sobre la marcha.",
-        },
-        {
-          step: "3",
-          title: "Integration & Testing",
-          description:
-            "Seamless integration with your existing systems followed by comprehensive testing and optimization.",
-        },
-        {
-          step: "3",
-          title: "Lanzamiento",
-          description: "Deploy a producción. Soporte completo, alertas, optimización. Estamos aquí si algo cambia.",
-        },
-      ],
-    },
-  }
-
-  const t = content[language]
-
-  const whatsappMessage =
-    language === "es"
-      ? "Hola, me interesa conocer más sobre los servicios de IA de N3uralia"
-      : "Hello, I'm interested in learning more about N3uralia's AI services"
-
-  const whatsappUrl = `https://wa.me/56944444649?text=${encodeURIComponent(whatsappMessage)}`
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="py-20 bg-white border-b border-primary/20">
+      <section className="py-20 pt-32 bg-background border-b border-border">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge
               variant="secondary"
               className="mb-4 px-4 py-2 text-sm font-medium bg-primary/10 text-primary border-primary/20"
             >
-              {t.badge}
+              Qué Ofrecemos
             </Badge>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">{t.title}</h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t.subtitle}</p>
+            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">Lo Que Construimos Para Ti</h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              No vendemos soluciones genéricas. Construimos lo que tu negocio necesita: sistemas inteligentes que funcionan, que escalan, y que crecen contigo.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <ServicesSection services={t.services} learnMore={t.learnMore} getStarted={t.getStarted} />
+      <ServicesSection services={services} learnMore="Conocer Más" getStarted="Comenzar" />
 
       {/* Process Section */}
-      <section className="py-20 bg-white border-t border-primary/20">
+      <section className="py-20 bg-background border-t border-border">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">{t.processTitle}</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t.whyChooseDesc}</p>
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Cómo Trabajamos</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">No creemos en soluciones de caja. Creemos en asociaciones que funcionan.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {t.processSteps.map((step, index) => (
+            {processSteps.map((step, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-primary text-primary-foreground rounded-lg flex items-center justify-center text-2xl font-bold mx-auto mb-6">
                   {step.step}
