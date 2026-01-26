@@ -1,8 +1,11 @@
 "use client"
-import { OutcomesShowcase } from "@/components/landing/outcomes-showcase"
 import { Footer } from "@/components/layout/footer"
-import { MinimalistTestimonials } from "@/components/landing/minimalist-testimonials"
-import { MinimalistSolutions } from "@/components/landing/minimalist-solutions"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Resultados de N3uralia | Casos Reales",
+  description: "Historias reales de empresas que transformaron sus procesos con N3uralia. Automatización, eficiencia y resultados medibles.",
+}
 
 export default function OutcomesPage() {
 
@@ -57,12 +60,42 @@ export default function OutcomesPage() {
             <h2 className="h2 text-foreground mb-4">{t.sectionTitle}</h2>
             <p className="body text-muted-foreground max-w-2xl">{t.sectionDesc}</p>
           </div>
-          <OutcomesShowcase />
-          <MinimalistTestimonials />
+          
+          {/* Testimonios Inline */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            {[
+              {
+                quote: "El sistema optimizó nuestros procesos de consultoría ambiental. El análisis automatizado nos ahorra horas diarias.",
+                author: "Sebastian Puelma",
+                company: "Ecosuelolab",
+              },
+              {
+                quote: "El asistente de IA inmobiliaria nos ayuda a conectar propiedades con clientes más efectivamente.",
+                author: "Juan Navarro",
+                company: "Sur-Realista",
+              },
+              {
+                quote: "Reducimos el tiempo de procesamiento de documentos en un 85%. ROI en 3 meses.",
+                author: "María García",
+                company: "Fintech Solutions",
+              },
+              {
+                quote: "La automatización nos permitió escalar sin contratar más personal. Eficiencia pura.",
+                author: "Carlos López",
+                company: "E-commerce Chile",
+              },
+            ].map((item, i) => (
+              <div key={i} className="bg-card border border-border rounded-lg p-8 hover:border-primary/40 transition-colors">
+                <p className="text-muted-foreground mb-6 leading-relaxed italic">"{item.quote}"</p>
+                <div className="pt-6 border-t border-border">
+                  <p className="font-semibold text-foreground">{item.author}</p>
+                  <p className="text-sm text-muted-foreground">{item.company}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
-      <MinimalistSolutions />
 
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">

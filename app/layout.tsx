@@ -2,21 +2,20 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Montserrat } from "next/font/google"
 import "./globals.css"
-import { LanguageProvider } from "@/lib/language-context"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "block",
+  display: "swap",
   preload: true,
   variable: "--font-inter",
 })
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  display: "block",
+  display: "swap",
   preload: true,
   variable: "--font-montserrat",
   weight: ["300", "400", "500", "600", "700"],
@@ -65,18 +64,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning className="dark">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className={`${montserrat.variable} ${inter.variable} antialiased font-sans`} suppressHydrationWarning>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <LanguageProvider>
-            <ScrollToTop />
-            <Navigation />
-            {children}
-          </LanguageProvider>
+    <html lang="es" suppressHydrationWarning>
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Navigation />
+          {children}
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>
