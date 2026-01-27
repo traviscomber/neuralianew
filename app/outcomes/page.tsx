@@ -1,9 +1,14 @@
 import { Footer } from "@/components/layout/footer"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
   title: "Resultados de N3uralia | Casos Reales",
   description: "Historias reales de empresas que transformaron sus procesos con N3uralia. Automatización, eficiencia y resultados medibles.",
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 }
 
 export default function OutcomesPage() {
