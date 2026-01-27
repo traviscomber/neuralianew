@@ -1,4 +1,3 @@
-"use client"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
