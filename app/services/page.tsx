@@ -3,8 +3,8 @@ import { Bot, Workflow, Building2 } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Servicios de N3uralia | Agentes IA y Automatización",
-  description: "Agentes inteligentes, automatización empresarial y plataformas personalizadas para tu negocio.",
+  title: "Servicios Neuralia | Agentes IA, Automatización, Full-Stack",
+  description: "Neuralia ofrece agentes en producción, automatización inteligente y plataformas full-stack. Soluciones IA personalizadas para empresas chilenas.",
 }
 
 const services = [

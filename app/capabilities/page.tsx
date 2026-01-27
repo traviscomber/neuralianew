@@ -5,14 +5,14 @@ import { MemoryOperatingSystem } from "@/components/landing/memory-operating-sys
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Capacidades de N3uralia",
-  description: "Sistemas de agentes, plataformas IA, motores creativos y automatización empresarial.",
+  title: "Capacidades de Neuralia | Arquitectura Multi-Agente y IA en Producción",
+  description: "Descubre las capacidades de Neuralia: arquitecturas multi-agente, sistemas inteligentes integrados, automatización operacional y memoria contextual. Plataforma IA para Chile.",
 }
 
 const content = {
   title: "Capacidades",
   subtitle: "Lo que sabemos hacer",
-  intro: "N3uralia no es solo IA. Es IA + desarrollo, trabajando juntos. Aquí te mostramos cómo.",
+  intro: "Neuralia no es solo IA. Es IA + desarrollo, trabajando juntos. Aquí te mostramos cómo.",
   councilTitle: "Decisiones Inteligentes en Acción",
   councilScenario: "Múltiples expertos evaluando una decisión compleja, juntos, en tiempo real",
   ctaDecision: "Proceder con Implementación",

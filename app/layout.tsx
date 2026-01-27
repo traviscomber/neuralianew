@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { StructuredData } from "@/components/structured-data"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,31 +23,48 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia - AI Development Gateway | Plataforma de IA para Chile",
+  title: "Neuralia - Plataforma de IA para Empresas Chile | Agentes Inteligentes",
   description:
-    "La puerta de entrada al desarrollo con IA. Orquestamos agentes inteligentes, automatización y creatividad. Soluciones completas para empresas y ciudades en Chile.",
-  keywords: "IA Chile, agentes inteligentes, automatización, N3uralia, AI gateway, desarrollo con IA, machine learning",
-  authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
+    "Neuralia: IA que funciona en producción. Arquitectura multi-agente, automatización inteligente y desarrollo full-stack para empresas chilenas. Agentes inteligentes, coordinación de equipos, sistemas que escalan.",
+  keywords:
+    "Neuralia, IA Chile, agentes inteligentes, multi-agent AI, automatización empresarial, plataforma IA, desarrollo con IA, sistemas inteligentes, full-stack, machine learning, AI gateway, Neuralia Chile",
+  authors: [{ name: "Neuralia", url: "https://n3uralia.com" }],
+  creator: "Neuralia",
   openGraph: {
-    title: "N3uralia - AI Development Gateway",
-    description: "Orquestación de sistemas de IA para empresas y ciudades",
+    title: "Neuralia - Plataforma de IA | Agentes Inteligentes en Producción",
+    description: "Neuralia orquesta sistemas de IA que funcionan. Multi-agente, full-stack, production-ready.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
-    siteName: "N3uralia",
+    siteName: "Neuralia",
     images: [
       {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - AI Development Gateway",
+        alt: "Neuralia - Plataforma de IA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia - The AI Development Gateway",
-    description: "Plataforma de orquestación de IA para empresas chilenas",
+    title: "Neuralia - Plataforma de IA",
+    description: "Neuralia: agentes inteligentes que funcionan en producción",
+    creator: "@neuralia",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://n3uralia.com",
   },
     generator: 'v0.app'
 }
@@ -66,6 +84,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+        <StructuredData />
+      </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
