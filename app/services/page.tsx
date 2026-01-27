@@ -1,9 +1,5 @@
 import { Badge } from "@/components/ui/badge"
 import { Bot, Workflow, Building2 } from "lucide-react"
-import { ServicesSection } from "@/components/landing/services-section"
-import { FeaturesSection } from "@/components/landing/features-section"
-import { FAQSection } from "@/components/landing/faq-section"
-import { ContactSection } from "@/components/landing/contact-section"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -104,7 +100,38 @@ export default function ServicesPage() {
       </section>
 
       {/* Services Grid */}
-      <ServicesSection services={services} learnMore="Conocer Más" getStarted="Comenzar" />
+      <section className="py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8">
+            {services.map((service, i) => {
+              const Icon = service.icon
+              return (
+                <div key={i} className="border border-border p-8 rounded-lg hover:border-primary/60 transition-all bg-card">
+                  <Icon className="w-10 h-10 text-primary mb-6" />
+                  <h3 className="text-xl font-bold text-foreground mb-4">{service.title}</h3>
+                  <p className="text-muted-foreground mb-6 text-sm leading-relaxed">{service.description}</p>
+                  <ul className="space-y-2 mb-8">
+                    {service.features.map((f, j) => (
+                      <li key={j} className="text-sm text-muted-foreground flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <ul className="space-y-2">
+                    {service.benefits.map((b, j) => (
+                      <li key={j} className="text-sm text-primary flex items-center gap-2">
+                        <span className="text-primary">✓</span>
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
 
       {/* Process Section */}
       <section className="py-20 bg-background border-t border-border">
@@ -129,13 +156,51 @@ export default function ServicesPage() {
       </section>
 
       {/* Features Section */}
-      <FeaturesSection />
+      <section className="py-20 bg-card border-t border-border">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-12">¿Por Qué N3uralia?</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">Somos ingenieros, no consultores. Entregamos código que funciona, sistemas que escalan, resultados que importan.</p>
+        </div>
+      </section>
 
       {/* FAQ Section */}
-      <FAQSection />
+      <section className="py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 max-w-2xl">
+          <h2 className="text-3xl font-bold text-foreground mb-12 text-center">Preguntas Frecuentes</h2>
+          <div className="space-y-6">
+            {[
+              {
+                q: "¿Cuánto tiempo toma implementar una solución?",
+                a: "Diagnosis en 1 semana, arquitectura en 2, desarrollo iterativo de 4-8 semanas, deployment en 1. Según complejidad.",
+              },
+              {
+                q: "¿Necesito cambiar mi infraestructura existente?",
+                a: "No. Nuestras soluciones se integran con lo que ya tienes. Trabajamos con tu stack, no contra él.",
+              },
+              {
+                q: "¿Qué soporte ofrecen después del deploy?",
+                a: "Monitoreo 24/7, optimización continua, alertas proactivas, y soporte técnico de escala. Locales en Chile.",
+              },
+            ].map((item, i) => (
+              <div key={i} className="border border-border p-6 rounded-lg">
+                <h3 className="font-bold text-foreground mb-3">{item.q}</h3>
+                <p className="text-muted-foreground text-sm">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Contact Section */}
-      <ContactSection />
+      <section className="py-20 bg-card border-t border-border">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-foreground mb-6">¿Listo para comenzar?</h2>
+          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">Hablemos sobre tu caso específico. Sin presión, sin BS.</p>
+          <a href="/contact" className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            Contactar Equipo
+          </a>
+        </div>
+      </section>
     </div>
   )
 }
