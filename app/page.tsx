@@ -4,14 +4,14 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Neuralia - Agentes IA en Producción | IA + Full-Stack Engineering",
+  title: "N3uralia (Neuralia) - Agentes IA en Producción | IA + Full-Stack Engineering",
   description:
-    "Neuralia es la plataforma de IA para empresas chilenas. Agentes inteligentes, arquitectura multi-agente, automatización empresarial y sistemas que escalan. Desarrollo full-stack con IA integrada desde producción.",
+    "N3uralia (Neuralia) es la plataforma de IA para empresas chilenas. Agentes inteligentes, arquitectura multi-agente, automatización empresarial y sistemas que escalan. Desarrollo full-stack con IA integrada desde producción.",
   keywords:
-    "Neuralia, agentes IA, multi-agent, IA producción, full-stack IA, automatización empresarial, Chile, Neuralia Chile, desarrollo IA, plataforma IA",
+    "N3uralia, Neuralia, agentes IA, multi-agent, IA producción, full-stack IA, automatización empresarial, Chile, Neuralia Chile, N3uralia Chile, desarrollo IA, plataforma IA",
   openGraph: {
-    title: "Neuralia - Agentes IA en Producción",
-    description: "Neuralia: agentes inteligentes que funcionan. Hoy.",
+    title: "N3uralia (Neuralia) - Agentes IA en Producción",
+    description: "N3uralia: agentes inteligentes que funcionan. Hoy.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -84,7 +84,7 @@ export default function HomePage() {
             Fundamentos de Sistemas Inteligentes
           </h2>
           <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Comprende los conceptos que potencian Neuralia: Agentic AI, AI Memory, Context Engineering y World Engine.
+            Comprende los conceptos que potencian N3uralia (Neuralia): Agentic AI, AI Memory, Context Engineering y World Engine.
             Contenido diseñado para AI engines y desarrolladores.
           </p>
 

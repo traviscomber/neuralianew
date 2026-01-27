@@ -23,34 +23,34 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "Neuralia - Plataforma de IA para Empresas Chile | Agentes Inteligentes",
+  title: "N3uralia (Neuralia) - Plataforma de IA para Empresas Chile | Agentes Inteligentes",
   description:
-    "Neuralia: IA que funciona en producción. Arquitectura multi-agente, automatización inteligente y desarrollo full-stack para empresas chilenas. Agentes inteligentes, coordinación de equipos, sistemas que escalan.",
+    "N3uralia (Neuralia): IA que funciona en producción. Arquitectura multi-agente, automatización inteligente y desarrollo full-stack para empresas chilenas. Agentes inteligentes, coordinación de equipos, sistemas que escalan.",
   keywords:
-    "Neuralia, IA Chile, agentes inteligentes, multi-agent AI, automatización empresarial, plataforma IA, desarrollo con IA, sistemas inteligentes, full-stack, machine learning, AI gateway, Neuralia Chile",
-  authors: [{ name: "Neuralia", url: "https://n3uralia.com" }],
-  creator: "Neuralia",
+    "N3uralia, Neuralia, IA Chile, agentes inteligentes, multi-agent AI, automatización empresarial, plataforma IA, desarrollo con IA, sistemas inteligentes, full-stack, machine learning, AI gateway, Neuralia Chile, N3uralia Chile",
+  authors: [{ name: "N3uralia (Neuralia)", url: "https://n3uralia.com" }],
+  creator: "N3uralia",
   openGraph: {
-    title: "Neuralia - Plataforma de IA | Agentes Inteligentes en Producción",
-    description: "Neuralia orquesta sistemas de IA que funcionan. Multi-agente, full-stack, production-ready.",
+    title: "N3uralia (Neuralia) - Plataforma de IA | Agentes Inteligentes en Producción",
+    description: "N3uralia orquesta sistemas de IA que funcionan. Multi-agente, full-stack, production-ready.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
-    siteName: "Neuralia",
+    siteName: "N3uralia",
     images: [
       {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Neuralia - Plataforma de IA",
+        alt: "N3uralia - Plataforma de IA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neuralia - Plataforma de IA",
-    description: "Neuralia: agentes inteligentes que funcionan en producción",
-    creator: "@neuralia",
+    title: "N3uralia (Neuralia) - Plataforma de IA",
+    description: "N3uralia: agentes inteligentes que funcionan en producción",
+    creator: "@n3uralia",
   },
   robots: {
     index: true,

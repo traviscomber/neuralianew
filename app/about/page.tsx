@@ -3,8 +3,8 @@ import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Acerca de Neuralia | Historia y Visión de la Plataforma IA",
-  description: "Neuralia: por qué construimos una plataforma de IA diferente. Nuestra historia, misión y cómo trabajamos con empresas chilenas.",
+  title: "Acerca de N3uralia (Neuralia) | Historia y Visión de la Plataforma IA",
+  description: "N3uralia (Neuralia): por qué construimos una plataforma de IA diferente. Nuestra historia, misión y cómo trabajamos con empresas chilenas.",
 }
 
 const values = [
