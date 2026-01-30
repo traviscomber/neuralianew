@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Footer } from '@/components/layout/footer'
 import { PersonalityRadar } from '@/components/living-agents/personality-radar'
 import { EvolutionTimeline } from '@/components/living-agents/evolution-timeline'
@@ -63,15 +64,27 @@ export function EvolutionPageContent() {
 
   return (
     <main className="min-h-screen pt-16 bg-background">
-      {/* Header */}
-      <section className="border-b border-border bg-background sticky top-16 z-40 py-4">
-        <div className="container mx-auto px-4">
-          <Link href="/living-agents/demo" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors mb-4">
-            <ArrowLeft className="w-4 h-4" />
-            Volver a Demo
-          </Link>
-          <h1 className="text-2xl font-semibold text-foreground">Evolución de Living Agents</h1>
-          <p className="text-sm text-muted-foreground mt-1">Visualiza cómo cambia la personalidad de cada agente</p>
+      {/* Hero with Image */}
+      <section className="relative h-80 bg-background border-b border-border overflow-hidden">
+        <Image
+          src="/images/living-agents/evolution.jpg"
+          alt="Evolution visualization"
+          fill
+          className="object-cover w-full h-full"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent"></div>
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <Link
+              href="/living-agents"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-6 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Volver
+            </Link>
+            <h1 className="h1-light text-foreground">Evolución de Personalidad</h1>
+            <p className="body text-muted-foreground mt-2">Observa cómo cada agente desarrolla su propia personalidad única</p>
+          </div>
         </div>
       </section>
 

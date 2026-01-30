@@ -2,6 +2,7 @@
 
 import { ArrowRight, Sparkles, BookOpen, Users, Zap } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
+import Image from 'next/image'
 
 export function LivingAgentsContent() {
   const archetypes = [
@@ -10,30 +11,35 @@ export function LivingAgentsContent() {
       role: 'Conservador del Conocimiento',
       description: 'Organiza, cataloga y preserva. Encuentra patrones en el caos. Construye taxonomías vivientes.',
       traits: ['Analista', 'Organizador', 'Historiador'],
+      image: '/images/living-agents/curator.jpg',
     },
     {
       title: 'La Tejedora',
       role: 'Conectora de Contextos',
       description: 'Vincula ideas, conceptos, personas. Ve relaciones que otros no ven. Teje redes de significado.',
       traits: ['Conectora', 'Síntesis', 'Relaciones'],
+      image: '/images/living-agents/weaver.jpg',
     },
     {
       title: 'El Cronista',
       role: 'Narrador de Cambio',
       description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas.',
       traits: ['Narrador', 'Documentación', 'Evolución'],
+      image: '/images/living-agents/chronicler.jpg',
     },
     {
       title: 'El Visionario',
       role: 'Proyector de Futuros',
       description: 'Imagina posibilidades, anticipa consecuencias, diseña escenarios. Piensa en horizonte.',
       traits: ['Imaginación', 'Previsión', 'Diseño'],
+      image: '/images/living-agents/visionary.jpg',
     },
     {
       title: 'El Arquitecto',
       role: 'Constructor de Sistemas',
       description: 'Diseña estructuras, optimiza procesos, construye desde cimientos. Piensa en sistemas.',
       traits: ['Estructura', 'Optimización', 'Integración'],
+      image: '/images/living-agents/architect.jpg',
     },
   ]
 
@@ -81,8 +87,17 @@ export function LivingAgentsContent() {
   return (
     <main className="min-h-screen pt-16 bg-background">
       {/* Hero Section */}
-      <section className="py-20 bg-background border-b border-border">
-        <div className="container mx-auto px-4 text-center">
+      <section className="py-20 bg-background border-b border-border relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <Image
+            src="/images/living-agents/hero.jpg"
+            alt="Living Agents hero"
+            fill
+            className="object-cover w-full h-full"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-background"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">Capacidad Emergente</span>
@@ -148,15 +163,24 @@ export function LivingAgentsContent() {
             {archetypes.map((archetype, i) => (
               <div
                 key={i}
-                className="border border-border p-8 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all"
+                className="border border-border p-6 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all overflow-hidden flex flex-col"
               >
+                <div className="mb-4 h-40 bg-background rounded-lg overflow-hidden -mx-6 -mt-6 mb-4">
+                  <Image
+                    src={archetype.image || "/placeholder.svg"}
+                    alt={archetype.title}
+                    width={400}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <h3 className="text-lg font-semibold text-foreground mb-1">
                   {archetype.title}
                 </h3>
                 <p className="text-sm text-primary font-medium mb-4">
                   {archetype.role}
                 </p>
-                <p className="body text-muted-foreground mb-6">
+                <p className="body text-muted-foreground mb-6 flex-1">
                   {archetype.description}
                 </p>
                 <div className="flex gap-2 flex-wrap">
