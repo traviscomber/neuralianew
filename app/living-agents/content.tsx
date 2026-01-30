@@ -254,13 +254,22 @@ export function LivingAgentsContent() {
           <p className="body text-muted-foreground max-w-2xl mx-auto mb-8">
             Living Agents representa una nueva forma de pensar sobre sistemas de IA: no como herramientas sino como colaboradores vivos.
           </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Conocer Más
-            <ArrowRight className="w-4 h-4" />
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/living-agents/demo"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Probar Demo Interactiva
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+            >
+              Conocer Más
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </section>
 

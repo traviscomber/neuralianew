@@ -92,6 +92,14 @@ export default function HomePage() {
             Descubre Living Agents
             <ArrowRight className="w-4 h-4" />
           </Link>
+
+          <Link
+            href="/living-agents/demo"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Probar Demo
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
