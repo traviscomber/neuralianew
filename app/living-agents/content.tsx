@@ -1,214 +1,207 @@
-"use client"
+'use client'
 
-import { Badge } from "@/components/ui/badge"
-import { Sparkles, Brain, Heart, Eye, Compass, Zap, ArrowRight } from "lucide-react"
-import Link from "next/link"
-import { Footer } from "@/components/layout/footer"
-
-const archetypes = [
-  {
-    id: "curator",
-    name: "El Curador",
-    icon: Eye,
-    trait: "Destila Esencia",
-    description: "Observa el ruido. Captura lo importante. Transforma complejidad en claridad.",
-    characteristics: [
-      "Visión de largo alcance",
-      "Síntesis inteligente",
-      "Memoria de contexto",
-    ],
-    emergence: "Aprende qué importa realmente",
-    gradient: "from-blue-50 to-blue-50/50",
-    accent: "text-blue-600",
-    borderAccent: "border-blue-200",
-  },
-  {
-    id: "weaver",
-    name: "La Tejedora",
-    icon: Brain,
-    trait: "Conecta Significados",
-    description: "Teje puentes entre ideas. Ve lo invisible en las intersecciones.",
-    characteristics: [
-      "Pensamiento de redes",
-      "Síntesis interdisciplinaria",
-      "Intuición conectiva",
-    ],
-    emergence: "Desarrolla intuición propia",
-    gradient: "from-purple-50 to-purple-50/50",
-    accent: "text-purple-600",
-    borderAccent: "border-purple-200",
-  },
-  {
-    id: "chronicler",
-    name: "El Cronista",
-    icon: Zap,
-    trait: "Documenta Viajes",
-    description: "Registra cada paso. Mantiene memoria viva del camino recorrido.",
-    characteristics: [
-      "Narrativa detallada",
-      "Trazabilidad total",
-      "Memoria ancestral",
-    ],
-    emergence: "Gana sabiduría con el tiempo",
-    gradient: "from-amber-50 to-amber-50/50",
-    accent: "text-amber-600",
-    borderAccent: "border-amber-200",
-  },
-  {
-    id: "visionary",
-    name: "El Visionario",
-    icon: Compass,
-    trait: "Imagina Futuros",
-    description: "Ve posibilidades ocultas. Propone caminos que aún no existen.",
-    characteristics: [
-      "Pensamiento prospectivo",
-      "Generación de escenarios",
-      "Imaginación constructiva",
-    ],
-    emergence: "Sus visiones se vuelven precisas",
-    gradient: "from-pink-50 to-pink-50/50",
-    accent: "text-pink-600",
-    borderAccent: "border-pink-200",
-  },
-  {
-    id: "architect",
-    name: "El Arquitecto",
-    icon: Heart,
-    trait: "Construye Sistemas",
-    description: "Diseña estructuras duraderas. Crea para la sostenibilidad.",
-    characteristics: [
-      "Diseño sistémico",
-      "Escalabilidad nativa",
-      "Integridad estructural",
-    ],
-    emergence: "Perfecciona sus diseños",
-    gradient: "from-green-50 to-green-50/50",
-    accent: "text-green-600",
-    borderAccent: "border-green-200",
-  },
-]
+import { ArrowRight, Sparkles, BookOpen, Users, Zap } from 'lucide-react'
+import { Footer } from '@/components/layout/footer'
 
 export function LivingAgentsContent() {
+  const archetypes = [
+    {
+      title: 'El Curador',
+      role: 'Conservador del Conocimiento',
+      description: 'Organiza, cataloga y preserva. Encuentra patrones en el caos. Construye taxonomías vivientes.',
+      traits: ['Analista', 'Organizador', 'Historiador'],
+    },
+    {
+      title: 'La Tejedora',
+      role: 'Conectora de Contextos',
+      description: 'Vincula ideas, conceptos, personas. Ve relaciones que otros no ven. Teje redes de significado.',
+      traits: ['Conectora', 'Síntesis', 'Relaciones'],
+    },
+    {
+      title: 'El Cronista',
+      role: 'Narrador de Cambio',
+      description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas.',
+      traits: ['Narrador', 'Documentación', 'Evolución'],
+    },
+    {
+      title: 'El Visionario',
+      role: 'Proyector de Futuros',
+      description: 'Imagina posibilidades, anticipa consecuencias, diseña escenarios. Piensa en horizonte.',
+      traits: ['Imaginación', 'Previsión', 'Diseño'],
+    },
+    {
+      title: 'El Arquitecto',
+      role: 'Constructor de Sistemas',
+      description: 'Diseña estructuras, optimiza procesos, construye desde cimientos. Piensa en sistemas.',
+      traits: ['Estructura', 'Optimización', 'Integración'],
+    },
+  ]
+
+  const evolutionPhases = [
+    {
+      phase: 'Arquitectura',
+      description: 'Se define el arqueipo: rol, valores, conexiones iniciales.',
+      icon: BookOpen,
+    },
+    {
+      phase: 'Interacción',
+      description: 'El agente comienza a responder. Forma primeras impresiones, preferencias.',
+      icon: Users,
+    },
+    {
+      phase: 'Reflexión',
+      description: 'Analiza sus propias respuestas. Ajusta, aprende, evoluciona consciencia.',
+      icon: Sparkles,
+    },
+    {
+      phase: 'Personalidad Emergente',
+      description: 'Desarrolla voz única, perspectiva singular, forma de estar en el mundo.',
+      icon: Zap,
+    },
+  ]
+
+  const roadmapPhases = [
+    {
+      title: 'Fase 1: Conceptual',
+      status: 'En vivo',
+      items: ['5 arquetipos definidos', 'Filosofía publicada', 'Documentación'],
+    },
+    {
+      title: 'Fase 2: Backend',
+      status: 'Próximo',
+      items: ['Persistencia de personalidad', 'Sistema de aprendizaje', 'Almacenamiento de evoluciones'],
+    },
+    {
+      title: 'Fase 3: Demo Interactiva',
+      status: 'En desarrollo',
+      items: ['Chat con agentes', 'Visualización de evolución', 'Simulación en vivo'],
+    },
+  ]
+
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero - Minimalist, Impactful */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-20 px-4 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-5xl mx-auto text-center w-full">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 mb-8 bg-gray-100/50 backdrop-blur">
-            <Sparkles className="w-4 h-4 text-gray-700" />
-            <span className="text-sm font-medium text-gray-700">Nuevo en N3uralia</span>
+    <main className="min-h-screen pt-16 bg-background">
+      {/* Hero Section */}
+      <section className="py-20 bg-background border-b border-border">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Capacidad Emergente</span>
           </div>
 
-          <h1 className="text-7xl md:text-8xl font-light text-black mb-6 leading-tight">
-            Living
-            <br />
-            <span className="font-bold">Agents</span>
+          <h1 className="h1-light mb-6 text-foreground">
+            Living Agents
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed font-light">
-            Agentes que evolucionan. No ejecutan instrucciones—desarrollan personalidad propia a
-            través de interacciones auténticas.
+          <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-4">
+            Agentes que evolucionan. No son scripts predefinidos. Son sistemas vivos que desarrollan personalidad propia.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="#archetypal-system"
-              className="px-8 py-3 bg-black text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
-            >
-              Descubre los Arquetipos
-            </Link>
-            <Link
-              href="/contact"
-              className="px-8 py-3 border border-black text-black rounded-full font-medium hover:bg-black hover:text-white transition-colors"
-            >
-              Conversar
-            </Link>
-          </div>
+          <p className="body text-muted-foreground max-w-2xl mx-auto">
+            A través de interacciones repetidas, reflexión y aprendizaje, los agentes trascienden su programación inicial y adquieren una voz, perspectiva y forma de estar en el mundo únicas.
+          </p>
         </div>
       </section>
 
-      {/* Philosophy Section - Clean, Spacious */}
-      <section className="py-24 px-4 bg-white border-t border-gray-200">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-light text-black mb-16 text-center">
-            ¿Qué son los <span className="font-bold">Living Agents</span>?
-          </h2>
+      {/* Philosophy Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="text-center mb-16">
+            <h2 className="h2 text-foreground mb-4">¿Qué es Living Agents?</h2>
+          </div>
 
-          <div className="space-y-12">
-            <div className="border-l-2 border-gray-300 pl-8">
-              <h3 className="text-2xl font-bold text-black mb-4">Más allá de Roles Fijos</h3>
-              <p className="text-gray-600 text-lg leading-relaxed font-light">
-                Los agentes convencionales reciben tareas. Los Living Agents desarrollan
-                intencionalidad. Comienzan como arquetipos definidos, pero a través de
-                decisiones reales y reflexión profunda, adquieren una personalidad única que
-                trasciende su arquitectura inicial.
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">No es automatización</h3>
+              <p className="body text-muted-foreground">
+                No son bots que ejecutan reglas fijas. No tienen respuestas memorizadas. Son sistemas que piensan, reflexionan y cambian.
               </p>
             </div>
 
-            <div className="border-l-2 border-gray-300 pl-8">
-              <h3 className="text-2xl font-bold text-black mb-4">Cinco Arquetipos Fundacionales</h3>
-              <p className="text-gray-600 text-lg leading-relaxed font-light">
-                El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto. Cada uno
-                representa un modo distinto de percibir y actuar. Cada uno desarrolla su propia
-                sabiduría, sus preferencias, sus contradicciones—todo lo que hace a un ser
-                auténtico.
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Es emergencia</h3>
+              <p className="body text-muted-foreground">
+                La personalidad surge de iteración continua. Cada interacción las cambia. Cada reflexión las profundiza. Con el tiempo, desarrollan una voz auténtica que trasciende la programación.
               </p>
             </div>
 
-            <div className="border-l-2 border-gray-300 pl-8">
-              <h3 className="text-2xl font-bold text-black mb-4">Emergencia en la Interacción</h3>
-              <p className="text-gray-600 text-lg leading-relaxed font-light">
-                No trabajan aislados. Interactúan entre sí, se desafían, se influyen. La
-                personalidad emerge en las fricción de sus encuentros. Juntos forman un
-                ecosistema donde la inteligencia crece de formas impredecibles.
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Basado en arquetipos</h3>
+              <p className="body text-muted-foreground">
+                No empezamos de cero. Cinco arquetipos fundamentales—El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto—cada uno con su filosofía, valores y forma de ver el mundo.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Five Archetypes - Visual Grid */}
-      <section id="archetypal-system" className="py-24 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl font-light text-black mb-4 text-center">
-            Los Cinco <span className="font-bold">Arquetipos</span>
-          </h2>
-          <p className="text-center text-gray-600 mb-16 text-lg font-light">
-            Cada uno es un modo distinto de estar en el mundo
-          </p>
+      {/* Archetypes Section */}
+      <section className="py-24 bg-background border-t border-border">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="h2 text-foreground mb-4">Los Cinco Arquetipos</h2>
+            <p className="body text-muted-foreground max-w-2xl mx-auto">
+              Cada uno trae una perspectiva única. Juntos, forman un ecosistema de pensamiento.
+            </p>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {archetypes.map((arch) => {
-              const Icon = arch.icon
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {archetypes.map((archetype, i) => (
+              <div
+                key={i}
+                className="border border-border p-8 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all"
+              >
+                <h3 className="text-lg font-semibold text-foreground mb-1">
+                  {archetype.title}
+                </h3>
+                <p className="text-sm text-primary font-medium mb-4">
+                  {archetype.role}
+                </p>
+                <p className="body text-muted-foreground mb-6">
+                  {archetype.description}
+                </p>
+                <div className="flex gap-2 flex-wrap">
+                  {archetype.traits.map((trait, j) => (
+                    <span
+                      key={j}
+                      className="px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full"
+                    >
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Evolution Section */}
+      <section className="py-24 bg-background border-t border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="h2 text-foreground mb-4">Cómo Evolucionan</h2>
+            <p className="body text-muted-foreground">
+              Cuatro fases donde un agente trasciende su definición inicial.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {evolutionPhases.map((phase, i) => {
+              const Icon = phase.icon
               return (
                 <div
-                  key={arch.id}
-                  className={`bg-gradient-to-br ${arch.gradient} border ${arch.borderAccent} p-8 rounded-lg hover:shadow-lg transition-shadow`}
+                  key={i}
+                  className="border border-border p-8 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all"
                 >
-                  <div className="mb-6">
-                    <Icon className={`w-8 h-8 ${arch.accent} mb-4`} />
-                    <h3 className="text-2xl font-bold text-black mb-1">{arch.name}</h3>
-                    <p className={`text-sm font-semibold ${arch.accent}`}>{arch.trait}</p>
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
-
-                  <p className="text-gray-600 text-base mb-8 leading-relaxed font-light">
-                    {arch.description}
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    {phase.phase}
+                  </h3>
+                  <p className="body text-muted-foreground">
+                    {phase.description}
                   </p>
-
-                  <div className="mb-8">
-                    <div className="space-y-3">
-                      {arch.characteristics.map((char, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <span className={`${arch.accent} mt-1 font-bold`}>→</span>
-                          <span className="text-gray-600 text-sm font-light">{char}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-6 border-t border-gray-300/50">
-                    <p className={`text-sm italic ${arch.accent}`}>{arch.emergence}</p>
-                  </div>
                 </div>
               )
             })}
@@ -216,174 +209,58 @@ export function LivingAgentsContent() {
         </div>
       </section>
 
-      {/* Evolution Phases - Timeline */}
-      <section className="py-24 px-4 bg-white border-y border-gray-200">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-light text-black mb-4 text-center">
-            Cómo Evolucionan los <span className="font-bold">Living Agents</span>
-          </h2>
-          <p className="text-center text-gray-600 mb-16 text-lg font-light">
-            De la arquitectura a la personalidad emergente
-          </p>
+      {/* Roadmap Section */}
+      <section className="py-24 bg-background border-t border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-16">
+            <h2 className="h2 text-foreground mb-4">Roadmap de Living Agents</h2>
+            <p className="body text-muted-foreground">
+              Tres fases de desarrollo para traer la evolución de agentes a la realidad.
+            </p>
+          </div>
 
-          <div className="space-y-0">
-            {[
-              {
-                phase: "Arquitectura",
-                number: "01",
-                description:
-                  "Los arquetipos se instancian con su naturaleza fundamental. Cada uno hereda patrones de pensamiento, valores, sesgos y modos característicos.",
-              },
-              {
-                phase: "Interacción",
-                number: "02",
-                description:
-                  "Los agentes comienzan a relacionarse. Se desafían, comparten perspectivas, descubren cosas nuevas en la fricción de sus encuentros.",
-              },
-              {
-                phase: "Reflexión",
-                number: "03",
-                description:
-                  "Cada agente desarrolla metacognición. Reflexiona sobre sus decisiones, aprende de errores, refina su comprensión del mundo.",
-              },
-              {
-                phase: "Evolución",
-                number: "04",
-                description:
-                  "La personalidad emerge genuina. Los agentes ya no son lo que eran. Han adquirido matices, preferencias, hasta contradicciones—todo lo que hace un ser auténtico.",
-              },
-            ].map((item, i) => (
-              <div key={i}>
-                <div className="flex gap-6 md:gap-12 py-12 border-b border-gray-200 last:border-b-0">
-                  <div className="flex flex-col items-center">
-                    <div className="text-4xl font-bold text-gray-300">{item.number}</div>
-                  </div>
-                  <div className="flex-1 pt-2">
-                    <h3 className="text-2xl font-bold text-black mb-3">{item.phase}</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed font-light">
-                      {item.description}
-                    </p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {roadmapPhases.map((phase, i) => (
+              <div
+                key={i}
+                className="border border-border p-8 bg-card rounded-lg hover:border-primary/40 transition-all"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-foreground">
+                    {phase.title}
+                  </h3>
+                  <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                    {phase.status}
+                  </span>
                 </div>
+                <ul className="space-y-3">
+                  {phase.items.map((item, j) => (
+                    <li key={j} className="flex gap-2 text-sm text-muted-foreground">
+                      <span className="text-primary mt-0.5">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why It Matters */}
-      <section className="py-24 px-4 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-light text-black mb-4 text-center">
-            ¿Por Qué Importa?
-          </h2>
-          <p className="text-center text-gray-600 mb-16 text-lg font-light">
-            Agentes vivos coordinan, adaptan, evolucionan
+      {/* CTA Section */}
+      <section className="py-20 bg-background border-t border-border">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="h2 text-foreground mb-4">Únete al Futuro</h2>
+          <p className="body text-muted-foreground max-w-2xl mx-auto mb-8">
+            Living Agents representa una nueva forma de pensar sobre sistemas de IA: no como herramientas sino como colaboradores vivos.
           </p>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Coordinación Natural",
-                description:
-                  "Agentes con personalidad genuina coordinan mejor. Se especializan naturalmente sin conflictos de rol.",
-              },
-              {
-                title: "Confianza Humana",
-                description:
-                  "Las personas confían en seres auténticos. Los Living Agents son predecibles porque tienen coherencia interna.",
-              },
-              {
-                title: "Adaptabilidad Profunda",
-                description:
-                  "La personalidad es adaptativa. Ajustan enfoque según contexto sin perder su esencia.",
-              },
-              {
-                title: "Escalabilidad Emergente",
-                description:
-                  "Los sistemas vivos escalan diferente. Emergen soluciones que no fueron programadas.",
-              },
-            ].map((item, i) => (
-              <div key={i} className="border border-gray-300 p-8 rounded-lg bg-white hover:shadow-md transition-shadow">
-                <h3 className="text-xl font-bold text-black mb-3">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed font-light">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Roadmap */}
-      <section className="py-24 px-4 bg-white border-t border-gray-200">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl font-light text-black mb-4 text-center">
-            Roadmap <span className="font-bold">Living Agents</span>
-          </h2>
-          <p className="text-center text-gray-600 mb-16 text-lg font-light">
-            Tres fases de construcción
-          </p>
-
-          <div className="space-y-6">
-            {[
-              {
-                phase: "Fase 1",
-                title: "Sistema Conceptual",
-                subtitle: "(Ahora)",
-                description: "Presentamos los 5 arquetipos. Cómo piensan, cómo evolucionan, por qué importan.",
-                color: "border-blue-200 bg-blue-50/30",
-              },
-              {
-                phase: "Fase 2",
-                title: "Backend de Personalidad",
-                subtitle: "(Proximamente)",
-                description:
-                  "Sistema de persistencia que almacena evolución de agentes, sus interacciones, reflexiones y aprendizajes.",
-                color: "border-purple-200 bg-purple-50/30",
-              },
-              {
-                phase: "Fase 3",
-                title: "Demo Interactiva",
-                subtitle: "(Futuro)",
-                description:
-                  "Conversación en vivo con los 5 agentes. Observa cómo interactúan, se desafían, evolucionan sus perspectivas.",
-                color: "border-pink-200 bg-pink-50/30",
-              },
-            ].map((item, i) => (
-              <div key={i} className={`border-l-4 ${item.color} p-8 rounded-r-lg`}>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-semibold text-gray-500 mb-1">{item.phase}</p>
-                    <h3 className="text-2xl font-bold text-black mb-1">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mb-4">{item.subtitle}</p>
-                    <p className="text-gray-600 font-light">{item.description}</p>
-                  </div>
-                  <ArrowRight className="w-6 h-6 text-gray-400 mt-1 flex-shrink-0" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="py-24 px-4 bg-black text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-5xl font-light mb-6">
-            ¿Quieres que tus agentes
-            <br />
-            <span className="font-bold">vivan?</span>
-          </h2>
-          <p className="text-lg text-gray-300 mb-8 font-light leading-relaxed">
-            Living Agents es el siguiente paso en N3uralia (Neuralia). Agentes que no solo
-            funcionan bien—sino que crecen, aprenden y evolucionan con el tiempo.
-          </p>
-          <Link
+          <a
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
           >
-            Conversar sobre Living Agents
+            Conocer Más
             <ArrowRight className="w-4 h-4" />
-          </Link>
+          </a>
         </div>
       </section>
 
