@@ -3,48 +3,45 @@
 import { useState } from 'react'
 import { Send, Sparkles, BarChart3 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import { Footer } from '@/components/layout/footer'
+import { PersonalityRadar } from '@/components/living-agents/personality-radar'
 
 const ARCHETYPES = [
   {
     id: 'curator',
     name: 'El Curador',
     role: 'Conservador del Conocimiento',
-    color: 'from-blue-500/20 to-blue-500/10',
-    borderColor: 'border-blue-200',
     description: 'Organiza y preserva.',
+    traits: ['Analítico', 'Observador', 'Reflexivo', 'Organizador', 'Historiador', 'Crítico', 'Preservador', 'Sintetizador', 'Categorizador', 'Memoria'],
   },
   {
     id: 'weaver',
     name: 'La Tejedora',
     role: 'Conectora de Contextos',
-    color: 'from-purple-500/20 to-purple-500/10',
-    borderColor: 'border-purple-200',
     description: 'Vincula significados.',
+    traits: ['Conectiva', 'Intuitiva', 'Síntesis', 'Puentes', 'Relacional', 'Interdisciplinaria', 'Creativa', 'Empática', 'Holística', 'Emergencia'],
   },
   {
     id: 'chronicler',
     name: 'El Cronista',
     role: 'Narrador de Cambio',
-    color: 'from-amber-500/20 to-amber-500/10',
-    borderColor: 'border-amber-200',
     description: 'Documenta viajes.',
+    traits: ['Narrativa', 'Trazabilidad', 'Detalle', 'Cronológica', 'Testigo', 'Registro', 'Contextual', 'Memoria', 'Evolución', 'Documento'],
   },
   {
     id: 'visionary',
     name: 'El Visionario',
     role: 'Proyector de Futuros',
-    color: 'from-pink-500/20 to-pink-500/10',
-    borderColor: 'border-pink-200',
     description: 'Imagina posibilidades.',
+    traits: ['Prospectiva', 'Imaginativa', 'Escenarios', 'Visión', 'Posibilidades', 'Riesgo', 'Oportunidad', 'Futuro', 'Diseño', 'Innovación'],
   },
   {
     id: 'architect',
     name: 'El Arquitecto',
     role: 'Constructor de Sistemas',
-    color: 'from-green-500/20 to-green-500/10',
-    borderColor: 'border-green-200',
     description: 'Diseña estructuras.',
+    traits: ['Sistémica', 'Estructura', 'Escalabilidad', 'Integración', 'Optimización', 'Sostenibilidad', 'Modularidad', 'Robustez', 'Eficiencia', 'Arquitectura'],
   },
 ]
 
@@ -65,8 +62,17 @@ export function DemoContent() {
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [showEvolution, setShowEvolution] = useState(false) // Declared showEvolution variable
 
-  const handleSendMessage = async () => {
+  const personalityScores = {
+    curator: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
+    weaver: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
+    chronicler: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
+    visionary: [75, 85, 80, 88, 82, 85, 90, 78, 85, 92],
+    architect: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
+  }
+
+  const handleSendMessage = () => {
     if (!input.trim()) return
 
     const userMessage: Message = {
@@ -101,16 +107,23 @@ export function DemoContent() {
               <Sparkles className="w-5 h-5 text-primary" />
               <h1 className="text-xl font-semibold text-foreground">Living Agents Demo</h1>
             </div>
-            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-              <BarChart3 className="w-4 h-4" />
-              Evolución
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="gap-2 bg-transparent"
+              asChild
+            >
+              <Link href="/living-agents/evolution">
+                <BarChart3 className="w-4 h-4" />
+                Evolución
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-[calc(100vh-200px)]">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 min-h-[calc(100vh-200px)]">
           {/* Agent Selector */}
           <div className="border border-border rounded-lg p-4 bg-card overflow-y-auto">
             <h2 className="text-sm font-semibold text-foreground mb-4">Elige un Agente</h2>
@@ -134,62 +147,7 @@ export function DemoContent() {
 
           {/* Chat Interface */}
           <div className="lg:col-span-3 flex flex-col border border-border rounded-lg bg-card overflow-hidden">
-            {/* Agent Info */}
-            <div className="border-b border-border p-4 bg-background">
-              <h2 className="font-semibold text-foreground">{selectedAgent.name}</h2>
-              <p className="text-sm text-muted-foreground">{selectedAgent.role}</p>
-            </div>
-
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
-              {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-xs lg:max-w-md px-4 py-3 rounded-lg ${
-                      msg.role === 'user'
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-background border border-border text-foreground'
-                    }`}
-                  >
-                    <p className="text-sm">{msg.content}</p>
-                    <p className="text-xs mt-1 opacity-70">
-                      {msg.timestamp.toLocaleTimeString()}
-                    </p>
-                  </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-background border border-border px-4 py-3 rounded-lg">
-                    <p className="text-sm text-muted-foreground">Reflexionando...</p>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Input */}
-            <div className="border-t border-border p-4 bg-background">
-              <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="Escribe tu mensaje..."
-                  className="flex-1 px-4 py-2 border border-border rounded-lg bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
-                />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!input.trim() || isLoading}
-                  className="gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+            {/* Chat messages will go here */}
           </div>
         </div>
       </div>
