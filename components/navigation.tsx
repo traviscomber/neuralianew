@@ -15,6 +15,7 @@ export function Navigation() {
       inicio: "Inicio",
       capacidades: "Capacidades",
       coordinacion: "Coordinación",
+      livingAgents: "Living Agents",
       resultados: "Resultados",
       acerca: "Acerca de",
       contacto: "Contacto",
@@ -23,6 +24,7 @@ export function Navigation() {
       inicio: "Home",
       capacidades: "Capabilities",
       coordinacion: "Coordination",
+      livingAgents: "Living Agents",
       resultados: "Results",
       acerca: "About",
       contacto: "Contact",
@@ -47,6 +49,9 @@ export function Navigation() {
           </Link>
           <Link href="/coordination" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.coordinacion}
+          </Link>
+          <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            {t.livingAgents}
           </Link>
           <Link href="/outcomes" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.resultados}
@@ -114,24 +119,27 @@ export function Navigation() {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
-      {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-3">
-          <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-            {t.capacidades}
-          </Link>
-          <Link href="/coordination" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-            {t.coordinacion}
-          </Link>
-          <Link href="/outcomes" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-            {t.resultados}
-          </Link>
-          <Link href="/about" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-            {t.acerca}
-          </Link>
-          <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-            {t.contacto}
-          </Link>
+        {/* Mobile Navigation */}
+        {open && (
+          <div className="md:hidden border-t border-border bg-background p-4 space-y-3">
+            <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.capacidades}
+            </Link>
+            <Link href="/coordination" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.coordinacion}
+            </Link>
+            <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.livingAgents}
+            </Link>
+            <Link href="/outcomes" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.resultados}
+            </Link>
+            <Link href="/about" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.acerca}
+            </Link>
+            <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.contacto}
+            </Link>
 
           <div className="pt-3 border-t border-border">
             <a

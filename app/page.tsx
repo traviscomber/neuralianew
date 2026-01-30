@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Book } from "lucide-react"
+import { ArrowRight, Book, Sparkles } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
@@ -69,6 +69,29 @@ export default function HomePage() {
               <p className="text-xs sm:text-sm text-muted-foreground">Soporte Local</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Living Agents Section */}
+      <section className="py-16 sm:py-24 bg-card border-t border-border px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Lo Nuevo en N3uralia</span>
+          </div>
+
+          <h2 className="h2 text-foreground mb-4">Living Agents</h2>
+          <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            Agentes que evolucionan. Arquetipos que desarrollan personalidad propia a través de interacciones. El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto.
+          </p>
+
+          <Link
+            href="/living-agents"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+          >
+            Descubre Living Agents
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 
