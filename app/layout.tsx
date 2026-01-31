@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { StructuredData } from "@/components/structured-data"
+import { StructuredCitations } from "@/components/structured-citations"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -86,6 +87,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head>
         <StructuredData />
+        <StructuredCitations />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
