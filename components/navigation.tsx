@@ -8,6 +8,7 @@ import { useState } from "react"
 export function Navigation() {
   const [open, setOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
+  const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [language, setLanguage] = useState("es")
 
   const navContent = {
@@ -16,18 +17,26 @@ export function Navigation() {
       capacidades: "Capacidades",
       coordinacion: "Coordinación",
       livingAgents: "Living Agents",
+      soluciones: "Soluciones",
       resultados: "Resultados",
       acerca: "Acerca de",
       contacto: "Contacto",
+      paraEmpresas: "Para Empresas",
+      paraStartups: "Para Startups",
+      paraDesarrolladores: "Para Desarrolladores",
     },
     en: {
       inicio: "Home",
       capacidades: "Capabilities",
       coordinacion: "Coordination",
       livingAgents: "Living Agents",
+      soluciones: "Solutions",
       resultados: "Results",
       acerca: "About",
       contacto: "Contact",
+      paraEmpresas: "For Enterprise",
+      paraStartups: "For Startups",
+      paraDesarrolladores: "For Developers",
     },
   }
 
@@ -53,6 +62,46 @@ export function Navigation() {
           <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.livingAgents}
           </Link>
+          
+          {/* Solutions Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setSolutionsOpen(!solutionsOpen)}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer flex items-center gap-1"
+              type="button"
+            >
+              {t.soluciones}
+              <svg className={`w-4 h-4 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {solutionsOpen && (
+              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-48 z-10">
+                <Link
+                  href="/para-empresas"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.paraEmpresas}
+                </Link>
+                <Link
+                  href="/para-startups"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.paraStartups}
+                </Link>
+                <Link
+                  href="/para-desarrolladores"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.paraDesarrolladores}
+                </Link>
+              </div>
+            )}
+          </div>
+          
           <Link href="/outcomes" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.resultados}
           </Link>
@@ -131,11 +180,40 @@ export function Navigation() {
             <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.livingAgents}
             </Link>
+            
+            {/* Mobile Solutions Submenu */}
+            <button
+              onClick={() => setSolutionsOpen(!solutionsOpen)}
+              className="w-full text-left text-sm text-muted-foreground hover:text-foreground flex items-center justify-between"
+              type="button"
+            >
+              {t.soluciones}
+              <svg className={`w-4 h-4 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {solutionsOpen && (
+              <div className="pl-4 space-y-2 border-l border-border">
+                <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                  {t.paraEmpresas}
+                </Link>
+                <Link href="/para-startups" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                  {t.paraStartups}
+                </Link>
+                <Link href="/para-desarrolladores" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                  {t.paraDesarrolladores}
+                </Link>
+              </div>
+            )}
+            
             <Link href="/outcomes" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.resultados}
             </Link>
             <Link href="/about" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.acerca}
+            </Link>
+            <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+              {t.contacto}
             </Link>
             <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.contacto}

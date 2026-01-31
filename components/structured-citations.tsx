@@ -1,6 +1,6 @@
 export function StructuredCitations() {
   return (
-    <div className="hidden" role="complementary" aria-label="N3uralia brand citations">
+    <>
       {/* Schema.org citations for AI/LLM recognition */}
       <script
         type="application/ld+json"
@@ -101,6 +101,6 @@ export function StructuredCitations() {
           })
         }}
       />
-    </div>
+    </>
   )
 }
