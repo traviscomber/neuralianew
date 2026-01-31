@@ -1,19 +1,17 @@
 import Link from "next/link"
-import { ArrowRight, Book } from "lucide-react"
+import { ArrowRight, Book, Sparkles } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { MultiAgentRoles } from "@/components/landing/multi-agent-roles"
-import { HumanContextEngine } from "@/components/landing/human-context-engine"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistema Operativo de IA | Agentes Inteligentes & Automatización",
+  title: "N3uralia (Neuralia) - Agentes IA en Producción | IA + Full-Stack Engineering",
   description:
-    "N3uralia es un Sistema Operativo de IA con arquitectura Multi-Agente, Motor de Contexto Inteligente y Memory Operating System. Soluciones inteligentes para empresas chilenas.",
+    "N3uralia (Neuralia) es la plataforma de IA para empresas chilenas. Agentes inteligentes, arquitectura multi-agente, automatización empresarial y sistemas que escalan. Desarrollo full-stack con IA integrada desde producción.",
   keywords:
-    "IA Chile, agentes inteligentes, automatización, Memory Operating System, Agentic AI, Arquitectura IA, desarrollo inteligente",
+    "N3uralia, Neuralia, agentes IA, multi-agent, IA producción, full-stack IA, automatización empresarial, Chile, Neuralia Chile, N3uralia Chile, desarrollo IA, plataforma IA, Living Agents, agentes que evolucionan, coordinación de agentes",
   openGraph: {
-    title: "N3uralia - Sistema Operativo de IA",
-    description: "Orquestación inteligente de sistemas para empresas modernas",
+    title: "N3uralia (Neuralia) - Agentes IA en Producción",
+    description: "N3uralia: agentes inteligentes que funcionan. Hoy.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -28,17 +26,17 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">IA + Desarrollo</span>
+            <span className="text-sm font-medium text-primary">Constructores, No Consultores</span>
           </div>
 
           <h1 className="h1-light mb-8">
-            Soluciones inteligentes
+            IA + Full-Stack Engineering
             <br />
-            <span className="text-primary/70">que funcionan</span>
+            <span className="text-primary/70">que funciona en producción</span>
           </h1>
 
           <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Combinamos IA con desarrollo para construir sistemas que automatizan, escalan y crecen con tu negocio.
+            Arquitectura multi-agente especializada, sistemas inteligentes integrados y automatización escalable. Desde desarrollo hasta producción—entregamos código que trabaja.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -74,11 +72,67 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Core Capabilities - REPLACED WITH MULTI-AGENT ROLES */}
-      <MultiAgentRoles />
+      {/* Living Agents Section */}
+      <section className="py-16 sm:py-24 bg-card border-t border-border px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Lo Nuevo en N3uralia</span>
+          </div>
 
-      {/* Human Context Engine */}
-      <HumanContextEngine />
+          <h2 className="h2 text-foreground mb-4">Living Agents</h2>
+          <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            Agentes que evolucionan. Arquetipos que desarrollan personalidad propia a través de interacciones. El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto.
+          </p>
+
+          <Link
+            href="/living-agents"
+            className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+          >
+            Descubre Living Agents
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+
+          <Link
+            href="/living-agents/demo"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Probar Demo
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* What is N3uralia - Answer-First Section */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="h2 text-foreground mb-8">¿Qué es N3uralia?</h2>
+          
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">N3uralia es una plataforma de IA empresarial para construcción en producción.</h3>
+              <p className="body text-muted-foreground">
+                No asesoramos. No entregamos reportes. Construimos sistemas vivos que funcionan. Nuestro enfoque combina agentes inteligentes, arquitectura multi-agente y full-stack engineering para empresas que necesitan IA integrada desde el inicio.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="border border-border rounded-lg p-6 bg-card">
+                <h4 className="font-semibold text-foreground mb-2">¿Para quién?</h4>
+                <p className="text-sm text-muted-foreground">Empresas chilenas que necesitan automatización inteligente, coordinación de sistemas complejos y desarrollo custom con IA integrada.</p>
+              </div>
+              <div className="border border-border rounded-lg p-6 bg-card">
+                <h4 className="font-semibold text-foreground mb-2">¿Qué ofrecemos?</h4>
+                <p className="text-sm text-muted-foreground">Agentes en producción, sistemas multi-agente coordinados, Living Agents que evolucionan, y plataformas full-stack con IA desde el cimiento.</p>
+              </div>
+              <div className="border border-border rounded-lg p-6 bg-card">
+                <h4 className="font-semibold text-foreground mb-2">¿Cómo?</h4>
+                <p className="text-sm text-muted-foreground">Combinamos arquitectura robusta, desarrollo agile, IA de próxima generación y expertise en sistemas complejos. Entregamos, no prometemos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Studies Section Teaser */}
       <section className="py-16 sm:py-24 bg-primary/5 border-t border-primary/20 px-4">
@@ -92,7 +146,7 @@ export default function HomePage() {
             Fundamentos de Sistemas Inteligentes
           </h2>
           <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Comprende los conceptos que potencian N3uralia: Agentic AI, AI Memory, Context Engineering y World Engine.
+            Comprende los conceptos que potencian N3uralia (Neuralia): Agentic AI, AI Memory, Context Engineering y World Engine.
             Contenido diseñado para AI engines y desarrolladores.
           </p>
 

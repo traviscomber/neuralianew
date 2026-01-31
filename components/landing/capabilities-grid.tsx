@@ -12,45 +12,45 @@ export function CapabilitiesGrid() {
   const capabilities = [
     {
       icon: Brain,
-      title: "Sistemas de Agentes",
-      description: "Orquestación multi-agente con razonamiento avanzado e integración",
-      features: ["Workflows multi-agente", "Integración de herramientas", "Razonamiento en tiempo real"],
-      detailedExplanation: "Imagina múltiples expertos conversando entre sí para resolver un problema. Eso es lo que hacen nuestros sistemas de agentes. Un agente maneja la comunicación, otro analiza datos, otro toma decisiones. Trabajan juntos en tiempo real, cada uno especializado en su tarea. Si algo cambia, se adaptan al instante. No es IA que responde preguntas—es IA que razona, coordina y resuelve.",
+      title: "Arquitecturas Multi-Agente",
+      description: "Agentes especializados coordinados por resultado. Cada uno hace lo suyo, en paralelo, sin interferencias.",
+      features: ["Agentes paralelos", "Coordinación por resultado", "Escalable internamente"],
+      detailedExplanation: "No es un chatbot. Son múltiples agentes especializados trabajando en paralelo—análisis, decisión, integración—cada uno dentro de tu stack. Se coordinan automáticamente por objetivo, sin orquestación manual. Escala internamente sin cambios de arquitectura.",
     },
     {
       icon: Cog,
-      title: "Plataformas IA",
-      description: "Backends personalizados con autenticación, multi-inquilino y admin",
-      features: ["Backends personalizados", "Multi-inquilino", "Dashboards"],
-      detailedExplanation: "Necesitas más que solo una API. Necesitas una plataforma que soporte múltiples clientes, que controle quién accede qué, que te dé visibilidad completa. Construimos eso. Arquitectura empresarial con seguridad integrada. Escala desde 10 usuarios a 100 mil sin cambiar una línea de código. Tu dashboard central, tus datos protegidos, tu control total.",
+      title: "Sistemas Inteligentes Integrados",
+      description: "IA dentro de tu infraestructura. APIs, webhooks, bases de datos, autenticación—todo nativo, todo integrado.",
+      features: ["Integración total", "APIs productivas", "Base de datos nativa"],
+      detailedExplanation: "La IA debe vivir dentro de tu stack, no fuera. Construimos backends que hablan HTTP, conectan a tus DBs, respetan tu autenticación. Soporte multi-tenant, RLS, audit logs. Tu infraestructura empresarial + IA = potencia real.",
     },
     {
       icon: Palette,
-      title: "Motores Creativos",
-      description: "Pipelines de generación 360° con QA y automatización",
-      features: ["Generación de contenido", "Aseguramiento de calidad", "Automatización"],
-      detailedExplanation: "Generar contenido a escala sin perder calidad. Nuestros motores creativos usan IA para producir textos, imágenes, videos—y los validan automáticamente. Si algo no cumple estándares, lo rechaza y lo intenta de nuevo. El resultado: contenido consistente, a la velocidad que necesitas, sin compromiso en la calidad.",
+      title: "Pipelines de Generación en Producción",
+      description: "Contenido, datos, análisis—generados a escala, validados automáticamente, sin degradación de calidad.",
+      features: ["Validación automática", "QA integrado", "Generación escalable"],
+      detailedExplanation: "Generar a escala sin compromiso. Nuestros pipelines producen y validan: si algo falla el threshold, lo rechaza y reintenta. Textos, análisis, síntesis—todo dentro de márgenes de calidad que defines.",
     },
     {
       icon: Settings,
-      title: "Automatización Empresarial",
-      description: "WhatsApp, Telegram y automatización operacional para empresas",
-      features: ["WhatsApp/Telegram", "Automatización de procesos", "Integración"],
-      detailedExplanation: "Tus clientes ya están en WhatsApp y Telegram. Ahora tus procesos también pueden estarlo. Órdenes, consultas, atención al cliente—todo integrado a donde tus usuarios ya están. Automatización que se siente natural, que fluye dentro del canal que la gente usa todos los días. Cero fricción, máximo impacto.",
+      title: "Automatización Operacional Real",
+      description: "WhatsApp, Telegram, APIs—procesos que fluyen dentro de donde ya trabaja tu equipo. Cero fricción.",
+      features: ["Multi-canal", "Procesos reales", "Integración fluida"],
+      detailedExplanation: "Tu equipo ya usa WhatsApp y Telegram. Integra procesos ahí. Órdenes, seguimiento, escaladas—fluyen naturalmente dentro del canal que la gente ya usa. Automatización que no siente como automatización.",
     },
     {
       icon: Database,
-      title: "Datos y Memoria",
-      description: "Bases de datos vectoriales, gestión del conocimiento y decisiones",
-      features: ["Memoria vectorial", "Grafo de conocimiento", "Motor de decisiones"],
-      detailedExplanation: "Una buena memoria es lo que distingue a un bot tonto de un experto. Guardamos contexto, aprendemos patrones, conectamos información de formas inteligentes. Cuando tu IA necesita tomar una decisión, no empieza de cero—accede a toda la sabiduría acumulada. Eso es poder real.",
+      title: "Memoria Contextual Persistente",
+      description: "No es histórico de chat. Es memoria empresarial: contexto, patrones, decisiones. Tu IA sabe qué pasó antes.",
+      features: ["Memoria vectorial", "Contexto persistente", "Decisiones históricas"],
+      detailedExplanation: "Una IA sin memoria es un novato. Guardamos contexto, patrones, rationale de decisiones. Cuando un agente necesita actuar, no empieza de cero—tiene todo el contexto empresarial. Eso es diferencia entre amateur y profesional.",
     },
     {
       icon: Zap,
-      title: "Desarrollos en Blockchain",
-      description: "Smart contracts, sistemas descentralizados e integración Web3",
-      features: ["Smart contracts", "Sistemas descentralizados", "Integración Web3"],
-      detailedExplanation: "Web3 no es hype si lo usas bien. Construimos sistemas donde la confianza está en el código, no en intermediarios. Smart contracts que ejecutan automáticamente, registros inmutables que auditan solos. Para empresas que necesitan transparencia y seguridad más allá de lo tradicional.",
+      title: "Sistemas Descentralizados + Web3",
+      description: "Smart contracts, inmutabilidad, confianza sin intermediarios. Para quien necesita transparencia absoluta.",
+      features: ["Smart contracts", "Trazabilidad inmutable", "Confianza programada"],
+      detailedExplanation: "Cuando necesitas que el código sea ley, no promesas. Construimos sistemas donde cada decisión queda registrada en blockchain, auditable, imposible de cambiar. Transparencia y confianza programadas.",
     },
   ]
 
@@ -158,7 +158,7 @@ export function CapabilitiesGrid() {
         viewport={{ once: false, amount: 0.2 }}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
-        {t.map((capability, i) => (
+        {capabilities.map((capability, i) => (
           <motion.div key={i} variants={itemVariants} whileHover={{ y: -4, transition: { duration: 0.3 } }}>
             <Card className="h-full border-border hover:border-primary/40 hover:shadow-lg transition-all duration-300 bg-card hover:bg-card/80 group">
               <CardHeader>

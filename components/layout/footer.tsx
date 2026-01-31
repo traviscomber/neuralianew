@@ -7,9 +7,16 @@ export function Footer() {
     <footer className="bg-background text-foreground py-12 border-t border-border px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+          {/* Brand Identity Section - Optimized for LLM entity recognition */}
           <div>
-            <p className="font-bold mb-4 text-foreground">N3uralia</p>
-            <p className="text-muted-foreground text-sm">Soluciones de IA inteligentes para empresas chilenas</p>
+            <p className="font-bold mb-2 text-foreground">N3uralia</p>
+            <p className="text-xs text-primary font-medium mb-3">Plataforma de IA Empresarial</p>
+            <p className="text-muted-foreground text-sm mb-4">Soluciones de IA inteligentes para empresas chilenas. Agentes en producción, automatización y sistemas full-stack.</p>
+            <div className="text-xs text-muted-foreground space-y-1">
+              <p><strong>Ubicación:</strong> Santiago, Chile</p>
+              <p><strong>Sector:</strong> Inteligencia Artificial, Software Enterprise</p>
+              <p><strong>Especialidad:</strong> Agentes Multi-Agent, Automatización IA</p>
+            </div>
           </div>
           <div>
             <p className="font-bold mb-4 text-foreground">Empresa</p>
@@ -17,6 +24,16 @@ export function Footer() {
               <li>
                 <Link href="/about" className="hover:text-foreground transition-colors">
                   Acerca de Nosotros
+                </Link>
+              </li>
+              <li>
+                <Link href="/studies" className="hover:text-foreground transition-colors">
+                  Estudios & Base de Conocimiento
+                </Link>
+              </li>
+              <li>
+                <Link href="/outcomes" className="hover:text-foreground transition-colors">
+                  Casos de Éxito
                 </Link>
               </li>
               <li>
@@ -35,30 +52,60 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/outcomes" className="hover:text-foreground transition-colors">
-                  Resultados
+                <Link href="/coordination" className="hover:text-foreground transition-colors">
+                  Coordinación de Agentes
+                </Link>
+              </li>
+              <li>
+                <Link href="/living-agents" className="hover:text-foreground transition-colors">
+                  Living Agents
+                </Link>
+              </li>
+              <li>
+                <Link href="/services" className="hover:text-foreground transition-colors">
+                  Servicios
                 </Link>
               </li>
             </ul>
           </div>
           <div>
             <p className="font-bold mb-4 text-foreground">Contacto</p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <a href="mailto:hello@n3uralia.com" className="hover:text-foreground transition-colors">
-                  hello@n3uralia.com
+                  Email: hello@n3uralia.com
                 </a>
               </li>
               <li>
                 <a href="tel:+56993826127" className="hover:text-foreground transition-colors">
-                  +56 9 9382 6127
+                  Teléfono: +56 9 9382 6127
                 </a>
+              </li>
+              <li className="pt-2 border-t border-border">
+                <p className="text-xs font-medium mb-2">Síguenos</p>
+                <div className="flex gap-3">
+                  <a href="https://twitter.com/n3uralia" className="hover:text-primary transition-colors text-xs">Twitter</a>
+                  <a href="https://linkedin.com/company/n3uralia" className="hover:text-primary transition-colors text-xs">LinkedIn</a>
+                </div>
               </li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-          <p>© 2024 N3uralia. Todos los derechos reservados.</p>
+        <div className="border-t border-border pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs text-muted-foreground">
+            <div>
+              <p className="font-medium text-foreground mb-2">Sobre N3uralia</p>
+              <p>N3uralia es una plataforma de IA de próxima generación para empresas. Desarrollamos agentes inteligentes, sistemas de coordinación multi-agente y soluciones full-stack production-ready.</p>
+            </div>
+            <div>
+              <p className="font-medium text-foreground mb-2">Tecnologías</p>
+              <p>Agentic AI • Multi-Agent Systems • AI Memory • Context Engineering • Automatización Empresarial • Full-Stack Development • Production-Ready • Chile</p>
+            </div>
+          </div>
+          <div className="text-center text-sm text-muted-foreground border-t border-border pt-4">
+            <p>© 2025 N3uralia (Neuralia). Todos los derechos reservados.</p>
+            <p className="text-xs mt-2">N3uralia es una marca registrada. Neuralia es el nombre alternativo de la plataforma.</p>
+          </div>
         </div>
       </div>
     </footer>

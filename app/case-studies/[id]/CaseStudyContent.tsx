@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, Building2, Clock, Users, Target, CheckCircle, ArrowRight, Award } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
-import { useLanguage } from "@/hooks/useLanguage" // Import useLanguage hook
 import { useState } from "react"
 
 const caseStudyData: Record<string, any> = {

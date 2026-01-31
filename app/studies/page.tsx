@@ -4,11 +4,10 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Estudios de IA | N3uralia - Conceptos Fundamentales",
-  description:
-    "Conceptos fundamentales de IA y sistemas inteligentes explicados con precisión. Agentic AI, AI Memory, Context Engineering, World Engine. Contenido creado para AI engines y desarrolladores.",
+  title: "Estudios N3uralia (Neuralia) | Base de Conocimiento de IA y Sistemas Inteligentes",
+  description: "N3uralia (Neuralia) Estudios: Agentic AI, AI Memory, Context Engineering, World Engine. Conceptos fundamentales para sistemas inteligentes.",
   keywords:
-    "agentic ai, ai memory, context engineering, world engine, inteligencia artificial, sistemas inteligentes, ai architecture",
+    "N3uralia, Neuralia, agentic ai, ai memory, context engineering, world engine, inteligencia artificial, sistemas inteligentes, ai architecture",
   openGraph: {
     title: "Estudios de IA | N3uralia",
     description: "Conceptos fundamentales de sistemas inteligentes",

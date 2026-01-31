@@ -6,39 +6,36 @@ export default function CoordinationPage() {
   const features = [
     {
       icon: Users,
-      title: "Salas de Coordinación",
-      description: "Espacios enfocados donde equipos colaboran en decisiones críticas. Cada miembro, cada perspectiva, visibilidad completa.",
-      details: ["Miembros por sala", "Contexto persistente", "Acceso en tiempo real"],
+      title: "Salas de Decisión",
+      description: "Equipos + Agentes trabajando juntos en tiempo real. Contexto compartido. Sin email, sin Slack caótico.",
+      details: ["Contexto persistente", "Decisiones documentadas", "Ejecución automática"],
     },
     {
       icon: CheckCircle2,
-      title: "Registro de Decisiones",
-      description: "Toda decisión queda documentada: qué se decidió, por qué, quién participó. No hay confusión, solo hechos.",
-      details: ["Trazabilidad total", "Rationale capturado", "Auditoría incorporada"],
+      title: "Trazabilidad Total",
+      description: "Cada decisión: qué, por qué, quién, cuándo. Auditoría completa, trazabilidad imposible de romper.",
+      details: ["Historial inmutable", "Rationale capturado", "Cumplimiento incorporado"],
     },
     {
       icon: Zap,
-      title: "Flujos de Trabajo",
-      description: "Patrones de coordinación que se automatizan. Escalas desde 3 personas hasta toda la organización.",
-      details: ["Automatización de patrones", "Escalabilidad integrada", "Adaptable a tu proceso"],
+      title: "Ejecución Automática",
+      description: "Decisión tomada = ejecución instantánea. Sin delays. Sin hand-off manual. Coordinación que funciona de verdad.",
+      details: ["Ejecución inmediata", "Integración total", "Menos fricción"],
     },
   ]
 
-  const roadmap = [
+  const capabilities = [
     {
-      phase: "MVP",
-      status: "Disponible",
-      items: ["Salas colaborativas", "Decisiones registradas", "Acceso web"],
+      phase: "Coordinación Base",
+      items: ["Salas de decisión", "Trazabilidad de decisiones", "Integración teams + agentes"],
     },
     {
-      phase: "Fase 2",
-      status: "En desarrollo",
-      items: ["Parsing de notas", "Síntesis automática", "Integración WhatsApp"],
+      phase: "Inteligencia de Reuniones",
+      items: ["Parsing automático de reuniones", "Síntesis de decisiones", "Integración de canales"],
     },
     {
-      phase: "Fase 3",
-      status: "Roadmap",
-      items: ["Copilot de coordinación", "Predicción de conflictos", "Optimización de equipos"],
+      phase: "Orquestación Inteligente",
+      items: ["Predicción de conflictos", "Optimización de decisiones", "Ejecución automática"],
     },
   ]
 
@@ -106,42 +103,38 @@ export default function CoordinationPage() {
           </div>
         </section>
 
-        {/* Roadmap Section */}
+        {/* Capabilities Spectrum Section */}
         <section className="py-24 bg-primary/5 border-t border-primary/20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="h2 text-foreground mb-4">Evolución de la Plataforma</h2>
+              <h2 className="h2 text-foreground mb-4">Espectro de Capacidades</h2>
               <p className="body text-muted-foreground">
-                De la coordinación básica a la inteligencia organizacional completa
+                Desde coordinación básica hasta inteligencia organizacional completa
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {roadmap.map((phase, i) => (
+              {capabilities.map((cap, i) => (
                 <div key={i} className="relative">
-                  <div className="border border-border p-8 bg-background rounded-lg">
-                    <div className="flex items-center justify-between mb-6">
+                  <div className="border border-primary/30 p-8 bg-background rounded-lg hover:border-primary/60 transition-all">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                        <span className="text-primary font-bold text-sm">{i + 1}</span>
+                      </div>
                       <h3 className="text-lg font-semibold text-foreground">
-                        {phase.phase}
+                        {cap.phase}
                       </h3>
-                      <span className={`text-xs font-medium px-3 py-1 rounded-full ${
-                        phase.status === "Disponible"
-                          ? "bg-primary/20 text-primary"
-                          : "bg-muted text-muted-foreground"
-                      }`}>
-                        {phase.status}
-                      </span>
                     </div>
                     <ul className="space-y-3">
-                      {phase.items.map((item, j) => (
+                      {cap.items.map((item, j) => (
                         <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
-                          <span className="text-primary mt-1">→</span>
+                          <span className="text-primary mt-0.5">✓</span>
                           <span>{item}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
-                  {i < roadmap.length - 1 && (
+                  {i < capabilities.length - 1 && (
                     <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2">
                       <ArrowRight className="w-8 h-8 text-primary/30" />
                     </div>
