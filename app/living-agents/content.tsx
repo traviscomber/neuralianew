@@ -2,6 +2,7 @@
 
 import { ArrowRight, Sparkles, BookOpen, Users, Zap } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
+import { FAQSection } from '@/components/living-agents/faq-section'
 import Image from 'next/image'
 
 export function LivingAgentsContent() {
@@ -270,6 +271,9 @@ export function LivingAgentsContent() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* CTA Section */}
       <section className="py-20 bg-background border-t border-border">
