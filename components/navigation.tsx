@@ -56,12 +56,6 @@ export function Navigation() {
           <Link href="/capabilities" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.capacidades}
           </Link>
-          <Link href="/coordination" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            {t.coordinacion}
-          </Link>
-          <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            {t.livingAgents}
-          </Link>
           
           {/* Solutions Dropdown */}
           <div className="relative">
@@ -77,6 +71,13 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
+                <Link
+                  href="/living-agents"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors font-medium"
+                >
+                  Living Agents
+                </Link>
                 <Link
                   href="/living-agents/constellation-demo"
                   onClick={() => setSolutionsOpen(false)}
@@ -182,12 +183,6 @@ export function Navigation() {
             <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.capacidades}
             </Link>
-            <Link href="/coordination" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.coordinacion}
-            </Link>
-            <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.livingAgents}
-            </Link>
             
             {/* Mobile Solutions Submenu */}
             <button
@@ -202,8 +197,11 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="pl-4 space-y-2 border-l border-border">
-                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
-                  ✨ Constellation Workshop
+                <Link href="/living-agents" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
+                  Living Agents
+                </Link>
+                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                  Constellation Workshop (Demo)
                 </Link>
                 <div className="my-1"></div>
                 <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
