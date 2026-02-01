@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 const content = {
   title: "Capacidades",
   subtitle: "Lo que sabemos hacer",
-  intro: "N3uralia (Neuralia) no es solo IA. Es IA + desarrollo, trabajando juntos. Aquí te mostramos cómo.",
+  intro: "N3uralia no es solo IA. Es IA + desarrollo, trabajando juntos. Aquí te mostramos cómo.",
+  clarification: "Nota: Living Agents = Agentic AI + Evolución Continua. Mientras que Agentic AI es la arquitectura base (autonomía, memoria, herramientas), Living Agents añaden la dimensión de personalidad emergente y aprendizaje persistente.",
   councilTitle: "Decisiones Inteligentes en Acción",
   councilScenario: "Múltiples expertos evaluando una decisión compleja, juntos, en tiempo real",
   ctaDecision: "Proceder con Implementación",
@@ -68,7 +69,10 @@ export default function CapabilitiesPage() {
           <div className="container mx-auto px-4 text-center">
             <h1 className="h1-light mb-6 text-foreground">{content.title}</h1>
             <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-4">{content.subtitle}</p>
-            <p className="body text-muted-foreground max-w-2xl mx-auto">{content.intro}</p>
+            <p className="body text-muted-foreground max-w-2xl mx-auto mb-8">{content.intro}</p>
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 max-w-2xl mx-auto">
+              <p className="text-sm text-muted-foreground">{content.clarification}</p>
+            </div>
           </div>
         </section>
 

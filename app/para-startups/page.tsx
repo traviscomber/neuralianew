@@ -63,15 +63,32 @@ export default function ParaStartups() {
             <div className="flex gap-6">
               <Shield className="w-8 h-8 text-primary flex-shrink-0" />
               <div>
-                <h3 className="font-semibold text-foreground mb-2">Sin Lock-in</h3>
-                <p className="text-sm text-muted-foreground">Arquitectura abierta. Tus datos son tuyos. Migraciones limpias cuando necesites escalar.</p>
+                <h3 className="font-semibold text-foreground mb-2">Seguridad</h3>
+                <p className="text-sm text-muted-foreground">Protege tus datos con tecnología de IA avanzada.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Startup Use Cases */}
+      {/* Try Interactive Demo */}
+      <section className="py-16 bg-card border-b border-border px-4">
+        <div className="container mx-auto max-w-2xl text-center">
+          <h3 className="h3 text-foreground mb-4">Ver Living Agents en Acción</h3>
+          <p className="body text-muted-foreground mb-6">
+            Experimenta cómo los agentes especializados colaboran para tomar decisiones inteligentes.
+          </p>
+          <Link
+            href="/living-agents/demo"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            Probar Demo Interactiva
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Use Cases */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="h2 text-foreground mb-12 text-center">Cómo Startups Usan N3uralia</h2>
