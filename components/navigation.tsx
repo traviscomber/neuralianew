@@ -227,9 +227,6 @@ export function Navigation() {
             <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.contacto}
             </Link>
-            <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.contacto}
-            </Link>
 
           <div className="pt-3 border-t border-border">
             <a
