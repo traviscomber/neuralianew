@@ -78,6 +78,12 @@ export default function CapabilitiesPage() {
 
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="h2 text-foreground mb-4">5 Pilares Operacionales</h2>
+              <p className="body text-muted-foreground max-w-3xl mx-auto">
+                Las arquitecturas base que permiten que Living Agents trabajen dentro de tu infraestructura sin fricción.
+              </p>
+            </div>
             <CapabilitiesGrid />
           </div>
         </section>
@@ -85,9 +91,12 @@ export default function CapabilitiesPage() {
         {/* Expert Council Section */}
         <section className="py-24 bg-background border-t border-border">
           <div className="container mx-auto px-4 max-w-5xl">
-            <div className="text-center mb-16">
-              <h2 className="h2 text-primary mb-4">{content.councilTitle}</h2>
-              <p className="body text-muted-foreground">{content.councilScenario}</p>
+            <div className="text-center mb-12">
+              <h2 className="h2 text-primary mb-2">{content.councilTitle}</h2>
+              <p className="body-lg text-muted-foreground mb-4">{content.councilScenario}</p>
+              <p className="body text-muted-foreground">
+                Múltiples perspectivas especializadas, coordinadas en tiempo real para decisiones confiables.
+              </p>
             </div>
             <CouncilVoting
               title={content.councilTitle}
@@ -110,8 +119,11 @@ export default function CapabilitiesPage() {
                 Inteligencia Creativa
               </span>
               <h2 className="h2 text-foreground mb-4">Agentic AI Brainstorming</h2>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto mb-8">
-                Más allá de decisiones operacionales. Cuando necesitas generar breakthrough thinking, nuestro sistema orquesta múltiples agentes creativos que colaboran simultáneamente.
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto mb-2">
+                Más allá de decisiones operacionales.
+              </p>
+              <p className="body text-muted-foreground max-w-3xl mx-auto mb-8">
+                Cuando necesitas generar breakthrough thinking, orquestamos múltiples agentes creativos colaborando simultáneamente para sintetizar visiones, explorar estrategias y definir el futuro.
               </p>
             </div>
 
