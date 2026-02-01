@@ -76,7 +76,15 @@ export function Navigation() {
               </svg>
             </button>
             {solutionsOpen && (
-              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-48 z-10">
+              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
+                <Link
+                  href="/living-agents/constellation-demo"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  Constellation Workshop (Demo)
+                </Link>
+                <div className="my-1 border-t border-border/50"></div>
                 <Link
                   href="/para-empresas"
                   onClick={() => setSolutionsOpen(false)}
@@ -194,6 +202,10 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="pl-4 space-y-2 border-l border-border">
+                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
+                  ✨ Constellation Workshop
+                </Link>
+                <div className="my-1"></div>
                 <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
                   {t.paraEmpresas}
                 </Link>

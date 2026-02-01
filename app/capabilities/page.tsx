@@ -2,6 +2,9 @@ import { CapabilitiesGrid } from "@/components/landing/capabilities-grid"
 import { CouncilVoting } from "@/components/landing/council-voting"
 import { Footer } from "@/components/layout/footer"
 import { MemoryOperatingSystem } from "@/components/landing/memory-operating-system"
+import { ConstellationWorkshop } from "@/components/living-agents/constellation-workshop"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -94,6 +97,47 @@ export default function CapabilitiesPage() {
 
         {/* Memory Operating System */}
         <MemoryOperatingSystem />
+
+        {/* Creative Intelligence Section */}
+        <section className="py-24 bg-background border-t border-border">
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="text-center mb-16">
+              <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+                Inteligencia Creativa
+              </span>
+              <h2 className="h2 text-foreground mb-4">Agentic AI Brainstorming</h2>
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto mb-8">
+                Más allá de decisiones operacionales. Cuando necesitas generar breakthrough thinking, nuestro sistema orquesta múltiples agentes creativos que colaboran simultáneamente.
+              </p>
+            </div>
+
+            {/* Constellation Workshop Interactive */}
+            <ConstellationWorkshop />
+
+            {/* Learn More */}
+            <div className="mt-12 p-8 border border-primary/30 bg-primary/5 rounded-lg text-center">
+              <p className="body text-muted-foreground mb-6">
+                Descubre cómo 4 agentes creativos pueden trabajar juntos para definir visión de marca, explorar nuevos mercados, o sintetizar estrategias de audiencia.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                <Link
+                  href="/living-agents/constellation-demo"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                >
+                  Ver Demo Interactiva
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/studies/agentic-brainstorming"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-primary bg-transparent text-primary hover:bg-primary/10 rounded-lg transition-colors font-medium"
+                >
+                  Leer Estudio Completo
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <Footer />
       </main>
