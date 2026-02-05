@@ -39,13 +39,6 @@ export function CapabilitiesGrid() {
       detailedExplanation: "Tu equipo ya usa WhatsApp y Telegram. Integra procesos ahí. Órdenes, seguimiento, escaladas—fluyen naturalmente dentro del canal que la gente ya usa. Automatización que no siente como automatización.",
     },
     {
-      icon: Database,
-      title: "Memoria Contextual Persistente",
-      description: "No es histórico de chat. Es memoria empresarial: contexto, patrones, decisiones. Tu IA sabe qué pasó antes.",
-      features: ["Memoria vectorial", "Contexto persistente", "Decisiones históricas"],
-      detailedExplanation: "Una IA sin memoria es un novato. Guardamos contexto, patrones, rationale de decisiones. Cuando un agente necesita actuar, no empieza de cero—tiene todo el contexto empresarial. Eso es diferencia entre amateur y profesional.",
-    },
-    {
       icon: Zap,
       title: "Sistemas Descentralizados + Web3",
       description: "Smart contracts, inmutabilidad, confianza sin intermediarios. Para quien necesita transparencia absoluta.",

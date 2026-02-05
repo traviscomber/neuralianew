@@ -24,16 +24,16 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia (Neuralia) - Plataforma de IA para Empresas Chile | Agentes Inteligentes",
+  title: "N3uralia - Sistemas de Inteligencia Artificial en Producción",
   description:
-    "N3uralia (Neuralia): IA que funciona en producción. Arquitectura multi-agente, automatización inteligente y desarrollo full-stack para empresas chilenas. Agentes inteligentes, coordinación de equipos, sistemas que escalan.",
+    "N3uralia diseña y despliega arquitecturas de agentes inteligentes que integran datos, procesos y decisiones en entornos productivos. Sistemas operacionales en el mundo real.",
   keywords:
-    "N3uralia, Neuralia, IA Chile, agentes inteligentes, multi-agent AI, automatización empresarial, plataforma IA, desarrollo con IA, sistemas inteligentes, full-stack, machine learning, AI gateway, Neuralia Chile, N3uralia Chile",
-  authors: [{ name: "N3uralia (Neuralia)", url: "https://n3uralia.com" }],
+    "N3uralia, agentes IA, sistemas inteligentes, multi-agent, IA producción, infraestructura IA, automatización, arquitectura de agentes",
+  authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
   openGraph: {
-    title: "N3uralia (Neuralia) - Plataforma de IA | Agentes Inteligentes en Producción",
-    description: "N3uralia orquesta sistemas de IA que funcionan. Multi-agente, full-stack, production-ready.",
+    title: "N3uralia - Sistemas de IA en Producción",
+    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -43,14 +43,14 @@ export const metadata: Metadata = {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - Plataforma de IA",
+        alt: "N3uralia - Sistemas de IA en Producción",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia (Neuralia) - Plataforma de IA",
-    description: "N3uralia: agentes inteligentes que funcionan en producción",
+    title: "N3uralia - Sistemas de IA en Producción",
+    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
     creator: "@n3uralia",
   },
   robots: {
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://n3uralia.com",
   },
-    generator: 'v0.app'
+  generator: "v0.app",
 }
 
 export const viewport: Viewport = {

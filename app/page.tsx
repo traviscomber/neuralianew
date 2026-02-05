@@ -1,17 +1,17 @@
 import Link from "next/link"
-import { ArrowRight, Book, Sparkles } from "lucide-react"
+import { ArrowRight, Zap, Shield, Network, Sparkles, Book } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "N3uralia (Neuralia) - Agentes IA en Producción | IA + Full-Stack Engineering",
+  title: "N3uralia - Sistemas de Inteligencia Artificial en Producción",
   description:
-    "N3uralia (Neuralia) es la plataforma de IA para empresas chilenas. Agentes inteligentes, arquitectura multi-agente, automatización empresarial y sistemas que escalan. Desarrollo full-stack con IA integrada desde producción.",
+    "N3uralia diseña y despliega arquitecturas de agentes inteligentes que integran datos, procesos y decisiones en entornos productivos. Sistemas operacionales en el mundo real.",
   keywords:
-    "N3uralia, Neuralia, agentes IA, multi-agent, IA producción, full-stack IA, automatización empresarial, Chile, Neuralia Chile, N3uralia Chile, desarrollo IA, plataforma IA, Living Agents, agentes que evolucionan, coordinación de agentes",
+    "N3uralia, agentes IA, sistemas inteligentes, multi-agent, IA producción, infraestructura IA, automatización, Chile",
   openGraph: {
-    title: "N3uralia (Neuralia) - Agentes IA en Producción",
-    description: "N3uralia: agentes inteligentes que funcionan. Hoy.",
+    title: "N3uralia - Sistemas de IA en Producción",
+    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -72,34 +72,52 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Living Agents Section */}
-      <section className="py-16 sm:py-24 bg-card border-t border-border px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Lo Nuevo en N3uralia</span>
+
+
+      {/* What We Build */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <h2 className="h2 text-foreground mb-4">Qué Construimos</h2>
+            <p className="body text-muted-foreground">
+              No desarrollamos productos aislados. Construimos sistemas de inteligencia que se integran a operaciones existentes y evolucionan con el tiempo.
+            </p>
           </div>
 
-          <h2 className="h2 text-foreground mb-4">Living Agents</h2>
-          <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Agentes que evolucionan. Arquetipos que desarrollan personalidad propia a través de interacciones. El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto.
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Agentic Systems */}
+            <div className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <Network className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Agentic Systems</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Arquitecturas multi-agente con memoria, orquestación y control. Diseñadas para ejecutar tareas complejas de forma continua.
+              </p>
+            </div>
 
-          <Link
-            href="/living-agents"
-            className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-          >
-            Descubre Living Agents
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            {/* Operational Intelligence */}
+            <div className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <Zap className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Operational Intelligence</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Sistemas que observan procesos, detectan fricción y activan decisiones automáticas o asistidas.
+              </p>
+            </div>
 
-          <Link
-            href="/living-agents/demo"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Probar Demo
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+            {/* Infrastructure-Level AI */}
+            <div className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <Shield className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">Infrastructure-Level AI</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                IA pensada como capa estructural: segura, auditable y extensible.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -177,6 +195,98 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Use Cases */}
+      <section className="py-24 bg-card border-t border-border px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <h2 className="h2 text-foreground mb-4">Casos de Uso</h2>
+            <p className="body text-muted-foreground">
+              Cada implementación se diseña según el contexto operativo del cliente. No existen plantillas universales.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              "Operaciones y Logística",
+              "Gestión Documental y Compliance",
+              "Energía y Eficiencia Operativa",
+              "Construcción y Activos Físicos",
+              "Agricultura y Monitoreo",
+              "Educación y Conocimiento Institucional",
+            ].map((useCase) => (
+              <div key={useCase} className="border border-border/50 rounded-lg p-6 bg-background hover:border-primary/40 transition-colors">
+                <p className="font-medium text-foreground">{useCase}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How We Work */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <h2 className="h2 text-foreground mb-4">Nuestro Enfoque</h2>
+            <p className="body text-muted-foreground mb-8">
+              No entregamos "proyectos cerrados". Desplegamos sistemas vivos.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                title: "Análisis de procesos reales, no supuestos",
+                description: "Entramos a entender operaciones concretas, no interpretaciones.",
+              },
+              {
+                title: "Integración con sistemas existentes",
+                description: "La IA se conecta a tu infraestructura actual. Sin reemplazos forzados.",
+              },
+              {
+                title: "Desarrollo incremental en producción",
+                description: "Los sistemas evolucionan en tiempo real. Medibles desde el inicio.",
+              },
+              {
+                title: "Medición continua de impacto",
+                description: "Cada decisión del agente se registra. Trazabilidad total.",
+              },
+              {
+                title: "Evolución del sistema, no entrega final",
+                description: "El sistema aprende. Se adapta. Mejora continuamente.",
+              },
+            ].map((item, index) => (
+              <div key={index} className="border border-border/50 rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
+                <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section className="py-24 bg-card border-t border-border px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="h2 text-foreground mb-4">Experiencia en Entornos Reales</h2>
+          <p className="body text-muted-foreground mb-12">
+            Hemos desplegado sistemas en:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              "Empresas Medianas y Grandes",
+              "Instituciones",
+              "Entornos Regulados",
+              "Sistemas Críticos",
+            ].map((item) => (
+              <div key={item} className="border border-border/50 rounded-lg p-6 bg-background">
+                <p className="font-medium text-foreground text-sm">{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-16 sm:py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto">
@@ -212,6 +322,23 @@ export default function HomePage() {
               Ver más testimonios →
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="h2 text-foreground mb-6">¿Tu operación puede ser asistida o ejecutada por inteligencia artificial?</h2>
+          <p className="body text-muted-foreground mb-8">
+            Si la respuesta no es clara, conversemos.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors gap-2"
+          >
+            Iniciar Conversación
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
       </section>
 

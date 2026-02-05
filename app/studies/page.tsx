@@ -1,13 +1,13 @@
 import Link from "next/link"
-import { ArrowRight, Brain, Database, Zap, Layers } from "lucide-react"
+import { ArrowRight, Brain, Database, Zap, Layers, Lightbulb } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Estudios N3uralia (Neuralia) | Base de Conocimiento de IA y Sistemas Inteligentes",
-  description: "N3uralia (Neuralia) Estudios: Agentic AI, AI Memory, Context Engineering, World Engine. Conceptos fundamentales para sistemas inteligentes.",
+  description: "N3uralia (Neuralia) Estudios: Agentic AI, AI Memory, Context Engineering, World Engine, Agentic Brainstorming. Conceptos fundamentales para sistemas inteligentes.",
   keywords:
-    "N3uralia, Neuralia, agentic ai, ai memory, context engineering, world engine, inteligencia artificial, sistemas inteligentes, ai architecture",
+    "N3uralia, Neuralia, agentic ai, ai memory, context engineering, world engine, agentic brainstorming, inteligencia artificial, sistemas inteligentes, ai architecture",
   openGraph: {
     title: "Estudios de IA | N3uralia",
     description: "Conceptos fundamentales de sistemas inteligentes",
@@ -26,6 +26,15 @@ const studies = [
       "Arquitectura donde agentes autónomos planifican, actúan, evalúan resultados y se adaptan usando memoria y herramientas.",
     icon: Brain,
     slug: "/studies/agentic-ai",
+  },
+  {
+    id: "agentic-brainstorming",
+    title: "Agentic AI Brainstorming",
+    subtitle: "Inteligencia Creativa",
+    description:
+      "Múltiples agentes creativos colaborando para generar ideas, sintetizar perspectivas y producir pensamiento de ruptura con memoria persistente.",
+    icon: Lightbulb,
+    slug: "/studies/agentic-brainstorming",
   },
   {
     id: "ai-memory",
@@ -80,7 +89,7 @@ export default function StudiesPage() {
       {/* Studies Grid */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {studies.map((study) => {
               const Icon = study.icon
               return (

@@ -36,7 +36,7 @@
 
 ### Paleta en Contexto
 
-```
+\`\`\`
 ┌─────────────────────────────────────────┐
 │  LIGHT MODE (Default)                   │
 ├─────────────────────────────────────────┤
@@ -54,7 +54,7 @@
 │ Secundario: #9BA8B3 (Light Slate)       │
 │ Acento:    #5CAAA5 (Muted Sage)         │
 └─────────────────────────────────────────┘
-```
+\`\`\`
 
 ---
 
@@ -72,7 +72,7 @@
 
 ### Escalas de Tipografía
 
-```
+\`\`\`
 H1: 48px / 1.2 line-height → Títulos principales (héroes)
 H2: 36px / 1.3 line-height → Títulos de secciones
 H3: 28px / 1.4 line-height → Subtítulos
@@ -82,7 +82,7 @@ Body: 16px / 1.6 line-height → Párrafos principales
 Body SM: 14px / 1.5 line-height → Texto secundario
 Label: 13px / 1.5 line-height → Etiquetas y avisos
 Caption: 12px / 1.4 line-height → Pie de foto, meta
-```
+\`\`\`
 
 ### Directrices de Tipografía
 
@@ -98,7 +98,7 @@ Caption: 12px / 1.4 line-height → Pie de foto, meta
 
 ### Sistema de Espaciado (Escala de 4px)
 
-```
+\`\`\`
 4px   - Espacios muy compactos (ícono-texto)
 8px   - Espacios dentro de componentes
 12px  - Espacios entre elementos relacionados
@@ -107,7 +107,7 @@ Caption: 12px / 1.4 line-height → Pie de foto, meta
 32px  - Espacios entre bloques principales
 48px  - Espacios entre secciones principales
 64px  - Espacios entre grandes secciones
-```
+\`\`\`
 
 ### Márgenes y Paddings
 
@@ -125,7 +125,7 @@ Caption: 12px / 1.4 line-height → Pie de foto, meta
 
 ### Sistema de Sombras
 
-```
+\`\`\`
 Sombra Suave (Hover):
 box-shadow: 0 4px 12px rgba(0,0,0,0.08)
 
@@ -137,7 +137,7 @@ box-shadow: 0 20px 48px rgba(0,0,0,0.16)
 
 Sombra Interna (Input focus):
 box-shadow: inset 0 0 0 2px #5CAAA5
-```
+\`\`\`
 
 ---
 
@@ -145,21 +145,21 @@ box-shadow: inset 0 0 0 2px #5CAAA5
 
 ### Border Radius
 
-```
+\`\`\`
 Redondeado (Defecto):     8px  (buttons, cards, inputs)
 Suave:                    6px  (components)
 Muy redondeado:          12px  (large components)
 Pillado:                 999px (badges, circular elements)
-```
+\`\`\`
 
 ### Bordes
 
-```
+\`\`\`
 Estándar:    1px solid #D8DEE3
 Fuerte:      2px solid #3F2F28
 Focus:       2px solid #5CAAA5
 Destructive: 1px solid #DC4A4A
-```
+\`\`\`
 
 ---
 
@@ -258,11 +258,11 @@ Destructive: 1px solid #DC4A4A
 
 ### Usos Comunes
 
-```
+\`\`\`
 24px → Iconos principales, headers
 20px → Iconos en botones, cards
 16px → Iconos de formulario, meta
-```
+\`\`\`
 
 ---
 
@@ -270,7 +270,7 @@ Destructive: 1px solid #DC4A4A
 
 ### Variables Disponibles
 
-```css
+\`\`\`css
 /* Colores */
 --background:              0 0% 98%
 --foreground:              15 17% 15%
@@ -285,7 +285,7 @@ Destructive: 1px solid #DC4A4A
 
 /* Dark Mode */
 .dark { ... }              (automático)
-```
+\`\`\`
 
 ---
 
@@ -293,18 +293,18 @@ Destructive: 1px solid #DC4A4A
 
 ### Encabezados Web
 
-```html
+\`\`\`html
 <h1 class="text-4xl font-bold text-foreground">
   Orquestación de IA Empresarial
 </h1>
 <p class="text-lg text-muted-foreground">
   Conecta agentes, flujos de trabajo y datos en una plataforma integrada
 </p>
-```
+\`\`\`
 
 ### Hero Section
 
-```html
+\`\`\`html
 <section class="bg-background">
   <div class="container py-24 lg:py-32">
     <div class="max-w-3xl">
@@ -317,16 +317,16 @@ Destructive: 1px solid #DC4A4A
     </div>
   </div>
 </section>
-```
+\`\`\`
 
 ### Card Component
 
-```html
+\`\`\`html
 <div class="bg-card rounded-lg border border-border p-6 shadow-sm hover:shadow-md">
   <h3 class="text-xl font-semibold text-foreground">Título</h3>
   <p class="text-sm text-muted-foreground mt-2">Descripción</p>
 </div>
-```
+\`\`\`
 
 ---
 

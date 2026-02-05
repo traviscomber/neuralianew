@@ -56,12 +56,6 @@ export function Navigation() {
           <Link href="/capabilities" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
             {t.capacidades}
           </Link>
-          <Link href="/coordination" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            {t.coordinacion}
-          </Link>
-          <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            {t.livingAgents}
-          </Link>
           
           {/* Solutions Dropdown */}
           <div className="relative">
@@ -76,7 +70,22 @@ export function Navigation() {
               </svg>
             </button>
             {solutionsOpen && (
-              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-48 z-10">
+              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
+                <Link
+                  href="/living-agents"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors font-medium"
+                >
+                  Living Agents
+                </Link>
+                <Link
+                  href="/living-agents/constellation-demo"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  Constellation Workshop (Demo)
+                </Link>
+                <div className="my-1 border-t border-border/50"></div>
                 <Link
                   href="/para-empresas"
                   onClick={() => setSolutionsOpen(false)}
@@ -174,12 +183,6 @@ export function Navigation() {
             <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.capacidades}
             </Link>
-            <Link href="/coordination" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.coordinacion}
-            </Link>
-            <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.livingAgents}
-            </Link>
             
             {/* Mobile Solutions Submenu */}
             <button
@@ -194,6 +197,13 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="pl-4 space-y-2 border-l border-border">
+                <Link href="/living-agents" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
+                  Living Agents
+                </Link>
+                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                  Constellation Workshop (Demo)
+                </Link>
+                <div className="my-1"></div>
                 <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
                   {t.paraEmpresas}
                 </Link>
@@ -211,9 +221,6 @@ export function Navigation() {
             </Link>
             <Link href="/about" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.acerca}
-            </Link>
-            <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
-              {t.contacto}
             </Link>
             <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.contacto}
