@@ -48,10 +48,10 @@ export default function HomePage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/capabilities"
+              href="/faq"
               className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
             >
-              Ver Capacidades
+              Preguntas Frecuentes
             </Link>
           </div>
 
@@ -195,7 +195,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Use Cases */}
+      {/* Audience Segmentation Section */}
+      <section className="py-24 bg-primary/5 border-t border-primary/20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="h2 text-foreground mb-4">Soluciones por Rol</h2>
+            <p className="body text-muted-foreground">
+              Cada equipo necesita diferentes capacidades. Aquí encontrarás la solución específica para tu rol.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* CTOs & Tech Leaders */}
+            <Link href="/soluciones/empresas-grandes" className="group">
+              <div className="border border-border rounded-lg p-8 bg-background hover:border-primary/60 hover:bg-primary/5 transition-all h-full cursor-pointer">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                  <Shield className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-3">CTOs & VP Ingeniería</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Infraestructura de IA auditable, integración con sistemas legacy, orquestación de agentes, governance built-in.
+                </p>
+                <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                  Explorar <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Founders & CEOs */}
+            <Link href="/soluciones/startups" className="group">
+              <div className="border border-border rounded-lg p-8 bg-background hover:border-primary/60 hover:bg-primary/5 transition-all h-full cursor-pointer">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-3">Founders & CEOs</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Automatización desde cero, agentes que escalan, Living Agents que aprenden, time-to-market acelerado.
+                </p>
+                <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                  Explorar <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Operations Leaders */}
+            <Link href="/soluciones/operaciones" className="group">
+              <div className="border border-border rounded-lg p-8 bg-background hover:border-primary/60 hover:bg-primary/5 transition-all h-full cursor-pointer">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                  <Zap className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground mb-3">COOs & Directores Ops</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Automatización de procesos, eficiencia operativa, reducción de costos, decisiones en tiempo real.
+                </p>
+                <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                  Explorar <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Preview Section */}
       <section className="py-24 bg-card border-t border-border px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12">
@@ -320,6 +382,64 @@ export default function HomePage() {
           <div className="text-center mt-8">
             <Link href="/outcomes" className="text-sm font-semibold text-primary hover:text-primary/80 transition-colors">
               Ver más testimonios →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Preview Section */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-12">
+            <h2 className="h2 text-foreground mb-4">Insights & Recursos</h2>
+            <p className="body text-muted-foreground">
+              Guías técnicas, mejores prácticas y casos de estudio sobre IA en producción.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                title: "Orquestación de Agentes en Producción",
+                excerpt: "Cómo coordinar múltiples agentes IA en entornos empresariales con governance total.",
+                category: "Técnico",
+                link: "/blog/orquestacion-agentes-produccion"
+              },
+              {
+                title: "Living Agents: IA que Aprende",
+                excerpt: "Sistemas que evolucionan con cada interacción. Arquitectura, implementación y resultados.",
+                category: "Innovación",
+                link: "/blog/living-agents-ia-que-aprende"
+              },
+              {
+                title: "Integración IA con Legacy Systems",
+                excerpt: "Estrategias para modernizar sin disrupciones. Patrones probados en producción.",
+                category: "Caso de Estudio",
+                link: "/blog/integracion-ia-legacy-systems"
+              },
+            ].map((post) => (
+              <Link key={post.link} href={post.link} className="group">
+                <div className="border border-border rounded-lg p-6 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all h-full cursor-pointer">
+                  <div className="inline-block px-3 py-1 rounded-full bg-primary/10 mb-4">
+                    <span className="text-xs font-semibold text-primary">{post.category}</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-4">{post.excerpt}</p>
+                  <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                    Leer <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+            >
+              Ver Todos los Artículos
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
