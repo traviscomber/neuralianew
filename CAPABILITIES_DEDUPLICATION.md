@@ -15,7 +15,7 @@ El mismo concepto aparecía 2 veces en la página.
 - Capabilities ahora: Multi-Agent | Integrated Systems | Production Pipelines | Operational Automation | Web3/Descentralized
 
 #### 2. Estructura Narrativa Limpia
-```
+\`\`\`
 Sección 1: Intro + Clarification Box
            "Living Agents = Agentic AI + Evolución"
 
@@ -30,7 +30,7 @@ Sección 4: Sistema de Memoria
 
 Sección 5: Inteligencia Creativa
            ConstellationWorkshop (narrativa mejorada)
-```
+\`\`\`
 
 #### 3. Mejoras Narrativas
 - Cada sección tiene su propio título y contexto
