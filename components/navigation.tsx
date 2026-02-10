@@ -72,9 +72,16 @@ export function Navigation() {
             {solutionsOpen && (
               <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
                 <Link
-                  href="/living-agents"
+                  href="/solutions"
                   onClick={() => setSolutionsOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors font-medium"
+                >
+                  Sistemas Agenticos en Producción
+                </Link>
+                <Link
+                  href="/living-agents"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
                   Living Agents
                 </Link>
@@ -197,6 +204,9 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="pl-4 space-y-2 border-l border-border">
+                <Link href="/solutions" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
+                  Sistemas Agenticos en Producción
+                </Link>
                 <Link href="/living-agents" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
                   Living Agents
                 </Link>

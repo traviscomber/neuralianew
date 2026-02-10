@@ -152,6 +152,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Solutions CTA */}
+      <section className="py-24 bg-card border-t border-border px-4">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h2 className="h2 text-foreground mb-4">Soluciones en Producción</h2>
+            <p className="body text-muted-foreground mb-8">
+              Arquitecturas comprobadas para desplegar agentes inteligentes con garantías empresariales: auditoría, trazabilidad, escalabilidad.
+            </p>
+            <Link
+              href="/solutions"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+            >
+              Explorar Soluciones Técnicas
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Studies Section Teaser */}
       <section className="py-16 sm:py-24 bg-primary/5 border-t border-primary/20 px-4">
         <div className="max-w-4xl mx-auto text-center">
