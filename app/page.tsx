@@ -361,23 +361,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Footer */}
-      <section className="py-16 sm:py-20 bg-card border-t border-border px-4">
-        <div className="container mx-auto text-center">
-          <h2 className="h1-light mb-4 sm:mb-6">¿Listo para comenzar?</h2>
-          <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Conecta con nuestro equipo técnico para explorar soluciones personalizadas
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors gap-2"
-          >
-            Contactar Equipo
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
       <Footer />
     </main>
   )
