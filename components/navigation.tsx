@@ -56,33 +56,51 @@ export function Navigation() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-8 items-center">
-          <Link href="/capabilities" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <div className="hidden md:flex gap-1 items-center">
+          <Link 
+            href="/capabilities" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
             {t.capacidades}
           </Link>
           
-          <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium text-primary">
-            {t.livingAgents}
-          </Link>
+          {/* Offerings Group */}
+          <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-2">
+            <Link 
+              href="/living-agents" 
+              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
+            >
+              {t.livingAgents}
+            </Link>
 
-          <Link href="/studies/production-grade-agentic-systems" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium text-primary">
-            {t.sistemasProduccion}
-          </Link>
+            <Link 
+              href="/studies/production-grade-agentic-systems" 
+              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
+            >
+              {t.sistemasProduccion}
+            </Link>
+          </div>
           
           {/* Solutions Dropdown */}
           <div className="relative">
             <button
               onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer flex items-center gap-1"
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
               type="button"
             >
               {t.soluciones}
-              <svg className={`w-4 h-4 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </button>
             {solutionsOpen && (
-              <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
+              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="text-xs uppercase tracking-wider text-muted-foreground px-3 py-2 font-semibold">Dirigido a:</div>
                 <Link
                   href="/para-empresas"
                   onClick={() => setSolutionsOpen(false)}
@@ -108,13 +126,22 @@ export function Navigation() {
             )}
           </div>
           
-          <Link href="/outcomes" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link 
+            href="/outcomes" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
             {t.resultados}
           </Link>
-          <Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link 
+            href="/about" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
             {t.acerca}
           </Link>
-          <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <Link 
+            href="/contact" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
             {t.contacto}
           </Link>
 
@@ -176,64 +203,104 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {open && (
-          <div className="md:hidden border-t border-border bg-background p-4 space-y-3">
-            <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+          <div className="md:hidden border-t border-border bg-background p-4 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
+            <Link 
+              href="/capabilities" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
               {t.capacidades}
             </Link>
 
-            <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground font-medium text-primary">
-              {t.livingAgents}
-            </Link>
+            {/* Offerings Group - Mobile */}
+            <div className="my-1 py-2 border-y border-border/30">
+              <Link 
+                href="/living-agents" 
+                onClick={() => setOpen(false)} 
+                className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
+              >
+                {t.livingAgents}
+              </Link>
 
-            <Link href="/studies/production-grade-agentic-systems" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground font-medium text-primary">
-              {t.sistemasProduccion}
-            </Link>
+              <Link 
+                href="/studies/production-grade-agentic-systems" 
+                onClick={() => setOpen(false)} 
+                className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
+              >
+                {t.sistemasProduccion}
+              </Link>
+            </div>
             
             {/* Mobile Solutions Submenu */}
             <button
               onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="w-full text-left text-sm text-muted-foreground hover:text-foreground flex items-center justify-between"
+              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
               type="button"
             >
               {t.soluciones}
-              <svg className={`w-4 h-4 transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </button>
             {solutionsOpen && (
-              <div className="pl-4 space-y-2 border-l border-border">
-                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
-                  {t.constellationDemo}
-                </Link>
-                <div className="my-1"></div>
-                <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+              <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
+                <Link 
+                  href="/para-empresas" 
+                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
                   {t.paraEmpresas}
                 </Link>
-                <Link href="/para-startups" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                <Link 
+                  href="/para-startups" 
+                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
                   {t.paraStartups}
                 </Link>
-                <Link href="/para-desarrolladores" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
+                <Link 
+                  href="/para-desarrolladores" 
+                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
                   {t.paraDesarrolladores}
                 </Link>
               </div>
             )}
             
-            <Link href="/outcomes" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+            <Link 
+              href="/outcomes" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
               {t.resultados}
             </Link>
-            <Link href="/about" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+            <Link 
+              href="/about" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
               {t.acerca}
             </Link>
-            <Link href="/contact" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
+            <Link 
+              href="/contact" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
               {t.contacto}
             </Link>
 
-            <div className="pt-3 border-t border-border">
+            <div className="pt-3 border-t border-border space-y-2">
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                className="flex items-center gap-2 text-sm font-medium px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
                 WhatsApp
@@ -241,14 +308,24 @@ export function Navigation() {
 
               <button
                 onClick={() => setLangOpen(!langOpen)}
-                className="flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer text-foreground"
+                className="w-full text-left flex items-center justify-between text-sm font-medium px-3 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-all"
                 type="button"
               >
-                <Globe className="w-4 h-4" />
-                {language.toUpperCase()}
+                <span className="flex items-center gap-2">
+                  <Globe className="w-4 h-4" />
+                  {language.toUpperCase()}
+                </span>
+                <svg 
+                  className={`w-4 h-4 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
               </button>
               {langOpen && (
-                <div className="space-y-2 ml-4">
+                <div className="space-y-1.5 pl-6 border-l-2 border-muted">
                   <button
                     onClick={() => {
                       setLanguage("es")
@@ -256,7 +333,7 @@ export function Navigation() {
                       setOpen(false)
                     }}
                     type="button"
-                    className={`block text-sm cursor-pointer ${language === "es" ? "font-bold text-foreground" : "text-muted-foreground"}`}
+                    className={`block px-2 py-1.5 text-sm transition-all ${language === "es" ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     Español
                   </button>
@@ -267,7 +344,7 @@ export function Navigation() {
                       setOpen(false)
                     }}
                     type="button"
-                    className={`block text-sm cursor-pointer ${language === "en" ? "font-bold text-foreground" : "text-muted-foreground"}`}
+                    className={`block px-2 py-1.5 text-sm transition-all ${language === "en" ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                   >
                     English
                   </button>
