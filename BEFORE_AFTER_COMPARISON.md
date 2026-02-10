@@ -3,7 +3,7 @@
 ## HERO SECTION
 
 ### ANTES
-```
+\`\`\`
 Badge: "Constructores, No Consultores"
 
 H1: "IA + Full-Stack Engineering
@@ -21,14 +21,14 @@ Stats:
 - 50+ Empresas en Chile
 - 99.8% Disponibilidad
 - 24/7 Soporte Local
-```
+\`\`\`
 
 **Tono:** Marketing-oriented, métricas de vanidad, claims sobre entrega
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H1: "Sistemas de inteligencia artificial
      diseñados para operar en el mundo real"
 
@@ -38,7 +38,7 @@ P: "N3uralia diseña y despliega arquitecturas de agentes inteligentes que
 Buttons:
 - Hablar con el Equipo
 - Ver Capacidades
-```
+\`\`\`
 
 **Tono:** Corporativo, técnico, sin claims exagerados, sin métricas de hype
 
@@ -47,7 +47,7 @@ Buttons:
 ## SEGUNDA SECCIÓN
 
 ### ANTES
-```
+\`\`\`
 Badge: "Lo Nuevo en N3uralia"
 
 H2: "Living Agents"
@@ -59,14 +59,14 @@ P: "Agentes que evolucionan. Arquetipos que desarrollan personalidad propia
 Buttons:
 - Descubre Living Agents
 - Probar Demo
-```
+\`\`\`
 
 **Tono:** Aspiracional, buzzwordy, "arquetipos", "personalidad propia"
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H2: "Qué Construimos"
 
 P: "No desarrollamos productos aislados. Construimos sistemas de inteligencia 
@@ -83,7 +83,7 @@ P: "No desarrollamos productos aislados. Construimos sistemas de inteligencia
 │
 └─ Infrastructure-Level AI
    └─ IA pensada como capa estructural: segura, auditable y extensible
-```
+\`\`\`
 
 **Tono:** Técnico, específico, enfoque en arquitectura y funcionalidad
 
@@ -92,7 +92,7 @@ P: "No desarrollamos productos aislados. Construimos sistemas de inteligencia
 ## TERCERA SECCIÓN
 
 ### ANTES
-```
+\`\`\`
 H2: "¿Qué es N3uralia?"
 
 P: "N3uralia es una plataforma de IA empresarial para construcción en 
@@ -103,14 +103,14 @@ P: "N3uralia es una plataforma de IA empresarial para construcción en
 - Empresas chilenas que necesitan...
 - Agentes en producción, sistemas multi-agente...
 - Combinamos arquitectura robusta, desarrollo agile...
-```
+\`\`\`
 
 **Tono:** Self-explanatory, pero con framing de marketing
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H2: "Casos de Uso"
 
 P: "Cada implementación se diseña según el contexto operativo del cliente. 
@@ -123,7 +123,7 @@ P: "Cada implementación se diseña según el contexto operativo del cliente.
 - Construcción y Activos Físicos
 - Agricultura y Monitoreo
 - Educación y Conocimiento Institucional
-```
+\`\`\`
 
 **Tono:** Concreto, funcional, sin marketing
 
@@ -132,7 +132,7 @@ P: "Cada implementación se diseña según el contexto operativo del cliente.
 ## CUARTA SECCIÓN
 
 ### ANTES
-```
+\`\`\`
 Badge: "Base de Conocimiento"
 
 H2: "Fundamentos de Sistemas Inteligentes"
@@ -144,14 +144,14 @@ P: "Comprende los conceptos que potencian N3uralia (Neuralia):
 Grid: 4 estudios
 
 Button: "Explorar Todos los Estudios"
-```
+\`\`\`
 
 **Tono:** Educational, pero no necesario en homepage corporativa
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H2: "Nuestro Enfoque"
 
 P: "No entregamos 'proyectos cerrados'. Desplegamos sistemas vivos."
@@ -171,7 +171,7 @@ P: "No entregamos 'proyectos cerrados'. Desplegamos sistemas vivos."
 
 5. Evolución del sistema, no entrega final
    └─ El sistema aprende. Se adapta. Mejora continuamente.
-```
+\`\`\`
 
 **Tono:** Operacional, específico, enfoque en cómo trabaja la empresa
 
@@ -180,14 +180,14 @@ P: "No entregamos 'proyectos cerrados'. Desplegamos sistemas vivos."
 ## QUINTA SECCIÓN (NUEVA)
 
 ### ANTES
-```
+\`\`\`
 (No existía)
-```
+\`\`\`
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H2: "Experiencia en Entornos Reales"
 
 P: "Hemos desplegado sistemas en:"
@@ -197,7 +197,7 @@ P: "Hemos desplegado sistemas en:"
 - Instituciones
 - Entornos Regulados
 - Sistemas Críticos
-```
+\`\`\`
 
 **Tono:** Sobrio, creíble, sin nombres de clientes (más premium)
 
@@ -206,26 +206,26 @@ P: "Hemos desplegado sistemas en:"
 ## FINAL CTA
 
 ### ANTES
-```
+\`\`\`
 H2: "¿Listo para comenzar?"
 
 P: "Conecta con nuestro equipo técnico para explorar soluciones personalizadas"
 
 Button: "Contactar Equipo"
-```
+\`\`\`
 
 **Tono:** Urgencia, asumir decisión ya tomada
 
 ---
 
 ### AHORA
-```
+\`\`\`
 H2: "¿Tu operación puede ser asistida o ejecutada por inteligencia artificial?"
 
 P: "Si la respuesta no es clara, conversemos."
 
 Button: "Iniciar Conversación"
-```
+\`\`\`
 
 **Tono:** Cualificador, filtro natural, respeta inteligencia del prospect
 

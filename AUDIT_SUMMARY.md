@@ -48,7 +48,7 @@ He auditado completamente el sitio N3URALIA para detectar:
 
 ### ✅ Línea Principal Coherente
 
-```
+\`\`\`
 "IA + Full-Stack Engineering en Producción"
         ↓
     5 Pilares (Estudios)
@@ -56,7 +56,7 @@ He auditado completamente el sitio N3URALIA para detectar:
 3 Soluciones por Segmento
         ↓
      Acción (Contact/Demo)
-```
+\`\`\`
 
 **Veredicto:** La historia es clara, lógica y convincente.
 
@@ -95,28 +95,28 @@ He auditado completamente el sitio N3URALIA para detectar:
 **Flujos de Usuario Principales:**
 
 1. **Empresa Operacional** 
-   ```
+   \`\`\`
    Homepage → Capabilities → Studies → Implementation → Contact
-   ```
+   \`\`\`
    ✅ Conectado
 
 2. **Empresa Innovadora** (NUEVO)
-   ```
+   \`\`\`
    Homepage → Studies (Brainstorming) → Demo → Contact
    O: Nav → Constellation → Demo → Contact
-   ```
+   \`\`\`
    ✅ Conectado
 
 3. **Startup** (MEJORADO)
-   ```
+   \`\`\`
    Homepage → Para-Startups → Demo O Contact
-   ```
+   \`\`\`
    ✅ Conectado (sin repetición)
 
 4. **Developer**
-   ```
+   \`\`\`
    Homepage → Para-Desarrolladores → Contact (APIs) O GitHub
-   ```
+   \`\`\`
    ✅ Conectado (link arreglado)
 
 ---
@@ -140,25 +140,25 @@ He auditado completamente el sitio N3URALIA para detectar:
 ## CAMBIOS REALIZADOS
 
 ### Archivo 1: `/app/para-startups/page.tsx`
-```diff
+\`\`\`diff
 - Línea 107-124: 3 CTAs a /contact
 + Agregado: Sección "Try Interactive Demo" con link a /living-agents/demo
 + Resultado: Variedad de opciones sin repetición
-```
+\`\`\`
 
 ### Archivo 2: `/app/para-desarrolladores/page.tsx`
-```diff
+\`\`\`diff
 - Línea 28: href="/docs" (no existe)
 + Cambio: href="/contact" con label "Solicitar Acceso a APIs"
 + Resultado: Link funcional
-```
+\`\`\`
 
 ### Archivo 3: `/app/capabilities/page.tsx`
-```diff
+\`\`\`diff
 + Agregado: Objeto content.clarification
 + Agregado: Clarification box en header
 + Resultado: "Living Agents = Agentic AI + Evolución"
-```
+\`\`\`
 
 ---
 

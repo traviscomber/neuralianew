@@ -2,7 +2,7 @@
 
 ## ARQUITECTURA DE STORYTELLING
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────────────┐
 │                          HOMEPAGE                                   │
 │           "IA + Full-Stack Engineering en Producción"               │
@@ -156,46 +156,46 @@
 │  Demo scheduling system                                           │
 │  Technical consultation requests                                  │
 └─────────────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ---
 
 ## FLUJOS DE USUARIO VERIFICADOS
 
 ### Flow 1: Empresa Buscando Solución Operacional
-```
+\`\`\`
 Homepage → Capabilities → Grid (Elige capacidad)
           → Studies (Elige concepto)
           → Capabilities (ve implementación)
           → Contact (demo)
-```
+\`\`\`
 ✅ Conectado
 
 ### Flow 2: Empresa Buscando Innovación Creativa
-```
+\`\`\`
 Homepage → Studies (ve Agentic Brainstorming)
         → Studies/Agentic-Brainstorming
         → Demo (Constellation)
         → Contact
         
 O directamente: Nav "Soluciones" → Constellation-Demo → Contact
-```
+\`\`\`
 ✅ Conectado (NUEVO)
 
 ### Flow 3: Developer Explorando APIs
-```
+\`\`\`
 Homepage → Para-Desarrolladores
         → Contact (acceso) O GitHub
-```
+\`\`\`
 ✅ Conectado (ARREGLADO)
 
 ### Flow 4: Startup Acelerando
-```
+\`\`\`
 Homepage → Para-Startups
         → Opción 1: Contact (demo)
         → Opción 2: Living-Agents/Demo (experiencia)
         → Opción 3: Contact (implementación)
-```
+\`\`\`
 ✅ Conectado (MEJORADO - menos repetición)
 
 ---

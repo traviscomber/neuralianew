@@ -9,14 +9,14 @@ Se realizó una transformación completa del homepage de N3uralia, aplicando el 
 ## 1. HERO (Nueva versión corporativa)
 
 **ANTES:**
-```
+\`\`\`
 "IA + Full-Stack Engineering que funciona en producción"
 Subtítulo con características de marketing
 3 métricas (50+ empresas, 99.8% disponibilidad, 24/7 soporte)
-```
+\`\`\`
 
 **AHORA:**
-```
+\`\`\`
 Título principal:
 "Sistemas de inteligencia artificial diseñados para operar en el mundo real"
 
@@ -27,7 +27,7 @@ datos, procesos y decisiones en entornos productivos."
 CTAs simples:
 - Hablar con el Equipo
 - Ver Capacidades
-```
+\`\`\`
 
 **Cambios clave:**
 - Removidas métricas de "hype" (empresas, disponibilidad, soporte 24/7)
@@ -41,7 +41,7 @@ CTAs simples:
 **Posición:** Inmediatamente después del Hero
 
 **Estructura:**
-```
+\`\`\`
 Intro:
 "No desarrollamos productos aislados. 
 Construimos sistemas de inteligencia que se integran a operaciones 
@@ -59,7 +59,7 @@ existentes y evolucionan con el tiempo."
 3. Infrastructure-Level AI
    - IA pensada como capa estructural
    - Segura, auditable y extensible
-```
+\`\`\`
 
 ---
 
@@ -68,7 +68,7 @@ existentes y evolucionan con el tiempo."
 **Posición:** Después de "Qué Construimos"
 
 **Estructura:**
-```
+\`\`\`
 Intro disclaimer:
 "Cada implementación se diseña según el contexto operativo del cliente. 
 No existen plantillas universales."
@@ -80,7 +80,7 @@ No existen plantillas universales."
 - Construcción y Activos Físicos
 - Agricultura y Monitoreo
 - Educación y Conocimiento Institucional
-```
+\`\`\`
 
 ---
 
@@ -89,7 +89,7 @@ No existen plantillas universales."
 **Posición:** Después de "Casos de Uso"
 
 **Estructura:**
-```
+\`\`\`
 Frase clave:
 "No entregamos 'proyectos cerrados'. Desplegamos sistemas vivos."
 
@@ -108,7 +108,7 @@ Frase clave:
 
 5. Evolución del sistema, no entrega final
    → El sistema aprende. Se adapta. Mejora continuamente.
-```
+\`\`\`
 
 ---
 
@@ -117,7 +117,7 @@ Frase clave:
 **Posición:** Después de "Nuestro Enfoque"
 
 **Estructura:**
-```
+\`\`\`
 Título: Experiencia en Entornos Reales
 Intro: "Hemos desplegado sistemas en:"
 
@@ -126,7 +126,7 @@ Intro: "Hemos desplegado sistemas en:"
 - Instituciones
 - Entornos Regulados
 - Sistemas Críticos
-```
+\`\`\`
 
 ---
 
@@ -135,7 +135,7 @@ Intro: "Hemos desplegado sistemas en:"
 **Posición:** Antes del Footer
 
 **Estructura:**
-```
+\`\`\`
 Pregunta cualificadora:
 "¿Tu operación puede ser asistida o ejecutada por inteligencia artificial?"
 
@@ -144,7 +144,7 @@ Disclaimer:
 
 Botón:
 "Iniciar Conversación" → /contact
-```
+\`\`\`
 
 ---
 
@@ -180,17 +180,17 @@ Se eliminaron completamente (no encajaban en el nuevo tono):
 ## 8. CAMBIOS EN METADATA
 
 **Antes:**
-```
+\`\`\`
 title: "N3uralia (Neuralia) - Plataforma de IA para Empresas Chile | Agentes Inteligentes"
 keywords: "Neuralia, IA Chile, multi-agent AI, full-stack..."
-```
+\`\`\`
 
 **Ahora:**
-```
+\`\`\`
 title: "N3uralia - Sistemas de Inteligencia Artificial en Producción"
 keywords: "N3uralia, agentes IA, sistemas inteligentes, multi-agent, 
            IA producción, infraestructura IA, automatización"
-```
+\`\`\`
 
 ---
 
@@ -208,7 +208,7 @@ keywords: "N3uralia, agentes IA, sistemas inteligentes, multi-agent,
 
 ## 10. ESTRUCTURA FINAL DEL HOMEPAGE
 
-```
+\`\`\`
 1. Hero (Simple, corporativo)
 2. What We Build (3 pilares técnicos)
 3. Use Cases (6 funciones reales)
@@ -216,7 +216,7 @@ keywords: "N3uralia, agentes IA, sistemas inteligentes, multi-agent,
 5. Experience (Entornos reales)
 6. Final CTA (Pregunta cualificadora)
 7. Footer
-```
+\`\`\`
 
 ---
 

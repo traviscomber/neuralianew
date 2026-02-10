@@ -110,7 +110,7 @@ Se realizó una transformación completa del homepage de N3uralia, migrando de u
 
 ## Structure
 
-```
+\`\`\`
 HOME
 ├─ HERO (Corporativo, sin hype)
 ├─ WHAT WE BUILD (3 pilares técnicos)
@@ -119,7 +119,7 @@ HOME
 ├─ EXPERIENCE (Entornos reales)
 ├─ FINAL CTA (Pregunta cualificadora)
 └─ FOOTER
-```
+\`\`\`
 
 ---
 

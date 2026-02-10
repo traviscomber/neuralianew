@@ -25,7 +25,7 @@ Se identificaron y corrigieron **3 áreas críticas de duplicación de data**:
 - **Living Agents duplicado:** Aparecía como tab principal Y en dropdown Soluciones
 
 #### Cambios Realizados
-```
+\`\`\`
 ANTES (Desktop):
 - Capabilities
 - Coordination ← REMOVIDO
@@ -46,7 +46,7 @@ DESPUES (Desktop):
 - Outcomes
 - About
 - Contact (sin duplicado)
-```
+\`\`\`
 
 #### Impacto
 - Navegación más limpia y enfocada
@@ -64,7 +64,7 @@ DESPUES (Desktop):
 - **2 secciones duplicadas:** Features Grid + Capabilities Spectrum (misma data)
 
 #### Cambios Realizados
-```
+\`\`\`
 ANTES:
 - features array (6-25) → Features Grid section
 - capabilities array (27-39) → Capabilities Spectrum section
@@ -74,7 +74,7 @@ DESPUES:
 - capabilities array único consolidado
 - 1 sección: "Tres Pilares de Coordinación Inteligente"
 - Contenido: 3 cards con pilares únicos (sin repetición)
-```
+\`\`\`
 
 #### Impacto
 - Data 100% consolidada
@@ -92,7 +92,7 @@ DESPUES:
 - **Falta de contexto narrativo** en secciones
 
 #### Cambios Realizados
-```
+\`\`\`
 ANTES:
 CapabilitiesGrid: 6 cards
   1. Multi-Agent Architectures
@@ -119,7 +119,7 @@ Estructura clara:
 - Decisiones Inteligentes (Council)
 - Sistema de Memoria (Memory OS)
 - Inteligencia Creativa (Constellation)
-```
+\`\`\`
 
 #### Impacto
 - Memoria tiene su propia sección (no repetida en grid)
@@ -130,7 +130,7 @@ Estructura clara:
 
 ## FLUJO NARRATIVO FINAL
 
-```
+\`\`\`
 HOMEPAGE
   ↓
 CAPABILITIES
@@ -157,7 +157,7 @@ NAVIGATION
 
 COORDINATION
   └─ Tres Pilares (consolidados, sin duplicación)
-```
+\`\`\`
 
 ---
 

@@ -42,7 +42,7 @@
 
 ## 3. DUPLICACIÓN DE CTAs - CONTEO
 
-```
+\`\`\`
 /contact aparece en:
 - Homepage: 2 veces (Hero + Bottom) ✅
 - Para-Empresas: 2 veces (Hero + Bottom) ✅
@@ -54,7 +54,7 @@
 - FAQ: 1 vez ✅
 
 Total: 12 instancias de /contact
-```
+\`\`\`
 
 **VEREDICTO:** Excesivo solo en Para-Startups. Resto está bien.
 
@@ -90,30 +90,30 @@ Total: 12 instancias de /contact
 ## 6. ACCIONES INMEDIATAS NECESARIAS
 
 ### ACCIÓN 1: Reducir CTAs en Para-Startups (30 min)
-```
+\`\`\`
 Sección 1 (Hero): "Empezar Hoy" → /contact ✅
 Sección 2 (Benefits): "Probar Demo" → /living-agents/demo (CAMBIAR)
 Sección 3 (Use Cases): "Empezar" → /contact ✅
-```
+\`\`\`
 
 ### ACCIÓN 2: Arreglar Para-Desarrolladores (15 min)
-```
+\`\`\`
 Cambiar: href="/docs" 
 Por: href="/contact" (con label "Solicitar Acceso a APIs")
-```
+\`\`\`
 
 ### ACCIÓN 3: Conectar Agentic-Brainstorming (20 min)
-```
+\`\`\`
 Agregar al final de /studies/agentic-brainstorming:
 - "Entender base: Agentic AI Operacional" → /studies/agentic-ai
 - "Ver Memory System" → /studies/ai-memory
-```
+\`\`\`
 
 ### ACCIÓN 4: Clarificar Diferencia (15 min)
-```
+\`\`\`
 En /capabilities intro:
 Agregar: "Living Agents = Agentic AI + Personalidad Emergente"
-```
+\`\`\`
 
 ---
 
