@@ -200,13 +200,13 @@
 
 ## Metadata Template (All Pages)
 
-```
+\`\`\`
 Title: [Main Keyword] | N3uralia
 Meta Description: [Action-oriented sentence with 1-2 keywords, 155-160 chars]
 OG Title: [Same as Title]
 OG Description: [Meta description]
 Canonical: https://n3uralia.com/[path]
-```
+\`\`\`
 
 ---
 

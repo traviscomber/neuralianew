@@ -224,7 +224,7 @@ Update `/docs/KEYWORD_MAP.md` with new rankings:
 
 **Every Month, Create This Summary**:
 
-```
+\`\`\`
 N3uralia SEO Performance - [Month] 2026
 
 Organic Traffic: [X] visits (+/- Y% vs last month)
@@ -234,7 +234,7 @@ Biggest Opportunity: [Keyword with potential]
 Action Item: [1 priority fix for next month]
 
 Traffic Forecast: On track for [Q1/Q2/Q3] target ✓/✗
-```
+\`\`\`
 
 ---
 

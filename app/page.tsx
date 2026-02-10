@@ -74,6 +74,82 @@ export default function HomePage() {
 
 
 
+      {/* Core Offerings - Featured Hero Section */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="h2 text-foreground mb-4">Nuestros Pilares</h2>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+              Dos ofertas centrales que definen a N3uralia: sistemas que funcionan en producción y agentes que aprenden.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Sistemas Agenticos en Producción */}
+            <Link href="/studies/production-grade-agentic-systems" className="group">
+              <div className="border-2 border-primary rounded-lg p-10 bg-card hover:bg-primary/5 transition-all h-full cursor-pointer">
+                <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
+                  <Network className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                  Sistemas Agenticos en Producción
+                </h3>
+                <p className="body text-muted-foreground mb-6 leading-relaxed">
+                  Arquitecturas multi-agente diseñadas para operar continuamente. Con orquestación, memoria persistente, rastreabilidad y capacidad de auto-reparación. Sistemas inteligentes que escalan en el mundo real.
+                </p>
+                <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                  Explorar <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Living Agents */}
+            <Link href="/living-agents" className="group">
+              <div className="border-2 border-primary rounded-lg p-10 bg-card hover:bg-primary/5 transition-all h-full cursor-pointer">
+                <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
+                  <Sparkles className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                  Living Agents
+                </h3>
+                <p className="body text-muted-foreground mb-6 leading-relaxed">
+                  Agentes con personalidad emergente que evolucionan a través de interacciones. Arquetipos inteligentes (Curador, Tejedora, Cronista, Visionario, Arquitecto) que desarrollan características únicas y se adaptan a su contexto.
+                </p>
+                <div className="flex items-center gap-2 text-primary font-semibold text-sm">
+                  Descubrir <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          <div className="mt-16 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
+            <p className="body text-muted-foreground mb-4">
+              ¿No sabes por dónde empezar?
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/soluciones/empresas-grandes"
+                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+              >
+                Para Empresas
+              </Link>
+              <Link
+                href="/soluciones/startups"
+                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+              >
+                Para Startups
+              </Link>
+              <Link
+                href="/faq"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Preguntas Frecuentes
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What We Build */}
       <section className="py-24 bg-background border-t border-border px-4">
         <div className="max-w-4xl mx-auto">

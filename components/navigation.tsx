@@ -17,6 +17,7 @@ export function Navigation() {
       capacidades: "Capacidades",
       coordinacion: "Coordinación",
       livingAgents: "Living Agents",
+      sistemasProduccion: "Sistemas en Producción",
       soluciones: "Soluciones",
       resultados: "Resultados",
       acerca: "Acerca de",
@@ -24,12 +25,14 @@ export function Navigation() {
       paraEmpresas: "Para Empresas",
       paraStartups: "Para Startups",
       paraDesarrolladores: "Para Desarrolladores",
+      constellationDemo: "Constellation Workshop (Demo)"
     },
     en: {
       inicio: "Home",
       capacidades: "Capabilities",
       coordinacion: "Coordination",
       livingAgents: "Living Agents",
+      sistemasProduccion: "Production Systems",
       soluciones: "Solutions",
       resultados: "Results",
       acerca: "About",
@@ -37,6 +40,7 @@ export function Navigation() {
       paraEmpresas: "For Enterprise",
       paraStartups: "For Startups",
       paraDesarrolladores: "For Developers",
+      constellationDemo: "Constellation Workshop (Demo)"
     },
   }
 
@@ -57,6 +61,14 @@ export function Navigation() {
             {t.capacidades}
           </Link>
           
+          <Link href="/living-agents" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium text-primary">
+            {t.livingAgents}
+          </Link>
+
+          <Link href="/studies/production-grade-agentic-systems" className="text-sm text-muted-foreground hover:text-foreground transition-colors font-medium text-primary">
+            {t.sistemasProduccion}
+          </Link>
+          
           {/* Solutions Dropdown */}
           <div className="relative">
             <button
@@ -72,20 +84,13 @@ export function Navigation() {
             {solutionsOpen && (
               <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
                 <Link
-                  href="/living-agents"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors font-medium"
-                >
-                  Living Agents
-                </Link>
-                <Link
                   href="/living-agents/constellation-demo"
                   onClick={() => setSolutionsOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  Constellation Workshop (Demo)
+                  {t.constellationDemo}
                 </Link>
-                <div className="my-1 border-t border-border/50"></div>
+                <div className="my-1"></div>
                 <Link
                   href="/para-empresas"
                   onClick={() => setSolutionsOpen(false)}
@@ -183,6 +188,14 @@ export function Navigation() {
             <Link href="/capabilities" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground">
               {t.capacidades}
             </Link>
+
+            <Link href="/living-agents" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground font-medium text-primary">
+              {t.livingAgents}
+            </Link>
+
+            <Link href="/studies/production-grade-agentic-systems" onClick={() => setOpen(false)} className="block text-sm text-muted-foreground hover:text-foreground font-medium text-primary">
+              {t.sistemasProduccion}
+            </Link>
             
             {/* Mobile Solutions Submenu */}
             <button
@@ -197,11 +210,8 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="pl-4 space-y-2 border-l border-border">
-                <Link href="/living-agents" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
-                  Living Agents
-                </Link>
                 <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
-                  Constellation Workshop (Demo)
+                  {t.constellationDemo}
                 </Link>
                 <div className="my-1"></div>
                 <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
@@ -231,7 +241,6 @@ export function Navigation() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
               className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
             >
               <MessageCircle className="w-4 h-4" />
@@ -273,8 +282,7 @@ export function Navigation() {
               </div>
             )}
           </div>
-        </div>
-      )}
+        )}
     </nav>
   )
 }
