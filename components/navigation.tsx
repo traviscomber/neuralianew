@@ -25,7 +25,7 @@ export function Navigation() {
       paraEmpresas: "Para Empresas",
       paraStartups: "Para Startups",
       paraDesarrolladores: "Para Desarrolladores",
-      constellationDemo: "Constellation Workshop (Demo)"
+      constellationDemo: "Demostración Constelación", // Added for mobile submenu
     },
     en: {
       inicio: "Home",
@@ -40,7 +40,7 @@ export function Navigation() {
       paraEmpresas: "For Enterprise",
       paraStartups: "For Startups",
       paraDesarrolladores: "For Developers",
-      constellationDemo: "Constellation Workshop (Demo)"
+      constellationDemo: "Constellation Demo", // Added for mobile submenu
     },
   }
 
@@ -83,14 +83,6 @@ export function Navigation() {
             </button>
             {solutionsOpen && (
               <div className="absolute top-8 left-0 bg-card border border-border rounded-lg shadow-lg p-2 min-w-56 z-10">
-                <Link
-                  href="/living-agents/constellation-demo"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {t.constellationDemo}
-                </Link>
-                <div className="my-1"></div>
                 <Link
                   href="/para-empresas"
                   onClick={() => setSolutionsOpen(false)}
@@ -236,51 +228,52 @@ export function Navigation() {
               {t.contacto}
             </Link>
 
-          <div className="pt-3 border-t border-border">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <MessageCircle className="w-4 h-4" />
-              WhatsApp
-            </a>
+            <div className="pt-3 border-t border-border">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm font-medium mb-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                WhatsApp
+              </a>
 
-            <button
-              onClick={() => setLangOpen(!langOpen)}
-              className="hidden flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer text-foreground"
-              type="button"
-            >
-              <Globe className="w-4 h-4" />
-              {language.toUpperCase()}
-            </button>
-            {langOpen && (
-              <div className="space-y-2 ml-4">
-                <button
-                  onClick={() => {
-                    setLanguage("es")
-                    setLangOpen(false)
-                    setOpen(false)
-                  }}
-                  type="button"
-                  className={`block text-sm cursor-pointer ${language === "es" ? "font-bold text-foreground" : "text-muted-foreground"}`}
-                >
-                  Español
-                </button>
-                <button
-                  onClick={() => {
-                    setLanguage("en")
-                    setLangOpen(false)
-                    setOpen(false)
-                  }}
-                  type="button"
-                  className={`block text-sm cursor-pointer ${language === "en" ? "font-bold text-foreground" : "text-muted-foreground"}`}
-                >
-                  English
-                </button>
-              </div>
-            )}
+              <button
+                onClick={() => setLangOpen(!langOpen)}
+                className="flex items-center gap-2 text-sm font-medium mt-2 cursor-pointer text-foreground"
+                type="button"
+              >
+                <Globe className="w-4 h-4" />
+                {language.toUpperCase()}
+              </button>
+              {langOpen && (
+                <div className="space-y-2 ml-4">
+                  <button
+                    onClick={() => {
+                      setLanguage("es")
+                      setLangOpen(false)
+                      setOpen(false)
+                    }}
+                    type="button"
+                    className={`block text-sm cursor-pointer ${language === "es" ? "font-bold text-foreground" : "text-muted-foreground"}`}
+                  >
+                    Español
+                  </button>
+                  <button
+                    onClick={() => {
+                      setLanguage("en")
+                      setLangOpen(false)
+                      setOpen(false)
+                    }}
+                    type="button"
+                    className={`block text-sm cursor-pointer ${language === "en" ? "font-bold text-foreground" : "text-muted-foreground"}`}
+                  >
+                    English
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         )}
     </nav>
