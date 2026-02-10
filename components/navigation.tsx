@@ -85,13 +85,6 @@ export function Navigation() {
                 >
                   Living Agents
                 </Link>
-                <Link
-                  href="/living-agents/constellation-demo"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  Constellation Workshop (Demo)
-                </Link>
                 <div className="my-1 border-t border-border/50"></div>
                 <Link
                   href="/para-empresas"
@@ -209,9 +202,6 @@ export function Navigation() {
                 </Link>
                 <Link href="/living-agents" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground font-medium">
                   Living Agents
-                </Link>
-                <Link href="/living-agents/constellation-demo" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
-                  Constellation Workshop (Demo)
                 </Link>
                 <div className="my-1"></div>
                 <Link href="/para-empresas" onClick={() => { setOpen(false); setSolutionsOpen(false) }} className="block text-sm text-muted-foreground hover:text-foreground">
