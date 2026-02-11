@@ -19,6 +19,7 @@ import {
   Users,
   Headphones,
 } from "lucide-react"
+import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
 
 // Custom Brain Icon Component
 const BrainIcon = ({ className }: { className?: string }) => (
@@ -97,6 +98,7 @@ interface ChatWidgetProps {
 
 export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps = {}) {
   const [internalIsOpen, setInternalIsOpen] = useState(false)
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -236,7 +238,7 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
                           <Clock className="w-3 h-3 text-emerald-200 flex-shrink-0" />
                         </Button>
                         <Button
-                          onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
+                          onClick={() => setEmailDialogOpen(true)}
                           className="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
                         >
                           <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
@@ -323,12 +325,11 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
                           <Clock className="w-3 h-3 text-emerald-200 flex-shrink-0" />
                         </Button>
                         <Button
-            onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
-            className="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
-          >
-            <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span className="truncate">info@n3uralia.com</span>
-                          <Zap className="w-3 h-3 text-slate-500 flex-shrink-0" />
+                          onClick={() => setEmailDialogOpen(true)}
+                          className="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2"
+                        >
+                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">info@n3uralia.com</span>
                         </Button>
                       </div>
                     </motion.div>
@@ -430,6 +431,8 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
           </Button>
         </motion.div>
       )}
+
+      <EmailContactDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </>
   )
 }

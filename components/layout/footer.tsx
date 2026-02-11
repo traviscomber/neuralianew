@@ -1,8 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
+import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
 
 export function Footer() {
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
   return (
     <footer className="bg-background text-foreground py-12 border-t border-border px-4">
       <div className="container mx-auto">
@@ -73,7 +76,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <button
-                  onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
+                  onClick={() => setEmailDialogOpen(true)}
                   className="hover:text-foreground transition-colors text-left"
                 >
                   Email: info@n3uralia.com
@@ -111,6 +114,8 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      <EmailContactDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </footer>
   )
 }
