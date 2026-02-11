@@ -224,7 +224,7 @@ export const commonSchemas = {
     endDate: z.string().datetime(),
   }),
   agentFilter: z.object({
-    archetype: z.enum(['Curador', 'Tejedora', 'Cronista', 'Visionario', 'Arquitecto']).optional(),
+    archetype: z.enum(['Centinela', 'Tejedor', 'Historiador', 'Visionario', 'Maestro']).optional(),
     status: z.enum(['active', 'inactive', 'archived']).optional(),
   }),
 }
@@ -239,7 +239,7 @@ export const commonSchemas = {
  *   auth: true,
  *   bodySchema: z.object({
  *     name: z.string().min(1),
- *     archetype: z.enum(['Curador', 'Tejedora', 'Cronista', 'Visionario', 'Arquitecto']),
+ *     archetype: z.enum(['Centinela', 'Tejedor', 'Historiador', 'Visionario', 'Maestro']),
  *   }),
  * })
  *

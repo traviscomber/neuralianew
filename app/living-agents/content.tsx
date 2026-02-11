@@ -8,25 +8,25 @@ import Image from 'next/image'
 export function LivingAgentsContent() {
   const archetypes = [
     {
-      title: 'El Curador',
-      role: 'Conservador del Conocimiento',
-      description: 'Organiza, cataloga y preserva. Encuentra patrones en el caos. Construye taxonomías vivientes.',
-      traits: ['Analista', 'Organizador', 'Historiador'],
-      image: '/images/living-agents/curator.jpg',
+      title: 'El Centinela',
+      role: 'Observador de Patrones',
+      description: 'Detecta señales, analiza datos, descubre patrones ocultos. Ve lo que otros pierden. Construye inteligencia desde la observación.',
+      traits: ['Analista', 'Observador', 'Detector'],
+      image: '/images/living-agents/sentinel.jpg',
     },
     {
-      title: 'La Tejedora',
-      role: 'Conectora de Contextos',
+      title: 'El Tejedor',
+      role: 'Conector de Contextos',
       description: 'Vincula ideas, conceptos, personas. Ve relaciones que otros no ven. Teje redes de significado.',
-      traits: ['Conectora', 'Síntesis', 'Relaciones'],
+      traits: ['Conectador', 'Síntesis', 'Relaciones'],
       image: '/images/living-agents/weaver.jpg',
     },
     {
-      title: 'El Cronista',
-      role: 'Narrador de Cambio',
-      description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas.',
+      title: 'El Historiador',
+      role: 'Registrador de Cambios',
+      description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas, sin sesgo.',
       traits: ['Narrador', 'Documentación', 'Evolución'],
-      image: '/images/living-agents/chronicler.jpg',
+      image: '/images/living-agents/historian.jpg',
     },
     {
       title: 'El Visionario',
@@ -36,11 +36,11 @@ export function LivingAgentsContent() {
       image: '/images/living-agents/visionary.jpg',
     },
     {
-      title: 'El Arquitecto',
-      role: 'Constructor de Sistemas',
-      description: 'Diseña estructuras, optimiza procesos, construye desde cimientos. Piensa en sistemas.',
+      title: 'El Maestro',
+      role: 'Orquestador de Sistemas',
+      description: 'Diseña estructuras, optimiza procesos, gobierna desde cimientos. Armoniza complejidad.',
       traits: ['Estructura', 'Optimización', 'Integración'],
-      image: '/images/living-agents/architect.jpg',
+      image: '/images/living-agents/master.jpg',
     },
   ]
 
@@ -143,7 +143,7 @@ export function LivingAgentsContent() {
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-3">Basado en arquetipos</h3>
               <p className="body text-muted-foreground">
-                No empezamos de cero. Cinco arquetipos fundamentales—El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto—cada uno con su filosofía, valores y forma de ver el mundo.
+                No empezamos de cero. Cinco arquetipos fundamentales—El Centinela, El Tejedor, El Historiador, El Visionario, El Maestro—cada uno con su filosofía, valores y forma de ver el mundo.
               </p>
             </div>
           </div>
