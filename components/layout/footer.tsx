@@ -72,9 +72,12 @@ export function Footer() {
             <p className="font-bold mb-4 text-foreground">Contacto</p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:info@n3uralia.com" className="hover:text-foreground transition-colors">
+                <button
+                  onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
+                  className="hover:text-foreground transition-colors text-left"
+                >
                   Email: info@n3uralia.com
-                </a>
+                </button>
               </li>
               <li>
                 <a href="tel:+56993826127" className="hover:text-foreground transition-colors">
