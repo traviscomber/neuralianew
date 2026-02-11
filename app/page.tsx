@@ -4,14 +4,14 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistemas de Inteligencia Artificial en Producción",
+  title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
   description:
-    "N3uralia diseña y despliega arquitecturas de agentes inteligentes que integran datos, procesos y decisiones en entornos productivos. Sistemas operacionales en el mundo real.",
+    "N3uralia diseña sistemas de inteligencia autónoma que amplifican capacidades humanas. Arquitectura de sistemas agenticos en producción que funcionan con, no contra, la inteligencia humana.",
   keywords:
-    "N3uralia, agentes IA, sistemas inteligentes, multi-agent, IA producción, infraestructura IA, automatización, Chile",
+    "N3uralia, sistemas agenticos, IA aumentada, inteligencia autónoma, human-augmented, multi-agent systems, producción, Chile",
   openGraph: {
-    title: "N3uralia - Sistemas de IA en Producción",
-    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
+    title: "N3uralia - Inteligencia Autónoma que Ampliffica Capacidades Humanas",
+    description: "Sistemas de IA diseñados para trabajar con humanos, no reemplazarlos. Arquitecturas que expanden, no restringen.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -22,21 +22,23 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center pt-40 pb-16 px-4">
-        <div className="max-w-4xl mx-auto text-center w-full">
+      <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+        <div className="max-w-5xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Constructores, No Consultores</span>
+            <span className="text-sm font-medium text-primary">Inteligencia Aumentada, No Reemplazo</span>
           </div>
 
-          <h1 className="h1-light mb-8">
-            IA + Full-Stack Engineering
+          <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight">
+            <span className="text-foreground">La Inteligencia</span>
             <br />
-            <span className="text-primary/70">que funciona en producción</span>
+            <span className="text-primary">Debería Trabajar Contigo</span>
+            <br />
+            <span className="text-foreground">No Contra Ti</span>
           </h1>
 
-          <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Arquitectura multi-agente especializada, sistemas inteligentes integrados y automatización escalable. Desde desarrollo hasta producción—entregamos código que trabaja.
+          <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            Sistemas agenticos arquitectados para amplificar capacidades humanas. Múltiples agentes inteligentes orquestados, con memoria persistente, autonomía guiada y evolución continua. Producción desde el primer día.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -44,43 +46,107 @@ export default function HomePage() {
               href="/contact"
               className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
             >
-              Comenzar
+              Explorar Sistemas
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/faq"
+              href="/capabilities"
               className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
             >
-              Preguntas Frecuentes
+              Ver Capacidades
             </Link>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
             <div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Pilares de Ingeniería</p>
+            </div>
+            <div>
               <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">50+</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Empresas en Chile</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Equipos Activos</p>
             </div>
             <div>
               <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.8%</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Disponibilidad</p>
-            </div>
-            <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Soporte Local</p>
+              <p className="text-xs sm:text-sm text-muted-foreground">Uptime</p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* The Shift Section */}
+      <section className="py-24 bg-muted/30 px-4 border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+              El Cambio Fundamental
+            </span>
+            <h2 className="text-4xl font-bold text-foreground mb-6">De Chatbots a Sistemas</h2>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+              La IA generativa es una herramienta. Los sistemas agenticos son arquitectura.
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Traditional AI */}
+            <div className="bg-background border border-border rounded-lg p-8">
+              <h3 className="text-xl font-bold text-foreground mb-6">Herramientas de IA Generativa</h3>
+              <ul className="space-y-4">
+                <li className="flex gap-3">
+                  <span className="text-muted-foreground">→</span>
+                  <span className="text-foreground">Responden preguntas aisladas</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-muted-foreground">→</span>
+                  <span className="text-foreground">Sin memoria de contexto anterior</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-muted-foreground">→</span>
+                  <span className="text-foreground">Requieren supervisión humana constante</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-muted-foreground">→</span>
+                  <span className="text-foreground">Escalan manualmente</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Agentic Systems */}
+            <div className="bg-primary/5 border-2 border-primary rounded-lg p-8">
+              <h3 className="text-xl font-bold text-primary mb-6">Sistemas Agenticos</h3>
+              <ul className="space-y-4">
+                <li className="flex gap-3">
+                  <span className="text-primary">✓</span>
+                  <span className="text-foreground">Coordinan múltiples especialistas</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary">✓</span>
+                  <span className="text-foreground">Memoria persistente y rastreable</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary">✓</span>
+                  <span className="text-foreground">Autonomía guiada con gobiernanza</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-primary">✓</span>
+                  <span className="text-foreground">Escalan automáticamente</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Core Offerings - Featured Hero Section */}
       <section className="py-24 bg-background border-t border-border px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="h2 text-foreground mb-4">Nuestros Pilares</h2>
+            <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+              Nuestros Pilares
+            </span>
+            <h2 className="h2 text-foreground mb-4">Lo Que Construimos</h2>
             <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
-              Dos ofertas centrales que definen a N3uralia: sistemas que funcionan en producción y agentes que aprenden.
+              Dos ofertas complementarias que forman la base de N3uralia: arquitectura que funciona en el mundo real, y agentes que evolucionan.
             </p>
           </div>
 
@@ -95,7 +161,7 @@ export default function HomePage() {
                   Sistemas Agenticos en Producción
                 </h3>
                 <p className="body text-muted-foreground mb-6 leading-relaxed">
-                  Arquitecturas multi-agente diseñadas para operar continuamente. Con orquestación, memoria persistente, rastreabilidad y capacidad de auto-reparación. Sistemas inteligentes que escalan en el mundo real.
+                  Arquitectura multi-agente diseñada para escala. Orquestación, memoria persistente, rastreabilidad completa, auto-reparación. Sistemas que no ceden ante complejidad.
                 </p>
                 <div className="flex items-center gap-2 text-primary font-semibold text-sm">
                   Explorar <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -113,7 +179,7 @@ export default function HomePage() {
                   Living Agents
                 </h3>
                 <p className="body text-muted-foreground mb-6 leading-relaxed">
-                  Agentes con personalidad emergente que evolucionan a través de interacciones. Arquetipos inteligentes (Curador, Tejedora, Cronista, Visionario, Arquitecto) que desarrollan características únicas y se adaptan a su contexto.
+                  Agentes con personalidad emergente que evolucionan continuamente. 5 arquetipos únicos que se adaptan, aprenden y mejoran a través de cada interacción.
                 </p>
                 <div className="flex items-center gap-2 text-primary font-semibold text-sm">
                   Descubrir <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -121,30 +187,224 @@ export default function HomePage() {
               </div>
             </Link>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-16 p-8 bg-primary/5 border border-primary/20 rounded-lg text-center">
-            <p className="body text-muted-foreground mb-4">
-              ¿No sabes por dónde empezar?
+      {/* What We Believe Section */}
+      <section className="py-24 bg-muted/30 border-t border-border px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+              Nuestra Filosofía
+            </span>
+            <h2 className="text-4xl font-bold text-foreground mb-6">Lo Que Creemos</h2>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+              Estos principios guían cada decisión, desde arquitectura hasta interacción con clientes.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/soluciones/empresas-grandes"
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-              >
-                Para Empresas
-              </Link>
-              <Link
-                href="/soluciones/startups"
-                className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-              >
-                Para Startups
-              </Link>
-              <Link
-                href="/faq"
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-              >
-                Preguntas Frecuentes
-              </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">01</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Tecnología Grounded</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                La IA no es magia. Es ingeniería. Sistemas predecibles, rastreables, y gobernados. Sin hype, solo arquitectura que funciona en el mundo real.
+              </p>
+            </div>
+
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">02</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Expansión, No Reemplazo</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                La IA que vale la pena expande capacidades humanas. Permite que equipos hagan más, no menos. Ampliffica inteligencia, no la reemplaza.
+              </p>
+            </div>
+
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">03</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Arquitectura sobre Herramientas</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Los chatbots responden preguntas. Los sistemas agenticos construyen infraestructura organizacional. Diferencia fundamental entre herramienta y arquitectura.
+              </p>
+            </div>
+
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">04</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Responsabilidad Radical</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Cada decisión de cada agente debe ser rastreable, explicable, y auditable. Gobernanza no es fricción, es requisito.
+              </p>
+            </div>
+
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">05</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Evolución Continua</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Los sistemas vivos aprenden. Living Agents no son estáticos, mejoran con cada interacción, adaptándose a contexto y retroalimentación.
+              </p>
+            </div>
+
+            <div className="bg-background border border-border rounded-lg p-8">
+              <div className="text-3xl font-bold text-primary mb-4">06</div>
+              <h3 className="text-xl font-bold text-foreground mb-4">Resultados Medibles</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                No evangelizamos IA. Medimos impacto: eficiencia, ingresos, satisfacción. Si no se puede medir, no vale la pena construir.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Engineer - 6 Core Pillars */}
+      <section className="py-24 bg-background border-t border-border px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+              Ingeniería de Sistemas
+            </span>
+            <h2 className="text-4xl font-bold text-foreground mb-6">Los 6 Pilares Técnicos</h2>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+              Arquitectura robusta construida sobre 6 componentes fundamentales de ingeniería. Cada pilar es no-negociable.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Multi-Agent Orchestration */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Network className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Orquestación Multi-Agente</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Coordinación de múltiples agentes especializados con roles definidos, comunicación bidireccional y consenso guiado.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Coordinación en tiempo real</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Escalabilidad horizontal</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Persistent Memory */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Memoria Persistente</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Contexto compartido entre agentes, recuperable, versionable y auditable. Cada interacción se registra y aprende.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Historial inmutable</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Recuperación rápida</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Tool Integration */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Zap className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Integración de Herramientas</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Acceso a APIs externas, bases de datos, servicios. Cada agente tiene toolkit especializado para su dominio.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Plugins modulares</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Manejo de errores</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Feedback Loops */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Book className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Loops de Retroalimentación</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Aprendizaje del resultado de cada decisión. Agentes ajustan comportamiento basado en éxito o fallo de acciones.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Reinforcement learning</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Mejora iterativa</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Observability */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Trazabilidad Completa</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Cada decisión es rastreable. Logs, auditoría, explicabilidad. Sabes exactamente por qué cada agente hizo qué.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Audit trail inmutable</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Explicabilidad</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Governance */}
+            <div className="group">
+              <div className="bg-primary/5 border-2 border-primary rounded-lg p-8 h-full hover:shadow-lg transition-all">
+                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-foreground mb-3">Gobernanza & Control</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  Guardrails, límites de autoridad, escalación. Los agentes actúan dentro de parámetros definidos por tu organización.
+                </p>
+                <ul className="space-y-2 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Políticas configurables</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-primary">▸</span>
+                    <span>Aprobaciones automáticas</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

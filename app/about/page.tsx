@@ -3,30 +3,30 @@ import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Acerca de N3uralia (Neuralia) | Historia y Visión de la Plataforma IA",
-  description: "N3uralia (Neuralia): por qué construimos una plataforma de IA diferente. Nuestra historia, misión y cómo trabajamos con empresas chilenas.",
+  title: "Acerca de N3uralia | Visión, Misión, Pilares de Ingeniería",
+  description: "N3uralia: por qué construimos una plataforma de sistemas agenticos diferente. Nuestra filosofía, visión y cómo trabajamos con empresas chilenas. Inteligencia aumentada, no reemplazo.",
 }
 
 const values = [
   {
     icon: Zap,
-    title: "Velocidad",
-    description: "Tu tiempo es precioso. Nos movemos rápido—deploy en días, no meses. Itera con velocidad.",
-  },
-  {
-    icon: Shield,
-    title: "Confianza",
-    description: "Tus datos, tu seguridad, tu control. Infraestructura empresarial en la que puedes confiar, siempre.",
+    title: "Ingeniería Rigurosa",
+    description: "La IA es ingeniería, no magia. Sistemas predecibles, rastreables, gobernados. Cada decisión es auditable.",
   },
   {
     icon: Users,
-    title: "Asociación",
-    description: "No somos un proveedor. Somos tu equipo. Tu éxito es nuestro éxito, y actuamos como tal.",
+    title: "Expansión Humana",
+    description: "Tecnología que amplifica capacidades humanas. Ayuda a equipos a hacer más, no menos. Colaboración, no reemplazo.",
+  },
+  {
+    icon: Shield,
+    title: "Responsabilidad Radical",
+    description: "Cada agente, cada decisión, completamente rastreable. Gobernanza no es fricción—es requisito no-negociable.",
   },
   {
     icon: Target,
-    title: "Impacto Real",
-    description: "Medimos todo lo que importa. Ganancias de eficiencia, ingresos, satisfacción—resultados concretos.",
+    title: "Resultados Medibles",
+    description: "No evangelizamos IA. Medimos impacto real: eficiencia, ingresos, satisfacción. Resultados concretos, no promesas.",
   },
 ]
 
@@ -42,7 +42,7 @@ export default function AboutPage() {
           </p>
           <h1 className="h1-light mb-8 text-foreground">N3uralia</h1>
           <p className="body-lg text-muted-foreground leading-relaxed">
-            Empezamos porque vimos el mismo problema en todas partes: ideas brillantes de IA atrapadas en complejidad. Equipos de desarrollo ahogándose en infraestructura. Potencial dejado en el camino.
+            Construimos arquitecturas de inteligencia autónoma que amplifican capacidades humanas. No es IA que reemplaza. Es IA que expande. Sistemas que funcionan con humanos, no contra ellos.
           </p>
         </div>
       </section>
@@ -52,27 +52,67 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-20">
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
-              El Por Qué
+              Nuestro Por Qué
             </p>
-            <h2 className="h2 text-foreground mb-8 leading-tight">Por Qué Hacemos Esto</h2>
+            <h2 className="h2 text-foreground mb-8 leading-tight">La Visión Que Nos Guía</h2>
+            <p className="body text-muted-foreground leading-relaxed mb-6">
+              Creemos que la IA debería ser diferente. No más chatbots respondiendo preguntas aisladas. No más herramientas que requieren supervisión constante. No más sistemas que reemplazan humanos.
+            </p>
+            <p className="body text-muted-foreground leading-relaxed mb-6">
+              Imaginamos sistemas inteligentes que coordinan autonomía con gobernanza. Agentes que son especializados pero colaborativos. Arquitectura que escala sin complejidad exponencial.
+            </p>
             <p className="body text-muted-foreground leading-relaxed">
-              Creemos que la IA no debería ser tan difícil. No deberías necesitar un PhD para orquestar agentes, ni pasar meses en infraestructura cuando podrías estar construyendo. Existimos para eliminar el ruido—para darte lo que realmente necesitas: simplicidad que escala, tecnología que funciona, resultados que importan. No estamos aquí para complicar tu mundo. Estamos aquí para simplificarlo.
+              Existimos para que eso sea posible. Arquitectura que funciona. Ingeniería rigurosa. Responsabilidad radical. Sistema vivo que aprende y evoluciona.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Vision Section */}
-      <section className="py-24 bg-background border-b border-border">
+      {/* Philosophy Section */}
+      <section className="py-24 bg-muted/30 border-b border-border">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-20">
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
-              La Visión
+              Nuestra Filosofía
             </p>
-            <h2 className="h2 text-foreground mb-8 leading-tight">Hacia Dónde Vamos</h2>
-            <p className="body text-muted-foreground leading-relaxed">
-              Imaginamos un futuro donde cada empresa en Chile, Latinoamérica y más allá pueda construir con IA tan fácil como construye con código hoy. Donde tus ideas pasen de pizarra a producción en semanas, no años. Donde la barrera no sea la tecnología—sea la imaginación. Ese es el mundo que estamos construyendo, un cliente a la vez.
-            </p>
+            <h2 className="h2 text-foreground mb-8 leading-tight">Cómo Pensamos Diferente</h2>
+            
+            <div className="space-y-8">
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-3">1. Tecnología Grounded</h3>
+                <p className="body text-muted-foreground">
+                  La IA no es magia. Es ingeniería. Sistemas que son predecibles, rastreables, y completamente gobernados. Sin hype, solo arquitectura que funciona en el mundo real.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-3">2. Expansión, No Reemplazo</h3>
+                <p className="body text-muted-foreground">
+                  La IA que vale la pena expande capacidades humanas. Permite que equipos hagan más, no menos. No construimos para reemplazar—construimos para amplificar.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-3">3. Arquitectura sobre Herramientas</h3>
+                <p className="body text-muted-foreground">
+                  Los chatbots responden preguntas. Los sistemas agenticos construyen infraestructura organizacional. Hay una diferencia fundamental entre una herramienta y una arquitectura.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-3">4. Responsabilidad Radical</h3>
+                <p className="body text-muted-foreground">
+                  Cada decisión de cada agente debe ser rastreable, explicable, y auditable. Gobernanza no es fricción—es un requisito no-negociable de sistemas responsables.
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-bold text-foreground mb-3">5. Evolución Continua</h3>
+                <p className="body text-muted-foreground">
+                  Los sistemas vivos aprenden. Living Agents no son estáticos. Mejoran con cada interacción, adaptándose a contexto, retroalimentación y experiencia.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>

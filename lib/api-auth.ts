@@ -83,6 +83,34 @@ export function createApiRoute(
 }
 
 /**
+ * Middleware wrapper for authentication
+ * Use with: export const middleware = withAuth(yourHandler, { optional: false })
+ */
+export function withAuth(
+  handler: (req: NextRequest, context: any) => Promise<Response>,
+  options?: { optional?: boolean },
+) {
+  return async (req: NextRequest, context: any) => {
+    try {
+      if (!options?.optional) {
+        const user = requireAuth(req)
+        if (!user) {
+          return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+        }
+      }
+
+      return await handler(req, context)
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unknown error"
+      const status = message.includes("Unauthorized") ? 401 : 500
+
+      console.error("[API Auth Error]", message)
+      return NextResponse.json({ error: message }, { status })
+    }
+  }
+}
+
+/**
  * Type-safe response helper
  */
 export function apiResponse<T>(data: T, status = 200) {
