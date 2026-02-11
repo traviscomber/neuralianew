@@ -166,15 +166,16 @@ export function LivingAgentsContent() {
                 key={i}
                 className="border border-border p-6 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all overflow-hidden flex flex-col"
               >
-                <div className="mb-4 h-40 bg-background rounded-lg overflow-hidden -mx-6 -mt-6 mb-4 relative">
-                  <Image
-                    src={archetype.image || "/placeholder.svg?height=200&width=400"}
-                    alt={archetype.title}
-                    fill
-                    className="w-full h-full object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </div>
+              <div className="relative w-full h-40 rounded-t-lg overflow-hidden -mx-6 -mt-6 mb-6 bg-muted">
+                <Image
+                  src={archetype.image || "/placeholder.svg"}
+                  alt={archetype.title}
+                  fill
+                  priority={i < 2}
+                  className="object-cover w-full h-full"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
                 <h3 className="text-lg font-semibold text-foreground mb-1">
                   {archetype.title}
                 </h3>
