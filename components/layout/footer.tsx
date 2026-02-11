@@ -72,8 +72,8 @@ export function Footer() {
             <p className="font-bold mb-4 text-foreground">Contacto</p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:hello@n3uralia.com" className="hover:text-foreground transition-colors">
-                  Email: hello@n3uralia.com
+                <a href="mailto:info@n3uralia.com" className="hover:text-foreground transition-colors">
+                  Email: info@n3uralia.com
                 </a>
               </li>
               <li>

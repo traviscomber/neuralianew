@@ -68,8 +68,8 @@ const chatResponses = [
   {
     trigger: ["whatsapp", "contacto", "hablar", "llamar", "email", "reunion"],
     responses: [
-      "📱 **¡Hablemos de tu proyecto full stack!**\n\n• **WhatsApp**: +56 9 4094 6660 💬\n• **Email**: hello@n3uralia.com 📧\n• **Teléfono**: +56 9 4094 6660 ☎️\n\n🎁 **Consulta técnica GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación completa de arquitectura**\n🏗️ **Propuesta de stack tecnológico**\n\n¿Prefieres WhatsApp para empezar ahora?",
-      "🤝 **Conectemos para crear tu ecosistema tecnológico:**\n\n📞 **Llamada técnica**: +56 9 4094 6660\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: hello@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Análisis técnico gratis → 3. Propuesta full stack en 24h\n\n¡Haz clic en WhatsApp para empezar!",
+      "📱 **¡Hablemos de tu proyecto full stack!**\n\n• **WhatsApp**: +56 9 4094 6660 💬\n• **Email**: info@n3uralia.com 📧\n• **Teléfono**: +56 9 4094 6660 ☎️\n\n🎁 **Consulta técnica GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación completa de arquitectura**\n🏗️ **Propuesta de stack tecnológico**\n\n¿Prefieres WhatsApp para empezar ahora?",
+      "🤝 **Conectemos para crear tu ecosistema tecnológico:**\n\n📞 **Llamada técnica**: +56 9 4094 6660\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: info@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Análisis técnico gratis → 3. Propuesta full stack en 24h\n\n¡Haz clic en WhatsApp para empezar!",
     ],
   },
   {
@@ -314,13 +314,11 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
                           <Clock className="w-3 h-3 text-emerald-200 flex-shrink-0" />
                         </Button>
                         <Button
-                          onClick={() => window.open("mailto:hello@n3uralia.com", "_blank")}
-                          variant="outline"
-                          className="text-xs sm:text-sm h-8 sm:h-10 hover:bg-slate-100 dark:hover:bg-slate-700 border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-200 px-2 sm:px-3 flex items-center gap-2"
-                        >
-                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <CheckCircle2 className="w-3 h-3 text-slate-500 flex-shrink-0" />
-                          <span className="truncate">hello@n3uralia.com</span>
+            onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
+            className="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
+          >
+            <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="truncate">info@n3uralia.com</span>
                           <Zap className="w-3 h-3 text-slate-500 flex-shrink-0" />
                         </Button>
                       </div>

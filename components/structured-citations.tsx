@@ -31,7 +31,7 @@ export function StructuredCitations() {
               "@type": "ContactPoint",
               "contactType": "Sales",
               "telephone": "+56993826127",
-              "email": "hello@n3uralia.com"
+              "email": "info@n3uralia.com"
             }
           })
         }}
@@ -52,7 +52,7 @@ export function StructuredCitations() {
               "streetAddress": "Santiago, Chile"
             },
             "telephone": "+56993826127",
-            "email": "hello@n3uralia.com",
+            "email": "info@n3uralia.com",
             "areaServed": "CL"
           })
         }}

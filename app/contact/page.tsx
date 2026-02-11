@@ -25,8 +25,8 @@ export default function ContactPage() {
           </p>
           <p className="text-sm text-muted-foreground">
             O envía un email a{" "}
-            <a href="mailto:hello@n3uralia.com" className="text-primary font-semibold hover:underline">
-              hello@n3uralia.com
+            <a href="mailto:info@n3uralia.com" className="text-primary font-semibold hover:underline">
+              info@n3uralia.com
             </a>
           </p>
         </div>

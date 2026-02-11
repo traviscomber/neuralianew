@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const fromEmail = "contacto@n3uralia.com"
+    const fromEmail = "info@n3uralia.com"
     const fromName = process.env.RESEND_FROM_NAME || "N3uralia"
     const recipientEmail = "n3uralia@gmail.com" // Where we receive contact submissions
 
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
               </p>
               <p>Si tienes urgencia, también puedes contactarnos por:</p>
               <ul>
-                <li>📧 Email: <a href="mailto:contacto@n3uralia.com">contacto@n3uralia.com</a></li>
+                <li>📧 Email: <a href="mailto:info@n3uralia.com">info@n3uralia.com</a></li>
                 <li>💬 WhatsApp: <a href="https://wa.me/56993826127">+56 9 9382 6127</a></li>
               </ul>
               <p>Saludos,<br><strong>El equipo de N3uralia</strong></p>
