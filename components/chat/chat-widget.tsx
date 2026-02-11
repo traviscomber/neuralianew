@@ -225,14 +225,23 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
                       </Badge>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={toggleChat}
-                    className="h-6 w-6 text-white hover:bg-white/20 flex-shrink-0"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
+                        <Button
+                          onClick={() =>
+                            window.open("https://wa.me/56994094660?text=Hola%20N3uralia", "_blank")
+                          }
+                          className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
+                        >
+                          <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">WhatsApp: +56 9 4094 6660</span>
+                          <Clock className="w-3 h-3 text-emerald-200 flex-shrink-0" />
+                        </Button>
+                        <Button
+                          onClick={() => window.open("mailto:info@n3uralia.com", "_blank")}
+                          className="w-full bg-slate-700 hover:bg-slate-800 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
+                        >
+                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">info@n3uralia.com</span>
+                        </Button>
                 </div>
               </CardHeader>
 
