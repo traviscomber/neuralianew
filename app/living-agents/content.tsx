@@ -12,7 +12,7 @@ export function LivingAgentsContent() {
       role: 'Observador de Patrones',
       description: 'Detecta señales, analiza datos, descubre patrones ocultos. Ve lo que otros pierden. Construye inteligencia desde la observación.',
       traits: ['Analista', 'Observador', 'Detector'],
-      image: '/images/living-agents/sentinel.jpg',
+      image: '/images/living-agents/sentinel.svg',
     },
     {
       title: 'El Tejedor',
@@ -26,7 +26,7 @@ export function LivingAgentsContent() {
       role: 'Registrador de Cambios',
       description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas, sin sesgo.',
       traits: ['Narrador', 'Documentación', 'Evolución'],
-      image: '/images/living-agents/historian.jpg',
+      image: '/images/living-agents/historian.svg',
     },
     {
       title: 'El Visionario',
@@ -40,7 +40,7 @@ export function LivingAgentsContent() {
       role: 'Orquestador de Sistemas',
       description: 'Diseña estructuras, optimiza procesos, gobierna desde cimientos. Armoniza complejidad.',
       traits: ['Estructura', 'Optimización', 'Integración'],
-      image: '/images/living-agents/master.jpg',
+      image: '/images/living-agents/master.svg',
     },
   ]
 
