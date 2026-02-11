@@ -109,7 +109,7 @@ export function ContactConversation() {
       } catch (error) {
         console.error("[v0] Contact error:", error)
         assistantResponse =
-          "❌ Hubo un error al enviar tu mensaje. Por favor intenta de nuevo o contacta directamente a hello@n3uralia.com"
+          "❌ Hubo un error al enviar tu mensaje. Por favor intenta de nuevo o contacta directamente a contacto@n3uralia.com"
       } finally {
         setIsLoading(false)
       }
