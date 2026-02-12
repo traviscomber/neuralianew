@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Zap, Shield, Network, Sparkles, Book } from "lucide-react"
+import { ArrowRight, Zap, Shield, Network, Sparkles, Book, Lightbulb, Users, Target, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
@@ -68,6 +68,87 @@ export default function HomePage() {
               <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.8%</div>
               <p className="text-xs sm:text-sm text-muted-foreground">Uptime</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why N3uralia Section */}
+      <section className="py-20 px-4 bg-background border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Por Qué N3uralia</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Cuatro diferenciadores que nos hacen únicos en el ecosistema de IA empresarial.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+              <Lightbulb className="w-8 h-8 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-3">Ingeniería Real, No Prototipos</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Construimos sistemas production-grade desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+              <Zap className="w-8 h-8 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-3">Infraestructura Incluida</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                No solo desarrollamos software. Diseñamos la infraestructura cloud, monitoreo y operación sostenible. Todo listo para vivir.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+              <Target className="w-8 h-8 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-3">Multi-Dominio</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Arquitectura de sistemas, datos, IA agentica, cloud computing. Expertise integrado en cada proyecto, no servicios siloed.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+              <Users className="w-8 h-8 text-primary mb-4" />
+              <h3 className="text-xl font-semibold mb-3">Operación Sostenible</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Tus equipos entienden, operan y evolucionan el sistema. Transferencia de conocimiento desde el día uno.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Approach Section */}
+      <section className="py-20 px-4 bg-muted/30 border-t border-border">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Enfoque</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
+            </p>
+            <Link
+              href="/nuestro-enfoque"
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
+            >
+              Ver Metodología Completa
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-5 gap-4">
+            {[
+              { num: "01", title: "Estrategia & Arquitectura", desc: "Entendemos tu problema. Diseñamos la solución a nivel de sistemas." },
+              { num: "02", title: "Desarrollo e Integración", desc: "Construimos sobre tus sistemas existentes. Integración limpia." },
+              { num: "03", title: "Infraestructura Cloud", desc: "Setup, configuración, security, escalabilidad. Todo monitoreado." },
+              { num: "04", title: "Validación & Pruebas", desc: "Testing en producción. Métricas claras, evolución continua." },
+              { num: "05", title: "Operación & Evolución", desc: "Tu equipo opera. Nosotros evolucionamos el sistema." },
+            ].map((step, i) => (
+              <div key={i} className="flex flex-col p-6 rounded-lg border border-border/50 bg-background hover:border-primary/30 transition-colors">
+                <div className="text-2xl font-bold text-primary mb-3">{step.num}</div>
+                <h3 className="font-semibold text-sm mb-2 text-foreground leading-snug">{step.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

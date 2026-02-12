@@ -21,11 +21,12 @@ export function Navigation() {
       soluciones: "Soluciones",
       resultados: "Resultados",
       acerca: "Acerca de",
+      nuestroEnfoque: "Nuestro Enfoque",
       contacto: "Contacto",
       paraEmpresas: "Para Empresas",
       paraStartups: "Para Startups",
       paraDesarrolladores: "Para Desarrolladores",
-      constellationDemo: "Demostración Constelación", // Added for mobile submenu
+      constellationDemo: "Demostración Constelación",
     },
     en: {
       inicio: "Home",
@@ -36,11 +37,12 @@ export function Navigation() {
       soluciones: "Solutions",
       resultados: "Results",
       acerca: "About",
+      nuestroEnfoque: "Our Approach",
       contacto: "Contact",
       paraEmpresas: "For Enterprise",
       paraStartups: "For Startups",
       paraDesarrolladores: "For Developers",
-      constellationDemo: "Constellation Demo", // Added for mobile submenu
+      constellationDemo: "Constellation Demo",
     },
   }
 
@@ -137,6 +139,12 @@ export function Navigation() {
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {t.acerca}
+          </Link>
+          <Link 
+            href="/nuestro-enfoque" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {t.nuestroEnfoque}
           </Link>
           <Link 
             href="/contact" 
@@ -286,6 +294,13 @@ export function Navigation() {
               className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
             >
               {t.acerca}
+            </Link>
+            <Link 
+              href="/nuestro-enfoque" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
+              {t.nuestroEnfoque}
             </Link>
             <Link 
               href="/contact" 

@@ -83,8 +83,13 @@ export function Footer() {
                 </button>
               </li>
               <li>
-                <a href="tel:+56993826127" className="hover:text-foreground transition-colors">
-                  Teléfono: +56 9 9382 6127
+                <a 
+                  href="https://wa.me/56994094660?text=Hola%20N3uralia%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  WhatsApp: +56 9 4094 6660
                 </a>
               </li>
               <li className="pt-2 border-t border-border">
