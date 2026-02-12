@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Zap, Shield, Network, Sparkles, Book, Lightbulb, Users, Target, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Zap, Brain, Cpu, Shield } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
@@ -21,142 +21,172 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-        <div className="max-w-5xl mx-auto text-center w-full">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Democratizando el Desarrollo de Software</span>
-          </div>
-
-          <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-            <span className="text-foreground">Tu Idea Merece</span>
+      {/* HERO - Brutal & Direct */}
+      <section className="min-h-screen flex items-center justify-center pt-20 pb-20 px-4">
+        <div className="max-w-4xl mx-auto text-center w-full">
+          <h1 className="text-6xl sm:text-8xl font-bold mb-6 leading-tight text-balance tracking-tight">
+            Tu Idea
             <br />
-            <span className="text-primary">Existir</span>
+            <span className="text-primary">Merece Existir</span>
           </h1>
 
-          <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-            Transforma tu concepto en empresa operacional con Living Agents. Desde validación de mercado hasta operación 24/7. Sin cofundador técnico. Sin meses de desarrollo. Sin VC.
+          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            Convertimos conceptos en empresas operacionales con Living Agents. 2-4 semanas. Sin developers caros. Sin VC.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
             <Link
               href="/ideas-a-empresa"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-lg"
             >
-              De Idea a Empresa
-              <ArrowRight className="w-4 h-4" />
+              Comenzar
+              <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
-              href="/democratizacion"
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+              href="/living-agents"
+              className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-lg"
             >
-              Saber Más
+              Ver Agentes
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
+          {/* Stats Row */}
+          <div className="grid grid-cols-3 gap-6 sm:gap-12">
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">4</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Living Agents</p>
+              <div className="text-4xl font-bold text-primary">4</div>
+              <p className="text-sm text-muted-foreground mt-2">Expertos IA</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">2-4</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Semanas Hasta Empresa</p>
+              <div className="text-4xl font-bold text-primary">2-4</div>
+              <p className="text-sm text-muted-foreground mt-2">Semanas</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">10x</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Menos Costo vs. Developers</p>
+              <div className="text-4xl font-bold text-primary">10x</div>
+              <p className="text-sm text-muted-foreground mt-2">Más Barato</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why N3uralia Section */}
-      <section className="py-20 px-4 bg-background border-t border-border">
+      {/* Living Agents - The Team */}
+      <section className="py-24 px-4 bg-muted/30 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Por Qué N3uralia</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Cuatro diferenciadores que nos hacen únicos en el ecosistema de IA empresarial.
-            </p>
+            <h2 className="text-4xl font-bold text-foreground mb-4">Tu Equipo de 4</h2>
+            <p className="text-lg text-muted-foreground">Especializados pero coordinados. Trabajan 24/7. Sin nómina.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-              <Lightbulb className="w-8 h-8 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Ingeniería Real, No Prototipos</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Construimos sistemas production-grade desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-              <Zap className="w-8 h-8 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Infraestructura Incluida</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                No solo desarrollamos software. Diseñamos la infraestructura cloud, monitoreo y operación sostenible. Todo listo para vivir.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-              <Target className="w-8 h-8 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Multi-Dominio</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Arquitectura de sistemas, datos, IA agentica, cloud computing. Expertise integrado en cada proyecto, no servicios siloed.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-              <Users className="w-8 h-8 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Operación Sostenible</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Tus equipos entienden, operan y evolucionan el sistema. Transferencia de conocimiento desde el día uno.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Approach Section */}
-      <section className="py-20 px-4 bg-muted/30 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Enfoque</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-              Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
-            </p>
-            <Link
-              href="/nuestro-enfoque"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
-            >
-              Ver Metodología Completa
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-5 gap-4">
+          <div className="grid md:grid-cols-2 gap-6">
             {[
-              { num: "01", title: "Estrategia & Arquitectura", desc: "Entendemos tu problema. Diseñamos la solución a nivel de sistemas." },
-              { num: "02", title: "Desarrollo e Integración", desc: "Construimos sobre tus sistemas existentes. Integración limpia." },
-              { num: "03", title: "Infraestructura Cloud", desc: "Setup, configuración, security, escalabilidad. Todo monitoreado." },
-              { num: "04", title: "Validación & Pruebas", desc: "Testing en producción. Métricas claras, evolución continua." },
-              { num: "05", title: "Operación & Evolución", desc: "Tu equipo opera. Nosotros evolucionamos el sistema." },
-            ].map((step, i) => (
-              <div key={i} className="flex flex-col p-6 rounded-lg border border-border/50 bg-background hover:border-primary/30 transition-colors">
-                <div className="text-2xl font-bold text-primary mb-3">{step.num}</div>
-                <h3 className="font-semibold text-sm mb-2 text-foreground leading-snug">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
+              { role: "Detective", title: "El Centinela", desc: "Valida mercado, detecta oportunidades, analiza riesgos" },
+              { role: "CEO", title: "El Estratega", desc: "Diseña negocio, pricing, go-to-market, toma decisiones" },
+              { role: "CTO", title: "El Arquitecto", desc: "Desarrolla producto, automatiza, escala infraestructura" },
+              { role: "COO", title: "El Guardián", desc: "Monitorea métricas, alertas automáticas, optimiza operación" },
+            ].map((agent, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-xl border-2 border-primary/20 bg-background hover:border-primary/50 transition-all hover:shadow-lg"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    {i === 0 && <Brain className="w-6 h-6 text-primary" />}
+                    {i === 1 && <Zap className="w-6 h-6 text-primary" />}
+                    {i === 2 && <Cpu className="w-6 h-6 text-primary" />}
+                    {i === 3 && <Shield className="w-6 h-6 text-primary" />}
+                  </div>
+                  <div className="text-left flex-1">
+                    <p className="text-sm font-semibold text-primary mb-1">Tu {agent.role}</p>
+                    <h3 className="text-xl font-bold text-foreground mb-2">{agent.title}</h3>
+                    <p className="text-sm text-muted-foreground">{agent.desc}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/living-agents"
+              className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary/80 transition-colors"
+            >
+              Explora cómo funcionan
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* The Shift + Philosophy Combined Section */}
-      <section className="py-20 bg-muted/30 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {/* How It Works - Simple Path */}
+      <section className="py-24 px-4 bg-background border-t border-border">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold text-foreground text-center mb-16">De Idea a Empresa</h2>
+
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-4">
+            {[
+              { num: 1, label: "Validación", desc: "Mercado, viabilidad, oportunidad" },
+              { num: 2, label: "Estrategia", desc: "Modelo, pricing, diferenciadores" },
+              { num: 3, label: "Construcción", desc: "Producto, infraestructura, APIs" },
+              { num: 4, label: "Operación", desc: "Métricas, evolución, crecimiento" },
+            ].map((step, i) => (
+              <div key={i} className="flex-1">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mb-4">
+                    <span className="text-2xl font-bold text-primary">{step.num}</span>
+                  </div>
+                  <h3 className="font-bold text-lg text-foreground mb-2">{step.label}</h3>
+                  <p className="text-sm text-muted-foreground">{step.desc}</p>
+                </div>
+                {i < 3 && (
+                  <div className="hidden md:flex justify-center mt-6 -mr-4">
+                    <ArrowRight className="w-6 h-6 text-primary/30" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-16">
+            <p className="text-muted-foreground mb-6">Promedio: 2-4 semanas. Precio: 10x menos que developers.</p>
+            <Link
+              href="/ideas-a-empresa"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Ver Proceso Completo
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 px-4 bg-primary/5 border-t border-border">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-foreground mb-6">¿Tienes una Idea?</h2>
+          <p className="text-lg text-muted-foreground mb-10">
+            Cuéntanos. Nuestros 4 Living Agents analizarán viabilidad, oportunidad y ruta de ejecución.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2 text-lg"
+            >
+              Hablemos
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/democratizacion"
+              className="px-8 py-4 border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-lg"
+            >
+              La Misión
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
+  )
+}
             {/* Left: The Shift */}
             <div>
               <h2 className="text-2xl font-bold text-foreground mb-8">De Herramientas a Arquitectura</h2>
