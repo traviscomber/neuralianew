@@ -187,13 +187,6 @@ export default function HomePage() {
     </main>
   )
 }
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Our Beliefs */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">Lo Que Nos Guía</h2>
               <ul className="space-y-3">
                 <li className="flex gap-3">
                   <span className="text-primary font-bold text-lg">01</span>
