@@ -11,37 +11,30 @@ const ARCHETYPES = [
   {
     id: 'sentinel',
     name: 'El Centinela',
-    role: 'Observador de Patrones',
-    description: 'Detecta y analiza.',
-    traits: ['Analítico', 'Observador', 'Reflexivo', 'Detector', 'Historiador', 'Crítico', 'Perspicaz', 'Sintetizador', 'Categorizador', 'Inteligencia'],
+    role: 'Cognitive Perception',
+    description: 'Entiende y detecta.',
+    traits: ['Analítico', 'Observador', 'Reflexivo', 'Detector', 'Crítico', 'Perspicaz', 'Sintetizador', 'Categorizador', 'Inteligencia', 'Contextual'],
   },
   {
-    id: 'weaver',
-    name: 'El Tejedor',
-    role: 'Conector de Contextos',
-    description: 'Vincula significados.',
-    traits: ['Conectivo', 'Intuitivo', 'Síntesis', 'Puentes', 'Relacional', 'Interdisciplinario', 'Creativo', 'Empático', 'Holístico', 'Emergencia'],
+    id: 'strategist',
+    name: 'El Estratega',
+    role: 'Decisive Intelligence',
+    description: 'Evalúa y decide.',
+    traits: ['Evaluador', 'Simulador', 'Predictivo', 'Decisor', 'Analítico', 'Estratégico', 'Visionario', 'Escenarios', 'Oportunidad', 'Riesgo'],
   },
   {
-    id: 'historian',
-    name: 'El Historiador',
-    role: 'Registrador de Cambios',
-    description: 'Documenta viajes.',
-    traits: ['Narrativa', 'Trazabilidad', 'Detalle', 'Cronológico', 'Testigo', 'Registro', 'Contextual', 'Memoria', 'Evolución', 'Documento'],
+    id: 'architect',
+    name: 'El Arquitecto',
+    role: 'Execution Engine',
+    description: 'Construye y automatiza.',
+    traits: ['Constructor', 'Generador', 'Automatizador', 'Integrador', 'Modular', 'Escalable', 'Robusto', 'Eficiente', 'Creativo', 'Innovador'],
   },
   {
-    id: 'visionary',
-    name: 'El Visionario',
-    role: 'Proyector de Futuros',
-    description: 'Imagina posibilidades.',
-    traits: ['Prospectiva', 'Imaginativa', 'Escenarios', 'Visión', 'Posibilidades', 'Riesgo', 'Oportunidad', 'Futuro', 'Diseño', 'Innovación'],
-  },
-  {
-    id: 'master',
-    name: 'El Maestro',
-    role: 'Orquestador de Sistemas',
-    description: 'Diseña estructuras.',
-    traits: ['Sistémica', 'Estructura', 'Escalabilidad', 'Integración', 'Optimización', 'Sostenibilidad', 'Modularidad', 'Robustez', 'Eficiencia', 'Arquitectura'],
+    id: 'guardian',
+    name: 'El Guardián',
+    role: 'Quality Control',
+    description: 'Valida y protege.',
+    traits: ['Validador', 'Protector', 'Monitoreador', 'Consistente', 'Riguroso', 'Alerta', 'Seguro', 'Confiable', 'Vigilante', 'Asegurador'],
   },
 ]
 
@@ -66,10 +59,9 @@ export function DemoContent() {
 
   const personalityScores = {
     sentinel: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
-    weaver: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
-    historian: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
-    visionary: [75, 85, 80, 88, 82, 85, 90, 78, 85, 92],
-    master: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
+    strategist: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
+    architect: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
+    guardian: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
   }
 
   const handleSendMessage = () => {

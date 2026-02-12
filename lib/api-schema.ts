@@ -131,7 +131,7 @@ export const schemas = {
   LivingAgent: z.object({
     id: z.string().uuid(),
     name: z.string(),
-    archetype: z.enum(["Centinela", "Tejedor", "Historiador", "Visionario", "Maestro"]),
+    archetype: z.enum(["Centinela", "Estratega", "Arquitecto", "Guardián"]),
     description: z.string(),
     personality: z.record(z.string(), z.number()).optional(),
     status: z.enum(["active", "inactive", "archived"]),
