@@ -111,7 +111,7 @@ export default function EnfoquePage() {
           <div className="space-y-20">
             {steps.map((step, i) => (
               <div key={i} className="grid md:grid-cols-2 gap-12 items-center">
-                <div className={md:order-${i % 2 === 1 ? '2' : '1'}}>
+                <div className={`md:order-${i % 2 === 1 ? '2' : '1'}`}>
                   <div className="text-6xl font-bold text-primary/20 mb-4">{step.number}</div>
                   <h2 className="text-3xl font-bold mb-4 text-foreground">{step.title}</h2>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-6">{step.description}</p>
