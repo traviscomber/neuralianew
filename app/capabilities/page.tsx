@@ -445,7 +445,7 @@ export default function CapabilitiesPage() {
               </div>
             </div>
 
-            {{/* Implementation Considerations */}
+            {/* Implementation Considerations */}
             <div className="mb-12">
               <h3 className="h3 text-foreground mb-6">Consideraciones de Implementación</h3>
               <div className="space-y-4">
