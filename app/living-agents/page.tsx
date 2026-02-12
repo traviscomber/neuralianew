@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import { LivingAgentsContent } from "./content"
 
 export const metadata: Metadata = {
-  title: "Living Agents | Tu Equipo de Expertos en IA 24/7",
+  title: "Living Agents de N3uralia (Neuralia) | Agentes con Personalidad Emergente",
   description:
-    "Centinela (tu detective), Estratega (tu CEO), Arquitecto (tu CTO), Guardián (tu COO). 4 expertos que trabajan sin salario. Especializado pero coordinado.",
+    "N3uralia (Neuralia) Living Agents: Sistema de arquetipos que evolucionan. El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto. Agentes que desarrollan personalidad a través de interacciones.",
   keywords:
-    "Living Agents, equipo IA, startup builder, automatización, inteligencia aumentada",
+    "N3uralia, Living Agents, agentes inteligentes, personalidad emergente, arquetipos IA, Neuralia Chile",
 }
 
 export default function LivingAgentsPage() {

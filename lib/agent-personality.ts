@@ -17,35 +17,45 @@ export const PERSONALITY_DIMENSIONS: Record<string, PersonalityDimension> = {
     archetype: "El Centinela",
     description: "Capacidad de descomponer problemas en partes",
   },
-  strategic: {
-    name: "Estratégico",
-    archetype: "El Estratega",
-    description: "Capacidad de evaluar opciones y simular escenarios",
+  connective: {
+    name: "Conectivo",
+    archetype: "El Tejedor",
+    description: "Habilidad para ver relaciones entre ideas",
+  },
+  empathetic: {
+    name: "Empático",
+    archetype: "El Tejedor",
+    description: "Comprensión de perspectivas diversas",
+  },
+  narrative: {
+    name: "Narrativo",
+    archetype: "El Historiador",
+    description: "Capacidad de contar historias coherentes",
+  },
+  documentary: {
+    name: "Documentación",
+    archetype: "El Historiador",
+    description: "Precisión en registro y trazabilidad",
   },
   visionary: {
     name: "Visionario",
-    archetype: "El Estratega",
-    description: "Proyección de futuros posibles y alternativas",
-  },
-  structural: {
-    name: "Estructural",
-    archetype: "El Arquitecto",
-    description: "Pensamiento sistémico y de construcción de soluciones",
+    archetype: "El Visionario",
+    description: "Habilidad para proyectar futuros posibles",
   },
   creative: {
     name: "Creativo",
-    archetype: "El Arquitecto",
-    description: "Generación de contenido y automatizaciones innovadoras",
+    archetype: "El Visionario",
+    description: "Generación de ideas novedosas",
   },
-  quality: {
-    name: "Calidad",
-    archetype: "El Guardián",
-    description: "Validación de resultados y consistencia",
+  structural: {
+    name: "Estructural",
+    archetype: "El Maestro",
+    description: "Pensamiento sistémico y de diseño",
   },
-  protective: {
-    name: "Protector",
-    archetype: "El Guardián",
-    description: "Asegura límites, alertas y salvaguardas",
+  optimization: {
+    name: "Optimización",
+    archetype: "El Maestro",
+    description: "Mejora continua de procesos",
   },
 }
 

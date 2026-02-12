@@ -126,7 +126,7 @@ export default function EnfoquePage() {
                   </div>
                 </div>
 
-                <div className={`rounded-lg border border-border bg-muted/30 p-8 md:order-${i % 2 === 1 ? '1' : '2'}`}>
+                <div className={`rounded-lg border border-border bg-muted/30 p-8 ${i % 2 === 1 ? 'md:order-1' : 'md:order-2'}`}>
                   <div className="space-y-4">
                     <p className="text-sm font-semibold text-primary uppercase">Entregables Clave</p>
                     <ul className="space-y-2 text-muted-foreground">

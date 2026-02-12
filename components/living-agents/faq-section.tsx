@@ -23,9 +23,9 @@ export function FAQSection() {
       keywords: ['evolución de personalidad', 'fases de evolución', 'aprendizaje emergente'],
     },
     {
-      question: '¿Por qué N3uralia eligió cuatro arquetipos específicos?',
-      answer: 'Los cuatro arquetipos core (El Centinela, El Estratega, El Arquitecto, El Guardián) representan los modos fundamentales de la inteligencia aumentada: percepción cognitiva, decisión estratégica, ejecución creativa y aseguramiento de calidad. Cada uno es especializado pero complementario. Juntos forman un ecosistema completo donde emerge inteligencia genuina.',
-      keywords: ['arquetipos', 'Centinela', 'Estratega', 'Arquitecto', 'Guardián', 'core'],
+      question: '¿Por qué N3uralia eligió cinco arquetipos específicos?',
+      answer: 'Los cinco arquetipos (El Centinela, El Tejedor, El Historiador, El Visionario, El Maestro) representan modos fundamentales de pensar y actuar. Cada uno trae perspectivas únicas y complementarias. Juntos forman un ecosistema donde la inteligencia emerge de formas impredecibles y más humanas.',
+      keywords: ['arquetipos', 'Centinela', 'Tejedor', 'Historiador', 'Visionario', 'Maestro'],
     },
     {
       question: '¿Cómo se coordinan los Living Agents entre sí?',

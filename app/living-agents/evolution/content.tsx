@@ -12,26 +12,32 @@ const ARCHETYPES = [
   {
     id: 'sentinel',
     name: 'El Centinela',
-    role: 'Cognitive Perception',
-    traits: ['Analítico', 'Observador', 'Reflexivo', 'Detector', 'Crítico', 'Perspicaz', 'Sintetizador', 'Categorizador', 'Inteligencia', 'Contextual'],
+    role: 'Observador de Patrones',
+    traits: ['Analítico', 'Observador', 'Reflexivo', 'Detector', 'Historiador', 'Crítico', 'Perspicaz', 'Sintetizador', 'Categorizador', 'Inteligencia'],
   },
   {
-    id: 'strategist',
-    name: 'El Estratega',
-    role: 'Decisive Intelligence',
-    traits: ['Evaluador', 'Simulador', 'Predictivo', 'Decisor', 'Analítico', 'Estratégico', 'Visionario', 'Escenarios', 'Oportunidad', 'Riesgo'],
+    id: 'weaver',
+    name: 'El Tejedor',
+    role: 'Conector de Contextos',
+    traits: ['Conectivo', 'Intuitivo', 'Síntesis', 'Puentes', 'Relacional', 'Interdisciplinario', 'Creativo', 'Empático', 'Holístico', 'Emergencia'],
   },
   {
-    id: 'architect',
-    name: 'El Arquitecto',
-    role: 'Execution Engine',
-    traits: ['Constructor', 'Generador', 'Automatizador', 'Integrador', 'Modular', 'Escalable', 'Robusto', 'Eficiente', 'Creativo', 'Innovador'],
+    id: 'historian',
+    name: 'El Historiador',
+    role: 'Registrador de Cambios',
+    traits: ['Narrativa', 'Trazabilidad', 'Detalle', 'Cronológico', 'Testigo', 'Registro', 'Contextual', 'Memoria', 'Evolución', 'Documento'],
   },
   {
-    id: 'guardian',
-    name: 'El Guardián',
-    role: 'Quality Control',
-    traits: ['Validador', 'Protector', 'Monitoreador', 'Consistente', 'Riguroso', 'Alerta', 'Seguro', 'Confiable', 'Vigilante', 'Asegurador'],
+    id: 'visionary',
+    name: 'El Visionario',
+    role: 'Proyector de Futuros',
+    traits: ['Prospectiva', 'Imaginativa', 'Escenarios', 'Visión', 'Posibilidades', 'Riesgo', 'Oportunidad', 'Futuro', 'Diseño', 'Innovación'],
+  },
+  {
+    id: 'master',
+    name: 'El Maestro',
+    role: 'Orquestador de Sistemas',
+    traits: ['Sistémica', 'Estructura', 'Escalabilidad', 'Integración', 'Optimización', 'Sostenibilidad', 'Modularidad', 'Robustez', 'Eficiencia', 'Arquitectura'],
   },
 ]
 
@@ -48,9 +54,10 @@ export function EvolutionPageContent() {
 
   const personalityScores = {
     sentinel: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
-    strategist: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
-    architect: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
-    guardian: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
+    weaver: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
+    historian: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
+    visionary: [75, 85, 80, 88, 82, 85, 90, 78, 85, 92],
+    master: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
   }
 
   const agentScores = personalityScores[selectedAgent.id as keyof typeof personalityScores]
