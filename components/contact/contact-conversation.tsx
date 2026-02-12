@@ -198,13 +198,13 @@ export function ContactConversation() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col h-full">
       {/* Chat Container */}
-      <div className="border border-border rounded-lg overflow-hidden flex flex-col bg-card shadow-sm">
+      <div className="flex-1 overflow-hidden flex flex-col bg-card">
         {/* Messages */}
         <div
           ref={messagesContainerRef}
-          className="flex-1 overflow-y-auto p-6 space-y-4 h-96 scroll-smooth"
+          className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth"
         >
           {messages.map((message) => (
             <div
@@ -285,14 +285,6 @@ export function ContactConversation() {
             </div>
           </div>
         )}
-      </div>
-
-      {/* Help Text */}
-      <div className="bg-muted/30 border border-border rounded-lg p-4">
-        <p className="text-xs text-muted-foreground">
-          Tip: Sé específico. Cuéntanos el problema que necesitas resolver, quiénes son tus usuarios y cuál es tu
-          timeline ideal.
-        </p>
       </div>
     </div>
   )
