@@ -187,17 +187,6 @@ export default function HomePage() {
     </main>
   )
 }
-            {/* Left: The Shift */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">De Herramientas a Arquitectura</h2>
-              <div className="space-y-4">
-                <div className="pb-4 border-b border-border/30">
-                  <p className="text-sm font-semibold text-muted-foreground mb-1">Herramientas IA</p>
-                  <p className="text-foreground">Responden preguntas aisladas, sin contexto, sin memoria persistente.</p>
-                </div>
-                <div className="pb-4 border-b border-border/30">
-                  <p className="text-sm font-semibold text-muted-foreground mb-1">Sistemas Agenticos</p>
-                  <p className="text-foreground">Coordinan especialistas, memoria persistente, autonomía guiada, escalan automáticamente.</p>
                 </div>
               </div>
             </div>
