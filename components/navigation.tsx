@@ -69,8 +69,8 @@ export function Navigation() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-1 items-center">
-          {/* Products/Offerings Group */}
+        <div className="hidden md:flex gap-2 items-center">
+          {/* Tier 1: Core Products */}
           <Link 
             href="/capabilities" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -78,7 +78,8 @@ export function Navigation() {
             {t.capacidades}
           </Link>
           
-          <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-2">
+          {/* Tier 1: Flagship Offerings */}
+          <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-1">
             <Link 
               href="/living-agents" 
               className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
@@ -94,7 +95,7 @@ export function Navigation() {
             </Link>
           </div>
           
-          {/* Solutions Dropdown */}
+          {/* Tier 2: Solutions Dropdown */}
           <div className="relative">
             <button
               onClick={() => setSolutionsOpen(!solutionsOpen)}
@@ -139,14 +140,7 @@ export function Navigation() {
             )}
           </div>
 
-          <Link 
-            href="/outcomes" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {t.resultados}
-          </Link>
-
-          {/* Learning Hub Dropdown */}
+          {/* Tier 3: Learning Hub Dropdown */}
           <div className="relative">
             <button
               onClick={() => setLearningOpen(!learningOpen)}
@@ -197,7 +191,7 @@ export function Navigation() {
             )}
           </div>
 
-          {/* Company Section */}
+          {/* Tier 4: Company Info */
           <Link 
             href="/about" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -209,12 +203,6 @@ export function Navigation() {
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {t.nuestroEnfoque}
-          </Link>
-          <Link 
-            href="/contact" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {t.contacto}
           </Link>
 
           <div className="relative hidden">
@@ -415,13 +403,6 @@ export function Navigation() {
               className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
             >
               {t.nuestroEnfoque}
-            </Link>
-            <Link 
-              href="/contact" 
-              onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-            >
-              {t.contacto}
             </Link>
 
             <div className="pt-3 border-t border-border space-y-2">
