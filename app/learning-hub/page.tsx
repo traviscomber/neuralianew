@@ -1,217 +1,308 @@
 import Link from "next/link"
-import { ArrowRight, BookOpen, Code, CaseSensitive, Archive } from "lucide-react"
+import { ArrowRight, Brain, BookOpen, Zap } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Centro de Aprendizaje | N3uralia - Guías y Conceptos de IA",
+  title: "Centro de Aprendizaje - N3uralia | Conceptos y Guías de IA",
   description:
-    "Aprende sobre Agentic AI, sistemas inteligentes y arquitectura moderna de inteligencia artificial. Conceptos, guías técnicas, casos de estudio y recursos.",
-  keywords: "learning hub, agentic ai, technical guides, case studies, ai architecture, n3uralia",
+    "Centro de Aprendizaje de N3uralia: Conceptos fundamentales sobre Agentic AI, Living Agents, guías técnicas y casos de estudio sobre sistemas inteligentes en producción.",
+  keywords:
+    "learning hub, centro de aprendizaje, conceptos IA, agentes inteligentes, Living Agents, guías técnicas",
   openGraph: {
-    title: "Centro de Aprendizaje | N3uralia",
-    description: "Recursos educativos sobre sistemas inteligentes y IA",
+    title: "Centro de Aprendizaje - N3uralia",
+    description: "Aprende sobre IA y sistemas inteligentes",
     type: "website",
     locale: "es_CL",
-    url: "https://n3uralia.com/learning-hub",
   },
 }
 
-const hubSections = [
+export default function LearningHubPage() {
+  return (
+    <>
+      <main className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="py-20 border-b border-border px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Centro de Aprendizaje</span>
+            </div>
+
+            <h1 className="h1-light mb-4">
+              Domina Sistemas Inteligentes
+            </h1>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Desde conceptos fundamentales hasta implementación en producción. Aprende cómo construir agentes IA que escalan.
+            </p>
+          </div>
+        </section>
+
+        {/* Main Resources */}
+        <section className="py-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="h2-light mb-12 text-center">Recursos de Aprendizaje</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Conceptos */}
+              <Link href="/studies">
+                <div className="group h-full p-8 rounded-lg border border-border bg-gradient-to-br from-primary/10 to-primary/5 hover:border-primary/40 transition-all cursor-pointer">
+                  <div className="flex items-start justify-between mb-4">
+                    <Brain className="w-8 h-8 text-primary" />
+                    <span className="text-xs font-semibold text-muted-foreground">5 Temas</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Conceptos Fundamentales</h3>
+                  <p className="text-sm text-muted-foreground mb-6">Agentic AI, AI Memory, Context Engineering y más. Fundamentos de sistemas inteligentes.</p>
+                  <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                    <span className="text-sm font-medium">Explorar Estudios</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Guías Técnicas */}
+              <Link href="/blog">
+                <div className="group h-full p-8 rounded-lg border border-border bg-gradient-to-br from-blue-500/10 to-blue-500/5 hover:border-primary/40 transition-all cursor-pointer">
+                  <div className="flex items-start justify-between mb-4">
+                    <BookOpen className="w-8 h-8 text-primary" />
+                    <span className="text-xs font-semibold text-muted-foreground">6+ Artículos</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Guías Técnicas</h3>
+                  <p className="text-sm text-muted-foreground mb-6">Artículos sobre orquestación, governance y patrones de implementación en producción.</p>
+                  <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                    <span className="text-sm font-medium">Leer Blog</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Resultados */}
+              <Link href="/outcomes">
+                <div className="group h-full p-8 rounded-lg border border-border bg-gradient-to-br from-green-500/10 to-green-500/5 hover:border-primary/40 transition-all cursor-pointer">
+                  <div className="flex items-start justify-between mb-4">
+                    <Zap className="w-8 h-8 text-primary" />
+                    <span className="text-xs font-semibold text-muted-foreground">Casos Reales</span>
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">Resultados y Recursos</h3>
+                  <p className="text-sm text-muted-foreground mb-6">Ver casos de éxito, métricas de implementación y recursos técnicos disponibles.</p>
+                  <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                    <span className="text-sm font-medium">Ver Resultados</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Quick Start */}
+        <section className="py-16 px-4 border-t border-border bg-muted/30">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="h2-light mb-8 text-center">Comienza tu Viaje de Aprendizaje</h2>
+            
+            <div className="space-y-4">
+              <div className="flex gap-4 items-start p-4 rounded-lg border border-border bg-card">
+                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                  <h3 className="font-bold text-foreground mb-1">Aprende los Conceptos</h3>
+                  <p className="text-sm text-muted-foreground">Comienza con los fundamentos de Agentic AI y Living Agents en nuestros estudios.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start p-4 rounded-lg border border-border bg-card">
+                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                  <h3 className="font-bold text-foreground mb-1">Explora Guías Técnicas</h3>
+                  <p className="text-sm text-muted-foreground">Profundiza con artículos sobre implementación, governance y patrones en producción.</p>
+                </div>
+              </div>
+              
+              <div className="flex gap-4 items-start p-4 rounded-lg border border-border bg-card">
+                <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                  <h3 className="font-bold text-foreground mb-1">Contacta el Equipo</h3>
+                  <p className="text-sm text-muted-foreground">¿Preguntas? Nuestro equipo está disponible para ayudarte a implementar.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+              >
+                Contactar con el Equipo
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  )
+}
+
+const categories = [
   {
     id: "concepts",
     title: "Conceptos Fundamentales",
-    description: "Entiende la base teórica de los sistemas inteligentes con contenido especializado",
-    icon: BookOpen,
-    href: "/learning-hub/concepts",
-    color: "bg-blue-50 dark:bg-blue-900/20",
-    borderColor: "border-blue-200 dark:border-blue-800",
+    description: "Fundamentos de Agentic AI, Memory Systems, Context Engineering y más. Comprende la arquitectura base de sistemas inteligentes.",
+    icon: Brain,
+    href: "/studies",
+    color: "from-primary/10 to-primary/5",
+    stats: "5 Temas",
   },
   {
     id: "guides",
     title: "Guías Técnicas",
-    description: "Tutoriales paso a paso y mejores prácticas para implementar soluciones",
-    icon: Code,
-    href: "/learning-hub/guides",
-    color: "bg-green-50 dark:bg-green-900/20",
-    borderColor: "border-green-200 dark:border-green-800",
-  },
-  {
-    id: "case-studies",
-    title: "Casos de Estudio",
-    description: "Ejemplos reales de cómo empresas han transformado sus operaciones",
-    icon: CaseSensitive,
-    href: "/learning-hub/case-studies",
-    color: "bg-purple-50 dark:bg-purple-900/20",
-    borderColor: "border-purple-200 dark:border-purple-800",
+    description: "Artículos prácticos, patrones de implementación y mejores prácticas. Desde orquestación hasta governance en producción.",
+    icon: BookOpen,
+    href: "/blog",
+    color: "from-blue-500/10 to-blue-500/5",
+    stats: "6+ Artículos",
   },
   {
     id: "resources",
     title: "Recursos",
-    description: "Documentación, referencias, descargas y herramientas útiles",
-    icon: Archive,
-    href: "/learning-hub/resources",
-    color: "bg-amber-50 dark:bg-amber-900/20",
-    borderColor: "border-amber-200 dark:border-amber-800",
+    description: "Documentación técnica, API docs, ejemplos de código y herramientas. Todo lo que necesitas para implementar.",
+    icon: FileText,
+    href: "/outcomes",
+    color: "from-green-500/10 to-green-500/5",
+    stats: "Completo",
+  },
+]
+
+const learningPath = [
+  {
+    step: 1,
+    title: "Principiante",
+    description: "Comienza entendiendo qué es Agentic AI y cómo Living Agents pueden transformar tus procesos.",
+    topics: ["Agentic AI", "Living Agents 101", "Casos de Éxito"],
+  },
+  {
+    step: 2,
+    title: "Intermedio",
+    description: "Profundiza en contexto, memoria y orquestación. Aprende patrones que funcionan en producción.",
+    topics: ["AI Memory", "Context Engineering", "Orquestación"],
+  },
+  {
+    step: 3,
+    title: "Avanzado",
+    description: "Domina governance, integración con sistemas legacy y arquitectura de sistemas complejos.",
+    topics: ["Governance", "Integración Legacy", "World Engine"],
   },
 ]
 
 export default function LearningHubPage() {
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="pt-40 pb-20 px-4 border-b border-border">
-        <div className="max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Centro de Aprendizaje</span>
+    <>
+      <main className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section className="py-20 border-b border-border px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Centro de Aprendizaje</span>
+            </div>
+
+            <h1 className="h1-light mb-4">
+              Domina Sistemas Inteligentes
+            </h1>
+            <p className="body-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+              Desde conceptos fundamentales hasta implementación en producción. Aprende cómo construir y desplegar agentes IA que escalan con tu negocio.
+            </p>
           </div>
+        </section>
 
-          <h1 className="h1-light mb-6 text-foreground">Aprende sobre Sistemas Inteligentes</h1>
-          <p className="body-lg text-muted-foreground max-w-2xl mb-8">
-            Recursos educativos completos sobre Agentic AI, arquitectura de sistemas inteligentes y mejores prácticas
-            en implementación. Desde conceptos fundamentales hasta casos de estudio reales.
-          </p>
-
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/learning-hub/concepts"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-medium transition-colors"
-            >
-              Explorar Conceptos
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/learning-hub/guides"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/5 font-medium transition-colors"
-            >
-              Ver Guías Técnicas
-            </Link>
+        {/* Main Categories */}
+        <section className="py-16 px-4">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="h2-light mb-12 text-center">Explore nuestros recursos</h2>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {categories.map((category) => {
+                const Icon = category.icon
+                return (
+                  <Link key={category.id} href={category.href}>
+                    <div className={`group h-full p-8 rounded-lg border border-border bg-gradient-to-br ${category.color} hover:border-primary/40 transition-all cursor-pointer`}>
+                      <div className="flex items-start justify-between mb-4">
+                        <Icon className="w-8 h-8 text-primary" />
+                        <span className="text-xs font-semibold text-muted-foreground">{category.stats}</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground mb-2">{category.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-6">{category.description}</p>
+                      <div className="flex items-center gap-2 text-primary group-hover:gap-3 transition-all">
+                        <span className="text-sm font-medium">Explorar</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Hub Sections Grid */}
-      <section className="py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {hubSections.map((section) => {
-              const Icon = section.icon
-              return (
-                <Link
-                  key={section.id}
-                  href={section.href}
-                  className="group p-8 border border-border rounded-lg hover:border-primary/40 transition-all bg-card hover:shadow-lg"
-                >
-                  <div className={`w-12 h-12 rounded-lg ${section.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-6 h-6 text-primary" />
+        {/* Learning Path */}
+        <section className="py-16 px-4 border-t border-border bg-muted/30">
+          <div className="max-w-6xl mx-auto">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="h2-light mb-4 text-center">Tu Ruta de Aprendizaje</h2>
+              <p className="body-lg text-muted-foreground text-center mb-12">
+                Recomendamos seguir estos pasos para obtener el máximo de nuestra plataforma.
+              </p>
+
+              <div className="space-y-6">
+                {learningPath.map((phase, index) => (
+                  <div key={phase.step} className="flex gap-6 items-start">
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                        {phase.step}
+                      </div>
+                      {index < learningPath.length - 1 && (
+                        <div className="w-1 h-12 bg-gradient-to-b from-primary to-primary/20" />
+                      )}
+                    </div>
+                    <div className="flex-1 pt-1">
+                      <h3 className="text-lg font-bold text-foreground mb-2">{phase.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-4">{phase.description}</p>
+                      <div className="flex flex-wrap gap-2">
+                        {phase.topics.map((topic) => (
+                          <span
+                            key={topic}
+                            className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
+                          >
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="h3 text-foreground mb-2">{section.title}</h3>
-                  <p className="body text-muted-foreground mb-6">{section.description}</p>
-                  <div className="flex items-center gap-2 text-primary text-sm font-medium group-hover:gap-3 transition-all">
-                    Acceder
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Learning Path */}
-      <section className="py-20 px-4 bg-muted/30 border-y border-border">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="h2 text-foreground mb-12 text-center">Ruta de Aprendizaje Sugerida</h2>
-
-          <div className="space-y-6">
-            {/* Beginner */}
-            <div className="p-6 border border-border rounded-lg bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 text-sm font-bold text-blue-700 dark:text-blue-300">
-                  1
-                </div>
-                <div className="flex-1">
-                  <h3 className="h4 text-foreground mb-2">Principiante: Fundamentos</h3>
-                  <p className="body text-muted-foreground mb-4">
-                    Comienza con los conceptos fundamentales de Agentic AI, memoria en sistemas inteligentes y cómo
-                    funcionan los agentes autónomos.
-                  </p>
-                  <Link href="/learning-hub/concepts" className="text-primary text-sm font-medium hover:underline">
-                    Ir a Conceptos Fundamentales →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Intermediate */}
-            <div className="p-6 border border-border rounded-lg bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center flex-shrink-0 text-sm font-bold text-green-700 dark:text-green-300">
-                  2
-                </div>
-                <div className="flex-1">
-                  <h3 className="h4 text-foreground mb-2">Intermedio: Implementación</h3>
-                  <p className="body text-muted-foreground mb-4">
-                    Aprende a implementar sistemas inteligentes con guías técnicas, patrones de arquitectura y mejores
-                    prácticas probadas.
-                  </p>
-                  <Link href="/learning-hub/guides" className="text-primary text-sm font-medium hover:underline">
-                    Ir a Guías Técnicas →
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Advanced */}
-            <div className="p-6 border border-border rounded-lg bg-card hover:border-primary/40 transition-colors">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0 text-sm font-bold text-purple-700 dark:text-purple-300">
-                  3
-                </div>
-                <div className="flex-1">
-                  <h3 className="h4 text-foreground mb-2">Avanzado: Casos Reales</h3>
-                  <p className="body text-muted-foreground mb-4">
-                    Estudia casos reales de empresas que han transformado sus operaciones. Entiende desafíos, soluciones
-                    y resultados.
-                  </p>
-                  <Link href="/learning-hub/case-studies" className="text-primary text-sm font-medium hover:underline">
-                    Ver Casos de Estudio →
-                  </Link>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="h2 text-foreground mb-6">¿Listo para construir?</h2>
-          <p className="body-lg text-muted-foreground mb-8">
-            Con los conceptos claros, explora nuestras capacidades y soluciones para llevar estos conocimientos a la
-            práctica.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/capabilities"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-medium transition-colors"
-            >
-              Ver Capacidades
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+        {/* CTA Section */}
+        <section className="py-16 px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="h2-light mb-4">¿Necesitas ayuda?</h2>
+            <p className="body-lg text-muted-foreground mb-8">
+              Nuestro equipo está disponible para responder tus preguntas y ayudarte en tu camino de implementación.
+            </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/5 font-medium transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
             >
-              Contactar Equipo
+              Contactar con el equipo
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

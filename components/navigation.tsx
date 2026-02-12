@@ -166,28 +166,28 @@ export function Navigation() {
             {learningOpen && (
               <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                 <Link
-                  href="/learning-hub/concepts"
+                  href="/learning-hub"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm font-semibold text-primary hover:bg-muted rounded transition-colors mb-2 border-b border-border pb-2"
+                >
+                  {t.centroAprendizaje}
+                </Link>
+                <Link
+                  href="/studies"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
                   {t.conceptos}
                 </Link>
                 <Link
-                  href="/learning-hub/guides"
+                  href="/blog"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
                   {t.guiasTecnicas}
                 </Link>
                 <Link
-                  href="/learning-hub/case-studies"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {t.casosEstudio}
-                </Link>
-                <Link
-                  href="/learning-hub/resources"
+                  href="/outcomes"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
@@ -372,28 +372,28 @@ export function Navigation() {
             {learningOpen && (
               <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
                 <Link 
-                  href="/learning-hub/concepts" 
+                  href="/learning-hub" 
+                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
+                >
+                  {t.centroAprendizaje}
+                </Link>
+                <Link 
+                  href="/studies" 
                   onClick={() => { setOpen(false); setLearningOpen(false) }} 
                   className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
                 >
                   {t.conceptos}
                 </Link>
                 <Link 
-                  href="/learning-hub/guides" 
+                  href="/blog" 
                   onClick={() => { setOpen(false); setLearningOpen(false) }} 
                   className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
                 >
                   {t.guiasTecnicas}
                 </Link>
                 <Link 
-                  href="/learning-hub/case-studies" 
-                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.casosEstudio}
-                </Link>
-                <Link 
-                  href="/learning-hub/resources" 
+                  href="/outcomes" 
                   onClick={() => { setOpen(false); setLearningOpen(false) }} 
                   className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
                 >
