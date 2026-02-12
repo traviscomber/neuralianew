@@ -187,8 +187,7 @@ export default function HomePage() {
     </main>
   )
 }
-              <ul className="space-y-3">
-                <li className="flex gap-3">
+
                   <span className="text-primary font-bold text-lg">01</span>
                   <div>
                     <p className="font-semibold text-foreground text-sm">Ingeniería Rigurosa</p>
