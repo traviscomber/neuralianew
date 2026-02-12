@@ -2,64 +2,29 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, Globe, MessageCircle } from "lucide-react"
+import { Menu, X, MessageCircle } from "lucide-react"
 import { useState } from "react"
 
 export function Navigation() {
   const [open, setOpen] = useState(false)
-  const [langOpen, setLangOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [learningOpen, setLearningOpen] = useState(false)
-  const [language, setLanguage] = useState("es")
 
-  const navContent = {
-    es: {
-      inicio: "Inicio",
-      capacidades: "Capacidades",
-      coordinacion: "Coordinación",
-      livingAgents: "Living Agents",
-      sistemasProduccion: "Sistemas en Producción",
-      soluciones: "Soluciones",
-      resultados: "Resultados",
-      acerca: "Acerca de",
-      nuestroEnfoque: "Nuestro Enfoque",
-      contacto: "Contacto",
-      paraEmpresas: "Para Empresas",
-      paraStartups: "Para Startups",
-      paraDesarrolladores: "Para Desarrolladores",
-      constellationDemo: "Demostración Constelación",
-      centroAprendizaje: "Centro de Aprendizaje",
-      conceptos: "Conceptos Fundamentales",
-      guiasTecnicas: "Guías Técnicas",
-      casosEstudio: "Casos de Estudio",
-      recursos: "Recursos",
-    },
-    en: {
-      inicio: "Home",
-      capacidades: "Capabilities",
-      coordinacion: "Coordination",
-      livingAgents: "Living Agents",
-      sistemasProduccion: "Production Systems",
-      soluciones: "Solutions",
-      resultados: "Results",
-      acerca: "About",
-      nuestroEnfoque: "Our Approach",
-      contacto: "Contact",
-      paraEmpresas: "For Enterprise",
-      paraStartups: "For Startups",
-      paraDesarrolladores: "For Developers",
-      constellationDemo: "Constellation Demo",
-      centroAprendizaje: "Learning Hub",
-      conceptos: "Core Concepts",
-      guiasTecnicas: "Technical Guides",
-      casosEstudio: "Case Studies",
-      recursos: "Resources",
-    },
+  const navItems = {
+    capacidades: "Capacidades",
+    livingAgents: "Living Agents",
+    sistemasProduccion: "Sistemas en Producción",
+    soluciones: "Soluciones",
+    centroAprendizaje: "Centro de Aprendizaje",
+    acerca: "Acerca de",
+    nuestroEnfoque: "Nuestro Enfoque",
+    paraEmpresas: "Para Empresas",
+    paraStartups: "Para Startups",
+    paraDesarrolladores: "Para Desarrolladores",
+    conceptos: "Conceptos Fundamentales",
+    guiasTecnicas: "Guías Técnicas",
+    recursos: "Recursos",
   }
-
-  const t = navContent[language]
-  const whatsappNumber = "56993826127"
-  const whatsappUrl = `https://wa.me/${whatsappNumber}`
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
@@ -75,7 +40,7 @@ export function Navigation() {
             href="/capabilities" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {t.capacidades}
+            {navItems.capacidades}
           </Link>
           
           {/* Tier 1: Flagship Offerings */}
@@ -84,14 +49,13 @@ export function Navigation() {
               href="/living-agents" 
               className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
             >
-              {t.livingAgents}
+              {navItems.livingAgents}
             </Link>
-
             <Link 
               href="/studies/production-grade-agentic-systems" 
               className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
             >
-              {t.sistemasProduccion}
+              {navItems.sistemasProduccion}
             </Link>
           </div>
           
@@ -99,10 +63,10 @@ export function Navigation() {
           <div className="relative">
             <button
               onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
               type="button"
             >
-              {t.soluciones}
+              {navItems.soluciones}
               <svg 
                 className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
                 fill="none" 
@@ -120,21 +84,21 @@ export function Navigation() {
                   onClick={() => setSolutionsOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.paraEmpresas}
+                  {navItems.paraEmpresas}
                 </Link>
                 <Link
                   href="/para-startups"
                   onClick={() => setSolutionsOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.paraStartups}
+                  {navItems.paraStartups}
                 </Link>
                 <Link
                   href="/para-desarrolladores"
                   onClick={() => setSolutionsOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.paraDesarrolladores}
+                  {navItems.paraDesarrolladores}
                 </Link>
               </div>
             )}
@@ -144,10 +108,10 @@ export function Navigation() {
           <div className="relative">
             <button
               onClick={() => setLearningOpen(!learningOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
               type="button"
             >
-              {t.centroAprendizaje}
+              {navItems.centroAprendizaje}
               <svg 
                 className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
                 fill="none" 
@@ -164,96 +128,58 @@ export function Navigation() {
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm font-semibold text-primary hover:bg-muted rounded transition-colors mb-2 border-b border-border pb-2"
                 >
-                  {t.centroAprendizaje}
+                  {navItems.centroAprendizaje}
                 </Link>
                 <Link
                   href="/studies"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.conceptos}
+                  {navItems.conceptos}
                 </Link>
                 <Link
                   href="/blog"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.guiasTecnicas}
+                  {navItems.guiasTecnicas}
                 </Link>
                 <Link
                   href="/outcomes"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
                 >
-                  {t.recursos}
+                  {navItems.recursos}
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Tier 4: Company Info */
+          {/* Tier 4: Company Info */}
           <Link 
             href="/about" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {t.acerca}
+            {navItems.acerca}
           </Link>
           <Link 
             href="/nuestro-enfoque" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {t.nuestroEnfoque}
+            {navItems.nuestroEnfoque}
           </Link>
 
-          <div className="relative hidden">
-            <button
-              onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-              type="button"
-            >
-              <Globe className="w-4 h-4" />
-              <span className="font-medium">{language.toUpperCase()}</span>
-            </button>
-            {langOpen && (
-              <div className="absolute right-0 top-8 bg-card border border-border rounded-lg shadow-lg p-2 min-w-24 z-10">
-                <button
-                  onClick={() => {
-                    setLanguage("es")
-                    setLangOpen(false)
-                  }}
-                  type="button"
-                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-muted cursor-pointer ${
-                    language === "es" ? "font-bold text-foreground" : "text-muted-foreground"
-                  }`}
-                >
-                  Español
-                </button>
-                <button
-                  onClick={() => {
-                    setLanguage("en")
-                    setLangOpen(false)
-                  }}
-                  type="button"
-                  className={`block w-full text-left px-3 py-2 text-sm rounded hover:bg-muted cursor-pointer ${
-                    language === "en" ? "font-bold text-foreground" : "text-muted-foreground"
-                  }`}
-                >
-                  English
-                </button>
-              </div>
-            )}
-          </div>
+          {/* WhatsApp Button */}
+          <a
+            href="https://wa.me/56993826127"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm transition-colors font-medium"
+          >
+            <MessageCircle className="w-4 h-4" />
+            WhatsApp
+          </a>
         </div>
-
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm transition-colors font-medium"
-        >
-          <MessageCircle className="w-4 h-4" />
-          WhatsApp
-        </a>
 
         {/* Mobile Menu Button */}
         <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
@@ -261,208 +187,153 @@ export function Navigation() {
         </button>
       </div>
 
-        {/* Mobile Navigation */}
-        {open && (
-          <div className="md:hidden border-t border-border bg-background p-4 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
-            <Link 
-              href="/capabilities" 
-              onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-            >
-              {t.capacidades}
-            </Link>
+      {/* Mobile Navigation */}
+      {open && (
+        <div className="md:hidden border-t border-border bg-background p-4 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <Link 
+            href="/capabilities" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.capacidades}
+          </Link>
 
-            {/* Offerings Group - Mobile */}
-            <div className="my-1 py-2 border-y border-border/30">
-              <Link 
-                href="/living-agents" 
-                onClick={() => setOpen(false)} 
-                className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-              >
-                {t.livingAgents}
-              </Link>
-
-              <Link 
-                href="/studies/production-grade-agentic-systems" 
-                onClick={() => setOpen(false)} 
-                className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-              >
-                {t.sistemasProduccion}
-              </Link>
-            </div>
-            
-            {/* Mobile Solutions Submenu */}
-            <button
-              onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
-              type="button"
-            >
-              {t.soluciones}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {solutionsOpen && (
-              <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
-                <Link 
-                  href="/para-empresas" 
-                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.paraEmpresas}
-                </Link>
-                <Link 
-                  href="/para-startups" 
-                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.paraStartups}
-                </Link>
-                <Link 
-                  href="/para-desarrolladores" 
-                  onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.paraDesarrolladores}
-                </Link>
-              </div>
-            )}
-            
+          {/* Offerings Group - Mobile */}
+          <div className="my-1 py-2 border-y border-border/30">
             <Link 
-              href="/outcomes" 
+              href="/living-agents" 
               onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+              className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
             >
-              {t.resultados}
-            </Link>
-
-            {/* Mobile Learning Hub Submenu */}
-            <button
-              onClick={() => setLearningOpen(!learningOpen)}
-              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
-              type="button"
-            >
-              {t.centroAprendizaje}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {learningOpen && (
-              <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
-                <Link 
-                  href="/learning-hub" 
-                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
-                >
-                  {t.centroAprendizaje}
-                </Link>
-                <Link 
-                  href="/studies" 
-                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.conceptos}
-                </Link>
-                <Link 
-                  href="/blog" 
-                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.guiasTecnicas}
-                </Link>
-                <Link 
-                  href="/outcomes" 
-                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-                >
-                  {t.recursos}
-                </Link>
-              </div>
-            )}
-            
-            <Link 
-              href="/about" 
-              onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-            >
-              {t.acerca}
+              {navItems.livingAgents}
             </Link>
             <Link 
-              href="/nuestro-enfoque" 
+              href="/studies/production-grade-agentic-systems" 
               onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+              className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
             >
-              {t.nuestroEnfoque}
+              {navItems.sistemasProduccion}
             </Link>
-
-            <div className="pt-3 border-t border-border space-y-2">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm font-medium px-3 py-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-              >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
-              </a>
-
-              <button
-                onClick={() => setLangOpen(!langOpen)}
-                className="w-full text-left flex items-center justify-between text-sm font-medium px-3 py-2 text-foreground hover:bg-muted/50 rounded-lg transition-all"
-                type="button"
-              >
-                <span className="flex items-center gap-2">
-                  <Globe className="w-4 h-4" />
-                  {language.toUpperCase()}
-                </span>
-                <svg 
-                  className={`w-4 h-4 transition-transform duration-200 ${langOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </button>
-              {langOpen && (
-                <div className="space-y-1.5 pl-6 border-l-2 border-muted">
-                  <button
-                    onClick={() => {
-                      setLanguage("es")
-                      setLangOpen(false)
-                      setOpen(false)
-                    }}
-                    type="button"
-                    className={`block px-2 py-1.5 text-sm transition-all ${language === "es" ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    Español
-                  </button>
-                  <button
-                    onClick={() => {
-                      setLanguage("en")
-                      setLangOpen(false)
-                      setOpen(false)
-                    }}
-                    type="button"
-                    className={`block px-2 py-1.5 text-sm transition-all ${language === "en" ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-                  >
-                    English
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
-        )}
+          
+          {/* Mobile Solutions Submenu */}
+          <button
+            onClick={() => setSolutionsOpen(!solutionsOpen)}
+            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
+            type="button"
+          >
+            {navItems.soluciones}
+            <svg 
+              className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+          {solutionsOpen && (
+            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
+              <Link 
+                href="/para-empresas" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.paraEmpresas}
+              </Link>
+              <Link 
+                href="/para-startups" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.paraStartups}
+              </Link>
+              <Link 
+                href="/para-desarrolladores" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.paraDesarrolladores}
+              </Link>
+            </div>
+          )}
+
+          {/* Mobile Learning Hub Submenu */}
+          <button
+            onClick={() => setLearningOpen(!learningOpen)}
+            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
+            type="button"
+          >
+            {navItems.centroAprendizaje}
+            <svg 
+              className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+          {learningOpen && (
+            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
+              <Link 
+                href="/learning-hub" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
+              >
+                {navItems.centroAprendizaje}
+              </Link>
+              <Link 
+                href="/studies" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.conceptos}
+              </Link>
+              <Link 
+                href="/blog" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.guiasTecnicas}
+              </Link>
+              <Link 
+                href="/outcomes" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.recursos}
+              </Link>
+            </div>
+          )}
+
+          <Link 
+            href="/about" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.acerca}
+          </Link>
+          <Link 
+            href="/nuestro-enfoque" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.nuestroEnfoque}
+          </Link>
+
+          <a
+            href="https://wa.me/56993826127"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 px-3 py-2 text-sm text-primary font-medium"
+          >
+            <MessageCircle className="w-4 h-4" />
+            WhatsApp
+          </a>
+        </div>
+      )}
     </nav>
   )
 }
