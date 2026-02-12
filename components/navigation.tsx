@@ -42,22 +42,6 @@ export function Navigation() {
             {navItems.capacidades}
           </Link>
           
-          {/* Tier 1: Flagship Offerings */}
-          <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-1">
-            <Link 
-              href="/living-agents" 
-              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {navItems.livingAgents}
-            </Link>
-            <Link 
-              href="/studies/production-grade-agentic-systems" 
-              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {navItems.sistemasProduccion}
-            </Link>
-          </div>
-          
           {/* Tier 2: Solutions Direct Link */}
           <Link 
             href="/soluciones" 
@@ -160,24 +144,6 @@ export function Navigation() {
             {navItems.capacidades}
           </Link>
 
-          {/* Offerings Group - Mobile */}
-          <div className="my-1 py-2 border-y border-border/30">
-            <Link 
-              href="/living-agents" 
-              onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {navItems.livingAgents}
-            </Link>
-            <Link 
-              href="/studies/production-grade-agentic-systems" 
-              onClick={() => setOpen(false)} 
-              className="block px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {navItems.sistemasProduccion}
-            </Link>
-          </div>
-          
           {/* Mobile Solutions Link */}
           <Link 
             href="/soluciones" 
