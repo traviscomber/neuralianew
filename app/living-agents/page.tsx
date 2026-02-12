@@ -2,11 +2,11 @@ import type { Metadata } from "next"
 import { LivingAgentsContent } from "./content"
 
 export const metadata: Metadata = {
-  title: "Living Agents de N3uralia | Cuatro Arquetipos de Inteligencia Aumentada",
+  title: "Living Agents | Tu Equipo de Expertos en IA 24/7",
   description:
-    "N3uralia Living Agents: El Centinela, El Estratega, El Arquitecto, El Guardián. Agentes especializados que desarrollan personalidad emergente y se coordinan automáticamente. Inteligencia aumentada production-grade.",
+    "Centinela (tu detective), Estratega (tu CEO), Arquitecto (tu CTO), Guardián (tu COO). 4 expertos que trabajan sin salario. Especializado pero coordinado.",
   keywords:
-    "N3uralia, Living Agents, agentes inteligentes, personalidad emergente, arquetipos IA, inteligencia aumentada, Centinela, Estratega, Arquitecto, Guardián",
+    "Living Agents, equipo IA, startup builder, automatización, inteligencia aumentada",
 }
 
 export default function LivingAgentsPage() {

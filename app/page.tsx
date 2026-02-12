@@ -4,14 +4,14 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
+  title: "N3uralia - Tu Idea Merece Existir",
   description:
-    "N3uralia diseña sistemas de inteligencia autónoma que amplifican capacidades humanas. Arquitectura de sistemas agenticos en producción que funcionan con, no contra, la inteligencia humana.",
+    "Transforma tu idea en empresa operacional con Living Agents. Desde concepto a negocio en semanas. Sin cofundador técnico. Sin meses de desarrollo.",
   keywords:
-    "N3uralia, sistemas agenticos, IA aumentada, inteligencia autónoma, human-augmented, multi-agent systems, producción, Chile",
+    "democratización software, startup builder, idea a empresa, living agents, IA desarrollo, Chile",
   openGraph: {
-    title: "N3uralia - Inteligencia Autónoma que Ampliffica Capacidades Humanas",
-    description: "Sistemas de IA diseñados para trabajar con humanos, no reemplazarlos. Arquitecturas que expanden, no restringen.",
+    title: "Tu Idea Merece Existir - N3uralia",
+    description: "Idea → Empresa operacional con Living Agents",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -26,47 +26,47 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Inteligencia Aumentada, No Reemplazo</span>
+            <span className="text-sm font-medium text-primary">Democratizando el Desarrollo de Software</span>
           </div>
 
           <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-            <span className="text-foreground">Inteligencia Aumentada</span>
+            <span className="text-foreground">Tu Idea Merece</span>
             <br />
-            <span className="text-primary">No Artificial</span>
+            <span className="text-primary">Existir</span>
           </h1>
 
           <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-            Sistemas agenticos que expanden capacidades humanas, no las reemplazan. Orquestación multi-agente, memoria persistente, autonomía guiada. Listo para producción desde el primer día.
+            Transforma tu concepto en empresa operacional con Living Agents. Desde validación de mercado hasta operación 24/7. Sin cofundador técnico. Sin meses de desarrollo. Sin VC.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
             <Link
-              href="/contact"
+              href="/ideas-a-empresa"
               className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
             >
-              Explorar Sistemas
+              De Idea a Empresa
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/capabilities"
+              href="/democratizacion"
               className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
             >
-              Ver Capacidades
+              Saber Más
             </Link>
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Pilares de Ingeniería</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">4</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Living Agents</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">50+</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Equipos Activos</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">2-4</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Semanas Hasta Empresa</p>
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.8%</div>
-              <p className="text-xs sm:text-sm text-muted-foreground">Uptime</p>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">10x</div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Menos Costo vs. Developers</p>
             </div>
           </div>
         </div>

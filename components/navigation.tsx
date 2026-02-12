@@ -14,35 +14,19 @@ export function Navigation() {
   const navContent = {
     es: {
       inicio: "Inicio",
-      capacidades: "Capacidades",
-      coordinacion: "Coordinación",
+      ideasAEmpresa: "De Idea a Empresa",
+      democratizacion: "Democratización",
       livingAgents: "Living Agents",
-      sistemasProduccion: "Sistemas en Producción",
-      soluciones: "Soluciones",
-      resultados: "Resultados",
       acerca: "Acerca de",
-      nuestroEnfoque: "Nuestro Enfoque",
       contacto: "Contacto",
-      paraEmpresas: "Para Empresas",
-      paraStartups: "Para Startups",
-      paraDesarrolladores: "Para Desarrolladores",
-      constellationDemo: "Demostración Constelación",
     },
     en: {
       inicio: "Home",
-      capacidades: "Capabilities",
-      coordinacion: "Coordination",
+      ideasAEmpresa: "Idea to Company",
+      democratizacion: "Democratization",
       livingAgents: "Living Agents",
-      sistemasProduccion: "Production Systems",
-      soluciones: "Solutions",
-      resultados: "Results",
       acerca: "About",
-      nuestroEnfoque: "Our Approach",
       contacto: "Contact",
-      paraEmpresas: "For Enterprise",
-      paraStartups: "For Startups",
-      paraDesarrolladores: "For Developers",
-      constellationDemo: "Constellation Demo",
     },
   }
 
@@ -60,92 +44,33 @@ export function Navigation() {
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-1 items-center">
           <Link 
-            href="/capabilities" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            href="/ideas-a-empresa" 
+            className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
           >
-            {t.capacidades}
+            {t.ideasAEmpresa}
           </Link>
-          
-          {/* Offerings Group */}
-          <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-2">
-            <Link 
-              href="/living-agents" 
-              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {t.livingAgents}
-            </Link>
 
-            <Link 
-              href="/studies/production-grade-agentic-systems" 
-              className="px-3 py-2 text-sm font-medium text-primary hover:bg-primary/10 rounded-lg transition-all"
-            >
-              {t.sistemasProduccion}
-            </Link>
-          </div>
-          
-          {/* Solutions Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
-              type="button"
-            >
-              {t.soluciones}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {solutionsOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground px-3 py-2 font-semibold">Dirigido a:</div>
-                <Link
-                  href="/para-empresas"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {t.paraEmpresas}
-                </Link>
-                <Link
-                  href="/para-startups"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {t.paraStartups}
-                </Link>
-                <Link
-                  href="/para-desarrolladores"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {t.paraDesarrolladores}
-                </Link>
-              </div>
-            )}
-          </div>
-          
           <Link 
-            href="/outcomes" 
+            href="/democratizacion" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {t.resultados}
+            {t.democratizacion}
           </Link>
+
+          <Link 
+            href="/living-agents" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {t.livingAgents}
+          </Link>
+
           <Link 
             href="/about" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {t.acerca}
           </Link>
-          <Link 
-            href="/nuestro-enfoque" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {t.nuestroEnfoque}
-          </Link>
+
           <Link 
             href="/contact" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
