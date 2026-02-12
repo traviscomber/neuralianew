@@ -7,7 +7,6 @@ import { useState } from "react"
 
 export function Navigation() {
   const [open, setOpen] = useState(false)
-  const [solutionsOpen, setSolutionsOpen] = useState(false)
   const [learningOpen, setLearningOpen] = useState(false)
 
   const navItems = {
@@ -59,57 +58,13 @@ export function Navigation() {
             </Link>
           </div>
           
-          {/* Tier 2: Solutions Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setSolutionsOpen(!solutionsOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
-              type="button"
-            >
-              {navItems.soluciones}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {solutionsOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                  href="/soluciones"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm font-semibold text-primary hover:bg-muted rounded transition-colors mb-2 border-b border-border pb-2"
-                >
-                  Ver Todas las Soluciones
-                </Link>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground px-3 py-2 font-semibold">Por Segmento:</div>
-                <Link
-                  href="/soluciones#para-empresas"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.paraEmpresas}
-                </Link>
-                <Link
-                  href="/soluciones#para-startups"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.paraStartups}
-                </Link>
-                <Link
-                  href="/soluciones#para-desarrolladores"
-                  onClick={() => setSolutionsOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.paraDesarrolladores}
-                </Link>
-              </div>
-            )}
-          </div>
+          {/* Tier 2: Solutions Direct Link */}
+          <Link 
+            href="/soluciones" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.soluciones}
+          </Link>
 
           {/* Tier 3: Learning Hub Dropdown */}
           <div className="relative">
@@ -223,54 +178,14 @@ export function Navigation() {
             </Link>
           </div>
           
-          {/* Mobile Solutions Submenu */}
-          <button
-            onClick={() => setSolutionsOpen(!solutionsOpen)}
-            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
-            type="button"
+          {/* Mobile Solutions Link */}
+          <Link 
+            href="/soluciones" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.soluciones}
-            <svg 
-              className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </button>
-          {solutionsOpen && (
-            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
-              <Link 
-                href="/soluciones" 
-                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
-              >
-                Ver Todas las Soluciones
-              </Link>
-              <Link 
-                href="/soluciones#para-empresas" 
-                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.paraEmpresas}
-              </Link>
-              <Link 
-                href="/soluciones#para-startups" 
-                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.paraStartups}
-              </Link>
-              <Link 
-                href="/soluciones#para-desarrolladores" 
-                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.paraDesarrolladores}
-              </Link>
-            </div>
-          )}
+          </Link>
 
           {/* Mobile Learning Hub Submenu */}
           <button
