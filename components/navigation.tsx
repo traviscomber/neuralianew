@@ -242,21 +242,28 @@ export function Navigation() {
           {solutionsOpen && (
             <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
               <Link 
-                href="/para-empresas" 
+                href="/soluciones" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
+              >
+                Ver Todas las Soluciones
+              </Link>
+              <Link 
+                href="/soluciones#para-empresas" 
                 onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
                 {navItems.paraEmpresas}
               </Link>
               <Link 
-                href="/para-startups" 
+                href="/soluciones#para-startups" 
                 onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
                 {navItems.paraStartups}
               </Link>
               <Link 
-                href="/para-desarrolladores" 
+                href="/soluciones#para-desarrolladores" 
                 onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
