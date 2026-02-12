@@ -46,6 +46,17 @@ const nextConfig = {
         destination: '/como-trabajamos',
         permanent: true,
       },
+      // Legacy capabilities routes redirect to /capabilities with anchors
+      {
+        source: '/living-agents',
+        destination: '/capabilities#living-agents',
+        permanent: true,
+      },
+      {
+        source: '/studies/production-grade-agentic-systems',
+        destination: '/capabilities#produccion',
+        permanent: true,
+      },
     ]
   },
   webpack: (config, { isServer }) => {
