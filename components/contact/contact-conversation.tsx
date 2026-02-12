@@ -14,6 +14,7 @@ interface ContactData {
   email?: string
   company?: string
   message?: string
+  whatsapp?: string
 }
 
 export function ContactConversation() {
@@ -28,7 +29,7 @@ export function ContactConversation() {
   const [isLoading, setIsLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [contactData, setContactData] = useState<ContactData>({})
-  const [currentStep, setCurrentStep] = useState("name") // name, email, company, message, review
+  const [currentStep, setCurrentStep] = useState("name") // name, email, company, message, whatsapp
   const [showConfirmation, setShowConfirmation] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
@@ -89,6 +90,28 @@ export function ContactConversation() {
       nextStep = "message"
     } else if (currentStep === "message") {
       setContactData((prev) => ({ ...prev, message: input }))
+      assistantResponse =
+        "Perfecto. Para poder ofrecerte atención directa, ¿cuál es tu número de WhatsApp? (ej: 56912345678)"
+      nextStep = "whatsapp"
+    } else if (currentStep === "whatsapp") {
+      // Basic phone validation - Chilean numbers
+      const phoneRegex = /^56[9]?\d{8}$/
+      const cleanedPhone = input.replace(/\D/g, "")
+      if (!phoneRegex.test(cleanedPhone)) {
+        assistantResponse =
+          "El número no parece válido. Por favor ingresa un número chileno (56912345678 o 912345678)"
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: assistantResponse,
+          },
+        ])
+        setInput("")
+        return
+      }
+      setContactData((prev) => ({ ...prev, whatsapp: cleanedPhone }))
       setIsLoading(true)
 
       try {
@@ -99,7 +122,8 @@ export function ContactConversation() {
             name: contactData.name,
             email: contactData.email,
             company: contactData.company,
-            message: input,
+            message: contactData.message,
+            whatsapp: cleanedPhone,
           }),
         })
 
@@ -107,7 +131,8 @@ export function ContactConversation() {
           throw new Error("Failed to send contact")
         }
 
-        assistantResponse = `✅ Mensaje enviado correctamente, ${contactData.name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${contactData.email}. ¡Gracias por contactar a N3uralia!`
+        const whatsappUrl = `https://wa.me/${cleanedPhone}?text=Hola%20${encodeURIComponent(contactData.name || "")}%2C%20recibimos%20tu%20consulta%20en%20N3uralia.%20Nos%20pondremos%20en%20contacto%20pronto.`
+        assistantResponse = `✅ Mensaje enviado correctamente, ${contactData.name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${contactData.email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/${cleanedPhone}`
         setSubmitted(true)
       } catch (error) {
         console.error("[v0] Contact error:", error)

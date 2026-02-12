@@ -9,6 +9,7 @@ export function Navigation() {
   const [open, setOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
   const [solutionsOpen, setSolutionsOpen] = useState(false)
+  const [learningOpen, setLearningOpen] = useState(false)
   const [language, setLanguage] = useState("es")
 
   const navContent = {
@@ -27,6 +28,11 @@ export function Navigation() {
       paraStartups: "Para Startups",
       paraDesarrolladores: "Para Desarrolladores",
       constellationDemo: "Demostración Constelación",
+      centroAprendizaje: "Centro de Aprendizaje",
+      conceptos: "Conceptos Fundamentales",
+      guiasTecnicas: "Guías Técnicas",
+      casosEstudio: "Casos de Estudio",
+      recursos: "Recursos",
     },
     en: {
       inicio: "Home",
@@ -43,6 +49,11 @@ export function Navigation() {
       paraStartups: "For Startups",
       paraDesarrolladores: "For Developers",
       constellationDemo: "Constellation Demo",
+      centroAprendizaje: "Learning Hub",
+      conceptos: "Core Concepts",
+      guiasTecnicas: "Technical Guides",
+      casosEstudio: "Case Studies",
+      recursos: "Resources",
     },
   }
 
@@ -59,6 +70,7 @@ export function Navigation() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-1 items-center">
+          {/* Products/Offerings Group */}
           <Link 
             href="/capabilities" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -66,7 +78,6 @@ export function Navigation() {
             {t.capacidades}
           </Link>
           
-          {/* Offerings Group */}
           <div className="flex gap-0 items-center border-l border-r border-border/30 px-2 mx-2">
             <Link 
               href="/living-agents" 
@@ -127,13 +138,66 @@ export function Navigation() {
               </div>
             )}
           </div>
-          
+
           <Link 
             href="/outcomes" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {t.resultados}
           </Link>
+
+          {/* Learning Hub Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setLearningOpen(!learningOpen)}
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
+              type="button"
+            >
+              {t.centroAprendizaje}
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {learningOpen && (
+              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <Link
+                  href="/learning-hub/concepts"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.conceptos}
+                </Link>
+                <Link
+                  href="/learning-hub/guides"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.guiasTecnicas}
+                </Link>
+                <Link
+                  href="/learning-hub/case-studies"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.casosEstudio}
+                </Link>
+                <Link
+                  href="/learning-hub/resources"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {t.recursos}
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Company Section */}
           <Link 
             href="/about" 
             className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -288,6 +352,56 @@ export function Navigation() {
             >
               {t.resultados}
             </Link>
+
+            {/* Mobile Learning Hub Submenu */}
+            <button
+              onClick={() => setLearningOpen(!learningOpen)}
+              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
+              type="button"
+            >
+              {t.centroAprendizaje}
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {learningOpen && (
+              <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
+                <Link 
+                  href="/learning-hub/concepts" 
+                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
+                  {t.conceptos}
+                </Link>
+                <Link 
+                  href="/learning-hub/guides" 
+                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
+                  {t.guiasTecnicas}
+                </Link>
+                <Link 
+                  href="/learning-hub/case-studies" 
+                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
+                  {t.casosEstudio}
+                </Link>
+                <Link 
+                  href="/learning-hub/resources" 
+                  onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                  className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+                >
+                  {t.recursos}
+                </Link>
+              </div>
+            )}
+            
             <Link 
               href="/about" 
               onClick={() => setOpen(false)} 
