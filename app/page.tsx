@@ -14,11 +14,11 @@ import {
 } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistemas Agenticos en Producción | AI Agents & Agentes IA",
+  title: "N3uralia | Neuralia - Sistemas Agenticos en Producción | AI Agents Fullstack",
   description:
-    "N3uralia: Arquitectura de inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción (n3uralia agentes). Multi-agent orchestration, gobernanza, memoria persistente. Leader en AI enterprise y agentic systems.",
+    "N3uralia (Neuralia): Arquitectura de inteligencia artificial fullstack que trabaja con humanos. Sistemas agenticos en producción (n3uralia agentes / n3uralia agents). Multi-agent orchestration, gobernanza, memoria persistente. Líder en AI enterprise y agentic systems.",
   keywords:
-    "n3uralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, IA en producción, multi-agent systems, inteligencia autónoma, orchestración de agentes, arquitectura agentica, living agents, AI aumentada, AI enterprise, Chile, LATAM",
+    "n3uralia, neuralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, AI agents, fullstack AI, IA en producción, multi-agent systems, inteligencia autónoma, orchestración de agentes, arquitectura agentica, living agents, AI aumentada, AI enterprise, fullstack sistemas, agentes inteligentes, Chile, LATAM",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {

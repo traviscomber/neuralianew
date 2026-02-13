@@ -4,11 +4,11 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Orquestación de Agentes en Producción - N3uralia Blog",
+  title: "Orquestación AI Agents en Producción | N3uralia Blog - Neuralia",
   description:
-    "Cómo coordinar múltiples agentes IA en entornos empresariales con governance total. Patrones, arquitectura y mejores prácticas.",
+    "Orquestación de múltiples AI agents en producción con N3uralia (Neuralia). Governance total, arquitectura fullstack, multi-agent coordination y mejores prácticas empresariales.",
   keywords:
-    "orquestación, agentes IA, multi-agent, governance, producción",
+    "orquestación, AI agents, n3uralia agents, agentes IA, multi-agent, governance, producción, fullstack, neuralia, sistemas agenticos",
 }
 
 export default function BlogPost() {

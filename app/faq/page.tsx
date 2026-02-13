@@ -3,6 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "FAQ N3uralia | Neuralia - Preguntas sobre AI Agents, Sistemas Agenticos Fullstack",
+  description:
+    "Preguntas frecuentes sobre N3uralia (Neuralia): qué son sistemas agenticos, AI agents, living agents, arquitectura fullstack, implementación y integración con tu empresa.",
+  keywords:
+    "FAQ n3uralia, neuralia, preguntas, AI agents, agentes IA, sistemas agenticos, living agents, fullstack, implementación",
+}
 
 const faqs = [
   {

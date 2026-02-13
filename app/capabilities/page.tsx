@@ -4,9 +4,12 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Capacidades Técnicas N3uralia | 6 Pilares + Living Agents + Sistemas en Producción",
-  description: "Los 6 pilares técnicos de N3uralia: orquestación multi-agente, memoria persistente, integración de herramientas, loops de retroalimentación, trazabilidad y gobernanza. Arquitectura production-grade para sistemas agenticos.",
-  keywords: "capacidades IA, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas en producción, architecture agentica, memory management, agent governance",
+  title: "Capacidades N3uralia | Neuralia - 6 Pilares Sistemas Agenticos AI Agents",
+  description: "Capacidades técnicas de N3uralia (Neuralia): 6 pilares agenticos, orquestación multi-agente de AI agents, living agents, memoria persistente, integración fullstack. Sistemas agenticos production-grade.",
+  keywords: "n3uralia capacidades, neuralia, capacidades AI, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas AI, architecture agentica, AI agents, memory management, agent governance, fullstack sistemas, agentes inteligentes, n3uralia agents",
+  alternates: {
+    canonical: "https://n3uralia.com/capabilities",
+  },
 }
 
 export default function CapabilitiesPage() {

@@ -1,9 +1,18 @@
 "use client"
 
 import { useState } from "react"
+import type { Metadata } from "next"
 import { ContactConversation } from "@/components/contact/contact-conversation"
 import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
 import { Footer } from "@/components/layout/footer"
+
+export const metadata: Metadata = {
+  title: "Contacto N3uralia | Neuralia - AI Agents, Sistemas Agenticos Fullstack",
+  description:
+    "Contacta con N3uralia (Neuralia) para implementar sistemas agenticos AI agents. Cuéntanos sobre tu proyecto de arquitectura fullstack y transformación con inteligencia artificial.",
+  keywords:
+    "contacto n3uralia, neuralia, contactar, AI agents, sistemas agenticos, propuesta, proyecto, fullstack",
+}
 
 export default function ContactPage() {
   const [emailDialogOpen, setEmailDialogOpen] = useState(false)

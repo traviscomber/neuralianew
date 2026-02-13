@@ -3,8 +3,9 @@ import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Acerca de N3uralia | Visión, Misión, Pilares de Ingeniería",
-  description: "N3uralia: por qué construimos una plataforma de sistemas agenticos diferente. Nuestra filosofía, visión y cómo trabajamos con empresas chilenas. Inteligencia aumentada, no reemplazo.",
+  title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
+  description: "N3uralia (Neuralia): por qué construimos una plataforma de sistemas agenticos y AI agents diferente. Filosofía, visión, valores. Inteligencia aumentada fullstack, no reemplazo. Cómo trabajamos con empresas chilenas.",
+  keywords: "acerca de n3uralia, neuralia, misión, visión, AI agents, sistemas agenticos, fullstack, ingeniería, valores, filosofía",
 }
 
 const values = [

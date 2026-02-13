@@ -5,11 +5,11 @@ import { ArrowRight, CheckCircle } from "lucide-react"
 import { enterpriseSolutions } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "Soluciones de IA Aumentada | N3uralia Agentes IA para Empresas",
+  title: "Soluciones IA | N3uralia Neuralia - Agentes AI Agents Fullstack para Empresas",
   description:
-    "Soluciones personalizadas de sistemas agenticos. Para grandes empresas: integración legacy y governance. Para startups: velocidad. Para devs: APIs robustas. N3uralia agents / agentes n3uralia production-ready.",
+    "Soluciones personalizadas de sistemas agenticos AI agents. N3uralia (Neuralia) ofrece arquitectura fullstack: para empresas legacy integration, para startups velocidad, para developers APIs. Production-ready n3uralia agents.",
   keywords:
-    "soluciones IA, n3uralia agents, agentes IA, agentes n3uralia, sistemas agenticos, para empresas, para startups, para desarrolladores, automatización inteligente, arquitectura agentica, AI augmented, production-ready, multi-agent",
+    "n3uralia soluciones, neuralia, soluciones AI, n3uralia agents, agentes AI, agentes n3uralia, AI agents, sistemas agenticos, fullstack, para empresas, para startups, para desarrolladores, automatización inteligente, arquitectura agentica, AI augmented, production-ready, multi-agent, agentes inteligentes",
   alternates: {
     canonical: "https://n3uralia.com/soluciones",
   },
