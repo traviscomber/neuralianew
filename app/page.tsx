@@ -14,17 +14,28 @@ import {
 } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistemas Agenticos en Producción | IA Aumentada Chile",
+  title: "N3uralia - Sistemas Agenticos en Producción | AI Agents & Agentes IA",
   description:
-    "Arquitectura de inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción con gobernanza, memoria persistente y orquestación multi-agente. Líder en IA empresarial en Chile y LATAM.",
+    "N3uralia: Arquitectura de inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción (n3uralia agentes). Multi-agent orchestration, gobernanza, memoria persistente. Leader en AI enterprise y agentic systems.",
   keywords:
-    "sistemas agenticos, IA en producción, inteligencia autónoma, multi-agent systems, IA aumentada, AI enterprise, orquestación agentes, architecture agentica, Chile, LATAM",
+    "n3uralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, IA en producción, multi-agent systems, inteligencia autónoma, orchestración de agentes, arquitectura agentica, living agents, AI aumentada, AI enterprise, Chile, LATAM",
+  alternates: {
+    canonical: "https://n3uralia.com",
+    languages: {
+      "es-CL": "https://n3uralia.com",
+      "es": "https://n3uralia.com",
+      "en": "https://n3uralia.com",
+      "en-US": "https://n3uralia.com",
+    },
+  },
   openGraph: {
-    title: "N3uralia - Sistemas Agenticos en Producción",
-    description: "Arquitectura de IA que trabaja con humanos. Gobernanza, memoria y orquestación para sistemas inteligentes en producción.",
+    title: "N3uralia - AI Agents in Production | Sistemas Agenticos",
+    description: "Agentic AI architecture that works with humans. Multi-agent systems in production (n3uralia agents / n3uralia agentes) with governance, memory, and orchestration.",
     type: "website",
     locale: "es_CL",
+    localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
+    siteName: "N3uralia | Neuralia",
   },
 }
 
