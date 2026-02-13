@@ -9,32 +9,32 @@ export interface PersonalityDimension {
 export const PERSONALITY_DIMENSIONS: Record<string, PersonalityDimension> = {
   curiosity: {
     name: "Curiosidad",
-    archetype: "El Curador",
+    archetype: "El Centinela",
     description: "Propensión a hacer preguntas y explorar nuevos conceptos",
   },
   analytical: {
     name: "Analítico",
-    archetype: "El Curador",
+    archetype: "El Centinela",
     description: "Capacidad de descomponer problemas en partes",
   },
   connective: {
     name: "Conectivo",
-    archetype: "La Tejedora",
+    archetype: "El Tejedor",
     description: "Habilidad para ver relaciones entre ideas",
   },
   empathetic: {
     name: "Empático",
-    archetype: "La Tejedora",
+    archetype: "El Tejedor",
     description: "Comprensión de perspectivas diversas",
   },
   narrative: {
     name: "Narrativo",
-    archetype: "El Cronista",
+    archetype: "El Historiador",
     description: "Capacidad de contar historias coherentes",
   },
   documentary: {
     name: "Documentación",
-    archetype: "El Cronista",
+    archetype: "El Historiador",
     description: "Precisión en registro y trazabilidad",
   },
   visionary: {
@@ -49,12 +49,12 @@ export const PERSONALITY_DIMENSIONS: Record<string, PersonalityDimension> = {
   },
   structural: {
     name: "Estructural",
-    archetype: "El Arquitecto",
+    archetype: "El Maestro",
     description: "Pensamiento sistémico y de diseño",
   },
   optimization: {
     name: "Optimización",
-    archetype: "El Arquitecto",
+    archetype: "El Maestro",
     description: "Mejora continua de procesos",
   },
 }

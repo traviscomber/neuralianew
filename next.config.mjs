@@ -22,6 +22,43 @@ const nextConfig = {
       },
     ],
   },
+  redirects: async () => {
+    return [
+      // Legacy solution routes redirect to /soluciones
+      {
+        source: '/para-empresas',
+        destination: '/soluciones#para-empresas',
+        permanent: true, // 301 redirect
+      },
+      {
+        source: '/para-startups',
+        destination: '/soluciones#para-startups',
+        permanent: true,
+      },
+      {
+        source: '/para-desarrolladores',
+        destination: '/soluciones#para-desarrolladores',
+        permanent: true,
+      },
+      // Legacy methodology route redirects to /como-trabajamos
+      {
+        source: '/nuestro-enfoque',
+        destination: '/como-trabajamos',
+        permanent: true,
+      },
+      // Legacy capabilities routes redirect to /capabilities with anchors
+      {
+        source: '/living-agents',
+        destination: '/capabilities#living-agents',
+        permanent: true,
+      },
+      {
+        source: '/studies/production-grade-agentic-systems',
+        destination: '/capabilities#produccion',
+        permanent: true,
+      },
+    ]
+  },
   webpack: (config, { isServer }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,

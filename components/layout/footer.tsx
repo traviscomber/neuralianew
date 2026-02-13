@@ -1,8 +1,11 @@
 "use client"
 
 import Link from "next/link"
+import { useState } from "react"
+import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
 
 export function Footer() {
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
   return (
     <footer className="bg-background text-foreground py-12 border-t border-border px-4">
       <div className="container mx-auto">
@@ -72,13 +75,21 @@ export function Footer() {
             <p className="font-bold mb-4 text-foreground">Contacto</p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:hello@n3uralia.com" className="hover:text-foreground transition-colors">
-                  Email: hello@n3uralia.com
-                </a>
+                <button
+                  onClick={() => setEmailDialogOpen(true)}
+                  className="hover:text-foreground transition-colors text-left"
+                >
+                  Email: info@n3uralia.com
+                </button>
               </li>
               <li>
-                <a href="tel:+56993826127" className="hover:text-foreground transition-colors">
-                  Teléfono: +56 9 9382 6127
+                <a 
+                  href="https://wa.me/56994094660?text=Hola%20N3uralia%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  WhatsApp: +56 9 4094 6660
                 </a>
               </li>
               <li className="pt-2 border-t border-border">
@@ -108,6 +119,8 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      <EmailContactDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </footer>
   )
 }

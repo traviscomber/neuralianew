@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { FloatingChatWidget } from "@/components/floating-chat-widget"
 import { StructuredData } from "@/components/structured-data"
 import { StructuredCitations } from "@/components/structured-citations"
 
@@ -24,16 +25,16 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia - Sistemas de Inteligencia Artificial en Producción",
+  title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
   description:
-    "N3uralia diseña y despliega arquitecturas de agentes inteligentes que integran datos, procesos y decisiones en entornos productivos. Sistemas operacionales en el mundo real.",
+    "N3uralia diseña sistemas de inteligencia autónoma que amplifican capacidades humanas. Arquitectura de sistemas agenticos en producción con orquestación multi-agente, memoria persistente y gobernanza radical.",
   keywords:
-    "N3uralia, agentes IA, sistemas inteligentes, multi-agent, IA producción, infraestructura IA, automatización, arquitectura de agentes",
+    "N3uralia, sistemas agenticos, inteligencia autónoma, human-augmented AI, multi-agent systems, IA producción, arquitectura de agentes, Living Agents, governance",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
   openGraph: {
-    title: "N3uralia - Sistemas de IA en Producción",
-    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
+    title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
+    description: "Sistemas agenticos diseñados para trabajar con humanos, no contra ellos. Arquitectura que expande, no reemplaza.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - Sistemas de IA en Producción",
+        alt: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
       },
     ],
   },
@@ -94,6 +95,7 @@ export default function RootLayout({
           <Navigation />
           {children}
           <ScrollToTop />
+          <FloatingChatWidget />
         </ThemeProvider>
       </body>
     </html>

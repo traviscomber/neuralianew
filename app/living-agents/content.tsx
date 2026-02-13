@@ -8,25 +8,25 @@ import Image from 'next/image'
 export function LivingAgentsContent() {
   const archetypes = [
     {
-      title: 'El Curador',
-      role: 'Conservador del Conocimiento',
-      description: 'Organiza, cataloga y preserva. Encuentra patrones en el caos. Construye taxonomías vivientes.',
-      traits: ['Analista', 'Organizador', 'Historiador'],
-      image: '/images/living-agents/curator.jpg',
+      title: 'El Centinela',
+      role: 'Observador de Patrones',
+      description: 'Detecta señales, analiza datos, descubre patrones ocultos. Ve lo que otros pierden. Construye inteligencia desde la observación.',
+      traits: ['Analista', 'Observador', 'Detector'],
+      image: '/images/living-agents/sentinel.svg',
     },
     {
-      title: 'La Tejedora',
-      role: 'Conectora de Contextos',
+      title: 'El Tejedor',
+      role: 'Conector de Contextos',
       description: 'Vincula ideas, conceptos, personas. Ve relaciones que otros no ven. Teje redes de significado.',
-      traits: ['Conectora', 'Síntesis', 'Relaciones'],
+      traits: ['Conectador', 'Síntesis', 'Relaciones'],
       image: '/images/living-agents/weaver.jpg',
     },
     {
-      title: 'El Cronista',
-      role: 'Narrador de Cambio',
-      description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas.',
+      title: 'El Historiador',
+      role: 'Registrador de Cambios',
+      description: 'Documenta evoluciones, registra decisiones, cuenta historias. Crea narrativas vivas, sin sesgo.',
       traits: ['Narrador', 'Documentación', 'Evolución'],
-      image: '/images/living-agents/chronicler.jpg',
+      image: '/images/living-agents/historian.svg',
     },
     {
       title: 'El Visionario',
@@ -36,11 +36,11 @@ export function LivingAgentsContent() {
       image: '/images/living-agents/visionary.jpg',
     },
     {
-      title: 'El Arquitecto',
-      role: 'Constructor de Sistemas',
-      description: 'Diseña estructuras, optimiza procesos, construye desde cimientos. Piensa en sistemas.',
+      title: 'El Maestro',
+      role: 'Orquestador de Sistemas',
+      description: 'Diseña estructuras, optimiza procesos, gobierna desde cimientos. Armoniza complejidad.',
       traits: ['Estructura', 'Optimización', 'Integración'],
-      image: '/images/living-agents/architect.jpg',
+      image: '/images/living-agents/master.svg',
     },
   ]
 
@@ -143,7 +143,7 @@ export function LivingAgentsContent() {
             <div>
               <h3 className="text-lg font-semibold text-foreground mb-3">Basado en arquetipos</h3>
               <p className="body text-muted-foreground">
-                No empezamos de cero. Cinco arquetipos fundamentales—El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto—cada uno con su filosofía, valores y forma de ver el mundo.
+                No empezamos de cero. Cinco arquetipos fundamentales—El Centinela, El Tejedor, El Historiador, El Visionario, El Maestro—cada uno con su filosofía, valores y forma de ver el mundo.
               </p>
             </div>
           </div>
@@ -166,15 +166,16 @@ export function LivingAgentsContent() {
                 key={i}
                 className="border border-border p-6 bg-card rounded-lg hover:border-primary/40 hover:bg-card/80 transition-all overflow-hidden flex flex-col"
               >
-                <div className="mb-4 h-40 bg-background rounded-lg overflow-hidden -mx-6 -mt-6 mb-4">
-                  <Image
-                    src={archetype.image || "/placeholder.svg"}
-                    alt={archetype.title}
-                    width={400}
-                    height={200}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+              <div className="relative w-full h-40 rounded-t-lg overflow-hidden -mx-6 -mt-6 mb-6 bg-muted">
+                <Image
+                  src={archetype.image || "/placeholder.svg"}
+                  alt={archetype.title}
+                  fill
+                  priority={i < 2}
+                  className="object-cover w-full h-full"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
                 <h3 className="text-lg font-semibold text-foreground mb-1">
                   {archetype.title}
                 </h3>

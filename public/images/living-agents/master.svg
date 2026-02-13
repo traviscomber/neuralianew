@@ -1,0 +1,42 @@
+<svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-master" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e27;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1f3a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#grad-master)"/>
+  
+  <!-- Grid background -->
+  <g stroke="#00D9FF" stroke-width="0.5" opacity="0.1">
+    <line x1="0" y1="0" x2="400" y2="0"/>
+    <line x1="0" y1="30" x2="400" y2="30"/>
+    <line x1="0" y1="60" x2="400" y2="60"/>
+    <line x1="0" y1="90" x2="400" y2="90"/>
+    <line x1="0" y1="120" x2="400" y2="120"/>
+    <line x1="0" y1="150" x2="400" y2="150"/>
+    <line x1="0" y1="180" x2="400" y2="180"/>
+    <line x1="0" y1="210" x2="400" y2="210"/>
+    <line x1="0" y1="240" x2="400" y2="240"/>
+    <line x1="0" y1="270" x2="400" y2="270"/>
+    <line x1="0" y1="300" x2="400" y2="300"/>
+  </g>
+  
+  <!-- Architecture pattern -->
+  <rect x="150" y="80" width="100" height="60" fill="none" stroke="#00D9FF" stroke-width="2"/>
+  <circle cx="175" cy="110" r="5" fill="#00D9FF"/>
+  <circle cx="225" cy="110" r="5" fill="#00D9FF"/>
+  <circle cx="200" cy="130" r="5" fill="#00D9FF"/>
+  <line x1="175" y1="110" x2="225" y2="110" stroke="#0099CC" stroke-width="1"/>
+  <line x1="200" y1="110" x2="200" y2="130" stroke="#0099CC" stroke-width="1"/>
+  <rect x="140" y="170" width="120" height="70" fill="none" stroke="#00D9FF" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="160" cy="190" r="4" fill="#0099CC" opacity="0.8"/>
+  <circle cx="200" cy="190" r="4" fill="#0099CC" opacity="0.8"/>
+  <circle cx="240" cy="190" r="4" fill="#0099CC" opacity="0.8"/>
+  <line x1="160" y1="190" x2="200" y2="190" stroke="#0099CC" stroke-width="1" opacity="0.5"/>
+  <line x1="200" y1="190" x2="240" y2="190" stroke="#0099CC" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Corner accent -->
+  <rect x="10" y="10" width="30" height="30" fill="none" stroke="#00D9FF" stroke-width="2" opacity="0.4"/>
+  <rect x="360" y="260" width="30" height="30" fill="none" stroke="#0099CC" stroke-width="2" opacity="0.4"/>
+</svg>

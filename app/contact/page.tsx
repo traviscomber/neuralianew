@@ -1,9 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import { ContactConversation } from "@/components/contact/contact-conversation"
+import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
 import { Footer } from "@/components/layout/footer"
 
 export default function ContactPage() {
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
+
   return (
     <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
       <section className="max-w-3xl mx-auto">
@@ -25,14 +29,19 @@ export default function ContactPage() {
           </p>
           <p className="text-sm text-muted-foreground">
             O envía un email a{" "}
-            <a href="mailto:hello@n3uralia.com" className="text-primary font-semibold hover:underline">
-              hello@n3uralia.com
-            </a>
+            <button 
+              onClick={() => setEmailDialogOpen(true)}
+              className="text-primary font-semibold hover:underline cursor-pointer"
+            >
+              info@n3uralia.com
+            </button>
           </p>
         </div>
       </section>
 
       <Footer />
+      
+      <EmailContactDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </main>
   )
 }

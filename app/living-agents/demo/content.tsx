@@ -9,25 +9,25 @@ import { PersonalityRadar } from '@/components/living-agents/personality-radar'
 
 const ARCHETYPES = [
   {
-    id: 'curator',
-    name: 'El Curador',
-    role: 'Conservador del Conocimiento',
-    description: 'Organiza y preserva.',
-    traits: ['Analítico', 'Observador', 'Reflexivo', 'Organizador', 'Historiador', 'Crítico', 'Preservador', 'Sintetizador', 'Categorizador', 'Memoria'],
+    id: 'sentinel',
+    name: 'El Centinela',
+    role: 'Observador de Patrones',
+    description: 'Detecta y analiza.',
+    traits: ['Analítico', 'Observador', 'Reflexivo', 'Detector', 'Historiador', 'Crítico', 'Perspicaz', 'Sintetizador', 'Categorizador', 'Inteligencia'],
   },
   {
     id: 'weaver',
-    name: 'La Tejedora',
-    role: 'Conectora de Contextos',
+    name: 'El Tejedor',
+    role: 'Conector de Contextos',
     description: 'Vincula significados.',
-    traits: ['Conectiva', 'Intuitiva', 'Síntesis', 'Puentes', 'Relacional', 'Interdisciplinaria', 'Creativa', 'Empática', 'Holística', 'Emergencia'],
+    traits: ['Conectivo', 'Intuitivo', 'Síntesis', 'Puentes', 'Relacional', 'Interdisciplinario', 'Creativo', 'Empático', 'Holístico', 'Emergencia'],
   },
   {
-    id: 'chronicler',
-    name: 'El Cronista',
-    role: 'Narrador de Cambio',
+    id: 'historian',
+    name: 'El Historiador',
+    role: 'Registrador de Cambios',
     description: 'Documenta viajes.',
-    traits: ['Narrativa', 'Trazabilidad', 'Detalle', 'Cronológica', 'Testigo', 'Registro', 'Contextual', 'Memoria', 'Evolución', 'Documento'],
+    traits: ['Narrativa', 'Trazabilidad', 'Detalle', 'Cronológico', 'Testigo', 'Registro', 'Contextual', 'Memoria', 'Evolución', 'Documento'],
   },
   {
     id: 'visionary',
@@ -37,9 +37,9 @@ const ARCHETYPES = [
     traits: ['Prospectiva', 'Imaginativa', 'Escenarios', 'Visión', 'Posibilidades', 'Riesgo', 'Oportunidad', 'Futuro', 'Diseño', 'Innovación'],
   },
   {
-    id: 'architect',
-    name: 'El Arquitecto',
-    role: 'Constructor de Sistemas',
+    id: 'master',
+    name: 'El Maestro',
+    role: 'Orquestador de Sistemas',
     description: 'Diseña estructuras.',
     traits: ['Sistémica', 'Estructura', 'Escalabilidad', 'Integración', 'Optimización', 'Sostenibilidad', 'Modularidad', 'Robustez', 'Eficiencia', 'Arquitectura'],
   },
@@ -56,7 +56,7 @@ export function DemoContent() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'agent',
-      content: 'Hola. Soy El Curador. Preservo y organizo el conocimiento. ¿Con qué puedo ayudarte hoy?',
+      content: 'Hola. Soy El Centinela. Observo patrones y analizo datos. ¿Con qué puedo ayudarte hoy?',
       timestamp: new Date(),
     },
   ])
@@ -65,11 +65,11 @@ export function DemoContent() {
   const [showEvolution, setShowEvolution] = useState(false) // Declared showEvolution variable
 
   const personalityScores = {
-    curator: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
+    sentinel: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
     weaver: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
-    chronicler: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
+    historian: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
     visionary: [75, 85, 80, 88, 82, 85, 90, 78, 85, 92],
-    architect: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
+    master: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
   }
 
   const handleSendMessage = () => {

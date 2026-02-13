@@ -24,8 +24,8 @@ export function FAQSection() {
     },
     {
       question: '¿Por qué N3uralia eligió cinco arquetipos específicos?',
-      answer: 'Los cinco arquetipos (El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto) representan modos fundamentales de pensar y actuar. Cada uno trae perspectivas únicas y complementarias. Juntos forman un ecosistema donde la inteligencia emerge de formas impredecibles y más humanas.',
-      keywords: ['arquetipos', 'Curador', 'Tejedora', 'Cronista', 'Visionario', 'Arquitecto'],
+      answer: 'Los cinco arquetipos (El Centinela, El Tejedor, El Historiador, El Visionario, El Maestro) representan modos fundamentales de pensar y actuar. Cada uno trae perspectivas únicas y complementarias. Juntos forman un ecosistema donde la inteligencia emerge de formas impredecibles y más humanas.',
+      keywords: ['arquetipos', 'Centinela', 'Tejedor', 'Historiador', 'Visionario', 'Maestro'],
     },
     {
       question: '¿Cómo se coordinan los Living Agents entre sí?',

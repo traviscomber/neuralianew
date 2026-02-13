@@ -106,7 +106,7 @@ Create `/docs/POSITIONING_STRATEGY.md` with:
 10. "¿Qué soporte reciben los clientes?" - What support do customers receive?
 
 **Schema Implementation**:
-```json
+\`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -122,7 +122,7 @@ Create `/docs/POSITIONING_STRATEGY.md` with:
     }
   ]
 }
-```
+\`\`\`
 
 ### 2.2 Optimize Existing Pages for AI Indexing
 
@@ -148,14 +148,14 @@ Create `/docs/POSITIONING_STRATEGY.md` with:
 
 **Pattern 1: Answer-First Sections**
 Instead of:
-```
+\`\`\`
 "Los Living Agents son sistemas avanzados que..."
-```
+\`\`\`
 Use:
-```
+\`\`\`
 **Pregunta**: ¿Cuál es la diferencia entre un Living Agent y un chatbot?
 **Respuesta**: Los Living Agents aprenden y evolucionan. Los chatbots responden basados en reglas fijas.
-```
+\`\`\`
 
 **Pattern 2: Structured Lists**
 - Use bullet points with full sentences (not fragments)
@@ -163,12 +163,12 @@ Use:
 - Format: `[capability]: [benefit to user]`
 
 **Pattern 3: Explicit Metadata**
-```html
+\`\`\`html
 <meta property="schema:name" content="N3uralia">
 <meta property="schema:description" content="Plataforma de IA para empresas chilenas">
 <meta property="schema:url" content="https://n3uralia.com">
 <meta property="schema:areaServed" content="CL">
-```
+\`\`\`
 
 ### 2.4 Create `/faq` Page Component
 
@@ -256,23 +256,23 @@ New: Keyword-optimized case study pages with:
 - Schema.org/NewsArticle or /Article
 
 Example structure for each case study:
-```
+\`\`\`
 Title: [Company] Redujo Procesos Manuales [X%] con N3uralia
 Meta: "Caso de estudio: [Company] implementó Living Agents y logró [specific result]"
 Schema: CreativeWork + AggregateRating (if available)
-```
+\`\`\`
 
 ### 3.3 Implement Keyword Mapping
 
 **Tool**: Create `/docs/KEYWORD_MAP.md`
 
 Structure:
-```
+\`\`\`
 | Keyword | Volume | Intent | Current Ranking | Target Position | Page | Priority |
 |---------|--------|--------|-----------------|-----------------|------|----------|
 | agentes IA chile | 320/mo | High | Not ranked | Top 3 | /living-agents | P1 |
 | automatización empresas | 450/mo | High | Not ranked | Top 5 | /soluciones/empresas-grandes | P1 |
-```
+\`\`\`
 
 ### 3.4 Content Audit
 
@@ -299,15 +299,15 @@ Review existing content for:
 **Solution for Chile-First Approach**:
 
 Option A (Recommended): Remove hreflang entirely
-```html
+\`\`\`html
 <!-- Remove: <link rel="alternate" hreflang="en" href="..." /> -->
-```
+\`\`\`
 
 Option B (If future expansion planned): Create `/en` redirect to main site
-```html
+\`\`\`html
 <link rel="alternate" hreflang="es_CL" href="https://n3uralia.com/" />
 <link rel="alternate" hreflang="x-default" href="https://n3uralia.com/" />
-```
+\`\`\`
 
 **Implementation**:
 - Remove hreflang from layout.tsx
@@ -334,7 +334,7 @@ Option B (If future expansion planned): Create `/en` redirect to main site
 **File**: `/public/sitemap.xml`
 
 Structure:
-```xml
+\`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -349,13 +349,13 @@ Structure:
   </url>
   <!-- Add all priority pages -->
 </urlset>
-```
+\`\`\`
 
 ### 4.4 Create robots.txt Enhancement
 
 **File**: `/public/robots.txt`
 
-```
+\`\`\`
 User-agent: *
 Allow: /
 Disallow: /admin/
@@ -374,7 +374,7 @@ Allow: /
 
 User-agent: anthropic-ai
 Allow: /
-```
+\`\`\`
 
 ### 4.5 Schema Validation
 
@@ -430,12 +430,12 @@ Create `/docs/SEO_MONITORING_DASHBOARD.md`:
 
 ## IMPLEMENTATION TIMELINE SUMMARY
 
-```
+\`\`\`
 Week 1 | Mon-Wed: ICP definition | Thu-Fri: Messaging framework update
 Week 2 | Mon-Tue: FAQ page creation | Wed-Fri: Schema implementation  
 Week 3 | Mon: Keyword research | Tue-Wed: Content restructuring | Thu-Fri: Internal linking
 Week 4 | Mon-Tue: Fix hreflang | Wed-Thu: Technical validation | Fri: Monitoring setup
-```
+\`\`\`
 
 ---
 

@@ -17,13 +17,13 @@ Pages have broken hreflang links pointing to `/en` paths that don't exist.
 - Individual page metadata - Ensure no alternate language tags
 
 **Updated layout.tsx approach**:
-```tsx
+\`\`\`tsx
 // Remove this (it's broken):
 // <link rel="alternate" hreflang="en" href="https://n3uralia.com/en" />
 
 // Keep this (correct):
 <html lang="es_CL">  {/* Signals Chile Spanish to search engines */}
-```
+\`\`\`
 
 **Why this works**:
 - `<html lang="es_CL">` tells Google this is Chilean Spanish
@@ -70,7 +70,7 @@ Pages have broken hreflang links pointing to `/en` paths that don't exist.
 
 ### Template for Every Page
 
-```html
+\`\`\`html
 <!-- Title: max 60 chars, includes primary keyword -->
 <title>[Keyword] | N3uralia</title>
 
@@ -88,7 +88,7 @@ Pages have broken hreflang links pointing to `/en` paths that don't exist.
 
 <!-- Language tag -->
 <html lang="es_CL">
-```
+\`\`\`
 
 ### Pages to Audit
 
@@ -107,7 +107,7 @@ Pages have broken hreflang links pointing to `/en` paths that don't exist.
 
 ### Updated robots.txt
 
-```
+\`\`\`
 User-agent: *
 Allow: /
 Disallow: /admin/
@@ -136,7 +136,7 @@ Allow: /
 
 User-agent: CCBot
 Allow: /
-```
+\`\`\`
 
 **Why these rules**:
 - Disallow API routes (not meant for indexing)
@@ -150,7 +150,7 @@ Allow: /
 
 ### Structure
 
-```xml
+\`\`\`xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Priority 1.0: Core pages -->
@@ -189,7 +189,7 @@ Allow: /
     <changefreq>never</changefreq>
   </url>
 </urlset>
-```
+\`\`\`
 
 ---
 
@@ -253,7 +253,7 @@ Google PageSpeed Insights: https://pagespeed.web.dev/
 - Image file names are descriptive (seo-benefit-01.jpg not img123.jpg)
 
 ### Example
-```tsx
+\`\`\`tsx
 <Image
   src="/images/enterprise-architecture.png"
   alt="Orquestación de sistemas enterprise con N3uralia Living Agents"
@@ -261,7 +261,7 @@ Google PageSpeed Insights: https://pagespeed.web.dev/
   height={630}
   priority={true}  // For above-fold images
 />
-```
+\`\`\`
 
 ---
 
@@ -335,7 +335,7 @@ Google PageSpeed Insights: https://pagespeed.web.dev/
 
 ## Implementation Order
 
-```
+\`\`\`
 Week 4, Day 1-2:
   - Remove hreflang tags from layout.tsx
   - Add Organization schema to homepage
@@ -355,7 +355,7 @@ Week 4, Weekend:
   - Final audit checklist
   - Submit updated sitemap to GSC
   - Create initial monitoring dashboard
-```
+\`\`\`
 
 ---
 

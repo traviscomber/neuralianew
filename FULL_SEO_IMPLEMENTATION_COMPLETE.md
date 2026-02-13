@@ -122,7 +122,7 @@ All blog posts include:
   - Studies: 0.65 (reference material)
 
 **Priority Distribution**:
-```
+\`\`\`
 1.0   → Homepage (core)
 0.95  → FAQ (LLMO essential)
 0.9   → Blog hub (content engine)
@@ -130,12 +130,12 @@ All blog posts include:
 0.75  → Services, Living Agents (secondary)
 0.7   → Blog posts, demos (supporting)
 0.65  → Studies (reference)
-```
+\`\`\`
 
 ### Schema Markup Enhancements
 
 #### FAQ Page (`/app/faq/page.tsx`)
-```json
+\`\`\`json
 {
   "@type": "FAQPage",
   "mainEntity": [
@@ -149,10 +149,10 @@ All blog posts include:
     }
   ]
 }
-```
+\`\`\`
 
 #### Blog Posts
-```json
+\`\`\`json
 {
   "@type": "BlogPosting",
   "headline": "...",
@@ -160,10 +160,10 @@ All blog posts include:
   "datePublished": "2026-02-10",
   "articleBody": "..."
 }
-```
+\`\`\`
 
 #### Organization
-```json
+\`\`\`json
 {
   "@type": "Organization",
   "@id": "https://n3uralia.com/#organization",
@@ -172,7 +172,7 @@ All blog posts include:
   "sameAs": ["linkedin.com/company/n3uralia"],
   "location": {"@type": "Place", "name": "Chile"}
 }
-```
+\`\`\`
 
 ### Metadata Improvements
 
@@ -190,7 +190,7 @@ All blog posts include:
 
 **GA4 Event Tracking by Audience**
 
-```typescript
+\`\`\`typescript
 // CTO Events
 cto: {
   viewCapabilities, viewCaseStudy, downloadWhitepaper, requestDemo
@@ -205,7 +205,7 @@ founder: {
 operations: {
   viewROICalculator, viewUseCases, scheduleCall
 }
-```
+\`\`\`
 
 ### Custom Dimensions (GA4)
 

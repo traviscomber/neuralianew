@@ -57,7 +57,7 @@ LLM Optimization ensures your content is structured for AI/LLM scraping, retriev
 **Current**: Random Q&A scattered in text
 **Required**: Structured FAQ with clear Q&A format
 
-```html
+\`\`\`html
 <!-- AI Models scrape this structure FIRST -->
 <section itemscope itemtype="https://schema.org/FAQPage">
   <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -67,7 +67,7 @@ LLM Optimization ensures your content is structured for AI/LLM scraping, retriev
     </div>
   </div>
 </section>
-```
+\`\`\`
 
 #### Issue #2: Intent-Based Headings Missing 🔴
 **Problem**: LLMs parse questions better than statements
@@ -97,12 +97,12 @@ Living Agents, Production Systems not marked with Organization schema
 ### GEO Issues:
 
 #### Issue #1: Hreflang Points to Non-Existent Pages 🔴
-```xml
+\`\`\`xml
 <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en" />
 <!-- This page doesn't exist! -->
 <xhtml:link rel="alternate" hreflang="es-AR" href="https://n3uralia.com/" />
 <!-- Points to same page as es - no localization -->
-```
+\`\`\`
 
 **Impact**: Google may de-index or distrust hreflang setup
 
@@ -168,10 +168,10 @@ Living Agents, Production Systems not marked with Organization schema
 ## 5. COMPETITIVE KEYWORD ANALYSIS 🔴
 
 ### Current Keywords in Metadata:
-```
+\`\`\`
 "N3uralia, agentes IA, sistemas inteligentes, multi-agent, IA producción, 
 infraestructura IA, automatización, Chile"
-```
+\`\`\`
 
 ### Problems:
 - ❌ "agentes IA" = Very competitive, few searches
@@ -213,7 +213,7 @@ infraestructura IA, automatización, Chile"
 ### Homepage Needs:
 
 #### 1. FAQ Section with Schema
-```markdown
+\`\`\`markdown
 ## Preguntas Frecuentes
 
 **¿Cómo funciona N3uralia?**
@@ -224,7 +224,7 @@ La mayoría de empresas ven resultados en 4-8 semanas...
 
 **¿Qué empresas usan N3uralia?**
 Más de 50 empresas en Chile...
-```
+\`\`\`
 
 #### 2. Intent-Based Headings
 - ❌ "¿Qué Construimos" → ✅ "¿Cómo funciona la orquestación multi-agente?"
@@ -232,12 +232,12 @@ Más de 50 empresas en Chile...
 
 #### 3. Business Outcomes
 Add section with measured results:
-```
+\`\`\`
 ✅ Reducción de costos operacionales: 40%
 ✅ Tiempo de implementación: 4-8 semanas
 ✅ Disponibilidad garantizada: 99.8%
 ✅ ROI promedio: 3x en 6 meses
-```
+\`\`\`
 
 ---
 
