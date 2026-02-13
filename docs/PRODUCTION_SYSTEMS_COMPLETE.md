@@ -61,7 +61,7 @@ Up from 72/100 initial audit. Below 85% complete.
 - Common validation schemas (UUID, email, pagination, etc.)
 
 **Usage:**
-```typescript
+\`\`\`typescript
 const handler = createApiRoute({
   methods: ['POST'],
   auth: true,
@@ -71,7 +71,7 @@ const handler = createApiRoute({
 export const POST = handler(async (req) => {
   return ApiResponse.created({ id: '123' })
 })
-```
+\`\`\`
 
 **Status:** Production-ready with full examples
 
@@ -145,7 +145,7 @@ export const POST = handler(async (req) => {
 ## New Files & Utilities
 
 ### Core Production Files
-```
+\`\`\`
 /lib/sentry.ts                    - Sentry integration
 /lib/sentry-middleware.ts         - Error boundary middleware
 /lib/api-schema.ts                - API schemas & types
@@ -156,7 +156,7 @@ export const POST = handler(async (req) => {
 /app/api/v1/docs/openapi/route.ts - OpenAPI endpoint
 /app/error-tracking/page.tsx      - Error dashboard
 /docs/SENTRY_AND_API_SETUP.md     - Setup instructions
-```
+\`\`\`
 
 ### Helper Utilities Available
 - `ApiResponse` - Consistent response format
@@ -172,32 +172,32 @@ export const POST = handler(async (req) => {
 ## Environment Variables Needed
 
 **For Sentry (Optional but recommended for production):**
-```
+\`\`\`
 SENTRY_DSN=https://your-sentry-dsn@sentry.io/project
-```
+\`\`\`
 
 **Already Configured:**
-```
+\`\`\`
 NEXT_PUBLIC_SUPABASE_URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY
 SUPABASE_SERVICE_ROLE_KEY
 OPENAI_API_KEY
 RESEND_API_KEY
 POSTGRES_URL (if using direct)
-```
+\`\`\`
 
 ---
 
 ## Quick Start to Production
 
 ### 1. Add Sentry (Optional but recommended)
-```bash
+\`\`\`bash
 # Get DSN from https://sentry.io
 # Add to environment: SENTRY_DSN=your_dsn
-```
+\`\`\`
 
 ### 2. Test Everything
-```bash
+\`\`\`bash
 # Health check
 curl https://your-domain/api/v1/health
 
@@ -206,18 +206,18 @@ https://your-domain/api-docs
 
 # Error dashboard
 https://your-domain/error-tracking
-```
+\`\`\`
 
 ### 3. Review API Documentation
 - Visit `/api-docs` - Interactive documentation
 - Download OpenAPI schema at `/api/v1/docs/openapi`
 
 ### 4. Deploy
-```bash
+\`\`\`bash
 npm run build
 npm start
 # Or deploy to Vercel
-```
+\`\`\`
 
 ---
 

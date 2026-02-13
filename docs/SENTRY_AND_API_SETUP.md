@@ -5,10 +5,10 @@
 ### 1. Enable Sentry Error Monitoring
 
 **Environment Variables Required:**
-```
+\`\`\`
 SENTRY_DSN=your_sentry_dsn_here
 NODE_ENV=production  # Enables Sentry in production
-```
+\`\`\`
 
 **Get your DSN:**
 1. Go to https://sentry.io
@@ -29,7 +29,7 @@ The system automatically captures:
 
 **Manual:**
 Use in your code:
-```typescript
+\`\`\`typescript
 import { captureException, setUser, addBreadcrumb } from '@/lib/sentry'
 
 // Track errors
@@ -44,7 +44,7 @@ setUser('user-123', 'user@example.com', 'username')
 
 // Add breadcrumbs for debugging
 addBreadcrumb('User initiated important action', { action: 'deploy' })
-```
+\`\`\`
 
 ### 3. API Versioning
 
@@ -90,7 +90,7 @@ All API routes now use versioning: `/api/v1/*`
 
 Example route with error handling:
 
-```typescript
+\`\`\`typescript
 import { withErrorBoundary } from '@/lib/sentry-middleware'
 import { withAuth } from '@/lib/api-auth'
 import { captureException } from '@/lib/sentry'
@@ -113,7 +113,7 @@ async function handler(req: NextRequest) {
 }
 
 export const POST = withErrorBoundary(handler)
-```
+\`\`\`
 
 ### 7. Performance Monitoring
 
@@ -150,11 +150,11 @@ Before deploying to production:
 4. Done! You'll be notified of new errors
 
 **Release Tracking:**
-```typescript
+\`\`\`typescript
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.captureMessage('Deployment v1.2.3', 'info')
-```
+\`\`\`
 
 **Source Maps:**
 Already configured for Next.js. Sentry automatically receives and processes them.
@@ -163,7 +163,7 @@ Already configured for Next.js. Sentry automatically receives and processes them
 
 All routes can now use:
 
-```typescript
+\`\`\`typescript
 import { withErrorBoundary } from '@/lib/sentry-middleware'
 import { withAuth } from '@/lib/api-auth'
 
@@ -171,7 +171,7 @@ export const GET = withErrorBoundary(async (req) => {
   const user = await withAuth(req)
   // Route logic
 })
-```
+\`\`\`
 
 Benefits:
 - Automatic error tracking
