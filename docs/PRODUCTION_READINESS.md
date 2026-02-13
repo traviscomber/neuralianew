@@ -29,18 +29,18 @@ You've implemented 6 critical production systems. This guide explains everything
 - CLI script for local validation
 
 **Usage**:
-```bash
+\`\`\`bash
 # Validate before deployment
 npx ts-node scripts/validate-env.ts
-```
+\`\`\`
 
 **Code**:
-```typescript
+\`\`\`typescript
 import { assertEnvironmentVariables } from '@/lib/env'
 
 // On startup (automatic in instrumentation.ts)
 assertEnvironmentVariables()
-```
+\`\`\`
 
 ### 3. **Rate Limiting** (/lib/rate-limit.ts)
 - In-memory for development (no external dependencies)
@@ -49,7 +49,7 @@ assertEnvironmentVariables()
 - Per-IP and per-user limiting
 
 **Usage**:
-```typescript
+\`\`\`typescript
 import { rateLimiters } from '@/lib/rate-limit'
 
 // Check limit
@@ -57,7 +57,7 @@ const limit = await rateLimiters.standard(clientIp)
 if (!limit.allowed) {
   return NextResponse.json({ error: 'Rate limited' }, { status: 429 })
 }
-```
+\`\`\`
 
 ### 4. **Enhanced Health Check** (/app/api/health/route.ts)
 - Checks environment variables
@@ -75,14 +75,14 @@ if (!limit.allowed) {
 - Decorated route wrapper
 
 **Usage**:
-```typescript
+\`\`\`typescript
 import { requireAuth, apiResponse, apiError } from '@/lib/api-auth'
 
 export async function POST(request: NextRequest) {
   const user = requireAuth(request)
   return apiResponse({ success: true })
 }
-```
+\`\`\`
 
 ### 6. **Query Monitoring** (/lib/query-monitor.ts)
 - Tracks all database queries
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
 - Memory-efficient (keeps last 10k queries)
 
 **Usage**:
-```typescript
+\`\`\`typescript
 import { monitoredQuery, getQueryStats } from '@/lib/query-monitor'
 
 // Wrap your queries
@@ -102,7 +102,7 @@ const result = await monitoredQuery('users', 'select', async () => {
 
 // Get stats anytime
 console.log(getQueryStats())
-```
+\`\`\`
 
 **API**: GET `/api/monitoring/stats?type=stats` (requires auth)
 
@@ -143,7 +143,7 @@ console.log(getQueryStats())
 
 ### Environment Variables Checklist
 
-```bash
+\`\`\`bash
 # Core (REQUIRED)
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxxx
@@ -163,35 +163,35 @@ RESEND_FROM_NAME=N3uralia
 # Analytics (optional)
 NEXT_PUBLIC_GA_ID=GA-xxxxx
 SENTRY_DSN=https://xxxxx@xxxxx.ingest.sentry.io/xxxxx
-```
+\`\`\`
 
 ### Rate Limiting Customization
 
 In `/middleware.ts`, adjust these values:
-```typescript
+\`\`\`typescript
 const RATE_LIMIT_WINDOW_MS = 60 * 1000 // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = 100 // requests per minute
-```
+\`\`\`
 
 For specific endpoints, use `/lib/rate-limit-examples.ts` as reference.
 
 ### Protected Routes
 
 Edit the `PROTECTED_API_ROUTES` array in `/middleware.ts` to add/remove protected endpoints:
-```typescript
+\`\`\`typescript
 const PROTECTED_API_ROUTES = [
   '/api/living-agents/evolution',
   '/api/living-agents/interactions',
   // Add more here
 ]
-```
+\`\`\`
 
 ---
 
 ## 📊 Monitoring & Debugging
 
 ### Health Check Endpoint
-```bash
+\`\`\`bash
 curl https://neuralia.ai/api/health
 
 # Response (200 = healthy, 206 = degraded, 503 = unhealthy)
@@ -210,10 +210,10 @@ curl https://neuralia.ai/api/health
     "external": 2
   }
 }
-```
+\`\`\`
 
 ### Query Statistics Endpoint
-```bash
+\`\`\`bash
 # Get stats
 curl https://neuralia.ai/api/monitoring/stats?type=stats \
   -H "Authorization: Bearer YOUR_TOKEN"
@@ -225,15 +225,15 @@ curl https://neuralia.ai/api/monitoring/stats?type=slow \
 # Get failed queries
 curl https://neuralia.ai/api/monitoring/stats?type=errors \
   -H "Authorization: Bearer YOUR_TOKEN"
-```
+\`\`\`
 
 ### View Logs
 
 Monitor your running server:
-```bash
+\`\`\`bash
 npm run dev
 # Watch for [SLOW QUERY] and [QUERY ERROR] messages
-```
+\`\`\`
 
 ---
 
@@ -244,9 +244,9 @@ npm run dev
 
 ### Issue: Health check fails
 **Solution**: Run validation script to see missing env vars:
-```bash
+\`\`\`bash
 npx ts-node scripts/validate-env.ts
-```
+\`\`\`
 
 ### Issue: Database queries timing out
 **Solution**: Check `/api/monitoring/stats?type=slow` for slow queries and optimize them.

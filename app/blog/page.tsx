@@ -4,14 +4,14 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Blog - N3uralia | Artículos sobre IA en Producción",
+  title: "Blog N3uralia | Agentes IA, Orquestación y Sistemas en Producción",
   description:
-    "Artículos técnicos, guías y casos de estudio sobre agentes IA, orquestación, y sistemas inteligentes en producción.",
+    "Blog técnico sobre n3uralia agents, agentes IA, orquestación de agentes, living agents, sistemas agenticos en producción. Guías, casos de estudio y arquitectura de sistemas inteligentes.",
   keywords:
-    "blog, IA en producción, agentes inteligentes, orquestación, Living Agents, integración sistemas",
+    "blog n3uralia, agentes IA, n3uralia agents, agentes n3uralia, orquestación, living agents, sistemas agenticos, integración IA, arquitectura agentica, IA en producción",
   openGraph: {
-    title: "Blog N3uralia",
-    description: "Recursos técnicos y guías sobre IA empresarial en Chile",
+    title: "Blog N3uralia - Agentes IA y Sistemas Agenticos",
+    description: "Recursos técnicos sobre n3uralia agents, orquestación y IA empresarial",
     type: "website",
     locale: "es_CL",
   },

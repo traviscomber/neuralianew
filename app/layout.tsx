@@ -25,33 +25,43 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
+  title: "N3uralia - Sistemas Agenticos en Producción | AI Agents",
   description:
-    "N3uralia diseña sistemas de inteligencia autónoma que amplifican capacidades humanas. Arquitectura de sistemas agenticos en producción con orquestación multi-agente, memoria persistente y gobernanza radical.",
+    "N3uralia (Neuralia): Inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción - n3uralia agentes, n3uralia agents. Multi-agent orchestration, gobernanza, memoria persistente. Líder en AI enterprise y agentic systems.",
   keywords:
-    "N3uralia, sistemas agenticos, inteligencia autónoma, human-augmented AI, multi-agent systems, IA producción, arquitectura de agentes, Living Agents, governance",
+    "N3uralia, Neuralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, AI agents, multi-agent systems, IA en producción, arquitectura agentica, living agents, AI augmented, enterprise AI, orchestration, Chile, LATAM",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
+  alternates: {
+    canonical: "https://n3uralia.com",
+    languages: {
+      "es-CL": "https://n3uralia.com",
+      "es": "https://n3uralia.com",
+      "en": "https://n3uralia.com",
+      "en-US": "https://n3uralia.com",
+    },
+  },
   openGraph: {
-    title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
-    description: "Sistemas agenticos diseñados para trabajar con humanos, no contra ellos. Arquitectura que expande, no reemplaza.",
+    title: "N3uralia - AI Agents & Sistemas Agenticos en Producción",
+    description: "Agentic AI architecture designed for humans. N3uralia agents in production with governance, memory, and orchestration. Multi-agent systems that work with you.",
     type: "website",
     locale: "es_CL",
+    localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
-    siteName: "N3uralia",
+    siteName: "N3uralia | Neuralia",
     images: [
       {
         url: "https://n3uralia.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
+        alt: "N3uralia - Sistemas Agenticos en Producción",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia - Sistemas de IA en Producción",
-    description: "Arquitecturas de inteligencia artificial diseñadas para operar en el mundo real",
+    title: "N3uralia - AI Agents in Production",
+    description: "Agentic AI systems for enterprise. N3uralia agents, multi-agent orchestration, production-ready architecture.",
     creator: "@n3uralia",
   },
   robots: {
