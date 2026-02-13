@@ -5,11 +5,11 @@ import { ArrowRight, CheckCircle } from "lucide-react"
 import { enterpriseSolutions } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "Soluciones N3uralia | IA Adaptada a Tu Contexto",
+  title: "Soluciones de IA Aumentada | Para Empresas, Startups y Desarrolladores",
   description:
-    "Soluciones de IA diseñadas para empresas, startups y desarrolladores. Arquitectura escalable, ROI comprobado, soporte técnico integral.",
+    "Soluciones personalizadas de sistemas agenticos. Para grandes empresas: integración legacy y governance. Para startups: velocidad y escalabilidad. Para desarrolladores: APIs robustas. Diseñadas para producción.",
   keywords:
-    "soluciones IA, para empresas, para startups, para desarrolladores, agentes IA, automatización, N3uralia",
+    "soluciones IA, sistemas agenticos, para empresas, para startups, para desarrolladores, automatización inteligente, arquitectura agentica, AI augmented, production-ready",
 }
 
 export default function SolucionesPage() {

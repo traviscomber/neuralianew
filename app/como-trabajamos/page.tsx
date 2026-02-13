@@ -5,11 +5,11 @@ import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "Cómo Trabajamos - N3uralia | 5 Pasos hacia Inteligencia Aumentada",
+  title: "Metodología N3uralia | 5 Fases de Implementación de Sistemas Agenticos",
   description:
-    "Descubre el enfoque de 5 pasos de N3uralia: desde estrategia y arquitectura hasta operación y evolución. Ingeniería rigurosa en cada fase.",
+    "Cómo N3uralia diseña, construye y opera sistemas agenticos. 5 fases: discovery, arquitectura, implementación, go-live y optimización continua. Ingeniería rigurosa, resultados medibles.",
   keywords:
-    "metodología N3uralia, cómo trabajamos, arquitectura IA, sistemas agenticos, fases implementación",
+    "metodología N3uralia, implementación agentica, arquitectura IA, 5 fases, systems agenticos, discovery, go-live, operational excellence",
 }
 
 export default function ComoTrabajamosPage() {

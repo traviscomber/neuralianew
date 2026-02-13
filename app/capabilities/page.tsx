@@ -4,9 +4,9 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Capacidades - N3uralia | Pilares, Living Agents y Sistemas en Producción",
-  description: "Descubre nuestras capacidades técnicas: 6 pilares arquitectónicos, arquetipos de Living Agents y patrones de implementación en producción.",
-  keywords: "capacidades, arquitectura IA, living agents, agentic systems, producción",
+  title: "Capacidades Técnicas N3uralia | 6 Pilares + Living Agents + Sistemas en Producción",
+  description: "Los 6 pilares técnicos de N3uralia: orquestación multi-agente, memoria persistente, integración de herramientas, loops de retroalimentación, trazabilidad y gobernanza. Arquitectura production-grade para sistemas agenticos.",
+  keywords: "capacidades IA, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas en producción, architecture agentica, memory management, agent governance",
 }
 
 export default function CapabilitiesPage() {

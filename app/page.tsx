@@ -14,14 +14,14 @@ import {
 } from "@/app/constants/content"
 
 export const metadata: Metadata = {
-  title: "N3uralia - Inteligencia Autónoma Aumentada por Humanos",
+  title: "N3uralia - Sistemas Agenticos en Producción | IA Aumentada Chile",
   description:
-    "N3uralia diseña sistemas de inteligencia autónoma que amplifican capacidades humanas. Arquitectura de sistemas agenticos en producción que funcionan con, no contra, la inteligencia humana.",
+    "Arquitectura de inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción con gobernanza, memoria persistente y orquestación multi-agente. Líder en IA empresarial en Chile y LATAM.",
   keywords:
-    "N3uralia, sistemas agenticos, IA aumentada, inteligencia autónoma, human-augmented, multi-agent systems, producción, Chile",
+    "sistemas agenticos, IA en producción, inteligencia autónoma, multi-agent systems, IA aumentada, AI enterprise, orquestación agentes, architecture agentica, Chile, LATAM",
   openGraph: {
-    title: "N3uralia - Inteligencia Autónoma que Ampliffica Capacidades Humanas",
-    description: "Sistemas de IA diseñados para trabajar con humanos, no reemplazarlos. Arquitecturas que expanden, no restringen.",
+    title: "N3uralia - Sistemas Agenticos en Producción",
+    description: "Arquitectura de IA que trabaja con humanos. Gobernanza, memoria y orquestación para sistemas inteligentes en producción.",
     type: "website",
     locale: "es_CL",
     url: "https://n3uralia.com",
