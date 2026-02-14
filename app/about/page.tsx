@@ -1,6 +1,6 @@
-import { Footer } from "@/components/layout/footer"
 import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
+import { AboutPageClient } from "@/components/about/about-page-client"
 
 export const metadata: Metadata = {
   title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
@@ -32,9 +32,9 @@ const values = [
 ]
 
 export default function AboutPage() {
-
   return (
-    <main className="min-h-screen pt-16 bg-background">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero Section */}
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-4 text-center max-w-3xl">
@@ -157,7 +157,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Footer />
-    </main>
+      <AboutPageClient />
+    </>
   )
 }

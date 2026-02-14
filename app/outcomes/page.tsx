@@ -1,4 +1,4 @@
-import { Footer } from "@/components/layout/footer"
+import { OutcomesPageClient } from "@/components/outcomes/outcomes-page-client"
 import type { Metadata, Viewport } from "next"
 
 export const metadata: Metadata = {
@@ -115,7 +115,7 @@ export default function OutcomesPage() {
         </div>
       </section>
 
-      <Footer />
-    </main>
+      <OutcomesPageClient />
+    </>
   )
 }

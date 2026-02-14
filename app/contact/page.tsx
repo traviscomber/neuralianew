@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { ContactPageClient } from "@/components/contact/contact-page-client"
-import { Footer } from "@/components/layout/footer"
+import { ContactPageFooter } from "@/components/contact/contact-page-footer"
 
 export const metadata: Metadata = {
   title: "Contacto N3uralia | Neuralia - AI Agents, Sistemas Agenticos Fullstack",
@@ -27,7 +27,7 @@ export default function ContactPage() {
         </section>
       </main>
 
-      <Footer />
+      <ContactPageFooter />
     </>
   )
 }

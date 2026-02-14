@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { ArrowRight, Calendar, User, ArrowLeft } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
+import { BlogPageClient } from "@/components/blog/blog-page-client"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -149,7 +149,7 @@ export default function BlogPage() {
         </section>
       </main>
 
-      <Footer />
+      <BlogPageClient />
     </>
   )
 }

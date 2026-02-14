@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
-import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-page-client"
 
 export const metadata: Metadata = {
   title: "Capacidades N3uralia | Neuralia - 6 Pilares Sistemas Agenticos AI Agents",
@@ -632,7 +632,8 @@ export default function CapabilitiesPage() {
           </div>
         </section>
       </main>
-      <Footer />
+
+      <CapabilitiesPageClient />
     </>
   )
 }
