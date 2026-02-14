@@ -156,10 +156,8 @@ CREATE POLICY "Users can create preferences"
   ON public.user_preferences FOR INSERT
   WITH CHECK (auth.uid() = user_id);
 
--- Fix: agent_interactions_between - Missing RLS policies
-CREATE POLICY "Users can view agent interaction data"
-  ON public.agent_interactions_between FOR SELECT
-  USING (true);
+-- Fix: agent_interactions_between - Missing RLS policies (agent-focused, no user_id column)
+-- Skipping RLS for now - this table links agents, not users directly
 
 -- Fix: conversions - Missing RLS policies (analytics data - public read)
 CREATE POLICY "Anyone can view conversions"
