@@ -29,7 +29,8 @@ export default function OutcomesPage() {
   const t = content.es
 
   return (
-    <main className="min-h-screen pt-16 bg-background">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       <section className="relative bg-background text-foreground py-32 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
