@@ -13,12 +13,12 @@ DROP POLICY IF EXISTS profiles_update ON public.profiles;
 DROP POLICY IF EXISTS profiles_delete ON public.profiles;
 
 CREATE POLICY profiles_select ON public.profiles FOR SELECT
-  USING (auth.uid() = id OR role = 'admin');
+  USING (auth.uid() = id);
 CREATE POLICY profiles_insert ON public.profiles FOR INSERT
   WITH CHECK (auth.uid() = id);
 CREATE POLICY profiles_update ON public.profiles FOR UPDATE
-  USING (auth.uid() = id OR role = 'admin')
-  WITH CHECK (auth.uid() = id OR role = 'admin');
+  USING (auth.uid() = id)
+  WITH CHECK (auth.uid() = id);
 CREATE POLICY profiles_delete ON public.profiles FOR DELETE
   USING (auth.uid() = id);
 
