@@ -401,7 +401,7 @@ export default function DespegatucarreraEsCaseStudy() {
               </div>
 
               <div className="p-6 rounded-lg border border-border bg-card">
-                <h3 className="font-semibold text-foreground mb-2">3. IA Personalizada > IA Genérica</h3>
+                <h3 className="font-semibold text-foreground mb-2">{'3. IA Personalizada > IA Genérica'}</h3>
                 <p className="text-sm text-muted-foreground">
                   El coach funciona porque está entrenado con contexto del usuario. Personalización es la diferencia.
                 </p>
