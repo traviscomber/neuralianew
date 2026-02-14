@@ -1,17 +1,17 @@
 import Link from "next/link"
 import { ArrowRight, Calendar, User, ArrowLeft } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
+import { BlogPageClient } from "@/components/blog/blog-page-client"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Blog N3uralia | Agentes IA, Orquestación y Sistemas en Producción",
+  title: "Blog N3uralia | Neuralia - Agentes AI Agents, Orquestación, Sistemas en Producción",
   description:
-    "Blog técnico sobre n3uralia agents, agentes IA, orquestación de agentes, living agents, sistemas agenticos en producción. Guías, casos de estudio y arquitectura de sistemas inteligentes.",
+    "Blog técnico N3uralia (Neuralia): artículos sobre n3uralia agents, agentes AI, orquestación multi-agente, living agents, sistemas agenticos production-ready, fullstack architecture. Guías y arquitectura de sistemas inteligentes.",
   keywords:
-    "blog n3uralia, agentes IA, n3uralia agents, agentes n3uralia, orquestación, living agents, sistemas agenticos, integración IA, arquitectura agentica, IA en producción",
+    "blog n3uralia, neuralia, agentes AI, n3uralia agents, agentes n3uralia, AI agents, orquestación, living agents, sistemas agenticos, fullstack, integración AI, arquitectura agentica, IA en producción, agentes inteligentes",
   openGraph: {
-    title: "Blog N3uralia - Agentes IA y Sistemas Agenticos",
-    description: "Recursos técnicos sobre n3uralia agents, orquestación y IA empresarial",
+    title: "Blog N3uralia | Neuralia - Agentes AI y Sistemas Agenticos",
+    description: "Recursos técnicos sobre n3uralia agents, AI agents, orquestación y IA empresarial fullstack",
     type: "website",
     locale: "es_CL",
   },
@@ -149,7 +149,7 @@ export default function BlogPage() {
         </section>
       </main>
 
-      <Footer />
+      <BlogPageClient />
     </>
   )
 }

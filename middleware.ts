@@ -83,6 +83,32 @@ function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // Skip middleware for static assets, public files
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/public') ||
+    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
+  ) {
+    return NextResponse.next()
+  }
+
+  // Skip middleware for API routes
+  if (pathname.startsWith('/api')) {
+    return NextResponse.next()
+  }
+
+  // Rate limiting for all requests
+  const clientIp = getClientIp(request)
+  if (!checkRateLimit(clientIp)) {
+    return NextResponse.json(
+      {
+        error: 'Too many requests. Please try again later.',
+        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
+      },
+      { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
+    )
+  }
+
   // Validate environment variables on startup
   if (process.env.NODE_ENV === 'production') {
     const envValidation = validateEnvironmentVariables()
@@ -96,18 +122,6 @@ export async function middleware(request: NextRequest) {
         { status: 503 }
       )
     }
-  }
-
-  // Rate limiting for all requests
-  const clientIp = getClientIp(request)
-  if (!checkRateLimit(clientIp)) {
-    return NextResponse.json(
-      {
-        error: 'Too many requests. Please try again later.',
-        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
-      },
-      { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
-    )
   }
 
   // Check if route is protected

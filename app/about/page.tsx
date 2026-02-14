@@ -1,10 +1,11 @@
-import { Footer } from "@/components/layout/footer"
 import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
+import { AboutPageClient } from "@/components/about/about-page-client"
 
 export const metadata: Metadata = {
-  title: "Acerca de N3uralia | Visión, Misión, Pilares de Ingeniería",
-  description: "N3uralia: por qué construimos una plataforma de sistemas agenticos diferente. Nuestra filosofía, visión y cómo trabajamos con empresas chilenas. Inteligencia aumentada, no reemplazo.",
+  title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
+  description: "N3uralia (Neuralia): por qué construimos una plataforma de sistemas agenticos y AI agents diferente. Filosofía, visión, valores. Inteligencia aumentada fullstack, no reemplazo. Cómo trabajamos con empresas chilenas.",
+  keywords: "acerca de n3uralia, neuralia, misión, visión, AI agents, sistemas agenticos, fullstack, ingeniería, valores, filosofía",
 }
 
 const values = [
@@ -31,9 +32,9 @@ const values = [
 ]
 
 export default function AboutPage() {
-
   return (
-    <main className="min-h-screen pt-16 bg-background">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero Section */}
       <section className="py-24 bg-background border-b border-border">
         <div className="container mx-auto px-4 text-center max-w-3xl">
@@ -155,8 +156,9 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+      </main>
 
-      <Footer />
-    </main>
+      <AboutPageClient />
+    </>
   )
 }

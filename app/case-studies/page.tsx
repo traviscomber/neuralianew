@@ -1,254 +1,214 @@
 "use client"
 
-import { motion } from "framer-motion"
+import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight, Zap, Users, Building2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, TrendingUp, Users, Clock, DollarSign } from "lucide-react"
-import Link from "next/link"
-
-export const dynamic = "force-dynamic"
 
 export default function CaseStudiesPage() {
   const caseStudies = [
     {
-      id: "retail-automation",
-      title: "Automatización de Cadena Retail",
-      client: "Cadena Retail Principal",
-      industry: "Retail",
+      id: "ecosuelolab",
+      title: "Ecosuelolab",
+      subtitle: "Monitoreo Agrícola Automatizado",
+      client: "Ecosuelolab",
+      industry: "Agricultura",
+      icon: Zap,
       challenge:
-        "Gestión manual de inventario causando 40% de desabastecimiento y $2.3M en pérdidas anuales",
+        "Monitoreo manual de suelo con alertas lentas y procesos desconectados",
       solution:
-        "Sistema de predicción de inventario con IA y reordenamiento automatizado",
+        "Agentes IA + API Irriwatch + WhatsApp. Alertas satellitales automáticas 24/7 directas al agricultor.",
       results: [
         {
-          metric: "85%",
-          label: "Reducción en desabastecimiento",
-        },
-        {
-          metric: "$2.3M",
-          label: "Ahorro anual",
+          metric: "100%",
+          label: "Automático",
         },
         {
           metric: "24/7",
-          label: "Monitoreo automatizado",
+          label: "Monitoreo",
+        },
+        {
+          metric: "Segundos",
+          label: "Latencia",
         },
       ],
-      image: "/placeholder.svg?height=300&width=500&text=Retail+Automation",
+      tags: ["Integración API", "Agentes IA", "Agricultura"],
+      color: "from-green-500 to-emerald-600",
+      href: "/case-studies/ecosuelolab",
     },
     {
-      id: "banking-ai",
-      title: "IA de Servicio al Cliente Bancario",
-      client: "Banco Regional",
-      industry: "Servicios Financieros",
+      id: "despega-tu-carrera",
+      title: "Despega Tu Carrera",
+      subtitle: "Plataforma Fullstack de Coaching IA",
+      client: "Despega Tu Carrera",
+      industry: "Educación & Coaching",
+      icon: Users,
       challenge:
-        "Altos costos de call center y 60% de consultas requiriendo intervención humana",
+        "Coaching personal a escala requería infraestructura completa desde cero",
       solution:
-        "Asistente de IA multilingüe con conocimiento bancario y procesamiento seguro de transacciones",
+        "Fullstack development: Tests psicométricos + Biblioteca de recursos + Coach IA conversacional. 10,000+ usuarios activos.",
       results: [
         {
-          metric: "92%",
-          label: "Tasa de resolución de consultas",
+          metric: "10K+",
+          label: "Usuarios",
         },
         {
-          metric: "70%",
-          label: "Reducción de costos",
+          metric: "95%",
+          label: "Satisfacción",
         },
         {
-          metric: "24/7",
-          label: "Disponibilidad del servicio",
+          metric: "50K+",
+          label: "Tests",
         },
       ],
-      image: "/placeholder.svg?height=300&width=500&text=Banking+AI",
+      tags: ["Fullstack", "Coach IA", "Plataforma SaaS"],
+      color: "from-blue-500 to-cyan-600",
+      href: "/case-studies/despega-tu-carrera",
     },
     {
-      id: "manufacturing-optimization",
-      title: "Optimización de Procesos de Manufactura",
-      client: "Manufacturero Industrial",
-      industry: "Manufactura",
+      id: "blackswan-facility-core",
+      title: "Blackswan Facility Core",
+      subtitle: "Sistema Integrado de Gestión",
+      client: "Blackswan",
+      industry: "Hospitality & Facilities",
+      icon: Building2,
       challenge:
-        "Ineficiencias de producción y 22% de tasa de defectos causando problemas de calidad",
+        "Múltiples sistemas desconectados (email, sheets, calendarios) causando ineficiencias operativas",
       solution:
-        "Control de calidad impulsado por IA y sistema de mantenimiento predictivo",
+        "BFCS integrado: orquestación de todas las operaciones de propiedades de lujo. Automatización end-to-end con 40% de reducción en tiempo operativo.",
       results: [
         {
-          metric: "35%",
-          label: "Aumento de eficiencia",
+          metric: "4h → 15min",
+          label: "Response time",
         },
         {
-          metric: "78%",
-          label: "Reducción de defectos",
+          metric: "40%",
+          label: "Eficiencia",
         },
         {
-          metric: "$1.8M",
-          label: "Ahorro anual",
+          metric: "80%",
+          label: "Proyectado",
         },
       ],
-      image: "/placeholder.svg?height=300&width=500&text=Manufacturing+AI",
-    },
-    {
-      id: "healthcare-diagnostics",
-      title: "Diagnósticos de IA en Salud",
-      client: "Centro Médico",
-      industry: "Salud",
-      challenge:
-        "Retrasos en diagnósticos y 15% de tasa de diagnósticos erróneos afectando resultados de pacientes",
-      solution:
-        "Asistente de diagnóstico con IA y análisis de imágenes médicas",
-      results: [
-        {
-          metric: "94%",
-          label: "Precisión diagnóstica",
-        },
-        {
-          metric: "60%",
-          label: "Diagnóstico más rápido",
-        },
-        {
-          metric: "500+",
-          label: "Pacientes ayudados diariamente",
-        },
-      ],
-      image: "/placeholder.svg?height=300&width=500&text=Healthcare+AI",
-    },
-    {
-      id: "logistics-optimization",
-      title: "Optimización de Rutas Logísticas",
-      client: "Empresa Logística",
-      industry: "Logística",
-      challenge:
-        "Enrutamiento ineficiente causando 30% más costos de combustible y retrasos en entregas",
-      solution:
-        "Optimización de rutas con IA usando datos de tráfico y clima en tiempo real",
-      results: [
-        {
-          metric: "42%",
-          label: "Reducción de costos de combustible",
-        },
-        {
-          metric: "25%",
-          label: "Entregas más rápidas",
-        },
-        {
-          metric: "98%",
-          label: "Tasa de entrega a tiempo",
-        },
-      ],
-      image: "/placeholder.svg?height=300&width=500&text=Logistics+AI",
-    },
-    {
-      id: "education-platform",
-      title: "Plataforma de Aprendizaje Personalizado",
-      client: "Institución Educativa",
-      industry: "Educación",
-      challenge:
-        "Enfoque único para todos resultando en 40% de desvinculación estudiantil",
-      solution:
-        "Rutas de aprendizaje personalizadas con IA y entrega de contenido adaptativo",
-      results: [
-        {
-          metric: "67%",
-          label: "Mejora en calificaciones",
-        },
-        {
-          metric: "85%",
-          label: "Participación estudiantil",
-        },
-        {
-          metric: "50%",
-          label: "Aprendizaje más rápido",
-        },
-      ],
-      image: "/placeholder.svg?height=300&width=500&text=Education+AI",
+      tags: ["Integración", "Orquestación", "Enterprise"],
+      color: "from-purple-500 to-indigo-600",
+      href: "/case-studies/blackswan-facility-core",
     },
   ]
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background">
       <main>
         {/* Hero Section */}
-        <section className="pt-32 pb-24 bg-gradient-to-b from-black to-gray-900">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center"
-            >
-              <Badge className="bg-white/10 text-white border-white/20 mb-6">
-                Historias de Éxito
-              </Badge>
+        <section className="pt-32 pb-24 bg-gradient-to-b from-foreground/5 to-background border-b border-border px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-sm font-medium text-primary">Casos de Éxito</span>
+              </div>
 
-              <h1 className="text-6xl font-light text-white mb-6">
-                Casos de Estudio
-                <br />
-                <span className="font-bold">Resultados Reales</span>
+              <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6">
+                Historias de Éxito Reales
               </h1>
 
-              <p className="text-xl text-gray-300 font-light max-w-3xl mx-auto mb-8">
-                Descubre cómo nuestras soluciones de IA han transformado negocios en diversas industrias, entregando resultados medibles e impulsando el crecimiento.
+              <p className="text-xl text-muted-foreground font-light max-w-3xl mx-auto">
+                Descubre cómo empresas de diferentes industrias transforman sus operaciones con N3uralia. De agricultura a hospitality, de startups a empresas establecidas.
               </p>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* Case Studies Grid */}
-        <section className="py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {caseStudies.map((study, index) => (
-                <motion.div
-                  key={study.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 group">
-                    <CardContent className="p-0">
-                      <div className="aspect-video bg-gray-200 rounded-t-lg overflow-hidden">
-                        <img
-                          src={study.image || "/placeholder.svg"}
-                          alt={study.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 mb-3">
+        <section className="py-24 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+              {caseStudies.map((study, index) => {
+                const Icon = study.icon
+                return (
+                  <Link key={study.id} href={study.href}>
+                    <Card className="h-full border border-border hover:border-primary hover:shadow-lg transition-all duration-300 group cursor-pointer">
+                      <CardContent className="p-6 h-full flex flex-col">
+                        {/* Header with icon */}
+                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${study.color} p-3 mb-4 group-hover:scale-110 transition-transform`}>
+                          <Icon className="w-full h-full text-white" />
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-2xl font-bold text-foreground mb-1">{study.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{study.subtitle}</p>
+
+                        {/* Industry Badge */}
+                        <div className="flex gap-2 mb-6">
                           <Badge variant="secondary" className="text-xs">
                             {study.industry}
                           </Badge>
-                          <Badge variant="outline" className="text-xs">
-                            {study.client}
-                          </Badge>
                         </div>
-                        <h3 className="text-xl font-light text-gray-900 mb-3">{study.title}</h3>
-                        <p className="text-gray-600 font-light text-sm mb-4 line-clamp-2">{study.challenge}</p>
 
-                        {/* Results */}
-                        <div className="grid grid-cols-3 gap-2 mb-6">
+                        {/* Challenge */}
+                        <div className="mb-6 flex-1">
+                          <p className="text-sm font-semibold text-foreground mb-2">Desafío</p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{study.challenge}</p>
+                        </div>
+
+                        {/* Results Grid */}
+                        <div className="grid grid-cols-3 gap-4 mb-6 py-6 border-t border-b border-border/50">
                           {study.results.map((result, idx) => (
                             <div key={idx} className="text-center">
-                              <div className="text-lg font-light text-black">{result.metric}</div>
-                              <div className="text-xs text-gray-600 font-light">{result.label}</div>
+                              <div className="text-lg font-bold text-primary">{result.metric}</div>
+                              <div className="text-xs text-muted-foreground">{result.label}</div>
                             </div>
                           ))}
                         </div>
 
-                        <Link href={`/case-studies/${study.id}`}>
-                          <Button
-                            variant="outline"
-                            className="w-full group-hover:bg-black group-hover:text-white transition-colors bg-transparent"
-                          >
-                            Leer Caso Completo
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {study.tags.map((tag, idx) => (
+                            <span key={idx} className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* CTA */}
+                        <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                          Leer Caso Completo
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 bg-primary/5 border-t border-border px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-4xl font-bold text-foreground mb-6">
+              ¿Tu empresa podría ser el próximo caso de éxito?
+            </h2>
+            <p className="text-lg text-muted-foreground mb-10">
+              Empresas de todas las industrias están transformando sus operaciones con N3uralia. Hablemos sobre tu visión.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/capabilities"
+                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors text-center"
+              >
+                Ver Soluciones
+              </Link>
+              <Link
+                href="/contact"
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              >
+                Agendar Demo
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </section>

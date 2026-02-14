@@ -1,12 +1,15 @@
 import type { Metadata } from "next"
-import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-page-client"
 
 export const metadata: Metadata = {
-  title: "Capacidades Técnicas N3uralia | 6 Pilares + Living Agents + Sistemas en Producción",
-  description: "Los 6 pilares técnicos de N3uralia: orquestación multi-agente, memoria persistente, integración de herramientas, loops de retroalimentación, trazabilidad y gobernanza. Arquitectura production-grade para sistemas agenticos.",
-  keywords: "capacidades IA, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas en producción, architecture agentica, memory management, agent governance",
+  title: "Capacidades N3uralia | Neuralia - 6 Pilares Sistemas Agenticos AI Agents",
+  description: "Capacidades técnicas de N3uralia (Neuralia): 6 pilares agenticos, orquestación multi-agente de AI agents, living agents, memoria persistente, integración fullstack. Sistemas agenticos production-grade.",
+  keywords: "n3uralia capacidades, neuralia, capacidades AI, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas AI, architecture agentica, AI agents, memory management, agent governance, fullstack sistemas, agentes inteligentes, n3uralia agents",
+  alternates: {
+    canonical: "https://n3uralia.com/capabilities",
+  },
 }
 
 export default function CapabilitiesPage() {
@@ -32,6 +35,9 @@ export default function CapabilitiesPage() {
               </a>
               <a href="#living-agents" className="px-0 py-4 text-sm text-muted-foreground hover:text-foreground border-b-2 border-transparent hover:border-primary/30 whitespace-nowrap transition-colors">
                 Living Agents
+              </a>
+              <a href="#conversational" className="px-0 py-4 text-sm text-muted-foreground hover:text-foreground border-b-2 border-transparent hover:border-primary/30 whitespace-nowrap transition-colors">
+                Conversational Intelligence
               </a>
               <a href="#produccion" className="px-0 py-4 text-sm text-muted-foreground hover:text-foreground border-b-2 border-transparent hover:border-primary/30 whitespace-nowrap transition-colors">
                 En Producción
@@ -271,7 +277,139 @@ export default function CapabilitiesPage() {
           </div>
         </section>
 
-        {/* Section 3: En Producción */}
+        {/* Section 3: Conversational Intelligence Systems */}
+        <section id="conversational" className="py-16 px-4 border-b border-border bg-muted/30">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-12">
+              <h2 className="h2-light mb-4">Conversational Intelligence Systems</h2>
+              <p className="body text-muted-foreground mb-2">
+                Transforman conversaciones en infraestructura operativa. No automatizamos respuestas. Integramos agentes conversacionales dentro de tus flujos reales de adquisición, operación y revenue.
+              </p>
+              <p className="body text-muted-foreground">
+                Cada conversación se convierte en: lead calificado, pipeline entry, acción operativa, métrica. Multi-vertical con playbooks reales para B2B, Turismo, Eventos, Manufactura. Revenue-first, construido sobre arquitectura agentica, con expansión hacia operaciones.
+              </p>
+            </div>
+
+            {/* Core Capabilities */}
+            <div className="mb-12">
+              <h3 className="h3 text-foreground mb-6">Capacidades Core</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Intent Detection + Routing</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Entiende lo que el cliente necesita realmente. Rutea a: pipeline, workflow operativo, escalado, o resolución directa.
+                  </p>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Revenue Attribution</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Sigue cada conversación de inicio a cierre. Sabes exactamente qué genera revenue, qué client, qué touchpoint.
+                  </p>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">CRM/ERP Integration</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Crea leads, actualiza oportunidades, ejecuta workflows. Tu stack funciona unificado desde una conversación.
+                  </p>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Modo Híbrido: Human + Agent</h4>
+                  <p className="text-sm text-muted-foreground">
+                    Agent maneja lo rutinario. Humanos manejan lo estratégico. Escalación automática cuando es necesario.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Multi-Vertical */}
+            <div className="mb-12">
+              <h3 className="h3 text-foreground mb-6">Playbooks por Vertical</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">B2B Mediano (Core)</h4>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>• Lead qualification automatizada</li>
+                    <li>• Propostas dinámicas por perfil</li>
+                    <li>• Seguimiento post-reunión</li>
+                    <li>• CRM + ERP sincronizado</li>
+                  </ul>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Turismo & Glamping</h4>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>• Consultas 24/7 en tiempo real</li>
+                    <li>• Reservas directas desde chat</li>
+                    <li>• Upsell de experiencias</li>
+                    <li>• Post-reserva automático</li>
+                  </ul>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Eventos Inmersivos</h4>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>• Venta de entradas personalizada</li>
+                    <li>• Experiencias complementarias</li>
+                    <li>• Engagement durante evento</li>
+                    <li>• Feedback post-evento</li>
+                  </ul>
+                </div>
+                <div className="p-6 rounded-lg border border-border bg-card">
+                  <h4 className="font-semibold text-foreground mb-3">Manufactura & Supply Chain</h4>
+                  <ul className="text-sm text-muted-foreground space-y-2">
+                    <li>• Órdenes de compra automáticas</li>
+                    <li>• Status de producción en tiempo real</li>
+                    <li>• Alertas de problemas</li>
+                    <li>• Coordinación cross-team</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Architecture Flow */}
+            <div className="p-8 border border-border rounded-lg bg-card">
+              <h3 className="font-semibold text-foreground mb-6">De Conversación a Acción</h3>
+              <div className="space-y-4 text-sm text-muted-foreground">
+                <div className="flex items-start gap-3">
+                  <span className="font-bold text-primary">1</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Cliente escribe (WA, web, email)</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold text-primary">2</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Conversational Agent entiende + procesa</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold text-primary">3</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Intention Detection → Route to: Pipeline / Ops / Support</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold text-primary">4</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Acciones en tus sistemas (CRM update, order creation, automation)</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="font-bold text-primary">5</span>
+                  <div>
+                    <p className="font-semibold text-foreground">Data stored + Feedback loop → Agent mejora</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link href="/conversational-intelligence" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                Explorar Conversational Intelligence <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: En Producción */}
         <section id="produccion" className="py-16 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="mb-12">
@@ -494,7 +632,8 @@ export default function CapabilitiesPage() {
           </div>
         </section>
       </main>
-      <Footer />
+
+      <CapabilitiesPageClient />
     </>
   )
 }

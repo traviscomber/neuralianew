@@ -14,6 +14,7 @@ export function Navigation() {
     livingAgents: "Living Agents",
     sistemasProduccion: "Sistemas en Producción",
     soluciones: "Soluciones",
+    casosExito: "Casos de Éxito",
     centroAprendizaje: "Centro de Aprendizaje",
     acerca: "Acerca de",
     nuestroEnfoque: "Nuestro Enfoque",
@@ -50,7 +51,29 @@ export function Navigation() {
             {navItems.soluciones}
           </Link>
 
-          {/* Tier 3: Learning Hub Dropdown */}
+          {/* Tier 2.5: Case Studies Link */}
+          <Link 
+            href="/case-studies" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.casosExito}
+          </Link>
+
+          {/* Tier 4: Company Info */}
+          <Link 
+            href="/about" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.acerca}
+          </Link>
+          <Link 
+            href="/como-trabajamos" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.nuestroEnfoque}
+          </Link>
+
+          {/* Tier 5: Learning Hub Dropdown (at the end) */}
           <div className="relative">
             <button
               onClick={() => setLearningOpen(!learningOpen)}
@@ -101,20 +124,6 @@ export function Navigation() {
             )}
           </div>
 
-          {/* Tier 4: Company Info */}
-          <Link 
-            href="/about" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
-          </Link>
-
           {/* WhatsApp Button */}
           <a
             href="https://wa.me/56993826127"
@@ -151,6 +160,15 @@ export function Navigation() {
             className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.soluciones}
+          </Link>
+
+          {/* Mobile Case Studies Link */}
+          <Link 
+            href="/case-studies" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.casosExito}
           </Link>
 
           {/* Mobile Learning Hub Submenu */}

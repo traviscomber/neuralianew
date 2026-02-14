@@ -4,11 +4,11 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Integración IA con Legacy Systems - N3uralia Blog",
+  title: "Integración AI Agents con Legacy Systems | N3uralia Blog - Neuralia",
   description:
-    "Estrategias para modernizar sin disrupciones. Patrones probados en producción para empresas con infraestructura existente.",
+    "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
   keywords:
-    "integración IA, legacy systems, modernización, sistemas antiguos, compatibilidad",
+    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad, neuralia",
 }
 
 export default function BlogPost() {

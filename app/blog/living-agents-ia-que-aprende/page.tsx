@@ -4,11 +4,11 @@ import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Living Agents: IA que Aprende Continuamente - N3uralia Blog",
+  title: "Living Agents: AI Agents que Aprenden | N3uralia Blog - Neuralia",
   description:
-    "Sistemas que evolucionan con cada interacción. Descubre la arquitectura, implementación y resultados reales de Living Agents.",
+    "Living Agents de N3uralia (Neuralia): sistemas agenticos que evolucionan continuamente. Arquitectura fullstack, implementación y resultados reales de AI agents adaptativos.",
   keywords:
-    "Living Agents, IA que aprende, agentes evolutivos, machine learning, retroalimentación",
+    "Living Agents, AI agents, n3uralia agents, IA que aprende, agentes evolutivos, sistemas agenticos, fullstack, neuralia, machine learning, retroalimentación",
 }
 
 export default function BlogPost() {
