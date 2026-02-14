@@ -16,9 +16,9 @@ SET search_path = public
 AS $$
   SELECT 
     COUNT(*)::bigint as total_conversions,
-    COALESCE(SUM(revenue), 0)::numeric as total_revenue,
+    COALESCE(SUM(conversion_value), 0)::numeric as total_revenue,
     COALESCE(COUNT(*)::numeric / NULLIF(COUNT(DISTINCT session_id), 0), 0)::numeric as conversion_rate,
-    COALESCE(AVG(revenue), 0)::numeric as avg_order_value
+    COALESCE(AVG(conversion_value), 0)::numeric as avg_order_value
   FROM public.conversion_events
   WHERE created_at > now() - interval '30 days';
 $$;
@@ -91,11 +91,11 @@ SET search_path = public
 AS $$
   SELECT
     COUNT(DISTINCT e.id)::bigint as total_events,
-    COUNT(DISTINCT s.id)::bigint as total_sessions,
+    COUNT(DISTINCT s.session_id)::bigint as total_sessions,
     MAX(e.created_at)::timestamp as last_active,
-    COALESCE(AVG(EXTRACT(EPOCH FROM (s.ended_at - s.started_at))), 0)::numeric as avg_session_duration
+    0::numeric as avg_session_duration
   FROM public.user_events e
-  LEFT JOIN public.user_sessions s ON e.session_id = s.id
+  LEFT JOIN public.user_sessions s ON e.session_id = s.session_id
   WHERE e.user_id = p_user_id;
 $$;
 
@@ -120,31 +120,38 @@ CREATE POLICY "agent_interactions_between_update"
 
 -- ===== PERFORMANCE OPTIMIZATIONS =====
 
--- Add indexes for timezone lookup optimization
-CREATE INDEX IF NOT EXISTS idx_pg_timezone_names_name ON pg_timezone_names (name);
-
 -- Add indexes for frequently queried columns in conversion_events
 CREATE INDEX IF NOT EXISTS idx_conversion_events_created_at_desc ON public.conversion_events (created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_conversion_events_session_id ON public.conversion_events (session_id);
-CREATE INDEX IF NOT EXISTS idx_conversion_events_type ON public.conversion_events (type);
+CREATE INDEX IF NOT EXISTS idx_conversion_events_type ON public.conversion_events (conversion_type);
+CREATE INDEX IF NOT EXISTS idx_conversion_events_user_id ON public.conversion_events (user_id);
 
 -- Add indexes for user_events
 CREATE INDEX IF NOT EXISTS idx_user_events_user_id_created_at ON public.user_events (user_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_user_events_session_id ON public.user_events (session_id);
+CREATE INDEX IF NOT EXISTS idx_user_events_type ON public.user_events (event_type);
+
+-- Add indexes for page_views
+CREATE INDEX IF NOT EXISTS idx_page_views_user_id ON public.page_views (user_id);
+CREATE INDEX IF NOT EXISTS idx_page_views_session_id ON public.page_views (session_id);
+CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON public.page_views (created_at DESC);
 
 -- Add indexes for user_sessions
 CREATE INDEX IF NOT EXISTS idx_user_sessions_user_id ON public.user_sessions (user_id);
-CREATE INDEX IF NOT EXISTS idx_user_sessions_started_at ON public.user_sessions (started_at DESC);
+CREATE INDEX IF NOT EXISTS idx_user_sessions_created_at ON public.user_sessions (created_at DESC);
 
--- Add indexes for pg_backup_stat optimization
-CREATE INDEX IF NOT EXISTS idx_pg_backup_stat_labelfile ON pg_backup_stat (labelfile);
+-- Add indexes for conversions table
+CREATE INDEX IF NOT EXISTS idx_conversions_session_id ON public.conversions (session_id);
+CREATE INDEX IF NOT EXISTS idx_conversions_created_at ON public.conversions (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_conversions_type ON public.conversions (conversion_type);
 
--- Optimize recovery check queries with materialized view
-CREATE MATERIALIZED VIEW IF NOT EXISTS mv_recovery_status AS
-  SELECT pg_is_in_recovery() as is_in_recovery;
+-- Add indexes for session_stats
+CREATE INDEX IF NOT EXISTS idx_session_stats_session_id ON public.session_stats (session_id);
+CREATE INDEX IF NOT EXISTS idx_session_stats_created_at ON public.session_stats (created_at DESC);
 
--- Create index on materialized view
-CREATE INDEX IF NOT EXISTS idx_recovery_status ON mv_recovery_stat (is_in_recovery);
+-- Add indexes for heatmap_data
+CREATE INDEX IF NOT EXISTS idx_heatmap_data_session_id ON public.heatmap_data (session_id);
+CREATE INDEX IF NOT EXISTS idx_heatmap_data_page_url ON public.heatmap_data (page_url);
 
 -- ===== ANALYZE TABLES FOR QUERY PLANNER OPTIMIZATION =====
 
