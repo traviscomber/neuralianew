@@ -115,6 +115,7 @@ export default function OutcomesPage() {
           </a>
         </div>
       </section>
+      </main>
 
       <OutcomesPageClient />
     </>
