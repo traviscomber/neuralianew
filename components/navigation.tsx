@@ -14,6 +14,7 @@ export function Navigation() {
     livingAgents: "Living Agents",
     sistemasProduccion: "Sistemas en Producción",
     soluciones: "Soluciones",
+    casosExito: "Casos de Éxito",
     centroAprendizaje: "Centro de Aprendizaje",
     acerca: "Acerca de",
     nuestroEnfoque: "Nuestro Enfoque",
@@ -50,7 +51,32 @@ export function Navigation() {
             {navItems.soluciones}
           </Link>
 
+          {/* Tier 2.5: Case Studies Link */}
+          <Link 
+            href="/case-studies" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.casosExito}
+          </Link>
+
           {/* Tier 3: Learning Hub Dropdown */}
+          <div className="relative">
+
+          {/* Tier 4: Company Info */}
+          <Link 
+            href="/about" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.acerca}
+          </Link>
+          <Link 
+            href="/como-trabajamos" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.nuestroEnfoque}
+          </Link>
+
+          {/* Tier 5: Learning Hub Dropdown (at the end) */}
           <div className="relative">
             <button
               onClick={() => setLearningOpen(!learningOpen)}
@@ -83,37 +109,70 @@ export function Navigation() {
                 >
                   {navItems.conceptos}
                 </Link>
-                <Link
-                  href="/blog"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.guiasTecnicas}
-                </Link>
-                <Link
-                  href="/outcomes"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.recursos}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Tier 4: Company Info */}
           <Link 
             href="/about" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.acerca}
           </Link>
           <Link 
             href="/como-trabajamos" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.nuestroEnfoque}
           </Link>
+
+          {/* Mobile Learning Hub Submenu (at the end) */}
+          <button
+            onClick={() => setLearningOpen(!learningOpen)}
+            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
+            type="button"
+          >
+            {navItems.centroAprendizaje}
+            <svg 
+              className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </button>
+          {learningOpen && (
+            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
+              <Link 
+                href="/learning-hub" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
+              >
+                {navItems.centroAprendizaje}
+              </Link>
+              <Link 
+                href="/studies" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.conceptos}
+              </Link>
+              <Link 
+                href="/blog" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.guiasTecnicas}
+              </Link>
+              <Link 
+                href="/outcomes" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                {navItems.recursos}
+              </Link>
+            </div>
+          )}
+          </div>
 
           {/* WhatsApp Button */}
           <a
@@ -151,6 +210,15 @@ export function Navigation() {
             className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.soluciones}
+          </Link>
+
+          {/* Mobile Case Studies Link */}
+          <Link 
+            href="/case-studies" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {navItems.casosExito}
           </Link>
 
           {/* Mobile Learning Hub Submenu */}
