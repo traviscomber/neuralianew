@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { ArrowRight, Lightbulb, Zap, Target, Users, Network, Sparkles, Shield, CheckCircle2 } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import {
   heroContent,
@@ -12,6 +11,7 @@ import {
   whatIsN3uralia,
   callsToAction,
 } from "@/app/constants/content"
+import { HomePageClient } from "@/components/home/home-page-client"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Revenue + Operations + Agents",
@@ -52,7 +52,8 @@ const iconMap: Record<string, any> = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <main className="min-h-screen bg-background">
       {/* 1. HERO Section */}
       <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
         <div className="max-w-5xl mx-auto text-center w-full">
@@ -296,5 +297,7 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+    <HomePageClient />
+    </>
   )
 }
