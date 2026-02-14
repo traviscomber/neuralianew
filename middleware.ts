@@ -83,6 +83,36 @@ function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
+  // Skip middleware for static assets, public files
+  if (
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/public') ||
+    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
+  ) {
+    return NextResponse.next()
+  }
+
+  // Handle locale-specific routing for API and page routes
+  // If path doesn't have locale prefix, add default 'en'
+  if (!pathname.startsWith('/en') && !pathname.startsWith('/es') && !pathname.startsWith('/api')) {
+    // Keep API routes as-is
+    if (pathname.startsWith('/api')) {
+      return NextResponse.next()
+    }
+    
+    // Detect locale from Accept-Language header or default to 'en'
+    const acceptLanguage = request.headers.get('accept-language')
+    const locale = acceptLanguage?.startsWith('es') ? 'es' : 'en'
+    
+    // Don't redirect root, let it be accessible from both /en and /es
+    if (pathname === '/') {
+      return NextResponse.next()
+    }
+    
+    // Redirect non-locale paths to locale-prefixed paths
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url))
+  }
+
   // Validate environment variables on startup
   if (process.env.NODE_ENV === 'production') {
     const envValidation = validateEnvironmentVariables()
