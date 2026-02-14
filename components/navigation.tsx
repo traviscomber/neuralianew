@@ -59,9 +59,6 @@ export function Navigation() {
             {navItems.casosExito}
           </Link>
 
-          {/* Tier 3: Learning Hub Dropdown */}
-          <div className="relative">
-
           {/* Tier 4: Company Info */}
           <Link 
             href="/about" 
@@ -109,69 +106,22 @@ export function Navigation() {
                 >
                   {navItems.conceptos}
                 </Link>
-          <Link 
-            href="/about" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
-          </Link>
-
-          {/* Mobile Learning Hub Submenu (at the end) */}
-          <button
-            onClick={() => setLearningOpen(!learningOpen)}
-            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
-            type="button"
-          >
-            {navItems.centroAprendizaje}
-            <svg 
-              className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </button>
-          {learningOpen && (
-            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
-              <Link 
-                href="/learning-hub" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
-              >
-                {navItems.centroAprendizaje}
-              </Link>
-              <Link 
-                href="/studies" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.conceptos}
-              </Link>
-              <Link 
-                href="/blog" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.guiasTecnicas}
-              </Link>
-              <Link 
-                href="/outcomes" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.recursos}
-              </Link>
-            </div>
-          )}
+                <Link
+                  href="/blog"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {navItems.guiasTecnicas}
+                </Link>
+                <Link
+                  href="/outcomes"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  {navItems.recursos}
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* WhatsApp Button */}
