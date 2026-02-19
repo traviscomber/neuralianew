@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { FaqPageClient } from '@/components/faq/faq-page-client'
 import { Footer } from '@/components/layout/footer'
+import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: "FAQ N3uralia | Neuralia - Preguntas sobre AI Agents, Sistemas Agenticos Fullstack",
@@ -13,9 +14,11 @@ export const metadata: Metadata = {
 export default function FaqPage() {
   return (
     <>
+      <SectionBackground section="faq">
       <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
         <FaqPageClient />
       </main>
+      </SectionBackground>
       <Footer />
     </>
   )

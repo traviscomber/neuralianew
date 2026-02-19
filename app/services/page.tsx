@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Bot, Workflow, Building2 } from "lucide-react"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Servicios N3uralia (Neuralia) | Agentes IA, Automatización, Full-Stack",
@@ -81,8 +82,9 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SectionBackground section="hero" className="border-b border-border">
       {/* Hero Section */}
-      <section className="py-20 pt-32 bg-background border-b border-border">
+      <section className="py-20 pt-32 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <Badge
@@ -98,9 +100,11 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="capabilities" className="border-t border-border">
       {/* Services Grid */}
-      <section className="py-20 bg-background border-t border-border">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             {services.map((service, i) => {
@@ -132,9 +136,11 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="workflow" className="border-t border-border">
       {/* Process Section */}
-      <section className="py-20 bg-background border-t border-border">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-6">Cómo Trabajamos</h2>

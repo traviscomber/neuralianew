@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle } from "lucide-react"
 import { enterpriseSolutions } from "@/app/constants/content"
 import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-client"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Soluciones N3uralia | B2B Mediano + Turismo + Eventos + Manufactura | AI Agents",
@@ -19,8 +20,9 @@ export default function SolucionesPage() {
   return (
     <>
       <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="solutions" className="border-b border-border">
         {/* Hero */}
-        <section className="py-20 bg-background border-b border-border px-4">
+        <section className="py-20 bg-background px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -34,7 +36,9 @@ export default function SolucionesPage() {
             </p>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="capabilities" className="border-b border-border">
         {/* Segments Tabs/Cards */}
         <section className="py-24 bg-background px-4">
           <div className="container mx-auto max-w-5xl">

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, Calendar, User, ArrowLeft } from "lucide-react"
 import { BlogPageClient } from "@/components/blog/blog-page-client"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Blog N3uralia | Neuralia - Agentes AI Agents, Orquestación, Sistemas en Producción",
@@ -78,8 +79,9 @@ export default function BlogPage() {
   return (
     <>
       <main className="min-h-screen bg-background">
+        <SectionBackground section="blog" className="border-b border-border">
         {/* Hero */}
-        <section className="py-20 border-b border-border px-4">
+        <section className="py-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="h1-light mb-4">Blog N3uralia</h1>
             <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
@@ -87,6 +89,7 @@ export default function BlogPage() {
             </p>
           </div>
         </section>
+        </SectionBackground>
 
         {/* Blog Posts Grid */}
         <section className="py-16 sm:py-24 px-4">

@@ -1,6 +1,7 @@
 import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
 import { AboutPageClient } from "@/components/about/about-page-client"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
@@ -35,8 +36,10 @@ export default function AboutPage() {
   return (
     <>
       <main className="min-h-screen pt-16 bg-background">
+      
+      <SectionBackground section="hero" className="border-b border-border">
       {/* Hero Section */}
-      <section className="py-24 bg-background border-b border-border">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 text-center max-w-3xl">
           <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
             Quiénes Somos
@@ -47,9 +50,11 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="workflow" className="border-b border-border">
       {/* Mission Section */}
-      <section className="py-24 bg-background border-b border-border">
+      <section className="py-24 bg-background">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-20">
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
@@ -68,9 +73,11 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="solutions" className="border-b border-border">
       {/* Philosophy Section */}
-      <section className="py-24 bg-muted/30 border-b border-border">
+      <section className="py-24">
         <div className="container mx-auto px-4 max-w-3xl">
           <div className="mb-20">
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
@@ -117,9 +124,11 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="capabilities" className="border-t border-border">
       {/* Values Section */}
-      <section className="py-24 bg-background border-t border-border">
+      <section className="py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <p className="text-primary font-semibold mb-2 text-sm uppercase tracking-wide">
@@ -147,8 +156,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
-      {/* Closing Section */}
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center max-w-2xl">
           <p className="text-lg text-muted-foreground leading-relaxed">

@@ -6,6 +6,7 @@ import { ArrowRight, Zap, Users, Building2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { SectionBackground } from "@/components/section-background"
 
 export default function CaseStudiesPage() {
   const caseStudies = [
@@ -120,7 +121,9 @@ export default function CaseStudiesPage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="solutions">
         {/* Case Studies Grid */}
         <section className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
