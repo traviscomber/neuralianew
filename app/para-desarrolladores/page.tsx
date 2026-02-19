@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Code2, Lightbulb, BookOpen } from "lucide-react"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia para Desarrolladores | API IA Production-Ready",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function ParaDesarrolladores() {
   return (
     <main className="min-h-screen pt-16 bg-background">
+      <SectionBackground section="blog" className="border-b border-border">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -40,7 +42,9 @@ export default function ParaDesarrolladores() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="capabilities">
       {/* Developer Experience */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -148,11 +152,12 @@ console.log(response.message)
             >
               Contactar Support
             </Link>
-          </div>
         </div>
       </section>
+      </SectionBackground>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

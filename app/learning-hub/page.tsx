@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, Brain, BookOpen, Zap } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Centro de Aprendizaje - N3uralia | Conceptos y Guías de IA",
@@ -21,6 +22,7 @@ export default function LearningHubPage() {
   return (
     <>
       <main className="min-h-screen bg-background">
+        <SectionBackground section="hero" className="border-b border-border">
         {/* Hero Section */}
         <section className="py-20 border-b border-border px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -37,7 +39,9 @@ export default function LearningHubPage() {
             </p>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="blog" className="border-t border-border">
         {/* Main Resources */}
         <section className="py-16 px-4">
           <div className="max-w-6xl mx-auto">
@@ -137,8 +141,10 @@ export default function LearningHubPage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
+
+        <Footer />
       </main>
-      <Footer />
     </>
   )
 }

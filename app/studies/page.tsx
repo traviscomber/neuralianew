@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, Brain, Database, Zap, Layers, Lightbulb } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Estudios N3uralia (Neuralia) | Base de Conocimiento de IA y Sistemas Inteligentes",
@@ -112,6 +113,7 @@ export default function StudiesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
       {/* Related Concept Note */}
       <section className="py-16 px-4 border-t border-border bg-primary/5">

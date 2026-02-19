@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia para Startups | Agentes IA sin Complejidad",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function ParaStartups() {
   return (
     <main className="min-h-screen pt-16 bg-background">
+      <SectionBackground section="solutions" className="border-b border-border">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -40,7 +42,9 @@ export default function ParaStartups() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="hero">
       {/* Why Startups Love N3uralia */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Metodología N3uralia | Neuralia - Implementación AI Agents Fullstack - 5 Fases",
@@ -35,6 +36,7 @@ export default function ComoTrabajamosPage() {
 
   return (
     <main className="min-h-screen bg-background pt-20">
+      <SectionBackground section="workflow" className="border-b border-border">
       {/* Hero */}
       <section className="min-h-[50vh] flex items-center justify-center pt-20 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center w-full">

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Code, Zap } from 'lucide-react';
+import { SectionBackground } from '@/components/section-background';
 
 export default function EnterprisePage() {
   return (
@@ -28,6 +29,7 @@ export default function EnterprisePage() {
       />
 
       <div className="min-h-screen bg-background">
+        <SectionBackground section="capabilities" className="border-b border-border">
         {/* Hero Section */}
         <section className="border-b border-border px-4 py-16 sm:py-24">
           <div className="mx-auto max-w-4xl">
@@ -183,7 +185,8 @@ export default function EnterprisePage() {
             </Link>
           </div>
         </section>
+        </SectionBackground>
       </div>
     </>
-  );
+  )
 }
