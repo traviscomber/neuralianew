@@ -118,7 +118,7 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
-      </SectionBackground>>
+      </SectionBackground>
 
       <SectionBackground section="blog">
       {/* Services Offered */}
@@ -176,13 +176,15 @@ export default function ComoTrabajamosPage() {
                 <h3 className="font-semibold text-foreground mb-2">{commitment.title}</h3>
                 <p className="text-sm text-muted-foreground">{commitment.description}</p>
               </div>
-            ])}
+            ))}
           </div>
         </div>
       </section>
       </SectionBackground>
 
-      {/* Final CTA */}
+      <SectionBackground section="hero" className="border-t border-border">
+
+      {/* CTA */}
       <section className="py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-foreground mb-6">
@@ -208,6 +210,7 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
       </main>
       <Footer />
