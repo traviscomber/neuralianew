@@ -90,8 +90,6 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
       </SectionBackground>
-
-      <SectionBackground section="solutions" className="border-t border-border">
       {/* Timeline View */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -120,7 +118,7 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
+      </SectionBackground>>
 
       <SectionBackground section="blog">
       {/* Services Offered */}
@@ -143,16 +141,9 @@ export default function ComoTrabajamosPage() {
       </section>
       </SectionBackground>
 
-      <SectionBackground section="hero" className="border-t border-border">
-      {/* Commitment & Guarantees */}
+      <SectionBackground section="solutions" className="border-t border-border">
+      {/* Timeline View */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Compromiso</h2>
-            <p className="body text-muted-foreground">
-              No es solo una metodología. Es un compromiso con tu éxito.
-            </p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -185,11 +176,8 @@ export default function ComoTrabajamosPage() {
                 <h3 className="font-semibold text-foreground mb-2">{commitment.title}</h3>
                 <p className="text-sm text-muted-foreground">{commitment.description}</p>
               </div>
-            ))}
+            ])}
           </div>
-        </div>
-      </section>
-
         </div>
       </section>
       </SectionBackground>
@@ -224,3 +212,5 @@ export default function ComoTrabajamosPage() {
       </main>
       <Footer />
     </>
+  )
+}
