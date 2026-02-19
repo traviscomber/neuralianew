@@ -167,39 +167,40 @@ export default function HomePage() {
 
       {/* 4. PHILOSOPHY Section */}
       <SolutionsBackground className="py-20 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left: Tools vs Architecture */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.leftTitle}</h2>
-              <div className="space-y-4">
-                {toolsVsArchitecture.comparison.map((item, i) => (
-                  <div key={i} className="pb-4 border-b border-border/30">
-                    <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
-                    <p className="text-foreground">{item.description}</p>
-                  </div>
-                ))}
+        <section className="py-20 px-4 border-t border-border">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {/* Left: Tools vs Architecture */}
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.leftTitle}</h2>
+                <div className="space-y-4">
+                  {toolsVsArchitecture.comparison.map((item, i) => (
+                    <div key={i} className="pb-4 border-b border-border/30">
+                      <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
+                      <p className="text-foreground">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: Our Beliefs */}
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.rightTitle}</h2>
+                <ul className="space-y-3">
+                  {toolsVsArchitecture.beliefs.map((belief, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="text-primary font-bold text-lg">{belief.num}</span>
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">{belief.title}</p>
+                        <p className="text-muted-foreground text-sm">{belief.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-
-            {/* Right: Our Beliefs */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.rightTitle}</h2>
-              <ul className="space-y-3">
-                {toolsVsArchitecture.beliefs.map((belief, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="text-primary font-bold text-lg">{belief.num}</span>
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">{belief.title}</p>
-                      <p className="text-muted-foreground text-sm">{belief.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
       </SolutionsBackground>
 
       {/* 5. CORE OFFERINGS Section */}
