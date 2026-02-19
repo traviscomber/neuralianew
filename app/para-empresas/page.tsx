@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, CheckCircle } from "lucide-react"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia para Empresas | Agentes IA Production-Ready",
@@ -14,8 +13,8 @@ export const metadata: Metadata = {
 
 export default function ParaEmpresas() {
   return (
-    <main className="min-h-screen pt-16 bg-background">
-      <SectionBackground section="capabilities" className="border-b border-border">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -42,9 +41,7 @@ export default function ParaEmpresas() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
-      <SectionBackground section="solutions">
       {/* Why N3uralia */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -131,10 +128,9 @@ export default function ParaEmpresas() {
           </Link>
         </div>
       </section>
-      </SectionBackground>
 
+      </main>
       <Footer />
-    </main>
     </>
   )
 }

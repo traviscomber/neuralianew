@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Nuestro Enfoque - N3uralia | 5 Pasos hacia Inteligencia Aumentada",
@@ -144,11 +143,9 @@ export default function EnfoquePage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
       {/* Timeline visual */}
-      <SectionBackground section="solutions" className="border-t border-border">
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-muted/30 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center">El Viaje Completo</h2>
 
@@ -180,11 +177,9 @@ export default function EnfoquePage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
       {/* Services offered */}
-      <SectionBackground section="blog">
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">Lo Que Hacemos</h2>
           <p className="text-center text-muted-foreground mb-12">
@@ -204,11 +199,9 @@ export default function EnfoquePage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
       {/* CTA */}
-      <SectionBackground section="hero">
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-muted/30 border-t border-border">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">¿Listo para Empezar?</h2>
           <p className="text-lg text-muted-foreground mb-8">
@@ -224,12 +217,9 @@ export default function EnfoquePage() {
           </Link>
         </div>
       </section>
-      </SectionBackground>
 
+      </main>
       <Footer />
-    </main>
     </>
-  )
-}
   )
 }
