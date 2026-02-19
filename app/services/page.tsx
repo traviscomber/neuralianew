@@ -1,7 +1,6 @@
+import type { Metadata } from "next"
 import { Badge } from "@/components/ui/badge"
 import { Bot, Workflow, Building2 } from "lucide-react"
-import type { Metadata } from "next"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Servicios N3uralia (Neuralia) | Agentes IA, Automatización, Full-Stack",
@@ -79,10 +78,9 @@ const processSteps = [
 ]
 
 export default function ServicesPage() {
-
   return (
-    <div className="min-h-screen bg-background">
-      <SectionBackground section="hero" className="border-b border-border">
+    <>
+      <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 pt-32 bg-background">
         <div className="container mx-auto px-4">
@@ -100,9 +98,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
-      <SectionBackground section="capabilities" className="border-t border-border">
       {/* Services Grid */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -136,9 +132,7 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
-      <SectionBackground section="workflow" className="border-t border-border">
       {/* Process Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
@@ -207,6 +201,7 @@ export default function ServicesPage() {
           </a>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   )
 }

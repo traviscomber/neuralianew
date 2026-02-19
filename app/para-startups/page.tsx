@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 export default function ParaStartups() {
   return (
-    <main className="min-h-screen pt-16 bg-background">
-      <SectionBackground section="solutions" className="border-b border-border">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -42,9 +42,7 @@ export default function ParaStartups() {
           </div>
         </div>
       </section>
-      </SectionBackground>
 
-      <SectionBackground section="hero">
       {/* Why Startups Love N3uralia */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">
