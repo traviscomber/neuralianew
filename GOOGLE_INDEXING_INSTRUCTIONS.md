@@ -20,10 +20,10 @@
    - **Alternative:** Domain provider verification (recommended if using Vercel)
 
 **Verification Command:**
-```
+\`\`\`
 Add to layout.tsx <head>:
 <meta name="google-site-verification" content="[your-verification-code]" />
-```
+\`\`\`
 
 ---
 
@@ -152,7 +152,7 @@ Add to layout.tsx <head>:
 
 **Auto-Update in Next.js:**
 Create `/app/sitemap.ts` (dynamic sitemap):
-```typescript
+\`\`\`typescript
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -171,7 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 }
-```
+\`\`\`
 
 ### 6.2 Re-submit Updated Sitemap
 - Every 2 weeks: Re-submit sitemap to Search Console
@@ -194,7 +194,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 **Already in your site but ensure it's in layout.tsx:**
 
-```json
+\`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -213,12 +213,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "Fullstack AI"
   ]
 }
-```
+\`\`\`
 
 ### 7.2 Add BlogPosting Schema to Blog Posts
 
 **For each blog post, add:**
-```json
+\`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -231,7 +231,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   },
   "keywords": "living agents, AI agents, sistemas agenticos, n3uralia"
 }
-```
+\`\`\`
 
 ---
 
@@ -264,27 +264,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 ### When Publishing a New Blog Post:
 
-```bash
+\`\`\`bash
 # 1. Create blog post at: /app/blog/[slug]/page.tsx
 # 2. Add metadata with keywords: n3uralia, neuralia, AI agents, fullstack
 # 3. Update sitemap.xml (add new URL)
 # 4. Commit and push to production
 # 5. In Google Search Console: Request Indexing for new URL
-```
+\`\`\`
 
 ### When Changing Metadata:
 
-```bash
+\`\`\`bash
 # 1. Update layout.tsx or page.tsx metadata
 # 2. Test with: https://search.google.com/test/rich-results
 # 3. Commit and push
 # 4. In Search Console: "Request Indexing" for that page
 # 5. Monitor in Performance → Queries (wait 1 week)
-```
+\`\`\`
 
 ### Weekly Tasks:
 
-```
+\`\`\`
 Monday:
 - Check Google Search Console Performance tab
 - Note any new keywords appearing
@@ -294,7 +294,7 @@ Friday:
 - Review rankings for target keywords
 - Check for any indexing issues
 - Plan content updates for next week
-```
+\`\`\`
 
 ---
 

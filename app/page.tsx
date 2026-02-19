@@ -12,6 +12,12 @@ import {
   callsToAction,
 } from "@/app/constants/content"
 import { HomePageClient } from "@/components/home/home-page-client"
+import {
+  HeroBackground,
+  CapabilitiesBackground,
+  SolutionsBackground,
+  WorkflowBackground,
+} from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Revenue + Operations + Agents",
@@ -54,9 +60,10 @@ export default function HomePage() {
   return (
     <>
       <main className="min-h-screen bg-background">
-      {/* 1. HERO Section */}
-      <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-        <div className="max-w-5xl mx-auto text-center w-full">
+        {/* 1. HERO Section */}
+        <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+          <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+            <div className="max-w-5xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{heroContent.badge}</span>
@@ -98,9 +105,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </HeroBackground>
 
       {/* 2. CORE PILLARS Section */}
-      <section className="py-20 px-4 bg-background border-t border-border">
+      <CapabilitiesBackground className="py-20 px-4 border-t border-border">
+        <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Por Qué N3uralia</h2>
@@ -123,9 +132,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </CapabilitiesBackground>
 
       {/* 3. METHODOLOGY Section */}
-      <section className="py-20 px-4 bg-muted/30 border-t border-border">
+      <WorkflowBackground className="py-20 px-4 border-t border-border">
+        <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Enfoque</h2>
@@ -152,9 +163,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </WorkflowBackground>
 
       {/* 4. PHILOSOPHY Section */}
-      <section className="py-20 bg-muted/30 px-4 border-t border-border">
+      <SolutionsBackground className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {/* Left: Tools vs Architecture */}
@@ -188,6 +200,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </SolutionsBackground>
 
       {/* 5. CORE OFFERINGS Section */}
       <section className="py-24 bg-background border-t border-border px-4">
