@@ -1,22 +1,57 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import {
-  generateSectionBackground,
-  type SectionType,
-} from '@/lib/background-patterns';
+import React from 'react';
 
 interface SectionBackgroundProps {
-  section: SectionType;
+  section: 'hero' | 'capabilities' | 'solutions' | 'workflow' | 'blog' | 'faq';
   children: React.ReactNode;
   className?: string;
   animated?: boolean;
   intensity?: 'subtle' | 'normal' | 'bold';
 }
 
+const sectionConfig = {
+  hero: {
+    color: '#5CAAA5',
+    opacity: 0.15,
+    gradient: 'radial-gradient(ellipse 800px 500px at 50% -10%, rgba(92, 170, 165, 0.06) 0%, transparent 80%)',
+  },
+  capabilities: {
+    color: '#3F2F28',
+    opacity: 0.2,
+    gradient: 'radial-gradient(ellipse 900px 600px at 50% 50%, rgba(63, 47, 40, 0.04) 0%, transparent 85%)',
+  },
+  solutions: {
+    color: '#697A8A',
+    opacity: 0.12,
+    gradient: 'linear-gradient(180deg, rgba(105, 122, 138, 0.03) 0%, transparent 60%, rgba(92, 170, 165, 0.03) 100%)',
+  },
+  workflow: {
+    color: '#5CAAA5',
+    opacity: 0.14,
+    gradient: 'radial-gradient(ellipse 700px 400px at 50% 50%, rgba(92, 170, 165, 0.04) 0%, rgba(105, 122, 138, 0.02) 100%)',
+  },
+  blog: {
+    color: '#3F2F28',
+    opacity: 0.08,
+    gradient: 'linear-gradient(135deg, rgba(63, 47, 40, 0.015) 0%, rgba(92, 170, 165, 0.015) 100%)',
+  },
+  faq: {
+    color: '#5CAAA5',
+    opacity: 0.12,
+    gradient: 'radial-gradient(ellipse 600px 350px at 50% 30%, rgba(92, 170, 165, 0.03) 0%, transparent 85%)',
+  },
+};
+
+const intensityMultiplier = {
+  subtle: 0.6,
+  normal: 1,
+  bold: 1.4,
+};
+
 /**
  * Professional Section Background Component
- * Renders dynamically generated technical patterns with proper layering
+ * Renders branded technical backgrounds with proper layering
  */
 export function SectionBackground({
   section,
@@ -25,70 +60,40 @@ export function SectionBackground({
   animated = true,
   intensity = 'normal',
 }: SectionBackgroundProps) {
-  const [svgContent, setSvgContent] = useState<string>('');
-  const [color, setColor] = useState<string>('');
-  const [opacity, setOpacity] = useState<number>(0.25);
-
-  // Adjust opacity based on intensity
-  const intensityMultiplier = {
-    subtle: 0.6,
-    normal: 1,
-    bold: 1.4,
-  };
-
-  useEffect(() => {
-    const background = generateSectionBackground(section);
-    setSvgContent(background.svg);
-    setColor(background.color);
-    setOpacity(background.opacity * intensityMultiplier[intensity]);
-  }, [section, intensity]);
+  const config = sectionConfig[section];
+  const finalOpacity = Math.min(config.opacity * intensityMultiplier[intensity], 0.3);
 
   return (
-    <div
-      className={`relative w-full overflow-hidden bg-background ${className}`}
-    >
+    <div className={`relative w-full overflow-hidden bg-background ${className}`}>
       {/* Base gradient layer */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-background via-transparent to-background opacity-30" />
 
-      {/* Main pattern layer - optimized SVG rendering */}
+      {/* Main pattern layer */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className={`absolute inset-0 pointer-events-none ${animated ? 'animate-subtle-float' : ''}`}
         style={{
-          opacity: Math.min(opacity, 0.5),
+          background: config.gradient,
+          opacity: finalOpacity,
           mixBlendMode: 'overlay',
-        }}
-      >
-        <svg
-          width="100%"
-          height="100%"
-          viewBox="0 0 1200 800"
-          preserveAspectRatio="xMidYMid slice"
-          className={animated ? 'animate-subtle-float' : ''}
-          style={{
-            filter: `drop-shadow(0 0 20px ${color}10)`,
-          }}
-          dangerouslySetInnerHTML={{ __html: svgContent }}
-        />
-      </div>
-
-      {/* Accent glow layer for depth */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `radial-gradient(ellipse 800px 600px at 50% 0%, ${color}08 0%, transparent 70%)`,
         }}
       />
 
-      {/* Content layer with proper stacking context */}
+      {/* Accent glow layer */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at 50% 50%, ${config.color}08 0%, transparent 70%)`,
+        }}
+      />
+
+      {/* Content layer */}
       <div className="relative z-10">{children}</div>
     </div>
   );
 }
 
-
 /**
- * Specialized section background components for common sections
- * Each has optimized settings for their specific use case
+ * Specialized section background components
  */
 
 export function HeroBackground({
