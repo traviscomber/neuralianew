@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { SectionBackground } from "@/components/section-background"
+import { Footer } from "@/components/layout/footer"
 
 export default function CaseStudiesPage() {
   const caseStudies = [
@@ -100,8 +101,9 @@ export default function CaseStudiesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background">
-      <main>
+    <>
+      <div className="min-h-screen bg-background">
+        <main>
         {/* Hero Section */}
         <section className="pt-32 pb-24 bg-gradient-to-b from-foreground/5 to-background border-b border-border px-4">
           <div className="max-w-6xl mx-auto">
@@ -215,7 +217,10 @@ export default function CaseStudiesPage() {
             </div>
           </div>
         </section>
+
+        <Footer />
       </main>
-    </div>
+      </div>
+    </>
   )
 }

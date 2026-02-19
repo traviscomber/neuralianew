@@ -131,8 +131,10 @@ export default function ParaEmpresas() {
           </Link>
         </div>
       </section>
+      </SectionBackground>
 
       <Footer />
     </main>
+    </>
   )
 }

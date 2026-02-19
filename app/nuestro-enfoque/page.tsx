@@ -87,7 +87,8 @@ export default function EnfoquePage() {
   ]
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <main className="min-h-screen bg-background">
       {/* Hero */}
       <section className="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center w-full">
@@ -223,8 +224,12 @@ export default function EnfoquePage() {
           </Link>
         </div>
       </section>
+      </SectionBackground>
 
       <Footer />
     </main>
+    </>
+  )
+}
   )
 }

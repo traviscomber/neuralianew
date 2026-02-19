@@ -46,9 +46,9 @@ export default function CapabilitiesPage() {
             </div>
           </div>
         </section>
-        </SectionBackground>
 
         <CapabilitiesPageClient />
+      </main>
     </>
   )
 }
