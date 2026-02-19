@@ -150,6 +150,7 @@ export default function ParaStartups() {
       </section>
 
       <Footer />
-    </main>
+      </main>
+    </>
   )
 }

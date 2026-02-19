@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "2.0.53",
-    "@emotion/is-prop-valid": "latest",
+    "@emotion/is-prop-valid": "1.2.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -61,12 +61,12 @@
     "recharts": "^2.12.0",
     "resend": "^3.2.0",
     "sharp": "0.34.5",
-    "solid-js": "latest",
+    "solid-js": "1.9.23",
     "sonner": "^1.4.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "1.1.2",
-    "zod": "latest"
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
