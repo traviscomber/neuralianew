@@ -1,277 +1,171 @@
-/**
- * Background Pattern Generator
- * Creates SVG patterns for section backgrounds based on brandbook colors
- * Patterns: Nodes, Circuits, Lines, Grid
- */
-
-export type PatternType = 'nodes' | 'circuits' | 'lines' | 'grid' | 'mixed';
 export type SectionType = 'hero' | 'capabilities' | 'solutions' | 'workflow' | 'blog' | 'faq';
 
-interface PatternConfig {
-  type: PatternType;
+interface BackgroundConfig {
+  svg: string;
   color: string;
   opacity: number;
-  density: number;
-  scale: number;
 }
 
-interface SectionPatternConfig {
-  pattern: PatternType;
-  color: string;
-  opacity: number;
-  density: number;
-}
-
-// Brandbook Colors
-export const BRANDBOOK_COLORS = {
-  deepCharcoal: '#3F2F28',
-  mutedSage: '#5CAAA5',
-  slateGray: '#697A8A',
-  creamWhite: '#FAFAFA',
-};
-
-// Section-specific configurations
-export const SECTION_PATTERNS: Record<SectionType, SectionPatternConfig> = {
-  hero: {
-    pattern: 'nodes',
-    color: BRANDBOOK_COLORS.mutedSage,
-    opacity: 0.25,
-    density: 0.4,
-  },
-  capabilities: {
-    pattern: 'circuits',
-    color: BRANDBOOK_COLORS.deepCharcoal,
-    opacity: 0.45,
-    density: 0.6,
-  },
-  solutions: {
-    pattern: 'lines',
-    color: BRANDBOOK_COLORS.slateGray,
-    opacity: 0.35,
-    density: 0.45,
-  },
-  workflow: {
-    pattern: 'mixed',
-    color: BRANDBOOK_COLORS.mutedSage,
-    opacity: 0.4,
-    density: 0.5,
-  },
-  blog: {
-    pattern: 'grid',
-    color: BRANDBOOK_COLORS.deepCharcoal,
-    opacity: 0.2,
-    density: 0.3,
-  },
-  faq: {
-    pattern: 'nodes',
-    color: BRANDBOOK_COLORS.mutedSage,
-    opacity: 0.3,
-    density: 0.4,
-  },
+const brandColors = {
+  sage: '#5CAAA5',
+  charcoal: '#3F2F28',
+  slate: '#697A8A',
 };
 
 /**
- * Generate SVG nodes pattern
- * Creates connected circles/nodes like in the reference image
+ * Generate professional SVG background patterns
+ * Each pattern is unique and branded
  */
-function generateNodesPattern(color: string, density: number): string {
-  const nodeRadius = 2 + density * 3;
-  const spacing = 60 - density * 20;
-  const lineColor = color;
+function generateGridPattern(color: string, scale: number = 40): string {
+  return `
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+      <defs>
+        <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${color};stop-opacity:0.1" />
+          <stop offset="100%" style="stop-color:${color};stop-opacity:0.05" />
+        </linearGradient>
+        <pattern id="grid" width="${scale}" height="${scale}" patternUnits="userSpaceOnUse">
+          <path d="M ${scale} 0 L 0 0 0 ${scale}" fill="none" stroke="${color}" stroke-width="0.5" opacity="0.3"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#gridGrad)" />
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  `;
+}
 
-  let paths = '';
-  const cols = Math.ceil(1200 / spacing);
-  const rows = Math.ceil(800 / spacing);
+function generateNodesPattern(color: string, density: number = 15): string {
+  const nodes = Array.from({ length: density }, (_, i) => {
+    const x = Math.random() * 1200;
+    const y = Math.random() * 800;
+    const size = Math.random() * 3 + 1;
+    return `<circle cx="${x}" cy="${y}" r="${size}" fill="${color}" opacity="${0.2 + Math.random() * 0.4}"/>`;
+  });
 
-  // Generate nodes
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      const x = i * spacing + (Math.random() - 0.5) * 20;
-      const y = j * spacing + (Math.random() - 0.5) * 20;
+  const connections = Array.from({ length: Math.floor(density * 0.6) }, () => {
+    const x1 = Math.random() * 1200;
+    const y1 = Math.random() * 800;
+    const x2 = x1 + (Math.random() - 0.5) * 400;
+    const y2 = y1 + (Math.random() - 0.5) * 400;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="0.8" opacity="0.15"/>`;
+  });
 
-      // Randomly draw connections
-      if (Math.random() > 0.7 && i < cols - 1 && j < rows - 1) {
-        const nextX = (i + 1) * spacing + (Math.random() - 0.5) * 20;
-        const nextY = (j + 1) * spacing + (Math.random() - 0.5) * 20;
-        paths += `<line x1="${x}" y1="${y}" x2="${nextX}" y2="${nextY}" stroke="${lineColor}" stroke-width="0.5" opacity="0.6"/>`;
-      }
+  return `
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+      <defs>
+        <radialGradient id="nodeGrad" cx="50%" cy="50%">
+          <stop offset="0%" style="stop-color:${color};stop-opacity:0.08" />
+          <stop offset="100%" style="stop-color:${color};stop-opacity:0" />
+        </radialGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#nodeGrad)" />
+      ${connections.join('\n')}
+      ${nodes.join('\n')}
+    </svg>
+  `;
+}
 
-      // Draw node
-      paths += `<circle cx="${x}" cy="${y}" r="${nodeRadius}" fill="none" stroke="${lineColor}" stroke-width="1" opacity="0.8"/>`;
-    }
-  }
+function generateCircuitPattern(color: string): string {
+  return `
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+      <defs>
+        <linearGradient id="circuitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${color};stop-opacity:0.12" />
+          <stop offset="100%" style="stop-color:${color};stop-opacity:0.04" />
+        </linearGradient>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#circuitGrad)" />
+      
+      <!-- Horizontal Lines -->
+      <line x1="0" y1="200" x2="1200" y2="200" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      <line x1="0" y1="400" x2="1200" y2="400" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      <line x1="0" y1="600" x2="1200" y2="600" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      
+      <!-- Vertical Lines -->
+      <line x1="300" y1="0" x2="300" y2="800" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      <line x1="600" y1="0" x2="600" y2="800" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      <line x1="900" y1="0" x2="900" y2="800" stroke="${color}" stroke-width="1" opacity="0.2"/>
+      
+      <!-- Nodes -->
+      <circle cx="300" cy="200" r="4" fill="${color}" opacity="0.3"/>
+      <circle cx="600" cy="400" r="4" fill="${color}" opacity="0.3"/>
+      <circle cx="900" cy="200" r="4" fill="${color}" opacity="0.3"/>
+      <circle cx="300" cy="600" r="4" fill="${color}" opacity="0.3"/>
+      <circle cx="900" cy="600" r="4" fill="${color}" opacity="0.3"/>
+      
+      <!-- Connecting Lines -->
+      <path d="M 300 200 Q 450 250 600 400" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.15"/>
+      <path d="M 600 400 Q 750 300 900 200" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.15"/>
+      <path d="M 600 400 Q 600 500 600 600" stroke="${color}" stroke-width="1.5" fill="none" opacity="0.15"/>
+    </svg>
+  `;
+}
 
-  return paths;
+function generateFlowPattern(color: string): string {
+  return `
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+      <defs>
+        <linearGradient id="flowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:${color};stop-opacity:0.06" />
+          <stop offset="100%" style="stop-color:${color};stop-opacity:0.12" />
+        </linearGradient>
+        <filter id="blur">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+        </filter>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#flowGrad)" />
+      
+      <!-- Flowing Curves -->
+      <path d="M -100 200 Q 300 100 600 200 T 1300 200" stroke="${color}" stroke-width="2" fill="none" opacity="0.15" filter="url(#blur)"/>
+      <path d="M -100 400 Q 300 500 600 400 T 1300 400" stroke="${color}" stroke-width="2" fill="none" opacity="0.15" filter="url(#blur)"/>
+      <path d="M -100 600 Q 300 700 600 600 T 1300 600" stroke="${color}" stroke-width="2" fill="none" opacity="0.15" filter="url(#blur)"/>
+      
+      <!-- Accent Circles -->
+      <circle cx="400" cy="300" r="60" fill="${color}" opacity="0.04"/>
+      <circle cx="800" cy="500" r="80" fill="${color}" opacity="0.04"/>
+      <circle cx="600" cy="700" r="50" fill="${color}" opacity="0.04"/>
+    </svg>
+  `;
 }
 
 /**
- * Generate SVG circuits pattern
- * Creates circuit board-like patterns with rectangles and connections
+ * Generate section-specific background configuration
  */
-function generateCircuitsPattern(color: string, density: number): string {
-  const spacing = 100 - density * 30;
-  const rectSize = 15 + density * 10;
-
-  let paths = '';
-  const cols = Math.ceil(1200 / spacing);
-  const rows = Math.ceil(800 / spacing);
-
-  for (let i = 0; i < cols; i++) {
-    for (let j = 0; j < rows; j++) {
-      const x = i * spacing;
-      const y = j * spacing;
-
-      // Draw rectangles
-      if (Math.random() > 0.4) {
-        paths += `<rect x="${x}" y="${y}" width="${rectSize}" height="${rectSize}" fill="none" stroke="${color}" stroke-width="1" opacity="0.7"/>`;
-      }
-
-      // Draw connecting lines
-      if (i < cols - 1 && Math.random() > 0.6) {
-        paths += `<line x1="${x + rectSize}" y1="${y + rectSize / 2}" x2="${x + spacing}" y2="${y + rectSize / 2}" stroke="${color}" stroke-width="0.5" opacity="0.5"/>`;
-      }
-
-      // Draw small nodes at intersections
-      if (Math.random() > 0.7) {
-        paths += `<circle cx="${x + rectSize / 2}" cy="${y + rectSize / 2}" r="1.5" fill="${color}" opacity="0.6"/>`;
-      }
-    }
-  }
-
-  return paths;
-}
-
-/**
- * Generate SVG flowing lines pattern
- * Creates organic flowing lines across the canvas
- */
-function generateLinesPattern(color: string, density: number): string {
-  let paths = '';
-  const numLines = 8 + Math.floor(density * 15);
-
-  for (let line = 0; line < numLines; line++) {
-    let d = `M 0 ${Math.random() * 800}`;
-    const amplitude = 30 + density * 40;
-    const frequency = 0.005 + density * 0.005;
-
-    for (let x = 0; x < 1200; x += 20) {
-      const y = Math.sin(x * frequency + line) * amplitude + 400 + (line * 50);
-      d += ` L ${x} ${y}`;
-    }
-
-    paths += `<path d="${d}" fill="none" stroke="${color}" stroke-width="${0.5 + density * 0.5}" opacity="${0.3 + density * 0.3}"/>`;
-  }
-
-  return paths;
-}
-
-/**
- * Generate SVG grid pattern
- * Creates a technical grid layout
- */
-function generateGridPattern(color: string, density: number): string {
-  const spacing = 80 - density * 20;
-  let paths = '';
-
-  const cols = Math.ceil(1200 / spacing) + 1;
-  const rows = Math.ceil(800 / spacing) + 1;
-
-  // Vertical lines
-  for (let i = 0; i < cols; i++) {
-    paths += `<line x1="${i * spacing}" y1="0" x2="${i * spacing}" y2="800" stroke="${color}" stroke-width="0.5" opacity="${0.2 + density * 0.2}"/>`;
-  }
-
-  // Horizontal lines
-  for (let j = 0; j < rows; j++) {
-    paths += `<line x1="0" y1="${j * spacing}" x2="1200" y2="${j * spacing}" stroke="${color}" stroke-width="0.5" opacity="${0.2 + density * 0.2}"/>`;
-  }
-
-  // Add some nodes at intersections
-  for (let i = 0; i < cols; i += 2) {
-    for (let j = 0; j < rows; j += 2) {
-      if (Math.random() > 0.6) {
-        paths += `<circle cx="${i * spacing}" cy="${j * spacing}" r="2" fill="${color}" opacity="${0.4 + density * 0.2}"/>`;
-      }
-    }
-  }
-
-  return paths;
-}
-
-/**
- * Generate mixed pattern combining multiple elements
- */
-function generateMixedPattern(color: string, density: number): string {
-  const nodes = generateNodesPattern(color, density * 0.6);
-  const lines = generateLinesPattern(color, density * 0.4);
-  return nodes + lines;
-}
-
-/**
- * Main function to generate SVG pattern
- */
-export function generateBackgroundSVG(
-  type: PatternType,
-  color: string,
-  density: number,
-  width = 1200,
-  height = 800
-): string {
-  let patternContent = '';
-
-  switch (type) {
-    case 'nodes':
-      patternContent = generateNodesPattern(color, density);
-      break;
-    case 'circuits':
-      patternContent = generateCircuitsPattern(color, density);
-      break;
-    case 'lines':
-      patternContent = generateLinesPattern(color, density);
-      break;
-    case 'grid':
-      patternContent = generateGridPattern(color, density);
-      break;
-    case 'mixed':
-      patternContent = generateMixedPattern(color, density);
-      break;
-  }
-
-  return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg" class="background-pattern">
-    <defs>
-      <style>
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
-        .pattern-element {
-          animation: float 6s ease-in-out infinite;
-        }
-      </style>
-    </defs>
-    ${patternContent}
-  </svg>`;
-}
-
-/**
- * Get pattern configuration for a specific section
- */
-export function getSectionPatternConfig(section: SectionType): SectionPatternConfig {
-  return SECTION_PATTERNS[section];
-}
-
-/**
- * Generate complete background for a section
- */
-export function generateSectionBackground(
-  section: SectionType
-): { svg: string; color: string; opacity: number } {
-  const config = getSectionPatternConfig(section);
-  const svg = generateBackgroundSVG(config.pattern, config.color, config.density);
-
-  return {
-    svg,
-    color: config.color,
-    opacity: config.opacity,
+export function generateSectionBackground(section: SectionType): BackgroundConfig {
+  const configs: Record<SectionType, BackgroundConfig> = {
+    hero: {
+      svg: generateNodesPattern(brandColors.sage, 12),
+      color: brandColors.sage,
+      opacity: 0.25,
+    },
+    capabilities: {
+      svg: generateCircuitPattern(brandColors.charcoal),
+      color: brandColors.charcoal,
+      opacity: 0.35,
+    },
+    solutions: {
+      svg: generateFlowPattern(brandColors.slate),
+      color: brandColors.slate,
+      opacity: 0.28,
+    },
+    workflow: {
+      svg: generateNodesPattern(brandColors.sage, 18),
+      color: brandColors.sage,
+      opacity: 0.32,
+    },
+    blog: {
+      svg: generateGridPattern(brandColors.charcoal, 50),
+      color: brandColors.charcoal,
+      opacity: 0.18,
+    },
+    faq: {
+      svg: generateNodesPattern(brandColors.sage, 10),
+      color: brandColors.sage,
+      opacity: 0.22,
+    },
   };
+
+  return configs[section];
 }
+
+export const BG_COLORS = brandColors;

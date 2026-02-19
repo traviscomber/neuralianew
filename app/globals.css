@@ -309,6 +309,47 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ====================================== */
+/* Professional Background Animations */
+/* ====================================== */
+
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-8px) translateX(-3px);
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1.05;
+  }
+}
+
+.animate-subtle-float {
+  animation: subtle-float 20s ease-in-out infinite;
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 8s ease-in-out infinite;
+}
+
+/* SVG Optimization */
+svg {
+  will-change: transform;
+}
+
+/* Background Pattern Overlays */
+.bg-overlay-gradient {
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+  pointer-events: none;
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -440,14 +481,14 @@ html {
   }
 }
 
-/* Gradient overlays for specific sections */
+/* Professional Gradient overlays for specific sections */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 600px 400px at 50% 0%,
-    rgba(92, 170, 165, 0.08) 0%,
-    transparent 100%
+    ellipse 800px 500px at 50% -10%,
+    rgba(92, 170, 165, 0.06) 0%,
+    transparent 80%
   );
   pointer-events: none;
 }
@@ -456,9 +497,9 @@ html {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 800px 500px at 50% 50%,
-    rgba(63, 47, 40, 0.06) 0%,
-    transparent 100%
+    ellipse 900px 600px at 50% 50%,
+    rgba(63, 47, 40, 0.04) 0%,
+    transparent 85%
   );
   pointer-events: none;
 }
@@ -468,9 +509,9 @@ html {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(105, 122, 138, 0.05) 0%,
-    transparent 50%,
-    rgba(92, 170, 165, 0.05) 100%
+    rgba(105, 122, 138, 0.03) 0%,
+    transparent 60%,
+    rgba(92, 170, 165, 0.03) 100%
   );
   pointer-events: none;
 }
@@ -479,9 +520,9 @@ html {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    circle at 50% 50%,
-    rgba(92, 170, 165, 0.05) 0%,
-    rgba(105, 122, 138, 0.03) 100%
+    ellipse 700px 400px at 50% 50%,
+    rgba(92, 170, 165, 0.04) 0%,
+    rgba(105, 122, 138, 0.02) 100%
   );
   pointer-events: none;
 }
@@ -491,8 +532,8 @@ html {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(63, 47, 40, 0.02) 0%,
-    rgba(92, 170, 165, 0.02) 100%
+    rgba(63, 47, 40, 0.015) 0%,
+    rgba(92, 170, 165, 0.015) 100%
   );
   pointer-events: none;
 }
@@ -501,9 +542,9 @@ html {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 500px 300px at 50% 30%,
-    rgba(92, 170, 165, 0.04) 0%,
-    transparent 100%
+    ellipse 600px 350px at 50% 30%,
+    rgba(92, 170, 165, 0.03) 0%,
+    transparent 85%
   );
   pointer-events: none;
 }

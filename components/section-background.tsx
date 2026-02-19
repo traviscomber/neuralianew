@@ -11,176 +11,207 @@ interface SectionBackgroundProps {
   children: React.ReactNode;
   className?: string;
   animated?: boolean;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }
 
 /**
- * Section Background Component
- * Wraps content with a dynamically generated technical background pattern
- * Based on brandbook colors and section-specific styling
+ * Professional Section Background Component
+ * Renders dynamically generated technical patterns with proper layering
  */
 export function SectionBackground({
   section,
   children,
   className = '',
   animated = true,
+  intensity = 'normal',
 }: SectionBackgroundProps) {
   const [svgContent, setSvgContent] = useState<string>('');
   const [color, setColor] = useState<string>('');
   const [opacity, setOpacity] = useState<number>(0.25);
 
+  // Adjust opacity based on intensity
+  const intensityMultiplier = {
+    subtle: 0.6,
+    normal: 1,
+    bold: 1.4,
+  };
+
   useEffect(() => {
     const background = generateSectionBackground(section);
     setSvgContent(background.svg);
     setColor(background.color);
-    setOpacity(background.opacity);
-  }, [section]);
+    setOpacity(background.opacity * intensityMultiplier[intensity]);
+  }, [section, intensity]);
 
   return (
     <div
-      className={`relative w-full overflow-hidden ${className}`}
-      style={{
-        backgroundColor: '#FAFAFA',
-      }}
+      className={`relative w-full overflow-hidden bg-background ${className}`}
     >
-      {/* Background Pattern Layer */}
-      <div
-        className={`absolute inset-0 pointer-events-none ${animated ? 'animate-float' : ''}`}
-        style={{
-          opacity: opacity,
-          mixBlendMode: 'multiply',
-        }}
-      >
-        <div
-          dangerouslySetInnerHTML={{ __html: svgContent }}
-          className="w-full h-full"
-          style={{
-            filter: `drop-shadow(0 0 30px ${color}15)`,
-          }}
-        />
-      </div>
+      {/* Base gradient layer */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-background via-transparent to-background opacity-30" />
 
-      {/* Secondary Pattern Layer for depth */}
+      {/* Main pattern layer - optimized SVG rendering */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle at 20% 50%, ${color}05 0%, transparent 50%),
-                       radial-gradient(circle at 80% 80%, ${color}05 0%, transparent 50%)`,
+          opacity: Math.min(opacity, 0.5),
+          mixBlendMode: 'overlay',
+        }}
+      >
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 1200 800"
+          preserveAspectRatio="xMidYMid slice"
+          className={animated ? 'animate-subtle-float' : ''}
+          style={{
+            filter: `drop-shadow(0 0 20px ${color}10)`,
+          }}
+          dangerouslySetInnerHTML={{ __html: svgContent }}
+        />
+      </div>
+
+      {/* Accent glow layer for depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse 800px 600px at 50% 0%, ${color}08 0%, transparent 70%)`,
         }}
       />
 
-      {/* Content Layer */}
+      {/* Content layer with proper stacking context */}
       <div className="relative z-10">{children}</div>
     </div>
   );
 }
 
+
 /**
- * Hero Background Component
- * Specialized version for hero sections with enhanced visual hierarchy
+ * Specialized section background components for common sections
+ * Each has optimized settings for their specific use case
  */
+
 export function HeroBackground({
   children,
   className = '',
+  intensity = 'normal',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
-    <SectionBackground section="hero" className={className} animated={true}>
+    <SectionBackground 
+      section="hero" 
+      className={className} 
+      animated={true}
+      intensity={intensity}
+    >
       {children}
     </SectionBackground>
   );
 }
 
-/**
- * Capabilities Background Component
- * More intense pattern for feature showcase
- */
 export function CapabilitiesBackground({
   children,
   className = '',
+  intensity = 'normal',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
     <SectionBackground
       section="capabilities"
       className={className}
       animated={true}
+      intensity={intensity}
     >
       {children}
     </SectionBackground>
   );
 }
 
-/**
- * Solutions Background Component
- * Flowing pattern for solutions showcase
- */
 export function SolutionsBackground({
   children,
   className = '',
+  intensity = 'normal',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
-    <SectionBackground section="solutions" className={className} animated={true}>
+    <SectionBackground 
+      section="solutions" 
+      className={className} 
+      animated={true}
+      intensity={intensity}
+    >
       {children}
     </SectionBackground>
   );
 }
 
-/**
- * Workflow Background Component
- * Dynamic mixed pattern for process sections
- */
 export function WorkflowBackground({
   children,
   className = '',
+  intensity = 'normal',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
-    <SectionBackground section="workflow" className={className} animated={true}>
+    <SectionBackground 
+      section="workflow" 
+      className={className} 
+      animated={true}
+      intensity={intensity}
+    >
       {children}
     </SectionBackground>
   );
 }
 
-/**
- * Blog Background Component
- * Subtle grid pattern for content sections
- */
 export function BlogBackground({
   children,
   className = '',
+  intensity = 'subtle',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
-    <SectionBackground section="blog" className={className} animated={false}>
+    <SectionBackground 
+      section="blog" 
+      className={className} 
+      animated={false}
+      intensity={intensity}
+    >
       {children}
     </SectionBackground>
   );
 }
 
-/**
- * FAQ Background Component
- * Interactive node pattern for Q&A sections
- */
 export function FAQBackground({
   children,
   className = '',
+  intensity = 'normal',
 }: {
   children: React.ReactNode;
   className?: string;
+  intensity?: 'subtle' | 'normal' | 'bold';
 }) {
   return (
-    <SectionBackground section="faq" className={className} animated={true}>
+    <SectionBackground 
+      section="faq" 
+      className={className} 
+      animated={true}
+      intensity={intensity}
+    >
       {children}
     </SectionBackground>
   );
