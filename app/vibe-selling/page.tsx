@@ -148,6 +148,7 @@ export default function ViebeSellingPage() {
             Start a Conversation
           </a>
         </div>
+      </div>
       </main>
     </>
   )
