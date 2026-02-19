@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Zap, Users, BarChart3, Workflow, Shield, TrendingUp } from "lucide-react"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Conversational Intelligence Systems | N3uralia - Revenue + Operations + Agents",
@@ -18,6 +19,7 @@ export default function ConversationalIntelligencePage() {
   return (
     <>
       <main className="min-h-screen bg-background">
+        <SectionBackground section="hero" className="border-b border-border">
         {/* Hero */}
         <section className="py-20 border-b border-border px-4 pt-32">
           <div className="max-w-4xl mx-auto text-center">
@@ -43,7 +45,9 @@ export default function ConversationalIntelligencePage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="capabilities" className="border-b border-border">
         {/* What Makes It Different */}
         <section className="py-24 bg-background px-4 border-b border-border">
           <div className="max-w-6xl mx-auto">
@@ -87,7 +91,9 @@ export default function ConversationalIntelligencePage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="solutions" className="border-b border-border">
         {/* Use Cases by Vertical */}
         <section className="py-24 bg-muted/30 px-4 border-b border-border">
           <div className="max-w-6xl mx-auto">
@@ -188,7 +194,9 @@ export default function ConversationalIntelligencePage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="blog" className="border-b border-border">
         {/* Architecture Flow */}
         <section className="py-24 bg-background px-4 border-b border-border">
           <div className="max-w-6xl mx-auto">
@@ -246,7 +254,9 @@ export default function ConversationalIntelligencePage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="hero">
         {/* Key Capabilities */}
         <section className="py-24 bg-muted/30 px-4 border-b border-border">
           <div className="max-w-6xl mx-auto">
@@ -285,6 +295,7 @@ export default function ConversationalIntelligencePage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
         {/* CTA */}
         <section className="py-24 bg-background px-4">

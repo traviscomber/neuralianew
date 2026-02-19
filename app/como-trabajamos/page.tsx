@@ -89,7 +89,9 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="solutions" className="border-t border-border">
       {/* Timeline View */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -118,7 +120,9 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="blog">
       {/* Services Offered */}
       <section className="py-24 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -137,7 +141,9 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="hero" className="border-t border-border">
       {/* Commitment & Guarantees */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -184,6 +190,10 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
 
+        </div>
+      </section>
+      </SectionBackground>
+
       {/* Final CTA */}
       <section className="py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-2xl text-center">
@@ -211,7 +221,6 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
-  )
-}
+    </>

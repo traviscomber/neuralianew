@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { API_ENDPOINTS } from '@/lib/api-schema'
 import { Copy, ExternalLink, Lock, Unlock } from 'lucide-react'
+import { SectionBackground } from '@/components/section-background'
 
 export default function APIDocsPage() {
   const [copied, setCopied] = useState<string | null>(null)
@@ -17,6 +18,7 @@ export default function APIDocsPage() {
 
   return (
     <main className="min-h-screen bg-background">
+      <SectionBackground section="blog" className="border-b border-border">
       {/* Hero */}
       <section className="border-b border-border px-4 py-16">
         <div className="max-w-4xl mx-auto">
@@ -178,6 +180,7 @@ export default function APIDocsPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
       {/* Resources */}
       <section className="border-t border-border px-4 py-16">
