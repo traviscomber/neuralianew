@@ -35,8 +35,7 @@ export default function ComoTrabajamosPage() {
   ]
 
   return (
-    <>
-      <main className="min-h-screen bg-background pt-20">
+    <main className="min-h-screen bg-background pt-20">
       <SectionBackground section="workflow" className="border-b border-border">
       {/* Hero */}
       <section className="min-h-[50vh] flex items-center justify-center pt-20 pb-16 px-4">
@@ -91,9 +90,8 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
       </SectionBackground>
-
       {/* Timeline View */}
-      <section className="py-24 bg-background border-t border-border px-4">
+      <section className="py-24 bg-muted/30 border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Timeline Típico</h2>
@@ -120,6 +118,7 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
       <SectionBackground section="blog">
       {/* Services Offered */}
@@ -143,15 +142,8 @@ export default function ComoTrabajamosPage() {
       </SectionBackground>
 
       <SectionBackground section="solutions" className="border-t border-border">
-      {/* Commitment Section */}
+      {/* Timeline View */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Compromiso</h2>
-            <p className="body text-muted-foreground max-w-2xl mx-auto">
-              6 principios que guían cada proyecto
-            </p>
-          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -191,6 +183,7 @@ export default function ComoTrabajamosPage() {
       </SectionBackground>
 
       <SectionBackground section="hero" className="border-t border-border">
+
       {/* CTA */}
       <section className="py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-2xl text-center">
