@@ -1,15 +1,15 @@
 // Core Hero Content
 export const heroContent = {
-  badge: "Inteligencia Aumentada, No Reemplazo",
+  badge: "Automatización Inteligente + Sistemas Agenticos",
   heading: {
-    line1: "Inteligencia Aumentada",
-    line2: "No Artificial",
+    line1: "Automatiza Operaciones",
+    line2: "O Construye Agentes",
   },
-  subheading: "Sistemas agenticos que expanden capacidades humanas, no las reemplazan. Orquestación multi-agente, memoria persistente, autonomía guiada. Listo para producción desde el primer día.",
-  cta1: "Explorar Sistemas",
-  cta2: "Ver Capacidades",
+  subheading: "Elige tu camino: Automatización estructural de procesos empresariales (conectar sistemas, eliminar manual, escalar 10x). O sistemas agenticos custom que aprenden y evolucionan. Ambos production-ready desde día uno.",
+  cta1: "Explorar Automatización",
+  cta2: "Ver Sistemas Agenticos",
   metrics: [
-    { value: "6", label: "Pilares de Ingeniería" },
+    { value: "60-80%", label: "Reducción Trabajo Manual" },
     { value: "50+", label: "Equipos Activos" },
     { value: "99.8%", label: "Uptime" },
   ],

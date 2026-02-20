@@ -43,6 +43,14 @@ export function Navigation() {
             {navItems.capacidades}
           </Link>
           
+          {/* Automation Link */}
+          <Link 
+            href="/automatizacion-para-empresas" 
+            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Automatización
+          </Link>
+
           {/* Tier 2: Solutions Direct Link */}
           <Link 
             href="/soluciones" 
@@ -158,6 +166,15 @@ export function Navigation() {
             className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {navItems.capacidades}
+          </Link>
+
+          {/* Mobile Automation Link */}
+          <Link 
+            href="/automatizacion-para-empresas" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Automatización
           </Link>
 
           {/* Mobile Solutions Link */}

@@ -20,11 +20,11 @@ import {
 } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - Revenue + Operations + Agents",
+  title: "N3uralia | Automatización Empresarial + Sistemas Agenticos en Producción",
   description:
-    "N3uralia: Plataforma de sistemas agenticos fullstack para B2B mediano, turismo, eventos, manufactura. Conversational Intelligence Systems + Living Agents + Operaciones inteligentes en producción. Revenue attribution real, arquitectura agnóstica, integración legacy-ready.",
+    "N3uralia: Automatiza procesos empresariales inteligentemente. Conecta sistemas legacy, elimina trabajo manual, escala sin personal. O construye sistemas agenticos custom fullstack. Para B2B, retail, manufactura. Chile & LATAM.",
   keywords:
-    "n3uralia, sistemas agenticos, AI agents, conversational intelligence, B2B, turismo, eventos, agentes IA, revenue operations, fullstack AI, IA en producción, architecture agentica, multi-agent systems, n3uralia agentes, agentes inteligentes, Chile, LATAM",
+    "automatización empresarial, sistemas agenticos, AI agents, automatización procesos, integración sistemas legacy, n3uralia, agentes IA, revenue operations, fullstack AI, IA en producción, architecture agentica, automatización Chile, LATAM",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "N3uralia - AI Agents in Production | Sistemas Agenticos",
-    description: "Agentic AI architecture that works with humans. Multi-agent systems in production (n3uralia agents / n3uralia agentes) with governance, memory, and orchestration.",
+    title: "N3uralia - Automatización Empresarial & AI Agents | Sistemas en Producción",
+    description: "Automatización estructural + sistemas agenticos. N3uralia orquesta tus procesos empresariales con inteligencia.",
     type: "website",
     locale: "es_CL",
     localeAlternate: ["en_US", "es_ES"],
@@ -81,7 +81,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
             <Link
-              href="/contact"
+              href="/automatizacion-para-empresas"
               className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
             >
               {heroContent.cta1}
