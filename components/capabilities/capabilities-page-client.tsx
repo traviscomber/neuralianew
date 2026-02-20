@@ -268,9 +268,9 @@ export function CapabilitiesPageClient() {
         <section id="architecture" className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="h2 mb-4">Architecture & Optimization</h2>
+              <h2 className="h2 mb-4">AI-Agnostic Architecture</h2>
               <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
-                Pipeline inteligente que optimiza costos, calidad y robustez usando Gemini como sistema nervioso y OpenAI como voz de N3uralia
+                No estamos atados a un modelo. Usamos la herramienta correcta en cada capa: clasificación, compresión, safety, y respuesta final. La arquitectura escala con nuevos modelos sin refactorizar.
               </p>
             </div>
 
@@ -293,15 +293,15 @@ export function CapabilitiesPageClient() {
                 <div className="text-primary">↓</div>
                 <div className="text-center">
                   <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 min-w-[140px]">
-                    <p className="text-sm font-semibold text-foreground">Gemini Free</p>
-                    <p className="text-xs text-muted-foreground">Sistema Nervioso</p>
+                    <p className="text-sm font-semibold text-foreground">Classify + Compress</p>
+                    <p className="text-xs text-muted-foreground">Modelo optimizado</p>
                   </div>
                 </div>
                 <div className="text-primary">↓</div>
                 <div className="text-center">
                   <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 min-w-[140px]">
-                    <p className="text-sm font-semibold text-foreground">OpenAI</p>
-                    <p className="text-xs text-muted-foreground">Voz de N3uralia</p>
+                    <p className="text-sm font-semibold text-foreground">Respuesta Final</p>
+                    <p className="text-xs text-muted-foreground">Modelo premium</p>
                   </div>
                 </div>
                 <div className="text-primary">↓</div>
@@ -323,8 +323,8 @@ export function CapabilitiesPageClient() {
                   </div>
                   <h3 className="font-semibold text-foreground">Router Inteligente</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3">Gemini clasifica intención y prioridad (Sales, Tech, Support, etc)</p>
-                <p className="text-xs text-primary font-medium">✓ Menos llamadas a OpenAI | Respuestas más consistentes</p>
+                <p className="text-sm text-muted-foreground mb-3">Clasifica intención y prioridad (Sales, Tech, Support, etc) con modelo rápido</p>
+                <p className="text-xs text-primary font-medium">✓ Menos llamadas costosas | Respuestas más consistentes</p>
               </div>
 
               <div className="border border-border rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
@@ -334,8 +334,8 @@ export function CapabilitiesPageClient() {
                   </div>
                   <h3 className="font-semibold text-foreground">Context Compressor</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3">Extrae objetivos, restricciones y contexto limpio antes de OpenAI</p>
-                <p className="text-xs text-primary font-medium">✓ Menos tokens | Mejor precisión</p>
+                <p className="text-sm text-muted-foreground mb-3">Extrae objetivos, restricciones y contexto limpio antes del modelo premium</p>
+                <p className="text-xs text-primary font-medium">✓ Menos tokens | Mejor precisión | Costos reducidos 50%</p>
               </div>
 
               <div className="border border-border rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
@@ -345,8 +345,8 @@ export function CapabilitiesPageClient() {
                   </div>
                   <h3 className="font-semibold text-foreground">Safety & Abuse Filter</h3>
                 </div>
-                <p className="text-sm text-muted-foreground mb-3">Detecta spam, insultos y requests anómalos antes del procesamiento</p>
-                <p className="text-xs text-primary font-medium">✓ Endpoint protegido | Costos reducidos</p>
+                <p className="text-sm text-muted-foreground mb-3">Detecta spam, insultos y requests anómalos antes de procesar</p>
+                <p className="text-xs text-primary font-medium">✓ Endpoint protegido | Zero ruido en pipeline</p>
               </div>
 
               <div className="border border-border rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
@@ -357,16 +357,17 @@ export function CapabilitiesPageClient() {
                   <h3 className="font-semibold text-foreground">Pre-procesador JSON</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-3">Transforma inputs caóticos a estructura limpia (intent, entities, format)</p>
-                <p className="text-xs text-primary font-medium">✓ Pipeline robusto | Salidas consistentes</p>
+                <p className="text-xs text-primary font-medium">✓ Pipeline robusto | Salidas consistentes y parseables</p>
               </div>
             </div>
 
-            {/* Gold Rule */}
+            {/* Model Flexibility */}
             <div className="border-l-4 border-primary bg-primary/5 rounded-r-lg p-6 mb-12">
-              <h3 className="font-semibold text-foreground mb-2">La Regla de Oro</h3>
+              <h3 className="font-semibold text-foreground mb-2">Agnóstico de Modelos</h3>
               <p className="text-sm text-muted-foreground">
-                <span className="text-primary font-semibold">OpenAI = la voz</span> de N3uralia (tone de marca + calidad final) |
-                <span className="text-primary font-semibold"> Gemini Free = sistema nervioso</span> (routing, limpieza, control)
+                Hoy usamos modelos rápidos y económicos para clasificación/compresión, y modelos premium para respuesta final. 
+                Mañana podemos escalar a Claude, Llama, o lo que surja sin cambiar arquitectura. 
+                La estructura es agnóstica, el valor está en el pipeline inteligente.
               </p>
             </div>
 
@@ -378,7 +379,7 @@ export function CapabilitiesPageClient() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Reducción de Costos</h4>
-                  <p className="text-sm text-muted-foreground">Router inteligente + context compression = menos tokens en OpenAI</p>
+                  <p className="text-sm text-muted-foreground">Pipeline optimizado = menos llamadas a modelos premium. ROI inmediato.</p>
                 </div>
               </div>
 
@@ -388,7 +389,7 @@ export function CapabilitiesPageClient() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Calidad Superior</h4>
-                  <p className="text-sm text-muted-foreground">Gemini limpia el ruido, OpenAI recibe inputs perfectos</p>
+                  <p className="text-sm text-muted-foreground">Cada modelo optimizado para su tarea. Input limpio = output consistente.</p>
                 </div>
               </div>
 
@@ -398,7 +399,7 @@ export function CapabilitiesPageClient() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground mb-1">Mayor Protección</h4>
-                  <p className="text-sm text-muted-foreground">Safety filter previene abuso, spam y requests maliciosos</p>
+                  <p className="text-sm text-muted-foreground">Safety filter + abuse detection previene exploits y mal uso.</p>
                 </div>
               </div>
 
@@ -407,8 +408,8 @@ export function CapabilitiesPageClient() {
                   <CheckCircle2 className="w-6 h-6 text-primary mt-1" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground mb-1">Pipeline Robusto</h4>
-                  <p className="text-sm text-muted-foreground">JSON pre-processor garantiza inputs consistentes y procesables</p>
+                  <h4 className="font-semibold text-foreground mb-1">Escalabilidad Futura</h4>
+                  <p className="text-sm text-muted-foreground">Cambia modelos sin refactorizar. Arquitectura preparada para innovación.</p>
                 </div>
               </div>
             </div>
