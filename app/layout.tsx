@@ -77,8 +77,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  alternates: {
-    canonical: "https://n3uralia.com",
   },
   generator: "v0.app",
 }
