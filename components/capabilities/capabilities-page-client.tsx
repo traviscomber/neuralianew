@@ -416,10 +416,10 @@ export function CapabilitiesPageClient() {
 
             <div className="mt-12 text-center">
               <Link
-                href="/contact"
+                href="/como-trabajamos"
                 className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
               >
-                Explorar nuestra arquitectura
+                Explorar nuestra metodología de implementación
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
