@@ -481,7 +481,7 @@ export function CaseStudyContent() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
-            <Link href="https://wa.me/56940946660">
+            <Link href="https://wa.me/56993826127">
               <Button
                 size="lg"
                 variant="outline"

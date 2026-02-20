@@ -241,5 +241,5 @@ export const callsToAction = [
 export const contactMessages = {
   botGreeting: "Hola 👋 Soy el asistente de N3uralia. ¿Cuál es tu nombre?",
   finalMessage: (name: string, email: string, whatsapp: string) => 
-    `✅ Mensaje enviado correctamente, ${name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/${whatsapp}`,
+    `✅ Mensaje enviado correctamente, ${name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/56993826127`,
 }
