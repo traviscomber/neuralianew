@@ -113,11 +113,6 @@ export function FaqPageClient() {
             </p>
           </div>
         </section>
-            <p className="text-lg text-muted-foreground">
-              Todo lo que necesitas saber sobre N3uralia y los Living Agents
-            </p>
-          </div>
-        </section>
 
         {/* FAQ Content */}
         <section className="px-4 py-16 sm:py-20">
@@ -138,72 +133,52 @@ export function FaqPageClient() {
                         openId === faq.id ? 'rotate-180' : ''
                       }`}
                     />
-              </button>
-            </div>
-          </div>
-        ))}
-
-        {/* Footer CTA - More Resources */}
-        <section className="mt-16 border-t border-border pt-16">
-          <div className="mx-auto max-w-3xl rounded-lg bg-muted/50 p-8 text-center">
-            <h2 className="mb-4 text-2xl font-bold text-foreground">
-              ¿Aún tienes preguntas?
-            </h2>
-            <p className="mb-6 text-muted-foreground">
-              Explora nuestras <Link href="/capabilities" className="text-primary hover:underline font-medium">
-              capacidades técnicas
-              </Link>
-              , lee sobre nuestra <Link href="/como-trabajamos" className="text-primary hover:underline font-medium">
-              metodología de implementación
-              </Link>
-              , o mira nuestros <Link href="/case-studies" className="text-primary hover:underline font-medium">
-              casos de estudio reales
-              </Link>
-              .
-            </p>
-            <div className="flex flex-col gap-3 sm:flex-row justify-center">
-              <Link
-                href="/como-trabajamos"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-              >
-                Ver Metodología 5 Fases
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-              >
-                Hablar con Equipo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
+                  </button>
+                  {openId === faq.id && (
+                    <div className="border-t border-border px-6 py-4 bg-muted/20">
+                      <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
 
-            {/* CTA Section */}
-            <div className="mt-16 rounded-lg border border-border bg-card p-8 text-center">
-              <h2 className="mb-4 text-2xl font-bold text-foreground">
-                ¿Tienes más preguntas?
-              </h2>
-              <p className="mb-6 text-muted-foreground">
-                Nos encantaría hablar sobre cómo N3uralia puede transformar tus procesos.
-              </p>
-              <div className="flex flex-col gap-3 sm:flex-row justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-                >
-                  Solicitar Demo
-                </Link>
-                <Link
-                  href="/living-agents"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-                >
-                  Conocer Living Agents
-                </Link>
+            {/* Footer CTA - More Resources */}
+            <section className="mt-16 border-t border-border pt-16">
+              <div className="rounded-lg bg-muted/50 p-8 text-center">
+                <h2 className="mb-4 text-2xl font-bold text-foreground">
+                  ¿Aún tienes preguntas?
+                </h2>
+                <p className="mb-6 text-muted-foreground">
+                  Explora nuestras <Link href="/capabilities" className="text-primary hover:underline font-medium">
+                  capacidades técnicas
+                  </Link>
+                  , lee sobre nuestra <Link href="/como-trabajamos" className="text-primary hover:underline font-medium">
+                  metodología de implementación
+                  </Link>
+                  , o mira nuestros <Link href="/case-studies" className="text-primary hover:underline font-medium">
+                  casos de estudio reales
+                  </Link>
+                  .
+                </p>
+                <div className="flex flex-col gap-3 sm:flex-row justify-center">
+                  <Link
+                    href="/como-trabajamos"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+                  >
+                    Ver Metodología 5 Fases
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                  >
+                    Hablar con Equipo
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
               </div>
-            </div>
+            </section>
           </div>
         </section>
       </div>
