@@ -114,6 +114,13 @@ export function Navigation() {
                   {navItems.guiasTecnicas}
                 </Link>
                 <Link
+                  href="/faq"
+                  onClick={() => setLearningOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
+                >
+                  FAQ
+                </Link>
+                <Link
                   href="/outcomes"
                   onClick={() => setLearningOpen(false)}
                   className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
@@ -209,6 +216,13 @@ export function Navigation() {
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
                 {navItems.guiasTecnicas}
+              </Link>
+              <Link 
+                href="/faq" 
+                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                FAQ
               </Link>
               <Link 
                 href="/outcomes" 
