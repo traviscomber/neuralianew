@@ -4,11 +4,11 @@ import { Footer } from '@/components/layout/footer'
 import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
-  title: "FAQ N3uralia | Neuralia - Preguntas sobre AI Agents, Sistemas Agenticos Fullstack",
+  title: "FAQ N3uralia | Preguntas sobre Sistemas Agenticos, AI Agents y Arquitectura en Producción",
   description:
-    "Preguntas frecuentes sobre N3uralia (Neuralia): qué son sistemas agenticos, AI agents, living agents, arquitectura fullstack, implementación y integración con tu empresa.",
+    "Preguntas frecuentes: qué son sistemas agenticos, cómo funcionan los agentes IA, living agents, diferencia entre AI agents y automation, integración con sistemas legacy, gobernanza IA, memory management, orquestación multi-agente.",
   keywords:
-    "FAQ n3uralia, neuralia, preguntas, AI agents, agentes IA, sistemas agenticos, living agents, fullstack, implementación",
+    "FAQ sistemas agenticos, preguntas AI agents, agentes inteligentes, living agents, arquitectura IA, automatización empresarial, gobernanza IA, integración legacy, multi-agent systems, Chile, LATAM",
 }
 
 export default function FaqPage() {

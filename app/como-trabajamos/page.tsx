@@ -6,11 +6,11 @@ import { methodologySteps } from "@/app/constants/content"
 import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "Metodología N3uralia | Neuralia - Implementación AI Agents Fullstack - 5 Fases",
+  title: "Metodología N3uralia | 5 Fases para Implementar Sistemas Agenticos en Producción",
   description:
-    "Metodología N3uralia (Neuralia) para implementar sistemas agenticos AI agents. 5 fases: discovery, arquitectura fullstack, implementación, go-live, optimización. Cómo trabajamos con empresas para desplegar n3uralia agents.",
+    "Cómo N3uralia implementa sistemas agenticos. 5 fases: descubrimiento, diseño arquitectónico, implementación, go-live y optimización continua. Metodología probada para desplegar agentes en producción con gobernanza, memoria persistente y escalabilidad.",
   keywords:
-    "metodología N3uralia, neuralia, implementación AI agents, cómo trabajamos, n3uralia agents, agentes n3uralia, AI agents, 5 fases, arquitectura IA, go-live, sistemas agenticos, agentes IA, fullstack implementación",
+    "metodología implementación, sistemas agenticos producción, cómo trabajamos, fases implementación, arquitectura IA, agentes inteligentes, AI agents, go-live, infraestructura cloud, LATAM, Chile",
   alternates: {
     canonical: "https://n3uralia.com/como-trabajamos",
   },

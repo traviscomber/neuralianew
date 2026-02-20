@@ -5,11 +5,11 @@ import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "N3uralia para Startups | Agentes IA sin Complejidad",
+  title: "N3uralia para Startups | Agentes IA Escalables sin Complejidad Enterprise",
   description:
-    "N3uralia para startups: acceso a tecnología de IA avanzada sin la complejidad de enterprise. Automatización, agentes inteligentes, y crecimiento acelerado.",
+    "Acceso a tecnología IA production-ready para startups. Automatización inteligente, agentes 24/7, crecimiento sin costos de equipo. Implementación en días, no meses. Pago por uso, sin contratos anuales.",
   keywords:
-    "IA para startups, agentes IA startups, automatización para startups, N3uralia startups, tech para emprendedores",
+    "IA para startups, agentes IA escalables, automatización startups, N3uralia startups, tech para emprendedores, IA revenue operations, agentes inteligentes, sistemas agenticos, Chile, LATAM",
 }
 
 export default function ParaStartups() {
@@ -126,7 +126,7 @@ export default function ParaStartups() {
             href="/contact"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
           >
-            Ver planes
+            Consultar planes personalizados
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

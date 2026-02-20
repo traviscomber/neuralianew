@@ -5,11 +5,11 @@ import { enterpriseSolutions } from "@/app/constants/content"
 import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-client"
 
 export const metadata: Metadata = {
-  title: "Soluciones N3uralia | B2B Mediano + Turismo + Eventos + Manufactura | AI Agents",
+  title: "Soluciones N3uralia | Sistemas Agenticos por Vertical - B2B, Turismo, Eventos, Manufactura",
   description:
-    "Soluciones de sistemas agenticos por vertical. N3uralia ofrece arquitectura fullstack para: B2B mediano (core), Turismo/Glamping, Eventos Inmersivos, Manufactura. Conversational Intelligence + Revenue Operations + Automation inteligente. Mix estratégico con payback real.",
+    "Soluciones especializadas de sistemas agenticos para cada industria. B2B mediano con revenue operations, Turismo/Glamping con conversational AI, Eventos inmersivos, Manufactura con automatización. Architecture fullstack agnóstica con payback real en 6 meses.",
   keywords:
-    "soluciones, n3uralia, B2B mediano, turismo, eventos, manufactura, conversational intelligence, revenue operations, sistemas agenticos, AI agents, agentes inteligentes, automatización, fullstack",
+    "soluciones IA, sistemas agenticos, B2B mediano Chile, turismo IA, eventos IA, manufactura IA, revenue operations, conversational intelligence, agentes inteligentes, automatización empresarial, LATAM",
   alternates: {
     canonical: "https://n3uralia.com/soluciones",
   },

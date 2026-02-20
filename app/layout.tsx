@@ -41,6 +41,8 @@ export const metadata: Metadata = {
       "en-US": "https://n3uralia.com",
     },
   },
+    generator: 'v0.app'
+},
   openGraph: {
     title: "N3uralia - AI Agents & Sistemas Agenticos en Producción",
     description: "Agentic AI architecture designed for humans. N3uralia agents in production with governance, memory, and orchestration. Multi-agent systems that work with you.",
