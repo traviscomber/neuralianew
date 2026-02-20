@@ -60,18 +60,23 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/coordination" className="hover:text-foreground transition-colors">
-                  Coordinación de Agentes
+                <Link href="/automatizacion-para-empresas" className="hover:text-foreground transition-colors">
+                  Automatización General
                 </Link>
               </li>
               <li>
-                <Link href="/living-agents" className="hover:text-foreground transition-colors">
-                  Living Agents
+                <Link href="/integraciones-empresariales" className="hover:text-foreground transition-colors">
+                  Integraciones Legacy
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-foreground transition-colors">
-                  Servicios
+                <Link href="/automatizacion-ventas-leads" className="hover:text-foreground transition-colors">
+                  Sales & Leads
+                </Link>
+              </li>
+              <li>
+                <Link href="/operaciones-autonomas" className="hover:text-foreground transition-colors">
+                  Operaciones 24/7
                 </Link>
               </li>
             </ul>

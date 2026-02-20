@@ -8,6 +8,7 @@ import { useState } from "react"
 export function Navigation() {
   const [open, setOpen] = useState(false)
   const [learningOpen, setLearningOpen] = useState(false)
+  const [automationOpen, setAutomationOpen] = useState(false)
 
   const navItems = {
     capacidades: "Capacidades",
@@ -43,13 +44,56 @@ export function Navigation() {
             {navItems.capacidades}
           </Link>
           
-          {/* Automation Link */}
-          <Link 
-            href="/automatizacion-para-empresas" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            Automatización
-          </Link>
+          {/* Automation Submenu */}
+          <div className="relative">
+            <button
+              onClick={() => setAutomationOpen(!automationOpen)}
+              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
+              type="button"
+            >
+              Automatización
+              <svg 
+                className={`w-4 h-4 transition-transform duration-200 ${automationOpen ? 'rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </button>
+            {automationOpen && (
+              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                <Link
+                  href="/automatizacion-para-empresas"
+                  onClick={() => setAutomationOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                >
+                  Automatización General
+                </Link>
+                <Link
+                  href="/integraciones-empresariales"
+                  onClick={() => setAutomationOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                >
+                  Integraciones Legacy
+                </Link>
+                <Link
+                  href="/automatizacion-ventas-leads"
+                  onClick={() => setAutomationOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                >
+                  Sales & Leads
+                </Link>
+                <Link
+                  href="/operaciones-autonomas"
+                  onClick={() => setAutomationOpen(false)}
+                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
+                >
+                  Operaciones 24/7
+                </Link>
+              </div>
+            )}
+          </div>
 
           {/* Tier 2: Solutions Direct Link */}
           <Link 
