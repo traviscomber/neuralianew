@@ -1,17 +1,17 @@
 // Core Hero Content
 export const heroContent = {
-  badge: "Automatización Inteligente + Sistemas Agenticos",
+  badge: "Plataforma de Sistemas Agenticos",
   heading: {
-    line1: "Automatiza Operaciones",
-    line2: "O Construye Agentes",
+    line1: "Inteligencia",
+    line2: "En Producción",
   },
-  subheading: "Elige tu camino: Automatización estructural de procesos empresariales (conectar sistemas, eliminar manual, escalar 10x). O sistemas agenticos custom que aprenden y evolucionan. Ambos production-ready desde día uno.",
-  cta1: "Explorar Automatización",
-  cta2: "Ver Sistemas Agenticos",
+  subheading: "Dos caminos, un resultado: Automatización estructural de procesos empresariales (integra sistemas, elimina trabajo manual, escala 10x). O sistemas agenticos custom que aprenden y evolucionan continuamente. Ambos production-ready desde día uno.",
+  cta1: "Automatización Inteligente",
+  cta2: "Sistemas Custom",
   metrics: [
     { value: "60-80%", label: "Reducción Trabajo Manual" },
-    { value: "50+", label: "Equipos Activos" },
-    { value: "99.8%", label: "Uptime" },
+    { value: "50+", label: "Sistemas en Producción" },
+    { value: "99.8%", label: "Uptime Garantizado" },
   ],
 }
 
