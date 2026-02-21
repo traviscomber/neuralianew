@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, Shield, BarChart3, Clock } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: "Integraciones Empresariales N3uralia | Conectar Sistemas Legacy sin Disruption",
@@ -18,8 +17,7 @@ export const metadata: Metadata = {
 export default function IntegracionesPage() {
   return (
     <>
-      <SectionBackground section="solutions">
-        <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background">
           {/* Hero */}
           <section className="py-24 px-4 border-b border-border">
             <div className="max-w-4xl mx-auto text-center">
@@ -173,7 +171,6 @@ export default function IntegracionesPage() {
             </div>
           </section>
         </main>
-      </SectionBackground>
       <Footer />
     </>
   )

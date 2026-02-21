@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, Brain, Moon, BarChart3 } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: "Operaciones Autónomas N3uralia | Procesos 24/7 sin Intervención Humana",
@@ -18,8 +17,7 @@ export const metadata: Metadata = {
 export default function OperacionesAutonomasPage() {
   return (
     <>
-      <SectionBackground section="solutions">
-        <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background">
           {/* Hero */}
           <section className="py-24 px-4 border-b border-border">
             <div className="max-w-4xl mx-auto text-center">
@@ -196,7 +194,6 @@ export default function OperacionesAutonomasPage() {
             </div>
           </section>
         </main>
-      </SectionBackground>
       <Footer />
     </>
   )
