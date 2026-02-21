@@ -29,8 +29,7 @@ export const metadata: Metadata = {
   description:
     "N3uralia: Plataforma de sistemas agenticos production-ready. Inteligencia aumentada que trabaja con humanos, no reemplaza. Arquitectura multi-agente, gobernanza, memoria persistente. Para empresas Chile y LATAM. IA en producción desde día uno.",
   keywords:
-    "sistemas agenticos, IA en producción, agentes inteligentes, automatización empresarial, multi-agent systems, inteligencia aumentada, n3uralia, arquitectura agentica, IA Chile, LATAM, enterprise AI, fullstack AI",
-    "N3uralia, Neuralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, AI agents, fullstack AI, multi-agent systems, IA en producción, arquitectura agentica, living agents, AI augmented, enterprise AI, orchestration, AI fullstack, agentes inteligentes, sistemas AI, Chile, LATAM",
+    "sistemas agenticos, IA en producción, agentes inteligentes, automatización empresarial, multi-agent systems, inteligencia aumentada, n3uralia, arquitectura agentica, IA Chile, LATAM, enterprise AI, fullstack AI, N3uralia, Neuralia, n3uralia agentes, n3uralia agents, agentes IA, AI agents, living agents, AI augmented, orchestration",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
   alternates: {
