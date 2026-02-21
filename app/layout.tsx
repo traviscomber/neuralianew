@@ -25,10 +25,11 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia | Neuralia - Sistemas Agenticos AI Agents en Producción | Fullstack",
+  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile",
   description:
-    "N3uralia (Neuralia): Inteligencia artificial que trabaja con humanos. Sistemas agenticos en producción - n3uralia agentes, n3uralia agents, fullstack AI architecture. Multi-agent orchestration, gobernanza, memoria persistente. Líder en AI enterprise y agentic systems.",
+    "N3uralia: Plataforma de sistemas agenticos production-ready. Inteligencia aumentada que trabaja con humanos, no reemplaza. Arquitectura multi-agente, gobernanza, memoria persistente. Para empresas Chile y LATAM. IA en producción desde día uno.",
   keywords:
+    "sistemas agenticos, IA en producción, agentes inteligentes, automatización empresarial, multi-agent systems, inteligencia aumentada, n3uralia, arquitectura agentica, IA Chile, LATAM, enterprise AI, fullstack AI",
     "N3uralia, Neuralia, n3uralia agentes, n3uralia agents, sistemas agenticos, agentes IA, AI agents, fullstack AI, multi-agent systems, IA en producción, arquitectura agentica, living agents, AI augmented, enterprise AI, orchestration, AI fullstack, agentes inteligentes, sistemas AI, Chile, LATAM",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",

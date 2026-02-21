@@ -5,9 +5,11 @@ import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-p
 import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "Capacidades N3uralia | Neuralia - 6 Pilares Sistemas Agenticos AI Agents",
-  description: "Capacidades técnicas de N3uralia (Neuralia): 6 pilares agenticos, orquestación multi-agente de AI agents, living agents, memoria persistente, integración fullstack. Sistemas agenticos production-grade.",
-  keywords: "n3uralia capacidades, neuralia, capacidades AI, 6 pilares agenticos, orquestación multi-agente, living agents, sistemas AI, architecture agentica, AI agents, memory management, agent governance, fullstack sistemas, agentes inteligentes, n3uralia agents",
+  title: "Capacidades Técnicas N3uralia | 6 Pilares de Sistemas Agenticos",
+  description:
+    "Descubre los 6 pilares técnicos de N3uralia: orquestación multi-agente, memoria persistente, integración de herramientas, loops de retroalimentación, trazabilidad y gobernanza. Arquitectura production-grade para sistemas agenticos.",
+  keywords:
+    "capacidades sistemas agenticos, 6 pilares agenticos, orquestación multi-agente, memoria persistente, living agents, integración herramientas, gobernanza IA, arquitectura agentica, agentes inteligentes, n3uralia",
   alternates: {
     canonical: "https://n3uralia.com/capabilities",
   },

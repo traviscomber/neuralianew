@@ -20,11 +20,11 @@ import {
 } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "N3uralia | Automatización Empresarial + Sistemas Agenticos en Producción",
+  title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
   description:
-    "N3uralia: Automatiza procesos empresariales inteligentemente. Conecta sistemas legacy, elimina trabajo manual, escala sin personal. O construye sistemas agenticos custom fullstack. Para B2B, retail, manufactura. Chile & LATAM.",
+    "N3uralia: Plataforma de sistemas agenticos production-ready. Automatiza procesos empresariales con inteligencia aumentada. Arquitectura agnóstica, gobernanza, memoria persistente. Para B2B, retail, manufactura. Chile & LATAM.",
   keywords:
-    "automatización empresarial, sistemas agenticos, AI agents, automatización procesos, integración sistemas legacy, n3uralia, agentes IA, revenue operations, fullstack AI, IA en producción, architecture agentica, automatización Chile, LATAM",
+    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, multi-agent systems, n3uralia, automatización procesos, IA Chile, LATAM, enterprise AI",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
