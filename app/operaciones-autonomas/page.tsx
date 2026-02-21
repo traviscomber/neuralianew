@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function OperacionesAutonomasPage() {
   return (
     <>
-      <SectionBackground section="operations">
+      <SectionBackground section="solutions">
         <main className="min-h-screen bg-background">
           {/* Hero */}
           <section className="py-24 px-4 border-b border-border">
