@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "What is Agentic AI? | N3uralia Studies",
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
 export default function AgenticAIPage() {
   return (
     <main className="min-h-screen bg-background">
+      <SectionBackground section="blog" className="border-b border-border">
       {/* Header */}
       <section className="pt-32 pb-16 px-4 border-b border-border">
         <div className="max-w-3xl mx-auto">
@@ -42,6 +44,7 @@ export default function AgenticAIPage() {
           </p>
         </div>
       </section>
+      </SectionBackground>
 
       {/* Content */}
       <section className="py-16 px-4">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { ContactPageClient } from "@/components/contact/contact-page-client"
 import { ContactPageFooter } from "@/components/contact/contact-page-footer"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Contacto N3uralia | Neuralia - AI Agents, Sistemas Agenticos Fullstack",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
+      <SectionBackground section="faq">
       <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
         <section className="max-w-3xl mx-auto">
           <div className="text-center mb-16 py-12">
@@ -26,6 +28,7 @@ export default function ContactPage() {
 
         </section>
       </main>
+      </SectionBackground>
 
       <ContactPageFooter />
     </>

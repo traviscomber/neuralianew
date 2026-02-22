@@ -1,5 +1,6 @@
 import { OutcomesPageClient } from "@/components/outcomes/outcomes-page-client"
 import type { Metadata, Viewport } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Resultados N3uralia (Neuralia) | Casos Reales y Transformación de Empresas",
@@ -31,6 +32,7 @@ export default function OutcomesPage() {
   return (
     <>
       <main className="min-h-screen pt-16 bg-background">
+      <SectionBackground section="hero" className="border-b border-border">
       <section className="relative bg-background text-foreground py-32 border-b border-border">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
@@ -40,7 +42,9 @@ export default function OutcomesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="capabilities" className="border-b border-border">
       <section className="py-20 bg-background border-b border-border">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -101,7 +105,9 @@ export default function OutcomesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="solutions" className="border-t border-border">
       <section className="py-24 bg-background border-t border-border">
         <div className="container mx-auto px-4 text-center">
           <h2 className="h1-light mb-6">
@@ -115,6 +121,8 @@ export default function OutcomesPage() {
           </a>
         </div>
       </section>
+      </SectionBackground>
+
       </main>
 
       <OutcomesPageClient />

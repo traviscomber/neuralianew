@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { ArrowRight, Rocket, Brain, DollarSign } from 'lucide-react';
+import { SectionBackground } from '@/components/section-background';
 
 export default function StartupsPage() {
   return (
@@ -30,6 +31,7 @@ export default function StartupsPage() {
       />
 
       <div className="min-h-screen bg-background">
+        <SectionBackground section="solutions" className="border-b border-border">
         {/* Hero Section */}
         <section className="border-b border-border px-4 py-16 sm:py-24">
           <div className="mx-auto max-w-4xl">
@@ -195,7 +197,8 @@ export default function StartupsPage() {
             </Link>
           </div>
         </section>
+        </SectionBackground>
       </div>
     </>
-  );
+  )
 }

@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 
 export default function ParaEmpresas() {
   return (
-    <main className="min-h-screen pt-16 bg-background">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -128,7 +129,8 @@ export default function ParaEmpresas() {
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

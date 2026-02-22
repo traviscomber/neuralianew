@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, BarChart3, Zap, Clock, Building2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Blackswan Facility Core Case Study | N3uralia - Luxury Property Management System",
@@ -28,6 +29,7 @@ export default function BlackswanCaseStudy() {
   return (
     <>
       <main className="min-h-screen bg-background">
+        <SectionBackground section="hero" className="border-b border-border">
         {/* Hero Section */}
         <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-primary/10 to-background">
           <div className="max-w-4xl mx-auto">
@@ -311,6 +313,8 @@ export default function BlackswanCaseStudy() {
             </div>
           </div>
         </section>
+        </SectionBackground>
+
       </main>
 
       <Footer />

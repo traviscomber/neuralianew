@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Orquestación AI Agents en Producción | N3uralia Blog - Neuralia",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function BlogPost() {
   return (
     <>
+      <SectionBackground section="blog">
       <main className="min-h-screen bg-background">
         <article className="max-w-3xl mx-auto py-16 px-4">
           <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
@@ -142,9 +144,10 @@ export default function BlogPost() {
               Comenzar Conversación
             </Link>
           </div>
-        </article>
-      </main>
-
+          </article>
+        </main>
+      </SectionBackground>
+      
       <Footer />
     </>
   )

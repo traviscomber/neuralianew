@@ -69,8 +69,8 @@ const chatResponses = [
   {
     trigger: ["whatsapp", "contacto", "hablar", "llamar", "email", "reunion"],
     responses: [
-      "📱 **¡Hablemos de tu proyecto full stack!**\n\n• **WhatsApp**: +56 9 4094 6660 💬\n• **Email**: info@n3uralia.com 📧\n• **Teléfono**: +56 9 4094 6660 ☎️\n\n🎁 **Consulta técnica GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación completa de arquitectura**\n🏗️ **Propuesta de stack tecnológico**\n\n¿Prefieres WhatsApp para empezar ahora?",
-      "🤝 **Conectemos para crear tu ecosistema tecnológico:**\n\n📞 **Llamada técnica**: +56 9 4094 6660\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: info@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Análisis técnico gratis → 3. Propuesta full stack en 24h\n\n¡Haz clic en WhatsApp para empezar!",
+      "📱 **¡Hablemos de tu proyecto full stack!**\n\n• **WhatsApp**: +56 9 9382 6127 💬\n• **Email**: info@n3uralia.com 📧\n• **Teléfono**: +56 9 9382 6127 ☎️\n\n🎁 **Consulta técnica GRATIS**\n⚡ **Respuesta en menos de 1 hora**\n📋 **Evaluación completa de arquitectura**\n🏗️ **Propuesta de stack tecnológico**\n\n¿Prefieres WhatsApp para empezar ahora?",
+      "🤝 **Conectemos para crear tu ecosistema tecnológico:**\n\n📞 **Llamada técnica**: +56 9 9382 6127\n💬 **WhatsApp Business**: Respuesta inmediata\n📧 **Email profesional**: info@n3uralia.com\n\n✨ **Proceso simple**:\n1. Contactas → 2. Análisis técnico gratis → 3. Propuesta full stack en 24h\n\n¡Haz clic en WhatsApp para empezar!",
     ],
   },
   {

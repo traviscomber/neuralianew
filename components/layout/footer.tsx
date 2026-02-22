@@ -30,6 +30,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/faq" className="hover:text-foreground transition-colors">
+                  FAQ
+                </Link>
+              </li>
+              <li>
                 <Link href="/studies" className="hover:text-foreground transition-colors">
                   Estudios & Base de Conocimiento
                 </Link>
@@ -55,18 +60,23 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/coordination" className="hover:text-foreground transition-colors">
-                  Coordinación de Agentes
+                <Link href="/automatizacion-para-empresas" className="hover:text-foreground transition-colors">
+                  Automatización General
                 </Link>
               </li>
               <li>
-                <Link href="/living-agents" className="hover:text-foreground transition-colors">
-                  Living Agents
+                <Link href="/integraciones-empresariales" className="hover:text-foreground transition-colors">
+                  Integraciones Legacy
                 </Link>
               </li>
               <li>
-                <Link href="/services" className="hover:text-foreground transition-colors">
-                  Servicios
+                <Link href="/automatizacion-ventas-leads" className="hover:text-foreground transition-colors">
+                  Sales & Leads
+                </Link>
+              </li>
+              <li>
+                <Link href="/operaciones-autonomas" className="hover:text-foreground transition-colors">
+                  Operaciones 24/7
                 </Link>
               </li>
             </ul>
@@ -84,12 +94,12 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://wa.me/56994094660?text=Hola%20N3uralia%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
+                  href="https://wa.me/56993826127?text=Hola%20N3uralia%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
-                  WhatsApp: +56 9 4094 6660
+                  WhatsApp: +56 9 9382 6127
                 </a>
               </li>
               <li className="pt-2 border-t border-border">

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ArrowRight } from 'lucide-react';
 
 const faqs = [
   {
@@ -71,95 +71,96 @@ export function FaqPageClient() {
   const [openId, setOpenId] = useState(null);
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqs.map((faq) => ({
-              '@type': 'Question',
-              '@id': `https://n3uralia.com/faq#${faq.id}`,
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
+    <div className="min-h-screen bg-background">
+      {/* Hero Section */}
+      <section className="border-b border-border px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <h1 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
+            Preguntas Frecuentes
+          </h1>
+          <p className="mb-6 text-muted-foreground">
+            Todo lo que necesitas saber sobre{' '}
+            <Link href="/capabilities" className="text-primary hover:underline">
+              nuestras capacidades
+            </Link>
+            , <Link href="/como-trabajamos" className="text-primary hover:underline">
+            metodología
+            </Link>
+            , y cómo <Link href="/soluciones" className="text-primary hover:underline">
+            implementamos soluciones
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
 
-      <div className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="border-b border-border px-4 py-16 sm:py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-4 text-4xl font-bold text-foreground sm:text-5xl">
-              Preguntas Frecuentes
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Todo lo que necesitas saber sobre N3uralia y los Living Agents
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ Content */}
-        <section className="px-4 py-16 sm:py-20">
-          <div className="mx-auto max-w-3xl">
-            <div className="mb-8 space-y-4">
-              {faqs.map((faq) => (
-                <div
-                  key={faq.id}
-                  className="border border-border rounded-lg bg-card transition-all"
+      {/* FAQ Content */}
+      <section className="px-4 py-16 sm:py-20">
+        <div className="mx-auto max-w-3xl">
+          <div className="mb-8 space-y-4">
+            {faqs.map((faq) => (
+              <div
+                key={faq.id}
+                className="border border-border rounded-lg bg-card transition-all"
+              >
+                <button
+                  onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
+                  className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-muted/50 transition-colors"
                 >
-                  <button
-                    onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
-                    className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-muted/50 transition-colors"
-                  >
-                    <h3 className="font-semibold text-foreground pr-4">{faq.question}</h3>
-                    <ChevronDown
-                      className={`h-5 w-5 flex-shrink-0 text-muted-foreground transition-transform ${
-                        openId === faq.id ? 'rotate-180' : ''
-                      }`}
-                    />
-                  </button>
+                  <h3 className="font-semibold text-foreground pr-4">{faq.question}</h3>
+                  <ChevronDown
+                    className={`h-5 w-5 flex-shrink-0 text-muted-foreground transition-transform ${
+                      openId === faq.id ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                {openId === faq.id && (
+                  <div className="border-t border-border px-6 py-4 bg-muted/20">
+                    <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-                  {openId === faq.id && (
-                    <div className="border-t border-border px-6 py-4 bg-muted/30">
-                      <p className="leading-relaxed text-foreground">{faq.answer}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* CTA Section */}
-            <div className="mt-16 rounded-lg border border-border bg-card p-8 text-center">
+          {/* Footer CTA - More Resources */}
+          <section className="mt-16 border-t border-border pt-16">
+            <div className="rounded-lg bg-muted/50 p-8 text-center">
               <h2 className="mb-4 text-2xl font-bold text-foreground">
-                ¿Tienes más preguntas?
+                ¿Aún tienes preguntas?
               </h2>
               <p className="mb-6 text-muted-foreground">
-                Nos encantaría hablar sobre cómo N3uralia puede transformar tus procesos.
+                Explora nuestras <Link href="/capabilities" className="text-primary hover:underline font-medium">
+                capacidades técnicas
+                </Link>
+                , lee sobre nuestra <Link href="/como-trabajamos" className="text-primary hover:underline font-medium">
+                metodología de implementación
+                </Link>
+                , o mira nuestros <Link href="/case-studies" className="text-primary hover:underline font-medium">
+                casos de estudio reales
+                </Link>
+                .
               </p>
               <div className="flex flex-col gap-3 sm:flex-row justify-center">
                 <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                  href="/como-trabajamos"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
                 >
-                  Solicitar Demo
+                  Ver Metodología 5 Fases
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href="/living-agents"
-                  className="inline-flex items-center justify-center px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
                 >
-                  Conocer Living Agents
+                  Hablar con Equipo
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
-          </div>
-        </section>
-      </div>
-    </>
+          </section>
+        </div>
+      </section>
+    </div>
   );
 }

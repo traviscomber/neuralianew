@@ -1,6 +1,7 @@
 "use client"
 import { Users, CheckCircle2, Zap, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
 
 const features = [
   {
@@ -48,6 +49,7 @@ export default function CoordinationPage() {
   return (
     <>
       <main className="min-h-screen pt-16 bg-background">
+        <SectionBackground section="workflow" className="border-b border-border">
         {/* Hero Section */}
         <section className="py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 text-center">
@@ -66,7 +68,9 @@ export default function CoordinationPage() {
             </p>
           </div>
         </section>
+        </SectionBackground>
 
+        <SectionBackground section="capabilities" className="border-b border-border">
         {/* Features Grid */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
@@ -108,6 +112,7 @@ export default function CoordinationPage() {
             </div>
           </div>
         </section>
+        </SectionBackground>
 
         {/* CTA Section */}
         <section className="py-24 bg-background border-t border-border">

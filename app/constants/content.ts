@@ -1,17 +1,17 @@
 // Core Hero Content
 export const heroContent = {
-  badge: "Inteligencia Aumentada, No Reemplazo",
+  badge: "Sistemas Agenticos Listos para Producción",
   heading: {
-    line1: "Inteligencia Aumentada",
-    line2: "No Artificial",
+    line1: "Automatiza Procesos",
+    line2: "O Construye Inteligencia",
   },
-  subheading: "Sistemas agenticos que expanden capacidades humanas, no las reemplazan. Orquestación multi-agente, memoria persistente, autonomía guiada. Listo para producción desde el primer día.",
-  cta1: "Explorar Sistemas",
-  cta2: "Ver Capacidades",
+  subheading: "Automatización estructural de procesos complejos conectando sistemas heredados. O arquitectura agentica personalizada que aprende y evoluciona. En ambos casos: listos para producción desde el primer día, ROI demostrable en 6 meses.",
+  cta1: "Automatización Empresarial",
+  cta2: "Sistemas Agenticos",
   metrics: [
-    { value: "6", label: "Pilares de Ingeniería" },
-    { value: "50+", label: "Equipos Activos" },
-    { value: "99.8%", label: "Uptime" },
+    { value: "60-80%", label: "Reducción Trabajo Manual" },
+    { value: "50+", label: "Sistemas en Operación" },
+    { value: "99.8%", label: "Uptime Garantizado" },
   ],
 }
 
@@ -20,7 +20,7 @@ export const corePillars = [
   {
     icon: "Lightbulb",
     title: "Ingeniería Real, No Prototipos",
-    description: "Construimos sistemas production-grade desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
+    description: "Construimos sistemas listos para producción desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
   },
   {
     icon: "Zap",
@@ -69,7 +69,7 @@ export const methodologySteps = [
     num: "03",
     title: "Infraestructura Cloud",
     desc: "Setup, configuración, security, escalabilidad. Todo monitoreado.",
-    fullDesc: "No solo código—también el lugar donde vive. Setup cloud completo, security by design, autoscaling, monitoring. Everything production-ready desde el primer deploy.",
+    fullDesc: "No solo código—también el lugar donde vive. Infraestructura cloud completa, seguridad desde el inicio, escalado automático, monitoreo. Todo listo para producción desde el primer despliegue.",
     details: [
       "Infraestructura cloud escalable",
       "Seguridad y compliance",
@@ -241,5 +241,5 @@ export const callsToAction = [
 export const contactMessages = {
   botGreeting: "Hola 👋 Soy el asistente de N3uralia. ¿Cuál es tu nombre?",
   finalMessage: (name: string, email: string, whatsapp: string) => 
-    `✅ Mensaje enviado correctamente, ${name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/${whatsapp}`,
+    `✅ Mensaje enviado correctamente, ${name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/56993826127`,
 }

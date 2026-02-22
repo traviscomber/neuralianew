@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, Brain, Database, Zap, Layers, Lightbulb } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Estudios N3uralia (Neuralia) | Base de Conocimiento de IA y Sistemas Inteligentes",
@@ -68,6 +69,7 @@ const studies = [
 export default function StudiesPage() {
   return (
     <main className="min-h-screen bg-background">
+      <SectionBackground section="hero">
       {/* Hero */}
       <section className="pt-40 pb-20 px-4 border-b border-border">
         <div className="max-w-4xl mx-auto">
@@ -85,7 +87,9 @@ export default function StudiesPage() {
           </p>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="capabilities">
       {/* Studies Grid */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
@@ -112,9 +116,11 @@ export default function StudiesPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      <SectionBackground section="blog">
       {/* Related Concept Note */}
-      <section className="py-16 px-4 border-t border-border bg-primary/5">
+      <section className="py-16 px-4 border-t border-border">
         <div className="max-w-3xl mx-auto text-center">
           <p className="body text-muted-foreground mb-6">
             Estos conceptos forman la base de la arquitectura de N3uralia. Cada uno es fundamental para entender cómo
@@ -129,6 +135,7 @@ export default function StudiesPage() {
           </p>
         </div>
       </section>
+      </SectionBackground>
 
       <Footer />
     </main>

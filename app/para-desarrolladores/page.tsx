@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 
 export default function ParaDesarrolladores() {
   return (
-    <main className="min-h-screen pt-16 bg-background">
+    <>
+      <main className="min-h-screen pt-16 bg-background">
       {/* Hero */}
       <section className="py-20 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl text-center">
@@ -40,8 +41,7 @@ export default function ParaDesarrolladores() {
           </div>
         </div>
       </section>
-
-      {/* Developer Experience */}
+      {/* Developer Experience First */}
       <section className="py-24 bg-background border-b border-border px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="h2 text-foreground mb-12 text-center">Developer Experience First</h2>
@@ -152,7 +152,8 @@ console.log(response.message)
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

@@ -3,13 +3,14 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
+import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "Metodología N3uralia | Neuralia - Implementación AI Agents Fullstack - 5 Fases",
+  title: "Metodología N3uralia | 5 Fases para Implementar Sistemas Agenticos en Producción",
   description:
-    "Metodología N3uralia (Neuralia) para implementar sistemas agenticos AI agents. 5 fases: discovery, arquitectura fullstack, implementación, go-live, optimización. Cómo trabajamos con empresas para desplegar n3uralia agents.",
+    "Cómo N3uralia implementa sistemas agenticos. 5 fases: descubrimiento, diseño arquitectónico, implementación, go-live y optimización continua. Metodología probada para desplegar agentes en producción con gobernanza, memoria persistente y escalabilidad.",
   keywords:
-    "metodología N3uralia, neuralia, implementación AI agents, cómo trabajamos, n3uralia agents, agentes n3uralia, AI agents, 5 fases, arquitectura IA, go-live, sistemas agenticos, agentes IA, fullstack implementación",
+    "metodología implementación, sistemas agenticos producción, cómo trabajamos, fases implementación, arquitectura IA, agentes inteligentes, AI agents, go-live, infraestructura cloud, LATAM, Chile",
   alternates: {
     canonical: "https://n3uralia.com/como-trabajamos",
   },
@@ -34,7 +35,9 @@ export default function ComoTrabajamosPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-background pt-20">
+    <>
+      <main className="min-h-screen bg-background pt-20">
+      <SectionBackground section="workflow" className="border-b border-border">
       {/* Hero */}
       <section className="min-h-[50vh] flex items-center justify-center pt-20 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center w-full">
@@ -87,9 +90,10 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
       {/* Timeline View */}
-      <section className="py-24 bg-muted/30 border-t border-border px-4">
+      <section className="py-24 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Timeline Típico</h2>
@@ -117,6 +121,7 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
 
+      <SectionBackground section="blog">
       {/* Services Offered */}
       <section className="py-24 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
@@ -135,14 +140,16 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
-      {/* Commitment & Guarantees */}
+      <SectionBackground section="solutions" className="border-t border-border">
+      {/* Commitment Section */}
       <section className="py-24 bg-muted/30 border-t border-border px-4">
-        <div className="container mx-auto max-w-4xl">
+        <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Compromiso</h2>
-            <p className="body text-muted-foreground">
-              No es solo una metodología. Es un compromiso con tu éxito.
+            <p className="body text-muted-foreground max-w-2xl mx-auto">
+              6 principios que guían cada proyecto
             </p>
           </div>
 
@@ -181,8 +188,10 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
-      {/* Final CTA */}
+      <SectionBackground section="hero" className="border-t border-border">
+      {/* CTA */}
       <section className="py-20 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-foreground mb-6">
@@ -208,8 +217,10 @@ export default function ComoTrabajamosPage() {
           </div>
         </div>
       </section>
+      </SectionBackground>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }

@@ -12,13 +12,19 @@ import {
   callsToAction,
 } from "@/app/constants/content"
 import { HomePageClient } from "@/components/home/home-page-client"
+import {
+  HeroBackground,
+  CapabilitiesBackground,
+  SolutionsBackground,
+  WorkflowBackground,
+} from "@/components/section-background"
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - Revenue + Operations + Agents",
+  title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
   description:
-    "N3uralia: Plataforma de sistemas agenticos fullstack para B2B mediano, turismo, eventos, manufactura. Conversational Intelligence Systems + Living Agents + Operaciones inteligentes en producción. Revenue attribution real, arquitectura agnóstica, integración legacy-ready.",
+    "N3uralia: Plataforma de sistemas agenticos listos para producción. Automatiza procesos empresariales con inteligencia aumentada. Arquitectura agnóstica, gobernanza, memoria persistente. Para B2B, retail, manufactura. Chile y LATAM.",
   keywords:
-    "n3uralia, sistemas agenticos, AI agents, conversational intelligence, B2B, turismo, eventos, agentes IA, revenue operations, fullstack AI, IA en producción, architecture agentica, multi-agent systems, n3uralia agentes, agentes inteligentes, Chile, LATAM",
+    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia, automatización procesos, IA Chile, LATAM, empresa AI",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
@@ -29,13 +35,13 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "N3uralia - AI Agents in Production | Sistemas Agenticos",
-    description: "Agentic AI architecture that works with humans. Multi-agent systems in production (n3uralia agents / n3uralia agentes) with governance, memory, and orchestration.",
+    title: "N3uralia - Automatización Empresarial y Sistemas Agenticos en Producción",
+    description: "Automatización estructural más sistemas agenticos. N3uralia orquesta tus procesos empresariales con inteligencia.",
     type: "website",
     locale: "es_CL",
     localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
-    siteName: "N3uralia | Neuralia",
+    siteName: "N3uralia",
   },
 }
 
@@ -54,9 +60,10 @@ export default function HomePage() {
   return (
     <>
       <main className="min-h-screen bg-background">
-      {/* 1. HERO Section */}
-      <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-        <div className="max-w-5xl mx-auto text-center w-full">
+        {/* 1. HERO Section */}
+        <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+          <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
+            <div className="max-w-5xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{heroContent.badge}</span>
@@ -74,7 +81,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
             <Link
-              href="/contact"
+              href="/automatizacion-para-empresas"
               className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
             >
               {heroContent.cta1}
@@ -98,9 +105,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </HeroBackground>
 
       {/* 2. CORE PILLARS Section */}
-      <section className="py-20 px-4 bg-background border-t border-border">
+      <CapabilitiesBackground className="py-20 px-4 border-t border-border">
+        <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Por Qué N3uralia</h2>
@@ -123,9 +132,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </CapabilitiesBackground>
 
       {/* 3. METHODOLOGY Section */}
-      <section className="py-20 px-4 bg-muted/30 border-t border-border">
+      <WorkflowBackground className="py-20 px-4 border-t border-border">
+        <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Enfoque</h2>
@@ -152,42 +163,45 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </WorkflowBackground>
 
       {/* 4. PHILOSOPHY Section */}
-      <section className="py-20 bg-muted/30 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left: Tools vs Architecture */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.leftTitle}</h2>
-              <div className="space-y-4">
-                {toolsVsArchitecture.comparison.map((item, i) => (
-                  <div key={i} className="pb-4 border-b border-border/30">
-                    <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
-                    <p className="text-foreground">{item.description}</p>
-                  </div>
-                ))}
+      <SolutionsBackground className="py-20 px-4 border-t border-border">
+        <section className="py-20 px-4 border-t border-border">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              {/* Left: Tools vs Architecture */}
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.leftTitle}</h2>
+                <div className="space-y-4">
+                  {toolsVsArchitecture.comparison.map((item, i) => (
+                    <div key={i} className="pb-4 border-b border-border/30">
+                      <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
+                      <p className="text-foreground">{item.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: Our Beliefs */}
+              <div>
+                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.rightTitle}</h2>
+                <ul className="space-y-3">
+                  {toolsVsArchitecture.beliefs.map((belief, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="text-primary font-bold text-lg">{belief.num}</span>
+                      <div>
+                        <p className="font-semibold text-foreground text-sm">{belief.title}</p>
+                        <p className="text-muted-foreground text-sm">{belief.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-
-            {/* Right: Our Beliefs */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.rightTitle}</h2>
-              <ul className="space-y-3">
-                {toolsVsArchitecture.beliefs.map((belief, i) => (
-                  <li key={i} className="flex gap-3">
-                    <span className="text-primary font-bold text-lg">{belief.num}</span>
-                    <div>
-                      <p className="font-semibold text-foreground text-sm">{belief.title}</p>
-                      <p className="text-muted-foreground text-sm">{belief.description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SolutionsBackground>
 
       {/* 5. CORE OFFERINGS Section */}
       <section className="py-24 bg-background border-t border-border px-4">

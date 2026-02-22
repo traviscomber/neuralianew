@@ -2,7 +2,8 @@ import { VibeAnalyticsDashboard } from "@/components/vibe-selling/vibe-analytics
 
 export default function ViebeSellingPage() {
   return (
-    <main className="min-h-screen pt-32 pb-20 px-4">
+    <>
+      <main className="min-h-screen pt-32 pb-20 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Vibe Selling Dashboard</h1>
@@ -148,6 +149,7 @@ export default function ViebeSellingPage() {
           </a>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   )
 }

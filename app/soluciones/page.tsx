@@ -5,11 +5,11 @@ import { enterpriseSolutions } from "@/app/constants/content"
 import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-client"
 
 export const metadata: Metadata = {
-  title: "Soluciones N3uralia | B2B Mediano + Turismo + Eventos + Manufactura | AI Agents",
+  title: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura",
   description:
-    "Soluciones de sistemas agenticos por vertical. N3uralia ofrece arquitectura fullstack para: B2B mediano (core), Turismo/Glamping, Eventos Inmersivos, Manufactura. Conversational Intelligence + Revenue Operations + Automation inteligente. Mix estratégico con payback real.",
+    "Soluciones especializadas de sistemas agenticos para cada industria. B2B: operaciones de ingresos. Turismo: inteligencia conversacional. Eventos: automatización inmersiva. Manufactura: procesos autónomos. Listo para producción, recuperación en 6 meses.",
   keywords:
-    "soluciones, n3uralia, B2B mediano, turismo, eventos, manufactura, conversational intelligence, revenue operations, sistemas agenticos, AI agents, agentes inteligentes, automatización, fullstack",
+    "sistemas agenticos soluciones, B2B automatización, turismo IA, eventos inteligentes, manufactura automatizada, operaciones de ingresos, inteligencia conversacional, agentes inteligentes, n3uralia",
   alternates: {
     canonical: "https://n3uralia.com/soluciones",
   },
@@ -20,7 +20,7 @@ export default function SolucionesPage() {
     <>
       <main className="min-h-screen bg-background pt-20">
         {/* Hero */}
-        <section className="py-20 bg-background border-b border-border px-4">
+        <section className="py-20 bg-background px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />

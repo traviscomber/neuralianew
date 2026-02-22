@@ -86,7 +86,8 @@ export default function EnfoquePage() {
   ]
 
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <main className="min-h-screen bg-background">
       {/* Hero */}
       <section className="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center w-full">
@@ -144,7 +145,7 @@ export default function EnfoquePage() {
       </section>
 
       {/* Timeline visual */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-muted/30 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center">El Viaje Completo</h2>
 
@@ -178,7 +179,7 @@ export default function EnfoquePage() {
       </section>
 
       {/* Services offered */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 border-t border-border">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold mb-4 text-center">Lo Que Hacemos</h2>
           <p className="text-center text-muted-foreground mb-12">
@@ -200,7 +201,7 @@ export default function EnfoquePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-muted/30 border-t border-border">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">¿Listo para Empezar?</h2>
           <p className="text-lg text-muted-foreground mb-8">
@@ -217,7 +218,8 @@ export default function EnfoquePage() {
         </div>
       </section>
 
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
