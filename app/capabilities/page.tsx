@@ -7,9 +7,9 @@ import { SectionBackground } from "@/components/section-background"
 export const metadata: Metadata = {
   title: "Capacidades Técnicas N3uralia | 6 Pilares de Sistemas Agenticos",
   description:
-    "Descubre los 6 pilares técnicos de N3uralia: orquestación multi-agente, memoria persistente, integración de herramientas, loops de retroalimentación, trazabilidad y gobernanza. Arquitectura production-grade para sistemas agenticos.",
+    "Descubre los 6 pilares técnicos de N3uralia: orquestación multiagente, memoria persistente, integración de herramientas, ciclos de retroalimentación, trazabilidad y gobernanza. Arquitectura lista para producción.",
   keywords:
-    "capacidades sistemas agenticos, 6 pilares agenticos, orquestación multi-agente, memoria persistente, living agents, integración herramientas, gobernanza IA, arquitectura agentica, agentes inteligentes, n3uralia",
+    "capacidades sistemas agenticos, 6 pilares agenticos, orquestación multiagente, memoria persistente, agentes inteligentes, integración herramientas, gobernanza IA, arquitectura agentica, n3uralia",
   alternates: {
     canonical: "https://n3uralia.com/capabilities",
   },

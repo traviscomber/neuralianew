@@ -5,7 +5,7 @@ export const heroContent = {
     line1: "Inteligencia",
     line2: "En Producción",
   },
-  subheading: "Dos caminos, un resultado: Automatización estructural de procesos empresariales (integra sistemas, elimina trabajo manual, escala 10x). O sistemas agenticos custom que aprenden y evolucionan continuamente. Ambos production-ready desde día uno.",
+  subheading: "Dos caminos, un resultado: Automatización estructural de procesos empresariales (integra sistemas, elimina trabajo manual, escala 10x). O sistemas agenticos personalizados que aprenden y evolucionan continuamente. Ambos listos para producción desde día uno.",
   cta1: "Automatización Inteligente",
   cta2: "Sistemas Custom",
   metrics: [
@@ -20,7 +20,7 @@ export const corePillars = [
   {
     icon: "Lightbulb",
     title: "Ingeniería Real, No Prototipos",
-    description: "Construimos sistemas production-grade desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
+    description: "Construimos sistemas listos para producción desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
   },
   {
     icon: "Zap",
@@ -69,7 +69,7 @@ export const methodologySteps = [
     num: "03",
     title: "Infraestructura Cloud",
     desc: "Setup, configuración, security, escalabilidad. Todo monitoreado.",
-    fullDesc: "No solo código—también el lugar donde vive. Setup cloud completo, security by design, autoscaling, monitoring. Everything production-ready desde el primer deploy.",
+    fullDesc: "No solo código—también el lugar donde vive. Infraestructura cloud completa, seguridad desde el inicio, escalado automático, monitoreo. Todo listo para producción desde el primer despliegue.",
     details: [
       "Infraestructura cloud escalable",
       "Seguridad y compliance",

@@ -7,9 +7,9 @@ import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-cl
 export const metadata: Metadata = {
   title: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura",
   description:
-    "Soluciones especializadas de sistemas agenticos para cada industria. B2B: revenue operations. Turismo: conversational AI. Eventos: automatización inmersiva. Manufactura: procesos autónomos. Production-ready, payback en 6 meses.",
+    "Soluciones especializadas de sistemas agenticos para cada industria. B2B: operaciones de ingresos. Turismo: inteligencia conversacional. Eventos: automatización inmersiva. Manufactura: procesos autónomos. Listo para producción, recuperación en 6 meses.",
   keywords:
-    "sistemas agenticos soluciones, B2B automatización, turismo IA, eventos inteligentes, manufactura automatizada, revenue operations, conversational intelligence, agentes inteligentes, n3uralia soluciones",
+    "sistemas agenticos soluciones, B2B automatización, turismo IA, eventos inteligentes, manufactura automatizada, operaciones de ingresos, inteligencia conversacional, agentes inteligentes, n3uralia",
   alternates: {
     canonical: "https://n3uralia.com/soluciones",
   },

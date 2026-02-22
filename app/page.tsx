@@ -22,9 +22,9 @@ import {
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
   description:
-    "N3uralia: Plataforma de sistemas agenticos production-ready. Automatiza procesos empresariales con inteligencia aumentada. Arquitectura agnóstica, gobernanza, memoria persistente. Para B2B, retail, manufactura. Chile & LATAM.",
+    "N3uralia: Plataforma de sistemas agenticos listos para producción. Automatiza procesos empresariales con inteligencia aumentada. Arquitectura agnóstica, gobernanza, memoria persistente. Para B2B, retail, manufactura. Chile y LATAM.",
   keywords:
-    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, multi-agent systems, n3uralia, automatización procesos, IA Chile, LATAM, enterprise AI",
+    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia, automatización procesos, IA Chile, LATAM, empresa AI",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "N3uralia - Automatización Empresarial & AI Agents | Sistemas en Producción",
-    description: "Automatización estructural + sistemas agenticos. N3uralia orquesta tus procesos empresariales con inteligencia.",
+    title: "N3uralia - Automatización Empresarial y Sistemas Agenticos en Producción",
+    description: "Automatización estructural más sistemas agenticos. N3uralia orquesta tus procesos empresariales con inteligencia.",
     type: "website",
     locale: "es_CL",
     localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
-    siteName: "N3uralia | Neuralia",
+    siteName: "N3uralia",
   },
 }
 
