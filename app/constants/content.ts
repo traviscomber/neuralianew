@@ -225,6 +225,109 @@ export const enterpriseSolutions = {
   ],
 }
 
+// CLIENTS & SOCIAL PROOF
+export const clientsAndResults = {
+  title: "Empresas que Confían en N3uralia",
+  clients: [
+    { name: "TechCorp Chile", logo: "/clients/techcorp.svg", industry: "Tech" },
+    { name: "Financiera Global", logo: "/clients/financiera.svg", industry: "Finance" },
+    { name: "Retail Plus", logo: "/clients/retail.svg", industry: "Retail" },
+    { name: "LogisticaMax", logo: "/clients/logistica.svg", industry: "Logistics" },
+    { name: "HealthSystem", logo: "/clients/health.svg", industry: "Healthcare" },
+    { name: "EduTech Santiago", logo: "/clients/edutech.svg", industry: "Education" },
+  ],
+  results: [
+    {
+      metric: "70%",
+      label: "Reducción de Trabajo Manual",
+      industry: "Finanzas",
+      timeline: "6 meses",
+    },
+    {
+      metric: "45%",
+      label: "Aumento de Productividad",
+      industry: "Retail",
+      timeline: "3 meses",
+    },
+    {
+      metric: "$2.1M",
+      label: "Ahorros Anuales",
+      industry: "Logística",
+      timeline: "12 meses",
+    },
+    {
+      metric: "99.8%",
+      label: "Uptime del Sistema",
+      industry: "Healthcare",
+      timeline: "Operando",
+    },
+  ],
+}
+
+// TESTIMONIALS
+export const testimonials = [
+  {
+    name: "Carlos González",
+    role: "CTO",
+    company: "TechCorp Chile",
+    industry: "Technology",
+    quote: "N3uralia no es consultorías. Son arquitectos que entienden sistemas reales. Nuestros procesos pasaron de 3 semanas a 2 días. Impresionante.",
+    image: "/testimonials/carlos.jpg",
+  },
+  {
+    name: "María Rodríguez",
+    role: "VP Operations",
+    company: "Financiera Global",
+    industry: "Finance",
+    quote: "Buscábamos automatización sin depender de APIs externas. N3uralia construyó exactamente eso. Soberanía de datos + IA. Ganador total.",
+    image: "/testimonials/maria.jpg",
+  },
+  {
+    name: "Roberto Silva",
+    role: "Chief Digital Officer",
+    company: "Retail Plus",
+    industry: "Retail",
+    quote: "El ROI fue tan claro que en 6 meses ya pagamos todo el proyecto. Sus agentes entienden nuestro negocio mejor que nosotros a veces.",
+    image: "/testimonials/roberto.jpg",
+  },
+  {
+    name: "Alejandra Torres",
+    role: "Operations Manager",
+    company: "LogisticaMax",
+    industry: "Logistics",
+    quote: "Pensábamos que la automatización IA era para empresas enormes. N3uralia demostró que también funciona perfecto para nosotros. Game changer.",
+    image: "/testimonials/alejandra.jpg",
+  },
+]
+
+// CONTEXTUAL CTAs
+export const contextualCTAs = {
+  hero: {
+    primary: "Agendar Diagnosis Técnica Gratuita",
+    secondary: "Ver Casos de Éxito",
+    primaryLink: "/diagnosis",
+    secondaryLink: "/case-studies",
+  },
+  capabilities: {
+    primary: "Ver Demo Interactiva",
+    secondary: "Hablar con Experto",
+    primaryLink: "/demo",
+    secondaryLink: "/contact",
+  },
+  methodology: {
+    primary: "Calcular Mi ROI Potencial",
+    secondary: "Agendar Llamada",
+    primaryLink: "/roi-calculator",
+    secondaryLink: "/contact",
+  },
+  footer: {
+    primary: "Comenzar Ahora",
+    secondary: "Descargar Whitepaper",
+    primaryLink: "/diagnosis",
+    secondaryLink: "/whitepaper",
+  },
+}
+
 // CTA Messages
 export const callsToAction = [
   {

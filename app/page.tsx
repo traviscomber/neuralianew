@@ -10,10 +10,14 @@ import {
   whatWeBuild,
   whatIsN3uralia,
   callsToAction,
+  contextualCTAs,
 } from "@/app/constants/content"
 import { HomePageClient } from "@/components/home/home-page-client"
 import { ValueProposition } from "@/components/home/value-proposition"
 import { CTAButton, CTAGroup } from "@/components/cta-button"
+import { ClientsSection } from "@/components/home/clients-section"
+import { TestimonialsSection } from "@/components/home/testimonials-section"
+import { ContextualCTA } from "@/components/contextual-cta"
 import {
   HeroBackground,
   CapabilitiesBackground,
@@ -82,15 +86,12 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
-            <CTAButton 
-              href="/automatizacion-para-empresas"
-              label={heroContent.cta1}
-              variant="primary"
-            />
-            <CTAButton 
-              href="/capabilities"
-              label={heroContent.cta2}
-              variant="secondary"
+            <ContextualCTA 
+              primary={contextualCTAs.hero.primary}
+              secondary={contextualCTAs.hero.secondary}
+              primaryLink={contextualCTAs.hero.primaryLink}
+              secondaryLink={contextualCTAs.hero.secondaryLink}
+              context="hero"
             />
           </div>
 
@@ -108,6 +109,9 @@ export default function HomePage() {
 
       {/* NEW: VALUE PROPOSITION Section */}
       <ValueProposition />
+
+      {/* NEW: CLIENTS & RESULTS Section */}
+      <ClientsSection />
 
       {/* 2. CORE PILLARS Section */}
       <CapabilitiesBackground className="py-20 px-4 border-t border-border">
@@ -147,10 +151,12 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
             </p>
-            <CTAButton 
-              href="/como-trabajamos"
-              label="Ver Metodología Completa"
-              variant="tertiary"
+            <ContextualCTA 
+              primary={contextualCTAs.methodology.primary}
+              secondary={contextualCTAs.methodology.secondary}
+              primaryLink={contextualCTAs.methodology.primaryLink}
+              secondaryLink={contextualCTAs.methodology.secondaryLink}
+              context="methodology"
             />
           </div>
 
@@ -293,24 +299,22 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* CTA Section */}
+      {/* NEW: TESTIMONIALS Section */}
+      <TestimonialsSection />
+
+      {/* CTA Section */}
           <div className="text-center py-12 border-t border-border">
             <h2 className="text-3xl font-bold text-foreground mb-6">¿Listo para Construir Diferente?</h2>
             <p className="body text-muted-foreground mb-10">
               Explora nuestras capacidades técnicas o contacta directamente para ver cómo podemos ayudarte.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTAButton 
-                href="/capabilities"
-                label="Ver 6 Pilares"
-                variant="secondary"
-              />
-              <CTAButton 
-                href="/contact"
-                label="Contactar"
-                variant="primary"
-              />
-            </div>
+            <ContextualCTA 
+              primary={contextualCTAs.footer.primary}
+              secondary={contextualCTAs.footer.secondary}
+              primaryLink={contextualCTAs.footer.primaryLink}
+              secondaryLink={contextualCTAs.footer.secondaryLink}
+              context="footer"
+            />
           </div>
         </div>
       </section>
