@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Badge } from "@/components/ui/badge"
 import { Bot, Workflow, Building2 } from "lucide-react"
+import { CTAButton } from "@/components/cta-button"
 
 export const metadata: Metadata = {
   title: "Servicios N3uralia (Neuralia) | Agentes IA, Automatización, Full-Stack",
@@ -196,9 +197,11 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-foreground mb-6">¿Listo para comenzar?</h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">Hablemos sobre tu caso específico. Sin presión, sin BS.</p>
-          <a href="/contact" className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            Contactar Equipo
-          </a>
+          <CTAButton 
+            href="/contact" 
+            label="Contactar Equipo"
+            variant="primary"
+          />
         </div>
       </section>
       </div>

@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/layout/footer"
+import { CTAButton } from "@/components/cta-button"
 
 export default function CaseStudiesPage() {
   const caseStudies = [
@@ -175,10 +176,13 @@ export default function CaseStudiesPage() {
                         </div>
 
                         {/* CTA */}
-                        <Button className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                          Leer Caso Completo
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
+                        <div className="w-full">
+                          <CTAButton 
+                            href={study.href}
+                            label="Leer Caso Completo"
+                            variant="primary"
+                          />
+                        </div>
                       </CardContent>
                     </Card>
                   </Link>
@@ -198,19 +202,16 @@ export default function CaseStudiesPage() {
               Empresas de todas las industrias están transformando sus operaciones con N3uralia. Hablemos sobre tu visión.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
+              <CTAButton 
                 href="/capabilities"
-                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors text-center"
-              >
-                Ver Soluciones
-              </Link>
-              <Link
+                label="Ver Soluciones"
+                variant="secondary"
+              />
+              <CTAButton 
                 href="/contact"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-              >
-                Agendar Demo
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Agendar Demo"
+                variant="primary"
+              />
             </div>
           </div>
         </section>

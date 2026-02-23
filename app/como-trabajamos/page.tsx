@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
 import { SectionBackground } from "@/components/section-background"
+import { CTAButton } from "@/components/cta-button"
 
 export const metadata: Metadata = {
   title: "Metodología N3uralia | 5 Fases para Implementar Sistemas Agenticos en Producción",
@@ -201,19 +202,16 @@ export default function ComoTrabajamosPage() {
             El primer paso es una conversación. Sin compromisos. Solo una charla clara sobre tus objetivos y cómo podemos ayudarte.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
+            <CTAButton 
               href="/soluciones"
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
-            >
-              Ver Soluciones
-            </Link>
-            <Link
+              label="Ver Soluciones"
+              variant="secondary"
+            />
+            <CTAButton 
               href="/contact"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-            >
-              Agendar Llamada
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              label="Agendar Llamada"
+              variant="primary"
+            />
           </div>
         </div>
       </section>
