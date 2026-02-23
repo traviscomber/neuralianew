@@ -12,6 +12,8 @@ import {
   callsToAction,
 } from "@/app/constants/content"
 import { HomePageClient } from "@/components/home/home-page-client"
+import { ValueProposition } from "@/components/home/value-proposition"
+import { CTAButton, CTAGroup } from "@/components/cta-button"
 import {
   HeroBackground,
   CapabilitiesBackground,
@@ -80,19 +82,16 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
-            <Link
+            <CTAButton 
               href="/automatizacion-para-empresas"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-            >
-              {heroContent.cta1}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
+              label={heroContent.cta1}
+              variant="primary"
+            />
+            <CTAButton 
               href="/capabilities"
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
-            >
-              {heroContent.cta2}
-            </Link>
+              label={heroContent.cta2}
+              variant="secondary"
+            />
           </div>
 
           <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
@@ -106,6 +105,9 @@ export default function HomePage() {
         </div>
       </section>
       </HeroBackground>
+
+      {/* NEW: VALUE PROPOSITION Section */}
+      <ValueProposition />
 
       {/* 2. CORE PILLARS Section */}
       <CapabilitiesBackground className="py-20 px-4 border-t border-border">
@@ -122,10 +124,12 @@ export default function HomePage() {
             {corePillars.map((pillar, i) => {
               const Icon = iconMap[pillar.icon]
               return (
-                <div key={i} className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-                  <Icon className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
+                <div key={i} className="p-8 rounded-lg border border-border/60 bg-card hover:border-primary/40 hover:bg-primary/2 transition-all duration-300 group">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-3 text-foreground group-hover:text-primary transition-colors">{pillar.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-sm">{pillar.description}</p>
                 </div>
               )
             })}
@@ -143,20 +147,18 @@ export default function HomePage() {
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
               Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
             </p>
-            <Link
+            <CTAButton 
               href="/como-trabajamos"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
-            >
-              Ver Metodología Completa
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+              label="Ver Metodología Completa"
+              variant="tertiary"
+            />
           </div>
 
           <div className="grid md:grid-cols-5 gap-4">
             {methodologySteps.map((step, i) => (
-              <div key={i} className="flex flex-col p-6 rounded-lg border border-border/50 bg-background hover:border-primary/30 transition-colors">
-                <div className="text-2xl font-bold text-primary mb-3">{step.num}</div>
-                <h3 className="font-semibold text-sm mb-2 text-foreground leading-snug">{step.title}</h3>
+              <div key={i} className="flex flex-col p-6 rounded-lg border border-border/50 bg-background hover:border-primary/40 hover:bg-primary/3 transition-all duration-300 group">
+                <div className="text-3xl font-bold text-primary mb-3 group-hover:scale-110 transition-transform">{step.num}</div>
+                <h3 className="font-semibold text-sm mb-2 text-foreground leading-snug group-hover:text-primary transition-colors">{step.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
               </div>
             ))}
@@ -230,7 +232,12 @@ export default function HomePage() {
                     </h3>
                     <p className="body text-muted-foreground mb-6 leading-relaxed">{offering.description}</p>
                     <div className="flex items-center gap-2 text-primary font-semibold text-sm">
-                      {offering.linkText} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <CTAButton 
+                        href={offering.link}
+                        label={offering.linkText}
+                        variant="tertiary"
+                        icon={true}
+                      />
                     </div>
                   </div>
                 </Link>
@@ -254,11 +261,11 @@ export default function HomePage() {
             {whatWeBuild.map((item, i) => {
               const Icon = iconMap[item.icon]
               return (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <div key={i} className="border border-border/60 rounded-lg p-8 bg-card hover:border-primary/40 hover:shadow-md hover:bg-primary/2 transition-all duration-300 group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/15 transition-colors">
                     <Icon className="w-6 h-6 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">{item.title}</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">{item.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
               )
@@ -279,8 +286,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             {whatIsN3uralia.cards.map((card, i) => (
-              <div key={i} className="border border-border rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
-                <h4 className="font-semibold text-foreground mb-2">{card.title}</h4>
+              <div key={i} className="border border-border/60 rounded-lg p-6 bg-card hover:border-primary/40 hover:bg-primary/2 transition-all duration-300 group">
+                <h4 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{card.title}</h4>
                 <p className="text-sm text-muted-foreground">{card.description}</p>
               </div>
             ))}
@@ -293,19 +300,16 @@ export default function HomePage() {
               Explora nuestras capacidades técnicas o contacta directamente para ver cómo podemos ayudarte.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
+              <CTAButton 
                 href="/capabilities"
-                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
-              >
-                Ver 6 Pilares
-              </Link>
-              <Link
+                label="Ver 6 Pilares"
+                variant="secondary"
+              />
+              <CTAButton 
                 href="/contact"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-              >
-                Contactar
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Contactar"
+                variant="primary"
+              />
             </div>
           </div>
         </div>

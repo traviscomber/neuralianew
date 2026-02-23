@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { CTAButton } from "@/components/cta-button"
 import { SectionBackground } from "@/components/section-background"
 
 export function CapabilitiesPageClient() {
@@ -118,14 +119,14 @@ export function CapabilitiesPageClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {sixPillars.map((pillar, i) => (
                 <Link key={i} href={pillar.link}>
-                  <div className="h-full border border-border rounded-lg p-6 bg-card hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer">
-                    <h3 className="text-lg font-semibold text-foreground mb-2">{pillar.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{pillar.description}</p>
-                    <ul className="space-y-2">
+                  <div className="h-full border border-border/60 rounded-lg p-8 bg-card hover:border-primary/40 hover:bg-primary/2 hover:shadow-md transition-all duration-300 group cursor-pointer">
+                    <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{pillar.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-6">{pillar.description}</p>
+                    <ul className="space-y-3">
                       {pillar.features.map((feature, j) => (
-                        <li key={j} className="flex gap-2 items-start">
-                          <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-xs text-muted-foreground">{feature}</span>
+                        <li key={j} className="flex gap-3 items-start">
+                          <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                          <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -150,15 +151,15 @@ export function CapabilitiesPageClient() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {livingAgentsFeatures.map((feature, i) => (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card">
+                <div key={i} className="border border-border/60 rounded-lg p-8 bg-card hover:border-primary/40 hover:bg-primary/2 transition-all duration-300 group">
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
+                      <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/15 transition-colors">
                         <CheckCircle2 className="w-6 h-6" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
+                      <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
                       <p className="text-sm text-muted-foreground">{feature.description}</p>
                     </div>
                   </div>
@@ -167,13 +168,11 @@ export function CapabilitiesPageClient() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link
+              <CTAButton
                 href="/living-agents"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-              >
-                Explorar Living Agents
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Explorar Living Agents"
+                variant="secondary"
+              />
             </div>
           </div>
         </section>
@@ -192,15 +191,15 @@ export function CapabilitiesPageClient() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {conversationalFeatures.map((feature, i) => (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card">
+                <div key={i} className="border border-border/60 rounded-lg p-8 bg-card hover:border-primary/40 hover:bg-primary/2 transition-all duration-300 group">
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
-                      <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
+                      <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary group-hover:bg-primary/15 transition-colors">
                         <CheckCircle2 className="w-6 h-6" />
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-2">{feature.title}</h3>
+                      <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{feature.title}</h3>
                       <p className="text-sm text-muted-foreground">{feature.description}</p>
                     </div>
                   </div>
@@ -209,13 +208,11 @@ export function CapabilitiesPageClient() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link
+              <CTAButton
                 href="/conversational-intelligence"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-              >
-                Explorar Conversational Intelligence
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Explorar Conversational Intelligence"
+                variant="secondary"
+              />
             </div>
           </div>
         </section>
@@ -251,13 +248,11 @@ export function CapabilitiesPageClient() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link
+              <CTAButton
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-              >
-                Conversar sobre tu proyecto
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Conversar sobre tu proyecto"
+                variant="primary"
+              />
             </div>
           </div>
         </section>
@@ -415,13 +410,11 @@ export function CapabilitiesPageClient() {
             </div>
 
             <div className="mt-12 text-center">
-              <Link
+              <CTAButton
                 href="/como-trabajamos"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-              >
-                Explorar nuestra metodología de implementación
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                label="Explorar nuestra metodología de implementación"
+                variant="secondary"
+              />
             </div>
           </div>
         </section>

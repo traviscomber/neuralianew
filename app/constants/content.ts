@@ -20,22 +20,22 @@ export const corePillars = [
   {
     icon: "Lightbulb",
     title: "Ingeniería Real, No Prototipos",
-    description: "Construimos sistemas listos para producción desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
+    description: "Construimos para producción desde el inicio. No experimentos. Sistemas que se pueden usar en tu empresa desde el primer día.",
   },
   {
     icon: "Zap",
     title: "Infraestructura Incluida",
-    description: "No solo desarrollamos software. Diseñamos la infraestructura cloud, monitoreo y operación sostenible. Todo listo para vivir.",
+    description: "No solo software. Incluimos cloud, seguridad y monitoreo. Todo configurado, probado y listo para operar.",
   },
   {
     icon: "Target",
-    title: "Multi-Dominio",
-    description: "Arquitectura de sistemas, datos, IA agentica, cloud computing. Expertise integrado en cada proyecto, no servicios siloed.",
+    title: "Expertos en Sistemas Completos",
+    description: "Especialistas en IA, cloud, datos y arquitectura. Trabajamos juntos en tu proyecto, no en departamentos separados.",
   },
   {
     icon: "Users",
-    title: "Operación Sostenible",
-    description: "Tus equipos entienden, operan y evolucionan el sistema. Transferencia de conocimiento desde el día uno.",
+    title: "Tu Equipo Entiende y Opera",
+    description: "Transferimos conocimiento desde el primer día. Tus equipos operan, evoluciona n y crecen con el sistema.",
   },
 ]
 
@@ -158,38 +158,38 @@ export const coreOfferings = [
 export const whatWeBuild = [
   {
     icon: "Network",
-    title: "Agentic Systems",
-    description: "Arquitecturas multi-agente con memoria, orquestación y control. Diseñadas para ejecutar tareas complejas de forma continua.",
+    title: "Sistemas Multi-Agente",
+    description: "Múltiples especialistas IA coordinados. Cada uno hace su trabajo bien, y trabajan juntos para resultados complejos.",
   },
   {
     icon: "Zap",
-    title: "Operational Intelligence",
-    description: "Sistemas que observan procesos, detectan fricción y activan decisiones automáticas o asistidas.",
+    title: "Inteligencia Operacional",
+    description: "Sistemas que ven qué está pasando, detectan problemas, y toman decisiones automáticas o alertan a tu equipo.",
   },
   {
     icon: "Shield",
-    title: "Infrastructure-Level AI",
-    description: "IA pensada como capa estructural: segura, auditable y extensible.",
+    title: "IA Estructural Segura",
+    description: "IA que es auditable, trazable y segura. No una caja negra. Transparencia en cada decisión.",
   },
 ]
 
 // What is N3uralia
 export const whatIsN3uralia = {
   mainHeading: "¿Qué es N3uralia?",
-  mainDescription: "N3uralia es una plataforma de IA empresarial para construcción en producción.",
-  fullDescription: "No asesoramos. No entregamos reportes. Construimos sistemas vivos que funcionan. Nuestro enfoque combina agentes inteligentes, arquitectura multi-agente y full-stack engineering para empresas que necesitan IA integrada desde el inicio.",
+  mainDescription: "Construimos IA para empresas. Sistemas que funcionan de verdad.",
+  fullDescription: "No vendemos reportes ni consultorías. Construimos sistemas inteligentes que integran tus operaciones, automatizan lo complejo y evolucionan con el tiempo. IA que se adapta a tu empresa, no lo opuesto.",
   cards: [
     {
       title: "¿Para quién?",
-      description: "Empresas chilenas que necesitan automatización inteligente, coordinación de sistemas complejos y desarrollo custom con IA integrada.",
+      description: "Empresas que necesitan automatización inteligente y tomar mejores decisiones más rápido, especialmente en Chile y LATAM.",
     },
     {
       title: "¿Qué ofrecemos?",
-      description: "Agentes en producción, sistemas multi-agente coordinados, Living Agents que evolucionan, y plataformas full-stack con IA desde el cimiento.",
+      description: "Sistemas de IA que automatizan procesos, coordinan múltiples tareas, y mejoran continuamente con cada día de operación.",
     },
     {
       title: "¿Cómo?",
-      description: "Ingeniería rigurosa en 5 fases: estrategia, desarrollo, infraestructura, validación, operación.",
+      description: "5 fases claras: entender tu problema, desarrollar la solución, montar la infraestructura, validar con datos reales, y transferir a tu equipo.",
     },
   ],
 }
