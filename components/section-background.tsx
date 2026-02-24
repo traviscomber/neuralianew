@@ -15,31 +15,43 @@ const sectionConfig = {
     color: '#5CAAA5',
     opacity: 0.15,
     gradient: 'radial-gradient(ellipse 800px 500px at 50% -10%, rgba(92, 170, 165, 0.06) 0%, transparent 80%)',
+    bgImage: '/backgrounds/hero-bg.jpg',
+    bgOpacity: 0.08,
   },
   capabilities: {
     color: '#3F2F28',
     opacity: 0.2,
     gradient: 'radial-gradient(ellipse 900px 600px at 50% 50%, rgba(63, 47, 40, 0.04) 0%, transparent 85%)',
+    bgImage: '/backgrounds/capabilities-bg.jpg',
+    bgOpacity: 0.07,
   },
   solutions: {
     color: '#697A8A',
     opacity: 0.12,
     gradient: 'linear-gradient(180deg, rgba(105, 122, 138, 0.03) 0%, transparent 60%, rgba(92, 170, 165, 0.03) 100%)',
+    bgImage: '/backgrounds/results-bg.jpg',
+    bgOpacity: 0.06,
   },
   workflow: {
     color: '#5CAAA5',
     opacity: 0.14,
     gradient: 'radial-gradient(ellipse 700px 400px at 50% 50%, rgba(92, 170, 165, 0.04) 0%, rgba(105, 122, 138, 0.02) 100%)',
+    bgImage: '/backgrounds/methodology-bg.jpg',
+    bgOpacity: 0.07,
   },
   blog: {
     color: '#3F2F28',
     opacity: 0.08,
     gradient: 'linear-gradient(135deg, rgba(63, 47, 40, 0.015) 0%, rgba(92, 170, 165, 0.015) 100%)',
+    bgImage: '/backgrounds/footer-bg.jpg',
+    bgOpacity: 0.05,
   },
   faq: {
     color: '#5CAAA5',
     opacity: 0.12,
     gradient: 'radial-gradient(ellipse 600px 350px at 50% 30%, rgba(92, 170, 165, 0.03) 0%, transparent 85%)',
+    bgImage: '/backgrounds/footer-bg.jpg',
+    bgOpacity: 0.06,
   },
 };
 
@@ -65,6 +77,20 @@ export function SectionBackground({
 
   return (
     <div className={`relative w-full overflow-hidden bg-background ${className}`}>
+      {/* Background image layer */}
+      {config.bgImage && (
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `url('${config.bgImage}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            opacity: config.bgOpacity,
+          }}
+        />
+      )}
+
       {/* Base gradient layer */}
       <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-background via-transparent to-background opacity-30" />
 
