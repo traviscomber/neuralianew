@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { clientsAndResults } from "@/app/constants/content"
 
 export function ClientsSection() {
@@ -21,18 +22,21 @@ export function ClientsSection() {
           {clientsAndResults.clients.map((client, i) => (
             <div
               key={i}
-              className="flex items-center justify-center p-4 md:p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group"
+              className="flex items-center justify-center p-4 md:p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group min-h-24"
             >
-              {/* Placeholder for real logo - using initials for demo */}
-              <div className="flex flex-col items-center gap-2 group-hover:scale-110 transition-transform">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-bold text-xs md:text-sm">
-                  {client.name
-                    .split(" ")
-                    .map((w) => w[0])
-                    .join("")}
+              {/* Logo with fallback */}
+              <div className="flex flex-col items-center gap-3 text-center group-hover:scale-110 transition-transform w-full">
+                <div className="relative w-12 h-12 md:w-14 md:h-14 flex-shrink-0">
+                  <Image
+                    src={client.logo}
+                    alt={client.name}
+                    fill
+                    className="object-contain"
+                    priority={i < 6}
+                  />
                 </div>
-                <div className="text-center">
-                  <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs md:text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                     {client.name}
                   </p>
                   <p className="text-xs text-muted-foreground">{client.industry}</p>
