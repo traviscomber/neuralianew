@@ -235,6 +235,12 @@ export const clientsAndResults = {
     { name: "LogisticaMax", logo: "/clients/logistica.svg", industry: "Logistics" },
     { name: "HealthSystem", logo: "/clients/health.svg", industry: "Healthcare" },
     { name: "EduTech Santiago", logo: "/clients/edutech.svg", industry: "Education" },
+    { name: "Sur-Realista", logo: "/clients/sur-realista.svg", industry: "Real Estate" },
+    { name: "DespegatuCarrera", logo: "/clients/despegatu.svg", industry: "HR Tech" },
+    { name: "EcosueloLab", logo: "/clients/ecosuelo.svg", industry: "AgTech" },
+    { name: "Parrotfy", logo: "/clients/parrotfy.svg", industry: "Marketing" },
+    { name: "Blackswan", logo: "/clients/blackswan.svg", industry: "FinTech" },
+    { name: "SegurIA", logo: "/clients/seguria.svg", industry: "Cybersecurity" },
   ],
   results: [
     {

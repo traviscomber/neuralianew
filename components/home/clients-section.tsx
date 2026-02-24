@@ -16,23 +16,23 @@ export function ClientsSection() {
           </p>
         </div>
 
-        {/* Clients Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-16">
+        {/* Clients Grid - Responsive */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6 mb-16">
           {clientsAndResults.clients.map((client, i) => (
             <div
               key={i}
-              className="flex items-center justify-center p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group"
+              className="flex items-center justify-center p-4 md:p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 group"
             >
               {/* Placeholder for real logo - using initials for demo */}
               <div className="flex flex-col items-center gap-2 group-hover:scale-110 transition-transform">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center text-white font-bold text-xs md:text-sm">
                   {client.name
                     .split(" ")
                     .map((w) => w[0])
                     .join("")}
                 </div>
                 <div className="text-center">
-                  <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-2">
                     {client.name}
                   </p>
                   <p className="text-xs text-muted-foreground">{client.industry}</p>
