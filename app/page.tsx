@@ -18,6 +18,7 @@ import { CTAButton, CTAGroup } from "@/components/cta-button"
 import { ClientsSection } from "@/components/home/clients-section"
 import { TestimonialsSection } from "@/components/home/testimonials-section"
 import { ContextualCTA } from "@/components/contextual-cta"
+import { SchemaMarkup, organizationSchema, professionalServiceSchema, softwareApplicationSchema } from "@/lib/schema-markup"
 import {
   HeroBackground,
   CapabilitiesBackground,
@@ -65,6 +66,9 @@ const iconMap: Record<string, any> = {
 export default function HomePage() {
   return (
     <>
+      <SchemaMarkup data={organizationSchema()} />
+      <SchemaMarkup data={professionalServiceSchema()} />
+      <SchemaMarkup data={softwareApplicationSchema()} />
       <main className="min-h-screen bg-background">
         {/* 1. HERO Section */}
         <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
