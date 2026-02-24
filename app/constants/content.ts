@@ -229,12 +229,12 @@ export const enterpriseSolutions = {
 export const clientsAndResults = {
   title: "Empresas que Confían en N3uralia",
   clients: [
-    { name: "Sur-Realista", logo: "/clients/sur-realista.svg", industry: "Real Estate" },
-    { name: "DespegatuCarrera", logo: "/clients/despegatu.svg", industry: "HR Tech" },
-    { name: "EcosueloLab", logo: "/clients/ecosuelo.svg", industry: "AgTech" },
-    { name: "Parrotfy", logo: "/clients/parrotfy.svg", industry: "Marketing" },
-    { name: "Blackswan", logo: "/clients/blackswan.svg", industry: "FinTech" },
-    { name: "SegurIA", logo: "/clients/seguria.svg", industry: "Cybersecurity" },
+    { name: "Sur-Realista", logo: "/clients/sur-realista.png", industry: "Real Estate" },
+    { name: "DespegatuCarrera", logo: "/clients/despegatu.png", industry: "HR Tech" },
+    { name: "EcosueloLab", logo: "/clients/ecosuelo.png", industry: "AgTech" },
+    { name: "Parrotfy", logo: "/clients/parrotfy.png", industry: "Marketing" },
+    { name: "Blackswan", logo: "/clients/blackswan.png", industry: "FinTech" },
+    { name: "SegurIA", logo: "/clients/seguria.png", industry: "Cybersecurity" },
   ],
   results: [
     {
