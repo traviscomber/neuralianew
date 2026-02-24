@@ -229,12 +229,6 @@ export const enterpriseSolutions = {
 export const clientsAndResults = {
   title: "Empresas que Confían en N3uralia",
   clients: [
-    { name: "TechCorp Chile", logo: "/clients/techcorp.svg", industry: "Tech" },
-    { name: "Financiera Global", logo: "/clients/financiera.svg", industry: "Finance" },
-    { name: "Retail Plus", logo: "/clients/retail.svg", industry: "Retail" },
-    { name: "LogisticaMax", logo: "/clients/logistica.svg", industry: "Logistics" },
-    { name: "HealthSystem", logo: "/clients/health.svg", industry: "Healthcare" },
-    { name: "EduTech Santiago", logo: "/clients/edutech.svg", industry: "Education" },
     { name: "Sur-Realista", logo: "/clients/sur-realista.svg", industry: "Real Estate" },
     { name: "DespegatuCarrera", logo: "/clients/despegatu.svg", industry: "HR Tech" },
     { name: "EcosueloLab", logo: "/clients/ecosuelo.svg", industry: "AgTech" },
