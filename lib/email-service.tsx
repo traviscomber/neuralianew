@@ -14,14 +14,21 @@ export interface EmailOptions {
 }
 
 export class EmailService {
-  private static fromEmail = process.env.RESEND_FROM_EMAIL || "no-reply@send.n3uralia.com"
-  private static fromName = process.env.RESEND_FROM_NAME || "N3uralia AI"
+  private static fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"
+  private static fromName = process.env.RESEND_FROM_NAME || "N3uralia"
 
   /**
    * Send a single email
    */
   static async sendEmail(options: EmailOptions) {
     try {
+      console.log("[v0] Sending email with:", {
+        from: options.from || `${this.fromName} <${this.fromEmail}>`,
+        to: options.to,
+        subject: options.subject,
+        apiKeyExists: !!process.env.RESEND_API_KEY,
+      })
+
       const response = await resend.emails.send({
         from: options.from || `${this.fromName} <${this.fromEmail}>`,
         to: options.to,
@@ -32,10 +39,10 @@ export class EmailService {
         bcc: options.bcc,
       })
 
-      console.log("✅ Email sent successfully:", response)
+      console.log("[v0] Email sent successfully:", response)
       return { success: true, data: response }
     } catch (error) {
-      console.error("❌ Email send failed:", error)
+      console.error("[v0] Email send failed:", error)
       return { success: false, error }
     }
   }
@@ -115,11 +122,13 @@ export class EmailService {
   }
 
   /**
-   * Send contact form notification
+   * Send contact form notification to N3uralia team
    */
   static async sendContactNotification(data: { name: string; email: string; message: string; company?: string }) {
+    console.log("[v0] Contact notification triggered for:", data.email)
+    
     return this.sendEmail({
-      to: "contact@n3uralia.com",
+      to: "info@n3uralia.com",
       replyTo: data.email,
       subject: `Nuevo mensaje de contacto de ${data.name}`,
       html: `
