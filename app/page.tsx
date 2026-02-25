@@ -160,33 +160,38 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 3. SECTORS Section */}
+        {/* 3. SECTORS Section - Links to /soluciones */}
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Soluciones por Industria</h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-muted-foreground mb-8">
                 Automatización especializada para los desafíos únicos de tu sector
               </p>
+              <Link 
+                href="/soluciones"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
+              >
+                Explorar Todas las Soluciones
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sectors.map((sector, i) => {
+              {sectors.slice(0, 6).map((sector, i) => {
                 const Icon = sector.icon
                 return (
-                  <Link key={i} href={sector.link} className="group">
-                    <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                        {sector.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {sector.description}
-                      </p>
+                  <div key={i} className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 hover:bg-primary/20 transition-colors">
+                      <Icon className="w-6 h-6 text-primary" />
                     </div>
-                  </Link>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {sector.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {sector.description}
+                    </p>
+                  </div>
                 )
               })}
             </div>

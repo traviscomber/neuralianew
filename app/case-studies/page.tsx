@@ -2,6 +2,7 @@
 
 import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, Zap, Users, Building2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +18,7 @@ export default function CaseStudiesPage() {
       client: "Ecosuelolab",
       industry: "Agricultura",
       icon: Zap,
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png",
       challenge:
         "Monitoreo manual de suelo con alertas lentas y procesos desconectados",
       solution:
@@ -46,6 +48,7 @@ export default function CaseStudiesPage() {
       client: "Despega Tu Carrera",
       industry: "Educación & Coaching",
       icon: Users,
+      logo: "/logos/despega-tu-carrera-logo.jpg",
       challenge:
         "Coaching personal a escala requería infraestructura completa desde cero",
       solution:
@@ -75,6 +78,7 @@ export default function CaseStudiesPage() {
       client: "Blackswan",
       industry: "Hospitality & Facilities",
       icon: Building2,
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bslogo-4dAYU7iH5JIRxGvWqE5k75H5ciyXQ8.png",
       challenge:
         "Múltiples sistemas desconectados (email, sheets, calendarios) causando ineficiencias operativas",
       solution:
@@ -133,9 +137,15 @@ export default function CaseStudiesPage() {
                   <Link key={study.id} href={study.href}>
                     <Card className="h-full border border-border hover:border-primary hover:shadow-lg transition-all duration-300 group cursor-pointer">
                       <CardContent className="p-6 h-full flex flex-col">
-                        {/* Header with icon */}
-                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${study.color} p-3 mb-4 group-hover:scale-110 transition-transform`}>
-                          <Icon className="w-full h-full text-white" />
+                        {/* Logo */}
+                        <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-4 group-hover:bg-muted/50 transition-colors p-3">
+                          <Image 
+                            src={study.logo} 
+                            alt={`${study.title} logo`}
+                            width={160}
+                            height={80}
+                            className="h-20 w-auto object-contain"
+                          />
                         </div>
 
                         {/* Title */}
