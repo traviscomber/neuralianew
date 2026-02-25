@@ -121,10 +121,73 @@
 
   <!-- About & Company -->
   <url>
-    <loc>https://n3uralia.com/acerca-de</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
+    <loc>https://n3uralia.com/case-studies</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.92</priority>
   </url>
 
-</urlset>
+  <!-- Case Studies - Real Projects -->
+  <url>
+    <loc>https://n3uralia.com/case-studies/ecosuelolab</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/despega-tu-carrera</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/blackswan-facility-core</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Industry Solutions - Real Developments -->
+  <url>
+    <loc>https://n3uralia.com/soluciones#abogados</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones#mineria</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones#seguridad</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones#agricola</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones#retail</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones#arte</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>

@@ -9,6 +9,43 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/layout/footer"
 
+export const metadata: Metadata = {
+  title: "Casos de Éxito - Sistemas Agenticos en Producción | N3uralia",
+  description:
+    "Descubre cómo empresas líderes transformaron sus operaciones con N3uralia. Ecosuelolab: 100% automatización agrícola. Despega Tu Carrera: 10K+ usuarios. Blackswan: 40% más eficiencia operativa.",
+  keywords:
+    "casos de éxito, estudios de caso, automatización empresarial, sistemas agenticos, resultados reales, ROI IA, empresas usando IA, transformación digital, n3uralia",
+  alternates: {
+    canonical: "https://n3uralia.com/case-studies",
+    languages: {
+      "es-CL": "https://n3uralia.com/case-studies",
+      "es": "https://n3uralia.com/case-studies",
+      "en": "https://n3uralia.com/case-studies",
+    },
+  },
+  openGraph: {
+    title: "Casos de Éxito - N3uralia Sistemas Agenticos",
+    description: "Empresas reales transformadas con N3uralia. Resultados medibles: 100% automatización, 10K+ usuarios, 40% eficiencia.",
+    type: "website",
+    locale: "es_CL",
+    url: "https://n3uralia.com/case-studies",
+    siteName: "N3uralia",
+    images: [
+      {
+        url: "https://n3uralia.com/og-case-studies.png",
+        width: 1200,
+        height: 630,
+        alt: "Casos de Éxito N3uralia",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Casos de Éxito de N3uralia",
+    description: "Cómo empresas transforman con sistemas agenticos. Resultados reales.",
+  },
+}
+
 export default function CaseStudiesPage() {
   const caseStudies = [
     {
