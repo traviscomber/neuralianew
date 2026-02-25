@@ -2,15 +2,15 @@
 
 import { EmailService } from "@/lib/email-service"
 
-export async function sendDirectEmail(senderEmail: string, senderName: string) {
+export async function sendDirectEmail(senderEmail: string, senderName: string, message: string = "") {
   try {
-    console.log("[v0] sendDirectEmail called with:", { senderEmail, senderName })
+    console.log("[v0] sendDirectEmail called with:", { senderEmail, senderName, hasMessage: !!message })
 
     // Send a notification to the N3uralia team
     const result = await EmailService.sendContactNotification({
       name: senderName,
       email: senderEmail,
-      message: "Interesado en conocer más sobre nuestros servicios de arquitectura de sistemas agenticos.",
+      message: message || "Interesado en conocer más sobre nuestros servicios de arquitectura de sistemas agenticos.",
     })
 
     console.log("[v0] Email result:", result)

@@ -28,9 +28,10 @@ Saludos,
 
 export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogProps) {
   const [copied, setCopied] = useState(false)
-  const [showDirectSend, setShowDirectSend] = useState(false)
+  const [showDirectSend, setShowDirectSend] = useState(true)
   const [senderEmail, setSenderEmail] = useState("")
   const [senderName, setSenderName] = useState("")
+  const [senderMessage, setSenderMessage] = useState("")
   const [sending, setSending] = useState(false)
   const [sendResult, setSendResult] = useState<{ success: boolean; message: string } | null>(null)
 
@@ -55,14 +56,15 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
 
     setSending(true)
     try {
-      const result = await sendDirectEmail(senderEmail, senderName)
+      const result = await sendDirectEmail(senderEmail, senderName, senderMessage)
       setSendResult(result)
 
       if (result.success) {
         setTimeout(() => {
           setSenderEmail("")
           setSenderName("")
-          setShowDirectSend(false)
+          setSenderMessage("")
+          setShowDirectSend(true)
           setSendResult(null)
           onOpenChange(false)
         }, 2000)
@@ -215,6 +217,19 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
                     onChange={(e) => setSenderEmail(e.target.value)}
                     disabled={sending}
                     className="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">
+                    Cuéntanos tu proyecto
+                  </label>
+                  <textarea
+                    placeholder="Describe brevemente qué necesitas: tu industria, desafíos, timeline, presupuesto estimado..."
+                    value={senderMessage}
+                    onChange={(e) => setSenderMessage(e.target.value)}
+                    disabled={sending}
+                    className="w-full h-32 p-3 border border-border rounded-lg bg-background text-foreground text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
