@@ -481,7 +481,7 @@ export function CaseStudyContent() {
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
-            <Link href="https://wa.me/56993826127">
+            <Link href="https://web.whatsapp.com/send/?phone=56993826127&text=Hola+N3uralia%2C+me+gustaría+conocer+más+sobre+vuestras+soluciones+de+IA&type=phone_number&app_absent=0">
               <Button
                 size="lg"
                 variant="outline"
