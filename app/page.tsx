@@ -160,7 +160,7 @@ export default function HomePage() {
         </section>
 
         {/* 3. SECTORS Section */}
-        <section className="py-24 px-4 border-t border-border bg-background">
+        <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Soluciones por Industria</h2>
