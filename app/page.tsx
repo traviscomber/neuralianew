@@ -21,6 +21,7 @@ import {
 import { ROICalculator } from "@/components/interactive/roi-calculator"
 import { SkillsQuiz } from "@/components/interactive/skills-quiz"
 import { PerformanceMetrics } from "@/components/performance/performance-metrics"
+import { ImpactShowcase } from "@/components/interactive/impact-showcase"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
@@ -317,6 +318,9 @@ export default function HomePage() {
 
     {/* ROI Calculator Section */}
     <ROICalculator />
+
+    {/* Impact Showcase Section */}
+    <ImpactShowcase />
 
     {/* Skills Quiz Section */}
     <SkillsQuiz />
