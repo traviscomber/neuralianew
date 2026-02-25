@@ -173,8 +173,8 @@ export default function SolucionesPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Abogados */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
-                  <Scale className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Scale className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Análisis Legal Automatizado</h3>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -198,8 +198,8 @@ export default function SolucionesPage() {
 
               {/* Minería */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-amber-200 transition-colors">
-                  <Pickaxe className="w-6 h-6 text-amber-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Pickaxe className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Monitoreo de Operaciones Mineras</h3>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -223,8 +223,8 @@ export default function SolucionesPage() {
 
               {/* Seguridad */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-200 transition-colors">
-                  <Shield className="w-6 h-6 text-red-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Shield className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Detección de Fraude Inteligente</h3>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -248,8 +248,8 @@ export default function SolucionesPage() {
 
               {/* Agrícola */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
-                  <Leaf className="w-6 h-6 text-green-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Leaf className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Automatización Agrícola (Ecosuelolab)</h3>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -273,8 +273,8 @@ export default function SolucionesPage() {
 
               {/* Retail */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
-                  <ShoppingCart className="w-6 h-6 text-purple-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <ShoppingCart className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Personalización en Retail</h3>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -298,8 +298,8 @@ export default function SolucionesPage() {
 
               {/* Arte */}
               <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
-                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-200 transition-colors">
-                  <Palette className="w-6 h-6 text-pink-600" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                  <Palette className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-2">Curaduría y Análisis de Arte</h3>
                 <p className="text-sm text-muted-foreground mb-4">
