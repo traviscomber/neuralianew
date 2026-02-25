@@ -4,7 +4,6 @@ import React, { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Copy, CheckCircle2, Mail, Send } from "lucide-react"
-import { sendDirectEmail } from "@/app/actions/email"
 import { Input } from "@/components/ui/input"
 
 interface EmailContactDialogProps {
@@ -56,19 +55,45 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
 
     setSending(true)
     try {
-      const result = await sendDirectEmail(senderEmail, senderName, senderMessage)
-      setSendResult(result)
+      console.log("[v0] Sending email via API:", { senderName, senderEmail })
+      
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: senderName,
+          email: senderEmail,
+          message: senderMessage,
+        }),
+      })
 
-      if (result.success) {
-        setTimeout(() => {
-          setSenderEmail("")
-          setSenderName("")
-          setSenderMessage("")
-          setShowDirectSend(true)
-          setSendResult(null)
-          onOpenChange(false)
-        }, 2000)
+      const data = await response.json()
+      console.log("[v0] API response:", data)
+
+      if (!response.ok || !data.success) {
+        setSendResult({
+          success: false,
+          message: data.error || "No se pudo enviar el email. Por favor, intenta nuevamente.",
+        })
+        setSending(false)
+        return
       }
+
+      setSendResult({
+        success: true,
+        message: "Email enviado exitosamente. Nos pondremos en contacto pronto.",
+      })
+
+      setTimeout(() => {
+        setSenderEmail("")
+        setSenderName("")
+        setSenderMessage("")
+        setShowDirectSend(true)
+        setSendResult(null)
+        onOpenChange(false)
+      }, 2000)
     } catch (error) {
       console.error("[v0] Send email error:", error)
       setSendResult({
