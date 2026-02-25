@@ -158,6 +158,185 @@ export default function SolucionesPage() {
           </div>
         </section>
 
+        {/* Real Projects by Industry */}
+        <section className="py-24 bg-background border-t border-border px-4">
+          <div className="container mx-auto max-w-5xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-foreground mb-4">
+                Desarrollos Reales en Producción
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Casos reales de sistemas agenticos que hemos construido y están operando hoy
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Abogados */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-colors">
+                  <span className="text-xl">⚖️</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Análisis Legal Automatizado</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Agentes que revisan contratos, identifican cláusulas riesgosas y generan reportes en segundos. Reducción 90% en tiempo de revisión.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">OCR + NLP especializado</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Integración Dropbox</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Reportes automáticos</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Minería */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-yellow-500/30 transition-colors">
+                  <span className="text-xl">⛏️</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Monitoreo de Operaciones Mineras</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Orquestación de sensores, predicción de fallas, optimización de turnos. 35% aumento en eficiencia operativa.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">IoT + ML predictivo</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Alertas en tiempo real</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Dashboard integrado</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Seguridad */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-500/30 transition-colors">
+                  <span className="text-xl">🔒</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Detección de Fraude Inteligente</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Agentes que detectan patrones anómalos, validan transacciones y previenen fraude en tiempo real. 98% precisión.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Análisis en tiempo real</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Machine learning adaptativo</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Escalable a millones</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Agrícola */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500/30 transition-colors">
+                  <span className="text-xl">🌱</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Automatización Agrícola (Ecosuelolab)</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Monitoreo satelital + alertas automáticas en WhatsApp. Decisiones de riego en segundos, no horas.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">APIs satelitales</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Integración WhatsApp</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">100% automatizado</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Retail */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-colors">
+                  <span className="text-xl">🛍️</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Personalización en Retail</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Recomendaciones en tiempo real, gestión de inventario predictiva. 45% aumento en conversión.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Comportamiento del cliente</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Predicción de demanda</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Cross-selling inteligente</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Arte */}
+              <div className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group">
+                <div className="w-10 h-10 bg-pink-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-pink-500/30 transition-colors">
+                  <span className="text-xl">🎨</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-2">Curaduría y Análisis de Arte</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Agentes que validan autenticidad, sugieren curatoría inteligente y conectan coleccionistas con obras.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Análisis de imagen IA</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Valoración automática</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary">✓</span>
+                    <span className="text-muted-foreground">Matching inteligente</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center mt-16">
+              <p className="text-muted-foreground mb-6">
+                ¿Tu industria no está aquí? Hablemos sobre tu caso específico.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all"
+              >
+                Consultar Solución Personalizada
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* Next Steps CTA */}
         <section className="py-20 bg-background border-t border-border px-4">
           <div className="container mx-auto max-w-2xl text-center">
