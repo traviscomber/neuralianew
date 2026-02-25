@@ -216,8 +216,8 @@ export default function HomePage() {
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png" 
                       alt="Ecosuelolab logo" 
-                      width={200}
-                      height={60}
+                      width={100}
+                      height={30}
                       className="h-20 w-auto object-contain"
                     />
                   </div>

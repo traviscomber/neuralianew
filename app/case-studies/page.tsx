@@ -142,8 +142,8 @@ export default function CaseStudiesPage() {
                           <Image 
                             src={study.logo} 
                             alt={`${study.title} logo`}
-                            width={160}
-                            height={80}
+                            width={study.id === 'ecosuelolab' ? 80 : 160}
+                            height={study.id === 'ecosuelolab' ? 40 : 80}
                             className="h-20 w-auto object-contain"
                           />
                         </div>
