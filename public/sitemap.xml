@@ -9,144 +9,27 @@
   <!-- Homepage - Primary Entry Point -->
   <url>
     <loc>https://n3uralia.com/</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="es-CL" href="https://n3uralia.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/" />
   </url>
 
-  <!-- Main Product Pages - Consolidated Routes -->
+  <!-- Main Product Pages -->
   <url>
     <loc>https://n3uralia.com/capacidades</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- Automation Pages - Content Cluster -->
-  <url>
-    <loc>https://n3uralia.com/automatizacion-para-empresas</loc>
-    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.92</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/integraciones-empresariales</loc>
-    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/automatizacion-ventas-leads</loc>
-    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.88</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/operaciones-autonomas</loc>
-    <lastmod>2026-02-21T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.87</priority>
-  </url>
-
   <url>
     <loc>https://n3uralia.com/soluciones</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/como-trabajamos</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Learning & Content Hub -->
-  <url>
-    <loc>https://n3uralia.com/aprendizaje</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/blog</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Blog Posts - High Value Content -->
-  <url>
-    <loc>https://n3uralia.com/blog/orquestacion-agentes-produccion</loc>
-    <lastmod>2026-02-10T15:30:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/blog/living-agents-ia-que-aprende</loc>
-    <lastmod>2026-02-09T15:30:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/blog/integracion-ia-legacy-systems</loc>
-    <lastmod>2026-02-08T15:30:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-
-  <!-- FAQ & Help -->
-  <url>
-    <loc>https://n3uralia.com/faq</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.75</priority>
-  </url>
-
-  <!-- Contact & Engagement -->
-  <url>
-    <loc>https://n3uralia.com/contact</loc>
-    <lastmod>2026-02-13T00:00:00+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- About & Company -->
-  <url>
-    <loc>https://n3uralia.com/case-studies</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.92</priority>
-  </url>
-
-  <!-- Case Studies - Real Projects -->
-  <url>
-    <loc>https://n3uralia.com/case-studies/ecosuelolab</loc>
-    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/case-studies/despega-tu-carrera</loc>
-    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://n3uralia.com/case-studies/blackswan-facility-core</loc>
-    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
   </url>
 
   <!-- Industry Solutions - Real Developments -->
@@ -154,40 +37,378 @@
     <loc>https://n3uralia.com/soluciones#abogados</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://n3uralia.com/soluciones#mineria</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://n3uralia.com/soluciones#seguridad</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://n3uralia.com/soluciones#agricola</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://n3uralia.com/soluciones#retail</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.78</priority>
+    <priority>0.80</priority>
   </url>
 
   <url>
     <loc>https://n3uralia.com/soluciones#arte</loc>
     <lastmod>2026-02-25T00:00:00+00:00</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Solutions by Segment -->
+  <url>
+    <loc>https://n3uralia.com/soluciones/empresas-grandes</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones/startups</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/soluciones/operaciones</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Case Studies - Real Projects -->
+  <url>
+    <loc>https://n3uralia.com/case-studies</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.92</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/ecosuelolab</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/despega-tu-carrera</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/blackswan-facility-core</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <!-- Spanish Case Studies -->
+  <url>
+    <loc>https://n3uralia.com/case-studies/ecosuelolab-es</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/despega-tu-carrera-es</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/case-studies/blackswan-facility-core-es</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <!-- Automation Pages - Content Cluster -->
+  <url>
+    <loc>https://n3uralia.com/automatizacion-para-empresas</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/integraciones-empresariales</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/automatizacion-ventas-leads</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/operaciones-autonomas</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Living Agents & Advanced Features -->
+  <url>
+    <loc>https://n3uralia.com/living-agents</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/living-agents/demo</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/living-agents/constellation-demo</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/living-agents/evolution</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Research & Studies -->
+  <url>
+    <loc>https://n3uralia.com/studies</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/production-grade-agentic-systems</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/agentic-ai</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/world-engine</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/ai-memory</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/context-engineering</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/studies/agentic-brainstorming</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Blog & Content Hub -->
+  <url>
+    <loc>https://n3uralia.com/blog</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/blog/orquestacion-agentes-produccion</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/blog/living-agents-ia-que-aprende</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/blog/integracion-ia-legacy-systems</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Learning & Development -->
+  <url>
+    <loc>https://n3uralia.com/learning-hub</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Company & About -->
+  <url>
+    <loc>https://n3uralia.com/about</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/como-trabajamos</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/nuestro-enfoque</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+
+  <!-- Market Segments -->
+  <url>
+    <loc>https://n3uralia.com/para-empresas</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/para-startups</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/para-desarrolladores</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Technical Features & Deep Dives -->
+  <url>
+    <loc>https://n3uralia.com/coordination</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.78</priority>
   </url>
+
+  <url>
+    <loc>https://n3uralia.com/conversational-intelligence</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/error-tracking</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/performance</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Special Features -->
+  <url>
+    <loc>https://n3uralia.com/outcomes</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/vibe-selling</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Support & Help -->
+  <url>
+    <loc>https://n3uralia.com/faq</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/contact</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Developer Resources -->
+  <url>
+    <loc>https://n3uralia.com/api-docs</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/services</loc>
+    <lastmod>2026-02-25T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+</urlset>
