@@ -25,7 +25,7 @@ export function Navigation() {
           </Link>
 
           <Link 
-            href="/#soluciones" 
+            href="/soluciones" 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Soluciones
@@ -73,7 +73,7 @@ export function Navigation() {
 
           {/* Mobile Solutions Link */}
           <Link 
-            href="/#soluciones" 
+            href="/soluciones" 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
