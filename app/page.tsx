@@ -1,34 +1,15 @@
 import Link from "next/link"
-import { ArrowRight, Lightbulb, Zap, Target, Users, Network, Sparkles, Shield, CheckCircle2 } from "lucide-react"
+import { ArrowRight, Zap, Bot, Workflow, TrendingUp, Package, Users, Building2, Cpu, Code2 } from "lucide-react"
 import type { Metadata } from "next"
-import {
-  heroContent,
-  corePillars,
-  methodologySteps,
-  toolsVsArchitecture,
-  coreOfferings,
-  whatWeBuild,
-  whatIsN3uralia,
-  callsToAction,
-} from "@/app/constants/content"
 import { HomePageClient } from "@/components/home/home-page-client"
-import {
-  HeroBackground,
-  CapabilitiesBackground,
-  SolutionsBackground,
-  WorkflowBackground,
-} from "@/components/section-background"
-import { ROICalculator } from "@/components/interactive/roi-calculator"
-import { SkillsQuiz } from "@/components/interactive/skills-quiz"
-import { PerformanceMetrics } from "@/components/performance/performance-metrics"
-import { ImpactShowcase } from "@/components/interactive/impact-showcase"
+import { HeroBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
   description:
-    "N3uralia: Plataforma de sistemas agenticos listos para producción. Automatiza procesos empresariales con inteligencia aumentada. Arquitectura agnóstica, gobernanza, memoria persistente. Para B2B, retail, manufactura. Chile y LATAM.",
+    "N3uralia: Orquestación de sistemas agenticos para empresas. Automatiza procesos con inteligencia aumentada. Soluciones para retail, manufactura, servicios financieros, salud, legal y logística.",
   keywords:
-    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia, automatización procesos, IA Chile, LATAM, empresa AI",
+    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia",
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
@@ -39,26 +20,53 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "N3uralia - Automatización Empresarial y Sistemas Agenticos en Producción",
-    description: "Automatización estructural más sistemas agenticos. N3uralia orquesta tus procesos empresariales con inteligencia.",
+    title: "N3uralia - Automatización Empresarial con Sistemas Agenticos",
+    description: "Orquestación de sistemas agenticos listos para producción. Automatiza tus operaciones con IA que evoluciona.",
     type: "website",
     locale: "es_CL",
-    localeAlternate: ["en_US", "es_ES"],
     url: "https://n3uralia.com",
     siteName: "N3uralia",
   },
 }
 
-const iconMap: Record<string, any> = {
-  Lightbulb,
-  Zap,
-  Target,
-  Users,
-  Network,
-  Sparkles,
-  Shield,
-  CheckCircle2,
-}
+const sectors = [
+  {
+    title: "Retail & E-commerce",
+    description: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
+    icon: Package,
+    link: "#"
+  },
+  {
+    title: "Manufactura",
+    description: "Optimización de procesos, control de calidad, mantenimiento predictivo",
+    icon: Cpu,
+    link: "#"
+  },
+  {
+    title: "Servicios Financieros",
+    description: "Análisis de riesgo, detección de fraude, asesoría personalizada",
+    icon: TrendingUp,
+    link: "#"
+  },
+  {
+    title: "Salud",
+    description: "Análisis de documentos, triaje de pacientes, gestión de citas",
+    icon: Users,
+    link: "#"
+  },
+  {
+    title: "Legal",
+    description: "Revisión de contratos, investigación legal, cumplimiento normativo",
+    icon: Building2,
+    link: "#"
+  },
+  {
+    title: "Logística",
+    description: "Optimización de rutas, predicción de demanda, automatización de almacén",
+    icon: Workflow,
+    link: "#"
+  },
+]
 
 export default function HomePage() {
   return (
@@ -67,265 +75,142 @@ export default function HomePage() {
         {/* 1. HERO Section */}
         <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
           <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-            <div className="max-w-5xl mx-auto text-center w-full">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">{heroContent.badge}</span>
-          </div>
-
-          <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-            <span className="text-foreground">{heroContent.heading.line1}</span>
-            <br />
-            <span className="text-primary">{heroContent.heading.line2}</span>
-          </h1>
-
-          <p className="body-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-            {heroContent.subheading}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
-            <Link
-              href="/automatizacion-para-empresas"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
-            >
-              {heroContent.cta1}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/capabilities"
-              className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
-            >
-              {heroContent.cta2}
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
-            {heroContent.metrics.map((metric, i) => (
-              <div key={i}>
-                <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">{metric.value}</div>
-                <p className="text-xs sm:text-sm text-muted-foreground">{metric.label}</p>
+            <div className="max-w-4xl mx-auto text-center w-full">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-primary">Sistemas Agenticos en Producción</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      </HeroBackground>
 
-      {/* 2. CORE PILLARS Section */}
-      <CapabilitiesBackground className="py-20 px-4 border-t border-border">
-        <section className="py-20 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="section-heading mb-4">Por Qué N3uralia</h2>
-            <p className="section-subheading">
-              Cuatro diferenciadores que nos hacen únicos en el ecosistema de IA empresarial.
-            </p>
-          </div>
+              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
+                <span className="text-foreground">De la Experimentación</span>
+                <br />
+                <span className="text-primary">a la Automatización Empresarial</span>
+              </h1>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {corePillars.map((pillar, i) => {
-              const Icon = iconMap[pillar.icon]
-              return (
-                <div key={i} className="p-8 rounded-lg border border-border bg-card hover:border-primary/60 hover:shadow-md transition-all hover:-translate-y-1">
-                  <Icon className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-3 text-foreground">{pillar.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
+              <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+                Orquestación de sistemas agenticos que integran, escalan y evolucionan. 
+                Tu operación con inteligencia aumentada, lista para producción desde el día uno.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
+                <Link
+                  href="/contact"
+                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
+                >
+                  Comenzar Hoy
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/capabilities"
+                  className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
+                >
+                  Ver Capacidades
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">40+</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Procesos Automatizados</p>
                 </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-      </CapabilitiesBackground>
-
-      {/* 3. METHODOLOGY Section */}
-      <WorkflowBackground className="py-20 px-4 border-t border-border">
-        <section className="py-20 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="section-heading mb-4">Nuestro Enfoque</h2>
-            <p className="section-subheading mb-8">
-              Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
-            </p>
-            <Link
-              href="/como-trabajamos"
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
-            >
-              Ver Metodología Completa
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid md:grid-cols-5 gap-4">
-            {methodologySteps.map((step, i) => (
-              <div key={i} className="flex flex-col p-6 rounded-lg border border-border/50 bg-background hover:border-primary/30 transition-colors">
-                <div className="text-2xl font-bold text-primary mb-3">{step.num}</div>
-                <h3 className="font-semibold text-sm mb-2 text-foreground leading-snug">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      </WorkflowBackground>
-
-      {/* 4. PHILOSOPHY Section */}
-      <SolutionsBackground className="py-20 px-4 border-t border-border">
-        <section className="py-20 px-4 border-t border-border">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {/* Left: Tools vs Architecture */}
-            <div>
-              <h2 className="section-heading mb-8">{toolsVsArchitecture.leftTitle}</h2>
-              <div className="space-y-4">
-                {toolsVsArchitecture.comparison.map((item, i) => (
-                  <div key={i} className="pb-4 border-b border-border/30">
-                    <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
-                    <p className="text-foreground">{item.description}</p>
-                  </div>
-                ))}
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Industrias Servidas</p>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Operación Continua</p>
+                </div>
               </div>
             </div>
+          </section>
+        </HeroBackground>
 
-            {/* Right: Our Beliefs */}
-            <div>
-              <h2 className="section-heading mb-8">{toolsVsArchitecture.rightTitle}</h2>
-                <ul className="space-y-3">
-                  {toolsVsArchitecture.beliefs.map((belief, i) => (
-                    <li key={i} className="flex gap-3">
-                      <span className="text-primary font-bold text-lg">{belief.num}</span>
-                      <div>
-                        <p className="font-semibold text-foreground text-sm">{belief.title}</p>
-                        <p className="text-muted-foreground text-sm">{belief.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+        {/* 2. WHAT WE DO Section */}
+        <section className="py-20 px-4 border-t border-border bg-background">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">¿Qué es N3uralia?</h2>
+              <p className="text-lg text-muted-foreground">
+                Construimos la arquitectura que falta. Un orquestador central que coordina agentes especializados, 
+                integra tus sistemas existentes y evoluciona con tu negocio.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
+                <Zap className="w-10 h-10 text-primary mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Orquestación</h3>
+                <p className="text-sm text-muted-foreground">Coordina múltiples agentes y sistemas en un solo flujo inteligente</p>
+              </div>
+
+              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
+                <Bot className="w-10 h-10 text-primary mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Agentes Evolucionan</h3>
+                <p className="text-sm text-muted-foreground">Aprenden de cada interacción y mejoran automáticamente con el tiempo</p>
+              </div>
+
+              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
+                <Code2 className="w-10 h-10 text-primary mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Integración Total</h3>
+                <p className="text-sm text-muted-foreground">Se adapta a tu stack existente sin disrupciones. Zero rewrite.</p>
               </div>
             </div>
           </div>
         </section>
-      </SolutionsBackground>
 
-      {/* 5. CORE OFFERINGS Section */}
-      <section className="py-24 bg-background border-t border-border px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
-              Nuestros Pilares
-            </span>
-            <h2 className="section-heading mb-4">Lo Que Construimos</h2>
-            <p className="section-subheading">
-              Dos ofertas complementarias que forman la base de N3uralia: arquitectura que funciona en el mundo real, y agentes que evolucionan.
-            </p>
-          </div>
+        {/* 3. SECTORS Section */}
+        <section className="py-24 px-4 border-t border-border bg-background">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Soluciones por Industria</h2>
+              <p className="text-lg text-muted-foreground">
+                Automatización especializada para los desafíos únicos de tu sector
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {coreOfferings.map((offering, i) => {
-              const Icon = iconMap[offering.icon]
-              return (
-                <Link key={i} href={offering.link} className="group">
-                  <div className="border-2 border-primary rounded-lg p-10 bg-card hover:bg-primary/5 transition-all h-full cursor-pointer">
-                    <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-8 group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-7 h-7 text-primary" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {sectors.map((sector, i) => {
+                const Icon = sector.icon
+                return (
+                  <Link key={i} href={sector.link} className="group">
+                    <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                        <Icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {sector.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {sector.description}
+                      </p>
                     </div>
-                    <h3 className="text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
-                      {offering.title}
-                    </h3>
-                    <p className="body text-muted-foreground mb-6 leading-relaxed">{offering.description}</p>
-                    <div className="flex items-center gap-2 text-primary font-semibold text-sm">
-                      {offering.linkText} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. WHAT WE BUILD DETAILS Section */}
-      <section className="py-24 bg-background border-t border-border px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-12">
-            <h2 className="section-heading mb-4">Qué Construimos</h2>
-            <p className="body text-muted-foreground">
-              No desarrollamos productos aislados. Construimos sistemas de inteligencia que se integran a operaciones existentes y evolucionan con el tiempo.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {whatWeBuild.map((item, i) => {
-              const Icon = iconMap[item.icon]
-              return (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 7. WHAT IS N3URALIA Section + CTA */}
-      <section className="py-24 bg-background border-t border-border px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="section-heading mb-4">{whatIsN3uralia.mainHeading}</h2>
-          <h3 className="text-xl font-semibold text-primary mb-6">{whatIsN3uralia.mainDescription}</h3>
-          
-          <p className="body text-muted-foreground mb-12">
-            {whatIsN3uralia.fullDescription}
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            {whatIsN3uralia.cards.map((card, i) => (
-              <div key={i} className="border border-border rounded-lg p-6 bg-card hover:border-primary/40 transition-colors">
-                <h4 className="font-semibold text-foreground mb-2">{card.title}</h4>
-                <p className="text-sm text-muted-foreground">{card.description}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA Section */}
-          <div className="text-center py-12 border-t border-border">
-            <h2 className="text-3xl font-bold text-foreground mb-3">¿Listo para Construir Diferente?</h2>
-            <p className="body text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Explora nuestras capacidades técnicas o contacta directamente para ver cómo podemos ayudarte.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/capabilities"
-                className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
-              >
-                Ver 6 Pilares
-              </Link>
-              <Link
-                href="/contact"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
-              >
-                Contactar
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                  </Link>
+                )
+              })}
             </div>
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
 
-    {/* ROI Calculator Section */}
-    <ROICalculator />
+        {/* 4. CTA Section */}
+        <section className="py-20 px-4 border-t border-border bg-background">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl font-bold text-foreground mb-4">¿Tu industria requiere automatización?</h2>
+            <p className="text-muted-foreground mb-8 text-lg">
+              Hablemos sobre cómo N3uralia puede transformar tus operaciones.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
+            >
+              Agendar Conversación
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </section>
+      </main>
 
-    {/* Impact Showcase Section */}
-    <ImpactShowcase />
-
-    {/* Skills Quiz Section */}
-    <SkillsQuiz />
-
-    <HomePageClient />
+      <HomePageClient />
     </>
   )
 }
