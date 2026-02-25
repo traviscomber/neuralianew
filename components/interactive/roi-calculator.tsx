@@ -7,7 +7,7 @@ import Link from "next/link"
 interface ROIState {
   employees: number
   currentHours: number
-  hourlyRate: number
+  hourlyRate: number // En pesos chilenos
   automationPercentage: number
 }
 
@@ -15,7 +15,7 @@ export function ROICalculator() {
   const [state, setState] = useState<ROIState>({
     employees: 10,
     currentHours: 40,
-    hourlyRate: 50,
+    hourlyRate: 25000, // CLP - valor realista para Chile
     automationPercentage: 50,
   })
 
@@ -104,20 +104,20 @@ export function ROICalculator() {
 
             <div>
               <label className="block text-sm font-semibold text-foreground mb-3">
-                Tarifa Horaria Promedio: <span className="text-primary">${state.hourlyRate}</span>
+                Tarifa Horaria Promedio: <span className="text-primary">${state.hourlyRate.toLocaleString('es-CL')}</span>
               </label>
               <input
                 type="range"
-                min="20"
-                max="150"
-                step="10"
+                min="10000"
+                max="250000"
+                step="5000"
                 value={state.hourlyRate}
                 onChange={(e) => handleChange("hourlyRate", parseInt(e.target.value))}
                 className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                <span>$20/h</span>
-                <span>$150/h</span>
+                <span>$10.000/h</span>
+                <span>$250.000/h</span>
               </div>
             </div>
 
@@ -147,7 +147,7 @@ export function ROICalculator() {
             <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg border border-primary/40 p-8 hover:border-primary/60 transition-colors">
               <p className="text-sm text-muted-foreground mb-2">Ahorros Mensuales</p>
               <h3 className="text-4xl font-bold text-primary mb-2">
-                ${roi.monthlySavings.toLocaleString()}
+                ${roi.monthlySavings.toLocaleString('es-CL')} CLP
               </h3>
               <p className="text-sm text-muted-foreground">En costos operacionales</p>
             </div>
@@ -156,7 +156,7 @@ export function ROICalculator() {
             <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/5 rounded-lg border border-green-500/40 p-8 hover:border-green-500/60 transition-colors">
               <p className="text-sm text-muted-foreground mb-2">Ahorros Anuales</p>
               <h3 className="text-3xl font-bold text-green-600 mb-2">
-                ${roi.yearlySavings.toLocaleString()}
+                ${roi.yearlySavings.toLocaleString('es-CL')} CLP
               </h3>
               <p className="text-sm text-muted-foreground">Impacto financiero año completo</p>
             </div>
