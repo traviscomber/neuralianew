@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, Zap, Bot, Workflow, TrendingUp, Package, Users, Building2, Cpu, Code2 } from "lucide-react"
 import type { Metadata } from "next"
 import { HomePageClient } from "@/components/home/home-page-client"
@@ -206,8 +207,14 @@ export default function HomePage() {
               {/* Ecosuelolab */}
               <Link href="/case-studies/ecosuelolab" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
-                    <div className="text-sm font-bold text-foreground text-center">Ecosuelolab</div>
+                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                    <Image 
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png" 
+                      alt="Ecosuelolab logo" 
+                      width={200}
+                      height={60}
+                      className="h-20 w-auto object-contain"
+                    />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                     Monitoreo Agrícola Automatizado
@@ -224,8 +231,14 @@ export default function HomePage() {
               {/* Despega Tu Carrera */}
               <Link href="/case-studies/despega-tu-carrera" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
-                    <div className="text-sm font-bold text-foreground text-center">Despega Tu Carrera</div>
+                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                    <Image 
+                      src="/logos/despega-tu-carrera-logo.jpg" 
+                      alt="Despega Tu Carrera logo" 
+                      width={180}
+                      height={60}
+                      className="h-20 w-auto object-contain"
+                    />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                     Plataforma de Coaching IA
@@ -242,8 +255,14 @@ export default function HomePage() {
               {/* Blackswan */}
               <Link href="/case-studies/blackswan-facility-core" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
-                    <div className="text-sm font-bold text-foreground text-center">Blackswan</div>
+                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                    <Image 
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bslogo-4dAYU7iH5JIRxGvWqE5k75H5ciyXQ8.png" 
+                      alt="Blackswan logo" 
+                      width={120}
+                      height={100}
+                      className="h-20 w-auto object-contain"
+                    />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                     Sistema de Gestión Integrado
