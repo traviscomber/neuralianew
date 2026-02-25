@@ -109,8 +109,8 @@ export function CapabilitiesPageClient() {
         <section id="pilares" className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="h2 mb-4">Los 6 Pilares</h2>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="section-heading mb-4">Los 6 Pilares</h2>
+              <p className="section-subheading">
                 Arquitectura diseñada para máxima inteligencia, escalabilidad y control
               </p>
             </div>
@@ -118,7 +118,7 @@ export function CapabilitiesPageClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {sixPillars.map((pillar, i) => (
                 <Link key={i} href={pillar.link}>
-                  <div className="h-full border border-border rounded-lg p-6 bg-card hover:border-primary/50 transition-all hover:shadow-lg cursor-pointer">
+                  <div className="h-full border border-border rounded-lg p-8 bg-card hover:border-primary/60 hover:shadow-md transition-all hover:-translate-y-1 cursor-pointer">
                     <h3 className="text-lg font-semibold text-foreground mb-2">{pillar.title}</h3>
                     <p className="text-sm text-muted-foreground mb-4">{pillar.description}</p>
                     <ul className="space-y-2">
@@ -142,15 +142,15 @@ export function CapabilitiesPageClient() {
         <section id="living-agents" className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="h2 mb-4">Living Agents</h2>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="section-heading mb-4">Living Agents</h2>
+              <p className="section-subheading">
                 Agentes que no solo responden, sino que evolucionan y mejoran constantemente
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {livingAgentsFeatures.map((feature, i) => (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card">
+                <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 hover:shadow-md transition-all hover:-translate-y-1">
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
@@ -169,7 +169,7 @@ export function CapabilitiesPageClient() {
             <div className="mt-12 text-center">
               <Link
                 href="/living-agents"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
               >
                 Explorar Living Agents
                 <ArrowRight className="w-4 h-4" />
@@ -184,15 +184,15 @@ export function CapabilitiesPageClient() {
         <section id="conversational" className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="h2 mb-4">Conversational Intelligence</h2>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="section-heading mb-4">Conversational Intelligence</h2>
+              <p className="section-subheading">
                 Comprensión profunda del lenguaje natural y generación de respuestas inteligentes
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {conversationalFeatures.map((feature, i) => (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card">
+                <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 hover:shadow-md transition-all hover:-translate-y-1">
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
@@ -211,7 +211,7 @@ export function CapabilitiesPageClient() {
             <div className="mt-12 text-center">
               <Link
                 href="/conversational-intelligence"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
               >
                 Explorar Conversational Intelligence
                 <ArrowRight className="w-4 h-4" />
@@ -226,15 +226,15 @@ export function CapabilitiesPageClient() {
         <section id="produccion" className="py-24 px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="h2 mb-4">Production-Grade</h2>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="section-heading mb-4">Production-Grade</h2>
+              <p className="section-subheading">
                 Sistema confiable, seguro y escalable para aplicaciones empresariales críticas
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {productionFeatures.map((feature, i) => (
-                <div key={i} className="border border-border rounded-lg p-8 bg-card">
+                <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 hover:shadow-md transition-all hover:-translate-y-1">
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
                       <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
@@ -253,7 +253,7 @@ export function CapabilitiesPageClient() {
             <div className="mt-12 text-center">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
               >
                 Conversar sobre tu proyecto
                 <ArrowRight className="w-4 h-4" />

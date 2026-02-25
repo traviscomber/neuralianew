@@ -78,14 +78,14 @@ A complete technical background pattern system has been successfully implemented
 ## Technical Specifications
 
 ### Color Palette (Brandbook Compliant)
-```
+\`\`\`
 - Hero:         Muted Sage (#5CAAA5), 30% opacity
 - Capabilities: Deep Charcoal (#3F2F28), 50% opacity
 - Solutions:    Slate Gray (#697A8A), 40% opacity
 - Workflow:     Muted Sage (#5CAAA5), 45% opacity
 - Blog:         Deep Charcoal (#3F2F28), 20% opacity
 - FAQ:          Muted Sage (#5CAAA5), 35% opacity
-```
+\`\`\`
 
 ### Pattern Types
 - **Nodes & Connections** - Interconnected circles with lines
@@ -108,16 +108,16 @@ A complete technical background pattern system has been successfully implemented
 ## Implementation Quick Start
 
 ### Step 1: Add Import
-```tsx
+\`\`\`tsx
 import { SectionBackground } from "@/components/section-background"
-```
+\`\`\`
 
 ### Step 2: Wrap Content
-```tsx
+\`\`\`tsx
 <SectionBackground section="capabilities" className="py-20">
   {/* Your section content */}
 </SectionBackground>
-```
+\`\`\`
 
 ### Step 3: Choose Section Type
 - `"hero"` - Homepage hero sections
@@ -174,7 +174,7 @@ To complete full site deployment:
 
 ## File Tree Summary
 
-```
+\`\`\`
 Project Root
 ├── /lib/
 │   └── background-patterns.ts (Core generator)
@@ -201,7 +201,7 @@ Project Root
     ├── README_BACKGROUNDS.md
     ├── BACKGROUNDS_IMPLEMENTATION_STATUS.md
     └── BACKGROUNDS_DEPLOYMENT_READY.md
-```
+\`\`\`
 
 ## Next Steps
 

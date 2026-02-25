@@ -92,7 +92,7 @@ Se ha implementado un sistema completo de backgrounds técnicos dinámicos basad
 ## Uso Rápido
 
 ### Opción Simple - Envolver Sección
-```tsx
+\`\`\`tsx
 import { HeroBackground } from '@/components/section-background';
 
 export function MyPage() {
@@ -104,10 +104,10 @@ export function MyPage() {
     </HeroBackground>
   );
 }
-```
+\`\`\`
 
 ### Opción Avanzada - Componente Genérico
-```tsx
+\`\`\`tsx
 import { SectionBackground } from '@/components/section-background';
 
 export function MyPage() {
@@ -121,7 +121,7 @@ export function MyPage() {
     </SectionBackground>
   );
 }
-```
+\`\`\`
 
 ## Próximos Pasos Recomendados
 

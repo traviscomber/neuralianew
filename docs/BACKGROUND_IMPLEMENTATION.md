@@ -38,7 +38,7 @@ Se han creado sistemas de backgrounds técnicos dinámicos basados en la paleta 
 
 ### Opción 1: Envolver una sección completa
 
-```tsx
+\`\`\`tsx
 import { HeroBackground } from '@/components/section-background';
 
 export function HeroSection() {
@@ -48,11 +48,11 @@ export function HeroSection() {
     </HeroBackground>
   );
 }
-```
+\`\`\`
 
 ### Opción 2: Usar componente genérico
 
-```tsx
+\`\`\`tsx
 import { SectionBackground } from '@/components/section-background';
 
 export function MySection() {
@@ -62,11 +62,11 @@ export function MySection() {
     </SectionBackground>
   );
 }
-```
+\`\`\`
 
 ### Opción 3: Envoltura en página
 
-```tsx
+\`\`\`tsx
 import { HeroBackground, CapabilitiesBackground } from '@/components/section-background';
 
 export default function Page() {
@@ -86,35 +86,35 @@ export default function Page() {
     </>
   );
 }
-```
+\`\`\`
 
 ## Personalización
 
 ### Modificar opacidad de una sección
 En `/lib/background-patterns.ts`, actualiza `SECTION_PATTERNS`:
 
-```ts
+\`\`\`ts
 hero: {
   pattern: 'nodes',
   color: BRANDBOOK_COLORS.mutedSage,
   opacity: 0.35, // ← Aumenta o disminuye
   density: 0.4,
 },
-```
+\`\`\`
 
 ### Cambiar color de sección
-```ts
+\`\`\`ts
 capabilities: {
   pattern: 'circuits',
   color: BRANDBOOK_COLORS.slateGray, // ← Cambia a otro color
   opacity: 0.45,
   density: 0.6,
 },
-```
+\`\`\`
 
 ### Agregar nueva sección
 1. Añade en `SECTION_PATTERNS`:
-```ts
+\`\`\`ts
 export const SECTION_PATTERNS: Record<SectionType, SectionPatternConfig> = {
   // ... existing
   myCustomSection: {
@@ -124,16 +124,16 @@ export const SECTION_PATTERNS: Record<SectionType, SectionPatternConfig> = {
     density: 0.45,
   },
 };
-```
+\`\`\`
 
 2. Actualiza el tipo `SectionType` en la misma línea.
 
 3. Usa en componente:
-```tsx
+\`\`\`tsx
 <SectionBackground section="myCustomSection" animated={true}>
   {children}
 </SectionBackground>
-```
+\`\`\`
 
 ## Características
 

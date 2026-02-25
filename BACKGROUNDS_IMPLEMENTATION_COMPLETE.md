@@ -16,7 +16,7 @@
 
 ## 🏗️ Arquitectura del Sistema
 
-```
+\`\`\`
 NÚCLEO DEL SISTEMA
 │
 ├─── /lib/background-patterns.ts (278 líneas)
@@ -44,12 +44,12 @@ NÚCLEO DEL SISTEMA
      ├─ .animate-float               → Clase animación
      ├─ .{section}-overlay           → Overlays por sección
      └─ Media queries                → Responsive + dark mode
-```
+\`\`\`
 
 ## 🎨 Patrones Visuales por Sección
 
 ### 1️⃣ HERO
-```
+\`\`\`
 Pattern: Nodos conectados
 Color:   Muted Sage (#5CAAA5)
 Opacity: 25%
@@ -60,10 +60,10 @@ Visualización:
    O       O───O
     \     /
      O───O
-```
+\`\`\`
 
 ### 2️⃣ CAPABILITIES
-```
+\`\`\`
 Pattern: Circuitos densos
 Color:   Deep Charcoal (#3F2F28)
 Opacity: 45%
@@ -75,10 +75,10 @@ Visualización:
 │ ● ●   │ ● │ ●   │
 └─────┬─┘   └─────┘
       └──────────┘
-```
+\`\`\`
 
 ### 3️⃣ SOLUTIONS
-```
+\`\`\`
 Pattern: Líneas fluidas
 Color:   Slate Gray (#697A8A)
 Opacity: 35%
@@ -88,10 +88,10 @@ Visualización:
    ~~~~~~~~~~~~~~
       ~~~~~~~~~~~
    ~~~~~~~~~~~~~~~~~~
-```
+\`\`\`
 
 ### 4️⃣ WORKFLOW
-```
+\`\`\`
 Pattern: Mixto (nodos + líneas)
 Color:   Muted Sage (#5CAAA5)
 Opacity: 40%
@@ -102,10 +102,10 @@ Visualización:
 O~~~────O~~~O
          ~  ~
          O~~O
-```
+\`\`\`
 
 ### 5️⃣ BLOG
-```
+\`\`\`
 Pattern: Grid sutil
 Color:   Deep Charcoal (#3F2F28)
 Opacity: 20%
@@ -118,10 +118,10 @@ Visualización:
 ├─────┼─────┼─────┤
 │  ●  │     │  ●  │
 └─────┴─────┴─────┘
-```
+\`\`\`
 
 ### 6️⃣ FAQ
-```
+\`\`\`
 Pattern: Nodos interactivos
 Color:   Muted Sage (#5CAAA5)
 Opacity: 30%
@@ -132,24 +132,24 @@ Visualización:
 O   O──O   O
  \ /    \ /
   O──────O
-```
+\`\`\`
 
 ## 📝 Configuración Detallada
 
 ### Paleta de Colores
 
-```javascript
+\`\`\`javascript
 {
   mutedSage: '#5CAAA5'    // Verde agua suave
   deepCharcoal: '#3F2F28' // Gris carbón oscuro
   slateGray: '#697A8A'    // Gris pizarra
   creamWhite: '#FAFAFA'   // Blanco crema
 }
-```
+\`\`\`
 
 ### SECTION_PATTERNS Configuration
 
-```javascript
+\`\`\`javascript
 const SECTION_PATTERNS = {
   hero: {
     pattern: 'nodes',
@@ -188,11 +188,11 @@ const SECTION_PATTERNS = {
     density: 0.40,
   },
 };
-```
+\`\`\`
 
 ## 📂 Árbol de Archivos Creados
 
-```
+\`\`\`
 proyecto/
 ├── lib/
 │   └── background-patterns.ts (★ NUEVO - 278 líneas)
@@ -218,7 +218,7 @@ proyecto/
     └── IMPLEMENTATION_EXAMPLES.md (★ NUEVO - 374 líneas)
 
 + README_BACKGROUNDS.md (★ NUEVO - 276 líneas)
-```
+\`\`\`
 
 ## 🎯 Características Implementadas
 
@@ -263,7 +263,7 @@ proyecto/
 ## 🚀 Cómo Usar Inmediatamente
 
 ### 1. Simple - Copiar y Pegar
-```tsx
+\`\`\`tsx
 import { HeroBackground } from '@/components/section-background';
 
 <HeroBackground>
@@ -271,10 +271,10 @@ import { HeroBackground } from '@/components/section-background';
     {/* Tu contenido */}
   </section>
 </HeroBackground>
-```
+\`\`\`
 
 ### 2. Avanzado - Personalizar
-```tsx
+\`\`\`tsx
 import { SectionBackground } from '@/components/section-background';
 
 <SectionBackground 
@@ -284,17 +284,17 @@ import { SectionBackground } from '@/components/section-background';
 >
   {/* Tu contenido */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 3. Personalizar Colores/Opacidad
 Edita `/lib/background-patterns.ts`:
-```ts
+\`\`\`ts
 hero: {
   opacity: 0.30, // Cambiar opacidad
   color: BRANDBOOK_COLORS.slateGray, // Cambiar color
   density: 0.5, // Cambiar densidad
 }
-```
+\`\`\`
 
 ## 📊 Checklist de Calidad
 

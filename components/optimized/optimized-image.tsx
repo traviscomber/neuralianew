@@ -14,6 +14,7 @@ interface OptimizedImageProps {
   quality?: number
   placeholder?: "blur" | "empty"
   blurDataURL?: string
+  loadingStrategy?: "lazy" | "eager" | "native"
 }
 
 export function OptimizedImage({
@@ -23,27 +24,17 @@ export function OptimizedImage({
   height,
   className = "",
   priority = false,
-  quality = 85,
+  quality = 75, // Reduced from 85 for better compression
   placeholder = "empty",
   blurDataURL,
+  loadingStrategy = "lazy",
 }: OptimizedImageProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
   const { ref, isVisible } = useLazyLoad()
 
-  // Generate WebP version if supported
-  const getOptimizedSrc = (originalSrc: string) => {
-    if (typeof window === "undefined") return originalSrc
-
-    const canvas = document.createElement("canvas")
-    const supportsWebP = canvas.toDataURL("image/webp").indexOf("data:image/webp") === 0
-
-    if (supportsWebP && !originalSrc.includes(".svg")) {
-      return originalSrc.replace(/\.(jpg|jpeg|png)$/i, ".webp")
-    }
-
-    return originalSrc
-  }
+  // Determine if image should be loaded now
+  const shouldLoad = priority || (isVisible && loadingStrategy === "lazy") || loadingStrategy === "eager"
 
   const handleLoad = () => {
     setIsLoaded(true)
@@ -51,7 +42,7 @@ export function OptimizedImage({
 
   const handleError = () => {
     setHasError(true)
-    console.warn(`Failed to load image: ${src}`)
+    console.warn(`[v0] Failed to load image: ${src}`)
   }
 
   if (hasError) {
@@ -63,14 +54,14 @@ export function OptimizedImage({
   }
 
   return (
-    <div ref={ref} className={`relative ${className}`}>
-      {(isVisible || priority) && (
+    <div ref={ref} className={`relative overflow-hidden ${className}`}>
+      {shouldLoad && (
         <>
           {!isLoaded && (
             <div className="absolute inset-0 bg-gray-200 animate-pulse rounded" style={{ width, height }} />
           )}
           <Image
-            src={getOptimizedSrc(src) || "/placeholder.svg"}
+            src={src || "/placeholder.svg"}
             alt={alt}
             width={width}
             height={height}
@@ -78,10 +69,11 @@ export function OptimizedImage({
             priority={priority}
             placeholder={placeholder}
             blurDataURL={blurDataURL}
-            className={`transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"} ${className}`}
+            className={`transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"} w-full h-full object-cover`}
             onLoad={handleLoad}
             onError={handleError}
-            sizes={`(max-width: 768px) ${Math.min(width, 400)}px, ${width}px`}
+            sizes={`(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1200px`}
+            loading={loadingStrategy === "native" ? "lazy" : undefined}
           />
         </>
       )}

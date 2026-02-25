@@ -12,7 +12,7 @@ Reference: `/components/image-optimization.tsx`
 ### Step 2: Add Alt Text to All Images
 
 #### Homepage Images
-```tsx
+\`\`\`tsx
 // Example: Hero image
 <Image
   src="/images/hero-ai-agents-system.jpg"
@@ -21,20 +21,20 @@ Reference: `/components/image-optimization.tsx`
   height={630}
   priority
 />
-```
+\`\`\`
 
 #### Capabilities Page
-```tsx
+\`\`\`tsx
 <Image
   src="/images/6-pillars-agentic-ai.jpg"
   alt="6 pilares de sistemas agenticos: agentic architecture, living agents, multi-agent coordination, conversational intelligence, knowledge synthesis, vibe selling"
   width={1200}
   height={630}
 />
-```
+\`\`\`
 
 #### Solutions Page
-```tsx
+\`\`\`tsx
 // B2B
 alt="Solución B2B mediano: revenue operations con N3uralia, automatización de procesos"
 
@@ -46,7 +46,7 @@ alt="Solución Eventos: Experiencias inmersivas con agents inteligentes"
 
 // Manufactura
 alt="Solución Manufactura: Automatización inteligente con integración legacy"
-```
+\`\`\`
 
 #### Other Pages
 Apply similar pattern: Descriptive + keyword-rich + context-specific
@@ -67,10 +67,10 @@ Apply similar pattern: Descriptive + keyword-rich + context-specific
 Use either:
 
 **Option A: GenerateImage Tool (5 mins per image)**
-```bash
+\`\`\`bash
 /generatedImage("/public/og-images/og-home.jpg", 
   "N3uralia - AI Agents in Production. Sistemas agenticos agnósticos production-ready. Living agents, multi-agent coordination, memory systems. Chile LATAM. Minimalist professional design with brand colors")
-```
+\`\`\`
 
 **Option B: Canva Template (10 mins per image)**
 1. Go to canva.com
@@ -102,7 +102,7 @@ Use either:
 ## HOUR 3: UPDATE METADATA WITH OG IMAGES
 
 ### Step 1: Homepage
-```tsx
+\`\`\`tsx
 // app/page.tsx
 openGraph: {
   title: "N3uralia - AI Agents in Production",
@@ -118,10 +118,10 @@ openGraph: {
     },
   ],
 },
-```
+\`\`\`
 
 ### Step 2: Other Pages
-```tsx
+\`\`\`tsx
 // app/capabilities/page.tsx
 openGraph: {
   images: [
@@ -135,7 +135,7 @@ openGraph: {
 
 // app/soluciones/page.tsx, /como-trabajamos/page.tsx, /faq/page.tsx
 // Same pattern - add images array to openGraph
-```
+\`\`\`
 
 ### Step 3: Test OG Images
 1. Go to: https://www.facebook.com/sharing/debugger/
@@ -150,24 +150,24 @@ openGraph: {
 ## HOUR 4: TECHNICAL SEO POLISH
 
 ### Step 1: Defer Non-Critical CSS
-```tsx
+\`\`\`tsx
 // In your layout.tsx or main stylesheet
 // Add to <head>:
 <link rel="preload" href="/styles/critical.css" as="style" />
 <link rel="stylesheet" href="/styles/critical.css" />
 <link rel="preload" href="/styles/non-critical.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript><link rel="stylesheet" href="/styles/non-critical.css"></noscript>
-```
+\`\`\`
 
 ### Step 2: Async Load Analytics
-```tsx
+\`\`\`tsx
 // In layout.tsx, move analytics to end of body with async:
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_ID"></script>
 <script async src="/scripts/analytics.js"></script>
-```
+\`\`\`
 
 ### Step 3: Image Lazy Loading
-```tsx
+\`\`\`tsx
 // For all images below fold:
 <Image
   src="..."
@@ -176,7 +176,7 @@ openGraph: {
   width={1200}
   height={630}
 />
-```
+\`\`\`
 
 ### Step 4: Run Lighthouse Audit
 1. Chrome DevTools → Lighthouse
@@ -191,7 +191,7 @@ openGraph: {
 ## HOUR 5: ACCESSIBILITY & QA
 
 ### Step 1: WCAG AA Compliance Check
-```bash
+\`\`\`bash
 1. Install axe DevTools Chrome extension
 2. Check each page for:
    - Color contrast (≥4.5:1)
@@ -199,10 +199,10 @@ openGraph: {
    - Form labels (associated)
    - Keyboard navigation (works)
 3. Fix critical issues
-```
+\`\`\`
 
 ### Step 2: Mobile Responsiveness
-```bash
+\`\`\`bash
 1. Test on real devices:
    - iPhone 12 (iOS)
    - Samsung Galaxy S21 (Android)
@@ -213,10 +213,10 @@ openGraph: {
    - Font size ≥16px
    - No horizontal scroll
    - Readable text
-```
+\`\`\`
 
 ### Step 3: Final Testing
-```bash
+\`\`\`bash
 1. Page Speed Insights: https://pagespeed.web.dev/
    - Test each main page
    - Target: 80+ mobile score
@@ -226,7 +226,7 @@ openGraph: {
    
 3. Schema Validator: https://schema.org/validator/
    - Verify all JSON-LD is valid
-```
+\`\`\`
 
 **Time: 30 minutes**
 

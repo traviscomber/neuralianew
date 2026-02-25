@@ -93,7 +93,7 @@
 
 ### Basic Implementation
 
-```tsx
+\`\`\`tsx
 import { SectionBackground } from "@/components/section-background"
 
 export default function MyPage() {
@@ -103,7 +103,7 @@ export default function MyPage() {
     </SectionBackground>
   )
 }
-```
+\`\`\`
 
 ### Available Sections
 - `"hero"` - Homepage hero
@@ -115,7 +115,7 @@ export default function MyPage() {
 
 ### Customization Options
 
-```tsx
+\`\`\`tsx
 <SectionBackground 
   section="capabilities"
   className="custom-class py-20"
@@ -123,7 +123,7 @@ export default function MyPage() {
 >
   {children}
 </SectionBackground>
-```
+\`\`\`
 
 ## Pages Ready for Implementation
 

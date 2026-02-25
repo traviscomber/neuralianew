@@ -18,6 +18,9 @@ import {
   SolutionsBackground,
   WorkflowBackground,
 } from "@/components/section-background"
+import { ROICalculator } from "@/components/interactive/roi-calculator"
+import { SkillsQuiz } from "@/components/interactive/skills-quiz"
+import { PerformanceMetrics } from "@/components/performance/performance-metrics"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
@@ -82,14 +85,14 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
             <Link
               href="/automatizacion-para-empresas"
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
             >
               {heroContent.cta1}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/capabilities"
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+              className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
             >
               {heroContent.cta2}
             </Link>
@@ -112,8 +115,8 @@ export default function HomePage() {
         <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Por Qué N3uralia</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="section-heading mb-4">Por Qué N3uralia</h2>
+            <p className="section-subheading">
               Cuatro diferenciadores que nos hacen únicos en el ecosistema de IA empresarial.
             </p>
           </div>
@@ -122,9 +125,9 @@ export default function HomePage() {
             {corePillars.map((pillar, i) => {
               const Icon = iconMap[pillar.icon]
               return (
-                <div key={i} className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
+                <div key={i} className="p-8 rounded-lg border border-border bg-card hover:border-primary/60 hover:shadow-md transition-all hover:-translate-y-1">
                   <Icon className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
+                  <h3 className="text-xl font-semibold mb-3 text-foreground">{pillar.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{pillar.description}</p>
                 </div>
               )
@@ -139,8 +142,8 @@ export default function HomePage() {
         <section className="py-20 px-4 border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Nuestro Enfoque</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
+            <h2 className="section-heading mb-4">Nuestro Enfoque</h2>
+            <p className="section-subheading mb-8">
               Cinco pasos claros desde estrategia hasta operación sostenible. Cada fase con métricas definidas y comunicación transparente.
             </p>
             <Link
@@ -168,24 +171,24 @@ export default function HomePage() {
       {/* 4. PHILOSOPHY Section */}
       <SolutionsBackground className="py-20 px-4 border-t border-border">
         <section className="py-20 px-4 border-t border-border">
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {/* Left: Tools vs Architecture */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.leftTitle}</h2>
-                <div className="space-y-4">
-                  {toolsVsArchitecture.comparison.map((item, i) => (
-                    <div key={i} className="pb-4 border-b border-border/30">
-                      <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
-                      <p className="text-foreground">{item.description}</p>
-                    </div>
-                  ))}
-                </div>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Left: Tools vs Architecture */}
+            <div>
+              <h2 className="section-heading mb-8">{toolsVsArchitecture.leftTitle}</h2>
+              <div className="space-y-4">
+                {toolsVsArchitecture.comparison.map((item, i) => (
+                  <div key={i} className="pb-4 border-b border-border/30">
+                    <p className="text-sm font-semibold text-muted-foreground mb-1">{item.label}</p>
+                    <p className="text-foreground">{item.description}</p>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              {/* Right: Our Beliefs */}
-              <div>
-                <h2 className="text-2xl font-bold text-foreground mb-8">{toolsVsArchitecture.rightTitle}</h2>
+            {/* Right: Our Beliefs */}
+            <div>
+              <h2 className="section-heading mb-8">{toolsVsArchitecture.rightTitle}</h2>
                 <ul className="space-y-3">
                   {toolsVsArchitecture.beliefs.map((belief, i) => (
                     <li key={i} className="flex gap-3">
@@ -210,8 +213,8 @@ export default function HomePage() {
             <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
               Nuestros Pilares
             </span>
-            <h2 className="text-3xl font-bold text-foreground mb-4">Lo Que Construimos</h2>
-            <p className="body-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="section-heading mb-4">Lo Que Construimos</h2>
+            <p className="section-subheading">
               Dos ofertas complementarias que forman la base de N3uralia: arquitectura que funciona en el mundo real, y agentes que evolucionan.
             </p>
           </div>
@@ -244,7 +247,7 @@ export default function HomePage() {
       <section className="py-24 bg-background border-t border-border px-4">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Qué Construimos</h2>
+            <h2 className="section-heading mb-4">Qué Construimos</h2>
             <p className="body text-muted-foreground">
               No desarrollamos productos aislados. Construimos sistemas de inteligencia que se integran a operaciones existentes y evolucionan con el tiempo.
             </p>
@@ -270,7 +273,7 @@ export default function HomePage() {
       {/* 7. WHAT IS N3URALIA Section + CTA */}
       <section className="py-24 bg-background border-t border-border px-4">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-foreground mb-4">{whatIsN3uralia.mainHeading}</h2>
+          <h2 className="section-heading mb-4">{whatIsN3uralia.mainHeading}</h2>
           <h3 className="text-xl font-semibold text-primary mb-6">{whatIsN3uralia.mainDescription}</h3>
           
           <p className="body text-muted-foreground mb-12">
@@ -288,20 +291,20 @@ export default function HomePage() {
 
           {/* CTA Section */}
           <div className="text-center py-12 border-t border-border">
-            <h2 className="text-3xl font-bold text-foreground mb-6">¿Listo para Construir Diferente?</h2>
-            <p className="body text-muted-foreground mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-3">¿Listo para Construir Diferente?</h2>
+            <p className="body text-muted-foreground mb-10 max-w-2xl mx-auto">
               Explora nuestras capacidades técnicas o contacta directamente para ver cómo podemos ayudarte.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/capabilities"
-                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+                className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
               >
                 Ver 6 Pilares
               </Link>
               <Link
                 href="/contact"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
               >
                 Contactar
                 <ArrowRight className="w-4 h-4" />
@@ -311,6 +314,12 @@ export default function HomePage() {
         </div>
       </section>
     </main>
+
+    {/* ROI Calculator Section */}
+    <ROICalculator />
+
+    {/* Skills Quiz Section */}
+    <SkillsQuiz />
 
     <HomePageClient />
     </>

@@ -16,7 +16,7 @@ Se ha implementado un sistema completo y profesional de backgrounds técnicos di
 
 ### Vista General del Sistema
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────┐
 │                                                             │
 │  /lib/background-patterns.ts                              │
@@ -46,7 +46,7 @@ Se ha implementado un sistema completo y profesional de backgrounds técnicos di
 │  └─ Accesibilidad y dark mode integrados                  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ### Secciones Implementadas
 
@@ -101,7 +101,7 @@ Se ha implementado un sistema completo y profesional de backgrounds técnicos di
 ### Uso Inmediato
 
 #### Envolver una sección (más fácil)
-```tsx
+\`\`\`tsx
 import { HeroBackground } from '@/components/section-background';
 
 export function MyComponent() {
@@ -113,10 +113,10 @@ export function MyComponent() {
     </HeroBackground>
   );
 }
-```
+\`\`\`
 
 #### Usar componente genérico (más flexible)
-```tsx
+\`\`\`tsx
 import { SectionBackground } from '@/components/section-background';
 
 export function MyComponent() {
@@ -128,31 +128,31 @@ export function MyComponent() {
     </SectionBackground>
   );
 }
-```
+\`\`\`
 
 ### Personalización
 
 #### Cambiar opacidad
 En `/lib/background-patterns.ts`:
-```ts
+\`\`\`ts
 hero: {
   opacity: 0.40, // Aumenta de 0.25 a 0.40
 }
-```
+\`\`\`
 
 #### Cambiar patrón
-```ts
+\`\`\`ts
 solutions: {
   pattern: 'circuits', // Cambia de 'lines' a 'circuits'
 }
-```
+\`\`\`
 
 #### Cambiar densidad
-```ts
+\`\`\`ts
 workflow: {
   density: 0.7, // Aumenta de 0.5 a 0.7
 }
-```
+\`\`\`
 
 #### Agregar nueva sección
 1. Añade entrada en `SECTION_PATTERNS`

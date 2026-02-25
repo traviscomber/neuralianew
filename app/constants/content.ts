@@ -5,7 +5,7 @@ export const heroContent = {
     line1: "Automatiza Procesos",
     line2: "O Construye Inteligencia",
   },
-  subheading: "Automatización estructural de procesos complejos conectando sistemas heredados. O arquitectura agentica personalizada que aprende y evoluciona. En ambos casos: listos para producción desde el primer día, ROI demostrable en 6 meses.",
+  subheading: "Simplifica operaciones complejas con IA que funciona desde día uno. Ya sea automatizar lo que tienes hoy o construir sistemas que aprenden mañana, N3uralia tiene la solución.",
   cta1: "Automatización Empresarial",
   cta2: "Sistemas Agenticos",
   metrics: [
@@ -19,23 +19,23 @@ export const heroContent = {
 export const corePillars = [
   {
     icon: "Lightbulb",
-    title: "Ingeniería Real, No Prototipos",
-    description: "Construimos sistemas listos para producción desde el primer día. Cada solución está diseñada para escalar, operar y evolucionar en entornos complejos.",
+    title: "Sistemas que Funcionan (No Experimentos)",
+    description: "Entregamos IA lista para producción desde el primer día. Sin prototipos, sin sorpresas. Cada sistema está diseñado para escalar y operar en entornos del mundo real.",
   },
   {
     icon: "Zap",
-    title: "Infraestructura Incluida",
-    description: "No solo desarrollamos software. Diseñamos la infraestructura cloud, monitoreo y operación sostenible. Todo listo para vivir.",
+    title: "Todo Incluido",
+    description: "No vendemos software aislado. Incluimos infraestructura cloud, monitoreo 24/7 y soporte operacional. Todo listo para que funcione inmediatamente.",
   },
   {
     icon: "Target",
-    title: "Multi-Dominio",
-    description: "Arquitectura de sistemas, datos, IA agentica, cloud computing. Expertise integrado en cada proyecto, no servicios siloed.",
+    title: "Expertos en Todo lo Necesario",
+    description: "Sistemas, datos, IA, cloud. Un equipo integrado que resuelve el problema completo, no partes aisladas.",
   },
   {
     icon: "Users",
-    title: "Operación Sostenible",
-    description: "Tus equipos entienden, operan y evolucionan el sistema. Transferencia de conocimiento desde el día uno.",
+    title: "Tu Equipo Controla Todo",
+    description: "Te enseñamos cómo funciona. Tu equipo opera y evoluciona el sistema desde el inicio. Sin dependencia eterna.",
   },
 ]
 
@@ -109,12 +109,12 @@ export const toolsVsArchitecture = {
   rightTitle: "Lo Que Nos Guía",
   comparison: [
     {
-      label: "Herramientas IA",
-      description: "Responden preguntas aisladas, sin contexto, sin memoria persistente.",
+      label: "Herramientas IA (Punto a Punto)",
+      description: "Responden una pregunta a la vez. Sin contexto. No recuerdan. Para tareas simples.",
     },
     {
-      label: "Sistemas Agenticos",
-      description: "Coordinan especialistas, memoria persistente, autonomía guiada, escalan automáticamente.",
+      label: "Sistemas Agenticos N3uralia",
+      description: "Coordinan múltiples especialistas, recuerdan todo, trabajan 24/7, mejoran continuamente. Para operaciones complejas.",
     },
   ],
   beliefs: [
@@ -140,15 +140,15 @@ export const toolsVsArchitecture = {
 export const coreOfferings = [
   {
     icon: "Network",
-    title: "Sistemas Agenticos en Producción",
-    description: "Arquitectura multi-agente diseñada para escala. Orquestación, memoria persistente, rastreabilidad completa, auto-reparación. Sistemas que no ceden ante complejidad.",
+    title: "Sistemas que Coordinan (Multi-Agentes)",
+    description: "Múltiples especialistas trabajando juntos. Memoria compartida. Decisiones rastreables. Sistemas que no se desmoronan por complejidad, sino que la abrazan.",
     link: "/studies/production-grade-agentic-systems",
     linkText: "Explorar",
   },
   {
     icon: "Sparkles",
-    title: "Living Agents",
-    description: "Agentes con personalidad emergente que evolucionan continuamente. 5 arquetipos únicos que se adaptan, aprenden y mejoran a través de cada interacción.",
+    title: "Agentes que Aprenden (Living Agents)",
+    description: "IA que evoluciona. No es el mismo sistema en mes 1 que en mes 6. Mejora continuamente, aprende de cada interacción, se adapta a tu negocio.",
     link: "/living-agents",
     linkText: "Descubrir",
   },
@@ -158,38 +158,38 @@ export const coreOfferings = [
 export const whatWeBuild = [
   {
     icon: "Network",
-    title: "Agentic Systems",
-    description: "Arquitecturas multi-agente con memoria, orquestación y control. Diseñadas para ejecutar tareas complejas de forma continua.",
+    title: "Sistemas que Coordinan",
+    description: "Múltiples especialistas de IA trabajando juntos sin intervención humana. Cada uno experto en su área, todos conectados y sabiendo qué los otros hacen.",
   },
   {
     icon: "Zap",
-    title: "Operational Intelligence",
-    description: "Sistemas que observan procesos, detectan fricción y activan decisiones automáticas o asistidas.",
+    title: "Inteligencia Operacional",
+    description: "Sistema observa tus procesos, detecta problemas, sugiere soluciones o actúa automáticamente. Todo rastreable, todo controlable por ti.",
   },
   {
     icon: "Shield",
-    title: "Infrastructure-Level AI",
-    description: "IA pensada como capa estructural: segura, auditable y extensible.",
+    title: "Infraestructura Segura",
+    description: "IA integrada desde la base, no como parche. Segura por diseño, auditable, y que crece con tu negocio.",
   },
 ]
 
 // What is N3uralia
 export const whatIsN3uralia = {
-  mainHeading: "¿Qué es N3uralia?",
-  mainDescription: "N3uralia es una plataforma de IA empresarial para construcción en producción.",
-  fullDescription: "No asesoramos. No entregamos reportes. Construimos sistemas vivos que funcionan. Nuestro enfoque combina agentes inteligentes, arquitectura multi-agente y full-stack engineering para empresas que necesitan IA integrada desde el inicio.",
+  mainHeading: "¿Qué es N3uralia en Simple?",
+  mainDescription: "Construimos IA que funciona en el mundo real, no en laboratorios.",
+  fullDescription: "Somos ingenieros que entregan sistemas de IA listos para producción. No consultores, no vendemos software genérico. Cada proyecto es hecho a medida, integrado a tu infraestructura, y operado por tu equipo desde el primer día.",
   cards: [
     {
-      title: "¿Para quién?",
-      description: "Empresas chilenas que necesitan automatización inteligente, coordinación de sistemas complejos y desarrollo custom con IA integrada.",
+      title: "Para Ti (si eres empresa)",
+      description: "Automatiza operaciones complejas, reduce costos, libera equipos para trabajo estratégico. Sin riesgos, con ROI medible.",
     },
     {
-      title: "¿Qué ofrecemos?",
-      description: "Agentes en producción, sistemas multi-agente coordinados, Living Agents que evolucionan, y plataformas full-stack con IA desde el cimiento.",
+      title: "Lo Que Entregas",
+      description: "Sistemas de IA coordinados, agentes que aprenden continuamente, infraestructura segura, y documentación para que tu equipo los controle.",
     },
     {
-      title: "¿Cómo?",
-      description: "Ingeniería rigurosa en 5 fases: estrategia, desarrollo, infraestructura, validación, operación.",
+      title: "Cómo Trabajamos",
+      description: "5 fases: entendemos tu problema, diseñamos juntos, construimos, validamos en tu entorno, y tu equipo opera.",
     },
   ],
 }

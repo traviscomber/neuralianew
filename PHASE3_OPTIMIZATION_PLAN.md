@@ -16,20 +16,20 @@ Para pasar de 9.2 a 9.8, necesitamos optimizaciones en 4 áreas high-impact:
 ### Solución
 
 **Pattern a implementar:**
-```
+\`\`\`
 Cada página principal (Capabilities, Soluciones, FAQ) tendrá:
 - 3-5 internal links contextuales
 - Anchor text con keywords long-tail
 - Links a páginas complementarias
-```
+\`\`\`
 
 **Ejemplos:**
-```
+\`\`\`
 /capabilities → "Ver implementación en /como-trabajamos"
 /soluciones → "Entender arquitectura en /capabilities"
 /faq → "Explorar metodología en /como-trabajamos"
 /blog (si existe) → Links a capabilities, soluciones, studies
-```
+\`\`\`
 
 **Impacto:**
 - +15% SEO juice distribution
@@ -47,12 +47,12 @@ Cada página principal (Capabilities, Soluciones, FAQ) tendrá:
 - [ ] Descriptive filename optimization
 
 ### Checklist Alt Text
-```
+\`\`\`
 ✅ Descriptive (no "image1.jpg", sí "n3uralia-living-agents-architecture.jpg")
 ✅ Keyword-relevant ("AI agents system architecture" vs "picture")
 ✅ Accessible (screen readers benefit)
 ✅ Concise (<125 chars)
-```
+\`\`\`
 
 **Impacto:**
 - +10% accessibility score (WCAG compliance)
@@ -70,13 +70,13 @@ Cada página principal (Capabilities, Soluciones, FAQ) tendrá:
 
 ### Solución
 Crear OG images específicas para:
-```
+\`\`\`
 /                      → "N3uralia - AI Agents in Production"
 /capabilities          → "Living Agents & Agentic AI"
 /soluciones            → "Por Vertical: B2B | Turismo | Eventos"
 /como-trabajamos       → "5 Fases Implementación"
 /faq                   → "FAQ: Systems Architecture"
-```
+\`\`\`
 
 **Specs:**
 - Formato: 1200x630px, PNG o JPG
@@ -94,29 +94,29 @@ Crear OG images específicas para:
 ## 4. TECHNICAL SEO FINAL TOUCHES (Impact: +0.15)
 
 ### 4.1 Page Speed Optimization
-```
+\`\`\`
 ✅ Defer non-critical CSS
 ✅ Async load scripts
 ✅ Image lazy loading
 ✅ Minify JS/CSS
 Target: Core Web Vitals "Good" status
-```
+\`\`\`
 
 ### 4.2 Mobile Responsiveness Verification
-```
+\`\`\`
 ✅ Test en devices: iPhone 12, Samsung Galaxy, iPad
 ✅ Touch targets ≥48px
 ✅ Font size ≥16px mobile
 ✅ No horizontal scroll
-```
+\`\`\`
 
 ### 4.3 Accessibility (WCAG AA)
-```
+\`\`\`
 ✅ Color contrast ≥4.5:1
 ✅ Keyboard navigation fully functional
 ✅ Focus indicators visible
 ✅ Form labels associated with inputs
-```
+\`\`\`
 
 **Impacto:**
 - +8% ranking boost (Core Web Vitals signal)
@@ -127,14 +127,14 @@ Target: Core Web Vitals "Good" status
 ## 5. BONUS: CITATIONS & REVIEW SCHEMA (Impact: +0.05)
 
 Si hay testimonios/reviews, agregar:
-```json
+\`\`\`json
 {
   "@type": "Review",
   "author": { "@type": "Person", "name": "Client Name" },
   "reviewRating": { "@type": "Rating", "ratingValue": "5" },
   "reviewBody": "Great service..."
 }
-```
+\`\`\`
 
 **Impacto:**
 - Visibility en Google reviews

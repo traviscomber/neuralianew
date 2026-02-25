@@ -25,16 +25,16 @@
 ### For Each Remaining Page
 
 1. **Add import:**
-```tsx
+\`\`\`tsx
 import { SectionBackground } from "@/components/section-background"
-```
+\`\`\`
 
 2. **Wrap main sections:**
-```tsx
+\`\`\`tsx
 <SectionBackground section="hero">
   {/* Section content */}
 </SectionBackground>
-```
+\`\`\`
 
 3. **Choose correct section type:**
 - "hero" → Landing pages, first impressions
@@ -59,7 +59,7 @@ import { SectionBackground } from "@/components/section-background"
 
 ## Color Scheme Reference
 
-```
+\`\`\`
 🟩 Muted Sage (#5CAAA5) - Warm, inviting
    → Hero sections
    → Workflow/process pages
@@ -74,7 +74,7 @@ import { SectionBackground } from "@/components/section-background"
    → Solutions/products
    → Services pages
    → Offering presentation
-```
+\`\`\`
 
 ## Animation Effects
 
@@ -121,7 +121,7 @@ import { SectionBackground } from "@/components/section-background"
 
 ## Quick Copy-Paste Template
 
-```tsx
+\`\`\`tsx
 // At top of file
 import { SectionBackground } from "@/components/section-background"
 
@@ -129,7 +129,7 @@ import { SectionBackground } from "@/components/section-background"
 <SectionBackground section="hero" className="your-classes">
   {/* Your content */}
 </SectionBackground>
-```
+\`\`\`
 
 ## Next Steps
 

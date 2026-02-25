@@ -2,7 +2,7 @@
 
 ## Flujo de Uso
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────────────┐
 │                     PÁGINA WEB N3URALIA                        │
 └─────────────────────────────────────────────────────────────────┘
@@ -23,11 +23,11 @@
          │ Opacity:     │  │ Opacity:  │  │ Opacity:  │
          │ 25%          │  │ 45%       │  │ 20%       │
          └──────────────┘  └───────────┘  └───────────┘
-```
+\`\`\`
 
 ## Arquitectura en Capas
 
-```
+\`\`\`
 ┌────────────────────────────────────────────────────────────┐
 │                    PÁGINA (JSX)                            │
 │  Contiene estructura HTML y contenido normal              │
@@ -76,11 +76,11 @@
 │  + Dark mode support                                    │
 │  + Accesibilidad (prefers-reduced-motion)            │
 └────────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ## Flujo de Configuración
 
-```
+\`\`\`
 ┌──────────────────────────────────────────────────────┐
 │     ARCHIVO: /lib/background-patterns.ts            │
 └──────────────────────────────────────────────────────┘
@@ -106,11 +106,11 @@
                  ├─ generateGridPattern()
                  ├─ generateMixedPattern()
                  └─ generateBackgroundSVG()
-```
+\`\`\`
 
 ## Ciclo de Vida del Componente
 
-```
+\`\`\`
 1. MONTAJE
    ├─ Componente recibe props (section, animated, children)
    └─ useEffect se ejecuta
@@ -138,11 +138,11 @@
    ├─ Duración: 8s
    ├─ Repetición: infinite
    └─ Loop continuo suave
-```
+\`\`\`
 
 ## Selección de Patrón por Sección
 
-```
+\`\`\`
 SECCIÓN → TIPO      → GENERADOR            → RESULTADO
 ────────────────────────────────────────────────────────
 Hero    → nodes    → generateNodesPattern()    → ⊙─⊙─⊙
@@ -151,11 +151,11 @@ Solution→ lines    → generateLinesPattern()    → ~~~~
 Workflow→ mixed    → generateMixedPattern()    → ⊙~~~⊙
 Blog    → grid     → generateGridPattern()     → ┌─┬─┬─┐
 FAQ     → nodes    → generateNodesPattern()    → ⊙─⊙─⊙
-```
+\`\`\`
 
 ## Mapeo de Colores a Secciones
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────┐
 │          PALETA DEL BRANDBOOK                      │
 │                                                    │
@@ -175,11 +175,11 @@ FAQ     → nodes    → generateNodesPattern()    → ⊙─⊙─⊙
   ✓ Marca consistente
   ✓ Diferenciación visual
   ✓ Profesionalismo
-```
+\`\`\`
 
 ## Flujo de Datos
 
-```
+\`\`\`
 USER VIEWS PAGE
       │
       ▼
@@ -227,11 +227,11 @@ GENERATE_SECTION_BACKGROUND
             ├─→ Smooth floating animation
             ├─→ Content on top
             └─→ Professional appearance
-```
+\`\`\`
 
 ## Responsive Design Flow
 
-```
+\`\`\`
 DESKTOP (1200px+)           TABLET (768-1199px)        MOBILE (<768px)
 ┌──────────────────┐        ┌──────────────┐           ┌──────────┐
 │ Pattern 100%     │        │ Pattern 80%  │           │Pattern   │
@@ -245,11 +245,11 @@ DESKTOP (1200px+)           TABLET (768-1199px)        MOBILE (<768px)
 │                  │        │ 768x auto    │           │ Size:    │
 └──────────────────┘        └──────────────┘           │ 320x auto│
                                                         └──────────┘
-```
+\`\`\`
 
 ## Timeline de Animación
 
-```
+\`\`\`
 FLOAT ANIMATION (8 segundos, loop infinito)
 
 0% ─────────── 50% ────────────── 100%
@@ -267,11 +267,11 @@ FLOAT ANIMATION (8 segundos, loop infinito)
    ├────────────────────┤
         4 segundos
         (0% → 50%)
-```
+\`\`\`
 
 ## Estructura de Archivo SVG Generado
 
-```xml
+\`\`\`xml
 <svg width="1200" height="800" viewBox="0 0 1200 800" 
      xmlns="http://www.w3.org/2000/svg" 
      class="background-pattern">
@@ -289,11 +289,11 @@ FLOAT ANIMATION (8 segundos, loop infinito)
   <!-- ... más elementos ... -->
   
 </svg>
-```
+\`\`\`
 
 ## Matriz de Combinaciones
 
-```
+\`\`\`
 PATRÓN × SECCIÓN × COLOR × OPACIDAD = RESULTADO
 
 nodes          hero         Sage       25%  → Elegante, sutil
@@ -309,7 +309,7 @@ mixed       blog          Cream      20%  → Neutral, fondo
 
 Total combinaciones: 5 × 6 × 4 × 5 = 600 posibles
 Implementadas: 6 específicamente optimizadas
-```
+\`\`\`
 
 ---
 
