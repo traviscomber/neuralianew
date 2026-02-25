@@ -192,7 +192,85 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* 4. CTA Section */}
+        {/* 4. CLIENTS Section */}
+        <section className="py-24 px-4 border-t border-border bg-background">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Confían en N3uralia</h2>
+              <p className="text-lg text-muted-foreground">
+                Empresas líderes transforman sus operaciones con nuestros sistemas
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Ecosuelolab */}
+              <Link href="/case-studies/ecosuelolab" className="group">
+                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
+                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
+                    <div className="text-sm font-bold text-foreground text-center">Ecosuelolab</div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    Monitoreo Agrícola Automatizado
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Automatización 100% de alertas satelitales con integración API + WhatsApp. Latencia en segundos.
+                  </p>
+                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    Ver Caso <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Despega Tu Carrera */}
+              <Link href="/case-studies/despega-tu-carrera" className="group">
+                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
+                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
+                    <div className="text-sm font-bold text-foreground text-center">Despega Tu Carrera</div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    Plataforma de Coaching IA
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Fullstack development con coach IA conversacional, tests psicométricos y biblioteca de recursos. 10K+ usuarios.
+                  </p>
+                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    Ver Caso <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+
+              {/* Blackswan */}
+              <Link href="/case-studies/blackswan-facility-core" className="group">
+                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
+                  <div className="w-32 h-20 bg-muted rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors">
+                    <div className="text-sm font-bold text-foreground text-center">Blackswan</div>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                    Sistema de Gestión Integrado
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    BFCS orquestado para hoteles de lujo. 40% reducción en tiempo operativo. Response time: 4h → 15min.
+                  </p>
+                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
+                    Ver Caso <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            <div className="text-center mt-16">
+              <Link
+                href="/case-studies"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
+              >
+                Ver Todos los Casos de Éxito
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. CTA Section */}
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-foreground mb-4">¿Tu industria requiere automatización?</h2>
