@@ -2,197 +2,96 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, MessageCircle } from "lucide-react"
+import { Menu, X, MessageCircle, ChevronDown } from "lucide-react"
 import { useState } from "react"
 
 export function Navigation() {
   const [open, setOpen] = useState(false)
-  const [learningOpen, setLearningOpen] = useState(false)
-  const [automationOpen, setAutomationOpen] = useState(false)
-
-  const navItems = {
-    capacidades: "Capacidades",
-    livingAgents: "Living Agents",
-    sistemasProduccion: "Sistemas en Producción",
-    soluciones: "Soluciones",
-    casosExito: "Casos de Éxito",
-    centroAprendizaje: "Centro de Aprendizaje",
-    acerca: "Acerca de",
-    nuestroEnfoque: "Nuestro Enfoque",
-    paraEmpresas: "Para Empresas",
-    paraStartups: "Para Startups",
-    paraDesarrolladores: "Para Desarrolladores",
-    conceptos: "Conceptos Fundamentales",
-    guiasTecnicas: "Guías Técnicas",
-    recursos: "Recursos",
-  }
+  const [solutionsOpen, setSolutionsOpen] = useState(false)
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 h-24 flex items-center justify-between">
-        <Link href="/" className="flex items-center h-16">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={64} height={64} className="h-16 w-auto" priority />
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        <Link href="/" className="flex items-center">
+          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-2 items-center">
-          {/* Tier 1: Core Products */}
+        <div className="hidden md:flex gap-1 items-center">
           <Link 
             href="/capabilities" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.capacidades}
+            Capacidades
           </Link>
-          
-          {/* Automation Submenu */}
+
+          {/* Solutions & Automation - Merged Dropdown */}
           <div className="relative">
             <button
-              onClick={() => setAutomationOpen(!automationOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
+              onClick={() => setSolutionsOpen(!solutionsOpen)}
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
               type="button"
             >
-              Automatización
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${automationOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+              Soluciones
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
             </button>
-            {automationOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                  href="/automatizacion-para-empresas"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Automatización General
-                </Link>
-                <Link
-                  href="/integraciones-empresariales"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Integraciones Legacy
-                </Link>
-                <Link
-                  href="/automatizacion-ventas-leads"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Sales & Leads
-                </Link>
-                <Link
-                  href="/operaciones-autonomas"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Operaciones 24/7
-                </Link>
+            {solutionsOpen && (
+              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-3 min-w-56 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                {/* By Industry */}
+                <div className="mb-3 pb-3 border-b border-border/50">
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide px-2 mb-2">Por Industria</p>
+                  <Link href="/soluciones" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Ver Todas las Industrias
+                  </Link>
+                  <Link href="/retail" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Retail & E-commerce
+                  </Link>
+                  <Link href="/manufactura" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Manufactura
+                  </Link>
+                  <Link href="/finanzas" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Servicios Financieros
+                  </Link>
+                </div>
+
+                {/* Use Cases */}
+                <div>
+                  <p className="text-xs font-semibold text-primary uppercase tracking-wide px-2 mb-2">Casos de Uso</p>
+                  <Link href="/automatizacion-ventas" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Ventas & Leads
+                  </Link>
+                  <Link href="/integraciones-legacy" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Integraciones Legacy
+                  </Link>
+                  <Link href="/operaciones-24-7" onClick={() => setSolutionsOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition-colors">
+                    Operaciones 24/7
+                  </Link>
+                </div>
               </div>
             )}
           </div>
 
-          {/* Tier 2: Solutions Direct Link */}
-          <Link 
-            href="/soluciones" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.soluciones}
-          </Link>
-
-          {/* Tier 2.5: Case Studies Link */}
           <Link 
             href="/case-studies" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.casosExito}
+            Casos de Éxito
           </Link>
 
-          {/* Tier 4: Company Info */}
           <Link 
             href="/about" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
+            Acerca de
           </Link>
 
-          {/* Tier 5: Learning Hub Dropdown (at the end) */}
-          <div className="relative">
-            <button
-              onClick={() => setLearningOpen(!learningOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
-              type="button"
-            >
-              {navItems.centroAprendizaje}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {learningOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                  href="/learning-hub"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm font-semibold text-primary hover:bg-muted rounded transition-colors mb-2 border-b border-border pb-2"
-                >
-                  {navItems.centroAprendizaje}
-                </Link>
-                <Link
-                  href="/studies"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.conceptos}
-                </Link>
-                <Link
-                  href="/blog"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.guiasTecnicas}
-                </Link>
-                <Link
-                  href="/faq"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  FAQ
-                </Link>
-                <Link
-                  href="/outcomes"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.recursos}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/56993826127"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm transition-colors font-medium"
+          {/* Contact Button */}
+          <Link
+            href="/contact"
+            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
           >
-            <MessageCircle className="w-4 h-4" />
-            WhatsApp
-          </a>
+            Contactar
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -203,123 +102,103 @@ export function Navigation() {
 
       {/* Mobile Navigation */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
           <Link 
             href="/capabilities" 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.capacidades}
+            Capacidades
           </Link>
 
-          {/* Mobile Automation Link */}
-          <Link 
-            href="/automatizacion-para-empresas" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            Automatización
-          </Link>
-
-          {/* Mobile Solutions Link */}
-          <Link 
-            href="/soluciones" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.soluciones}
-          </Link>
-
-          {/* Mobile Case Studies Link */}
-          <Link 
-            href="/case-studies" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.casosExito}
-          </Link>
-
-          {/* Mobile Learning Hub Submenu */}
+          {/* Mobile Solutions Button */}
           <button
-            onClick={() => setLearningOpen(!learningOpen)}
-            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
+            onClick={() => setSolutionsOpen(!solutionsOpen)}
+            className="w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
             type="button"
           >
-            {navItems.centroAprendizaje}
-            <svg 
-              className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
+            Soluciones
+            <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
           </button>
-          {learningOpen && (
+          {solutionsOpen && (
             <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
               <Link 
-                href="/learning-hub" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
-              >
-                {navItems.centroAprendizaje}
-              </Link>
-              <Link 
-                href="/studies" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                href="/soluciones" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
-                {navItems.conceptos}
+                Ver Todas
               </Link>
               <Link 
-                href="/blog" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                href="/retail" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
-                {navItems.guiasTecnicas}
+                Retail & E-commerce
               </Link>
               <Link 
-                href="/faq" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                href="/manufactura" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
-                FAQ
+                Manufactura
               </Link>
               <Link 
-                href="/outcomes" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
+                href="/finanzas" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
                 className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
               >
-                {navItems.recursos}
+                Servicios Financieros
+              </Link>
+              <Link 
+                href="/automatizacion-ventas" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                Ventas & Leads
+              </Link>
+              <Link 
+                href="/integraciones-legacy" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                Integraciones Legacy
+              </Link>
+              <Link 
+                href="/operaciones-24-7" 
+                onClick={() => { setOpen(false); setSolutionsOpen(false) }} 
+                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
+              >
+                Operaciones 24/7
               </Link>
             </div>
           )}
 
           <Link 
-            href="/about" 
+            href="/case-studies" 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
+            Casos de Éxito
           </Link>
 
-          <a
-            href="https://wa.me/56993826127"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-primary font-medium"
+          <Link 
+            href="/about" 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            <MessageCircle className="w-4 h-4" />
-            WhatsApp
-          </a>
+            Acerca de
+          </Link>
+
+          <div className="pt-2 border-t border-border">
+            <Link 
+              href="/contact" 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
+            >
+              Contactar
+            </Link>
+          </div>
         </div>
       )}
     </nav>
