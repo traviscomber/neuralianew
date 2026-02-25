@@ -18,11 +18,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Nodos dispersos con conexiones suaves
 - **Intensidad por defecto:** Normal
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="hero" intensity="normal">
   {/* Your hero content */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 2. Capabilities (Circuitos)
 - **Mejor para:** Feature showcase, technical details
@@ -30,11 +30,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Grid con líneas conectando nodos
 - **Intensidad por defecto:** Normal
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="capabilities" intensity="bold">
   {/* Your features */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 3. Solutions (Flujo)
 - **Mejor para:** Solutions, process, journey
@@ -42,11 +42,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Curvas fluidas suaves
 - **Intensidad por defecto:** Normal
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="solutions" intensity="normal">
   {/* Your solutions */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 4. Workflow (Nodos Densos)
 - **Mejor para:** Process, methodology, workflows
@@ -54,11 +54,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Nodos densos con múltiples conexiones
 - **Intensidad por defecto:** Normal
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="workflow" intensity="normal">
   {/* Your workflow steps */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 5. Blog (Grid)
 - **Mejor para:** Blog posts, articles, content
@@ -66,11 +66,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Grid subtil de líneas
 - **Intensidad por defecto:** Subtle
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="blog" intensity="subtle">
   {/* Your blog content */}
 </SectionBackground>
-```
+\`\`\`
 
 ### 6. FAQ (Nodos Dispersos)
 - **Mejor para:** FAQ, Q&A sections
@@ -78,11 +78,11 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 - **Patrón:** Pocos nodos, muy abierto
 - **Intensidad por defecto:** Normal
 
-```tsx
+\`\`\`tsx
 <SectionBackground section="faq" intensity="normal">
   {/* Your FAQ items */}
 </SectionBackground>
-```
+\`\`\`
 
 ## Niveles de Intensidad
 
@@ -105,7 +105,7 @@ El nuevo sistema de backgrounds profesionales para N3uralia ofrece:
 
 Alternativamente, puedes usar componentes pre-configurados:
 
-```tsx
+\`\`\`tsx
 import {
   HeroBackground,
   CapabilitiesBackground,
@@ -119,7 +119,7 @@ import {
 <HeroBackground intensity="normal">
   {/* content */}
 </HeroBackground>
-```
+\`\`\`
 
 ## Personalización
 
@@ -127,31 +127,31 @@ import {
 
 Edita `/lib/background-patterns.ts`:
 
-```typescript
+\`\`\`typescript
 const brandColors = {
   sage: '#5CAAA5',      // Cambiar aquí
   charcoal: '#3F2F28',  // Cambiar aquí
   slate: '#697A8A',     // Cambiar aquí
 };
-```
+\`\`\`
 
 ### Ajustar opacidades
 
 En el mismo archivo, modifica los valores de `opacity` en cada sección:
 
-```typescript
+\`\`\`typescript
 hero: {
   svg: generateNodesPattern(brandColors.sage, 12),
   color: brandColors.sage,
   opacity: 0.25,  // Cambiar aquí (0-1)
 },
-```
+\`\`\`
 
 ### Crear nuevo patrón
 
 Agrega una nueva función generadora:
 
-```typescript
+\`\`\`typescript
 function generateCustomPattern(color: string): string {
   return `
     <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
@@ -159,7 +159,7 @@ function generateCustomPattern(color: string): string {
     </svg>
   `;
 }
-```
+\`\`\`
 
 ## Testing
 
@@ -185,13 +185,13 @@ Visita `/backgrounds-demo` para ver todos los patrones en tiempo real y ajustar 
 
 Para cambiar backgrounds en toda la aplicación:
 
-```tsx
+\`\`\`tsx
 // En cualquier página
 <SectionBackground section="hero" intensity="bold" className="py-32">
   <div className="max-w-5xl mx-auto">
     {/* Tu contenido */}
   </div>
 </SectionBackground>
-```
+\`\`\`
 
 **Los backgrounds ahora son profesionales, personalizables y optimizados. Usa la página demo para ajustar según necesites.**

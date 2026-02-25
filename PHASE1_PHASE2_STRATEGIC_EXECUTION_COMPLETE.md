@@ -53,7 +53,7 @@
 
 ## ARQUITECTURA ESTRATÉGICA
 
-```
+\`\`\`
 Homepage (Dual Entry Point)
 ├─ Path 1: "Automatiza Operaciones" → /automatizacion-para-empresas
 │  └─ Target: Empresas con procesos manuales
@@ -69,7 +69,7 @@ Navigation Visibility
 ├─ Main nav: "Automatización" (NEW - prominent)
 ├─ Solutions: Soluciones verticales
 └─ Learning Hub: Centro de Aprendizaje (educativo)
-```
+\`\`\`
 
 ---
 
@@ -121,11 +121,11 @@ Navigation Visibility
 
 ## DEPLOYMENT
 
-```bash
+\`\`\`bash
 git add .
 git commit -m "Phase 1+2: Commercial positioning with automation money page + dual hero messaging"
 git push origin main
 # Vercel auto-deploys en 1-2 minutos
-```
+\`\`\`
 
 **Expected:** Site goes live con nueva posición comercial en ~120 segundos.

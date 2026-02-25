@@ -2,7 +2,7 @@
 
 ## 1. Capabilities Page - `/app/capabilities/page.tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { CapabilitiesBackground } from '@/components/section-background';
@@ -33,11 +33,11 @@ export default function CapabilitiesPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 2. Solutions Page - `/app/soluciones/page.tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { SolutionsBackground, HeroBackground } from '@/components/section-background';
@@ -65,11 +65,11 @@ export default function SolutionsPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 3. Blog Page - `/app/blog/page.tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { BlogBackground, HeroBackground } from '@/components/section-background';
@@ -99,11 +99,11 @@ export default function BlogPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 4. FAQ Page - `/app/faq/page.tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { FAQBackground, HeroBackground } from '@/components/section-background';
@@ -131,11 +131,11 @@ export default function FAQPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 5. Workflow Page - `/app/como-trabajamos/page.tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { WorkflowBackground, HeroBackground } from '@/components/section-background';
@@ -165,11 +165,11 @@ export default function WorkflowPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 6. Custom Landing Page - Combinando múltiples backgrounds
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import {
@@ -222,11 +222,11 @@ export default function CustomLanding() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 7. Case Studies Page - Con SectionBackground genérico
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { SectionBackground } from '@/components/section-background';
@@ -261,11 +261,11 @@ export default function CaseStudiesPage() {
     </>
   );
 }
-```
+\`\`\`
 
 ## 8. Servicio Específico Page - `/app/servicios/[slug].tsx`
 
-```tsx
+\`\`\`tsx
 'use client';
 
 import { SectionBackground } from '@/components/section-background';
@@ -302,13 +302,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     </>
   );
 }
-```
+\`\`\`
 
 ## Notas de Implementación
 
 ### Estructura Recomendada
 
-```
+\`\`\`
 Page
 ├─ HeroBackground
 │  └─ Hero Content
@@ -318,11 +318,11 @@ Page
 │  └─ Extra Content
 └─ FAQBackground
    └─ FAQ Content
-```
+\`\`\`
 
 ### Clases CSS Útiles
 
-```tsx
+\`\`\`tsx
 // Espaciado estándar para secciones
 <section className="py-24 px-4">
 
@@ -331,11 +331,11 @@ Page
 
 // Para mobile responsivo
 <section className="py-12 md:py-24 px-4 md:px-0">
-```
+\`\`\`
 
 ### Props Disponibles
 
-```tsx
+\`\`\`tsx
 // Todos los componentes aceptan:
 <[Background]
   className="..." // CSS adicional
@@ -343,15 +343,15 @@ Page
 >
   {children}
 </[Background]>
-```
+\`\`\`
 
 ### Animaciones CSS Disponibles
 
-```css
+\`\`\`css
 .animate-float        /* Flotación suave */
 .animate-float-slow   /* Flotación lenta */
 .animate-pulse-glow   /* Glow pulsante */
-```
+\`\`\`
 
 ---
 

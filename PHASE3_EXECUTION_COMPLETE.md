@@ -43,7 +43,7 @@
   - Filename optimization guide
 
 **Guidelines for implementation:**
-```
+\`\`\`
 Alt Text Examples:
 ✅ "N3uralia API architecture: Gemini para clasificación, OpenAI para respuesta final"
 ✅ "6 pilares de sistemas agenticos: agentic architecture, living agents, multi-agent coordination"
@@ -53,7 +53,7 @@ NOT:
 ❌ "image1.jpg"
 ❌ "picture"
 ❌ "screenshot"
-```
+\`\`\`
 
 **Next: Apply guide to existing images**
 - [ ] Homepage hero image
@@ -112,7 +112,7 @@ Score improvement pending: +0.15
 
 **Status:** Ready to implement if testimonials available
 
-```json
+\`\`\`json
 {
   "@type": "Review",
   "author": { "@type": "Person", "name": "Client Name" },
@@ -120,7 +120,7 @@ Score improvement pending: +0.15
   "reviewBody": "Great service from N3uralia...",
   "publisher": { "@type": "Organization", "name": "N3uralia" }
 }
-```
+\`\`\`
 
 Score improvement pending: +0.05
 

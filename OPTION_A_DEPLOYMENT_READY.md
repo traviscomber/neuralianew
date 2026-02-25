@@ -30,7 +30,7 @@
 - [x] Capabilities page links to cómo-trabajamos
 
 ### FILES PRODUCTION READY
-```
+\`\`\`
 ✓ /app/layout.tsx - Root metadata + structured data
 ✓ /app/page.tsx - Homepage metadata optimized
 ✓ /app/para-startups/page.tsx - Startups targeting
@@ -41,7 +41,7 @@
 ✓ /components/faq-page-schema.tsx - FAQPage component
 ✓ /components/faq/faq-page-client.tsx - Internal links added
 ✓ /components/capabilities/capabilities-page-client.tsx - Internal link added
-```
+\`\`\`
 
 ### METRICS EXPECTED
 
@@ -64,14 +64,14 @@
 ### DEPLOYMENT STEPS
 
 1. **Verify compilation:**
-   ```bash
+   \`\`\`bash
    npm run build
-   ```
+   \`\`\`
 
 2. **Test locally:**
-   ```bash
+   \`\`\`bash
    npm run dev
-   ```
+   \`\`\`
    - Check /faq for internal links
    - Check /capabilities for schema
    - Verify all pages load

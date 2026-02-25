@@ -64,9 +64,9 @@
 ### How to Deploy
 
 **Terminal:**
-```bash
+\`\`\`bash
 git push origin main
-```
+\`\`\`
 
 Vercel auto-deploys in 1-2 minutes.
 
@@ -140,15 +140,15 @@ Vercel auto-deploys in 1-2 minutes.
 ### Next Steps
 
 1. **Verify compilation locally:**
-   ```bash
+   \`\`\`bash
    npm run build
    npm run dev
-   ```
+   \`\`\`
 
 2. **Deploy to Vercel:**
-   ```bash
+   \`\`\`bash
    git push origin main
-   ```
+   \`\`\`
 
 3. **Monitor in 24-48 hours:**
    - Check Google Search Console

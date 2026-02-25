@@ -2,7 +2,7 @@
 
 ## Site-Wide Visual Structure
 
-```
+\`\`\`
 ┌─────────────────────────────────────────────────────────┐
 │                    N3uralia Website                      │
 ├─────────────────────────────────────────────────────────┤
@@ -93,11 +93,11 @@
 │                     FOOTER                               │
 │                (No background pattern)                   │
 └─────────────────────────────────────────────────────────┘
-```
+\`\`\`
 
 ## Color Distribution Map
 
-```
+\`\`\`
 WARM/SAGE SECTIONS (Muted Sage #5CAAA5):
 ├─ Homepage Hero
 ├─ How We Work / Workflow Pages
@@ -113,12 +113,12 @@ NEUTRAL/SLATE SECTIONS (Slate Gray #697A8A):
 ├─ Solutions Pages
 ├─ Services
 └─ Process Descriptions
-```
+\`\`\`
 
 ## Animation Timeline
 
 ### Hero Section (8s cycle)
-```
+\`\`\`
 0s    ──────> 4s    ──────> 8s
 Start         Peak Movement   Return
   │             │              │
@@ -126,10 +126,10 @@ Start         Peak Movement   Return
 [Normal]  [Floating up]  [Reset]
 Opacity   +20px move    Back to start
 25%       Rotate 2°     Opacity 25%
-```
+\`\`\`
 
 ### Workflow Section (12s cycle)
-```
+\`\`\`
 0s────────────────> 6s────────────────> 12s
 Start              Mid-drift           Return
   │                  │                  │
@@ -137,23 +137,23 @@ Start              Mid-drift           Return
 [Normal]       [Sideways Move]    [Reset]
 +10px left X   +15px left         Back
 0° rotation    0° rotation        original
-```
+\`\`\`
 
 ### Glow Effect (6s cycle)
-```
+\`\`\`
 0s ──> 3s ──> 6s
 Start  Peak  Back
  │      │     │
  ▼      ▼     ▼
 20px   30px   20px
 shadow shadow shadow
-```
+\`\`\`
 
 ## Layout Integration Examples
 
 ### Example 1: Hero + Features (Homepage)
 
-```
+\`\`\`
 ┌──────────────────────────────────┐
 │   HERO BACKGROUND (Sage)         │
 │  ┌────────────────────────────┐  │
@@ -172,11 +172,11 @@ shadow shadow shadow
 │  │  [CTA to capabilities]     │  │
 │  └────────────────────────────┘  │
 └──────────────────────────────────┘
-```
+\`\`\`
 
 ### Example 2: Services (Multi-Section)
 
-```
+\`\`\`
 ┌──────────────────────────────────┐
 │  WORKFLOW BG (Sage Dynamic)      │
 │  [Services Methodology]          │
@@ -193,11 +193,11 @@ shadow shadow shadow
 │  [FAQ Accordions]                │
 │  [Contact Form]                  │
 └──────────────────────────────────┘
-```
+\`\`\`
 
 ## Responsive Scaling
 
-```
+\`\`\`
 Desktop (1024px+):
   SVG Pattern: 100% scale
   Animation Speed: Normal (8-12s)
@@ -212,11 +212,11 @@ Mobile (< 768px):
   SVG Pattern: 70% scale (scaled down)
   Animation Speed: Slowed 20% (reduced motion priority)
   Opacity: Full but optimized for performance
-```
+\`\`\`
 
 ## Brandbook Compliance Checklist
 
-```
+\`\`\`
 ✅ Color Palette:
    - Deep Charcoal (#3F2F28): Exactly matched
    - Muted Sage (#5CAAA5): Exactly matched
@@ -239,11 +239,11 @@ Mobile (< 768px):
    - Alternative text supported
    - Motion preferences respected
    - Keyboard navigation unaffected
-```
+\`\`\`
 
 ## Performance Indicators
 
-```
+\`\`\`
 Metric                 Target    Current   Status
 ─────────────────────────────────────────────────
 SVG Generation         < 15ms    8-10ms    ✅
@@ -253,11 +253,11 @@ Total CSS Bundle       < 30KB    15KB      ✅
 Mobile Performance     Good      Good      ✅
 Memory Usage          < 10MB    < 5MB     ✅
 Load Time Impact      < 100ms   < 50ms    ✅
-```
+\`\`\`
 
 ## Visual Hierarchy
 
-```
+\`\`\`
 High Visual Density          Low Visual Density
 (Capabilities Page)          (Blog Pages)
 ─────────────────────────────────────────────
@@ -266,11 +266,11 @@ Dense Patterns          ↔    Subtle Patterns
 Active Animation        ↔    Minimal Animation
 Rich Color Saturation   ↔    Soft Color Wash
 Attention-Seeking       ↔    Content-Focused
-```
+\`\`\`
 
 ## Section Decision Matrix
 
-```
+\`\`\`
 Section Type      Use When              Background    Opacity
 ──────────────────────────────────────────────────────────────
 Hero             Landing pages         Sage          30%
@@ -290,7 +290,7 @@ Blog             Content reading       Charcoal      20%
                  
 FAQ              Support section       Sage          35%
                  Question/answers
-```
+\`\`\`
 
 ---
 

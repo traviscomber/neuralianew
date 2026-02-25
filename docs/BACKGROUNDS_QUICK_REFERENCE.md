@@ -2,7 +2,7 @@
 
 ## Componentes Disponibles
 
-```tsx
+\`\`\`tsx
 // Hero Section - Nodos conectados, Sage
 import { HeroBackground } from '@/components/section-background';
 <HeroBackground><section>...</section></HeroBackground>
@@ -32,54 +32,54 @@ import { SectionBackground } from '@/components/section-background';
 <SectionBackground section="hero" animated={true}>
   <section>...</section>
 </SectionBackground>
-```
+\`\`\`
 
 ## Paleta de Colores
 
-```
+\`\`\`
 Muted Sage (#5CAAA5)      → Hero, Workflow, FAQ
 Deep Charcoal (#3F2F28)   → Capabilities, Blog
 Slate Gray (#697A8A)      → Solutions
 Cream White (#FAFAFA)     → Base background
-```
+\`\`\`
 
 ## Personalización Rápida
 
 ### Cambiar opacidad de una sección
 Edita `/lib/background-patterns.ts`:
-```ts
+\`\`\`ts
 hero: {
   opacity: 0.30, // ← Aumenta (más visible) o disminuye (más sutil)
 }
-```
+\`\`\`
 
 ### Cambiar color de una sección
-```ts
+\`\`\`ts
 capabilities: {
   color: BRANDBOOK_COLORS.mutedSage, // ← Cambia a otro color
 }
-```
+\`\`\`
 
 ### Cambiar tipo de patrón
-```ts
+\`\`\`ts
 solutions: {
   pattern: 'mixed', // ← nodes, circuits, lines, grid, mixed
 }
-```
+\`\`\`
 
 ### Cambiar densidad
-```ts
+\`\`\`ts
 workflow: {
   density: 0.6, // ← 0-1 (más denso = más patrón)
 }
-```
+\`\`\`
 
 ### Desactivar animaciones
-```tsx
+\`\`\`tsx
 <HeroBackground animated={false}>
   {children}
 </HeroBackground>
-```
+\`\`\`
 
 ## Archivo de Configuración Principal
 **`/lib/background-patterns.ts`** - aquí está todo:

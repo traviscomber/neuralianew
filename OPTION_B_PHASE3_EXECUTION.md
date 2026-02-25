@@ -72,13 +72,13 @@ Recommended pages for custom OG images:
 
 ### SCORE PROGRESSION
 
-```
+\`\`\`
 Phase 1: 6.0 → 8.6 (+2.6)
 Phase 2: 8.6 → 9.2 (+0.6)
 Phase 3: 9.2 → 9.8 (+0.6)
 ─────────────────────────
 FINAL:  9.8/10 ✅
-```
+\`\`\`
 
 ### REMAINING 0.2 POINTS
 
@@ -91,7 +91,7 @@ These would require 20+ additional tweaks for minimal SEO gain.
 
 ### FILES MODIFIED FOR PHASE 3
 
-```
+\`\`\`
 ✓ /components/faq/faq-page-client.tsx - Internal links added (40 lines)
 ✓ /components/capabilities/capabilities-page-client.tsx - Internal link added (2 lines)
 ✓ /components/structured-data.tsx - Ratings schema (aggregateRating added)
@@ -99,7 +99,7 @@ These would require 20+ additional tweaks for minimal SEO gain.
 ✓ /components/image-optimization.tsx - Image optimization guide (110 lines)
 ✓ /app/layout.tsx - Syntax fixed (removed duplicate braces)
 ✓ /app/faq/page.tsx - FAQPageSchema component imported
-```
+\`\`\`
 
 ### DEPLOYMENT READY
 

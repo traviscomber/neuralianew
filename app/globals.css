@@ -136,6 +136,14 @@
     /* Montserrat Light 48px */
   }
 
+  .section-heading {
+    @apply text-3xl font-bold text-foreground;
+  }
+
+  .section-subheading {
+    @apply text-lg text-muted-foreground max-w-2xl mx-auto;
+  }
+
   .h3 {
     @apply text-3xl font-normal leading-snug;
     /* Montserrat Regular 32px */
