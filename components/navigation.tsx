@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Globe } from "lucide-react"
 import { useState } from "react"
 import type { Locale } from "@/lib/get-locale"
 
@@ -13,8 +13,10 @@ interface NavigationProps {
 export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
   const isES = locale === "es"
+  const otherLocale = isES ? "en" : "es"
 
   const href = (path: string) => `/${locale}${path}`
+  const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
   // Navigation labels
   const labels = {
@@ -69,6 +71,16 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           >
             {labels.contact}
           </Link>
+
+          {/* Language Toggle */}
+          <Link
+            href={hrefLocale("/")}
+            className="ml-2 px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
+            title={isES ? "Switch to English" : "Cambiar a Español"}
+          >
+            <Globe className="w-4 h-4" />
+            <span>{isES ? "ES" : "EN"}</span>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -112,13 +124,21 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             {labels.about}
           </Link>
 
-          <div className="pt-2 border-t border-border">
+          <div className="pt-2 border-t border-border space-y-2">
             <Link 
               href={href("/contact")} 
               onClick={() => setOpen(false)} 
               className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
             >
               {labels.contact}
+            </Link>
+            <Link 
+              href={hrefLocale("/")} 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{isES ? "EN" : "ES"}</span>
             </Link>
           </div>
         </div>
