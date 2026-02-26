@@ -3,6 +3,7 @@ import type { LucideIcon } from "lucide-react";
 
 export type CaseStudy = {
   slug: string;
+  clientName: { es: string; en: string };
   verticalTag: { es: string; en: string };
   title: { es: string; en: string };
   summary: { es: string; en: string };
@@ -24,6 +25,7 @@ export type CaseStudy = {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "ecosuelolab",
+    clientName: { es: "Ecosuelolab", en: "Ecosuelolab" },
     verticalTag: { es: "Agricultura + IA", en: "Agriculture + AI" },
     title: { es: "Monitoreo de Suelo Inteligente", en: "Intelligent Soil Monitoring" },
     summary: {
@@ -92,6 +94,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "despega-tu-carrera",
+    clientName: { es: "Despega Tu Carrera", en: "Despega Tu Carrera" },
     verticalTag: { es: "Educación + Full-Stack", en: "Education + Full-Stack" },
     title: { es: "Plataforma de Coaching Profesional desde Cero", en: "Career Coaching Platform Built From Zero" },
     summary: {
@@ -156,7 +159,8 @@ export const CASE_STUDIES: CaseStudy[] = [
     ],
   },
   {
-    slug: "blackswan-facility-core",
+    slug: "blackswan-facilities",
+    clientName: { es: "Blackswan Facilities", en: "Blackswan Facilities" },
     verticalTag: { es: "Property Management + Full-Stack", en: "Property Management + Full-Stack" },
     title: { es: "Operación Unificada para Hoteles de Lujo", en: "Unified Operations for Luxury Properties" },
     summary: {
