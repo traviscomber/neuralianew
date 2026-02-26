@@ -146,5 +146,3 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
     </nav>
   )
 }
-
-export default Navigation
