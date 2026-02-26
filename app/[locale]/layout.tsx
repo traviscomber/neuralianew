@@ -4,7 +4,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { FloatingChatWidget } from "@/components/floating-chat-widget"
-import { LanguageSwitcher } from "@/components/layout/language-switcher"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
@@ -58,7 +57,6 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
         </main>
         <ScrollToTop />
         <FloatingChatWidget />
-        <LanguageSwitcher />
       </ThemeProvider>
     </>
   )
