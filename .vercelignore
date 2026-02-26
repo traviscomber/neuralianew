@@ -1,0 +1,12 @@
+node_modules
+.git
+.next
+.env*
+!.env.example
+README.md
+SECURITY.md
+MIGRATION_COMPLETE.md
+BILINGUAL_MIGRATION.md
+.DS_Store
+*.log
+.vercel
