@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { CASE_STUDIES } from "@/content/caseStudies"
@@ -10,8 +11,8 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
-  const d = getDict(locale)
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const d = getDict(locale as Locale)
 
   return {
     title: `${d.caseStudies.title} | N3uralia`,
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function CaseStudiesPage({ params }: PageProps) {
-  const locale = params.locale as Locale
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
 
   return (
