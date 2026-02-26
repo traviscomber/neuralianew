@@ -150,28 +150,20 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
             {t2(locale, caseStudy.stackLine)}
           </p>
           
-          {/* Tech Logos */}
+          {/* Tech Stack Badges */}
           {caseStudy.techLogos && caseStudy.techLogos.length > 0 && (
             <div>
-              <h4 className="text-sm font-semibold text-foreground mb-6">
+              <h4 className="text-sm font-semibold text-foreground mb-4">
                 {locale === "es" ? "Tecnologías Utilizadas" : "Technologies Used"}
               </h4>
-              <div className="flex flex-wrap items-center justify-start gap-6 md:gap-8">
-                {caseStudy.techLogos.map((logo, idx) => (
+              <div className="flex flex-wrap gap-2">
+                {caseStudy.techLogos.map((tech, idx) => (
                   <div 
                     key={idx} 
-                    className="flex flex-col items-center justify-center p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                    className="px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 transition-all"
                   >
-                    <img 
-                      src={logo.url} 
-                      alt={logo.alt} 
-                      className="h-8 md:h-10 object-contain grayscale group-hover:grayscale-0 transition-all opacity-70 group-hover:opacity-100"
-                      onError={(e) => {
-                        e.currentTarget.style.display = 'none'
-                      }}
-                    />
-                    <span className="text-xs text-muted-foreground mt-2 font-medium group-hover:text-foreground transition-colors">
-                      {logo.name}
+                    <span className="text-xs font-medium text-primary">
+                      {tech.name}
                     </span>
                   </div>
                 ))}
