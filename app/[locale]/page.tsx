@@ -2,8 +2,15 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Zap, Bot, Workflow, TrendingUp, Package, Users, Building2, Cpu, Code2 } from "lucide-react"
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import type { Locale } from "@/content/dictionaries"
+import { getDict } from "@/content/dictionaries"
 import { HomePageClient } from "@/components/home/home-page-client"
 import { HeroBackground } from "@/components/section-background"
+
+interface PageProps {
+  params: { locale: string }
+}
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
@@ -14,10 +21,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
-      "es-CL": "https://n3uralia.com",
-      "es": "https://n3uralia.com",
-      "en": "https://n3uralia.com",
-      "en-US": "https://n3uralia.com",
+      "es-CL": "https://n3uralia.com/es",
+      "es": "https://n3uralia.com/es",
+      "en": "https://n3uralia.com/en",
+      "en-US": "https://n3uralia.com/en",
     },
   },
   openGraph: {
@@ -30,34 +37,61 @@ export const metadata: Metadata = {
   },
 }
 
-const sectors = [
-  {
-    title: "Retail & E-commerce",
-    description: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
-    icon: Package,
-    link: "#"
-  },
-  {
-    title: "Manufactura",
-    description: "Optimización de procesos, control de calidad, mantenimiento predictivo",
-    icon: Cpu,
-    link: "#"
-  },
-  {
-    title: "Servicios Financieros",
-    description: "Análisis de riesgo, detección de fraude, asesoría personalizada",
-    icon: TrendingUp,
-    link: "#"
-  },
-  {
-    title: "Salud",
-    description: "Análisis de documentos, triaje de pacientes, gestión de citas",
-    icon: Users,
-    link: "#"
-  },
-  {
-    title: "Legal",
-    description: "Revisión de contratos, investigación legal, cumplimiento normativo",
+export default function HomePage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+  const d = getDict(locale)
+  const isES = locale === "es"
+
+  const sectors = [
+    {
+      titleES: "Retail & E-commerce",
+      titleEN: "Retail & E-commerce",
+      descES: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
+      descEN: "Personalized recommendations, inventory management, 24/7 customer service",
+      icon: Package,
+      link: "#"
+    },
+    {
+      titleES: "Manufactura",
+      titleEN: "Manufacturing",
+      descES: "Optimización de procesos, control de calidad, mantenimiento predictivo",
+      descEN: "Process optimization, quality control, predictive maintenance",
+      icon: Cpu,
+      link: "#"
+    },
+    {
+      titleES: "Servicios Financieros",
+      titleEN: "Financial Services",
+      descES: "Análisis de riesgo, detección de fraude, asesoría personalizada",
+      descEN: "Risk analysis, fraud detection, personalized advice",
+      icon: TrendingUp,
+      link: "#"
+    },
+    {
+      titleES: "Salud",
+      titleEN: "Healthcare",
+      descES: "Análisis de documentos, triaje de pacientes, gestión de citas",
+      descEN: "Document analysis, patient triage, appointment management",
+      icon: Users,
+      link: "#"
+    },
+    {
+      titleES: "Legal",
+      titleEN: "Legal",
+      descES: "Revisión de contratos, investigación legal, cumplimiento normativo",
+      descEN: "Contract review, legal research, regulatory compliance",
+      icon: Building2,
+      link: "#"
+    },
+    {
+      titleES: "Logística",
+      titleEN: "Logistics",
+      descES: "Optimización de rutas, predicción de demanda, automatización de almacén",
+      descEN: "Route optimization, demand prediction, warehouse automation",
+      icon: Workflow,
+      link: "#"
+    },
+  ]
     icon: Building2,
     link: "#"
   },
@@ -69,7 +103,62 @@ const sectors = [
   },
 ]
 
-export default function HomePage() {
+
+export default function HomePage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+  const isES = locale === "es"
+
+  const sectors = [
+    {
+      titleES: "Retail & E-commerce",
+      titleEN: "Retail & E-commerce",
+      descES: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
+      descEN: "Personalized recommendations, inventory management, 24/7 customer service",
+      icon: Package,
+      link: "#"
+    },
+    {
+      titleES: "Manufactura",
+      titleEN: "Manufacturing",
+      descES: "Optimización de procesos, control de calidad, mantenimiento predictivo",
+      descEN: "Process optimization, quality control, predictive maintenance",
+      icon: Cpu,
+      link: "#"
+    },
+    {
+      titleES: "Servicios Financieros",
+      titleEN: "Financial Services",
+      descES: "Análisis de riesgo, detección de fraude, asesoría personalizada",
+      descEN: "Risk analysis, fraud detection, personalized advice",
+      icon: TrendingUp,
+      link: "#"
+    },
+    {
+      titleES: "Salud",
+      titleEN: "Healthcare",
+      descES: "Análisis de documentos, triaje de pacientes, gestión de citas",
+      descEN: "Document analysis, patient triage, appointment management",
+      icon: Users,
+      link: "#"
+    },
+    {
+      titleES: "Legal",
+      titleEN: "Legal",
+      descES: "Revisión de contratos, investigación legal, cumplimiento normativo",
+      descEN: "Contract review, legal research, regulatory compliance",
+      icon: Building2,
+      link: "#"
+    },
+    {
+      titleES: "Logística",
+      titleEN: "Logistics",
+      descES: "Optimización de rutas, predicción de demanda, automatización de almacén",
+      descEN: "Route optimization, demand prediction, warehouse automation",
+      icon: Workflow,
+      link: "#"
+    },
+  ]
+
   return (
     <>
       <main className="min-h-screen bg-background">
@@ -79,44 +168,55 @@ export default function HomePage() {
             <div className="max-w-4xl mx-auto text-center w-full">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">Sistemas Agenticos en Producción</span>
+                <span className="text-sm font-medium text-primary">
+                  {isES ? "Sistemas Agenticos en Producción" : "Agentic Systems in Production"}
+                </span>
               </div>
 
               <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-                <span className="text-foreground">De la Experimentación</span>
+                <span className="text-foreground">
+                  {isES ? "De la Experimentación" : "From Experimentation"}
+                </span>
                 <br />
-                <span className="text-primary">a la Automatización Empresarial</span>
+                <span className="text-primary">
+                  {isES ? "a la Automatización Empresarial" : "to Enterprise Automation"}
+                </span>
               </h1>
 
               <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-                Orquestación de sistemas agenticos que integran, escalan y evolucionan. 
-                Tu operación con inteligencia aumentada, lista para producción desde el día uno.
+                {isES 
+                  ? "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno."
+                  : "Orchestration of agentic systems that integrate, scale, and evolve. Your operations with augmented intelligence, ready for production from day one."}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
                 <Link
-                  href="/contact"
+                  href={`/${locale}/contact`}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  Comenzar Hoy
+                  {isES ? "Comenzar Hoy" : "Start Today"}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href="/capabilities"
+                  href={`/${locale}/capabilities`}
                   className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
                 >
-                  Ver Capacidades
+                  {isES ? "Ver Capacidades" : "View Capabilities"}
                 </Link>
               </div>
 
               <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">40+</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Procesos Automatizados</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    {isES ? "Procesos Automatizados" : "Automated Processes"}
+                  </p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Industrias Servidas</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    {isES ? "Industrias Servidas" : "Industries Served"}
+                  </p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
