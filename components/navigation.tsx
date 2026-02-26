@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import Link from "next/link"
 import Image from "next/image"
@@ -12,8 +12,20 @@ interface NavigationProps {
 
 export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
+  const isES = locale === "es"
 
   const href = (path: string) => `/${locale}${path}`
+
+  // Navigation labels
+  const labels = {
+    capabilities: isES ? "Capacidades" : "Capabilities",
+    solutions: isES ? "Soluciones" : "Solutions",
+    caseStudies: isES ? "Casos de Éxito" : "Case Studies",
+    platform: "Platform",
+    labs: "Labs",
+    about: isES ? "Acerca de" : "About",
+    contact: isES ? "Contactar" : "Contact",
+  }
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
@@ -28,42 +40,42 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             href={href("/capabilities")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Capacidades
+            {labels.capabilities}
           </Link>
 
           <Link 
             href={href("/soluciones")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Soluciones
+            {labels.solutions}
           </Link>
 
           <Link 
             href={href("/case-studies")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Casos de Éxito
+            {labels.caseStudies}
           </Link>
 
           <Link 
             href={href("/platform")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Platform
+            {labels.platform}
           </Link>
 
           <Link 
             href={href("/labs")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Labs
+            {labels.labs}
           </Link>
 
           <Link 
             href={href("/about")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Acerca de
+            {labels.about}
           </Link>
 
           {/* Contact Button */}
@@ -71,7 +83,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             href={href("/contact")}
             className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
           >
-            Contactar
+            {labels.contact}
           </Link>
         </div>
 
@@ -89,7 +101,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Capacidades
+            {labels.capabilities}
           </Link>
 
           <Link 
@@ -97,7 +109,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Soluciones
+            {labels.solutions}
           </Link>
 
           <Link 
@@ -105,7 +117,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Casos de Éxito
+            {labels.caseStudies}
           </Link>
 
           <Link 
@@ -113,7 +125,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Platform
+            {labels.platform}
           </Link>
 
           <Link 
@@ -121,7 +133,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Labs
+            {labels.labs}
           </Link>
 
           <Link 
@@ -129,7 +141,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Acerca de
+            {labels.about}
           </Link>
 
           <div className="pt-2 border-t border-border">
@@ -138,7 +150,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
               onClick={() => setOpen(false)} 
               className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
             >
-              Contactar
+              {labels.contact}
             </Link>
           </div>
         </div>
