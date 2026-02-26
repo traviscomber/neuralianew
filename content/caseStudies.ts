@@ -1,4 +1,5 @@
 import type { Locale } from "./dictionaries";
+import type { LucideIcon } from "lucide-react";
 
 export type CaseStudy = {
   slug: string;
@@ -14,6 +15,7 @@ export type CaseStudy = {
     heading: { es: string; en: string };
     body: { es: string; en: string };
     bullets?: Array<{ es: string; en: string }>;
+    icon?: string;
   }>;
   stackLine: { es: string; en: string };
 };
@@ -52,15 +54,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "solution",
         heading: { es: "La Solución", en: "The Solution" },
+        icon: "Cog",
         body: {
-          es: "N3uralia construyó una infraestructura de integración para conectar IrriWatch → Agentes IA → WhatsApp. Cada alerta se procesa automáticamente: validación, normalización, decisión y acción.",
-          en: "N3uralia built an integration layer connecting IrriWatch → AI Agents → WhatsApp. Every alert is processed automatically: validation, normalization, decision, and action.",
+          es: "N3uralia construyó una infraestructura de integración para conectar IrriWatch → Agentes IA → WhatsApp. Cada alerta se procesa automáticamente con orquestación central, validación, normalización, decisión y acción en tiempo real.",
+          en: "N3uralia built an integration layer connecting IrriWatch → AI Agents → WhatsApp. Every alert is processed automatically with central orchestration: validation, normalization, decision, and real-time action.",
         },
         bullets: [
-          { es: "Normalización + intent detection", en: "Normalization + intent detection" },
-          { es: "Decisión y enrutamiento con reglas + contexto", en: "Decision and routing with rules + context" },
-          { es: "Entrega por WhatsApp (Twilio)", en: "Delivery via WhatsApp (Twilio)" },
-          { es: "Feedback loop para mejora continua", en: "Feedback loop for continuous improvement" },
+          { es: "Orquestación Central: múltiples agentes coordinados en paralelo", en: "Central Orchestration: multiple agents coordinated in parallel" },
+          { es: "Normalización automática + intent detection con NLP", en: "Automatic normalization + NLP-based intent detection" },
+          { es: "Decisión y enrutamiento inteligente con reglas + contexto histórico", en: "Smart decision routing with rules + historical context" },
+          { es: "Entrega omnicanal: WhatsApp, Email, Dashboard (Twilio + APIs propias)", en: "Omnichannel delivery: WhatsApp, Email, Dashboard (Twilio + custom APIs)" },
+          { es: "Feedback loop continuo para mejora automática del sistema", en: "Continuous feedback loop for autonomous system improvement" },
+          { es: "Trazabilidad completa: cada evento registrado, auditable y verificable", en: "Full traceability: every event logged, auditable, and verifiable" },
         ],
       },
       {
@@ -106,15 +111,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "solution",
         heading: { es: "La Solución", en: "The Solution" },
+        icon: "Cog",
         body: {
-          es: "Arquitectura full-stack completa: frontend React, backend Node.js, PostgreSQL/Supabase, motor de tests, y coach IA (GPT-4) con base de conocimiento.",
-          en: "A complete full-stack architecture: React frontend, Node.js backend, PostgreSQL/Supabase, a test engine, and a GPT-4-based AI coach with a knowledge base.",
+          es: "Arquitectura full-stack completa diseñada desde cero: frontend React con UX adaptativo, backend Node.js escalable, PostgreSQL con Supabase para multi-tenancy y RLS, motor de tests psicométricos con validación estadística, y coach IA (GPT-4) con RAG sobre base de conocimiento.",
+          en: "A complete full-stack architecture built from scratch: adaptive React frontend, scalable Node.js backend, PostgreSQL with Supabase for multi-tenancy and RLS, psychometric test engine with statistical validation, and GPT-4 AI coach with RAG over knowledge base.",
         },
         bullets: [
-          { es: "Tests psicométricos con scoring automático", en: "Psychometric tests with automated scoring" },
-          { es: "Biblioteca indexada + búsqueda semántica", en: "Indexed library + semantic search" },
-          { es: "Coach IA personalizado por perfil", en: "Profile-aware AI coaching" },
-          { es: "Infra + CI/CD + monitoreo", en: "Infra + CI/CD + monitoring" },
+          { es: "Tests psicométricos con scoring automático y perfilamientos", en: "Psychometric tests with automated scoring and profiling" },
+          { es: "Sistemas Inteligentes Integrados: API REST + webhooks para integraciones externas", en: "Integrated Intelligent Systems: REST APIs + webhooks for external integrations" },
+          { es: "Biblioteca indexada + búsqueda semántica con embeddings", en: "Indexed library + semantic search with embeddings" },
+          { es: "Coach IA personalizado por perfil con memoria contextual persistente", en: "Profile-aware AI coaching with persistent contextual memory" },
+          { es: "Pipelines de generación: respuestas validadas automáticamente", en: "Generation Pipelines: auto-validated responses" },
+          { es: "Multi-tenant architecture con RLS y segregación de datos completa", en: "Multi-tenant architecture with complete RLS and data segregation" },
         ],
       },
       {
@@ -165,10 +173,19 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         id: "solution",
         heading: { es: "La Solución", en: "The Solution" },
+        icon: "Brain",
         body: {
-          es: "N3uralia construyó BFCS: plataforma unificada con base de datos central, motor de reservas, comunicación omnicanal, dashboard operativo y orquestación agéntica.",
-          en: "N3uralia built BFCS: a unified platform with a central database, booking engine, omnichannel comms, ops dashboard, and agentic orchestration.",
+          es: "N3uralia construyó BFCS (Blackswan Facility Core System): plataforma unificada con base de datos central, motor de reservas inteligente, comunicación omnicanal orquestada, dashboard operativo real-time, y orquestación agéntica para automatización operacional.",
+          en: "N3uralia built BFCS (Blackswan Facility Core System): a unified platform with a central database, intelligent booking engine, orchestrated omnichannel comms, real-time ops dashboard, and agentic orchestration for operational automation.",
         },
+        bullets: [
+          { es: "Orquestación Central: agentes coordinados para reservas, mantenimiento y operación", en: "Central Orchestration: coordinated agents for booking, maintenance, and operations" },
+          { es: "Sistemas Inteligentes Integrados: APIs para email, WhatsApp, SMS, webhooks externos", en: "Integrated Intelligent Systems: APIs for email, WhatsApp, SMS, external webhooks" },
+          { es: "Base de datos central con multi-tenancy: 8+ propiedades, datos segregados y auditados", en: "Central database with multi-tenancy: 8+ properties, segregated and audited data" },
+          { es: "Dashboard operativo en tiempo real con alertas inteligentes", en: "Real-time ops dashboard with intelligent alerts" },
+          { es: "Automatización Operacional Real: procesos fluyen en canales donde trabaja el equipo", en: "Real Operational Automation: processes flow in channels where staff already works" },
+          { es: "Pipelines validados: decisiones de mantenimiento y cobros con historial y contexto", en: "Validated Pipelines: maintenance and billing decisions with history and context" },
+        ],
       },
       {
         id: "impact",
