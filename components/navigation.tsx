@@ -4,42 +4,49 @@ import Link from "next/link"
 import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import type { Locale } from "@/lib/get-locale"
 
-export function Navigation() {
+interface NavigationProps {
+  locale?: Locale
+}
+
+export function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
+
+  const href = (path: string) => `/${locale}${path}`
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
+        <Link href={href("/")} className="flex items-center">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-1 items-center">
           <Link 
-            href="/capabilities" 
+            href={href("/capabilities")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Capacidades
           </Link>
 
           <Link 
-            href="/soluciones" 
+            href={href("/soluciones")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Soluciones
           </Link>
 
           <Link 
-            href="/case-studies" 
+            href={href("/case-studies")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Casos de Éxito
           </Link>
 
           <Link 
-            href="/about" 
+            href={href("/about")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Acerca de
@@ -47,7 +54,7 @@ export function Navigation() {
 
           {/* Contact Button */}
           <Link
-            href="/contact"
+            href={href("/contact")}
             className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
           >
             Contactar
@@ -64,16 +71,15 @@ export function Navigation() {
       {open && (
         <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
           <Link 
-            href="/capabilities" 
+            href={href("/capabilities")} 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Capacidades
           </Link>
 
-          {/* Mobile Solutions Link */}
           <Link 
-            href="/soluciones" 
+            href={href("/soluciones")} 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
@@ -81,7 +87,7 @@ export function Navigation() {
           </Link>
 
           <Link 
-            href="/case-studies" 
+            href={href("/case-studies")} 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
@@ -89,7 +95,7 @@ export function Navigation() {
           </Link>
 
           <Link 
-            href="/about" 
+            href={href("/about")} 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
@@ -98,7 +104,7 @@ export function Navigation() {
 
           <div className="pt-2 border-t border-border">
             <Link 
-              href="/contact" 
+              href={href("/contact")} 
               onClick={() => setOpen(false)} 
               className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
             >
