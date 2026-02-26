@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --legacy-peer-deps --no-optional --prefer-offline",
+  "installCommand": "npm install --legacy-peer-deps --prefer-offline",
   "buildCommand": "next build",
   "devCommand": "next dev",
   "outputDirectory": ".next",
