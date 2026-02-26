@@ -1,101 +1,52 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
-import { heroContent, corePillars } from "@/app/constants/content"
-import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import Image from "next/image"
+import { ArrowRight, CheckCircle, Gavel, Radar, AlertTriangle, Sprout, TrendingUp, Sparkles } from "lucide-react"
+import { enterpriseSolutions } from "@/app/constants/content"
+import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-client"
 
-interface PageProps {
-  params: {
-    locale: string
-  }
+export const metadata: Metadata = {
+  title: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura",
+  description:
+    "Soluciones especializadas de sistemas agenticos para cada industria. B2B: operaciones de ingresos. Turismo: inteligencia conversacional. Eventos: automatización inmersiva. Manufactura: procesos autónomos. Listo para producción, recuperación en 6 meses.",
+  keywords:
+    "sistemas agenticos soluciones, B2B automatización, turismo IA, eventos inteligentes, manufactura automatizada, operaciones de ingresos, inteligencia conversacional, agentes inteligentes, n3uralia",
+  alternates: {
+    canonical: "https://n3uralia.com/soluciones",
+  },
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const isES = locale === 'es'
-
-  const titles = {
-    es: "Soluciones de Sistemas Agenticos N3uralia | Automatización Empresarial",
-    en: "N3uralia Agentic Systems Solutions | Enterprise Automation",
-  }
-
-  const descriptions = {
-    es: "Soluciones empresariales de sistemas agenticos listas para producción. Automatización de procesos, inteligencia aumentada, infraestructura completa.",
-    en: "Production-ready enterprise agentic systems solutions. Process automation, augmented intelligence, complete infrastructure.",
-  }
-
-  return {
-    title: titles[locale as keyof typeof titles],
-    description: descriptions[locale as keyof typeof descriptions],
-  }
-}
-
-export default function SolucionesPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const isES = locale === 'es'
-  const href = (path: string) => `/${locale}${path}`
-
-  const content = isES ? heroContent.es : heroContent.en
-  const pillars = isES ? corePillars.es : corePillars.en
-
-  const labels = {
-    hero: isES ? "Soluciones" : "Solutions",
-    whyUS: isES ? "Por Qué N3uralia" : "Why N3uralia",
-    learnMore: isES ? "Ver Soluciones" : "View Solutions",
-    getStarted: isES ? "Comenzar" : "Get Started",
-  }
-
+export default function SolucionesPage() {
   return (
-    <main className="min-h-screen bg-background pt-20">
-      {/* Hero */}
-      <section className="py-20 bg-background px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">{labels.hero}</span>
+    <>
+      <main className="min-h-screen bg-background pt-20">
+        {/* Hero */}
+        <section className="py-20 bg-background px-4">
+          <div className="container mx-auto max-w-4xl text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-primary">Soluciones</span>
+            </div>
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
+              {enterpriseSolutions.hero.heading}
+            </h1>
+            <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              {enterpriseSolutions.hero.subheading}
+            </p>
           </div>
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
-            {content.heading.line1}<br />{content.heading.line2}
-          </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {content.subheading}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={href("/contact")} className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
-              {content.cta1} <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href={href("/platform")} className="px-6 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors">
-              {content.cta2}
-            </Link>
-          </div>
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-8">
-            {content.metrics.map((metric, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl font-bold text-primary mb-2">{metric.value}</div>
-                <div className="text-sm text-muted-foreground">{metric.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Pillars */}
-      <section className="py-24 bg-muted/30 border-y border-border px-4">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-bold text-center mb-16">{labels.whyUS}</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {pillars.map((pillar, i) => (
-              <div key={i} className="p-6 rounded-lg border border-border bg-background hover:border-primary/50 transition-colors">
-                <h3 className="text-xl font-bold mb-3">{pillar.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </main>
-  )
-}
+        {/* Segments Tabs/Cards */}
+        <section className="py-24 bg-background px-4">
+          <div className="container mx-auto max-w-5xl">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {enterpriseSolutions.segments.map((segment, i) => (
+                <div
+                  key={i}
+                  className="border-2 border-primary/30 rounded-lg p-8 bg-card hover:border-primary hover:bg-primary/5 transition-all"
+                >
+                  {/* Title */}
+                  <h2 className="text-2xl font-bold text-foreground mb-6">{segment.title}</h2>
 
                   {/* Pain Points */}
                   <div className="mb-6">

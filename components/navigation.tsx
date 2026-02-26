@@ -5,7 +5,6 @@ import Image from "next/image"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 import type { Locale } from "@/lib/get-locale"
-import { LanguageSwitcher } from "@/components/layout/language-switcher"
 
 interface NavigationProps {
   locale?: Locale
@@ -79,16 +78,13 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             {labels.about}
           </Link>
 
-          {/* Language Switcher + Contact Button */}
-          <div className="flex items-center gap-2 ml-2 pl-2 border-l border-border">
-            <LanguageSwitcher />
-            <Link
-              href={href("/contact")}
-              className="ml-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
-            >
-              {labels.contact}
-            </Link>
-          </div>
+          {/* Contact Button */}
+          <Link
+            href={href("/contact")}
+            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
+          >
+            {labels.contact}
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -148,10 +144,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             {labels.about}
           </Link>
 
-          <div className="pt-2 border-t border-border space-y-2">
-            <div className="px-3 py-2">
-              <LanguageSwitcher />
-            </div>
+          <div className="pt-2 border-t border-border">
             <Link 
               href={href("/contact")} 
               onClick={() => setOpen(false)} 

@@ -1,84 +1,43 @@
-// Core Hero Content - Bilingual
+// Core Hero Content
 export const heroContent = {
-  es: {
-    badge: "Sistemas Agenticos Listos para Producción",
-    heading: {
-      line1: "Automatiza Procesos",
-      line2: "O Construye Inteligencia",
-    },
-    subheading: "Simplifica operaciones complejas con IA que funciona desde día uno. Ya sea automatizar lo que tienes hoy o construir sistemas que aprenden mañana, N3uralia tiene la solución.",
-    cta1: "Automatización Empresarial",
-    cta2: "Sistemas Agenticos",
-    metrics: [
-      { value: "60-80%", label: "Reducción Trabajo Manual" },
-      { value: "50+", label: "Sistemas en Operación" },
-      { value: "99.8%", label: "Uptime Garantizado" },
-    ],
+  badge: "Sistemas Agenticos Listos para Producción",
+  heading: {
+    line1: "Automatiza Procesos",
+    line2: "O Construye Inteligencia",
   },
-  en: {
-    badge: "Production-Ready Agentic Systems",
-    heading: {
-      line1: "Automate Processes",
-      line2: "Or Build Intelligence",
-    },
-    subheading: "Simplify complex operations with AI that works from day one. Whether automating what you have today or building systems that learn tomorrow, N3uralia has the solution.",
-    cta1: "Enterprise Automation",
-    cta2: "Agentic Systems",
-    metrics: [
-      { value: "60-80%", label: "Manual Work Reduction" },
-      { value: "50+", label: "Systems in Operation" },
-      { value: "99.8%", label: "Uptime Guaranteed" },
-    ],
-  }
+  subheading: "Simplifica operaciones complejas con IA que funciona desde día uno. Ya sea automatizar lo que tienes hoy o construir sistemas que aprenden mañana, N3uralia tiene la solución.",
+  cta1: "Automatización Empresarial",
+  cta2: "Sistemas Agenticos",
+  metrics: [
+    { value: "60-80%", label: "Reducción Trabajo Manual" },
+    { value: "50+", label: "Sistemas en Operación" },
+    { value: "99.8%", label: "Uptime Garantizado" },
+  ],
 }
 
-// Core Pillars / Why N3uralia - Bilingual
-export const corePillars = {
-  es: [
-    {
-      icon: "Lightbulb",
-      title: "Sistemas que Funcionan (No Experimentos)",
-      description: "Entregamos IA lista para producción desde el primer día. Sin prototipos, sin sorpresas. Cada sistema está diseñado para escalar y operar en entornos del mundo real.",
-    },
-    {
-      icon: "Zap",
-      title: "Todo Incluido",
-      description: "No vendemos software aislado. Incluimos infraestructura cloud, monitoreo 24/7 y soporte operacional. Todo listo para que funcione inmediatamente.",
-    },
-    {
-      icon: "Target",
-      title: "Expertos en Todo lo Necesario",
-      description: "Sistemas, datos, IA, cloud. Un equipo integrado que resuelve el problema completo, no partes aisladas.",
-    },
-    {
-      icon: "Users",
-      title: "Tu Equipo Controla Todo",
-      description: "Te enseñamos cómo funciona. Tu equipo opera y evoluciona el sistema desde el inicio. Sin dependencia eterna.",
-    },
-  ],
-  en: [
-    {
-      icon: "Lightbulb",
-      title: "Systems That Work (Not Experiments)",
-      description: "We deliver production-ready AI from day one. No prototypes, no surprises. Every system is designed to scale and operate in real-world environments.",
-    },
-    {
-      icon: "Zap",
-      title: "All-Inclusive",
-      description: "We don't sell isolated software. We include cloud infrastructure, 24/7 monitoring, and operational support. Everything ready to work immediately.",
-    },
-    {
-      icon: "Target",
-      title: "Experts in Everything Needed",
-      description: "Systems, data, AI, cloud. An integrated team that solves the complete problem, not isolated parts.",
-    },
-    {
-      icon: "Users",
-      title: "Your Team Controls Everything",
-      description: "We show you how it works. Your team operates and evolves the system from the start. No endless dependency.",
-    },
-  ],
-}
+// Core Pillars / Why N3uralia
+export const corePillars = [
+  {
+    icon: "Lightbulb",
+    title: "Sistemas que Funcionan (No Experimentos)",
+    description: "Entregamos IA lista para producción desde el primer día. Sin prototipos, sin sorpresas. Cada sistema está diseñado para escalar y operar en entornos del mundo real.",
+  },
+  {
+    icon: "Zap",
+    title: "Todo Incluido",
+    description: "No vendemos software aislado. Incluimos infraestructura cloud, monitoreo 24/7 y soporte operacional. Todo listo para que funcione inmediatamente.",
+  },
+  {
+    icon: "Target",
+    title: "Expertos en Todo lo Necesario",
+    description: "Sistemas, datos, IA, cloud. Un equipo integrado que resuelve el problema completo, no partes aisladas.",
+  },
+  {
+    icon: "Users",
+    title: "Tu Equipo Controla Todo",
+    description: "Te enseñamos cómo funciona. Tu equipo opera y evoluciona el sistema desde el inicio. Sin dependencia eterna.",
+  },
+]
 
 // Methodology Steps (5 phases)
 export const methodologySteps = [

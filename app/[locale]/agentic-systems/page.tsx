@@ -12,25 +12,25 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = params.locale as Locale
   const isES = locale === "es"
-  const title = isES ? "Plataforma | N3uralia" : "Platform | N3uralia"
+  const title = isES ? "Sistemas Agénticos | N3uralia" : "Agentic Systems | N3uralia"
   const description = isES
-    ? "La arquitectura central que coordina agentes especializados e integra tu stack existente."
-    : "The central architecture that coordinates specialized agents and integrates your existing stack."
+    ? "Automatización gobernable con human-in-the-loop, permisos, trazabilidad y control en producción."
+    : "Governed automation with human-in-the-loop, permissions, traceability, and production control."
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/platform`,
+      canonical: `https://n3uralia.com/${locale}/agentic-systems`,
       languages: {
-        es: `https://n3uralia.com/es/platform`,
-        en: `https://n3uralia.com/en/platform`,
+        es: `https://n3uralia.com/es/agentic-systems`,
+        en: `https://n3uralia.com/en/agentic-systems`,
       },
     },
   }
 }
 
-export default function PlatformPage({ params }: PageProps) {
+export default function AgenticSystemsPage({ params }: PageProps) {
   const locale = params.locale as Locale
   const d = getDict(locale)
 
@@ -38,30 +38,30 @@ export default function PlatformPage({ params }: PageProps) {
     <>
       <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
-        <Section title={d.pillars.platformTitle} subtitle={d.pillars.platformDesc}>
+        <Section title={d.pillars.agenticTitle} subtitle={d.pillars.agenticDesc}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginTop: "24px" }}>
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "Orquestación Central" : "Central Orchestration"}
+                {locale === "es" ? "Human-in-the-Loop" : "Human-in-the-Loop"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Un orquestador que coordina múltiples agentes especializados." : "An orchestrator that coordinates multiple specialized agents."}
+                {locale === "es" ? "Los humanos siempre en el control de decisiones críticas." : "Humans always in control of critical decisions."}
               </p>
             </div>
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "Integración Sin Fricción" : "Seamless Integration"}
+                {locale === "es" ? "Trazabilidad Completa" : "Full Traceability"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Conecta con tu stack existente sin disrupciones." : "Connect with your existing stack without disruption."}
+                {locale === "es" ? "Auditoría y logs de cada decisión tomada." : "Audit and logs of every decision made."}
               </p>
             </div>
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "Escalabilidad Real" : "Real Scalability"}
+                {locale === "es" ? "Control Granular" : "Granular Control"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Escala desde hoy hacia millones de transacciones." : "Scale from today to millions of transactions."}
+                {locale === "es" ? "Permisos y políticas por agente y por operación." : "Permissions and policies per agent and operation."}
               </p>
             </div>
           </div>
