@@ -21,7 +21,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
     capabilities: isES ? "Capacidades" : "Capabilities",
     solutions: isES ? "Soluciones" : "Solutions",
     caseStudies: isES ? "Casos de Éxito" : "Case Studies",
-    platform: "Platform",
+    platform: isES ? "Plataforma" : "Platform",
     labs: "Labs",
     about: isES ? "Acerca de" : "About",
     contact: isES ? "Contactar" : "Contact",
