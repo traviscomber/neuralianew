@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm install --legacy-peer-deps --no-optional --prefer-offline && next build",
+  "installCommand": "npm install --legacy-peer-deps --no-optional --prefer-offline",
+  "buildCommand": "next build",
   "devCommand": "next dev",
-  "installCommand": "npm install --legacy-peer-deps --no-optional --prefer-offline --verbose",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "functions": {
