@@ -146,6 +146,15 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
 
         {/* Stack */}
         <Section title={locale === "es" ? "Stack Técnico" : "Tech Stack"}>
+          <div className="mb-6 p-4 bg-muted/30 border border-border rounded-lg">
+            <p className="text-sm text-foreground font-semibold mb-2">
+              {locale === "es" ? "Proyecto" : "Project"}
+            </p>
+            <p className="text-lg font-bold text-primary">
+              {t2(locale, caseStudy.title)}
+            </p>
+          </div>
+
           <p className="text-muted-foreground font-mono text-sm leading-relaxed mb-8">
             {t2(locale, caseStudy.stackLine)}
           </p>
