@@ -1,7 +1,13 @@
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import type { Locale } from "@/content/dictionaries"
 import { ContactPageClient } from "@/components/contact/contact-page-client"
 import { ContactPageFooter } from "@/components/contact/contact-page-footer"
 import { SectionBackground } from "@/components/section-background"
+
+interface PageProps {
+  params: { locale: string }
+}
 
 export const metadata: Metadata = {
   title: "Contacto N3uralia | Neuralia - AI Agents, Sistemas Agenticos Fullstack",
@@ -11,7 +17,8 @@ export const metadata: Metadata = {
     "contacto n3uralia, neuralia, contactar, AI agents, sistemas agenticos, propuesta, proyecto, fullstack",
 }
 
-export default function ContactPage() {
+export default function ContactPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   return (
     <>
       <SectionBackground section="faq">

@@ -1,7 +1,13 @@
 import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import type { Locale } from "@/content/dictionaries"
 import { AboutPageClient } from "@/components/about/about-page-client"
 import { SectionBackground } from "@/components/section-background"
+
+interface PageProps {
+  params: { locale: string }
+}
 
 export const metadata: Metadata = {
   title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
@@ -32,7 +38,8 @@ const values = [
   },
 ]
 
-export default function AboutPage() {
+export default function AboutPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   return (
     <>
       <main className="min-h-screen pt-16 bg-background">

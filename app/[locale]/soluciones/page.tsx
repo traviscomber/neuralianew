@@ -2,8 +2,15 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, CheckCircle, Gavel, Radar, AlertTriangle, Sprout, TrendingUp, Sparkles } from "lucide-react"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import type { Locale } from "@/content/dictionaries"
+import { getDict } from "@/content/dictionaries"
 import { enterpriseSolutions } from "@/app/constants/content"
 import { SolucionesPageClient } from "@/components/soluciones/soluciones-page-client"
+
+interface PageProps {
+  params: { locale: string }
+}
 
 export const metadata: Metadata = {
   title: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura",
@@ -16,7 +23,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function SolucionesPage() {
+export default function SolucionesPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   return (
     <>
       <main className="min-h-screen bg-background pt-20">
