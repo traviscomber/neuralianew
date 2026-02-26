@@ -1,0 +1,4 @@
+Contact: security@n3uralia.com
+Expires: 2027-02-25T00:00:00Z
+Preferred-Languages: es, en
+Canonical: https://n3uralia.com/.well-known/security.txt

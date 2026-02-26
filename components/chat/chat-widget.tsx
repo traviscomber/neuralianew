@@ -175,7 +175,7 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
 
   const handleWhatsAppClick = () => {
     window.open(
-      "https://wa.me/56940946660?text=Hola%20N3uralia,%20me%20interesa%20una%20solución%20full%20stack%20con%20IA%20para%20mi%20empresa",
+      "https://web.whatsapp.com/send/?phone=56993826127&text=Hola+N3uralia%2C+me+gustaría+conocer+más+sobre+vuestras+soluciones+de+IA&type=phone_number&app_absent=0",
       "_blank",
     )
   }
@@ -229,7 +229,7 @@ export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps
                   </div>
                         <Button
                           onClick={() =>
-                            window.open("https://wa.me/56994094660?text=Hola%20N3uralia", "_blank")
+                            window.open("https://web.whatsapp.com/send/?phone=56994094660&text=Hola+N3uralia%2C+me+interesa+conocer+más&type=phone_number&app_absent=0", "_blank")
                           }
                           className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3 flex items-center gap-2 rounded-lg transition-colors"
                         >

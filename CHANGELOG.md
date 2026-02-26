@@ -106,7 +106,7 @@
 
 #### 4. `/app/globals.css`
 - **Línea 139-146:** Nuevas utilidades CSS agregadas
-  ```css
+  \`\`\`css
   .section-heading {
     @apply text-3xl font-bold text-foreground;
   }
@@ -114,7 +114,7 @@
   .section-subheading {
     @apply text-lg text-muted-foreground max-w-2xl mx-auto;
   }
-  ```
+  \`\`\`
 
 #### 5. `/components/optimized/optimized-image.tsx`
 - **Línea 17:** Nuevo parámetro `loadingStrategy`
@@ -265,10 +265,10 @@
 ## 🚀 Deployment
 
 ### Pre-deployment
-```bash
+\`\`\`bash
 npm run build  # Verifica que no hay errores
 npm run dev   # Test local
-```
+\`\`\`
 
 ### Verificaciones
 - [ ] Builds sin errores

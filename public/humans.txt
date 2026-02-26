@@ -1,0 +1,35 @@
+/* HUMANS.TXT */
+/* The humans behind N3uralia */
+
+/* COMPANY */
+Name: N3uralia
+URL: https://n3uralia.com
+Location: Chile, LATAM
+Since: 2024
+
+/* TEAM */
+Role: Agentic AI Systems Architecture
+Focus: Production-ready agents, multi-agent orchestration, IA augmentada
+
+/* TECHNOLOGY */
+Language: TypeScript, Next.js, React
+Stack: Fullstack, API-driven, AI-native
+Database: PostgreSQL, Vector Databases
+Deployment: Vercel, Edge Computing
+
+/* LOCATION */
+Country-Code: CL
+Country: Chile
+
+/* LOCALIZATION */
+Language: Spanish (es-CL, es-ES)
+Language: English (en-US)
+
+/* SITE */
+Last Updated: 2026-02-25
+Standards: HTML5, CSS3, Web Standards
+Components: Accessibility (WCAG), Performance (Core Web Vitals)
+
+/* THANKS */
+Thanks to our team, partners, and the AI community
+Built with passion for enterprise automation

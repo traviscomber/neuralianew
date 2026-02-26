@@ -1,0 +1,63 @@
+import Link from "next/link"
+import { ArrowRight, Layers, BookOpen, Zap } from "lucide-react"
+
+export const metadata = {
+  title: "N3uralia Patterns - Agentic System Design Patterns",
+  description: "Design patterns library for building scalable agentic systems. Learn best practices for orchestration, memory, and coordination.",
+}
+
+export default function PatternsPage() {
+  const patterns = [
+    { title: "Orchestration Pattern", desc: "Coordinate multiple agents with centralized control flow" },
+    { title: "Memory Pattern", desc: "Persistent and contextual memory for agent learning" },
+    { title: "Decision Pattern", desc: "Multi-criteria decision making across agent network" },
+    { title: "Resilience Pattern", desc: "Error handling and recovery in distributed agents" },
+    { title: "Scaling Pattern", desc: "Horizontal scaling of agent instances" },
+    { title: "Integration Pattern", desc: "Seamless integration with legacy systems" },
+  ]
+
+  return (
+    <main className="min-h-screen bg-background">
+      <section className="pt-40 pb-20 px-4 border-b border-border">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+            <Layers className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Design Patterns</span>
+          </div>
+          <h1 className="text-5xl font-bold mb-6">Agentic System Patterns</h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Proven design patterns and best practices for building robust, scalable agentic systems.
+          </p>
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">Pattern Library</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {patterns.map((pattern, i) => (
+              <div key={i} className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-colors">
+                <BookOpen className="w-6 h-6 text-primary mb-4" />
+                <h3 className="font-semibold text-foreground mb-2">{pattern.title}</h3>
+                <p className="text-sm text-muted-foreground">{pattern.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4 border-t border-border">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">Ready to learn the patterns?</h2>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all"
+          >
+            Get Access
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </section>
+    </main>
+  )
+}

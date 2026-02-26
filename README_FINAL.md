@@ -4,7 +4,7 @@
 
 Se completó exitosamente la implementación de las **3 fases prioritarias** basadas en el análisis de auditoría del 23 de febrero de 2026.
 
-```
+\`\`\`
 ANTES                          DESPUÉS
 ┌─────────────────┐           ┌──────────────────┐
 │ Mensaje Confuso │           │ Mensaje Claro    │
@@ -12,7 +12,7 @@ ANTES                          DESPUÉS
 │ 0 Engagement    │           │ 3 Widgets + ROI  │
 │ 4.2s Carga      │           │ 1.8s Carga       │
 └─────────────────┘           └──────────────────┘
-```
+\`\`\`
 
 ---
 
@@ -31,7 +31,7 @@ ANTES                          DESPUÉS
 
 ## 🗂️ Estructura de Carpetas - Nuevos Archivos
 
-```
+\`\`\`
 proyecto/
 ├── /components/
 │   ├── /interactive/
@@ -65,7 +65,7 @@ proyecto/
 ├── PHASE_3_SUMMARY.md                 ✨ Resumen Phase 3
 ├── CHANGELOG.md                        ✨ Changelog detallado
 └── README.md (este archivo)
-```
+\`\`\`
 
 ---
 
@@ -92,25 +92,25 @@ proyecto/
 ✅ **Completado:**
 
 ### Button Standardization
-```
+\`\`\`
 ├── Primary:   px-8 py-3 + bg-primary + hover:shadow-lg ↑
 ├── Secondary: px-8 py-3 + border-primary/40 + lighter
 └── Hover:     Todos con efecto lift (-translate-y-1)
-```
+\`\`\`
 
 ### Section Headings
-```
+\`\`\`
 ├── .section-heading       → 3xl font-bold para títulos
 ├── .section-subheading    → lg text con max-width
 └── Aplicadas en 12+ secciones
-```
+\`\`\`
 
 ### Card Interactions
-```
+\`\`\`
 ├── Padding: p-6 → p-8
 ├── Hover:   border-primary/40 + shadow-md + lift
 └── Smooth:  Transiciones mejoradas
-```
+\`\`\`
 
 **Impacto:** 70% más clics en CTAs, 45% mejor retención
 
@@ -136,25 +136,25 @@ proyecto/
 ### 3.2 Interactive Widgets (3 nuevos)
 
 #### 1️⃣ ROI Calculator
-```
+\`\`\`
 Inputs:  Empleados | Horas | Tasa | % Automatización
 Output:  Ahorro mensual/anual | Horas liberadas | Payback
 Location: Homepage (post-hero)
-```
+\`\`\`
 
 #### 2️⃣ Skills Quiz
-```
+\`\`\`
 Questions:  5 preguntas sobre N3uralia
 Features:   Puntuación + Explicaciones + Lead capture
 Location:   Homepage (post-impact)
-```
+\`\`\`
 
 #### 3️⃣ Impact Showcase
-```
+\`\`\`
 Content:    6 métricas de impacto (antes/después)
 Features:   Expandible, color-coded, resumen
 Location:   Homepage (entre ROI y Quiz)
-```
+\`\`\`
 
 **Impacto:** ↑ 120% más tiempo en página
 
@@ -180,39 +180,39 @@ Location:   Homepage (entre ROI y Quiz)
 ## 🧩 Componentes Nuevos - API de Uso
 
 ### 1. ROICalculator
-```tsx
+\`\`\`tsx
 import { ROICalculator } from "@/components/interactive/roi-calculator"
 
 <ROICalculator />
 // Completamente independiente, sin props
-```
+\`\`\`
 
 ### 2. SkillsQuiz
-```tsx
+\`\`\`tsx
 import { SkillsQuiz } from "@/components/interactive/skills-quiz"
 
 <SkillsQuiz />
 // Completamente independiente
-```
+\`\`\`
 
 ### 3. ImpactShowcase
-```tsx
+\`\`\`tsx
 import { ImpactShowcase } from "@/components/interactive/impact-showcase"
 
 <ImpactShowcase />
 // Muestra 6 métricas expandibles
-```
+\`\`\`
 
 ### 4. PerformanceMetrics
-```tsx
+\`\`\`tsx
 import { PerformanceMetrics } from "@/components/performance/performance-metrics"
 
 <PerformanceMetrics />
 // Web Vitals en tiempo real
-```
+\`\`\`
 
 ### 5. OptimizedImage (Mejorado)
-```tsx
+\`\`\`tsx
 import { OptimizedImage } from "@/components/optimized/optimized-image"
 
 <OptimizedImage
@@ -224,7 +224,7 @@ import { OptimizedImage } from "@/components/optimized/optimized-image"
   loadingStrategy="lazy"
   priority={false}
 />
-```
+\`\`\`
 
 ---
 

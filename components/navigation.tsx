@@ -1,198 +1,90 @@
-"use client"
+'use client'
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, MessageCircle } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import type { Locale } from "@/lib/get-locale"
 
-export function Navigation() {
+interface NavigationProps {
+  locale?: Locale
+}
+
+export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
-  const [learningOpen, setLearningOpen] = useState(false)
-  const [automationOpen, setAutomationOpen] = useState(false)
+  const isES = locale === "es"
 
-  const navItems = {
-    capacidades: "Capacidades",
-    livingAgents: "Living Agents",
-    sistemasProduccion: "Sistemas en Producción",
-    soluciones: "Soluciones",
-    casosExito: "Casos de Éxito",
-    centroAprendizaje: "Centro de Aprendizaje",
-    acerca: "Acerca de",
-    nuestroEnfoque: "Nuestro Enfoque",
-    paraEmpresas: "Para Empresas",
-    paraStartups: "Para Startups",
-    paraDesarrolladores: "Para Desarrolladores",
-    conceptos: "Conceptos Fundamentales",
-    guiasTecnicas: "Guías Técnicas",
-    recursos: "Recursos",
+  const href = (path: string) => `/${locale}${path}`
+
+  // Navigation labels
+  const labels = {
+    capabilities: isES ? "Capacidades" : "Capabilities",
+    solutions: isES ? "Soluciones" : "Solutions",
+    caseStudies: isES ? "Casos de Éxito" : "Case Studies",
+    platform: isES ? "Plataforma" : "Platform",
+    labs: "Labs",
+    about: isES ? "Acerca de" : "About",
+    contact: isES ? "Contactar" : "Contact",
   }
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 h-24 flex items-center justify-between">
-        <Link href="/" className="flex items-center h-16">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={64} height={64} className="h-16 w-auto" priority />
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        <Link href={href("/")} className="flex items-center">
+          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-2 items-center">
-          {/* Tier 1: Core Products */}
+        <div className="hidden md:flex gap-1 items-center">
           <Link 
-            href="/capabilities" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            href={href("/capabilities")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.capacidades}
-          </Link>
-          
-          {/* Automation Submenu */}
-          <div className="relative">
-            <button
-              onClick={() => setAutomationOpen(!automationOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
-              type="button"
-            >
-              Automatización
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${automationOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {automationOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                  href="/automatizacion-para-empresas"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Automatización General
-                </Link>
-                <Link
-                  href="/integraciones-empresariales"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Integraciones Legacy
-                </Link>
-                <Link
-                  href="/automatizacion-ventas-leads"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Sales & Leads
-                </Link>
-                <Link
-                  href="/operaciones-autonomas"
-                  onClick={() => setAutomationOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                >
-                  Operaciones 24/7
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* Tier 2: Solutions Direct Link */}
-          <Link 
-            href="/soluciones" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.soluciones}
+            {labels.capabilities}
           </Link>
 
-          {/* Tier 2.5: Case Studies Link */}
           <Link 
-            href="/case-studies" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            href={href("/soluciones")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.casosExito}
+            {labels.solutions}
           </Link>
 
-          {/* Tier 4: Company Info */}
           <Link 
-            href="/about" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            href={href("/case-studies")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
+            {labels.caseStudies}
           </Link>
 
-          {/* Tier 5: Learning Hub Dropdown (at the end) */}
-          <div className="relative">
-            <button
-              onClick={() => setLearningOpen(!learningOpen)}
-              className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1.5"
-              type="button"
-            >
-              {navItems.centroAprendizaje}
-              <svg 
-                className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </button>
-            {learningOpen && (
-              <div className="absolute top-12 left-0 bg-card border border-border rounded-lg shadow-xl p-2 min-w-64 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                <Link
-                  href="/learning-hub"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm font-semibold text-primary hover:bg-muted rounded transition-colors mb-2 border-b border-border pb-2"
-                >
-                  {navItems.centroAprendizaje}
-                </Link>
-                <Link
-                  href="/studies"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.conceptos}
-                </Link>
-                <Link
-                  href="/blog"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.guiasTecnicas}
-                </Link>
-                <Link
-                  href="/faq"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  FAQ
-                </Link>
-                <Link
-                  href="/outcomes"
-                  onClick={() => setLearningOpen(false)}
-                  className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors"
-                >
-                  {navItems.recursos}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/56993826127"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm transition-colors font-medium"
+          <Link 
+            href={href("/platform")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            <MessageCircle className="w-4 h-4" />
-            WhatsApp
-          </a>
+            {labels.platform}
+          </Link>
+
+          <Link 
+            href={href("/labs")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.labs}
+          </Link>
+
+          <Link 
+            href={href("/about")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.about}
+          </Link>
+
+          {/* Contact Button */}
+          <Link
+            href={href("/contact")}
+            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
+          >
+            {labels.contact}
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -203,127 +95,66 @@ export function Navigation() {
 
       {/* Mobile Navigation */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-2 max-h-[calc(100vh-6rem)] overflow-y-auto">
+        <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
           <Link 
-            href="/capabilities" 
+            href={href("/capabilities")} 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.capacidades}
+            {labels.capabilities}
           </Link>
 
-          {/* Mobile Automation Link */}
           <Link 
-            href="/automatizacion-para-empresas" 
+            href={href("/soluciones")} 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            Automatización
+            {labels.solutions}
           </Link>
 
-          {/* Mobile Solutions Link */}
           <Link 
-            href="/soluciones" 
+            href={href("/case-studies")} 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.soluciones}
+            {labels.caseStudies}
           </Link>
 
-          {/* Mobile Case Studies Link */}
           <Link 
-            href="/case-studies" 
+            href={href("/platform")} 
             onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.casosExito}
+            {labels.platform}
           </Link>
 
-          {/* Mobile Learning Hub Submenu */}
-          <button
-            onClick={() => setLearningOpen(!learningOpen)}
-            className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg flex items-center justify-between transition-all"
-            type="button"
+          <Link 
+            href={href("/labs")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {navItems.centroAprendizaje}
-            <svg 
-              className={`w-4 h-4 transition-transform duration-200 ${learningOpen ? 'rotate-180' : ''}`} 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
+            {labels.labs}
+          </Link>
+
+          <Link 
+            href={href("/about")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.about}
+          </Link>
+
+          <div className="pt-2 border-t border-border">
+            <Link 
+              href={href("/contact")} 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </button>
-          {learningOpen && (
-            <div className="pl-6 space-y-1.5 border-l-2 border-primary/30">
-              <Link 
-                href="/learning-hub" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm font-semibold text-primary transition-all"
-              >
-                {navItems.centroAprendizaje}
-              </Link>
-              <Link 
-                href="/studies" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.conceptos}
-              </Link>
-              <Link 
-                href="/blog" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.guiasTecnicas}
-              </Link>
-              <Link 
-                href="/faq" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                FAQ
-              </Link>
-              <Link 
-                href="/outcomes" 
-                onClick={() => { setOpen(false); setLearningOpen(false) }} 
-                className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-all"
-              >
-                {navItems.recursos}
-              </Link>
-            </div>
-          )}
-
-          <Link 
-            href="/about" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.acerca}
-          </Link>
-          <Link 
-            href="/como-trabajamos" 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {navItems.nuestroEnfoque}
-          </Link>
-
-          <a
-            href="https://wa.me/56993826127"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-2 px-3 py-2 text-sm text-primary font-medium"
-          >
-            <MessageCircle className="w-4 h-4" />
-            WhatsApp
-          </a>
+              {labels.contact}
+            </Link>
+          </div>
         </div>
       )}
     </nav>
   )
 }
-
-export default Navigation

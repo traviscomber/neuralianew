@@ -54,45 +54,45 @@
 ### Componentes Nuevos
 
 #### `ROICalculator`
-```tsx
+\`\`\`tsx
 import { ROICalculator } from "@/components/interactive/roi-calculator"
 
 // Uso
 <ROICalculator />
-```
+\`\`\`
 - Completamente independiente
 - State interno con useMemo
 - Sin dependencias externas
 
 #### `SkillsQuiz`
-```tsx
+\`\`\`tsx
 import { SkillsQuiz } from "@/components/interactive/skills-quiz"
 
 // Uso
 <SkillsQuiz />
-```
+\`\`\`
 - 5 preguntas predefinidas
 - Sistema de puntuación
 - Integración con analytics (configurable)
 
 #### `ImpactShowcase`
-```tsx
+\`\`\`tsx
 import { ImpactShowcase } from "@/components/interactive/impact-showcase"
 
 // Uso
 <ImpactShowcase />
-```
+\`\`\`
 - Expandible/colapsable
 - 6 métricas de impacto
 - Resumen de mejoras
 
 #### `PerformanceMetrics`
-```tsx
+\`\`\`tsx
 import { PerformanceMetrics } from "@/components/performance/performance-metrics"
 
 // Uso
 <PerformanceMetrics />
-```
+\`\`\`
 - Integración con Web Vitals API
 - PerformanceObserver real-time
 - Debug-friendly
@@ -100,7 +100,7 @@ import { PerformanceMetrics } from "@/components/performance/performance-metrics
 ### Mejoras de Imagen
 
 #### `OptimizedImage` Mejorado
-```tsx
+\`\`\`tsx
 import { OptimizedImage } from "@/components/optimized/optimized-image"
 
 // Uso
@@ -113,7 +113,7 @@ import { OptimizedImage } from "@/components/optimized/optimized-image"
   loadingStrategy="lazy"  // lazy | eager | native
   priority={false}       // Para LCP images
 />
-```
+\`\`\`
 
 **Cambios:**
 - Quality: 85 → 75 (mejor compresión)
@@ -123,7 +123,7 @@ import { OptimizedImage } from "@/components/optimized/optimized-image"
 
 ### Utilidades CSS Nuevas
 
-```css
+\`\`\`css
 /* En /app/globals.css */
 
 .section-heading {
@@ -133,7 +133,7 @@ import { OptimizedImage } from "@/components/optimized/optimized-image"
 .section-subheading {
   @apply text-lg text-muted-foreground max-w-2xl mx-auto;
 }
-```
+\`\`\`
 
 ### Archivos de Referencia
 
@@ -164,14 +164,14 @@ import { OptimizedImage } from "@/components/optimized/optimized-image"
 
 ### Métricas a Trackear
 
-```
+\`\`\`
 // En Google Analytics (configurar)
 - roi-calculator-interaction (# de cálculos)
 - quiz-completion (# de completados)
 - quiz-score (distribución de puntuaciones)
 - impact-showcase-expansion (clicks)
 - performance-page-visits (# de técnicos)
-```
+\`\`\`
 
 ---
 

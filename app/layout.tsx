@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   description:
     "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM. IA en producción desde día uno.",
   keywords:
-    "sistemas agenticos, IA en producción, agentes inteligentes, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack",
+    "sistemas agenticos, IA en producción, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack, IA aplicada, transformación digital, agentic AI, multi-agent systems, agentes autónomos, AI orchestration",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
   alternates: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "N3uralia - AI Agents & Sistemas Agenticos en Producción",
-    description: "Agentic AI architecture designed for humans. N3uralia agents in production with governance, memory, and orchestration. Multi-agent systems that work with you.",
+    description: "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration. Multi-agent systems that work with you. Agentes de IA listos para producción.",
     type: "website",
     locale: "es_CL",
     localeAlternate: ["en_US", "es_ES"],
@@ -55,18 +55,21 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "N3uralia - Sistemas Agenticos en Producción",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "N3uralia - AI Agents in Production",
-    description: "Agentic AI systems for enterprise. N3uralia agents, multi-agent orchestration, production-ready architecture.",
+    description: "Agentic AI systems for enterprise. N3uralia AI agents, agentes de IA, multi-agent orchestration, production-ready architecture.",
     creator: "@n3uralia",
+    site: "@n3uralia",
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -74,8 +77,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
       "max-video-preview": -1,
     },
+    bingbot: {
+      index: true,
+      follow: true,
+    },
   },
   generator: "v0.app",
+  referrer: "strict-origin-when-cross-origin",
+  category: "technology",
 }
 
 export const viewport: Viewport = {

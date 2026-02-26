@@ -37,10 +37,10 @@ Basado en el análisis del sitio web de N3uralia del 23 de febrero de 2026, se i
 ### Cambios Implementados:
 
 **Button Standardization:**
-```
+\`\`\`
 Primary Action:    px-8 py-3 + bg-primary + hover:shadow-lg + lift effect
 Secondary Action:  px-8 py-3 + border-primary/40 + hover:bg-primary/5
-```
+\`\`\`
 - Todos los CTAs ahora consistentes en tamaño y comportamiento
 - Efecto hover mejorado: `hover:shadow-lg hover:-translate-y-1`
 - 8 CTAs actualizados en homepage + capabilities
@@ -145,7 +145,7 @@ Secondary Action:  px-8 py-3 + border-primary/40 + hover:bg-primary/5
 ## 🚀 Integración en el Sitio
 
 ### Homepage (`/app/page.tsx`)
-```
+\`\`\`
 Hero
 ├─ CTAs mejorados
 ├─ Why N3uralia (lenguaje claro)
@@ -156,7 +156,7 @@ Hero
 ├─ Impact Showcase ← NUEVO
 ├─ Skills Quiz ← NUEVO
 └─ What is N3uralia
-```
+\`\`\`
 
 ### Capabilities Page
 - Todas las secciones con `.section-heading`

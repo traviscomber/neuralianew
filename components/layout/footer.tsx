@@ -94,7 +94,7 @@ export function Footer() {
               </li>
               <li>
                 <a 
-                  href="https://wa.me/56993826127?text=Hola%20N3uralia%2C%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
+                  href="https://web.whatsapp.com/send/?phone=56993826127&text=Hola+N3uralia%2C+me+gustaría+conocer+más+sobre+vuestras+soluciones+de+IA&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
