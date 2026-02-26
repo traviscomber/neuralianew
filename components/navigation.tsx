@@ -10,7 +10,7 @@ interface NavigationProps {
   locale?: Locale
 }
 
-export function Navigation({ locale = "es" }: NavigationProps) {
+export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
 
   const href = (path: string) => `/${locale}${path}`
@@ -43,6 +43,20 @@ export function Navigation({ locale = "es" }: NavigationProps) {
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Casos de Éxito
+          </Link>
+
+          <Link 
+            href={href("/platform")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Platform
+          </Link>
+
+          <Link 
+            href={href("/labs")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Labs
           </Link>
 
           <Link 
@@ -92,6 +106,22 @@ export function Navigation({ locale = "es" }: NavigationProps) {
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             Casos de Éxito
+          </Link>
+
+          <Link 
+            href={href("/platform")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Platform
+          </Link>
+
+          <Link 
+            href={href("/labs")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            Labs
           </Link>
 
           <Link 
