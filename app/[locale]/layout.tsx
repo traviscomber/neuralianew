@@ -58,7 +58,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
         </main>
         <ScrollToTop />
         <FloatingChatWidget />
-        <LanguageSwitcher currentLocale={locale} />
+        <LanguageSwitcher />
       </ThemeProvider>
     </>
   )
