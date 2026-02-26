@@ -1,53 +1,37 @@
-import { Zap, Shield, Users, Target } from "lucide-react"
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import { AboutPageClient } from "@/components/about/about-page-client"
-import { SectionBackground } from "@/components/section-background"
 
-export const metadata: Metadata = {
-  title: "Acerca de N3uralia | Neuralia - Visión, Misión, AI Agents, Sistemas Agenticos Fullstack",
-  description: "N3uralia (Neuralia): por qué construimos una plataforma de sistemas agenticos y AI agents diferente. Filosofía, visión, valores. Inteligencia aumentada fullstack, no reemplazo. Cómo trabajamos con empresas chilenas.",
-  keywords: "acerca de n3uralia, neuralia, misión, visión, AI agents, sistemas agenticos, fullstack, ingeniería, valores, filosofía",
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-const values = [
-  {
-    icon: Zap,
-    title: "Ingeniería Rigurosa",
-    description: "La IA es ingeniería, no magia. Sistemas predecibles, rastreables, gobernados. Cada decisión es auditable.",
-  },
-  {
-    icon: Users,
-    title: "Expansión Humana",
-    description: "Tecnología que amplifica capacidades humanas. Ayuda a equipos a hacer más, no menos. Colaboración, no reemplazo.",
-  },
-  {
-    icon: Shield,
-    title: "Responsabilidad Radical",
-    description: "Cada agente, cada decisión, completamente rastreable. Gobernanza no es fricción—es requisito no-negociable.",
-  },
-  {
-    icon: Target,
-    title: "Resultados Medibles",
-    description: "No evangelizamos IA. Medimos impacto real: eficiencia, ingresos, satisfacción. Resultados concretos, no promesas.",
-  },
-]
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const isES = locale === 'es'
 
-export default function AboutPage() {
-  return (
-    <>
-      <main className="min-h-screen pt-16 bg-background">
-      
-      <SectionBackground section="hero" className="border-b border-border">
-      {/* Hero Section */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
-          <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
-            Quiénes Somos
-          </p>
-          <h1 className="h1-light mb-8 text-foreground">N3uralia</h1>
-          <p className="body-lg text-muted-foreground leading-relaxed">
-            Construimos arquitecturas de inteligencia autónoma que amplifican capacidades humanas. No es IA que reemplaza. Es IA que expande. Sistemas que funcionan con humanos, no contra ellos.
-          </p>
+  const titles = {
+    es: "Acerca de N3uralia | Visión, Misión, Valores",
+    en: "About N3uralia | Vision, Mission, Values",
+  }
+
+  const descriptions = {
+    es: "N3uralia: plataforma de sistemas agenticos que amplifican capacidades humanas. Ingeniería rigurosa, responsabilidad radical, resultados medibles.",
+    en: "N3uralia: agentic systems platform that amplifies human capabilities. Rigorous engineering, radical responsibility, measurable results.",
+  }
+
+  return {
+    title: titles[locale as keyof typeof titles],
+    description: descriptions[locale as keyof typeof descriptions],
+  }
+}
+
+export default function AboutPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  return <AboutPageClient locale={locale as 'es' | 'en'} />
+}
         </div>
       </section>
       </SectionBackground>
