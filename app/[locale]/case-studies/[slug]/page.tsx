@@ -146,9 +146,38 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
 
         {/* Stack */}
         <Section title={locale === "es" ? "Stack Técnico" : "Tech Stack"}>
-          <p className="text-muted-foreground font-mono text-sm leading-relaxed">
+          <p className="text-muted-foreground font-mono text-sm leading-relaxed mb-8">
             {t2(locale, caseStudy.stackLine)}
           </p>
+          
+          {/* Tech Logos */}
+          {caseStudy.techLogos && caseStudy.techLogos.length > 0 && (
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-6">
+                {locale === "es" ? "Tecnologías Utilizadas" : "Technologies Used"}
+              </h4>
+              <div className="flex flex-wrap items-center justify-start gap-6 md:gap-8">
+                {caseStudy.techLogos.map((logo, idx) => (
+                  <div 
+                    key={idx} 
+                    className="flex flex-col items-center justify-center p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                  >
+                    <img 
+                      src={logo.url} 
+                      alt={logo.alt} 
+                      className="h-8 md:h-10 object-contain grayscale group-hover:grayscale-0 transition-all opacity-70 group-hover:opacity-100"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                    <span className="text-xs text-muted-foreground mt-2 font-medium group-hover:text-foreground transition-colors">
+                      {logo.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </Section>
       </main>
       <Footer locale={locale} />

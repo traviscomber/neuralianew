@@ -18,6 +18,7 @@ export type CaseStudy = {
     icon?: string;
   }>;
   stackLine: { es: string; en: string };
+  techLogos?: Array<{ name: string; url: string; alt: string }>;
 };
 
 export const CASE_STUDIES: CaseStudy[] = [
@@ -81,6 +82,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       es: "IrriWatch API → N3uralia Orchestration → Intent Detection → Twilio WhatsApp API → 24/7",
       en: "IrriWatch API → N3uralia Orchestration → Intent Detection → Twilio WhatsApp API → 24/7",
     },
+    techLogos: [
+      { name: "Hydrosat", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/hydrosat-logo.svg", alt: "Hydrosat" },
+      { name: "Twilio", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/twilio-logo.svg", alt: "Twilio" },
+      { name: "Node.js", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nodejs-logo.svg", alt: "Node.js" },
+      { name: "PostgreSQL", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/postgresql-logo.svg", alt: "PostgreSQL" },
+      { name: "OpenAI", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/openai-logo.svg", alt: "OpenAI" },
+    ],
   },
   {
     slug: "despega-tu-carrera",
@@ -138,6 +146,14 @@ export const CASE_STUDIES: CaseStudy[] = [
       es: "React + TypeScript → Node.js API → PostgreSQL/Supabase → OpenAI GPT-4 (RAG) → Vercel/Cloud",
       en: "React + TypeScript → Node.js API → PostgreSQL/Supabase → OpenAI GPT-4 (RAG) → Vercel/Cloud",
     },
+    techLogos: [
+      { name: "React", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/react-logo.svg", alt: "React" },
+      { name: "TypeScript", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/typescript-logo.svg", alt: "TypeScript" },
+      { name: "Node.js", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nodejs-logo.svg", alt: "Node.js" },
+      { name: "PostgreSQL", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/postgresql-logo.svg", alt: "PostgreSQL" },
+      { name: "Supabase", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/supabase-logo.svg", alt: "Supabase" },
+      { name: "OpenAI", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/openai-logo.svg", alt: "OpenAI" },
+    ],
   },
   {
     slug: "blackswan-facility-core",
@@ -200,6 +216,13 @@ export const CASE_STUDIES: CaseStudy[] = [
       es: "React → Node.js/Express → PostgreSQL → N3uralia Orchestration → Integraciones multi-canal",
       en: "React → Node.js/Express → PostgreSQL → N3uralia Orchestration → Multi-channel integrations",
     },
+    techLogos: [
+      { name: "React", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/react-logo.svg", alt: "React" },
+      { name: "Node.js", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/nodejs-logo.svg", alt: "Node.js" },
+      { name: "PostgreSQL", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/postgresql-logo.svg", alt: "PostgreSQL" },
+      { name: "Twilio", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/twilio-logo.svg", alt: "Twilio" },
+      { name: "Google Workspace", url: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/google-workspace-logo.svg", alt: "Google Workspace" },
+    ],
   },
 ];
 
