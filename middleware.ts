@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// i18n configuration
+const LOCALES = ['es', 'en']
+const DEFAULT_LOCALE = 'es'
+
 // Protected API routes that require authentication
 const PROTECTED_API_ROUTES = [
   '/api/living-agents/evolution',
@@ -16,6 +20,7 @@ const PUBLIC_API_ROUTES = [
   '/api/chat',
   '/api/deployment-status',
   '/api/email/test',
+  '/api/send-email',
 ]
 
 // Rate limiting cache (in-memory for single instance, should use Redis in production)
@@ -80,6 +85,17 @@ function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
   }
 }
 
+/**
+ * Get locale from request
+ */
+function getLocale(pathname: string): string | null {
+  const parts = pathname.split('/')
+  if (parts.length > 1 && LOCALES.includes(parts[1])) {
+    return parts[1]
+  }
+  return null
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -92,9 +108,24 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Skip middleware for API routes
-  if (pathname.startsWith('/api')) {
-    return NextResponse.next()
+  // Handle locale routing for non-API routes
+  if (!pathname.startsWith('/api')) {
+    const locale = getLocale(pathname)
+
+    if (!locale) {
+      // Get preferred locale from Accept-Language header
+      const acceptLanguage = request.headers.get('accept-language') || ''
+      const preferredLocale = acceptLanguage
+        .split(',')[0]
+        .split('-')[0]
+        .toLowerCase()
+
+      const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
+
+      // Redirect to locale-prefixed path
+      request.nextUrl.pathname = `/${validLocale}${pathname}`
+      return NextResponse.redirect(request.nextUrl)
+    }
   }
 
   // Rate limiting for all requests
@@ -124,7 +155,7 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Check if route is protected
+  // Check if route is protected API
   const isProtectedRoute = PROTECTED_API_ROUTES.some((route) => pathname.startsWith(route))
   const isPublicRoute = PUBLIC_API_ROUTES.some((route) => pathname.startsWith(route))
 
@@ -154,7 +185,7 @@ export async function middleware(request: NextRequest) {
       }
 
       const user = await response.json()
-      
+
       // Add user to request headers for use in API routes
       const requestHeaders = new Headers(request.headers)
       requestHeaders.set('x-user-id', user.id)
@@ -176,7 +207,7 @@ export async function middleware(request: NextRequest) {
 
   // Add security headers to all responses
   const response = NextResponse.next()
-  
+
   response.headers.set('X-Content-Type-Options', 'nosniff')
   response.headers.set('X-Frame-Options', 'DENY')
   response.headers.set('X-XSS-Protection', '1; mode=block')
