@@ -1,103 +1,136 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Zap, Bot, Workflow, TrendingUp, Package, Users, Building2, Cpu, Code2 } from "lucide-react"
+import { ArrowRight, Package, Cpu, TrendingUp, Users, Building2, Workflow } from "lucide-react"
 import type { Metadata } from "next"
-import { HomePageClient } from "@/components/home/home-page-client"
-import { HeroBackground } from "@/components/section-background"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 
-export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
-  description:
-    "N3uralia: Orquestación de sistemas agenticos para empresas. Automatiza procesos con inteligencia aumentada. Soluciones para retail, manufactura, servicios financieros, salud, legal y logística.",
-  keywords:
-    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia",
-  alternates: {
-    canonical: "https://n3uralia.com",
-    languages: {
-      "es-CL": "https://n3uralia.com",
-      "es": "https://n3uralia.com",
-      "en": "https://n3uralia.com",
-      "en-US": "https://n3uralia.com",
-    },
-  },
-  openGraph: {
-    title: "N3uralia - Automatización Empresarial con Sistemas Agenticos",
-    description: "Orquestación de sistemas agenticos listos para producción. Automatiza tus operaciones con IA que evoluciona.",
-    type: "website",
-    locale: "es_CL",
-    url: "https://n3uralia.com",
-    siteName: "N3uralia",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-const sectors = [
-  {
-    title: "Retail & E-commerce",
-    description: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
-    icon: Package,
-    link: "#"
-  },
-  {
-    title: "Manufactura",
-    description: "Optimización de procesos, control de calidad, mantenimiento predictivo",
-    icon: Cpu,
-    link: "#"
-  },
-  {
-    title: "Servicios Financieros",
-    description: "Análisis de riesgo, detección de fraude, asesoría personalizada",
-    icon: TrendingUp,
-    link: "#"
-  },
-  {
-    title: "Salud",
-    description: "Análisis de documentos, triaje de pacientes, gestión de citas",
-    icon: Users,
-    link: "#"
-  },
-  {
-    title: "Legal",
-    description: "Revisión de contratos, investigación legal, cumplimiento normativo",
-    icon: Building2,
-    link: "#"
-  },
-  {
-    title: "Logística",
-    description: "Optimización de rutas, predicción de demanda, automatización de almacén",
-    icon: Workflow,
-    link: "#"
-  },
-]
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const isES = locale === 'es'
 
-export default function HomePage() {
+  const titles = {
+    es: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
+    en: "N3uralia | Agentic Systems in Production - Enterprise AI Automation",
+  }
+
+  const descriptions = {
+    es: "N3uralia: Orquestación de sistemas agenticos para empresas. Automatiza procesos con inteligencia aumentada. Soluciones para retail, manufactura, servicios financieros, salud, legal y logística.",
+    en: "N3uralia: Enterprise agentic systems orchestration. Automate processes with augmented intelligence. Solutions for retail, manufacturing, financial services, healthcare, legal and logistics.",
+  }
+
+  return {
+    title: titles[locale as keyof typeof titles],
+    description: descriptions[locale as keyof typeof descriptions],
+  }
+}
+
+export default function HomePage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const isES = locale === 'es'
+  const href = (path: string) => `/${locale}${path}`
+
+  const sectors = {
+    es: [
+      { title: "Retail & E-commerce", desc: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7", icon: Package },
+      { title: "Manufactura", desc: "Optimización de procesos, control de calidad, mantenimiento predictivo", icon: Cpu },
+      { title: "Servicios Financieros", desc: "Análisis de riesgo, detección de fraude, asesoría personalizada", icon: TrendingUp },
+      { title: "Salud", desc: "Análisis de documentos, triaje de pacientes, gestión de citas", icon: Users },
+      { title: "Legal", desc: "Revisión de contratos, investigación legal, cumplimiento normativo", icon: Building2 },
+      { title: "Logística", desc: "Optimización de rutas, predicción de demanda, automatización de almacén", icon: Workflow },
+    ],
+    en: [
+      { title: "Retail & E-commerce", desc: "Personalized recommendations, inventory management, 24/7 customer service", icon: Package },
+      { title: "Manufacturing", desc: "Process optimization, quality control, predictive maintenance", icon: Cpu },
+      { title: "Financial Services", desc: "Risk analysis, fraud detection, personalized advisory", icon: TrendingUp },
+      { title: "Healthcare", desc: "Document analysis, patient triage, appointment management", icon: Users },
+      { title: "Legal", desc: "Contract review, legal research, regulatory compliance", icon: Building2 },
+      { title: "Logistics", desc: "Route optimization, demand forecasting, warehouse automation", icon: Workflow },
+    ],
+  }
+
+  const labels = {
+    badge: isES ? "Sistemas Agenticos en Producción" : "Agentic Systems in Production",
+    line1: isES ? "De la Experimentación" : "From Experimentation",
+    line2: isES ? "a la Automatización Empresarial" : "to Enterprise Automation",
+    desc: isES 
+      ? "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno."
+      : "Agentic systems orchestration that integrate, scale and evolve. Your operations with augmented intelligence, production-ready from day one.",
+    cta1: isES ? "Comenzar" : "Get Started",
+    cta2: isES ? "Explorar Soluciones" : "Explore Solutions",
+    sectorsTitle: isES ? "Para Todos los Sectores" : "For All Industries",
+    sectorsDesc: isES ? "N3uralia funciona en cualquier industria" : "N3uralia works across all industries",
+  }
+
+  const currentSectors = isES ? sectors.es : sectors.en
+
   return (
-    <>
-      <main className="min-h-screen bg-background">
-        {/* 1. HERO Section */}
-        <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-          <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-            <div className="max-w-4xl mx-auto text-center w-full">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">Sistemas Agenticos en Producción</span>
-              </div>
+    <main className="min-h-screen bg-background pt-20">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center justify-center py-16 px-4">
+        <div className="max-w-4xl mx-auto text-center w-full">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-sm font-medium text-primary">{labels.badge}</span>
+          </div>
 
-              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-                <span className="text-foreground">De la Experimentación</span>
-                <br />
-                <span className="text-primary">a la Automatización Empresarial</span>
-              </h1>
+          <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
+            <span className="text-foreground">{labels.line1}</span>
+            <br />
+            <span className="text-primary">{labels.line2}</span>
+          </h1>
 
-              <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-                Orquestación de sistemas agenticos que integran, escalan y evolucionan. 
-                Tu operación con inteligencia aumentada, lista para producción desde el día uno.
-              </p>
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+            {labels.desc}
+          </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
-                >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
+            <Link
+              href={href("/contact")}
+              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
+            >
+              {labels.cta1} <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href={href("/soluciones")}
+              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-all flex items-center justify-center gap-2"
+            >
+              {labels.cta2}
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Sectors Section */}
+      <section className="py-24 bg-muted/30 border-y border-border px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">{labels.sectorsTitle}</h2>
+            <p className="text-xl text-muted-foreground">{labels.sectorsDesc}</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {currentSectors.map((sector, i) => {
+              const Icon = sector.icon
+              return (
+                <div key={i} className="p-6 rounded-lg border border-border bg-background hover:border-primary/50 hover:shadow-lg transition-all">
+                  <Icon className="w-8 h-8 text-primary mb-4" />
+                  <h3 className="text-xl font-bold mb-2">{sector.title}</h3>
+                  <p className="text-sm text-muted-foreground">{sector.desc}</p>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
                   Comenzar Hoy
                   <ArrowRight className="w-4 h-4" />
                 </Link>
