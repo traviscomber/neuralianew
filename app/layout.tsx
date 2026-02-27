@@ -107,7 +107,7 @@ export default function RootLayout({
         <StructuredCitations />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem themes={["light", "dark", "black"]}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem themes={["light", "dark", "black"]}>
           <Navigation />
           {children}
           <ScrollToTop />
