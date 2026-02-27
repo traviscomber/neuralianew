@@ -3,6 +3,12 @@ import type { MetadataRoute } from "next"
 const SITE_URL = "https://n3uralia.com"
 const LOCALES = ["es", "en"]
 
+// Geographic regions with locale variants
+const REGIONAL_LOCALES = {
+  es: ["es", "es-CL", "es-AR", "es-MX", "es-CO"],
+  en: ["en"],
+}
+
 // All available routes in the application
 const ROUTES = [
   "/",
@@ -62,22 +68,36 @@ const CASE_STUDY_SLUGS = [
   "logistics-optimization",
 ]
 
+// Geo-specific routes mapping
+const GEO_ROUTES: Record<string, string[]> = {
+  CL: ["/", "/about", "/capabilities", "/case-studies", "/soluciones", "/contact"],
+  AR: ["/", "/about", "/capabilities", "/case-studies", "/contact"],
+  MX: ["/", "/about", "/capabilities", "/case-studies", "/contact"],
+  CO: ["/", "/about", "/capabilities", "/case-studies", "/contact"],
+  GLOBAL: ["/", "/about", "/capabilities", "/case-studies", "/contact"],
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
-  // Add localized routes
+  // Add main localized routes (es, en)
   LOCALES.forEach((locale) => {
     ROUTES.forEach((route) => {
       const cleanRoute = route === "/" ? "" : route
+      const changeFreq = route === "/" ? "weekly" : route.includes("blog") ? "daily" : "monthly"
 
       entries.push({
         url: `${SITE_URL}/${locale}${cleanRoute}`,
         lastModified: new Date(),
-        changeFrequency: route === "/" ? "weekly" : "monthly",
+        changeFrequency: changeFreq as any,
         priority: getPriority(route),
         alternates: {
           languages: {
             es: `${SITE_URL}/es${cleanRoute}`,
+            "es-CL": `${SITE_URL}/es-CL${cleanRoute}`,
+            "es-AR": `${SITE_URL}/es-AR${cleanRoute}`,
+            "es-MX": `${SITE_URL}/es-MX${cleanRoute}`,
+            "es-CO": `${SITE_URL}/es-CO${cleanRoute}`,
             en: `${SITE_URL}/en${cleanRoute}`,
             "x-default": `${SITE_URL}${cleanRoute}`,
           },
@@ -85,7 +105,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })
     })
 
-    // Add case study detail pages
+    // Add case study detail pages with geo variants
     CASE_STUDY_SLUGS.forEach((slug) => {
       entries.push({
         url: `${SITE_URL}/${locale}/case-studies/${slug}`,
@@ -95,7 +115,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
         alternates: {
           languages: {
             es: `${SITE_URL}/es/case-studies/${slug}`,
+            "es-CL": `${SITE_URL}/es-CL/case-studies/${slug}`,
             en: `${SITE_URL}/en/case-studies/${slug}`,
+          },
+        },
+      })
+    })
+  })
+
+  // Add regional locale variants (es-CL, es-AR, es-MX, es-CO)
+  Object.entries(GEO_ROUTES).forEach(([region, regionRoutes]) => {
+    if (region === "GLOBAL") return // Skip global marker
+
+    regionRoutes.forEach((route) => {
+      const cleanRoute = route === "/" ? "" : route
+      const regionLocale = `es-${region}`
+
+      entries.push({
+        url: `${SITE_URL}/${regionLocale}${cleanRoute}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: region === "CL" ? getPriority(route) : getPriority(route) * 0.95, // Slight priority reduction for secondary regions
+        alternates: {
+          languages: {
+            es: `${SITE_URL}/es${cleanRoute}`,
+            "es-CL": `${SITE_URL}/es-CL${cleanRoute}`,
+            "es-AR": `${SITE_URL}/es-AR${cleanRoute}`,
+            "es-MX": `${SITE_URL}/es-MX${cleanRoute}`,
+            en: `${SITE_URL}/en${cleanRoute}`,
           },
         },
       })
