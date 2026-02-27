@@ -276,7 +276,8 @@ export default function HomePage({ params }: PageProps) {
                       alt="Despega Tu Carrera logo" 
                       width={180}
                       height={60}
-                      className="h-20 w-auto object-contain rounded-md bg-muted/50 px-3 py-1"
+                      className="h-20 w-auto object-contain mix-blend-mode-screen"
+                      style={{ mixBlendMode: 'screen' }}
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
