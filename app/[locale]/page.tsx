@@ -1,12 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Zap, Bot, Workflow, TrendingUp, Package, Users, Building2, Cpu, Code2 } from "lucide-react"
+import { ArrowRight, Zap, Bot, Code2 } from "lucide-react"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { HomePageClient } from "@/components/home/home-page-client"
+import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
+import { SECTORS } from "@/content/sectors"
 
 interface PageProps {
   params: { locale: string }
@@ -41,57 +42,6 @@ export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
   const isES = locale === "es"
-
-  const sectors = [
-    {
-      titleES: "Retail & E-commerce",
-      titleEN: "Retail & E-commerce",
-      descES: "Recomendaciones personalizadas, gestión de inventario, servicio al cliente 24/7",
-      descEN: "Personalized recommendations, inventory management, 24/7 customer service",
-      icon: Package,
-      link: "#"
-    },
-    {
-      titleES: "Manufactura",
-      titleEN: "Manufacturing",
-      descES: "Optimización de procesos, control de calidad, mantenimiento predictivo",
-      descEN: "Process optimization, quality control, predictive maintenance",
-      icon: Cpu,
-      link: "#"
-    },
-    {
-      titleES: "Servicios Financieros",
-      titleEN: "Financial Services",
-      descES: "Análisis de riesgo, detección de fraude, asesoría personalizada",
-      descEN: "Risk analysis, fraud detection, personalized advice",
-      icon: TrendingUp,
-      link: "#"
-    },
-    {
-      titleES: "Salud",
-      titleEN: "Healthcare",
-      descES: "Análisis de documentos, triaje de pacientes, gestión de citas",
-      descEN: "Document analysis, patient triage, appointment management",
-      icon: Users,
-      link: "#"
-    },
-    {
-      titleES: "Legal",
-      titleEN: "Legal",
-      descES: "Revisión de contratos, investigación legal, cumplimiento normativo",
-      descEN: "Contract review, legal research, regulatory compliance",
-      icon: Building2,
-      link: "#"
-    },
-    {
-      titleES: "Logística",
-      titleEN: "Logistics",
-      descES: "Optimización de rutas, predicción de demanda, automatización de almacén",
-      descEN: "Route optimization, demand prediction, warehouse automation",
-      icon: Workflow,
-      link: "#"
-    },
-  ]
 
   return (
     <>
@@ -212,7 +162,7 @@ export default function HomePage({ params }: PageProps) {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sectors.slice(0, 6).map((sector, i) => {
+              {SECTORS.map((sector, i) => {
                 const Icon = sector.icon
                 return (
                   <div key={i} className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
@@ -253,6 +203,7 @@ export default function HomePage({ params }: PageProps) {
                       width={100}
                       height={30}
                       className="h-28 w-auto object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -277,6 +228,7 @@ export default function HomePage({ params }: PageProps) {
                       width={150}
                       height={150}
                       className="h-28 w-auto object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -301,6 +253,7 @@ export default function HomePage({ params }: PageProps) {
                       width={120}
                       height={100}
                       className="h-28 w-auto object-contain"
+                      loading="lazy"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -346,7 +299,7 @@ export default function HomePage({ params }: PageProps) {
         </section>
       </main>
 
-      <HomePageClient />
+      <Footer />
     </>
   )
 }
