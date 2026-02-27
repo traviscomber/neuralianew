@@ -30,7 +30,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         {/* Left Side: Logo + Desktop Navigation */}
         <div className="flex items-center gap-8 flex-1">
           <Link href={href("/")} className="flex items-center flex-shrink-0">
@@ -101,7 +101,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
 
       {/* Mobile Navigation */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
+        <div className="md:hidden border-t border-border bg-background w-full max-w-7xl mx-auto px-4 p-4 space-y-2">
           <Link 
             href={href("/capabilities")} 
             onClick={() => setOpen(false)} 
