@@ -246,7 +246,7 @@ export default function HomePage({ params }: PageProps) {
               {/* Ecosuelolab */}
               <Link href="/case-studies/ecosuelolab" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png" 
                       alt="Ecosuelolab logo" 
@@ -270,7 +270,7 @@ export default function HomePage({ params }: PageProps) {
               {/* Despega Tu Carrera */}
               <Link href="/case-studies/despega-tu-carrera" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="/logos/despega-tu-carrera-logo.jpg" 
                       alt="Despega Tu Carrera logo" 
@@ -294,7 +294,7 @@ export default function HomePage({ params }: PageProps) {
               {/* Blackswan */}
               <Link href="/case-studies/blackswan-facility-core" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-white rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/80 transition-colors p-4">
+                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bslogo-4dAYU7iH5JIRxGvWqE5k75H5ciyXQ8.png" 
                       alt="Blackswan logo" 
