@@ -115,30 +115,29 @@ export default function HomePage({ params }: PageProps) {
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">¿Qué es N3uralia?</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.whatWeDo.title}</h2>
               <p className="text-lg text-muted-foreground">
-                Construimos la arquitectura que falta. Un orquestador central que coordina agentes especializados, 
-                integra tus sistemas existentes y evoluciona con tu negocio.
+                {d.home.whatWeDo.description}
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
                 <Zap className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">Orquestación</h3>
-                <p className="text-sm text-muted-foreground">Coordina múltiples agentes y sistemas en un solo flujo inteligente</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.orchestration.title}</h3>
+                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.orchestration.desc}</p>
               </div>
 
               <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
                 <Bot className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">Agentes Evolucionan</h3>
-                <p className="text-sm text-muted-foreground">Aprenden de cada interacción y mejoran automáticamente con el tiempo</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.evolving.title}</h3>
+                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.evolving.desc}</p>
               </div>
 
               <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
                 <Code2 className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">Integración Total</h3>
-                <p className="text-sm text-muted-foreground">Se adapta a tu stack existente sin disrupciones. Zero rewrite.</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.integration.title}</h3>
+                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.integration.desc}</p>
               </div>
             </div>
           </div>
@@ -148,15 +147,15 @@ export default function HomePage({ params }: PageProps) {
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Soluciones por Industria</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.solutions.title}</h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Automatización especializada para los desafíos únicos de tu sector
+                {d.home.solutions.description}
               </p>
               <Link 
-                href="/soluciones"
+                href={`/${locale}/soluciones`}
                 className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
               >
-                Explorar Todas las Soluciones
+                {d.home.solutions.explore}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -186,15 +185,15 @@ export default function HomePage({ params }: PageProps) {
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Confían en N3uralia</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.clients.title}</h2>
               <p className="text-lg text-muted-foreground">
-                Empresas líderes transforman sus operaciones con nuestros sistemas
+                {d.home.clients.description}
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
               {/* Ecosuelolab */}
-              <Link href="/case-studies/ecosuelolab" className="group">
+              <Link href={`/${locale}/case-studies/ecosuelolab`} className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
                   <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
@@ -207,19 +206,19 @@ export default function HomePage({ params }: PageProps) {
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Monitoreo Agrícola Automatizado
+                    {d.home.clients.ecosuelolab.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Automatización 100% de alertas satelitales con integración API + WhatsApp. Latencia en segundos.
+                    {d.home.clients.ecosuelolab.desc}
                   </p>
                   <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    Ver Caso <ArrowRight className="w-4 h-4" />
+                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </Link>
 
               {/* Despega Tu Carrera */}
-              <Link href="/case-studies/despega-tu-carrera" className="group">
+              <Link href={`/${locale}/case-studies/despega-tu-carrera`} className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
                   <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
@@ -232,19 +231,19 @@ export default function HomePage({ params }: PageProps) {
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Plataforma de Coaching IA
+                    {d.home.clients.despega.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Fullstack development con coach IA conversacional, tests psicométricos y biblioteca de recursos. 10K+ usuarios.
+                    {d.home.clients.despega.desc}
                   </p>
                   <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    Ver Caso <ArrowRight className="w-4 h-4" />
+                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </Link>
 
               {/* Blackswan */}
-              <Link href="/case-studies/blackswan-facility-core" className="group">
+              <Link href={`/${locale}/case-studies/blackswan-facility-core`} className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
                   <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
@@ -257,13 +256,13 @@ export default function HomePage({ params }: PageProps) {
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    Sistema de Gestión Integrado
+                    {d.home.clients.blackswan.title}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    BFCS orquestado para hoteles de lujo. 40% reducción en tiempo operativo. Response time: 4h → 15min.
+                    {d.home.clients.blackswan.desc}
                   </p>
                   <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    Ver Caso <ArrowRight className="w-4 h-4" />
+                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </Link>
@@ -271,10 +270,10 @@ export default function HomePage({ params }: PageProps) {
 
             <div className="text-center mt-16">
               <Link
-                href="/case-studies"
+                href={`/${locale}/case-studies`}
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
               >
-                Ver Todos los Casos de Éxito
+                {d.home.clients.viewAll}
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -284,15 +283,15 @@ export default function HomePage({ params }: PageProps) {
         {/* 5. CTA Section */}
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">¿Tu industria requiere automatización?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{d.home.cta.title}</h2>
             <p className="text-muted-foreground mb-8 text-lg">
-              Hablemos sobre cómo N3uralia puede transformar tus operaciones.
+              {d.home.cta.subtitle}
             </p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
             >
-              Agendar Conversación
+              {d.home.cta.scheduleCall}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
