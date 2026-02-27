@@ -30,14 +30,14 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-center gap-8">
+      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
         <Link href={href("/")} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
-        {/* Desktop Navigation - Centered */}
-        <div className="hidden md:flex gap-1 items-center">
+        {/* Desktop Navigation - Spread Between Logo and Contact */}
+        <div className="hidden md:flex flex-1 justify-center items-center gap-1">
           <Link 
             href={href("/capabilities")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -68,7 +68,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
         </div>
 
         {/* Right Controls: Contact + Language + Theme */}
-        <div className="hidden md:flex gap-2 items-center ml-auto">
+        <div className="hidden md:flex gap-2 items-center flex-shrink-0">
           <Link
             href={href("/contact")}
             className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
