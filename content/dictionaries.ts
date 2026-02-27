@@ -581,8 +581,8 @@ export const DICTS: Record<Locale, Dict> = {
         scheduleDemo: "Schedule Demo",
       },
     },
-  }
-};
+  },
+} as const satisfies Record<Locale, Dict>;
 
 export function getDict(locale: Locale) {
   return DICTS[locale];
