@@ -277,7 +277,6 @@ export default function HomePage({ params }: PageProps) {
                       width={180}
                       height={60}
                       className="h-20 w-auto object-contain"
-                      style={{ mixBlendMode: 'darken', filter: 'brightness(1.2) contrast(1.1)' }}
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
