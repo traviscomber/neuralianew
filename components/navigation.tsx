@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Menu, X, Globe } from "lucide-react"
 import { useState } from "react"
 import type { Locale } from "@/lib/get-locale"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 interface NavigationProps {
   locale?: Locale
@@ -81,6 +82,9 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             <Globe className="w-4 h-4" />
             <span>{isES ? "ES" : "EN"}</span>
           </Link>
+
+          {/* Theme Toggle */}
+          <ThemeToggle />
         </div>
 
         {/* Mobile Menu Button */}
@@ -140,6 +144,9 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
               <Globe className="w-4 h-4" />
               <span>{isES ? "EN" : "ES"}</span>
             </Link>
+            <div className="pt-2">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}
