@@ -22,6 +22,62 @@ type Dict = {
     h1: string;
     sub: string;
     trust: string;
+    hero: {
+      badge: string;
+      h1_1: string;
+      h1_2: string;
+      description: string;
+      startToday: string;
+      viewCapabilities: string;
+      stats: {
+        processes: string;
+        industries: string;
+        operation: string;
+      };
+    };
+    whatWeDo: {
+      title: string;
+      description: string;
+      orchestration: {
+        title: string;
+        desc: string;
+      };
+      evolving: {
+        title: string;
+        desc: string;
+      };
+      integration: {
+        title: string;
+        desc: string;
+      };
+    };
+    solutions: {
+      title: string;
+      description: string;
+      explore: string;
+    };
+    clients: {
+      title: string;
+      description: string;
+      viewAll: string;
+      ecosuelolab: {
+        title: string;
+        desc: string;
+      };
+      despega: {
+        title: string;
+        desc: string;
+      };
+      blackswan: {
+        title: string;
+        desc: string;
+      };
+    };
+    cta: {
+      title: string;
+      subtitle: string;
+      scheduleCall: string;
+    };
   };
   pillars: {
     platformTitle: string;
@@ -89,6 +145,62 @@ export const DICTS: Record<Locale, Dict> = {
         "Orquestación de sistemas agénticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno.",
       trust:
         "Ingeniería de IA para operaciones reales. Sistemas autónomos con gobernanza, observabilidad y fiabilidad.",
+      hero: {
+        badge: "Sistemas Agenticos en Producción",
+        h1_1: "De la Experimentación",
+        h1_2: "a la Automatización Empresarial",
+        description: "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno.",
+        startToday: "Comenzar Hoy",
+        viewCapabilities: "Ver Capacidades",
+        stats: {
+          processes: "Procesos Automatizados",
+          industries: "Industrias Servidas",
+          operation: "Operación Continua",
+        },
+      },
+      whatWeDo: {
+        title: "¿Qué es N3uralia?",
+        description: "Construimos la arquitectura que falta. Un orquestador central que coordina agentes especializados, integra tus sistemas existentes y evoluciona con tu negocio.",
+        orchestration: {
+          title: "Orquestación",
+          desc: "Coordina múltiples agentes y sistemas en un solo flujo inteligente",
+        },
+        evolving: {
+          title: "Agentes Evolucionan",
+          desc: "Aprenden de cada interacción y mejoran automáticamente con el tiempo",
+        },
+        integration: {
+          title: "Integración Total",
+          desc: "Se adapta a tu stack existente sin disrupciones. Zero rewrite.",
+        },
+      },
+      solutions: {
+        title: "Soluciones por Industria",
+        description: "Automatización especializada para los desafíos únicos de tu sector",
+        explore: "Explorar Todas las Soluciones",
+      },
+      clients: {
+        title: "Confían en N3uralia",
+        description: "Empresas líderes transforman sus operaciones con nuestros sistemas",
+        viewAll: "Ver Todos los Casos de Éxito",
+        ecosuelolab: {
+          title: "Monitoreo Agrícola Automatizado",
+          desc: "Automatización 100% de alertas satelitales con integración API + WhatsApp. Latencia en segundos.",
+        },
+        despega: {
+          title: "Plataforma de Coaching IA",
+          desc: "Fullstack development con coach IA conversacional, tests psicométricos y biblioteca de recursos. 10K+ usuarios.",
+        },
+        blackswan: {
+          title: "Sistema de Gestión Integrado",
+          desc: "BFCS orquestado para hoteles de lujo. 40% reducción en tiempo operativo. Response time: 4h → 15min.",
+        },
+      },
+      cta: {
+        title: "¿Tu industria requiere automatización?",
+        subtitle: "Hablemos sobre cómo N3uralia puede transformar tus operaciones.",
+        scheduleCall: "Agendar Conversación",
+      },
     },
     pillars: {
       platformTitle: "Plataforma",
@@ -168,6 +280,62 @@ export const DICTS: Record<Locale, Dict> = {
         "We orchestrate agentic systems that integrate, scale, and evolve. Augmented intelligence for real operations — production-ready from day one.",
       trust:
         "AI engineering for real operations. Governed autonomy with observability and reliability.",
+      hero: {
+        badge: "Agentic Systems in Production",
+        h1_1: "From Experimentation",
+        h1_2: "to Enterprise Automation",
+        description: "Orchestration of agentic systems that integrate, scale, and evolve. Your operations with augmented intelligence, ready for production from day one.",
+        startToday: "Start Today",
+        viewCapabilities: "View Capabilities",
+        stats: {
+          processes: "Automated Processes",
+          industries: "Industries Served",
+          operation: "Continuous Operation",
+        },
+      },
+      whatWeDo: {
+        title: "What is N3uralia?",
+        description: "We build the missing architecture. A central orchestrator that coordinates specialized agents, integrates your existing systems, and evolves with your business.",
+        orchestration: {
+          title: "Orchestration",
+          desc: "Coordinates multiple agents and systems in a single intelligent flow",
+        },
+        evolving: {
+          title: "Agents Evolve",
+          desc: "Learn from every interaction and improve automatically over time",
+        },
+        integration: {
+          title: "Total Integration",
+          desc: "Adapts to your existing stack without disruption. Zero rewrite.",
+        },
+      },
+      solutions: {
+        title: "Solutions by Industry",
+        description: "Specialized automation for the unique challenges of your sector",
+        explore: "Explore All Solutions",
+      },
+      clients: {
+        title: "Trusted by Industry Leaders",
+        description: "Leading companies transform their operations with our systems",
+        viewAll: "View All Case Studies",
+        ecosuelolab: {
+          title: "Automated Agricultural Monitoring",
+          desc: "100% automation of satellite alerts with API + WhatsApp integration. Latency in seconds.",
+        },
+        despega: {
+          title: "AI Coaching Platform",
+          desc: "Fullstack development with conversational AI coach, psychometric tests, and resource library. 10K+ users.",
+        },
+        blackswan: {
+          title: "Integrated Management System",
+          desc: "BFCS orchestrated for luxury hotels. 40% reduction in operational time. Response time: 4h → 15min.",
+        },
+      },
+      cta: {
+        title: "Does your industry require automation?",
+        subtitle: "Let's talk about how N3uralia can transform your operations.",
+        scheduleCall: "Schedule a Conversation",
+      },
     },
     pillars: {
       platformTitle: "Platform",
