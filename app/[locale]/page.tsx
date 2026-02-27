@@ -270,13 +270,14 @@ export default function HomePage({ params }: PageProps) {
               {/* Despega Tu Carrera */}
               <Link href="/case-studies/despega-tu-carrera" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
+                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 p-4">
                     <Image 
                       src="/logos/despega-tu-carrera-rocket.png" 
                       alt="Despega Tu Carrera logo" 
                       width={80}
                       height={80}
                       className="h-20 w-auto object-contain"
+                      style={{ mixBlendMode: 'lighten' }}
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
