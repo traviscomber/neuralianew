@@ -5,26 +5,27 @@ import { getDict } from "@/content/dictionaries"
 import { CASE_STUDIES } from "@/content/caseStudies"
 import { Footer } from "@/components/Footer"
 import { CaseStudyCard } from "@/components/CaseStudyCard"
+import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {
   params: { locale: string }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const d = getDict(locale as Locale)
+export function generateMetadata({ params }: PageProps): Metadata {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+  const isES = locale === "es"
 
-  return {
-    title: `${d.caseStudies.title} | N3uralia`,
-    description: d.caseStudies.subtitle,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/case-studies`,
-      languages: {
-        es: `https://n3uralia.com/es/case-studies`,
-        en: `https://n3uralia.com/en/case-studies`,
-      },
-    },
-  }
+  return generatePageMetadata({
+    title: isES ? "Casos de Éxito" : "Case Studies",
+    description: isES
+      ? "Casos de éxito reales: implementaciones de sistemas agenticos con arquitectura, operación y resultados medibles."
+      : "Real case studies: agentic systems implementations with architecture, operations, and measurable outcomes.",
+    keywords: isES
+      ? "casos de éxito, proyectos IA, sistemas agenticos, soluciones implementadas"
+      : "case studies, AI projects, agentic systems, implemented solutions",
+    canonical: `https://n3uralia.com/${locale}/case-studies`,
+    locale,
+  })
 }
 
 export default function CaseStudiesPage({ params }: PageProps) {
