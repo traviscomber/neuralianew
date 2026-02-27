@@ -31,44 +31,50 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href("/")} className="flex items-center">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-1 items-center">
-          <Link 
-            href={href("/capabilities")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.capabilities}
+        {/* Left Side: Logo + Desktop Navigation */}
+        <div className="flex items-center gap-8 flex-1">
+          <Link href={href("/")} className="flex items-center flex-shrink-0">
+            <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
           </Link>
 
-          <Link 
-            href={href("/soluciones")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.solutions}
-          </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-1 items-center">
+            <Link 
+              href={href("/capabilities")} 
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
+              {labels.capabilities}
+            </Link>
 
-          <Link 
-            href={href("/case-studies")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.caseStudies}
-          </Link>
+            <Link 
+              href={href("/soluciones")} 
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
+              {labels.solutions}
+            </Link>
 
-          <Link 
-            href={href("/about")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.about}
-          </Link>
+            <Link 
+              href={href("/case-studies")} 
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
+              {labels.caseStudies}
+            </Link>
 
+            <Link 
+              href={href("/about")} 
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            >
+              {labels.about}
+            </Link>
+          </div>
+        </div>
+
+        {/* Right Side: Contact Button + Language + Theme */}
+        <div className="hidden md:flex gap-2 items-center ml-auto">
           {/* Contact Button */}
           <Link
             href={href("/contact")}
-            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
           >
             {labels.contact}
           </Link>
@@ -76,7 +82,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           {/* Language Toggle */}
           <Link
             href={hrefLocale("/")}
-            className="ml-2 px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
+            className="px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
             title={isES ? "Switch to English" : "Cambiar a Español"}
           >
             <Globe className="w-4 h-4" />
@@ -88,7 +94,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-foreground ml-auto" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
