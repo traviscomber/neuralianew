@@ -246,13 +246,13 @@ export default function HomePage({ params }: PageProps) {
               {/* Ecosuelolab */}
               <Link href="/case-studies/ecosuelolab" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
+                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png" 
                       alt="Ecosuelolab logo" 
                       width={100}
                       height={30}
-                      className="h-20 w-auto object-contain"
+                      className="h-28 w-auto object-contain"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -270,13 +270,13 @@ export default function HomePage({ params }: PageProps) {
               {/* Despega Tu Carrera */}
               <Link href="/case-studies/despega-tu-carrera" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 flex items-center justify-center mb-6 p-4">
+                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Feb%2026%2C%202026%2C%2009_54_59%20PM-fWTmMDI0CLW6YpTRKICd8gEvwzZHI0.png" 
                       alt="Despega Tu Carrera logo" 
                       width={150}
                       height={150}
-                      className="h-24 w-auto object-contain"
+                      className="h-28 w-auto object-contain"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
@@ -294,13 +294,13 @@ export default function HomePage({ params }: PageProps) {
               {/* Blackswan */}
               <Link href="/case-studies/blackswan-facility-core" className="group">
                 <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-24 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
+                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
                     <Image 
                       src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bslogo-4dAYU7iH5JIRxGvWqE5k75H5ciyXQ8.png" 
                       alt="Blackswan logo" 
                       width={120}
                       height={100}
-                      className="h-20 w-auto object-contain"
+                      className="h-28 w-auto object-contain"
                     />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
