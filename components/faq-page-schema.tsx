@@ -1,5 +1,3 @@
-import Script from "next/script"
-
 export function FAQPageSchema() {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -49,8 +47,7 @@ export function FAQPageSchema() {
   }
 
   return (
-    <Script
-      id="faq-schema"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
     />
