@@ -1,0 +1,4 @@
+# Build Clean Marker
+# This file forces Vercel to clear build cache and perform a clean rebuild
+# Created to resolve git index corruption
+# Timestamp: 2026-02-27T00:00:00Z
