@@ -6,8 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { FloatingChatWidget } from "@/components/floating-chat-widget"
-import { StructuredData } from "@/components/structured-data"
-import { StructuredCitations } from "@/components/structured-citations"
+import { StructuredDataInject } from "@/components/structured-data-inject"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -103,8 +102,6 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-        <StructuredData />
-        <StructuredCitations />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -112,6 +109,7 @@ export default function RootLayout({
           {children}
           <ScrollToTop />
           <FloatingChatWidget />
+          <StructuredDataInject />
         </ThemeProvider>
       </body>
     </html>
