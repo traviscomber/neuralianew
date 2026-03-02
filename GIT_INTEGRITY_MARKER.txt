@@ -1,4 +1,0 @@
-Verifying git repository integrity
-Generated: 2026-03-02T00:00:00Z
-This file ensures a clean git state by triggering a full repository repack.
-All conflicting case-studies routes have been removed.

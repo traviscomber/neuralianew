@@ -1,3 +1,0 @@
-Git corruption fix: Removed schema components from layout head and properly injected via new StructuredDataInject component.
-Timestamp: 2026-03-02
-Status: Fixed hydration error and git corruption resolved in latest commit.

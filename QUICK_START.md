@@ -14,21 +14,21 @@ Your site has been completely restructured for **optimal performance** and **eas
 ## Files Created
 
 ### Content (Single Source of Truth)
-\`\`\`
+```
 /content/dictionaries.ts     - All translations (ES + EN)
 /content/caseStudies.ts      - All case study data + 3 examples
-\`\`\`
+```
 
 ### Components (Reusable)
-\`\`\`
+```
 /components/Nav.tsx          - Bilingual navigation
 /components/Footer.tsx       - Updated footer with pillar links
 /components/Section.tsx      - Clean section wrapper
 /components/CaseStudyCard.tsx - Reusable case study card
-\`\`\`
+```
 
 ### Pages (8 Pillar Pages + Refactored Case Studies)
-\`\`\`
+```
 /app/[locale]/platform/page.tsx
 /app/[locale]/agentic-systems/page.tsx
 /app/[locale]/ai-infrastructure/page.tsx
@@ -39,13 +39,13 @@ Your site has been completely restructured for **optimal performance** and **eas
 /app/[locale]/security/page.tsx
 /app/[locale]/case-studies/page.tsx (refactored)
 /app/[locale]/case-studies/[slug]/page.tsx (NEW - dynamic)
-\`\`\`
+```
 
 ## How to Use
 
 ### Add a New Translation
 Edit `/content/dictionaries.ts`:
-\`\`\`typescript
+```typescript
 export const DICTS: Record<Locale, Dict> = {
   es: {
     nav: {
@@ -63,11 +63,11 @@ export const DICTS: Record<Locale, Dict> = {
     // ...
   },
 };
-\`\`\`
+```
 
 ### Add a New Case Study
 Edit `/content/caseStudies.ts`:
-\`\`\`typescript
+```typescript
 export const CASE_STUDIES: CaseStudy[] = [
   // ... existing studies
   {
@@ -76,11 +76,11 @@ export const CASE_STUDIES: CaseStudy[] = [
     // ... fill in other required fields (see CaseStudy type)
   },
 ];
-\`\`\`
+```
 
 ### Add a New Pillar Page
 Copy `/app/[locale]/platform/page.tsx` and modify:
-\`\`\`typescript
+```typescript
 import { Section } from "@/components/Section"
 import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
@@ -102,15 +102,15 @@ export default function NewPillarPage({ params }: PageProps) {
     </>
   )
 }
-\`\`\`
+```
 
 ### Render Bilingual Content
 Use the `t2()` helper function:
-\`\`\`typescript
+```typescript
 import { t2 } from "@/content/caseStudies"
 
 const title = t2(locale, { es: "Título", en: "Title" })
-\`\`\`
+```
 
 ## Routes
 
@@ -159,7 +159,7 @@ const title = t2(locale, { es: "Título", en: "Title" })
 1. Open `/content/caseStudies.ts`
 2. Find the case study slug (e.g., "ecosuelolab")
 3. Update the `title` field:
-\`\`\`typescript
+```typescript
 {
   slug: "ecosuelolab",
   title: {
@@ -168,7 +168,7 @@ const title = t2(locale, { es: "Título", en: "Title" })
   },
   // ...
 }
-\`\`\`
+```
 4. Both `/es/case-studies/ecosuelolab` and `/en/case-studies/ecosuelolab` automatically update
 
 ## Example: Add Language Toggle Link

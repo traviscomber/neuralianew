@@ -1,4 +1,4 @@
-import Script from "next/script"
+"use server"
 
 export function FAQPageSchema() {
   const faqSchema = {
@@ -49,8 +49,7 @@ export function FAQPageSchema() {
   }
 
   return (
-    <Script
-      id="faq-schema"
+    <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
     />

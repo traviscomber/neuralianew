@@ -2,7 +2,7 @@
 
 ## Data Flow Diagram
 
-\`\`\`
+```
 ┌─────────────────────────────────────────────────────────────┐
 │                    UNIFIED CONTENT LAYER                    │
 ├─────────────────────────────────────────────────────────────┤
@@ -45,7 +45,7 @@
 │  ├─ Security headers                                        │
 │  └─ Auth token validation                                   │
 └─────────────────────────────────────────────────────────────┘
-\`\`\`
+```
 
 ## State Management
 
@@ -62,26 +62,26 @@
 ## Performance Architecture
 
 ### Build Time
-\`\`\`
+```
 Next.js Build
 ├─ generateStaticParams() for all [locale] combinations
 ├─ generateMetadata() for SEO per locale per page
 └─ Static generation of all pages (no runtime overhead)
-\`\`\`
+```
 
 ### Runtime
-\`\`\`
+```
 Request → Middleware (locale check) → Page render → Response
          (minimal CPU)               (cached data)
-\`\`\`
+```
 
 ### Caching Strategy
-\`\`\`
+```
 /content/dictionaries.ts  → Tree-shaken (only used translations included)
 /content/caseStudies.ts   → Single import, filtered per page
 Metadata                  → Statically generated at build time
 CSS/JS                    → Standard Next.js caching
-\`\`\`
+```
 
 ## Scaling Patterns
 
@@ -89,7 +89,7 @@ CSS/JS                    → Standard Next.js caching
 
 1. **Create file**: `/app/[locale]/new-page/page.tsx`
 2. **Copy template**:
-\`\`\`typescript
+```typescript
 import type { Locale } from "@/content/dictionaries"
 import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
@@ -109,7 +109,7 @@ export default function NewPage({ params }: PageProps) {
     </>
   )
 }
-\`\`\`
+```
 3. **Add to nav**: Edit `Nav.tsx` link
 4. **Done!** Route works at `/es/new-page` and `/en/new-page`
 
@@ -124,14 +124,14 @@ export default function NewPage({ params }: PageProps) {
 
 1. **Edit**: `/content/caseStudies.ts`
 2. **Add to array**:
-\`\`\`typescript
+```typescript
 {
   slug: "unique-slug",
   title: { es: "Título", en: "Title" },
   summary: { es: "Resumen", en: "Summary" },
   // ... other required fields
 }
-\`\`\`
+```
 3. **Done!** Available at:
    - `/es/case-studies`
    - `/en/case-studies`
@@ -141,7 +141,7 @@ export default function NewPage({ params }: PageProps) {
 ## Import Paths
 
 ### From Components
-\`\`\`typescript
+```typescript
 // Translations
 import { getDict } from "@/content/dictionaries"
 import type { Locale } from "@/content/dictionaries"
@@ -155,39 +155,39 @@ import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
 import { CaseStudyCard } from "@/components/CaseStudyCard"
-\`\`\`
+```
 
 ### From Pages
-\`\`\`typescript
+```typescript
 // Type-safe locale handling
 import type { Locale } from "@/content/dictionaries"
 
 // In page component
 const locale = params.locale as Locale
-\`\`\`
+```
 
 ## Type Safety
 
 ### Locale Type
-\`\`\`typescript
+```typescript
 export type Locale = "es" | "en"
 
 // TypeScript ensures only valid locales used
 const d = getDict(locale) // ✅ OK
 const d = getDict("fr")   // ❌ Type error
-\`\`\`
+```
 
 ### Bilingual Object Type
-\`\`\`typescript
+```typescript
 type Bilingual = { es: string; en: string }
 
 // Usage
 const title: Bilingual = { es: "Título", en: "Title" }
 const rendered = t2(locale, title) // ✅ Always safe
-\`\`\`
+```
 
 ### Case Study Type
-\`\`\`typescript
+```typescript
 export type CaseStudy = {
   slug: string
   verticalTag: Bilingual
@@ -205,7 +205,7 @@ export type CaseStudy = {
   }>
   stackLine: Bilingual
 }
-\`\`\`
+```
 
 ## Error Handling
 

@@ -1,11 +1,10 @@
-import Script from "next/script"
+"use server"
 
 export function StructuredCitations() {
   return (
     <>
       {/* Schema.org citations for AI/LLM recognition */}
-      <Script
-        id="org-citations"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -41,8 +40,7 @@ export function StructuredCitations() {
       />
       
       {/* Local Business Schema for Santiago, Chile */}
-      <Script
-        id="local-citations"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -63,8 +61,7 @@ export function StructuredCitations() {
       />
 
       {/* Software Application Schema */}
-      <Script
-        id="app-citations"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
@@ -89,8 +86,7 @@ export function StructuredCitations() {
       />
 
       {/* Service Schema */}
-      <Script
-        id="service-citations"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({

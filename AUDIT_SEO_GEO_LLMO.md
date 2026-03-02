@@ -97,11 +97,11 @@
 
 ## 🌍 GEO-TARGETING CONFIG
 
-\`\`\`
+```
 Primary: es-CL (Chile)
 Secondary: es-ES, es (Spanish)
 Tertiary: en-US, en (English)
-\`\`\`
+```
 
 **Hreflang implementado:**
 - es-CL: https://n3uralia.com

@@ -121,7 +121,7 @@ All pages follow the pattern: `Nav` → `Section` → Content → `Footer`
 
 ## File Structure
 
-\`\`\`
+```
 app/
 ├── [locale]/
 │   ├── layout.tsx (existing - no changes needed)
@@ -154,7 +154,7 @@ content/
 lib/
 ├── get-locale.ts (verified - no changes)
 └── [existing utilities preserved]
-\`\`\`
+```
 
 ## Key Improvements
 
