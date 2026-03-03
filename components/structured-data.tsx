@@ -1,6 +1,8 @@
-import Script from "next/script"
-
+// This component is kept for backward compatibility but no longer renders scripts
+// Structured data should be handled via Next.js metadata API to avoid hydration errors
 export function StructuredData() {
+  return null
+  
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -169,28 +171,5 @@ export function StructuredData() {
     },
   }
 
-  return (
-    <>
-      <Script
-        id="organization-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <Script
-        id="local-business-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <Script
-        id="breadcrumb-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <Script
-        id="product-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-    </>
-  )
+
 }
