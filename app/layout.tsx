@@ -103,7 +103,7 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <head></head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="black" enableSystem disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
           <Navigation />
           {children}
           <ScrollToTop />

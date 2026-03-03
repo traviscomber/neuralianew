@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Root Homepage -->
+  <url>
+    <loc>https://n3uralia.com</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Spanish Homepage -->
+  <url>
+    <loc>https://n3uralia.com/es</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es"/>
+  </url>
+
+  <!-- English Homepage -->
+  <url>
+    <loc>https://n3uralia.com/en</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es"/>
+  </url>
+
+  <!-- Capacidades Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/capabilities</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/capabilities"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/capabilities"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/capabilities</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/capabilities"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/capabilities"/>
+  </url>
+
+  <!-- Soluciones Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/soluciones</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/soluciones"/>
+  </url>
+
+  <!-- Case Studies Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/case-studies</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/case-studies"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/case-studies</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/case-studies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/case-studies"/>
+  </url>
+
+  <!-- Contact Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/contact</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/contact"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/contact</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/contact"/>
+  </url>
+
+  <!-- FAQ Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/faq</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/faq"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/faq</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/faq"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/faq"/>
+  </url>
+
+  <!-- Studies Pages -->
+  <url>
+    <loc>https://n3uralia.com/es/studies</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/studies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/studies"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/studies</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/studies"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/studies"/>
+  </url>
+
+  <!-- Solution Pages - Automatizacion General -->
+  <url>
+    <loc>https://n3uralia.com/es/automatizacion-para-empresas</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/automatizacion-para-empresas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/automatizacion-para-empresas"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/automatizacion-para-empresas</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/automatizacion-para-empresas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/automatizacion-para-empresas"/>
+  </url>
+
+  <!-- Solution Pages - Sales & Leads -->
+  <url>
+    <loc>https://n3uralia.com/es/automatizacion-ventas-leads</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/automatizacion-ventas-leads"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/automatizacion-ventas-leads"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/automatizacion-ventas-leads</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/automatizacion-ventas-leads"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/automatizacion-ventas-leads"/>
+  </url>
+
+  <!-- Solution Pages - Operaciones 24/7 -->
+  <url>
+    <loc>https://n3uralia.com/es/operaciones-autonomas</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/operaciones-autonomas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/operaciones-autonomas"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/operaciones-autonomas</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/operaciones-autonomas"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/operaciones-autonomas"/>
+  </url>
+
+  <!-- Solution Pages - Integraciones -->
+  <url>
+    <loc>https://n3uralia.com/es/integraciones-empresariales</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/integraciones-empresariales"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/integraciones-empresariales"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/integraciones-empresariales</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/integraciones-empresariales"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/integraciones-empresariales"/>
+  </url>
+
+</urlset>

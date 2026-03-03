@@ -2,9 +2,10 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Globe } from "lucide-react"
 import { useState } from "react"
 import type { Locale } from "@/lib/get-locale"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 interface NavigationProps {
   locale?: Locale
@@ -13,29 +14,30 @@ interface NavigationProps {
 export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
   const isES = locale === "es"
+  const otherLocale = isES ? "en" : "es"
 
   const href = (path: string) => `/${locale}${path}`
+  const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
   // Navigation labels
   const labels = {
     capabilities: isES ? "Capacidades" : "Capabilities",
     solutions: isES ? "Soluciones" : "Solutions",
     caseStudies: isES ? "Casos de Éxito" : "Case Studies",
-    platform: isES ? "Plataforma" : "Platform",
-    labs: "Labs",
     about: isES ? "Acerca de" : "About",
     contact: isES ? "Contactar" : "Contact",
   }
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href("/")} className="flex items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <Link href={href("/")} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-1 items-center">
+        {/* Desktop Navigation - Spread Between Logo and Contact */}
+        <div className="hidden md:flex flex-1 justify-center items-center gap-1">
           <Link 
             href={href("/capabilities")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -58,44 +60,43 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           </Link>
 
           <Link 
-            href={href("/platform")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.platform}
-          </Link>
-
-          <Link 
-            href={href("/labs")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.labs}
-          </Link>
-
-          <Link 
             href={href("/about")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.about}
           </Link>
+        </div>
 
-          {/* Contact Button */}
+        {/* Right Controls: Contact + Language + Theme */}
+        <div className="hidden md:flex gap-2 items-center flex-shrink-0">
           <Link
             href={href("/contact")}
-            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
           >
             {labels.contact}
           </Link>
+
+          <Link
+            href={hrefLocale("/")}
+            className="px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
+            title={isES ? "Switch to English" : "Cambiar a Español"}
+          >
+            <Globe className="w-4 h-4" />
+            <span>{isES ? "ES" : "EN"}</span>
+          </Link>
+
+          <ThemeToggle />
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button className="md:hidden text-foreground ml-auto" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
       {/* Mobile Navigation */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
+        <div className="md:hidden border-t border-border bg-background w-full max-w-7xl mx-auto px-4 p-4 space-y-2">
           <Link 
             href={href("/capabilities")} 
             onClick={() => setOpen(false)} 
@@ -121,22 +122,6 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           </Link>
 
           <Link 
-            href={href("/platform")} 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.platform}
-          </Link>
-
-          <Link 
-            href={href("/labs")} 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.labs}
-          </Link>
-
-          <Link 
             href={href("/about")} 
             onClick={() => setOpen(false)} 
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
@@ -144,7 +129,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             {labels.about}
           </Link>
 
-          <div className="pt-2 border-t border-border">
+          <div className="pt-2 border-t border-border space-y-2">
             <Link 
               href={href("/contact")} 
               onClick={() => setOpen(false)} 
@@ -152,6 +137,17 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             >
               {labels.contact}
             </Link>
+            <Link 
+              href={hrefLocale("/")} 
+              onClick={() => setOpen(false)} 
+              className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all"
+            >
+              <Globe className="w-4 h-4" />
+              <span>{isES ? "EN" : "ES"}</span>
+            </Link>
+            <div className="pt-2">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}

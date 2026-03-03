@@ -3,14 +3,20 @@
 import Link from "next/link"
 import { useState } from "react"
 import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
+import { useParams } from "next/navigation"
 
 export function Footer() {
   const [emailDialogOpen, setEmailDialogOpen] = useState(false)
+  const params = useParams()
+  const locale = (params?.locale as string) || "es"
+
+  const href = (path: string) => `/${locale}${path}`
+
   return (
     <footer className="bg-background text-foreground py-12 border-t border-border px-4">
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand Identity Section - Optimized for LLM entity recognition */}
+          {/* Brand Identity Section */}
           <div>
             <p className="font-bold mb-2 text-foreground">N3uralia</p>
             <p className="text-xs text-primary font-medium mb-3">Plataforma de IA Empresarial</p>
@@ -21,97 +27,120 @@ export function Footer() {
               <p><strong>Especialidad:</strong> Agentes Multi-Agent, Automatización IA</p>
             </div>
           </div>
+          
           <div>
             <p className="font-bold mb-4 text-foreground">Empresa</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/about" className="hover:text-foreground transition-colors">
-                  Acerca de Nosotros
+                <Link href={href("/")} className="hover:text-foreground transition-colors">
+                  Inicio
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-foreground transition-colors">
-                  FAQ
+                <Link href={href("/capabilities")} className="hover:text-foreground transition-colors">
+                  Capacidades
                 </Link>
               </li>
               <li>
-                <Link href="/studies" className="hover:text-foreground transition-colors">
-                  Estudios & Base de Conocimiento
-                </Link>
-              </li>
-              <li>
-                <Link href="/outcomes" className="hover:text-foreground transition-colors">
+                <Link href={href("/case-studies")} className="hover:text-foreground transition-colors">
                   Casos de Éxito
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-foreground transition-colors">
+                <Link href={href("/studies")} className="hover:text-foreground transition-colors">
+                  Estudios
+                </Link>
+              </li>
+              <li>
+                <Link href={href("/faq")} className="hover:text-foreground transition-colors">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href={href("/contact")} className="hover:text-foreground transition-colors">
                   Contacto
                 </Link>
               </li>
             </ul>
           </div>
+          
           <div>
             <p className="font-bold mb-4 text-foreground">Soluciones</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/capabilities" className="hover:text-foreground transition-colors">
-                  Capacidades
+                <Link href={href("/soluciones")} className="hover:text-foreground transition-colors">
+                  Todas las Soluciones
                 </Link>
               </li>
               <li>
-                <Link href="/automatizacion-para-empresas" className="hover:text-foreground transition-colors">
+                <Link href={href("/automatizacion-para-empresas")} className="hover:text-foreground transition-colors">
                   Automatización General
                 </Link>
               </li>
               <li>
-                <Link href="/integraciones-empresariales" className="hover:text-foreground transition-colors">
-                  Integraciones Legacy
-                </Link>
-              </li>
-              <li>
-                <Link href="/automatizacion-ventas-leads" className="hover:text-foreground transition-colors">
+                <Link href={href("/automatizacion-ventas-leads")} className="hover:text-foreground transition-colors">
                   Sales & Leads
                 </Link>
               </li>
               <li>
-                <Link href="/operaciones-autonomas" className="hover:text-foreground transition-colors">
+                <Link href={href("/operaciones-autonomas")} className="hover:text-foreground transition-colors">
                   Operaciones 24/7
+                </Link>
+              </li>
+              <li>
+                <Link href={href("/integraciones-empresariales")} className="hover:text-foreground transition-colors">
+                  Integraciones
                 </Link>
               </li>
             </ul>
           </div>
+          
           <div>
             <p className="font-bold mb-4 text-foreground">Contacto</p>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
                 <button
                   onClick={() => setEmailDialogOpen(true)}
-                  className="hover:text-foreground transition-colors text-left"
+                  className="hover:text-foreground transition-colors text-left cursor-pointer"
                 >
-                  Email: info@n3uralia.com
+                  📧 info@n3uralia.com
                 </button>
               </li>
               <li>
                 <a 
-                  href="https://web.whatsapp.com/send/?phone=56993826127&text=Hola+N3uralia%2C+me+gustaría+conocer+más+sobre+vuestras+soluciones+de+IA&type=phone_number&app_absent=0"
+                  href="https://wa.me/56993826127?text=Hola%20N3uralia,%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-foreground transition-colors"
                 >
-                  WhatsApp: +56 9 9382 6127
+                  💬 WhatsApp: +56 9 9382 6127
                 </a>
               </li>
               <li className="pt-2 border-t border-border">
                 <p className="text-xs font-medium mb-2">Síguenos</p>
                 <div className="flex gap-3">
-                  <a href="https://twitter.com/n3uralia" className="hover:text-primary transition-colors text-xs">Twitter</a>
-                  <a href="https://linkedin.com/company/n3uralia" className="hover:text-primary transition-colors text-xs">LinkedIn</a>
+                  <a 
+                    href="https://twitter.com/n3uralia" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-primary transition-colors text-xs"
+                  >
+                    Twitter
+                  </a>
+                  <a 
+                    href="https://linkedin.com/company/n3uralia" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="hover:text-primary transition-colors text-xs"
+                  >
+                    LinkedIn
+                  </a>
                 </div>
               </li>
             </ul>
           </div>
         </div>
+        
         <div className="border-t border-border pt-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs text-muted-foreground">
             <div>

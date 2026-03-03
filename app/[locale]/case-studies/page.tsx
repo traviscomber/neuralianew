@@ -1,108 +1,53 @@
 import type { Metadata } from "next"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { CASE_STUDIES, t2 } from "@/content/caseStudies"
-import { Nav } from "@/components/Nav"
+import { CASE_STUDIES } from "@/content/caseStudies"
 import { Footer } from "@/components/Footer"
-import { Section } from "@/components/Section"
 import { CaseStudyCard } from "@/components/CaseStudyCard"
+import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {
   params: { locale: string }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
-  const d = getDict(locale)
+export function generateMetadata({ params }: PageProps): Metadata {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+  const isES = locale === "es"
 
-  return {
-    title: `${d.caseStudies.title} | N3uralia`,
-    description: d.caseStudies.subtitle,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/case-studies`,
-      languages: {
-        es: `https://n3uralia.com/es/case-studies`,
-        en: `https://n3uralia.com/en/case-studies`,
-      },
-    },
-  }
+  return generatePageMetadata({
+    title: isES ? "Casos de Éxito" : "Case Studies",
+    description: isES
+      ? "Casos de éxito reales: implementaciones de sistemas agenticos con arquitectura, operación y resultados medibles."
+      : "Real case studies: agentic systems implementations with architecture, operations, and measurable outcomes.",
+    keywords: isES
+      ? "casos de éxito, proyectos IA, sistemas agenticos, soluciones implementadas"
+      : "case studies, AI projects, agentic systems, implemented solutions",
+    canonical: `https://n3uralia.com/${locale}/case-studies`,
+    locale,
+  })
 }
 
 export default function CaseStudiesPage({ params }: PageProps) {
-  const locale = params.locale as Locale
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
 
   return (
     <>
-      <Nav locale={locale} />
-      <main style={{ minHeight: "100vh" }}>
-        <Section title={d.caseStudies.title} subtitle={d.caseStudies.subtitle}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "24px", marginTop: "32px" }}>
+      <main className="min-h-screen pt-24 pb-16">
+        <section className="max-w-6xl mx-auto px-4 mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">{d.caseStudies.title}</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl">{d.caseStudies.subtitle}</p>
+        </section>
+        <section className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {CASE_STUDIES.map((caseStudy) => (
               <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} locale={locale} />
             ))}
           </div>
-        </Section>
+        </section>
       </main>
       <Footer locale={locale} />
     </>
-  )
-}
-
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-2">
-                        {isES ? "Desafío" : "Challenge"}
-                      </p>
-                      <p className="text-sm">
-                        {isES ? study.challengeES : study.challengeEN}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-2">
-                        {isES ? "Solución" : "Solution"}
-                      </p>
-                      <p className="text-sm">
-                        {isES ? study.solutionES : study.solutionEN}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-sm font-semibold text-muted-foreground mb-3">
-                        {isES ? "Resultados" : "Results"}
-                      </p>
-                      <div className="grid grid-cols-3 gap-2">
-                        {study.results.map((result, idx) => (
-                          <div key={idx} className="text-center">
-                            <p className="font-bold text-lg text-primary">{result.metric}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {isES ? result.labelES : result.labelEN}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 flex-wrap">
-                      {(isES ? study.tagsES : study.tagsEN).map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex items-center text-primary group-hover:translate-x-1 transition-transform">
-                    {isES ? "Ver caso completo" : "View full case"}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
-    </div>
   )
 }

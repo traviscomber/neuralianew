@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
 
@@ -35,7 +34,6 @@ export default function PlaybooksPage({ params }: PageProps) {
 
   return (
     <>
-      <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
         <Section 
           title={locale === "es" ? "Playbooks" : "Playbooks"} 

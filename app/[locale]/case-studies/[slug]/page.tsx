@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { getCaseStudy, t2 } from "@/content/caseStudies"
-import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
 
@@ -12,7 +12,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const caseStudy = getCaseStudy(params.slug)
 
   if (!caseStudy) {
@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   }
 
-  const title = t2(locale, caseStudy.title)
-  const description = t2(locale, caseStudy.summary)
+  const title = t2(locale as Locale, caseStudy.title)
+  const description = t2(locale as Locale, caseStudy.summary)
 
   return {
     title: `${title} | N3uralia`,
@@ -39,23 +39,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default function CaseStudyDetailPage({ params }: PageProps) {
-  const locale = params.locale as Locale
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
   const caseStudy = getCaseStudy(params.slug)
 
   if (!caseStudy) {
     return (
       <>
-        <Nav locale={locale} />
-        <main style={{ minHeight: "100vh", padding: "80px 20px" }}>
-          <div style={{ maxWidth: "1200px", margin: "0 auto", textAlign: "center" }}>
-            <h1 style={{ fontSize: "32px", fontWeight: 700, margin: "0 0 16px 0" }}>
+        <main className="min-h-screen pt-24 px-4 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-foreground mb-4">
               {locale === "es" ? "No encontrado" : "Not found"}
             </h1>
-            <p style={{ opacity: 0.7, marginBottom: "24px" }}>
+            <p className="text-muted-foreground mb-8">
               {locale === "es" ? "El caso de éxito que buscas no existe." : "The case study you're looking for doesn't exist."}
             </p>
-            <Link href={`/${locale}/case-studies`} style={{ color: "#fff", textDecoration: "underline" }}>
+            <Link href={`/${locale}/case-studies`} className="text-primary hover:underline">
               {locale === "es" ? "Volver a Casos de Éxito" : "Back to Case Studies"}
             </Link>
           </div>
@@ -67,39 +66,38 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <Nav locale={locale} />
-      <main style={{ minHeight: "100vh" }}>
+      <main className="min-h-screen">
         {/* Hero */}
-        <div style={{ padding: "80px 20px 40px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
+        <div className="border-b border-border pt-24 pb-12 px-4">
+          <div className="max-w-4xl mx-auto">
             <Link 
               href={`/${locale}/case-studies`} 
-              style={{ color: "rgba(255,255,255,0.6)", textDecoration: "none", fontSize: "14px", marginBottom: "16px", display: "block" }}
+              className="text-muted-foreground hover:text-foreground text-sm mb-4 inline-block transition-colors"
             >
               {d.caseStudies.back}
             </Link>
-            <div style={{ marginBottom: "16px" }}>
-              <span style={{ fontSize: "12px", opacity: 0.6 }}>{t2(locale, caseStudy.verticalTag)}</span>
+            <div className="mb-4">
+              <span className="text-xs text-muted-foreground">{t2(locale, caseStudy.verticalTag)}</span>
             </div>
-            <h1 style={{ fontSize: "48px", fontWeight: 700, margin: "0 0 16px 0", lineHeight: 1.2 }}>
+            <h1 className="text-5xl font-bold text-foreground mb-4">
               {t2(locale, caseStudy.title)}
             </h1>
-            <p style={{ fontSize: "18px", opacity: 0.85, margin: 0, lineHeight: 1.6 }}>
+            <p className="text-xl text-muted-foreground">
               {t2(locale, caseStudy.summary)}
             </p>
           </div>
         </div>
 
         {/* Highlights */}
-        <div style={{ padding: "40px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px" }}>
+        <div className="border-b border-border py-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {caseStudy.highlights.map((h) => (
-                <div key={h.label.es} style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
-                  <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>
+                <div key={h.label.es} className="p-6 border border-border rounded-lg bg-card">
+                  <div className="text-xs text-muted-foreground mb-2">
                     {t2(locale, h.label)}
                   </div>
-                  <div style={{ fontSize: "24px", fontWeight: 700 }}>
+                  <div className="text-3xl font-bold text-foreground">
                     {t2(locale, h.value)}
                   </div>
                 </div>
@@ -109,36 +107,36 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
         </div>
 
         {/* Metadata */}
-        <div style={{ padding: "40px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px" }}>
+        <div className="border-b border-border py-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>{d.caseStudies.industry}</div>
-                <div style={{ fontSize: "16px", fontWeight: 600 }}>{t2(locale, caseStudy.industry)}</div>
+                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.industry}</div>
+                <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.industry)}</div>
               </div>
               <div>
-                <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>{d.caseStudies.status}</div>
-                <div style={{ fontSize: "16px", fontWeight: 600 }}>{t2(locale, caseStudy.status)}</div>
+                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.status}</div>
+                <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.status)}</div>
               </div>
               <div>
-                <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>{d.caseStudies.implementation}</div>
-                <div style={{ fontSize: "16px", fontWeight: 600 }}>{t2(locale, caseStudy.implementation)}</div>
+                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.implementation}</div>
+                <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.implementation)}</div>
               </div>
             </div>
           </div>
         </div>
 
         {/* Sections */}
-        {caseStudy.sections.map((section, idx) => (
+        {caseStudy.sections.map((section) => (
           <Section key={section.id} title={t2(locale, section.heading)}>
-            <p style={{ opacity: 0.85, lineHeight: 1.6, marginBottom: "16px" }}>
+            <p className="text-muted-foreground leading-relaxed mb-4">
               {t2(locale, section.body)}
             </p>
             {section.bullets && section.bullets.length > 0 && (
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              <ul className="list-none space-y-3">
                 {section.bullets.map((bullet, bidx) => (
-                  <li key={bidx} style={{ display: "flex", gap: "12px", marginBottom: "12px", opacity: 0.8 }}>
-                    <span style={{ color: "rgba(255,255,255,0.4)", marginTop: "2px" }}>•</span>
+                  <li key={bidx} className="flex gap-3 text-muted-foreground">
+                    <span className="text-primary mt-1">•</span>
                     <span>{t2(locale, bullet)}</span>
                   </li>
                 ))}
@@ -149,9 +147,39 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
 
         {/* Stack */}
         <Section title={locale === "es" ? "Stack Técnico" : "Tech Stack"}>
-          <p style={{ opacity: 0.8, fontFamily: "monospace", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
+          <div className="mb-6 p-4 bg-muted/30 border border-border rounded-lg">
+            <p className="text-sm text-foreground font-semibold mb-2">
+              {locale === "es" ? "Proyecto" : "Project"}
+            </p>
+            <p className="text-lg font-bold text-primary">
+              {t2(locale, caseStudy.title)}
+            </p>
+          </div>
+
+          <p className="text-muted-foreground font-mono text-sm leading-relaxed mb-8">
             {t2(locale, caseStudy.stackLine)}
           </p>
+          
+          {/* Tech Stack Badges */}
+          {caseStudy.techLogos && caseStudy.techLogos.length > 0 && (
+            <div>
+              <h4 className="text-sm font-semibold text-foreground mb-4">
+                {locale === "es" ? "Tecnologías Utilizadas" : "Technologies Used"}
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {caseStudy.techLogos.map((tech, idx) => (
+                  <div 
+                    key={idx} 
+                    className="px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 transition-all"
+                  >
+                    <span className="text-xs font-medium text-primary">
+                      {tech.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </Section>
       </main>
       <Footer locale={locale} />
