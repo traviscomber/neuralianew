@@ -249,9 +249,6 @@ export default function SolucionesPage({ params }: PageProps) {
     </>
   )
 }
-        {/* Hero */}
-        <section className="py-20 bg-background px-4">
-          <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-primary">{d.solutions.hero.badge}</span>
