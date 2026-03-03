@@ -24,6 +24,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
     capabilities: isES ? "Capacidades" : "Capabilities",
     solutions: isES ? "Soluciones" : "Solutions",
     caseStudies: isES ? "Casos de Éxito" : "Case Studies",
+    faq: isES ? "FAQ" : "FAQ",
     about: isES ? "Acerca de" : "About",
     contact: isES ? "Contactar" : "Contact",
   }
@@ -57,6 +58,13 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.caseStudies}
+          </Link>
+
+          <Link 
+            href={href("/faq")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.faq}
           </Link>
 
           <Link 
@@ -119,6 +127,14 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.caseStudies}
+          </Link>
+
+          <Link 
+            href={href("/faq")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.faq}
           </Link>
 
           <Link 
