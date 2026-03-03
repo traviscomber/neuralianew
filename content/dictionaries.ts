@@ -389,10 +389,11 @@ export const DICTS: Record<Locale, Dict> = {
         { title: "Measurable Results", desc: "We don't evangelize AI. We measure real impact: efficiency, revenue, satisfaction. Concrete results, not promises." },
       ],
       closing: "We're not perfect, but we're committed. Committed to your success, to building with integrity, and to making AI accessible. That's N3uralia.",
+      },
     },
   },
-};
+}
 
 export function getDict(locale: Locale) {
-  return DICTS[locale];
+  return DICTS[locale]
 }
