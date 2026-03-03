@@ -56,6 +56,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/soluciones"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/soluciones"/>
+  </url>
+
+  <url>
+    <loc>https://n3uralia.com/en/soluciones</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/soluciones"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/soluciones"/>
   </url>
 
   <!-- Case Studies Pages -->
@@ -63,7 +73,7 @@
     <loc>https://n3uralia.com/es/case-studies</loc>
     <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/case-studies"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/case-studies"/>
   </url>
@@ -72,7 +82,7 @@
     <loc>https://n3uralia.com/en/case-studies</loc>
     <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://n3uralia.com/en/case-studies"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://n3uralia.com/es/case-studies"/>
   </url>
