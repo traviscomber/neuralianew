@@ -393,6 +393,7 @@ export const DICTS: Record<Locale, Dict> = {
   },
 };
 
+// Export the dictionary getter function
 export function getDict(locale: Locale) {
   return DICTS[locale];
 }
