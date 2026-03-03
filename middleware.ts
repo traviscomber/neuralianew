@@ -99,10 +99,13 @@ function getLocale(pathname: string): string | null {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Skip middleware for static assets, public files
+  // Skip middleware for static assets, public files, and special files
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/public') ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/robots.txt' ||
+    pathname === '/favicon.ico' ||
     /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
   ) {
     return NextResponse.next()
