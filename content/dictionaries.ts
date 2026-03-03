@@ -396,7 +396,3 @@ export const DICTS: Record<Locale, Dict> = {
 export function getDict(locale: Locale) {
   return DICTS[locale];
 }
-
-export function getDict(locale: Locale) {
-  return DICTS[locale]
-}
