@@ -249,14 +249,7 @@ export default function SolucionesPage({ params }: PageProps) {
     </>
   )
 }
-            </h1>
-            <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              {d.solutions.hero.subheading}
-            </p>
-          </div>
-        </section>
 
-        {/* Why Choose Each */}
         <section className="py-24 bg-muted/30 border-t border-border px-4">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-3xl font-bold text-foreground mb-16 text-center">
