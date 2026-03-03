@@ -249,12 +249,6 @@ export default function SolucionesPage({ params }: PageProps) {
     </>
   )
 }
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">{d.solutions.hero.badge}</span>
-            </div>
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
-              {d.solutions.hero.heading}
             </h1>
             <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               {d.solutions.hero.subheading}
