@@ -1,68 +1,73 @@
 import type { MetadataRoute } from "next"
 
 const SITE_URL = "https://n3uralia.com"
-const LOCALES = ["es", "en"]
 
-// Core routes that exist in the application
-const ROUTES = [
-  "/",
-  "/capabilities",
-  "/soluciones",
-  "/case-studies",
-  "/contact",
-  "/faq",
-  "/studies",
-  "/automatizacion-para-empresas",
-  "/automatizacion-ventas-leads",
-  "/operaciones-autonomas",
-  "/integraciones-empresariales",
-]
+// Production routes - each locale has its own set
+const ROUTES = {
+  es: [
+    { path: "", priority: 1.0, changeFreq: "weekly" as const },
+    { path: "/capacidades", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/soluciones", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/casos-de-exito", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/preguntas-frecuentes", priority: 0.7, changeFreq: "monthly" as const },
+    { path: "/acerca-de", priority: 0.8, changeFreq: "monthly" as const },
+    { path: "/contactar", priority: 0.8, changeFreq: "monthly" as const },
+  ],
+  en: [
+    { path: "", priority: 1.0, changeFreq: "weekly" as const },
+    { path: "/capabilities", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/solutions", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/case-studies", priority: 0.9, changeFreq: "monthly" as const },
+    { path: "/faq", priority: 0.7, changeFreq: "monthly" as const },
+    { path: "/about", priority: 0.8, changeFreq: "monthly" as const },
+    { path: "/contact", priority: 0.8, changeFreq: "monthly" as const },
+  ],
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
-  // Add main root URL
+  // Add root domain
   entries.push({
     url: SITE_URL,
     lastModified: new Date(),
-    changeFrequency: "weekly" as const,
+    changeFrequency: "weekly",
     priority: 1.0,
   })
 
-  // Add localized routes (es, en)
-  LOCALES.forEach((locale) => {
-    ROUTES.forEach((route) => {
-      const cleanRoute = route === "/" ? "" : route
-      let changeFreq: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never" = "monthly"
-
-      // Set different change frequencies for different route types
-      if (route === "/") {
-        changeFreq = "weekly"
-      } else if (route === "/blog") {
-        changeFreq = "daily"
-      } else if (route === "/faq" || route === "/contact") {
-        changeFreq = "monthly"
-      }
-
-      let priority = 0.7 // Default priority
-      if (route === "/") priority = 1.0
-      else if (["/capabilities", "/soluciones", "/case-studies"].includes(route)) priority = 0.9
-      else if (route === "/contact") priority = 0.8
-      else if (["/faq", "/studies"].includes(route)) priority = 0.7
-
-      entries.push({
-        url: `${SITE_URL}/${locale}${cleanRoute}`,
-        lastModified: new Date(),
-        changeFrequency: changeFreq,
-        priority: priority,
-        alternates: {
-          languages: {
-            es: `${SITE_URL}/es${cleanRoute}`,
-            en: `${SITE_URL}/en${cleanRoute}`,
-            "x-default": `${SITE_URL}${cleanRoute}`,
-          },
+  // Add Spanish routes
+  ROUTES.es.forEach((route) => {
+    const url = route.path === "" ? `${SITE_URL}/es` : `${SITE_URL}/es${route.path}`
+    entries.push({
+      url,
+      lastModified: new Date(),
+      changeFrequency: route.changeFreq,
+      priority: route.priority,
+      alternates: {
+        languages: {
+          es: url,
+          en: `${SITE_URL}/en${route.path === "" ? "" : ROUTES.en[ROUTES.es.indexOf(route)].path}`,
+          "x-default": `${SITE_URL}${route.path}`,
         },
-      })
+      },
+    })
+  })
+
+  // Add English routes
+  ROUTES.en.forEach((route) => {
+    const url = route.path === "" ? `${SITE_URL}/en` : `${SITE_URL}/en${route.path}`
+    entries.push({
+      url,
+      lastModified: new Date(),
+      changeFrequency: route.changeFreq,
+      priority: route.priority,
+      alternates: {
+        languages: {
+          en: url,
+          es: `${SITE_URL}/es${ROUTES.es[ROUTES.en.indexOf(route)].path === "" ? "" : ROUTES.es[ROUTES.en.indexOf(route)].path}`,
+          "x-default": `${SITE_URL}${route.path}`,
+        },
+      },
     })
   })
 
