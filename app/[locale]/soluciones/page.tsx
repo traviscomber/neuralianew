@@ -26,6 +26,8 @@ export default function SolucionesPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
   const isES = locale === "es"
+
+  return (
     <>
       <main className="min-h-screen bg-background pt-20">
         {/* Hero */}
