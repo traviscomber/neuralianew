@@ -25,9 +25,6 @@ export const metadata: Metadata = {
 
 export default function SolucionesPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d = getDict(locale)
-  const isES = locale === "es"
-
   return (
     <>
       <main className="min-h-screen bg-background pt-20">
@@ -36,13 +33,13 @@ export default function SolucionesPage({ params }: PageProps) {
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-primary">{d.solutions.hero.badge}</span>
+              <span className="text-sm font-medium text-primary">Soluciones</span>
             </div>
             <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
-              {d.solutions.hero.heading}
+              {enterpriseSolutions.hero.heading}
             </h1>
             <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              {d.solutions.hero.subheading}
+              {enterpriseSolutions.hero.subheading}
             </p>
           </div>
         </section>
@@ -102,15 +99,22 @@ export default function SolucionesPage({ params }: PageProps) {
         <section className="py-24 bg-muted/30 border-t border-border px-4">
           <div className="container mx-auto max-w-4xl">
             <h2 className="text-3xl font-bold text-foreground mb-16 text-center">
-              {d.solutions.whyChoose.title}
+              ¿Por qué cada segmento elige N3uralia?
             </h2>
 
             <div className="space-y-12">
-              {/* Enterprises */}
+              {/* Empresas */}
               <div>
-                <h3 className="text-xl font-bold text-foreground mb-6">{d.solutions.whyChoose.enterprises}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-6">Empresas</h3>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {d.solutions.whyChoose.benefits.enterprises.map((benefit, i) => (
+                  {[
+                    "Production-ready desde día 1 con SLAs garantizados",
+                    "Escalabilidad integrada para millones de transacciones",
+                    "Seguridad y compliance empresarial",
+                    "ROI comprobado: 40-60% reducción de costos en 12 meses",
+                    "Integración limpia con sistemas legacy",
+                    "Equipo dedicado 24/7",
+                  ].map((benefit, i) => (
                     <div key={i} className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-muted-foreground">{benefit}</p>
@@ -121,9 +125,16 @@ export default function SolucionesPage({ params }: PageProps) {
 
               {/* Startups */}
               <div>
-                <h3 className="text-xl font-bold text-foreground mb-6">{d.solutions.whyChoose.startups}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-6">Startups</h3>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {d.solutions.whyChoose.benefits.startups.map((benefit, i) => (
+                  {[
+                    "Arquitectura escalable desde el inicio",
+                    "Building blocks modulares, máxima flexibilidad",
+                    "IA como ventaja competitiva inmediata",
+                    "2x productividad sin aumentar headcount",
+                    "Pricing flexible para startups",
+                    "Comunidad activa y soporte rápido",
+                  ].map((benefit, i) => (
                     <div key={i} className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-muted-foreground">{benefit}</p>
@@ -134,9 +145,16 @@ export default function SolucionesPage({ params }: PageProps) {
 
               {/* Developers */}
               <div>
-                <h3 className="text-xl font-bold text-foreground mb-6">{d.solutions.whyChoose.developers}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-6">Desarrolladores</h3>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {d.solutions.whyChoose.benefits.developers.map((benefit, i) => (
+                  {[
+                    "SDKs robustos y bien documentados",
+                    "APIs claras y predecibles",
+                    "Documentación exhaustiva con ejemplos",
+                    "50% menos tiempo en integración",
+                    "Comunidad técnica activa",
+                    "Herramientas de debugging avanzadas",
+                  ].map((benefit, i) => (
                     <div key={i} className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <p className="text-sm text-muted-foreground">{benefit}</p>
@@ -153,110 +171,110 @@ export default function SolucionesPage({ params }: PageProps) {
           <div className="container mx-auto max-w-5xl">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-foreground mb-4">
-                {d.solutions.realProjects.title}
+                Desarrollos Reales en Producción
               </h2>
               <p className="text-lg text-muted-foreground">
-                {d.solutions.realProjects.description}
+                Casos reales de sistemas agenticos que hemos construido y están operando hoy
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Legal */}
+              {/* Abogados */}
               <div id="abogados" className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group scroll-mt-24">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Gavel className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.legal.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Análisis Legal Automatizado</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.legal.desc}
+                  Agentes que revisan contratos, identifican cláusulas riesgosas y generan reportes en segundos. Reducción 90% en tiempo de revisión.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "OCR + NLP especializado" : "OCR + specialized NLP"}</span>
+                    <span className="text-muted-foreground">OCR + NLP especializado</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Integración Dropbox" : "Dropbox integration"}</span>
+                    <span className="text-muted-foreground">Integración Dropbox</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Reportes automáticos" : "Automated reports"}</span>
+                    <span className="text-muted-foreground">Reportes automáticos</span>
                   </div>
                 </div>
               </div>
 
-              {/* Mining */}
+              {/* Minería */}
               <div id="mineria" className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group scroll-mt-24">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Radar className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.mining.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Monitoreo de Operaciones Mineras</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.mining.desc}
+                  Orquestación de sensores, predicción de fallas, optimización de turnos. 35% aumento en eficiencia operativa.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "IoT + ML predictivo" : "IoT + predictive ML"}</span>
+                    <span className="text-muted-foreground">IoT + ML predictivo</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Alertas en tiempo real" : "Real-time alerts"}</span>
+                    <span className="text-muted-foreground">Alertas en tiempo real</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Dashboard integrado" : "Integrated dashboard"}</span>
+                    <span className="text-muted-foreground">Dashboard integrado</span>
                   </div>
                 </div>
               </div>
 
-              {/* Security */}
+              {/* Seguridad */}
               <div id="seguridad" className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group scroll-mt-24">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <AlertTriangle className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.security.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Detección de Fraude Inteligente</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.security.desc}
+                  Agentes que detectan patrones anómalos, validan transacciones y previenen fraude en tiempo real. 98% precisión.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Análisis en tiempo real" : "Real-time analysis"}</span>
+                    <span className="text-muted-foreground">Análisis en tiempo real</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Machine learning adaptativo" : "Adaptive machine learning"}</span>
+                    <span className="text-muted-foreground">Machine learning adaptativo</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Escalable a millones" : "Scalable to millions"}</span>
+                    <span className="text-muted-foreground">Escalable a millones</span>
                   </div>
                 </div>
               </div>
 
-              {/* Agriculture */}
+              {/* Agrícola */}
               <div id="agricola" className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group scroll-mt-24">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Sprout className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.agriculture.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Automatización Agrícola (Ecosuelolab)</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.agriculture.desc}
+                  Monitoreo satelital + alertas automáticas en WhatsApp. Decisiones de riego en segundos, no horas.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "APIs satelitales" : "Satellite APIs"}</span>
+                    <span className="text-muted-foreground">APIs satelitales</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Integración WhatsApp" : "WhatsApp integration"}</span>
+                    <span className="text-muted-foreground">Integración WhatsApp</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "100% automatizado" : "100% automated"}</span>
+                    <span className="text-muted-foreground">100% automatizado</span>
                   </div>
                 </div>
               </div>
@@ -266,47 +284,47 @@ export default function SolucionesPage({ params }: PageProps) {
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <TrendingUp className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.retail.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Personalización en Retail</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.retail.desc}
+                  Recomendaciones en tiempo real, gestión de inventario predictiva. 45% aumento en conversión.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Comportamiento del cliente" : "Customer behavior"}</span>
+                    <span className="text-muted-foreground">Comportamiento del cliente</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Predicción de demanda" : "Demand prediction"}</span>
+                    <span className="text-muted-foreground">Predicción de demanda</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Cross-selling inteligente" : "Intelligent cross-selling"}</span>
+                    <span className="text-muted-foreground">Cross-selling inteligente</span>
                   </div>
                 </div>
               </div>
 
-              {/* Art */}
+              {/* Arte */}
               <div id="arte" className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 transition-all group scroll-mt-24">
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Sparkles className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">{d.solutions.realProjects.projects.art.title}</h3>
+                <h3 className="text-xl font-bold text-foreground mb-2">Curaduría y Análisis de Arte</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  {d.solutions.realProjects.projects.art.desc}
+                  Agentes que validan autenticidad, sugieren curatoría inteligente y conectan coleccionistas con obras.
                 </p>
                 <div className="space-y-2 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Análisis de imagen IA" : "AI image analysis"}</span>
+                    <span className="text-muted-foreground">Análisis de imagen IA</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Valoración automática" : "Automatic valuation"}</span>
+                    <span className="text-muted-foreground">Valoración automática</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-primary">✓</span>
-                    <span className="text-muted-foreground">{isES ? "Matching inteligente" : "Intelligent matching"}</span>
+                    <span className="text-muted-foreground">Matching inteligente</span>
                   </div>
                 </div>
               </div>
@@ -314,13 +332,13 @@ export default function SolucionesPage({ params }: PageProps) {
 
             <div className="text-center mt-16">
               <p className="text-muted-foreground mb-6">
-                {d.solutions.realProjects.noIndustry}
+                ¿Tu industria no está aquí? Hablemos sobre tu caso específico.
               </p>
               <Link
-                href={`/${locale}/contact`}
+                href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all"
               >
-                {d.solutions.realProjects.customSolution}
+                Consultar Solución Personalizada
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -331,23 +349,23 @@ export default function SolucionesPage({ params }: PageProps) {
         <section className="py-20 bg-background border-t border-border px-4">
           <div className="container mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold text-foreground mb-6">
-              {d.solutions.nextSteps.title}
+              ¿Cuál es tu próximo paso?
             </h2>
             <p className="body text-muted-foreground mb-10">
-              {d.solutions.nextSteps.description}
+              Independientemente de tu segmento, el primer paso es el mismo: una conversación clara sobre tus objetivos y restricciones.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href={`/${locale}/learning-hub`}
+                href="/learning-hub"
                 className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
               >
-                {d.solutions.nextSteps.learnMore}
+                Aprender más
               </Link>
               <Link
-                href={`/${locale}/contact`}
+                href="/contact"
                 className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
               >
-                {d.solutions.nextSteps.scheduleDemo}
+                Agendar Demo
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

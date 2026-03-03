@@ -1,8 +1,4 @@
-// This component is kept for backward compatibility but no longer renders scripts
-// Structured data should be handled via Next.js metadata API to avoid hydration errors
 export function FAQPageSchema() {
-  return null
-  
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -50,5 +46,10 @@ export function FAQPageSchema() {
     ],
   }
 
-
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+    />
+  )
 }
