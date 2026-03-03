@@ -53,7 +53,7 @@ export default function SolucionesPage({ params }: PageProps) {
       <section className="py-24 bg-background px-4">
         <div className="container mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {enterpriseSolutions.segments.map((segment, i) => (
+            {enterpriseSolutions[locale].segments.map((segment, i) => (
               <div
                 key={i}
                 className="border-2 border-primary/30 rounded-lg p-8 bg-card hover:border-primary hover:bg-primary/5 transition-all"
@@ -92,7 +92,7 @@ export default function SolucionesPage({ params }: PageProps) {
                   href={`/${locale}/contact`}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
                 >
-                  {isES ? "Consultar Solución" : "Schedule Demo"}
+                  {segment.cta}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
