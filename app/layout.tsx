@@ -32,6 +32,11 @@ export const metadata: Metadata = {
     "sistemas agenticos, IA en producción, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack, IA aplicada, transformación digital, agentic AI, multi-agent systems, agentes autónomos, AI orchestration",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
