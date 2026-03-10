@@ -16,13 +16,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
   const isES = locale === "es"
 
   return generatePageMetadata({
-    title: isES ? "Casos de Éxito" : "Case Studies",
+    title: isES ? "Casos de Éxito - Implementaciones de Sistemas Agenticos" : "Case Studies - Agentic Systems Implementations",
     description: isES
-      ? "Casos de éxito reales: implementaciones de sistemas agenticos con arquitectura, operación y resultados medibles."
-      : "Real case studies: agentic systems implementations with architecture, operations, and measurable outcomes.",
+      ? "Casos de éxito reales de N3uralia: implementaciones completas de sistemas agenticos con arquitectura, operación 24/7 y resultados medibles. Agricultura, educación, hotelería."
+      : "Real case studies from N3uralia: complete agentic systems implementations with architecture, 24/7 operations, and measurable results. Agriculture, education, hospitality.",
     keywords: isES
-      ? "casos de éxito, proyectos IA, sistemas agenticos, soluciones implementadas"
-      : "case studies, AI projects, agentic systems, implemented solutions",
+      ? "casos de éxito, proyectos IA, sistemas agenticos, soluciones implementadas, agentes inteligentes, automatización empresarial, arquitectura agentica"
+      : "case studies, AI projects, agentic systems, implemented solutions, intelligent agents, business automation, agentic architecture",
     canonical: `https://n3uralia.com/${locale}/case-studies`,
     locale,
   })

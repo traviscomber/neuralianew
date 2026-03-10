@@ -136,7 +136,39 @@ export function FaqPageClient() {
   const isES = locale === 'es';
   
   const data = faqData[locale];
-  const [openId, setOpenId] = useState(null);
+  // Initialize first 3 items open by default
+  const [openId, setOpenId] = useState<string | null>(() => {
+    return 'q1'; // Start with first question open
+  });
+  const [allOpen, setAllOpen] = useState(false);
+
+  // Track which items should be open (first 3 by default + user interactions)
+  const getOpenItems = () => {
+    if (allOpen) {
+      return new Set(data.items.map(item => item.id));
+    }
+    return new Set(['q1', 'q2', 'q3']);
+  };
+
+  const openItems = getOpenItems();
+  const handleExpandAll = () => {
+    setAllOpen(true);
+  };
+
+  const handleCollapseAll = () => {
+    setAllOpen(false);
+    setOpenId(null);
+  };
+
+  const toggleItem = (id: string) => {
+    if (allOpen) {
+      // If all were open, clicking one should just close that one
+      setAllOpen(false);
+      setOpenId(openItems.has(id) ? null : id);
+    } else {
+      setOpenId(openItems.has(id) ? null : id);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -155,30 +187,49 @@ export function FaqPageClient() {
       {/* FAQ Content */}
       <section className="px-4 py-16 sm:py-20">
         <div className="mx-auto max-w-3xl">
+          {/* Expand/Collapse All Buttons */}
+          <div className="mb-8 flex gap-3 justify-center sm:justify-start">
+            <button
+              onClick={handleExpandAll}
+              className="px-4 py-2 text-sm font-medium border border-primary text-primary rounded-lg hover:bg-primary/5 transition-colors"
+            >
+              {isES ? 'Expandir Todo' : 'Expand All'}
+            </button>
+            <button
+              onClick={handleCollapseAll}
+              className="px-4 py-2 text-sm font-medium border border-muted-foreground text-muted-foreground rounded-lg hover:bg-muted/50 transition-colors"
+            >
+              {isES ? 'Contraer Todo' : 'Collapse All'}
+            </button>
+          </div>
+
           <div className="mb-8 space-y-4">
-            {data.items.map((faq) => (
-              <div
-                key={faq.id}
-                className="border border-border rounded-lg bg-card transition-all"
-              >
-                <button
-                  onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
-                  className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+            {data.items.map((faq) => {
+              const isOpen = openItems.has(faq.id);
+              return (
+                <div
+                  key={faq.id}
+                  className="border border-border rounded-lg bg-card transition-all"
                 >
-                  <h3 className="font-semibold text-foreground pr-4">{faq.question}</h3>
-                  <ChevronDown
-                    className={`h-5 w-5 flex-shrink-0 text-muted-foreground transition-transform ${
-                      openId === faq.id ? 'rotate-180' : ''
-                    }`}
-                  />
-                </button>
-                {openId === faq.id && (
-                  <div className="border-t border-border px-6 py-4 bg-muted/20">
-                    <p className="text-sm text-muted-foreground">{faq.answer}</p>
-                  </div>
-                )}
-              </div>
-            ))}
+                  <button
+                    onClick={() => toggleItem(faq.id)}
+                    className="flex w-full items-center justify-between px-6 py-4 text-left hover:bg-muted/50 transition-colors"
+                  >
+                    <h3 className="font-semibold text-foreground pr-4">{faq.question}</h3>
+                    <ChevronDown
+                      className={`h-5 w-5 flex-shrink-0 text-muted-foreground transition-transform ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="border-t border-border px-6 py-4 bg-muted/20">
+                      <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Footer CTA - More Resources */}

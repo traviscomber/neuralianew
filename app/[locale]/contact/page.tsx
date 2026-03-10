@@ -10,11 +10,11 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Contacto N3uralia | Neuralia - AI Agents, Sistemas Agenticos Fullstack",
+  title: "Contacta N3uralia - Implementa Sistemas Agenticos para tu Empresa",
   description:
-    "Contacta con N3uralia (Neuralia) para implementar sistemas agenticos AI agents. Cuéntanos sobre tu proyecto de arquitectura fullstack y transformación con inteligencia artificial.",
+    "Contacta con N3uralia para implementar sistemas agenticos y living agents en tu empresa. Cuéntanos sobre tu proyecto, necesidades de automatización y transformación digital con IA aumentada.",
   keywords:
-    "contacto n3uralia, neuralia, contactar, AI agents, sistemas agenticos, propuesta, proyecto, fullstack",
+    "contacto n3uralia, implementar sistemas agenticos, living agents, consultoría IA, propuesta empresa, proyecto automatización, transformación digital",
 }
 
 export default function ContactPage({ params }: PageProps) {

@@ -11,13 +11,17 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura",
+  title: "Soluciones de Sistemas Agenticos - Automatización para Múltiples Industrias",
   description:
-    "Soluciones especializadas de sistemas agenticos para cada industria. B2B: operaciones de ingresos. Turismo: inteligencia conversacional. Eventos: automatización inmersiva. Manufactura: procesos autónomos. Listo para producción, recuperación en 6 meses.",
+    "Soluciones especializadas de sistemas agenticos para cada industria: retail y e-commerce, manufactura, turismo y hospitalidad, servicios financieros, gobierno. Living agents, orquestación multiagente, listo para producción.",
   keywords:
-    "sistemas agenticos soluciones, B2B automatización, turismo IA, eventos inteligentes, manufactura automatizada, operaciones de ingresos, inteligencia conversacional, agentes inteligentes, n3uralia",
+    "soluciones sistemas agenticos, living agents, retail automation, manufactura inteligente, turismo IA, finanzas automatizadas, e-commerce, agentes inteligentes, n3uralia",
   alternates: {
-    canonical: "https://n3uralia.com/soluciones",
+    canonical: `https://n3uralia.com/es/soluciones`,
+    languages: {
+      "es": "https://n3uralia.com/es/soluciones",
+      "en": "https://n3uralia.com/en/solutions",
+    },
   },
 }
 
