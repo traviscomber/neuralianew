@@ -49,7 +49,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
 
   return (
     <>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
         <Navigation locale={locale} />
         <main role="main">
           {children}
