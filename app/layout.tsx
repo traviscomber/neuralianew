@@ -1,3 +1,6 @@
+// Vercel Build Cache Clear - 2026-03-13 Timestamp
+export const dynamic = 'force-dynamic'
+
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Montserrat } from "next/font/google"
