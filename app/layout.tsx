@@ -119,10 +119,10 @@ export default function RootLayout({
               try {
                 const theme = localStorage.getItem('n3uralia-theme');
                 const html = document.documentElement;
-                if (theme === 'dark' || theme === 'black') {
-                  html.classList.add('dark');
-                } else {
+                if (theme === 'light') {
                   html.classList.remove('dark');
+                } else {
+                  html.classList.add('dark');
                 }
               } catch (e) {}
             `,
@@ -132,7 +132,7 @@ export default function RootLayout({
         <StructuredCitations />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
           <Navigation />
           {children}
           <ScrollToTop />
