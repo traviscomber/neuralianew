@@ -5,7 +5,6 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
 import { StructuredData } from "@/components/structured-data"
 import { StructuredCitations } from "@/components/structured-citations"
 
@@ -131,7 +130,6 @@ export default function RootLayout({
           <Navigation />
           {children}
           <ScrollToTop />
-          <FloatingChatWidget />
         </ThemeProvider>
       </body>
     </html>

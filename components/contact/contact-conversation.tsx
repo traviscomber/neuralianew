@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Loader2 } from 'lucide-react'
+import { Send } from 'lucide-react'
 
 interface Message {
   id: string
@@ -14,22 +14,25 @@ export function ContactConversation() {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hola! Soy el asistente de N3uralia. Para entender mejor tu proyecto, ¿cuál es tu nombre?',
+      content: 'Hola, soy el asistente de N3uralia. Cuéntame sobre tu proyecto.',
     },
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    message: '',
+    whatsapp: '',
+  })
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   useEffect(() => {
-    scrollToBottom()
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim()) return
 
@@ -39,39 +42,75 @@ export function ContactConversation() {
       content: input,
     }
 
-    setMessages((prev) => [...prev, userMessage])
+    setMessages(prev => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/contact/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, userMessage],
-        }),
-      })
+      // Determine what to collect based on conversation flow
+      let step = 'name'
+      if (formData.name) step = 'email'
+      if (formData.name && formData.email) step = 'company'
+      if (formData.name && formData.email && formData.company) step = 'message'
+      if (formData.name && formData.email && formData.company && formData.message) step = 'whatsapp'
 
-      if (!response.ok) {
-        throw new Error('Failed to get response')
+      // Update form data
+      const newFormData = { ...formData }
+      if (step === 'name') newFormData.name = input
+      if (step === 'email') newFormData.email = input
+      if (step === 'company') newFormData.company = input
+      if (step === 'message') newFormData.message = input
+      if (step === 'whatsapp') newFormData.whatsapp = input
+
+      setFormData(newFormData)
+
+      // Generate assistant response based on step
+      let assistantContent = ''
+      
+      if (step === 'name') {
+        assistantContent = `¡Hola ${input}! ¿Cuál es tu email de contacto?`
+      } else if (step === 'email') {
+        assistantContent = `Perfecto ${formData.name}. ¿En qué empresa trabajas?`
+      } else if (step === 'company') {
+        assistantContent = `Excelente, gracias ${input}. ¿Cuéntame sobre tu proyecto?`
+      } else if (step === 'message') {
+        assistantContent = `Interesante proyecto. ¿Cuál es tu WhatsApp para poder contactarte directamente?`
+      } else if (step === 'whatsapp') {
+        // All data collected, send to API
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: newFormData.name,
+            email: newFormData.email,
+            company: newFormData.company,
+            message: newFormData.message,
+            whatsapp: input,
+          }),
+        })
+
+        if (!response.ok) {
+          throw new Error('Failed to send contact')
+        }
+
+        assistantContent = `Perfecto ${newFormData.name}. Hemos recibido tu información. Nos pondremos en contacto contigo pronto a través de WhatsApp y email. ¡Gracias!`
       }
 
-      const data = await response.json()
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.content,
+        content: assistantContent,
       }
 
-      setMessages((prev) => [...prev, assistantMessage])
+      setMessages(prev => [...prev, assistantMessage])
     } catch (error) {
       console.error('Error:', error)
-      setMessages((prev) => [
+      setMessages(prev => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: 'Lo siento, hubo un error. Por favor intenta de nuevo.',
+          content: 'Disculpa, hubo un error. Por favor intenta de nuevo.',
         },
       ])
     } finally {
@@ -83,8 +122,8 @@ export function ContactConversation() {
     <div className="w-full max-w-2xl mx-auto">
       <div className="rounded-lg border border-border bg-card h-[500px] flex flex-col">
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          {messages.map((message) => (
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {messages.map(message => (
             <div
               key={message.id}
               className={`flex ${
@@ -92,7 +131,7 @@ export function ContactConversation() {
               }`}
             >
               <div
-                className={`max-w-xs px-4 py-2 rounded-lg ${
+                className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
                   message.role === 'user'
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-muted text-muted-foreground'
@@ -104,35 +143,33 @@ export function ContactConversation() {
           ))}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-muted text-muted-foreground px-4 py-2 rounded-lg flex items-center gap-2">
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Escribiendo...</span>
+              <div className="bg-muted text-muted-foreground px-3 py-2 rounded-lg text-sm">
+                Escribiendo...
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Form */}
-        <form
-          onSubmit={handleSubmit}
-          className="border-t border-border p-4 flex gap-2"
-        >
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Escribe tu mensaje..."
-            disabled={isLoading}
-            className="flex-1 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-          <button
-            type="submit"
-            disabled={isLoading || !input.trim()}
-            className="rounded-lg bg-primary text-primary-foreground px-4 py-2 hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-          >
-            <Send className="w-4 h-4" />
-          </button>
+        {/* Input */}
+        <form onSubmit={handleSubmit} className="border-t border-border p-4">
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              disabled={isLoading}
+              placeholder="Escribe tu respuesta..."
+              className="flex-1 px-3 py-2 border border-input rounded-lg bg-background text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            />
+            <button
+              type="submit"
+              disabled={isLoading || !input.trim()}
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center gap-2"
+            >
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
         </form>
       </div>
     </div>
