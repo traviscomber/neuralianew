@@ -1,5 +1,6 @@
 "use client"
 
+// Force rebuild cache invalidation
 import React, { useState, useRef, useEffect } from "react"
 import { Send, Loader, CheckCircle2, AlertCircle, Edit2, X, MessageSquare, RotateCcw } from "lucide-react"
 
