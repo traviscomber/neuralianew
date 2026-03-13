@@ -18,6 +18,7 @@ interface ContactData {
 }
 
 export function ContactConversation() {
+  const [isMounted, setIsMounted] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "initial",
@@ -36,8 +37,13 @@ export function ContactConversation() {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
     // Auto-scroll to bottom smoothly whenever messages change
-    setTimeout(() => {
+    if (isMounted) {
+      setTimeout(() => {
       if (messagesEndRef.current && messagesContainerRef.current) {
         messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
       }
@@ -202,6 +208,14 @@ export function ContactConversation() {
     setContactData({})
     setCurrentStep("name")
     setContinueConversation(false)
+  }
+
+  if (!isMounted) {
+    return (
+      <div className="flex flex-col h-full items-center justify-center">
+        <p className="text-muted-foreground">Cargando chat...</p>
+      </div>
+    )
   }
 
   return (
