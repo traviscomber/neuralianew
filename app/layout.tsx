@@ -30,7 +30,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile",
+  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile [2026-03-13 BUILD]",
   description:
     "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM. IA en producción desde día uno.",
   keywords:
