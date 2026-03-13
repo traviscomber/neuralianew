@@ -106,8 +106,23 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning className="dark">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('n3uralia-theme');
+                const html = document.documentElement;
+                if (theme === 'light') {
+                  html.classList.remove('dark');
+                } else if (theme === 'black' || !theme) {
+                  html.classList.add('dark');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
         <StructuredData />
         <StructuredCitations />
       </head>
