@@ -1,6 +1,6 @@
 'use client'
 
-// Cache invalidation for Vercel build
+// Build cache invalidation: 2025-03-13-16:50 - Fixed send button
 import { useState, useRef, useEffect } from 'react'
 import { Send } from 'lucide-react'
 
