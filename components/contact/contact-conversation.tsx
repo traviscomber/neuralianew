@@ -30,24 +30,25 @@ export function ContactConversation() {
   const [isLoading, setIsLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [contactData, setContactData] = useState<ContactData>({})
-  const [currentStep, setCurrentStep] = useState("name") // name, email, company, message, whatsapp
+  const [currentStep, setCurrentStep] = useState("name")
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [continueConversation, setContinueConversation] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
+  // Mount check for hydration safety
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
-  // Auto-scroll to bottom when messages update
+  // Auto-scroll when messages update
   useEffect(() => {
-    if (isMounted) {
+    if (isMounted && messagesContainerRef.current) {
       setTimeout(() => {
-        if (messagesEndRef.current && messagesContainerRef.current) {
+        if (messagesContainerRef.current) {
           messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
         }
-      }, 0)
+      }, 100)
     }
   }, [messages, isLoading, isMounted])
 
@@ -63,7 +64,6 @@ export function ContactConversation() {
 
     setMessages((prev) => [...prev, userMessage])
 
-    // Process based on current step
     let nextStep = currentStep
     let assistantResponse = ""
 
@@ -72,7 +72,6 @@ export function ContactConversation() {
       assistantResponse = `Mucho gusto, ${input}. ¿Cuál es tu email?`
       nextStep = "email"
     } else if (currentStep === "email") {
-      // Basic email validation
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(input)) {
         assistantResponse = "El email no parece válido. ¿Podrías verificarlo?"
@@ -93,21 +92,17 @@ export function ContactConversation() {
     } else if (currentStep === "company") {
       const company = input.toLowerCase() === "no aplica" ? "" : input
       setContactData((prev) => ({ ...prev, company }))
-      assistantResponse =
-        "Excelente. Ahora cuéntame: ¿cuál es tu consulta o qué necesitas construir? (sé específico 💡)"
+      assistantResponse = "Excelente. Ahora cuéntame: ¿cuál es tu consulta o qué necesitas construir?"
       nextStep = "message"
     } else if (currentStep === "message") {
       setContactData((prev) => ({ ...prev, message: input }))
-      assistantResponse =
-        "Perfecto. Para poder ofrecerte atención directa, ¿cuál es tu número de WhatsApp? (ej: 56912345678)"
+      assistantResponse = "Perfecto. ¿Cuál es tu número de WhatsApp? (ej: 56912345678)"
       nextStep = "whatsapp"
     } else if (currentStep === "whatsapp") {
-      // Basic phone validation - Chilean numbers
       const phoneRegex = /^56[9]?\d{8}$/
       const cleanedPhone = input.replace(/\D/g, "")
       if (!phoneRegex.test(cleanedPhone)) {
-        assistantResponse =
-          "El número no parece válido. Por favor ingresa un número chileno (56912345678 o 912345678)"
+        assistantResponse = "El número no parece válido. Ingresa un número chileno válido."
         setMessages((prev) => [
           ...prev,
           {
@@ -136,21 +131,13 @@ export function ContactConversation() {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          console.error("[v0] Contact API error:", errorData)
-          throw new Error(errorData.error || "Failed to send contact")
+          throw new Error("Failed to send contact")
         }
 
-        const responseData = await response.json()
-        console.log("[v0] Contact sent successfully:", responseData)
-
-        const whatsappUrl = `https://wa.me/${cleanedPhone}?text=Hola%20${encodeURIComponent(contactData.name || "")}%2C%20recibimos%20tu%20consulta%20en%20N3uralia.%20Nos%20pondremos%20en%20contacto%20pronto.`
-        assistantResponse = `✅ Mensaje enviado correctamente, ${contactData.name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${contactData.email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/${cleanedPhone}`
+        assistantResponse = `✅ Mensaje enviado correctamente, ${contactData.name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${contactData.email}.\n\nTambién contactamos por WhatsApp: https://wa.me/${cleanedPhone}`
         setSubmitted(true)
-      } catch (error: any) {
-        console.error("[v0] Contact submission error:", error.message)
-        assistantResponse =
-          "❌ Hubo un error al enviar tu mensaje. Por favor intenta de nuevo o contacta directamente a info@n3uralia.com"
+      } catch (error) {
+        assistantResponse = "❌ Error al enviar. Contacta a info@n3uralia.com"
       } finally {
         setIsLoading(false)
       }
@@ -169,34 +156,6 @@ export function ContactConversation() {
   }
 
   const handleNewProject = () => {
-    // Reset everything for a new conversation
-    setMessages([
-      {
-        id: "initial",
-        role: "assistant",
-        content: "Hola 👋 Soy el asistente de N3uralia. ¿Cuál es tu nombre?",
-      },
-    ])
-    setInput("")
-    setSubmitted(false)
-    setContactData({})
-    setCurrentStep("name")
-    setContinueConversation(false)
-  }
-
-  const handleContinueConversation = () => {
-    setContinueConversation(true)
-    setCurrentStep("message")
-    setInput("")
-    const continueMessage: Message = {
-      id: Date.now().toString(),
-      role: "assistant",
-      content: "Excelente. ¿Hay algo más que quieras consultarme? Estoy aquí para ayudarte.",
-    }
-    setMessages((prev) => [...prev, continueMessage])
-  }
-
-  const handleStartNewChat = () => {
     setMessages([
       {
         id: "initial",
@@ -213,101 +172,82 @@ export function ContactConversation() {
 
   if (!isMounted) {
     return (
-      <div className="flex flex-col h-full items-center justify-center">
-        <p className="text-muted-foreground">Cargando chat...</p>
+      <div className="flex items-center justify-center h-full">
+        <p className="text-muted-foreground">Cargando...</p>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col h-full">
-      {/* Chat Container */}
-      <div className="flex-1 overflow-hidden flex flex-col bg-card">
-        {/* Messages */}
-        <div
-          ref={messagesContainerRef}
-          className="flex-1 overflow-y-auto p-6 space-y-4 scroll-smooth"
-        >
-          {messages.map((message) => (
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 scroll-smooth"
+      >
+        {messages.map((message) => (
+          <div
+            key={message.id}
+            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+          >
             <div
-              key={message.id}
-              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+              className={`max-w-xs px-4 py-2 rounded-lg ${
+                message.role === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-foreground"
+              }`}
             >
-              <div
-                className={`max-w-xs px-4 py-2 rounded-lg ${
-                  message.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-none"
-                    : message.role === "system"
-                      ? "bg-yellow-100 text-yellow-900 rounded-bl-none border border-yellow-300"
-                      : "bg-muted text-foreground rounded-bl-none"
-                }`}
-              >
-                <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
-              </div>
+              <p className="text-sm whitespace-pre-wrap">{message.content}</p>
             </div>
-          ))}
+          </div>
+        ))}
 
-          {isLoading && (
-            <div className="flex justify-start">
-              <div className="bg-muted text-foreground px-4 py-2 rounded-lg rounded-bl-none flex items-center gap-2">
-                <Loader className="w-4 h-4 animate-spin" />
-                <p className="text-sm">Procesando...</p>
-              </div>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input or Success State */}
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="border-t border-border p-4 bg-card flex gap-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Escribe tu respuesta..."
-              className="flex-1 px-4 py-2 border border-border bg-background text-foreground rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-sm placeholder-muted-foreground transition-colors"
-              disabled={isLoading}
-              autoFocus
-            />
-            <button
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
-            >
-              <Send className="w-4 h-4" />
-            </button>
-          </form>
-        ) : (
-          <div className="border-t border-border p-4 bg-card space-y-4">
-            <div className="flex items-center gap-3 pb-4 border-b border-border">
-              <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 flex-shrink-0" />
-              <p className="text-sm text-foreground font-medium">Mensaje enviado correctamente</p>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <button
-                onClick={handleNewProject}
-                className="w-full px-4 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 font-semibold transition-colors flex items-center justify-center gap-2"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Iniciar nuevo proyecto
-              </button>
-
-              <p className="text-xs text-muted-foreground text-center">o</p>
-
-              <a
-                href="/"
-                className="w-full px-4 py-3 border border-border text-foreground rounded-lg hover:bg-muted transition-colors font-semibold text-center flex items-center justify-center gap-2"
-              >
-                <X className="w-4 h-4" />
-                Terminar conversación
-              </a>
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="bg-muted text-foreground px-4 py-2 rounded-lg flex items-center gap-2">
+              <Loader className="w-4 h-4 animate-spin" />
+              <p className="text-sm">Procesando...</p>
             </div>
           </div>
         )}
+
+        <div ref={messagesEndRef} />
       </div>
+
+      {!submitted ? (
+        <form onSubmit={handleSubmit} className="border-t border-border p-4 flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Escribe aquí..."
+            className="flex-1 px-3 py-2 border border-border bg-background rounded-lg text-sm"
+            disabled={isLoading}
+            autoFocus
+          />
+          <button
+            type="submit"
+            disabled={isLoading || !input.trim()}
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg disabled:opacity-50"
+          >
+            <Send className="w-4 h-4" />
+          </button>
+        </form>
+      ) : (
+        <div className="border-t border-border p-4 space-y-3">
+          <button
+            onClick={handleNewProject}
+            className="w-full px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90"
+          >
+            Nuevo proyecto
+          </button>
+          <a
+            href="/"
+            className="block w-full px-4 py-2 border border-border text-center rounded-lg hover:bg-muted"
+          >
+            Cerrar
+          </a>
+        </div>
+      )}
     </div>
   )
 }
