@@ -30,7 +30,6 @@ export function ContactConversation() {
     
     if (!input.trim() || isLoading) return
 
-    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
@@ -45,43 +44,47 @@ export function ContactConversation() {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({
+          name: 'Usuario',
+          email: 'usuario@example.com',
+          company: 'Empresa',
+          message: input,
+          whatsapp: '+56',
+        }),
       })
-
-      const data = await response.json()
 
       if (response.ok) {
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: data.message || 'Mensaje recibido. Nos pondremos en contacto pronto.',
+          content: 'Gracias por tu mensaje. Nos pondremos en contacto contigo pronto por email o WhatsApp.',
         }
         setMessages(prev => [...prev, assistantMessage])
       } else {
-        const errorMessage: Message = {
+        const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: 'Disculpa, hubo un error. Por favor intenta de nuevo.',
+          content: 'Hubo un error al enviar tu mensaje. Por favor intenta de nuevo.',
         }
-        setMessages(prev => [...prev, errorMessage])
+        setMessages(prev => [...prev, assistantMessage])
       }
     } catch (error) {
-      console.error('[v0] Contact error:', error)
-      const errorMessage: Message = {
+      console.error('Error sending message:', error)
+      const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Disculpa, hubo un error. Por favor intenta de nuevo.',
+        content: 'Lo siento, hubo un error. Intenta de nuevo.',
       }
-      setMessages(prev => [...prev, errorMessage])
+      setMessages(prev => [...prev, assistantMessage])
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-background">
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map(msg => (
+        {messages.map((msg) => (
           <div
             key={msg.id}
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
@@ -97,33 +100,29 @@ export function ContactConversation() {
             </div>
           </div>
         ))}
-        {isLoading && (
-          <div className="flex justify-start">
-            <div className="bg-muted text-muted-foreground px-4 py-2 rounded-lg flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Escribiendo...
-            </div>
-          </div>
-        )}
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="p-4 border-t border-border">
+      <form onSubmit={handleSubmit} className="border-t border-border p-4 space-y-2">
         <div className="flex gap-2">
           <input
             type="text"
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value)}
             placeholder="Escribe tu mensaje..."
             disabled={isLoading}
-            className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            className="flex-1 px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center gap-2"
           >
-            <Send className="w-4 h-4" />
+            {isLoading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Send className="w-4 h-4" />
+            )}
           </button>
         </div>
       </form>
