@@ -21,14 +21,17 @@ export function ContactConversation() {
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
   }, [messages])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
-    if (!input.trim() || isLoading) return
+    if (!input.trim()) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -36,96 +39,102 @@ export function ContactConversation() {
       content: input,
     }
 
-    setMessages(prev => [...prev, userMessage])
+    setMessages((prev) => [...prev, userMessage])
     setInput('')
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('/api/contact/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: 'Usuario',
-          email: 'usuario@example.com',
-          company: 'Empresa',
-          message: input,
-          whatsapp: '+56',
+          messages: [...messages, userMessage],
         }),
       })
 
-      if (response.ok) {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          role: 'assistant',
-          content: 'Gracias por tu mensaje. Nos pondremos en contacto contigo pronto por email o WhatsApp.',
-        }
-        setMessages(prev => [...prev, assistantMessage])
-      } else {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          role: 'assistant',
-          content: 'Hubo un error al enviar tu mensaje. Por favor intenta de nuevo.',
-        }
-        setMessages(prev => [...prev, assistantMessage])
+      if (!response.ok) {
+        throw new Error('Failed to get response')
       }
-    } catch (error) {
-      console.error('Error sending message:', error)
+
+      const data = await response.json()
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'Lo siento, hubo un error. Intenta de nuevo.',
+        content: data.content,
       }
-      setMessages(prev => [...prev, assistantMessage])
+
+      setMessages((prev) => [...prev, assistantMessage])
+    } catch (error) {
+      console.error('Error:', error)
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: 'Lo siento, hubo un error. Por favor intenta de nuevo.',
+        },
+      ])
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <div className="flex flex-col h-full bg-background">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
+    <div className="w-full max-w-2xl mx-auto">
+      <div className="rounded-lg border border-border bg-card h-[500px] flex flex-col">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {messages.map((message) => (
             <div
-              className={`max-w-xs px-4 py-2 rounded-lg ${
-                msg.role === 'user'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-muted text-muted-foreground'
+              key={message.id}
+              className={`flex ${
+                message.role === 'user' ? 'justify-end' : 'justify-start'
               }`}
             >
-              {msg.content}
+              <div
+                className={`max-w-xs px-4 py-2 rounded-lg ${
+                  message.role === 'user'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted text-muted-foreground'
+                }`}
+              >
+                {message.content}
+              </div>
             </div>
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-muted text-muted-foreground px-4 py-2 rounded-lg flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Escribiendo...</span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
 
-      <form onSubmit={handleSubmit} className="border-t border-border p-4 space-y-2">
-        <div className="flex gap-2">
+        {/* Input Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="border-t border-border p-4 flex gap-2"
+        >
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Escribe tu mensaje..."
             disabled={isLoading}
-            className="flex-1 px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+            className="flex-1 rounded-lg border border-border bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           />
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center gap-2"
+            className="rounded-lg bg-primary text-primary-foreground px-4 py-2 hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
           >
-            {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
-            ) : (
-              <Send className="w-4 h-4" />
-            )}
+            <Send className="w-4 h-4" />
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }
