@@ -40,8 +40,8 @@ export function ContactConversation() {
     setIsMounted(true)
   }, [])
 
+  // Auto-scroll to bottom when messages update
   useEffect(() => {
-    // Auto-scroll to bottom smoothly whenever messages change
     if (isMounted) {
       setTimeout(() => {
         if (messagesEndRef.current && messagesContainerRef.current) {
