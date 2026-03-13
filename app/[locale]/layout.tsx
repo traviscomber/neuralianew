@@ -3,7 +3,6 @@ import type { ReactNode } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
@@ -56,7 +55,6 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
           {children}
         </main>
         <ScrollToTop />
-        <FloatingChatWidget />
       </ThemeProvider>
     </>
   )
