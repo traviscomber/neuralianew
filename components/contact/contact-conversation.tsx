@@ -44,11 +44,12 @@ export function ContactConversation() {
     // Auto-scroll to bottom smoothly whenever messages change
     if (isMounted) {
       setTimeout(() => {
-      if (messagesEndRef.current && messagesContainerRef.current) {
-        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
-      }
-    }, 0)
-  }, [messages, isLoading])
+        if (messagesEndRef.current && messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+        }
+      }, 0)
+    }
+  }, [messages, isLoading, isMounted])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
