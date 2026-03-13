@@ -1,5 +1,6 @@
 'use client'
 
+// Cache invalidation for Vercel build
 import { useState, useRef, useEffect } from 'react'
 import { Send } from 'lucide-react'
 
