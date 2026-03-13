@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { FloatingChatWidget } from "@/components/floating-chat-widget"
 import { StructuredData } from "@/components/structured-data"
 import { StructuredCitations } from "@/components/structured-citations"
 
@@ -105,7 +106,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning className="dark">
+    <html lang="es" suppressHydrationWarning className="">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -113,10 +114,10 @@ export default function RootLayout({
               try {
                 const theme = localStorage.getItem('n3uralia-theme');
                 const html = document.documentElement;
-                if (theme === 'light') {
-                  html.classList.remove('dark');
-                } else if (theme === 'black' || !theme) {
+                if (theme === 'dark' || theme === 'black') {
                   html.classList.add('dark');
+                } else {
+                  html.classList.remove('dark');
                 }
               } catch (e) {}
             `,
@@ -126,10 +127,11 @@ export default function RootLayout({
         <StructuredCitations />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
           <Navigation />
           {children}
           <ScrollToTop />
+          <FloatingChatWidget />
         </ThemeProvider>
       </body>
     </html>
