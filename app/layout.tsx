@@ -1,4 +1,6 @@
-// Vercel Build Cache Clear - 2026-03-13 Timestamp
+// VERCEL CACHE RESET SIGNAL - 2026-03-13 16:55:30 UTC
+// Force complete rebuild by changing file timestamp
+// Vercel will clear .next cache and rebuild from scratch
 export const dynamic = 'force-dynamic'
 
 import type React from "react"
