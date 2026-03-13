@@ -31,6 +31,7 @@ export function ContactConversation() {
   const [contactData, setContactData] = useState<ContactData>({})
   const [currentStep, setCurrentStep] = useState("name") // name, email, company, message, whatsapp
   const [showConfirmation, setShowConfirmation] = useState(false)
+  const [continueConversation, setContinueConversation] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
 
@@ -128,14 +129,19 @@ export function ContactConversation() {
         })
 
         if (!response.ok) {
-          throw new Error("Failed to send contact")
+          const errorData = await response.json()
+          console.error("[v0] Contact API error:", errorData)
+          throw new Error(errorData.error || "Failed to send contact")
         }
+
+        const responseData = await response.json()
+        console.log("[v0] Contact sent successfully:", responseData)
 
         const whatsappUrl = `https://wa.me/${cleanedPhone}?text=Hola%20${encodeURIComponent(contactData.name || "")}%2C%20recibimos%20tu%20consulta%20en%20N3uralia.%20Nos%20pondremos%20en%20contacto%20pronto.`
         assistantResponse = `✅ Mensaje enviado correctamente, ${contactData.name}.\n\nHemos recibido tu consulta y te responderemos pronto a ${contactData.email}.\n\n💬 También puedes contactarnos directamente por WhatsApp: https://wa.me/${cleanedPhone}`
         setSubmitted(true)
-      } catch (error) {
-        console.error("[v0] Contact error:", error)
+      } catch (error: any) {
+        console.error("[v0] Contact submission error:", error.message)
         assistantResponse =
           "❌ Hubo un error al enviar tu mensaje. Por favor intenta de nuevo o contacta directamente a info@n3uralia.com"
       } finally {
@@ -168,6 +174,7 @@ export function ContactConversation() {
     setSubmitted(false)
     setContactData({})
     setCurrentStep("name")
+    setContinueConversation(false)
   }
 
   const handleContinueConversation = () => {
