@@ -1,7 +1,7 @@
-// VERCEL PRODUCTION BUILD - AGENT MATRIX FEATURE
-// Build timestamp: 2026-03-13 17:05:00 UTC - New Feature Deployment
+// VERCEL PRODUCTION BUILD - MOBILE NAV FIX + DARK THEME DEFAULT
+// Build timestamp: 2026-03-13 17:08:00 UTC - Mobile Navigation & Theme Fix
+// Fixed: Mobile menu positioning, Dark theme guaranteed on all loads
 // Force Git sync and complete rebuild from repository
-// Agent Matrix page added with full bilingual support
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
@@ -112,7 +112,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning className="">
+    <html lang="es" suppressHydrationWarning className="dark">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -125,7 +125,9 @@ export default function RootLayout({
                 } else {
                   html.classList.add('dark');
                 }
-              } catch (e) {}
+              } catch (e) {
+                html.classList.add('dark');
+              }
             `,
           }}
         />

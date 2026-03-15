@@ -112,7 +112,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
 
       {/* Mobile Navigation */}
       {open && (
-        <div className="md:hidden border-t border-border bg-background w-full max-w-7xl mx-auto px-4 p-4 space-y-2">
+        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
           <Link 
             href={href("/capabilities")} 
             onClick={() => setOpen(false)} 
