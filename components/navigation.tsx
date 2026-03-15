@@ -23,6 +23,7 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
   const labels = {
     capabilities: isES ? "Capacidades" : "Capabilities",
     solutions: isES ? "Soluciones" : "Solutions",
+    agentMatrix: "Agent Matrix",
     caseStudies: isES ? "Casos de Éxito" : "Case Studies",
     faq: isES ? "FAQ" : "FAQ",
     about: isES ? "Acerca de" : "About",
@@ -47,10 +48,17 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           </Link>
 
           <Link 
-            href={isES ? href("/soluciones") : href("/solutions")} 
+            href={href("/solutions")} 
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.solutions}
+          </Link>
+
+          <Link 
+            href={href("/agent-matrix")} 
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.agentMatrix}
           </Link>
 
           <Link 
@@ -119,6 +127,14 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.solutions}
+          </Link>
+
+          <Link 
+            href={href("/agent-matrix")} 
+            onClick={() => setOpen(false)} 
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.agentMatrix}
           </Link>
 
           <Link 

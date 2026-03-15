@@ -5,6 +5,7 @@ type Dict = {
     platform: string;
     agentic: string;
     infra: string;
+    agentMatrix: string;
     playbooks: string;
     caseStudies: string;
     labs: string;
@@ -126,13 +127,14 @@ export const DICTS: Record<Locale, Dict> = {
       platform: "Plataforma",
       agentic: "Sistemas Agénticos",
       infra: "Infraestructura IA",
+      agentMatrix: "Agent Matrix",
       playbooks: "Playbooks",
       caseStudies: "Casos de Éxito",
       labs: "Labs",
       nodes: "Nodes",
       patterns: "Patterns",
       security: "Seguridad",
-      contact: "Contactar",
+      contact: "Contacto",
     },
     cta: {
       requestReview: "Solicitar revisión de arquitectura",
@@ -261,6 +263,7 @@ export const DICTS: Record<Locale, Dict> = {
       platform: "Platform",
       agentic: "Agentic Systems",
       infra: "AI Infrastructure",
+      agentMatrix: "Agent Matrix",
       playbooks: "Playbooks",
       caseStudies: "Case Studies",
       labs: "Labs",
