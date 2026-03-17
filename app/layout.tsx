@@ -1,7 +1,7 @@
-// VERCEL PRODUCTION BUILD - AGENT OPERATIONS PLATFORM
-// Build timestamp: 2026-03-13 17:15:00 UTC - New Agent Operations Page
-// Mobile nav fixed, dark theme guaranteed, Agent Operations section added
-// Force complete rebuild from repository
+// VERCEL PRODUCTION BUILD - AGENT SYSTEMS DROPDOWN NAV
+// Build timestamp: 2026-03-13 17:22:00 UTC - Navigation Refactor
+// Implemented: Dropdown "Sistemas Agénticos" combines Agent Matrix + Agent Operations
+// Cleaner navbar structure, professional UX, mobile-optimized dropdown
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
