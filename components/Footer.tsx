@@ -6,6 +6,15 @@ import { getDict } from "@/content/dictionaries";
 
 export function Footer({ locale }: { locale: Locale }) {
   const d = getDict(locale);
+  
+  // Fallback labels in case dictionary is undefined
+  const labels = {
+    caseStudies: d?.nav?.caseStudies || (locale === "es" ? "Casos de Éxito" : "Case Studies"),
+    security: d?.nav?.security || (locale === "es" ? "Seguridad" : "Security"),
+    nodes: d?.nav?.nodes || (locale === "es" ? "Nodos" : "Nodes"),
+    patterns: d?.nav?.patterns || (locale === "es" ? "Patrones" : "Patterns"),
+  };
+
   return (
     <footer style={{ borderTop: "1px solid rgba(255,255,255,0.08)", padding: "28px 0" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 20px", opacity: 0.9 }}>
@@ -22,16 +31,16 @@ export function Footer({ locale }: { locale: Locale }) {
           <div style={{ display: "grid", gap: 8 }}>
             <div style={{ fontWeight: 700 }}>{locale === "es" ? "Empresa" : "Company"}</div>
             <Link href={`/${locale}/case-studies`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
-              {d.nav.caseStudies}
+              {labels.caseStudies}
             </Link>
             <Link href={`/${locale}/security`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
-              {d.nav.security}
+              {labels.security}
             </Link>
             <Link href={`/${locale}/nodes`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
-              {d.nav.nodes}
+              {labels.nodes}
             </Link>
             <Link href={`/${locale}/patterns`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
-              {d.nav.patterns}
+              {labels.patterns}
             </Link>
           </div>
         </div>
