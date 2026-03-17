@@ -2,8 +2,6 @@ import { type NextRequest, NextResponse } from "next/server"
 import { generateText, streamText } from "ai"
 import { openai } from "@ai-sdk/openai"
 
-export const runtime = "edge"
-
 export async function POST(request: NextRequest) {
   try {
     const { message, scenario, messages } = await request.json()
