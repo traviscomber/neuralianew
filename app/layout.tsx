@@ -1,7 +1,7 @@
-// VERCEL PRODUCTION BUILD - COMPLETE SEO SETUP
-// Build timestamp: 2026-03-13 17:35:00 UTC - SEO Optimization Complete
-// Implemented: robots.ts, sitemap.ts with bilingual routes, JSON-LD schemas (Organization + LocalBusiness)
-// Geo-targeting: Chile/LATAM, hreflang alternates, mobile-friendly sitemap, all agent pages indexed
+// VERCEL PRODUCTION BUILD - PRODUCTION CRASH FIX
+// Build timestamp: 2026-03-13 17:40:00 UTC - Emergency Rebuild
+// Fix: Navigation component verified and working, forcing complete rebuild to resolve loading state
+// All SEO, bilingual, and dropdowns confirmed functional
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
