@@ -154,15 +154,7 @@ export default function Navigation({ locale: initialLocale }: NavigationProps = 
         </div>
       )}
     </nav>
-  )
 }
-
-  return (
-    <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href('/')} className="flex items-center flex-shrink-0">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
-        </Link>
 
         <div className="hidden md:flex flex-1 justify-center items-center gap-1">
           <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
