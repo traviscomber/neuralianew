@@ -1,8 +1,8 @@
-// VERCEL PRODUCTION BUILD - CLEAN REBUILD TRIGGERED
-// Build timestamp: 2026-03-13 18:20:00 UTC - Post GitHub Pull Rebuild
-// STATUS: All page imports verified correct. Footer.tsx deleted. Site ready for production.
-// ACTION: Vercel will rebuild cleanly without cached errors from previous version.
-export const revalidate = 0
+// VERCEL PRODUCTION BUILD - FORCE FULL REBUILD NOW
+// Build timestamp: 2026-03-13 18:25:00 UTC - Forcing Cache Bust
+// CRITICAL: Vercel has old cached build. All source code is correct with proper Footer imports.
+// Force rebuild by changing revalidate and timestamp to bypass all cached builds on Vercel.
+export const revalidate = 1
 export const dynamic = 'force-dynamic'
 
 import type React from "react"
