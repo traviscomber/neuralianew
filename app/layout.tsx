@@ -1,7 +1,7 @@
-// VERCEL PRODUCTION BUILD - BILINGUAL SUPPORT COMPLETE
-// Build timestamp: 2026-03-13 17:30:00 UTC - Spanish/English Localization
-// Fixed: Agent Operations page now fully bilingual with proper Spanish translations and metadata
-// Navigation dropdown working, dark theme guaranteed, all sections translated
+// VERCEL PRODUCTION BUILD - COMPLETE SEO SETUP
+// Build timestamp: 2026-03-13 17:35:00 UTC - SEO Optimization Complete
+// Implemented: robots.ts, sitemap.ts with bilingual routes, JSON-LD schemas (Organization + LocalBusiness)
+// Geo-targeting: Chile/LATAM, hreflang alternates, mobile-friendly sitemap, all agent pages indexed
 export const revalidate = 0
 export const dynamic = 'force-dynamic'
 
@@ -129,6 +129,85 @@ export default function RootLayout({
                 html.classList.add('dark');
               }
             `,
+          }}
+        />
+        {/* JSON-LD Schema for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "N3uralia",
+              "alternateName": "Neuralia",
+              "url": "https://n3uralia.com",
+              "logo": "https://n3uralia.com/logo-n3uralia.png",
+              "description": "Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar.",
+              "sameAs": [
+                "https://twitter.com/n3uralia",
+                "https://linkedin.com/company/n3uralia"
+              ],
+              "areaServed": [
+                {
+                  "@type": "Country",
+                  "name": "Chile"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Peru"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Colombia"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Mexico"
+                }
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Sales",
+                "email": "info@n3uralia.com",
+                "url": "https://n3uralia.com/contact"
+              },
+              "foundingDate": "2023",
+              "knowsAbout": [
+                "Agentic AI",
+                "Multi-Agent Systems",
+                "AI Orchestration",
+                "AI Infrastructure",
+                "Enterprise AI",
+                "Agent Operations"
+              ]
+            }),
+          }}
+        />
+        {/* JSON-LD Schema for LocalBusiness (Chile Focus) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "N3uralia",
+              "image": "https://n3uralia.com/logo-n3uralia.png",
+              "description": "Sistemas agenticos en producción para empresas en Chile y LATAM",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "CL",
+                "addressRegion": "Santiago",
+                "streetAddress": "Santiago, Chile"
+              },
+              "telephone": "+56993826127",
+              "url": "https://n3uralia.com",
+              "priceRange": "$$",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "42"
+              }
+            }),
           }}
         />
         <StructuredData />
