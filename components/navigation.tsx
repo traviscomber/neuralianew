@@ -154,11 +154,8 @@ export default function Navigation({ locale: initialLocale }: NavigationProps = 
         </div>
       )}
     </nav>
+  )
 }
-
-        <div className="hidden md:flex flex-1 justify-center items-center gap-1">
-          <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.capabilities}
           </Link>
 
           <Link href={href('/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
