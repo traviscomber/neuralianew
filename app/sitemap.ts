@@ -1,68 +1,65 @@
 import type { MetadataRoute } from "next"
 
 const SITE_URL = "https://n3uralia.com"
-const LOCALES = ["es", "en"]
 
-// Core routes that exist in the application
-const ROUTES = [
-  "/",
-  "/capabilities",
-  "/soluciones",
-  "/case-studies",
-  "/contact",
-  "/faq",
-  "/studies",
-  "/automatizacion-para-empresas",
-  "/automatizacion-ventas-leads",
-  "/operaciones-autonomas",
-  "/integraciones-empresariales",
+// Production routes with comprehensive coverage including new Agent Systems pages
+const ROUTE_PAIRS = [
+  { es: "", en: "", priority: 1.0, changeFreq: "daily" as const },
+  { es: "/capacidades", en: "/capabilities", priority: 0.95, changeFreq: "weekly" as const },
+  { es: "/soluciones", en: "/solutions", priority: 0.95, changeFreq: "weekly" as const },
+  { es: "/agent-matrix", en: "/agent-matrix", priority: 0.9, changeFreq: "weekly" as const },
+  { es: "/agent-operations", en: "/agent-operations", priority: 0.9, changeFreq: "weekly" as const },
+  { es: "/casos-de-exito", en: "/case-studies", priority: 0.85, changeFreq: "monthly" as const },
+  { es: "/agentic-systems", en: "/agentic-systems", priority: 0.85, changeFreq: "monthly" as const },
+  { es: "/preguntas-frecuentes", en: "/faq", priority: 0.75, changeFreq: "monthly" as const },
+  { es: "/acerca-de", en: "/about", priority: 0.8, changeFreq: "monthly" as const },
+  { es: "/contactar", en: "/contact", priority: 0.85, changeFreq: "monthly" as const },
+  { es: "/platform", en: "/platform", priority: 0.8, changeFreq: "monthly" as const },
+  { es: "/patterns", en: "/patterns", priority: 0.7, changeFreq: "monthly" as const },
+  { es: "/nodes", en: "/nodes", priority: 0.7, changeFreq: "monthly" as const },
+  { es: "/blog", en: "/blog", priority: 0.8, changeFreq: "weekly" as const },
+  { es: "/labs", en: "/labs", priority: 0.6, changeFreq: "monthly" as const },
+  { es: "/como-trabajamos", en: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
 
-  // Add main root URL
-  entries.push({
-    url: SITE_URL,
-    lastModified: new Date(),
-    changeFrequency: "weekly" as const,
-    priority: 1.0,
-  })
+  // Generate sitemap entries for each route pair
+  ROUTE_PAIRS.forEach(({ es, en, priority, changeFreq }) => {
+    const esUrl = es === "" ? `${SITE_URL}/es` : `${SITE_URL}/es${es}`
+    const enUrl = en === "" ? `${SITE_URL}/en` : `${SITE_URL}/en${en}`
 
-  // Add localized routes (es, en)
-  LOCALES.forEach((locale) => {
-    ROUTES.forEach((route) => {
-      const cleanRoute = route === "/" ? "" : route
-      let changeFreq: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never" = "monthly"
-
-      // Set different change frequencies for different route types
-      if (route === "/") {
-        changeFreq = "weekly"
-      } else if (route === "/blog") {
-        changeFreq = "daily"
-      } else if (route === "/faq" || route === "/contact") {
-        changeFreq = "monthly"
-      }
-
-      let priority = 0.7 // Default priority
-      if (route === "/") priority = 1.0
-      else if (["/capabilities", "/soluciones", "/case-studies"].includes(route)) priority = 0.9
-      else if (route === "/contact") priority = 0.8
-      else if (["/faq", "/studies"].includes(route)) priority = 0.7
-
-      entries.push({
-        url: `${SITE_URL}/${locale}${cleanRoute}`,
-        lastModified: new Date(),
-        changeFrequency: changeFreq,
-        priority: priority,
-        alternates: {
-          languages: {
-            es: `${SITE_URL}/es${cleanRoute}`,
-            en: `${SITE_URL}/en${cleanRoute}`,
-            "x-default": `${SITE_URL}${cleanRoute}`,
-          },
+    // Add Spanish entry
+    entries.push({
+      url: esUrl,
+      lastModified: new Date(),
+      changeFrequency: changeFreq,
+      priority: priority,
+      alternates: {
+        languages: {
+          es: esUrl,
+          "es-CL": esUrl,
+          en: enUrl,
+          "en-US": enUrl,
         },
-      })
+      },
+    })
+
+    // Add English entry
+    entries.push({
+      url: enUrl,
+      lastModified: new Date(),
+      changeFrequency: changeFreq,
+      priority: priority,
+      alternates: {
+        languages: {
+          es: esUrl,
+          "es-CL": esUrl,
+          en: enUrl,
+          "en-US": enUrl,
+        },
+      },
     })
   })
 

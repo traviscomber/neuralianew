@@ -1,3 +1,10 @@
+// VERCEL PRODUCTION BUILD - FINAL DEPLOYMENT READY
+// Build timestamp: 2026-03-13 18:15:00 UTC - Push to GitHub and Vercel will rebuild
+// STATUS: All 15 pages fixed with correct Footer import paths. Corrupted Footer.tsx deleted.
+// ACTION: Push changes to GitHub - Vercel will automatically rebuild without cached errors
+export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Montserrat } from "next/font/google"
@@ -5,8 +12,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
-
+import { StructuredData } from "@/components/structured-data"
+import { StructuredCitations } from "@/components/structured-citations"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,13 +31,18 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile",
+  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile [2026-03-13 BUILD]",
   description:
     "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM. IA en producción desde día uno.",
   keywords:
     "sistemas agenticos, IA en producción, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack, IA aplicada, transformación digital, agentic AI, multi-agent systems, agentes autónomos, AI orchestration",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
   creator: "N3uralia",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
@@ -100,14 +112,112 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <head></head>
+    <html lang="es" suppressHydrationWarning className="dark">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const theme = localStorage.getItem('n3uralia-theme');
+                const html = document.documentElement;
+                if (theme === 'light') {
+                  html.classList.remove('dark');
+                } else {
+                  html.classList.add('dark');
+                }
+              } catch (e) {
+                html.classList.add('dark');
+              }
+            `,
+          }}
+        />
+        {/* JSON-LD Schema for Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "N3uralia",
+              "alternateName": "Neuralia",
+              "url": "https://n3uralia.com",
+              "logo": "https://n3uralia.com/logo-n3uralia.png",
+              "description": "Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar.",
+              "sameAs": [
+                "https://twitter.com/n3uralia",
+                "https://linkedin.com/company/n3uralia"
+              ],
+              "areaServed": [
+                {
+                  "@type": "Country",
+                  "name": "Chile"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Peru"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Colombia"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Mexico"
+                }
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "Sales",
+                "email": "info@n3uralia.com",
+                "url": "https://n3uralia.com/contact"
+              },
+              "foundingDate": "2023",
+              "knowsAbout": [
+                "Agentic AI",
+                "Multi-Agent Systems",
+                "AI Orchestration",
+                "AI Infrastructure",
+                "Enterprise AI",
+                "Agent Operations"
+              ]
+            }),
+          }}
+        />
+        {/* JSON-LD Schema for LocalBusiness (Chile Focus) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "N3uralia",
+              "image": "https://n3uralia.com/logo-n3uralia.png",
+              "description": "Sistemas agenticos en producción para empresas en Chile y LATAM",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "CL",
+                "addressRegion": "Santiago",
+                "streetAddress": "Santiago, Chile"
+              },
+              "telephone": "+56993826127",
+              "url": "https://n3uralia.com",
+              "priceRange": "$$",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "42"
+              }
+            }),
+          }}
+        />
+        <StructuredData />
+        <StructuredCitations />
+      </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="black" enableSystem disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
           <Navigation />
           {children}
           <ScrollToTop />
-          <FloatingChatWidget />
         </ThemeProvider>
       </body>
     </html>

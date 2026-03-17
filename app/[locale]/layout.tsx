@@ -3,7 +3,6 @@ import type { ReactNode } from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
@@ -50,13 +49,12 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
 
   return (
     <>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
         <Navigation locale={locale} />
         <main role="main">
           {children}
         </main>
         <ScrollToTop />
-        <FloatingChatWidget />
       </ThemeProvider>
     </>
   )

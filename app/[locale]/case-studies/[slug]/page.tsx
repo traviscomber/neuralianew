@@ -4,7 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { getCaseStudy, t2 } from "@/content/caseStudies"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { Section } from "@/components/Section"
 
 interface PageProps {

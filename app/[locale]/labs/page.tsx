@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/lib/get-locale"
 import Navigation from "@/components/navigation"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 
 interface PageProps {
   params: { locale: string }

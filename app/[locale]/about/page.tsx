@@ -4,7 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { BillingualSection, SectionHeader, ValueCard, PhilosophyItem } from "@/components/bilingual-section"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {
@@ -16,13 +16,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
   const isES = locale === "es"
 
   return generatePageMetadata({
-    title: isES ? "Acerca de N3uralia" : "About N3uralia",
+    title: isES ? "Acerca de N3uralia - Plataforma de Sistemas Agenticos en Producción" : "About N3uralia - Agentic Systems Platform for Production",
     description: isES
-      ? "N3uralia: por qué construimos una plataforma de sistemas agenticos diferente. Filosofía, visión, valores."
-      : "N3uralia: why we build a different agentic systems platform. Philosophy, vision, values.",
+      ? "Conoce la filosofía de N3uralia: por qué construimos una plataforma diferente de sistemas agenticos. Nuestra misión, visión y valores. Inteligencia aumentada para empresas."
+      : "Discover N3uralia's philosophy: why we built a different agentic systems platform. Our mission, vision, and values. Augmented intelligence for enterprises.",
     keywords: isES
-      ? "acerca de n3uralia, misión, visión, AI agents, sistemas agenticos, fullstack, ingeniería"
-      : "about n3uralia, mission, vision, AI agents, agentic systems, fullstack, engineering",
+      ? "acerca de n3uralia, misión, visión, valores, sistemas agenticos, IA aumentada, inteligencia artificial, agentes inteligentes, Chile LATAM"
+      : "about n3uralia, mission, vision, values, agentic systems, augmented AI, artificial intelligence, intelligent agents",
     canonical: `https://n3uralia.com/${locale}/about`,
     locale,
   })

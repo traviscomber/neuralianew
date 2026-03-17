@@ -8,6 +8,8 @@ import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
 import { SECTORS } from "@/content/sectors"
+import { TieredCtas } from "@/components/tiered-ctas"
+import { IndustryNavigation } from "@/components/industry-navigation"
 
 interface PageProps {
   params: { locale: string }
@@ -297,6 +299,10 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
       </main>
+
+      <IndustryNavigation locale={locale} />
+
+      <TieredCtas locale={locale} />
 
       <Footer />
     </>

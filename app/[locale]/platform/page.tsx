@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { PlatformClient } from "@/components/platform/platform-client"
 
 interface PageProps {

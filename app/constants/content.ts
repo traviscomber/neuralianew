@@ -196,33 +196,64 @@ export const whatIsN3uralia = {
 
 // Enterprise Solutions
 export const enterpriseSolutions = {
-  hero: {
-    heading: "Soluciones adaptadas a tu contexto",
-    subheading: "Cada organización es única. Diseñamos soluciones que responden a realidades específicas: complejidad operacional, presupuesto, timeline y aspiraciones de transformación.",
+  es: {
+    hero: {
+      heading: "Soluciones adaptadas a tu contexto",
+      subheading: "Cada organización es única. Diseñamos soluciones que responden a realidades específicas: complejidad operacional, presupuesto, timeline y aspiraciones de transformación.",
+    },
+    segments: [
+      {
+        title: "Para Empresas",
+        painPoints: ["Procesos complejos que no escalan", "Dependencia excesiva de equipos", "Integración de sistemas legacy"],
+        approach: "Automatización inteligente, reducción de costos operacionales, escalabilidad sostenible",
+        roi: "40-60% reducción de costos en 12 meses",
+        cta: "Agendar Demo",
+      },
+      {
+        title: "Para Startups",
+        painPoints: ["Recursos limitados, máximo impacto", "Necesidad de velocidad", "Automatización desde el inicio"],
+        approach: "Arquitectura escalable, building block modular, IA como ventaja competitiva",
+        roi: "2x productividad del equipo sin aumentar headcount",
+        cta: "Explorar Soluciones",
+      },
+      {
+        title: "Para Desarrolladores",
+        painPoints: ["Integración compleja de APIs IA", "Falta de documentación clara", "Soporte técnico limitado"],
+        approach: "SDKs robustos, documentación exhaustiva, comunidad activa",
+        roi: "50% menos tiempo en integración",
+        cta: "Ver Docs",
+      },
+    ],
   },
-  segments: [
-    {
-      title: "Para Empresas",
-      painPoints: ["Procesos complejos que no escalan", "Dependencia excesiva de equipos", "Integración de sistemas legacy"],
-      approach: "Automatización inteligente, reducción de costos operacionales, escalabilidad sostenible",
-      roi: "40-60% reducción de costos en 12 meses",
-      cta: "Agendar Demo",
+  en: {
+    hero: {
+      heading: "Solutions tailored to your context",
+      subheading: "Every organization is unique. We design solutions that respond to specific realities: operational complexity, budget, timeline and transformation aspirations.",
     },
-    {
-      title: "Para Startups",
-      painPoints: ["Recursos limitados, máximo impacto", "Necesidad de velocidad", "Automatización desde el inicio"],
-      approach: "Arquitectura escalable, building block modular, IA como ventaja competitiva",
-      roi: "2x productividad del equipo sin aumentar headcount",
-      cta: "Explorar Soluciones",
-    },
-    {
-      title: "Para Desarrolladores",
-      painPoints: ["Integración compleja de APIs IA", "Falta de documentación clara", "Soporte técnico limitado"],
-      approach: "SDKs robustos, documentación exhaustiva, comunidad activa",
-      roi: "50% menos tiempo en integración",
-      cta: "Ver Docs",
-    },
-  ],
+    segments: [
+      {
+        title: "For Enterprises",
+        painPoints: ["Complex processes that don't scale", "Excessive team dependency", "Legacy system integration"],
+        approach: "Intelligent automation, operational cost reduction, sustainable scalability",
+        roi: "40-60% cost reduction in 12 months",
+        cta: "Schedule Demo",
+      },
+      {
+        title: "For Startups",
+        painPoints: ["Limited resources, maximum impact", "Need for speed", "Automation from the start"],
+        approach: "Scalable architecture, modular building blocks, AI as competitive advantage",
+        roi: "2x team productivity without increasing headcount",
+        cta: "Explore Solutions",
+      },
+      {
+        title: "For Developers",
+        painPoints: ["Complex AI API integration", "Lack of clear documentation", "Limited technical support"],
+        approach: "Robust SDKs, comprehensive documentation, active community",
+        roi: "50% less integration time",
+        cta: "View Docs",
+      },
+    ],
+  },
 }
 
 // CTA Messages

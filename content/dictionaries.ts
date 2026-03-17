@@ -5,6 +5,7 @@ type Dict = {
     platform: string;
     agentic: string;
     infra: string;
+    agentMatrix: string;
     playbooks: string;
     caseStudies: string;
     labs: string;
@@ -118,44 +119,6 @@ type Dict = {
     values: Array<{ title: string; desc: string }>;
     closing: string;
   };
-  solutions: {
-    hero: {
-      badge: string;
-      heading: string;
-      subheading: string;
-    };
-    whyChoose: {
-      title: string;
-      enterprises: string;
-      startups: string;
-      developers: string;
-      benefits: {
-        enterprises: string[];
-        startups: string[];
-        developers: string[];
-      };
-    };
-    realProjects: {
-      title: string;
-      description: string;
-      projects: {
-        legal: { title: string; desc: string };
-        mining: { title: string; desc: string };
-        security: { title: string; desc: string };
-        agriculture: { title: string; desc: string };
-        retail: { title: string; desc: string };
-        art: { title: string; desc: string };
-      };
-      noIndustry: string;
-      customSolution: string;
-    };
-    nextSteps: {
-      title: string;
-      description: string;
-      learnMore: string;
-      scheduleDemo: string;
-    };
-  };
 };
 
 export const DICTS: Record<Locale, Dict> = {
@@ -164,13 +127,14 @@ export const DICTS: Record<Locale, Dict> = {
       platform: "Plataforma",
       agentic: "Sistemas Agénticos",
       infra: "Infraestructura IA",
+      agentMatrix: "Agent Matrix",
       playbooks: "Playbooks",
       caseStudies: "Casos de Éxito",
       labs: "Labs",
       nodes: "Nodes",
       patterns: "Patterns",
       security: "Seguridad",
-      contact: "Contactar",
+      contact: "Contacto",
     },
     cta: {
       requestReview: "Solicitar revisión de arquitectura",
@@ -293,88 +257,13 @@ export const DICTS: Record<Locale, Dict> = {
       ],
       closing: "No somos perfectos, pero estamos comprometidos. Comprometidos con tu éxito, con construir con integridad, y con hacer la IA accesible. Ese es N3uralia.",
     },
-    solutions: {
-      hero: {
-        badge: "Soluciones",
-        heading: "Soluciones Agenticas para Cada Industria",
-        subheading: "Sistemas personalizados diseñados para los desafíos únicos de tu negocio. Desde automatización de operaciones hasta inteligencia conversacional.",
-      },
-      whyChoose: {
-        title: "¿Por qué cada segmento elige N3uralia?",
-        enterprises: "Empresas",
-        startups: "Startups",
-        developers: "Desarrolladores",
-        benefits: {
-          enterprises: [
-            "Production-ready desde día 1 con SLAs garantizados",
-            "Escalabilidad integrada para millones de transacciones",
-            "Seguridad y compliance empresarial",
-            "ROI comprobado: 40-60% reducción de costos en 12 meses",
-            "Integración limpia con sistemas legacy",
-            "Equipo dedicado 24/7",
-          ],
-          startups: [
-            "Arquitectura escalable desde el inicio",
-            "Building blocks modulares, máxima flexibilidad",
-            "IA como ventaja competitiva inmediata",
-            "2x productividad sin aumentar headcount",
-            "Pricing flexible para startups",
-            "Comunidad activa y soporte rápido",
-          ],
-          developers: [
-            "SDKs robustos y bien documentados",
-            "APIs claras y predecibles",
-            "Documentación exhaustiva con ejemplos",
-            "50% menos tiempo en integración",
-            "Comunidad técnica activa",
-            "Herramientas de debugging avanzadas",
-          ],
-        },
-      },
-      realProjects: {
-        title: "Desarrollos Reales en Producción",
-        description: "Casos reales de sistemas agenticos que hemos construido y están operando hoy",
-        projects: {
-          legal: { 
-            title: "Análisis Legal Automatizado",
-            desc: "Agentes que revisan contratos, identifican cláusulas riesgosas y generan reportes en segundos. Reducción 90% en tiempo de revisión.",
-          },
-          mining: {
-            title: "Monitoreo de Operaciones Mineras",
-            desc: "Orquestación de sensores, predicción de fallas, optimización de turnos. 35% aumento en eficiencia operativa.",
-          },
-          security: {
-            title: "Detección de Fraude Inteligente",
-            desc: "Agentes que detectan patrones anómalos, validan transacciones y previenen fraude en tiempo real. 98% precisión.",
-          },
-          agriculture: {
-            title: "Automatización Agrícola (Ecosuelolab)",
-            desc: "Monitoreo satelital + alertas automáticas en WhatsApp. Decisiones de riego en segundos, no horas.",
-          },
-          retail: {
-            title: "Personalización en Retail",
-            desc: "Recomendaciones en tiempo real, gestión de inventario predictiva. 45% aumento en conversión.",
-          },
-          art: {
-            title: "Curaduría y Análisis de Arte",
-            desc: "Agentes que validan autenticidad, sugieren curatoría inteligente y conectan coleccionistas con obras.",
-          },
-        },
-        noIndustry: "¿Tu industria no está aquí? Hablemos sobre tu caso específico.",
-        customSolution: "Consultar Solución Personalizada",
-      },
-      nextSteps: {
-        title: "¿Cuál es tu próximo paso?",
-        description: "Independientemente de tu segmento, el primer paso es el mismo: una conversación clara sobre tus objetivos y restricciones.",
-        learnMore: "Aprender más",
-        scheduleDemo: "Agendar Demo",
-      },
-    },
+  },
   en: {
     nav: {
       platform: "Platform",
       agentic: "Agentic Systems",
       infra: "AI Infrastructure",
+      agentMatrix: "Agent Matrix",
       playbooks: "Playbooks",
       caseStudies: "Case Studies",
       labs: "Labs",
@@ -504,86 +393,10 @@ export const DICTS: Record<Locale, Dict> = {
       ],
       closing: "We're not perfect, but we're committed. Committed to your success, to building with integrity, and to making AI accessible. That's N3uralia.",
     },
-    solutions: {
-      hero: {
-        badge: "Solutions",
-        heading: "Agentic Solutions for Every Industry",
-        subheading: "Custom systems designed for the unique challenges of your business. From operations automation to conversational intelligence.",
-      },
-      whyChoose: {
-        title: "Why Every Segment Chooses N3uralia?",
-        enterprises: "Enterprises",
-        startups: "Startups",
-        developers: "Developers",
-        benefits: {
-          enterprises: [
-            "Production-ready from day 1 with guaranteed SLAs",
-            "Built-in scalability for millions of transactions",
-            "Enterprise-grade security and compliance",
-            "Proven ROI: 40-60% cost reduction in 12 months",
-            "Clean integration with legacy systems",
-            "Dedicated 24/7 team support",
-          ],
-          startups: [
-            "Scalable architecture from the start",
-            "Modular building blocks, maximum flexibility",
-            "AI as immediate competitive advantage",
-            "2x productivity without increasing headcount",
-            "Flexible pricing for startups",
-            "Active community and rapid support",
-          ],
-          developers: [
-            "Robust and well-documented SDKs",
-            "Clear and predictable APIs",
-            "Exhaustive documentation with examples",
-            "50% less integration time",
-            "Active technical community",
-            "Advanced debugging tools",
-          ],
-        },
-      },
-      realProjects: {
-        title: "Real Production Systems",
-        description: "Real cases of agentic systems we've built that are operating today",
-        projects: {
-          legal: {
-            title: "Automated Legal Analysis",
-            desc: "Agents that review contracts, identify risky clauses, and generate reports in seconds. 90% reduction in review time.",
-          },
-          mining: {
-            title: "Mining Operations Monitoring",
-            desc: "Sensor orchestration, failure prediction, shift optimization. 35% increase in operational efficiency.",
-          },
-          security: {
-            title: "Intelligent Fraud Detection",
-            desc: "Agents that detect anomalous patterns, validate transactions, and prevent fraud in real time. 98% accuracy.",
-          },
-          agriculture: {
-            title: "Agricultural Automation (Ecosuelolab)",
-            desc: "Satellite monitoring + automatic WhatsApp alerts. Irrigation decisions in seconds, not hours.",
-          },
-          retail: {
-            title: "Retail Personalization",
-            desc: "Real-time recommendations, predictive inventory management. 45% increase in conversion.",
-          },
-          art: {
-            title: "Art Curation and Analysis",
-            desc: "Agents that validate authenticity, suggest intelligent curation, and connect collectors with works.",
-          },
-        },
-        noIndustry: "Your industry not here? Let's talk about your specific case.",
-        customSolution: "Consult Custom Solution",
-      },
-      nextSteps: {
-        title: "What's Your Next Step?",
-        description: "Regardless of your segment, the first step is the same: a clear conversation about your goals and constraints.",
-        learnMore: "Learn More",
-        scheduleDemo: "Schedule Demo",
-      },
-    },
   },
-} as const satisfies Record<Locale, Dict>;
+};
 
+// Export the dictionary getter function
 export function getDict(locale: Locale) {
   return DICTS[locale];
 }
