@@ -9,13 +9,13 @@ import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
-  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [agentOpen, setAgentOpen] = useState(false)
   const params = useParams()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
 
   const href = (path: string) => `/${locale}${path}`
-  const hrefLang = (path: string) => `/${isES ? 'en' : 'es'}${path}`
+  const toggleLocale = () => `/${isES ? 'en' : 'es'}${locale === 'es' ? '' : ''}`
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
@@ -25,57 +25,56 @@ export default function Navigation() {
         </Link>
 
         <div className="hidden md:flex flex-1 justify-center items-center gap-1">
-          <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
           <div className="relative group">
             <button 
-              onMouseEnter={() => setDropdownOpen(true)}
-              onMouseLeave={() => setDropdownOpen(false)}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1"
+              onMouseEnter={() => setAgentOpen(true)}
+              onMouseLeave={() => setAgentOpen(false)}
             >
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className="w-4 h-4" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              <ChevronDown className="w-4 h-4" />
             </button>
-
-            {dropdownOpen && (
+            {agentOpen && (
               <div 
-                onMouseEnter={() => setDropdownOpen(true)}
-                onMouseLeave={() => setDropdownOpen(false)}
                 className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
+                onMouseEnter={() => setAgentOpen(true)}
+                onMouseLeave={() => setAgentOpen(false)}
               >
-                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
                   Agent Matrix
                 </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
+                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
           </Link>
-          <Link href={href('/faq')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/faq')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             FAQ
           </Link>
-          <Link href={href('/about')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/about')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Acerca de' : 'About'}
           </Link>
         </div>
 
         <div className="hidden md:flex gap-2 items-center">
-          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors">
+          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition">
             {isES ? 'Contactar' : 'Contact'}
           </Link>
-          <Link href={hrefLang('/')} className="px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground text-sm font-medium transition-all">
+          <Link href={toggleLocale} className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
             <Globe className="w-4 h-4" />
-            {isES ? 'ES' : 'EN'}
+            {isES ? 'EN' : 'ES'}
           </Link>
           <ThemeToggle />
         </div>
@@ -87,44 +86,48 @@ export default function Navigation() {
 
       {open && (
         <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
-          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
+          
+          <div>
+            <button 
+              onClick={() => setAgentOpen(!agentOpen)}
+              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition flex items-center justify-between"
+            >
+              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+              <ChevronDown className="w-4 h-4" />
+            </button>
+            {agentOpen && (
+              <div className="ml-4 space-y-2 mt-2 border-l-2 border-muted/50 pl-2">
+                <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+                  Agent Matrix
+                </Link>
+                <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+                  {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
+                </Link>
+              </div>
+            )}
+          </div>
 
-          <button onClick={() => setDropdownOpen(!dropdownOpen)} className="w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center justify-between">
-            {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-            <ChevronDown className="w-4 h-4" style={{ transform: dropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-          </button>
-
-          {dropdownOpen && (
-            <div className="ml-4 space-y-2 border-l-2 border-muted/50 pl-2">
-              <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setDropdownOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-                Agent Matrix
-              </Link>
-              <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setDropdownOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-                {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
-              </Link>
-            </div>
-          )}
-
-          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
           </Link>
-          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
             FAQ
           </Link>
-          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
+          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
             {isES ? 'Acerca de' : 'About'}
           </Link>
 
           <div className="pt-2 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center">
+            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center transition">
               {isES ? 'Contactar' : 'Contact'}
             </Link>
-            <Link href={hrefLang('/')} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 text-muted-foreground text-sm font-medium transition-all">
+            <Link href={toggleLocale} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
               <Globe className="w-4 h-4" />
               {isES ? 'EN' : 'ES'}
             </Link>
