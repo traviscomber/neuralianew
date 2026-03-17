@@ -15,12 +15,13 @@ export default function Navigation() {
   const isES = locale === 'es'
 
   const href = (path: string) => `/${locale}${path}`
-  const toggleLocale = () => `/${isES ? 'en' : 'es'}${locale === 'es' ? '' : ''}`
+  const otherLocale = isES ? 'en' : 'es'
+  const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
       <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href('/')} className="flex items-center">
+        <Link href={href('/')} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
@@ -68,11 +69,11 @@ export default function Navigation() {
           </Link>
         </div>
 
-        <div className="hidden md:flex gap-2 items-center">
-          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition">
+        <div className="hidden md:flex gap-2 items-center flex-shrink-0">
+          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium transition">
             {isES ? 'Contactar' : 'Contact'}
           </Link>
-          <Link href={toggleLocale} className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
+          <Link href={hrefLocale('/')} className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
             <Globe className="w-4 h-4" />
             {isES ? 'EN' : 'ES'}
           </Link>
@@ -127,7 +128,7 @@ export default function Navigation() {
             <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center transition">
               {isES ? 'Contactar' : 'Contact'}
             </Link>
-            <Link href={toggleLocale} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
+            <Link href={hrefLocale('/')} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
               <Globe className="w-4 h-4" />
               {isES ? 'EN' : 'ES'}
             </Link>
