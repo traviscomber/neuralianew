@@ -50,14 +50,22 @@ export default function Navigation({ locale: initialLocale }: NavigationProps = 
             {labels.solutions}
           </Link>
 
-          <div className="relative group">
-            <button onMouseEnter={() => setAgentSystemsOpen(true)} onMouseLeave={() => setAgentSystemsOpen(false)} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1">
+          <div className="relative">
+            <button 
+              onMouseEnter={() => setAgentSystemsOpen(true)} 
+              onMouseLeave={() => setAgentSystemsOpen(false)} 
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1"
+            >
               {labels.agentSystems}
-              <ChevronDown className="w-4 h-4 transition-transform" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              <ChevronDown className="w-4 h-4" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
             </button>
 
             {agentSystemsOpen && (
-              <div onMouseEnter={() => setAgentSystemsOpen(true)} onMouseLeave={() => setAgentSystemsOpen(false)} className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
+              <div 
+                onMouseEnter={() => setAgentSystemsOpen(true)} 
+                onMouseLeave={() => setAgentSystemsOpen(false)} 
+                className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
+              >
                 <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
                   {labels.agentMatrix}
                 </Link>
@@ -112,119 +120,7 @@ export default function Navigation({ locale: initialLocale }: NavigationProps = 
           <div>
             <button onClick={() => setAgentSystemsOpen(!agentSystemsOpen)} className="w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center justify-between">
               {labels.agentSystems}
-              <ChevronDown className="w-4 h-4 transition-transform" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-            </button>
-            
-            {agentSystemsOpen && (
-              <div className="ml-4 space-y-2 mt-2 border-l-2 border-muted/50 pl-2">
-                <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setAgentSystemsOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-                  {labels.agentMatrix}
-                </Link>
-                <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setAgentSystemsOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-                  {labels.agentOperations}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.caseStudies}
-          </Link>
-
-          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.faq}
-          </Link>
-
-          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.about}
-          </Link>
-
-          <div className="pt-2 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center">
-              {labels.contact}
-            </Link>
-            <Link href={hrefLocale('/')} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all">
-              <Globe className="w-4 h-4" />
-              <span>{isES ? 'EN' : 'ES'}</span>
-            </Link>
-            <div className="pt-2">
-              <ThemeToggle />
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  )
-}
-          </Link>
-
-          <Link href={href('/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.solutions}
-          </Link>
-
-          <div className="relative group">
-            <button onMouseEnter={() => setAgentSystemsOpen(true)} onMouseLeave={() => setAgentSystemsOpen(false)} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center gap-1">
-              {labels.agentSystems}
-              <ChevronDown className="w-4 h-4 transition-transform" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-            </button>
-
-            {agentSystemsOpen && (
-              <div onMouseEnter={() => setAgentSystemsOpen(true)} onMouseLeave={() => setAgentSystemsOpen(false)} className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
-                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
-                  {labels.agentMatrix}
-                </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all">
-                  {labels.agentOperations}
-                </Link>
-              </div>
-            )}
-          </div>
-
-          <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.caseStudies}
-          </Link>
-
-          <Link href={href('/faq')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.faq}
-          </Link>
-
-          <Link href={href('/about')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.about}
-          </Link>
-        </div>
-
-        <div className="hidden md:flex gap-2 items-center flex-shrink-0">
-          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors">
-            {labels.contact}
-          </Link>
-
-          <Link href={hrefLocale('/')} className="px-3 py-2 flex items-center gap-2 border border-primary/30 hover:border-primary/60 text-muted-foreground hover:text-foreground hover:bg-primary/5 rounded-lg text-sm font-medium transition-all">
-            <Globe className="w-4 h-4" />
-            <span>{isES ? 'ES' : 'EN'}</span>
-          </Link>
-
-          <ThemeToggle />
-        </div>
-
-        <button className="md:hidden text-foreground ml-auto" onClick={() => setOpen(!open)}>
-          {open ? <X /> : <Menu />}
-        </button>
-      </div>
-
-      {open && (
-        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
-          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.capabilities}
-          </Link>
-
-          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all">
-            {labels.solutions}
-          </Link>
-
-          <div>
-            <button onClick={() => setAgentSystemsOpen(!agentSystemsOpen)} className="w-full text-left px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all flex items-center justify-between">
-              {labels.agentSystems}
-              <ChevronDown className="w-4 h-4 transition-transform" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+              <ChevronDown className="w-4 h-4" style={{ transform: agentSystemsOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
             </button>
             
             {agentSystemsOpen && (
