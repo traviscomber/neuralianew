@@ -4,7 +4,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { BillingualSection, SectionHeader, ValueCard, PhilosophyItem } from "@/components/bilingual-section"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {

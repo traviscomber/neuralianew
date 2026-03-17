@@ -4,7 +4,7 @@ import { getDict } from "@/content/dictionaries"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Section } from "@/components/Section"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 
 interface PageProps {
   params: { locale: string }

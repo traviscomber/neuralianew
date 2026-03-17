@@ -3,7 +3,7 @@ import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { CASE_STUDIES } from "@/content/caseStudies"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { CaseStudyCard } from "@/components/CaseStudyCard"
 import { generatePageMetadata } from "@/lib/metadata-utils"
 

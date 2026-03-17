@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Footer } from "@/components/Footer"
+import { Footer } from "@/components/layout/footer"
 import { Section } from "@/components/Section"
 
 interface PageProps {
