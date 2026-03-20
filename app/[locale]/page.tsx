@@ -10,6 +10,7 @@ import { HeroBackground } from "@/components/section-background"
 import { SECTORS } from "@/content/sectors"
 import { TieredCtas } from "@/components/tiered-ctas"
 import { IndustryNavigation } from "@/components/industry-navigation"
+import { AgenticSystemsSection } from "@/components/agentic-systems-section"
 
 interface PageProps {
   params: { locale: string }
@@ -144,6 +145,9 @@ export default function HomePage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* 2.5 AGENTIC SYSTEMS Section */}
+        <AgenticSystemsSection locale={locale} />
 
         {/* 3. SECTORS Section - Links to /soluciones */}
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
