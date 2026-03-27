@@ -244,7 +244,7 @@ export const DICTS: Record<Locale, Dict> = {
           desc: "RAG y pipelines listos para producción. Seguridad, observabilidad, evolución continua.",
         },
       },
-    };
+    },
 
 // Export the dictionary getter function
 export function getDict(locale: Locale) {
