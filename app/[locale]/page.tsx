@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Zap, Bot, Code2 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
@@ -10,6 +10,13 @@ import { HeroBackground } from "@/components/section-background"
 import { SECTORS } from "@/content/sectors"
 import { TieredCtas } from "@/components/tiered-ctas"
 import { IndustryNavigation } from "@/components/industry-navigation"
+import { PositioningSection } from "@/components/positioning-section"
+import { WhatWeDoSection } from "@/components/what-we-do-section"
+import { HowWeThinkSection } from "@/components/how-we-think-section"
+import { ArchitectureSection } from "@/components/architecture-section"
+import { DifferentiatorSection } from "@/components/differentiator-section"
+import { ForWhoSection } from "@/components/for-who-section"
+import { ClosingSection } from "@/components/closing-section"
 
 interface PageProps {
   params: { locale: string }
@@ -54,25 +61,15 @@ export default function HomePage({ params }: PageProps) {
             <div className="max-w-4xl mx-auto text-center w-full">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">
-                  {isES ? "Sistemas Agenticos en Producción" : "Agentic Systems in Production"}
-                </span>
+                <span className="text-sm font-medium text-primary">{d.home.hero.badge}</span>
               </div>
 
-              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-                <span className="text-foreground">
-                  {isES ? "De la Experimentación" : "From Experimentation"}
-                </span>
-                <br />
-                <span className="text-primary">
-                  {isES ? "a la Automatización Empresarial" : "to Enterprise Automation"}
-                </span>
+              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance text-foreground">
+                {d.home.hero.title}
               </h1>
 
-              <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-                {isES 
-                  ? "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno."
-                  : "Orchestration of agentic systems that integrate, scale, and evolve. Your operations with augmented intelligence, ready for production from day one."}
+              <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+                {d.home.hero.subtitle}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -80,14 +77,14 @@ export default function HomePage({ params }: PageProps) {
                   href={`/${locale}/contact`}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {isES ? "Comenzar Hoy" : "Start Today"}
+                  {d.home.hero.ctaPrimary}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
                   href={`/${locale}/capabilities`}
                   className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
                 >
-                  {isES ? "Ver Capacidades" : "View Capabilities"}
+                  {d.home.hero.ctaSecondary}
                 </Link>
               </div>
 
@@ -113,39 +110,11 @@ export default function HomePage({ params }: PageProps) {
           </section>
         </HeroBackground>
 
-        {/* 2. WHAT WE DO Section */}
-        <section className="py-20 px-4 border-t border-border bg-background">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.whatWeDo.title}</h2>
-              <p className="text-lg text-muted-foreground">
-                {d.home.whatWeDo.description}
-              </p>
-            </div>
+        {/* 2. POSITIONING Section */}
+        <PositioningSection locale={locale} />
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Zap className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.orchestration.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.orchestration.desc}</p>
-              </div>
-
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Bot className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.evolving.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.evolving.desc}</p>
-              </div>
-
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Code2 className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.integration.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.integration.desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 3. SECTORS Section - Links to /soluciones */}
+        {/* 3. WHAT WE DO Section */}
+        <WhatWeDoSection locale={locale} />
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
@@ -183,7 +152,19 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 4. CLIENTS Section */}
+        {/* 5. HOW WE THINK Section */}
+        <HowWeThinkSection locale={locale} />
+
+        {/* 6. ARCHITECTURE Section */}
+        <ArchitectureSection locale={locale} />
+
+        {/* 7. DIFFERENTIATOR Section */}
+        <DifferentiatorSection locale={locale} />
+
+        {/* 8. FOR WHO Section */}
+        <ForWhoSection locale={locale} />
+
+        {/* 9. CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
@@ -282,22 +263,8 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 5. CTA Section */}
-        <section className="py-20 px-4 border-t border-border bg-background">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">{d.home.cta.title}</h2>
-            <p className="text-muted-foreground mb-8 text-lg">
-              {d.home.cta.subtitle}
-            </p>
-            <Link
-              href={`/${locale}/contact`}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
-            >
-              {d.home.cta.scheduleCall}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </section>
+        {/* 10. CLOSING Section */}
+        <ClosingSection locale={locale} />
       </main>
 
       <IndustryNavigation locale={locale} />
