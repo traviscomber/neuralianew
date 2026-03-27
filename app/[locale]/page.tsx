@@ -272,8 +272,6 @@ export default function HomePage({ params }: PageProps) {
         <ClosingSection locale={locale} />
       </main>
 
-      <IndustryNavigation locale={locale} />
-
       <TieredCtas locale={locale} />
 
       <Footer />
