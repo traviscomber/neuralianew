@@ -223,6 +223,19 @@ export const DICTS: Record<Locale, Dict> = {
       clients: {
         title: "Trusted Clients",
         description: "Leading enterprises transforming their operations with N3uralia",
+        ecosuelolab: {
+          title: "Ecosuelolab",
+          desc: "Soil analysis automation with advanced agentic systems",
+        },
+        despega: {
+          title: "Despega Tu Carrera",
+          desc: "Learning platform with intelligent coaching agents",
+        },
+        blackswan: {
+          title: "Blackswan Facility Core",
+          desc: "Predictive facilities management with agent orchestration",
+        },
+        viewAll: "View All Case Studies",
       },
     },
   en: {
@@ -304,6 +317,19 @@ export const DICTS: Record<Locale, Dict> = {
     clients: {
       title: "Clientes Confiables",
       description: "Empresas líderes que transforman sus operaciones con N3uralia",
+      ecosuelolab: {
+        title: "Ecosuelolab",
+        desc: "Automatización de análisis de suelos con sistemas agénticos avanzados",
+      },
+      despega: {
+        title: "Despega Tu Carrera",
+        desc: "Plataforma de formación con agentes inteligentes de coaching",
+      },
+      blackswan: {
+        title: "Blackswan Facility Core",
+        desc: "Gestión predictiva de instalaciones con orquestación de agentes",
+      },
+      viewAll: "Ver Todos los Casos",
     },
   },
     },
