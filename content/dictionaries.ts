@@ -237,6 +237,10 @@ export const DICTS: Record<Locale, Dict> = {
         },
         viewAll: "View All Case Studies",
       },
+      cta: {
+        title: "Transform Your Operation",
+        subtitle: "Agentic systems ready to scale. Augmented intelligence without complexity. Integration without friction.",
+      },
     },
   en: {
       nav: {
@@ -330,6 +334,10 @@ export const DICTS: Record<Locale, Dict> = {
         desc: "Gestión predictiva de instalaciones con orquestación de agentes",
       },
       viewAll: "Ver Todos los Casos",
+    },
+    cta: {
+      title: "Transformar Tu Operación",
+      subtitle: "Sistemas agénticos listos para escalar. Inteligencia aumentada sin complejidad. Integración sin fricción.",
     },
   },
     },
