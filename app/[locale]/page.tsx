@@ -11,6 +11,8 @@ import { SECTORS } from "@/content/sectors"
 import { TieredCtas } from "@/components/tiered-ctas"
 import { IndustryNavigation } from "@/components/industry-navigation"
 import { AgenticSystemsSection } from "@/components/agentic-systems-section"
+import { HowWeThinkSection } from "@/components/how-we-think-section"
+import { ArchitectureSection } from "@/components/architecture-section"
 
 interface PageProps {
   params: { locale: string }
@@ -148,6 +150,12 @@ export default function HomePage({ params }: PageProps) {
 
         {/* 2.5 AGENTIC SYSTEMS Section */}
         <AgenticSystemsSection locale={locale} />
+
+        {/* 2.7 HOW WE THINK Section */}
+        <HowWeThinkSection locale={locale} />
+
+        {/* 2.8 ARCHITECTURE Section */}
+        <ArchitectureSection locale={locale} />
 
         {/* 3. SECTORS Section - Links to /soluciones */}
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
