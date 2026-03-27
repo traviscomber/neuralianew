@@ -17,9 +17,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v4.0.0-production-fix
-// Removed error throw that was blocking page rendering
-// Complete rebuild required
+// VERCEL CACHE BUSTER: v5.0.0-final-production
+// Fixed: SWC dependencies and Tailwind content patterns
+// Production build with corrected Tailwind config v1.2.0
 
 interface PageProps {
   params: { locale: string }

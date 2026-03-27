@@ -1,11 +1,14 @@
 import type { Config } from "tailwindcss"
 
+// v1.2.0 - Production fix: proper content patterns without node_modules
 const config: Config = {
   darkMode: ["class"],
+  // IMPORTANT: These patterns should NOT include ./**/* as it matches node_modules
+  // Only include specific project directories: app, components, pages, src
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   safelist: [
