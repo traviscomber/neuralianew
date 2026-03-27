@@ -115,6 +115,8 @@ export default function HomePage({ params }: PageProps) {
 
         {/* 3. WHAT WE DO Section */}
         <WhatWeDoSection locale={locale} />
+
+        {/* 4. SECTORS Section - Links to /soluciones */}
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
