@@ -213,10 +213,11 @@ export const DICTS: Record<Locale, Dict> = {
           infrastructure: {
             title: "Infraestructura",
             desc: "RAG y pipelines listos para producción. Seguridad, observabilidad, evolución continua.",
-          },
         },
       },
-    en: {
+    },
+  },
+  en: {
       nav: {
         platform: "Platform",
         agentic: "Agentic Systems",
@@ -286,6 +287,8 @@ export const DICTS: Record<Locale, Dict> = {
               title: "Infrastructure",
               desc: "Production-ready RAG and pipelines. Security, observability, continuous evolution.",
             },
+          },
+        },
       },
     },
   },
