@@ -3,7 +3,7 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale } from "@/content/dictionaries"
+import type { Locale, Dict } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
 export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d = getDict(locale)
+  const d: Dict = getDict(locale)
   const isES = locale === "es"
 
   return (
