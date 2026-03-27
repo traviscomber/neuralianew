@@ -220,6 +220,10 @@ export const DICTS: Record<Locale, Dict> = {
         title: "Our Solutions",
         description: "Explore our complete solutions for enterprise agentic systems",
       },
+      clients: {
+        title: "Trusted Clients",
+        description: "Leading enterprises transforming their operations with N3uralia",
+      },
     },
   en: {
       nav: {
@@ -296,6 +300,10 @@ export const DICTS: Record<Locale, Dict> = {
     solutions: {
       title: "Nuestras Soluciones",
       description: "Explora nuestras soluciones completas para sistemas agénticos empresariales",
+    },
+    clients: {
+      title: "Clientes Confiables",
+      description: "Empresas líderes que transforman sus operaciones con N3uralia",
     },
   },
     },
