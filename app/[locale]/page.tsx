@@ -120,17 +120,12 @@ export default function HomePage({ params }: PageProps) {
         <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.solutions.title}</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                {d.home.solutions.description}
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+                {isES ? "Soluciones por Industria" : "Solutions by Industry"}
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                {isES ? "Sistemas full-stack diseñados para cada sector" : "Full-stack systems designed for every sector"}
               </p>
-              <Link 
-                href={`/${locale}/soluciones`}
-                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
-              >
-                {d.home.solutions.explore}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
