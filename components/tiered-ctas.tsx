@@ -19,10 +19,7 @@ export function TieredCtas({ locale }: TieredCtasProps) {
       icon: BookOpen,
       href: `/${locale}/capabilities`,
       buttonText: isES ? "Ver Capacidades" : "View Capabilities",
-      color: "primary",
-      bgColor: "bg-primary/5",
-      borderColor: "border-primary/30",
-      textColor: "text-primary",
+      step: 1,
     },
     {
       title: isES ? "Aprender" : "Learn",
@@ -33,10 +30,7 @@ export function TieredCtas({ locale }: TieredCtasProps) {
       icon: Zap,
       href: `/${locale}/case-studies`,
       buttonText: isES ? "Ver Casos de Éxito" : "View Case Studies",
-      color: "amber",
-      bgColor: "bg-amber-50 dark:bg-amber-950/20",
-      borderColor: "border-amber-300/50 dark:border-amber-700/50",
-      textColor: "text-amber-600 dark:text-amber-400",
+      step: 2,
     },
     {
       title: isES ? "Demostrativo" : "Demo",
@@ -47,70 +41,82 @@ export function TieredCtas({ locale }: TieredCtasProps) {
       icon: Calendar,
       href: `/${locale}/contact`,
       buttonText: isES ? "Solicitar Demo" : "Request Demo",
-      color: "green",
-      bgColor: "bg-green-50 dark:bg-green-950/20",
-      borderColor: "border-green-300/50 dark:border-green-700/50",
-      textColor: "text-green-600 dark:text-green-400",
+      step: 3,
     },
   ]
 
   return (
-    <section className="py-20 px-4 border-t border-border bg-gradient-to-b from-background to-muted/20">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+    <section className="py-24 px-4 bg-background border-t border-border/50">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight">
             {isES ? "Elige tu próximo paso" : "Choose your next step"}
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             {isES
               ? "Sea cual sea tu nivel de conocimiento, tenemos el recurso que necesitas para avanzar."
               : "Whatever your knowledge level, we have the resource you need to move forward."}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {ctaData.map((cta, index) => {
             const Icon = cta.icon
             return (
               <div
                 key={index}
-                className={`p-8 rounded-lg border transition-all hover:shadow-lg hover:-translate-y-1 ${cta.bgColor} ${cta.borderColor}`}
+                className="group relative"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className={`w-6 h-6 ${cta.textColor}`} />
-                  <div>
-                    <div className={`text-sm font-semibold ${cta.textColor}`}>{cta.subtitle}</div>
-                    <h3 className="text-xl font-bold text-foreground">{cta.title}</h3>
+                {/* Card Background with gradient on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Main card */}
+                <div className="relative p-8 rounded-xl border border-border/50 bg-card hover:border-primary/30 transition-all duration-300 group-hover:shadow-lg flex flex-col h-full">
+                  
+                  {/* Step indicator badge */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 w-fit mb-6">
+                    <span className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-xs font-semibold text-primary">
+                      {isES ? "Paso" : "Step"} {cta.step} {isES ? "de" : "of"} 3
+                    </span>
                   </div>
-                </div>
 
-                <p className="text-sm text-muted-foreground mb-6">
-                  {cta.description}
-                </p>
+                  {/* Icon */}
+                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                    <Icon className="w-6 h-6 text-primary" />
+                  </div>
 
-                <Link
-                  href={cta.href}
-                  className={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all w-full border
-                    ${index === 2
-                      ? `bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-600/50 hover:shadow-lg hover:from-green-600 hover:to-emerald-700`
-                      : index === 1
-                      ? `bg-amber-500 text-white border-amber-600/50 hover:bg-amber-600 hover:shadow-lg`
-                      : `border-primary text-primary hover:bg-primary/10`
-                    }
-                  `}
-                >
-                  {cta.buttonText}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                  {/* Content */}
+                  <div className="flex-1">
+                    <p className="text-xs font-semibold text-primary mb-2 uppercase tracking-wide">{cta.subtitle}</p>
+                    <h3 className="text-2xl font-bold text-foreground mb-4">{cta.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                      {cta.description}
+                    </p>
+                  </div>
 
-                <div className="mt-4 pt-4 border-t border-border/30">
-                  <p className="text-xs text-muted-foreground text-center">
-                    {isES ? "Paso " : "Step "} {index + 1} {isES ? "de" : "of"} 3
-                  </p>
+                  {/* CTA Button */}
+                  <Link
+                    href={cta.href}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-300 w-full
+                      bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5
+                      border border-primary/40
+                    "
+                  >
+                    {cta.buttonText}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
             )
           })}
+        </div>
+
+        {/* Visual connection line (desktop only) */}
+        <div className="hidden md:flex justify-between mt-12 px-8">
+          {[1, 2].map((i) => (
+            <div key={i} className="flex-1 h-0.5 bg-gradient-to-r from-primary/20 to-transparent mx-2" />
+          ))}
         </div>
       </div>
     </section>
