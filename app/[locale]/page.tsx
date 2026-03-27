@@ -113,22 +113,63 @@ export default function HomePage({ params }: PageProps) {
         {/* 2. POSITIONING Section */}
         <PositioningSection locale={locale} />
 
-        {/* 3. WHAT WE DO Section */}
+        {/* 3. SOLUTIONS BY INDUSTRY Section */}
+        <section className="py-24 px-4 border-t border-border bg-background">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
+                {isES ? "Soluciones por Industria" : "Solutions by Industry"}
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                {isES 
+                  ? "Sistemas inteligentes diseñados para los desafíos específicos de cada sector"
+                  : "Intelligent systems designed for each industry's specific challenges"}
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {SECTORS.map((sector, i) => {
+                const Icon = sector.icon
+                return (
+                  <div key={i} className="group p-8 rounded-xl border border-border/50 bg-card hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 hover:shadow-lg">
+                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {isES ? sector.titleES : sector.titleEN}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                      {isES ? sector.descES : sector.descEN}
+                    </p>
+                    <Link
+                      href={sector.link}
+                      className="inline-flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform"
+                    >
+                      {isES ? "Explorar" : "Explore"} <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* 4. WHAT WE DO Section */}
         <WhatWeDoSection locale={locale} />
 
-        {/* 4. HOW WE THINK Section */}
+        {/* 5. HOW WE THINK Section */}
         <HowWeThinkSection locale={locale} />
 
-        {/* 5. ARCHITECTURE Section */}
+        {/* 6. ARCHITECTURE Section */}
         <ArchitectureSection locale={locale} />
 
-        {/* 6. DIFFERENTIATOR Section */}
+        {/* 7. DIFFERENTIATOR Section */}
         <DifferentiatorSection locale={locale} />
 
-        {/* 7. FOR WHO Section */}
+        {/* 8. FOR WHO Section */}
         <ForWhoSection locale={locale} />
 
-        {/* 8. CLIENTS Section */}
+        {/* 9. CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
