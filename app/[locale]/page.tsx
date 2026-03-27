@@ -17,7 +17,7 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// v2.0.0 - Production fixed
+// PRODUCTION CACHE CLEAR - v2.1.0
 
 interface PageProps {
   params: { locale: string }
@@ -56,7 +56,7 @@ export default function HomePage({ params }: PageProps) {
   return (
     <>
       <main className="min-h-screen bg-background">
-        {/* 1. HERO Section */}
+        {/* HERO Section */}
         <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
           <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
             <div className="max-w-4xl mx-auto text-center w-full">
@@ -111,10 +111,10 @@ export default function HomePage({ params }: PageProps) {
           </section>
         </HeroBackground>
 
-        {/* 2. POSITIONING Section */}
+        {/* POSITIONING Section */}
         <PositioningSection locale={locale} />
 
-        {/* 3. SOLUTIONS BY INDUSTRY Section */}
+        {/* SOLUTIONS BY INDUSTRY Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-20">
@@ -155,22 +155,22 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 4. WHAT WE DO Section */}
+        {/* WHAT WE DO Section */}
         <WhatWeDoSection locale={locale} />
 
-        {/* 5. HOW WE THINK Section */}
+        {/* HOW WE THINK Section */}
         <HowWeThinkSection locale={locale} />
 
-        {/* 6. ARCHITECTURE Section */}
+        {/* ARCHITECTURE Section */}
         <ArchitectureSection locale={locale} />
 
-        {/* 7. DIFFERENTIATOR Section */}
+        {/* DIFFERENTIATOR Section */}
         <DifferentiatorSection locale={locale} />
 
-        {/* 8. FOR WHO Section */}
+        {/* FOR WHO Section */}
         <ForWhoSection locale={locale} />
 
-        {/* 9. CLIENTS Section */}
+        {/* CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
@@ -269,7 +269,7 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* 10. CLOSING Section */}
+        {/* CLOSING Section */}
         <ClosingSection locale={locale} />
       </main>
 
