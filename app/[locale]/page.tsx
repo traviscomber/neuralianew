@@ -17,6 +17,8 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
+// v2.0.0 - Production fixed
+
 interface PageProps {
   params: { locale: string }
 }
