@@ -5,31 +5,32 @@
 @layer base {
   :root {
     /* N3uralia Official Brandbook Colors - Teal RGB(115, 150, 150) */
+    /* Converting RGB(115, 150, 150) to HSL: hsl(171, 35%, 52%) */
 
-    /* Primary: Teal RGB(115, 150, 150) - Used for headers, buttons, graphic elements, borders */
-    --primary: 171 35% 52%; /* RGB(115, 150, 150) = #7396 */
-    --primary-foreground: 0 0% 100%; /* White */
+    /* Primary: Teal RGB(115, 150, 150) - HSL(171, 35%, 52%) */
+    --primary: 171 35% 52%;
+    --primary-foreground: 0 0% 100%;
 
     /* Light Mode */
-    --background: 0 0% 98%; /* Off-white */
-    --foreground: 0 0% 15%; /* Dark charcoal */
-    --card: 0 0% 100%; /* Pure white */
-    --card-foreground: 0 0% 15%; /* Dark text */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 15%;
 
-    /* Secondary: Same Teal (per brandbook) */
-    --secondary: 171 35% 52%; /* Teal */
+    /* Secondary: Same Teal */
+    --secondary: 171 35% 52%;
     --secondary-foreground: 0 0% 100%;
 
-    /* Accent: Same Teal (per brandbook) */
-    --accent: 171 35% 52%; /* Teal */
+    /* Accent: Same Teal */
+    --accent: 171 35% 52%;
     --accent-foreground: 0 0% 100%;
 
     /* Neutral palette */
-    --muted: 0 0% 85%; /* Light gray */
-    --muted-foreground: 0 0% 50%; /* Medium gray */
+    --muted: 0 0% 85%;
+    --muted-foreground: 0 0% 50%;
 
     /* UI Elements */
     --destructive: 0 84% 60%;
@@ -38,26 +39,10 @@
     /* Border: Subtle teal */
     --border: 171 25% 70%;
     --input: 0 0% 100%;
-    --ring: 171 35% 52%; /* Teal focus */
+    --ring: 171 35% 52%;
 
     /* Spacing & Radius */
     --radius: 0.5rem;
-
-    /* Semantic spacing tokens */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-
-    /* Elevation/Shadow tokens - Teal tinted */
-    --shadow-xs: 0 1px 2px rgba(115, 150, 150, 0.08);
-    --shadow-sm: 0 2px 4px rgba(115, 150, 150, 0.1);
-    --shadow-md: 0 4px 8px rgba(115, 150, 150, 0.12);
-    --shadow-lg: 0 8px 16px rgba(115, 150, 150, 0.15);
-    --shadow-xl: 0 12px 24px rgba(115, 150, 150, 0.2);
   }
 
   .dark {
@@ -71,15 +56,15 @@
     --popover-foreground: 0 0% 100%;
 
     /* Dark mode primary: Light teal */
-    --primary: 171 50% 65%; /* Light teal for dark backgrounds */
+    --primary: 171 50% 65%;
     --primary-foreground: 0 0% 8%;
 
     /* Secondary: Teal accent */
-    --secondary: 171 35% 52%; /* Standard teal */
+    --secondary: 171 35% 52%;
     --secondary-foreground: 0 0% 100%;
 
     /* Accent: Light teal */
-    --accent: 171 50% 65%; /* Light teal */
+    --accent: 171 50% 65%;
     --accent-foreground: 0 0% 8%;
 
     --tertiary: 0 0% 25%;
@@ -92,15 +77,9 @@
     --destructive-foreground: 0 0% 98%;
 
     /* Dark mode border: Teal tint */
-    --border: 171 30% 30%; /* Teal-tinted dark border */
+    --border: 171 30% 30%;
     --input: 0 0% 15%;
-    --ring: 171 50% 65%; /* Light teal focus ring */
-
-    --shadow-xs: 0 1px 2px rgba(115, 150, 150, 0.1);
-    --shadow-sm: 0 2px 4px rgba(115, 150, 150, 0.15);
-    --shadow-md: 0 4px 8px rgba(115, 150, 150, 0.2);
-    --shadow-lg: 0 8px 16px rgba(115, 150, 150, 0.25);
-    --shadow-xl: 0 12px 24px rgba(115, 150, 150, 0.3);
+    --ring: 171 50% 65%;
   }
 
   /* Black theme variant */
@@ -115,15 +94,15 @@
     --popover-foreground: 0 0% 100%;
 
     /* Teal accent pops on pure black */
-    --primary: 171 60% 50%; /* Vibrant teal */
+    --primary: 171 60% 50%;
     --primary-foreground: 0 0% 4%;
 
     /* Secondary: Bright teal */
-    --secondary: 171 70% 55%; /* Bright teal */
+    --secondary: 171 70% 55%;
     --secondary-foreground: 0 0% 4%;
 
     /* Accent: Bright cyan-teal */
-    --accent: 175 80% 60%; /* Cyan-teal */
+    --accent: 175 80% 60%;
     --accent-foreground: 0 0% 4%;
 
     --tertiary: 0 0% 18%;
@@ -139,12 +118,6 @@
     --border: 171 40% 20%;
     --input: 0 0% 10%;
     --ring: 171 60% 50%;
-
-    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.6);
-    --shadow-xl: 0 12px 24px rgba(0, 0, 0, 0.7);
   }
 }
 
@@ -152,32 +125,33 @@
   * {
     @apply border-border;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-background text-foreground font-sans;
-    letter-spacing: 0.3px; /* Added subtle letter spacing for elegance */
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    letter-spacing: 0.3px;
   }
 
   /* N3uralia Brandbook Typography Utilities - OFFICIAL */
-  /* Per PDF Brandbook: Montserrat Light 64px, Medium 64px, Light 48px, Regular 24px */
-
   h1 {
     @apply text-5xl font-light leading-tight tracking-tight;
-    /* 64px = text-5xl in Tailwind, Montserrat Light (300) */
   }
 
   .h1-light {
     @apply text-5xl font-light leading-tight tracking-tight;
-    /* Montserrat Light 64px */
   }
 
   .h1-medium {
     @apply text-5xl font-medium leading-tight tracking-tight;
-    /* Montserrat Medium 64px */
   }
 
   .h2 {
     @apply text-4xl font-light leading-tight tracking-tight;
-    /* Montserrat Light 48px */
   }
 
   .section-heading {
@@ -190,12 +164,10 @@
 
   .h3 {
     @apply text-3xl font-normal leading-snug;
-    /* Montserrat Regular 32px */
   }
 
   .body-lg {
     @apply text-2xl font-normal leading-relaxed;
-    /* Montserrat Regular 24px - Per brandbook body text size */
   }
 
   .body {
