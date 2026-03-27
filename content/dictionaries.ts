@@ -181,72 +181,116 @@ export const DICTS: Record<Locale, Dict> = {
         },
       },
       whatWeDo: {
-        title: "What is N3uralia?",
-        description: "We build the missing architecture. A central orchestrator that coordinates specialized agents, integrates your existing systems, and evolves with your business.",
+        title: "¿Qué es N3uralia?",
+        description: "Construimos la arquitectura que falta. Un orquestador central que coordina agentes especializados, integra tus sistemas existentes y evoluciona con tu negocio.",
         orchestration: {
-          title: "Orchestration",
-          desc: "Coordinates multiple agents and systems in a single intelligent flow",
+          title: "Orquestación",
+          desc: "Coordina múltiples agentes y sistemas en un solo flujo inteligente",
         },
         evolving: {
-          title: "Agents Evolve",
-          desc: "Learn from every interaction and improve automatically over time",
+          title: "Agentes Evolucionan",
+          desc: "Aprenden de cada interacción y mejoran automáticamente con el tiempo",
         },
         integration: {
-          title: "Total Integration",
-          desc: "Adapts to your existing stack without disruption. Zero rewrite.",
+          title: "Integración Total",
+          desc: "Se adapta a tu stack existente sin disrupciones. Zero rewrite.",
         },
         fourPillars: {
-          title: "Four Pillars",
-          description: "The complete architecture that brings AI to real production",
+          title: "Cuatro Pilares",
+          description: "La arquitectura completa que lleva IA a producción real",
           engineering: {
-            title: "Engineering",
-            desc: "Predictable, traceable, governed systems. Every decision is auditable.",
+            title: "Ingeniería",
+            desc: "Sistemas predecibles, rastreables, gobernados. Cada decisión es auditable.",
           },
           aiSystems: {
-            title: "AI Systems",
-            desc: "Autonomous agents with real-time control, permissions, and complete traceability.",
+            title: "Sistemas IA",
+            desc: "Agentes autónomos con control en tiempo real, permisos y trazabilidad completa.",
           },
           automation: {
-            title: "Automation",
-            desc: "End-to-end processes that scale without friction. Controlled cost, optimized latency.",
+            title: "Automatización",
+            desc: "Procesos end-to-end que escalan sin fricción. Costo controlado, latencia optimizada.",
           },
           infrastructure: {
-            title: "Infrastructure",
-            desc: "Production-ready RAG and pipelines. Security, observability, continuous evolution.",
+            title: "Infraestructura",
+            desc: "RAG y pipelines listos para producción. Seguridad, observabilidad, evolución continua.",
           },
         },
       },
-      evolving: {
-        title: "Agentes Evolucionan",
-        desc: "Aprenden de cada interacción y mejoran automáticamente con el tiempo",
+    en: {
+      nav: {
+        platform: "Platform",
+        agentic: "Agentic Systems",
+        infra: "AI Infrastructure",
+        agentMatrix: "Agent Matrix",
+        playbooks: "Playbooks",
+        caseStudies: "Case Studies",
+        labs: "Labs",
+        nodes: "Nodes",
+        patterns: "Patterns",
+        security: "Security",
+        contact: "Contact",
       },
-      integration: {
-        title: "Integración Total",
-        desc: "Se adapta a tu stack existente sin disrupciones. Zero rewrite.",
+      cta: {
+        requestReview: "Request Architecture Review",
+        bookCall: "Schedule Technical Call",
+        viewCaseStudies: "View Case Studies",
       },
-      fourPillars: {
-        title: "Cuatro Pilares",
-        description: "La arquitectura completa que lleva IA a producción real",
-        engineering: {
-          title: "Ingeniería",
-          desc: "Sistemas predecibles, rastreables, gobernados. Cada decisión es auditable.",
+      home: {
+        h1: "Agentic Systems in Production",
+        sub: "Agentic system orchestration that integrates, scales, and evolves. Your operation with augmented intelligence, production-ready from day one.",
+        trust: "AI engineering for real operations. Autonomous systems with governance, observability, and reliability.",
+        hero: {
+          badge: "Agentic Systems in Production",
+          h1_1: "From Experimentation",
+          h1_2: "to Enterprise Automation",
+          description: "Agentic system orchestration that integrates, scales, and evolves. Your operation with augmented intelligence, production-ready from day one.",
+          startToday: "Start Today",
+          viewCapabilities: "View Capabilities",
+          stats: {
+            processes: "Automated Processes",
+            industries: "Industries Served",
+            operation: "Continuous Operation",
+          },
         },
-        aiSystems: {
-          title: "Sistemas IA",
-          desc: "Agentes autónomos con control en tiempo real, permisos y trazabilidad completa.",
-        },
-        automation: {
-          title: "Automatización",
-          desc: "Procesos end-to-end que escalan sin fricción. Costo controlado, latencia optimizada.",
-        },
-        infrastructure: {
-          title: "Infraestructura",
-          desc: "RAG y pipelines listos para producción. Seguridad, observabilidad, evolución continua.",
-        },
+        whatWeDo: {
+          title: "What is N3uralia?",
+          description: "We build the missing architecture. A central orchestrator that coordinates specialized agents, integrates your existing systems, and evolves with your business.",
+          orchestration: {
+            title: "Orchestration",
+            desc: "Coordinates multiple agents and systems in a single intelligent flow",
+          },
+          evolving: {
+            title: "Agents Evolve",
+            desc: "Learn from every interaction and improve automatically over time",
+          },
+          integration: {
+            title: "Total Integration",
+            desc: "Adapts to your existing stack without disruption. Zero rewrite.",
+          },
+          fourPillars: {
+            title: "Four Pillars",
+            description: "The complete architecture that brings AI to real production",
+            engineering: {
+              title: "Engineering",
+              desc: "Predictable, traceable, governed systems. Every decision is auditable.",
+            },
+            aiSystems: {
+              title: "AI Systems",
+              desc: "Autonomous agents with real-time control, permissions, and complete traceability.",
+            },
+            automation: {
+              title: "Automation",
+              desc: "End-to-end processes that scale without friction. Controlled cost, optimized latency.",
+            },
+            infrastructure: {
+              title: "Infrastructure",
+              desc: "Production-ready RAG and pipelines. Security, observability, continuous evolution.",
+            },
       },
     },
+  },
+};
 
-// Export the dictionary getter function
 export function getDict(locale: Locale) {
   return DICTS[locale];
 }
