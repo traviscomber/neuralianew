@@ -85,11 +85,11 @@ const DICTS: Record<Locale, Dict> = {
     },
     home: {
       hero: {
-        badge: "Sistemas de IA que funcionan en la realidad",
-        title: "IA y software que transforma tu operación",
-        subtitle: "Olvidemos de demos aisladas. Construimos sistemas completos: desde la interfaz que usa tu equipo hasta la inteligencia que ejecuta tareas reales, todo integrado en tu empresa, seguro y escalable.",
+        badge: "IA que funciona en la realidad",
+        title: "IA y software que transforma tu negocio",
+        subtitle: "Construimos sistemas completos que funcionan. Desde interfaces hasta inteligencia, todo integrado, seguro y operativo en tu empresa.",
         ctaPrimary: "Explorar",
-        ctaSecondary: "Ver casos reales",
+        ctaSecondary: "Ver casos",
       },
       positioning: {
         title: "No es solo un chatbot. Es tu infraestructura.",

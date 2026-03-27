@@ -116,52 +116,19 @@ export default function HomePage({ params }: PageProps) {
         {/* 3. WHAT WE DO Section */}
         <WhatWeDoSection locale={locale} />
 
-        {/* 4. SECTORS Section - Links to /soluciones */}
-        <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                {isES ? "Soluciones por Industria" : "Solutions by Industry"}
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                {isES ? "Sistemas full-stack diseñados para cada sector" : "Full-stack systems designed for every sector"}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SECTORS.map((sector, i) => {
-                const Icon = sector.icon
-                return (
-                  <div key={i} className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 hover:bg-primary/20 transition-colors">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {isES ? sector.titleES : sector.titleEN}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {isES ? sector.descES : sector.descEN}
-                    </p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* 5. HOW WE THINK Section */}
+        {/* 4. HOW WE THINK Section */}
         <HowWeThinkSection locale={locale} />
 
-        {/* 6. ARCHITECTURE Section */}
+        {/* 5. ARCHITECTURE Section */}
         <ArchitectureSection locale={locale} />
 
-        {/* 7. DIFFERENTIATOR Section */}
+        {/* 6. DIFFERENTIATOR Section */}
         <DifferentiatorSection locale={locale} />
 
-        {/* 8. FOR WHO Section */}
+        {/* 7. FOR WHO Section */}
         <ForWhoSection locale={locale} />
 
-        {/* 9. CLIENTS Section */}
+        {/* 8. CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
