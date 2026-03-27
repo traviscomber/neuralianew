@@ -1,10 +1,3 @@
-// VERCEL PRODUCTION BUILD - FORCE SYNC & REBUILD
-// Build timestamp: 2026-03-13 19:05:00 UTC - Force Vercel to pull latest from GitHub
-// This timestamp forces Vercel to perform a complete fresh rebuild, pulling latest code from GitHub
-// All code is clean and production-ready in the v0 workspace
-export const revalidate = 0
-export const dynamic = 'force-dynamic'
-
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Inter, Montserrat } from "next/font/google"
@@ -14,6 +7,9 @@ import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { StructuredData } from "@/components/structured-data"
 import { StructuredCitations } from "@/components/structured-citations"
+
+// Static generation with ISR - revalidate every hour
+export const revalidate = 3600
 
 const inter = Inter({
   subsets: ["latin"],

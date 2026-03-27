@@ -1,8 +1,5 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
-import { ThemeProvider } from "@/components/theme-provider"
-import Navigation from "@/components/navigation"
-import { ScrollToTop } from "@/components/scroll-to-top"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
@@ -44,18 +41,10 @@ export async function generateMetadata({
   }
 }
 
-export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-
+export default function LocaleLayout({ children }: LocaleLayoutProps) {
   return (
-    <>
-      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
-        <Navigation locale={locale} />
-        <main role="main">
-          {children}
-        </main>
-        <ScrollToTop />
-      </ThemeProvider>
-    </>
+    <main role="main">
+      {children}
+    </main>
   )
 }
