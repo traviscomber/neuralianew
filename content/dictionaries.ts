@@ -57,6 +57,14 @@ export interface Dict {
       title: string;
       ctaText: string;
     };
+    clients: {
+      title: string;
+      description: string;
+      viewAll: string;
+      ecosuelolab: { title: string; desc: string };
+      despega: { title: string; desc: string };
+      blackswan: { title: string; desc: string };
+    };
   };
 }
 
@@ -140,6 +148,23 @@ const DICTS: Record<Locale, Dict> = {
         title: "Construyamos un sistema que trabaje de verdad",
         ctaText: "Hablemos de tu sistema",
       },
+      clients: {
+        title: "Empresas que Confían en N3uralia",
+        description: "Transformación real en operaciones complejas",
+        viewAll: "Ver Todos los Casos de Éxito",
+        ecosuelolab: {
+          title: "Ecosuelolab",
+          desc: "Automatización de análisis de suelos con sistemas agénticos avanzados",
+        },
+        despega: {
+          title: "Despega Tu Carrera",
+          desc: "Plataforma de formación con agentes inteligentes de coaching",
+        },
+        blackswan: {
+          title: "Blackswan Facility Core",
+          desc: "Gestión predictiva de instalaciones con orquestación de agentes",
+        },
+      },
     },
   },
   en: {
@@ -220,6 +245,23 @@ const DICTS: Record<Locale, Dict> = {
       closing: {
         title: "Let's build a system that actually works",
         ctaText: "Let's talk about your system",
+      },
+      clients: {
+        title: "Companies that Trust N3uralia",
+        description: "Real transformation in complex operations",
+        viewAll: "View All Case Studies",
+        ecosuelolab: {
+          title: "Ecosuelolab",
+          desc: "Soil analysis automation with advanced agentic systems",
+        },
+        despega: {
+          title: "Despega Tu Carrera",
+          desc: "Learning platform with intelligent coaching agents",
+        },
+        blackswan: {
+          title: "Blackswan Facility Core",
+          desc: "Predictive facilities management with agent orchestration",
+        },
       },
     },
   },
