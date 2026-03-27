@@ -17,7 +17,8 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// PRODUCTION CACHE CLEAR - v2.1.0
+// VERCEL CACHE BUSTER: v3.0.0-final
+// Complete rebuild required - removed all hardcoded sections
 
 interface PageProps {
   params: { locale: string }
@@ -52,6 +53,12 @@ export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d: Dict = getDict(locale)
   const isES = locale === "es"
+  
+  // PRODUCTION FIX: Ensure d exists and has all required properties
+  if (!d || !d.home || !d.home.clients) {
+    console.error("[v0] Dictionary failed to load properly:", { d, locale })
+    throw new Error(`Failed to load dictionary for locale: ${locale}`)
+  }
 
   return (
     <>
