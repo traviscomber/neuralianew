@@ -19,7 +19,7 @@ export default function Navigation() {
   const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
+    <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <Link href={href('/')} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
@@ -43,8 +43,7 @@ export default function Navigation() {
               <ChevronDown className="w-4 h-4" />
             </button>
             {agentOpen && (
-              <div 
-                className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
+              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
                 onMouseEnter={() => setAgentOpen(true)}
                 onMouseLeave={() => setAgentOpen(false)}
               >
@@ -92,7 +91,7 @@ export default function Navigation() {
       </div>
 
       {open && (
-        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto">
+        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-50 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto shadow-lg" style={{ backgroundColor: 'hsl(var(--background))' }}>
           <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
