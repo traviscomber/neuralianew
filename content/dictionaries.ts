@@ -66,6 +66,20 @@ export interface Dict {
       blackswan: { title: string; desc: string };
     };
   };
+  about: {
+    whoWeAre: string;
+    title: string;
+    description: string;
+  };
+  pillars: {
+    infraTitle: string;
+    infraDesc: string;
+    agenticTitle: string;
+    agenticDesc: string;
+  };
+  caseStudies: {
+    title: string;
+  };
 }
 
 const DICTS: Record<Locale, Dict> = {
@@ -167,6 +181,20 @@ const DICTS: Record<Locale, Dict> = {
       },
     },
   },
+  about: {
+    whoWeAre: "Acerca de nosotros",
+    title: "La filosofía de N3uralia",
+    description: "Construimos sistemas agenticos que las empresas realmente pueden usar, controlar y confiar.",
+  },
+  pillars: {
+    infraTitle: "Infraestructura IA",
+    infraDesc: "RAG y pipelines listos para producción",
+    agenticTitle: "Sistemas Agénticos",
+    agenticDesc: "Automatización gobernable con human-in-the-loop",
+  },
+  caseStudies: {
+    title: "Casos de Éxito",
+  },
   en: {
     nav: {
       platform: "Platform",
@@ -264,6 +292,20 @@ const DICTS: Record<Locale, Dict> = {
         },
       },
     },
+  },
+  about: {
+    whoWeAre: "About us",
+    title: "N3uralia's philosophy",
+    description: "We build agentic systems that enterprises can actually use, control, and trust.",
+  },
+  pillars: {
+    infraTitle: "AI Infrastructure",
+    infraDesc: "Production-ready RAG and pipelines",
+    agenticTitle: "Agentic Systems",
+    agenticDesc: "Governed automation with human-in-the-loop",
+  },
+  caseStudies: {
+    title: "Case Studies",
   },
 };
 
