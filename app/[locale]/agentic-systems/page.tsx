@@ -36,8 +36,22 @@ export default function AgenticSystemsPage({ params }: PageProps) {
   const d = getDict(locale)
   const isES = locale === "es"
 
-  const content = d.agenticEngineering
-  const pillarContent = d.pillars
+  const content = d?.agenticEngineering
+  const pillarContent = d?.pillars
+  const aboutValues = d?.about?.values
+
+  // Return error boundary if content is missing
+  if (!content || !pillarContent) {
+    console.error("[v0] Missing agentic content for locale:", locale, { content, pillarContent })
+    return (
+      <>
+        <main className="min-h-screen flex items-center justify-center">
+          <p className="text-red-500">Error loading Agentic Systems page</p>
+        </main>
+        <Footer locale={locale} />
+      </>
+    )
+  }
 
   // Core Features for Agentic Systems
   const coreFeatures = [
@@ -107,24 +121,28 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         {/* Engineering Manifesto */}
         <Section
           title={isES ? "Ingeniería Agentica" : "Agentic Engineering"}
-          subtitle={content.subheadline}
+          subtitle={content?.subheadline}
         >
           <div className="bg-card border border-border/50 rounded-lg p-8 mt-8">
             <h3 className="text-lg font-bold text-foreground mb-6">
               {isES ? "Nuestro Manifiesto" : "Our Manifesto"}
             </h3>
             <div className="space-y-4">
-              {content.manifesto.map((statement, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-4 pb-4 border-b border-border/30 last:border-b-0 last:pb-0"
-                >
-                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                  <p className="text-base text-foreground leading-relaxed">
-                    {statement}
-                  </p>
-                </div>
-              ))}
+              {content?.manifesto && content.manifesto.length > 0 ? (
+                content.manifesto.map((statement, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-4 pb-4 border-b border-border/30 last:border-b-0 last:pb-0"
+                  >
+                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                    <p className="text-base text-foreground leading-relaxed">
+                      {statement}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                <p className="text-muted-foreground">{isES ? "Sin datos" : "No data"}</p>
+              )}
             </div>
           </div>
         </Section>
@@ -132,38 +150,46 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         {/* Engineering Principles */}
         <Section title={isES ? "Cómo Pensamos Diferente" : "How We Think Different"}>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content.philosophy.map((principle, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300"
-              >
-                <h3 className="text-base font-bold text-primary mb-3">
-                  {principle.num}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {principle.desc}
-                </p>
-              </div>
-            ))}
+            {content?.philosophy && content.philosophy.length > 0 ? (
+              content.philosophy.map((principle, i) => (
+                <div
+                  key={i}
+                  className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300"
+                >
+                  <h3 className="text-base font-bold text-primary mb-3">
+                    {principle.num}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {principle.desc}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground">{isES ? "Sin datos" : "No data"}</p>
+            )}
           </div>
         </Section>
 
         {/* Our Values */}
         <Section title={isES ? "Nuestros Valores" : "Our Values"}>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {d.about.values.map((value, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
-              >
-                <h3 className="text-lg font-bold text-foreground mb-3">
-                  {value.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {value.desc}
-                </p>
-              </div>
-            ))}
+            {aboutValues && aboutValues.length > 0 ? (
+              aboutValues.map((value, i) => (
+                <div
+                  key={i}
+                  className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                >
+                  <h3 className="text-lg font-bold text-foreground mb-3">
+                    {value.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {value.desc}
+                  </p>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground">{isES ? "Sin datos" : "No data"}</p>
+            )}
           </div>
         </Section>
 
@@ -171,7 +197,7 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              {d.about.closing}
+              {d?.about?.closing || (isES ? "Sistemas agenticos para tu empresa" : "Agentic systems for your enterprise")}
             </p>
             <Link
               href={`/${locale}/`}

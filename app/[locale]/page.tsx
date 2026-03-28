@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v10.0.0-duplicate-fix
-// Fixed: Removed duplicate generateMetadata and AgenticSystemsPage functions
-// Agentic systems page now compiles cleanly with full Tailwind styling
+// VERCEL CACHE BUSTER: v11.0.0-null-check-fix
+// Fixed: Added null checks before all .map() calls in agentic-systems page
+// Added error boundary for missing dictionary content
 
 interface PageProps {
   params: { locale: string }
