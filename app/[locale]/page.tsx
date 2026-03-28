@@ -18,8 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v13.0.0-agentic-systems-complete-rewrite
-// Fixed: Complete rewrite of agentic-systems page with robust null checks
+// VERCEL CACHE BUSTER: v14.0.0-agent-pages-tailwind
+// Fixed: Separated Sistemas Agénticos into 2 separate pages with Tailwind styling
+// /agent-matrix with visual control layer content, /agent-operations with governance content
 // Using Array.isArray() validation, inline core features, fallback values, conditional sections
 // Both Spanish and English now have complete 4-principle philosophy arrays
 // Added error boundary for missing dictionary content
