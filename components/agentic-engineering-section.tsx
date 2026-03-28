@@ -1,9 +1,10 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import type { Dict } from "@/content/dictionaries"
+import type { Locale } from "@/content/dictionaries"
 
 interface AgenticEngineeringSectionProps {
-  locale: string
+  locale: Locale
   d: Dict
 }
 
@@ -12,14 +13,19 @@ export function AgenticEngineeringSection({
   d,
 }: AgenticEngineeringSectionProps) {
   const isES = locale === "es"
-  const content = d.agenticEngineering
+  const content = d?.agenticEngineering
+
+  if (!content) {
+    console.error("[v0] agenticEngineering content not found for locale:", locale)
+    return null
+  }
 
   return (
     <section className="py-24 px-4 border-t border-border bg-background">
       <div className="max-w-6xl mx-auto">
         {/* Headline Section */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance">
+          <h2 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
             {content.headline}
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed text-pretty">
@@ -37,9 +43,9 @@ export function AgenticEngineeringSection({
           ].map((block, i) => (
             <div
               key={i}
-              className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+              className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group"
             >
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                 <div className="w-6 h-6 bg-primary rounded-sm" />
               </div>
               <h3 className="text-lg font-bold text-foreground mb-3">
@@ -54,6 +60,9 @@ export function AgenticEngineeringSection({
 
         {/* Mini Manifesto */}
         <div className="bg-card border border-border/50 rounded-lg p-8 mb-12">
+          <h3 className="text-xl font-bold text-foreground mb-6">
+            {isES ? "Nuestro Manifiesto" : "Our Manifesto"}
+          </h3>
           <div className="space-y-4">
             {content.manifesto.map((statement, i) => (
               <div
@@ -83,3 +92,4 @@ export function AgenticEngineeringSection({
     </section>
   )
 }
+

@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v7.0.0-production-fix
-// Fixed: About page undefined properties
-// Added complete Spanish and English translations for about section
+// VERCEL CACHE BUSTER: v8.0.0-agentic-systems-fix
+// Fixed: Agentic Engineering section rendering
+// Added error handling, manifesto title, improved hover states
 
 interface PageProps {
   params: { locale: string }
