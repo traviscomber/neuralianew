@@ -80,59 +80,67 @@ export default function Navigation() {
           <ThemeToggle />
         </div>
 
-        <button className="md:hidden text-foreground ml-auto" onClick={() => setOpen(!open)}>
+        <button 
+          className="md:hidden text-foreground ml-auto" 
+          onClick={() => {
+            setOpen(!open)
+            setAgentOpen(false)
+          }}
+        >
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
       {open && (
-        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
-          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-40 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto">
+          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
           
           <div>
             <button 
               onClick={() => setAgentOpen(!agentOpen)}
-              className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition flex items-center justify-between"
+              className="w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition flex items-center justify-between"
             >
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform ${agentOpen ? 'rotate-180' : ''}`} />
             </button>
             {agentOpen && (
-              <div className="ml-4 space-y-2 mt-2 border-l-2 border-muted/50 pl-2">
-                <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+              <div className="mt-2 space-y-1 bg-muted/20 rounded px-2 py-2 ml-2 border-l-2 border-primary/30">
+                <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
                   Agent Matrix
                 </Link>
-                <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+                <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
                 </Link>
               </div>
             )}
           </div>
 
-          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
           </Link>
-          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             FAQ
           </Link>
-          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Acerca de' : 'About'}
           </Link>
 
-          <div className="pt-2 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center transition">
+          <div className="pt-4 mt-4 border-t border-border space-y-2">
+            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center hover:bg-primary/90 transition">
               {isES ? 'Contactar' : 'Contact'}
             </Link>
-            <Link href={hrefLocale('/')} onClick={() => setOpen(false)} className="block px-3 py-2 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
+            <Link href={hrefLocale('/')} onClick={() => setOpen(false)} className="block px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 transition">
               <Globe className="w-4 h-4" />
               {isES ? 'EN' : 'ES'}
             </Link>
-            <ThemeToggle />
+            <div className="flex items-center justify-center pt-2">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       )}
