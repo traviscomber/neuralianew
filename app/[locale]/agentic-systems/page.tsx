@@ -36,50 +36,21 @@ export default function AgenticSystemsPage({ params }: PageProps) {
   const d = getDict(locale)
   const isES = locale === "es"
 
-  const content = d?.agenticEngineering
-  const pillarContent = d?.pillars
-  const aboutValues = d?.about?.values
-
-  // Return error boundary if content is missing
-  if (!content || !pillarContent) {
-    console.error("[v0] Missing agentic content for locale:", locale, { content, pillarContent })
+  // Safety checks
+  if (!d) {
     return (
       <>
         <main className="min-h-screen flex items-center justify-center">
-          <p className="text-red-500">Error loading Agentic Systems page</p>
+          <p className="text-red-500">Error loading page content</p>
         </main>
         <Footer locale={locale} />
       </>
     )
   }
 
-  // Core Features for Agentic Systems
-  const coreFeatures = [
-    {
-      title: isES ? "Human-in-the-Loop" : "Human-in-the-Loop",
-      description: isES
-        ? "Los humanos siempre en el control de decisiones críticas."
-        : "Humans always in control of critical decisions.",
-    },
-    {
-      title: isES ? "Trazabilidad Completa" : "Full Traceability",
-      description: isES
-        ? "Auditoría y logs de cada decisión tomada."
-        : "Audit and logs of every decision made.",
-    },
-    {
-      title: isES ? "Control Granular" : "Granular Control",
-      description: isES
-        ? "Permisos y políticas por agente y por operación."
-        : "Permissions and policies per agent and operation.",
-    },
-    {
-      title: isES ? "Integración Nativa" : "Native Integration",
-      description: isES
-        ? "Se conecta con tu stack empresarial existente."
-        : "Connects with your existing enterprise stack.",
-    },
-  ]
+  const pillarContent = d.pillars || {}
+  const content = d.agenticEngineering || {}
+  const aboutValues = d.about?.values || []
 
   return (
     <>
@@ -88,10 +59,10 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto text-center">
             <h1 className="text-5xl sm:text-6xl font-bold text-foreground mb-6 text-balance leading-tight">
-              {pillarContent.agenticTitle}
+              {pillarContent.agenticTitle || "Agentic Systems"}
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed text-pretty">
-              {pillarContent.agenticDesc}
+              {pillarContent.agenticDesc || "Governed automation systems"}
             </p>
           </div>
         </section>
@@ -99,7 +70,32 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         {/* Core Features Grid */}
         <Section title={isES ? "Características Clave" : "Core Features"}>
           <div className="grid md:grid-cols-2 gap-6">
-            {coreFeatures.map((feature, i) => (
+            {[
+              {
+                title: isES ? "Human-in-the-Loop" : "Human-in-the-Loop",
+                description: isES
+                  ? "Los humanos siempre en el control de decisiones críticas."
+                  : "Humans always in control of critical decisions.",
+              },
+              {
+                title: isES ? "Trazabilidad Completa" : "Full Traceability",
+                description: isES
+                  ? "Auditoría y logs de cada decisión tomada."
+                  : "Audit and logs of every decision made.",
+              },
+              {
+                title: isES ? "Control Granular" : "Granular Control",
+                description: isES
+                  ? "Permisos y políticas por agente y por operación."
+                  : "Permissions and policies per agent and operation.",
+              },
+              {
+                title: isES ? "Integración Nativa" : "Native Integration",
+                description: isES
+                  ? "Se conecta con tu stack empresarial existente."
+                  : "Connects with your existing enterprise stack.",
+              },
+            ].map((feature, i) => (
               <div
                 key={i}
                 className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
@@ -121,14 +117,14 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         {/* Engineering Manifesto */}
         <Section
           title={isES ? "Ingeniería Agentica" : "Agentic Engineering"}
-          subtitle={content?.subheadline}
+          subtitle={content.subheadline}
         >
           <div className="bg-card border border-border/50 rounded-lg p-8 mt-8">
             <h3 className="text-lg font-bold text-foreground mb-6">
               {isES ? "Nuestro Manifiesto" : "Our Manifesto"}
             </h3>
             <div className="space-y-4">
-              {content?.manifesto && content.manifesto.length > 0 ? (
+              {Array.isArray(content.manifesto) && content.manifesto.length > 0 ? (
                 content.manifesto.map((statement, i) => (
                   <div
                     key={i}
@@ -148,10 +144,10 @@ export default function AgenticSystemsPage({ params }: PageProps) {
         </Section>
 
         {/* Engineering Principles */}
-        <Section title={isES ? "Cómo Pensamos Diferente" : "How We Think Different"}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content?.philosophy && content.philosophy.length > 0 ? (
-              content.philosophy.map((principle, i) => (
+        {Array.isArray(content.philosophy) && content.philosophy.length > 0 && (
+          <Section title={isES ? "Cómo Pensamos Diferente" : "How We Think Different"}>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {content.philosophy.map((principle, i) => (
                 <div
                   key={i}
                   className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-all duration-300"
@@ -163,18 +159,16 @@ export default function AgenticSystemsPage({ params }: PageProps) {
                     {principle.desc}
                   </p>
                 </div>
-              ))
-            ) : (
-              <p className="text-muted-foreground">{isES ? "Sin datos" : "No data"}</p>
-            )}
-          </div>
-        </Section>
+              ))}
+            </div>
+          </Section>
+        )}
 
         {/* Our Values */}
-        <Section title={isES ? "Nuestros Valores" : "Our Values"}>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {aboutValues && aboutValues.length > 0 ? (
-              aboutValues.map((value, i) => (
+        {Array.isArray(aboutValues) && aboutValues.length > 0 && (
+          <Section title={isES ? "Nuestros Valores" : "Our Values"}>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {aboutValues.map((value, i) => (
                 <div
                   key={i}
                   className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
@@ -186,18 +180,16 @@ export default function AgenticSystemsPage({ params }: PageProps) {
                     {value.desc}
                   </p>
                 </div>
-              ))
-            ) : (
-              <p className="text-muted-foreground">{isES ? "Sin datos" : "No data"}</p>
-            )}
-          </div>
-        </Section>
+              ))}
+            </div>
+          </Section>
+        )}
 
         {/* CTA Section */}
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-2xl mx-auto text-center">
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              {d?.about?.closing || (isES ? "Sistemas agenticos para tu empresa" : "Agentic systems for your enterprise")}
+              {d.about?.closing || (isES ? "Sistemas agenticos para tu empresa" : "Agentic systems for your enterprise")}
             </p>
             <Link
               href={`/${locale}/`}
