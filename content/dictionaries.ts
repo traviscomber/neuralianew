@@ -101,6 +101,7 @@ export interface Dict {
     vendorAgnostic: { title: string; description: string };
     builtToShip: { title: string; description: string };
     manifesto: string[];
+    philosophy: { num: string; desc: string }[];
     cta: string;
   };
 }
@@ -289,6 +290,24 @@ const DICTS: Record<Locale, Dict> = {
         "Integración no es fricción. Es arquitectura.",
         "Producción no es beta. Es promesa.",
       ],
+      philosophy: [
+        {
+          num: "01. Human-in-the-Loop",
+          desc: "Los agentes proponen. Los humanos deciden. La automatización ocurre con supervisión y control.",
+        },
+        {
+          num: "02. Integración nativa",
+          desc: "No es un chatbot desconectado. Es un sistema que vive dentro de tu empresa, integrado con tus herramientas.",
+        },
+        {
+          num: "03. Gobernanza como velocidad",
+          desc: "La gobernanza no es un obstáculo. Es lo que permite que los sistemas agenticos se desplieguen en producción.",
+        },
+        {
+          num: "04. Transparencia radical",
+          desc: "Cada decisión del agente es auditable. Cada acción es rastreable. Cada resultado es explicable.",
+        },
+      ],
       cta: "Explorar Agentic Engineering",
     },
   },
@@ -474,6 +493,24 @@ const DICTS: Record<Locale, Dict> = {
         "Governance isn't restriction. It's velocity.",
         "Integration isn't friction. It's architecture.",
         "Production isn't beta. It's a promise.",
+      ],
+      philosophy: [
+        {
+          num: "01. Human-in-the-Loop",
+          desc: "Agents propose. Humans decide. Automation happens with oversight and control.",
+        },
+        {
+          num: "02. Native Integration",
+          desc: "Not a disconnected chatbot. A system that lives inside your enterprise, integrated with your tools.",
+        },
+        {
+          num: "03. Governance as Velocity",
+          desc: "Governance isn't an obstacle. It's what enables agentic systems to be deployed in production.",
+        },
+        {
+          num: "04. Radical Transparency",
+          desc: "Every agent decision is auditable. Every action is traceable. Every outcome is explainable.",
+        },
       ],
       cta: "Explore Agentic Engineering",
     },

@@ -18,8 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v11.0.0-null-check-fix
-// Fixed: Added null checks before all .map() calls in agentic-systems page
+// VERCEL CACHE BUSTER: v12.0.0-agentic-philosophy-complete
+// Fixed: Added missing philosophy field to agenticEngineering in dictionaries
+// Both Spanish and English now have complete 4-principle philosophy arrays
 // Added error boundary for missing dictionary content
 
 interface PageProps {
