@@ -70,6 +70,19 @@ export interface Dict {
     whoWeAre: string;
     title: string;
     description: string;
+    ourWhy: string;
+    visionTitle: string;
+    visionP1: string;
+    visionP2: string;
+    visionP3: string;
+    ourPhilosophy: string;
+    howWethinkDifferent: string;
+    philosophy: { num: string; desc: string }[];
+    ourApproach: string;
+    howWeWork: string;
+    workingDaily: string;
+    values: { title: string; desc: string }[];
+    closing: string;
   };
   pillars: {
     infraTitle: string;
@@ -194,6 +207,53 @@ const DICTS: Record<Locale, Dict> = {
       whoWeAre: "Acerca de nosotros",
       title: "La filosofía de N3uralia",
       description: "Construimos sistemas agenticos que las empresas realmente pueden usar, controlar y confiar.",
+      ourWhy: "Por qué",
+      visionTitle: "Nuestra Visión",
+      visionP1: "Creemos que la inteligencia artificial debe aumentar las capacidades humanas, no reemplazarlas. Los sistemas agenticos son herramientas poderosas, pero solo cuando están diseñadas con gobernanza, transparencia y control humano en el centro.",
+      visionP2: "En N3uralia construimos la plataforma para que las empresas desplieguen sistemas agenticos en producción de forma segura, gobernable y auditable.",
+      visionP3: "No creamos agentes por crear agentes. Creamos sistemas que resuelven problemas reales en empresas reales, con personas reales tomando decisiones reales.",
+      ourPhilosophy: "Nuestra Filosofía",
+      howWethinkDifferent: "Cómo pensamos diferente",
+      philosophy: [
+        {
+          num: "01. Human-in-the-Loop",
+          desc: "Los agentes proponen. Los humanos deciden. La automatización ocurre con supervisión y control.",
+        },
+        {
+          num: "02. Integración nativa",
+          desc: "No es un chatbot desconectado. Es un sistema que vive dentro de tu empresa, integrado con tus herramientas.",
+        },
+        {
+          num: "03. Gobernanza como velocidad",
+          desc: "La gobernanza no es un obstáculo. Es lo que permite que los sistemas agenticos se desplieguen en producción.",
+        },
+        {
+          num: "04. Transparencia radical",
+          desc: "Cada decisión del agente es auditable. Cada acción es rastreable. Cada resultado es explicable.",
+        },
+      ],
+      ourApproach: "Nuestro Enfoque",
+      howWeWork: "Cómo trabajamos",
+      workingDaily: "Ingeniería agentica que funciona día a día en empresas reales",
+      values: [
+        {
+          title: "Responsable",
+          desc: "Gobernanza integrada. Control humano. Auditoría completa.",
+        },
+        {
+          title: "Integrado",
+          desc: "Se conecta con tus sistemas. API-first. Sin silos.",
+        },
+        {
+          title: "Escalable",
+          desc: "Crece con tu empresa. De 1 a 1,000 agentes. Misma arquitectura.",
+        },
+        {
+          title: "Production-Ready",
+          desc: "No es un experimento. Es código en producción. Hoy.",
+        },
+      ],
+      closing: "Los sistemas agenticos son el presente. En N3uralia, construimos la infraestructura para que tu empresa los implemente de forma segura, escalable y gobernable.",
     },
     pillars: {
       infraTitle: "Infraestructura IA",
@@ -333,6 +393,53 @@ const DICTS: Record<Locale, Dict> = {
       whoWeAre: "About us",
       title: "N3uralia's philosophy",
       description: "We build agentic systems that enterprises can actually use, control, and trust.",
+      ourWhy: "Why",
+      visionTitle: "Our Vision",
+      visionP1: "We believe artificial intelligence should augment human capabilities, not replace them. Agentic systems are powerful tools, but only when designed with governance, transparency, and human control at their core.",
+      visionP2: "At N3uralia, we build the platform for enterprises to deploy agentic systems in production securely, governably, and auditably.",
+      visionP3: "We don't create agents for the sake of it. We create systems that solve real problems in real companies, with real people making real decisions.",
+      ourPhilosophy: "Our Philosophy",
+      howWethinkDifferent: "How we think different",
+      philosophy: [
+        {
+          num: "01. Human-in-the-Loop",
+          desc: "Agents propose. Humans decide. Automation happens with oversight and control.",
+        },
+        {
+          num: "02. Native Integration",
+          desc: "Not a disconnected chatbot. A system that lives inside your enterprise, integrated with your tools.",
+        },
+        {
+          num: "03. Governance as Velocity",
+          desc: "Governance isn't an obstacle. It's what enables agentic systems to be deployed in production.",
+        },
+        {
+          num: "04. Radical Transparency",
+          desc: "Every agent decision is auditable. Every action is traceable. Every outcome is explainable.",
+        },
+      ],
+      ourApproach: "Our Approach",
+      howWeWork: "How we work",
+      workingDaily: "Agentic engineering that works day-in day-out in real enterprises",
+      values: [
+        {
+          title: "Responsible",
+          desc: "Built-in governance. Human control. Full audit trail.",
+        },
+        {
+          title: "Integrated",
+          desc: "Connects with your systems. API-first. No silos.",
+        },
+        {
+          title: "Scalable",
+          desc: "Grows with your enterprise. From 1 to 1,000 agents. Same architecture.",
+        },
+        {
+          title: "Production-Ready",
+          desc: "Not an experiment. Code in production. Today.",
+        },
+      ],
+      closing: "Agentic systems are the present. At N3uralia, we build the infrastructure for your enterprise to implement them securely, scalably, and governably.",
     },
     pillars: {
       infraTitle: "AI Infrastructure",
