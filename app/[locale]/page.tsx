@@ -11,15 +11,16 @@ import { SECTORS } from "@/content/sectors"
 import { TieredCtas } from "@/components/tiered-ctas"
 import { PositioningSection } from "@/components/positioning-section"
 import { WhatWeDoSection } from "@/components/what-we-do-section"
+import { AgenticEngineeringSection } from "@/components/agentic-engineering-section"
 import { HowWeThinkSection } from "@/components/how-we-think-section"
 import { ArchitectureSection } from "@/components/architecture-section"
 import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v5.0.0-final-production
-// Fixed: SWC dependencies and Tailwind content patterns
-// Production build with corrected Tailwind config v1.2.0
+// VERCEL CACHE BUSTER: v6.0.0-agentic-engineering
+// Integrated Agentic Engineering content section
+// Fixed production loading issues, added new manifesto section
 
 interface PageProps {
   params: { locale: string }
@@ -159,6 +160,9 @@ export default function HomePage({ params }: PageProps) {
 
         {/* WHAT WE DO Section */}
         <WhatWeDoSection locale={locale} />
+
+        {/* AGENTIC ENGINEERING Section */}
+        <AgenticEngineeringSection locale={locale} d={d} />
 
         {/* HOW WE THINK Section */}
         <HowWeThinkSection locale={locale} />

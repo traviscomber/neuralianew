@@ -80,6 +80,16 @@ export interface Dict {
   caseStudies: {
     title: string;
   };
+  agenticEngineering: {
+    headline: string;
+    subheadline: string;
+    humanInLoop: { title: string; description: string };
+    toolAware: { title: string; description: string };
+    vendorAgnostic: { title: string; description: string };
+    builtToShip: { title: string; description: string };
+    manifesto: string[];
+    cta: string;
+  };
 }
 
 const DICTS: Record<Locale, Dict> = {
@@ -194,6 +204,33 @@ const DICTS: Record<Locale, Dict> = {
     caseStudies: {
       title: "Casos de Éxito",
     },
+    agenticEngineering: {
+      headline: "Agentic Engineering, construido para el mundo real",
+      subheadline: "No construimos agentes aislados. Construimos sistemas de ingeniería agentica que funcionan dentro de tu empresa, que se integran con tus flujos, que se adaptan a tu gobernanza.",
+      humanInLoop: {
+        title: "Human-in-Loop",
+        description: "Los humanos toman decisiones críticas. Los agentes proponen y ejecutan con supervisión.",
+      },
+      toolAware: {
+        title: "Tool-Aware",
+        description: "Agentes que entienden las herramientas empresariales. API-first, integración nativa, sin custom coding.",
+      },
+      vendorAgnostic: {
+        title: "Vendor-Agnostic",
+        description: "No te quedas atrapado. Arquitectura agnóstica de modelos y proveedores.",
+      },
+      builtToShip: {
+        title: "Built-to-Ship",
+        description: "Producción en 4 semanas, no en 4 meses. Stack simplificado, testing integrado, observabilidad desde día uno.",
+      },
+      manifesto: [
+        "Los agentes no reemplazan humanos. Aumentan capacidad.",
+        "La gobernanza no es restricción. Es velocidad.",
+        "Integración no es fricción. Es arquitectura.",
+        "Producción no es beta. Es promesa.",
+      ],
+      cta: "Explorar Agentic Engineering",
+    },
   },
   en: {
     nav: {
@@ -305,6 +342,33 @@ const DICTS: Record<Locale, Dict> = {
     },
     caseStudies: {
       title: "Case Studies",
+    },
+    agenticEngineering: {
+      headline: "Agentic Engineering, built for the real world",
+      subheadline: "We don't build isolated agents. We build agentic engineering systems that work inside your enterprise, integrate with your workflows, adapt to your governance.",
+      humanInLoop: {
+        title: "Human-in-Loop",
+        description: "Humans make critical decisions. Agents propose and execute with oversight.",
+      },
+      toolAware: {
+        title: "Tool-Aware",
+        description: "Agents that understand enterprise tools. API-first, native integration, no custom coding.",
+      },
+      vendorAgnostic: {
+        title: "Vendor-Agnostic",
+        description: "You're not locked in. Model and provider-agnostic architecture.",
+      },
+      builtToShip: {
+        title: "Built-to-Ship",
+        description: "Production in 4 weeks, not 4 months. Simplified stack, integrated testing, observability from day one.",
+      },
+      manifesto: [
+        "Agents don't replace humans. They augment capacity.",
+        "Governance isn't restriction. It's velocity.",
+        "Integration isn't friction. It's architecture.",
+        "Production isn't beta. It's a promise.",
+      ],
+      cta: "Explore Agentic Engineering",
     },
   },
 };
