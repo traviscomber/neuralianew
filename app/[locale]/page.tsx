@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v8.0.0-agentic-systems-fix
-// Fixed: Agentic Engineering section rendering
-// Added error handling, manifesto title, improved hover states
+// VERCEL CACHE BUSTER: v9.0.0-agentic-systems-complete
+// Fixed: Complete refactor of /agentic-systems page
+// Replaced inline styles with Tailwind, added full manifesto, principles, and values sections
 
 interface PageProps {
   params: { locale: string }
