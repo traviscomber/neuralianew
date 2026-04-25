@@ -3,9 +3,15 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -13,35 +19,10 @@ export default function Navigation() {
   const params = useParams()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
-  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const href = (path: string) => `/${locale}${path}`
   const otherLocale = isES ? 'en' : 'es'
   const hrefLocale = (path: string) => `/${otherLocale}${path}`
-
-  // Close dropdown when clicking outside or pressing Escape
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setAgentOpen(false)
-      }
-    }
-
-    function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape' && agentOpen) {
-        setAgentOpen(false)
-      }
-    }
-
-    if (agentOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      document.addEventListener('keydown', handleEscape)
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside)
-        document.removeEventListener('keydown', handleEscape)
-      }
-    }
-  }, [agentOpen])
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -58,36 +39,26 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          <div 
-            ref={dropdownRef}
-            className="relative"
-          >
-            <button 
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1 cursor-pointer"
-              onClick={() => setAgentOpen(!agentOpen)}
-              onMouseEnter={() => setAgentOpen(true)}
-              onMouseLeave={() => setAgentOpen(false)}
-              aria-expanded={agentOpen}
-              aria-haspopup="true"
-            >
-              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${agentOpen ? 'rotate-180' : ''}`} />
-            </button>
-            {agentOpen && (
-              <div 
-                className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
-                onMouseEnter={() => setAgentOpen(true)}
-                onMouseLeave={() => setAgentOpen(false)}
-              >
-                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1 cursor-pointer">
+                {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-56">
+              <DropdownMenuItem asChild>
+                <Link href={href('/agent-matrix')} className="cursor-pointer">
                   Agent Matrix
                 </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href={href('/agent-operations')} className="cursor-pointer">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
                 </Link>
-              </div>
-            )}
-          </div>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
@@ -113,10 +84,7 @@ export default function Navigation() {
 
         <button 
           className="md:hidden text-foreground ml-auto" 
-          onClick={() => {
-            setOpen(!open)
-            setAgentOpen(false)
-          }}
+          onClick={() => setOpen(!open)}
         >
           {open ? <X /> : <Menu />}
         </button>
