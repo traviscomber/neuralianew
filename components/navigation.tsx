@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Globe, ChevronDown } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
 
@@ -13,10 +13,39 @@ export default function Navigation() {
   const params = useParams()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const href = (path: string) => `/${locale}${path}`
   const otherLocale = isES ? 'en' : 'es'
   const hrefLocale = (path: string) => `/${otherLocale}${path}`
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setAgentOpen(false)
+      }
+    }
+
+    if (agentOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [agentOpen])
+
+  // Close dropdown with Escape key
+  useEffect(() => {
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape' && agentOpen) {
+        setAgentOpen(false)
+      }
+    }
+
+    if (agentOpen) {
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }
+  }, [agentOpen])
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -33,20 +62,24 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          <div className="relative group">
+          <div 
+            ref={dropdownRef}
+            className="relative group"
+            onMouseEnter={() => setAgentOpen(true)}
+            onMouseLeave={() => setAgentOpen(false)}
+          >
             <button 
               className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1"
-              onMouseEnter={() => setAgentOpen(true)}
-              onMouseLeave={() => setAgentOpen(false)}
+              onClick={() => setAgentOpen(!agentOpen)}
+              onTouchEnd={() => setAgentOpen(!agentOpen)}
+              aria-expanded={agentOpen}
+              aria-haspopup="true"
             >
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${agentOpen ? 'rotate-180' : ''}`} />
             </button>
             {agentOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
-                onMouseEnter={() => setAgentOpen(true)}
-                onMouseLeave={() => setAgentOpen(false)}
-              >
+              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
                 <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
                   Agent Matrix
                 </Link>
