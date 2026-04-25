@@ -19,7 +19,7 @@ export default function Navigation() {
   const otherLocale = isES ? 'en' : 'es'
   const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
-  // Close dropdown when clicking outside
+  // Close dropdown when clicking outside or pressing Escape
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -27,14 +27,6 @@ export default function Navigation() {
       }
     }
 
-    if (agentOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [agentOpen])
-
-  // Close dropdown with Escape key
-  useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
       if (event.key === 'Escape' && agentOpen) {
         setAgentOpen(false)
@@ -42,8 +34,12 @@ export default function Navigation() {
     }
 
     if (agentOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
       document.addEventListener('keydown', handleEscape)
-      return () => document.removeEventListener('keydown', handleEscape)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        document.removeEventListener('keydown', handleEscape)
+      }
     }
   }, [agentOpen])
 
@@ -64,14 +60,13 @@ export default function Navigation() {
 
           <div 
             ref={dropdownRef}
-            className="relative group"
-            onMouseEnter={() => setAgentOpen(true)}
-            onMouseLeave={() => setAgentOpen(false)}
+            className="relative"
           >
             <button 
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1 cursor-pointer"
               onClick={() => setAgentOpen(!agentOpen)}
-              onTouchEnd={() => setAgentOpen(!agentOpen)}
+              onMouseEnter={() => setAgentOpen(true)}
+              onMouseLeave={() => setAgentOpen(false)}
               aria-expanded={agentOpen}
               aria-haspopup="true"
             >
@@ -79,11 +74,15 @@ export default function Navigation() {
               <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${agentOpen ? 'rotate-180' : ''}`} />
             </button>
             {agentOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50">
-                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+              <div 
+                className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
+                onMouseEnter={() => setAgentOpen(true)}
+                onMouseLeave={() => setAgentOpen(false)}
+              >
+                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
                   Agent Matrix
                 </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
+                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
                 </Link>
               </div>
