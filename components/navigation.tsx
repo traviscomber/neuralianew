@@ -6,12 +6,6 @@ import { Menu, X, Globe, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
@@ -39,26 +33,22 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1 cursor-pointer">
-                {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-                <ChevronDown className="w-4 h-4" />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-56">
-              <DropdownMenuItem asChild>
-                <Link href={href('/agent-matrix')} className="cursor-pointer">
+          <div className="relative group">
+            <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
+              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+              <ChevronDown className="w-4 h-4 group-hover:rotate-180 transition-transform" />
+            </button>
+            <div className="absolute left-0 top-full pt-0 hidden group-hover:block z-50">
+              <div className="mt-2 w-56 bg-background border border-border rounded-lg shadow-lg py-2">
+                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
                   Agent Matrix
                 </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href={href('/agent-operations')} className="cursor-pointer">
+                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
                 </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              </div>
+            </div>
+          </div>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
