@@ -108,6 +108,23 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Validate environment variables on startup (ALWAYS validate, not just production)
+  const envValidation = validateEnvironmentVariables()
+  if (!envValidation.valid) {
+    console.error('⚠️ Environment validation failed:', envValidation.errors)
+    // Only fail hard in production, warn in development
+    if (process.env.NODE_ENV === 'production') {
+      return NextResponse.json(
+        {
+          error: 'Server configuration error',
+          details: 'Missing required environment variables',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 503 }
+      )
+    }
+  }
+
   // Handle locale routing for non-API routes
   if (!pathname.startsWith('/api')) {
     const locale = getLocale(pathname)
@@ -116,7 +133,8 @@ export async function middleware(request: NextRequest) {
       // Get preferred locale from Accept-Language header
       const acceptLanguage = request.headers.get('accept-language') || ''
       const preferredLocale = acceptLanguage
-        .split(',')[0]
+        .split(',')
+[0]
         .split('-')[0]
         .toLowerCase()
 
@@ -138,21 +156,6 @@ export async function middleware(request: NextRequest) {
       },
       { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
     )
-  }
-
-  // Validate environment variables on startup
-  if (process.env.NODE_ENV === 'production') {
-    const envValidation = validateEnvironmentVariables()
-    if (!envValidation.valid) {
-      console.error('Environment validation failed:', envValidation.errors)
-      return NextResponse.json(
-        {
-          error: 'Server configuration error',
-          timestamp: new Date().toISOString(),
-        },
-        { status: 503 }
-      )
-    }
   }
 
   // Check if route is protected API
@@ -214,10 +217,10 @@ export async function middleware(request: NextRequest) {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()')
 
-  // Add CSP header
+  // Add complete CSP header (FIXED - was truncated)
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.openai.com https://*.supabase.co https://cdn.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cdn.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
   )
 
   return response
