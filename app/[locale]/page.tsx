@@ -18,10 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v27.0.0-dropdown-hover-fix
-// Fixed: Added pointer-events-none and group-hover:pointer-events-auto to dropdown
-// Added z-50 to ensure proper stacking. Dropdown now fully functional on initial load
-// This ensures menu always closes properly and never blocks scroll
+// VERCEL CACHE BUSTER: v28.0.0-contact-api-build-fix
+// Fixed: Moved Resend client initialization from module level to POST handler
+// Prevents build-time execution without RESEND_API_KEY environment variable
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
