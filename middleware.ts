@@ -108,23 +108,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Validate environment variables on startup (ALWAYS validate, not just production)
-  const envValidation = validateEnvironmentVariables()
-  if (!envValidation.valid) {
-    console.error('⚠️ Environment validation failed:', envValidation.errors)
-    // Only fail hard in production, warn in development
-    if (process.env.NODE_ENV === 'production') {
-      return NextResponse.json(
-        {
-          error: 'Server configuration error',
-          details: 'Missing required environment variables',
-          timestamp: new Date().toISOString(),
-        },
-        { status: 503 }
-      )
-    }
-  }
-
   // Handle locale routing for non-API routes
   if (!pathname.startsWith('/api')) {
     const locale = getLocale(pathname)
@@ -134,8 +117,9 @@ export async function middleware(request: NextRequest) {
       const acceptLanguage = request.headers.get('accept-language') || ''
       const preferredLocale = acceptLanguage
         .split(',')
-[0]
-        .split('-')[0]
+        [0]
+        .split('-')
+        [0]
         .toLowerCase()
 
       const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
@@ -155,6 +139,20 @@ export async function middleware(request: NextRequest) {
         retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
       },
       { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
+    )
+  }
+
+  // Validate environment variables (ALL environments)
+  const envValidation = validateEnvironmentVariables()
+  if (!envValidation.valid) {
+    console.error('[MIDDLEWARE] Environment validation failed:', envValidation.errors)
+    return NextResponse.json(
+      {
+        error: 'Server configuration error',
+        timestamp: new Date().toISOString(),
+        details: process.env.NODE_ENV === 'development' ? envValidation.errors : undefined,
+      },
+      { status: 503 }
     )
   }
 
@@ -200,7 +198,7 @@ export async function middleware(request: NextRequest) {
         },
       })
     } catch (error) {
-      console.error('Token validation error:', error)
+      console.error('[MIDDLEWARE] Token validation error:', error)
       return NextResponse.json(
         { error: 'Failed to validate authentication token' },
         { status: 500 }
@@ -212,15 +210,20 @@ export async function middleware(request: NextRequest) {
   const response = NextResponse.next()
 
   response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN')
   response.headers.set('X-XSS-Protection', '1; mode=block')
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()')
+  
+  // HSTS: Force HTTPS in production
+  if (process.env.NODE_ENV === 'production') {
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload')
+  }
 
-  // Add complete CSP header (FIXED - was truncated)
+  // Complete Content Security Policy
   response.headers.set(
     'Content-Security-Policy',
-    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://cdn.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
   )
 
   return response

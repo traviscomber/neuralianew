@@ -3,18 +3,16 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   eslint: {
-    // FIX: Only ignore during builds if necessary - should fix errors instead
-    dirs: ['app', 'components', 'lib'],
+    ignoreDuringBuilds: false, // Catch ESLint errors during build
   },
   typescript: {
-    // FIX: Enable strict type checking in production
-    tsconfigPath: './tsconfig.json',
+    ignoreBuildErrors: false, // Catch TypeScript errors during build
   },
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    minimumCacheTTL: 60 * 60 * 24, // 24 hours
+    minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
@@ -53,10 +51,9 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
-          // FIX: Add Strict-Transport-Security for HTTPS enforcement
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains',
+            value: 'max-age=31536000; includeSubDomains; preload',
           },
         ],
       },
@@ -135,14 +132,11 @@ const nextConfig = {
 
     return config
   },
-  // Performance optimizations for production
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['@radix-ui/*', 'lucide-react'],
   },
-  // FIX: Enable compression and caching
-  compress: true,
-  productionBrowserSourceMaps: false, // Disable source maps in production for smaller bundle
+  productionBrowserSourceMaps: false, // Disable source maps in production
+  poweredByHeader: false, // Remove X-Powered-By header
 }
 
 export default nextConfig
