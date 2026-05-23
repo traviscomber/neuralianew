@@ -32,12 +32,20 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          <Link
-            href={href('/agent-matrix')}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition"
-          >
-            {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-          </Link>
+          <div className="relative group">
+            <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
+              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+            </button>
+            <div className="absolute left-0 mt-0 w-56 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <Link href={href('/agent-matrix')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition first:rounded-t-lg">
+                Agent Matrix
+              </Link>
+              <Link href={href('/agent-operations')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition last:rounded-b-lg border-t border-border/50">
+                {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
+              </Link>
+            </div>
+          </div>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
