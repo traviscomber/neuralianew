@@ -18,8 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v21.0.0-theme-toggle-native-button
-// Fixed: Replaced shadcn Button with native HTML button in theme-toggle
+// VERCEL CACHE BUSTER: v22.0.0-logo-mobile-menu-fix
+// Fixed: Added onClick={() => setOpen(false)} to logo so clicking it closes mobile menu
+// Now users can scroll properly after clicking logo on mobile
 // Returns null during hydration to avoid mismatch, simplified to bare minimum for production stability
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer

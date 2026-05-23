@@ -20,7 +20,7 @@ export default function Navigation() {
   return (
     <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href('/')} className="flex items-center flex-shrink-0">
+        <Link href={href('/')} onClick={() => setOpen(false)} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
