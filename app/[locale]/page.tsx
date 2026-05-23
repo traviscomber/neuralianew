@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v24.0.0-fixed-routing-conflict
-// Fixed: Removed conflicting static case-studies folders (blackswan-facility-core, despega-tu-carrera, ecosuelolab)
-// These were competing with [slug] dynamic route. Now only [slug] route exists for case-studies
+// VERCEL CACHE BUSTER: v25.0.0-duplicate-navbar-fixed
+// Fixed: Removed duplicate Navigation component from labs page
+// Navigation is already rendered by root layout, so pages should not render it again
 // Added backdrop overlay to close menu when clicking outside
 // This ensures menu always closes properly and never blocks scroll
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
