@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, Globe, ChevronDown } from 'lucide-react'
+import { Menu, X, Globe } from 'lucide-react'
 import { useState } from 'react'
 import { useParams } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -32,14 +32,12 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          <div className="relative">
-            <Link
-              href={href('/agent-matrix')}
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition"
-            >
-              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-            </Link>
-          </div>
+          <Link
+            href={href('/agent-matrix')}
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition"
+          >
+            {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+          </Link>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}

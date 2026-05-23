@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v18.0.0-ultra-simple-dropdown
-// Fixed: Removed all state management from Sistemas Agénticos
-// Desktop now links directly to /agent-matrix, mobile shows flat list with visual hierarchy
+// VERCEL CACHE BUSTER: v19.0.0-ultra-clean-navbar
+// Fixed: Removed unused ChevronDown import, removed unnecessary div wrapper
+// Simplified navigation to bare minimum - direct Links only, no complex state/CSS
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
 // /agent-matrix with visual control layer content, /agent-operations with governance content
