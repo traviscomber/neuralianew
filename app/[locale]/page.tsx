@@ -18,10 +18,10 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v25.0.0-duplicate-navbar-fixed
-// Fixed: Removed duplicate Navigation component from labs page
-// Navigation is already rendered by root layout, so pages should not render it again
-// Added backdrop overlay to close menu when clicking outside
+// VERCEL CACHE BUSTER: v26.0.0-complete-navbar-rewrite
+// Fixed: Complete rewrite of Navigation component to fix hydration blocking issue
+// Added mounted state check before rendering interactive elements and mobile menu
+// Removed backdrop overlay that was causing interaction blocking on initial load
 // This ensures menu always closes properly and never blocks scroll
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer

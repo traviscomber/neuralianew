@@ -8,28 +8,38 @@ import { useParams, usePathname } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navigation() {
-  const [open, setOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const params = useParams()
   const pathname = usePathname()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
 
+  // Ensure component is mounted before rendering interactive elements
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Close mobile menu on route change
   useEffect(() => {
-    setOpen(false)
+    setMobileMenuOpen(false)
   }, [pathname])
 
   const href = (path: string) => `/${locale}${path}`
   const otherLocale = isES ? 'en' : 'es'
   const hrefLocale = (path: string) => `/${otherLocale}${path}`
 
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+    <nav className="fixed top-0 w-full z-50 bg-background border-b border-border">
       <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href('/')} onClick={() => setOpen(false)} className="flex items-center flex-shrink-0">
+        {/* Logo */}
+        <Link href={href('/')} onClick={closeMobileMenu} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
+        {/* Desktop Navigation */}
         <div className="hidden md:flex flex-1 justify-center items-center gap-1">
           <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Capacidades' : 'Capabilities'}
@@ -38,18 +48,23 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
+          {/* Desktop Dropdown - Pure CSS */}
           <div className="relative group">
             <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
-            <div className="absolute left-0 mt-0 w-56 bg-background border border-border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-              <Link href={href('/agent-matrix')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition first:rounded-t-lg">
-                Agent Matrix
-              </Link>
-              <Link href={href('/agent-operations')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition last:rounded-b-lg border-t border-border/50">
-                {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
-              </Link>
+            <div className="absolute left-0 top-full pt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div className="bg-background border border-border rounded-lg shadow-lg py-1">
+                <Link href={href('/agent-matrix')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
+                  Agent Matrix
+                </Link>
+                <Link href={href('/agent-operations')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition border-t border-border/50">
+                  {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -64,6 +79,7 @@ export default function Navigation() {
           </Link>
         </div>
 
+        {/* Desktop Actions */}
         <div className="hidden md:flex gap-2 items-center flex-shrink-0">
           <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium transition">
             {isES ? 'Contactar' : 'Contact'}
@@ -72,57 +88,51 @@ export default function Navigation() {
             <Globe className="w-4 h-4" />
             {isES ? 'EN' : 'ES'}
           </Link>
-          <ThemeToggle />
+          {mounted && <ThemeToggle />}
         </div>
 
+        {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-foreground ml-auto" 
-          onClick={() => {
-            setOpen(!open)
-          }}
+          className="md:hidden text-foreground ml-auto p-2" 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {open ? <X /> : <Menu />}
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
-      {open && (
-        <>
-          {/* Backdrop overlay to close menu when clicking outside */}
-          <div 
-            className="fixed inset-0 bg-black/20 z-40 md:hidden" 
-            onClick={() => setOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-50 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto shadow-lg" style={{ backgroundColor: 'hsl(var(--background))' }}>
-          <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+      {/* Mobile Menu - Only render when mounted to avoid hydration issues */}
+      {mounted && mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background px-4 py-4 space-y-1">
+          <Link href={href('/capabilities')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href('/solutions')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
           
-          <Link href={href('/agent-matrix')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
+          <Link href={href('/agent-matrix')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+            Agent Matrix
           </Link>
-          <Link href={href('/agent-operations')} onClick={() => setOpen(false)} className="block px-4 py-3 ml-4 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href('/agent-operations')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-4">
             {isES ? '└ Operaciones Agénticas' : '└ Agent Operations'}
           </Link>
 
-          <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href('/case-studies')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
           </Link>
-          <Link href={href('/faq')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href('/faq')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             FAQ
           </Link>
-          <Link href={href('/about')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href('/about')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Acerca de' : 'About'}
           </Link>
 
           <div className="pt-4 mt-4 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={() => setOpen(false)} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center hover:bg-primary/90 transition">
+            <Link href={href('/contact')} onClick={closeMobileMenu} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center">
               {isES ? 'Contactar' : 'Contact'}
             </Link>
-            <Link href={hrefLocale('/')} onClick={() => setOpen(false)} className="block px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 transition">
+            <Link href={hrefLocale('/')} onClick={closeMobileMenu} className="block px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium">
               <Globe className="w-4 h-4" />
               {isES ? 'EN' : 'ES'}
             </Link>
@@ -131,7 +141,6 @@ export default function Navigation() {
             </div>
           </div>
         </div>
-        </>
       )}
     </nav>
   )
