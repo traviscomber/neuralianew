@@ -18,9 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v15.0.0-navbar-mobile-fix
-// Fixed: Mobile navbar z-index stacking issue, dark mode visibility, and menu expansion
-// Changed mobile menu z-index from z-40 to z-50 to appear above navbar
+// VERCEL CACHE BUSTER: v16.0.0-build-error-fixed
+// Fixed: Removed conflicting /app/case-studies/[id] directory
+// Routes now unified in /app/[locale]/case-studies/[slug]
 // /agent-matrix with visual control layer content, /agent-operations with governance content
 // Using Array.isArray() validation, inline core features, fallback values, conditional sections
 // Both Spanish and English now have complete 4-principle philosophy arrays
