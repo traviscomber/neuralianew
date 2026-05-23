@@ -18,10 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v26.0.0-complete-navbar-rewrite
-// Fixed: Complete rewrite of Navigation component to fix hydration blocking issue
-// Added mounted state check before rendering interactive elements and mobile menu
-// Removed backdrop overlay that was causing interaction blocking on initial load
+// VERCEL CACHE BUSTER: v27.0.0-dropdown-hover-fix
+// Fixed: Added pointer-events-none and group-hover:pointer-events-auto to dropdown
+// Added z-50 to ensure proper stacking. Dropdown now fully functional on initial load
 // This ensures menu always closes properly and never blocks scroll
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
