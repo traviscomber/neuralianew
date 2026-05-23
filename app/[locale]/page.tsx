@@ -18,8 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v20.0.0-dropdown-both-options
-// Fixed: Restored dropdown showing both Agent Matrix and Agent Operations
+// VERCEL CACHE BUSTER: v21.0.0-theme-toggle-native-button
+// Fixed: Replaced shadcn Button with native HTML button in theme-toggle
+// Returns null during hydration to avoid mismatch, simplified to bare minimum for production stability
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
