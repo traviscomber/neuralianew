@@ -18,8 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v16.0.0-build-error-fixed
-// Fixed: Removed conflicting /app/case-studies/[id] directory
+// VERCEL CACHE BUSTER: v17.0.0-navbar-systems-agenticos-fixed
+// Fixed: Desktop dropdown now uses Tailwind group-hover instead of state management
+// Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
 // /agent-matrix with visual control layer content, /agent-operations with governance content
 // Using Array.isArray() validation, inline core features, fallback values, conditional sections

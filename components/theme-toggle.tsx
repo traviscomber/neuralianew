@@ -30,7 +30,9 @@ export function ThemeToggle() {
   // Default to dark if theme is undefined
   const currentTheme = theme || "dark"
 
-  const handleThemeChange = () => {
+  const handleThemeChange = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
     if (currentTheme === "light") {
       setTheme("dark")
     } else if (currentTheme === "dark") {
@@ -69,8 +71,9 @@ export function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={handleThemeChange}
-      className="w-9 h-9 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors duration-300"
+      className="w-9 h-9 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-colors duration-300 cursor-pointer"
       title={`Current theme: ${getThemeLabel()}. Click to cycle: Light → Dark → Black`}
+      type="button"
     >
       {getThemeIcon()}
       <span className="sr-only">Toggle theme</span>

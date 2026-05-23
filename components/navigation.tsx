@@ -9,7 +9,6 @@ import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
-  const [agentOpen, setAgentOpen] = useState(false)
   const params = useParams()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
@@ -35,26 +34,24 @@ export default function Navigation() {
 
           <div className="relative group">
             <button 
-              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1"
+              className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground group-hover:text-foreground transition flex items-center gap-1"
               onMouseEnter={() => setAgentOpen(true)}
               onMouseLeave={() => setAgentOpen(false)}
             >
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
             </button>
-            {agentOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50"
-                onMouseEnter={() => setAgentOpen(true)}
-                onMouseLeave={() => setAgentOpen(false)}
-              >
-                <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
-                  Agent Matrix
-                </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition">
-                  {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
-                </Link>
-              </div>
-            )}
+            <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-lg shadow-lg py-2 z-50 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all pointer-events-none group-hover:pointer-events-auto"
+              onMouseEnter={() => setAgentOpen(true)}
+              onMouseLeave={() => setAgentOpen(false)}
+            >
+              <Link href={href('/agent-matrix')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
+                Agent Matrix
+              </Link>
+              <Link href={href('/agent-operations')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
+                {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
+              </Link>
+            </div>
           </div>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
@@ -83,7 +80,6 @@ export default function Navigation() {
           className="md:hidden text-foreground ml-auto" 
           onClick={() => {
             setOpen(!open)
-            setAgentOpen(false)
           }}
         >
           {open ? <X /> : <Menu />}
@@ -101,22 +97,20 @@ export default function Navigation() {
           
           <div>
             <button 
-              onClick={() => setAgentOpen(!agentOpen)}
+              onClick={() => setOpen(false)}
               className="w-full text-left px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition flex items-center justify-between"
             >
               {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <ChevronDown className={`w-4 h-4 transition-transform ${agentOpen ? 'rotate-180' : ''}`} />
+              <ChevronDown className="w-4 h-4 transition-transform" />
             </button>
-            {agentOpen && (
-              <div className="mt-2 space-y-1 bg-muted/20 rounded px-2 py-2 ml-2 border-l-2 border-primary/30">
-                <Link href={href('/agent-matrix')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                  Agent Matrix
-                </Link>
-                <Link href={href('/agent-operations')} onClick={() => { setOpen(false); setAgentOpen(false) }} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                  {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
-                </Link>
-              </div>
-            )}
+            <div className="mt-2 space-y-1 bg-muted/20 rounded px-2 py-2 ml-2 border-l-2 border-primary/30">
+              <Link href={href('/agent-matrix')} onClick={() => setOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+                Agent Matrix
+              </Link>
+              <Link href={href('/agent-operations')} onClick={() => setOpen(false)} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+                {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
+              </Link>
+            </div>
           </div>
 
           <Link href={href('/case-studies')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
