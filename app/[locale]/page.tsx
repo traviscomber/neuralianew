@@ -18,10 +18,9 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v30.0.0-section-background-runtime-fix
-// Fixed: SectionBackground now has default section='hero' prop with null check
-// Fixed: Contact page now properly passes section="faq" to SectionBackground
-// Added fallback rendering for invalid section names to prevent "Cannot read opacity" errors
+// VERCEL CACHE BUSTER: v31.0.0-contact-submit-button-fixed
+// Fixed: Added missing await request.json() in contact API route
+// Form data (name, email, company, message) is now properly extracted before validation
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
