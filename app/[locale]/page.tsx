@@ -18,10 +18,10 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v29.0.0-contact-page-created
-// Fixed: Created /app/[locale]/contact/page.tsx that was missing
-// Added ContactFormClient component that integrates with /api/contact endpoint
-// Contact button now works and displays a full contact form page
+// VERCEL CACHE BUSTER: v30.0.0-section-background-runtime-fix
+// Fixed: SectionBackground now has default section='hero' prop with null check
+// Fixed: Contact page now properly passes section="faq" to SectionBackground
+// Added fallback rendering for invalid section names to prevent "Cannot read opacity" errors
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]

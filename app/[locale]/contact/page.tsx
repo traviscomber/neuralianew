@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <SectionBackground />
-      <main className="pt-20 min-h-screen">
+      <SectionBackground section="faq">
+        <main className="pt-20 min-h-screen">
         <div className="w-full max-w-7xl mx-auto px-4 py-20">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
@@ -28,6 +28,7 @@ export default function ContactPage() {
           </div>
         </div>
       </main>
+      </SectionBackground>
       <Footer />
     </>
   )
