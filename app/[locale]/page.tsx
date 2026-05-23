@@ -18,10 +18,10 @@ import { DifferentiatorSection } from "@/components/differentiator-section"
 import { ForWhoSection } from "@/components/for-who-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v22.0.0-logo-mobile-menu-fix
-// Fixed: Added onClick={() => setOpen(false)} to logo so clicking it closes mobile menu
-// Now users can scroll properly after clicking logo on mobile
-// Returns null during hydration to avoid mismatch, simplified to bare minimum for production stability
+// VERCEL CACHE BUSTER: v23.0.0-definitive-mobile-menu-fix
+// Fixed: Added usePathname + useEffect to auto-close menu on route change
+// Added backdrop overlay to close menu when clicking outside
+// This ensures menu always closes properly and never blocks scroll
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]

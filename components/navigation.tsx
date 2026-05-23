@@ -3,15 +3,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Globe } from 'lucide-react'
-import { useState } from 'react'
-import { useParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useParams, usePathname } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
   const params = useParams()
+  const pathname = usePathname()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
 
   const href = (path: string) => `/${locale}${path}`
   const otherLocale = isES ? 'en' : 'es'
@@ -80,7 +86,14 @@ export default function Navigation() {
       </div>
 
       {open && (
-        <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-50 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto shadow-lg" style={{ backgroundColor: 'hsl(var(--background))' }}>
+        <>
+          {/* Backdrop overlay to close menu when clicking outside */}
+          <div 
+            className="fixed inset-0 bg-black/20 z-40 md:hidden" 
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="fixed top-20 left-0 right-0 md:hidden border-t border-border bg-background w-full z-50 px-4 py-4 space-y-1 max-h-[calc(100vh-100px)] overflow-y-auto shadow-lg" style={{ backgroundColor: 'hsl(var(--background))' }}>
           <Link href={href('/capabilities')} onClick={() => setOpen(false)} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
@@ -118,6 +131,7 @@ export default function Navigation() {
             </div>
           </div>
         </div>
+        </>
       )}
     </nav>
   )
