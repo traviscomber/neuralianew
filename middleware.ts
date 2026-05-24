@@ -1,3 +1,6 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { LOCALES, DEFAULT_LOCALE } from '@/lib/get-locale'
+
 // Redirect old Spanish route names to new canonical routes (301 permanent)
 const REDIRECT_ROUTES: Record<string, string> = {
   '/es/capacidades': '/es/capabilities',
