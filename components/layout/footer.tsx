@@ -153,7 +153,7 @@ export function Footer() {
             </div>
           </div>
           <div className="text-center text-sm text-muted-foreground border-t border-border pt-4">
-            <p>© 2025 N3uralia (Neuralia). Todos los derechos reservados.</p>
+            <p>© 2026 N3uralia (Neuralia). Todos los derechos reservados.</p>
             <p className="text-xs mt-2">N3uralia es una marca registrada. Neuralia es el nombre alternativo de la plataforma.</p>
           </div>
         </div>

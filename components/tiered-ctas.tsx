@@ -25,7 +25,7 @@ export function TieredCtas({ locale }: TieredCtasProps) {
       title: isES ? "Aprender" : "Learn",
       subtitle: isES ? "Métodos y casos reales" : "Methods and real cases",
       description: isES
-        ? "Explore nuestra metodología de implementación y casos de éxito con resultados medibles."
+        ? "Explora nuestra metodología de implementación y casos de éxito con resultados medibles."
         : "Explore our implementation methodology and real case studies with measurable results.",
       icon: Zap,
       href: `/${locale}/case-studies`,
@@ -40,7 +40,7 @@ export function TieredCtas({ locale }: TieredCtasProps) {
         : "Take action with a personalized demo and a realistic implementation roadmap.",
       icon: Calendar,
       href: `/${locale}/contact`,
-      buttonText: isES ? "Solicitar Demo" : "Request Demo",
+      buttonText: isES ? "Agendar diagnóstico (30 min)" : "Schedule diagnosis (30 min)",
       step: 3,
     },
   ]

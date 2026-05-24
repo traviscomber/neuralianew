@@ -14,13 +14,13 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v34.0.0-final-brief-alignment-complete
-// HOMEPAGE FULLY ALIGNED WITH BRIEF
-// 6 sections: Hero (eyebrow + title + copy + dual CTA + trust strip) 
-// → Pain (3 bullets) → Solution (4 bullets) → Proof (case study with KPI)
-// → 4-Week Method (4 phases) → Closing (Menos fricción title + subtitle + single CTA + microcopy)
-// Unified single CTA: "Agendar diagnóstico (30 min)" across entire page
-// All dictionary copy updated to match brief exactly - production ready
+// VERCEL CACHE BUSTER: v35.0.0-live-audit-fixes-applied
+// Applied 5 surgical fixes from N3uralia live audit 2026-05-24:
+// 1. Footer year: 2025 → 2026
+// 2. Unified primary CTA: "Agendar diagnóstico (30 min)" across nav + conversational-intelligence
+// 3. Language fix: "Explore nuestra..." → "Explora nuestra..." in tiered-ctas
+// 4. Removed "Solicitar Demo" → standardized to "Agendar diagnóstico (30 min)"
+// 5. All CTAs now conversion-focused and consistent sitewide. Build: ✅ Success
 
 interface PageProps {
   params: { locale: string }
