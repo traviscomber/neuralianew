@@ -78,17 +78,11 @@ export default function HomePage({ params }: PageProps) {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
                 <Link
-                  href={`/${locale}/contact`}
+                  href="#tiered-ctas"
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {d.home.hero.ctaPrimary}
+                  {isES ? "Explorar" : "Get Started"}
                   <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href={`/${locale}/case-studies`}
-                  className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
-                >
-                  {d.home.hero.ctaSecondary}
                 </Link>
               </div>
 

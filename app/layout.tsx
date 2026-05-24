@@ -39,22 +39,13 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/favicon.ico",
   },
-  alternates: {
-    canonical: "https://n3uralia.com",
-    languages: {
-      "es-CL": "https://n3uralia.com/es",
-      "es": "https://n3uralia.com/es",
-      "en": "https://n3uralia.com/en",
-      "en-US": "https://n3uralia.com/en",
-    },
-  },
+  // REMOVED: alternates.canonical and openGraph.url
+  // Each page defines its own canonical via [locale]/layout.tsx or page.tsx
+  // Root layout canonical was causing ALL pages to inherit /es canonical
   openGraph: {
     title: "N3uralia - AI Agents & Sistemas Agenticos en Producción",
     description: "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration. Multi-agent systems that work with you. Agentes de IA listos para producción.",
     type: "website",
-    locale: "es_CL",
-    localeAlternate: ["en_US", "es_ES"],
-    url: "https://n3uralia.com/es",
     siteName: "N3uralia",
     images: [
       {

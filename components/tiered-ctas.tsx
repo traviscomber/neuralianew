@@ -46,7 +46,7 @@ export function TieredCtas({ locale }: TieredCtasProps) {
   ]
 
   return (
-    <section className="py-24 px-4 bg-background border-t border-border/50">
+    <section id="tiered-ctas" className="py-24 px-4 bg-background border-t border-border/50">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-20">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight">
