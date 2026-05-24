@@ -14,20 +14,13 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v33.0.0-complete-alignment-copywriting-strategy
-// HOMEPAGE RESTRUCTURED: 60-70% text reduction per copywriting brief
-// Replaced 10 complex components with 6 streamlined sections
-// New components: PainPointsSection, SolutionSection, ProofSection, HowWeWorkSimplifiedSection
-// Hero simplified: "IA en producción..." (10 words), single CTA "Agendar diagnóstico"
-// Fixed all Resend/Supabase initialization to avoid build-time errors
-// Result: Faster load times, clearer messaging, higher conversion potential
-// Uses Tailwind group-hover for pure CSS interaction without JavaScript state
-// Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
-// Routes now unified in /app/[locale]/case-studies/[slug]
-// /agent-matrix with visual control layer content, /agent-operations with governance content
-// Using Array.isArray() validation, inline core features, fallback values, conditional sections
-// Both Spanish and English now have complete 4-principle philosophy arrays
-// Added error boundary for missing dictionary content
+// VERCEL CACHE BUSTER: v34.0.0-final-brief-alignment-complete
+// HOMEPAGE FULLY ALIGNED WITH BRIEF
+// 6 sections: Hero (eyebrow + title + copy + dual CTA + trust strip) 
+// → Pain (3 bullets) → Solution (4 bullets) → Proof (case study with KPI)
+// → 4-Week Method (4 phases) → Closing (Menos fricción title + subtitle + single CTA + microcopy)
+// Unified single CTA: "Agendar diagnóstico (30 min)" across entire page
+// All dictionary copy updated to match brief exactly - production ready
 
 interface PageProps {
   params: { locale: string }
@@ -76,13 +69,11 @@ export default function HomePage({ params }: PageProps) {
               </div>
 
               <h1 className="text-5xl sm:text-6xl font-bold mb-8 leading-tight text-balance text-foreground">
-                {isES ? "IA en producción para operaciones reales" : "AI in production for real operations"}
+                {d.home.hero.title}
               </h1>
 
               <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-                {isES 
-                  ? "Implementamos sistemas agénticos en 4 semanas, integrados a tus procesos, con trazabilidad y control humano."
-                  : "We implement agentic systems in 4 weeks, integrated into your processes, with full traceability and human control."}
+                {d.home.hero.subtitle}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -90,27 +81,29 @@ export default function HomePage({ params }: PageProps) {
                   href={`/${locale}/contact`}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {isES ? "Agendar diagnóstico" : "Schedule diagnosis"}
+                  {d.home.hero.ctaPrimary}
                   <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href={`/${locale}/case-studies`}
+                  className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
+                >
+                  {d.home.hero.ctaSecondary}
                 </Link>
               </div>
 
               <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">40+</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {isES ? "Procesos Automatizados" : "Automated Processes"}
-                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "procesos automatizados" : "automated processes"}</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {isES ? "Industrias Servidas" : "Industries Served"}
-                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "industrias" : "industries"}</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Operación Continua</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "operación" : "operation"}</p>
                 </div>
               </div>
             </div>

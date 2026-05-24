@@ -5,16 +5,20 @@ export function SolutionSection({ locale }: { locale: Locale }) {
 
   const solutions = [
     {
-      es: "Automatiza flujos críticos",
-      en: "Automates critical workflows",
+      es: "Interfaces, backend y APIs listas para uso diario",
+      en: "Interfaces, backend and APIs ready for daily use",
     },
     {
-      es: "Conecta datos y herramientas",
-      en: "Connects data and tools",
+      es: "Agentes conectados a tus sistemas y datos reales",
+      en: "Agents connected to your systems and real data",
     },
     {
-      es: "Aprueba con supervisión humana",
-      en: "Approves with human oversight",
+      es: "Auditoría, seguridad y checkpoints humanos",
+      en: "Audit, security and human checkpoints",
+    },
+    {
+      es: "Arquitectura agnóstica, sin lock-in de proveedor",
+      en: "Vendor-agnostic architecture, no provider lock-in",
     },
   ]
 
@@ -23,21 +27,17 @@ export function SolutionSection({ locale }: { locale: Locale }) {
       <div className="max-w-4xl mx-auto">
         <div className="mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-8 text-balance">
-            {isES ? "Un sistema que ejecuta, no solo responde" : "A system that executes, not just responds"}
+            {isES ? "No entregamos bots sueltos. Entregamos infraestructura operativa." : "We don't deliver loose bots. We deliver operational infrastructure."}
           </h2>
         </div>
 
         <div className="grid gap-6">
           {solutions.map((item, i) => (
             <div key={i} className="flex gap-4">
-              <div className="flex-shrink-0 w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center text-secondary font-bold">
-                {i + 1}
-              </div>
-              <div className="flex-1">
-                <p className="text-lg text-muted-foreground">
-                  {isES ? item.es : item.en}
-                </p>
-              </div>
+              <div className="flex-shrink-0 w-2 h-2 rounded-full bg-secondary mt-3" />
+              <p className="text-lg text-muted-foreground">
+                {isES ? item.es : item.en}
+              </p>
             </div>
           ))}
         </div>
