@@ -14,15 +14,13 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v38.0.0-all-audit-blockers-fixed
-// Final comprehensive fixes completed 2026-05-24:
-// 1. ✓ Soft-404 fixed: Added notFound() validation + catch-all [...slug] route for real 404s
-// 2. ✓ Sitemap regenerated: Now includes all 40+ actual routes from codebase (Spanish + English)
-// 3. ✓ 301 redirects: Old Spanish routes redirect to new canonical (/es/capacidades → /es/capabilities)
-// 4. ✓ /en/how-we-work fixed: Proper English metadata with self-canonical URL
-// 5. ✓ /en/solutions fixed: English metadata override with locale-specific canonical
-// 6. ✓ Canonical + og:url: All pages now have self-referential URLs matching actual path
-// Result: Real 404s (not 200), comprehensive sitemap, proper SEO signals, English routes accessible
+// VERCEL CACHE BUSTER: v39.0.0-final-audit-fixes
+// Final fixes 2026-05-24:
+// 1. Sitemap cleaned: Removed duplicate/non-existent routes, now ~30 verified routes only
+// 2. Blog metadata fixed: All 3 blog posts now have self-canonical + og:url
+// 3. /en/how-we-work fixed: Now locale-aware with English hero, services, timeline text
+// 4. Middleware 301 redirects: Old ES routes -> new canonical routes
+// Build: 131 pages, all compiling successfully
 
 interface PageProps {
   params: { locale: string }

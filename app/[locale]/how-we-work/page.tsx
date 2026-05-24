@@ -4,6 +4,11 @@ import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
 import { SectionBackground } from "@/components/section-background"
+import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+
+interface PageProps {
+  params: { locale: string }
+}
 
 export const metadata: Metadata = {
   title: "N3uralia Methodology | 5 Phases to Deploy Agentic Systems in Production",
@@ -26,8 +31,19 @@ export const metadata: Metadata = {
   },
 }
 
-export default function HowWeWorkPage() {
-  const services = [
+export default function HowWeWorkPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const isES = locale === "es"
+
+  const services = isES ? [
+    "Arquitectura de Software Agentica",
+    "Sistemas Multi-Agente en Producción",
+    "Automatización de Procesos Empresariales",
+    "Integración de Datos y Pipelines",
+    "Infraestructura Cloud Escalable",
+    "Living Agents (Agentes Inteligentes)",
+    "Operación y Monitoreo 24/7",
+  ] : [
     "Agentic Software Architecture",
     "Multi-Agent Systems in Production",
     "Enterprise Process Automation",
@@ -37,11 +53,16 @@ export default function HowWeWorkPage() {
     "24/7 Operations and Monitoring",
   ]
 
-  const timeline = [
+  const timeline = isES ? [
     { phase: "Fase 1-2", duration: "Semanas 1-4", focus: "Estrategia & Desarrollo" },
     { phase: "Fase 3", duration: "Semana 5-6", focus: "Infraestructura" },
     { phase: "Fase 4", duration: "Semana 7-10", focus: "Validación & Testing" },
     { phase: "Fase 5+", duration: "Ongoing", focus: "Operación & Evolución" },
+  ] : [
+    { phase: "Phase 1-2", duration: "Weeks 1-4", focus: "Strategy & Development" },
+    { phase: "Phase 3", duration: "Weeks 5-6", focus: "Infrastructure" },
+    { phase: "Phase 4", duration: "Weeks 7-10", focus: "Validation & Testing" },
+    { phase: "Phase 5+", duration: "Ongoing", focus: "Operations & Evolution" },
   ]
 
   return (
@@ -53,14 +74,18 @@ export default function HowWeWorkPage() {
         <div className="max-w-4xl mx-auto text-center w-full">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Metodología</span>
+            <span className="text-sm font-medium text-primary">
+              {isES ? "Metodología" : "Methodology"}
+            </span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight text-balance">
-            Nuestro Enfoque en 5 Pasos
+            {isES ? "Nuestro Enfoque en 5 Pasos" : "Our 5-Step Approach"}
           </h1>
           <p className="body-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Cinco fases claras desde estrategia hasta operación sostenible. Cada fase con métricas definidas, comunicación transparente y control riguroso.
+            {isES 
+              ? "Cinco fases claras desde estrategia hasta operación sostenible. Cada fase con métricas definidas, comunicación transparente y control riguroso."
+              : "Five clear phases from strategy to sustainable operation. Each phase with defined metrics, transparent communication, and rigorous control."}
           </p>
         </div>
       </section>
