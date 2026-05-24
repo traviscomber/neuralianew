@@ -10,6 +10,19 @@ export const metadata: Metadata = {
     "Preguntas frecuentes sobre N3uralia: qué son sistemas agenticos, cómo funcionan living agents, diferencias con bots automáticos, integración con sistemas legacy, seguridad de datos, gobernanza IA, pricing, soporte técnico.",
   keywords:
     "FAQ sistemas agenticos, living agents, agentes inteligentes, IA en producción, preguntas frecuentes, automatización empresarial, arquitectura agentica, integración legacy, gobernanza IA",
+  alternates: {
+    canonical: "https://n3uralia.com/es/faq",
+    languages: {
+      es: "https://n3uralia.com/es/faq",
+      en: "https://n3uralia.com/en/faq",
+    },
+  },
+  openGraph: {
+    title: "FAQ N3uralia - Preguntas sobre Sistemas Agenticos",
+    description: "Respuestas a preguntas frecuentes sobre Living Agents, IA en producción y sistemas agenticos.",
+    url: "https://n3uralia.com/es/faq",
+    type: "website",
+  },
 }
 
 const faqSchema = {

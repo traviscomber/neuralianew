@@ -3,7 +3,9 @@ import { ArrowRight, Calendar, User, ArrowLeft } from "lucide-react"
 import { BlogPageClient } from "@/components/blog/blog-page-client"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
+import type { Locale } from "@/content/dictionaries"
 import { SectionBackground } from "@/components/section-background"
+import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {
   params: {
@@ -11,24 +13,23 @@ interface PageProps {
   }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+export function generateMetadata({ params }: PageProps): Metadata {
+  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const isES = locale === 'es'
 
-  const titles = {
-    es: "Blog N3uralia | Neuralia - Agentes AI, Orquestación, Sistemas Agenticos en Producción",
-    en: "N3uralia Blog | Neuralia - AI Agents, Orchestration, Agentic Systems in Production",
-  }
-
-  const descriptions = {
-    es: "Blog técnico N3uralia: artículos sobre agentes IA, orquestación multi-agente, living agents, sistemas agenticos production-ready, fullstack architecture.",
-    en: "N3uralia technical blog: articles on AI agents, multi-agent orchestration, living agents, production-ready agentic systems, fullstack architecture.",
-  }
-
-  return {
-    title: titles[locale as keyof typeof titles],
-    description: descriptions[locale as keyof typeof descriptions],
-  }
+  return generatePageMetadata({
+    title: isES 
+      ? "Blog N3uralia - Agentes AI, Orquestación, Sistemas Agenticos" 
+      : "N3uralia Blog - AI Agents, Orchestration, Agentic Systems",
+    description: isES
+      ? "Blog técnico N3uralia: artículos sobre agentes IA, orquestación multi-agente, living agents, sistemas agenticos production-ready, fullstack architecture."
+      : "N3uralia technical blog: articles on AI agents, multi-agent orchestration, living agents, production-ready agentic systems, fullstack architecture.",
+    keywords: isES
+      ? "blog, artículos, agentes IA, orquestación, sistemas agenticos, living agents, arquitectura"
+      : "blog, articles, AI agents, orchestration, agentic systems, living agents, architecture",
+    canonical: `https://n3uralia.com/${locale}/blog`,
+    locale,
+  })
 }
 
 export default function BlogPage({ params }: PageProps) {
