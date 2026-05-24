@@ -12,7 +12,6 @@ import { PainPointsSection } from "@/components/pain-points-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
-import { ClosingSection } from "@/components/closing-section"
 
 // VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
 // 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
@@ -221,9 +220,6 @@ export default function HomePage({ params }: PageProps) {
             </div>
           </div>
         </section>
-
-        {/* CLOSING Section */}
-        <ClosingSection locale={locale} />
       </main>
 
       <TieredCtas locale={locale} />

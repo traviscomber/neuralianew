@@ -1,3 +1,6 @@
+import type { Metadata } from "next"
+import type { Locale } from "@/content/dictionaries"
+
 /**
  * Simple self-canonical SEO builder
  * Usage: buildSeo({ locale: "es", path: "/es/faq", title: "FAQ", description: "..." })

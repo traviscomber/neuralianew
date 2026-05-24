@@ -29,25 +29,17 @@ export async function generateMetadata({
     en: "Agentic systems orchestration for enterprises. Intelligent automation ready for production.",
   }
 
-  // Use canonical URL based on actual route - NOT /es for all routes
-  const canonicalUrl = `https://n3uralia.com/${locale}`
-
+  // DO NOT set canonical/og:url here - each page sets its own
+  // Layout metadata is merged with page metadata, and we want pages to control their own canonical
   return {
     title: titles[locale as keyof typeof titles],
     description: descriptions[locale as keyof typeof descriptions],
-    alternates: {
-      canonical: canonicalUrl,
-      languages: {
-        "es": "https://n3uralia.com/es",
-        "en": "https://n3uralia.com/en",
-      },
-    },
+    // No alternates.canonical here - pages define their own
+    // No openGraph.url here - pages define their own
     openGraph: {
-      title: titles[locale as keyof typeof titles],
-      description: descriptions[locale as keyof typeof descriptions],
-      url: canonicalUrl,
       locale: locale === 'es' ? 'es_CL' : 'en_US',
       type: 'website',
+      siteName: 'N3uralia',
     },
   }
 }
