@@ -7,20 +7,20 @@ import type { Locale, Dict } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
-import { SECTORS } from "@/content/sectors"
 import { TieredCtas } from "@/components/tiered-ctas"
-import { PositioningSection } from "@/components/positioning-section"
-import { WhatWeDoSection } from "@/components/what-we-do-section"
-import { AgenticEngineeringSection } from "@/components/agentic-engineering-section"
-import { HowWeThinkSection } from "@/components/how-we-think-section"
-import { ArchitectureSection } from "@/components/architecture-section"
-import { DifferentiatorSection } from "@/components/differentiator-section"
-import { ForWhoSection } from "@/components/for-who-section"
+import { PainPointsSection } from "@/components/pain-points-section"
+import { SolutionSection } from "@/components/solution-section"
+import { ProofSection } from "@/components/proof-section"
+import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v31.0.0-contact-submit-button-fixed
-// Fixed: Added missing await request.json() in contact API route
-// Form data (name, email, company, message) is now properly extracted before validation
+// VERCEL CACHE BUSTER: v33.0.0-complete-alignment-copywriting-strategy
+// HOMEPAGE RESTRUCTURED: 60-70% text reduction per copywriting brief
+// Replaced 10 complex components with 6 streamlined sections
+// New components: PainPointsSection, SolutionSection, ProofSection, HowWeWorkSimplifiedSection
+// Hero simplified: "IA en producción..." (10 words), single CTA "Agendar diagnóstico"
+// Fixed all Resend/Supabase initialization to avoid build-time errors
+// Result: Faster load times, clearer messaging, higher conversion potential
 // Uses Tailwind group-hover for pure CSS interaction without JavaScript state
 // Fixed: ThemeToggle click handling with preventDefault and stopPropagation, added cursor-pointer
 // Routes now unified in /app/[locale]/case-studies/[slug]
@@ -75,12 +75,14 @@ export default function HomePage({ params }: PageProps) {
                 <span className="text-sm font-medium text-primary">{d.home.hero.badge}</span>
               </div>
 
-              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance text-foreground">
-                {d.home.hero.title}
+              <h1 className="text-5xl sm:text-6xl font-bold mb-8 leading-tight text-balance text-foreground">
+                {isES ? "IA en producción para operaciones reales" : "AI in production for real operations"}
               </h1>
 
               <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-                {d.home.hero.subtitle}
+                {isES 
+                  ? "Implementamos sistemas agénticos en 4 semanas, integrados a tus procesos, con trazabilidad y control humano."
+                  : "We implement agentic systems in 4 weeks, integrated into your processes, with full traceability and human control."}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -88,14 +90,8 @@ export default function HomePage({ params }: PageProps) {
                   href={`/${locale}/contact`}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {d.home.hero.ctaPrimary}
+                  {isES ? "Agendar diagnóstico" : "Schedule diagnosis"}
                   <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href={`/${locale}/capabilities`}
-                  className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
-                >
-                  {d.home.hero.ctaSecondary}
                 </Link>
               </div>
 
@@ -121,67 +117,17 @@ export default function HomePage({ params }: PageProps) {
           </section>
         </HeroBackground>
 
-        {/* POSITIONING Section */}
-        <PositioningSection locale={locale} />
+        {/* PAIN POINTS Section */}
+        <PainPointsSection locale={locale} />
 
-        {/* SOLUTIONS BY INDUSTRY Section */}
-        <section className="py-24 px-4 border-t border-border bg-background">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-                {isES ? "Soluciones por Industria" : "Solutions by Industry"}
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                {isES 
-                  ? "Sistemas inteligentes diseñados para los desafíos específicos de cada sector"
-                  : "Intelligent systems designed for each industry's specific challenges"}
-              </p>
-            </div>
+        {/* SOLUTION Section */}
+        <SolutionSection locale={locale} />
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SECTORS.map((sector, i) => {
-                const Icon = sector.icon
-                return (
-                  <div key={i} className="group p-8 rounded-xl border border-border/50 bg-card hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 hover:shadow-lg">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                      {isES ? sector.titleES : sector.titleEN}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                      {isES ? sector.descES : sector.descEN}
-                    </p>
-                    <Link
-                      href={sector.link}
-                      className="inline-flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform"
-                    >
-                      {isES ? "Explorar" : "Explore"} <ArrowRight className="w-4 h-4" />
-                    </Link>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
+        {/* PROOF Section */}
+        <ProofSection locale={locale} />
 
-        {/* WHAT WE DO Section */}
-        <WhatWeDoSection locale={locale} />
-
-        {/* AGENTIC ENGINEERING Section */}
-        <AgenticEngineeringSection locale={locale} d={d} />
-
-        {/* HOW WE THINK Section */}
-        <HowWeThinkSection locale={locale} />
-
-        {/* ARCHITECTURE Section */}
-        <ArchitectureSection locale={locale} />
-
-        {/* DIFFERENTIATOR Section */}
-        <DifferentiatorSection locale={locale} />
-
-        {/* FOR WHO Section */}
-        <ForWhoSection locale={locale} />
+        {/* HOW WE WORK Section */}
+        <HowWeWorkSection locale={locale} />
 
         {/* CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">

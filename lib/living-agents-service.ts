@@ -1,9 +1,16 @@
 import { createClient } from "@supabase/supabase-js"
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+// Create a function to get the Supabase client at runtime, not build time
+function getSupabaseClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!url || !key) {
+    throw new Error("Supabase credentials not configured")
+  }
+
+  return createClient(url, key)
+}
 
 export interface Agent {
   id: string
@@ -88,7 +95,7 @@ export class LivingAgentsService {
     if (error) throw error
 
     // Update interaction count
-    await supabase.rpc("increment_interaction_count", { agent_id: agentId })
+    await getSupabaseClient().rpc("increment_interaction_count", { agent_id: agentId })
 
     return data as Interaction
   }
