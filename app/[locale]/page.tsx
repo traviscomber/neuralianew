@@ -14,13 +14,13 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v35.0.0-live-audit-fixes-applied
-// Applied 5 surgical fixes from N3uralia live audit 2026-05-24:
-// 1. Footer year: 2025 → 2026
-// 2. Unified primary CTA: "Agendar diagnóstico (30 min)" across nav + conversational-intelligence
-// 3. Language fix: "Explore nuestra..." → "Explora nuestra..." in tiered-ctas
-// 4. Removed "Solicitar Demo" → standardized to "Agendar diagnóstico (30 min)"
-// 5. All CTAs now conversion-focused and consistent sitewide. Build: ✅ Success
+// VERCEL CACHE BUSTER: v36.0.0-priority-0-seo-fixes
+// Priority 0 (Critical) SEO audit fixes completed 2026-05-24:
+// 1. Created not-found.tsx for proper 404 handling instead of shell content
+// 2. Fixed root metadata - removed [BUILD] date, fixed OG URLs and language alternates
+// 3. Fixed sitemap.ts - removed non-existent Spanish routes (/capacidades, /casos-de-exito, etc.)
+// 4. Sitemap now only lists actual routes that exist in [locale] directory
+// Result: Proper 404s, consistent canonical/og:url, accurate sitemap XML
 
 interface PageProps {
   params: { locale: string }

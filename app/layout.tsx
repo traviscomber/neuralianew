@@ -27,9 +27,9 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile [2026-03-13 BUILD]",
+  title: "N3uralia | Sistemas Agenticos en Producción",
   description:
-    "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM. IA en producción desde día uno.",
+    "N3uralia: Plataforma de sistemas agenticos listos para producción. Inteligencia aumentada que trabaja con humanos, sin reemplazar. Arquitectura multiagente, gobernanza, memoria persistente. Para empresas en Chile y LATAM.",
   keywords:
     "sistemas agenticos, IA en producción, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatización empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestación de agentes, IA Chile, LATAM, empresa AI, sistemas fullstack, IA aplicada, transformación digital, agentic AI, multi-agent systems, agentes autónomos, AI orchestration",
   authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
@@ -42,10 +42,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://n3uralia.com",
     languages: {
-      "es-CL": "https://n3uralia.com",
-      "es": "https://n3uralia.com",
-      "en": "https://n3uralia.com",
-      "en-US": "https://n3uralia.com",
+      "es-CL": "https://n3uralia.com/es",
+      "es": "https://n3uralia.com/es",
+      "en": "https://n3uralia.com/en",
+      "en-US": "https://n3uralia.com/en",
     },
   },
   openGraph: {
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "es_CL",
     localeAlternate: ["en_US", "es_ES"],
-    url: "https://n3uralia.com",
-    siteName: "N3uralia | Neuralia",
+    url: "https://n3uralia.com/es",
+    siteName: "N3uralia",
     images: [
       {
         url: "https://n3uralia.com/og-image.png",
