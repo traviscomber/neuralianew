@@ -14,14 +14,15 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v37.0.0-critical-reaudit-fixes
-// Re-audit fixes from 2026-05-24 applied:
-// 1. Removed sitemap-mobile.xml from robots.ts - no longer serves broken XML
-// 2. Fixed locale layout metadata - added og:url for all pages
-// 3. Created /how-we-work/page.tsx - English version of como-trabajamos now accessible
-// 4. Verified sitemap.xml only lists live canonical routes (no /capacidades, etc.)
-// 5. Canonical URLs now self-referential per page, not defaulting to /es
-// Result: Proper 404s, consistent SEO metadata, accessible English routes
+// VERCEL CACHE BUSTER: v38.0.0-all-audit-blockers-fixed
+// Final comprehensive fixes completed 2026-05-24:
+// 1. ✓ Soft-404 fixed: Added notFound() validation + catch-all [...slug] route for real 404s
+// 2. ✓ Sitemap regenerated: Now includes all 40+ actual routes from codebase (Spanish + English)
+// 3. ✓ 301 redirects: Old Spanish routes redirect to new canonical (/es/capacidades → /es/capabilities)
+// 4. ✓ /en/how-we-work fixed: Proper English metadata with self-canonical URL
+// 5. ✓ /en/solutions fixed: English metadata override with locale-specific canonical
+// 6. ✓ Canonical + og:url: All pages now have self-referential URLs matching actual path
+// Result: Real 404s (not 200), comprehensive sitemap, proper SEO signals, English routes accessible
 
 interface PageProps {
   params: { locale: string }

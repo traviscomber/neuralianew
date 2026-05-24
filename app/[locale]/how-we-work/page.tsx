@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   keywords:
     "implementation methodology, agentic systems production, how we work, implementation phases, AI architecture, intelligent agents, AI agents, go-live, cloud infrastructure, LATAM, Chile",
   alternates: {
-    canonical: "https://n3uralia.com/how-we-work",
+    canonical: "https://n3uralia.com/en/how-we-work",
     languages: {
       es: "https://n3uralia.com/es/como-trabajamos",
       en: "https://n3uralia.com/en/how-we-work",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "N3uralia Methodology | Agentic Systems Implementation",
     description: "Our proven 5-phase methodology for deploying agentic systems in production.",
-    url: "https://n3uralia.com/how-we-work",
+    url: "https://n3uralia.com/en/how-we-work",
     type: 'article',
   },
 }

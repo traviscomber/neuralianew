@@ -1,8 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server'
-
-// i18n configuration
-const LOCALES = ['es', 'en']
-const DEFAULT_LOCALE = 'es'
+// Redirect old Spanish route names to new canonical routes (301 permanent)
+const REDIRECT_ROUTES: Record<string, string> = {
+  '/es/capacidades': '/es/capabilities',
+  '/es/casos-de-exito': '/es/case-studies',
+  '/es/preguntas-frecuentes': '/es/faq',
+  '/es/acerca-de': '/es/about',
+  '/es/contactar': '/es/contact',
+}
 
 // Protected API routes that require authentication
 const PROTECTED_API_ROUTES = [
@@ -98,6 +101,12 @@ function getLocale(pathname: string): string | null {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // Check for old Spanish routes that need redirecting
+  const redirect = REDIRECT_ROUTES[pathname]
+  if (redirect) {
+    return NextResponse.redirect(new URL(redirect, request.url), { status: 301 })
+  }
 
   // Skip middleware for static assets, public files, and special files
   if (

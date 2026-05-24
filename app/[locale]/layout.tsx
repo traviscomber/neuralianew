@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
+import { notFound } from "next/navigation"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
@@ -51,7 +52,12 @@ export async function generateMetadata({
   }
 }
 
-export default function LocaleLayout({ children }: LocaleLayoutProps) {
+export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
+  // Validate locale - if invalid, return 404
+  if (!isValidLocale(params.locale)) {
+    notFound()
+  }
+
   return (
     <main role="main">
       {children}
