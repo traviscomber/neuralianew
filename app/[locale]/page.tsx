@@ -7,7 +7,6 @@ import type { Locale, Dict } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
-import { TieredCtas } from "@/components/tiered-ctas"
 import { PainPointsSection } from "@/components/pain-points-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ProofSection } from "@/components/proof-section"
@@ -215,8 +214,6 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </section>
       </main>
-
-      <TieredCtas locale={locale} />
 
       <Footer />
     </>
