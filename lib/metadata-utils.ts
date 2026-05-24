@@ -1,5 +1,54 @@
-import type { Metadata } from "next"
-import type { Locale } from "@/content/dictionaries"
+/**
+ * Simple self-canonical SEO builder
+ * Usage: buildSeo({ locale: "es", path: "/es/faq", title: "FAQ", description: "..." })
+ */
+export function buildSeo({
+  locale,
+  path,
+  title,
+  description,
+  keywords,
+}: {
+  locale: "es" | "en"
+  path: string
+  title: string
+  description: string
+  keywords?: string
+}): Metadata {
+  const SITE_URL = "https://n3uralia.com"
+  const url = `${SITE_URL}${path}`
+  
+  // Build alternate paths (swap locale prefix)
+  const altPath = path.startsWith("/en") 
+    ? path.replace(/^\/en/, "/es") 
+    : path.replace(/^\/es/, "/en")
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: url,
+      languages: {
+        es: path.startsWith("/es") ? url : `${SITE_URL}${path.replace(/^\/en/, "/es")}`,
+        en: path.startsWith("/en") ? url : `${SITE_URL}${path.replace(/^\/es/, "/en")}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "N3uralia",
+      locale: locale === "es" ? "es_CL" : "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  }
+}
 
 interface MetadataConfig {
   title: string

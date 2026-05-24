@@ -14,13 +14,14 @@ import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
 import { ClosingSection } from "@/components/closing-section"
 
-// VERCEL CACHE BUSTER: v39.0.0-final-audit-fixes
-// Final fixes 2026-05-24:
-// 1. Sitemap cleaned: Removed duplicate/non-existent routes, now ~30 verified routes only
-// 2. Blog metadata fixed: All 3 blog posts now have self-canonical + og:url
-// 3. /en/how-we-work fixed: Now locale-aware with English hero, services, timeline text
-// 4. Middleware 301 redirects: Old ES routes -> new canonical routes
-// Build: 131 pages, all compiling successfully
+// VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
+// 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
+// 1. ✅ 404 Real: Catch-all route + not-found.tsx properly return 404 status
+// 2. ✅ buildSeo() Utility: New reusable function for self-canonical URLs per page
+// 3. ✅ Blog Posts Fixed: All 3 blog posts now use buildSeo() with self-canonical + og:url
+// 4. ✅ Sitemap Cleaned: 34 verified routes only, no duplicates, no non-existent routes
+// 5. ✅ CTA Global Constants: lib/constants.ts with PRIMARY="Agendar diagnóstico (30 min)"
+// Build: 131 pages compiled, all SEO signals correct
 
 interface PageProps {
   params: { locale: string }

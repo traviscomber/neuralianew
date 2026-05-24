@@ -3,14 +3,17 @@ import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { buildSeo } from "@/lib/metadata-utils"
 
-export const metadata: Metadata = {
-  title: "Integración AI Agents con Legacy Systems | N3uralia Blog - Neuralia",
+export const metadata: Metadata = buildSeo({
+  locale: "es",
+  path: "/es/blog/integracion-ia-legacy-systems",
+  title: "Integración AI Agents con Legacy Systems | N3uralia Blog",
   description:
     "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
   keywords:
-    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad, neuralia",
-}
+    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad",
+})
 
 export default function BlogPost() {
   return (
