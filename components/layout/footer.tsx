@@ -103,7 +103,7 @@ export function Footer() {
                   onClick={() => setEmailDialogOpen(true)}
                   className="hover:text-foreground transition-colors text-left cursor-pointer"
                 >
-                  📧 info@n3uralia.com
+                  📧 Email us
                 </button>
               </li>
               <li>
