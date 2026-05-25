@@ -12,9 +12,13 @@ export const metadata: Metadata = {
   description:
     'Soluciones agenticas personalizadas para empresas chilenas. Living agents, orquestación multiagente y automatización inteligente. Optimiza operaciones, reduce tiempos, escala sin límites.',
   keywords:
-    'soluciones agenticas chile, automatización empresas chile, living agents chile, sistemas inteligentes chile, ia empresarial',
+    'soluciones agenticas chile, automatización empresas chile, living agents chile, sistemas inteligentes chile, ia empresarial, plataforma agentes ia, orquestación multiagente',
   alternates: {
     canonical: 'https://n3uralia.com/es/soluciones-agenticas-chile',
+    languages: {
+      es: 'https://n3uralia.com/es/soluciones-agenticas-chile',
+      en: 'https://n3uralia.com/en/solutions',
+    },
   },
   openGraph: {
     title: 'Soluciones Agenticas para Chile | N3uralia',

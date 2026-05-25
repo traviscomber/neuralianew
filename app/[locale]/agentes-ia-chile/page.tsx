@@ -12,9 +12,13 @@ export const metadata: Metadata = {
   description:
     'Agentes de IA inteligentes diseñados para empresas chilenas. Automatiza procesos, reduce costos hasta 70% y mejora productividad. Implementación en 2-4 semanas. Consultoría gratuita.',
   keywords:
-    'agentes ia chile, agentes inteligentes chile, automatización ia empresas chile, soluciones agenticas chile, ia para empresas chilenas',
+    'agentes ia chile, agentes inteligentes chile, automatización ia empresas chile, soluciones agenticas chile, ia para empresas chilenas, living agents chile, automatización procesos chile, ia empresarial',
   alternates: {
     canonical: 'https://n3uralia.com/es/agentes-ia-chile',
+    languages: {
+      es: 'https://n3uralia.com/es/agentes-ia-chile',
+      en: 'https://n3uralia.com/en/agent-matrix',
+    },
   },
   openGraph: {
     title: 'Agentes de IA para empresas en Chile | N3uralia',

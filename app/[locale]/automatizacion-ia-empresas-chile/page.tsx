@@ -12,9 +12,13 @@ export const metadata: Metadata = {
   description:
     'Automatización inteligente de procesos empresariales para organizaciones chilenas. Reduce tiempos, elimina errores manuales y escala operaciones sin aumentar costos. ROI garantizado.',
   keywords:
-    'automatización ia empresas chile, automatización procesos chile, transformación digital chile, rpa ia chile, automatización inteligente',
+    'automatización ia empresas chile, automatización procesos chile, transformación digital chile, rpa ia chile, automatización inteligente, automatización procesos empresariales',
   alternates: {
     canonical: 'https://n3uralia.com/es/automatizacion-ia-empresas-chile',
+    languages: {
+      es: 'https://n3uralia.com/es/automatizacion-ia-empresas-chile',
+      en: 'https://n3uralia.com/en/capabilities',
+    },
   },
   openGraph: {
     title: 'Automatización IA para empresas en Chile | N3uralia',
