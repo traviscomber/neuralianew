@@ -128,7 +128,7 @@ export function Footer() {
                     Twitter
                   </a>
                   <a 
-                    href="https://linkedin.com/company/n3uralia" 
+                    href="https://www.linkedin.com/company/n3uralia" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="hover:text-primary transition-colors text-xs"
