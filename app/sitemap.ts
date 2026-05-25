@@ -46,6 +46,13 @@ const ROUTES = [
   { slug: "/agentes-ia-chile", priority: 0.95, changeFreq: "weekly" as const },
   { slug: "/soluciones-agenticas-chile", priority: 0.95, changeFreq: "weekly" as const },
   { slug: "/automatizacion-ia-empresas-chile", priority: 0.95, changeFreq: "weekly" as const },
+  
+  // Chile SEO - Industry Verticals (High Priority)
+  { slug: "/agentes-ia-retail-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-mineria-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-manufactura-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-turismo-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-logistica-chile", priority: 0.9, changeFreq: "weekly" as const },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
