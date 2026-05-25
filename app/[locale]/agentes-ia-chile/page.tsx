@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
 import { ArrowRight, CheckCircle2, Zap, Target, TrendingUp } from 'lucide-react'
-import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
-import type { Locale } from '@/content/dictionaries'
 import { Footer } from '@/components/layout/footer'
 import { SectionBackground } from '@/components/section-background'
 
@@ -28,12 +25,7 @@ export const metadata: Metadata = {
   },
 }
 
-interface PageProps {
-  params: { locale: string }
-}
-
-export default function AgentesIAChilePage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+export default function AgentesIAChilePage() {
 
   return (
     <main className="min-h-screen bg-background">
