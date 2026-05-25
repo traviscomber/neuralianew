@@ -44,7 +44,7 @@ export default function Navigation() {
           <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
+          <Link href={href(isES ? '/soluciones' : '/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
@@ -107,7 +107,7 @@ export default function Navigation() {
           <Link href={href('/capabilities')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Capacidades' : 'Capabilities'}
           </Link>
-          <Link href={href('/solutions')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+          <Link href={href(isES ? '/soluciones' : '/solutions')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
           
