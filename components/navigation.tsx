@@ -35,7 +35,7 @@ export default function Navigation() {
     <nav className="fixed top-0 w-full z-50 bg-background border-b border-border">
       <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href={href('/')} onClick={closeMobileMenu} className="flex items-center flex-shrink-0">
+        <Link href={`/${locale}`} onClick={closeMobileMenu} className="flex items-center flex-shrink-0">
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
