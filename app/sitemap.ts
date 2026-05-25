@@ -11,24 +11,24 @@ const ROUTES = [
   // Main product pages
   { slug: "/capabilities", priority: 0.95, changeFreq: "weekly" as const },
   { slug: "/solutions", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/soluciones", priority: 0.95, changeFreq: "weekly" as const },
   { slug: "/case-studies", priority: 0.85, changeFreq: "monthly" as const },
   
   // Agent/system pages
   { slug: "/agent-matrix", priority: 0.9, changeFreq: "weekly" as const },
   { slug: "/agent-operations", priority: 0.9, changeFreq: "weekly" as const },
-  { slug: "/agentic-systems", priority: 0.85, changeFreq: "monthly" as const },
   { slug: "/living-agents", priority: 0.85, changeFreq: "monthly" as const },
   
-  // Spanish-named pages
-  { slug: "/nuestro-enfoque", priority: 0.8, changeFreq: "monthly" as const },
+  // Spanish-named pages (methodology & approach)
+  { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const },
   { slug: "/para-empresas", priority: 0.85, changeFreq: "monthly" as const },
   { slug: "/para-desarrolladores", priority: 0.8, changeFreq: "monthly" as const },
   { slug: "/para-startups", priority: 0.8, changeFreq: "monthly" as const },
-  { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const },
-  { slug: "/soluciones", priority: 0.85, changeFreq: "monthly" as const },
+  
+  // English equivalents
+  { slug: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
   
   // Reference pages
-  { slug: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
   { slug: "/faq", priority: 0.75, changeFreq: "monthly" as const },
   { slug: "/about", priority: 0.8, changeFreq: "monthly" as const },
   { slug: "/contact", priority: 0.85, changeFreq: "monthly" as const },
@@ -40,16 +40,10 @@ const ROUTES = [
   
   // Resource centers
   { slug: "/blog", priority: 0.8, changeFreq: "weekly" as const },
-  { slug: "/labs", priority: 0.6, changeFreq: "monthly" as const },
   
   // Feature pages
   { slug: "/conversational-intelligence", priority: 0.75, changeFreq: "monthly" as const },
   { slug: "/integraciones-empresariales", priority: 0.7, changeFreq: "monthly" as const },
-  
-  // Additional pages
-  { slug: "/ai-infrastructure", priority: 0.7, changeFreq: "monthly" as const },
-  { slug: "/api-docs", priority: 0.6, changeFreq: "monthly" as const },
-  { slug: "/services", priority: 0.75, changeFreq: "monthly" as const },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

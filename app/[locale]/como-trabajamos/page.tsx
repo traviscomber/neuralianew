@@ -5,15 +5,29 @@ import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
 import { SectionBackground } from "@/components/section-background"
 
-export const metadata: Metadata = {
-  title: "Metodología N3uralia | 5 Fases para Implementar Sistemas Agenticos en Producción",
-  description:
-    "Cómo N3uralia implementa sistemas agenticos. 5 fases: descubrimiento, diseño arquitectónico, implementación, go-live y optimización continua. Metodología probada para desplegar agentes en producción con gobernanza, memoria persistente y escalabilidad.",
-  keywords:
-    "metodología implementación, sistemas agenticos producción, cómo trabajamos, fases implementación, arquitectura IA, agentes inteligentes, AI agents, go-live, infraestructura cloud, LATAM, Chile",
-  alternates: {
-    canonical: "https://n3uralia.com/como-trabajamos",
-  },
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  
+  const canonical = `https://n3uralia.com/${locale}/como-trabajamos`
+
+  return {
+    title: "Metodología N3uralia | 5 Fases para Implementar Sistemas Agenticos en Producción",
+    description:
+      "Cómo N3uralia implementa sistemas agenticos. 5 fases: descubrimiento, diseño arquitectónico, implementación, go-live y optimización continua. Metodología probada para desplegar agentes en producción con gobernanza, memoria persistente y escalabilidad.",
+    keywords:
+      "metodología implementación, sistemas agenticos producción, cómo trabajamos, fases implementación, arquitectura IA, agentes inteligentes, AI agents, go-live, infraestructura cloud, LATAM, Chile",
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      url: canonical,
+      type: 'website',
+    },
+  }
 }
 
 export default function ComoTrabajamosPage() {

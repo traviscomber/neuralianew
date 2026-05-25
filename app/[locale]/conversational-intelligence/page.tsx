@@ -4,15 +4,29 @@ import Link from "next/link"
 import { ArrowRight, Zap, Users, BarChart3, Workflow, Shield, TrendingUp } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
 
-export const metadata: Metadata = {
-  title: "Conversational Intelligence Systems | N3uralia - Revenue + Operations + Agents",
-  description:
-    "N3uralia Conversational Intelligence Systems transforman conversaciones en infraestructura operativa. Agentes conversacionales integrados en adquisición, operaciones y revenue con atribución real. B2B, Turismo, Eventos, Manufactura.",
-  keywords:
-    "conversational intelligence, conversational agents, sistemas conversacionales, revenue operations, customer intelligence, conversational AI, B2B automation, turismo, eventos, glamping, agentes conversacionales, n3uralia",
-  alternates: {
-    canonical: "https://n3uralia.com/conversational-intelligence",
-  },
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  
+  const canonical = `https://n3uralia.com/${locale}/conversational-intelligence`
+
+  return {
+    title: "Conversational Intelligence Systems | N3uralia - Revenue + Operations + Agents",
+    description:
+      "N3uralia Conversational Intelligence Systems transforman conversaciones en infraestructura operativa. Agentes conversacionales integrados en adquisición, operaciones y revenue con atribución real. B2B, Turismo, Eventos, Manufactura.",
+    keywords:
+      "conversational intelligence, conversational agents, sistemas conversacionales, revenue operations, customer intelligence, conversational AI, B2B automation, turismo, eventos, glamping, agentes conversacionales, n3uralia",
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      url: canonical,
+      type: 'website',
+    },
+  }
 }
 
 export default function ConversationalIntelligencePage() {

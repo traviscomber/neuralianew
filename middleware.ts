@@ -8,6 +8,7 @@ const REDIRECT_ROUTES: Record<string, string> = {
   '/es/preguntas-frecuentes': '/es/faq',
   '/es/acerca-de': '/es/about',
   '/es/contactar': '/es/contact',
+  '/es/solutions': '/es/soluciones', // /es/solutions should redirect to /es/soluciones (canonical ES path)
 }
 
 // Protected API routes that require authentication

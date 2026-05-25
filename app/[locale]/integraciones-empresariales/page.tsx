@@ -3,15 +3,29 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, Shield, BarChart3, Clock } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
 
-export const metadata: Metadata = {
-  title: "Integraciones Empresariales N3uralia | Conectar Sistemas Legacy sin Disruption",
-  description:
-    "Conecta ERP, CRM, y sistemas heredados sin reemplazarlos. N3uralia orquesta comunicación inteligente entre plataformas antiguas y nuevas. Data flow automático, 24/7. Para banca, seguros, manufactura. Chile & LATAM.",
-  keywords:
-    "integración sistemas legacy, conectar ERP CRM, API integraciones, orquestación sistemas, enterprise integration, data flow automático, conectividad legacy, integraciones empresariales, Chile, LATAM",
-  alternates: {
-    canonical: "https://n3uralia.com/integraciones-empresariales",
-  },
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  
+  const canonical = `https://n3uralia.com/${locale}/integraciones-empresariales`
+
+  return {
+    title: "Integraciones Empresariales N3uralia | Conectar Sistemas Legacy sin Disruption",
+    description:
+      "Conecta ERP, CRM, y sistemas heredados sin reemplazarlos. N3uralia orquesta comunicación inteligente entre plataformas antiguas y nuevas. Data flow automático, 24/7. Para banca, seguros, manufactura. Chile & LATAM.",
+    keywords:
+      "integración sistemas legacy, conectar ERP CRM, API integraciones, orquestación sistemas, enterprise integration, data flow automático, conectividad legacy, integraciones empresariales, Chile, LATAM",
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      url: canonical,
+      type: 'website',
+    },
+  }
 }
 
 export default function IntegracionesPage() {
