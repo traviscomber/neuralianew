@@ -59,7 +59,7 @@ export default function Navigation() {
             <div className="absolute left-0 top-full pt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
               <div className="bg-background border border-border rounded-lg shadow-lg py-1">
                 <Link href={href('/agent-matrix')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
-                  Agent Matrix
+                  {isES ? 'Matriz de Agentes' : 'Agent Matrix'}
                 </Link>
                 <Link href={href('/agent-operations')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition border-t border-border/50">
                   {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
@@ -87,7 +87,7 @@ export default function Navigation() {
                 
                 {/* Industry Verticals */}
                 <div className="border-t border-border/50 px-2 py-2">
-                  <p className="px-4 py-1 text-xs font-semibold text-muted-foreground">{isES ? 'VERTICALS' : 'VERTICALS'}</p>
+                  <p className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase">{isES ? 'Industrias' : 'Verticals'}</p>
                   <Link href={href('/agentes-ia-retail-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
                     {isES ? 'Retail & E-commerce' : 'Retail & E-commerce'}
                   </Link>
@@ -159,7 +159,7 @@ export default function Navigation() {
           </Link>
           
           <Link href={href('/agent-matrix')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            Agent Matrix
+            {isES ? 'Matriz de Agentes' : 'Agent Matrix'}
           </Link>
           <Link href={href('/agent-operations')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-4">
             {isES ? '└ Operaciones Agénticas' : '└ Agent Operations'}
@@ -171,7 +171,7 @@ export default function Navigation() {
             <Link href={href('/agentes-ia-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm font-medium text-foreground hover:bg-muted/50 rounded transition">
               🤖 {isES ? 'Agentes IA para Empresas' : 'AI Agents for Business'}
             </Link>
-            <p className="px-4 py-2 text-xs font-semibold text-muted-foreground">VERTICALS</p>
+            <p className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase">{isES ? 'Industrias' : 'Verticals'}</p>
             <Link href={href('/agentes-ia-retail-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
               {isES ? 'Retail & E-commerce' : 'Retail & E-commerce'}
             </Link>
