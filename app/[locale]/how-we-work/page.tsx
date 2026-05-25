@@ -7,32 +7,43 @@ import { SectionBackground } from "@/components/section-background"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export const metadata: Metadata = {
-  title: "N3uralia Methodology | 5 Phases to Deploy Agentic Systems in Production",
-  description:
-    "How N3uralia implements agentic systems. 5 phases: discovery, architectural design, implementation, go-live and continuous optimization. Proven methodology to deploy AI agents in production with governance, persistent memory and scalability.",
-  keywords:
-    "implementation methodology, agentic systems production, how we work, implementation phases, AI architecture, intelligent agents, AI agents, go-live, cloud infrastructure, LATAM, Chile",
-  alternates: {
-    canonical: "https://n3uralia.com/en/how-we-work",
-    languages: {
-      es: "https://n3uralia.com/es/como-trabajamos",
-      en: "https://n3uralia.com/en/how-we-work",
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  
+  const canonical = `https://n3uralia.com/${locale}/how-we-work`
+
+  return {
+    title: "N3uralia Methodology | 5 Phases to Deploy Agentic Systems in Production",
+    description:
+      "How N3uralia implements agentic systems. 5 phases: discovery, architectural design, implementation, go-live and continuous optimization. Proven methodology to deploy AI agents in production with governance, persistent memory and scalability.",
+    keywords:
+      "implementation methodology, agentic systems production, how we work, implementation phases, AI architecture, intelligent agents, AI agents, go-live, cloud infrastructure, LATAM, Chile",
+    alternates: {
+      canonical,
+      languages: {
+        es: "https://n3uralia.com/es/como-trabajamos",
+        en: "https://n3uralia.com/en/how-we-work",
+      },
     },
-  },
-  openGraph: {
-    title: "N3uralia Methodology | Agentic Systems Implementation",
-    description: "Our proven 5-phase methodology for deploying agentic systems in production.",
-    url: "https://n3uralia.com/en/how-we-work",
-    type: 'article',
-  },
+    openGraph: {
+      title: "N3uralia Methodology | Agentic Systems Implementation",
+      description: "Our proven 5-phase methodology for deploying agentic systems in production.",
+      url: canonical,
+      type: 'article',
+    },
+  }
 }
 
-export default function HowWeWorkPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+export default async function HowWeWorkPage({ params }: PageProps) {
+  const { locale: rawLocale } = await params
+  const locale = isValidLocale(rawLocale) ? rawLocale : DEFAULT_LOCALE
   const isES = locale === "es"
 
   const services = isES ? [

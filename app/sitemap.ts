@@ -21,9 +21,6 @@ const ROUTES = [
   
   // Spanish-named pages (methodology & approach)
   { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const },
-  { slug: "/para-empresas", priority: 0.85, changeFreq: "monthly" as const },
-  { slug: "/para-desarrolladores", priority: 0.8, changeFreq: "monthly" as const },
-  { slug: "/para-startups", priority: 0.8, changeFreq: "monthly" as const },
   
   // English equivalents
   { slug: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
