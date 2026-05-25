@@ -41,6 +41,11 @@ const ROUTES = [
   // Feature pages
   { slug: "/conversational-intelligence", priority: 0.75, changeFreq: "monthly" as const },
   { slug: "/integraciones-empresariales", priority: 0.7, changeFreq: "monthly" as const },
+  
+  // Chile SEO - Money Pages (High Priority)
+  { slug: "/agentes-ia-chile", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/soluciones-agenticas-chile", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/automatizacion-ia-empresas-chile", priority: 0.95, changeFreq: "weekly" as const },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
