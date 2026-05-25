@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, Users, Zap, TrendingUp } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, CheckCircle2, Users, Zap, TrendingUp, Gauge, MapPin } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
 import { SectionBackground } from '@/components/section-background'
 
