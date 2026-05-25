@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2, Store, Zap, TrendingUp } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, CheckCircle2, Store, Zap, TrendingUp, Gauge, ShoppingCart } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
 import { SectionBackground } from '@/components/section-background'
 
@@ -25,20 +26,34 @@ export default function AgentesIARetailChilePage() {
   return (
     <main className="min-h-screen bg-background">
       <SectionBackground>
-        <div className="max-w-4xl mx-auto px-4 py-24">
-          <h1 className="text-5xl font-bold text-foreground mb-4">
-            Agentes de IA para Retail y E-commerce en Chile
-          </h1>
-          <p className="text-xl text-foreground/80 mb-8">
-            Automatiza tu operación minorista. Gestión de inventario inteligente, atención al cliente 24/7 y pricing dinámico.
-            <span className="block text-2xl font-semibold text-primary mt-2">Aumenta ventas hasta 35% • Reduce costos 60%</span>
-          </p>
-          <Link
-            href="/es/agentes-ia-chile#cta"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-semibold"
-          >
-            Evalúa tu potencial <ArrowRight className="w-4 h-4" />
-          </Link>
+        <div className="max-w-6xl mx-auto px-4 py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-5xl font-bold text-foreground mb-4 text-balance">
+                Agentes de IA para Retail y E-commerce en Chile
+              </h1>
+              <p className="text-xl text-foreground/80 mb-6">
+                Automatiza tu operación minorista. Gestión de inventario inteligente, atención al cliente 24/7 y pricing dinámico.
+              </p>
+              <div className="bg-primary/10 rounded-lg p-6 mb-8">
+                <p className="text-2xl font-semibold text-primary">
+                  Aumenta ventas hasta 35% • Reduce costos 60%
+                </p>
+              </div>
+              <Link
+                href="/es/agentes-ia-chile#cta"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-background rounded-lg hover:bg-primary/90 transition-colors font-semibold"
+              >
+                Evalúa tu potencial <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <div className="relative w-full h-80 bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg overflow-hidden flex items-center justify-center">
+              <div className="text-center">
+                <ShoppingCart className="w-24 h-24 text-primary/40 mx-auto mb-4" />
+                <p className="text-foreground/60 font-semibold">Retail Inteligente</p>
+              </div>
+            </div>
+          </div>
         </div>
       </SectionBackground>
 
