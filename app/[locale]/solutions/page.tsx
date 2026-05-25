@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 
+// /solutions redirects to the canonical Spanish path /soluciones
+// Both EN and ES should have self-referencing canonicals
 export const metadata: Metadata = {
   title: "Agentic Systems Solutions - Automation for Every Industry",
   description:
