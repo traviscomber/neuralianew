@@ -136,38 +136,30 @@ export function FaqPageClient() {
   const isES = locale === 'es';
   
   const data = faqData[locale];
-  // Initialize first 3 items open by default
-  const [openId, setOpenId] = useState<string | null>(() => {
-    return 'q1'; // Start with first question open
+  // Track individual open items
+  const [openItems, setOpenItems] = useState<Set<string>>(() => {
+    return new Set(['q1', 'q2', 'q3']); // Start with first 3 open
   });
-  const [allOpen, setAllOpen] = useState(false);
 
-  // Track which items should be open (first 3 by default + user interactions)
-  const getOpenItems = () => {
-    if (allOpen) {
-      return new Set(data.items.map(item => item.id));
-    }
-    return new Set(['q1', 'q2', 'q3']);
-  };
-
-  const openItems = getOpenItems();
   const handleExpandAll = () => {
-    setAllOpen(true);
+    const allIds = new Set(data.items.map(item => item.id));
+    setOpenItems(allIds);
   };
 
   const handleCollapseAll = () => {
-    setAllOpen(false);
-    setOpenId(null);
+    setOpenItems(new Set());
   };
 
   const toggleItem = (id: string) => {
-    if (allOpen) {
-      // If all were open, clicking one should just close that one
-      setAllOpen(false);
-      setOpenId(openItems.has(id) ? null : id);
-    } else {
-      setOpenId(openItems.has(id) ? null : id);
-    }
+    setOpenItems(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
   };
 
   return (
