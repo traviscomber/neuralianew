@@ -1,28 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import type { ReactNode } from "react"
 import { notFound } from "next/navigation"
-import { Inter, Montserrat } from "next/font/google"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
-import { ThemeProvider } from "@/components/theme-provider"
-import Navigation from "@/components/navigation"
-import { ScrollToTop } from "@/components/scroll-to-top"
-import { StructuredData } from "@/components/structured-data"
-import "../globals.css"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  variable: "--font-inter",
-})
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  variable: "--font-montserrat",
-  weight: ["300", "400", "500", "600", "700"],
-})
 
 interface LocaleLayoutProps {
   children: ReactNode
@@ -116,51 +95,17 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 }
 
+// Locale layout - validates locale and passes children through
+// HTML structure is handled by root layout with dynamic lang attribute via script
 export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   // Validate locale - if invalid, return 404
   if (!isValidLocale(params.locale)) {
     notFound()
   }
 
-  // Determine the correct HTML lang attribute based on locale
-  const htmlLang = params.locale === 'en' ? 'en' : 'es'
-
   return (
-    <html lang={htmlLang} suppressHydrationWarning className="dark">
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                const theme = localStorage.getItem('n3uralia-theme');
-                const html = document.documentElement;
-                if (theme === 'light') {
-                  html.classList.remove('dark');
-                } else {
-                  html.classList.add('dark');
-                }
-              } catch (e) {
-                document.documentElement.classList.add('dark');
-              }
-            `,
-          }}
-        />
-        {/* 
-          JSON-LD Structured Data - CONSOLIDATED in StructuredData component
-          Removed inline Organization and LocalBusiness schemas to prevent duplicates
-          All schemas are now managed in components/structured-data.tsx
-        */}
-        <StructuredData locale={params.locale} />
-      </head>
-      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
-          <Navigation />
-          <main role="main">
-            {children}
-          </main>
-          <ScrollToTop />
-        </ThemeProvider>
-      </body>
-    </html>
+    <main role="main">
+      {children}
+    </main>
   )
 }
