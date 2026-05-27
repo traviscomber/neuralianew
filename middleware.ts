@@ -19,19 +19,29 @@ const PROTECTED_API_ROUTES = [
   '/api/analytics',
   '/api/heatmap',
   '/api/conversions',
+  '/api/email/test',  // SECURITY: Email test endpoint requires auth to prevent spam abuse
 ]
 
 // Public API routes (no auth needed)
+// SECURITY: Minimized public surface - email endpoints require auth
 const PUBLIC_API_ROUTES = [
-  '/api/health',
-  '/api/chat',
+  '/api/health',        // Minimal health check only
+  '/api/chat',          // Chat functionality
   '/api/deployment-status',
-  '/api/email/test',
-  '/api/send-email',
+  '/api/send-email',    // Contact form - rate limited separately
 ]
+
+// Strictly rate-limited routes (prevent abuse)
+const STRICT_RATE_LIMITED_ROUTES = [
+  '/api/send-email',    // 5 requests per minute to prevent spam
+  '/api/email/test',    // Should not be public, but add strict limit as fallback
+]
+
+const STRICT_RATE_LIMIT_MAX = 5 // 5 requests per minute for email endpoints
 
 // Rate limiting cache (in-memory for single instance, should use Redis in production)
 const rateLimitCache = new Map<string, { count: number; resetTime: number }>()
+const strictRateLimitCache = new Map<string, { count: number; resetTime: number }>()
 
 // Configuration
 const RATE_LIMIT_WINDOW_MS = 60 * 1000 // 1 minute
@@ -61,6 +71,26 @@ function checkRateLimit(clientIp: string): boolean {
   }
 
   if (data.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false
+  }
+
+  data.count++
+  return true
+}
+
+/**
+ * Check strict rate limit (for email endpoints)
+ */
+function checkStrictRateLimit(clientIp: string): boolean {
+  const now = Date.now()
+  const data = strictRateLimitCache.get(clientIp)
+
+  if (!data || now > data.resetTime) {
+    strictRateLimitCache.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS })
+    return true
+  }
+
+  if (data.count >= STRICT_RATE_LIMIT_MAX) {
     return false
   }
 
@@ -123,7 +153,21 @@ export async function middleware(request: NextRequest) {
   // Rate limiting for API routes only (not page navigation)
   if (pathname.startsWith('/api')) {
     const clientIp = getClientIp(request)
-    if (!checkRateLimit(clientIp)) {
+    
+    // Check if this is a strictly rate-limited route (email endpoints)
+    const isStrictlyLimited = STRICT_RATE_LIMITED_ROUTES.some((route) => pathname.startsWith(route))
+    
+    if (isStrictlyLimited) {
+      if (!checkStrictRateLimit(clientIp)) {
+        return NextResponse.json(
+          {
+            error: 'Too many requests. Email endpoints are limited to 5 requests per minute.',
+            retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
+          },
+          { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
+        )
+      }
+    } else if (!checkRateLimit(clientIp)) {
       return NextResponse.json(
         {
           error: 'Too many requests. Please try again later.',

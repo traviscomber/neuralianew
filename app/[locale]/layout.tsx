@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { StructuredData } from "@/components/structured-data"
-import { StructuredCitations } from "@/components/structured-citations"
 import "../globals.css"
 
 const inter = Inter({
@@ -146,79 +145,12 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
             `,
           }}
         />
-        {/* JSON-LD Schema for Organization */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "N3uralia",
-              "alternateName": "Neuralia",
-              "url": "https://n3uralia.com",
-              "logo": "https://n3uralia.com/logo-n3uralia.png",
-              "description": params.locale === 'es' 
-                ? "Plataforma de sistemas agenticos listos para produccion. Inteligencia aumentada que trabaja con humanos, sin reemplazar."
-                : "Platform for production-ready agentic systems. Augmented intelligence that works with humans, without replacing them.",
-              "sameAs": [
-                "https://twitter.com/n3uralia",
-                "https://linkedin.com/company/n3uralia"
-              ],
-              "areaServed": [
-                { "@type": "Country", "name": "Chile" },
-                { "@type": "Country", "name": "Peru" },
-                { "@type": "Country", "name": "Colombia" },
-                { "@type": "Country", "name": "Mexico" }
-              ],
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "contactType": "Sales",
-                "email": "info@n3uralia.com",
-                "url": "https://n3uralia.com/contact"
-              },
-              "foundingDate": "2023",
-              "knowsAbout": [
-                "Agentic AI",
-                "Multi-Agent Systems",
-                "AI Orchestration",
-                "AI Infrastructure",
-                "Enterprise AI",
-                "Agent Operations"
-              ]
-            }),
-          }}
-        />
-        {/* JSON-LD Schema for LocalBusiness (Chile Focus) */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "N3uralia",
-              "image": "https://n3uralia.com/logo-n3uralia.png",
-              "description": params.locale === 'es'
-                ? "Sistemas agenticos en produccion para empresas en Chile y LATAM"
-                : "Agentic systems in production for companies in Chile and LATAM",
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "CL",
-                "addressRegion": "Santiago",
-                "streetAddress": "Santiago, Chile"
-              },
-              "telephone": "+56993826127",
-              "url": "https://n3uralia.com",
-              "priceRange": "$$",
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "42"
-              }
-            }),
-          }}
-        />
-        <StructuredData />
-        <StructuredCitations />
+        {/* 
+          JSON-LD Structured Data - CONSOLIDATED in StructuredData component
+          Removed inline Organization and LocalBusiness schemas to prevent duplicates
+          All schemas are now managed in components/structured-data.tsx
+        */}
+        <StructuredData locale={params.locale} />
       </head>
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
