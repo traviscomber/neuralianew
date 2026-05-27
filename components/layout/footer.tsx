@@ -103,7 +103,7 @@ export function Footer() {
                   onClick={() => setEmailDialogOpen(true)}
                   className="hover:text-foreground transition-colors text-left cursor-pointer"
                 >
-                  📧 info@n3uralia.com
+                  📧 Email us
                 </button>
               </li>
               <li>
@@ -128,7 +128,7 @@ export function Footer() {
                     Twitter
                   </a>
                   <a 
-                    href="https://linkedin.com/company/n3uralia" 
+                    href="https://www.linkedin.com/company/n3uralia" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="hover:text-primary transition-colors text-xs"
@@ -153,7 +153,7 @@ export function Footer() {
             </div>
           </div>
           <div className="text-center text-sm text-muted-foreground border-t border-border pt-4">
-            <p>© 2025 N3uralia (Neuralia). Todos los derechos reservados.</p>
+            <p>© 2026 N3uralia (Neuralia). Todos los derechos reservados.</p>
             <p className="text-xs mt-2">N3uralia es una marca registrada. Neuralia es el nombre alternativo de la plataforma.</p>
           </div>
         </div>

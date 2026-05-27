@@ -1,8 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { LOCALES, DEFAULT_LOCALE } from '@/lib/get-locale'
 
-// i18n configuration
-const LOCALES = ['es', 'en']
-const DEFAULT_LOCALE = 'es'
+// Redirect old Spanish route names to new canonical routes (301 permanent)
+const REDIRECT_ROUTES: Record<string, string> = {
+  '/es/capacidades': '/es/capabilities',
+  '/es/casos-de-exito': '/es/case-studies',
+  '/es/preguntas-frecuentes': '/es/faq',
+  '/es/acerca-de': '/es/about',
+  '/es/contactar': '/es/contact',
+  '/es/solutions': '/es/soluciones', // /es/solutions should redirect to /es/soluciones (canonical ES path)
+}
 
 // Protected API routes that require authentication
 const PROTECTED_API_ROUTES = [
@@ -62,30 +69,6 @@ function checkRateLimit(clientIp: string): boolean {
 }
 
 /**
- * Validate environment variables
- */
-function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
-  const errors: string[] = []
-  const requiredVars = [
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
-    'SUPABASE_SERVICE_ROLE_KEY',
-    'OPENAI_API_KEY',
-  ]
-
-  for (const varName of requiredVars) {
-    if (!process.env[varName]) {
-      errors.push(`Missing required environment variable: ${varName}`)
-    }
-  }
-
-  return {
-    valid: errors.length === 0,
-    errors,
-  }
-}
-
-/**
  * Get locale from request
  */
 function getLocale(pathname: string): string | null {
@@ -98,6 +81,12 @@ function getLocale(pathname: string): string | null {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  // Check for old Spanish routes that need redirecting
+  const redirect = REDIRECT_ROUTES[pathname]
+  if (redirect) {
+    return NextResponse.redirect(new URL(redirect, request.url), { status: 301 })
+  }
 
   // Skip middleware for static assets, public files, and special files
   if (
@@ -131,29 +120,16 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Rate limiting for all requests
-  const clientIp = getClientIp(request)
-  if (!checkRateLimit(clientIp)) {
-    return NextResponse.json(
-      {
-        error: 'Too many requests. Please try again later.',
-        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
-      },
-      { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
-    )
-  }
-
-  // Validate environment variables on startup
-  if (process.env.NODE_ENV === 'production') {
-    const envValidation = validateEnvironmentVariables()
-    if (!envValidation.valid) {
-      console.error('Environment validation failed:', envValidation.errors)
+  // Rate limiting for API routes only (not page navigation)
+  if (pathname.startsWith('/api')) {
+    const clientIp = getClientIp(request)
+    if (!checkRateLimit(clientIp)) {
       return NextResponse.json(
         {
-          error: 'Server configuration error',
-          timestamp: new Date().toISOString(),
+          error: 'Too many requests. Please try again later.',
+          retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
         },
-        { status: 503 }
+        { status: 429, headers: { 'Retry-After': String(RATE_LIMIT_WINDOW_MS / 1000) } }
       )
     }
   }

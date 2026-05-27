@@ -39,7 +39,7 @@ export function IndustryNavigation({ locale }: IndustryNavigationProps) {
             return (
               <Link
                 key={sector.titleES}
-                href={`/${locale}/solutions#${sector.titleES.toLowerCase().replace(/\s+/g, "-")}`}
+                href={`/${locale}/${isES ? 'soluciones' : 'solutions'}#${sector.titleES.toLowerCase().replace(/\s+/g, "-")}`}
                 className={`group p-6 rounded-lg border transition-all hover:shadow-lg hover:-translate-y-1 ${
                   isHighlight
                     ? "bg-gradient-to-br from-primary/10 to-primary/5 border-primary/40 hover:border-primary/60"
@@ -90,7 +90,7 @@ export function IndustryNavigation({ locale }: IndustryNavigationProps) {
         {/* Call to Action */}
         <div className="mt-12 text-center">
           <Link
-            href={`/${locale}/solutions`}
+            href={`/${locale}/${isES ? 'soluciones' : 'solutions'}`}
             className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all"
           >
             {isES ? "Ver Todas las Soluciones" : "View All Solutions"}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/lib/get-locale"
-import Navigation from "@/components/navigation"
 import { Footer } from "@/components/layout/footer"
 
 interface PageProps {
@@ -34,7 +33,6 @@ export default function LabsPage({ params }: PageProps) {
 
   return (
     <>
-      <Navigation locale={locale} />
       <main className="pt-20 min-h-screen">
         {/* Hero Section */}
         <section className="py-20 px-4 bg-gradient-to-b from-primary/10 to-transparent">

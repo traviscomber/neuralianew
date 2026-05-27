@@ -10,7 +10,7 @@ export function StructuredData() {
       "N3uralia: Plataforma de sistemas agenticos production-ready. Arquitectura multi-agente, orquestación inteligente, memory persistent, gobernanza IA. Para B2B mediano, turismo, eventos, manufactura en Chile y LATAM.",
     sameAs: [
       "https://twitter.com/n3uralia",
-      "https://linkedin.com/company/n3uralia",
+      "https://www.linkedin.com/company/n3uralia",
       "https://github.com/n3uralia",
     ],
     contactPoint: [

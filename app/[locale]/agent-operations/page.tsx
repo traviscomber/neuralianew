@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
+import { Footer } from "@/components/layout/footer"
+import { Section } from "@/components/Section"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { Section } from "@/components/Section"
-import { Footer } from "@/components/layout/footer"
 
 interface PageProps {
   params: { locale: string }
@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const isES = locale === "es"
   const title = isES ? "Operaciones Agénticas | N3uralia" : "Agent Operations | N3uralia"
   const description = isES
-    ? "Plataforma de infraestructura multi-agente para operaciones reales. Ejecución, orquestación y control de agentes en producción."
-    : "Multi-agent infrastructure platform for real business operations. Execution, orchestration, and agent control in production."
+    ? "Automatización gobernable con human-in-the-loop, permisos, trazabilidad y control en producción."
+    : "Governed automation with human-in-the-loop, permissions, traceability, and production control."
 
   return {
     title,
@@ -35,160 +35,243 @@ export default function AgentOperationsPage({ params }: PageProps) {
   const locale = params.locale as Locale
   const isES = locale === "es"
 
-  const content = {
-    title: isES ? "Plataforma de Operaciones Agénticas" : "Agent Operations Platform",
-    subtitle: isES ? "Donde los agentes pasan de pensar a operar" : "Where agents transition from thinking to operating",
-    ctaPrimary: isES ? "Hablar con N3uralia" : "Talk to N3uralia",
-    ctaSecondary: isES ? "Ver Arquitectura" : "View Architecture",
-    
-    heroTitle: isES ? "Infraestructura de Agentes en Producción" : "Agent Infrastructure in Production",
-    heroSubtitle: isES 
-      ? "Sistemas multi-agente que ejecutan operaciones reales dentro de tu negocio"
-      : "Multi-agent systems executing real operations within your business",
-    heroDesc: isES
-      ? "No es un chatbot de demostración. Es infraestructura viva de agentes especializados que manejan procesos críticos, generan ingresos y automatizan operaciones empresariales a escala."
-      : "Not a demo chatbot. It is living infrastructure of specialized agents managing critical processes, generating revenue and automating business operations at scale.",
-
-    problemTitle: isES ? "El Problema Real de los Agentes de IA" : "The Real Problem with AI Agents",
-    problemSubtitle: isES ? "La mayoría de soluciones de IA no pueden operar en producción" : "Most AI agent solutions cannot operate in production",
-    
-    problem1: { 
-      title: isES ? "Ejecución Manual" : "Manual Execution",
-      desc: isES 
-        ? "Los agentes generan insights pero requieren intervención humana para actuar. Cuellos de botella operacionales."
-        : "Agents generate insights but require human intervention to act. Operational bottlenecks."
-    },
-    problem2: {
-      title: isES ? "Sin Coordinación" : "No Orchestration",
-      desc: isES
-        ? "Múltiples agentes no pueden trabajar juntos de forma confiable. Sin gobernanza ni auditoría."
-        : "Multiple agents cannot work together reliably. No governance or audit trails."
-    },
-    problem3: {
-      title: isES ? "Infraestructura Frágil" : "Fragile Infrastructure",
-      desc: isES
-        ? "Sistemas que fallan bajo carga, pierden contexto, no escalan a procesos reales."
-        : "Systems that fail under load, lose context, don't scale to real processes."
-    },
-
-    solutionTitle: isES ? "La Solución N3uralia" : "The N3uralia Solution",
-    solutionSubtitle: isES 
-      ? "Operaciones agénticas enterprise-grade con gobernanza completa"
-      : "Enterprise-grade agent operations with full governance",
-    
-    archTitle: isES ? "Arquitectura de 4 Capas" : "4-Layer Architecture",
-    archSubtitle: isES ? "Sistema diseñado para producción desde el inicio" : "System designed for production from day one",
-    
-    layer1: { title: isES ? "Capa Visual" : "Visual Layer", desc: isES ? "Agent Matrix - Control y monitoreo en tiempo real" : "Agent Matrix - Real-time control and monitoring" },
-    layer2: { title: isES ? "Capa de Orquestación" : "Orchestration Layer", desc: isES ? "Coordinación de agentes, flujos de trabajo, gobernanza" : "Agent coordination, workflows, governance" },
-    layer3: { title: isES ? "Capa de Agentes" : "Agent Layer", desc: isES ? "Agentes especializados, memoria persistente, contexto vivo" : "Specialized agents, persistent memory, live context" },
-    layer4: { title: isES ? "Capa de Integración" : "Integration Layer", desc: isES ? "APIs empresariales, bases de datos, sistemas legacy" : "Enterprise APIs, databases, legacy systems" },
-
-    useCasesTitle: isES ? "Casos de Uso" : "Use Cases",
-    useCase1: { title: isES ? "Retail" : "Retail", desc: isES ? "Gestión de inventario y pedidos automática" : "Automated inventory and order management" },
-    useCase2: { title: isES ? "Logística" : "Logistics", desc: isES ? "Optimización de rutas y seguimiento de envíos" : "Route optimization and shipment tracking" },
-    useCase3: { title: isES ? "Real Estate" : "Real Estate", desc: isES ? "Calificación de leads y gestión de propiedades" : "Lead qualification and property management" },
-    useCase4: { title: isES ? "Legal" : "Legal", desc: isES ? "Análisis de documentos y cumplimiento normativo" : "Document analysis and compliance" },
-    useCase5: { title: isES ? "Operaciones" : "Operations", desc: isES ? "Automatización de procesos y RPA" : "Process automation and RPA" },
-    useCase6: { title: isES ? "Ventas" : "Sales", desc: isES ? "Prospecting, pipeline y cierre automático" : "Prospecting, pipeline and auto-closing" },
-  }
-
   return (
     <>
-      <main style={{ minHeight: "100vh" }}>
-        {/* Hero */}
+      <main className="min-h-screen pt-20">
+        {/* Hero Section */}
         <Section 
-          title={content.heroTitle}
-          subtitle={content.heroSubtitle}
+          title={isES ? "Operaciones Agénticas" : "Agent Operations"}
+          subtitle={isES ? "Automatización Gobernable para Empresas" : "Governed Automation for Enterprises"}
         >
-          <p style={{ opacity: 0.85, lineHeight: 1.6, marginBottom: "24px", maxWidth: "800px" }}>
-            {content.heroDesc}
+          <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+            {isES 
+              ? "Los agentes no son máquinas negras. Son sistemas que operan dentro de políticas, permisos y auditoría completa."
+              : "Agents aren't black boxes. They are systems that operate within policies, permissions, and complete audit trails."}
           </p>
-          <div style={{ display: "flex", gap: "16px", marginTop: "32px" }}>
-            <Link href={`/${locale}/contact`} style={{ padding: "12px 24px", backgroundColor: "hsl(var(--primary))", color: "white", borderRadius: "6px", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px" }}>
-              {content.ctaPrimary}
-              <ArrowRight style={{ width: "16px", height: "16px" }} />
-            </Link>
-            <Link href={`/${locale}/agent-matrix`} style={{ padding: "12px 24px", border: "1px solid hsl(var(--primary))", color: "hsl(var(--primary))", borderRadius: "6px", fontWeight: 600, textDecoration: "none" }}>
-              {content.ctaSecondary}
-            </Link>
-          </div>
-        </Section>
-
-        {/* Problems */}
-        <Section 
-          title={content.problemTitle}
-          subtitle={content.problemSubtitle}
-        >
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px", marginTop: "24px" }}>
-            {[content.problem1, content.problem2, content.problem3].map((problem, idx) => (
-              <div key={idx} style={{ padding: "24px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "6px", backgroundColor: "rgba(255,255,255,0.02)" }}>
-                <h3 style={{ margin: "0 0 12px 0", fontSize: "16px", fontWeight: 600 }}>{problem.title}</h3>
-                <p style={{ margin: 0, fontSize: "14px", opacity: 0.75, lineHeight: 1.6 }}>{problem.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* Solution */}
-        <Section 
-          title={content.solutionTitle}
-          subtitle={content.solutionSubtitle}
-        >
-          <p style={{ opacity: 0.85, lineHeight: 1.6, marginTop: "16px", maxWidth: "800px" }}>
+          <p className="text-base text-muted-foreground/80">
             {isES
-              ? "N3uralia permite que los agentes ejecuten operaciones reales sin intervención humana. Con gobernanza completa, auditoría y escalabilidad empresarial."
-              : "N3uralia enables agents to execute real operations without human intervention. With complete governance, audit trails and enterprise scalability."}
+              ? "En N3uralia, cada acción de agente es gobernable, auditable y reversible. Automatización que las empresas pueden confiar y controlar."
+              : "At N3uralia, every agent action is governable, auditable, and reversible. Automation that enterprises can trust and control."}
           </p>
         </Section>
 
-        {/* Architecture */}
+        {/* Core Principles */}
         <Section 
-          title={content.archTitle}
-          subtitle={content.archSubtitle}
+          title={isES ? "Principios Fundamentales" : "Core Principles"}
+          subtitle={isES ? "Cómo operamos los agentes en producción" : "How we operate agents in production"}
         >
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px", marginTop: "24px" }}>
-            {[content.layer1, content.layer2, content.layer3, content.layer4].map((layer, idx) => (
-              <div key={idx} style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "6px", backgroundColor: "rgba(255,255,255,0.02)" }}>
-                <h3 style={{ margin: "0 0 8px 0", fontSize: "15px", fontWeight: 600 }}>{layer.title}</h3>
-                <p style={{ margin: 0, fontSize: "13px", opacity: 0.7, lineHeight: 1.5 }}>{layer.desc}</p>
+          <div className="grid md:grid-cols-2 gap-6 mt-8">
+            {[
+              {
+                titleES: "Human-in-the-Loop",
+                titleEN: "Human-in-the-Loop",
+                descES: "Los agentes proponen. Los humanos deciden. Ninguna decisión crítica sin aprobación.",
+                descEN: "Agents propose. Humans decide. No critical decision without approval.",
+              },
+              {
+                titleES: "Gobernanza Total",
+                titleEN: "Total Governance",
+                descES: "Permisos granulares. Políticas por agente. Límites claros de operación.",
+                descEN: "Granular permissions. Policies per agent. Clear operational boundaries.",
+              },
+              {
+                titleES: "Auditoría Completa",
+                titleEN: "Complete Audit Trail",
+                descES: "Cada acción registrada. Contexto almacenado. Trazabilidad total.",
+                descEN: "Every action logged. Context stored. Full traceability.",
+              },
+              {
+                titleES: "Reversibilidad",
+                titleEN: "Reversibility",
+                descES: "Las operaciones pueden deshacerse. Sin estado permanente hasta confirmación.",
+                descEN: "Operations can be undone. No permanent state until confirmation.",
+              },
+              {
+                titleES: "Transparencia Radical",
+                titleEN: "Radical Transparency",
+                descES: "El sistema explica cada decisión. Razonamiento visible. Fuentes auditables.",
+                descEN: "System explains every decision. Visible reasoning. Auditable sources.",
+              },
+              {
+                titleES: "Escalas de Confianza",
+                titleEN: "Trust Levels",
+                descES: "Agentes con más historia tienen más autonomía. Confianza ganada, no dada.",
+                descEN: "Agents with more history get more autonomy. Trust earned, not given.",
+              },
+            ].map((principle, idx) => (
+              <div key={idx} className="p-6 border border-border rounded-lg bg-card hover:border-primary/50 transition-colors">
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  {isES ? principle.titleES : principle.titleEN}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {isES ? principle.descES : principle.descEN}
+                </p>
               </div>
             ))}
           </div>
         </Section>
 
-        {/* Use Cases */}
+        {/* Operational Model */}
         <Section 
-          title={content.useCasesTitle}
+          title={isES ? "Modelo Operacional" : "Operational Model"}
+          subtitle={isES ? "De la automatización sin control al control con automatización" : "From automation without control to control with automation"}
         >
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "16px", marginTop: "20px" }}>
-            {[content.useCase1, content.useCase2, content.useCase3, content.useCase4, content.useCase5, content.useCase6].map((useCase, idx) => (
-              <div key={idx} style={{ padding: "16px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "6px", textAlign: "center" }}>
-                <p style={{ margin: "0 0 6px 0", fontSize: "14px", fontWeight: 600 }}>{useCase.title}</p>
-                <p style={{ margin: 0, fontSize: "12px", opacity: 0.7 }}>{useCase.desc}</p>
+          <div className="space-y-6 mt-8">
+            {[
+              {
+                numES: "Fase 1: Propuesta",
+                numEN: "Phase 1: Proposal",
+                descES: "El agente analiza la tarea y propone un plan de acción.",
+                descEN: "Agent analyzes task and proposes action plan.",
+              },
+              {
+                numES: "Fase 2: Revisión",
+                numEN: "Phase 2: Review",
+                descES: "Un humano revisa la propuesta, valida contexto, verifica permisos.",
+                descEN: "Human reviews proposal, validates context, verifies permissions.",
+              },
+              {
+                numES: "Fase 3: Autorización",
+                numEN: "Phase 3: Authorization",
+                descES: "Se autoriza solo si cumple políticas de seguridad y gobernanza.",
+                descEN: "Authorization only if security and governance policies met.",
+              },
+              {
+                numES: "Fase 4: Ejecución",
+                numEN: "Phase 4: Execution",
+                descES: "El agente ejecuta dentro de límites autorizados. Cada paso auditado.",
+                descEN: "Agent executes within authorized limits. Every step audited.",
+              },
+              {
+                numES: "Fase 5: Validación",
+                numEN: "Phase 5: Validation",
+                descES: "Resultado validado. Efectos secundarios verificados. Auditoría completada.",
+                descEN: "Result validated. Side effects verified. Audit completed.",
+              },
+            ].map((phase, idx) => (
+              <div key={idx} className="p-4 border border-border rounded-lg bg-card/50">
+                <h4 className="font-semibold text-foreground mb-2">
+                  {isES ? phase.numES : phase.numEN}
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  {isES ? phase.descES : phase.descEN}
+                </p>
               </div>
             ))}
           </div>
         </Section>
 
-        {/* Final CTA */}
-        <Section>
-          <div style={{ textAlign: "center", padding: "40px 20px", backgroundColor: "rgba(255,255,255,0.02)", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.08)" }}>
-            <h2 style={{ fontSize: "28px", margin: "0 0 16px 0" }}>
-              {isES ? "¿Listo para Automatizar?" : "Ready to Automate?"}
-            </h2>
-            <p style={{ fontSize: "16px", opacity: 0.8, margin: "0 0 24px 0", maxWidth: "600px", marginLeft: "auto", marginRight: "auto" }}>
-              {isES
-                ? "Descubre cómo N3uralia puede transformar tus operaciones con agentes en producción."
-                : "Discover how N3uralia can transform your operations with production-grade agents."}
+        {/* Permission Framework */}
+        <Section 
+          title={isES ? "Marco de Permisos" : "Permission Framework"}
+          subtitle={isES ? "Granularidad total en lo que cada agente puede hacer" : "Complete granularity in what each agent can do"}
+        >
+          <div className="grid md:grid-cols-2 gap-4 mt-8">
+            {[
+              {
+                titleES: "Permisos por Recurso",
+                titleEN: "Resource Permissions",
+                descES: "Qué bases de datos, APIs y sistemas puede acceder.",
+                descEN: "Which databases, APIs, and systems it can access.",
+              },
+              {
+                titleES: "Límites de Acción",
+                titleEN: "Action Limits",
+                descES: "Qué operaciones puede hacer (lectura, escritura, modificación).",
+                descEN: "What operations it can perform (read, write, modify).",
+              },
+              {
+                titleES: "Límites Económicos",
+                titleEN: "Economic Limits",
+                descES: "Presupuesto máximo por operación. Costos acumulados.",
+                descEN: "Maximum budget per operation. Cumulative costs.",
+              },
+              {
+                titleES: "Restricciones Temporales",
+                titleEN: "Time Restrictions",
+                descES: "Horarios de operación. Frecuencia máxima de acciones.",
+                descEN: "Operating hours. Maximum action frequency.",
+              },
+            ].map((perm, idx) => (
+              <div key={idx} className="p-4 border border-border rounded-lg bg-card">
+                <h4 className="font-semibold text-foreground mb-2 text-sm">
+                  {isES ? perm.titleES : perm.titleEN}
+                </h4>
+                <p className="text-xs text-muted-foreground">
+                  {isES ? perm.descES : perm.descEN}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* Escalation Workflows */}
+        <Section 
+          title={isES ? "Escalamiento Inteligente" : "Intelligent Escalation"}
+          subtitle={isES ? "El sistema escala a humanos cuando la confianza no es suficiente" : "System escalates to humans when confidence isn't sufficient"}
+        >
+          <p className="text-lg text-muted-foreground leading-relaxed mt-8">
+            {isES
+              ? "Cuando un agente se enfrenta a una decisión fuera de su dominio de confianza, escala automáticamente a un humano. No hay daño potencial. Hay visibilidad total."
+              : "When an agent faces a decision outside its confidence domain, it automatically escalates to a human. No potential damage. Complete visibility."}
+          </p>
+        </Section>
+
+        {/* Real Examples */}
+        <Section 
+          title={isES ? "Ejemplos Reales de Operación" : "Real Operation Examples"}
+          subtitle={isES ? "Cómo operan los agentes en empresas de verdad" : "How agents operate in real companies"}
+        >
+          <div className="space-y-4 mt-8">
+            {[
+              {
+                titleES: "Análisis de Datos",
+                titleEN: "Data Analysis",
+                descES: "El agente accede solo a tablas autorizadas. Ejecuta queries pre-validadas. Reporta resultados auditados.",
+                descEN: "Agent accesses only authorized tables. Executes pre-validated queries. Reports audited results.",
+              },
+              {
+                titleES: "Automatización de Marketing",
+                titleEN: "Marketing Automation",
+                descES: "El agente crea campañas dentro de presupuesto. Un humano aprueba antes de enviar. Todas las métricas registradas.",
+                descEN: "Agent creates campaigns within budget. Human approves before sending. All metrics logged.",
+              },
+              {
+                titleES: "Soporte al Cliente",
+                titleEN: "Customer Support",
+                descES: "El agente responde preguntas comunes. Escala a humano si ve frustración. Mantiene contexto de conversación.",
+                descEN: "Agent answers common questions. Escalates to human if frustrated. Maintains conversation context.",
+              },
+            ].map((example, idx) => (
+              <div key={idx} className="p-4 border border-primary/20 bg-primary/5 rounded-lg">
+                <h4 className="font-semibold text-foreground mb-2">
+                  {isES ? example.titleES : example.titleEN}
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  {isES ? example.descES : example.descEN}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* CTA Section */}
+        <section className="py-20 px-4 border-t border-border bg-background">
+          <div className="max-w-2xl mx-auto text-center">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              {isES ? "¿Listo para operaciones agénticas en tu empresa?" : "Ready for agent operations in your enterprise?"}
             </p>
-            <Link href={`/${locale}/contact`} style={{ padding: "12px 32px", backgroundColor: "hsl(var(--primary))", color: "white", borderRadius: "6px", fontWeight: 600, textDecoration: "none", display: "inline-block" }}>
-              {content.ctaPrimary}
+            <Link
+              href={`/${locale}/contact`}
+              className="inline-flex items-center gap-3 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
+            >
+              {isES ? "Contactar" : "Get in Touch"}
+              <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
-        </Section>
+        </section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   )
 }

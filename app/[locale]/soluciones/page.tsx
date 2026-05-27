@@ -23,6 +23,12 @@ export const metadata: Metadata = {
       "en": "https://n3uralia.com/en/solutions",
     },
   },
+  openGraph: {
+    title: "Soluciones de Sistemas Agenticos - Automatización para Múltiples Industrias",
+    description: "Soluciones especializadas de sistemas agenticos para cada industria.",
+    url: "https://n3uralia.com/es/soluciones",
+    type: 'website',
+  },
 }
 
 export default function SolucionesPage({ params }: PageProps) {

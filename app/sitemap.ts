@@ -2,64 +2,77 @@ import type { MetadataRoute } from "next"
 
 const SITE_URL = "https://n3uralia.com"
 
-// Production routes with comprehensive coverage including new Agent Systems pages
-const ROUTE_PAIRS = [
-  { es: "", en: "", priority: 1.0, changeFreq: "daily" as const },
-  { es: "/capacidades", en: "/capabilities", priority: 0.95, changeFreq: "weekly" as const },
-  { es: "/soluciones", en: "/solutions", priority: 0.95, changeFreq: "weekly" as const },
-  { es: "/agent-matrix", en: "/agent-matrix", priority: 0.9, changeFreq: "weekly" as const },
-  { es: "/agent-operations", en: "/agent-operations", priority: 0.9, changeFreq: "weekly" as const },
-  { es: "/casos-de-exito", en: "/case-studies", priority: 0.85, changeFreq: "monthly" as const },
-  { es: "/agentic-systems", en: "/agentic-systems", priority: 0.85, changeFreq: "monthly" as const },
-  { es: "/preguntas-frecuentes", en: "/faq", priority: 0.75, changeFreq: "monthly" as const },
-  { es: "/acerca-de", en: "/about", priority: 0.8, changeFreq: "monthly" as const },
-  { es: "/contactar", en: "/contact", priority: 0.85, changeFreq: "monthly" as const },
-  { es: "/platform", en: "/platform", priority: 0.8, changeFreq: "monthly" as const },
-  { es: "/patterns", en: "/patterns", priority: 0.7, changeFreq: "monthly" as const },
-  { es: "/nodes", en: "/nodes", priority: 0.7, changeFreq: "monthly" as const },
-  { es: "/blog", en: "/blog", priority: 0.8, changeFreq: "weekly" as const },
-  { es: "/labs", en: "/labs", priority: 0.6, changeFreq: "monthly" as const },
-  { es: "/como-trabajamos", en: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
+// CANONICAL ROUTES ONLY - One URL per concept, no duplicates
+// Spanish is the primary locale for Chile SEO strategy
+// English versions link via hreflang alternates
+const ROUTES = [
+  // Core pages
+  { slug: "", priority: 1.0, changeFreq: "daily" as const },
+  
+  // Main product pages - Use Spanish slugs as canonical for Chile SEO
+  { slug: "/capabilities", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/soluciones", priority: 0.95, changeFreq: "weekly" as const }, // Canonical - removed /solutions duplicate
+  { slug: "/case-studies", priority: 0.85, changeFreq: "monthly" as const },
+  
+  // Agent/system pages
+  { slug: "/agent-matrix", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agent-operations", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/living-agents", priority: 0.85, changeFreq: "monthly" as const },
+  
+  // Methodology - Use Spanish slug as canonical
+  { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const }, // Canonical - removed /how-we-work duplicate
+  
+  // Reference pages
+  { slug: "/faq", priority: 0.75, changeFreq: "monthly" as const },
+  { slug: "/about", priority: 0.8, changeFreq: "monthly" as const },
+  { slug: "/contact", priority: 0.85, changeFreq: "monthly" as const },
+  
+  // Technical pages
+  { slug: "/platform", priority: 0.8, changeFreq: "monthly" as const },
+  { slug: "/patterns", priority: 0.7, changeFreq: "monthly" as const },
+  { slug: "/nodes", priority: 0.7, changeFreq: "monthly" as const },
+  
+  // Resource centers
+  { slug: "/blog", priority: 0.8, changeFreq: "weekly" as const },
+  
+  // Feature pages
+  { slug: "/conversational-intelligence", priority: 0.75, changeFreq: "monthly" as const },
+  { slug: "/integraciones-empresariales", priority: 0.7, changeFreq: "monthly" as const },
+  
+  // Chile SEO - Money Pages (High Priority)
+  { slug: "/agentes-ia-chile", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/soluciones-agenticas-chile", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/automatizacion-ia-empresas-chile", priority: 0.95, changeFreq: "weekly" as const },
+  
+  // Chile SEO - Industry Verticals (High Priority)
+  { slug: "/agentes-ia-retail-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-mineria-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-manufactura-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-turismo-chile", priority: 0.9, changeFreq: "weekly" as const },
+  { slug: "/agentes-ia-logistica-chile", priority: 0.9, changeFreq: "weekly" as const },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = []
+  const locales = ["es", "en"]
 
-  // Generate sitemap entries for each route pair
-  ROUTE_PAIRS.forEach(({ es, en, priority, changeFreq }) => {
-    const esUrl = es === "" ? `${SITE_URL}/es` : `${SITE_URL}/es${es}`
-    const enUrl = en === "" ? `${SITE_URL}/en` : `${SITE_URL}/en${en}`
+  // Generate sitemap entries for each route and locale
+  ROUTES.forEach(({ slug, priority, changeFreq }) => {
+    locales.forEach((locale) => {
+      const url = slug === "" ? `${SITE_URL}/${locale}` : `${SITE_URL}/${locale}${slug}`
 
-    // Add Spanish entry
-    entries.push({
-      url: esUrl,
-      lastModified: new Date(),
-      changeFrequency: changeFreq,
-      priority: priority,
-      alternates: {
-        languages: {
-          es: esUrl,
-          "es-CL": esUrl,
-          en: enUrl,
-          "en-US": enUrl,
+      entries.push({
+        url,
+        lastModified: new Date(),
+        changeFrequency: changeFreq,
+        priority: priority,
+        alternates: {
+          languages: {
+            es: slug === "" ? `${SITE_URL}/es` : `${SITE_URL}/es${slug}`,
+            en: slug === "" ? `${SITE_URL}/en` : `${SITE_URL}/en${slug}`,
+          },
         },
-      },
-    })
-
-    // Add English entry
-    entries.push({
-      url: enUrl,
-      lastModified: new Date(),
-      changeFrequency: changeFreq,
-      priority: priority,
-      alternates: {
-        languages: {
-          es: esUrl,
-          "es-CL": esUrl,
-          en: enUrl,
-          "en-US": enUrl,
-        },
-      },
+      })
     })
   })
 

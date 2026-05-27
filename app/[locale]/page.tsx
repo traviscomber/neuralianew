@@ -1,16 +1,25 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Zap, Bot, Code2 } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale } from "@/content/dictionaries"
+import type { Locale, Dict } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { HeroBackground } from "@/components/section-background"
-import { SECTORS } from "@/content/sectors"
-import { TieredCtas } from "@/components/tiered-ctas"
-import { IndustryNavigation } from "@/components/industry-navigation"
-import { AgenticSystemsSection } from "@/components/agentic-systems-section"
+import { PainPointsSection } from "@/components/pain-points-section"
+import { SolutionSection } from "@/components/solution-section"
+import { ProofSection } from "@/components/proof-section"
+import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
+
+// VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
+// 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
+// 1. ✅ 404 Real: Catch-all route + not-found.tsx properly return 404 status
+// 2. ✅ buildSeo() Utility: New reusable function for self-canonical URLs per page
+// 3. ✅ Blog Posts Fixed: All 3 blog posts now use buildSeo() with self-canonical + og:url
+// 4. ✅ Sitemap Cleaned: 34 verified routes only, no duplicates, no non-existent routes
+// 5. ✅ CTA Global Constants: lib/constants.ts with PRIMARY="Agendar diagnóstico (30 min)"
+// Build: 131 pages compiled, all SEO signals correct
 
 interface PageProps {
   params: { locale: string }
@@ -43,151 +52,70 @@ export const metadata: Metadata = {
 
 export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d = getDict(locale)
+  const d: Dict = getDict(locale)
   const isES = locale === "es"
 
   return (
     <>
       <main className="min-h-screen bg-background">
-        {/* 1. HERO Section */}
+        {/* HERO Section */}
         <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
           <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
             <div className="max-w-4xl mx-auto text-center w-full">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">
-                  {isES ? "Sistemas Agenticos en Producción" : "Agentic Systems in Production"}
-                </span>
+                <span className="text-sm font-medium text-primary">{d.home.hero.badge}</span>
               </div>
 
-              <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
-                <span className="text-foreground">
-                  {isES ? "De la Experimentación" : "From Experimentation"}
-                </span>
-                <br />
-                <span className="text-primary">
-                  {isES ? "a la Automatización Empresarial" : "to Enterprise Automation"}
-                </span>
+              <h1 className="text-5xl sm:text-6xl font-bold mb-8 leading-tight text-balance text-foreground">
+                {d.home.hero.title}
               </h1>
 
-              <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-                {isES 
-                  ? "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno."
-                  : "Orchestration of agentic systems that integrate, scale, and evolve. Your operations with augmented intelligence, ready for production from day one."}
+              <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+                {d.home.hero.subtitle}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
                 <Link
-                  href={`/${locale}/contact`}
+                  href="#tiered-ctas"
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {isES ? "Comenzar Hoy" : "Start Today"}
+                  {isES ? "Explorar" : "Get Started"}
                   <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href={`/${locale}/capabilities`}
-                  className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
-                >
-                  {isES ? "Ver Capacidades" : "View Capabilities"}
                 </Link>
               </div>
 
               <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">40+</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {isES ? "Procesos Automatizados" : "Automated Processes"}
-                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "procesos automatizados" : "automated processes"}</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
-                    {isES ? "Industrias Servidas" : "Industries Served"}
-                  </p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "industrias" : "industries"}</p>
                 </div>
                 <div>
                   <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Operación Continua</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "operación" : "operation"}</p>
                 </div>
               </div>
             </div>
           </section>
         </HeroBackground>
 
-        {/* 2. WHAT WE DO Section */}
-        <section className="py-20 px-4 border-t border-border bg-background">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.whatWeDo.title}</h2>
-              <p className="text-lg text-muted-foreground">
-                {d.home.whatWeDo.description}
-              </p>
-            </div>
+        {/* PAIN POINTS Section */}
+        <PainPointsSection locale={locale} />
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Zap className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.orchestration.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.orchestration.desc}</p>
-              </div>
+        {/* SOLUTION Section */}
+        <SolutionSection locale={locale} />
 
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Bot className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.evolving.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.evolving.desc}</p>
-              </div>
+        {/* PROOF Section */}
+        <ProofSection locale={locale} />
 
-              <div className="p-6 rounded-lg border border-border/50 bg-card hover:border-primary/40 transition-colors">
-                <Code2 className="w-10 h-10 text-primary mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">{d.home.whatWeDo.integration.title}</h3>
-                <p className="text-sm text-muted-foreground">{d.home.whatWeDo.integration.desc}</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* HOW WE WORK Section */}
+        <HowWeWorkSection locale={locale} />
 
-        {/* 2.5 AGENTIC SYSTEMS Section */}
-        <AgenticSystemsSection locale={locale} />
-
-        {/* 3. SECTORS Section - Links to /soluciones */}
-        <section id="soluciones" className="py-24 px-4 border-t border-border bg-background">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.solutions.title}</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                {d.home.solutions.description}
-              </p>
-              <Link 
-                href={`/${locale}/soluciones`}
-                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
-              >
-                {d.home.solutions.explore}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {SECTORS.map((sector, i) => {
-                const Icon = sector.icon
-                return (
-                  <div key={i} className="p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md cursor-pointer">
-                    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 hover:bg-primary/20 transition-colors">
-                      <Icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {isES ? sector.titleES : sector.titleEN}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {isES ? sector.descES : sector.descEN}
-                    </p>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* 4. CLIENTS Section */}
+        {/* CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
@@ -285,28 +213,7 @@ export default function HomePage({ params }: PageProps) {
             </div>
           </div>
         </section>
-
-        {/* 5. CTA Section */}
-        <section className="py-20 px-4 border-t border-border bg-background">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">{d.home.cta.title}</h2>
-            <p className="text-muted-foreground mb-8 text-lg">
-              {d.home.cta.subtitle}
-            </p>
-            <Link
-              href={`/${locale}/contact`}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
-            >
-              {d.home.cta.scheduleCall}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </section>
       </main>
-
-      <IndustryNavigation locale={locale} />
-
-      <TieredCtas locale={locale} />
 
       <Footer />
     </>

@@ -59,17 +59,37 @@ const nextConfig = {
     const locales = ['es', 'en']
     const redirects = []
 
-    // Legacy routes that existed before locale migration
-    // These redirect to Spanish version with 301 (permanent) redirects for SEO
-    const legacyRoutes = [
-      { source: '/para-empresas', destination: '/soluciones' },
-      { source: '/para-startups', destination: '/soluciones' },
-      { source: '/para-desarrolladores', destination: '/soluciones' },
-      { source: '/nuestro-enfoque', destination: '/como-trabajamos' },
+    // ==========================================
+    // LEGACY URLS - Clean up old indexed pages
+    // ==========================================
+    // These are URLs that Google still has indexed from old site versions
+    // Redirect to relevant current pages with 301 (permanent) for SEO cleanup
+    const legacyRootRoutes = [
+      { source: '/clients', destination: '/es/case-studies' },
+      { source: '/clients/', destination: '/es/case-studies' },
+      { source: '/services', destination: '/es/soluciones' },
+      { source: '/services/', destination: '/es/soluciones' },
+    ]
+    
+    legacyRootRoutes.forEach(({ source, destination }) => {
+      redirects.push({
+        source,
+        destination,
+        permanent: true, // 301 redirect for SEO cleanup
+      })
+    })
+
+    // ==========================================
+    // DUPLICATE URL CANONICALIZATION
+    // ==========================================
+    // Redirect English-named slugs to Spanish canonical versions
+    // This consolidates SEO signals to single canonical URLs
+    const canonicalRoutes = [
+      { source: '/solutions', destination: '/soluciones' },
+      { source: '/how-we-work', destination: '/como-trabajamos' },
     ]
 
-    // Add legacy route redirects for all locales
-    legacyRoutes.forEach(({ source, destination }) => {
+    canonicalRoutes.forEach(({ source, destination }) => {
       locales.forEach((locale) => {
         redirects.push({
           source: `/${locale}${source}`,
@@ -79,7 +99,31 @@ const nextConfig = {
       })
     })
 
-    // Redirect root to Spanish (default locale)
+    // ==========================================
+    // LEGACY LOCALE ROUTES
+    // ==========================================
+    // Routes that existed before locale migration
+    const legacyLocaleRoutes = [
+      { source: '/para-empresas', destination: '/soluciones' },
+      { source: '/para-startups', destination: '/soluciones' },
+      { source: '/para-desarrolladores', destination: '/soluciones' },
+      { source: '/nuestro-enfoque', destination: '/como-trabajamos' },
+    ]
+
+    legacyLocaleRoutes.forEach(({ source, destination }) => {
+      locales.forEach((locale) => {
+        redirects.push({
+          source: `/${locale}${source}`,
+          destination: `/${locale}${destination}`,
+          permanent: true, // 301 redirect for SEO
+        })
+      })
+    })
+
+    // ==========================================
+    // ROOT REDIRECT
+    // ==========================================
+    // Redirect root to Spanish (default locale for Chile)
     redirects.push({
       source: '/',
       destination: '/es',

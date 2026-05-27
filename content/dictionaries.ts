@@ -1,105 +1,19 @@
-export type Locale = "es" | "en";
-
-type Dict = {
-  nav: {
-    platform: string;
-    agentic: string;
-    infra: string;
-    agentMatrix: string;
-    playbooks: string;
-    caseStudies: string;
-    labs: string;
-    nodes: string;
-    patterns: string;
-    security: string;
-    contact: string;
-  };
-  cta: {
-    requestReview: string;
-    bookCall: string;
-    viewCaseStudies: string;
-  };
+export interface Dict {
+  nav: { [key: string]: string };
   home: {
-    h1: string;
-    sub: string;
-    trust: string;
-    hero: {
-      badge: string;
-      h1_1: string;
-      h1_2: string;
-      description: string;
-      startToday: string;
-      viewCapabilities: string;
-      stats: {
-        processes: string;
-        industries: string;
-        operation: string;
-      };
-    };
-    whatWeDo: {
-      title: string;
-      description: string;
-      orchestration: {
-        title: string;
-        desc: string;
-      };
-      evolving: {
-        title: string;
-        desc: string;
-      };
-      integration: {
-        title: string;
-        desc: string;
-      };
-    };
-    solutions: {
-      title: string;
-      description: string;
-      explore: string;
-    };
-    clients: {
-      title: string;
-      description: string;
-      viewAll: string;
-      ecosuelolab: {
-        title: string;
-        desc: string;
-      };
-      despega: {
-        title: string;
-        desc: string;
-      };
-      blackswan: {
-        title: string;
-        desc: string;
-      };
-    };
-    cta: {
-      title: string;
-      subtitle: string;
-      scheduleCall: string;
-    };
-  };
-  pillars: {
-    platformTitle: string;
-    platformDesc: string;
-    agenticTitle: string;
-    agenticDesc: string;
-    infraTitle: string;
-    infraDesc: string;
-  };
-  outcomes: {
-    title: string;
-    subtitle: string;
-  };
-  caseStudies: {
-    title: string;
-    subtitle: string;
-    back: string;
-    industry: string;
-    status: string;
-    implementation: string;
-    scope: string;
+    hero: { badge: string; title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string };
+    pain: { title: string; bullets: string[] };
+    solution: { title: string; bullets: string[] };
+    caseStudies: { title: string; viewAll: string };
+    fourWeekMethod: { title: string; weeks: { week: string; label: string }[] };
+    closing: { title: string; subtitle: string; ctaText: string; microcopy: string };
+    clients: { title: string; description: string; viewAll: string; ecosuelolab: { title: string; desc: string }; despega: { title: string; desc: string }; blackswan: { title: string; desc: string } };
+    positioning: { title: string; description: string };
+    whatWeDo: { title: string; subtitle: string; engineering: { title: string; desc: string }; aiSystems: { title: string; desc: string }; automation: { title: string; desc: string }; infrastructure: { title: string; desc: string } };
+    howWeThink: { title: string; description: string; insight: string };
+    architecture: { title: string; subtitle: string; items: string[] };
+    differentiator: { title: string; statement1: string; statement2: string };
+    forWho: { title: string; description: string };
   };
   about: {
     whoWeAre: string;
@@ -112,291 +26,383 @@ type Dict = {
     visionP3: string;
     ourPhilosophy: string;
     howWethinkDifferent: string;
-    philosophy: Array<{ num: string; desc: string }>;
+    philosophy: { num: string; desc: string }[];
     ourApproach: string;
     howWeWork: string;
     workingDaily: string;
-    values: Array<{ title: string; desc: string }>;
+    values: { title: string; desc: string }[];
     closing: string;
   };
-};
+  pillars: { infraTitle: string; infraDesc: string; agenticTitle: string; agenticDesc: string };
+  caseStudies: { title: string };
+  agenticEngineering: {
+    headline: string;
+    subheadline: string;
+    humanInLoop: { title: string; description: string };
+    toolAware: { title: string; description: string };
+    vendorAgnostic: { title: string; description: string };
+    builtToShip: { title: string; description: string };
+    manifesto: string[];
+    philosophy: { num: string; desc: string }[];
+    cta: string;
+  };
+}
 
-export const DICTS: Record<Locale, Dict> = {
-  es: {
-    nav: {
-      platform: "Plataforma",
-      agentic: "Sistemas Agénticos",
-      infra: "Infraestructura IA",
-      agentMatrix: "Agent Matrix",
-      playbooks: "Playbooks",
-      caseStudies: "Casos de Éxito",
-      labs: "Labs",
-      nodes: "Nodes",
-      patterns: "Patterns",
-      security: "Seguridad",
-      contact: "Contacto",
+const DICTS_ES: Dict = {
+  nav: {
+    platform: "Plataforma",
+    agentic: "Sistemas Agénticos",
+    infra: "Infraestructura IA",
+    agentMatrix: "Agent Matrix",
+    playbooks: "Playbooks",
+    caseStudies: "Casos de Éxito",
+    labs: "Labs",
+    nodes: "Nodes",
+    patterns: "Patterns",
+    security: "Seguridad",
+    contact: "Contacto",
+  },
+  home: {
+    hero: {
+      badge: "Sistemas agenticos en producción | Santiago, Chile",
+      title: "IA en producción para operaciones que no pueden fallar",
+      subtitle: "Diseñamos e integramos sistemas inteligentes que automatizan procesos críticos, conectan tus datos y mantienen control humano en cada decisión relevante.",
+      ctaPrimary: "Agendar diagnóstico (30 min)",
+      ctaSecondary: "Ver casos reales",
     },
-    cta: {
-      requestReview: "Solicitar revisión de arquitectura",
-      bookCall: "Agendar llamada técnica",
-      viewCaseStudies: "Ver casos de éxito",
+    pain: {
+      title: "Si tu operación depende de planillas, ya hay riesgo",
+      bullets: [
+        "Retrasos por tareas manuales",
+        "Errores sin trazabilidad",
+        "Decisiones sin contexto completo",
+      ],
     },
-    home: {
-      h1: "Sistemas Agénticos en Producción",
-      sub:
-        "Orquestación de sistemas agénticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno.",
-      trust:
-        "Ingeniería de IA para operaciones reales. Sistemas autónomos con gobernanza, observabilidad y fiabilidad.",
-      hero: {
-        badge: "Sistemas Agenticos en Producción",
-        h1_1: "De la Experimentación",
-        h1_2: "a la Automatización Empresarial",
-        description: "Orquestación de sistemas agenticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno.",
-        startToday: "Comenzar Hoy",
-        viewCapabilities: "Ver Capacidades",
-        stats: {
-          processes: "Procesos Automatizados",
-          industries: "Industrias Servidas",
-          operation: "Operación Continua",
-        },
-      },
-      whatWeDo: {
-        title: "¿Qué es N3uralia?",
-        description: "Construimos la arquitectura que falta. Un orquestador central que coordina agentes especializados, integra tus sistemas existentes y evoluciona con tu negocio.",
-        orchestration: {
-          title: "Orquestación",
-          desc: "Coordina múltiples agentes y sistemas en un solo flujo inteligente",
-        },
-        evolving: {
-          title: "Agentes Evolucionan",
-          desc: "Aprenden de cada interacción y mejoran automáticamente con el tiempo",
-        },
-        integration: {
-          title: "Integración Total",
-          desc: "Se adapta a tu stack existente sin disrupciones. Zero rewrite.",
-        },
-      },
-      solutions: {
-        title: "Soluciones por Industria",
-        description: "Automatización especializada para los desafíos únicos de tu sector",
-        explore: "Explorar Todas las Soluciones",
-      },
-      clients: {
-        title: "Confían en N3uralia",
-        description: "Empresas líderes transforman sus operaciones con nuestros sistemas",
-        viewAll: "Ver Todos los Casos de Éxito",
-        ecosuelolab: {
-          title: "Monitoreo Agrícola Automatizado",
-          desc: "Automatización 100% de alertas satelitales con integración API + WhatsApp. Latencia en segundos.",
-        },
-        despega: {
-          title: "Plataforma de Coaching IA",
-          desc: "Fullstack development con coach IA conversacional, tests psicométricos y biblioteca de recursos. 10K+ usuarios.",
-        },
-        blackswan: {
-          title: "Sistema de Gestión Integrado",
-          desc: "BFCS orquestado para hoteles de lujo. 40% reducción en tiempo operativo. Response time: 4h → 15min.",
-        },
-      },
-      cta: {
-        title: "¿Tu industria requiere automatización?",
-        subtitle: "Hablemos sobre cómo N3uralia puede transformar tus operaciones.",
-        scheduleCall: "Agendar Conversación",
-      },
-    },
-    pillars: {
-      platformTitle: "Plataforma",
-      platformDesc:
-        "Construimos la arquitectura que falta: un orquestador central que coordina agentes especializados e integra tu stack existente sin disrupciones.",
-      agenticTitle: "Sistemas Agénticos",
-      agenticDesc:
-        "Automatización gobernable: human-in-the-loop, permisos, trazabilidad, evaluaciones y control en producción.",
-      infraTitle: "Infraestructura IA",
-      infraDesc:
-        "RAG y pipelines listos para producción: seguridad, latencia, costo, observabilidad y mejora continua.",
-    },
-    outcomes: {
-      title: "Resultados",
-      subtitle: "Estas no son promesas. Son historias reales de empresas que confiaron en N3uralia.",
+    solution: {
+      title: "No entregamos bots sueltos. Entregamos infraestructura operativa.",
+      bullets: [
+        "Interfaces, backend y APIs listas para uso diario",
+        "Agentes conectados a tus sistemas y datos reales",
+        "Auditoría, seguridad y checkpoints humanos",
+        "Arquitectura agnóstica, sin lock-in de proveedor",
+      ],
     },
     caseStudies: {
-      title: "Casos de Éxito",
-      subtitle: "Implementaciones reales con arquitectura, operación y resultados medibles.",
-      back: "← Volver a Casos de Éxito",
-      industry: "Industria",
-      status: "Estado",
-      implementation: "Implementación",
-      scope: "Scope",
+      title: "Resultados medibles en operación real",
+      viewAll: "Ver todos los casos",
     },
-    about: {
-      whoWeAre: "Quiénes Somos",
-      title: "N3uralia",
-      description: "Construimos arquitecturas de inteligencia autónoma que amplifican capacidades humanas. No es IA que reemplaza. Es IA que expande. Sistemas que funcionan con humanos, no contra ellos.",
-      ourWhy: "Nuestro Por Qué",
-      visionTitle: "La Visión Que Nos Guía",
-      visionP1: "Creemos que la IA debería ser diferente. No más chatbots respondiendo preguntas aisladas. No más herramientas que requieren supervisión constante. No más sistemas que reemplazan humanos.",
-      visionP2: "Imaginamos sistemas inteligentes que coordinan autonomía con gobernanza. Agentes que son especializados pero colaborativos. Arquitectura que escala sin complejidad exponencial.",
-      visionP3: "Existimos para que eso sea posible. Arquitectura que funciona. Ingeniería rigurosa. Responsabilidad radical. Sistema vivo que aprende y evoluciona.",
-      ourPhilosophy: "Nuestra Filosofía",
-      howWethinkDifferent: "Cómo Pensamos Diferente",
-      philosophy: [
-        { num: "1. Tecnología Grounded", desc: "La IA no es magia. Es ingeniería. Sistemas que son predecibles, rastreables, y completamente gobernados. Sin hype, solo arquitectura que funciona en el mundo real." },
-        { num: "2. Expansión, No Reemplazo", desc: "La IA que vale la pena expande capacidades humanas. Permite que equipos hagan más, no menos. No construimos para reemplazar—construimos para amplificar." },
-        { num: "3. Arquitectura sobre Herramientas", desc: "Los chatbots responden preguntas. Los sistemas agenticos construyen infraestructura organizacional. Hay una diferencia fundamental entre una herramienta y una arquitectura." },
-        { num: "4. Responsabilidad Radical", desc: "Cada decisión de cada agente debe ser rastreable, explicable, y auditable. Gobernanza no es fricción—es un requisito no-negociable de sistemas responsables." },
-        { num: "5. Evolución Continua", desc: "Los sistemas vivos aprenden. Living Agents no son estáticos. Mejoran con cada interacción, adaptándose a contexto, retroalimentación y experiencia." },
+    fourWeekMethod: {
+      title: "De diagnóstico a producción en 4 semanas",
+      weeks: [
+        { week: "Semana 1", label: "Diagnóstico y alcance" },
+        { week: "Semana 2", label: "Integración con sistemas y datos" },
+        { week: "Semana 3", label: "Orquestación de agentes y flujos" },
+        { week: "Semana 4", label: "Salida a producción con monitoreo" },
       ],
-      ourApproach: "Nuestro Enfoque",
-      howWeWork: "Cómo Trabajamos",
-      workingDaily: "Estas no son solo palabras en una pared. Es cómo operamos, todos los días.",
-      values: [
-        { title: "Ingeniería Rigurosa", desc: "La IA es ingeniería, no magia. Sistemas predecibles, rastreables, gobernados. Cada decisión es auditable." },
-        { title: "Expansión Humana", desc: "Tecnología que amplifica capacidades humanas. Ayuda a equipos a hacer más, no menos. Colaboración, no reemplazo." },
-        { title: "Responsabilidad Radical", desc: "Cada agente, cada decisión, completamente rastreable. Gobernanza no es fricción—es requisito no-negociable." },
-        { title: "Resultados Medibles", desc: "No evangelizamos IA. Medimos impacto real: eficiencia, ingresos, satisfacción. Resultados concretos, no promesas." },
+    },
+    closing: {
+      title: "Menos fricción. Más ejecución.",
+      subtitle: "En 30 minutos te mostramos qué automatizar primero, impacto esperado y roadmap realista para tu equipo.",
+      ctaText: "Agendar diagnóstico (30 min)",
+      microcopy: "Sin lock-in | Implementación guiada | Soporte local",
+    },
+    clients: {
+      title: "Casos de éxito",
+      description: "Empresas que aceleran con sistemas agenticos",
+      viewAll: "Ver todos los casos",
+      ecosuelolab: { title: "Ecosuelolab", desc: "Automatización de análisis de suelos" },
+      despega: { title: "Despega Tu Carrera", desc: "Procesamiento automático de perfiles" },
+      blackswan: { title: "Blackswan", desc: "Gestión operativa integrada" },
+    },
+    positioning: {
+      title: "No es solo un chatbot. Es tu infraestructura.",
+      description: "Diseñamos, integramos y desplegamos sistemas inteligentes que automatizan procesos, conectan datos, toman decisiones y mejoran continuamente.",
+    },
+    whatWeDo: {
+      title: "Lo que construimos",
+      subtitle: "Cuatro capas que funcionan juntas:",
+      engineering: {
+        title: "Interfaz y Backend",
+        desc: "Las plataformas, dashboards y APIs que usa tu equipo cada día.",
+      },
+      aiSystems: {
+        title: "Inteligencia Operativa",
+        desc: "Agentes que entienden tu contexto, recuperan información correcta y ejecutan acciones precisas.",
+      },
+      automation: {
+        title: "Conexiones Reales",
+        desc: "Tu CRM, tu base de datos, Slack, WhatsApp, tus sistemas internos... todo conectado sin interrupciones.",
+      },
+      infrastructure: {
+        title: "Orquestación y Auditoría",
+        desc: "Workflow visual, trazabilidad total, seguridad empresarial y checkpoints humanos.",
+      },
+    },
+    howWeThink: {
+      title: "Cómo pensamos",
+      description: "Un sistema inteligente no es un experimento. Es tu operación.",
+      insight: "Por eso partimos desde tu realidad operativa, no desde una demostración.",
+    },
+    architecture: {
+      title: "La arquitectura que funciona",
+      subtitle: "Cuatro principios que guían cada decisión técnica:",
+      items: [
+        "Agnóstica: funciona en AWS, Google Cloud, Azure o On-Premise",
+        "Observable: auditoría completa de cada acción del agente",
+        "Escalable: desde 1 proceso hasta 50+ sin cambios estructurales",
+        "Humano-céntrica: decisiones críticas siempre requieren aprobación",
       ],
-      closing: "No somos perfectos, pero estamos comprometidos. Comprometidos con tu éxito, con construir con integridad, y con hacer la IA accesible. Ese es N3uralia.",
+    },
+    differentiator: {
+      title: "No es magia, es ingeniería.",
+      statement1: "La mayoría de soluciones IA terminan como POCs. Nosotros llevamos sistemas a producción.",
+      statement2: "Porque conocemos retail, manufactura, finanzas, salud, legal y logística. Sabemos qué hace que una operación sea crítica.",
+    },
+    forWho: {
+      title: "Para operaciones que no pueden fallar",
+      description: "Retail, manufactura, servicios financieros, salud, legal, logística. Si tienes procesos críticos y datos, podemos automatizar.",
     },
   },
-  en: {
-    nav: {
-      platform: "Platform",
-      agentic: "Agentic Systems",
-      infra: "AI Infrastructure",
-      agentMatrix: "Agent Matrix",
-      playbooks: "Playbooks",
-      caseStudies: "Case Studies",
-      labs: "Labs",
-      nodes: "Nodes",
-      patterns: "Patterns",
-      security: "Security",
-      contact: "Contact",
-    },
-    cta: {
-      requestReview: "Request architecture review",
-      bookCall: "Book technical call",
-      viewCaseStudies: "View case studies",
-    },
-    home: {
-      h1: "Production Agentic Systems",
-      sub:
-        "We orchestrate agentic systems that integrate, scale, and evolve. Augmented intelligence for real operations — production-ready from day one.",
-      trust:
-        "AI engineering for real operations. Governed autonomy with observability and reliability.",
-      hero: {
-        badge: "Agentic Systems in Production",
-        h1_1: "From Experimentation",
-        h1_2: "to Enterprise Automation",
-        description: "Orchestration of agentic systems that integrate, scale, and evolve. Your operations with augmented intelligence, ready for production from day one.",
-        startToday: "Start Today",
-        viewCapabilities: "View Capabilities",
-        stats: {
-          processes: "Automated Processes",
-          industries: "Industries Served",
-          operation: "Continuous Operation",
-        },
-      },
-      whatWeDo: {
-        title: "What is N3uralia?",
-        description: "We build the missing architecture. A central orchestrator that coordinates specialized agents, integrates your existing systems, and evolves with your business.",
-        orchestration: {
-          title: "Orchestration",
-          desc: "Coordinates multiple agents and systems in a single intelligent flow",
-        },
-        evolving: {
-          title: "Agents Evolve",
-          desc: "Learn from every interaction and improve automatically over time",
-        },
-        integration: {
-          title: "Total Integration",
-          desc: "Adapts to your existing stack without disruption. Zero rewrite.",
-        },
-      },
-      solutions: {
-        title: "Solutions by Industry",
-        description: "Specialized automation for the unique challenges of your sector",
-        explore: "Explore All Solutions",
-      },
-      clients: {
-        title: "Trusted by Industry Leaders",
-        description: "Leading companies transform their operations with our systems",
-        viewAll: "View All Case Studies",
-        ecosuelolab: {
-          title: "Automated Agricultural Monitoring",
-          desc: "100% automation of satellite alerts with API + WhatsApp integration. Latency in seconds.",
-        },
-        despega: {
-          title: "AI Coaching Platform",
-          desc: "Fullstack development with conversational AI coach, psychometric tests, and resource library. 10K+ users.",
-        },
-        blackswan: {
-          title: "Integrated Management System",
-          desc: "BFCS orchestrated for luxury hotels. 40% reduction in operational time. Response time: 4h → 15min.",
-        },
-      },
-      cta: {
-        title: "Does your industry require automation?",
-        subtitle: "Let's talk about how N3uralia can transform your operations.",
-        scheduleCall: "Schedule a Conversation",
-      },
-    },
-    pillars: {
-      platformTitle: "Platform",
-      platformDesc:
-        "We build the missing architecture: a central orchestrator coordinating specialized agents and integrating your existing stack without disruption.",
-      agenticTitle: "Agentic Systems",
-      agenticDesc:
-        "Governed automation: human-in-the-loop, permissions, traceability, evaluations, and production control.",
-      infraTitle: "AI Infrastructure",
-      infraDesc:
-        "Production RAG and pipelines: security, latency, cost control, observability, and continuous improvement.",
-    },
-    outcomes: {
-      title: "Outcomes",
-      subtitle: "Not promises — real stories from teams shipping with N3uralia.",
-    },
-    caseStudies: {
-      title: "Case Studies",
-      subtitle: "Real deployments with architecture, operations, and measurable outcomes.",
-      back: "← Back to Case Studies",
-      industry: "Industry",
-      status: "Status",
-      implementation: "Implementation",
-      scope: "Scope",
-    },
-    about: {
-      whoWeAre: "Who We Are",
-      title: "N3uralia",
-      description: "We build autonomous intelligence architectures that amplify human capabilities. Not AI that replaces. AI that expands. Systems that work with humans, not against them.",
-      ourWhy: "Our Why",
-      visionTitle: "The Vision That Guides Us",
-      visionP1: "We believe AI should be different. No more chatbots answering isolated questions. No more tools requiring constant oversight. No more systems that replace humans.",
-      visionP2: "We envision intelligent systems that coordinate autonomy with governance. Agents that are specialized yet collaborative. Architecture that scales without exponential complexity.",
-      visionP3: "We exist to make that possible. Architecture that works. Rigorous engineering. Radical accountability. Living systems that learn and evolve.",
-      ourPhilosophy: "Our Philosophy",
-      howWethinkDifferent: "How We Think Differently",
-      philosophy: [
-        { num: "1. Grounded Technology", desc: "AI is not magic. It's engineering. Systems that are predictable, traceable, and fully governed. No hype, just architecture that works in the real world." },
-        { num: "2. Expansion, Not Replacement", desc: "AI worth having expands human capabilities. It enables teams to do more, not less. We don't build to replace—we build to amplify." },
-        { num: "3. Architecture Over Tools", desc: "Chatbots answer questions. Agentic systems build organizational infrastructure. There's a fundamental difference between a tool and an architecture." },
-        { num: "4. Radical Responsibility", desc: "Every decision of every agent must be traceable, explainable, and auditable. Governance isn't friction—it's a non-negotiable requirement of responsible systems." },
-        { num: "5. Continuous Evolution", desc: "Living systems learn. Living Agents aren't static. They improve with every interaction, adapting to context, feedback, and experience." },
-      ],
-      ourApproach: "Our Approach",
-      howWeWork: "How We Work",
-      workingDaily: "These aren't just words on a wall. It's how we operate, every single day.",
-      values: [
-        { title: "Rigorous Engineering", desc: "AI is engineering, not magic. Predictable, traceable, governed systems. Every decision is auditable." },
-        { title: "Human Expansion", desc: "Technology that amplifies human capabilities. Helps teams do more, not less. Collaboration, not replacement." },
-        { title: "Radical Accountability", desc: "Every agent, every decision, fully traceable. Governance is not friction—it's a non-negotiable requirement." },
-        { title: "Measurable Results", desc: "We don't evangelize AI. We measure real impact: efficiency, revenue, satisfaction. Concrete results, not promises." },
-      ],
-      closing: "We're not perfect, but we're committed. Committed to your success, to building with integrity, and to making AI accessible. That's N3uralia.",
-    },
+  about: {
+    whoWeAre: "Quiénes somos",
+    title: "N3uralia",
+    description: "Expertos en sistemas agenticos",
+    ourWhy: "Por qué existimos",
+    visionTitle: "Nuestra visión",
+    visionP1: "Operaciones sin fricción",
+    visionP2: "IA que ejecuta, no solo responde",
+    visionP3: "Automatización empresarial",
+    ourPhilosophy: "Nuestra filosofía",
+    howWethinkDifferent: "Cómo pensamos diferente",
+    philosophy: [
+      { num: "1", desc: "Sistemas completos, no bots sueltos" },
+      { num: "2", desc: "Producción antes que demos" },
+      { num: "3", desc: "Control humano siempre" },
+      { num: "4", desc: "Sin lock-in de proveedor" },
+    ],
+    ourApproach: "Nuestro enfoque",
+    howWeWork: "Cómo trabajamos",
+    workingDaily: "Día a día",
+    values: [
+      { title: "Calidad", desc: "Sistemas listos para producción" },
+      { title: "Transparencia", desc: "Trazabilidad total" },
+      { title: "Confianza", desc: "Soporte local" },
+      { title: "Innovación", desc: "Agnóstica y escalable" },
+    ],
+    closing: "Construyamos juntos",
+  },
+  caseStudies: {
+    title: "Casos de éxito",
+  },
+  pillars: {
+    infraTitle: "Infraestructura",
+    infraDesc: "Completa y lista para producción",
+    agenticTitle: "Sistemas Agénticos",
+    agenticDesc: "Inteligencia que ejecuta",
+  },
+  agenticEngineering: {
+    headline: "Ingeniería Agéntica",
+    subheadline: "Sistemas inteligentes para operaciones críticas",
+    humanInLoop: { title: "Humano en el loop", description: "Control siempre" },
+    toolAware: { title: "Consciente de herramientas", description: "Integración real" },
+    vendorAgnostic: { title: "Agnóstico", description: "Sin lock-in" },
+    builtToShip: { title: "Listo para producción", description: "Desde el día 1" },
+    manifesto: [
+      "Sistemas que funcionan",
+      "Arquitectura completa",
+      "Decisiones verificables",
+    ],
+    philosophy: [
+      { num: "1", desc: "Producción es el objetivo" },
+      { num: "2", desc: "Humanos controlan" },
+      { num: "3", desc: "Trazabilidad total" },
+      { num: "4", desc: "Arquitectura agnóstica" },
+    ],
+    cta: "Comenzar",
   },
 };
 
-// Export the dictionary getter function
-export function getDict(locale: Locale) {
-  return DICTS[locale];
+const DICTS_EN: Dict = {
+  nav: {
+    platform: "Platform",
+    agentic: "Agentic Systems",
+    infra: "AI Infrastructure",
+    agentMatrix: "Agent Matrix",
+    playbooks: "Playbooks",
+    caseStudies: "Case Studies",
+    labs: "Labs",
+    nodes: "Nodes",
+    patterns: "Patterns",
+    security: "Security",
+    contact: "Contact",
+  },
+  home: {
+    hero: {
+      badge: "Agentic systems in production | Santiago, Chile",
+      title: "AI in production for operations that cannot fail",
+      subtitle: "We design and integrate intelligent systems that automate critical processes, connect your data and maintain human control in every relevant decision.",
+      ctaPrimary: "Schedule diagnosis (30 min)",
+      ctaSecondary: "View case studies",
+    },
+    pain: {
+      title: "If your operation relies on spreadsheets, there's risk",
+      bullets: [
+        "Delays from manual tasks",
+        "Errors without traceability",
+        "Decisions without full context",
+      ],
+    },
+    solution: {
+      title: "We don't deliver loose bots. We deliver operational infrastructure.",
+      bullets: [
+        "Interfaces, backend and APIs ready for daily use",
+        "Agents connected to your systems and real data",
+        "Audit, security and human checkpoints",
+        "Vendor-agnostic architecture, no provider lock-in",
+      ],
+    },
+    caseStudies: {
+      title: "Measurable results in real operations",
+      viewAll: "View all cases",
+    },
+    fourWeekMethod: {
+      title: "From diagnosis to production in 4 weeks",
+      weeks: [
+        { week: "Week 1", label: "Diagnosis and scope" },
+        { week: "Week 2", label: "Integration with systems and data" },
+        { week: "Week 3", label: "Orchestration of agents and workflows" },
+        { week: "Week 4", label: "Production deployment with monitoring" },
+      ],
+    },
+    closing: {
+      title: "Less friction. More execution.",
+      subtitle: "In 30 minutes we show you what to automate first, expected impact and a realistic roadmap for your team.",
+      ctaText: "Schedule diagnosis (30 min)",
+      microcopy: "No lock-in | Guided implementation | Local support",
+    },
+    clients: {
+      title: "Success cases",
+      description: "Companies accelerating with agentic systems",
+      viewAll: "View all cases",
+      ecosuelolab: { title: "Ecosuelolab", desc: "Soil analysis automation" },
+      despega: { title: "Despega Tu Carrera", desc: "Automatic profile processing" },
+      blackswan: { title: "Blackswan", desc: "Integrated operational management" },
+    },
+    positioning: {
+      title: "It's not just a chatbot. It's your infrastructure.",
+      description: "We design, integrate and deploy intelligent systems that automate processes, connect data, make decisions and improve continuously.",
+    },
+    whatWeDo: {
+      title: "What we build",
+      subtitle: "Four layers that work together:",
+      engineering: {
+        title: "Interface and Backend",
+        desc: "The platforms, dashboards and APIs your team uses every day.",
+      },
+      aiSystems: {
+        title: "Operational Intelligence",
+        desc: "Agents that understand your context, retrieve correct information and execute precise actions.",
+      },
+      automation: {
+        title: "Real Connections",
+        desc: "Your CRM, your database, Slack, WhatsApp, your internal systems... all connected seamlessly.",
+      },
+      infrastructure: {
+        title: "Orchestration and Audit",
+        desc: "Visual workflow, complete traceability, enterprise security and human checkpoints.",
+      },
+    },
+    howWeThink: {
+      title: "How we think",
+      description: "An intelligent system is not an experiment. It's your operation.",
+      insight: "That's why we start from your operational reality, not from a demo.",
+    },
+    architecture: {
+      title: "The architecture that works",
+      subtitle: "Four principles that guide every technical decision:",
+      items: [
+        "Agnostic: works on AWS, Google Cloud, Azure or On-Premise",
+        "Observable: complete audit of every agent action",
+        "Scalable: from 1 process to 50+ without structural changes",
+        "Human-centric: critical decisions always require approval",
+      ],
+    },
+    differentiator: {
+      title: "It's not magic, it's engineering.",
+      statement1: "Most AI solutions end up as POCs. We bring systems to production.",
+      statement2: "Because we know retail, manufacturing, finance, health, legal and logistics. We know what makes an operation critical.",
+    },
+    forWho: {
+      title: "For operations that cannot fail",
+      description: "Retail, manufacturing, financial services, healthcare, legal, logistics. If you have critical processes and data, we can automate.",
+    },
+  },
+  about: {
+    whoWeAre: "Who we are",
+    title: "N3uralia",
+    description: "Agentic systems experts",
+    ourWhy: "Why we exist",
+    visionTitle: "Our vision",
+    visionP1: "Frictionless operations",
+    visionP2: "AI that executes, not just responds",
+    visionP3: "Enterprise automation",
+    ourPhilosophy: "Our philosophy",
+    howWethinkDifferent: "How we think different",
+    philosophy: [
+      { num: "1", desc: "Complete systems, not loose bots" },
+      { num: "2", desc: "Production before demos" },
+      { num: "3", desc: "Human control always" },
+      { num: "4", desc: "No provider lock-in" },
+    ],
+    ourApproach: "Our approach",
+    howWeWork: "How we work",
+    workingDaily: "Daily",
+    values: [
+      { title: "Quality", desc: "Production-ready systems" },
+      { title: "Transparency", desc: "Complete traceability" },
+      { title: "Trust", desc: "Local support" },
+      { title: "Innovation", desc: "Agnostic and scalable" },
+    ],
+    closing: "Let's build together",
+  },
+  caseStudies: {
+    title: "Success cases",
+  },
+  pillars: {
+    infraTitle: "Infrastructure",
+    infraDesc: "Complete and production-ready",
+    agenticTitle: "Agentic Systems",
+    agenticDesc: "Intelligence that executes",
+  },
+  agenticEngineering: {
+    headline: "Agentic Engineering",
+    subheadline: "Intelligent systems for critical operations",
+    humanInLoop: { title: "Human in the loop", description: "Always in control" },
+    toolAware: { title: "Tool aware", description: "Real integration" },
+    vendorAgnostic: { title: "Vendor agnostic", description: "No lock-in" },
+    builtToShip: { title: "Built to ship", description: "From day 1" },
+    manifesto: [
+      "Systems that work",
+      "Complete architecture",
+      "Verifiable decisions",
+    ],
+    philosophy: [
+      { num: "1", desc: "Production is the goal" },
+      { num: "2", desc: "Humans in control" },
+      { num: "3", desc: "Complete traceability" },
+      { num: "4", desc: "Vendor agnostic" },
+    ],
+    cta: "Get started",
+  },
+};
+
+const DICTS: Record<"es" | "en", Dict> = {
+  es: DICTS_ES,
+  en: DICTS_EN,
+};
+
+export type Locale = keyof typeof DICTS;
+
+export function getDict(locale: Locale): Dict {
+  return DICTS[locale] || DICTS.es;
 }
