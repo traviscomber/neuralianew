@@ -2,16 +2,16 @@ import type { MetadataRoute } from "next"
 
 const SITE_URL = "https://n3uralia.com"
 
-// ONLY verified routes that exist in app/[locale]/ directory
-// No duplicates, no non-existent routes
+// CANONICAL ROUTES ONLY - One URL per concept, no duplicates
+// Spanish is the primary locale for Chile SEO strategy
+// English versions link via hreflang alternates
 const ROUTES = [
   // Core pages
   { slug: "", priority: 1.0, changeFreq: "daily" as const },
   
-  // Main product pages
+  // Main product pages - Use Spanish slugs as canonical for Chile SEO
   { slug: "/capabilities", priority: 0.95, changeFreq: "weekly" as const },
-  { slug: "/solutions", priority: 0.95, changeFreq: "weekly" as const },
-  { slug: "/soluciones", priority: 0.95, changeFreq: "weekly" as const },
+  { slug: "/soluciones", priority: 0.95, changeFreq: "weekly" as const }, // Canonical - removed /solutions duplicate
   { slug: "/case-studies", priority: 0.85, changeFreq: "monthly" as const },
   
   // Agent/system pages
@@ -19,11 +19,8 @@ const ROUTES = [
   { slug: "/agent-operations", priority: 0.9, changeFreq: "weekly" as const },
   { slug: "/living-agents", priority: 0.85, changeFreq: "monthly" as const },
   
-  // Spanish-named pages (methodology & approach)
-  { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const },
-  
-  // English equivalents
-  { slug: "/how-we-work", priority: 0.7, changeFreq: "monthly" as const },
+  // Methodology - Use Spanish slug as canonical
+  { slug: "/como-trabajamos", priority: 0.7, changeFreq: "monthly" as const }, // Canonical - removed /how-we-work duplicate
   
   // Reference pages
   { slug: "/faq", priority: 0.75, changeFreq: "monthly" as const },
