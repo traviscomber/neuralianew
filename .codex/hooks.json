@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm agent:check",
+            "timeout": 60,
+            "statusMessage": "Running N3uralia agent quality checks (lint, format, typecheck)"
+          }
+        ]
+      }
+    ]
+  }
+}
