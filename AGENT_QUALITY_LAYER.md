@@ -100,17 +100,24 @@ pnpm husky init
 
 ## Para Futuros Proyectos
 
-Este setup se puede copiar a:
+**IMPORTANTE**: Este setup es MANDATORY para todos los desarrollos.
+
+Lee: `ORG_STANDARD_QUALITY_LAYER.md`
+
+Para aplicar a un nuevo proyecto:
+```bash
+bash scripts/setup-quality-layer.sh
+# Follow the prompts
+pnpm agent:check
+```
+
+Proyectos que DEBEN tener la layer:
 - DTC (Dynamic Training Carousel)
-- Cleaner
+- Cleaner  
 - Mining ERP
 - CityPlanGo
 - Visual Compare
-
-Solo ajusta:
-- `/AGENTS.md` - Visión y estándares del proyecto
-- `/scripts/check-*.js` - Reglas específicas del dominio
-- `/eslint-rules/` - Reglas ESLint personalizadas (si aplica)
+- Todos los futuros
 
 ## Referencias
 
