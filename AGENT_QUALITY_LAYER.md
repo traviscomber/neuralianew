@@ -1,4 +1,6 @@
-# Agent Quality Layer - N3uralia Setup
+# Agent Quality Layer - N3uralia Setup ✅ ACTIVE
+
+**Status**: Fully deployed and operational as of May 27, 2026
 
 Esta es la "capa de calidad de agentes" para N3uralia. Convierte reglas documentadas en **automatizaciones ejecutables** que bloquean commits si el código no cumple standards.
 
