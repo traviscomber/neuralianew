@@ -1,0 +1,15 @@
+{
+  "**/*.{ts,tsx,js,jsx}": [
+    "eslint",
+    "prettier --write",
+    "node scripts/check-design-tokens.js",
+    "node scripts/check-mock-data.js",
+    "node scripts/remove-console-logs.js"
+  ],
+  "**/*.{json,md,css,scss}": [
+    "prettier --write"
+  ],
+  "**/*.{ts,tsx}": [
+    "pnpm typecheck"
+  ]
+}

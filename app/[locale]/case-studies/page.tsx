@@ -16,13 +16,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
   const isES = locale === "es"
 
   return generatePageMetadata({
-    title: isES ? "Casos de Éxito - Implementaciones de Sistemas Agenticos" : "Case Studies - Agentic Systems Implementations",
+    title: isES ? "Casos de Éxito - IA y Automatización en Chile | N3uralia" : "Case Studies - AI & Automation in Chile | N3uralia",
     description: isES
-      ? "Casos de éxito reales de N3uralia: implementaciones completas de sistemas agenticos con arquitectura, operación 24/7 y resultados medibles. Agricultura, educación, hotelería."
-      : "Real case studies from N3uralia: complete agentic systems implementations with architecture, 24/7 operations, and measurable results. Agriculture, education, hospitality.",
+      ? "5 casos reales de empresas chilenas que implementaron agentes IA: 70% reducción de costos, 300% ROI. Minería, retail, logística, manufactura, turismo. Resultados medibles."
+      : "5 real cases of Chilean companies implementing AI agents: 70% cost reduction, 300% ROI. Mining, retail, logistics, manufacturing, tourism. Measurable results.",
     keywords: isES
-      ? "casos de éxito, proyectos IA, sistemas agenticos, soluciones implementadas, agentes inteligentes, automatización empresarial, arquitectura agentica"
-      : "case studies, AI projects, agentic systems, implemented solutions, intelligent agents, business automation, agentic architecture",
+      ? "casos de éxito IA Chile, empresas agentes IA, ROI automatización, proyectos IA"
+      : "AI success cases Chile, AI agents companies, automation ROI",
     canonical: `https://n3uralia.com/${locale}/case-studies`,
     locale,
   })
