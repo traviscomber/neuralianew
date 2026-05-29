@@ -13,6 +13,7 @@ N3uralia is a production-ready agentic systems platform for enterprises in Chile
 5. **SEO-first** - Canonical URLs, JSON-LD schemas, proper metadata
 6. **Security-hardened** - Rate limiting, auth guards, no secrets in code
 7. **Performance-conscious** - Optimized builds, proper image handling, code splitting
+8. **Psychologically safe** - For conversational agents (DTC, coaching platforms): behavioral safety protocols, risk detection, no harmful reinforcement
 
 ## Architecture Standards
 
@@ -109,5 +110,8 @@ These rules are **executed by hooks**, not just documented:
 3. **Test responsively** - Check mobile, tablet, desktop layouts
 4. **Update documentation** - Keep this file accurate
 5. **Run quality checks** - Always run `pnpm agent:check` before completing
+6. **Psychology-aware** - For conversational features (chat, coaching), follow DTC_BEHAVIORAL_SAFETY_LAYER standards
 
 The system will **block your commits** if code doesn't meet standards. This is a feature, not a limitation - it ensures production quality.
+
+For behavioral safety details: See `v0_memories/user/DTC_BEHAVIORAL_SAFETY_LAYER.md`
