@@ -14,15 +14,27 @@ export function CapabilitiesPageClient({ locale }: CapabilitiesPageClientProps) 
 
   const content = {
     heroTitle: isES ? "Capacidades Técnicas" : "Technical Capabilities",
-    heroDesc: isES ? "Arquitectura modular y escalable para sistemas inteligentes en producción" : "Modular and scalable architecture for intelligent systems in production",
+    heroDesc: isES 
+      ? "Agentes IA técnicamente capaces, conductualmente seguros y medibles en impacto humano"
+      : "Technically capable AI agents, behaviorally safe and measurable in real human impact",
     
-    tabPillars: isES ? "6 Pilares" : "6 Pillars",
+    tabPillars: isES ? "7 Pilares" : "7 Pillars",
+    tabResponsible: isES ? "IA Conversacional Responsable" : "Responsible Conversational AI",
     tabLiving: isES ? "Living Agents" : "Living Agents",
     tabConversational: isES ? "Inteligencia Conversacional" : "Conversational Intelligence",
     tabProduction: isES ? "En Producción" : "In Production",
   }
 
-  const sixPillars = [
+  const sevenPillars = [
+    {
+      titleES: "IA Conversacional Responsable",
+      titleEN: "Responsible Conversational AI",
+      descES: "Diálogos seguros, medibles y humanamente responsables que respetan autonomía",
+      descEN: "Safe, measurable conversations designed for human dignity and autonomy",
+      features: isES 
+        ? ["Seguridad Conductual", "Detección de Riesgos", "Escalamiento a Humano", "Memoria Responsable", "Evaluación de Impacto", "Límites Claros"]
+        : ["Behavioral Safety", "Risk Detection", "Human Escalation", "Responsible Memory", "Impact Evaluation", "Clear Boundaries"],
+    },
     {
       titleES: "Arquitectura Agentica",
       titleEN: "Agentic Architecture",
@@ -170,19 +182,77 @@ export function CapabilitiesPageClient({ locale }: CapabilitiesPageClientProps) 
         </div>
       </section>
 
+      {/* Responsible AI Section */}
+      <section className="py-20 px-4 border-b border-border bg-primary/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">{content.tabResponsible}</h2>
+            <p className="text-lg text-muted-foreground">
+              {isES
+                ? "La diferencia de N3uralia: agentes que no solo son inteligentes, sino psicológicamente seguros, culturalmente adaptados y medibles en impacto humano real."
+                : "N3uralia's difference: agents that are not only intelligent, but psychologically safe, culturally adapted, and measurable in real human impact."}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-border rounded-lg">
+              <h3 className="font-bold mb-2">
+                {isES ? "🛡️ Seguridad Conductual" : "🛡️ Behavioral Safety"}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {isES
+                  ? "Detecta riesgos, respeta límites, escala a humanos cuando es necesario"
+                  : "Detects risks, respects boundaries, escalates to humans when needed"}
+              </p>
+            </div>
+            <div className="p-6 bg-background border border-border rounded-lg">
+              <h3 className="font-bold mb-2">
+                {isES ? "📊 Medida Real" : "📊 Real Measurement"}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {isES
+                  ? "Más allá de engagement: autoeficacia, confianza, aprendizaje real"
+                  : "Beyond engagement: self-efficacy, trust, real learning outcomes"}
+              </p>
+            </div>
+            <div className="p-6 bg-background border border-border rounded-lg">
+              <h3 className="font-bold mb-2">
+                {isES ? "🌍 Responsable" : "🌍 Culturally Aware"}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {isES
+                  ? "Adaptado a Chile y LATAM, respetando contexto local y matices"
+                  : "Adapted to Chile and LATAM, respecting local context and nuances"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 6 Pillars Section */}
       <section id="pillars" className="py-20 px-4 border-b border-border">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{content.tabPillars}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sixPillars.map((pillar, idx) => (
-              <div key={idx} className="p-6 border border-border rounded-lg hover:border-primary/50 hover:shadow-lg transition-all">
-                <h3 className="text-xl font-bold mb-3">{isES ? pillar.titleES : pillar.titleEN}</h3>
+          <h2 className="text-3xl font-bold mb-4 text-center">{content.tabPillars}</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            {isES 
+              ? "No solo automatización. Sistemas conversacionales diseñados con seguridad conductual, medida de impacto real y responsabilidad cultural."
+              : "Not just automation. Conversational systems designed with behavioral safety, real impact measurement, and cultural responsibility."}
+          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sevenPillars.map((pillar, idx) => (
+              <div 
+                key={idx} 
+                className={`p-6 border rounded-lg hover:shadow-lg transition-all ${
+                  idx === 0 
+                    ? "lg:col-span-2 border-primary/50 bg-primary/5" 
+                    : "border-border hover:border-primary/50"
+                }`}
+              >
+                <h3 className="text-lg font-bold mb-2">{isES ? pillar.titleES : pillar.titleEN}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{isES ? pillar.descES : pillar.descEN}</p>
-                <ul className="space-y-2">
+                <ul className="space-y-1.5">
                   {pillar.features.map((feature, i) => (
-                    <li key={i} className="text-sm flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                    <li key={i} className="text-xs flex items-start gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary flex-shrink-0 mt-0.5" />
                       <span>{feature}</span>
                     </li>
                   ))}
