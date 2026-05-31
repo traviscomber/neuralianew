@@ -52,7 +52,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "📉 Variabilidad en cumplimiento" : "📉 Production variability"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Producción no es predecible. Un día cumples 100%, otro 75%. Clientes no saben si recibirán a tiempo. Inventarios crecen para compensar incertidumbre. Costos de almacenamiento se disparan." : "Production is unpredictable. One day 100%, next day 75%. Customers unsure of delivery dates. Inventory grows to compensate. Storage costs skyrocket."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/mes en almacenamiento, clientes insatisfechos" : "Result: -$XXX/month storage, unhappy customers"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$45-65K/mes en almacenamiento, clientes insatisfechos" : "Result: -$45-65K/month storage, unhappy customers"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🔧 Calidad inconsistente" : "🔧 Inconsistent quality"}</h3>
@@ -67,7 +67,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "💰 Inventario muerto" : "💰 Dead inventory"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Materias primas compradas sin coordinación clara con demanda. Productos terminados que no se venden. Capital atrapado. Sin visibilidad de rotación." : "Raw materials purchased without clear demand coordination. Finished goods that don't sell. Capital trapped. No rotation visibility."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX en capital inmovilizado, rotación <4 veces/año" : "Result: -$XXX tied-up capital, <4x/year turnover"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$150-250K en capital inmovilizado, rotación <4 veces/año" : "Result: -$150-250K tied-up capital, <4x/year turnover"}</p>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Sincronización planta-compras-logística" : "Plant-supply-logistics sync"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Un sistema central que conecta demanda real con compras y logística. Materias primas llegan justo a tiempo, no antes. Productos terminados se envían minimizando almacenaje. Capital circulante optimizado." : "Central system connects real demand with supply and logistics. Raw materials arrive just-in-time. Finished goods ship with minimal storage. Optimized working capital."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% inventario | +4-6x rotación | +$XXX en capital liberado" : "Impact: -30% inventory | +4-6x turnover | +$XXX capital freed"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% inventario | +4-6x rotación | +$180-280K en capital liberado" : "Impact: -30% inventory | +4-6x turnover | +$180-280K capital freed"}</p>
                 </div>
               </div>
             </div>

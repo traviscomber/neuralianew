@@ -51,12 +51,12 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🗺️ Rutas ineficientes" : "🗺️ Inefficient routes"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Las rutas se planifican manualmente o con criterios viejos. No consideran tráfico real, cambios de última hora, o nuevos pedidos. Kilómetros recorridos = dinero gastado en combustible + tiempo + desgaste. Ineficiencia en 20-30% de rutas." : "Routes planned manually or with outdated criteria. Don't account for real traffic, last-minute changes, new orders. Miles driven = wasted fuel + time + wear. 20-30% route inefficiency."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en eficiencia, +$XXX/mes en combustible" : "Result: -20-30% efficiency, +$XXX/month fuel waste"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en eficiencia, +$85-120K/mes en combustible" : "Result: -20-30% efficiency, +$85-120K/month fuel waste"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "❌ Entregas incumplidas" : "❌ Missed deliveries"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin visibilidad real de entregas hasta que ocurren. Clientes no saben cuándo llegará su paquete. Cambios por no poder entregar en horario prometido. Pago de multas por incumplimiento. NPS degrada." : "No real-time delivery visibility until it happens. Customers don't know when their package arrives. Rescheduling when can't deliver on time. Fines for missed commitments. NPS suffers."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -5-15% OTIF, -2-3 puntos NPS, -$XXX en multas" : "Result: -5-15% OTIF, -2-3 NPS points, -$XXX penalties"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -5-15% OTIF, -2-3 puntos NPS, -$45-75K en multas" : "Result: -5-15% OTIF, -2-3 NPS points, -$45-75K penalties"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "📋 Documentación manual" : "📋 Manual documentation"}</h3>
@@ -66,7 +66,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🚚 Flota descontrolada" : "🚚 Uncontrolled fleet"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin visibilidad de dónde está cada vehículo. Mantenimiento reactivo: avería = detención. Combustible se gasta más de lo budgetado. Chofer puede tomar rutas ineficientes o personales. Sin datos para optimizar." : "No visibility where each vehicle is. Reactive maintenance: breakdown = stoppage. Fuel spending exceeds budget. Driver can take inefficient or personal routes. No data to optimize."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: +30-40% combustible, -40% disponibilidad, +$XXX mantenimiento" : "Result: +30-40% fuel, -40% availability, +$XXX maintenance"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: +30-40% combustible, -40% disponibilidad, +$120-180K mantenimiento" : "Result: +30-40% fuel, -40% availability, +$120-180K maintenance"}</p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Optimización de rutas real-time" : "Real-time route optimization"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Sistema que replanifica rutas cada 5 minutos considerando: tráfico real, nuevos pedidos, restricciones de horario, capacidad de vehículos. Cada ruta optimizada = menos km, menos tiempo, menos costo. Decisiones automáticas, no manual." : "System replans routes every 5 minutes considering: real traffic, new orders, time windows, vehicle capacity. Each optimized route = fewer miles, less time, lower cost. Auto-decisions, not manual."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -20-25% en km recorridos | -15-20% combustible | +$XXX/mes ahorrado" : "Impact: -20-25% miles | -15-20% fuel | +$XXX/month saved"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -20-25% en km recorridos | -15-20% combustible | +$180-250K/mes ahorrado" : "Impact: -20-25% miles | -15-20% fuel | +$180-250K/month saved"}</p>
                 </div>
               </div>
             </div>

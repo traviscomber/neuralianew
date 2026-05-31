@@ -52,7 +52,7 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "⏹️ Downtime no planificado" : "⏹️ Unplanned downtime"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Fallas en equipamiento se detectan tarde. Una máquina fuera de servicio por horas = pérdida de producción, costos de oportunidad enormes. Sin visibilidad predictiva, reaccionas cuando ya ocurrió el daño." : "Equipment failures detected too late. One machine down for hours = massive production loss and opportunity cost. Without predictive visibility, you react after damage occurs."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/hora en producción perdida" : "Result: -$XXX/hour in lost production"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$280-450K/hora en producción perdida" : "Result: -$280-450K/hour in lost production"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "💡 Energía descontrolada" : "💡 Uncontrolled energy"}</h3>
@@ -99,7 +99,7 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Optimización energética en tiempo real" : "Real-time energy optimization"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Análisis continuo del consumo por proceso. Identificación de oportunidades de ahorro. Decisiones automáticas que reducen consumo sin perder producción. Reportes diarios que muestran el impacto." : "Continuous analysis of consumption by process. Savings opportunities identified. Automatic decisions reduce consumption without production loss. Daily reports show impact."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -15-20% en costo energético | +$XXX/mes en margen" : "Impact: -15-20% energy cost | +$XXX/month margin"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -15-20% en costo energético | +$95-140K/mes en margen" : "Impact: -15-20% energy cost | +$95-140K/month margin"}</p>
                 </div>
               </div>
             </div>

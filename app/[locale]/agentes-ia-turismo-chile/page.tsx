@@ -99,7 +99,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Revenue optimization inteligente" : "Intelligent revenue optimization"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Precios dinámicos según demanda, ocupación, competencia. Recomendaciones personalizadas: tours, restaurants, servicios. Bundling automático: habitación + cena + tour al precio óptimo. Cada interacción maximiza valor." : "Dynamic pricing by demand, occupancy, competition. Personalized recommendations: tours, restaurants, services. Auto-bundling: room + dinner + tour at optimal price. Every interaction maximizes value."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +20-30% RevPAR | +50-70% en servicios adicionales | +$XXX/reserva promedio" : "Impact: +20-30% RevPAR | +50-70% add-on services | +$XXX/booking average"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +20-30% RevPAR | +50-70% en servicios adicionales | +$28-45/reserva promedio" : "Impact: +20-30% RevPAR | +50-70% add-on services | +$28-45/booking average"}</p>
                 </div>
               </div>
             </div>
