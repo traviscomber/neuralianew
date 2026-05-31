@@ -170,10 +170,79 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en Minería"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Minería"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Ingenieros de minas, especialistas en datos y sistemas: imposible encontrar. Salarios disparados. Automatización predictiva vs hiring: diferencia es 10x."
+                  : "Mining engineers and data specialists: impossible to find. Soaring salaries. Predictive automation vs hiring: 10x difference."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Paradas no planificadas = pérdida de millones" : "Unplanned downtime = millions lost"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "1 parada imprevista = $500K perdidos. El mercado de cobre necesita 99.8% uptime. Sin predictivo, tus márgenes caen."
+                  : "1 unplanned downtime = $500K lost. Copper market needs 99.8% uptime. Without predictive maintenance, margins drop."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Pérdidas evitadas: $1.8M+" : "Losses prevented: $1.8M+"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Los presupuestos de transformación están DISPONIBLES" : "Digital transformation budgets AVAILABLE"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Gobierno impulsa automatización en minería como prioridad. Subsidios para digitales. Competidores lo hacen ya."
+                  : "Government pushing mining automation as priority. Digital subsidies available. Competitors doing it now."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Los minerales que implementan IA AHORA van a tener 10x mejor EBITDA en 2027."
+                : "Mining companies implementing AI NOW will have 10x better EBITDA by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto de Minería" : "Chile Data - Mining Context"}</h2>
+            <h2 className="text-2xl font-bold mb-8">{isES} ? "Datos Chile - Contexto de Minería" : "Chile Data - Mining Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">5.5 Mt</p>

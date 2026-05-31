@@ -152,10 +152,79 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en Manufactura"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Manufactura"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Ingenieros de producción, técnicos especializados: escasos en Chile. Traer expertos del exterior es prohibitivo. IA de producción: automatiza lo que 5 ingenieros harían."
+                  : "Production engineers, specialized technicians: scarce in Chile. Importing experts is prohibitive. AI production: automates what 5 engineers do."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Las líneas de producción pierden eficiencia sin visibilidad" : "Production lines lose efficiency without visibility"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Defectos no detectados hasta el final = pérdida total. Tiempo muerto en cambios de línea. IA detecta problemas en tiempo real: -2.5% defectos."
+                  : "Undetected defects until end = total loss. Line changeover downtime. AI detects problems in real-time: -2.5% defects."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Valor agregado: $1.2M+" : "Value added: $1.2M+"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación digital disponibles" : "Digital transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Subsidios para manufactureros que cierren brecha digital. Gobierno busca industrias 4.0 en Chile."
+                  : "Subsidies for manufacturers closing digital gap. Government pushing Industry 4.0 in Chile."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las manufactureras que implementan IA AHORA van a estar 10x más eficientes en 2027."
+                : "Manufacturers implementing AI NOW will be 10x more efficient by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
+            <h2 className="text-2xl font-bold mb-8">{isES} ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">-2.5%</p>

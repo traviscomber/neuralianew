@@ -152,10 +152,79 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en Turismo"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Turismo"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Recepcionistas, coordinadores de reservas: imposible contratar en temporada alta. Salarios suben 30-50%. Un agente IA maneja 1000 reservas simultáneamente."
+                  : "Receptionists, coordinators: impossible to hire in peak season. Salaries up 30-50%. One AI agent handles 1000 simultaneous bookings."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "El turismo se mueve 100% online ahora" : "Tourism is 100% online now"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Cliente busca hotel, espera 4 horas por respuesta, y se va a Booking. Sin IA 24/7: pierdes ingresos. Respuesta en 15 min = +40% conversión."
+                  : "Customer searches hotel, waits 4 hours, goes to Booking. No 24/7 AI: lose revenue. 15-min response = +40% conversion."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Ingresos adicionales: $850K+" : "Additional revenue: $850K+"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación turística disponibles" : "Tourism transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Sernatur y organismos turísticos ofrecen subsidios para digitalizar. Chile compite con Perú y Argentina: necesita 24/7 service."
+                  : "Sernatur and tourism organizations offer digitalization subsidies. Chile competes with Peru and Argentina: needs 24/7 service."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las empresas de turismo que implementan IA AHORA van a doblar su ocupación en 2027."
+                : "Tourism companies implementing AI NOW will double occupancy by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Turismo" : "Chile Data - Tourism Context"}</h2>
+            <h2 className="text-2xl font-bold mb-8">{isES} ? "Datos Chile - Contexto del Turismo" : "Chile Data - Tourism Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">+5M</p>

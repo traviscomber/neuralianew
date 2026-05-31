@@ -158,6 +158,75 @@ export default function AgentesIARetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en retail chileno"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Chilean retail"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Especialistas en atención al cliente, data analytics y sistemas: salarios suben 20-40% año a año. Automatizar con IA es 10x más barato que contratar."
+                  : "Customer service specialists and data analysts: salaries rising 20-40% annually. Automating with AI is 10x cheaper than hiring."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "E-commerce crece +14% interanual" : "E-commerce growing +14% YoY"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "El mercado retail chileno se mueve online. Los clientes esperan respuesta inmediata 24/7. Sin automatización, pierdes ventas."
+                  : "Chilean retail market moving online. Customers expect 24/7 instant response. Without automation, you lose sales."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Proyección: $11.5B en 2026" : "Projection: $11.5B by 2026"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación disponibles" : "Digital transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Subsidios de gobierno y organismos internacionales para retailistas que cierren la brecha digital. Hasta 70% de cobertura."
+                  : "Government and international subsidies for retailers bridging the digital divide. Up to 70% coverage available."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Los retailers que implementan IA AHORA van a estar 10x adelante de la competencia en 2027."
+                : "Retailers implementing AI NOW will be 10x ahead of competitors by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">

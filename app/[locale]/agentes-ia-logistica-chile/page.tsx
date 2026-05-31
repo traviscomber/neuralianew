@@ -151,6 +151,75 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en logística"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in logistics"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Coordinadores, despachadores, especialistas en routing: escasos. Salarios suben 25% año a año. Un agente IA coordina 10,000 despachos diarios, optimiza rutas."
+                  : "Coordinators, dispatchers, routing specialists: scarce. Salaries up 25% annually. One AI agent coordinates 10,000 daily shipments, optimizes routes."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Incidencias de SLA sin visibilidad = costos enormes" : "SLA incidents without visibility = huge costs"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Falta coordinación, se pierden despachos, se rompen SLAs. Clientes se van. Control tower IA: visibilidad total, OTIF +2.3%, costos -12%."
+                  : "Lack of coordination, lost shipments, broken SLAs. Clients leave. AI control tower: full visibility, OTIF +2.3%, costs -12%."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Ahorros: $450K+ anuales" : "Savings: $450K+ annually"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación disponibles" : "Transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Gobierno busca logística inteligente. Subsidios para empresas que cierren brecha digital en supply chain."
+                  : "Government pushing smart logistics. Subsidies for companies closing digital gap in supply chain."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las empresas de logística que implementan IA AHORA van a tener 10x mejor competitividad en 2027."
+                : "Logistics companies implementing AI NOW will have 10x better competitiveness by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-4xl">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
