@@ -212,6 +212,198 @@ export const CASE_STUDIES: CaseStudy[] = [
     },
     techLogos: [],
   },
+  {
+    slug: "storytimestack",
+    clientName: { es: "Plataforma de Libros Interactivos", en: "Interactive Books Platform" },
+    verticalTag: { es: "EdTech + Generación de Contenido IA", en: "EdTech + AI Content Generation" },
+    title: { es: "Generador de historias interactivas personalizadas", en: "Personalized Interactive Story Generator" },
+    summary: {
+      es: "Una fintech quería expandir a educación infantil: generar historias interactivas personalizadas para niños en tiempo real. Cada historia única, adaptada al nivel de lectura del niño, con ilustraciones generadas por IA. Sin tiempo de espera, sin stock de contenido limitado.",
+      en: "An EdTech startup wanted to scale: generate personalized interactive stories for children in real-time. Each story unique, adapted to reading level, with AI-generated illustrations. No wait times, unlimited content.",
+    },
+    industry: { es: "Educación infantil", en: "Children's education" },
+    implementation: { es: "45 días", en: "45 days" },
+    status: { es: "Generando 1000+ historias/día", en: "Generating 1000+ stories/day" },
+    highlights: [
+      { label: { es: "Latencia", en: "Latency" }, value: { es: "<3s", en: "<3s" } },
+      { label: { es: "Historias generadas", en: "Stories generated" }, value: { es: "1000+/día", en: "1000+/day" } },
+      { label: { es: "Personalizaicón", en: "Personalization" }, value: { es: "100%", en: "100%" } },
+      { label: { es: "Costo reducido", en: "Cost reduced" }, value: { es: "-70%", en: "-70%" } },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        heading: { es: "El Problema de Escala", en: "The Scale Problem" },
+        body: {
+          es: "Crear historias para miles de niños manualmente es imposible. Cada niño es único: nivel de lectura diferente, intereses distintos, velocidad de aprendizaje variable. Necesitaban generación masiva de contenido personalizado, rápido, escalable, y económicamente viable.",
+          en: "Manually creating stories for thousands of children is impossible. Every child is unique: different reading levels, interests, learning speeds. They needed massive personalized content generation, fast, scalable, and economically viable.",
+        },
+        bullets: [
+          { es: "Generación manual = cuello de botella de contenido", en: "Manual creation = content bottleneck" },
+          { es: "Imposible personalizar para cada niño", en: "Impossible to personalize for each child" },
+          { es: "Costo de ilustración por historia era prohibitivo", en: "Cost per illustrated story was prohibitive" },
+          { es: "Esperas largas = abandono de usuarios", en: "Long waits = user churn" },
+        ],
+      },
+      {
+        id: "solution",
+        heading: { es: "Pipeline IA Escalable", en: "Scalable AI Pipeline" },
+        body: {
+          es: "Construimos un pipeline completo de generación de contenido: ingesta de preferencias del niño (edad, intereses, nivel), motor narrativo que genera historias únicas en <3 segundos usando GPT-4 con instrucciones de nivel de lectura, generador de ilustraciones usando Stable Diffusion en paralelo, validación de contenido automática, y almacenamiento en CDN para lectura optimizada.",
+          en: "We built a complete content generation pipeline: child preference intake (age, interests, level), narrative engine generating unique stories in <3s using GPT-4 with reading-level instructions, parallel illustration generation using Stable Diffusion, automatic content validation, and CDN storage for optimized delivery.",
+        },
+        bullets: [
+          { es: "Motor narrativo: GPT-4 con prompts contextuales por nivel de lectura", en: "Narrative engine: GPT-4 with contextual prompts per reading level" },
+          { es: "Ilustraciones: generadas con Stable Diffusion en paralelo, sin esperar texto", en: "Illustrations: generated with Stable Diffusion in parallel, non-blocking" },
+          { es: "Validación automática: check de coherencia, vocabulario, longitud", en: "Automatic validation: coherence, vocabulary, length checks" },
+          { es: "Personalización: 200+ parámetros ajustables (género, tema, protagonista, twist)", en: "Personalization: 200+ adjustable parameters (genre, theme, character, twist)" },
+          { es: "Cache inteligente: reutiliza historias similares cuando es apropiado", en: "Smart caching: reuses similar stories when appropriate" },
+          { es: "Feedback loop: padres califican, modelo aprende preferencias", en: "Feedback loop: parents rate, model learns preferences" },
+        ],
+      },
+      {
+        id: "impact",
+        heading: { es: "Resultados Mensurables", en: "Measurable Results" },
+        body: {
+          es: "1000+ historias generadas diariamente sin intervención manual. Latencia <3 segundos. Costo de producción -70% vs ilustración manual. Escalabilidad infinita: 10.000+ niños simultáneamente sin degradación. Usuarios retienen 4x mejor (contenido personalizado = engagement).",
+          en: "1000+ stories generated daily with zero manual intervention. <3s latency. -70% production cost vs manual illustration. Infinite scalability: 10,000+ simultaneous children without degradation. 4x better retention (personalized content = engagement).",
+        },
+      },
+    ],
+    stackLine: {
+      es: "Child Preferences → GPT-4 (narrativas) + Stable Diffusion (ilustraciones) → Validación → CDN → <3s delivery",
+      en: "Child Preferences → GPT-4 (narratives) + Stable Diffusion (illustrations) → Validation → CDN → <3s delivery",
+    },
+    techLogos: [],
+  },
+  {
+    slug: "open-memory-ai",
+    clientName: { es: "Plataforma de Contexto Persistente", en: "Persistent Context Platform" },
+    verticalTag: { es: "Enterprise + Memory Management", en: "Enterprise + Memory Management" },
+    title: { es: "Memoria persistente para agentes empresariales", en: "Persistent Memory for Enterprise Agents" },
+    summary: {
+      es: "Agentes IA olvidan contexto entre conversaciones. Un cliente requería que sus asistentes recordaran CADA interacción: historial completo, preferencias del cliente, decisiones previas. Sin memoria = inefectivo. Con OpenMemory: agentes que aprenden y mejoran.",
+      en: "AI agents forget context between conversations. One client needed assistants remembering EVERY interaction: complete history, customer preferences, previous decisions. No memory = ineffective. With OpenMemory: agents that learn and improve.",
+    },
+    industry: { es: "Enterprise / Customer Success", en: "Enterprise / Customer Success" },
+    implementation: { es: "30 días", en: "30 days" },
+    status: { es: "6 meses en producción", en: "6 months in production" },
+    highlights: [
+      { label: { es: "Retención de contexto", en: "Context retention" }, value: { es: "100%", en: "100%" } },
+      { label: { es: "Efektividad mejorada", en: "Improved effectiveness" }, value: { es: "+85%", en: "+85%" } },
+      { label: { es: "Tiempo de resolución", en: "Resolution time" }, value: { es: "-60%", en: "-60%" } },
+      { label: { es: "Satisfacción cliente", en: "Customer satisfaction" }, value: { es: "+45%", en: "+45%" } },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        heading: { es: "El Problema de Contexto", en: "The Context Problem" },
+        body: {
+          es: "Los agentes IA estándar operan session-by-session: cada conversación nueva es como empezar de cero. Un cliente liga a atención: 'Hola, me llamo Juan, tengo problema X'. Agente responde como si fuese la primera interacción. Sin recordar que hace 3 meses Juan reportó problema similar, o que su nivel de SLA es Premium. Resultado: respuestas genéricas, inefectivas, frustrantes.",
+          en: "Standard AI agents operate session-by-session: each new conversation starts from zero. Customer calls support: 'Hi, I'm Juan, I have problem X'. Agent responds as if it's first contact. Doesn't remember Juan reported similar issue 3 months ago, or that he's Premium SLA. Result: generic, ineffective, frustrating responses.",
+        },
+        bullets: [
+          { es: "Agentes sin contexto = respuestas genéricas", en: "Contextless agents = generic responses" },
+          { es: "No saben nivel de SLA, historial de compras, preferencias", en: "Don't know SLA level, purchase history, preferences" },
+          { es: "No detectan patrones: mismo cliente, problemas similares, sin learning", en: "No pattern detection: same customer, recurring issues, no learning" },
+          { es: "Clientes frustrados: 'Ya te lo conté hace 3 meses'", en: "Frustrated customers: 'I already told you 3 months ago'" },
+        ],
+      },
+      {
+        id: "solution",
+        heading: { es: "OpenMemory: Arquitectura de Contexto", en: "OpenMemory: Context Architecture" },
+        body: {
+          es: "Construimos OpenMemory: una capa de persistencia de contexto que vive entre el cliente y el agente. Almacena: interacciones previas (completas), preferencias aprendidas, SLA del cliente, historial de problemas, soluciones que funcionaron. Cuando un cliente interactúa, OpenMemory recupera su contexto completo y lo inyecta en el prompt del agente. Resultado: agentes que 'recuerdan' y adaptan respuestas.",
+          en: "We built OpenMemory: a context persistence layer living between client and agent. Stores: previous interactions (complete), learned preferences, customer SLA, problem history, solutions that worked. When customer interacts, OpenMemory retrieves full context and injects it into agent prompt. Result: agents that 'remember' and adapt.",
+        },
+        bullets: [
+          { es: "Vector DB (Pinecone/Weaviate) indexa todas las interacciones", en: "Vector DB (Pinecone/Weaviate) indexes all interactions" },
+          { es: "Embedding semántico: agrupa problemas similares automáticamente", en: "Semantic embedding: auto-groups similar problems" },
+          { es: "Graph DB: conecta clientes → problemas → soluciones", en: "Graph DB: connects customers → problems → solutions" },
+          { es: "Inyección de contexto: Top-K interacciones relevantes en el prompt", en: "Context injection: Top-K relevant interactions into prompt" },
+          { es: "Learning: cada solución positiva fortalece la conexión en el graph", en: "Learning: each positive resolution strengthens graph connection" },
+          { es: "Privacy & compliance: segregación de datos por customer/SLA", en: "Privacy & compliance: data segmentation by customer/SLA" },
+        ],
+      },
+      {
+        id: "impact",
+        heading: { es: "Impacto Medible", en: "Measurable Impact" },
+        body: {
+          es: "+85% en efectividad del agente (primeras contacto se resuelven sin escalada). -60% tiempo de resolución (contexto = menos preguntas). +45% satisfacción del cliente ('me recuerdan'). Agentes inteligentes, no genéricos.",
+          en: "+85% agent effectiveness (first-contact resolution rate up). -60% resolution time (context = fewer questions). +45% customer satisfaction ('they remember me'). Smart agents, not generic.",
+        },
+      },
+    ],
+    stackLine: {
+      es: "Vector DB + Graph DB + Semantic Search → Context Injection → Agent Prompt → 100% Contexto Persistente",
+      en: "Vector DB + Graph DB + Semantic Search → Context Injection → Agent Prompt → 100% Persistent Context",
+    },
+    techLogos: [],
+  },
+  {
+    slug: "end-to-end-ml-recommendations",
+    clientName: { es: "Plataforma de E-commerce Chilena", en: "Chilean E-commerce Platform" },
+    verticalTag: { es: "Retail + ML Recomendaciones", en: "Retail + ML Recommendations" },
+    title: { es: "Sistema de recomendaciones ML end-to-end", en: "End-to-end ML Recommendation System" },
+    summary: {
+      es: "Retailista chileno con 50K+ SKUs y sin recomendaciones personalizadas. Clientes veían el mismo catálogo. Conversión baja, AOV bajo, churn alto. Necesitaban ML que aprendiese: qué compran, qué buscan, qué viene después.",
+      en: "Chilean retailer with 50K+ SKUs and zero personalization. Every customer saw the same catalog. Low conversion, low AOV, high churn. Needed ML learning: what they buy, what they search, what comes next.",
+    },
+    industry: { es: "E-commerce", en: "E-commerce" },
+    implementation: { es: "60 días (datos → modelo → producción)", en: "60 days (data → model → production)" },
+    status: { es: "+25% conversión en 30 días", en: "+25% conversion in 30 days" },
+    highlights: [
+      { label: { es: "Conversión mejora", en: "Conversion lift" }, value: { es: "+25%", en: "+25%" } },
+      { label: { es: "AOV mejora", en: "AOV lift" }, value: { es: "+18%", en: "+18%" } },
+      { label: { es: "Latencia recomendación", en: "Recommendation latency" }, value: { es: "<200ms", en: "<200ms" } },
+      { label: { es: "Churn reducido", en: "Churn reduced" }, value: { es: "-12%", en: "-12%" } },
+    ],
+    sections: [
+      {
+        id: "challenge",
+        heading: { es: "El Problema de Relevancia", en: "The Relevance Problem" },
+        body: {
+          es: "50K+ productos, un catálogo estático. Cliente A busca 'zapatillas running' y ve lo mismo que Cliente B. Sin recomendaciones: conversión 2-3%, AOV bajo, clientes no retornan. Sin personalización no hay engagement.",
+          en: "50K+ products, static catalog. Customer A searches 'running shoes' sees same as Customer B. No recommendations: 2-3% conversion, low AOV, no repeat purchases. Without personalization, no engagement.",
+        },
+        bullets: [
+          { es: "Conversión baja: 2-3% (industria promedio: 3-5%)", en: "Low conversion: 2-3% (industry avg: 3-5%)" },
+          { es: "AOV bajo: clientes compran 1-2 items, no cross-sell", en: "Low AOV: customers buy 1-2 items, no cross-sell" },
+          { es: "Churn: 70% de usuarios no retornan", en: "High churn: 70% of users don't return" },
+          { es: "Catálogo subutilizado: 40% de SKUs sin clicks", en: "Unused inventory: 40% of SKUs get zero traffic" },
+        ],
+      },
+      {
+        id: "solution",
+        heading: { es: "ML End-to-End", en: "End-to-End ML" },
+        body: {
+          es: "Construimos pipeline completo: (1) ETL de datos históricos (navegación, búsquedas, compras, devueltas), (2) feature engineering (user demographics, product properties, temporal patterns), (3) entrenamiento de 3 modelos en paralelo: content-based (atributos producto), collaborative filtering (comportamiento similar), session-based RNN (qué viene después), (4) ensemble que combina los 3 con contexto en tiempo real, (5) deployment en API con latencia <200ms y feedback loop para mejora continua.",
+          en: "We built complete pipeline: (1) ETL of historical data (browsing, searches, purchases, returns), (2) feature engineering (user demographics, product properties, temporal patterns), (3) train 3 models in parallel: content-based (product attributes), collaborative filtering (similar behavior), session-based RNN (what's next), (4) ensemble combining all 3 with real-time context, (5) deploy API with <200ms latency and feedback loop for continuous improvement.",
+        },
+        bullets: [
+          { es: "Content-based: 'si compraste zapatillas running, te interesa este modelo'", en: "Content-based: 'if you bought running shoes, you'll like this model'" },
+          { es: "Collaborative: 'usuarios como vos compraron esto después'", en: "Collaborative: 'users like you bought this next'" },
+          { es: "Session-based RNN: contexto dinámico, captura el 'por qué compro ahora'", en: "Session-based RNN: dynamic context, captures 'why buying now'" },
+          { es: "Ensemble: vota con pesos (70% session, 20% collaborative, 10% content)", en: "Ensemble: weighted voting (70% session, 20% collaborative, 10% content)" },
+          { es: "Feedback: cada click, compra, retorno → reentrenamiento semanal", en: "Feedback: every click, purchase, return → weekly retraining" },
+          { es: "A/B testing: nuevos modelos vs baseline antes de producción", en: "A/B testing: new models vs baseline before prod" },
+        ],
+      },
+      {
+        id: "impact",
+        heading: { es: "Resultados en Producción", en: "Production Results" },
+        body: {
+          es: "+25% conversión en 30 días (2.8% → 3.5%). +18% AOV (promedio carrito $35 → $41). -12% churn. Catálogo: 85% de SKUs ahora reciben tráfico. Retorno de inversión: 4 meses.",
+          en: "+25% conversion in 30 days (2.8% → 3.5%). +18% AOV (avg cart $35 → $41). -12% churn. Catalog: 85% of SKUs now get traffic. ROI: 4 months.",
+        },
+      },
+    ],
+    stackLine: {
+      es: "Datos históricos → Feature Engineering → Content-Based + Collab Filtering + Session RNN → Ensemble → API <200ms → Feedback Loop",
+      en: "Historical data → Feature Engineering → Content-Based + Collab Filtering + Session RNN → Ensemble → API <200ms → Feedback Loop",
+    },
+    techLogos: [],
+  },
 ];
 
 export function getCaseStudy(slug: string) {
