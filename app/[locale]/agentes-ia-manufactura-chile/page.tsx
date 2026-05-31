@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Manufactura en Chile | Control de Calidad" : "AI Agents for Manufacturing in Chile | Quality Control",
     description: isES ? "Automatización para manufactura: control de calidad, predictive maintenance, optimización de producción. Aumenta productividad, reduce defectos." : "Automation for manufacturing: quality control, predictive maintenance, production optimization. Increase productivity, reduce defects.",
     keywords: isES ? "agentes IA manufactura, IA industria 4.0 Chile, control calidad IA" : "AI agents manufacturing, AI industry 4.0 Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-manufactura-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-manufactura-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-manufactura-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-manufactura-chile',
+      },
+    },
   }
 }
 

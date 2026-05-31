@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Logística en Chile | Optimización de Rutas" : "AI Agents for Logistics in Chile | Route Optimization",
     description: isES ? "Automatización para logística: optimización de rutas, predicción de entregas, gestión de flota. Reduce tiempo y costos de distribución." : "Automation for logistics: route optimization, delivery forecasting, fleet management. Reduce delivery time and costs.",
     keywords: isES ? "agentes IA logística, IA supply chain Chile, optimización rutas" : "AI agents logistics, AI supply chain Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-logistica-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-logistica-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-logistica-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-logistica-chile',
+      },
+    },
   }
 }
 

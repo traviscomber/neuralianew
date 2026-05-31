@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Turismo en Chile | Experiencia 24/7" : "AI Agents for Tourism in Chile | 24/7 Experience",
     description: isES ? "Automatización para turismo: reservas inteligentes, atención multiidioma 24/7, recomendaciones personalizadas. Aumenta ocupación, mejora NPS." : "Automation for tourism: smart reservations, multilingual 24/7 support, personalized recommendations. Increase occupancy, improve NPS.",
     keywords: isES ? "agentes IA turismo, chatbot turismo Chile, automatización hoteles" : "AI agents tourism, tourism chatbot Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-turismo-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-turismo-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-turismo-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-turismo-chile',
+      },
+    },
   }
 }
 

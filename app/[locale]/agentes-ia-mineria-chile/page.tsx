@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Minería en Chile | Casos de Éxito" : "AI Agents for Mining in Chile | Success Cases",
     description: isES ? "Automatización inteligente para minería chilena. Optimización de procesos, predicción de fallos, análisis de datos en tiempo real. ROI garantizado." : "Intelligent automation for Chilean mining. Process optimization, predictive maintenance, real-time data analysis. Guaranteed ROI.",
     keywords: isES ? "agentes IA minería, automatización minería Chile, IA en minería" : "AI agents mining, mining automation Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-mineria-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-mineria-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-mineria-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-mineria-chile',
+      },
+    },
   }
 }
 

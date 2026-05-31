@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Retail en Chile | Atención 24/7" : "AI Agents for Retail in Chile | 24/7 Support",
     description: isES ? "Automatización para retail: atención al cliente 24/7, gestión de inventario, análisis de ventas. Reduce costos, aumenta conversión." : "Automation for retail: 24/7 customer service, inventory management, sales analysis. Reduce costs, increase conversion.",
     keywords: isES ? "agentes IA retail, IA ecommerce Chile, atención cliente IA" : "AI agents retail, AI ecommerce Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-retail-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-retail-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-retail-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-retail-chile',
+      },
+    },
   }
 }
 
