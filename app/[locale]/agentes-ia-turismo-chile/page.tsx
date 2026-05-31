@@ -41,6 +41,65 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
         </div>
       </section>
 
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
+            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Turismo" : "Chile Data - Tourism Context"}</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">+5M</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Turistas 2024" : "Tourists 2024"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "+40.4% vs 2023 (Sernatur)" : "+40.4% vs 2023 (Sernatur)"}</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">63.7%</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Ocupabilidad Alta Temp." : "Peak Occupancy"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "Sernatur, 2025" : "Sernatur, 2025"}</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">+3.0%</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Pernoctaciones" : "Overnight Stays"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "INE, dic 2024" : "INE, Dec 2024"}</p>
+              </div>
+            </div>
+            <div className="mt-8 pt-8 border-t border-primary/20">
+              <h3 className="font-semibold mb-4 text-primary">{isES ? "Dónde impacta IA en 90 días" : "Where AI impacts in 90 days"}</h3>
+              <ul className="grid md:grid-cols-3 gap-4">
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Agentes atención reservas pre check-in" : "Reservation and pre check-in agents"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Revenue support priorización disponibilidad" : "Revenue support for availability"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Automatización confirmaciones y cobros" : "Confirmation and payment automation"}
+                </li>
+              </ul>
+            </div>
+            <div className="mt-8 pt-8 border-t border-primary/20">
+              <h3 className="font-semibold mb-4 text-primary">{isES ? "KPIs esperables" : "Expected KPIs"}</h3>
+              <ul className="grid md:grid-cols-3 gap-4">
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Menor tiempo respuesta al huésped" : "Reduced guest response time"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Mayor conversión reservas directas" : "Higher direct booking conversion"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Menor carga manual por solicitud" : "Lower manual effort per request"}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/50">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para turismo" : "Tourism solutions"}</h2>
