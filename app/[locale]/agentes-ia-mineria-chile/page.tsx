@@ -49,12 +49,12 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">5.5 Mt</p>
                 <p className="font-semibold text-foreground mb-1">{isES ? "Producción Cobre" : "Copper Production"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "Cochilco, 2024" : "Cochilco, 2024"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "Cochilco, 2025" : "Cochilco, 2025"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">+4.1%</p>
                 <p className="font-semibold text-foreground mb-1">{isES ? "Consumo Energía" : "Energy Consumption"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "Cochilco, 2024" : "Cochilco, 2024"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "Cochilco, 2025" : "Cochilco, 2025"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">-9.0%</p>

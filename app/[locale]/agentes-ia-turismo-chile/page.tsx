@@ -48,8 +48,8 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">+5M</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Turistas 2024" : "Tourists 2024"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "+40.4% vs 2023 (Sernatur)" : "+40.4% vs 2023 (Sernatur)"}</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Turistas 2025" : "Tourists 2025"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "+40.4% vs 2024 (Sernatur)" : "+40.4% vs 2024 (Sernatur)"}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">63.7%</p>
@@ -59,7 +59,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">+3.0%</p>
                 <p className="font-semibold text-foreground mb-1">{isES ? "Pernoctaciones" : "Overnight Stays"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, dic 2024" : "INE, Dec 2024"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "INE, dic 2025" : "INE, Dec 2025"}</p>
               </div>
             </div>
             <div className="mt-8 pt-8 border-t border-primary/20">

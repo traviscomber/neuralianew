@@ -59,7 +59,7 @@ export default function AgentesIARetailPage({ params }: PageProps) {
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">$11.5B</p>
                 <p className="font-semibold text-foreground mb-1">{isES ? "Proyección Mercado" : "Market Projection"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "CCS, 2024" : "CCS, 2024"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "CCS, 2025" : "CCS, 2025"}</p>
               </div>
             </div>
             <div className="mt-8 pt-8 border-t border-primary/20">
