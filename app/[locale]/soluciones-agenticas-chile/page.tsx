@@ -40,20 +40,24 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-sm font-medium text-primary">{isES ? "Arquitectura" : "Architecture"}</span>
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight text-balance">
             {isES ? "Soluciones Agenticas para Chile" : "Agentic Solutions for Chile"}
           </h1>
-          <p className="text-xl text-muted-foreground mb-4 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl">
             {isES
               ? "Arquitectura especializada de agentes inteligentes diseñada para las necesidades únicas de empresas chilenas. Sistemas que no solo automatizan, sino que evolucionan y aprenden."
               : "Specialized intelligent agent architecture designed for unique Chilean business needs. Systems that don't just automate, they evolve and learn."}
           </p>
           <Link
             href={`/${locale}/contact`}
-            className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center gap-2 mt-8"
+            className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2"
           >
             {isES ? "Consultar solución personalizada" : "Consult personalized solution"}
             <ArrowRight className="w-5 h-5" />

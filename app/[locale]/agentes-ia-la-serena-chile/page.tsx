@@ -24,12 +24,12 @@ export default function AgentesIALaSerenaPage({ params }: PageProps) {
   const isES = locale === "es"
   return (
     <main className="min-h-screen bg-background">
-      <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
-          <h1 className="text-5xl font-bold mb-6">{isES ? "Agentes de IA para La Serena" : "AI Agents for La Serena"}</h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl">{isES ? "Automatización para empresas de La Serena. Turismo, retail, minería. Soporte local, ROI garantizado en 6 meses." : "Automation for La Serena businesses. Tourism, retail, mining. Local support, 6-month ROI guarantee."}</p>
-          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 inline-flex items-center gap-2">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">{isES ? "Agentes de IA para La Serena" : "AI Agents for La Serena"}</h1>
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">{isES ? "Automatización para empresas de La Serena. Turismo, retail, minería. Soporte local, ROI garantizado en 6 meses." : "Automation for La Serena businesses. Tourism, retail, mining. Local support, 6-month ROI guarantee."}</p>
+          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
             {isES ? "Consultar para La Serena" : "Consult for La Serena"}
             <ArrowRight className="w-5 h-5" />
           </Link>
@@ -37,7 +37,7 @@ export default function AgentesIALaSerenaPage({ params }: PageProps) {
       </section>
       <section className="py-20 px-4 bg-primary/10 border-t border-border">
         <div className="container mx-auto max-w-2xl text-center">
-          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 inline-flex items-center gap-2">
+          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
             {isES ? "Agendar consulta" : "Schedule consultation"}
             <ArrowRight className="w-5 h-5" />
           </Link>
