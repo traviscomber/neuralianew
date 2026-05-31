@@ -27,7 +27,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
     <main className="min-h-screen bg-background">
       <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+        <div className="max-w-4xl mx-auto w-full text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{isES ? "Logística" : "Logistics"}</span>
@@ -35,7 +35,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
             {isES ? "Agentes de IA para Logística en Chile" : "AI Agents for Logistics in Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
             {isES ? "Torre de control con alertas tempranas, priorización de despachos por SLA, automatización documental. Mejora OTIF, reduce costos, resuelve incidencias más rápido." : "Control tower with early alerts, dispatch prioritization by SLA, document automation. Improve OTIF, reduce costs, resolve incidents faster."}
           </p>
           <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">

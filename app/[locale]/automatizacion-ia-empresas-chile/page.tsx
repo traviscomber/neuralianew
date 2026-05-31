@@ -42,7 +42,7 @@ export default function AutomatizacionIAPage({ params }: PageProps) {
     <main className="min-h-screen bg-background">
       <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+        <div className="max-w-4xl mx-auto w-full text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{isES ? "Transformación" : "Transformation"}</span>
@@ -50,7 +50,7 @@ export default function AutomatizacionIAPage({ params }: PageProps) {
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight text-balance">
             {isES ? "Automatización con IA para Empresas" : "AI Automation for Enterprises"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
             {isES
               ? "Transformación digital acelerada. Automatiza procesos complejos, reduce costos operativos, libera tu equipo para trabajo estratégico. ROI garantizado en 6 meses."
               : "Accelerated digital transformation. Automate complex processes, reduce operating costs, free your team for strategic work. Guaranteed ROI in 6 months."}

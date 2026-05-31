@@ -51,7 +51,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
       {/* Hero */}
       <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+        <div className="max-w-4xl mx-auto w-full text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">{isES ? "Empresas Chile" : "Companies Chile"}</span>
@@ -61,7 +61,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
               ? "Agentes de IA para Empresas en Chile"
               : "AI Agents for Businesses in Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-4 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-4 leading-relaxed max-w-3xl mx-auto">
             {isES
               ? "Automatiza procesos complejos con agentes inteligentes diseñados especialmente para empresas chilenas. Reduce costos operativos hasta 70%, mejora productividad y acelera crecimiento sin reemplazar tu infraestructura existente."
               : "Automate complex processes with intelligent agents designed specifically for Chilean businesses. Reduce operating costs by up to 70%, improve productivity and accelerate growth without replacing your existing infrastructure."}
