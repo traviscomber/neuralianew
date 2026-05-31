@@ -25,17 +25,21 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
-          <h1 className="text-5xl font-bold mb-6">
-            {isES ? "Automatización con IA para Minería en Chile" : "AI Automation for Mining in Chile"}
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-sm font-medium text-primary">{isES ? "Minería" : "Mining"}</span>
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+            {isES ? "Agentes de IA para Minería en Chile" : "AI Agents for Mining in Chile"}
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-            {isES ? "Agentes inteligentes para procesos críticos en minería: optimización de operaciones, predicción de fallos, análisis de datos en tiempo real. Implementación 6-8 semanas." : "Intelligent agents for critical mining processes: operation optimization, failure prediction, real-time data analysis. 6-8 weeks implementation."}
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+            {isES ? "Planificación inteligente de operaciones, predictibilidad en mantención, optimización de recursos. Mejora disponibilidad, reduce costos y riesgos operacionales." : "Intelligent operations planning, maintenance predictability, resource optimization. Improve uptime, reduce costs and operational risks."}
           </p>
-          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 inline-flex items-center gap-2">
-            {isES ? "Consultar solución minería" : "Consult mining solution"}
+          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
+            {isES ? "Consultar para minería" : "Consult for mining"}
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

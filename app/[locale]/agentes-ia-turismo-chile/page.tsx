@@ -25,16 +25,20 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
         <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
-          <h1 className="text-5xl font-bold mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-sm font-medium text-primary">{isES ? "Turismo" : "Tourism"}</span>
+          </div>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
             {isES ? "Agentes de IA para Turismo en Chile" : "AI Agents for Tourism in Chile"}
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-            {isES ? "Reservas inteligentes, atención en múltiples idiomas 24/7, recomendaciones personalizadas. Aumenta ocupación hotelera, mejora experiencia de cliente." : "Smart reservations, multilingual 24/7 support, personalized recommendations. Increase hotel occupancy, improve customer experience."}
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+            {isES ? "Atención de reservas 24/7, gestión revenue inteligente, automatización de confirmaciones y cobros. Mejora ocupabilidad, aumenta ingresos por huésped." : "24/7 reservation support, intelligent revenue management, confirmation and payment automation. Improve occupancy, increase revenue per guest."}
           </p>
-          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 inline-flex items-center gap-2">
+          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
             {isES ? "Consultar para turismo" : "Consult for tourism"}
             <ArrowRight className="w-5 h-5" />
           </Link>
