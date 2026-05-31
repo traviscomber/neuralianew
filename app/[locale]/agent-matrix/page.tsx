@@ -39,6 +39,9 @@ export default function AgentMatrixPage({ params }: PageProps) {
     <>
       <main className="min-h-screen pt-20">
         {/* Hero Section */}
+        <h1 className="sr-only">
+          {isES ? "N3uralia Agent Matrix - Capa de Control Visual para Inteligencia Multi-Agente" : "N3uralia Agent Matrix - Visual Control Layer for Multi-Agent Intelligence"}
+        </h1>
         <Section 
           title={isES ? "N3uralia Agent Matrix" : "N3uralia Agent Matrix"}
           subtitle={isES ? "Capa de Control Visual para Inteligencia Multi-Agente" : "Visual Control Layer for Multi-Agent Intelligence"}
