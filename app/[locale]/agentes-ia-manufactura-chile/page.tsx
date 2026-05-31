@@ -41,65 +41,6 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">-2.5%</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Producción Manufacturera" : "Manufacturing Production"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, abril 2026" : "INE, April 2026"}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">+5.9%</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Inventarios Manufactureros" : "Manufacturing Inventories"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, marzo 2026" : "INE, March 2026"}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">10/18</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Divisiones en Alza" : "Divisions Growing"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, sectores" : "INE, sectors"}</p>
-              </div>
-            </div>
-            <div className="mt-8 pt-8 border-t border-primary/20">
-              <h3 className="font-semibold mb-4 text-primary">{isES ? "Dónde impacta IA en 90 días" : "Where AI impacts in 90 days"}</h3>
-              <ul className="grid md:grid-cols-3 gap-4">
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Planificación dinámica de producción" : "Dynamic production planning"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Detección temprana de anomalías" : "Early anomaly detection"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Coordinación inventarios críticos" : "Critical inventory coordination"}
-                </li>
-              </ul>
-            </div>
-            <div className="mt-8 pt-8 border-t border-primary/20">
-              <h3 className="font-semibold mb-4 text-primary">{isES ? "KPIs esperables" : "Expected KPIs"}</h3>
-              <ul className="grid md:grid-cols-3 gap-4">
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Menor variabilidad cumplimiento" : "Lower compliance variability"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Reducción merma y reproceso" : "Lower waste and rework"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Mejor rotación de inventario" : "Better inventory turnover"}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* OPERATIONAL PAIN POINTS */}
       <section className="py-16 px-4 bg-background">
         <div className="container mx-auto max-w-4xl">
@@ -204,6 +145,65 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
                 <p className="text-sm text-muted-foreground">{item.descES}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
+            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">-2.5%</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Producción Manufacturera" : "Manufacturing Production"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "INE, abril 2026" : "INE, April 2026"}</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">+5.9%</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Inventarios Manufactureros" : "Manufacturing Inventories"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "INE, marzo 2026" : "INE, March 2026"}</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-primary mb-2">10/18</p>
+                <p className="font-semibold text-foreground mb-1">{isES ? "Divisiones en Alza" : "Divisions Growing"}</p>
+                <p className="text-xs text-muted-foreground">{isES ? "INE, sectores" : "INE, sectors"}</p>
+              </div>
+            </div>
+            <div className="mt-8 pt-8 border-t border-primary/20">
+              <h3 className="font-semibold mb-4 text-primary">{isES ? "Dónde impacta IA en 90 días" : "Where AI impacts in 90 days"}</h3>
+              <ul className="grid md:grid-cols-3 gap-4">
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Planificación dinámica de producción" : "Dynamic production planning"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Detección temprana de anomalías" : "Early anomaly detection"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Coordinación inventarios críticos" : "Critical inventory coordination"}
+                </li>
+              </ul>
+            </div>
+            <div className="mt-8 pt-8 border-t border-primary/20">
+              <h3 className="font-semibold mb-4 text-primary">{isES ? "KPIs esperables" : "Expected KPIs"}</h3>
+              <ul className="grid md:grid-cols-3 gap-4">
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Menor variabilidad cumplimiento" : "Lower compliance variability"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Reducción merma y reproceso" : "Lower waste and rework"}
+                </li>
+                <li className="flex gap-2 text-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                  {isES ? "Mejor rotación de inventario" : "Better inventory turnover"}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
