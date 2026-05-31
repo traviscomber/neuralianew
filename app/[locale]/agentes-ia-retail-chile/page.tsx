@@ -25,19 +25,25 @@ export default function AgentesIARetailPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
-        <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
+        <div className="max-w-5xl mx-auto w-full text-center">
+          {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{isES ? "Retail" : "Retail"}</span>
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+
+          {/* Main Title */}
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-balance text-foreground">
             {isES ? "Agentes de IA para Retail en Chile" : "AI Agents for Retail in Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+
+          {/* Subtitle */}
+          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             {isES ? "Atención al cliente 24/7, gestión inteligente de inventario, análisis predictivo de demanda. Aumenta conversión, reduce costos operativos." : "24/7 customer service, intelligent inventory management, demand forecasting. Increase conversion, reduce operating costs."}
           </p>
+
+          {/* CTA */}
           <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
             {isES ? "Consultar para retail" : "Consult for retail"}
             <ArrowRight className="w-5 h-5" />
@@ -46,65 +52,7 @@ export default function AgentesIARetailPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Retail" : "Chile Data - Retail Context"}</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">+3.2%</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Actividad Comercio" : "Commerce Activity"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, abril 2026" : "INE, April 2026"}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">+14.2%</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "E-commerce Interanual" : "E-commerce YoY"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "INE, abril 2026" : "INE, April 2026"}</p>
-              </div>
-              <div>
-                <p className="text-3xl font-bold text-primary mb-2">$11.5B</p>
-                <p className="font-semibold text-foreground mb-1">{isES ? "Proyección Mercado" : "Market Projection"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "CCS, 2025" : "CCS, 2025"}</p>
-              </div>
-            </div>
-            <div className="mt-8 pt-8 border-t border-primary/20">
-              <h3 className="font-semibold mb-4 text-primary">{isES ? "Dónde impacta IA en 90 días" : "Where AI impacts in 90 days"}</h3>
-              <ul className="grid md:grid-cols-3 gap-4">
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Predicción de demanda y reposición para campañas" : "Demand forecasting and replenishment"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Atención postventa omnicanal" : "Omnichannel post-sales support"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Orquestación de pricing y promos" : "Pricing and promo orchestration"}
-                </li>
-              </ul>
-            </div>
-            <div className="mt-8 pt-8 border-t border-primary/20">
-              <h3 className="font-semibold mb-4 text-primary">{isES ? "KPIs esperables" : "Expected KPIs"}</h3>
-              <ul className="grid md:grid-cols-3 gap-4">
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Menos quiebres y sobrestock" : "Fewer stockouts and overstock"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Menor tiempo respuesta postventa" : "Reduced post-sales response time"}
-                </li>
-                <li className="flex gap-2 text-sm">
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
-                  {isES ? "Mejor conversión en campañas" : "Better campaign conversion"}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores del retail hoy en Chile" : "Current retail pain points in Chile"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
@@ -133,7 +81,7 @@ export default function AgentesIARetailPage({ params }: PageProps) {
 
       {/* HOW N3URALIA SOLVES IT */}
       <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
           <div className="space-y-8">
             <div className="p-8 bg-background rounded-lg border border-border">
@@ -192,7 +140,7 @@ export default function AgentesIARetailPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Beneficios para retail" : "Benefits for retail"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -211,7 +159,7 @@ export default function AgentesIARetailPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
             <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Retail" : "Chile Data - Retail Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">

@@ -25,17 +25,16 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
-        <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
+        <div className="max-w-5xl mx-auto w-full text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{isES ? "Turismo" : "Tourism"}</span>
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-foreground text-balance">
             {isES ? "Agentes de IA para Turismo en Chile" : "AI Agents for Tourism in Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             {isES ? "Atención de reservas 24/7, gestión revenue inteligente, automatización de confirmaciones y cobros. Mejora ocupabilidad, aumenta ingresos por huésped." : "24/7 reservation support, intelligent revenue management, confirmation and payment automation. Improve occupancy, increase revenue per guest."}
           </p>
           <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
@@ -47,7 +46,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
       {/* OPERATIONAL PAIN POINTS */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores del turismo hoy en Chile" : "Current tourism pain points in Chile"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
@@ -76,7 +75,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
       {/* HOW N3URALIA SOLVES IT */}
       <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
           <div className="space-y-8">
             <div className="p-8 bg-background rounded-lg border border-border">
@@ -135,7 +134,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para turismo" : "Tourism solutions"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -154,7 +153,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
             <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Turismo" : "Chile Data - Tourism Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">

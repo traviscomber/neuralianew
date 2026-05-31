@@ -49,9 +49,8 @@ export default function AgentesIAChilePage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
-        <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
+        <div className="max-w-5xl mx-auto w-full text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">{isES ? "Empresas Chile" : "Companies Chile"}</span>
@@ -61,7 +60,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
               ? "Agentes de IA para Empresas en Chile"
               : "AI Agents for Businesses in Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-4 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-4 leading-relaxed max-w-3xl mx-auto">
             {isES
               ? "Automatiza procesos complejos con agentes inteligentes diseñados especialmente para empresas chilenas. Reduce costos operativos hasta 70%, mejora productividad y acelera crecimiento sin reemplazar tu infraestructura existente."
               : "Automate complex processes with intelligent agents designed specifically for Chilean businesses. Reduce operating costs by up to 70%, improve productivity and accelerate growth without replacing your existing infrastructure."}
@@ -83,7 +82,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Value Props */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "¿Por qué agentes de IA para empresas chilenas?" : "Why AI agents for Chilean businesses?"}
           </h2>
@@ -132,7 +131,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Process */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Cómo implementamos agentes IA en tu empresa" : "How we implement AI agents in your business"}
           </h2>
@@ -187,7 +186,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* FAQ */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Preguntas frecuentes" : "Frequently Asked Questions"}
           </h2>
@@ -232,7 +231,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Industries */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Industrias que servimos" : "Industries we serve"}
           </h2>

@@ -25,13 +25,12 @@ export default function AgentesIAConcepcionPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
-        <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
+        <div className="max-w-5xl mx-auto w-full text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-foreground text-balance">
             {isES ? "Agentes de IA para Empresas en Concepción" : "AI Agents for Businesses in Concepción"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             {isES ? "Automatización para Concepción: manufactura, logística, retail. Reduce costos, acelera procesos, escala sin aumentar equipo." : "Automation for Concepción: manufacturing, logistics, retail. Reduce costs, accelerate processes, scale without hiring."}
           </p>
           <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">

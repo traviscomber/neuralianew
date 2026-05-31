@@ -40,9 +40,8 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
-        <SectionBackground />
-        <div className="container mx-auto max-w-4xl relative z-10">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
+        <div className="max-w-5xl mx-auto w-full text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary" />
             <span className="text-sm font-medium text-primary">{isES ? "Arquitectura" : "Architecture"}</span>
@@ -50,7 +49,7 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-foreground leading-tight text-balance">
             {isES ? "Soluciones Agenticas para Chile" : "Agentic Solutions for Chile"}
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl">
+          <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
             {isES
               ? "Arquitectura especializada de agentes inteligentes diseñada para las necesidades únicas de empresas chilenas. Sistemas que no solo automatizan, sino que evolucionan y aprenden."
               : "Specialized intelligent agent architecture designed for unique Chilean business needs. Systems that don't just automate, they evolve and learn."}
@@ -66,7 +65,7 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Componentes de nuestra arquitectura" : "Our architecture components"}
           </h2>
@@ -112,7 +111,7 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Casos de uso comunes en Chile" : "Common use cases in Chile"}
           </h2>
