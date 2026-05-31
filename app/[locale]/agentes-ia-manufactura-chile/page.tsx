@@ -224,7 +224,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
-            <h2 className="text-2xl font-bold mb-8">{isES} ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
+            <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto de Manufactura" : "Chile Data - Manufacturing Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">
               <div>
                 <p className="text-3xl font-bold text-primary mb-2">-2.5%</p>
