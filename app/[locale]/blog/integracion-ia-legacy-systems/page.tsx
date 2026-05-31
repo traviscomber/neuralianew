@@ -2,7 +2,6 @@ import Link from "next/link"
 import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
-import { SectionBackground } from "@/components/section-background"
 import { buildSeo } from "@/lib/metadata-utils"
 
 export const metadata: Metadata = buildSeo({
@@ -18,7 +17,6 @@ export const metadata: Metadata = buildSeo({
 export default function BlogPost() {
   return (
     <>
-      <SectionBackground section="blog">
       <main className="min-h-screen bg-background">
         <article className="max-w-3xl mx-auto py-16 px-4">
           <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
@@ -191,7 +189,6 @@ export default function BlogPost() {
           </div>
           </article>
         </main>
-      </SectionBackground>
       
       <Footer />
     </>
