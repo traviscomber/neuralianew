@@ -25,29 +25,43 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-background">
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16 relative overflow-hidden">
+      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 relative overflow-hidden">
         <SectionBackground />
-        <div className="max-w-4xl mx-auto w-full text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">{isES ? "Logística" : "Logistics"}</span>
+        <div className="min-h-screen flex items-center justify-center px-4 pt-32 pb-16">
+          <div className="max-w-4xl w-full flex items-center gap-12">
+            {/* Content on left */}
+            <div className="flex-1 text-center md:text-right">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
+                <span className="w-2 h-2 rounded-full bg-primary" />
+                <span className="text-sm font-medium text-primary">{isES ? "Logística" : "Logistics"}</span>
+              </div>
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
+                {isES ? "Agentes de IA para Logística en Chile" : "AI Agents for Logistics in Chile"}
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                {isES ? "Torre de control con alertas tempranas, priorización de despachos por SLA, automatización documental. Mejora OTIF, reduce costos, resuelve incidencias más rápido." : "Control tower with early alerts, dispatch prioritization by SLA, document automation. Improve OTIF, reduce costs, resolve incidents faster."}
+              </p>
+              <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
+                {isES ? "Consultar para logística" : "Consult for logistics"}
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+            
+            {/* Decorative placeholder on right */}
+            <div className="flex-1 hidden lg:flex items-center justify-center">
+              <div className="w-full aspect-square bg-primary/10 border border-primary/20 rounded-lg flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  <div className="text-6xl mb-4">📦</div>
+                  <p className="text-sm">{isES ? "Visualización de datos" : "Data Visualization"}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-balance">
-            {isES ? "Agentes de IA para Logística en Chile" : "AI Agents for Logistics in Chile"}
-          </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            {isES ? "Torre de control con alertas tempranas, priorización de despachos por SLA, automatización documental. Mejora OTIF, reduce costos, resuelve incidencias más rápido." : "Control tower with early alerts, dispatch prioritization by SLA, document automation. Improve OTIF, reduce costs, resolve incidents faster."}
-          </p>
-          <Link href={`/${locale}/contact`} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
-            {isES ? "Consultar para logística" : "Consult for logistics"}
-            <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </section>
 
-      {/* OPERATIONAL PAIN POINTS */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores de la logística hoy en Chile" : "Current logistics pain points in Chile"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
@@ -76,7 +90,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
 
       {/* HOW N3URALIA SOLVES IT */}
       <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
           <div className="space-y-8">
             <div className="p-8 bg-background rounded-lg border border-border">
