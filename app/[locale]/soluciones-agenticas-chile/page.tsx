@@ -66,7 +66,7 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Componentes de nuestra arquitectura" : "Our architecture components"}
           </h2>
@@ -112,7 +112,7 @@ export default function SolucionesAgenticasPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Casos de uso comunes en Chile" : "Common use cases in Chile"}
           </h2>

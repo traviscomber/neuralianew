@@ -69,7 +69,7 @@ export default function AutomatizacionIAPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Métricas de impacto comprobadas" : "Proven impact metrics"}
           </h2>
@@ -90,7 +90,7 @@ export default function AutomatizacionIAPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Qué automatizamos" : "What we automate"}
           </h2>
@@ -136,7 +136,7 @@ export default function AutomatizacionIAPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Fases de implementación" : "Implementation phases"}
           </h2>

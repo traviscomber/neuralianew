@@ -83,7 +83,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Value Props */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "¿Por qué agentes de IA para empresas chilenas?" : "Why AI agents for Chilean businesses?"}
           </h2>
@@ -132,7 +132,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Process */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Cómo implementamos agentes IA en tu empresa" : "How we implement AI agents in your business"}
           </h2>
@@ -187,7 +187,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* FAQ */}
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Preguntas frecuentes" : "Frequently Asked Questions"}
           </h2>
@@ -232,7 +232,7 @@ export default function AgentesIAChilePage({ params }: PageProps) {
 
       {/* Industries */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-foreground">
             {isES ? "Industrias que servimos" : "Industries we serve"}
           </h2>

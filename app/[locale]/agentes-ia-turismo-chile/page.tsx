@@ -47,7 +47,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
       {/* OPERATIONAL PAIN POINTS */}
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores del turismo hoy en Chile" : "Current tourism pain points in Chile"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
@@ -76,7 +76,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
 
       {/* HOW N3URALIA SOLVES IT */}
       <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
           <div className="space-y-8">
             <div className="p-8 bg-background rounded-lg border border-border">
@@ -135,7 +135,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-muted/50">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para turismo" : "Tourism solutions"}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -154,7 +154,7 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
       </section>
 
       <section className="py-16 px-4 bg-background">
-        <div className="container mx-auto max-w-4xl">
+        <div className="max-w-4xl mx-auto w-full">
           <div className="p-8 rounded-lg bg-primary/5 border border-primary/20">
             <h2 className="text-2xl font-bold mb-8">{isES ? "Datos Chile - Contexto del Turismo" : "Chile Data - Tourism Context"}</h2>
             <div className="grid md:grid-cols-3 gap-8">
