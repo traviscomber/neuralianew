@@ -100,6 +100,95 @@ export default function AgentesIATurismoPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* OPERATIONAL PAIN POINTS */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores del turismo hoy en Chile" : "Current tourism pain points in Chile"}</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📞 Atención lenta = clientes perdidos" : "📞 Slow support = lost customers"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Consultas de reserva por email toman 12-24 horas en responder. WhatsApp se pierde entre mensajes personales. Clientes desisten y se van a la competencia. Pérdida de ventas por falta de velocidad." : "Booking inquiries via email take 12-24 hours to answer. WhatsApp messages get lost. Customers give up and go to competitors. Lost sales due to slow response."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en tasa conversión de consultas" : "Result: -20-30% inquiry conversion rate"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "🌍 Multiidioma manual" : "🌍 Manual multilingual"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Turnistas responden en 1-2 idiomas. Consulta en francés o alemán requiere buscar traductor o rechazar cliente. Experiencia pobre para turistas internacionales. Reputación online daña." : "Staff speak 1-2 languages. Inquiry in French or German requires translator or customer rejection. Poor experience for international tourists. Damages online reputation."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -40-50% en reservas de turismo internacional" : "Result: -40-50% international tourism bookings"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "💰 Ocupación subóptima" : "💰 Suboptimal occupancy"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin recomendaciones personalizadas, clientes no saben qué comprar. Sin gestión dinámica de precios, se vende a precio fijo incluso en baja demanda. Sin bundling inteligente, no se maximiza valor por reserva." : "Without personalized recommendations, guests don't know what to add. Without dynamic pricing, fixed rates even in low demand. No intelligent bundling, low average value per booking."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -15-25% en RevPAR, -30-40% en servicios adicionales" : "Result: -15-25% RevPAR, -30-40% add-on services"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "🎫 Operaciones fragmentadas" : "🎫 Fragmented operations"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Reservas en un sistema, housekeeping en otro, check-in manual. Una habitación se limpia lentamente, se retrasa el siguiente check-in. Cambios de plan se comunican manualmente, se pierden. Experiencia del huésped se degrada." : "Reservations in one system, housekeeping in another, manual check-in. Room cleaned slowly, delays next check-in. Plan changes communicated manually, get lost. Guest experience suffers."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -1-2 puntos en NPS, 40% más tiempo operacional" : "Result: -1-2 NPS points, 40% more operational time"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW N3URALIA SOLVES IT */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
+          <div className="space-y-8">
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">1</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Asistente multiidioma 24/7 instantáneo" : "24/7 instant multilingual assistant"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Agentes IA responden INMEDIATAMENTE a cualquier consulta, en 12+ idiomas. Entienden contexto de disponibilidad, fechas, preferencias. Cierran reservas sin intervención humana. Disponibilidad 24/7 sin personal on-call." : "AI agents respond INSTANTLY to any inquiry in 12+ languages. Understand availability context, dates, preferences. Close bookings with no human intervention. 24/7 availability without on-call staff."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +40-50% conversión consultas | +60% satisfacción internacional" : "Impact: +40-50% inquiry conversion | +60% international satisfaction"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">2</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Revenue optimization inteligente" : "Intelligent revenue optimization"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Precios dinámicos según demanda, ocupación, competencia. Recomendaciones personalizadas: tours, restaurants, servicios. Bundling automático: habitación + cena + tour al precio óptimo. Cada interacción maximiza valor." : "Dynamic pricing by demand, occupancy, competition. Personalized recommendations: tours, restaurants, services. Auto-bundling: room + dinner + tour at optimal price. Every interaction maximizes value."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +20-30% RevPAR | +50-70% en servicios adicionales | +$XXX/reserva promedio" : "Impact: +20-30% RevPAR | +50-70% add-on services | +$XXX/booking average"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">3</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Orquestación operacional sincronizada" : "Synchronized operations orchestration"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Un sistema central conecta reservas, housekeeping, front-desk, restaurants. Cambios automáticos se propagan. Habitación lista = siguiente huésped check-in inmediato. Cambios de plan se comunican en tiempo real. Cero fricción." : "Central system connects reservations, housekeeping, front desk, restaurants. Changes auto-propagate. Room ready = immediate next check-in. Plan changes communicated in real-time. Zero friction."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +2-3 puntos NPS | -40% tiempo operacional | -50% cambios de último minuto" : "Impact: +2-3 NPS points | -40% operational time | -50% last-minute changes"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">4</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Experiencia del huésped automatizada" : "Automated guest experience"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Pre-check-in automático con confirmación. Recordatorios personalizados (cena, tours, checkout). Soporte post-reserva: cambios, solicitudes especiales. Feedback recopilado automáticamente. Cada interacción mejora NPS." : "Automated pre-check-in with confirmation. Personalized reminders (dinner, tours, checkout). Post-booking support: changes, special requests. Feedback auto-collected. Each interaction improves NPS."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +3-4 puntos NPS | +60% recomendaciones | +Repeat bookings" : "Impact: +3-4 NPS points | +60% referrals | +Repeat bookings"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/50">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para turismo" : "Tourism solutions"}</h2>

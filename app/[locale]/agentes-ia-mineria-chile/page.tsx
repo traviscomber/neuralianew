@@ -100,6 +100,95 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* OPERATIONAL PAIN POINTS */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores de la minería hoy en Chile" : "Current mining pain points in Chile"}</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "⏹️ Downtime no planificado" : "⏹️ Unplanned downtime"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Fallas en equipamiento se detectan tarde. Una máquina fuera de servicio por horas = pérdida de producción, costos de oportunidad enormes. Sin visibilidad predictiva, reaccionas cuando ya ocurrió el daño." : "Equipment failures detected too late. One machine down for hours = massive production loss and opportunity cost. Without predictive visibility, you react after damage occurs."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/hora en producción perdida" : "Result: -$XXX/hour in lost production"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "💡 Energía descontrolada" : "💡 Uncontrolled energy"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Consumo energético fluctúa sin patrón claro. Sin optimización en tiempo real, pagas más de lo necesario. Oportunidades de ahorro se pierden por falta de visibilidad." : "Energy consumption fluctuates with no clear pattern. Without real-time optimization, you overpay. Savings opportunities are lost through lack of visibility."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -15-25% en margen por costo energía" : "Result: -15-25% margin due to energy cost"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "👥 Coordin ación manual" : "👥 Manual coordination"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Decisiones de operación se toman en reuniones, se comunican manualmente, se ejecutan con lag. Faena tiene múltiples sistemas sin hablar entre sí. Una decisión crítica tarda horas en cascada." : "Operations decisions made in meetings, communicated manually, executed with lag. Multiple disconnected systems on site. Critical decisions cascade over hours."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en velocidad operacional" : "Result: -20-30% in operational speed"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📊 Análisis sin acción" : "📊 Analysis without action"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Reportes que se generan al final de turno/semana. Datos viejos que no sirven para tomar decisiones hoy. KPIs que no se cumplen porque se descubren el problema después." : "Reports generated end-of-shift/week. Old data that doesn't help today's decisions. KPIs missed because problems discovered afterwards."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: oportunidades perdidas, reactividad vs proactividad" : "Result: lost opportunities, reactive not proactive"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW N3URALIA SOLVES IT */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
+          <div className="space-y-8">
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">1</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Mantenimiento predictivo automático" : "Automated predictive maintenance"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Monitoreo 24/7 de todos los equipos. Patrones de fallo detectados antes de ocurrir. Alertas inteligentes al equipo correcto. Mantenimiento programado = cero downtime sorpresa." : "24/7 monitoring of all equipment. Failure patterns detected before they occur. Smart alerts to the right team. Scheduled maintenance = no surprise downtime."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -50% downtime no planificado | -40% costos mantención" : "Impact: -50% unplanned downtime | -40% maintenance costs"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">2</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Optimización energética en tiempo real" : "Real-time energy optimization"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Análisis continuo del consumo por proceso. Identificación de oportunidades de ahorro. Decisiones automáticas que reducen consumo sin perder producción. Reportes diarios que muestran el impacto." : "Continuous analysis of consumption by process. Savings opportunities identified. Automatic decisions reduce consumption without production loss. Daily reports show impact."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -15-20% en costo energético | +$XXX/mes en margen" : "Impact: -15-20% energy cost | +$XXX/month margin"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">3</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Orquestación operacional centralizada" : "Centralized operations orchestration"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Un sistema central que coordina decisiones entre faena, procesamiento, logística. Cambios en un área se replican automáticamente. Cuellos de botella se detectan y alertan antes de afectar producción." : "One central system coordinating decisions across pit, processing, logistics. Changes ripple automatically. Bottlenecks detected and alerted before production impact."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +25-30% en velocidad operacional | -10% en costos coordinación" : "Impact: +25-30% operational speed | -10% coordination costs"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">4</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Intelligence 24/7 accionable" : "24/7 actionable intelligence"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Dashboard en vivo de toda la operación. Alertas inteligentes cuando algo anómalo sucede. Decisiones automáticas en segundos, no horas. Reportes que se generan continuamente, no al final del turno." : "Live operations dashboard. Smart alerts for anomalies. Automatic decisions in seconds, not hours. Reports generated continuously, not end-of-shift."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -70% horas análisis manual | +40% en capacidad de decisión" : "Impact: -70% manual analysis hours | +40% decision capacity"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/50">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para minería" : "Solutions for mining"}</h2>

@@ -100,6 +100,95 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* OPERATIONAL PAIN POINTS */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores de la manufactura hoy en Chile" : "Current manufacturing pain points in Chile"}</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📉 Variabilidad en cumplimiento" : "📉 Production variability"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Producción no es predecible. Un día cumples 100%, otro 75%. Clientes no saben si recibirán a tiempo. Inventarios crecen para compensar incertidumbre. Costos de almacenamiento se disparan." : "Production is unpredictable. One day 100%, next day 75%. Customers unsure of delivery dates. Inventory grows to compensate. Storage costs skyrocket."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/mes en almacenamiento, clientes insatisfechos" : "Result: -$XXX/month storage, unhappy customers"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "🔧 Calidad inconsistente" : "🔧 Inconsistent quality"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin monitoreo en tiempo real de procesos. Defectos se descubren al final de la línea. Reproceso, rechazo, devoluciones. Merma se come el margen." : "No real-time process monitoring. Defects discovered end-of-line. Rework, rejection, returns. Waste erodes margin."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -5-10% en margen por merma + devoluciones" : "Result: -5-10% margin from waste + returns"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📦 Planificación manual = retraso" : "📦 Manual planning = delay"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Planificación de producción se hace por planilla. Cambios de orden inesperados crean caos. No hay visibilidad de cuellos de botella hasta que la producción se paraliza. Reacción = horas o días." : "Production planning via spreadsheet. Unexpected order changes create chaos. Bottlenecks invisible until production stalls. Reaction = hours or days."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en velocidad de respuesta a cambios" : "Result: -20-30% change response speed"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "💰 Inventario muerto" : "💰 Dead inventory"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Materias primas compradas sin coordinación clara con demanda. Productos terminados que no se venden. Capital atrapado. Sin visibilidad de rotación." : "Raw materials purchased without clear demand coordination. Finished goods that don't sell. Capital trapped. No rotation visibility."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX en capital inmovilizado, rotación <4 veces/año" : "Result: -$XXX tied-up capital, <4x/year turnover"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW N3URALIA SOLVES IT */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
+          <div className="space-y-8">
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">1</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Planificación dinámica real-time" : "Real-time dynamic planning"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Sistema que replanifica producción cada 15 minutos basado en cambios reales. Cambios de orden se incorporan sin caos. Cuellos de botella se detectan automáticamente y se sugieren reasignaciones. Oportunidades de optimización en tiempo real." : "System replans production every 15 minutes based on real changes. Order changes integrate without chaos. Bottlenecks auto-detected with suggested reassignments. Real-time optimization opportunities."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +25-30% en cumplimiento | -40% en urgencias/cambios" : "Impact: +25-30% fulfillment | -40% in rush changes"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">2</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Control de calidad automático" : "Automated quality control"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Monitoreo continuo de parámetros de proceso (temperatura, presión, tiempo). Desviaciones detectadas en SEGUNDOS. Alertas antes de que se genere material defectuoso. Trazabilidad 100%." : "Continuous monitoring of process parameters (temperature, pressure, time). Deviations detected in SECONDS. Alerts before defective material. 100% traceability."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -80% defectos | -50% reproceso | +8-12% margen" : "Impact: -80% defects | -50% rework | +8-12% margin"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">3</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Sincronización planta-compras-logística" : "Plant-supply-logistics sync"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Un sistema central que conecta demanda real con compras y logística. Materias primas llegan justo a tiempo, no antes. Productos terminados se envían minimizando almacenaje. Capital circulante optimizado." : "Central system connects real demand with supply and logistics. Raw materials arrive just-in-time. Finished goods ship with minimal storage. Optimized working capital."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% inventario | +4-6x rotación | +$XXX en capital liberado" : "Impact: -30% inventory | +4-6x turnover | +$XXX capital freed"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">4</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Análisis predictivo + automatización" : "Predictive analytics + automation"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Modelos que predicen cuellos de botella horas antes. Alertas que permiten acción preventiva. Reportes diarios con tendencias y oportunidades. Decisiones que se ejecutan automáticamente dentro de parámetros." : "Models predict bottlenecks hours ahead. Alerts enable preventive action. Daily reports with trends and opportunities. Auto-executed decisions within parameters."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -60% análisis manual | +50% en velocidad decisión | -15% en costos operacionales" : "Impact: -60% manual analysis | +50% decision speed | -15% operational costs"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/50">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Soluciones para manufactura" : "Manufacturing solutions"}</h2>

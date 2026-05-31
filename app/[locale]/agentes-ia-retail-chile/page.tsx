@@ -100,6 +100,95 @@ export default function AgentesIARetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* OPERATIONAL PAIN POINTS */}
+      <section className="py-16 px-4 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Los dolores del retail hoy en Chile" : "Current retail pain points in Chile"}</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📞 Atención fragmentada" : "📞 Fragmented Support"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Clientes contactan por múltiples canales (email, WhatsApp, chat, phone) sin coordinación. Las respuestas se duplican, se pierden datos, los tiempos de respuesta se disparan." : "Customers contact via multiple channels (email, WhatsApp, chat, phone) with no coordination. Responses duplicate, data gets lost, response times explode."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: clientes frustrados, pérdida de ventas" : "Result: frustrated customers, lost sales"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📦 Inventario descontrolado" : "📦 Uncontrolled Inventory"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin visión en tiempo real de stock. Quiebres cuando la demanda sube, sobrestock cuando baja. Reorden manual = decisiones lentas. Dinero atrapado en mercadería." : "No real-time stock visibility. Stockouts when demand spikes, overstock when it drops. Manual reordering = slow decisions. Cash locked in inventory."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: margen erosionado, capital inmovilizado" : "Result: eroded margins, tied-up capital"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "💰 Precios y promos desalineados" : "💰 Misaligned Pricing"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Ajustes de precio manual y descoordinados entre canales. Promociones que no generan el ROI esperado. Competidores se mueven más rápido." : "Manual, uncoordinated pricing across channels. Promotions that don't deliver expected ROI. Competitors move faster."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: pérdida de competitividad, erosión de margen" : "Result: lost competitiveness, margin erosion"}</p>
+            </div>
+            <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
+              <h3 className="font-bold text-lg mb-3">{isES ? "📊 Análisis manual = retraso" : "📊 Manual analysis = delay"}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{isES ? "Reportes que se generan semanalmente o mensualmente. Decisiones basadas en datos viejos. No hay insights en tiempo real sobre qué vende, por qué, y qué hace falta." : "Reports generated weekly or monthly. Decisions based on old data. No real-time insights on what sells, why, and what's missing."}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: oportunidades perdidas, reactividad vs. proactividad" : "Result: missed opportunities, reactive not proactive"}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW N3URALIA SOLVES IT */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">{isES ? "Cómo lo resolvemos en N3uralia" : "How N3uralia solves it"}</h2>
+          <div className="space-y-8">
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">1</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Orquestación omnicanal" : "Omnichannel orchestration"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Un único punto de entrada para todos los canales (email, WhatsApp, chat, phone). Los agentes IA de N3uralia responden en tiempo real, con contexto completo del cliente. Una conversación, un resultado." : "Single entry point for all channels (email, WhatsApp, chat, phone). N3uralia AI agents respond in real-time with complete customer context. One conversation, one outcome."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -80% en tiempo de respuesta | +40% en satisfacción" : "Impact: -80% response time | +40% satisfaction"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">2</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Motor de inventario inteligente" : "Smart inventory engine"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Visión 24/7 de stock en todos los canales. Predicción automática de demanda basada en histórico, seasonalidad, y tendencias. Reorden automático al punto óptimo. Alertas de quiebre antes de que suceda." : "24/7 stock visibility across all channels. Automatic demand forecasting based on history, seasonality, trends. Auto-reorder at optimal point. Break-prevention alerts."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% quiebres | -25% sobrestock | +20% capital efficiency" : "Impact: -30% stockouts | -25% overstock | +20% capital efficiency"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">3</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Automatización de pricing + promos" : "Pricing + promo automation"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Precios dinámicos que se ajustan según demanda, competencia, y margen objetivo. Promociones que se activan automáticamente basadas en inventario y oportunidad. Todo sincronizado en tiempo real en todos los canales." : "Dynamic pricing adjusts based on demand, competition, target margin. Promotions trigger automatically based on inventory and opportunity. Real-time sync across all channels."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: +15% AOV | +25% margen en promos | +10% conversión" : "Impact: +15% AOV | +25% promo margin | +10% conversion"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-8 bg-background rounded-lg border border-border">
+              <div className="flex gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold text-primary">4</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg mb-2">{isES ? "Análisis real-time + decisiones automatizadas" : "Real-time analysis + automated decisions"}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{isES ? "Dashboard en vivo con todo lo que importa: qué vende, cuándo, por qué, qué falta. Alertas inteligentes cuando algo anómalo sucede. Reportes que se generan automáticamente. Decisiones que se ejecutan sin intervención." : "Live dashboard with everything that matters: what sells, when, why, what's missing. Smart alerts for anomalies. Auto-generated reports. Decisions execute without intervention."}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -200+ horas/mes en análisis manual | +40% en velocidad de decisión" : "Impact: -200+ hours/month manual analysis | +40% decision speed"}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16 px-4 bg-muted/50">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold mb-6">{isES ? "Beneficios para retail" : "Benefits for retail"}</h2>
