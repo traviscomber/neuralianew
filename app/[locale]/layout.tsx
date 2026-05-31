@@ -29,6 +29,13 @@ export async function generateMetadata({
     en: "Agentic systems orchestration for enterprises. Intelligent automation ready for production.",
   }
 
+  const ogDescriptions = {
+    es: "Arquitectura IA agentica diseñada para humanos. Agentes N3uralia en producción con gobernanza, memoria y orquestación.",
+    en: "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration.",
+  }
+
+  const canonicalUrl = `https://n3uralia.com/${locale}`
+
   return {
     title: titles[locale as keyof typeof titles],
     description: descriptions[locale as keyof typeof descriptions],
@@ -42,30 +49,36 @@ export async function generateMetadata({
       shortcut: "/favicon.ico",
       apple: "/favicon.ico",
     },
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'es': 'https://n3uralia.com/es',
+        'en': 'https://n3uralia.com/en',
+      },
+    },
     openGraph: {
       locale: locale === 'es' ? 'es_CL' : 'en_US',
       type: 'website',
       siteName: 'N3uralia',
       title: locale === 'es' 
-        ? "N3uralia - AI Agents & Sistemas Agenticos en Produccion" 
-        : "N3uralia - AI Agents & Agentic Systems in Production",
-      description: locale === 'es'
-        ? "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration."
-        : "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration.",
+        ? "N3uralia - Sistemas Agenticos en Produccion" 
+        : "N3uralia - Agentic Systems in Production",
+      description: ogDescriptions[locale as keyof typeof ogDescriptions],
+      url: canonicalUrl,
       images: [
         {
           url: "https://n3uralia.com/og-image.png",
           width: 1200,
           height: 630,
-          alt: "N3uralia - Sistemas Agenticos en Produccion",
+          alt: locale === 'es' ? "N3uralia - Sistemas Agenticos en Produccion" : "N3uralia - Agentic Systems in Production",
           type: "image/png",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "N3uralia - AI Agents in Production",
-      description: "Agentic AI systems for enterprise. N3uralia AI agents, agentes de IA, multi-agent orchestration, production-ready architecture.",
+      title: titles[locale as keyof typeof titles],
+      description: descriptions[locale as keyof typeof descriptions],
       creator: "@n3uralia",
       site: "@n3uralia",
     },

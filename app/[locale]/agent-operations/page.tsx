@@ -39,6 +39,9 @@ export default function AgentOperationsPage({ params }: PageProps) {
     <>
       <main className="min-h-screen pt-20">
         {/* Hero Section */}
+        <h1 className="sr-only">
+          {isES ? "Operaciones Agénticas - Automatización Gobernable para Empresas" : "Agent Operations - Governed Automation for Enterprises"}
+        </h1>
         <Section 
           title={isES ? "Operaciones Agénticas" : "Agent Operations"}
           subtitle={isES ? "Automatización Gobernable para Empresas" : "Governed Automation for Enterprises"}
