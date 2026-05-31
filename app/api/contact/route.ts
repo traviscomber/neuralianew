@@ -1,8 +1,45 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
+// Rate limiting map
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
+
+function checkRateLimit(ip: string, limit: number = 5, windowMs: number = 60000): boolean {
+  const now = Date.now()
+  const record = rateLimitMap.get(ip)
+
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs })
+    return true
+  }
+
+  if (record.count < limit) {
+    record.count++
+    return true
+  }
+
+  return false
+}
+
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown"
+  )
+}
+
 export async function POST(request: NextRequest) {
   try {
+    // Rate limiting check - 5 requests per minute per IP
+    const clientIp = getClientIp(request)
+    if (!checkRateLimit(clientIp, 5, 60000)) {
+      return NextResponse.json(
+        { success: false, error: "Rate limit exceeded. Please try again later." },
+        { status: 429 },
+      )
+    }
+
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json(
         { success: false, error: "RESEND_API_KEY not configured" },
@@ -10,13 +47,33 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, company, message } = await request.json()
+    // Validate JSON
+    let body: any
+    try {
+      body = await request.json()
+    } catch (e) {
+      return NextResponse.json(
+        { success: false, error: "Invalid JSON in request body" },
+        { status: 400 },
+      )
+    }
+
+    const { name, email, company, message } = body
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     // Validation
     if (!name || !email || !message) {
       return NextResponse.json(
         { success: false, error: "Missing required fields: name, email, message" },
+        { status: 400 },
+      )
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid email format" },
         { status: 400 },
       )
     }
