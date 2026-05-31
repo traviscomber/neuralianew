@@ -140,41 +140,12 @@ const nextConfig = {
       tls: false,
     }
 
-    // Optimize chunks to prevent loading errors
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk
-            vendor: {
-              name: 'vendor',
-              chunks: 'all',
-              test: /node_modules/,
-              priority: 20
-            },
-            // Common chunk
-            common: {
-              name: 'common',
-              minChunks: 2,
-              chunks: 'all',
-              priority: 10,
-              reuseExistingChunk: true,
-              enforce: true
-            }
-          }
-        }
-      }
-    }
-
     return config
   },
-  // Disable static optimization to prevent chunk errors
+  // Disable problematic optimizations to prevent vendor chunk corruption
   experimental: {
     optimizeCss: false,
+    optimizePackageImports: [],
   },
 }
 
