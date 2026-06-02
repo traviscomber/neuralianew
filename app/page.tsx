@@ -16,6 +16,7 @@ import { IndustriesGrid } from "@/components/industries-grid"
 import { SecurityControl } from "@/components/security-control"
 import { CommercialFAQ } from "@/components/commercial-faq"
 import { FinalCTASection } from "@/components/final-cta-section"
+import { WhyNowSection } from "@/components/why-now-section"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
@@ -100,6 +101,9 @@ export default function HomePage() {
 
         {/* SOLUTION Section */}
         <SolutionSection locale={locale} />
+
+        {/* WHY NOW Section - Talent Crisis + Urgency */}
+        <WhyNowSection locale={locale} />
 
         {/* PROOF Section */}
         <ProofSection locale={locale} />

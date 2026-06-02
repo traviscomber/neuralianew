@@ -16,6 +16,7 @@ import { IndustriesGrid } from "@/components/industries-grid"
 import { SecurityControl } from "@/components/security-control"
 import { CommercialFAQ } from "@/components/commercial-faq"
 import { FinalCTASection } from "@/components/final-cta-section"
+import { WhyNowSection } from "@/components/why-now-section"
 
 // VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
 // 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
@@ -113,6 +114,9 @@ export default function HomePage({ params }: PageProps) {
 
         {/* SOLUTION Section */}
         <SolutionSection locale={locale} />
+
+        {/* WHY NOW Section - Talent Crisis + Urgency */}
+        <WhyNowSection locale={locale} />
 
         {/* PROOF Section */}
         <ProofSection locale={locale} />
