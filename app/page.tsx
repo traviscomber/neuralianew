@@ -11,6 +11,11 @@ import { PainPointsSection } from "@/components/pain-points-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
+import { QuickTestBar } from "@/components/quick-test-bar"
+import { IndustriesGrid } from "@/components/industries-grid"
+import { SecurityControl } from "@/components/security-control"
+import { CommercialFAQ } from "@/components/commercial-faq"
+import { FinalCTASection } from "@/components/final-cta-section"
 
 export const metadata: Metadata = {
   title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
@@ -312,6 +317,21 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* QUICK TEST BAR Section */}
+        <QuickTestBar locale={locale} />
+
+        {/* INDUSTRIES Grid Section */}
+        <IndustriesGrid locale={locale} />
+
+        {/* SECURITY & CONTROL Section */}
+        <SecurityControl locale={locale} />
+
+        {/* COMMERCIAL FAQ Section */}
+        <CommercialFAQ locale={locale} />
+
+        {/* FINAL CTA Section */}
+        <FinalCTASection locale={locale} />
       </main>
 
       <Footer />
