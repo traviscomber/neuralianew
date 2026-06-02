@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Manufactura en Chile | Control de Calidad" : "AI Agents for Manufacturing in Chile | Quality Control",
     description: isES ? "Automatización para manufactura: control de calidad, predictive maintenance, optimización de producción. Aumenta productividad, reduce defectos." : "Automation for manufacturing: quality control, predictive maintenance, production optimization. Increase productivity, reduce defects.",
     keywords: isES ? "agentes IA manufactura, IA industria 4.0 Chile, control calidad IA" : "AI agents manufacturing, AI industry 4.0 Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-manufactura-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-manufactura-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-manufactura-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-manufactura-chile',
+      },
+    },
   }
 }
 
@@ -52,7 +58,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "📉 Variabilidad en cumplimiento" : "📉 Production variability"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Producción no es predecible. Un día cumples 100%, otro 75%. Clientes no saben si recibirán a tiempo. Inventarios crecen para compensar incertidumbre. Costos de almacenamiento se disparan." : "Production is unpredictable. One day 100%, next day 75%. Customers unsure of delivery dates. Inventory grows to compensate. Storage costs skyrocket."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/mes en almacenamiento, clientes insatisfechos" : "Result: -$XXX/month storage, unhappy customers"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$45-65K/mes en almacenamiento, clientes insatisfechos" : "Result: -$45-65K/month storage, unhappy customers"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🔧 Calidad inconsistente" : "🔧 Inconsistent quality"}</h3>
@@ -67,7 +73,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "💰 Inventario muerto" : "💰 Dead inventory"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Materias primas compradas sin coordinación clara con demanda. Productos terminados que no se venden. Capital atrapado. Sin visibilidad de rotación." : "Raw materials purchased without clear demand coordination. Finished goods that don't sell. Capital trapped. No rotation visibility."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX en capital inmovilizado, rotación <4 veces/año" : "Result: -$XXX tied-up capital, <4x/year turnover"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$150-250K en capital inmovilizado, rotación <4 veces/año" : "Result: -$150-250K tied-up capital, <4x/year turnover"}</p>
             </div>
           </div>
         </div>
@@ -112,7 +118,7 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Sincronización planta-compras-logística" : "Plant-supply-logistics sync"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Un sistema central que conecta demanda real con compras y logística. Materias primas llegan justo a tiempo, no antes. Productos terminados se envían minimizando almacenaje. Capital circulante optimizado." : "Central system connects real demand with supply and logistics. Raw materials arrive just-in-time. Finished goods ship with minimal storage. Optimized working capital."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% inventario | +4-6x rotación | +$XXX en capital liberado" : "Impact: -30% inventory | +4-6x turnover | +$XXX capital freed"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -30% inventario | +4-6x rotación | +$180-280K en capital liberado" : "Impact: -30% inventory | +4-6x turnover | +$180-280K capital freed"}</p>
                 </div>
               </div>
             </div>
@@ -148,6 +154,75 @@ export default function AgentesIAManufacturaPage({ params }: PageProps) {
                 <p className="text-sm text-muted-foreground">{item.descES}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en Manufactura"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Manufactura"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Ingenieros de producción, técnicos especializados: escasos en Chile. Traer expertos del exterior es prohibitivo. IA de producción: automatiza lo que 5 ingenieros harían."
+                  : "Production engineers, specialized technicians: scarce in Chile. Importing experts is prohibitive. AI production: automates what 5 engineers do."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Las líneas de producción pierden eficiencia sin visibilidad" : "Production lines lose efficiency without visibility"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Defectos no detectados hasta el final = pérdida total. Tiempo muerto en cambios de línea. IA detecta problemas en tiempo real: -2.5% defectos."
+                  : "Undetected defects until end = total loss. Line changeover downtime. AI detects problems in real-time: -2.5% defects."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Valor agregado: $1.2M+" : "Value added: $1.2M+"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación digital disponibles" : "Digital transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Subsidios para manufactureros que cierren brecha digital. Gobierno busca industrias 4.0 en Chile."
+                  : "Subsidies for manufacturers closing digital gap. Government pushing Industry 4.0 in Chile."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las manufactureras que implementan IA AHORA van a estar 10x más eficientes en 2027."
+                : "Manufacturers implementing AI NOW will be 10x more efficient by 2027."}
+            </p>
           </div>
         </div>
       </section>

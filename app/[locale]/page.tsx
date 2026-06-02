@@ -11,6 +11,12 @@ import { PainPointsSection } from "@/components/pain-points-section"
 import { SolutionSection } from "@/components/solution-section"
 import { ProofSection } from "@/components/proof-section"
 import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
+import { QuickTestBar } from "@/components/quick-test-bar"
+import { IndustriesGrid } from "@/components/industries-grid"
+import { SecurityControl } from "@/components/security-control"
+import { CommercialFAQ } from "@/components/commercial-faq"
+import { FinalCTASection } from "@/components/final-cta-section"
+import { WhyNowSection } from "@/components/why-now-section"
 
 // VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
 // 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
@@ -87,16 +93,16 @@ export default function HomePage({ params }: PageProps) {
 
               <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
                 <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">40+</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "procesos automatizados" : "automated processes"}</p>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">-60%</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Costos operacionales" : "Operating costs"}</p>
                 </div>
                 <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">6</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "industrias" : "industries"}</p>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">4w</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Hasta producción" : "to production"}</p>
                 </div>
                 <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">24/7</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "operación" : "operation"}</p>
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.9%</div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Disponibilidad" : "uptime"}</p>
                 </div>
               </div>
             </div>
@@ -109,11 +115,126 @@ export default function HomePage({ params }: PageProps) {
         {/* SOLUTION Section */}
         <SolutionSection locale={locale} />
 
+        {/* WHY NOW Section - Talent Crisis + Urgency */}
+        <WhyNowSection locale={locale} />
+
         {/* PROOF Section */}
         <ProofSection locale={locale} />
 
         {/* HOW WE WORK Section */}
         <HowWeWorkSection locale={locale} />
+
+        {/* SOCIAL PROOF Section */}
+        <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+          <div className="max-w-4xl mx-auto w-full">
+            <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
+              {isES ? "Lo que dicen nuestros clientes" : "What our clients say"}
+            </h2>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Testimonial 1 */}
+              <div className="p-6 bg-background border border-primary/20 rounded-lg">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-lg text-primary">★</span>
+                  ))}
+                </div>
+                <p className="text-foreground mb-4 leading-relaxed italic">
+                  {isES 
+                    ? "Redujimos nuestros costos de operación en 45% en los primeros 3 meses. El equipo de N3uralia entiende realmente cómo funciona el negocio en Chile."
+                    : "We reduced our operating costs by 45% in the first 3 months. N3uralia's team truly understands how business works in Chile."}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="text-primary font-bold">JM</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">
+                      {isES ? "Juan Martínez" : "Juan Martinez"}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {isES ? "Gerente Operaciones, Retail" : "Operations Manager, Retail"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial 2 */}
+              <div className="p-6 bg-background border border-primary/20 rounded-lg">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-lg text-primary">★</span>
+                  ))}
+                </div>
+                <p className="text-foreground mb-4 leading-relaxed italic">
+                  {isES 
+                    ? "De 4 horas de respuesta a 15 minutos. Los clientes están más felices, mi equipo tiene menos trabajo manual. Fue increíble."
+                    : "From 4-hour response time to 15 minutes. Customers are happier, my team does less manual work. It was incredible."}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="text-primary font-bold">CR</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">
+                      {isES ? "Carla Rodríguez" : "Carla Rodriguez"}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {isES ? "Directora Comercial, Hotelería" : "Sales Director, Hospitality"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Testimonial 3 */}
+              <div className="p-6 bg-background border border-primary/20 rounded-lg">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className="text-lg text-primary">★</span>
+                  ))}
+                </div>
+                <p className="text-foreground mb-4 leading-relaxed italic">
+                  {isES 
+                    ? "No solo entregaron un sistema, nos enseñaron a operarlo. Mi equipo está completamente independiente. Eso es lo que buscaba."
+                    : "They didn't just deliver a system, they taught us to operate it. My team is completely independent. That's exactly what I needed."}
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <span className="text-primary font-bold">PL</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">
+                      {isES ? "Pablo López" : "Pablo Lopez"}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {isES ? "CTO, Logística" : "CTO, Logistics"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Stats below testimonials */}
+            <div className="grid md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-primary/20">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">15+</div>
+                <p className="text-sm text-muted-foreground">{isES ? "Empresas en producción" : "Companies in production"}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">8-12m</div>
+                <p className="text-sm text-muted-foreground">{isES ? "ROI promedio" : "Average ROI"}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">99.9%</div>
+                <p className="text-sm text-muted-foreground">{isES ? "Satisfacción cliente" : "Client satisfaction"}</p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-1">6</div>
+                <p className="text-sm text-muted-foreground">{isES ? "Industrias atendidas" : "Industries served"}</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* CLIENTS Section */}
         <section className="py-24 px-4 border-t border-border bg-background">
@@ -213,6 +334,21 @@ export default function HomePage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* QUICK TEST BAR Section */}
+        <QuickTestBar locale={locale} />
+
+        {/* INDUSTRIES Grid Section */}
+        <IndustriesGrid locale={locale} />
+
+        {/* SECURITY & CONTROL Section */}
+        <SecurityControl locale={locale} />
+
+        {/* COMMERCIAL FAQ Section */}
+        <CommercialFAQ locale={locale} />
+
+        {/* FINAL CTA Section */}
+        <FinalCTASection locale={locale} />
       </main>
 
       <Footer />

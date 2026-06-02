@@ -129,6 +129,76 @@ export default function AgentesIAChilePage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en tu empresa chilena"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in your Chilean business"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Chile enfrenta escasez de profesionales técnicos (informáticos, especialistas en datos, ingenieros). Los salarios suben 20-40% año a año. Automatizar con IA es 10x más barato que contratar talento."
+                  : "Chile faces shortage of tech professionals (developers, data specialists, engineers). Salaries rising 20-40% year over year. Automating with AI is 10x cheaper than hiring talent."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Los presupuestos de transformación digital están DISPONIBLES" : "Digital transformation budgets are AVAILABLE"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Gobiernos chilenos y organismos internacionales (BID, CAF) ofrecen subsidios y créditos para digitalización empresarial. El gobierno pretende que 5000 pymes implementen IA al 2026."
+                  : "Chilean government and international organizations (IDB, CAF) offer subsidies and credits for business digitalization. Government aims for 5000 SMEs to implement AI by 2026."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio disponible" : "Up to 70% subsidy available"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La IA es ESTABLE ahora" : "AI is STABLE now"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "No es experimento de laboratorio. GPT-4, Claude 3 y modelos locales ya funcionan 24/7 en empresas chilenas. Costo por transacción: 1-2% de lo que costaba hace 2 años."
+                  : "It's not a lab experiment. GPT-4, Claude 3 and local models already work 24/7 in Chilean companies. Cost per transaction: 1-2% of what it cost 2 years ago."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Confiabilidad: 99.9% uptime" : "Reliability: 99.9% uptime"}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom message */}
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las empresas que implementan IA AHORA van a estar 10x adelante del mercado en 2027."
+                : "Companies that implement AI NOW will be 10x ahead of the market by 2027."}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Process */}
       <section className="py-16 px-4 bg-background">
         <div className="max-w-4xl mx-auto w-full">

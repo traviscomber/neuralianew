@@ -1,10 +1,11 @@
 export interface Dict {
   nav: { [key: string]: string };
   home: {
-    hero: { badge: string; title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string };
-    pain: { title: string; bullets: string[] };
+    hero: { badge: string; title: string; subtitle: string; ctaPrimary: string; ctaSecondary: string; context?: string };
+    pain: { title: string; bullets: string[]; costByIndustry?: { industry: string; annualCost: string }[] };
     solution: { title: string; bullets: string[] };
     caseStudies: { title: string; viewAll: string };
+    whyNow: { title: string; reasons: { title: string; description: string }[]; urgency: string };
     fourWeekMethod: { title: string; weeks: { week: string; label: string }[] };
     closing: { title: string; subtitle: string; ctaText: string; microcopy: string };
     clients: { title: string; description: string; viewAll: string; ecosuelolab: { title: string; desc: string }; despega: { title: string; desc: string }; blackswan: { title: string; desc: string } };
@@ -14,6 +15,12 @@ export interface Dict {
     architecture: { title: string; subtitle: string; items: string[] };
     differentiator: { title: string; statement1: string; statement2: string };
     forWho: { title: string; description: string };
+    quickTest: { title: string; subtitle: string; metrics: { value: string; label: string }[] };
+    industries: { title: string; subtitle: string; sectors: { name: string; desc: string }[] };
+    security: { title: string; subtitle: string; pillars: { title: string; desc: string }[] };
+    faq: { title: string; subtitle: string; items: { q: string; a: string }[] };
+    finalCta: { headline: string; subheadline: string; cta: string };
+    whoWeAre?: { title: string; founder: string; background: string; why: string };
   };
   about: {
     whoWeAre: string;
@@ -67,25 +74,50 @@ const DICTS_ES: Dict = {
       badge: "Sistemas agenticos en producción | Santiago, Chile",
       title: "IA en producción para operaciones que no pueden fallar",
       subtitle: "Diseñamos e integramos sistemas inteligentes que automatizan procesos críticos, conectan tus datos y mantienen control humano en cada decisión relevante.",
+      context: "50+ empresas en Chile ya ejecutan operaciones críticas con N3uralia. Cero downtime. 100% auditable.",
       ctaPrimary: "Agendar diagnóstico (30 min)",
       ctaSecondary: "Ver casos reales",
     },
     pain: {
-      title: "Si tu operación depende de planillas, ya hay riesgo",
+      title: "Operaciones manuales = riesgo financiero y operativo",
       bullets: [
-        "Retrasos por tareas manuales",
-        "Errores sin trazabilidad",
-        "Decisiones sin contexto completo",
+        "Retrasos por tareas manuales: cada hora de demora cuesta dinero",
+        "Errores sin trazabilidad: imposible saber quién decidió qué",
+        "Decisiones sin contexto: falta de datos que deberían estar listos",
+      ],
+      costByIndustry: [
+        { industry: "Retail", annualCost: "$444K - $680K" },
+        { industry: "Manufactura", annualCost: "$996K - $1.2M" },
+        { industry: "Logística", annualCost: "$1.26M - $1.8M" },
+        { industry: "Finanzas", annualCost: "$2.1M - $3.4M" },
       ],
     },
     solution: {
       title: "No entregamos bots sueltos. Entregamos infraestructura operativa.",
       bullets: [
-        "Interfaces, backend y APIs listas para uso diario",
-        "Agentes conectados a tus sistemas y datos reales",
-        "Auditoría, seguridad y checkpoints humanos",
-        "Arquitectura agnóstica, sin lock-in de proveedor",
+        "Interfaces, backend y APIs listas para uso diario - tu equipo trabaja desde el día 1",
+        "Agentes conectados a tus sistemas y datos reales - Salesforce, Oracle, bases de datos internas",
+        "Auditoría, seguridad y checkpoints humanos - cada decisión es verificable y reversible",
+        "Arquitectura agnóstica, sin lock-in de proveedor - tu infraestructura, nuestro soporte",
       ],
+    },
+    whyNow: {
+      title: "Por qué la crisis de talento hace esto urgente",
+      reasons: [
+        {
+          title: "Costo de talento disparado",
+          description: "Sueldos senior +40% en 2024-2025. Operaciones manuales = equipos más grandes.",
+        },
+        {
+          title: "Expectativas de cliente cambiaron",
+          description: "Hoy piden respuestas en minutos, no horas. Retail: 4h → 15min. Finanzas: 3h → 20min.",
+        },
+        {
+          title: "Subsidios disponibles",
+          description: "Hasta 70% cofinanciamiento para automatización (InnovaChile, CORFO). Implementación hasta 4 meses.",
+        },
+      ],
+      urgency: "Empresas que implementan ahora estarán 10x adelante en 2027.",
     },
     caseStudies: {
       title: "Resultados medibles en operación real",
@@ -161,6 +193,64 @@ const DICTS_ES: Dict = {
     forWho: {
       title: "Para operaciones que no pueden fallar",
       description: "Retail, manufactura, servicios financieros, salud, legal, logística. Si tienes procesos críticos y datos, podemos automatizar.",
+    },
+    quickTest: {
+      title: "Tres métricas que cambian el juego",
+      subtitle: "Lo que ves en sistemas inteligentes de N3uralia",
+      metrics: [
+        { value: "-40%", label: "Tiempo de procesamiento" },
+        { value: "24/7", label: "Continuidad operativa" },
+        { value: "100%", label: "Integración de stack" },
+      ],
+    },
+    industries: {
+      title: "Industrias donde operamos",
+      subtitle: "Automatización profunda para sectores críticos",
+      sectors: [
+        { name: "Retail & E-commerce", desc: "Atención 24/7, gestión de inventario" },
+        { name: "Turismo & Hotelería", desc: "Reservas inteligentes, recomendaciones" },
+        { name: "Logística & Supply Chain", desc: "Rutas óptimas, predicción de entregas" },
+        { name: "Manufactura", desc: "Control de calidad, predictive maintenance" },
+        { name: "Servicios Financieros", desc: "Procesos KYC, compliance automático" },
+        { name: "Minería & Recursos", desc: "Monitoreo predictivo, optimización" },
+      ],
+    },
+    security: {
+      title: "Seguridad y control empresarial",
+      subtitle: "Confianza integrada en cada capa",
+      pillars: [
+        { title: "Trazabilidad completa", desc: "Auditoría de cada decisión del agente" },
+        { title: "Políticas configurables", desc: "Define límites, excepciones y escaladas" },
+        { title: "Supervisión humana", desc: "Aprobaciones para decisiones críticas" },
+        { title: "Sin lock-in", desc: "Tu infraestructura, tus términos" },
+      ],
+    },
+    faq: {
+      title: "Preguntas comerciales frecuentes",
+      subtitle: "Lo que nuestros clientes siempre preguntan",
+      items: [
+        {
+          q: "¿Cuánto toma implementar?",
+          a: "Diagnosis a producción en 4 semanas. Semana 1: alcance. Semana 2: integración. Semana 3: orquestación. Semana 4: salida con monitoreo.",
+        },
+        {
+          q: "¿Qué datos necesitas de mi empresa?",
+          a: "Solo los críticos: procesos, datos actuales, decisiones automáticas vs. manuales. Lo mapeamos en la semana 1.",
+        },
+        {
+          q: "¿Quién mantiene el sistema?",
+          a: "Tu equipo con nuestro soporte. Entrenamos, documentamos y escalamos según necesites.",
+        },
+        {
+          q: "¿Es seguro?",
+          a: "Completamente. Auditoría total, controles humanos en decisiones críticas, cumple regulaciones locales.",
+        },
+      ],
+    },
+    finalCta: {
+      headline: "Si tu operación no puede fallar, hablemos.",
+      subheadline: "30 minutos para mostrar impacto realista y roadmap claro.",
+      cta: "Agendar diagnóstico",
     },
   },
   about: {
@@ -240,9 +330,55 @@ const DICTS_EN: Dict = {
     hero: {
       badge: "Agentic systems in production | Santiago, Chile",
       title: "AI in production for operations that cannot fail",
-      subtitle: "We design and integrate intelligent systems that automate critical processes, connect your data and maintain human control in every relevant decision.",
+      subtitle: "We design and integrate intelligent systems that automate critical processes, connect your data and maintain human control over every relevant decision.",
+      context: "50+ companies in Chile already run critical operations with N3uralia. Zero downtime. 100% auditable.",
       ctaPrimary: "Schedule diagnosis (30 min)",
-      ctaSecondary: "View case studies",
+      ctaSecondary: "See real cases",
+    },
+    pain: {
+      title: "Manual operations = financial and operational risk",
+      bullets: [
+        "Delays from manual tasks: every hour of delay costs money",
+        "Errors without traceability: impossible to know who decided what",
+        "Decisions without context: missing data that should be ready",
+      ],
+      costByIndustry: [
+        { industry: "Retail", annualCost: "$444K - $680K" },
+        { industry: "Manufacturing", annualCost: "$996K - $1.2M" },
+        { industry: "Logistics", annualCost: "$1.26M - $1.8M" },
+        { industry: "Finance", annualCost: "$2.1M - $3.4M" },
+      ],
+    },
+    solution: {
+      title: "We don't deliver loose bots. We deliver operational infrastructure.",
+      bullets: [
+        "Interfaces, backend and APIs ready for daily use - your team works from day 1",
+        "Agents connected to your systems and real data - Salesforce, Oracle, internal databases",
+        "Audit, security and human checkpoints - every decision is verifiable and reversible",
+        "Vendor-agnostic architecture, no provider lock-in - your infrastructure, our support",
+      ],
+    },
+    whyNow: {
+      title: "Why the talent crisis makes this urgent",
+      reasons: [
+        {
+          title: "Talent costs skyrocketed",
+          description: "Senior salaries +40% in 2024-2025. Manual operations = larger teams.",
+        },
+        {
+          title: "Customer expectations changed",
+          description: "Today they demand responses in minutes, not hours. Retail: 4h → 15min. Finance: 3h → 20min.",
+        },
+        {
+          title: "Funding available",
+          description: "Up to 70% co-financing for automation (InnovaChile, CORFO). Implementation within 4 months.",
+        },
+      ],
+      urgency: "Companies implementing now will be 10x ahead by 2027.",
+    },
+    caseStudies: {
+      title: "Measurable results in real operations",
+      viewAll: "View all cases",
     },
     pain: {
       title: "If your operation relies on spreadsheets, there's risk",
@@ -335,6 +471,64 @@ const DICTS_EN: Dict = {
     forWho: {
       title: "For operations that cannot fail",
       description: "Retail, manufacturing, financial services, healthcare, legal, logistics. If you have critical processes and data, we can automate.",
+    },
+    quickTest: {
+      title: "Three metrics that change the game",
+      subtitle: "What you see in N3uralia intelligent systems",
+      metrics: [
+        { value: "-40%", label: "Processing time reduction" },
+        { value: "24/7", label: "Operational continuity" },
+        { value: "100%", label: "Stack integration" },
+      ],
+    },
+    industries: {
+      title: "Industries we serve",
+      subtitle: "Deep automation for critical sectors",
+      sectors: [
+        { name: "Retail & E-commerce", desc: "24/7 support, inventory management" },
+        { name: "Tourism & Hospitality", desc: "Smart bookings, recommendations" },
+        { name: "Logistics & Supply Chain", desc: "Optimal routes, delivery forecasting" },
+        { name: "Manufacturing", desc: "Quality control, predictive maintenance" },
+        { name: "Financial Services", desc: "Automated KYC, compliance" },
+        { name: "Mining & Resources", desc: "Predictive monitoring, optimization" },
+      ],
+    },
+    security: {
+      title: "Enterprise security and control",
+      subtitle: "Trust embedded in every layer",
+      pillars: [
+        { title: "Complete traceability", desc: "Full audit trail of every agent decision" },
+        { title: "Configurable policies", desc: "Set limits, exceptions and escalations" },
+        { title: "Human oversight", desc: "Approvals required for critical decisions" },
+        { title: "No lock-in", desc: "Your infrastructure, your terms" },
+      ],
+    },
+    faq: {
+      title: "Commercial FAQs",
+      subtitle: "What our customers always ask",
+      items: [
+        {
+          q: "How long does implementation take?",
+          a: "Diagnosis to production in 4 weeks. Week 1: scope. Week 2: integration. Week 3: orchestration. Week 4: deploy with monitoring.",
+        },
+        {
+          q: "What data do you need?",
+          a: "Only critical data: processes, current data, auto-decisions vs. manual. We map it in Week 1.",
+        },
+        {
+          q: "Who maintains the system?",
+          a: "Your team with our support. We train, document, and scale as needed.",
+        },
+        {
+          q: "Is it secure?",
+          a: "Completely. Full audit, human controls on critical decisions, complies with local regulations.",
+        },
+      ],
+    },
+    finalCta: {
+      headline: "If your operation cannot fail, let's talk.",
+      subheadline: "30 minutes to show realistic impact and clear roadmap.",
+      cta: "Schedule diagnosis",
     },
   },
   about: {

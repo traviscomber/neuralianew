@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Logística en Chile | Optimización de Rutas" : "AI Agents for Logistics in Chile | Route Optimization",
     description: isES ? "Automatización para logística: optimización de rutas, predicción de entregas, gestión de flota. Reduce tiempo y costos de distribución." : "Automation for logistics: route optimization, delivery forecasting, fleet management. Reduce delivery time and costs.",
     keywords: isES ? "agentes IA logística, IA supply chain Chile, optimización rutas" : "AI agents logistics, AI supply chain Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-logistica-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-logistica-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-logistica-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-logistica-chile',
+      },
+    },
   }
 }
 
@@ -51,12 +57,12 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🗺️ Rutas ineficientes" : "🗺️ Inefficient routes"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Las rutas se planifican manualmente o con criterios viejos. No consideran tráfico real, cambios de última hora, o nuevos pedidos. Kilómetros recorridos = dinero gastado en combustible + tiempo + desgaste. Ineficiencia en 20-30% de rutas." : "Routes planned manually or with outdated criteria. Don't account for real traffic, last-minute changes, new orders. Miles driven = wasted fuel + time + wear. 20-30% route inefficiency."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en eficiencia, +$XXX/mes en combustible" : "Result: -20-30% efficiency, +$XXX/month fuel waste"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -20-30% en eficiencia, +$85-120K/mes en combustible" : "Result: -20-30% efficiency, +$85-120K/month fuel waste"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "❌ Entregas incumplidas" : "❌ Missed deliveries"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin visibilidad real de entregas hasta que ocurren. Clientes no saben cuándo llegará su paquete. Cambios por no poder entregar en horario prometido. Pago de multas por incumplimiento. NPS degrada." : "No real-time delivery visibility until it happens. Customers don't know when their package arrives. Rescheduling when can't deliver on time. Fines for missed commitments. NPS suffers."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -5-15% OTIF, -2-3 puntos NPS, -$XXX en multas" : "Result: -5-15% OTIF, -2-3 NPS points, -$XXX penalties"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -5-15% OTIF, -2-3 puntos NPS, -$45-75K en multas" : "Result: -5-15% OTIF, -2-3 NPS points, -$45-75K penalties"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "📋 Documentación manual" : "📋 Manual documentation"}</h3>
@@ -66,7 +72,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "🚚 Flota descontrolada" : "🚚 Uncontrolled fleet"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Sin visibilidad de dónde está cada vehículo. Mantenimiento reactivo: avería = detención. Combustible se gasta más de lo budgetado. Chofer puede tomar rutas ineficientes o personales. Sin datos para optimizar." : "No visibility where each vehicle is. Reactive maintenance: breakdown = stoppage. Fuel spending exceeds budget. Driver can take inefficient or personal routes. No data to optimize."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: +30-40% combustible, -40% disponibilidad, +$XXX mantenimiento" : "Result: +30-40% fuel, -40% availability, +$XXX maintenance"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: +30-40% combustible, -40% disponibilidad, +$120-180K mantenimiento" : "Result: +30-40% fuel, -40% availability, +$120-180K maintenance"}</p>
             </div>
           </div>
         </div>
@@ -85,7 +91,7 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Optimización de rutas real-time" : "Real-time route optimization"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Sistema que replanifica rutas cada 5 minutos considerando: tráfico real, nuevos pedidos, restricciones de horario, capacidad de vehículos. Cada ruta optimizada = menos km, menos tiempo, menos costo. Decisiones automáticas, no manual." : "System replans routes every 5 minutes considering: real traffic, new orders, time windows, vehicle capacity. Each optimized route = fewer miles, less time, lower cost. Auto-decisions, not manual."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -20-25% en km recorridos | -15-20% combustible | +$XXX/mes ahorrado" : "Impact: -20-25% miles | -15-20% fuel | +$XXX/month saved"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -20-25% en km recorridos | -15-20% combustible | +$180-250K/mes ahorrado" : "Impact: -20-25% miles | -15-20% fuel | +$180-250K/month saved"}</p>
                 </div>
               </div>
             </div>
@@ -147,6 +153,75 @@ export default function AgentesIALogisticaPage({ params }: PageProps) {
                 <p className="text-sm text-muted-foreground">{item.descES}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en logística"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in logistics"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Coordinadores, despachadores, especialistas en routing: escasos. Salarios suben 25% año a año. Un agente IA coordina 10,000 despachos diarios, optimiza rutas."
+                  : "Coordinators, dispatchers, routing specialists: scarce. Salaries up 25% annually. One AI agent coordinates 10,000 daily shipments, optimizes routes."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Incidencias de SLA sin visibilidad = costos enormes" : "SLA incidents without visibility = huge costs"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Falta coordinación, se pierden despachos, se rompen SLAs. Clientes se van. Control tower IA: visibilidad total, OTIF +2.3%, costos -12%."
+                  : "Lack of coordination, lost shipments, broken SLAs. Clients leave. AI control tower: full visibility, OTIF +2.3%, costs -12%."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Ahorros: $450K+ anuales" : "Savings: $450K+ annually"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Presupuestos de transformación disponibles" : "Transformation budgets available"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Gobierno busca logística inteligente. Subsidios para empresas que cierren brecha digital en supply chain."
+                  : "Government pushing smart logistics. Subsidies for companies closing digital gap in supply chain."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Las empresas de logística que implementan IA AHORA van a tener 10x mejor competitividad en 2027."
+                : "Logistics companies implementing AI NOW will have 10x better competitiveness by 2027."}
+            </p>
           </div>
         </div>
       </section>

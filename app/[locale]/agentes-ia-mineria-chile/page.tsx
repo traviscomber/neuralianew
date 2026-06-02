@@ -15,7 +15,13 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: isES ? "Agentes de IA para Minería en Chile | Casos de Éxito" : "AI Agents for Mining in Chile | Success Cases",
     description: isES ? "Automatización inteligente para minería chilena. Optimización de procesos, predicción de fallos, análisis de datos en tiempo real. ROI garantizado." : "Intelligent automation for Chilean mining. Process optimization, predictive maintenance, real-time data analysis. Guaranteed ROI.",
     keywords: isES ? "agentes IA minería, automatización minería Chile, IA en minería" : "AI agents mining, mining automation Chile",
-    alternates: { canonical: `https://n3uralia.com/${locale}/agentes-ia-mineria-chile` },
+    alternates: {
+      canonical: `https://n3uralia.com/${locale}/agentes-ia-mineria-chile`,
+      languages: {
+        es: 'https://n3uralia.com/es/agentes-ia-mineria-chile',
+        en: 'https://n3uralia.com/en/agentes-ia-mineria-chile',
+      },
+    },
   }
 }
 
@@ -52,7 +58,7 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "⏹️ Downtime no planificado" : "⏹️ Unplanned downtime"}</h3>
               <p className="text-sm text-muted-foreground mb-3">{isES ? "Fallas en equipamiento se detectan tarde. Una máquina fuera de servicio por horas = pérdida de producción, costos de oportunidad enormes. Sin visibilidad predictiva, reaccionas cuando ya ocurrió el daño." : "Equipment failures detected too late. One machine down for hours = massive production loss and opportunity cost. Without predictive visibility, you react after damage occurs."}</p>
-              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$XXX/hora en producción perdida" : "Result: -$XXX/hour in lost production"}</p>
+              <p className="text-xs text-destructive font-semibold">{isES ? "Resultado: -$280-450K/hora en producción perdida" : "Result: -$280-450K/hour in lost production"}</p>
             </div>
             <div className="p-6 bg-destructive/5 border border-destructive/20 rounded-lg">
               <h3 className="font-bold text-lg mb-3">{isES ? "💡 Energía descontrolada" : "💡 Uncontrolled energy"}</h3>
@@ -99,7 +105,7 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
                 <div>
                   <h3 className="font-bold text-lg mb-2">{isES ? "Optimización energética en tiempo real" : "Real-time energy optimization"}</h3>
                   <p className="text-sm text-muted-foreground mb-3">{isES ? "Análisis continuo del consumo por proceso. Identificación de oportunidades de ahorro. Decisiones automáticas que reducen consumo sin perder producción. Reportes diarios que muestran el impacto." : "Continuous analysis of consumption by process. Savings opportunities identified. Automatic decisions reduce consumption without production loss. Daily reports show impact."}</p>
-                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -15-20% en costo energético | +$XXX/mes en margen" : "Impact: -15-20% energy cost | +$XXX/month margin"}</p>
+                  <p className="text-xs text-primary font-semibold">{isES ? "Impacto: -15-20% en costo energético | +$95-140K/mes en margen" : "Impact: -15-20% energy cost | +$95-140K/month margin"}</p>
                 </div>
               </div>
             </div>
@@ -166,6 +172,75 @@ export default function AgentesIAMineriaPage({ params }: PageProps) {
                 <p className="text-sm text-muted-foreground">{isES ? item.descES : item.descEN}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Now Section */}
+      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
+        <div className="max-w-4xl mx-auto w-full">
+          <h2 className="text-3xl font-bold mb-4 text-foreground">
+            {isES ? "¿Por qué AHORA?" : "Why NOW?"}
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8">
+            {isES
+              ? "Tres razones por las que el momento es exactamente AHORA para implementar agentes IA en Minería"
+              : "Three reasons why NOW is exactly the right time to implement AI agents in Minería"}
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">1</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "La crisis de talento es REAL" : "The talent crisis is REAL"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Ingenieros de minas, especialistas en datos y sistemas: imposible encontrar. Salarios disparados. Automatización predictiva vs hiring: diferencia es 10x."
+                  : "Mining engineers and data specialists: impossible to find. Soaring salaries. Predictive automation vs hiring: 10x difference."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "ROI: 8-12 meses" : "ROI: 8-12 months"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">2</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Paradas no planificadas = pérdida de millones" : "Unplanned downtime = millions lost"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "1 parada imprevista = $500K perdidos. El mercado de cobre necesita 99.8% uptime. Sin predictivo, tus márgenes caen."
+                  : "1 unplanned downtime = $500K lost. Copper market needs 99.8% uptime. Without predictive maintenance, margins drop."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Pérdidas evitadas: $1.8M+" : "Losses prevented: $1.8M+"}
+              </div>
+            </div>
+
+            <div className="p-6 bg-background border border-primary/20 rounded-lg">
+              <div className="text-4xl font-bold text-primary mb-4">3</div>
+              <h3 className="text-xl font-bold mb-3 text-foreground">
+                {isES ? "Los presupuestos de transformación están DISPONIBLES" : "Digital transformation budgets AVAILABLE"}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                {isES
+                  ? "Gobierno impulsa automatización en minería como prioridad. Subsidios para digitales. Competidores lo hacen ya."
+                  : "Government pushing mining automation as priority. Digital subsidies available. Competitors doing it now."}
+              </p>
+              <div className="p-3 bg-primary/10 rounded text-sm font-semibold text-primary">
+                {isES ? "Hasta 70% de subsidio" : "Up to 70% subsidy"}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 p-8 bg-foreground text-background rounded-lg text-center">
+            <p className="text-lg font-semibold">
+              {isES
+                ? "Los minerales que implementan IA AHORA van a tener 10x mejor EBITDA en 2027."
+                : "Mining companies implementing AI NOW will have 10x better EBITDA by 2027."}
+            </p>
           </div>
         </div>
       </section>
