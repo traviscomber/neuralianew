@@ -14,6 +14,11 @@ export interface Dict {
     architecture: { title: string; subtitle: string; items: string[] };
     differentiator: { title: string; statement1: string; statement2: string };
     forWho: { title: string; description: string };
+    quickTest: { title: string; subtitle: string; metrics: { value: string; label: string }[] };
+    industries: { title: string; subtitle: string; sectors: { name: string; desc: string }[] };
+    security: { title: string; subtitle: string; pillars: { title: string; desc: string }[] };
+    faq: { title: string; subtitle: string; items: { q: string; a: string }[] };
+    finalCta: { headline: string; subheadline: string; cta: string };
   };
   about: {
     whoWeAre: string;
@@ -161,6 +166,64 @@ const DICTS_ES: Dict = {
     forWho: {
       title: "Para operaciones que no pueden fallar",
       description: "Retail, manufactura, servicios financieros, salud, legal, logística. Si tienes procesos críticos y datos, podemos automatizar.",
+    },
+    quickTest: {
+      title: "Tres métricas que cambian el juego",
+      subtitle: "Lo que ves en sistemas inteligentes de N3uralia",
+      metrics: [
+        { value: "-40%", label: "Tiempo de procesamiento" },
+        { value: "24/7", label: "Continuidad operativa" },
+        { value: "100%", label: "Integración de stack" },
+      ],
+    },
+    industries: {
+      title: "Industrias donde operamos",
+      subtitle: "Automatización profunda para sectores críticos",
+      sectors: [
+        { name: "Retail & E-commerce", desc: "Atención 24/7, gestión de inventario" },
+        { name: "Turismo & Hotelería", desc: "Reservas inteligentes, recomendaciones" },
+        { name: "Logística & Supply Chain", desc: "Rutas óptimas, predicción de entregas" },
+        { name: "Manufactura", desc: "Control de calidad, predictive maintenance" },
+        { name: "Servicios Financieros", desc: "Procesos KYC, compliance automático" },
+        { name: "Minería & Recursos", desc: "Monitoreo predictivo, optimización" },
+      ],
+    },
+    security: {
+      title: "Seguridad y control empresarial",
+      subtitle: "Confianza integrada en cada capa",
+      pillars: [
+        { title: "Trazabilidad completa", desc: "Auditoría de cada decisión del agente" },
+        { title: "Políticas configurables", desc: "Define límites, excepciones y escaladas" },
+        { title: "Supervisión humana", desc: "Aprobaciones para decisiones críticas" },
+        { title: "Sin lock-in", desc: "Tu infraestructura, tus términos" },
+      ],
+    },
+    faq: {
+      title: "Preguntas comerciales frecuentes",
+      subtitle: "Lo que nuestros clientes siempre preguntan",
+      items: [
+        {
+          q: "¿Cuánto toma implementar?",
+          a: "Diagnosis a producción en 4 semanas. Semana 1: alcance. Semana 2: integración. Semana 3: orquestación. Semana 4: salida con monitoreo.",
+        },
+        {
+          q: "¿Qué datos necesitas de mi empresa?",
+          a: "Solo los críticos: procesos, datos actuales, decisiones automáticas vs. manuales. Lo mapeamos en la semana 1.",
+        },
+        {
+          q: "¿Quién mantiene el sistema?",
+          a: "Tu equipo con nuestro soporte. Entrenamos, documentamos y escalamos según necesites.",
+        },
+        {
+          q: "¿Es seguro?",
+          a: "Completamente. Auditoría total, controles humanos en decisiones críticas, cumple regulaciones locales.",
+        },
+      ],
+    },
+    finalCta: {
+      headline: "Si tu operación no puede fallar, hablemos.",
+      subheadline: "30 minutos para mostrar impacto realista y roadmap claro.",
+      cta: "Agendar diagnóstico",
     },
   },
   about: {
@@ -335,6 +398,64 @@ const DICTS_EN: Dict = {
     forWho: {
       title: "For operations that cannot fail",
       description: "Retail, manufacturing, financial services, healthcare, legal, logistics. If you have critical processes and data, we can automate.",
+    },
+    quickTest: {
+      title: "Three metrics that change the game",
+      subtitle: "What you see in N3uralia intelligent systems",
+      metrics: [
+        { value: "-40%", label: "Processing time reduction" },
+        { value: "24/7", label: "Operational continuity" },
+        { value: "100%", label: "Stack integration" },
+      ],
+    },
+    industries: {
+      title: "Industries we serve",
+      subtitle: "Deep automation for critical sectors",
+      sectors: [
+        { name: "Retail & E-commerce", desc: "24/7 support, inventory management" },
+        { name: "Tourism & Hospitality", desc: "Smart bookings, recommendations" },
+        { name: "Logistics & Supply Chain", desc: "Optimal routes, delivery forecasting" },
+        { name: "Manufacturing", desc: "Quality control, predictive maintenance" },
+        { name: "Financial Services", desc: "Automated KYC, compliance" },
+        { name: "Mining & Resources", desc: "Predictive monitoring, optimization" },
+      ],
+    },
+    security: {
+      title: "Enterprise security and control",
+      subtitle: "Trust embedded in every layer",
+      pillars: [
+        { title: "Complete traceability", desc: "Full audit trail of every agent decision" },
+        { title: "Configurable policies", desc: "Set limits, exceptions and escalations" },
+        { title: "Human oversight", desc: "Approvals required for critical decisions" },
+        { title: "No lock-in", desc: "Your infrastructure, your terms" },
+      ],
+    },
+    faq: {
+      title: "Commercial FAQs",
+      subtitle: "What our customers always ask",
+      items: [
+        {
+          q: "How long does implementation take?",
+          a: "Diagnosis to production in 4 weeks. Week 1: scope. Week 2: integration. Week 3: orchestration. Week 4: deploy with monitoring.",
+        },
+        {
+          q: "What data do you need?",
+          a: "Only critical data: processes, current data, auto-decisions vs. manual. We map it in Week 1.",
+        },
+        {
+          q: "Who maintains the system?",
+          a: "Your team with our support. We train, document, and scale as needed.",
+        },
+        {
+          q: "Is it secure?",
+          a: "Completely. Full audit, human controls on critical decisions, complies with local regulations.",
+        },
+      ],
+    },
+    finalCta: {
+      headline: "If your operation cannot fail, let's talk.",
+      subheadline: "30 minutes to show realistic impact and clear roadmap.",
+      cta: "Schedule diagnosis",
     },
   },
   about: {
