@@ -666,7 +666,7 @@ export function ChileanResponseDemo() {
                     <div className="flex-1">
                       <div className="flex items-center space-x-3 mb-3">
                         <h3 className="text-xl font-bold text-gray-900">{rec.title}</h3>
-                        <Badge className={`${getPriorityColor(rec.priority)} font-semibold`}>
+                        <Badge className={`${getPriorityColor(rec.priority as "low" | "medium" | "high")} font-semibold`}>
                           {rec.priority.toUpperCase()} PRIORITY
                         </Badge>
                       </div>
