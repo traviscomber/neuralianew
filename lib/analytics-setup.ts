@@ -1,6 +1,12 @@
 // Analytics Setup for N3uralia
 // Tracks audience segment engagement, conversion paths, and ROI by customer type
 
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, data?: Record<string, any>) => void
+  }
+}
+
 export function initializeAnalytics() {
   // GA4 Event Categories by Audience
   const audienceEvents = {

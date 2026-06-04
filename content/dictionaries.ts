@@ -380,27 +380,6 @@ const DICTS_EN: Dict = {
       title: "Measurable results in real operations",
       viewAll: "View all cases",
     },
-    pain: {
-      title: "If your operation relies on spreadsheets, there's risk",
-      bullets: [
-        "Delays from manual tasks",
-        "Errors without traceability",
-        "Decisions without full context",
-      ],
-    },
-    solution: {
-      title: "We don't deliver loose bots. We deliver operational infrastructure.",
-      bullets: [
-        "Interfaces, backend and APIs ready for daily use",
-        "Agents connected to your systems and real data",
-        "Audit, security and human checkpoints",
-        "Vendor-agnostic architecture, no provider lock-in",
-      ],
-    },
-    caseStudies: {
-      title: "Measurable results in real operations",
-      viewAll: "View all cases",
-    },
     fourWeekMethod: {
       title: "From diagnosis to production in 4 weeks",
       weeks: [
