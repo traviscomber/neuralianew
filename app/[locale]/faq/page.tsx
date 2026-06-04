@@ -131,11 +131,6 @@ export default function FaqPage() {
           __html: JSON.stringify(faqSchema),
         }}
       />
-      <SectionBackground section="faq">
-        <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
-          <FaqPageClient />
-        </main>
-      </SectionBackground>
       <Footer />
     </>
   )

@@ -4,7 +4,6 @@ import { ArrowRight } from 'lucide-react'
 import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
 import type { Locale } from '@/content/dictionaries'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 interface PageProps { params: { locale: string } }
 
@@ -26,7 +25,6 @@ export default function AgentesIASantiagoPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-background">
       <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
-        <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />

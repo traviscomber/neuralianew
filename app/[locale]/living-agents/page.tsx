@@ -11,8 +11,6 @@ export const metadata: Metadata = {
 
 export default function LivingAgentsPage() {
   return (
-    <SectionBackground section="hero">
-      <LivingAgentsContent />
-    </SectionBackground>
+    <LivingAgentsContent />
   )
 }

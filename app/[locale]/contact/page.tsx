@@ -23,24 +23,6 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <SectionBackground section="faq">
-        <main className="pt-20 min-h-screen">
-        <div className="w-full max-w-7xl mx-auto px-4 py-20">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-              Ponte en contacto con nosotros
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Cuéntanos sobre tu proyecto y te ayudaremos a transformarlo con sistemas agenticos inteligentes.
-            </p>
-          </div>
-          
-          <div className="max-w-2xl mx-auto">
-            <ContactFormClient />
-          </div>
-        </div>
-      </main>
-      </SectionBackground>
       <Footer />
     </>
   )

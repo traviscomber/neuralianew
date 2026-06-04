@@ -24,7 +24,6 @@ export default function AgentesIATemucoPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-background">
       <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
-        <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
           <h1 className="text-5xl font-bold mb-6">{isES ? "Agentes de IA para Temuco" : "AI Agents for Temuco"}</h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl">{isES ? "Para empresas de Temuco: retail, servicios, logística. Automatización inteligente sin cambiar tus sistemas actuales." : "For Temuco businesses: retail, services, logistics. Smart automation without changing your current systems."}</p>

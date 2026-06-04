@@ -20,30 +20,6 @@ export const metadata: Metadata = {
 export default function AgenticAIPage() {
   return (
     <main className="min-h-screen bg-background">
-      <SectionBackground section="blog" className="border-b border-border">
-      {/* Header */}
-      <section className="pt-32 pb-16 px-4 border-b border-border">
-        <div className="max-w-3xl mx-auto">
-          <Link
-            href="/studies"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Volver a Estudios
-          </Link>
-
-          <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
-            Concepto Fundamental
-          </span>
-
-          <h1 className="h1-light mb-6 text-foreground">Agentic AI</h1>
-          <p className="body-lg text-muted-foreground">
-            La arquitectura fundamental de sistemas que pueden operar autónomamente con inteligencia, memoria y
-            capacidad de adaptación.
-          </p>
-        </div>
-      </section>
-      </SectionBackground>
 
       {/* Content */}
       <section className="py-16 px-4">

@@ -8,8 +8,6 @@ export const metadata: Metadata = {
 
 export default function DemoPage() {
   return (
-    <SectionBackground section="hero">
-      <DemoContent />
-    </SectionBackground>
+    <DemoContent />
   )
 }
