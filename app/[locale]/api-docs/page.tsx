@@ -227,9 +227,14 @@ export default function APIDocsPage() {
 }
 
 function EndpointDetail({ endpointId, onCopy, copied }: { endpointId: string; onCopy: (text: string, id: string) => void; copied: string | null }) {
-  const [category, name] = endpointId.split('-')
+  const [category, ...nameParts] = endpointId.split('-')
+  const name = nameParts.join('-')
+
+  if (!category || !name) return null
+
   const categoryKey = category as keyof typeof API_ENDPOINTS
-  const endpoint = (API_ENDPOINTS[categoryKey] as any)?.[name]
+  const endpointGroup = API_ENDPOINTS[categoryKey] as Record<string, any> | undefined
+  const endpoint = endpointGroup?.[name]
 
   if (!endpoint) return null
 
@@ -284,7 +289,7 @@ function EndpointDetail({ endpointId, onCopy, copied }: { endpointId: string; on
   )
 }
 
-function CodeBlock({ code, language, onCopy, copied }: { code: string; language: string; onCopy: () => void; copied: boolean }) {
+function CodeBlock({ code, language: _language, onCopy, copied }: { code: string; language: string; onCopy: () => void; copied: boolean }) {
   return (
     <div className="relative">
       <pre className="p-4 bg-muted/50 border border-border rounded-lg overflow-x-auto text-xs text-muted-foreground">

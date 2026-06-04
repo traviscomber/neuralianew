@@ -1,7 +1,14 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY not configured")
+  }
+
+  return new Resend(apiKey)
+}
 
 export const runtime = "edge"
 
@@ -37,6 +44,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { type, to, ...data } = await request.json()
+    const resend = getResend()
 
     if (!to || !type) {
       return NextResponse.json({ error: "Missing required fields: to, type" }, { status: 400 })

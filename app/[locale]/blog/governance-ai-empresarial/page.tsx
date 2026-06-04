@@ -20,55 +20,55 @@ const pageCopy = {
     badge: "Gobernanza",
     heading: "Gobernanza de IA empresarial sin cajas negras",
     intro:
-      "Los agentes pueden acelerar operaciones, ventas y soporte, pero sin governance clara terminan ampliando riesgo operativo. En producciÃ³n, la pregunta no es si el sistema responde bien una vez. La pregunta es si cada decisiÃ³n queda trazada, revisable y alineada con polÃ­ticas reales de negocio.",
+      "Los agentes pueden acelerar operaciones, ventas y soporte, pero sin governance clara terminan ampliando riesgo operativo. En producción, la pregunta no es si el sistema responde bien una vez. La pregunta es si cada decisión queda trazada, revisable y alineada con políticas reales de negocio.",
     date: "7 de febrero, 2026",
     readTime: "12 min lectura",
-    section1Title: "Por quÃ© governance ya es una prioridad",
+    section1Title: "Por qué governance ya es una prioridad",
     section1Body:
-      "En Chile y LATAM, la adopciÃ³n de IA estÃ¡ creciendo mÃ¡s rÃ¡pido que los controles internos. Eso crea una brecha: equipos que automatizan tareas crÃ­ticas sin un marco comÃºn para permisos, revisiÃ³n, auditorÃ­a y escalamiento. Cuando esa brecha aparece en finanzas, operaciones o atenciÃ³n, el costo reputacional supera cualquier ahorro inicial.",
-    principlesTitle: "Cinco capas que sÃ­ funcionan en producciÃ³n",
+      "En Chile y LATAM, la adopción de IA está creciendo más rápido que los controles internos. Eso crea una brecha: equipos que automatizan tareas críticas sin un marco común para permisos, revisión, auditoría y escalamiento. Cuando esa brecha aparece en finanzas, operaciones o atención, el costo reputacional supera cualquier ahorro inicial.",
+    principlesTitle: "Cinco capas que sí funcionan en producción",
     principles: [
       {
         title: "1. Alcance acotado",
         body:
-          "Cada agente necesita un mandato preciso: quÃ© puede hacer, quÃ© no puede hacer y quÃ© sistemas puede tocar. Sin lÃ­mites explÃ­citos, el modelo termina improvisando fuera del proceso.",
+          "Cada agente necesita un mandato preciso: qué puede hacer, qué no puede hacer y qué sistemas puede tocar. Sin límites explícitos, el modelo termina improvisando fuera del proceso.",
       },
       {
-        title: "2. VerificaciÃ³n antes de ejecutar",
+        title: "2. Verificación antes de ejecutar",
         body:
-          "Las acciones de alto impacto no deben depender de una sola respuesta del agente. Se validan con reglas, test, hooks o revisiÃ³n humana segÃºn el riesgo del flujo.",
+          "Las acciones de alto impacto no deben depender de una sola respuesta del agente. Se validan con reglas, test, hooks o revisión humana según el riesgo del flujo.",
       },
       {
         title: "3. Trazabilidad completa",
         body:
-          "Prompt, contexto, herramientas usadas, salida generada y acciÃ³n tomada deben quedar registrados. Si una empresa no puede reconstruir el camino de una decisiÃ³n, no tiene gobierno real.",
+          "Prompt, contexto, herramientas usadas, salida generada y acción tomada deben quedar registrados. Si una empresa no puede reconstruir el camino de una decisión, no tiene gobierno real.",
       },
       {
         title: "4. Roles y aprobaciones",
         body:
-          "No todo usuario ni todo agente debe tener el mismo nivel de acceso. La separaciÃ³n entre observaciÃ³n, recomendaciÃ³n y ejecuciÃ³n es una de las defensas mÃ¡s efectivas.",
+          "No todo usuario ni todo agente debe tener el mismo nivel de acceso. La separación entre observación, recomendación y ejecución es una de las defensas más efectivas.",
       },
       {
         title: "5. Memoria controlada",
         body:
-          "Aprender de ejecuciones pasadas es Ãºtil solo si esa memoria es versionable, revisable y limpia. La memoria sin controles acumula errores y sesgos operativos.",
+          "Aprender de ejecuciones pasadas es útil solo si esa memoria es versionable, revisable y limpia. La memoria sin controles acumula errores y sesgos operativos.",
       },
     ],
-    frameworkTitle: "CÃ³mo se ve un framework gobernable",
+    frameworkTitle: "Cómo se ve un framework gobernable",
     frameworkBody:
-      "En N3uralia, la forma mÃ¡s sÃ³lida de operar agentes no es pedirles que inventen su orquestaciÃ³n cada vez. Es diseÃ±ar workflows deterministas: spec, plan, agentes acotados, verificaciÃ³n, PR y memoria actualizada. Ese patrÃ³n convierte automatizaciÃ³n frÃ¡gil en infraestructura revisable.",
-    checklistTitle: "Checklist mÃ­nimo para empresas",
+      "En N3uralia, la forma más sólida de operar agentes no es pedirles que inventen su orquestación cada vez. Es diseñar workflows deterministas: spec, plan, agentes acotados, verificación, PR y memoria actualizada. Ese patrón convierte automatización frágil en infraestructura revisable.",
+    checklistTitle: "Checklist mínimo para empresas",
     checklist: [
-      "Definir quÃ© decisiones puede automatizar la IA y cuÃ¡les requieren aprobaciÃ³n.",
-      "Registrar eventos, inputs, outputs y fallos en una bitÃ¡cora operativa.",
-      "Separar entornos de prueba, staging y producciÃ³n para agentes.",
+      "Definir qué decisiones puede automatizar la IA y cuáles requieren aprobación.",
+      "Registrar eventos, inputs, outputs y fallos en una bitácora operativa.",
+      "Separar entornos de prueba, staging y producción para agentes.",
       "Aplicar guardrails por herramienta, repositorio, base de datos o sistema legado.",
       "Medir calidad y riesgo con indicadores operativos, no solo con demos.",
     ],
-    closingTitle: "La confianza no se promete, se diseÃ±a",
+    closingTitle: "La confianza no se promete, se diseña",
     closingBody:
-      "La IA empresarial gana valor cuando el negocio puede confiar en ella bajo presiÃ³n real. Governance no frena la velocidad; la hace sostenible. El objetivo no es tener agentes mÃ¡s llamativos, sino sistemas que un equipo de operaciones, tecnologÃ­a o compliance pueda sostener todos los dÃ­as.",
-    ctaText: "DiseÃ±ar arquitectura gobernable",
+      "La IA empresarial gana valor cuando el negocio puede confiar en ella bajo presión real. Governance no frena la velocidad; la hace sostenible. El objetivo no es tener agentes más llamativos, sino sistemas que un equipo de operaciones, tecnología o compliance pueda sostener todos los días.",
+    ctaText: "Diseñar arquitectura gobernable",
   },
   en: {
     title: "Enterprise AI Governance | N3uralia Blog",

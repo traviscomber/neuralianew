@@ -1,7 +1,14 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY not configured")
+  }
+
+  return new Resend(apiKey)
+}
 
 export const runtime = "edge"
 
@@ -27,6 +34,7 @@ export async function POST(request: NextRequest) {
     const fromEmail = "info@n3uralia.com"
     const fromName = process.env.RESEND_FROM_NAME || "N3uralia"
     const recipientEmail = "n3uralia@gmail.com" // Where we receive contact submissions
+    const resend = getResend()
 
     // Email to admin
     const adminEmailHtml = `
