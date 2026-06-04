@@ -132,7 +132,7 @@ const pageCopy = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const copy = pageCopy[locale]
+  const copy = pageCopy[locale as keyof typeof pageCopy]
 
   return {
     title: copy.title,
@@ -142,7 +142,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default function GovernanceAiEmpresarialPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const copy = pageCopy[locale]
+  const copy = pageCopy[locale as keyof typeof pageCopy]
   const href = (path: string) => `/${locale}${path}`
 
   return (
