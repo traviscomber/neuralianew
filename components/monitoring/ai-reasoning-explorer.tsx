@@ -43,7 +43,6 @@ import {
   Sparkles,
 } from "lucide-react"
 import { useAIThresholdRecommendations, type AIThresholdRecommendation } from "@/lib/ai-threshold-analyzer"
-import { toast } from "@/hooks/use-toast"
 
 interface AIReasoningExplorerProps {
   recommendation: AIThresholdRecommendation
@@ -71,11 +70,6 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
       setComprehensiveAnalysis(analysis)
     } catch (error) {
       console.error("Failed to load comprehensive analysis:", error)
-      toast({
-        title: "Analysis Error",
-        description: "Failed to load detailed AI analysis.",
-        variant: "destructive",
-      })
     } finally {
       setIsLoading(false)
     }
