@@ -48,72 +48,9 @@ export default function Navigation() {
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
 
-          {/* Desktop Dropdown - Pure CSS */}
-          <div className="relative group">
-            <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
-              {isES ? 'Sistemas Agénticos' : 'Agent Systems'}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className="absolute left-0 top-full pt-1 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
-              <div className="bg-background border border-border rounded-lg shadow-lg py-1">
-                <Link href={href('/agent-matrix')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition">
-                  {isES ? 'Matriz de Agentes' : 'Agent Matrix'}
-                </Link>
-                <Link href={href('/agent-operations')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition border-t border-border/50">
-                  {isES ? 'Operaciones Agénticas' : 'Agent Operations'}
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Chile Dropdown */}
-          <div className="relative group">
-            <button className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition flex items-center gap-1">
-              {isES ? 'Chile' : 'Chile'}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className="absolute left-0 top-full pt-1 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
-              <div className="bg-background border border-border rounded-lg shadow-lg py-1">
-                {/* Primary Money Page */}
-                <div className="px-2 py-2">
-                  <Link href={href('/agentes-ia-chile')} className="block px-4 py-3 text-sm font-medium text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? '🤖 Agentes IA para Empresas' : '🤖 AI Agents for Business'}
-                  </Link>
-                </div>
-                
-                {/* Industry Verticals */}
-                <div className="border-t border-border/50 px-2 py-2">
-                  <p className="px-4 py-1 text-xs font-semibold text-muted-foreground uppercase">{isES ? 'Industrias' : 'Verticals'}</p>
-                  <Link href={href('/agentes-ia-retail-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? 'Retail & E-commerce' : 'Retail & E-commerce'}
-                  </Link>
-                  <Link href={href('/agentes-ia-mineria-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? 'Minería & Recursos' : 'Mining & Resources'}
-                  </Link>
-                  <Link href={href('/agentes-ia-manufactura-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? 'Manufactura' : 'Manufacturing'}
-                  </Link>
-                  <Link href={href('/agentes-ia-turismo-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? 'Turismo & Hospitalidad' : 'Tourism & Hospitality'}
-                  </Link>
-                  <Link href={href('/agentes-ia-logistica-chile')} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? 'Logística & Supply Chain' : 'Logistics & Supply Chain'}
-                  </Link>
-                </div>
-
-                {/* Blog Section */}
-                <div className="border-t border-border/50 px-2 py-2">
-                  <Link href={href('/blog')} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-                    {isES ? '📚 Artículos & Blog' : '📚 Articles & Blog'}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Link href={href('/how-we-work')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
+            {isES ? 'Cómo trabajamos' : 'How We Work'}
+          </Link>
 
           <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
@@ -157,41 +94,9 @@ export default function Navigation() {
           <Link href={href(isES ? '/soluciones' : '/solutions')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Soluciones' : 'Solutions'}
           </Link>
-          
-          <Link href={href('/agent-matrix')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Matriz de Agentes' : 'Agent Matrix'}
+          <Link href={href('/how-we-work')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
+            {isES ? 'Cómo trabajamos' : 'How We Work'}
           </Link>
-          <Link href={href('/agent-operations')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-4">
-            {isES ? '└ Operaciones Agénticas' : '└ Agent Operations'}
-          </Link>
-
-          {/* Chile Mobile Section */}
-          <div className="border-t border-border/50 pt-3 mt-3">
-            <p className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase">{isES ? 'Soluciones para Chile' : 'Chile Solutions'}</p>
-            <Link href={href('/agentes-ia-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm font-medium text-foreground hover:bg-muted/50 rounded transition">
-              🤖 {isES ? 'Agentes IA para Empresas' : 'AI Agents for Business'}
-            </Link>
-            <p className="px-4 py-2 text-xs font-semibold text-muted-foreground uppercase">{isES ? 'Industrias' : 'Verticals'}</p>
-            <Link href={href('/agentes-ia-retail-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
-              {isES ? 'Retail & E-commerce' : 'Retail & E-commerce'}
-            </Link>
-            <Link href={href('/agentes-ia-mineria-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
-              {isES ? 'Minería & Recursos' : 'Mining & Resources'}
-            </Link>
-            <Link href={href('/agentes-ia-manufactura-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
-              {isES ? 'Manufactura' : 'Manufacturing'}
-            </Link>
-            <Link href={href('/agentes-ia-turismo-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
-              {isES ? 'Turismo & Hospitalidad' : 'Tourism & Hospitality'}
-            </Link>
-            <Link href={href('/agentes-ia-logistica-chile')} onClick={closeMobileMenu} className="block px-4 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition ml-2">
-              {isES ? 'Logística & Supply Chain' : 'Logistics & Supply Chain'}
-            </Link>
-            <Link href={href('/blog')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-              📚 {isES ? 'Artículos & Blog' : 'Articles & Blog'}
-            </Link>
-          </div>
-
           <Link href={href('/case-studies')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
             {isES ? 'Casos de Éxito' : 'Case Studies'}
           </Link>
