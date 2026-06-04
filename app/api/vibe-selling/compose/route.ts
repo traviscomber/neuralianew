@@ -1,4 +1,5 @@
 import { generateText } from "ai"
+import { openai } from "@ai-sdk/openai"
 import { detectIntent, generateVibeMessage, type VibeSignals } from "@/lib/vibe-selling/intent-detector"
 import { composeOffer } from "@/lib/vibe-selling/offer-composer"
 
