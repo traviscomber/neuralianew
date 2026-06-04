@@ -132,7 +132,8 @@ const faqData = {
 
 export function FaqPageClient() {
   const params = useParams();
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : 'es';
+  const localeParam = Array.isArray(params.locale) ? params.locale[0] : (params.locale as string);
+  const locale = isValidLocale(localeParam) ? (localeParam as Locale) : 'es';
   const isES = locale === 'es';
   
   const data = faqData[locale];
