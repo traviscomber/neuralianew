@@ -74,7 +74,7 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
               href={`/${locale}/case-studies`} 
               className="text-muted-foreground hover:text-foreground text-sm mb-4 inline-block transition-colors"
             >
-              {d.caseStudies.back}
+              ← {locale === 'es' ? 'Volver a casos de éxito' : 'Back to case studies'}
             </Link>
             <div className="mb-4">
               <span className="text-xs text-muted-foreground">{t2(locale, caseStudy.verticalTag)}</span>
@@ -111,15 +111,15 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.industry}</div>
+                <div className="text-xs text-muted-foreground mb-2">{locale === 'es' ? 'Industria' : 'Industry'}</div>
                 <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.industry)}</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.status}</div>
+                <div className="text-xs text-muted-foreground mb-2">{locale === 'es' ? 'Estado' : 'Status'}</div>
                 <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.status)}</div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground mb-2">{d.caseStudies.implementation}</div>
+                <div className="text-xs text-muted-foreground mb-2">{locale === 'es' ? 'Implementación' : 'Implementation'}</div>
                 <div className="text-lg font-semibold text-foreground">{t2(locale, caseStudy.implementation)}</div>
               </div>
             </div>

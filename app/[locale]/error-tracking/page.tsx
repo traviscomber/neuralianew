@@ -131,12 +131,12 @@ export default function ErrorTrackingPage() {
                         <Clock className="w-3 h-3" />
                         {new Date(error.timestamp).toLocaleString()}
                       </div>
-                      {error.context?.service && (
+                      {error.context?.['service'] ? (
                         <div className="flex items-center gap-1">
                           <MapPin className="w-3 h-3" />
-                          {String(error.context.service)}
+                          <span>{String(error.context['service'])}</span>
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
 
