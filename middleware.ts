@@ -109,7 +109,9 @@ function addSecurityHeaders(response: NextResponse) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const host = request.headers.get("host")?.toLowerCase()
+  const host =
+    request.nextUrl.hostname.toLowerCase() ||
+    request.headers.get("host")?.split(":")[0].toLowerCase()
   const isStaticAsset =
     pathname.startsWith("/_next") ||
     pathname.startsWith("/public") ||
