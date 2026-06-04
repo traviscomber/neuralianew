@@ -69,6 +69,27 @@ class AnalyticsService {
       console.error("❌ Event failed:", error)
     }
   }
+
+  async trackConversion(data: any): Promise<void> {
+    if (!this.sessionId || !this.supabase) return
+
+    try {
+      await this.supabase.from("conversions").insert({
+        session_id: this.sessionId,
+        conversion_type: data.conversion_type,
+        conversion_value: data.conversion_value,
+        conversion_data: data.conversion_data,
+        page_url: data.page_url,
+      })
+      console.log("✅ Conversion tracked:", data.conversion_type)
+    } catch (error) {
+      console.error("❌ Conversion tracking failed:", error)
+    }
+  }
+
+  getSessionId(): string | null {
+    return this.sessionId
+  }
 }
 
 export const analytics = new AnalyticsService()

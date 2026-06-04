@@ -102,7 +102,6 @@ export function generatePageMetadata(config: MetadataConfig): Metadata {
     title: `${title} | N3uralia`,
     description,
     keywords,
-    canonical: canonical || `https://n3uralia.com/${locale}`,
     alternates: {
       languages: buildAlternates(),
     },
