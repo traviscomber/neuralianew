@@ -109,22 +109,31 @@ function addSecurityHeaders(response: NextResponse) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const host =
-    request.headers.get("x-forwarded-host")?.toLowerCase() ||
-    request.headers.get("host")?.toLowerCase()
+  const host = request.headers.get("host")?.toLowerCase()
+  const isStaticAsset =
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/public") ||
+    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
 
   if (host === "n3uralia.com") {
     const redirectUrl = request.nextUrl.clone()
     redirectUrl.protocol = "https"
     redirectUrl.hostname = "www.n3uralia.com"
+
+    if (!pathname.startsWith("/api") && !isStaticAsset && !getLocale(pathname)) {
+      const acceptLanguage = request.headers.get("accept-language") || ""
+      const preferredLocale = acceptLanguage
+        .split(",")[0]
+        .split("-")[0]
+        .toLowerCase()
+      const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
+      redirectUrl.pathname = `/${validLocale}${pathname}`
+    }
+
     return NextResponse.redirect(redirectUrl, 308)
   }
 
-  if (
-    pathname.startsWith("/_next") ||
-    pathname.startsWith("/public") ||
-    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
-  ) {
+  if (isStaticAsset) {
     return NextResponse.next()
   }
 
