@@ -62,7 +62,7 @@ export function DemoContent() {
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [showEvolution, setShowEvolution] = useState(false) // Declared showEvolution variable
+  const [showEvolution, setShowEvolution] = useState(false)
 
   const personalityScores = {
     sentinel: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],

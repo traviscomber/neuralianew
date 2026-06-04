@@ -111,6 +111,18 @@ function getLocale(pathname: string): string | null {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  
+  // Get the host from headers (more reliable than nextUrl.hostname in Edge Runtime)
+  const host = request.headers.get('host') || ''
+  const hostname = host.split(':')[0] // Remove port if present
+
+  // Redirect non-www to www domain (e.g., n3uralia.com → www.n3uralia.com)
+  if (hostname === 'n3uralia.com') {
+    return NextResponse.redirect(
+      `https://www.n3uralia.com${pathname}${request.nextUrl.search}`,
+      { status: 301 }
+    )
+  }
 
   // Check for old Spanish routes that need redirecting
   const redirect = REDIRECT_ROUTES[pathname]
