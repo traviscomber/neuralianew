@@ -56,7 +56,9 @@ Tu trabajo:
 Sé conciso. Sé confiado. Sé específico.`
 
       const response = await generateText({
-        model: "openai/gpt-4-turbo",
+        model: openai("gpt-4-turbo", {
+          apiKey: process.env.OPENAI_API_KEY || "",
+        }) as any,
         system: systemPrompt,
         messages: [
           {

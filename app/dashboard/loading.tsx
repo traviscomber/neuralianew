@@ -1,3 +1,5 @@
-export default function Loading() {
+import type { ReactNode } from 'react'
+
+export default function Loading(): ReactNode {
   return null
 }

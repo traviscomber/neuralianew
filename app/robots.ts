@@ -18,9 +18,7 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: [
-      'https://n3uralia.com/sitemap.xml',
+      'https://www.n3uralia.com/sitemap.xml',
     ],
-    crawlDelay: 1,
-    userAgentToken: '*',
   }
 }

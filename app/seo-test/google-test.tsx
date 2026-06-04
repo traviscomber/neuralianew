@@ -5,12 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, CheckCircle, AlertCircle, Copy, RefreshCw } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
 
 export default function GoogleStructuredDataTest() {
   const [currentUrl, setCurrentUrl] = useState("")
   const [testStatus, setTestStatus] = useState<"idle" | "testing" | "success" | "error">("idle")
-  const { toast } = useToast()
 
   useEffect(() => {
     setCurrentUrl(window.location.origin)
@@ -18,10 +16,7 @@ export default function GoogleStructuredDataTest() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
-    toast({
-      title: "Copied to clipboard",
-      description: "URL copied successfully",
-    })
+    // Toast notification removed - hook not available
   }
 
   const openGoogleRichResultsTest = () => {
