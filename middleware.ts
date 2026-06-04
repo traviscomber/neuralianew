@@ -118,9 +118,10 @@ export async function middleware(request: NextRequest) {
 
   // Redirect non-www to www domain (e.g., n3uralia.com → www.n3uralia.com)
   if (hostname === 'n3uralia.com') {
-    const url = request.nextUrl.clone()
-    url.host = 'www.n3uralia.com'
-    return NextResponse.redirect(url, { status: 301 })
+    return NextResponse.redirect(
+      `https://www.n3uralia.com${pathname}${request.nextUrl.search}`,
+      { status: 301 }
+    )
   }
 
   // Check for old Spanish routes that need redirecting
