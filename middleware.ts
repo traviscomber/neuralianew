@@ -109,6 +109,16 @@ function addSecurityHeaders(response: NextResponse) {
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const host =
+    request.headers.get("x-forwarded-host")?.toLowerCase() ||
+    request.headers.get("host")?.toLowerCase()
+
+  if (host === "n3uralia.com") {
+    const redirectUrl = request.nextUrl.clone()
+    redirectUrl.protocol = "https"
+    redirectUrl.hostname = "www.n3uralia.com"
+    return NextResponse.redirect(redirectUrl, 308)
+  }
 
   if (
     pathname.startsWith("/_next") ||
