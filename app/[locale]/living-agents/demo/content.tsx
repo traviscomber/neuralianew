@@ -62,9 +62,9 @@ export function DemoContent() {
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [showEvolution, // setShowEvolution] = useState(false) // Declared showEvolution variable
+  const [showEvolution, setShowEvolution] = useState(false)
 
-  // const personalityScores = {
+  const personalityScores = {
     sentinel: [85, 90, 78, 88, 92, 75, 88, 80, 85, 90],
     weaver: [72, 88, 92, 85, 80, 95, 78, 82, 88, 85],
     historian: [88, 92, 95, 85, 90, 80, 88, 90, 82, 88],
@@ -72,7 +72,7 @@ export function DemoContent() {
     master: [92, 88, 90, 95, 85, 88, 92, 94, 90, 85],
   }
 
-  // const handleSendMessage = () => {
+  const handleSendMessage = () => {
     if (!input.trim()) return
 
     const userMessage: Message = {
