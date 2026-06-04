@@ -9,19 +9,6 @@
       "maxDuration": 30
     }
   },
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "n3uralia.com"
-        }
-      ],
-      "destination": "https://www.n3uralia.com/:path*",
-      "permanent": true
-    }
-  ],
   "rewrites": [],
   "headers": [
     {

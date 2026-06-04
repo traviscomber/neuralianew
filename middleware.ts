@@ -110,7 +110,14 @@ function getLocale(pathname: string): string | null {
 }
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
+  const { pathname, hostname } = request.nextUrl
+
+  // Redirect non-www to www domain (e.g., n3uralia.com → www.n3uralia.com)
+  if (hostname === 'n3uralia.com') {
+    return NextResponse.redirect(new URL(`${pathname}${request.nextUrl.search}`, `https://www.n3uralia.com`), {
+      status: 301,
+    })
+  }
 
   // Check for old Spanish routes that need redirecting
   const redirect = REDIRECT_ROUTES[pathname]
