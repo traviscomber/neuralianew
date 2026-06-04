@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { DemoContent } from './content'
-import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: 'Living Agents Demo | N3uralia (Neuralia) - Chat Interactivo',

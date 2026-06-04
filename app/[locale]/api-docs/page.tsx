@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { API_ENDPOINTS } from '@/lib/api-schema'
 import { Copy, ExternalLink, Lock, Unlock } from 'lucide-react'
-import { SectionBackground } from '@/components/section-background'
 
 export default function APIDocsPage() {
   const [copied, setCopied] = useState<string | null>(null)

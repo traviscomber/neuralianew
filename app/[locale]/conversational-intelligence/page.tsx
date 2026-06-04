@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Zap, Users, BarChart3, Workflow, Shield, TrendingUp } from "lucide-react"
-import { SectionBackground } from "@/components/section-background"
 
 type Props = {
   params: Promise<{ locale: string }>

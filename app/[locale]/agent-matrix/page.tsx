@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 import { Section } from "@/components/Section"
 import Link from "next/link"
@@ -201,7 +200,7 @@ export default function AgentMatrixPage({ params }: PageProps) {
           </div>
         </section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

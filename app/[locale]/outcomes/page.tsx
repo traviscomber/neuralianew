@@ -1,6 +1,5 @@
 import { OutcomesPageClient } from "@/components/outcomes/outcomes-page-client"
 import type { Metadata, Viewport } from "next"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Resultados N3uralia (Neuralia) | Casos Reales y Transformación de Empresas",

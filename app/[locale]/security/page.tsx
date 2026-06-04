@@ -70,7 +70,7 @@ export default function SecurityPage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

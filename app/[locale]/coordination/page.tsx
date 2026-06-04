@@ -1,7 +1,6 @@
 "use client"
 import { Users, CheckCircle2, Zap, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { SectionBackground } from "@/components/section-background"
 
 const features = [
   {

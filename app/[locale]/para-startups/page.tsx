@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "N3uralia para Startups | Agentes IA Escalables sin Complejidad Enterprise",

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { ContactFormClient } from '@/components/contact/contact-form-client'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: 'Contactar - N3uralia',

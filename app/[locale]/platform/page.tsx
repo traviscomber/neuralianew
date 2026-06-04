@@ -51,7 +51,7 @@ export default function PlatformPage({ params }: PageProps) {
 
         <PlatformClient locale={locale} />
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

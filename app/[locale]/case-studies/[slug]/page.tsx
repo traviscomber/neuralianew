@@ -59,7 +59,7 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
             </Link>
           </div>
         </main>
-        <Footer locale={locale} />
+        <Footer />
       </>
     )
   }
@@ -182,7 +182,7 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
           )}
         </Section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

@@ -2,7 +2,6 @@ import Link from "next/link"
 import { ArrowRight, Brain, BookOpen, Zap } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Centro de Aprendizaje - N3uralia | Conceptos y Guías de IA",

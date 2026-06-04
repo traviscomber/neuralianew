@@ -3,7 +3,6 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { methodologySteps } from "@/app/constants/content"
-import { SectionBackground } from "@/components/section-background"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 
 interface PageProps {

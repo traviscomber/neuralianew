@@ -65,7 +65,7 @@ export default function AIInfrastructurePage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

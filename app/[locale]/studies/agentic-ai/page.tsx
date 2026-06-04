@@ -2,7 +2,6 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "What is Agentic AI? | N3uralia Studies",

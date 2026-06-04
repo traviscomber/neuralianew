@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Script from 'next/script';
 import { FaqPageClient } from '@/components/faq/faq-page-client'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 export const metadata: Metadata = {
   title: "FAQ N3uralia - Preguntas sobre Sistemas Agenticos, Living Agents, IA en Producción",
