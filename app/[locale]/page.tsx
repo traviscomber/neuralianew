@@ -32,26 +32,26 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Producción - Automatización Empresarial IA",
+  title: "N3uralia | IA y Software para Operaciones Reales - Chile y LATAM",
   description:
-    "N3uralia: Orquestación de sistemas agenticos para empresas. Automatiza procesos con inteligencia aumentada. Soluciones para retail, manufactura, servicios financieros, salud, legal y logística.",
+    "N3uralia construye sistemas de IA y software operativo para empresas en Chile y LATAM. Infraestructura, no truco. Automatización con control, trazabilidad y resultado real.",
   keywords:
-    "sistemas agenticos, IA en producción, automatización empresarial, inteligencia aumentada, agentes inteligentes, orquestación multiagente, n3uralia",
+    "IA en producción, software operativo, automatización empresarial, sistemas agenticos, operaciones reales, n3uralia, Chile",
   alternates: {
-    canonical: "https://n3uralia.com",
+    canonical: "https://www.n3uralia.com",
     languages: {
-      "es-CL": "https://n3uralia.com/es",
-      "es": "https://n3uralia.com/es",
-      "en": "https://n3uralia.com/en",
-      "en-US": "https://n3uralia.com/en",
+      "es-CL": "https://www.n3uralia.com/es",
+      "es": "https://www.n3uralia.com/es",
+      "en": "https://www.n3uralia.com/en",
+      "en-US": "https://www.n3uralia.com/en",
     },
   },
   openGraph: {
-    title: "N3uralia - Automatización Empresarial con Sistemas Agenticos",
-    description: "Orquestación de sistemas agenticos listos para producción. Automatiza tus operaciones con IA que evoluciona.",
+    title: "N3uralia - IA y Software para Operaciones Reales",
+    description: "Construimos sistemas de IA y software que reducen fricción operativa sin perder control. Desde Chile para operaciones reales en LATAM.",
     type: "website",
     locale: "es_CL",
-    url: "https://n3uralia.com",
+    url: "https://www.n3uralia.com",
     siteName: "N3uralia",
   },
 }
@@ -70,24 +70,34 @@ export default function HomePage({ params }: PageProps) {
             <div className="max-w-4xl mx-auto text-center w-full">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">{d.home.hero.badge}</span>
+                <span className="text-sm font-medium text-primary">
+                  {isES ? "Desde Chile para operaciones reales en LATAM" : "From Chile for real operations in LATAM"}
+                </span>
               </div>
 
               <h1 className="text-5xl sm:text-6xl font-bold mb-8 leading-tight text-balance text-foreground">
-                {d.home.hero.title}
+                {isES ? "IA y software para operaciones que no pueden fallar" : "AI and software for operations that cannot fail"}
               </h1>
 
               <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-                {d.home.hero.subtitle}
+                {isES 
+                  ? "Diseñamos sistemas que integran datos, procesos y decisiones para reducir fricción operativa sin perder control." 
+                  : "We design systems that integrate data, processes, and decisions to reduce operational friction without losing control."}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
                 <Link
-                  href="#tiered-ctas"
+                  href={`/${locale}/contact`}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {isES ? "Explorar" : "Get Started"}
+                  {isES ? "Agendar diagnóstico" : "Schedule diagnosis"}
                   <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href={`/${locale}/soluciones`}
+                  className="px-8 py-3 border border-primary/30 text-foreground rounded-lg font-semibold hover:bg-muted transition-all flex items-center justify-center gap-2"
+                >
+                  {isES ? "Ver soluciones" : "View solutions"}
                 </Link>
               </div>
 
