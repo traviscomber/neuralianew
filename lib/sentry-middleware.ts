@@ -19,16 +19,17 @@ export function withErrorBoundary(handler: (req: NextRequest) => Promise<NextRes
 
       if (response.status >= 400) {
         const data = await response.clone().json().catch(() => ({}))
-        Sentry.captureMessage(`HTTP ${response.status}: ${req.nextUrl.pathname}`, "warning", {
-          request: {
+        Sentry.withScope((scope) => {
+          scope.setContext("request", {
             method: req.method,
             url: req.nextUrl.toString(),
             headers: Object.fromEntries(req.headers.entries()),
-          },
-          response: {
+          })
+          scope.setContext("response", {
             status: response.status,
             data,
-          },
+          })
+          Sentry.captureMessage(`HTTP ${response.status}: ${req.nextUrl.pathname}`, "warning")
         })
       }
 

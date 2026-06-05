@@ -116,7 +116,7 @@ class UpstashRateLimitStore implements RateLimitStore {
     try {
       // Use ZCOUNT to count requests in the window
       const countResult = await this.executeCommand<{ result: [number] }>([
-        ['ZCOUNT', key, windowStart, now],
+        'ZCOUNT', key, windowStart.toString(), now.toString(),
       ])
 
       const current = countResult.result[0] || 0
@@ -126,8 +126,10 @@ class UpstashRateLimitStore implements RateLimitStore {
       if (allowed) {
         // Add current request to the sorted set
         await this.executeCommand([
-          ['ZADD', key, now, `${now}-${Math.random()}`],
-          ['EXPIRE', key, Math.ceil(config.windowMs / 1000)],
+          'ZADD', key, now.toString(), `${now}-${Math.random()}`,
+        ])
+        await this.executeCommand([
+          'EXPIRE', key, Math.ceil(config.windowMs / 1000).toString(),
         ])
       }
 
@@ -152,7 +154,7 @@ class UpstashRateLimitStore implements RateLimitStore {
 
   async reset(key: string): Promise<void> {
     try {
-      await this.executeCommand([['DEL', key]])
+      await this.executeCommand(['DEL', key])
     } catch (error) {
       console.error('Rate limit reset error:', error)
     }
