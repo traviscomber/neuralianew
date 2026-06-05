@@ -4,7 +4,6 @@ import { ArrowRight, Zap, DollarSign, Clock, BarChart3 } from 'lucide-react'
 import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
 import type { Locale } from '@/content/dictionaries'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 interface PageProps {
   params: { locale: string }

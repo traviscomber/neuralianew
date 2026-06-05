@@ -69,7 +69,7 @@ export default function PlaybooksPage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

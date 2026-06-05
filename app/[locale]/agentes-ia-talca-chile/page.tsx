@@ -4,7 +4,6 @@ import { ArrowRight } from 'lucide-react'
 import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
 import type { Locale } from '@/content/dictionaries'
 import { Footer } from '@/components/layout/footer'
-import { SectionBackground } from '@/components/section-background'
 
 interface PageProps { params: { locale: string } }
 
@@ -25,7 +24,6 @@ export default function AgentesIATalcaPage({ params }: PageProps) {
   return (
     <main className="min-h-screen bg-background">
       <section className="py-20 px-4 bg-background relative overflow-hidden pt-32">
-        <SectionBackground />
         <div className="container mx-auto max-w-4xl relative z-10">
           <h1 className="text-5xl font-bold mb-6">{isES ? "Agentes de IA para Talca" : "AI Agents for Talca"}</h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl">{isES ? "Automatización para Talca: agricultura, retail, servicios. Reduce costos hasta 70%, escala sin aumentar equipo." : "Automation for Talca: agriculture, retail, services. Reduce costs up to 70%, scale without hiring."}</p>

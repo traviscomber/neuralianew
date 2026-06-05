@@ -175,7 +175,7 @@ export async function POST(request: NextRequest) {
     const adminResult = await resend.emails.send({
       from: `${fromName} <${fromEmail}>`,
       to: [recipientEmail],
-      replyTo: email,
+      reply_to: email,
       subject: `📬 Nuevo Contacto de ${name}`,
       html: adminEmailHtml,
     })

@@ -82,7 +82,8 @@ class PerformanceMonitor {
       const entries = list.getEntries()
       entries.forEach((entry) => {
         if (entry.name.includes(".png") || entry.name.includes(".jpg") || entry.name.includes(".jpeg")) {
-          const loadTime = entry.responseEnd - entry.startTime
+          const resourceTiming = entry as PerformanceResourceTiming
+          const loadTime = (resourceTiming.responseEnd || 0) - (resourceTiming.startTime || 0)
           if (loadTime > 1000) {
             console.warn(`Slow image loading: ${entry.name} took ${loadTime}ms`)
           }

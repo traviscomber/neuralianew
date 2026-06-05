@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { LivingAgentsContent } from "./content"
-import { SectionBackground } from "@/components/section-background"
 
 export const metadata: Metadata = {
   title: "Living Agents de N3uralia (Neuralia) | Agentes con Personalidad Emergente",
@@ -12,8 +11,6 @@ export const metadata: Metadata = {
 
 export default function LivingAgentsPage() {
   return (
-    <SectionBackground section="hero">
-      <LivingAgentsContent />
-    </SectionBackground>
+    <LivingAgentsContent />
   )
 }

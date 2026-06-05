@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { SectionBackground } from "./section-background"
 
 interface BillingualSectionProps {
-  section?: "hero" | "workflow" | "solutions" | "capabilities"
+  section: "hero" | "workflow" | "solutions" | "capabilities" | "blog" | "faq"
   borderPosition?: "border-b" | "border-t" | "border-t border-b"
   children: ReactNode
   className?: string

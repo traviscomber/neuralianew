@@ -11,22 +11,22 @@ interface PageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Soluciones de Sistemas Agenticos - Automatización para Múltiples Industrias",
+  title: "Soluciones de IA y Software Operativo - Por Industria",
   description:
-    "Soluciones especializadas de sistemas agenticos para cada industria: retail y e-commerce, manufactura, turismo y hospitalidad, servicios financieros, gobierno. Living agents, orquestación multiagente, listo para producción.",
+    "Soluciones de IA y software para operaciones reales en retail, manufactura, minería, turismo, logística y servicios. Reduce fricción operativa sin perder control.",
   keywords:
-    "soluciones sistemas agenticos, living agents, retail automation, manufactura inteligente, turismo IA, finanzas automatizadas, e-commerce, agentes inteligentes, n3uralia",
+    "soluciones IA, software operativo, automatización empresarial, retail, manufactura, minería, turismo, logística, n3uralia",
   alternates: {
-    canonical: `https://n3uralia.com/es/soluciones`,
+    canonical: `https://www.n3uralia.com/es/soluciones`,
     languages: {
-      "es": "https://n3uralia.com/es/soluciones",
-      "en": "https://n3uralia.com/en/solutions",
+      "es": "https://www.n3uralia.com/es/soluciones",
+      "en": "https://www.n3uralia.com/en/solutions",
     },
   },
   openGraph: {
-    title: "Soluciones de Sistemas Agenticos - Automatización para Múltiples Industrias",
-    description: "Soluciones especializadas de sistemas agenticos para cada industria.",
-    url: "https://n3uralia.com/es/soluciones",
+    title: "Soluciones de IA y Software Operativo - Por Industria",
+    description: "IA y software para operaciones que no pueden fallar.",
+    url: "https://www.n3uralia.com/es/soluciones",
     type: 'website',
   },
 }
@@ -43,18 +43,18 @@ export default function SolucionesPage({ params }: PageProps) {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm font-medium text-primary">
-              {isES ? "Soluciones" : "Solutions"}
+              {isES ? "Soluciones por Industria" : "Solutions by Industry"}
             </span>
           </div>
           <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
             {isES
-              ? "Sistemas Agénticos para Tu Industria"
-              : "Agentic Systems for Your Industry"}
+              ? "IA y Software para Tu Operación Real"
+              : "AI and Software for Your Real Operations"}
           </h1>
           <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             {isES
-              ? "Automatización especializada que se adapta a los desafíos únicos de tu negocio."
-              : "Specialized automation tailored to your business challenges."}
+              ? "Soluciones especializadas que reducen fricción operativa, integran sistemas y mantienen control. Para empresas en Chile y LATAM que no pueden fallar."
+              : "Specialized solutions that reduce operational friction, integrate systems, and maintain control. For enterprises in Chile and LATAM that can't afford to fail."}
           </p>
         </div>
       </section>

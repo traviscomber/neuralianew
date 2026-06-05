@@ -122,13 +122,13 @@ export function PlatformClient({ locale }: PlatformClientProps) {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.98 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } },
-  }
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6 } },
+  } as any
 
   const pillarVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
-  }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+  } as any
 
   return (
     <>

@@ -123,7 +123,7 @@ export default function AboutPage({ params }: PageProps) {
         </section>
       </main>
 
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

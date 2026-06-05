@@ -192,7 +192,7 @@ export default function LabsPage({ params }: PageProps) {
           </div>
         </section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

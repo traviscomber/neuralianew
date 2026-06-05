@@ -166,10 +166,10 @@ function processConversionData(conversions: any[], sessions: any[]) {
     totalConversions,
     conversionRate: Math.round(conversionRate * 100) / 100,
     conversionTypes: Object.entries(conversionTypes)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - (a as number))
       .reduce((acc, [type, count]) => ({ ...acc, [type]: count }), {}),
     sourcePages: Object.entries(sourcePages)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - (a as number))
       .slice(0, 10)
       .reduce((acc, [page, count]) => ({ ...acc, [page]: count }), {}),
     conversionsByHour: Object.entries(conversionsByHour)

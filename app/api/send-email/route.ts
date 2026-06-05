@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
     const teamResult = await resend.emails.send({
       from: `${fromName} <${fromEmail}>`,
       to: "info@n3uralia.com",
-      replyTo: email,
+      reply_to: email,
       subject: `Nuevo contacto: ${name} - N3uralia`,
       html: teamEmailHtml,
     })

@@ -68,7 +68,7 @@ export default function NodesPage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

@@ -383,7 +383,7 @@ export class PerformanceTracker {
     }
   }
 
-  isTracking(): boolean {
+  getTrackingStatus(): boolean {
     return this.isTracking
   }
 

@@ -34,7 +34,7 @@ export class EmailService {
         to: options.to,
         subject: options.subject,
         html: options.html,
-        replyTo: options.replyTo,
+        reply_to: options.replyTo,
         cc: options.cc,
         bcc: options.bcc,
       })

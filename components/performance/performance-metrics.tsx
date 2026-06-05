@@ -10,6 +10,9 @@ interface PerformanceMetrics {
   ttfb: number | null
 }
 
+type PerformanceEntryWithStartTime = PerformanceEntry & { renderTime?: number; loadTime?: number }
+type PerformanceResourceTiming = PerformanceEntry & { responseStart?: number }
+
 export function PerformanceMetrics() {
   const [metrics, setMetrics] = useState<PerformanceMetrics>({
     fcp: null,
@@ -39,7 +42,8 @@ export function PerformanceMetrics() {
         // Largest Contentful Paint
         const lcpObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const lcp = entries[entries.length - 1]?.renderTime || entries[entries.length - 1]?.loadTime
+          const lastEntry = entries[entries.length - 1] as PerformanceEntryWithStartTime
+          const lcp = lastEntry?.renderTime || lastEntry?.loadTime
           if (lcp) {
             setMetrics((prev) => ({ ...prev, lcp: Math.round(lcp) }))
           }
@@ -63,7 +67,8 @@ export function PerformanceMetrics() {
         // Time to First Byte
         const ttfbObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const ttfb = entries[0]?.responseStart
+          const navEntry = entries[0] as PerformanceResourceTiming
+          const ttfb = navEntry?.responseStart
           if (ttfb) {
             setMetrics((prev) => ({ ...prev, ttfb: Math.round(ttfb) }))
           }

@@ -129,7 +129,7 @@ export default function CaseStudiesPage({ params }: PageProps) {
           </div>
         </section>
       </main>
-      <Footer locale={locale} />
+      <Footer />
     </>
   )
 }

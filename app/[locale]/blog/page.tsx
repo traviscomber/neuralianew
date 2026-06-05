@@ -4,7 +4,6 @@ import { BlogPageClient } from "@/components/blog/blog-page-client"
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import type { Locale } from "@/content/dictionaries"
-import { SectionBackground } from "@/components/section-background"
 import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {

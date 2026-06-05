@@ -267,8 +267,8 @@ export function usePerformanceMonitoring() {
   }, [isMonitoring, currentSession])
 
   // Real-time metric updates
-  useEffect(() => {
-    if (!isMonitoring) return
+  useEffect((): (() => void) => {
+    if (!isMonitoring) return () => {}
 
     const updateMetrics = () => {
       setTimeElapsed((prev) => prev + 1)
