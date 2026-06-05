@@ -1,20 +1,105 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { Resend } from "resend"
-
-function getResend() {
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    throw new Error("RESEND_API_KEY not configured")
-  }
-
-  return new Resend(apiKey)
-}
+import { escapeHtml, sendResendEmail } from "@/lib/resend-api"
 
 export const runtime = "edge"
 
+function buildAdminEmailHtml(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+}) {
+  return `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: #181e2a; color: white; padding: 24px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: white; padding: 24px; border: 1px solid #e5e7eb; border-top: none; }
+          .info-box { background: #f8fafc; padding: 16px; margin: 20px 0; border-radius: 6px; }
+          .message-box { background: #f1f5f9; padding: 20px; border-radius: 6px; margin: 20px 0; }
+          .reply-button { display: inline-block; padding: 12px 24px; background: #b1d374; color: #101828; text-decoration: none; border-radius: 5px; margin-top: 12px; }
+          .footer { text-align: center; padding: 16px; color: #666; font-size: 12px; border-top: 1px solid #e5e7eb; }
+          p { margin: 10px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Nuevo mensaje de contacto</h1>
+          </div>
+          <div class="content">
+            <p>Has recibido un nuevo mensaje desde el formulario de N3uralia.</p>
+            <div class="info-box">
+              <p><strong>Nombre:</strong> ${params.name}</p>
+              <p><strong>Email:</strong> <a href="mailto:${params.email}">${params.email}</a></p>
+              ${params.company ? `<p><strong>Empresa:</strong> ${params.company}</p>` : ""}
+            </div>
+            <div class="message-box">
+              <p><strong>Mensaje:</strong></p>
+              <p>${params.message.replace(/\n/g, "<br>")}</p>
+            </div>
+            <p>Puedes responder directamente a este email para contactar al lead.</p>
+            <a href="mailto:${params.email}?subject=Re: Tu consulta en N3uralia" class="reply-button">Responder</a>
+          </div>
+          <div class="footer">
+            <p>&copy; 2026 N3uralia</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `
+}
+
+function buildUserEmailHtml(params: { email: string; message: string; name: string }) {
+  const messagePreview = params.message.length > 140 ? `${params.message.slice(0, 140)}...` : params.message
+
+  return `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: #181e2a; color: white; padding: 24px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: white; padding: 24px; border: 1px solid #e5e7eb; border-top: none; }
+          .status-box { background: #ecfdf5; padding: 16px; border-radius: 6px; margin: 20px 0; }
+          .summary-box { background: #f8fafc; padding: 16px; border-radius: 6px; margin: 20px 0; }
+          .footer { text-align: center; padding: 16px; color: #666; font-size: 12px; border-top: 1px solid #e5e7eb; }
+          p { margin: 10px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>Recibimos tu mensaje</h1>
+          </div>
+          <div class="content">
+            <p>Hola <strong>${params.name}</strong>,</p>
+            <div class="status-box">
+              <p>Gracias por escribirnos. Nuestro equipo ya recibio tu consulta y te respondera pronto.</p>
+            </div>
+            <div class="summary-box">
+              <p><strong>Email de contacto:</strong> ${params.email}</p>
+              <p><strong>Resumen:</strong> "${messagePreview}"</p>
+            </div>
+            <p>Si necesitas acelerar la conversacion, tambien puedes escribir a <a href="mailto:info@n3uralia.com">info@n3uralia.com</a>.</p>
+            <p>Equipo N3uralia</p>
+          </div>
+          <div class="footer">
+            <p>&copy; 2026 N3uralia</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `
+}
+
 export async function POST(request: NextRequest) {
   try {
-    if (!process.env.RESEND_API_KEY) {
+    if (!process.env["RESEND_API_KEY"]) {
       return NextResponse.json(
         { success: false, error: "RESEND_API_KEY not configured" },
         { status: 500 },
@@ -23,7 +108,6 @@ export async function POST(request: NextRequest) {
 
     const { name, email, company, message } = await request.json()
 
-    // Validation
     if (!name || !email || !message) {
       return NextResponse.json(
         { success: false, error: "Missing required fields: name, email, message" },
@@ -31,115 +115,37 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const fromEmail = "info@n3uralia.com"
-    const fromName = process.env.RESEND_FROM_NAME || "N3uralia"
-    const recipientEmail = "n3uralia@gmail.com" // Where we receive contact submissions
-    const resend = getResend()
+    const safeName = escapeHtml(String(name))
+    const safeEmail = escapeHtml(String(email))
+    const safeCompany = company ? escapeHtml(String(company)) : ""
+    const safeMessage = escapeHtml(String(message))
 
-    // Email to admin
-    const adminEmailHtml = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: white; padding: 30px; border: 1px solid #e0e0e0; border-top: none; }
-            .info-box { background: #f8f9fa; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0; border-radius: 4px; }
-            .message-box { background: #f0f4f8; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #667eea; }
-            .reply-button { display: inline-block; padding: 12px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
-            .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #e0e0e0; }
-            p { margin: 10px 0; }
-            strong { color: #667eea; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>📬 Nuevo Mensaje de Contacto</h1>
-            </div>
-            <div class="content">
-              <p>Has recibido un nuevo mensaje del formulario de contacto de N3uralia:</p>
-              <div class="info-box">
-                <p><strong>Nombre:</strong> ${name}</p>
-                <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-                ${company ? `<p><strong>Empresa:</strong> ${company}</p>` : ""}
-              </div>
-              <div class="message-box">
-                <p><strong>Mensaje:</strong></p>
-                <p>${message.replace(/\n/g, "<br>")}</p>
-              </div>
-              <p>Puedes responder directamente a este email o contactar a <strong>${name}</strong> en <a href="mailto:${email}">${email}</a>.</p>
-              <a href="mailto:${email}?subject=Re: Tu consulta en N3uralia" class="reply-button">Responder al Usuario</a>
-            </div>
-            <div class="footer">
-              <p>&copy; 2025 N3uralia. Todos los derechos reservados.</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    `
+    const fromName = process.env["RESEND_FROM_NAME"] || "N3uralia"
+    const fromEmail = process.env["RESEND_FROM_EMAIL"] || "info@n3uralia.com"
+    const adminRecipient = process.env["CONTACT_RECIPIENT_EMAIL"] || "n3uralia@gmail.com"
 
-    // Email to user (confirmation)
-    const userEmailHtml = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: white; padding: 30px; border: 1px solid #e0e0e0; border-top: none; }
-            .checkmark { font-size: 48px; margin-bottom: 10px; }
-            .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; border-top: 1px solid #e0e0e0; }
-            p { margin: 10px 0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <div class="checkmark">✅</div>
-              <h1>Mensaje Recibido</h1>
-            </div>
-            <div class="content">
-              <p>Hola <strong>${name}</strong>,</p>
-              <p>Gracias por contactar con N3uralia. Hemos recibido tu mensaje y nuestro equipo te responderá en breve.</p>
-              <p><strong>Resumen de tu consulta:</strong></p>
-              <p style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #667eea; margin: 20px 0;">
-                "${message.substring(0, 100)}${message.length > 100 ? "..." : ""}"
-              </p>
-              <p>Si tienes urgencia, también puedes contactarnos por:</p>
-              <ul>
-                <li>📧 Email: <a href="mailto:info@n3uralia.com">info@n3uralia.com</a></li>
-                <li>💬 WhatsApp: <a href="https://wa.me/56993826127">+56 9 9382 6127</a></li>
-              </ul>
-              <p>Saludos,<br><strong>El equipo de N3uralia</strong></p>
-            </div>
-            <div class="footer">
-              <p>&copy; 2025 N3uralia. Todos los derechos reservados.</p>
-              <p>Este es un email automático, por favor no respondas a este email.</p>
-            </div>
-          </div>
-        </body>
-      </html>
-    `
-
-    // Send email to admin
-    const adminResult = await resend.emails.send({
+    const adminResult = await sendResendEmail({
       from: `${fromName} <${fromEmail}>`,
-      to: [recipientEmail],
+      html: buildAdminEmailHtml({
+        company: safeCompany,
+        email: safeEmail,
+        message: safeMessage,
+        name: safeName,
+      }),
       replyTo: email,
-      subject: `📬 Nuevo Contacto de ${name}`,
-      html: adminEmailHtml,
+      subject: `Nuevo contacto de ${name}`,
+      to: adminRecipient,
     })
 
-    // Send confirmation email to user
-    const userResult = await resend.emails.send({
+    const userResult = await sendResendEmail({
       from: `${fromName} <${fromEmail}>`,
-      to: [email],
-      subject: "✅ Hemos recibido tu mensaje - N3uralia",
-      html: userEmailHtml,
+      html: buildUserEmailHtml({
+        email: safeEmail,
+        message: safeMessage,
+        name: safeName,
+      }),
+      subject: "Recibimos tu mensaje - N3uralia",
+      to: email,
     })
 
     return NextResponse.json({
@@ -150,13 +156,13 @@ export async function POST(request: NextRequest) {
         userEmail: userResult,
       },
     })
-  } catch (error: any) {
-    console.error("[v0] Contact email error:", error)
+  } catch (error) {
+    console.error("[contact] Email error:", error)
     return NextResponse.json(
       {
         success: false,
         error: "Failed to send contact email",
-        details: error.message,
+        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 },
     )

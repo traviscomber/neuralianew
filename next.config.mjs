@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  skipTrailingSlashRedirect: true,
   eslint: {
     ignoreDuringBuilds: true, // Temporary unblock while repo is on Next 14 + ESLint 9
   },
@@ -83,11 +84,49 @@ const nextConfig = {
       })
     })
 
-    // Redirect root to Spanish (default locale)
-    redirects.push({
-      source: '/',
-      destination: '/es',
-      permanent: false, // 307 temporary redirect
+    locales.forEach((locale) => {
+      redirects.push(
+        {
+          source: `/${locale}/how-we-work`,
+          destination: `/${locale}/como-trabajamos`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/agent-matrix`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/agent-operations`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/agentes-ia-:slug*`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/soluciones/logistica`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/soluciones/manufactura`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/soluciones/retail`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        },
+        {
+          source: `/${locale}/soluciones/turismo`,
+          destination: `/${locale}/soluciones`,
+          permanent: true,
+        }
+      )
     })
 
     return redirects

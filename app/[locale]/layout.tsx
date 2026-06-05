@@ -24,8 +24,8 @@ export async function generateMetadata({
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
-    es: "N3uralia | Sistemas de IA en produccion",
-    en: "N3uralia | Production AI systems",
+    es: "N3uralia | IA y software para operaciones reales",
+    en: "N3uralia | AI and software for real operations",
   }
 
   const descriptions = {
@@ -37,10 +37,10 @@ export async function generateMetadata({
     title: titles[locale],
     description: descriptions[locale],
     alternates: {
-      canonical: `https://n3uralia.com/${locale}`,
+      canonical: `https://www.n3uralia.com/${locale}`,
       languages: {
-        es: "https://n3uralia.com/es",
-        en: "https://n3uralia.com/en",
+        es: "https://www.n3uralia.com/es",
+        en: "https://www.n3uralia.com/en",
       },
     },
     openGraph: {

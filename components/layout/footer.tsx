@@ -51,13 +51,13 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={href("/faq")} className="hover:text-foreground transition-colors">
-                  FAQ
+                <Link href={href("/como-trabajamos")} className="hover:text-foreground transition-colors">
+                  {isES ? "Como trabajamos" : "How we work"}
                 </Link>
               </li>
               <li>
-                <Link href={href("/studies")} className="hover:text-foreground transition-colors">
-                  {isES ? "Estudios" : "Studies"}
+                <Link href={href("/faq")} className="hover:text-foreground transition-colors">
+                  FAQ
                 </Link>
               </li>
               <li>
@@ -76,6 +76,11 @@ export function Footer() {
           <div>
             <p className="font-bold mb-4 text-foreground">{isES ? "Soluciones" : "Solutions"}</p>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link href={href("/soluciones")} className="hover:text-foreground transition-colors">
+                  {isES ? "Todas las soluciones" : "All solutions"}
+                </Link>
+              </li>
               <li>
                 <Link href={href("/capabilities")} className="hover:text-foreground transition-colors">
                   {isES ? "Capacidades" : "Capabilities"}

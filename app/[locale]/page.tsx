@@ -37,29 +37,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
-    es: "N3uralia | Sistemas de IA en produccion para Chile y LATAM",
-    en: "N3uralia | Production AI systems for Chile and LATAM",
+    es: "N3uralia | IA y software para operaciones reales - Chile y LATAM",
+    en: "N3uralia | AI and software for real operations - Chile and LATAM",
   }
 
   const descriptions = {
-    es: "Construimos sistemas de IA, automatizacion y software para operaciones reales. Arquitectura, integracion y despliegue en produccion desde Chile.",
-    en: "We build production AI systems, automation, and software for real operations. Architecture, integration, and deployment from Chile.",
+    es: "N3uralia construye sistemas de IA y software operativo para empresas en Chile y LATAM. Infraestructura, no truco. Automatizacion con control, trazabilidad y resultado real.",
+    en: "N3uralia builds AI systems and operational software for teams in Chile and LATAM. Infrastructure, not a trick. Automation with control, traceability, and real outcomes.",
   }
 
   return {
     title: titles[locale],
     description: descriptions[locale],
     alternates: {
-      canonical: `https://n3uralia.com/${locale}`,
+      canonical: `https://www.n3uralia.com/${locale}`,
       languages: {
-        es: "https://n3uralia.com/es",
-        en: "https://n3uralia.com/en",
+        es: "https://www.n3uralia.com/es",
+        en: "https://www.n3uralia.com/en",
       },
     },
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],
-      url: `https://n3uralia.com/${locale}`,
+      url: `https://www.n3uralia.com/${locale}`,
       locale: locale === "es" ? "es_CL" : "en_US",
     },
   }
@@ -161,24 +161,24 @@ export default function HomePage({ params }: PageProps) {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
                 <span className="w-2 h-2 rounded-full bg-primary" />
                 <span className="text-sm font-medium text-primary">
-                  {isES ? "IA en produccion desde Chile" : "Production AI built from Chile"}
+                  {isES ? "Desde Chile para operaciones reales en LATAM" : "From Chile for real operations in LATAM"}
                 </span>
               </div>
 
               <h1 className="text-5xl sm:text-7xl font-bold mb-8 leading-tight text-balance">
                 <span className="text-foreground">
-                  {isES ? "Sistemas de IA para" : "AI systems for"}
+                  {isES ? "IA y software para" : "AI and software for"}
                 </span>
                 <br />
                 <span className="text-primary">
-                  {isES ? "operaciones reales" : "real operations"}
+                  {isES ? "operaciones que no pueden fallar" : "operations that cannot fail"}
                 </span>
               </h1>
 
               <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
                 {isES
-                  ? "Disenamos, integramos y operamos software con IA para equipos en Chile y LATAM. Menos improvisacion, mas arquitectura, mas despliegue real."
-                  : "We design, integrate, and operate AI software for teams in Chile and LATAM. Less improvisation, more architecture, more production delivery."}
+                  ? "Disenamos sistemas que integran datos, procesos y decisiones para reducir friccion operativa sin perder control. Menos humo, menos piloto infinito, mas arquitectura y mas produccion real."
+                  : "We design systems that connect data, processes, and decisions to reduce operational friction without losing control. Less hype, fewer endless pilots, more architecture, more production delivery."}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
@@ -186,14 +186,14 @@ export default function HomePage({ params }: PageProps) {
                   href={href(locale, "/contact")}
                   className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  {isES ? "Disenar sistema" : "Design system"}
+                  {isES ? "Agendar diagnostico" : "Book a diagnosis"}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href={href(locale, "/capabilities")}
+                  href={href(locale, "/soluciones")}
                   className="px-8 py-3 border border-primary/40 text-primary rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all text-center"
                 >
-                  {isES ? "Ver capacidades" : "View capabilities"}
+                  {isES ? "Ver soluciones" : "View solutions"}
                 </Link>
               </div>
 
@@ -370,18 +370,18 @@ export default function HomePage({ params }: PageProps) {
         <section className="py-20 px-4 border-t border-border bg-background">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-foreground mb-4">
-              {isES ? "Listo para mover esto a produccion?" : "Ready to move this into production?"}
+              {isES ? "Si tu operacion no puede fallar, conversemos" : "If your operation cannot fail, let us talk"}
             </h2>
             <p className="text-muted-foreground mb-8 text-lg">
               {isES
-                ? "Partimos con una conversacion tecnica y terminamos con una hoja de ruta concreta."
-                : "We start with a technical conversation and end with a practical delivery roadmap."}
+                ? "Agenda un diagnostico y te llevas una conversacion tecnica seria, un foco prioritario y una hoja de ruta concreta."
+                : "Book a diagnosis and walk away with a serious technical conversation, a priority focus, and a practical roadmap."}
             </p>
             <Link
               href={href(locale, "/contact")}
               className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1"
             >
-              {isES ? "Hablar con N3uralia" : "Talk to N3uralia"}
+              {isES ? "Agendar diagnostico" : "Book a diagnosis"}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

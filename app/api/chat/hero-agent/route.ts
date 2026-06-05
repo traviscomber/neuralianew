@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { generateText, streamText } from "ai"
-import { openai } from "@ai-sdk/openai"
+import { generateOpenAIText, streamOpenAIText } from "@/lib/openai-api"
 
 export const runtime = "edge"
 
@@ -96,11 +95,13 @@ Responde como si fueras este coach de carrera con IA.`,
 
     if (scenario) {
       systemPrompt = systemPrompts[scenario as keyof typeof systemPrompts] || systemPrompts.ecosuelolab
-      const { text } = await generateText({
-        model: openai("gpt-4"),
-        system: systemPrompt,
-        prompt: message,
+      const text = await generateOpenAIText({
         maxTokens: 300,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message },
+        ],
+        model: "gpt-4o",
         temperature: 0.7,
       })
       response = NextResponse.json({
@@ -109,12 +110,27 @@ Responde como si fueras este coach de carrera con IA.`,
         timestamp: new Date().toISOString(),
       })
     } else {
-      const result = await streamText({
-        model: openai("gpt-4o"),
-        messages,
-        system: systemPrompts.n3uralia,
+      const chatMessages = Array.isArray(messages)
+        ? messages.filter(
+            (entry): entry is { role: "system" | "user" | "assistant"; content: string } =>
+              entry &&
+              typeof entry === "object" &&
+              typeof entry.role === "string" &&
+              typeof entry.content === "string",
+          )
+        : []
+
+      response = await streamOpenAIText({
+        messages:
+          chatMessages.length > 0
+            ? [{ role: "system", content: systemPrompts.n3uralia }, ...chatMessages]
+            : [
+                { role: "system", content: systemPrompts.n3uralia },
+                { role: "user", content: message || "" },
+              ],
+        model: "gpt-4o",
+        temperature: 0.7,
       })
-      response = result.toDataStreamResponse()
     }
 
     return response

@@ -1,5 +1,5 @@
-import { generateText } from "ai"
 import { detectIntent, generateVibeMessage, type VibeSignals } from "@/lib/vibe-selling/intent-detector"
+import { generateOpenAIText } from "@/lib/openai-api"
 import { composeOffer } from "@/lib/vibe-selling/offer-composer"
 
 export async function POST(request: Request) {
@@ -54,19 +54,17 @@ Tu trabajo:
 
 Sé conciso. Sé confiado. Sé específico.`
 
-      const response = await generateText({
-        model: "openai/gpt-4-turbo",
-        system: systemPrompt,
+      const text = await generateOpenAIText({
         messages: [
-          {
-            role: "user",
-            content: message,
-          },
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message },
         ],
+        model: "gpt-4o",
+        temperature: 0.7,
       })
 
       return Response.json({
-        message: response.text,
+        message: text,
         offer,
         nextSteps: offer.nextSteps,
       })

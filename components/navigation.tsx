@@ -13,18 +13,16 @@ interface NavigationProps {
 export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
   const isES = locale === "es"
-
   const href = (path: string) => `/${locale}${path}`
 
-  // Navigation labels
   const labels = {
     capabilities: isES ? "Capacidades" : "Capabilities",
     solutions: isES ? "Soluciones" : "Solutions",
-    caseStudies: isES ? "Casos de Éxito" : "Case Studies",
-    platform: isES ? "Plataforma" : "Platform",
-    labs: "Labs",
+    howWeWork: isES ? "Como trabajamos" : "How we work",
+    caseStudies: isES ? "Casos de exito" : "Case studies",
+    faq: "FAQ",
     about: isES ? "Acerca de" : "About",
-    contact: isES ? "Contactar" : "Contact",
+    contact: isES ? "Agendar diagnostico" : "Book a diagnosis",
   }
 
   return (
@@ -34,51 +32,49 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex gap-1 items-center">
-          <Link 
-            href={href("/capabilities")} 
+          <Link
+            href={href("/capabilities")}
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.capabilities}
           </Link>
 
-          <Link 
-            href={href("/soluciones")} 
+          <Link
+            href={href("/soluciones")}
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.solutions}
           </Link>
 
-          <Link 
-            href={href("/case-studies")} 
+          <Link
+            href={href("/como-trabajamos")}
+            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.howWeWork}
+          </Link>
+
+          <Link
+            href={href("/case-studies")}
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.caseStudies}
           </Link>
 
-          <Link 
-            href={href("/platform")} 
+          <Link
+            href={href("/faq")}
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {labels.platform}
+            {labels.faq}
           </Link>
 
-          <Link 
-            href={href("/labs")} 
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.labs}
-          </Link>
-
-          <Link 
-            href={href("/about")} 
+          <Link
+            href={href("/about")}
             className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.about}
           </Link>
 
-          {/* Contact Button */}
           <Link
             href={href("/contact")}
             className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
@@ -87,67 +83,65 @@ export default function Navigation({ locale = "es" }: NavigationProps) {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
           {open ? <X /> : <Menu />}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
       {open && (
         <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
-          <Link 
-            href={href("/capabilities")} 
-            onClick={() => setOpen(false)} 
+          <Link
+            href={href("/capabilities")}
+            onClick={() => setOpen(false)}
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.capabilities}
           </Link>
 
-          <Link 
-            href={href("/soluciones")} 
-            onClick={() => setOpen(false)} 
+          <Link
+            href={href("/soluciones")}
+            onClick={() => setOpen(false)}
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.solutions}
           </Link>
 
-          <Link 
-            href={href("/case-studies")} 
-            onClick={() => setOpen(false)} 
+          <Link
+            href={href("/como-trabajamos")}
+            onClick={() => setOpen(false)}
+            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+          >
+            {labels.howWeWork}
+          </Link>
+
+          <Link
+            href={href("/case-studies")}
+            onClick={() => setOpen(false)}
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.caseStudies}
           </Link>
 
-          <Link 
-            href={href("/platform")} 
-            onClick={() => setOpen(false)} 
+          <Link
+            href={href("/faq")}
+            onClick={() => setOpen(false)}
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
-            {labels.platform}
+            {labels.faq}
           </Link>
 
-          <Link 
-            href={href("/labs")} 
-            onClick={() => setOpen(false)} 
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.labs}
-          </Link>
-
-          <Link 
-            href={href("/about")} 
-            onClick={() => setOpen(false)} 
+          <Link
+            href={href("/about")}
+            onClick={() => setOpen(false)}
             className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
           >
             {labels.about}
           </Link>
 
           <div className="pt-2 border-t border-border">
-            <Link 
-              href={href("/contact")} 
-              onClick={() => setOpen(false)} 
+            <Link
+              href={href("/contact")}
+              onClick={() => setOpen(false)}
               className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
             >
               {labels.contact}
