@@ -3,8 +3,8 @@ import { ContactFormClient } from '@/components/contact/contact-form-client'
 import { Footer } from '@/components/layout/footer'
 import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
 import type { Locale } from '@/content/dictionaries'
-import { getDict } from '@/content/dictionaries'
-import { Mail, Phone, MapPin, Clock } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 interface PageProps {
   params: { locale: string }
@@ -39,7 +39,6 @@ export function generateMetadata({ params }: PageProps): Metadata {
 
 export default function ContactPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d = getDict(locale)
   const isES = locale === 'es'
 
   return (
@@ -67,7 +66,7 @@ export default function ContactPage({ params }: PageProps) {
               <h2 className="text-2xl font-bold text-foreground mb-8">
                 {isES ? 'Cuéntanos tu caso' : 'Tell us your case'}
               </h2>
-              <ContactFormClient locale={locale} />
+              <ContactFormClient />
             </div>
 
             {/* Contact Info */}
