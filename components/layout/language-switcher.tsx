@@ -22,7 +22,7 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <div className="fixed bottom-24 right-6 z-40 flex items-center gap-2 bg-background/95 backdrop-blur rounded-full p-1.5 shadow-lg md:bottom-6 md:right-24">
+    <div className="fixed top-24 right-4 z-40 flex items-center gap-2 bg-background/95 backdrop-blur rounded-full p-1.5 shadow-lg md:top-auto md:bottom-6 md:right-24">
       <Globe className="w-4 h-4 ml-2 text-muted-foreground" />
       {LOCALES.map((locale) => (
         <Link
