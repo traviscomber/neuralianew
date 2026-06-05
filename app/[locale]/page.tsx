@@ -17,6 +17,7 @@ import { SecurityControl } from "@/components/security-control"
 import { CommercialFAQ } from "@/components/commercial-faq"
 import { FinalCTASection } from "@/components/final-cta-section"
 import { WhyNowSection } from "@/components/why-now-section"
+import { AgentMatrixShowcase } from "@/components/agent-matrix-showcase"
 
 // VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
 // 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
@@ -133,6 +134,9 @@ export default function HomePage({ params }: PageProps) {
 
         {/* HOW WE WORK Section */}
         <HowWeWorkSection locale={locale} />
+
+        {/* AGENT MATRIX SHOWCASE Section */}
+        <AgentMatrixShowcase locale={locale} />
 
         {/* SOCIAL PROOF Section */}
         <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
