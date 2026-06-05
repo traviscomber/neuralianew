@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Menu, X, Globe } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import { useParams, usePathname } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export default function Navigation() {
@@ -12,6 +12,7 @@ export default function Navigation() {
   const [mounted, setMounted] = useState(false)
   const params = useParams()
   const pathname = usePathname()
+  const router = useRouter()
   const locale = (params?.locale as string) || 'es'
   const isES = locale === 'es'
 
@@ -64,14 +65,22 @@ export default function Navigation() {
         </div>
 
         {/* Desktop Actions */}
-        <div className="hidden md:flex gap-2 items-center flex-shrink-0">
-          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium transition">
+        <div className="hidden md:flex gap-3 items-center flex-shrink-0">
+          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition">
             {isES ? 'Agendar diagnóstico' : 'Schedule diagnosis'}
           </Link>
-          <Link href={hrefLocale('/')} className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium transition">
+          
+          {/* Language Toggle */}
+          <button 
+            onClick={() => router.push(hrefLocale('/'))}
+            className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 hover:bg-primary/5 transition"
+            title={isES ? 'Cambiar a English' : 'Cambiar a Español'}
+          >
             <Globe className="w-4 h-4" />
             {isES ? 'EN' : 'ES'}
-          </Link>
+          </button>
+          
+          {/* Theme Toggle */}
           {mounted && <ThemeToggle />}
         </div>
 
@@ -108,15 +117,26 @@ export default function Navigation() {
           </Link>
 
           <div className="pt-4 mt-4 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={closeMobileMenu} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center">
+            <Link href={href('/contact')} onClick={closeMobileMenu} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center hover:bg-primary/90 transition">
               {isES ? 'Agendar diagnóstico' : 'Schedule diagnosis'}
             </Link>
-            <Link href={hrefLocale('/')} onClick={closeMobileMenu} className="block px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium">
+            
+            {/* Mobile Language Toggle */}
+            <button 
+              onClick={() => {
+                closeMobileMenu()
+                router.push(hrefLocale('/'))
+              }}
+              className="block w-full px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 hover:bg-primary/5 transition"
+              title={isES ? 'Cambiar a English' : 'Cambiar a Español'}
+            >
               <Globe className="w-4 h-4" />
               {isES ? 'EN' : 'ES'}
-            </Link>
+            </button>
+            
+            {/* Mobile Theme Toggle */}
             <div className="flex items-center justify-center pt-2">
-              <ThemeToggle />
+              {mounted && <ThemeToggle />}
             </div>
           </div>
         </div>
