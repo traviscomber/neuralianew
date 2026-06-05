@@ -7,7 +7,7 @@ import type { BuyerIntent } from "./intent-detector"
 
 export interface OfferScope {
   components: string[]
-  datasets: number
+  datasets: number | string
   timelineWeeks: number
   technology: string[]
   pricingModel: "fixed" | "monthly" | "revenue-share"
@@ -134,34 +134,6 @@ const offerTemplates: Record<string, OfferScope> = {
     pricingModel: "revenue-share",
     estimatedBudget: "desde 1 millón/mes",
     deliverables: ["Plataforma co-desarrollada", "Acceso completo a APIs", "Soporte 24/7"],
-  },
-
-  "partner-startup": {
-    components: ["Revenue Share: 30%", "Co-marketing", "API Access"],
-    datasets: 5,
-    timelineWeeks: 2,
-    technology: ["Shared Infrastructure"],
-    pricingModel: "revenue-share",
-    estimatedBudget: "30% of revenue",
-    deliverables: ["Integration", "Co-promotion", "Revenue Split"],
-  },
-  "partner-mid-market": {
-    components: ["Revenue Share: 20-40%", "Joint Go-to-market", "White-label Option"],
-    datasets: 20,
-    timelineWeeks: 6,
-    technology: ["Shared + Custom"],
-    pricingModel: "revenue-share",
-    estimatedBudget: "20-40% of revenue",
-    deliverables: ["White-label", "GTM Strategy", "Revenue Share"],
-  },
-  "partner-enterprise": {
-    components: ["Strategic Partnership", "Equity Option", "Exclusive Territory", "Co-development"],
-    datasets: "unlimited",
-    timelineWeeks: 12,
-    technology: ["Full Stack Collaboration"],
-    pricingModel: "revenue-share",
-    estimatedBudget: "Negotiable - equity/revenue mix",
-    deliverables: ["Strategic Alliance", "Co-IP", "Exclusive Terms"],
   },
 }
 
