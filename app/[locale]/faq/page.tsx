@@ -104,6 +104,7 @@ export default function FaqPage() {
           __html: JSON.stringify(faqSchema),
         }}
       />
+      <FaqPageClient />
       <Footer />
     </>
   )
