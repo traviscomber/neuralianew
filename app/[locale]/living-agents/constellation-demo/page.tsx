@@ -3,11 +3,25 @@ import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Constellation Workshop Demo | N3uralia",
-  description:
-    "Experimente cómo múltiples agentes creativos colaboran para generar ideas, sintetizar perspectivas y producir pensamiento innovador.",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/living-agents/constellation-demo",
+    type: "website",
+    title: "Constellation Workshop Demo | N3uralia",
+    description: "Experimente cómo múltiples agentes creativos colaboran para generar ideas, sintetizar perspectivas y producir pensamiento innovador.",
+  })
 }
 
 export default function ConstellationDemoPage() {

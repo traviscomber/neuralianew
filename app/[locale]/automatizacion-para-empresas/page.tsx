@@ -2,16 +2,30 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, Shield, BarChart3, Clock } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Automatización Empresarial N3uralia | Integración de Sistemas & Procesos Inteligentes",
-  description:
-    "Automatización estructural para empresas: conecta sistemas legacy, elimina trabajo manual repetitivo, y escala operaciones sin contratar. ROI comprobado en 6 meses. Para B2B, retail, manufactura, seguros en Chile y LATAM.",
-  keywords:
-    "automatización empresarial, automatización procesos, integración sistemas legacy, workflow empresarial, reducir costos operacionales, automatización B2B, operaciones autónomas, RPA, automation Chile, sistemas inteligentes, automatización LATAM",
-  alternates: {
-    canonical: "https://n3uralia.com/automatizacion-para-empresas",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/automatizacion-para-empresas",
+    title:
+      locale === "es"
+        ? "Automatizacion empresarial | N3uralia"
+        : "Enterprise automation | N3uralia",
+    description:
+      locale === "es"
+        ? "Automatizacion estructural para empresas: conecta sistemas legacy, elimina trabajo manual repetitivo y escala operaciones reales en Chile y LATAM."
+        : "Structural automation for operations teams: connect legacy systems, remove repetitive manual work, and scale real operations across Chile and LATAM.",
+  })
 }
 
 export default function AutomatizacionPage() {

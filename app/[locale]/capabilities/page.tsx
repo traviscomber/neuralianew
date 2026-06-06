@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
 import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-page-client"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -21,17 +22,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     en: "Six technical pillars: agentic architecture, living agents, multi-agent coordination, conversational intelligence, and knowledge systems.",
   }
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
     title: titles[locale],
     description: descriptions[locale],
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/capabilities`,
-      languages: {
-        es: "https://n3uralia.com/es/capabilities",
-        en: "https://n3uralia.com/en/capabilities",
-      },
-    },
-  }
+    path: "/capabilities",
+  })
 }
 
 export default function CapabilitiesPage({ params }: PageProps) {

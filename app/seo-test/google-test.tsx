@@ -44,10 +44,10 @@ export default function GoogleStructuredDataTest() {
       es: "Soluciones de IA conversacional avanzada para empresas que transforman la manera en que interactúas con tus usuarios",
       en: "Advanced conversational AI solutions for businesses that transform how you interact with your users",
     },
-    url: "https://n3uralia.com",
+    url: "https://www.n3uralia.com",
     logo: {
       "@type": "ImageObject",
-      url: "https://n3uralia.com/n3uralia-logo-horizontal.jpg",
+      url: "https://www.n3uralia.com/n3uralia-logo-horizontal.jpg",
       width: 1200,
       height: 630,
     },

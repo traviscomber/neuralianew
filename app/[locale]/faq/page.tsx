@@ -4,6 +4,7 @@ import { FaqPageClient } from "@/components/faq/faq-page-client"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -13,7 +14,7 @@ interface PageProps {
 
 function buildFaqSchema(locale: Locale) {
   const isES = locale === "es"
-  const baseUrl = `https://n3uralia.com/${locale}/faq`
+  const baseUrl = `https://www.n3uralia.com/${locale}/faq`
 
   return {
     "@context": "https://schema.org",
@@ -58,17 +59,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     en: "Frequently asked questions about AI, automation, architecture, and software delivery with N3uralia.",
   }
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
     title: titles[locale],
     description: descriptions[locale],
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/faq`,
-      languages: {
-        es: "https://n3uralia.com/es/faq",
-        en: "https://n3uralia.com/en/faq",
-      },
-    },
-  }
+    path: "/faq",
+  })
 }
 
 export default function FaqPage({ params }: PageProps) {

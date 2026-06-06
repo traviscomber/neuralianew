@@ -2,19 +2,25 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "What is World Engine? | N3uralia Studies",
-  description:
-    "World Engine is a system that builds and maintains dynamic models of real environments to enable intelligent agents to make contextual decisions with understanding of the full operating ecosystem.",
-  keywords: "world engine, environment modeling, dynamic systems, contextual decision making, real-world integration",
-  openGraph: {
-    title: "What is World Engine? | N3uralia",
-    description: "Dynamic modeling of real-world environments for intelligent decision-making",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/world-engine",
     type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/world-engine",
-  },
+    title: "What is World Engine? | N3uralia Studies",
+    description: "World Engine is a system that builds and maintains dynamic models of real environments to enable intelligent agents to make contextual decisions with understanding of the full operating ecosystem.",
+  })
 }
 
 export default function WorldEnginePage() {

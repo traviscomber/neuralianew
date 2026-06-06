@@ -140,10 +140,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/integraciones-empresariales`,
+      canonical: `https://www.n3uralia.com/${locale}/integraciones-empresariales`,
       languages: {
-        es: "https://n3uralia.com/es/integraciones-empresariales",
-        en: "https://n3uralia.com/en/integraciones-empresariales",
+        es: "https://www.n3uralia.com/es/integraciones-empresariales",
+        en: "https://www.n3uralia.com/en/integraciones-empresariales",
       },
     },
   }

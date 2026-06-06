@@ -2,16 +2,30 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, Brain, Moon, BarChart3 } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Operaciones Autónomas N3uralia | Procesos 24/7 sin Intervención Humana",
-  description:
-    "Tus operaciones funcionando 24/7 sin intervención. N3uralia diseña procesos que se auto-ejecutan, se adaptan, y escalan automáticamente. Para retail, finanzas, manufactura, logística. Chile & LATAM.",
-  keywords:
-    "operaciones autónomas, procesos 24/7, automatización 24 horas, autonomous operations, operaciones inteligentes, sistemas autoadaptativos, scaling automático, operaciones empresariales, Chile, LATAM",
-  alternates: {
-    canonical: "https://n3uralia.com/operaciones-autonomas",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/operaciones-autonomas",
+    title:
+      locale === "es"
+        ? "Operaciones autonomas 24/7 | N3uralia"
+        : "Autonomous operations 24/7 | N3uralia",
+    description:
+      locale === "es"
+        ? "Procesos autonomos para equipos que necesitan continuidad, monitoreo y ejecucion 24/7 sin depender de seguimiento manual."
+        : "Autonomous processes for teams that need continuity, monitoring, and 24/7 execution without depending on manual follow-up.",
+  })
 }
 
 export default function OperacionesAutonomasPage() {

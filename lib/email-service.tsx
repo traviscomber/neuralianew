@@ -41,7 +41,7 @@ export class EmailService {
           <p>Bienvenido a <strong>N3uralia</strong>.</p>
           <p>Ya puedes explorar nuestros sistemas agenticos, integraciones y workflows de IA.</p>
           <p style="margin-top: 24px;">
-            <a href="https://n3uralia.com/es" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
+            <a href="https://www.n3uralia.com/es" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
               Ir al sitio
             </a>
           </p>
@@ -102,7 +102,7 @@ export class EmailService {
           <p><strong>Agente:</strong> ${agentName}</p>
           <p>${isSuccess ? "El agente quedo disponible para uso." : "Hubo un problema durante el despliegue."}</p>
           <p style="margin-top: 24px;">
-            <a href="https://n3uralia.com/dashboard" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
+            <a href="https://www.n3uralia.com/dashboard" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
               Ver dashboard
             </a>
           </p>

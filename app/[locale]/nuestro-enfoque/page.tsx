@@ -112,10 +112,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/nuestro-enfoque`,
+      canonical: `https://www.n3uralia.com/${locale}/nuestro-enfoque`,
       languages: {
-        es: "https://n3uralia.com/es/nuestro-enfoque",
-        en: "https://n3uralia.com/en/nuestro-enfoque",
+        es: "https://www.n3uralia.com/es/nuestro-enfoque",
+        en: "https://www.n3uralia.com/en/nuestro-enfoque",
       },
     },
   }

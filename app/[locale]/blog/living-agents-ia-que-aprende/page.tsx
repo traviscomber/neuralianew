@@ -3,13 +3,25 @@ import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Living Agents: AI Agents que Aprenden | N3uralia Blog - Neuralia",
-  description:
-    "Living Agents de N3uralia (Neuralia): sistemas agenticos que evolucionan continuamente. Arquitectura fullstack, implementación y resultados reales de AI agents adaptativos.",
-  keywords:
-    "Living Agents, AI agents, n3uralia agents, IA que aprende, agentes evolutivos, sistemas agenticos, fullstack, neuralia, machine learning, retroalimentación",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog/living-agents-ia-que-aprende",
+    type: "article",
+    title: "Living Agents: AI Agents que Aprenden | N3uralia Blog - Neuralia",
+    description: "Living Agents de N3uralia (Neuralia): sistemas agenticos que evolucionan continuamente. Arquitectura fullstack, implementación y resultados reales de AI agents adaptativos.",
+  })
 }
 
 export default function BlogPost() {

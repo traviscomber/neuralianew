@@ -6,13 +6,15 @@ import { getCaseStudy, t2 } from "@/content/caseStudies"
 import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string; slug: string }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const caseStudy = getCaseStudy(params.slug)
 
   if (!caseStudy) {
@@ -25,17 +27,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = t2(locale, caseStudy.title)
   const description = t2(locale, caseStudy.summary)
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: `/case-studies/${params.slug}`,
+    type: "article",
     title: `${title} | N3uralia`,
     description,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/case-studies/${params.slug}`,
-      languages: {
-        es: `https://n3uralia.com/es/case-studies/${params.slug}`,
-        en: `https://n3uralia.com/en/case-studies/${params.slug}`,
-      },
-    },
-  }
+  })
 }
 
 export default function CaseStudyDetailPage({ params }: PageProps) {

@@ -184,10 +184,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/conversational-intelligence`,
+      canonical: `https://www.n3uralia.com/${locale}/conversational-intelligence`,
       languages: {
-        es: "https://n3uralia.com/es/conversational-intelligence",
-        en: "https://n3uralia.com/en/conversational-intelligence",
+        es: "https://www.n3uralia.com/es/conversational-intelligence",
+        en: "https://www.n3uralia.com/en/conversational-intelligence",
       },
     },
   }

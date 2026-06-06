@@ -3,13 +3,25 @@ import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Integración AI Agents con Legacy Systems | N3uralia Blog - Neuralia",
-  description:
-    "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
-  keywords:
-    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad, neuralia",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog/integracion-ia-legacy-systems",
+    type: "article",
+    title: "Integración AI Agents con Legacy Systems | N3uralia Blog - Neuralia",
+    description: "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
+  })
 }
 
 export default function BlogPost() {

@@ -2,26 +2,31 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, BarChart3, Zap, Clock, MapPin } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Ecosuelolab Case Study | N3uralia - Monitoreo Agrícola Satelital + Agentes IA",
-  description:
-    "Cómo Ecosuelolab automatizó monitoreo de suelo en tiempo real. Alertas satellitales de IrriWatch + agentes IA N3uralia + WhatsApp. 100% automático 24/7. Integración en 14 días.",
-  keywords:
-    "ecosuelolab, agricultura, monitoreo suelo, agentes IA, IrriWatch, Irriwatch integration, infraestructura API, N3uralia, case study",
-  alternates: {
-    canonical: "https://n3uralia.com/en/case-studies/ecosuelolab",
-    languages: {
-      es: "https://n3uralia.com/es/case-studies/ecosuelolab",
-      "en-US": "https://n3uralia.com/en/case-studies/ecosuelolab",
-    },
-  },
-  openGraph: {
-    title: "Ecosuelolab: Alertas Agrícolas Automáticas con Agentes IA",
-    description: "Monitoreo satelital 24/7 convertido en acciones automáticas vía WhatsApp",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/case-studies/ecosuelolab",
     type: "article",
-    locale: "es_CL",
-  },
+    title:
+      locale === "es"
+        ? "Caso Ecosuelolab | N3uralia"
+        : "Ecosuelolab case study | N3uralia",
+    description:
+      locale === "es"
+        ? "Como Ecosuelolab automatizo monitoreo de suelo en tiempo real con IrriWatch, agentes de IA y WhatsApp en una operacion 24/7."
+        : "How Ecosuelolab automated real-time soil monitoring with IrriWatch, AI agents, and WhatsApp in a 24/7 operational flow.",
+  })
 }
 
 export default function EcosuelolabCaseStudy() {

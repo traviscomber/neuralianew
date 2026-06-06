@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google"
 import "./globals.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
-import { StructuredCitations } from "@/components/structured-citations"
+import { absoluteUrl } from "@/lib/site"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -16,22 +16,18 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.n3uralia.com"),
+  metadataBase: new URL(absoluteUrl("/")),
   title: "N3uralia",
   description:
     "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
-  authors: [{ name: "N3uralia", url: "https://www.n3uralia.com" }],
+  authors: [{ name: "N3uralia", url: absoluteUrl("/") }],
   creator: "N3uralia",
   openGraph: {
-    title: "N3uralia",
-    description:
-      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
     type: "website",
-    url: "https://www.n3uralia.com",
     siteName: "N3uralia",
     images: [
       {
-        url: "https://www.n3uralia.com/og-image.png",
+        url: absoluteUrl("/og-image.png"),
         width: 1200,
         height: 630,
         alt: "N3uralia",
@@ -41,11 +37,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "N3uralia",
-    description:
-      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
     creator: "@n3uralia",
     site: "@n3uralia",
+    images: [absoluteUrl("/og-image.png")],
   },
   robots: {
     index: true,
@@ -82,7 +76,6 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <StructuredData />
-        <StructuredCitations />
       </head>
       <body className={`${montserrat.variable} antialiased`}>
         <AnalyticsProvider>{children}</AnalyticsProvider>

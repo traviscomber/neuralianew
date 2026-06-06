@@ -2,13 +2,25 @@ import type { Metadata } from "next"
 import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Code2, Lightbulb, BookOpen } from "lucide-react"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "N3uralia para Desarrolladores | API IA Production-Ready",
-  description:
-    "N3uralia para devs: APIs potentes, SDKs limpios, documentación excelente. Construye agentes inteligentes en producción con herramientas que realmente funcionan.",
-  keywords:
-    "API IA, SDK agentes IA, desarrollo IA, N3uralia API, agentes inteligentes desarrollo, AI engineering",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/para-desarrolladores",
+    type: "website",
+    title: "N3uralia para Desarrolladores | API IA Production-Ready",
+    description: "N3uralia para devs: APIs potentes, SDKs limpios, documentación excelente. Construye agentes inteligentes en producción con herramientas que realmente funcionan.",
+  })
 }
 
 export default function ParaDesarrolladores() {

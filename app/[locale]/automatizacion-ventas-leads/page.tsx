@@ -2,16 +2,30 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Zap, TrendingUp, Clock, Target } from 'lucide-react'
 import { Footer } from '@/components/layout/footer'
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Automatización de Ventas & Leads N3uralia | Revenue Operations Inteligentes",
-  description:
-    "Automatiza tu sales funnel: calificación de leads, scoring inteligente, nurturing automático, seguimiento de oportunidades. N3uralia acelera ciclos de venta y aumenta conversion. Para SaaS, B2B, servicios. Chile & LATAM.",
-  keywords:
-    "automatización ventas, lead scoring, sales automation, revenue operations, funnel automatización, sales pipeline, conversion optimization, lead nurturing, sales intelligence, B2B automation, Chile, LATAM",
-  alternates: {
-    canonical: "https://n3uralia.com/automatizacion-ventas-leads",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/automatizacion-ventas-leads",
+    title:
+      locale === "es"
+        ? "Automatizacion de ventas y leads | N3uralia"
+        : "Sales and lead automation | N3uralia",
+    description:
+      locale === "es"
+        ? "Automatiza lead scoring, nurturing y seguimiento comercial con workflows de revenue operations pensados para equipos B2B en Chile y LATAM."
+        : "Automate lead scoring, nurturing, and pipeline follow-up with revenue workflows built for B2B teams in Chile and LATAM.",
+  })
 }
 
 export default function VentasLeadsPage() {

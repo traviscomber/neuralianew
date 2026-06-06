@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/security`,
+      canonical: `https://www.n3uralia.com/${locale}/security`,
       languages: {
-        es: `https://n3uralia.com/es/security`,
-        en: `https://n3uralia.com/en/security`,
+        es: `https://www.n3uralia.com/es/security`,
+        en: `https://www.n3uralia.com/en/security`,
       },
     },
   }

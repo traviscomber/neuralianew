@@ -3,19 +3,27 @@ import { ArrowRight, Brain, Database, Zap, Layers, Lightbulb } from "lucide-reac
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Estudios N3uralia (Neuralia) | Base de Conocimiento de IA y Sistemas Inteligentes",
-  description: "N3uralia (Neuralia) Estudios: Agentic AI, AI Memory, Context Engineering, World Engine, Agentic Brainstorming. Conceptos fundamentales para sistemas inteligentes.",
-  keywords:
-    "N3uralia, Neuralia, agentic ai, ai memory, context engineering, world engine, agentic brainstorming, inteligencia artificial, sistemas inteligentes, ai architecture",
-  openGraph: {
-    title: "Estudios de IA | N3uralia",
-    description: "Conceptos fundamentales de sistemas inteligentes",
-    type: "website",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies",
+    title: locale === "es" ? "Estudios | N3uralia" : "Studies | N3uralia",
+    description:
+      locale === "es"
+        ? "Base de conocimiento sobre agentes, memoria, context engineering y sistemas inteligentes aplicada a operaciones reales."
+        : "Knowledge base on agents, memory, context engineering, and intelligent systems applied to real operations.",
+  })
 }
 
 const studies = [

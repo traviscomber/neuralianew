@@ -2,19 +2,25 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Agentic AI Brainstorming | N3uralia Studies",
-  description:
-    "Creative intelligence meets agentic systems. Multiple creative agents collaborate to brainstorm, synthesize ideas, and generate breakthrough thinking. Powered by persistent memory and constellation workflows.",
-  keywords: "agentic ai, brainstorming, creative intelligence, ai creativity, ideation, thinking agents",
-  openGraph: {
-    title: "Agentic AI Brainstorming | N3uralia",
-    description: "Creative agents collaborating to generate breakthrough ideas",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/agentic-brainstorming",
     type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/agentic-brainstorming",
-  },
+    title: "Agentic AI Brainstorming | N3uralia Studies",
+    description: "Creative intelligence meets agentic systems. Multiple creative agents collaborate to brainstorm, synthesize ideas, and generate breakthrough thinking. Powered by persistent memory and constellation workflows.",
+  })
 }
 
 export default function AgenticBrainstormingPage() {

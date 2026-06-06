@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, FolderKanban, Sparkles } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -90,17 +91,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
     title: page.metadataTitle,
     description: page.metadataDescription,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/case-studies`,
-      languages: {
-        es: "https://n3uralia.com/es/case-studies",
-        en: "https://n3uralia.com/en/case-studies",
-      },
-    },
-  }
+    path: "/case-studies",
+  })
 }
 
 export default function CaseStudiesPage({ params }: PageProps) {

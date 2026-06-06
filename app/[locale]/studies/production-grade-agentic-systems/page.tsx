@@ -2,19 +2,25 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Production-Grade Agentic Systems | N3uralia Studies",
-  description:
-    "Deep dive into building agentic AI systems for production environments. Hybrid retrieval, agent orchestration, provenance, memory, and self-repair loops for real-world operations.",
-  keywords: "production agentic AI, agent orchestration, hybrid retrieval, provenance, self-repair loops, production systems, enterprise AI",
-  openGraph: {
-    title: "Production-Grade Agentic Systems | N3uralia",
-    description: "Engineering intelligent agents for production environments",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/production-grade-agentic-systems",
     type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/production-grade-agentic-systems",
-  },
+    title: "Production-Grade Agentic Systems | N3uralia Studies",
+    description: "Deep dive into building agentic AI systems for production environments. Hybrid retrieval, agent orchestration, provenance, memory, and self-repair loops for real-world operations.",
+  })
 }
 
 export default function ProductionGradeAgenticSystemsPage() {

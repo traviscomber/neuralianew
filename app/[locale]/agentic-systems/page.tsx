@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/agentic-systems`,
+      canonical: `https://www.n3uralia.com/${locale}/agentic-systems`,
       languages: {
-        es: `https://n3uralia.com/es/agentic-systems`,
-        en: `https://n3uralia.com/en/agentic-systems`,
+        es: `https://www.n3uralia.com/es/agentic-systems`,
+        en: `https://www.n3uralia.com/en/agentic-systems`,
       },
     },
   }

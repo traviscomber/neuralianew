@@ -3,13 +3,25 @@ import { Footer } from "@/components/layout/footer"
 import Link from "next/link"
 import { ArrowRight, Zap, TrendingUp, Shield } from "lucide-react"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "N3uralia para Startups | Agentes IA Escalables sin Complejidad Enterprise",
-  description:
-    "Acceso a tecnología IA production-ready para startups. Automatización inteligente, agentes 24/7, crecimiento sin costos de equipo. Implementación en días, no meses. Pago por uso, sin contratos anuales.",
-  keywords:
-    "IA para startups, agentes IA escalables, automatización startups, N3uralia startups, tech para emprendedores, IA revenue operations, agentes inteligentes, sistemas agenticos, Chile, LATAM",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/para-startups",
+    type: "website",
+    title: "N3uralia para Startups | Agentes IA Escalables sin Complejidad Enterprise",
+    description: "Acceso a tecnología IA production-ready para startups. Automatización inteligente, agentes 24/7, crecimiento sin costos de equipo. Implementación en días, no meses. Pago por uso, sin contratos anuales.",
+  })
 }
 
 export default function ParaStartups() {

@@ -108,10 +108,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/learning-hub`,
+      canonical: `https://www.n3uralia.com/${locale}/learning-hub`,
       languages: {
-        es: "https://n3uralia.com/es/learning-hub",
-        en: "https://n3uralia.com/en/learning-hub",
+        es: "https://www.n3uralia.com/es/learning-hub",
+        en: "https://www.n3uralia.com/en/learning-hub",
       },
     },
   }

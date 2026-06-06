@@ -1,9 +1,24 @@
 import { PerformanceMetrics } from "@/components/performance/performance-metrics"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Performance Metrics | N3uralia",
-  description: "Monitor the performance metrics of your N3uralia implementation. Real-time Web Vitals and system diagnostics.",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/performance",
+    type: "website",
+    title: "Performance Metrics | N3uralia",
+    description: "Monitor the performance metrics of your N3uralia implementation. Real-time Web Vitals and system diagnostics.",
+  })
 }
 
 export default function PerformancePage() {

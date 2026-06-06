@@ -3,26 +3,31 @@ import Link from "next/link"
 import { ArrowRight, BarChart3, Zap, Clock, Building2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Blackswan Facility Core Case Study | N3uralia - Luxury Property Management System",
-  description:
-    "How Blackswan Facility Core transformed fragmented operations into unified management. Email + Sheets + WhatsApp → BFCS integration. Projecting 80% operational efficiency gain.",
-  keywords:
-    "blackswan, facility management, property management, luxury rentals, N3uralia, fullstack development, operational automation, case study",
-  alternates: {
-    canonical: "https://n3uralia.com/en/case-studies/blackswan-facility-core",
-    languages: {
-      es: "https://n3uralia.com/es/case-studies/blackswan-facility-core",
-      "en-US": "https://n3uralia.com/en/case-studies/blackswan-facility-core",
-    },
-  },
-  openGraph: {
-    title: "Blackswan Facility Core: Enterprise Property Management Platform",
-    description: "From email chaos to unified operations. Luxury facility management built on N3uralia architecture.",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/case-studies/blackswan-facility-core",
     type: "article",
-    locale: "en_US",
-  },
+    title:
+      locale === "es"
+        ? "Caso Blackswan Facility Core | N3uralia"
+        : "Blackswan Facility Core case study | N3uralia",
+    description:
+      locale === "es"
+        ? "Como Blackswan unifico operaciones fragmentadas en una plataforma de facility management con automatizacion, trazabilidad y una sola fuente de verdad."
+        : "How Blackswan unified fragmented operations into a facility management platform with automation, traceability, and a single source of truth.",
+  })
 }
 
 export default function BlackswanCaseStudy() {

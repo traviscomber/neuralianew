@@ -2,19 +2,25 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "What is Context Engineering? | N3uralia Studies",
-  description:
-    "Context Engineering is the systematic design of persistent context that enables intelligent systems to understand who you are, your world, and how to assist effectively.",
-  keywords: "context engineering, persistent context, user profiling, contextual intelligence, system design",
-  openGraph: {
-    title: "What is Context Engineering? | N3uralia",
-    description: "Systematic design of intelligent context systems",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/context-engineering",
     type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/context-engineering",
-  },
+    title: "What is Context Engineering? | N3uralia Studies",
+    description: "Context Engineering is the systematic design of persistent context that enables intelligent systems to understand who you are, your world, and how to assist effectively.",
+  })
 }
 
 export default function ContextEngineeringPage() {

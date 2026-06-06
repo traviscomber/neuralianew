@@ -3,6 +3,7 @@ import { ArrowRight, Calendar, User } from "lucide-react"
 import type { Metadata } from "next"
 
 import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -12,7 +13,6 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const isES = locale === "es"
 
   const titles = {
     es: "Blog N3uralia | Neuralia - Agentes AI, Orquestación, Sistemas Agénticos en Producción",
@@ -24,10 +24,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     en: "N3uralia technical blog: articles on AI agents, multi-agent orchestration, living agents, production-ready agentic systems and fullstack architecture.",
   }
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog",
     title: titles[locale as keyof typeof titles],
     description: descriptions[locale as keyof typeof descriptions],
-  }
+  })
 }
 
 export default function BlogPage({ params }: PageProps) {

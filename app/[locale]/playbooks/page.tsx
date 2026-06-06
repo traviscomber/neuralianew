@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/playbooks`,
+      canonical: `https://www.n3uralia.com/${locale}/playbooks`,
       languages: {
-        es: `https://n3uralia.com/es/playbooks`,
-        en: `https://n3uralia.com/en/playbooks`,
+        es: `https://www.n3uralia.com/es/playbooks`,
+        en: `https://www.n3uralia.com/en/playbooks`,
       },
     },
   }

@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title,
     description,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/ai-infrastructure`,
+      canonical: `https://www.n3uralia.com/${locale}/ai-infrastructure`,
       languages: {
-        es: `https://n3uralia.com/es/ai-infrastructure`,
-        en: `https://n3uralia.com/en/ai-infrastructure`,
+        es: `https://www.n3uralia.com/es/ai-infrastructure`,
+        en: `https://www.n3uralia.com/en/ai-infrastructure`,
       },
     },
   }

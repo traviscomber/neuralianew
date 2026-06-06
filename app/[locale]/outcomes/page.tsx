@@ -150,10 +150,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/outcomes`,
+      canonical: `https://www.n3uralia.com/${locale}/outcomes`,
       languages: {
-        es: "https://n3uralia.com/es/outcomes",
-        en: "https://n3uralia.com/en/outcomes",
+        es: "https://www.n3uralia.com/es/outcomes",
+        en: "https://www.n3uralia.com/en/outcomes",
       },
     },
   }

@@ -83,10 +83,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/patterns`,
+      canonical: `https://www.n3uralia.com/${locale}/patterns`,
       languages: {
-        es: "https://n3uralia.com/es/patterns",
-        en: "https://n3uralia.com/en/patterns",
+        es: "https://www.n3uralia.com/es/patterns",
+        en: "https://www.n3uralia.com/en/patterns",
       },
     },
   }

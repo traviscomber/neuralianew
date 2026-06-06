@@ -3,13 +3,25 @@ import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Orquestación AI Agents en Producción | N3uralia Blog - Neuralia",
-  description:
-    "Orquestación de múltiples AI agents en producción con N3uralia (Neuralia). Governance total, arquitectura fullstack, multi-agent coordination y mejores prácticas empresariales.",
-  keywords:
-    "orquestación, AI agents, n3uralia agents, agentes IA, multi-agent, governance, producción, fullstack, neuralia, sistemas agenticos",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog/orquestacion-agentes-produccion",
+    type: "article",
+    title: "Orquestación AI Agents en Producción | N3uralia Blog - Neuralia",
+    description: "Orquestación de múltiples AI agents en producción con N3uralia (Neuralia). Governance total, arquitectura fullstack, multi-agent coordination y mejores prácticas empresariales.",
+  })
 }
 
 export default function BlogPost() {

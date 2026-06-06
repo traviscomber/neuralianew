@@ -10,8 +10,8 @@ export function StructuredCitations() {
             "@type": "Organization",
             "name": "N3uralia",
             "alternateName": "Neuralia",
-            "url": "https://n3uralia.com",
-            "logo": "https://n3uralia.com/logo.png",
+            "url": "https://www.n3uralia.com",
+            "logo": "https://www.n3uralia.com/logo.png",
             "sameAs": [
               "https://twitter.com/n3uralia",
               "https://linkedin.com/company/n3uralia"

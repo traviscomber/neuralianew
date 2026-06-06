@@ -3,19 +3,25 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "What is Agentic AI? | N3uralia Studies",
-  description:
-    "Agentic AI is an architecture where autonomous agents plan, act, evaluate outcomes, and adapt using memory and tools. Complete explanation with real-world applications.",
-  keywords: "agentic ai, autonomous agents, agent architecture, intelligent systems, ai decision making",
-  openGraph: {
-    title: "What is Agentic AI? | N3uralia",
-    description: "Autonomous agents that plan, act, and adapt with memory and tools",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/agentic-ai",
     type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/agentic-ai",
-  },
+    title: "What is Agentic AI? | N3uralia Studies",
+    description: "Agentic AI is an architecture where autonomous agents plan, act, evaluate outcomes, and adapt using memory and tools. Complete explanation with real-world applications.",
+  })
 }
 
 export default function AgenticAIPage() {

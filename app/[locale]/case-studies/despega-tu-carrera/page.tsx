@@ -2,26 +2,31 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, BarChart3, Zap, Clock, Users } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Despega Tu Carrera Case Study | N3uralia - Full-Stack Plataforma de Coaching IA",
-  description:
-    "Cómo N3uralia construyó Despega Tu Carrera desde cero. Plataforma full-stack: 6 tests psicométricos + 120+ libros + Coach IA 24/7. 10,000+ usuarios, 50,000+ tests, 95% satisfacción.",
-  keywords:
-    "despega tu carrera, case study, plataforma coaching, IA coach, desarrollo profesional, fullstack, N3uralia, tests psicométricos, arquitectura completa",
-  alternates: {
-    canonical: "https://n3uralia.com/en/case-studies/despega-tu-carrera",
-    languages: {
-      es: "https://n3uralia.com/es/case-studies/despega-tu-carrera",
-      "en-US": "https://n3uralia.com/en/case-studies/despega-tu-carrera",
-    },
-  },
-  openGraph: {
-    title: "Despega Tu Carrera: Full-Stack Coaching Profesional con IA",
-    description: "Idea → Arquitectura → Producción: 10,000+ usuarios en desarrollo profesional",
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/case-studies/despega-tu-carrera",
     type: "article",
-    locale: "es_CL",
-  },
+    title:
+      locale === "es"
+        ? "Caso Despega Tu Carrera | N3uralia"
+        : "Despega Tu Carrera case study | N3uralia",
+    description:
+      locale === "es"
+        ? "Como N3uralia construyo una plataforma full-stack de coaching profesional con tests, biblioteca y coach IA para miles de usuarios."
+        : "How N3uralia built a full-stack coaching platform with assessments, library content, and an AI coach for thousands of users.",
+  })
 }
 
 export default function DespegatucarreraCaseStudy() {

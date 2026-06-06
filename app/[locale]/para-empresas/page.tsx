@@ -116,10 +116,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.metadataTitle,
     description: page.metadataDescription,
     alternates: {
-      canonical: `https://n3uralia.com/${locale}/para-empresas`,
+      canonical: `https://www.n3uralia.com/${locale}/para-empresas`,
       languages: {
-        es: "https://n3uralia.com/es/para-empresas",
-        en: "https://n3uralia.com/en/para-empresas",
+        es: "https://www.n3uralia.com/es/para-empresas",
+        en: "https://www.n3uralia.com/en/para-empresas",
       },
     },
   }
