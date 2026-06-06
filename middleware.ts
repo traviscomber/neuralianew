@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server"
 
 const LOCALES = ["es", "en"]
 const DEFAULT_LOCALE = "es"
+const ROOT_METADATA_PATHS = new Set([
+  "/robots.txt",
+  "/sitemap.xml",
+  "/favicon.ico",
+])
 
 const PROTECTED_API_ROUTES = [
   "/api/living-agents/evolution",
@@ -112,6 +117,7 @@ export async function middleware(request: NextRequest) {
   const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0].trim().toLowerCase()
   const requestHost = request.headers.get("host")?.split(":")[0].toLowerCase()
   const host = forwardedHost || requestHost || request.nextUrl.hostname.toLowerCase()
+  const isRootMetadataFile = ROOT_METADATA_PATHS.has(pathname)
   const isStaticAsset =
     pathname.startsWith("/_next") ||
     pathname.startsWith("/public") ||
@@ -122,7 +128,7 @@ export async function middleware(request: NextRequest) {
     redirectUrl.protocol = "https"
     redirectUrl.hostname = "www.n3uralia.com"
 
-    if (!pathname.startsWith("/api") && !isStaticAsset && !getLocale(pathname)) {
+    if (!pathname.startsWith("/api") && !isStaticAsset && !isRootMetadataFile && !getLocale(pathname)) {
       const acceptLanguage = request.headers.get("accept-language") || ""
       const preferredLocale = acceptLanguage
         .split(",")[0]
@@ -135,7 +141,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(redirectUrl, 308)
   }
 
-  if (isStaticAsset) {
+  if (isStaticAsset || isRootMetadataFile) {
     return NextResponse.next()
   }
 
