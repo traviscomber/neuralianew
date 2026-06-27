@@ -1,165 +1,110 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { EmailContactDialog } from "@/components/contact/email-contact-dialog"
-import { useParams } from "next/navigation"
+import { usePathname } from "next/navigation"
+
+type Locale = "es" | "en"
+
+function getLocaleFromPath(pathname: string | null): Locale {
+  if (pathname?.startsWith("/en")) {
+    return "en"
+  }
+  return "es"
+}
 
 export function Footer() {
-  const [emailDialogOpen, setEmailDialogOpen] = useState(false)
-  const params = useParams()
-  const locale = (params?.locale as string) || "es"
-
-  const href = (path: string) => `/${locale}${path}`
+  const pathname = usePathname()
+  const locale = getLocaleFromPath(pathname)
+  const isES = locale === "es"
+  const href = (hash: string) => `/${locale}${hash}`
 
   return (
-    <footer className="bg-background text-foreground py-12 border-t border-border px-4">
-      <div className="container mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-          {/* Brand Identity Section */}
+    <footer className="border-t border-border bg-background px-4 py-14 text-foreground sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-10 md:grid-cols-3 md:gap-8">
           <div>
-            <p className="font-bold mb-2 text-foreground">N3uralia</p>
-            <p className="text-xs text-primary font-medium mb-3">Plataforma de IA Empresarial</p>
-            <p className="text-muted-foreground text-sm mb-4">Soluciones de IA inteligentes para empresas chilenas. Agentes en producción, automatización y sistemas full-stack.</p>
-            <div className="text-xs text-muted-foreground space-y-1">
-              <p><strong>Ubicación:</strong> Santiago, Chile</p>
-              <p><strong>Sector:</strong> Inteligencia Artificial, Software Enterprise</p>
-              <p><strong>Especialidad:</strong> Agentes Multi-Agent, Automatización IA</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">N3uralia</p>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
+              {isES
+                ? "Ingeniería de IA para operaciones reales en Chile y LATAM."
+                : "AI engineering for real operations in Chile and LATAM."}
+            </p>
+            <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+              <p>{isES ? "Base: Santiago, Chile" : "Based in Santiago, Chile"}</p>
+              <p>{isES ? "Cobertura: Chile y LATAM" : "Coverage: Chile and LATAM"}</p>
             </div>
           </div>
-          
+
           <div>
-            <p className="font-bold mb-4 text-foreground">Empresa</p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">
+              {isES ? "Secciones" : "Sections"}
+            </p>
+            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href={href("/")} className="hover:text-foreground transition-colors">
-                  Inicio
+                <Link href={href("#capabilities")} className="transition-colors hover:text-foreground">
+                  {isES ? "Capacidades" : "Capabilities"}
                 </Link>
               </li>
               <li>
-                <Link href={href("/capabilities")} className="hover:text-foreground transition-colors">
-                  Capacidades
+                <Link href={href("#soluciones")} className="transition-colors hover:text-foreground">
+                  {isES ? "Soluciones" : "Solutions"}
                 </Link>
               </li>
               <li>
-                <Link href={href("/case-studies")} className="hover:text-foreground transition-colors">
-                  Casos de Éxito
+                <Link href={href("#casos")} className="transition-colors hover:text-foreground">
+                  {isES ? "Casos" : "Cases"}
                 </Link>
               </li>
               <li>
-                <Link href={href("/studies")} className="hover:text-foreground transition-colors">
-                  Estudios
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/faq")} className="hover:text-foreground transition-colors">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/contact")} className="hover:text-foreground transition-colors">
-                  Contacto
+                <Link href={href("#contacto")} className="transition-colors hover:text-foreground">
+                  {isES ? "Contacto" : "Contact"}
                 </Link>
               </li>
             </ul>
           </div>
-          
+
           <div>
-            <p className="font-bold mb-4 text-foreground">Soluciones</p>
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">
+              {isES ? "Contacto" : "Contact"}
+            </p>
+            <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
               <li>
-                <Link href={href("/soluciones")} className="hover:text-foreground transition-colors">
-                  Todas las Soluciones
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/automatizacion-para-empresas")} className="hover:text-foreground transition-colors">
-                  Automatización General
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/automatizacion-ventas-leads")} className="hover:text-foreground transition-colors">
-                  Sales & Leads
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/operaciones-autonomas")} className="hover:text-foreground transition-colors">
-                  Operaciones 24/7
-                </Link>
-              </li>
-              <li>
-                <Link href={href("/integraciones-empresariales")} className="hover:text-foreground transition-colors">
-                  Integraciones
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <p className="font-bold mb-4 text-foreground">Contacto</p>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              <li>
-                <button
-                  onClick={() => setEmailDialogOpen(true)}
-                  className="hover:text-foreground transition-colors text-left cursor-pointer"
-                >
-                  📧 info@n3uralia.com
-                </button>
-              </li>
-              <li>
-                <a 
-                  href="https://wa.me/56993826127?text=Hola%20N3uralia,%20me%20gustaría%20conocer%20más%20sobre%20vuestras%20soluciones%20de%20IA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-foreground transition-colors"
-                >
-                  💬 WhatsApp: +56 9 9382 6127
+                <a href="mailto:info@n3uralia.com" className="transition-colors hover:text-foreground">
+                  info@n3uralia.com
                 </a>
               </li>
-              <li className="pt-2 border-t border-border">
-                <p className="text-xs font-medium mb-2">Síguenos</p>
-                <div className="flex gap-3">
-                  <a 
-                    href="https://twitter.com/n3uralia" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:text-primary transition-colors text-xs"
-                  >
-                    Twitter
-                  </a>
-                  <a 
-                    href="https://linkedin.com/company/n3uralia" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:text-primary transition-colors text-xs"
-                  >
-                    LinkedIn
-                  </a>
-                </div>
+              <li>
+                <a
+                  href="https://wa.me/56993826127"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground"
+                >
+                  WhatsApp: +56 9 9382 6127
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://linkedin.com/company/n3uralia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-foreground"
+                >
+                  LinkedIn
+                </a>
               </li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-border pt-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 text-xs text-muted-foreground">
-            <div>
-              <p className="font-medium text-foreground mb-2">Sobre N3uralia</p>
-              <p>N3uralia es una plataforma de IA de próxima generación para empresas. Desarrollamos agentes inteligentes, sistemas de coordinación multi-agente y soluciones full-stack production-ready.</p>
-            </div>
-            <div>
-              <p className="font-medium text-foreground mb-2">Tecnologías</p>
-              <p>Agentic AI • Multi-Agent Systems • AI Memory • Context Engineering • Automatización Empresarial • Full-Stack Development • Production-Ready • Chile</p>
-            </div>
-          </div>
-          <div className="text-center text-sm text-muted-foreground border-t border-border pt-4">
-            <p>© 2025 N3uralia (Neuralia). Todos los derechos reservados.</p>
-            <p className="text-xs mt-2">N3uralia es una marca registrada. Neuralia es el nombre alternativo de la plataforma.</p>
-          </div>
+
+        <div className="mt-10 border-t border-border pt-6 text-sm text-muted-foreground">
+          <p>
+            {isES
+              ? `© ${new Date().getFullYear()} N3uralia. Todos los derechos reservados.`
+              : `© ${new Date().getFullYear()} N3uralia. All rights reserved.`}
+          </p>
         </div>
       </div>
-
-      <EmailContactDialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen} />
     </footer>
   )
 }
