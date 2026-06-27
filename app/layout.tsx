@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "N3uralia",
+    title: "N3uralia",
+    description:
+      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
     images: [
       {
         url: absoluteUrl("/og-image.png"),
