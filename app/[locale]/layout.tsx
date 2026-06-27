@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import Navigation from "@/components/navigation"
 import { ScrollToTop } from "@/components/scroll-to-top"
-import { FloatingChatWidget } from "@/components/floating-chat-widget"
-import { LanguageSwitcher } from "@/components/layout/language-switcher"
 import { ThemeProvider } from "@/components/theme-provider"
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
 
@@ -44,8 +42,10 @@ export async function generateMetadata({
       },
     },
     openGraph: {
+      title: titles[locale],
+      description: descriptions[locale],
       locale: locale === "es" ? "es_CL" : "en_US",
-      localeAlternate: locale === "es" ? ["en_US"] : ["es_CL"],
+      type: "website",
     },
   }
 }
@@ -58,8 +58,6 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
       <Navigation locale={locale} />
       {children}
       <ScrollToTop />
-      <FloatingChatWidget />
-      <LanguageSwitcher />
     </ThemeProvider>
   )
 }
