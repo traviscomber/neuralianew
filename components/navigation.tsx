@@ -1,154 +1,105 @@
 'use client'
 
-import Link from "next/link"
-import Image from "next/image"
-import { Menu, X } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { Menu, X } from "lucide-react"
 import type { Locale } from "@/lib/get-locale"
 
 interface NavigationProps {
   locale?: Locale
 }
 
+type NavItem = {
+  href: string
+  label: string
+}
+
 export default function Navigation({ locale = "es" }: NavigationProps) {
   const [open, setOpen] = useState(false)
   const isES = locale === "es"
-  const href = (path: string) => `/${locale}${path}`
+  const href = (hash: string) => `/${locale}${hash}`
 
-  const labels = {
-    capabilities: isES ? "Capacidades" : "Capabilities",
-    solutions: isES ? "Soluciones" : "Solutions",
-    howWeWork: isES ? "Como trabajamos" : "How we work",
-    caseStudies: isES ? "Casos de exito" : "Case studies",
-    faq: "FAQ",
-    about: isES ? "Acerca de" : "About",
-    contact: isES ? "Agendar diagnostico" : "Book a diagnosis",
-  }
+  const items: NavItem[] = [
+    { href: href("#capabilities"), label: isES ? "Capacidades" : "Capabilities" },
+    { href: href("#soluciones"), label: isES ? "Soluciones" : "Solutions" },
+    { href: href("#casos"), label: isES ? "Casos" : "Cases" },
+    { href: href("#contacto"), label: isES ? "Contacto" : "Contact" },
+  ]
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background/90 backdrop-blur border-b border-border">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        <Link href={href("/")} className="flex items-center">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href={href("#top")} className="flex items-center gap-3">
+          <Image
+            src="/logo-n3uralia.png"
+            alt="N3uralia"
+            width={56}
+            height={56}
+            className="h-14 w-auto"
+            priority
+          />
+          <div className="hidden sm:block">
+            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
+              N3uralia
+            </p>
+            <p className="text-sm font-medium text-foreground">
+              {isES ? "IA aplicada" : "Applied AI"}
+            </p>
+          </div>
         </Link>
 
-        <div className="hidden md:flex gap-1 items-center">
+        <div className="hidden items-center gap-1 lg:flex">
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+            >
+              {item.label}
+            </Link>
+          ))}
           <Link
-            href={href("/capabilities")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
+            href={href("#contacto")}
+            className="ml-3 inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            {labels.capabilities}
-          </Link>
-
-          <Link
-            href={href("/soluciones")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.solutions}
-          </Link>
-
-          <Link
-            href={href("/como-trabajamos")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.howWeWork}
-          </Link>
-
-          <Link
-            href={href("/case-studies")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.caseStudies}
-          </Link>
-
-          <Link
-            href={href("/faq")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.faq}
-          </Link>
-
-          <Link
-            href={href("/about")}
-            className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.about}
-          </Link>
-
-          <Link
-            href={href("/contact")}
-            className="ml-4 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg text-sm font-medium transition-colors"
-          >
-            {labels.contact}
+            {isES ? "Agendar diagnóstico" : "Book a diagnosis"}
           </Link>
         </div>
 
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
-          {open ? <X /> : <Menu />}
+        <button
+          type="button"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 text-foreground lg:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
-      {open && (
-        <div className="md:hidden border-t border-border bg-background p-4 space-y-2">
-          <Link
-            href={href("/capabilities")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.capabilities}
-          </Link>
-
-          <Link
-            href={href("/soluciones")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.solutions}
-          </Link>
-
-          <Link
-            href={href("/como-trabajamos")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.howWeWork}
-          </Link>
-
-          <Link
-            href={href("/case-studies")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.caseStudies}
-          </Link>
-
-          <Link
-            href={href("/faq")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.faq}
-          </Link>
-
-          <Link
-            href={href("/about")}
-            onClick={() => setOpen(false)}
-            className="block px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-all"
-          >
-            {labels.about}
-          </Link>
-
-          <div className="pt-2 border-t border-border">
+      {open ? (
+        <div className="border-t border-border/70 bg-background px-4 pb-4 pt-3 lg:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2">
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="rounded-2xl px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              >
+                {item.label}
+              </Link>
+            ))}
             <Link
-              href={href("/contact")}
+              href={href("#contacto")}
               onClick={() => setOpen(false)}
-              className="block px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center"
+              className="mt-2 rounded-2xl bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
-              {labels.contact}
+              {isES ? "Agendar diagnóstico" : "Book a diagnosis"}
             </Link>
           </div>
         </div>
-      )}
+      ) : null}
     </nav>
   )
 }
