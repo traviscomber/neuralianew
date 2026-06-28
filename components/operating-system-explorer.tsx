@@ -14,6 +14,13 @@ type Scenario = {
   flow: string[]
 }
 
+type Stage = {
+  label: string
+  title: string
+  eyebrow: string
+  helper: string
+}
+
 const scenarios: Scenario[] = [
   {
     id: 'reportes',
@@ -61,29 +68,34 @@ const scenarios: Scenario[] = [
   },
 ]
 
-const stages = [
+const stages: Stage[] = [
   {
     label: 'Hoy',
     title: 'El problema',
     eyebrow: 'Sin sistema',
+    helper: 'Primero hacemos visible la fricción que ya existe.',
   },
   {
     label: 'Construimos',
     title: 'La arquitectura',
     eyebrow: 'Sistema N3',
+    helper: 'Después diseñamos la capa correcta: datos, flujo, portal, IA o integración.',
   },
   {
     label: 'Resultado',
     title: 'La operación clara',
     eyebrow: 'En producción',
+    helper: 'Finalmente el equipo usa un sistema conectado al trabajo real.',
   },
 ]
 
 export function OperatingSystemExplorer() {
   const [activeId, setActiveId] = useState(scenarios[0].id)
-  const [activeStage, setActiveStage] = useState(1)
+  const [activeStage, setActiveStage] = useState(0)
   const activeScenario = scenarios.find((scenario) => scenario.id === activeId) ?? scenarios[0]
   const stageCopy = [activeScenario.pain, activeScenario.build, activeScenario.result]
+  const activeStageData = stages[activeStage]
+  const progress = `${((activeStage + 1) / stages.length) * 100}%`
 
   return (
     <div className='rounded-[2.4rem] border border-[#d8e5e2] bg-white p-4 shadow-[0_38px_120px_-88px_#173634] md:p-7'>
@@ -92,27 +104,29 @@ export function OperatingSystemExplorer() {
           <div className='rounded-[1.4rem] bg-[#173634] p-5 text-white'>
             <p className='text-xs font-semibold uppercase tracking-[0.28em] text-[#b8d1cc]'>Interactúa</p>
             <h3 className='mt-4 text-2xl font-light leading-tight'>Elige un dolor operativo.</h3>
-            <p className='mt-3 text-sm leading-6 text-[#d9e3e0]'>Luego cambia entre Hoy, Construimos y Resultado para ver el antes y después.</p>
+            <p className='mt-3 text-sm leading-6 text-[#d9e3e0]'>Luego avanza por las tres etapas para entender qué hace N3uralia sin jerga.</p>
           </div>
 
           <div className='mt-5 grid gap-3' role='tablist' aria-label='Dolores operativos'>
             {scenarios.map((scenario) => {
               const selected = scenario.id === activeId
+              const tabId = `scenario-tab-${scenario.id}`
               return (
                 <button
                   key={scenario.id}
+                  id={tabId}
                   type='button'
                   role='tab'
                   aria-selected={selected}
                   aria-controls='operating-system-panel'
-                  className={`grid grid-cols-[44px_1fr_auto] items-center gap-4 rounded-[1.35rem] border p-4 text-left transition-all duration-300 ${
+                  className={`grid grid-cols-[44px_1fr_auto] items-center gap-4 rounded-[1.35rem] border p-4 text-left transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
                     selected
                       ? 'border-[#789b96] bg-white text-[#173634] shadow-[0_24px_70px_-58px_#173634]'
                       : 'border-[#d8e5e2] bg-white/60 text-[#52605d] hover:border-[#b8d1cc] hover:bg-white'
                   }`}
                   onClick={() => {
                     setActiveId(scenario.id)
-                    setActiveStage(1)
+                    setActiveStage(0)
                   }}
                 >
                   <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border text-xs font-semibold ${selected ? 'border-[#b8d1cc] bg-[#eef5f2] text-[#526e69]' : 'border-[#d8e5e2] bg-white text-[#789b96]'}`}>
@@ -129,7 +143,7 @@ export function OperatingSystemExplorer() {
           </div>
         </div>
 
-        <div id='operating-system-panel' role='tabpanel' className='rounded-[1.8rem] border border-[#d8e5e2] bg-[#fbfbfa] p-5 md:p-7'>
+        <div id='operating-system-panel' role='tabpanel' aria-labelledby={`scenario-tab-${activeScenario.id}`} className='rounded-[1.8rem] border border-[#d8e5e2] bg-[#fbfbfa] p-5 md:p-7'>
           <div className='flex flex-wrap items-start justify-between gap-4'>
             <div className='max-w-xl'>
               <p className='text-sm font-semibold text-[#789b96]'>{activeScenario.metric}</p>
@@ -141,17 +155,22 @@ export function OperatingSystemExplorer() {
             </div>
           </div>
 
-          <div className='mt-7 grid gap-3 sm:grid-cols-3' role='tablist' aria-label='Etapas de solución'>
+          <div className='mt-7 rounded-full bg-white p-1'>
+            <div className='h-2 rounded-full bg-[#173634] transition-all duration-500' style={{ width: progress }} />
+          </div>
+
+          <div className='mt-5 grid gap-3 sm:grid-cols-3' role='tablist' aria-label='Etapas de solución'>
             {stages.map((stage, index) => {
               const selected = index === activeStage
               return (
                 <button
                   key={stage.label}
+                  id={`stage-tab-${index}`}
                   type='button'
                   role='tab'
                   aria-selected={selected}
                   aria-controls='stage-explanation'
-                  className={`rounded-[1.15rem] border p-4 text-left transition-all duration-300 ${
+                  className={`rounded-[1.15rem] border p-4 text-left transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
                     selected
                       ? 'border-[#173634] bg-[#173634] text-white shadow-[0_24px_55px_-42px_#173634]'
                       : 'border-[#d8e5e2] bg-white text-[#52605d] hover:border-[#b8d1cc]'
@@ -167,10 +186,11 @@ export function OperatingSystemExplorer() {
           </div>
 
           <div className='mt-5 grid gap-4 xl:grid-cols-[1fr_0.82fr]'>
-            <div id='stage-explanation' className='rounded-[1.45rem] border border-[#d8e5e2] bg-white p-5 md:p-6' aria-live='polite'>
-              <p className='text-xs font-semibold uppercase tracking-[0.22em] text-[#789b96]'>{stages[activeStage].eyebrow}</p>
-              <h4 className='mt-3 text-2xl font-light leading-tight text-[#173634]'>{stages[activeStage].title}</h4>
+            <div id='stage-explanation' role='tabpanel' aria-labelledby={`stage-tab-${activeStage}`} className='rounded-[1.45rem] border border-[#d8e5e2] bg-white p-5 md:p-6' aria-live='polite'>
+              <p className='text-xs font-semibold uppercase tracking-[0.22em] text-[#789b96]'>{activeStageData.eyebrow}</p>
+              <h4 className='mt-3 text-2xl font-light leading-tight text-[#173634]'>{activeStageData.title}</h4>
               <p className='mt-4 text-lg leading-8 text-[#243331]'>{stageCopy[activeStage]}</p>
+              <p className='mt-5 rounded-2xl bg-[#eef5f2] px-4 py-3 text-sm font-semibold leading-6 text-[#526e69]'>{activeStageData.helper}</p>
             </div>
 
             <div className='rounded-[1.45rem] border border-[#d8e5e2] bg-white p-5 md:p-6'>
@@ -194,7 +214,7 @@ export function OperatingSystemExplorer() {
                 key={stage.label}
                 type='button'
                 onClick={() => setActiveStage(index)}
-                className={`rounded-[1.15rem] border p-4 text-left transition-colors ${
+                className={`rounded-[1.15rem] border p-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
                   index === activeStage ? 'border-[#789b96] bg-[#eef5f2]' : 'border-[#d8e5e2] bg-white hover:border-[#b8d1cc]'
                 }`}
               >
@@ -204,13 +224,22 @@ export function OperatingSystemExplorer() {
             ))}
           </div>
 
-          <div className='mt-6 flex flex-wrap gap-3'>
-            <a href='#contacto' className='inline-flex items-center justify-center rounded-full bg-[#173634] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946]'>
-              Mapear mi operación
-            </a>
-            <a href='#case-studies' className='inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-5 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96]'>
-              Ver ejemplos
-            </a>
+          <div className='mt-6 flex flex-wrap items-center justify-between gap-3'>
+            <div className='flex flex-wrap gap-3'>
+              <a href='#contacto' className='inline-flex items-center justify-center rounded-full bg-[#173634] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'>
+                Mapear mi operación
+              </a>
+              <a href='#case-studies' className='inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-5 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'>
+                Ver ejemplos
+              </a>
+            </div>
+            <button
+              type='button'
+              className='inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-[#eef5f2] px-5 py-3 text-sm font-semibold text-[#173634] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'
+              onClick={() => setActiveStage((current) => (current + 1) % stages.length)}
+            >
+              {activeStage === stages.length - 1 ? 'Volver al problema' : 'Ver siguiente etapa'}
+            </button>
           </div>
         </div>
       </div>
