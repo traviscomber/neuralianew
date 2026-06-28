@@ -31,6 +31,7 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
   const [scrollProgress, setScrollProgress] = useState(0)
   const isES = locale === 'es'
   const href = (hash: string) => `/${locale}${hash}`
+  const contactHref = `/${locale}/contact`
 
   const items: NavItem[] = NAV_ITEMS.map((item) => ({
     hash: item.hash,
@@ -103,8 +104,7 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
 
         <div className='flex items-center justify-end gap-3'>
           <Link
-            href={href('#contacto')}
-            aria-current={activeHash === '#contacto' ? 'true' : undefined}
+            href={contactHref}
             className='hidden rounded-full bg-[#173634] px-5 py-3 text-sm font-semibold text-white shadow-[0_22px_55px_-34px_#173634] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] md:inline-flex'
           >
             {isES ? 'Agendar diagnóstico' : 'Book diagnosis'}
@@ -141,7 +141,7 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
               )
             })}
             <Link
-              href={href('#contacto')}
+              href={contactHref}
               onClick={() => setOpen(false)}
               className='mt-3 inline-flex items-center justify-center rounded-full bg-[#173634] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'
             >
