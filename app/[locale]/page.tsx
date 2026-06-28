@@ -1,6 +1,21 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import {
+  ArrowRight,
+  Bot,
+  CalendarCheck,
+  ChartNoAxesCombined,
+  ClipboardCheck,
+  Factory,
+  FileText,
+  Gauge,
+  Layers3,
+  MapPinned,
+  SearchCheck,
+  ShieldCheck,
+  Workflow,
+} from 'lucide-react'
 import { BrandMark, BrandWordmark } from '@/components/brand'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
 
@@ -15,25 +30,24 @@ type LinkItem = {
   href: string
 }
 
-type NumberedItem = {
-  number: string
-  title: string
-  description: string
-}
-
 type TextItem = {
   title: string
   description: string
 }
 
-type ShowcaseItem = {
+type NumberedItem = TextItem & {
+  number: string
+}
+
+type VisualItem = TextItem & {
+  icon: ReactNode
+}
+
+type ShowcaseItem = TextItem & {
   id: string
-  title: string
   subtitle: string
-  description: string
   links: LinkItem[]
-  backgroundClassName: string
-  accentClassName: string
+  metrics: string[]
 }
 
 function href(locale: Locale, hash: string) {
@@ -78,140 +92,151 @@ function ButtonLink({
   variant?: 'solid' | 'outline'
   children: ReactNode
 }) {
-  const solidClasses =
-    'inline-flex items-center justify-center rounded-[0.8rem] bg-[#8ea9a5] px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#7d9f9b]'
-  const outlineClasses =
-    'inline-flex items-center justify-center rounded-[0.8rem] border border-[#b8d1cc] bg-white px-6 py-2.5 text-sm font-medium text-[#8ea9a5] transition-colors hover:border-[#8ea9a5] hover:bg-[#f7fbfa]'
+  const classes =
+    variant === 'solid'
+      ? 'inline-flex items-center justify-center gap-2 rounded-md bg-[#789b96] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#638782]'
+      : 'inline-flex items-center justify-center gap-2 rounded-md border border-[#b8d1cc] bg-white px-5 py-3 text-sm font-medium text-[#6f918c] transition-colors hover:border-[#789b96] hover:bg-[#f4f8f7]'
 
   return (
-    <Link href={href} className={variant === 'solid' ? solidClasses : outlineClasses}>
+    <Link href={href} className={classes}>
       {children}
     </Link>
   )
 }
 
-function SectionTitle({
+function SectionHeading({
+  eyebrow,
   title,
   description,
-  wrapperClassName = '',
-  titleClassName = '',
-  descriptionClassName = '',
+  align = 'left',
 }: {
+  eyebrow?: string
   title: string
   description?: string
-  wrapperClassName?: string
-  titleClassName?: string
-  descriptionClassName?: string
+  align?: 'left' | 'center'
 }) {
   return (
-    <div className={wrapperClassName}>
-      <h2
-        className={`text-[clamp(2rem,4vw,3.55rem)] font-light leading-[0.96] tracking-[-0.06em] text-[#8ea9a5] ${titleClassName}`.trim()}
-      >
-        {title}
-      </h2>
-      {description ? (
-        <p className={`mt-5 text-[1rem] leading-8 text-[#777] ${descriptionClassName}`.trim()}>
-          {description}
-        </p>
-      ) : null}
+    <div className={align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}>
+      {eyebrow ? <p className='mb-4 text-sm font-medium text-[#789b96]'>{eyebrow}</p> : null}
+      <h2 className='text-4xl font-light leading-tight text-[#66706e] md:text-5xl'>{title}</h2>
+      {description ? <p className='mt-5 text-base leading-8 text-[#747b79]'>{description}</p> : null}
     </div>
   )
 }
 
-function NumberedItemBlock({ number, title, description }: NumberedItem) {
+function NumberedRow({ number, title, description }: NumberedItem) {
   return (
-    <div className='grid gap-5 md:grid-cols-[140px_minmax(0,1fr)] md:gap-8 lg:grid-cols-[220px_1fr] lg:items-start'>
-      <div className='select-none text-[clamp(4.5rem,8vw,7rem)] font-light leading-none text-[#d6d6d6]'>
-        {number}
-      </div>
-      <div className='pt-1 md:pt-3'>
-        <h3 className='text-[1.12rem] font-semibold tracking-[-0.03em] text-[#5f6161]'>{title}</h3>
-        <p className='mt-3 max-w-[50rem] text-[0.98rem] leading-7 text-[#787878]'>{description}</p>
+    <div className='grid gap-5 border-t border-[#dfe8e5] py-8 md:grid-cols-[96px_1fr]'>
+      <div className='text-5xl font-light leading-none text-[#aeb9b6]'>{number}</div>
+      <div>
+        <h3 className='text-lg font-semibold text-[#3f4745]'>{title}</h3>
+        <p className='mt-3 max-w-3xl text-base leading-8 text-[#747b79]'>{description}</p>
       </div>
     </div>
   )
 }
 
-function SmallCard({ title, description }: TextItem) {
-  return (
-    <article className='min-h-full border-white/50 px-7 py-10 sm:px-9 lg:px-10'>
-      <h3 className='text-[1.4rem] font-semibold tracking-[-0.03em] text-[#5f6262]'>{title}</h3>
-      <p className='mt-7 max-w-md text-[0.98rem] leading-7 text-[#707474]'>{description}</p>
-    </article>
-  )
-}
+function SystemCanvas() {
+  const rows = [
+    ['Datos', 'ERP', 'CRM', 'PDF'],
+    ['IA', 'Alertas', 'Aprobaciones', 'Reportes'],
+    ['Operaciones', 'Terreno', 'Finanzas', 'Gerencia'],
+  ]
 
-function ProjectPreview({ accentClassName }: { accentClassName: string }) {
   return (
-    <div className='relative min-h-[25rem] overflow-hidden rounded-[1.9rem] bg-white/10 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]'>
-      <div className={`absolute inset-0 opacity-90 ${accentClassName}`} />
+    <div className='relative min-h-[420px] overflow-hidden border border-[#d8e5e2] bg-[#f8fbfa] p-6 md:min-h-[520px]'>
+      <div className='absolute left-0 right-0 top-1/2 h-px bg-[#c8ddd8]' />
+      <div className='absolute bottom-0 top-0 left-1/2 w-px bg-[#c8ddd8]' />
       <div className='relative flex h-full flex-col justify-between'>
-        <div className='flex items-center justify-between text-[0.65rem] uppercase tracking-[0.28em] text-white/55'>
-          <span>Dashboard</span>
-          <span>24/7</span>
+        <div className='flex items-center justify-between text-sm text-[#789b96]'>
+          <span>Operacion conectada</span>
+          <span>Tiempo real</span>
         </div>
-        <div className='grid gap-3 sm:grid-cols-2'>
-          {['Resumen', 'Alertas', 'Tareas', 'Reportes'].map((item) => (
-            <div key={item} className='rounded-2xl border border-white/15 bg-white/10 px-4 py-3 text-sm text-white/86 backdrop-blur-sm'>
-              {item}
+        <div className='grid gap-4'>
+          {rows.map((row) => (
+            <div key={row.join('-')} className='grid grid-cols-2 gap-3 sm:grid-cols-4'>
+              {row.map((item) => (
+                <div key={item} className='border border-[#d8e5e2] bg-white px-4 py-3 text-sm text-[#66706e] shadow-sm'>
+                  {item}
+                </div>
+              ))}
             </div>
           ))}
         </div>
+        <div className='flex items-end justify-between gap-8'>
+          <BrandMark className='h-20 w-20 text-[#789b96]' />
+          <div className='grid flex-1 gap-2'>
+            <div className='h-2 w-full bg-[#d8e5e2]' />
+            <div className='h-2 w-3/4 bg-[#9ebbb5]' />
+            <div className='h-2 w-1/2 bg-[#d8e5e2]' />
+          </div>
+        </div>
       </div>
     </div>
+  )
+}
+
+function ExpertisePanel({ item }: { item: VisualItem }) {
+  return (
+    <article className='border-r border-white/55 px-7 py-10 last:border-r-0'>
+      <div className='mb-8 flex h-10 w-10 items-center justify-center border border-[#b8d1cc] bg-white text-[#789b96]'>
+        {item.icon}
+      </div>
+      <h3 className='text-lg font-semibold text-[#3f4745]'>{item.title}</h3>
+      <p className='mt-5 text-base leading-8 text-[#66706e]'>{item.description}</p>
+    </article>
   )
 }
 
 function Showcase({ item }: { item: ShowcaseItem }) {
   return (
-    <article
-      className={`relative overflow-hidden rounded-[2rem] border border-white/60 p-6 shadow-[0_18px_70px_rgba(34,52,50,0.08)] lg:p-8 ${item.backgroundClassName}`.trim()}
-    >
-      <div className='absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.16),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent)]' />
-      <div className='relative min-h-[28rem] lg:min-h-[31rem]'>
-        <div className='relative min-h-[22rem] lg:pr-[36%]'>
-          <ProjectPreview accentClassName={item.accentClassName} />
+    <article className='grid overflow-hidden border border-[#c9d8d5] bg-white lg:grid-cols-[1.1fr_0.9fr]'>
+      <div className='bg-[#6f8588] p-6 text-white lg:p-8'>
+        <div className='flex items-center justify-between text-sm text-white/70'>
+          <span>{item.subtitle}</span>
+          <span>Control operativo</span>
         </div>
-        <div className='relative z-10 mt-6 max-w-[34rem] lg:absolute lg:right-8 lg:top-8 lg:mt-0'>
-          <div className='rounded-[1.7rem] bg-white p-8 shadow-[0_24px_65px_rgba(0,0,0,0.1)]'>
-            <div className='space-y-4'>
-              <h3 className='text-[1.55rem] font-semibold tracking-[-0.04em] text-[#5c5f60]'>{item.title}</h3>
-              <p className='text-[1rem] font-semibold tracking-[-0.03em] text-[#5c5f60]'>{item.subtitle}</p>
-              <p className='text-[0.98rem] leading-7 text-[#767676]'>{item.description}</p>
+        <div className='mt-24 grid gap-3 sm:grid-cols-3'>
+          {item.metrics.map((metric) => (
+            <div key={metric} className='border border-white/20 bg-white/10 px-4 py-4 text-sm backdrop-blur-sm'>
+              {metric}
             </div>
-            <div className='mt-7 space-y-3'>
-              {item.links.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className='inline-flex text-[0.96rem] text-[#8ea9a5] underline decoration-[#8ea9a5]/40 underline-offset-4 transition-colors hover:text-[#6f918e]'
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+          ))}
+        </div>
+        <div className='mt-8 grid h-24 grid-cols-12 items-end gap-2'>
+          {[42, 68, 54, 76, 61, 84, 58, 92, 64, 80, 71, 88].map((height, index) => (
+            <div key={index} className='bg-white/70' style={{ height: `${height}%` }} />
+          ))}
+        </div>
+      </div>
+      <div className='p-8 lg:p-10'>
+        <h3 className='text-2xl font-semibold text-[#3f4745]'>{item.title}</h3>
+        <p className='mt-4 text-base font-medium text-[#66706e]'>{item.subtitle}</p>
+        <p className='mt-6 text-base leading-8 text-[#747b79]'>{item.description}</p>
+        <div className='mt-8 flex flex-wrap gap-4'>
+          {item.links.map((link) => (
+            <Link key={link.label} href={link.href} className='inline-flex items-center gap-2 text-sm font-medium text-[#789b96] hover:text-[#526e69]'>
+              {link.label}
+              <ArrowRight className='h-4 w-4' aria-hidden='true' />
+            </Link>
+          ))}
         </div>
       </div>
     </article>
   )
 }
 
-function UseCaseArtwork() {
+function UseCaseGraphic() {
   return (
-    <div className='relative min-h-[27rem] overflow-hidden rounded-[2.2rem] border border-[#e1ece8] bg-white p-6 shadow-[0_24px_80px_rgba(34,52,50,0.06)]'>
-      <div className='absolute left-[12%] top-[16%] h-28 w-44 rounded-[2rem] border border-[#7fc0df] opacity-90' />
-      <div className='absolute left-[33%] top-[10%] h-40 w-40 rounded-full border border-[#7fc0df] opacity-90' />
-      <div className='absolute right-[15%] top-[18%] h-20 w-20 rounded-full border border-[#7fc0df] opacity-90' />
-      <div className='absolute left-[22%] top-[50%] h-0.5 w-[56%] bg-[#7fc0df]' />
-      <div className='absolute left-[22%] top-[50%] h-28 w-0.5 bg-[#7fc0df]' />
-      <div className='absolute left-[22%] top-[50%] h-0.5 w-24 rotate-[-36deg] bg-[#7fc0df]' />
-      <div className='absolute left-[22%] top-[50%] h-0.5 w-28 rotate-[34deg] bg-[#7fc0df]' />
-      <div className='absolute left-[57%] top-[58%] h-36 w-36 rounded-full border border-[#7fc0df]' />
-      <div className='absolute left-[61%] top-[66%] h-16 w-16 rounded-full border border-[#7fc0df]' />
-      <div className='absolute bottom-8 left-1/2 flex -translate-x-1/2 items-center justify-center rounded-full border border-[#d9e7e3] bg-[#f7fbfa] p-4 shadow-sm'>
-        <BrandMark className='h-11 w-11 text-[#9cb9b5]' />
+    <div className='relative min-h-[420px] overflow-hidden border border-[#d8e5e2] bg-white p-8'>
+      <div className='absolute left-8 right-12 top-14 h-px bg-[#7fc0df]' />
+      <div className='absolute left-8 top-14 h-32 w-32 rounded-full border border-[#7fc0df]' />
+      <div className='absolute left-[28%] right-10 top-32 h-px bg-[#7fc0df]' />
+      <div className='absolute left-[20%] top-32 h-20 w-[45%] rounded-full border border-[#7fc0df]' />
+      <div className='absolute left-[32%] right-14 top-56 h-px bg-[#7fc0df]' />
+      <div className='absolute left-[31%] top-56 h-16 w-[34%] rounded-full border border-[#7fc0df]' />
+      <div className='absolute bottom-12 left-1/2 -translate-x-1/2 text-[#789b96]'>
+        <Bot className='h-14 w-14' aria-hidden='true' />
       </div>
     </div>
   )
@@ -226,43 +251,46 @@ export default function HomePage({ params }: PageProps) {
       number: '1',
       title: 'Datos fragmentados',
       description:
-        'La empresa ya tiene datos, pero están dispersos entre Excel, ERP, CRM, correos, WhatsApp, paneles, PDFs y herramientas internas. La gerencia no puede ver el estado real de la operación con suficiente rapidez.',
+        'La empresa ya tiene datos, pero estan repartidos entre Excel, ERP, CRM, correos, WhatsApp, paneles, PDFs y herramientas internas. La gerencia no puede ver el estado real de la operacion con suficiente rapidez.',
     },
     {
       number: '2',
-      title: 'Gestión manual de tareas',
+      title: 'Gestion manual de tareas',
       description:
-        'El negocio creció, pero la operación sigue dependiendo de perseguir personas: seguimientos manuales, mensajes repetidos, responsabilidades poco claras, trabajo duplicado, aprobaciones perdidas, respuestas tardías y cero visibilidad en tiempo real.',
+        'El negocio crecio, pero la operacion sigue dependiendo de perseguir personas: seguimientos manuales, mensajes repetidos, responsabilidades poco claras, trabajo duplicado, aprobaciones perdidas, respuestas tardias y cero visibilidad en tiempo real.',
     },
     {
       number: '3',
-      title: 'Tecnologías del pasado',
+      title: 'Tecnologias del pasado',
       description:
-        'Muchas empresas están probando ChatGPT, copilotos, automatizaciones o herramientas de IA, pero nada se convierte en un sistema de producción seguro, confiable e integrado. Tienen demos, pero no infraestructura, y siguen trabajando con software antiguo que no responde a las necesidades actuales.',
+        'Muchas empresas estan probando ChatGPT, copilotos, automatizaciones o herramientas de IA, pero nada se convierte en un sistema de produccion seguro, confiable e integrado. Tienen demos, pero no infraestructura.',
     },
     {
       number: '4',
       title: 'Costo oculto',
       description:
-        'El crecimiento crea complejidad. La complejidad crea costo. La mayoría de las empresas no pierde tiempo porque la gente no trabaje duro. Lo pierde porque la información está dispersa, los procesos son manuales y las decisiones dependen de demasiadas herramientas desconectadas. N3uralia te ayuda a encontrar la fricción, estructurar la operación y construir el sistema que tu empresa necesita para escalar.',
+        'El crecimiento crea complejidad. La complejidad crea costo. N3uralia ayuda a encontrar la friccion, estructurar la operacion y construir el sistema que la empresa necesita para escalar.',
     },
   ]
 
-  const expertise: TextItem[] = [
+  const expertise: VisualItem[] = [
     {
+      icon: <Gauge className='h-5 w-5' aria-hidden='true' />,
       title: 'Inteligencia operativa',
       description:
-        'Convierte información dispersa en decisiones claras. Conectamos datos, reportes, documentos y flujos de trabajo para que tu equipo vea lo que pasa y actúe más rápido.',
+        'Convertimos informacion dispersa en decisiones claras, conectando datos, reportes, documentos y flujos de trabajo.',
     },
     {
-      title: 'Automatización de flujos',
+      icon: <Workflow className='h-5 w-5' aria-hidden='true' />,
+      title: 'Automatizacion de flujos',
       description:
-        'Reduce la coordinación manual y el trabajo repetido. Diseñamos sistemas internos que ayudan a los equipos a gestionar tareas, aprobaciones, alertas, documentos y operaciones diarias con menos fricción.',
+        'Reducimos coordinacion manual y trabajo repetido con sistemas internos para tareas, aprobaciones, alertas y documentos.',
     },
     {
-      title: 'Sistemas de IA en producción',
+      icon: <Bot className='h-5 w-5' aria-hidden='true' />,
+      title: 'Sistemas de IA en produccion',
       description:
-        'Llevamos la IA desde los experimentos al uso real del negocio. Construimos agentes, copilotos y plataformas inteligentes conectadas al conocimiento, las herramientas y los procesos de tu empresa.',
+        'Llevamos la IA desde experimentos hacia agentes, copilotos y plataformas conectadas al conocimiento real de la empresa.',
     },
   ]
 
@@ -273,114 +301,40 @@ export default function HomePage({ params }: PageProps) {
     'Tareas repetidas',
     'Operaciones intensivas en documentos',
     'Poca visibilidad entre equipos',
-    'Herramientas de IA sin integración',
+    'Herramientas de IA sin integracion',
     'Software interno que ya no calza',
   ]
 
-  const buildItems: NumberedItem[] = [
-    {
-      number: '1',
-      title: 'Paneles y tableros de control',
-      description: 'Para visibilidad, KPIs, alertas y decisiones de gestión.',
-    },
-    {
-      number: '2',
-      title: 'Portales internos',
-      description: 'Para tareas, aprobaciones, documentos, operaciones y coordinación de equipos.',
-    },
-    {
-      number: '3',
-      title: 'Agentes y copilotos de IA',
-      description: 'Para equipos que necesitan acceso más rápido al conocimiento, los documentos y la lógica del negocio.',
-    },
-    {
-      number: '4',
-      title: 'Sistemas de inteligencia documental',
-      description: 'Para contratos, reportes, licitaciones, archivos de cumplimiento, manuales y registros operativos.',
-    },
-    {
-      number: '5',
-      title: 'Plataformas empresariales a medida',
-      description: 'Para empresas que ya superaron el alcance de las herramientas genéricas.',
-    },
+  const buildItems: VisualItem[] = [
+    { icon: <ChartNoAxesCombined className='h-5 w-5' aria-hidden='true' />, title: 'Dashboards y paneles de control', description: 'Visibilidad, KPIs, alertas y decisiones de gestion.' },
+    { icon: <Layers3 className='h-5 w-5' aria-hidden='true' />, title: 'Portales internos', description: 'Tareas, aprobaciones, documentos, operaciones y coordinacion de equipos.' },
+    { icon: <Bot className='h-5 w-5' aria-hidden='true' />, title: 'Agentes y copilotos de IA', description: 'Acceso mas rapido al conocimiento, documentos y logica del negocio.' },
+    { icon: <FileText className='h-5 w-5' aria-hidden='true' />, title: 'Inteligencia documental', description: 'Contratos, reportes, licitaciones, cumplimiento, manuales y registros.' },
+    { icon: <Factory className='h-5 w-5' aria-hidden='true' />, title: 'Plataformas empresariales a medida', description: 'Para empresas que ya superaron el alcance de las herramientas genericas.' },
   ]
 
   const methodSteps: NumberedItem[] = [
-    {
-      number: '1',
-      title: 'Diagnosticar',
-      description: 'Mapeamos tus flujos, datos, herramientas, documentos, equipos y cuellos de botella.',
-    },
-    {
-      number: '2',
-      title: 'Arquitectura',
-      description: 'Diseñamos el sistema correcto: paneles, automatizaciones, capas de IA, portales e integraciones.',
-    },
-    {
-      number: '3',
-      title: 'Construir',
-      description: 'Creamos la plataforma, el flujo, el asistente o la capa de inteligencia que tu empresa necesita.',
-    },
-    {
-      number: '4',
-      title: 'Integrar',
-      description: 'Lo conectamos con tu operación real, personas, herramientas, permisos y procesos diarios.',
-    },
-    {
-      number: '5',
-      title: 'Mejorar',
-      description: 'Perfeccionamos el sistema a medida que tu empresa crece.',
-    },
+    { number: '1', title: 'Diagnosticar', description: 'Mapeamos flujos, datos, herramientas, documentos, equipos y cuellos de botella.' },
+    { number: '2', title: 'Arquitectura', description: 'Diseñamos el sistema correcto: paneles, automatizaciones, capas de IA, portales e integraciones.' },
+    { number: '3', title: 'Construir', description: 'Creamos la plataforma, el flujo, el asistente o la capa de inteligencia que la empresa necesita.' },
+    { number: '4', title: 'Integrar', description: 'Lo conectamos con la operacion real, personas, herramientas, permisos y procesos diarios.' },
+    { number: '5', title: 'Mejorar', description: 'Perfeccionamos el sistema a medida que la empresa crece.' },
   ]
 
-  const useCases: TextItem[] = [
-    {
-      title: 'Visibilidad gerencial',
-      description: 'Ve operaciones, KPIs, desempeño y riesgos en un solo lugar.',
-    },
-    {
-      title: 'Inteligencia documental',
-      description: 'Extrae, clasifica, resume, compara y gestiona documentos importantes con mayor velocidad.',
-    },
-    {
-      title: 'Sistemas de licitación y cumplimiento',
-      description: 'Haz seguimiento de requisitos, plazos, documentos, riesgos y entregas con más control.',
-    },
-    {
-      title: 'Portales internos de operación',
-      description: 'Dale a los equipos un solo lugar para gestionar tareas, aprobaciones, incidentes, activos e informes.',
-    },
-    {
-      title: 'Asistentes de conocimiento con IA',
-      description: 'Permite que tu equipo haga preguntas y reciba respuestas desde documentos, políticas, manuales y datos de la empresa.',
-    },
-    {
-      title: 'Control de operaciones en terreno',
-      description: 'Gestiona logística, mantenimiento, inspecciones, transporte, incidentes y ejecución de servicios.',
-    },
+  const useCases: VisualItem[] = [
+    { icon: <Gauge className='h-5 w-5' aria-hidden='true' />, title: 'Visibilidad gerencial', description: 'Operaciones, KPIs, desempeño y riesgos en un solo lugar.' },
+    { icon: <FileText className='h-5 w-5' aria-hidden='true' />, title: 'Inteligencia documental', description: 'Extraer, clasificar, resumir, comparar y gestionar documentos importantes.' },
+    { icon: <ClipboardCheck className='h-5 w-5' aria-hidden='true' />, title: 'Licitacion y cumplimiento', description: 'Requisitos, plazos, documentos, riesgos y entregas con mas control.' },
+    { icon: <Layers3 className='h-5 w-5' aria-hidden='true' />, title: 'Portales internos', description: 'Un lugar para tareas, aprobaciones, incidentes, activos e informes.' },
+    { icon: <SearchCheck className='h-5 w-5' aria-hidden='true' />, title: 'Asistentes de conocimiento con IA', description: 'Preguntas y respuestas desde documentos, politicas, manuales y datos.' },
+    { icon: <MapPinned className='h-5 w-5' aria-hidden='true' />, title: 'Control de operaciones en terreno', description: 'Logistica, mantenimiento, inspecciones, transporte, incidentes y servicios.' },
   ]
 
   const engagementModels: NumberedItem[] = [
-    {
-      number: '1',
-      title: 'Auditoría de Inteligencia Operativa',
-      description: 'Un mapa claro de tus sistemas, cuellos de botella, datos, flujos y oportunidades de IA.',
-    },
-    {
-      number: '2',
-      title: 'Sprint de prototipo',
-      description: 'Una primera versión enfocada de un dashboard, asistente de IA, automatización o herramienta interna.',
-    },
-    {
-      number: '3',
-      title: 'Construcción de sistema en producción',
-      description: 'Una plataforma completa, un sistema de flujos, una capa de IA o una solución de inteligencia operativa.',
-    },
-    {
-      number: '4',
-      title: 'Socio continuo de inteligencia',
-      description: 'Mejora continua, automatización, integración y evolución del sistema.',
-    },
+    { number: '1', title: 'Auditoria de Inteligencia Operativa', description: 'Un mapa claro de sistemas, cuellos de botella, datos, flujos y oportunidades de IA.' },
+    { number: '2', title: 'Sprint de prototipo', description: 'Primera version enfocada de un dashboard, asistente de IA, automatizacion o herramienta interna.' },
+    { number: '3', title: 'Construccion de sistema en produccion', description: 'Plataforma completa, sistema de flujos, capa de IA o solucion de inteligencia operativa.' },
+    { number: '4', title: 'Socio continuo de inteligencia', description: 'Mejora continua, automatizacion, integracion y evolucion del sistema.' },
   ]
 
   const projects: ShowcaseItem[] = [
@@ -388,41 +342,33 @@ export default function HomePage({ params }: PageProps) {
       id: 'motil',
       title: 'Motil',
       subtitle: 'Inteligencia Operativa Minera',
-      description:
-        'Una plataforma de control para minería que conecta producción, mantenimiento, bodega, HSE, documentos y gestión en un solo flujo operativo en tiempo real.',
+      description: 'Plataforma de control para mineria que conecta produccion, mantenimiento, bodega, HSE, documentos y gestion en un flujo operativo en tiempo real.',
       links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      backgroundClassName: 'bg-[#d7e0df]',
-      accentClassName: 'bg-[linear-gradient(135deg,#8da59f_0%,#6f8682_55%,#607877_100%)]',
+      metrics: ['Produccion', 'Mantenimiento', 'HSE'],
     },
     {
       id: 'docufleet',
       title: 'DocuFleet / LABBE',
       subtitle: 'Control de Contratistas y Documentos',
-      description:
-        'Un sistema documental y operativo para empresas que administran contratistas, conductores, vehículos, cumplimiento y reportes.',
+      description: 'Sistema documental y operativo para empresas que administran contratistas, conductores, vehiculos, cumplimiento y reportes.',
       links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      backgroundClassName: 'bg-[#d7e0df]',
-      accentClassName: 'bg-[linear-gradient(135deg,#93a7a4_0%,#768b87_52%,#667f7c_100%)]',
+      metrics: ['Conductores', 'Vehiculos', 'Cumplimiento'],
     },
     {
       id: 'seguria',
       title: 'SegurIA',
       subtitle: 'Campos Inteligentes y Seguridad de Predios',
-      description:
-        'Una capa tecnológica para predios rurales, campos y activos privados. SegurIA conecta monitoreo, alertas, control de acceso, cámaras, visibilidad de terreno y respuesta operativa en un solo sistema inteligente de seguridad.',
+      description: 'Capa tecnologica para predios rurales y activos privados: monitoreo, alertas, control de acceso, camaras, visibilidad y respuesta operativa.',
       links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      backgroundClassName: 'bg-[#d7e0df]',
-      accentClassName: 'bg-[linear-gradient(135deg,#8398a0_0%,#6f838b_52%,#5f747e_100%)]',
+      metrics: ['Camaras', 'Alertas', 'Respuesta'],
     },
     {
       id: 'sur-realista',
       title: 'Sur-Realista',
       subtitle: 'Plataforma de Inteligencia Inmobiliaria',
-      description:
-        'Un centro de mando para administración inmobiliaria y de terrenos. Organiza propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geográficos para que los pipelines grandes sean más fáciles de gestionar y vender.',
+      description: 'Centro de mando para propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geograficos.',
       links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      backgroundClassName: 'bg-[#d7e0df]',
-      accentClassName: 'bg-[linear-gradient(135deg,#8fa79f_0%,#748d86_52%,#607972_100%)]',
+      metrics: ['Propiedades', 'Clientes', 'Mapas'],
     },
   ]
 
@@ -430,312 +376,200 @@ export default function HomePage({ params }: PageProps) {
     {
       id: 'clarity',
       title: 'Clarity',
-      subtitle: 'Restauración Inteligente de Fotos',
-      description:
-        'Una plataforma de mejora para restaurar imágenes antiguas, dañadas o deslavadas. Clarity mejora nitidez, color, contraste y detalle visual sin perder el valor emocional de la foto original.',
-      links: [
-        { label: 'Visitar página', href: navHref('#contacto') },
-        { label: 'Ver todas las soluciones', href: navHref('#solutions') },
-      ],
-      backgroundClassName: 'bg-[#d8e0dd]',
-      accentClassName: 'bg-[linear-gradient(135deg,#d1c2a6_0%,#a89573_50%,#84704f_100%)]',
+      subtitle: 'Restauracion Inteligente de Fotos',
+      description: 'Plataforma para restaurar imagenes antiguas, dañadas o deslavadas, mejorando nitidez, color, contraste y detalle visual.',
+      links: [{ label: 'Visitar pagina', href: navHref('#contacto') }],
+      metrics: ['Color', 'Nitidez', 'Detalle'],
     },
     {
       id: 'mermasapp',
       title: 'MermasApp',
       subtitle: 'Control de Merma y Rendimiento',
-      description:
-        'Un sistema a nivel planta para detectar, medir y reducir pérdidas en producción alimentaria. MermasApp muestra dónde ocurre la merma, cuánto cuesta y qué acciones pueden recuperar margen sin reemplazar la maquinaria existente.',
-      links: [
-        { label: 'Visitar página', href: navHref('#contacto') },
-        { label: 'Ver todas las soluciones', href: navHref('#solutions') },
-      ],
-      backgroundClassName: 'bg-[#d8e0dd]',
-      accentClassName: 'bg-[linear-gradient(135deg,#88a7a1_0%,#6f8b86_52%,#607b76_100%)]',
+      description: 'Sistema a nivel planta para detectar, medir y reducir perdidas en produccion alimentaria y recuperar margen.',
+      links: [{ label: 'Visitar pagina', href: navHref('#contacto') }],
+      metrics: ['Merma', 'Rendimiento', 'Margen'],
     },
   ]
 
   return (
-    <main id='top' className='bg-[#fafafa] text-[#676d6c]'>
-      <section className='relative overflow-hidden bg-white'>
-        <div className='relative mx-auto max-w-[1500px] px-6 pb-14 pt-26 lg:px-10 lg:pb-20 lg:pt-28'>
-          <div className='grid items-start gap-12 lg:grid-cols-[1fr_0.9fr] lg:gap-20'>
-            <div className='max-w-[32rem] pt-8 lg:pt-16'>
-              <h1 className='text-[clamp(2.4rem,5vw,4.15rem)] font-light leading-[0.98] tracking-[-0.075em] text-[#747776]'>
-                <span className='block'>Software e IA para</span>
-                <span className='block text-[#8faea8]'>operaciones reales</span>
-              </h1>
-              <p className='mt-8 max-w-[24rem] text-[0.95rem] leading-7 text-[#7a7a7a] sm:text-[1rem]'>
-                Ayudamos a empresas medianas y grandes a convertir datos dispersos, operaciones manuales y experimentos de IA incompletos en sistemas de producción controlados.
-              </p>
-              <div className='mt-10 flex flex-col gap-3 sm:flex-row'>
-                <ButtonLink href={navHref('#contacto')}>Agendar diagnóstico</ButtonLink>
-                <ButtonLink href={navHref('#solutions')} variant='outline'>
-                  ¿Qué construimos?
-                </ButtonLink>
-              </div>
-            </div>
-
-            <div className='flex items-center justify-end pt-4 lg:pt-10'>
-              <BrandWordmark
-                className='h-[clamp(6rem,18vw,11rem)] w-[min(44vw,22rem)]'
-                imageClassName='opacity-100 [filter:brightness(0)_saturate(100%)_invert(63%)_sepia(9%)_saturate(300%)_hue-rotate(123deg)_brightness(92%)_contrast(86%)]'
-                priority
-                sizes='(min-width: 1024px) 36vw, 72vw'
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className='mx-auto max-w-[1500px] px-6 lg:px-10'>
-          <svg viewBox='0 0 1600 72' preserveAspectRatio='none' aria-hidden='true' className='h-14 w-full text-[#d8e7e4]'>
-            <path d='M0 36H640' stroke='currentColor' strokeWidth='1.5' />
-            <path d='M960 36H1600' stroke='currentColor' strokeWidth='1.5' />
-            <path d='M640 36C700 36 720 16 780 16C840 16 860 36 920 36' stroke='currentColor' strokeWidth='1.5' fill='none' />
-            <path d='M640 36C700 36 720 56 780 56C840 56 860 36 920 36' stroke='currentColor' strokeWidth='1.5' fill='none' />
-          </svg>
-        </div>
-      </section>
-
-      <section id='capabilities' className='scroll-mt-28 px-6 pb-24 pt-14 lg:px-10 lg:pb-32'>
-        <div className='mx-auto max-w-[1320px]'>
-          <SectionTitle title='Si tienes esto:' wrapperClassName='text-center lg:text-right lg:pr-[12%]' />
-          <div className='mt-16 space-y-18 lg:mt-20'>
-            {problems.map((item) => (
-              <NumberedItemBlock key={item.number} {...item} />
-            ))}
-          </div>
-          <div className='mt-14 flex justify-center lg:justify-start lg:pl-[27%]'>
-            <ButtonLink href={navHref('#contacto')}>Agendar diagnóstico</ButtonLink>
-          </div>
-        </div>
-      </section>
-
-      <section className='px-6 py-18 lg:px-10 lg:py-24'>
-        <div className='mx-auto max-w-[1500px]'>
-          <SectionTitle title='Nuestra experiencia' wrapperClassName='text-center' />
-          <div className='mt-12 grid overflow-hidden bg-[#d8e2df] lg:grid-cols-3'>
-            {expertise.map((item) => (
-              <SmallCard key={item.title} {...item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id='solutions' className='scroll-mt-28 px-6 py-24 lg:px-10 lg:py-28'>
-        <div className='mx-auto max-w-[1500px]'>
-          <div className='grid gap-16 lg:grid-cols-[1fr_0.95fr] lg:items-start'>
-            <div>
-              <SectionTitle title='¿A quién ayudamos?' wrapperClassName='text-left' />
-              <p className='mt-10 max-w-[28rem] text-[0.98rem] leading-8 text-[#767676]'>
-                N3uralia es para empresas medianas y grandes que ya tienen equipos, datos, documentos, procesos y presión creciente por trabajar con más inteligencia.
-              </p>
-              <p className='mt-10 text-[1.02rem] font-semibold tracking-[-0.03em] text-[#5f6161]'>
-                Somos una buena opción para empresas que enfrentan:
-              </p>
-              <ul className='mt-6 space-y-3 text-[0.98rem] leading-7 text-[#777]'>
-                {helpBullets.map((item) => (
-                  <li key={item} className='flex gap-3'>
-                    <span className='mt-[0.55rem] h-1.5 w-1.5 rounded-full bg-[#9bbab6]' />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <SectionTitle title='¿Qué construimos?' wrapperClassName='text-right' />
-              <div className='mt-14 space-y-10'>
-                {buildItems.map((item) => (
-                  <NumberedItemBlock key={item.number} {...item} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className='bg-[#eef3f0] px-6 py-14 lg:px-10 lg:py-16'>
-        <div className='mx-auto max-w-[1500px]'>
-          <div className='grid gap-10 rounded-[2rem] border border-[#edf2f0] bg-white/88 px-8 py-10 shadow-[0_24px_70px_rgba(34,53,51,0.07)] lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-12 lg:py-12'>
-            <div>
-              <p className='text-[1rem] leading-8 text-[#737373]'>
-                Antes de N3uralia, los equipos suelen trabajar entre planillas, chats, correos, PDFs y software desconectado.
-                <br />
-                Después de N3uralia, tu operación se vuelve más fácil de ver, gestionar, automatizar y mejorar.
-              </p>
-              <p className='mt-6 max-w-[32rem] text-[1.15rem] font-semibold leading-8 tracking-[-0.03em] text-[#5f6161]'>
-                No solo agregamos tecnología.
-                <br />
-                Creamos estructura.
-              </p>
-              <div className='mt-8'>
-                <ButtonLink href={navHref('#contacto')}>Empezar la transformación</ButtonLink>
-              </div>
-            </div>
-            <div className='relative flex min-h-[16rem] items-center justify-center'>
-              <div className='absolute inset-y-1/2 left-0 hidden h-px w-[30%] -translate-y-1/2 bg-[#d8e6e3] lg:block' />
-              <div className='absolute inset-y-1/2 right-0 hidden h-px w-[30%] -translate-y-1/2 bg-[#d8e6e3] lg:block' />
-              <div className='relative flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-[0_12px_36px_rgba(0,0,0,0.06)]'>
-                <BrandMark className='h-14 w-14 text-[#8daaa6]' />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id='how-we-work' className='scroll-mt-28 px-6 py-24 lg:px-10 lg:py-32'>
-        <div className='mx-auto max-w-[1250px]'>
-          <SectionTitle
-            title='Método'
-            wrapperClassName='text-center lg:text-right lg:pr-[10%]'
-            description='Empezamos entendiendo la operación. Los buenos sistemas nacen de la claridad.'
-            descriptionClassName='max-w-[28rem] lg:ml-auto'
-          />
-          <div className='mt-16 grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start'>
-            <div className='hidden items-center justify-center lg:flex'>
-              <div className='relative h-[34rem] w-full max-w-[28rem] rounded-[2.5rem] border border-[#e7eeec] bg-white/55'>
-                <div className='absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#dbe6e2] bg-white p-6 shadow-sm'>
-                  <BrandMark className='h-16 w-16 text-[#97b8b3]' />
-                </div>
-                <div className='absolute left-[12%] top-[20%] h-px w-[32%] bg-[#d9e6e3]' />
-                <div className='absolute right-[12%] top-[20%] h-px w-[32%] bg-[#d9e6e3]' />
-                <div className='absolute left-[16%] top-[72%] h-px w-[68%] bg-[#d9e6e3]' />
-              </div>
-            </div>
-            <div className='space-y-10'>
-              {methodSteps.map((item) => (
-                <NumberedItemBlock key={item.number} {...item} />
-              ))}
-              <div className='pt-4 md:pl-[120px]'>
-                <p className='text-[0.98rem] leading-7 text-[#767676]'>CTA: Solicitar diagnóstico</p>
-                <div className='mt-6'>
-                  <ButtonLink href={navHref('#contacto')}>Solicitar diagnóstico</ButtonLink>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id='case-studies' className='scroll-mt-28 bg-[#d7e0df] px-6 py-24 lg:px-10 lg:py-28'>
-        <div className='mx-auto max-w-[1500px]'>
-          <SectionTitle title='Nuestros proyectos' wrapperClassName='text-center lg:text-right lg:pr-[10%]' titleClassName='text-white/90' />
-          <div className='mt-16 space-y-20'>
-            {projects.map((item) => (
-              <Showcase key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className='bg-[#d7e0df] px-6 py-24 lg:px-10 lg:py-28'>
-        <div className='mx-auto max-w-[1500px]'>
-          <SectionTitle
-            title='Nuestros productos'
-            wrapperClassName='text-center lg:text-right lg:pr-[10%]'
-            titleClassName='text-white/90'
-            description='Desarrollamos sistemas profesionales para uso diario.'
-            descriptionClassName='max-w-[34rem] font-semibold text-[#55605d] lg:ml-auto'
-          />
-          <div className='mt-16 space-y-20'>
-            {products.map((item) => (
-              <Showcase key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id='contacto' className='scroll-mt-28 bg-[#d7e0df] px-6 py-14 lg:px-10 lg:py-16'>
-        <div className='mx-auto max-w-[1500px]'>
-          <div className='grid gap-8 rounded-[2rem] border border-[#e7eeec] bg-white/88 px-8 py-10 lg:grid-cols-[auto_1fr] lg:items-center lg:px-12 lg:py-12'>
-            <div className='grid h-28 w-28 place-items-center rounded-full bg-white shadow-sm'>
-              <BrandMark className='h-16 w-16 text-[#8ea9a5]' />
-            </div>
-            <div className='space-y-4'>
-              <p className='text-[1.1rem] font-light tracking-[-0.03em] text-[#6e7271] sm:text-[1.25rem]'>
-                ¿Listo para crear un sistema a medida?
-              </p>
-              <Link
-                href={navHref('#contacto')}
-                className='inline-flex text-[1.05rem] font-semibold tracking-[-0.03em] text-[#5f6161] underline decoration-[#8ea9a5]/35 underline-offset-4 transition-colors hover:text-[#7a908d]'
-              >
-                Contáctanos
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id='faq' className='scroll-mt-28 px-6 py-24 lg:px-10 lg:py-28'>
-        <div className='mx-auto grid max-w-[1500px] gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start'>
-          <div className='lg:pt-4'>
-            <SectionTitle title='Casos de uso' wrapperClassName='text-center lg:text-right lg:pr-[10%]' titleClassName='text-[#727272]' />
-            <div className='mt-12 lg:mt-16'>
-              <UseCaseArtwork />
-            </div>
-          </div>
-          <div className='space-y-10 lg:pt-24'>
-            {useCases.map((item) => (
-              <div key={item.title}>
-                <h3 className='text-[1.03rem] font-semibold tracking-[-0.03em] text-[#5f6161]'>{item.title}</h3>
-                <p className='mt-4 max-w-[34rem] text-[0.98rem] leading-7 text-[#777]'>{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className='px-6 py-24 lg:px-10 lg:py-28'>
-        <div className='mx-auto max-w-[1250px]'>
-          <SectionTitle title='Modelos de trabajo' wrapperClassName='text-center' />
-          <div className='mt-16 grid gap-16 lg:grid-cols-2 lg:gap-x-24 lg:gap-y-20'>
-            {engagementModels.map((item) => (
-              <NumberedItemBlock key={item.number} {...item} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id='about' className='scroll-mt-28 px-6 py-20 lg:px-10 lg:py-24'>
-        <div className='mx-auto max-w-[1220px]'>
-          <SectionTitle title='¿Por qué N3uralia?' wrapperClassName='text-left' />
-          <div className='mt-10 max-w-[56rem] space-y-6 text-[1rem] leading-8 text-[#767676]'>
-            <p>
-              Tu operación o se está volviendo inteligente, o se está volviendo un riesgo. Cuando la información vive en planillas, WhatsApp, correos, PDFs y herramientas desconectadas, tu empresa pierde velocidad, control y seguridad.
+    <main id='top' className='bg-[#fbfbfa] text-[#5f6765]'>
+      <section className='min-h-[720px] border-b border-[#dfe8e5] bg-[#fbfbfa] pt-24'>
+        <div className='mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:px-10 lg:py-24'>
+          <div className='flex flex-col justify-center'>
+            <BrandWordmark className='mb-10 text-5xl text-[#7f9f9a] md:text-6xl' />
+            <h1 className='max-w-2xl text-5xl font-light leading-tight text-[#303836] md:text-6xl lg:text-7xl'>
+              Software e IA para operaciones reales
+            </h1>
+            <p className='mt-8 max-w-xl text-lg leading-8 text-[#6b7472]'>
+              Ayudamos a empresas medianas y grandes a convertir datos dispersos, operaciones manuales y experimentos de IA incompletos en sistemas de produccion controlados.
             </p>
+            <div className='mt-10 flex flex-col gap-3 sm:flex-row'>
+              <ButtonLink href={navHref('#contacto')}>
+                <CalendarCheck className='h-4 w-4' aria-hidden='true' />
+                Agendar diagnostico
+              </ButtonLink>
+              <ButtonLink href={navHref('#solutions')} variant='outline'>
+                Ver soluciones
+                <ArrowRight className='h-4 w-4' aria-hidden='true' />
+              </ButtonLink>
+            </div>
+          </div>
+          <SystemCanvas />
+        </div>
+      </section>
+
+      <section id='capabilities' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]'>
+          <SectionHeading eyebrow='Diagnostico' title='Llamanos si tienes esto.' description='Estos son los sintomas que suelen aparecer cuando la operacion crece mas rapido que los sistemas internos.' />
+          <div>{problems.map((item) => <NumberedRow key={item.number} {...item} />)}</div>
+        </div>
+      </section>
+
+      <section className='bg-[#d9e3e0] px-5 py-20 sm:px-8 lg:px-10'>
+        <div className='mx-auto max-w-7xl'>
+          <SectionHeading title='Nuestra experiencia' align='center' />
+          <div className='mt-12 grid border border-white/60 bg-[#d2dedb] lg:grid-cols-3'>
+            {expertise.map((item) => <ExpertisePanel key={item.title} item={item} />)}
+          </div>
+        </div>
+      </section>
+
+      <section id='solutions' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl gap-16 lg:grid-cols-2'>
+          <div>
+            <SectionHeading title='A quien ayudamos' description='N3uralia es para empresas que ya tienen equipos, datos, documentos, procesos y presion creciente por trabajar con mas inteligencia.' />
+            <div className='mt-10 grid gap-3 sm:grid-cols-2'>
+              {helpBullets.map((item) => (
+                <div key={item} className='border border-[#dfe8e5] bg-white px-4 py-3 text-sm text-[#66706e]'>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <SectionHeading title='Que construimos' />
+            <div className='mt-10 grid gap-4'>
+              {buildItems.map((item) => (
+                <div key={item.title} className='grid grid-cols-[44px_1fr] gap-4 border-b border-[#dfe8e5] pb-5'>
+                  <div className='flex h-11 w-11 items-center justify-center border border-[#b8d1cc] bg-white text-[#789b96]'>{item.icon}</div>
+                  <div>
+                    <h3 className='font-semibold text-[#3f4745]'>{item.title}</h3>
+                    <p className='mt-2 text-sm leading-7 text-[#747b79]'>{item.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className='bg-white px-5 py-16 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl items-center gap-12 border border-[#dfe8e5] px-8 py-12 lg:grid-cols-[1fr_0.8fr] lg:px-12'>
+          <div>
+            <p className='max-w-3xl text-lg leading-9 text-[#5f6765]'>
+              Antes de N3uralia, los equipos trabajan entre planillas, chats, correos, PDFs y software desconectado. Despues de N3uralia, la operacion se vuelve mas facil de ver, gestionar, automatizar y mejorar.
+            </p>
+            <p className='mt-6 text-xl font-semibold text-[#303836]'>No solo agregamos tecnologia. Creamos estructura.</p>
+          </div>
+          <div className='flex justify-start lg:justify-end'>
+            <ButtonLink href={navHref('#contacto')}>Empezar la transformacion</ButtonLink>
+          </div>
+        </div>
+      </section>
+
+      <section id='how-we-work' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.75fr_1.25fr]'>
+          <SectionHeading eyebrow='Metodo' title='Claridad primero. Sistema despues.' description='Empezamos entendiendo la operacion. Los buenos sistemas nacen de un mapa claro de datos, permisos, personas y decisiones.' />
+          <div>{methodSteps.map((item) => <NumberedRow key={item.number} {...item} />)}</div>
+        </div>
+      </section>
+
+      <section id='case-studies' className='scroll-mt-28 bg-[#d9e3e0] px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto max-w-7xl'>
+          <SectionHeading title='Nuestros proyectos' description='Sistemas reales para operaciones con datos, equipos, documentos y procesos complejos.' align='center' />
+          <div className='mt-14 grid gap-8'>
+            {projects.map((item) => <Showcase key={item.id} item={item} />)}
+          </div>
+        </div>
+      </section>
+
+      <section className='bg-[#d9e3e0] px-5 pb-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto max-w-7xl'>
+          <SectionHeading title='Nuestros productos' description='Desarrollamos sistemas profesionales para uso diario.' align='center' />
+          <div className='mt-14 grid gap-8 lg:grid-cols-2'>
+            {products.map((item) => <Showcase key={item.id} item={item} />)}
+          </div>
+        </div>
+      </section>
+
+      <section id='contacto' className='scroll-mt-28 bg-[#d9e3e0] px-5 pb-20 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl items-center gap-8 border border-white/70 bg-white px-8 py-10 md:grid-cols-[auto_1fr_auto]'>
+          <BrandMark className='h-16 w-16 text-[#789b96]' />
+          <div>
+            <p className='text-xl font-light text-[#303836]'>Listo para crear un sistema a medida?</p>
+            <p className='mt-2 text-base text-[#747b79]'>Hablemos de tu operacion, datos y oportunidades de IA.</p>
+          </div>
+          <ButtonLink href={navHref('#contacto')}>Contactanos</ButtonLink>
+        </div>
+      </section>
+
+      <section id='use-cases' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.9fr_1.1fr]'>
+          <div>
+            <SectionHeading title='Casos de uso' />
+            <div className='mt-10'><UseCaseGraphic /></div>
+          </div>
+          <div className='grid gap-5 sm:grid-cols-2 lg:pt-16'>
+            {useCases.map((item) => (
+              <div key={item.title} className='border-b border-[#dfe8e5] pb-6'>
+                <div className='mb-4 text-[#789b96]'>{item.icon}</div>
+                <h3 className='font-semibold text-[#3f4745]'>{item.title}</h3>
+                <p className='mt-3 text-sm leading-7 text-[#747b79]'>{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className='px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto max-w-7xl'>
+          <SectionHeading title='Modelos de trabajo' align='center' />
+          <div className='mt-14 grid gap-x-12 gap-y-2 lg:grid-cols-2'>
+            {engagementModels.map((item) => <NumberedRow key={item.number} {...item} />)}
+          </div>
+        </div>
+      </section>
+
+      <section id='about' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]'>
+          <SectionHeading title='Por que N3uralia' />
+          <div className='max-w-3xl text-lg leading-9 text-[#5f6765]'>
             <p>
+              Tu operacion o se esta volviendo inteligente, o se esta volviendo un riesgo. Cuando la informacion vive en planillas, WhatsApp, correos, PDFs y herramientas desconectadas, tu empresa pierde velocidad, control y seguridad.
+            </p>
+            <p className='mt-6'>
               Conectamos estrategia, operaciones, desarrollo de software y automatizaciones para crear la capa operativa inteligente que tu negocio necesita.
             </p>
           </div>
         </div>
       </section>
 
-      <section className='px-6 pb-28 pt-8 lg:px-10 lg:pb-32'>
-        <div className='mx-auto grid max-w-[1500px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center'>
+      <section className='px-5 pb-28 sm:px-8 lg:px-10'>
+        <div className='mx-auto grid max-w-7xl items-center gap-12 bg-white px-8 py-14 lg:grid-cols-[1fr_auto] lg:px-12'>
           <div>
-            <SectionTitle title='Lo que dicen los clientes' wrapperClassName='text-left' titleClassName='text-[#727272]' />
-            <div className='mt-12 space-y-6'>
-              <p className='text-[clamp(2.4rem,5vw,4.35rem)] font-light leading-[0.95] tracking-[-0.06em] text-[#8ea9a5]'>
-                Muévete más rápido.
-                <br />
-                Opera con más seguridad.
-              </p>
-              <div className='space-y-4 text-[1.08rem] font-semibold tracking-[-0.03em] text-[#5f6161]'>
-                <p>En 1 mes: un MVP funcional.</p>
-                <p>En 3 meses: un sistema inteligente conectado.</p>
-              </div>
+            <h2 className='max-w-3xl text-4xl font-light leading-tight text-[#789b96] md:text-5xl'>
+              Muevete mas rapido. Opera con mas seguridad. Controla mas.
+            </h2>
+            <div className='mt-8 space-y-3 text-base font-semibold text-[#3f4745]'>
+              <p>En 1 mes: un MVP funcional.</p>
+              <p>En 3 meses: un sistema inteligente conectado.</p>
             </div>
-            <div className='mt-10 flex flex-col gap-3 sm:flex-row'>
+            <div className='mt-9 flex flex-col gap-3 sm:flex-row'>
               <ButtonLink href={navHref('#contacto')}>Contactar ahora</ButtonLink>
-              <ButtonLink href={navHref('#faq')} variant='outline'>
-                Ver casos de uso
-              </ButtonLink>
+              <ButtonLink href={navHref('#use-cases')} variant='outline'>Ver casos de uso</ButtonLink>
             </div>
           </div>
-          <div className='flex justify-center lg:justify-end'>
-            <BrandMark className='h-44 w-44 text-[#8ea9a5] sm:h-52 sm:w-52 lg:h-[17rem] lg:w-[17rem]' />
-          </div>
+          <ShieldCheck className='h-28 w-28 text-[#789b96] md:h-36 md:w-36' aria-hidden='true' />
         </div>
       </section>
     </main>
