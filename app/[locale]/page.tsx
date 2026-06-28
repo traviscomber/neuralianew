@@ -204,7 +204,7 @@ function ProcessStep({ item }: { item: NumberedItem }) {
   )
 }
 
-function Showcase({ item }: { item: ShowcaseItem }) {
+function Showcase({ item, contactHref }: { item: ShowcaseItem; contactHref: string }) {
   return (
     <article className='group overflow-hidden rounded-[1.8rem] border border-[#c9d8d5] bg-white shadow-[0_38px_110px_-86px_#173634]'>
       <div className='relative min-h-[260px] overflow-hidden bg-[#173634] p-6 text-white'>
@@ -227,7 +227,7 @@ function Showcase({ item }: { item: ShowcaseItem }) {
       </div>
       <div className='p-7'>
         <p className='text-base leading-8 text-[#65706d]'>{item.description}</p>
-        <Link href='#contacto' className='mt-7 inline-flex text-sm font-semibold text-[#789b96] transition-colors hover:text-[#173634]'>
+        <Link href={contactHref} className='mt-7 inline-flex text-sm font-semibold text-[#789b96] transition-colors hover:text-[#173634]'>
           Conversar sobre un sistema similar <span className='ml-2' aria-hidden='true'>&gt;</span>
         </Link>
       </div>
@@ -262,6 +262,7 @@ function UseCaseMap() {
 export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const navHref = (hash: string) => href(locale, hash)
+  const contactHref = `/${locale}/contact`
 
   const heroMetrics: MetricItem[] = [
     { value: '30d', label: 'para un primer MVP funcional y medible.' },
@@ -400,7 +401,7 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto max-w-7xl'>
           <SectionHeading eyebrow='Proyectos' title='Sistemas reales para operaciones que no caben en una plantilla.' description='Cada proyecto traduce complejidad operacional en una interfaz, un flujo y una capa de inteligencia útil para el día a día.' align='center' />
           <div className='mt-14 grid gap-6 lg:grid-cols-2'>
-            {projects.map((item) => <Showcase key={item.title} item={item} />)}
+            {projects.map((item) => <Showcase key={item.title} item={item} contactHref={contactHref} />)}
           </div>
         </div>
       </section>
@@ -449,7 +450,7 @@ export default function HomePage({ params }: PageProps) {
               <p>En 3 meses: un sistema inteligente conectado.</p>
             </div>
             <div className='mt-9 flex flex-col gap-3 sm:flex-row'>
-              <ButtonLink href={navHref('#contacto')}>Contactar ahora</ButtonLink>
+              <ButtonLink href={contactHref}>Contactar ahora</ButtonLink>
               <ButtonLink href={navHref('#case-studies')} variant='outline'>Ver proyectos</ButtonLink>
             </div>
           </div>
