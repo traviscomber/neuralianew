@@ -21,10 +21,10 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
   const href = (hash: string) => `/${locale}${hash}`
 
   const items: NavItem[] = [
-    { href: href('#capabilities'), label: isES ? 'Señales' : 'Signals' },
+    { href: href('#explainer'), label: isES ? 'En simple' : 'In simple terms' },
     { href: href('#solutions'), label: isES ? 'Sistemas' : 'Systems' },
     { href: href('#case-studies'), label: isES ? 'Proyectos' : 'Projects' },
-    { href: href('#use-cases'), label: isES ? 'Casos de uso' : 'Use cases' },
+    { href: href('#use-cases'), label: isES ? 'Casos' : 'Use cases' },
     { href: href('#how-we-work'), label: isES ? 'Modelos' : 'Models' },
     { href: href('#about'), label: isES ? 'Por qué' : 'Why' },
   ]
