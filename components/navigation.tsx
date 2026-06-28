@@ -18,10 +18,11 @@ type NavItem = {
 
 const NAV_ITEMS = [
   { hash: '#explainer', es: 'En simple', en: 'In simple terms' },
-  { hash: '#solutions', es: 'Sistemas', en: 'Systems' },
+  { hash: '#capabilities', es: 'Capacidades', en: 'Capabilities' },
+  { hash: '#agents', es: 'Agentes', en: 'Agents' },
   { hash: '#case-studies', es: 'Proyectos', en: 'Projects' },
   { hash: '#use-cases', es: 'Casos', en: 'Use cases' },
-  { hash: '#how-we-work', es: 'Modelos', en: 'Models' },
+  { hash: '#how-we-work', es: 'Método', en: 'Method' },
   { hash: '#about', es: 'Por qué', en: 'Why' },
 ] as const
 
@@ -40,7 +41,7 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
   }))
 
   useEffect(() => {
-    const sectionHashes = ['#top', ...NAV_ITEMS.map((item) => item.hash), '#contacto']
+    const sectionHashes = ['#top', ...NAV_ITEMS.map((item) => item.hash), '#signals', '#contacto']
 
     function updateNavigationState() {
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight
