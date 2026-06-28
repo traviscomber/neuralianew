@@ -27,7 +27,7 @@ export async function generateMetadata({
   }
 
   const descriptions = {
-    es: "Sistemas de IA, workflows agenticos y software en produccion para equipos en Chile y LATAM.",
+    es: "Sistemas de IA, workflows agénticos y software en producción para equipos en Chile y LATAM.",
     en: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
   }
 
