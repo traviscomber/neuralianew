@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, BarChart3, Zap, Clock, MapPin } from "lucide-react"
+import { ArrowRight, BarChart3, Bell, CheckCircle2, Clock, Gauge, Layers, Workflow } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
@@ -11,298 +12,229 @@ interface PageProps {
   }
 }
 
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Caso Ecosuelolab | N3uralia",
+    metadataDescription:
+      "Cómo Ecosuelolab automatizó monitoreo de suelo con alertas satelitales, agentes de IA y WhatsApp para operación agrícola 24/7.",
+    badge: "Agrotech + IA operacional",
+    title: "Alertas agrícolas convertidas en decisiones accionables",
+    subtitle:
+      "Ecosuelolab necesitaba transformar datos satelitales y recomendaciones de riego en una capa de respuesta clara, continua y útil para equipos en terreno. N3uralia conectó datos, reglas e IA para operar sin depender de revisión manual permanente.",
+    back: "Volver a casos",
+    facts: [
+      { label: "Industria", value: "Agricultura" },
+      { label: "Implementación", value: "14 días" },
+      { label: "Estado", value: "Automatizado" },
+    ],
+    challengeTitle: "El dato existía, pero la operación lo recibía tarde o disperso.",
+    challenge:
+      "Las alertas de monitoreo llegaban con información valiosa, pero requerían validación, interpretación y distribución manual. Eso demoraba decisiones críticas como priorizar riego, revisar zonas de estrés o avisar a responsables.",
+    pains: [
+      { icon: Clock, title: "Revisión manual", text: "Cada alerta necesitaba lectura, criterio y reenvío antes de transformarse en acción." },
+      { icon: Bell, title: "Respuesta tardía", text: "Cuando la recomendación llega tarde, el impacto agrícola ya puede estar ocurriendo." },
+      { icon: BarChart3, title: "Contexto disperso", text: "Datos, responsables y acciones quedaban separados en distintos canales." },
+    ],
+    solutionTitle: "Lo que construimos",
+    solution:
+      "Una integración que recibe alertas, normaliza información, interpreta urgencia y distribuye recomendaciones accionables por canales familiares como WhatsApp.",
+    flow: [
+      "Recepción de datos satelitales y alertas de monitoreo.",
+      "Normalización del evento para entender zona, severidad y tipo de acción.",
+      "Capa de decisión con reglas, contexto e IA para priorizar respuesta.",
+      "Entrega automática a responsables con mensaje claro y trazable.",
+    ],
+    impactTitle: "Impacto operativo",
+    metrics: [
+      { value: "100%", label: "menos intervención manual en alertas repetibles" },
+      { value: "24/7", label: "monitoreo preparado para continuidad operacional" },
+      { value: "14d", label: "primer sistema funcional desde el diagnóstico" },
+    ],
+    ctaTitle: "Si tu operación recibe datos pero no los convierte en acción, ahí hay un sistema por construir.",
+    primaryCta: "Agendar diagnóstico",
+    secondaryCta: "Ver soluciones",
+  },
+  en: {
+    metadataTitle: "Ecosuelolab case study | N3uralia",
+    metadataDescription:
+      "How Ecosuelolab automated soil monitoring with satellite alerts, AI agents, and WhatsApp for 24/7 agricultural operations.",
+    badge: "Agrotech + operational AI",
+    title: "Agricultural alerts turned into actionable decisions",
+    subtitle:
+      "Ecosuelolab needed to turn satellite data and irrigation recommendations into a clear, continuous, useful response layer for field teams. N3uralia connected data, rules, and AI so the operation did not depend on permanent manual review.",
+    back: "Back to cases",
+    facts: [
+      { label: "Industry", value: "Agriculture" },
+      { label: "Implementation", value: "14 days" },
+      { label: "Status", value: "Automated" },
+    ],
+    challengeTitle: "The data existed, but the operation received it late or scattered.",
+    challenge:
+      "Monitoring alerts carried valuable information, but required manual validation, interpretation, and distribution. That delayed critical decisions such as prioritizing irrigation, checking stress zones, or notifying owners.",
+    pains: [
+      { icon: Clock, title: "Manual review", text: "Each alert needed reading, judgment, and forwarding before becoming action." },
+      { icon: Bell, title: "Delayed response", text: "When a recommendation arrives late, the agricultural impact may already be happening." },
+      { icon: BarChart3, title: "Scattered context", text: "Data, owners, and actions lived across disconnected channels." },
+    ],
+    solutionTitle: "What we built",
+    solution:
+      "An integration that receives alerts, normalizes information, interprets urgency, and distributes actionable recommendations through familiar channels such as WhatsApp.",
+    flow: [
+      "Receive satellite data and monitoring alerts.",
+      "Normalize the event to understand zone, severity, and action type.",
+      "Decision layer with rules, context, and AI to prioritize response.",
+      "Automatic delivery to owners with clear, traceable messages.",
+    ],
+    impactTitle: "Operational impact",
+    metrics: [
+      { value: "100%", label: "less manual intervention in repeatable alerts" },
+      { value: "24/7", label: "monitoring prepared for operational continuity" },
+      { value: "14d", label: "first functional system from diagnosis" },
+    ],
+    ctaTitle: "If your operation receives data but does not turn it into action, there is a system to build.",
+    primaryCta: "Book diagnosis",
+    secondaryCta: "View solutions",
+  },
+} as const
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return buildLocalizedMetadata({
     locale,
     path: "/case-studies/ecosuelolab",
     type: "article",
-    title:
-      locale === "es"
-        ? "Caso Ecosuelolab | N3uralia"
-        : "Ecosuelolab case study | N3uralia",
-    description:
-      locale === "es"
-        ? "Como Ecosuelolab automatizo monitoreo de suelo en tiempo real con IrriWatch, agentes de IA y WhatsApp en una operacion 24/7."
-        : "How Ecosuelolab automated real-time soil monitoring with IrriWatch, AI agents, and WhatsApp in a 24/7 operational flow.",
+    title: page.metadataTitle,
+    description: page.metadataDescription,
   })
 }
 
-export default function EcosuelolabCaseStudy() {
+export default function EcosuelolabCaseStudy({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
   return (
     <>
-      <main className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-primary/10 to-background">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary text-sm font-semibold">
-                Agricultura + IA
-              </span>
-            </div>
-
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Monitoreo de Suelo Inteligente
-            </h1>
-
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              Ecosuelolab transformó alertas satelitales en decisiones automáticas. IrriWatch + Agentes IA N3uralia = monitoreo 24/7 sin intervención manual.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-12">
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Industria</p>
-                <p className="font-semibold text-foreground">Agricultura</p>
-              </div>
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Implementación</p>
-                <p className="font-semibold text-foreground">14 días</p>
-              </div>
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Estado</p>
-                <p className="font-semibold text-foreground">100% Automático</p>
-              </div>
-            </div>
-
-            <Link
-              href="/en/case-studies"
-              className="text-primary hover:underline font-semibold flex items-center gap-2"
-            >
-              ← Volver a Case Studies
-            </Link>
-          </div>
-        </section>
-
-        {/* Challenge Section */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">El Desafío</h2>
-
-            <div className="space-y-6">
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                Ecosuelolab recibe alertas diarias de IrriWatch (Hydrosat): datos satelitales de estrés hídrico, humedad de suelo, recomendaciones de riego. El problema: estas alertas llegaban dispersas, sin automatización, requiriendo validación y enrutamiento manual.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                <div className="p-6 bg-card border border-border rounded-lg">
-                  <Clock className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="font-semibold text-foreground mb-2">Tiempo Manual</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Procesar, validar y rutear alertas manualmente era ineficiente
-                  </p>
-                </div>
-                <div className="p-6 bg-card border border-border rounded-lg">
-                  <Zap className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="font-semibold text-foreground mb-2">Oportunidad Perdida</h3>
-                  <p className="text-muted-foreground text-sm">
-                    Alertas llegaban tarde o incompletas. Decisiones retrasadas = daño agrícola
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Solution Section */}
-        <section className="py-16 px-4 bg-muted/30 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">La Solución</h2>
-
-            <div className="mb-8">
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                N3uralia construyó una infraestructura de integración para conectar IrriWatch → Agentes IA → WhatsApp. Cada alerta se procesa automáticamente: validación, normalización, decisión, acción.
-              </p>
-
-              <div className="bg-card border border-border rounded-lg p-8 mb-8">
-                <h3 className="font-semibold text-foreground mb-6">Flujo Técnico</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <span className="font-bold text-primary text-lg">1</span>
-                    <div>
-                      <p className="font-semibold text-foreground">Alerta IrriWatch</p>
-                      <p className="text-sm text-muted-foreground">Webhook/API recibe datos satelitales (estrés hídrico, humedad, planner riego)</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <span className="font-bold text-primary text-lg">2</span>
-                    <div>
-                      <p className="font-semibold text-foreground">Normalización + Intent Detection</p>
-                      <p className="text-sm text-muted-foreground">Agente IA N3uralia entiende: ¿es crítico? ¿requiere riego inmediato? ¿informativo?</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <span className="font-bold text-primary text-lg">3</span>
-                    <div>
-                      <p className="font-semibold text-foreground">Decisión + Enrutamiento</p>
-                      <p className="text-sm text-muted-foreground">Basado en reglas + contexto histórico: ¿a quién notificar? ¿qué acción recomendar?</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <span className="font-bold text-primary text-lg">4</span>
-                    <div>
-                      <p className="font-semibold text-foreground">Entrega WhatsApp + Twilio</p>
-                      <p className="text-sm text-muted-foreground">Mensaje automático a agricultores con recomendación accionable</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <span className="font-bold text-primary text-lg">5</span>
-                    <div>
-                      <p className="font-semibold text-foreground">Feedback Loop</p>
-                      <p className="text-sm text-muted-foreground">Cada acción registrada. Agente aprende qué recomendaciones funcionan mejor</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-card border border-primary/50 rounded-lg p-6">
-                <p className="text-sm text-muted-foreground mb-2">Stack Técnico</p>
-                <p className="font-mono text-sm text-foreground">
-                  IrriWatch API → N3uralia Orchestration → Intent Detection → Twilio WhatsApp API → 24/7 Automático
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Impact Section */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Impacto</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div className="p-6 bg-primary/10 rounded-lg border border-primary/30">
-                <BarChart3 className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Automatización</p>
-                <p className="text-2xl font-bold text-foreground">100%</p>
-                <p className="text-xs text-muted-foreground mt-2">Cero intervención manual en alerts</p>
-              </div>
-              <div className="p-6 bg-primary/10 rounded-lg border border-primary/30">
-                <Zap className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Velocidad</p>
-                <p className="text-2xl font-bold text-foreground">Segundos</p>
-                <p className="text-xs text-muted-foreground mt-2">De alerta a acción: latencia mínima</p>
-              </div>
-              <div className="p-6 bg-primary/10 rounded-lg border border-primary/30">
-                <Clock className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Disponibilidad</p>
-                <p className="text-2xl font-bold text-foreground">24/7</p>
-                <p className="text-xs text-muted-foreground mt-2">Monitoreo sin pausas</p>
-              </div>
-            </div>
-
-            <div className="bg-muted/30 p-8 rounded-lg">
-              <h3 className="font-semibold text-foreground mb-4">Resultados Cualitativos</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-foreground">Decisiones más rápidas: recomendaciones de riego llegan en segundos</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-foreground">Escalabilidad: N campos, misma infraestructura, mismo costo operativo</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-foreground">Consistencia: ninguna alerta se pierde, todas se procesan igual</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary font-bold">✓</span>
-                  <span className="text-foreground">Base para inteligencia: data histórica → aprendizaje → mejora continua</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Key Learnings */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Lecciones Clave</h2>
-
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-foreground text-lg mb-3">1. Infraestructura de Integración es Core</h3>
-                <p className="text-muted-foreground">
-                  El valor no está en los datos satelitales (IrriWatch es excelente). Está en conectar esos datos a **acciones reales**. N3uralia fue el glue que transformó información en operaciones.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground text-lg mb-3">2. Normalización es Crítica</h3>
-                <p className="text-muted-foreground">
-                  Cada API tiene su propio formato. El agente IA debe entender contexto, validar datos, y tomar decisiones consistentes. No es un simple pass-through.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground text-lg mb-3">3. Canales de Comunicación Importan</h3>
-                <p className="text-muted-foreground">
-                  WhatsApp fue elegido porque los agricultores ya lo usan. La mejor solución técnica fracasa si el canal no funciona. N3uralia se adaptó al usuario, no al revés.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground text-lg mb-3">4. Feedback Loop = Mejora Continua</h3>
-                <p className="text-muted-foreground">
-                  Cada alerta, cada acción, cada resultado se registra. Con el tiempo, el agente aprende qué recomendaciones funcionan mejor. Hoy es living agent.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Technical Specs */}
-        <section className="py-16 px-4 bg-muted/30 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-8">Especificaciones Técnicas</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-6 bg-card border border-border rounded-lg">
-                <h3 className="font-semibold text-foreground mb-4">Componentes</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ IrriWatch API (webhook receiver)</li>
-                  <li>✓ N3uralia Orchestration Layer</li>
-                  <li>✓ Intent Detection Agent</li>
-                  <li>✓ Twilio WhatsApp Integration</li>
-                  <li>✓ Data Store (audit trail)</li>
-                </ul>
-              </div>
-
-              <div className="p-6 bg-card border border-border rounded-lg">
-                <h3 className="font-semibold text-foreground mb-4">SLAs</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>✓ Latencia E2E: &lt;5 segundos</li>
-                  <li>✓ Disponibilidad: 99.9%</li>
-                  <li>✓ Throttling: N alertas/min (configurable)</li>
-                  <li>✓ Retry logic: exponential backoff</li>
-                  <li>✓ Observabilidad: 100% tracing</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-4">¿Tienes un desafío similar?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              Integraciones complejas, datos dispersos, necesidad de automatizar decisiones. Hablemos sobre cómo N3uralia puede ayudar.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/en/contact"
-                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center justify-center gap-2"
-              >
-                Contactar <ArrowRight className="w-4 h-4" />
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="hero" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto max-w-7xl">
+              <Link href={href(locale, "/case-studies")} className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96] transition-colors hover:text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]">
+                <ArrowRight className="h-4 w-4 rotate-180" />
+                {page.back}
               </Link>
-              <Link
-                href="/en/capabilities#conversational"
-                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-              >
-                Ver Capabilities
+
+              <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+                <div>
+                  <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+                    <span className="h-2 w-2 rounded-full bg-[#789b96]" />
+                    <span className="text-sm font-semibold text-[#526e69]">{page.badge}</span>
+                  </div>
+                  <h1 className="max-w-5xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">{page.title}</h1>
+                  <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">{page.subtitle}</p>
+                </div>
+
+                <div className="rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
+                  <div className="grid gap-3">
+                    {page.facts.map((fact) => (
+                      <div key={fact.label} className="rounded-[1.15rem] bg-[#eef5f2] p-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">{fact.label}</p>
+                        <p className="mt-2 text-lg font-semibold text-[#173634]">{fact.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Challenge</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.challengeTitle}</h2>
+              <p className="mt-6 text-base leading-8 text-[#65706d]">{page.challenge}</p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-1">
+              {page.pains.map((pain) => {
+                const Icon = pain.icon
+                return (
+                  <div key={pain.title} className="rounded-[1.5rem] border border-[#d8e5e2] bg-white p-6 shadow-[0_24px_80px_-72px_#173634]">
+                    <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96]">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-[#243331]">{pain.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-[#65706d]">{pain.text}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <SectionBackground section="workflow" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div className="rounded-[2rem] bg-[#173634] p-7 text-white shadow-[0_44px_130px_-82px_#173634] md:p-9">
+                <div className="mb-8 grid h-14 w-14 place-items-center rounded-2xl border border-white/15 bg-white/10">
+                  <Layers className="h-6 w-6 text-[#dbe8e4]" />
+                </div>
+                <h2 className="text-balance text-4xl font-light leading-tight text-white md:text-5xl">{page.solutionTitle}</h2>
+                <p className="mt-6 text-base leading-8 text-[#d7e4e1]">{page.solution}</p>
+              </div>
+
+              <div className="space-y-4">
+                {page.flow.map((item, index) => (
+                  <div key={item} className="flex gap-4 rounded-[1.4rem] border border-[#d8e5e2] bg-white p-5 shadow-[0_24px_80px_-72px_#173634]">
+                    <span className="grid h-10 w-10 flex-none place-items-center rounded-full bg-[#eef5f2] text-sm font-semibold text-[#789b96]">{index + 1}</span>
+                    <p className="text-sm leading-7 text-[#65706d]">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Impacto</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.impactTitle}</h2>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {page.metrics.map((metric) => (
+                <div key={metric.label} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 text-center shadow-[0_24px_80px_-72px_#173634]">
+                  <div className="mx-auto mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96]">
+                    <Gauge className="h-6 w-6" />
+                  </div>
+                  <p className="text-5xl font-light leading-none text-[#173634]">{metric.value}</p>
+                  <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#65706d]">{metric.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-4xl rounded-[2rem] border border-[#d8e5e2] bg-white/85 p-8 text-center shadow-[0_34px_110px_-82px_#173634] md:p-12">
+            <Workflow className="mx-auto mb-6 h-7 w-7 text-[#789b96]" />
+            <h2 className="text-balance text-4xl font-light leading-tight text-[#173634] md:text-5xl">{page.ctaTitle}</h2>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href={href(locale, "/contact")} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]">
+                {page.primaryCta}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={href(locale, "/soluciones")} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]">
+                {page.secondaryCta}
+                <CheckCircle2 className="h-4 w-4" />
               </Link>
             </div>
           </div>
