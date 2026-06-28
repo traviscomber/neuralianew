@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, BarChart3, Zap, Clock, Users } from "lucide-react"
+import { ArrowRight, BookOpen, CheckCircle2, Gauge, Layers, Rocket, Users, Workflow } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
@@ -11,485 +12,229 @@ interface PageProps {
   }
 }
 
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Caso Despega Tu Carrera | N3uralia",
+    metadataDescription:
+      "Cómo N3uralia construyó una plataforma full-stack de orientación profesional con tests, biblioteca y coach IA para miles de usuarios.",
+    badge: "Educación + producto digital",
+    title: "Una plataforma de coaching profesional desde cero hasta producción",
+    subtitle:
+      "Despega Tu Carrera necesitaba pasar de una visión a un producto real: tests, contenidos, perfiles, experiencia guiada y una base lista para crecer. N3uralia diseñó y construyó el sistema full-stack completo.",
+    back: "Volver a casos",
+    facts: [
+      { label: "Industria", value: "Educación" },
+      { label: "Alcance", value: "Idea a producción" },
+      { label: "Base", value: "Escalable" },
+    ],
+    challengeTitle: "La oportunidad era clara, pero todavía no existía el sistema.",
+    challenge:
+      "El proyecto requería transformar conocimiento, metodología y contenido en una experiencia digital simple para usuarios finales, con arquitectura suficiente para crecer sin rehacer todo al primer aumento de demanda.",
+    pains: [
+      { icon: Rocket, title: "Partida desde cero", text: "No había plataforma, backend ni base de datos: había visión y necesidad de ejecución." },
+      { icon: BookOpen, title: "Contenido estructurado", text: "La biblioteca y los tests necesitaban orden, navegación y experiencia clara." },
+      { icon: Users, title: "Usuarios reales", text: "La experiencia debía ser usable, estable y preparada para miles de interacciones." },
+    ],
+    solutionTitle: "Lo que construimos",
+    solution:
+      "Un producto full-stack con frontend, backend, base de datos, tests, biblioteca de recursos y una capa de IA preparada para guiar al usuario con contexto.",
+    flow: [
+      "Arquitectura de producto y definición de módulos principales.",
+      "Experiencia de usuario para tests, perfiles, biblioteca y navegación guiada.",
+      "Backend y base de datos para usuarios, resultados y contenido estructurado.",
+      "Base preparada para incorporar coach IA, recomendaciones y mejora progresiva.",
+    ],
+    impactTitle: "Base lista para crecer",
+    metrics: [
+      { value: "10k+", label: "usuarios proyectados sobre una arquitectura preparada para escala" },
+      { value: "120+", label: "recursos y contenidos organizables dentro de la plataforma" },
+      { value: "1", label: "producto conectado de punta a punta" },
+    ],
+    ctaTitle: "Si tienes una idea con valor, el salto importante es convertirla en sistema usable.",
+    primaryCta: "Agendar diagnóstico",
+    secondaryCta: "Ver soluciones",
+  },
+  en: {
+    metadataTitle: "Despega Tu Carrera case study | N3uralia",
+    metadataDescription:
+      "How N3uralia built a full-stack career coaching platform with assessments, a content library, and AI guidance for thousands of users.",
+    badge: "Education + digital product",
+    title: "A career coaching platform from zero to production",
+    subtitle:
+      "Despega Tu Carrera needed to move from a vision to a real product: assessments, content, profiles, guided experience, and a base ready to grow. N3uralia designed and built the full-stack system.",
+    back: "Back to cases",
+    facts: [
+      { label: "Industry", value: "Education" },
+      { label: "Scope", value: "Idea to production" },
+      { label: "Base", value: "Scalable" },
+    ],
+    challengeTitle: "The opportunity was clear, but the system did not exist yet.",
+    challenge:
+      "The project required turning knowledge, methodology, and content into a simple digital experience for end users, with enough architecture to grow without rebuilding everything after demand increased.",
+    pains: [
+      { icon: Rocket, title: "Starting from zero", text: "There was no platform, backend, or database: there was vision and a need for execution." },
+      { icon: BookOpen, title: "Structured content", text: "The library and assessments needed order, navigation, and a clear experience." },
+      { icon: Users, title: "Real users", text: "The experience had to be usable, stable, and ready for thousands of interactions." },
+    ],
+    solutionTitle: "What we built",
+    solution:
+      "A full-stack product with frontend, backend, database, assessments, resource library, and an AI layer prepared to guide users with context.",
+    flow: [
+      "Product architecture and definition of core modules.",
+      "User experience for assessments, profiles, library, and guided navigation.",
+      "Backend and database for users, results, and structured content.",
+      "Base prepared for AI coaching, recommendations, and progressive improvement.",
+    ],
+    impactTitle: "A base ready to grow",
+    metrics: [
+      { value: "10k+", label: "projected users on an architecture prepared for scale" },
+      { value: "120+", label: "resources and content organized inside the platform" },
+      { value: "1", label: "connected product from end to end" },
+    ],
+    ctaTitle: "If you have an idea with value, the important leap is turning it into a usable system.",
+    primaryCta: "Book diagnosis",
+    secondaryCta: "View solutions",
+  },
+} as const
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return buildLocalizedMetadata({
     locale,
     path: "/case-studies/despega-tu-carrera",
     type: "article",
-    title:
-      locale === "es"
-        ? "Caso Despega Tu Carrera | N3uralia"
-        : "Despega Tu Carrera case study | N3uralia",
-    description:
-      locale === "es"
-        ? "Como N3uralia construyo una plataforma full-stack de coaching profesional con tests, biblioteca y coach IA para miles de usuarios."
-        : "How N3uralia built a full-stack coaching platform with assessments, library content, and an AI coach for thousands of users.",
+    title: page.metadataTitle,
+    description: page.metadataDescription,
   })
 }
 
-export default function DespegatucarreraCaseStudy() {
+export default function DespegaTuCarreraCaseStudy({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
   return (
     <>
-      <main className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="pt-32 pb-20 px-4 bg-gradient-to-b from-primary/10 to-background">
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/20 text-primary text-sm font-semibold">
-                Educación + Full-Stack
-              </span>
-            </div>
-
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-              Plataforma de Coaching Profesional desde Cero
-            </h1>
-
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-              De una idea a 10,000+ usuarios. N3uralia diseñó, desarrolló e implementó una plataforma full-stack de desarrollo profesional con tests, biblioteca de 120+ libros y coach IA personalizado.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-12">
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Industria</p>
-                <p className="font-semibold text-foreground">Educación / Coaching</p>
-              </div>
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Scope</p>
-                <p className="font-semibold text-foreground">Idea → Producción</p>
-              </div>
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">Estado</p>
-                <p className="font-semibold text-foreground">En Producción 24/7</p>
-              </div>
-              <div className="px-6 py-3 bg-card border border-border rounded-lg">
-                <p className="text-sm text-muted-foreground">ROI Principal</p>
-                <p className="font-semibold text-foreground">Desarrollo Fullstack</p>
-              </div>
-            </div>
-
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-lg bg-card border border-border text-center">
-                <p className="text-3xl font-bold text-primary">10,000+</p>
-                <p className="text-sm text-muted-foreground mt-2">Usuarios Activos</p>
-              </div>
-              <div className="p-4 rounded-lg bg-card border border-border text-center">
-                <p className="text-3xl font-bold text-primary">50,000+</p>
-                <p className="text-sm text-muted-foreground mt-2">Tests Completados</p>
-              </div>
-              <div className="p-4 rounded-lg bg-card border border-border text-center">
-                <p className="text-3xl font-bold text-primary">95%</p>
-                <p className="text-sm text-muted-foreground mt-2">Satisfacción</p>
-              </div>
-              <div className="p-4 rounded-lg bg-card border border-border text-center">
-                <p className="text-3xl font-bold text-primary">100%</p>
-                <p className="text-sm text-muted-foreground mt-2">Full-Stack</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Challenge Section */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-8">El Desafío: Idea sin Infraestructura</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="p-6 rounded-lg bg-muted/50 border border-border">
-                <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <span className="text-red-500">✗</span> Estado Inicial
-                </h3>
-                <ul className="space-y-3 text-muted-foreground text-sm">
-                  <li>• Sin plataforma existente</li>
-                  <li>• Sin backend</li>
-                  <li>• Sin base de datos</li>
-                  <li>• Sin infraestructura</li>
-                  <li>• Solo una idea y visión</li>
-                </ul>
-              </div>
-              <div className="p-6 rounded-lg bg-muted/50 border border-border">
-                <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <span className="text-green-500">✓</span> Necesidad
-                </h3>
-                <ul className="space-y-3 text-muted-foreground text-sm">
-                  <li>• Tests psicométricos científicos</li>
-                  <li>• Biblioteca de recursos profesionales</li>
-                  <li>• Coach IA personalizado 24/7</li>
-                  <li>• Escalabilidad para miles de usuarios</li>
-                  <li>• Stack moderno y mantenible</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Solution Architecture */}
-        <section className="py-16 px-4 border-b border-border bg-muted/30">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-12">Solución: Arquitectura Full-Stack Completa</h2>
-            
-            <div className="space-y-6">
-              {/* Frontend */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    1
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Frontend - Interfaz Moderna</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Aplicación React construida para proporcionar experiencia fluida. Tests interactivos, visualización de perfiles, acceso a biblioteca, interfaz de chat con coach IA.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">React</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">TypeScript</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Responsive</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Backend */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    2
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Backend - Motor de Procesamiento</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      API robusta que procesa tests, gestiona usuarios, orquesta llamadas al coach IA, integra con OpenAI GPT-4, maneja autenticación y autorización.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Node.js</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">API REST</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Auth</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Database */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    3
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Base de Datos - Persistencia Centralizada</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Schema diseñado para almacenar perfiles de usuarios, resultados de tests, historial de sesiones, contexto del coach IA, biblioteca indexada.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">PostgreSQL</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Supabase</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Vectorial</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Tests Engine */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    4
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Motor de Tests Psicométricos</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      6 evaluaciones científicas: Despega Cerebral (comportamiento), Mapa de Personalidad (16 tipos), 5 Dimensiones (rasgos), Brújula Vocacional, IE, Competencias. Scoring automático + interpretación.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Algoritmos</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Validación</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Scoring</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Coach IA */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    5
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Coach IA Personalizado - GPT-4 + Knowledge Base</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Agente IA entrenado con 120+ libros profesionales, adaptado a perfil psicométrico del usuario. Responde preguntas 24/7, da recomendaciones contextualizadas, recomienda recursos de la biblioteca.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">OpenAI GPT-4</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">RAG</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Context-Aware</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Infraestructura */}
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-primary/20 text-primary font-bold">
-                    6
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground mb-2">Infraestructura - Cloud Escalable</h3>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      Deploy en Vercel (frontend), cloud backend (Node.js), Supabase (BD). Monitoreo 24/7, alertas automáticas, CI/CD pipeline, backups diarios.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Vercel</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">CI/CD</span>
-                      <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded">24/7 SLA</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* End-to-End Flow */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-12">Flujo: De Idea a Usuario</h2>
-            
-            <div className="space-y-4">
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">1</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Usuario accede a despegatucarrera.com</h3>
-                    <p className="text-sm text-muted-foreground mt-1">Frontend carga, sin requerir login para empezar</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">2</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Realiza tests psicométricos (15-20 min)</h3>
-                    <p className="text-sm text-muted-foreground mt-1">Backend procesa respuestas, aplica algoritmos de scoring, almacena resultados en BD</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">3</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Sistema genera perfil psicométrico</h3>
-                    <p className="text-sm text-muted-foreground mt-1">6 evaluaciones → Perfil 360° del usuario (personalidad, vocación, competencias)</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">4</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Accede a biblioteca personalizada</h3>
-                    <p className="text-sm text-muted-foreground mt-1">120+ libros recomendados según perfil, búsqueda semántica con IA</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">5</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Coach IA disponible 24/7</h3>
-                    <p className="text-sm text-muted-foreground mt-1">GPT-4 entrenado con contexto del usuario → respuestas personalizadas, recomendaciones de desarrollo</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 rounded-lg bg-primary/5 border border-primary/20">
-                <div className="flex items-start gap-4">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold text-sm">6</div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">Sistema colecta feedback y aprende</h3>
-                    <p className="text-sm text-muted-foreground mt-1">Cada interacción mejora el perfil, el coach, las recomendaciones</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Results */}
-        <section className="py-16 px-4 border-b border-border bg-muted/30">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-12">Resultados Medibles</h2>
-            
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="p-8 rounded-lg border border-border bg-card">
-                <BarChart3 className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Usuarios Activos</p>
-                <p className="text-4xl font-bold text-foreground">10,000+</p>
-                <p className="text-sm text-muted-foreground mt-2">En menos de 1 año desde launch</p>
-              </div>
-
-              <div className="p-8 rounded-lg border border-border bg-card">
-                <Users className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Tests Completados</p>
-                <p className="text-4xl font-bold text-foreground">50,000+</p>
-                <p className="text-sm text-muted-foreground mt-2">Promedio 5 tests por usuario</p>
-              </div>
-
-              <div className="p-8 rounded-lg border border-border bg-card">
-                <Zap className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Satisfacción de Usuarios</p>
-                <p className="text-4xl font-bold text-foreground">95%</p>
-                <p className="text-sm text-muted-foreground mt-2">NPS alto, retention excelente</p>
-              </div>
-
-              <div className="p-8 rounded-lg border border-border bg-card">
-                <Clock className="w-8 h-8 text-primary mb-4" />
-                <p className="text-sm text-muted-foreground mb-2">Disponibilidad</p>
-                <p className="text-4xl font-bold text-foreground">99.9%</p>
-                <p className="text-sm text-muted-foreground mt-2">Uptime 24/7 en infraestructura</p>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-lg border border-border bg-card">
-              <h3 className="font-semibold text-foreground mb-4">Impacto de N3uralia</h3>
-              <ul className="space-y-3 text-sm">
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 font-bold mt-0.5">✓</span>
-                  <span className="text-muted-foreground"><span className="font-semibold text-foreground">Full-Stack desde cero:</span> Diseño, arquitectura, desarrollo, deploy, producción</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 font-bold mt-0.5">✓</span>
-                  <span className="text-muted-foreground"><span className="font-semibold text-foreground">Escalabilidad:</span> 10,000+ usuarios simultáneos sin degradación</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 font-bold mt-0.5">✓</span>
-                  <span className="text-muted-foreground"><span className="font-semibold text-foreground">IA integrada:</span> Coach GPT-4 personalizado basado en tests psicométricos</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 font-bold mt-0.5">✓</span>
-                  <span className="text-muted-foreground"><span className="font-semibold text-foreground">Cero intervención técnica:</span> Sistema autónomo desde día 1</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-green-500 font-bold mt-0.5">✓</span>
-                  <span className="text-muted-foreground"><span className="font-semibold text-foreground">Time-to-market:</span> Desde idea a producción en timeline acelerado</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Key Learnings */}
-        <section className="py-16 px-4 border-b border-border">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-12">Lecciones Clave</h2>
-            
-            <div className="space-y-4">
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <h3 className="font-semibold text-foreground mb-2">1. Full-Stack es Viabilidad</h3>
-                <p className="text-sm text-muted-foreground">
-                  Una plataforma requiere orquestación perfecta entre frontend, backend, BD, IA. N3uralia diseñó todo integrado, no como piezas separadas.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <h3 className="font-semibold text-foreground mb-2">2. Escalabilidad desde el Día 1</h3>
-                <p className="text-sm text-muted-foreground">
-                  No construimos para 10 usuarios esperando escalar. Arquitectura preparada para 10,000+ desde el inicio: CDN, caching, índices de BD, rate limiting.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <h3 className="font-semibold text-foreground mb-2">{'3. IA Personalizada > IA Genérica'}</h3>
-                <p className="text-sm text-muted-foreground">
-                  El coach IA funciona porque está entrenado con contexto del usuario. GPT-4 es poderoso, pero la diferencia está en la personalización y los datos.
-                </p>
-              </div>
-
-              <div className="p-6 rounded-lg border border-border bg-card">
-                <h3 className="font-semibold text-foreground mb-2">4. Infraestructura Transparente</h3>
-                <p className="text-sm text-muted-foreground">
-                  Usuario no ve Vercel, Supabase, OpenAI. N3uralia orquestó todo sin exposición técnica. El cliente solo interactúa con la experiencia.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Tech Stack */}
-        <section className="py-16 px-4 border-b border-border bg-muted/30">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="h2-light mb-8">Stack Técnico</h2>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-foreground mb-4">Frontend</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• React 18</li>
-                  <li>• TypeScript</li>
-                  <li>• Tailwind CSS</li>
-                  <li>• Vercel Deploy</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground mb-4">Backend</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Node.js / Express</li>
-                  <li>• API REST</li>
-                  <li>• Supabase Auth</li>
-                  <li>• OpenAI GPT-4</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground mb-4">Database</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• PostgreSQL (Supabase)</li>
-                  <li>• Vector embeddings</li>
-                  <li>• Real-time subscriptions</li>
-                  <li>• Automated backups</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-foreground mb-4">Infrastructure</h3>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Vercel (CDN)</li>
-                  <li>• Cloud storage</li>
-                  <li>• Monitoring 24/7</li>
-                  <li>• Auto-scaling</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="h2-light mb-6">¿Tienes una idea similar?</h2>
-            <p className="text-lg text-muted-foreground mb-8">
-              N3uralia construye plataformas full-stack desde cero. Desde arquitectura hasta producción, hacemos toda la complejidad técnica invisible.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-              >
-                Cuéntanos tu Idea <ArrowRight className="w-4 h-4" />
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="hero" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto max-w-7xl">
+              <Link href={href(locale, "/case-studies")} className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96] transition-colors hover:text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]">
+                <ArrowRight className="h-4 w-4 rotate-180" />
+                {page.back}
               </Link>
-              <Link
-                href="/case-studies"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors"
-              >
-                Ver Otros Casos
+
+              <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+                <div>
+                  <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+                    <span className="h-2 w-2 rounded-full bg-[#789b96]" />
+                    <span className="text-sm font-semibold text-[#526e69]">{page.badge}</span>
+                  </div>
+                  <h1 className="max-w-5xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">{page.title}</h1>
+                  <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">{page.subtitle}</p>
+                </div>
+
+                <div className="rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
+                  <div className="grid gap-3">
+                    {page.facts.map((fact) => (
+                      <div key={fact.label} className="rounded-[1.15rem] bg-[#eef5f2] p-4">
+                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">{fact.label}</p>
+                        <p className="mt-2 text-lg font-semibold text-[#173634]">{fact.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Challenge</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.challengeTitle}</h2>
+              <p className="mt-6 text-base leading-8 text-[#65706d]">{page.challenge}</p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3 lg:grid-cols-1">
+              {page.pains.map((pain) => {
+                const Icon = pain.icon
+                return (
+                  <div key={pain.title} className="rounded-[1.5rem] border border-[#d8e5e2] bg-white p-6 shadow-[0_24px_80px_-72px_#173634]">
+                    <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96]">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-[#243331]">{pain.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-[#65706d]">{pain.text}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        <SectionBackground section="workflow" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div className="rounded-[2rem] bg-[#173634] p-7 text-white shadow-[0_44px_130px_-82px_#173634] md:p-9">
+                <div className="mb-8 grid h-14 w-14 place-items-center rounded-2xl border border-white/15 bg-white/10">
+                  <Layers className="h-6 w-6 text-[#dbe8e4]" />
+                </div>
+                <h2 className="text-balance text-4xl font-light leading-tight text-white md:text-5xl">{page.solutionTitle}</h2>
+                <p className="mt-6 text-base leading-8 text-[#d7e4e1]">{page.solution}</p>
+              </div>
+
+              <div className="space-y-4">
+                {page.flow.map((item, index) => (
+                  <div key={item} className="flex gap-4 rounded-[1.4rem] border border-[#d8e5e2] bg-white p-5 shadow-[0_24px_80px_-72px_#173634]">
+                    <span className="grid h-10 w-10 flex-none place-items-center rounded-full bg-[#eef5f2] text-sm font-semibold text-[#789b96]">{index + 1}</span>
+                    <p className="text-sm leading-7 text-[#65706d]">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Impacto</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.impactTitle}</h2>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-3">
+              {page.metrics.map((metric) => (
+                <div key={metric.label} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 text-center shadow-[0_24px_80px_-72px_#173634]">
+                  <div className="mx-auto mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96]">
+                    <Gauge className="h-6 w-6" />
+                  </div>
+                  <p className="text-5xl font-light leading-none text-[#173634]">{metric.value}</p>
+                  <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-[#65706d]">{metric.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-4xl rounded-[2rem] border border-[#d8e5e2] bg-white/85 p-8 text-center shadow-[0_34px_110px_-82px_#173634] md:p-12">
+            <Workflow className="mx-auto mb-6 h-7 w-7 text-[#789b96]" />
+            <h2 className="text-balance text-4xl font-light leading-tight text-[#173634] md:text-5xl">{page.ctaTitle}</h2>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+              <Link href={href(locale, "/contact")} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]">
+                {page.primaryCta}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={href(locale, "/soluciones")} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]">
+                {page.secondaryCta}
+                <CheckCircle2 className="h-4 w-4" />
               </Link>
             </div>
           </div>
