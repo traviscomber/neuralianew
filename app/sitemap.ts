@@ -3,52 +3,12 @@ import { absoluteUrl } from "@/lib/site"
 
 const LOCALES = ["es", "en"] as const
 
-const marketingRoutes = [
+const primaryRoutes = [
   "",
-  "/about",
   "/contact",
   "/soluciones",
-  "/como-trabajamos",
-  "/faq",
-  "/capabilities",
-  "/services",
-  "/agentic-systems",
-  "/ai-infrastructure",
-  "/api-docs",
-  "/coordination",
-  "/error-tracking",
-  "/performance",
-  "/security",
-  "/playbooks",
-  "/platform",
-  "/patterns",
-  "/nodes",
-  "/labs",
-  "/learning-hub",
-  "/nuestro-enfoque",
-  "/outcomes",
-  "/para-empresas",
-  "/para-startups",
-  "/para-desarrolladores",
-  "/automatizacion-para-empresas",
-  "/automatizacion-ventas-leads",
-  "/operaciones-autonomas",
-  "/integraciones-empresariales",
-  "/conversational-intelligence",
-  "/living-agents",
-  "/vibe-selling",
-  "/studies",
   "/case-studies",
   "/blog",
-] as const
-
-const studyRoutes = [
-  "/studies/agentic-ai",
-  "/studies/agentic-brainstorming",
-  "/studies/ai-memory",
-  "/studies/context-engineering",
-  "/studies/production-grade-agentic-systems",
-  "/studies/world-engine",
 ] as const
 
 const blogRoutes = [
@@ -65,8 +25,7 @@ const caseStudyRoutes = [
 ] as const
 
 const allRoutes = [
-  ...marketingRoutes,
-  ...studyRoutes,
+  ...primaryRoutes,
   ...blogRoutes,
   ...caseStudyRoutes,
 ] as const
@@ -74,7 +33,7 @@ const allRoutes = [
 function getPriority(route: string) {
   if (route === "") return 1
   if (["/soluciones", "/contact", "/case-studies", "/blog"].includes(route)) return 0.9
-  if (route.startsWith("/case-studies/") || route.startsWith("/blog/") || route.startsWith("/studies/")) return 0.8
+  if (route.startsWith("/case-studies/") || route.startsWith("/blog/")) return 0.8
   return 0.7
 }
 
