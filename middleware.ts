@@ -30,6 +30,18 @@ const rateLimitCache = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT_WINDOW_MS = 60 * 1000
 const RATE_LIMIT_MAX_REQUESTS = 100
 
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com https://vercel.live",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: https: blob:",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com https://*.blob.vercel-storage.com https://*.private.blob.vercel-storage.com https://*.public.blob.vercel-storage.com https://blob.vercel-storage.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ')
+
 function getClientIp(request: NextRequest): string {
   return (
     request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
@@ -104,10 +116,7 @@ function addSecurityHeaders(response: NextResponse) {
     )
   }
 
-  response.headers.set(
-    "Content-Security-Policy",
-    "default-src 'self'; script-src 'self' https://cdn.vercel-insights.com https://vercel.live; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https: blob:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.vercel-insights.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
-  )
+  response.headers.set("Content-Security-Policy", CONTENT_SECURITY_POLICY)
 
   return response
 }
