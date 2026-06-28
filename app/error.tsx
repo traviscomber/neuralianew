@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { useEffect } from 'react'
+import { BrandMark, BrandWordmark } from '@/components/brand'
 
 export default function Error({
   error,
@@ -11,39 +11,38 @@ export default function Error({
   reset: () => void
 }) {
   useEffect(() => {
-    console.error("Application error:", error)
+    console.error('Application error:', error)
   }, [error])
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full mx-auto p-8 text-center">
-        <div className="mb-6">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-          </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Algo salió mal</h2>
-          <p className="text-gray-600 mb-6">
-            Ha ocurrido un error al cargar la aplicación. Por favor, intenta de nuevo.
-          </p>
-        </div>
+    <div className='grid min-h-screen place-items-center bg-[radial-gradient(circle_at_18%_16%,#ffffff_0,transparent_30%),linear-gradient(135deg,#fbfbfa_0%,#edf4f1_52%,#fbfbfa_100%)] px-6 text-[#173634]'>
+      <div className='w-full max-w-xl rounded-[2.2rem] border border-[#d8e5e2] bg-white/85 p-8 text-center shadow-[0_38px_120px_-86px_#173634] backdrop-blur md:p-10'>
+        <BrandMark className='mx-auto h-16 w-16 rounded-2xl text-[#789b96]' />
+        <BrandWordmark className='mx-auto mt-7 text-4xl text-[#789b96]' />
+        <p className='mt-8 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]'>Sistema en pausa</p>
+        <h2 className='mt-4 text-4xl font-light leading-tight text-[#173634]'>Algo salió mal al cargar.</h2>
+        <p className='mx-auto mt-4 max-w-md text-base leading-8 text-[#65706d]'>La operación debería sentirse clara incluso cuando algo falla. Intenta recargar o vuelve al inicio.</p>
 
-        <div className="space-y-3">
-          <Button onClick={reset} className="w-full" size="lg">
+        <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center'>
+          <button
+            type='button'
+            onClick={reset}
+            className='inline-flex items-center justify-center rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'
+          >
             Intentar de nuevo
-          </Button>
-          <Button onClick={() => (window.location.href = "/")} variant="outline" className="w-full" size="lg">
+          </button>
+          <button
+            type='button'
+            onClick={() => {
+              window.location.href = '/es'
+            }}
+            className='inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]'
+          >
             Volver al inicio
-          </Button>
+          </button>
         </div>
 
-        {error.digest && <p className="mt-4 text-xs text-gray-500">Error ID: {error.digest}</p>}
+        {error.digest ? <p className='mt-6 text-xs text-[#8a9693]'>Error ID: {error.digest}</p> : null}
       </div>
     </div>
   )
