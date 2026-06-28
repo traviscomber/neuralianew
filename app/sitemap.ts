@@ -14,6 +14,10 @@ const marketingRoutes = [
   "/services",
   "/agentic-systems",
   "/ai-infrastructure",
+  "/api-docs",
+  "/coordination",
+  "/error-tracking",
+  "/performance",
   "/security",
   "/playbooks",
   "/platform",
@@ -32,7 +36,9 @@ const marketingRoutes = [
   "/integraciones-empresariales",
   "/conversational-intelligence",
   "/living-agents",
+  "/vibe-selling",
   "/studies",
+  "/case-studies",
   "/blog",
 ] as const
 
@@ -65,6 +71,13 @@ const allRoutes = [
   ...caseStudyRoutes,
 ] as const
 
+function getPriority(route: string) {
+  if (route === "") return 1
+  if (["/soluciones", "/contact", "/case-studies", "/blog"].includes(route)) return 0.9
+  if (route.startsWith("/case-studies/") || route.startsWith("/blog/") || route.startsWith("/studies/")) return 0.8
+  return 0.7
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
@@ -73,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: absoluteUrl(`/${locale}${route}`),
       lastModified,
       changeFrequency: route === "" ? "weekly" : "monthly",
-      priority: route === "" ? 1 : route.startsWith("/soluciones") || route.startsWith("/contact") ? 0.9 : 0.7,
+      priority: getPriority(route),
       alternates: {
         languages: {
           es: absoluteUrl(`/es${route}`),
