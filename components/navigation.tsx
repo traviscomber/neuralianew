@@ -17,15 +17,16 @@ type NavItem = {
 
 export default function Navigation({ locale = 'es' }: NavigationProps) {
   const [open, setOpen] = useState(false)
+  const isES = locale === 'es'
   const href = (hash: string) => `/${locale}${hash}`
 
   const items: NavItem[] = [
-    { href: href('#capabilities'), label: 'Capabilities' },
-    { href: href('#solutions'), label: 'Solutions' },
-    { href: href('#how-we-work'), label: 'How we work' },
-    { href: href('#case-studies'), label: 'Case studies' },
-    { href: href('#faq'), label: 'FAQ' },
-    { href: href('#about'), label: 'About' },
+    { href: href('#capabilities'), label: isES ? 'Capacidades' : 'Capabilities' },
+    { href: href('#solutions'), label: isES ? 'Soluciones' : 'Solutions' },
+    { href: href('#how-we-work'), label: isES ? 'Cómo trabajamos' : 'How we work' },
+    { href: href('#case-studies'), label: isES ? 'Casos de estudio' : 'Case studies' },
+    { href: href('#faq'), label: isES ? 'FAQ' : 'FAQ' },
+    { href: href('#about'), label: isES ? 'Acerca de' : 'About' },
   ]
 
   return (
@@ -54,13 +55,13 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
             href={href('#contacto')}
             className='hidden rounded-full border border-[#c8ddd8] bg-white px-5 py-2.5 text-sm font-medium text-[#8aa8a4] transition-all hover:-translate-y-0.5 hover:border-[#8aa8a4] hover:bg-[#f7fbfa] md:inline-flex'
           >
-            Book diagnosis
+            {isES ? 'Agendar diagnóstico' : 'Book diagnosis'}
           </Link>
 
           <button
             type='button'
             className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d2dfdb] text-[#687572] lg:hidden'
-            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-label={open ? (isES ? 'Cerrar menú' : 'Close menu') : (isES ? 'Abrir menú' : 'Open menu')}
             onClick={() => setOpen((value) => !value)}
           >
             {open ? <X className='h-5 w-5' /> : <Menu className='h-5 w-5' />}
@@ -86,7 +87,7 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
               onClick={() => setOpen(false)}
               className='mt-2 rounded-2xl bg-[#8aa8a4] px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[#7d9f9b]'
             >
-              Book diagnosis
+              {isES ? 'Agendar diagnóstico' : 'Book diagnosis'}
             </Link>
           </div>
         </div>
