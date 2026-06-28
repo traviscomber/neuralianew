@@ -606,7 +606,7 @@ export default function HomePage({ params }: PageProps) {
     {
       title: 'Production AI Systems',
       description:
-        'Move AI from experiments into real business use. We build AI agents, copilots, and intelligent platforms connected to your company’s knowledge, tools, and processes.',
+        'Move AI from experiments into real business use. We build AI agents, copilots, and intelligent platforms connected to your company's knowledge, tools, and processes.',
     },
   ]
 
@@ -967,7 +967,7 @@ export default function HomePage({ params }: PageProps) {
             descriptionClassName='max-w-[28rem] lg:ml-auto'
           />
           <div className='mt-16 grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start'>
-            <div className='hidden lg:flex items-center justify-center'>
+            <div className='hidden items-center justify-center lg:flex'>
               <div className='relative h-[34rem] w-full max-w-[28rem] rounded-[2.5rem] border border-[#e7eeec] bg-white/55'>
                 <div className='absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#dbe6e2] bg-white p-6 shadow-sm'>
                   <BrandMark className='h-16 w-16 text-[#97b8b3]' />
