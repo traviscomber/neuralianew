@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Menu, X } from "lucide-react"
-import type { Locale } from "@/lib/get-locale"
+import { useState } from 'react'
+import Link from 'next/link'
+import { Menu, X } from 'lucide-react'
+import { BrandMark } from '@/components/brand'
+import type { Locale } from '@/lib/get-locale'
 
 interface NavigationProps {
   locale?: Locale
@@ -15,87 +15,78 @@ type NavItem = {
   label: string
 }
 
-export default function Navigation({ locale = "es" }: NavigationProps) {
+export default function Navigation({ locale = 'es' }: NavigationProps) {
   const [open, setOpen] = useState(false)
-  const isES = locale === "es"
   const href = (hash: string) => `/${locale}${hash}`
 
   const items: NavItem[] = [
-    { href: href("#capabilities"), label: isES ? "Capacidades" : "Capabilities" },
-    { href: href("#soluciones"), label: isES ? "Soluciones" : "Solutions" },
-    { href: href("#casos"), label: isES ? "Casos" : "Cases" },
-    { href: href("#contacto"), label: isES ? "Contacto" : "Contact" },
+    { href: href('#capabilities'), label: 'Capabilities' },
+    { href: href('#solutions'), label: 'Solutions' },
+    { href: href('#how-we-work'), label: 'How we work' },
+    { href: href('#case-studies'), label: 'Case studies' },
+    { href: href('#faq'), label: 'FAQ' },
+    { href: href('#about'), label: 'About' },
   ]
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href={href("#top")} className="flex items-center gap-3">
-          <Image
-            src="/logo-n3uralia.png"
-            alt="N3uralia"
-            width={56}
-            height={56}
-            className="h-14 w-auto"
-            priority
-          />
-          <div className="hidden sm:block">
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">
-              N3uralia
-            </p>
-            <p className="text-sm font-medium text-foreground">
-              {isES ? "IA aplicada" : "Applied AI"}
-            </p>
-          </div>
+    <nav className='fixed inset-x-0 top-0 z-50 border-b border-[#d9e4e1]/90 bg-white/92 backdrop-blur-md'>
+      <div className='mx-auto grid h-20 max-w-[1500px] grid-cols-[auto_1fr_auto] items-center gap-6 px-4 sm:px-6 lg:px-10'>
+        <Link href={href('#top')} className='flex items-center'>
+          <span className='grid h-12 w-12 place-items-center rounded-full bg-[#23363a] shadow-[0_0_0_1px_rgba(152,181,176,0.35)]'>
+            <BrandMark className='h-7 w-7 text-[#a7c1bb]' />
+          </span>
         </Link>
 
-        <div className="hidden items-center gap-1 lg:flex">
+        <div className='hidden items-center justify-center gap-1 lg:flex'>
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+              className='rounded-full px-4 py-2 text-[0.96rem] font-light tracking-[-0.01em] text-[#8b8f8e] transition-colors hover:bg-[#f3f7f6] hover:text-[#5f6766]'
             >
               {item.label}
             </Link>
           ))}
-          <Link
-            href={href("#contacto")}
-            className="ml-3 inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            {isES ? "Agendar diagnóstico" : "Book a diagnosis"}
-          </Link>
         </div>
 
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/70 text-foreground lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className='flex items-center justify-end gap-3'>
+          <Link
+            href={href('#contacto')}
+            className='hidden rounded-full border border-[#c8ddd8] bg-white px-5 py-2.5 text-sm font-medium text-[#8aa8a4] transition-all hover:-translate-y-0.5 hover:border-[#8aa8a4] hover:bg-[#f7fbfa] md:inline-flex'
+          >
+            Book diagnosis
+          </Link>
+
+          <button
+            type='button'
+            className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d2dfdb] text-[#687572] lg:hidden'
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X className='h-5 w-5' /> : <Menu className='h-5 w-5' />}
+          </button>
+        </div>
       </div>
 
       {open ? (
-        <div className="border-t border-border/70 bg-background px-4 pb-4 pt-3 lg:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-2">
+        <div className='border-t border-[#d9e4e1] bg-white/98 px-4 pb-4 pt-3 lg:hidden'>
+          <div className='mx-auto flex max-w-[1500px] flex-col gap-2'>
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
+                className='rounded-2xl px-4 py-3 text-sm font-medium text-[#747a79] transition-colors hover:bg-[#f2f6f5] hover:text-[#4f5857]'
               >
                 {item.label}
               </Link>
             ))}
             <Link
-              href={href("#contacto")}
+              href={href('#contacto')}
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-2xl bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              className='mt-2 rounded-2xl bg-[#8aa8a4] px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[#7d9f9b]'
             >
-              {isES ? "Agendar diagnóstico" : "Book a diagnosis"}
+              Book diagnosis
             </Link>
           </div>
         </div>
