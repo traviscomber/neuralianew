@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
+import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -29,130 +30,120 @@ const content = {
   es: {
     metadataTitle: "Soluciones | N3uralia",
     metadataDescription:
-      "Soluciones de IA y software para retail, mineria, manufactura, turismo, logistica y equipos que operan en Chile y LATAM.",
+      "Soluciones de IA y software para retail, minería, manufactura, turismo, logística y equipos que operan en Chile y LATAM.",
     badge: "Soluciones para operaciones reales",
-    title: "IA y software aplicados a sectores donde Chile ya tiene presion operativa",
+    title: "IA y software aplicados a sectores con presión operativa real",
     subtitle:
-      "Partimos donde el volumen, la coordinacion y las integraciones ya duelen: retail, mineria, manufactura, turismo y logistica. No vendemos un bot generico. Disenamos sistemas que viven dentro de una operacion real.",
-    sectorsTitle: "Donde vemos mejor fit comercial",
+      "Partimos donde el volumen, la coordinación y las integraciones ya duelen: retail, minería, manufactura, turismo y logística. No vendemos un bot genérico. Diseñamos sistemas que viven dentro de una operación real.",
+    quickStats: ["Pilotos en 30 días", "Integraciones reales", "Arquitectura escalable"],
+    sectorsTitle: "Dónde vemos mejor fit comercial",
     sectorsSubtitle:
-      "Cada vertical combina software, automatizacion e IA con una logica distinta. Estas son las que hoy hacen mas sentido para Chile y LATAM.",
+      "Cada vertical combina software, automatización e IA con una lógica distinta. Estas son las que hoy hacen más sentido para Chile y LATAM.",
     sectors: [
       {
         title: "Retail y e-commerce",
         description:
-          "Catalogo, operaciones comerciales, soporte y coordinacion entre canales con mas velocidad y menos trabajo manual.",
-        outcome: "Mas conversion, menos friccion operativa.",
+          "Catálogo, operaciones comerciales, soporte y coordinación entre canales con más velocidad y menos trabajo manual.",
+        outcome: "Más conversión, menos fricción operativa.",
         icon: Package,
       },
       {
-        title: "Mineria y recursos",
+        title: "Minería y recursos",
         description:
-          "Alertas, trazabilidad, monitoreo y coordinacion de equipos donde la continuidad operacional importa mas que la demo.",
-        outcome: "Mas visibilidad, menos respuesta tardia.",
+          "Alertas, trazabilidad, monitoreo y coordinación de equipos donde la continuidad operacional importa más que la demo.",
+        outcome: "Más visibilidad, menos respuesta tardía.",
         icon: TrendingUp,
       },
       {
         title: "Manufactura",
         description:
-          "Flujos de planta, calidad, documentacion y handoffs entre areas con procesos mas claros y auditables.",
-        outcome: "Menos desorden, mas continuidad.",
+          "Flujos de planta, calidad, documentación y handoffs entre áreas con procesos más claros y auditables.",
+        outcome: "Menos desorden, más continuidad.",
         icon: Cpu,
       },
       {
         title: "Turismo y hospitality",
         description:
-          "Reservas, operaciones, respuesta a clientes y coordinacion interna para equipos que viven de la experiencia y el tiempo.",
-        outcome: "Mas velocidad y mejor servicio.",
+          "Reservas, operaciones, respuesta a clientes y coordinación interna para equipos que viven de la experiencia y el tiempo.",
+        outcome: "Más velocidad y mejor servicio.",
         icon: Users,
       },
       {
-        title: "Logistica y supply chain",
+        title: "Logística y supply chain",
         description:
           "Seguimiento, excepciones, handoffs y decisiones operativas para equipos que necesitan ver todo sin perder tiempo.",
-        outcome: "Mas control, menos puntos ciegos.",
+        outcome: "Más control, menos puntos ciegos.",
         icon: Workflow,
       },
       {
         title: "Servicios regulados",
         description:
           "Procesos con documentos, validaciones y trazabilidad donde la confianza y el control son parte del producto.",
-        outcome: "Mas gobernanza, menos riesgo operacional.",
+        outcome: "Más gobernanza, menos riesgo operacional.",
         icon: Building2,
       },
     ],
-    deliveryTitle: "Como solemos entrar",
+    deliveryTitle: "Cómo solemos entrar",
     deliverySubtitle:
-      "No todos necesitan lo mismo. Hay equipos que parten por un piloto y otros por un sistema core. Estas son las tres entradas mas comunes.",
+      "No todos necesitan lo mismo. Hay equipos que parten por un piloto y otros por un sistema core. Estas son las tres entradas más comunes.",
     deliveryModels: [
       {
         title: "Piloto operativo",
         summary:
-          "Una linea de trabajo concreta, una integracion prioritaria y una metrica clara para validar si esto mueve negocio.",
-        bullets: [
-          "Alcance acotado",
-          "Entrega rapida",
-          "Riesgo controlado",
-        ],
+          "Una línea de trabajo concreta, una integración prioritaria y una métrica clara para validar si esto mueve negocio.",
+        bullets: ["Alcance acotado", "Entrega rápida", "Riesgo controlado"],
       },
       {
-        title: "Sistema de produccion",
+        title: "Sistema de producción",
         summary:
-          "Cuando ya sabes que el problema importa y necesitas arquitectura, integraciones y una capa de operacion sostenible.",
-        bullets: [
-          "Arquitectura completa",
-          "Guardrails y monitoreo",
-          "Handoff operacional",
-        ],
+          "Cuando ya sabes que el problema importa y necesitas arquitectura, integraciones y una capa de operación sostenible.",
+        bullets: ["Arquitectura completa", "Guardrails y monitoreo", "Handoff operacional"],
       },
       {
-        title: "Modernizacion con IA",
+        title: "Modernización con IA",
         summary:
-          "Para equipos que ya tienen software, pero necesitan agregar automatizacion, contexto y una capa mejor de coordinacion.",
-        bullets: [
-          "Sin reescribir todo",
-          "Integracion progresiva",
-          "Impacto visible por etapas",
-        ],
+          "Para equipos que ya tienen software, pero necesitan agregar automatización, contexto y una capa mejor de coordinación.",
+        bullets: ["Sin reescribir todo", "Integración progresiva", "Impacto visible por etapas"],
       },
     ],
-    proofTitle: "Prueba en produccion",
+    proofTitle: "Prueba en producción",
     proofSubtitle:
       "No hablamos solo de industria. Ya hemos construido sistemas que viven fuera del laboratorio.",
     proofs: [
       {
         title: "Ecosuelolab",
         description:
-          "Monitoreo agricola y alertas operativas automatizadas con integraciones reales.",
+          "Monitoreo agrícola y alertas operativas automatizadas con integraciones reales.",
         href: "/case-studies/ecosuelolab",
       },
       {
         title: "Despega Tu Carrera",
         description:
-          "Producto full-stack con experiencias guiadas por IA y una operacion pensada para escala.",
+          "Producto full-stack con experiencias guiadas por IA y una operación pensada para escala.",
         href: "/case-studies/despega-tu-carrera",
       },
       {
         title: "Blackswan Facility Core",
         description:
-          "Software operativo para equipos hospitality que necesitan coordinar mejor y responder mas rapido.",
+          "Software operativo para equipos hospitality que necesitan coordinar mejor y responder más rápido.",
         href: "/case-studies/blackswan-facility-core",
       },
     ],
-    ctaTitle: "Si tu sector no esta aqui, igual conversemos",
+    ctaTitle: "Si tu sector no está aquí, igual conversemos",
     ctaSubtitle:
-      "La pregunta no es si tu industria es especial. La pregunta es si hoy tienes friccion, volumen y decisiones repetibles. Si la respuesta es si, hay espacio para construir algo fuerte.",
+      "La pregunta no es si tu industria es especial. La pregunta es si hoy tienes fricción, volumen y decisiones repetibles. Si la respuesta es sí, hay espacio para construir algo fuerte.",
     primaryCta: "Hablar con N3uralia",
-    secondaryCta: "Ver capacidades",
+    secondaryCta: "Ver landing en simple",
   },
   en: {
     metadataTitle: "Solutions | N3uralia",
     metadataDescription:
       "AI and software solutions for retail, mining, manufacturing, hospitality, logistics, and teams operating across Chile and LATAM.",
     badge: "Solutions for real operations",
-    title: "AI and software for sectors where Chile already has operational pressure",
+    title: "AI and software for sectors with real operational pressure",
     subtitle:
       "We start where volume, coordination, and integrations already create drag: retail, mining, manufacturing, hospitality, and logistics. We do not sell a generic bot. We design systems that live inside a real operation.",
+    quickStats: ["Pilots in 30 days", "Real integrations", "Scalable architecture"],
     sectorsTitle: "Where we see the strongest fit",
     sectorsSubtitle:
       "Each vertical combines software, automation, and AI differently. These are the ones that currently make the most sense for Chile and LATAM.",
@@ -208,31 +199,19 @@ const content = {
         title: "Operational pilot",
         summary:
           "One concrete workflow, one priority integration, and one clear metric to validate business impact quickly.",
-        bullets: [
-          "Focused scope",
-          "Fast delivery",
-          "Controlled risk",
-        ],
+        bullets: ["Focused scope", "Fast delivery", "Controlled risk"],
       },
       {
         title: "Production system",
         summary:
           "When you already know the problem matters and need architecture, integrations, and an operating layer that lasts.",
-        bullets: [
-          "Full architecture",
-          "Guardrails and monitoring",
-          "Operational handoff",
-        ],
+        bullets: ["Full architecture", "Guardrails and monitoring", "Operational handoff"],
       },
       {
         title: "AI-enabled modernization",
         summary:
           "For teams that already have software but need automation, context, and a stronger coordination layer on top.",
-        bullets: [
-          "No full rewrite",
-          "Progressive integration",
-          "Visible wins by stage",
-        ],
+        bullets: ["No full rewrite", "Progressive integration", "Visible wins by stage"],
       },
     ],
     proofTitle: "Production proof",
@@ -262,7 +241,7 @@ const content = {
     ctaSubtitle:
       "The question is not whether your industry is special. The question is whether you already have friction, volume, and repeatable decisions. If yes, there is room to build something strong.",
     primaryCta: "Talk to N3uralia",
-    secondaryCta: "View capabilities",
+    secondaryCta: "View simple landing",
   },
 } as const
 
@@ -284,50 +263,66 @@ export default function SolucionesPage({ params }: PageProps) {
 
   return (
     <>
-      <main className="min-h-screen bg-background pt-20">
-        <SectionBackground section="solutions" className="border-b border-border">
-          <section className="py-20 px-4">
-            <div className="container mx-auto max-w-5xl text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">{page.badge}</span>
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="solutions" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="container mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+              <div>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+                  <span className="h-2 w-2 rounded-full bg-[#789b96]" />
+                  <span className="text-sm font-semibold text-[#526e69]">{page.badge}</span>
+                </div>
+                <h1 className="max-w-5xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">
+                  {page.title}
+                </h1>
+                <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">
+                  {page.subtitle}
+                </p>
               </div>
-              <h1 className="text-4xl sm:text-6xl font-bold mb-6 text-foreground max-w-4xl mx-auto">
-                {page.title}
-              </h1>
-              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">
-                {page.subtitle}
-              </p>
+
+              <div className="rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
+                <div className="grid gap-3">
+                  {page.quickStats.map((stat, index) => (
+                    <div key={stat} className="flex items-center gap-4 rounded-[1.2rem] bg-[#eef5f2] p-4">
+                      <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-sm font-semibold text-[#789b96]">
+                        {index + 1}
+                      </span>
+                      <span className="text-sm font-semibold text-[#526e69]">{stat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
         </SectionBackground>
 
-        <section className="py-24 px-4 border-b border-border">
-          <div className="container mx-auto max-w-6xl">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold text-foreground mb-4">{page.sectorsTitle}</h2>
-              <p className="text-muted-foreground">{page.sectorsSubtitle}</p>
+        <SolutionsFitExplorer locale={locale} />
+
+        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
+          <div className="container mx-auto max-w-7xl">
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Verticales</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.sectorsTitle}</h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.sectorsSubtitle}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
               {page.sectors.map((sector) => {
                 const Icon = sector.icon
 
                 return (
                   <div
                     key={sector.title}
-                    className="rounded-lg border border-border bg-card p-8 hover:border-primary/40 transition-colors"
+                    className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 shadow-[0_24px_80px_-70px_#173634] transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] hover:shadow-[0_34px_110px_-80px_#173634]"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
-                      <Icon className="w-6 h-6 text-primary" />
+                    <div className="mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96] transition-colors group-hover:bg-[#173634] group-hover:text-white">
+                      <Icon className="h-6 w-6" />
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground mb-3">{sector.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                      {sector.description}
-                    </p>
-                    <div className="flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <p className="text-sm text-primary">{sector.outcome}</p>
+                    <h3 className="text-xl font-semibold text-[#243331]">{sector.title}</h3>
+                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{sector.description}</p>
+                    <div className="mt-6 flex items-start gap-2 rounded-[1rem] bg-[#f7faf8] p-4">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
+                      <p className="text-sm font-medium text-[#526e69]">{sector.outcome}</p>
                     </div>
                   </div>
                 )
@@ -336,29 +331,28 @@ export default function SolucionesPage({ params }: PageProps) {
           </div>
         </section>
 
-        <SectionBackground section="workflow" className="border-b border-border">
-          <section className="py-24 px-4">
-            <div className="container mx-auto max-w-5xl">
-              <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-3xl font-bold text-foreground mb-4">{page.deliveryTitle}</h2>
-                <p className="text-muted-foreground">{page.deliverySubtitle}</p>
+        <SectionBackground section="workflow" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-24 sm:px-8 lg:px-10">
+            <div className="container mx-auto max-w-6xl">
+              <div className="mx-auto mb-16 max-w-3xl text-center">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Entrada</p>
+                <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.deliveryTitle}</h2>
+                <p className="mt-5 text-base leading-8 text-[#65706d]">{page.deliverySubtitle}</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {page.deliveryModels.map((model) => (
-                  <div
-                    key={model.title}
-                    className="rounded-lg border border-border bg-background p-8"
-                  >
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">{model.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                      {model.summary}
-                    </p>
-                    <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                {page.deliveryModels.map((model, index) => (
+                  <div key={model.title} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white/80 p-7 shadow-[0_24px_80px_-70px_#173634] backdrop-blur">
+                    <span className="mb-6 grid h-10 w-10 place-items-center rounded-full bg-[#173634] text-sm font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <h3 className="text-2xl font-light leading-tight text-[#173634]">{model.title}</h3>
+                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{model.summary}</p>
+                    <div className="mt-6 space-y-3">
                       {model.bullets.map((bullet) => (
                         <div key={bullet} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{bullet}</span>
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
+                          <span className="text-sm text-[#65706d]">{bullet}</span>
                         </div>
                       ))}
                     </div>
@@ -369,29 +363,26 @@ export default function SolucionesPage({ params }: PageProps) {
           </section>
         </SectionBackground>
 
-        <section className="py-24 px-4 border-b border-border">
-          <div className="container mx-auto max-w-5xl">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="text-3xl font-bold text-foreground mb-4">{page.proofTitle}</h2>
-              <p className="text-muted-foreground">{page.proofSubtitle}</p>
+        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
+          <div className="container mx-auto max-w-6xl">
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Evidencia</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.proofTitle}</h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.proofSubtitle}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
               {page.proofs.map((proof) => (
                 <Link
                   key={proof.title}
                   href={href(locale, proof.href)}
-                  className="rounded-lg border border-border bg-card p-8 hover:border-primary/40 transition-colors group"
+                  className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]"
                 >
-                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                    {proof.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-5 leading-relaxed">
-                    {proof.description}
-                  </p>
-                  <div className="inline-flex items-center gap-2 text-primary text-sm font-semibold">
+                  <h3 className="text-xl font-semibold text-[#243331] transition-colors group-hover:text-[#173634]">{proof.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#65706d]">{proof.description}</p>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96]">
                     {locale === "es" ? "Ver caso" : "View case"}
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </div>
                 </Link>
               ))}
@@ -400,21 +391,21 @@ export default function SolucionesPage({ params }: PageProps) {
         </section>
 
         <SectionBackground section="hero">
-          <section className="py-20 px-4">
-            <div className="container mx-auto max-w-3xl text-center">
-              <h2 className="text-3xl font-bold text-foreground mb-6">{page.ctaTitle}</h2>
-              <p className="text-muted-foreground mb-10">{page.ctaSubtitle}</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="container mx-auto max-w-4xl rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-8 text-center shadow-[0_34px_110px_-82px_#173634] backdrop-blur md:p-12">
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#173634] md:text-5xl">{page.ctaTitle}</h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#65706d]">{page.ctaSubtitle}</p>
+              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link
                   href={href(locale, "/contact")}
-                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
                 >
                   {page.primaryCta}
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href={href(locale, "/capabilities")}
-                  className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+                  href={href(locale, "/#explainer")}
+                  className="inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
                 >
                   {page.secondaryCta}
                 </Link>
