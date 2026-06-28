@@ -1,4 +1,16 @@
 /** @type {import('next').NextConfig} */
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com https://vercel.live",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "img-src 'self' data: https: blob:",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.vercel-insights.com https://vercel.live wss://ws-us3.pusher.com https://*.blob.vercel-storage.com https://*.private.blob.vercel-storage.com https://*.public.blob.vercel-storage.com https://blob.vercel-storage.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ')
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -19,10 +31,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'blob.v0.app',
-      },
-      {
-        protocol: 'https',
         hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
       },
     ],
@@ -32,6 +40,10 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: contentSecurityPolicy,
+          },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
@@ -153,7 +165,7 @@ const nextConfig = {
               name: 'vendor',
               chunks: 'all',
               test: /node_modules/,
-              priority: 20
+              priority: 20,
             },
             // Common chunk
             common: {
@@ -162,10 +174,10 @@ const nextConfig = {
               chunks: 'all',
               priority: 10,
               reuseExistingChunk: true,
-              enforce: true
-            }
-          }
-        }
+              enforce: true,
+            },
+          },
+        },
       }
     }
 
