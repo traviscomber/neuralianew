@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { BrandMark, BrandWordmark } from '@/components/brand'
+import { OperatingSystemExplorer } from '@/components/operating-system-explorer'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
 
 interface PageProps {
@@ -15,12 +16,12 @@ type TextItem = {
   description: string
 }
 
-type NumberedItem = TextItem & {
-  number: string
-}
-
 type TaggedItem = TextItem & {
   tag: string
+}
+
+type NumberedItem = TextItem & {
+  number: string
 }
 
 type MetricItem = {
@@ -29,7 +30,6 @@ type MetricItem = {
 }
 
 type ShowcaseItem = TextItem & {
-  id: string
   subtitle: string
   metrics: string[]
 }
@@ -94,14 +94,9 @@ function SectionHeading({ eyebrow, title, description, align = 'left' }: { eyebr
   )
 }
 
-function Glyph({ children, tone = 'light' }: { children: string; tone?: 'light' | 'dark' }) {
-  const classes =
-    tone === 'dark'
-      ? 'border-white/15 bg-white/10 text-[#d9e3e0]'
-      : 'border-[#b8d1cc] bg-white text-[#789b96]'
-
+function Glyph({ children, dark = false }: { children: string; dark?: boolean }) {
   return (
-    <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border text-xs font-semibold uppercase tracking-[0.12em] ${classes}`}>
+    <span className={`flex h-11 w-11 items-center justify-center rounded-2xl border text-xs font-semibold uppercase tracking-[0.12em] ${dark ? 'border-white/15 bg-white/10 text-[#d9e3e0]' : 'border-[#b8d1cc] bg-white text-[#789b96]'}`}>
       {children}
     </span>
   )
@@ -300,10 +295,10 @@ export default function HomePage({ params }: PageProps) {
   ]
 
   const projects: ShowcaseItem[] = [
-    { id: 'motil', title: 'Motil', subtitle: 'Inteligencia operativa minera', description: 'Centro de control para producción, mantenimiento, bodega, HSE, documentos y gestión en terreno.', metrics: ['Producción', 'Mantenimiento', 'HSE'] },
-    { id: 'docufleet', title: 'DocuFleet / LABBE', subtitle: 'Contratistas y documentos', description: 'Sistema para administrar contratistas, conductores, vehículos, cumplimiento documental y reportes.', metrics: ['Conductores', 'Vehículos', 'Cumplimiento'] },
-    { id: 'seguria', title: 'SegurIA', subtitle: 'Predios y seguridad', description: 'Capa tecnológica para monitoreo, alertas, acceso, cámaras, visibilidad y respuesta operativa.', metrics: ['Cámaras', 'Alertas', 'Respuesta'] },
-    { id: 'sur-realista', title: 'Sur-Realista', subtitle: 'Inteligencia inmobiliaria', description: 'Centro de mando para propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geográficos.', metrics: ['Propiedades', 'Clientes', 'Mapas'] },
+    { title: 'Motil', subtitle: 'Inteligencia operativa minera', description: 'Centro de control para producción, mantenimiento, bodega, HSE, documentos y gestión en terreno.', metrics: ['Producción', 'Mantenimiento', 'HSE'] },
+    { title: 'DocuFleet / LABBE', subtitle: 'Contratistas y documentos', description: 'Sistema para administrar contratistas, conductores, vehículos, cumplimiento documental y reportes.', metrics: ['Conductores', 'Vehículos', 'Cumplimiento'] },
+    { title: 'SegurIA', subtitle: 'Predios y seguridad', description: 'Capa tecnológica para monitoreo, alertas, acceso, cámaras, visibilidad y respuesta operativa.', metrics: ['Cámaras', 'Alertas', 'Respuesta'] },
+    { title: 'Sur-Realista', subtitle: 'Inteligencia inmobiliaria', description: 'Centro de mando para propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geográficos.', metrics: ['Propiedades', 'Clientes', 'Mapas'] },
   ]
 
   const useCases: TaggedItem[] = [
@@ -329,14 +324,10 @@ export default function HomePage({ params }: PageProps) {
           <div className='flex flex-col justify-center'>
             <BrandWordmark className='mb-12 text-5xl text-[#789b96] md:text-6xl' />
             <p className='mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#789b96]'>Software, datos e IA para operaciones complejas</p>
-            <h1 className='text-balance text-5xl font-light leading-[0.98] text-[#173634] md:text-7xl lg:text-8xl'>
-              Haz visible lo que hoy opera a ciegas.
-            </h1>
-            <p className='mt-8 max-w-2xl text-pretty text-lg leading-9 text-[#52605d]'>
-              Diseñamos sistemas internos, automatizaciones y capas de IA para que empresas medianas y grandes dejen de coordinar en fragmentos y empiecen a operar con claridad.
-            </p>
+            <h1 className='text-balance text-5xl font-light leading-[0.98] text-[#173634] md:text-7xl lg:text-8xl'>Haz visible lo que hoy opera a ciegas.</h1>
+            <p className='mt-8 max-w-2xl text-pretty text-lg leading-9 text-[#52605d]'>Diseñamos sistemas internos, automatizaciones y capas de IA para que empresas medianas y grandes dejen de coordinar en fragmentos y empiecen a operar con claridad.</p>
             <div className='mt-10 flex flex-col gap-3 sm:flex-row'>
-              <ButtonLink href={navHref('#contacto')}>Agendar diagnóstico</ButtonLink>
+              <ButtonLink href={navHref('#explainer')}>Entender en 30 segundos</ButtonLink>
               <ButtonLink href={navHref('#case-studies')} variant='outline'>Ver proyectos <span className='ml-2' aria-hidden='true'>&gt;</span></ButtonLink>
             </div>
           </div>
@@ -347,7 +338,16 @@ export default function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section id='capabilities' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+      <section id='explainer' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
+        <div className='mx-auto max-w-7xl'>
+          <SectionHeading eyebrow='En simple' title='Escoge un problema y mira cómo lo convertimos en sistema.' description='La promesa se entiende mejor con ejemplos concretos. Toca un dolor operativo, cambia la etapa y ve qué pasa antes, durante y después de N3uralia.' align='center' />
+          <div className='mt-12'>
+            <OperatingSystemExplorer />
+          </div>
+        </div>
+      </section>
+
+      <section id='capabilities' className='scroll-mt-28 px-5 pb-24 sm:px-8 lg:px-10'>
         <div className='mx-auto max-w-7xl'>
           <SectionHeading eyebrow='La señal' title='No necesitas otra herramienta. Necesitas un sistema que ordene la operación.' description='Estos síntomas aparecen cuando la empresa crece, pero la infraestructura operativa sigue dependiendo de coordinación manual.' />
           <div className='mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4'>
@@ -388,9 +388,7 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.82fr_1.18fr]'>
           <div className='lg:sticky lg:top-28 lg:self-start'>
             <SectionHeading eyebrow='Método' title='Claridad primero. Sistema después.' description='El diseño nace del mapa operativo: dónde están los datos, quién decide, qué se repite, qué duele y dónde la IA realmente ayuda.' />
-            <div className='mt-8 rounded-[1.5rem] border border-white/60 bg-white/50 p-5 text-sm leading-7 text-[#52605d]'>
-              No empezamos por una demo. Empezamos por separar ruido de señal.
-            </div>
+            <div className='mt-8 rounded-[1.5rem] border border-white/60 bg-white/50 p-5 text-sm leading-7 text-[#52605d]'>No empezamos por una demo. Empezamos por separar ruido de señal.</div>
           </div>
           <div className='rounded-[2rem] border border-white/70 bg-[#fbfbfa] px-6 shadow-[0_34px_110px_-86px_#173634] md:px-8'>
             {methodSteps.map((item) => <ProcessStep key={item.number} item={item} />)}
@@ -402,7 +400,7 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto max-w-7xl'>
           <SectionHeading eyebrow='Proyectos' title='Sistemas reales para operaciones que no caben en una plantilla.' description='Cada proyecto traduce complejidad operacional en una interfaz, un flujo y una capa de inteligencia útil para el día a día.' align='center' />
           <div className='mt-14 grid gap-6 lg:grid-cols-2'>
-            {projects.map((item) => <Showcase key={item.id} item={item} />)}
+            {projects.map((item) => <Showcase key={item.title} item={item} />)}
           </div>
         </div>
       </section>
@@ -445,9 +443,7 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto grid max-w-7xl items-center gap-10 rounded-[2.4rem] border border-[#d8e5e2] bg-[radial-gradient(circle_at_78%_20%,#d9e3e0_0,transparent_34%),#ffffff] p-8 shadow-[0_38px_120px_-88px_#173634] md:p-12 lg:grid-cols-[1fr_auto]'>
           <div>
             <BrandWordmark className='text-4xl text-[#789b96]' />
-            <h2 className='mt-10 max-w-3xl text-balance text-4xl font-light leading-tight text-[#173634] md:text-6xl'>
-              Muévete más rápido. Opera con más seguridad. Controla más.
-            </h2>
+            <h2 className='mt-10 max-w-3xl text-balance text-4xl font-light leading-tight text-[#173634] md:text-6xl'>Muévete más rápido. Opera con más seguridad. Controla más.</h2>
             <div className='mt-8 grid gap-3 text-base font-semibold text-[#243331] sm:grid-cols-2'>
               <p>En 1 mes: un MVP funcional.</p>
               <p>En 3 meses: un sistema inteligente conectado.</p>
