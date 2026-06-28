@@ -1,16 +1,14 @@
-import Image from 'next/image'
-
 type BrandMarkProps = {
   className?: string
 }
 
-export function BrandMark({ className = 'h-10 w-10 text-[#8aa8a4]' }: BrandMarkProps) {
+export function BrandMark({ className = 'h-10 w-10 text-[#8ea9a5]' }: BrandMarkProps) {
   return (
     <div
       aria-hidden='true'
-      className={`grid place-items-center rounded-full bg-[#23363a] text-[#9ebbb5] ${className}`.trim()}
+      className={`grid place-items-center border border-current bg-white ${className}`.trim()}
     >
-      <span className='text-[0.62em] font-semibold leading-none tracking-[-0.08em]'>N3</span>
+      <span className='text-[0.48em] font-medium leading-none text-current'>N3</span>
     </div>
   )
 }
@@ -23,21 +21,11 @@ type BrandWordmarkProps = {
 }
 
 export function BrandWordmark({
-  className = 'relative',
-  imageClassName = '',
-  priority = false,
-  sizes = '100vw',
+  className = 'text-4xl text-[#8ea9a5]',
 }: BrandWordmarkProps) {
   return (
-    <div className={`relative ${className}`.trim()}>
-      <Image
-        src='/n3uralia-logo.png'
-        alt='N3uralia'
-        fill
-        priority={priority}
-        sizes={sizes}
-        className={`object-contain ${imageClassName}`.trim()}
-      />
+    <div className={`font-light leading-none text-current ${className}`.trim()} aria-label='N3uralia'>
+      N3uralia
     </div>
   )
 }
