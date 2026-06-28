@@ -1,21 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import {
-  ArrowRight,
-  Bot,
-  CalendarCheck,
-  ChartNoAxesCombined,
-  ClipboardCheck,
-  Factory,
-  FileText,
-  Gauge,
-  Layers3,
-  MapPinned,
-  SearchCheck,
-  ShieldCheck,
-  Workflow,
-} from 'lucide-react'
 import { BrandMark, BrandWordmark } from '@/components/brand'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
 
@@ -23,11 +8,6 @@ interface PageProps {
   params: {
     locale: string
   }
-}
-
-type LinkItem = {
-  label: string
-  href: string
 }
 
 type TextItem = {
@@ -39,14 +19,13 @@ type NumberedItem = TextItem & {
   number: string
 }
 
-type VisualItem = TextItem & {
-  icon: ReactNode
+type TaggedItem = TextItem & {
+  tag: string
 }
 
 type ShowcaseItem = TextItem & {
   id: string
   subtitle: string
-  links: LinkItem[]
   metrics: string[]
 }
 
@@ -83,19 +62,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-function ButtonLink({
-  href,
-  variant = 'solid',
-  children,
-}: {
-  href: string
-  variant?: 'solid' | 'outline'
-  children: ReactNode
-}) {
+function ButtonLink({ href, variant = 'solid', children }: { href: string; variant?: 'solid' | 'outline'; children: ReactNode }) {
   const classes =
     variant === 'solid'
       ? 'inline-flex items-center justify-center gap-2 rounded-full bg-[#789b96] px-6 py-3 text-sm font-medium text-white shadow-[0_22px_45px_-28px_#496b66] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#638782] hover:shadow-[0_24px_50px_-24px_#496b66]'
-      : 'inline-flex items-center justify-center gap-2 rounded-full border border-[#b8d1cc] bg-white/70 px-6 py-3 text-sm font-medium text-[#6f918c] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-white hover:text-[#526e69]'
+      : 'inline-flex items-center justify-center gap-2 rounded-full border border-[#b8d1cc] bg-white/75 px-6 py-3 text-sm font-medium text-[#6f918c] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-white hover:text-[#526e69]'
 
   return (
     <Link href={href} className={classes}>
@@ -104,17 +75,7 @@ function ButtonLink({
   )
 }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  align = 'left',
-}: {
-  eyebrow?: string
-  title: string
-  description?: string
-  align?: 'left' | 'center'
-}) {
+function SectionHeading({ eyebrow, title, description, align = 'left' }: { eyebrow?: string; title: string; description?: string; align?: 'left' | 'center' }) {
   return (
     <div className={align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}>
       {eyebrow ? <p className='mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-[#789b96]'>{eyebrow}</p> : null}
@@ -133,6 +94,14 @@ function NumberedRow({ number, title, description }: NumberedItem) {
         <p className='mt-3 max-w-3xl text-base leading-8 text-[#747b79]'>{description}</p>
       </div>
     </div>
+  )
+}
+
+function Glyph({ children }: { children: string }) {
+  return (
+    <span className='flex h-11 w-11 items-center justify-center rounded-2xl border border-[#b8d1cc] bg-white text-xs font-semibold uppercase tracking-[0.12em] text-[#789b96]'>
+      {children}
+    </span>
   )
 }
 
@@ -178,12 +147,10 @@ function SystemCanvas() {
   )
 }
 
-function ExpertisePanel({ item }: { item: VisualItem }) {
+function TaggedPanel({ item }: { item: TaggedItem }) {
   return (
     <article className='border-b border-white/55 px-7 py-10 last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0'>
-      <div className='mb-8 flex h-10 w-10 items-center justify-center rounded-2xl border border-[#b8d1cc] bg-white text-[#789b96]'>
-        {item.icon}
-      </div>
+      <div className='mb-8'><Glyph>{item.tag}</Glyph></div>
       <h3 className='text-lg font-semibold text-[#3f4745]'>{item.title}</h3>
       <p className='mt-5 text-base leading-8 text-[#66706e]'>{item.description}</p>
     </article>
@@ -215,14 +182,9 @@ function Showcase({ item }: { item: ShowcaseItem }) {
         <h3 className='text-2xl font-semibold text-[#3f4745]'>{item.title}</h3>
         <p className='mt-4 text-base font-medium text-[#66706e]'>{item.subtitle}</p>
         <p className='mt-6 text-base leading-8 text-[#747b79]'>{item.description}</p>
-        <div className='mt-8 flex flex-wrap gap-4'>
-          {item.links.map((link) => (
-            <Link key={link.label} href={link.href} className='inline-flex items-center gap-2 text-sm font-medium text-[#789b96] hover:text-[#526e69]'>
-              {link.label}
-              <ArrowRight className='h-4 w-4' aria-hidden='true' />
-            </Link>
-          ))}
-        </div>
+        <Link href='#contacto' className='mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#789b96] hover:text-[#526e69]'>
+          Ver detalles <span aria-hidden='true'>&gt;</span>
+        </Link>
       </div>
     </article>
   )
@@ -237,8 +199,8 @@ function UseCaseGraphic() {
       <div className='absolute left-[20%] top-32 h-20 w-[45%] rounded-full border border-[#7fc0df]' />
       <div className='absolute left-[32%] right-14 top-56 h-px bg-[#7fc0df]' />
       <div className='absolute left-[31%] top-56 h-16 w-[34%] rounded-full border border-[#7fc0df]' />
-      <div className='absolute bottom-12 left-1/2 -translate-x-1/2 text-[#789b96]'>
-        <Bot className='h-14 w-14' aria-hidden='true' />
+      <div className='absolute bottom-12 left-1/2 -translate-x-1/2'>
+        <BrandMark className='h-16 w-16 rounded-3xl text-[#789b96]' />
       </div>
     </div>
   )
@@ -249,70 +211,26 @@ export default function HomePage({ params }: PageProps) {
   const navHref = (hash: string) => href(locale, hash)
 
   const problems: NumberedItem[] = [
-    {
-      number: '1',
-      title: 'Datos fragmentados',
-      description:
-        'La empresa ya tiene datos, pero están repartidos entre Excel, ERP, CRM, correos, WhatsApp, paneles, PDFs y herramientas internas. La gerencia no puede ver el estado real de la operación con suficiente rapidez.',
-    },
-    {
-      number: '2',
-      title: 'Gestión manual de tareas',
-      description:
-        'El negocio creció, pero la operación sigue dependiendo de perseguir personas: seguimientos manuales, mensajes repetidos, responsabilidades poco claras, trabajo duplicado, aprobaciones perdidas, respuestas tardías y cero visibilidad en tiempo real.',
-    },
-    {
-      number: '3',
-      title: 'Tecnologías del pasado',
-      description:
-        'Muchas empresas están probando ChatGPT, copilotos, automatizaciones o herramientas de IA, pero nada se convierte en un sistema de producción seguro, confiable e integrado. Tienen demos, pero no infraestructura.',
-    },
-    {
-      number: '4',
-      title: 'Costo oculto',
-      description:
-        'El crecimiento crea complejidad. La complejidad crea costo. N3uralia ayuda a encontrar la fricción, estructurar la operación y construir el sistema que la empresa necesita para escalar.',
-    },
+    { number: '1', title: 'Datos fragmentados', description: 'La empresa ya tiene datos, pero están repartidos entre Excel, ERP, CRM, correos, WhatsApp, paneles, PDFs y herramientas internas. La gerencia no puede ver el estado real de la operación con suficiente rapidez.' },
+    { number: '2', title: 'Gestión manual de tareas', description: 'El negocio creció, pero la operación sigue dependiendo de perseguir personas: seguimientos manuales, mensajes repetidos, responsabilidades poco claras, trabajo duplicado, aprobaciones perdidas, respuestas tardías y cero visibilidad en tiempo real.' },
+    { number: '3', title: 'Tecnologías del pasado', description: 'Muchas empresas están probando ChatGPT, copilotos, automatizaciones o herramientas de IA, pero nada se convierte en un sistema de producción seguro, confiable e integrado. Tienen demos, pero no infraestructura.' },
+    { number: '4', title: 'Costo oculto', description: 'El crecimiento crea complejidad. La complejidad crea costo. N3uralia ayuda a encontrar la fricción, estructurar la operación y construir el sistema que la empresa necesita para escalar.' },
   ]
 
-  const expertise: VisualItem[] = [
-    {
-      icon: <Gauge className='h-5 w-5' aria-hidden='true' />,
-      title: 'Inteligencia operativa',
-      description:
-        'Convertimos información dispersa en decisiones claras, conectando datos, reportes, documentos y flujos de trabajo.',
-    },
-    {
-      icon: <Workflow className='h-5 w-5' aria-hidden='true' />,
-      title: 'Automatización de flujos',
-      description:
-        'Reducimos coordinación manual y trabajo repetido con sistemas internos para tareas, aprobaciones, alertas y documentos.',
-    },
-    {
-      icon: <Bot className='h-5 w-5' aria-hidden='true' />,
-      title: 'Sistemas de IA en producción',
-      description:
-        'Llevamos la IA desde experimentos hacia agentes, copilotos y plataformas conectadas al conocimiento real de la empresa.',
-    },
+  const expertise: TaggedItem[] = [
+    { tag: 'IO', title: 'Inteligencia operativa', description: 'Convertimos información dispersa en decisiones claras, conectando datos, reportes, documentos y flujos de trabajo.' },
+    { tag: 'AF', title: 'Automatización de flujos', description: 'Reducimos coordinación manual y trabajo repetido con sistemas internos para tareas, aprobaciones, alertas y documentos.' },
+    { tag: 'IA', title: 'Sistemas de IA en producción', description: 'Llevamos la IA desde experimentos hacia agentes, copilotos y plataformas conectadas al conocimiento real de la empresa.' },
   ]
 
-  const helpBullets = [
-    'Reportes manuales',
-    'Sistemas desconectados',
-    'Decisiones lentas',
-    'Tareas repetidas',
-    'Operaciones intensivas en documentos',
-    'Poca visibilidad entre equipos',
-    'Herramientas de IA sin integración',
-    'Software interno que ya no calza',
-  ]
+  const helpBullets = ['Reportes manuales', 'Sistemas desconectados', 'Decisiones lentas', 'Tareas repetidas', 'Operaciones intensivas en documentos', 'Poca visibilidad entre equipos', 'Herramientas de IA sin integración', 'Software interno que ya no calza']
 
-  const buildItems: VisualItem[] = [
-    { icon: <ChartNoAxesCombined className='h-5 w-5' aria-hidden='true' />, title: 'Dashboards y paneles de control', description: 'Visibilidad, KPIs, alertas y decisiones de gestión.' },
-    { icon: <Layers3 className='h-5 w-5' aria-hidden='true' />, title: 'Portales internos', description: 'Tareas, aprobaciones, documentos, operaciones y coordinación de equipos.' },
-    { icon: <Bot className='h-5 w-5' aria-hidden='true' />, title: 'Agentes y copilotos de IA', description: 'Acceso más rápido al conocimiento, documentos y lógica del negocio.' },
-    { icon: <FileText className='h-5 w-5' aria-hidden='true' />, title: 'Inteligencia documental', description: 'Contratos, reportes, licitaciones, cumplimiento, manuales y registros.' },
-    { icon: <Factory className='h-5 w-5' aria-hidden='true' />, title: 'Plataformas empresariales a medida', description: 'Para empresas que ya superaron el alcance de las herramientas genéricas.' },
+  const buildItems: TaggedItem[] = [
+    { tag: 'KP', title: 'Dashboards y paneles de control', description: 'Visibilidad, KPIs, alertas y decisiones de gestión.' },
+    { tag: 'PI', title: 'Portales internos', description: 'Tareas, aprobaciones, documentos, operaciones y coordinación de equipos.' },
+    { tag: 'AI', title: 'Agentes y copilotos de IA', description: 'Acceso más rápido al conocimiento, documentos y lógica del negocio.' },
+    { tag: 'ID', title: 'Inteligencia documental', description: 'Contratos, reportes, licitaciones, cumplimiento, manuales y registros.' },
+    { tag: 'SW', title: 'Plataformas empresariales a medida', description: 'Para empresas que ya superaron el alcance de las herramientas genéricas.' },
   ]
 
   const methodSteps: NumberedItem[] = [
@@ -323,13 +241,25 @@ export default function HomePage({ params }: PageProps) {
     { number: '5', title: 'Mejorar', description: 'Perfeccionamos el sistema a medida que la empresa crece.' },
   ]
 
-  const useCases: VisualItem[] = [
-    { icon: <Gauge className='h-5 w-5' aria-hidden='true' />, title: 'Visibilidad gerencial', description: 'Operaciones, KPIs, desempeño y riesgos en un solo lugar.' },
-    { icon: <FileText className='h-5 w-5' aria-hidden='true' />, title: 'Inteligencia documental', description: 'Extraer, clasificar, resumir, comparar y gestionar documentos importantes.' },
-    { icon: <ClipboardCheck className='h-5 w-5' aria-hidden='true' />, title: 'Licitación y cumplimiento', description: 'Requisitos, plazos, documentos, riesgos y entregas con más control.' },
-    { icon: <Layers3 className='h-5 w-5' aria-hidden='true' />, title: 'Portales internos', description: 'Un lugar para tareas, aprobaciones, incidentes, activos e informes.' },
-    { icon: <SearchCheck className='h-5 w-5' aria-hidden='true' />, title: 'Asistentes de conocimiento con IA', description: 'Preguntas y respuestas desde documentos, políticas, manuales y datos.' },
-    { icon: <MapPinned className='h-5 w-5' aria-hidden='true' />, title: 'Control de operaciones en terreno', description: 'Logística, mantenimiento, inspecciones, transporte, incidentes y servicios.' },
+  const projects: ShowcaseItem[] = [
+    { id: 'motil', title: 'Motil', subtitle: 'Inteligencia operativa minera', description: 'Plataforma de control para minería que conecta producción, mantenimiento, bodega, HSE, documentos y gestión en un flujo operativo en tiempo real.', metrics: ['Producción', 'Mantenimiento', 'HSE'] },
+    { id: 'docufleet', title: 'DocuFleet / LABBE', subtitle: 'Control de contratistas y documentos', description: 'Sistema documental y operativo para empresas que administran contratistas, conductores, vehículos, cumplimiento y reportes.', metrics: ['Conductores', 'Vehículos', 'Cumplimiento'] },
+    { id: 'seguria', title: 'SegurIA', subtitle: 'Campos inteligentes y seguridad de predios', description: 'Capa tecnológica para predios rurales y activos privados: monitoreo, alertas, control de acceso, cámaras, visibilidad y respuesta operativa.', metrics: ['Cámaras', 'Alertas', 'Respuesta'] },
+    { id: 'sur-realista', title: 'Sur-Realista', subtitle: 'Plataforma de inteligencia inmobiliaria', description: 'Centro de mando para propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geográficos.', metrics: ['Propiedades', 'Clientes', 'Mapas'] },
+  ]
+
+  const products: ShowcaseItem[] = [
+    { id: 'clarity', title: 'Clarity', subtitle: 'Restauración inteligente de fotos', description: 'Plataforma para restaurar imágenes antiguas, dañadas o deslavadas, mejorando nitidez, color, contraste y detalle visual.', metrics: ['Color', 'Nitidez', 'Detalle'] },
+    { id: 'mermasapp', title: 'MermasApp', subtitle: 'Control de merma y rendimiento', description: 'Sistema a nivel planta para detectar, medir y reducir pérdidas en producción alimentaria y recuperar margen.', metrics: ['Merma', 'Rendimiento', 'Margen'] },
+  ]
+
+  const useCases: TaggedItem[] = [
+    { tag: 'VG', title: 'Visibilidad gerencial', description: 'Operaciones, KPIs, desempeño y riesgos en un solo lugar.' },
+    { tag: 'ID', title: 'Inteligencia documental', description: 'Extraer, clasificar, resumir, comparar y gestionar documentos importantes.' },
+    { tag: 'LC', title: 'Licitación y cumplimiento', description: 'Requisitos, plazos, documentos, riesgos y entregas con más control.' },
+    { tag: 'PI', title: 'Portales internos', description: 'Un lugar para tareas, aprobaciones, incidentes, activos e informes.' },
+    { tag: 'IA', title: 'Asistentes de conocimiento con IA', description: 'Preguntas y respuestas desde documentos, políticas, manuales y datos.' },
+    { tag: 'OT', title: 'Control de operaciones en terreno', description: 'Logística, mantenimiento, inspecciones, transporte, incidentes y servicios.' },
   ]
 
   const engagementModels: NumberedItem[] = [
@@ -337,60 +267,6 @@ export default function HomePage({ params }: PageProps) {
     { number: '2', title: 'Sprint de prototipo', description: 'Primera versión enfocada de un dashboard, asistente de IA, automatización o herramienta interna.' },
     { number: '3', title: 'Construcción de sistema en producción', description: 'Plataforma completa, sistema de flujos, capa de IA o solución de inteligencia operativa.' },
     { number: '4', title: 'Socio continuo de inteligencia', description: 'Mejora continua, automatización, integración y evolución del sistema.' },
-  ]
-
-  const projects: ShowcaseItem[] = [
-    {
-      id: 'motil',
-      title: 'Motil',
-      subtitle: 'Inteligencia operativa minera',
-      description: 'Plataforma de control para minería que conecta producción, mantenimiento, bodega, HSE, documentos y gestión en un flujo operativo en tiempo real.',
-      links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      metrics: ['Producción', 'Mantenimiento', 'HSE'],
-    },
-    {
-      id: 'docufleet',
-      title: 'DocuFleet / LABBE',
-      subtitle: 'Control de contratistas y documentos',
-      description: 'Sistema documental y operativo para empresas que administran contratistas, conductores, vehículos, cumplimiento y reportes.',
-      links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      metrics: ['Conductores', 'Vehículos', 'Cumplimiento'],
-    },
-    {
-      id: 'seguria',
-      title: 'SegurIA',
-      subtitle: 'Campos inteligentes y seguridad de predios',
-      description: 'Capa tecnológica para predios rurales y activos privados: monitoreo, alertas, control de acceso, cámaras, visibilidad y respuesta operativa.',
-      links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      metrics: ['Cámaras', 'Alertas', 'Respuesta'],
-    },
-    {
-      id: 'sur-realista',
-      title: 'Sur-Realista',
-      subtitle: 'Plataforma de inteligencia inmobiliaria',
-      description: 'Centro de mando para propiedades, clientes, mensajes, tareas, documentos, mapas y archivos geográficos.',
-      links: [{ label: 'Ver detalles', href: navHref('#contacto') }],
-      metrics: ['Propiedades', 'Clientes', 'Mapas'],
-    },
-  ]
-
-  const products: ShowcaseItem[] = [
-    {
-      id: 'clarity',
-      title: 'Clarity',
-      subtitle: 'Restauración inteligente de fotos',
-      description: 'Plataforma para restaurar imágenes antiguas, dañadas o deslavadas, mejorando nitidez, color, contraste y detalle visual.',
-      links: [{ label: 'Visitar página', href: navHref('#contacto') }],
-      metrics: ['Color', 'Nitidez', 'Detalle'],
-    },
-    {
-      id: 'mermasapp',
-      title: 'MermasApp',
-      subtitle: 'Control de merma y rendimiento',
-      description: 'Sistema a nivel planta para detectar, medir y reducir pérdidas en producción alimentaria y recuperar margen.',
-      links: [{ label: 'Visitar página', href: navHref('#contacto') }],
-      metrics: ['Merma', 'Rendimiento', 'Margen'],
-    },
   ]
 
   return (
@@ -401,21 +277,11 @@ export default function HomePage({ params }: PageProps) {
           <div className='flex flex-col justify-center'>
             <BrandWordmark className='mb-10 text-5xl text-[#7f9f9a] md:text-6xl' />
             <p className='mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-[#789b96]'>Sistema operativo inteligente</p>
-            <h1 className='max-w-2xl text-5xl font-light leading-tight text-[#303836] md:text-6xl lg:text-7xl'>
-              Software e IA para <span className='text-[#789b96]'>operaciones reales</span>
-            </h1>
-            <p className='mt-8 max-w-xl text-lg leading-8 text-[#6b7472]'>
-              Ayudamos a empresas medianas y grandes a convertir datos dispersos, operaciones manuales y experimentos de IA incompletos en sistemas de producción controlados.
-            </p>
+            <h1 className='max-w-2xl text-5xl font-light leading-tight text-[#303836] md:text-6xl lg:text-7xl'>Software e IA para <span className='text-[#789b96]'>operaciones reales</span></h1>
+            <p className='mt-8 max-w-xl text-lg leading-8 text-[#6b7472]'>Ayudamos a empresas medianas y grandes a convertir datos dispersos, operaciones manuales y experimentos de IA incompletos en sistemas de producción controlados.</p>
             <div className='mt-10 flex flex-col gap-3 sm:flex-row'>
-              <ButtonLink href={navHref('#contacto')}>
-                <CalendarCheck className='h-4 w-4' aria-hidden='true' />
-                Agendar diagnóstico
-              </ButtonLink>
-              <ButtonLink href={navHref('#solutions')} variant='outline'>
-                Ver soluciones
-                <ArrowRight className='h-4 w-4' aria-hidden='true' />
-              </ButtonLink>
+              <ButtonLink href={navHref('#contacto')}>Agendar diagnóstico</ButtonLink>
+              <ButtonLink href={navHref('#solutions')} variant='outline'>Ver soluciones <span aria-hidden='true'>&gt;</span></ButtonLink>
             </div>
           </div>
           <SystemCanvas />
@@ -432,9 +298,7 @@ export default function HomePage({ params }: PageProps) {
       <section className='bg-[#d9e3e0] px-5 py-20 sm:px-8 lg:px-10'>
         <div className='mx-auto max-w-7xl'>
           <SectionHeading title='Nuestra experiencia' align='center' />
-          <div className='mt-12 grid overflow-hidden rounded-[2rem] border border-white/60 bg-[#d2dedb] lg:grid-cols-3'>
-            {expertise.map((item) => <ExpertisePanel key={item.title} item={item} />)}
-          </div>
+          <div className='mt-12 grid overflow-hidden rounded-[2rem] border border-white/60 bg-[#d2dedb] lg:grid-cols-3'>{expertise.map((item) => <TaggedPanel key={item.title} item={item} />)}</div>
         </div>
       </section>
 
@@ -442,24 +306,15 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto grid max-w-7xl gap-16 lg:grid-cols-2'>
           <div>
             <SectionHeading title='A quién ayudamos' description='N3uralia es para empresas que ya tienen equipos, datos, documentos, procesos y presión creciente por trabajar con más inteligencia.' />
-            <div className='mt-10 grid gap-3 sm:grid-cols-2'>
-              {helpBullets.map((item) => (
-                <div key={item} className='rounded-2xl border border-[#dfe8e5] bg-white px-4 py-3 text-sm text-[#66706e] shadow-sm'>
-                  {item}
-                </div>
-              ))}
-            </div>
+            <div className='mt-10 grid gap-3 sm:grid-cols-2'>{helpBullets.map((item) => <div key={item} className='rounded-2xl border border-[#dfe8e5] bg-white px-4 py-3 text-sm text-[#66706e] shadow-sm'>{item}</div>)}</div>
           </div>
           <div>
             <SectionHeading title='Qué construimos' />
             <div className='mt-10 grid gap-4'>
               {buildItems.map((item) => (
                 <div key={item.title} className='grid grid-cols-[44px_1fr] gap-4 border-b border-[#dfe8e5] pb-5'>
-                  <div className='flex h-11 w-11 items-center justify-center rounded-2xl border border-[#b8d1cc] bg-white text-[#789b96]'>{item.icon}</div>
-                  <div>
-                    <h3 className='font-semibold text-[#3f4745]'>{item.title}</h3>
-                    <p className='mt-2 text-sm leading-7 text-[#747b79]'>{item.description}</p>
-                  </div>
+                  <Glyph>{item.tag}</Glyph>
+                  <div><h3 className='font-semibold text-[#3f4745]'>{item.title}</h3><p className='mt-2 text-sm leading-7 text-[#747b79]'>{item.description}</p></div>
                 </div>
               ))}
             </div>
@@ -470,14 +325,10 @@ export default function HomePage({ params }: PageProps) {
       <section className='bg-white px-5 py-16 sm:px-8 lg:px-10'>
         <div className='mx-auto grid max-w-7xl items-center gap-12 rounded-[2rem] border border-[#dfe8e5] bg-[#fbfbfa] px-8 py-12 lg:grid-cols-[1fr_0.8fr] lg:px-12'>
           <div>
-            <p className='max-w-3xl text-lg leading-9 text-[#5f6765]'>
-              Antes de N3uralia, los equipos trabajan entre planillas, chats, correos, PDFs y software desconectado. Después de N3uralia, la operación se vuelve más fácil de ver, gestionar, automatizar y mejorar.
-            </p>
+            <p className='max-w-3xl text-lg leading-9 text-[#5f6765]'>Antes de N3uralia, los equipos trabajan entre planillas, chats, correos, PDFs y software desconectado. Después de N3uralia, la operación se vuelve más fácil de ver, gestionar, automatizar y mejorar.</p>
             <p className='mt-6 text-xl font-semibold text-[#303836]'>No solo agregamos tecnología. Creamos estructura.</p>
           </div>
-          <div className='flex justify-start lg:justify-end'>
-            <ButtonLink href={navHref('#contacto')}>Empezar la transformación</ButtonLink>
-          </div>
+          <div className='flex justify-start lg:justify-end'><ButtonLink href={navHref('#contacto')}>Empezar la transformación</ButtonLink></div>
         </div>
       </section>
 
@@ -491,42 +342,32 @@ export default function HomePage({ params }: PageProps) {
       <section id='case-studies' className='scroll-mt-28 bg-[#d9e3e0] px-5 py-24 sm:px-8 lg:px-10'>
         <div className='mx-auto max-w-7xl'>
           <SectionHeading title='Nuestros proyectos' description='Sistemas reales para operaciones con datos, equipos, documentos y procesos complejos.' align='center' />
-          <div className='mt-14 grid gap-8'>
-            {projects.map((item) => <Showcase key={item.id} item={item} />)}
-          </div>
+          <div className='mt-14 grid gap-8'>{projects.map((item) => <Showcase key={item.id} item={item} />)}</div>
         </div>
       </section>
 
       <section className='bg-[#d9e3e0] px-5 pb-24 sm:px-8 lg:px-10'>
         <div className='mx-auto max-w-7xl'>
           <SectionHeading title='Nuestros productos' description='Desarrollamos sistemas profesionales para uso diario.' align='center' />
-          <div className='mt-14 grid gap-8 lg:grid-cols-2'>
-            {products.map((item) => <Showcase key={item.id} item={item} />)}
-          </div>
+          <div className='mt-14 grid gap-8 lg:grid-cols-2'>{products.map((item) => <Showcase key={item.id} item={item} />)}</div>
         </div>
       </section>
 
       <section id='contacto' className='scroll-mt-28 bg-[#d9e3e0] px-5 pb-20 sm:px-8 lg:px-10'>
         <div className='mx-auto grid max-w-7xl items-center gap-8 rounded-[2rem] border border-white/70 bg-white px-8 py-10 shadow-[0_30px_80px_-70px_#526e69] md:grid-cols-[auto_1fr_auto]'>
           <BrandMark className='h-16 w-16 rounded-3xl text-[#789b96]' />
-          <div>
-            <p className='text-xl font-light text-[#303836]'>¿Listo para crear un sistema a medida?</p>
-            <p className='mt-2 text-base text-[#747b79]'>Hablemos de tu operación, datos y oportunidades de IA.</p>
-          </div>
+          <div><p className='text-xl font-light text-[#303836]'>¿Listo para crear un sistema a medida?</p><p className='mt-2 text-base text-[#747b79]'>Hablemos de tu operación, datos y oportunidades de IA.</p></div>
           <ButtonLink href={navHref('#contacto')}>Contáctanos</ButtonLink>
         </div>
       </section>
 
       <section id='use-cases' className='scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10'>
         <div className='mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.9fr_1.1fr]'>
-          <div>
-            <SectionHeading title='Casos de uso' />
-            <div className='mt-10'><UseCaseGraphic /></div>
-          </div>
+          <div><SectionHeading title='Casos de uso' /><div className='mt-10'><UseCaseGraphic /></div></div>
           <div className='grid gap-5 sm:grid-cols-2 lg:pt-16'>
             {useCases.map((item) => (
               <div key={item.title} className='border-b border-[#dfe8e5] pb-6'>
-                <div className='mb-4 text-[#789b96]'>{item.icon}</div>
+                <div className='mb-4'><Glyph>{item.tag}</Glyph></div>
                 <h3 className='font-semibold text-[#3f4745]'>{item.title}</h3>
                 <p className='mt-3 text-sm leading-7 text-[#747b79]'>{item.description}</p>
               </div>
@@ -538,9 +379,7 @@ export default function HomePage({ params }: PageProps) {
       <section className='px-5 py-24 sm:px-8 lg:px-10'>
         <div className='mx-auto max-w-7xl'>
           <SectionHeading title='Modelos de trabajo' align='center' />
-          <div className='mt-14 grid gap-x-12 gap-y-2 lg:grid-cols-2'>
-            {engagementModels.map((item) => <NumberedRow key={item.number} {...item} />)}
-          </div>
+          <div className='mt-14 grid gap-x-12 gap-y-2 lg:grid-cols-2'>{engagementModels.map((item) => <NumberedRow key={item.number} {...item} />)}</div>
         </div>
       </section>
 
@@ -548,12 +387,8 @@ export default function HomePage({ params }: PageProps) {
         <div className='mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr]'>
           <SectionHeading title='Por qué N3uralia' />
           <div className='max-w-3xl text-lg leading-9 text-[#5f6765]'>
-            <p>
-              Tu operación o se está volviendo inteligente, o se está volviendo un riesgo. Cuando la información vive en planillas, WhatsApp, correos, PDFs y herramientas desconectadas, tu empresa pierde velocidad, control y seguridad.
-            </p>
-            <p className='mt-6'>
-              Conectamos estrategia, operaciones, desarrollo de software y automatizaciones para crear la capa operativa inteligente que tu negocio necesita.
-            </p>
+            <p>Tu operación o se está volviendo inteligente, o se está volviendo un riesgo. Cuando la información vive en planillas, WhatsApp, correos, PDFs y herramientas desconectadas, tu empresa pierde velocidad, control y seguridad.</p>
+            <p className='mt-6'>Conectamos estrategia, operaciones, desarrollo de software y automatizaciones para crear la capa operativa inteligente que tu negocio necesita.</p>
           </div>
         </div>
       </section>
@@ -561,19 +396,11 @@ export default function HomePage({ params }: PageProps) {
       <section className='px-5 pb-28 sm:px-8 lg:px-10'>
         <div className='mx-auto grid max-w-7xl items-center gap-12 rounded-[2rem] bg-white px-8 py-14 shadow-[0_38px_100px_-82px_#526e69] lg:grid-cols-[1fr_auto] lg:px-12'>
           <div>
-            <h2 className='max-w-3xl text-4xl font-light leading-tight text-[#789b96] md:text-5xl'>
-              Muévete más rápido. Opera con más seguridad. Controla más.
-            </h2>
-            <div className='mt-8 space-y-3 text-base font-semibold text-[#3f4745]'>
-              <p>En 1 mes: un MVP funcional.</p>
-              <p>En 3 meses: un sistema inteligente conectado.</p>
-            </div>
-            <div className='mt-9 flex flex-col gap-3 sm:flex-row'>
-              <ButtonLink href={navHref('#contacto')}>Contactar ahora</ButtonLink>
-              <ButtonLink href={navHref('#use-cases')} variant='outline'>Ver casos de uso</ButtonLink>
-            </div>
+            <h2 className='max-w-3xl text-4xl font-light leading-tight text-[#789b96] md:text-5xl'>Muévete más rápido. Opera con más seguridad. Controla más.</h2>
+            <div className='mt-8 space-y-3 text-base font-semibold text-[#3f4745]'><p>En 1 mes: un MVP funcional.</p><p>En 3 meses: un sistema inteligente conectado.</p></div>
+            <div className='mt-9 flex flex-col gap-3 sm:flex-row'><ButtonLink href={navHref('#contacto')}>Contactar ahora</ButtonLink><ButtonLink href={navHref('#use-cases')} variant='outline'>Ver casos de uso</ButtonLink></div>
           </div>
-          <ShieldCheck className='h-28 w-28 text-[#789b96] md:h-36 md:w-36' aria-hidden='true' />
+          <BrandWordmark className='text-5xl text-[#789b96] md:text-6xl' />
         </div>
       </section>
     </main>
