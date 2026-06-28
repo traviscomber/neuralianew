@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X } from 'lucide-react'
-import { BrandMark } from '@/components/brand'
+import { CalendarCheck, Menu, X } from 'lucide-react'
+import { BrandMark, BrandWordmark } from '@/components/brand'
 import type { Locale } from '@/lib/get-locale'
 
 interface NavigationProps {
@@ -21,29 +21,28 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
   const href = (hash: string) => `/${locale}${hash}`
 
   const items: NavItem[] = [
-    { href: href('#capabilities'), label: isES ? 'Capacidades' : 'Capabilities' },
+    { href: href('#capabilities'), label: isES ? 'Problemas' : 'Problems' },
     { href: href('#solutions'), label: isES ? 'Soluciones' : 'Solutions' },
-    { href: href('#how-we-work'), label: isES ? 'Cómo trabajamos' : 'How we work' },
-    { href: href('#case-studies'), label: isES ? 'Casos de estudio' : 'Case studies' },
-    { href: href('#faq'), label: isES ? 'FAQ' : 'FAQ' },
+    { href: href('#how-we-work'), label: isES ? 'Metodo' : 'Method' },
+    { href: href('#case-studies'), label: isES ? 'Proyectos' : 'Projects' },
+    { href: href('#use-cases'), label: isES ? 'Casos de uso' : 'Use cases' },
     { href: href('#about'), label: isES ? 'Acerca de' : 'About' },
   ]
 
   return (
-    <nav className='fixed inset-x-0 top-0 z-50 border-b border-[#d9e4e1]/90 bg-white/92 backdrop-blur-md'>
-      <div className='mx-auto grid h-20 max-w-[1500px] grid-cols-[auto_1fr_auto] items-center gap-6 px-4 sm:px-6 lg:px-10'>
-        <Link href={href('#top')} className='flex items-center'>
-          <span className='grid h-12 w-12 place-items-center rounded-full bg-[#23363a] shadow-[0_0_0_1px_rgba(152,181,176,0.35)]'>
-            <BrandMark className='h-7 w-7 text-[#a7c1bb]' />
-          </span>
+    <nav className='fixed inset-x-0 top-0 z-50 border-b border-[#dfe8e5] bg-[#fbfbfa]/95 backdrop-blur-md'>
+      <div className='mx-auto grid h-18 max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-5 px-5 sm:px-8 lg:px-10'>
+        <Link href={href('#top')} className='flex items-center gap-3 text-[#7f9f9a]' aria-label='N3uralia'>
+          <BrandMark className='h-9 w-9 text-[#7f9f9a]' />
+          <BrandWordmark className='hidden text-2xl text-[#7f9f9a] sm:block' />
         </Link>
 
-        <div className='hidden items-center justify-center gap-1 lg:flex'>
+        <div className='hidden items-center justify-center gap-5 lg:flex'>
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className='rounded-full px-4 py-2 text-[0.96rem] font-light tracking-[-0.01em] text-[#8b8f8e] transition-colors hover:bg-[#f3f7f6] hover:text-[#5f6766]'
+              className='text-sm font-light text-[#747b79] transition-colors hover:text-[#34403e]'
             >
               {item.label}
             </Link>
@@ -53,15 +52,16 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
         <div className='flex items-center justify-end gap-3'>
           <Link
             href={href('#contacto')}
-            className='hidden rounded-full border border-[#c8ddd8] bg-white px-5 py-2.5 text-sm font-medium text-[#8aa8a4] transition-all hover:-translate-y-0.5 hover:border-[#8aa8a4] hover:bg-[#f7fbfa] md:inline-flex'
+            className='hidden items-center gap-2 rounded-md border border-[#b9d0cb] bg-white px-4 py-2 text-sm font-medium text-[#6f918c] transition-colors hover:border-[#7f9f9a] hover:bg-[#f4f8f7] md:inline-flex'
           >
-            {isES ? 'Agendar diagnóstico' : 'Book diagnosis'}
+            <CalendarCheck className='h-4 w-4' aria-hidden='true' />
+            {isES ? 'Agendar diagnostico' : 'Book diagnosis'}
           </Link>
 
           <button
             type='button'
-            className='inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#d2dfdb] text-[#687572] lg:hidden'
-            aria-label={open ? (isES ? 'Cerrar menú' : 'Close menu') : (isES ? 'Abrir menú' : 'Open menu')}
+            className='inline-flex h-10 w-10 items-center justify-center rounded-md border border-[#d2dfdb] text-[#687572] lg:hidden'
+            aria-label={open ? (isES ? 'Cerrar menu' : 'Close menu') : (isES ? 'Abrir menu' : 'Open menu')}
             onClick={() => setOpen((value) => !value)}
           >
             {open ? <X className='h-5 w-5' /> : <Menu className='h-5 w-5' />}
@@ -70,14 +70,14 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
       </div>
 
       {open ? (
-        <div className='border-t border-[#d9e4e1] bg-white/98 px-4 pb-4 pt-3 lg:hidden'>
-          <div className='mx-auto flex max-w-[1500px] flex-col gap-2'>
+        <div className='border-t border-[#d9e4e1] bg-white px-5 pb-5 pt-3 lg:hidden'>
+          <div className='mx-auto flex max-w-7xl flex-col gap-1'>
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className='rounded-2xl px-4 py-3 text-sm font-medium text-[#747a79] transition-colors hover:bg-[#f2f6f5] hover:text-[#4f5857]'
+                className='rounded-md px-3 py-3 text-sm font-medium text-[#687572] transition-colors hover:bg-[#f2f6f5] hover:text-[#34403e]'
               >
                 {item.label}
               </Link>
@@ -85,9 +85,10 @@ export default function Navigation({ locale = 'es' }: NavigationProps) {
             <Link
               href={href('#contacto')}
               onClick={() => setOpen(false)}
-              className='mt-2 rounded-2xl bg-[#8aa8a4] px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[#7d9f9b]'
+              className='mt-3 inline-flex items-center justify-center gap-2 rounded-md bg-[#7f9f9a] px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-[#6f918c]'
             >
-              {isES ? 'Agendar diagnóstico' : 'Book diagnosis'}
+              <CalendarCheck className='h-4 w-4' aria-hidden='true' />
+              {isES ? 'Agendar diagnostico' : 'Book diagnosis'}
             </Link>
           </div>
         </div>
