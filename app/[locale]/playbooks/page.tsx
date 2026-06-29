@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
 import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string }
@@ -17,17 +17,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? "Estrategias y guías probadas para implementar sistemas agénticos."
     : "Proven strategies and guides for implementing agentic systems."
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/playbooks",
     title,
     description,
-    alternates: {
-      canonical: `https://www.n3uralia.com/${locale}/playbooks`,
-      languages: {
-        es: `https://www.n3uralia.com/es/playbooks`,
-        en: `https://www.n3uralia.com/en/playbooks`,
-      },
-    },
-  }
+  })
 }
 
 export default function PlaybooksPage({ params }: PageProps) {

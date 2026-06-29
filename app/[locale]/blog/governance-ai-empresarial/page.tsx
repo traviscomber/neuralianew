@@ -4,6 +4,7 @@ import type { Metadata } from "next"
 
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -134,10 +135,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const copy = pageCopy[locale as keyof typeof pageCopy]
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog/governance-ai-empresarial",
     title: copy.title,
     description: copy.description,
-  }
+    type: "article",
+  })
 }
 
 export default function GovernanceAiEmpresarialPage({ params }: PageProps) {
