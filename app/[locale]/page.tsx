@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { ArrowRight, CheckCircle2, Database, FileSearch, Gauge, Network, ShieldCheck, Workflow } from 'lucide-react'
+import { N3uraliaHeroSystem } from '@/components/n3uralia-hero-system'
 import { N3uraliaLandingConsole } from '@/components/n3uralia-landing-console'
 import { N3uraliaPlatformPreview } from '@/components/n3uralia-platform-preview'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
@@ -505,6 +506,8 @@ export default function HomePage({ params }: PageProps) {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
+
+          <N3uraliaHeroSystem locale={locale} />
 
           <div className="mt-14 w-full overflow-hidden border-y border-[#173634] py-7">
             <Image src="/n3uralia-brand/operations-graph-wide.png" alt="N3uralia operational connection graph" width={1920} height={276} className="mx-auto h-auto min-w-[760px] max-w-6xl opacity-70" />
