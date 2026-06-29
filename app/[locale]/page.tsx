@@ -31,6 +31,12 @@ type FlowSignal = TextBlock & {
 type Capability = TextBlock & {
   icon: typeof Gauge
   signal: string
+  buyer: string
+  outcome: string
+}
+
+type CapabilityLens = TextBlock & {
+  label: string
 }
 
 type Project = TextBlock & {
@@ -62,6 +68,7 @@ type PageContent = {
   flowSignals: FlowSignal[]
   capabilitiesTitle: string
   capabilitiesSubtitle: string
+  capabilityLenses: CapabilityLens[]
   capabilities: Capability[]
   trustTitle: string
   trustSubtitle: string
@@ -129,40 +136,74 @@ const content: Record<Locale, PageContent> = {
     capabilitiesTitle: 'A practical operating layer for teams under pressure',
     capabilitiesSubtitle:
       'This is not generic automation. It is a practical architecture for teams that need control, speed and traceability.',
+    capabilityLenses: [
+      {
+        label: 'Control',
+        title: 'For leaders',
+        description: 'Visibility, priorities and owners without waiting for manual reports.',
+      },
+      {
+        label: 'Automation',
+        title: 'For operations',
+        description: 'Flows, alerts and handoffs that reduce follow-up work.',
+      },
+      {
+        label: 'Data',
+        title: 'For IT and data teams',
+        description: 'Cleaner sources, integrations and governed access.',
+      },
+      {
+        label: 'Agents',
+        title: 'For daily users',
+        description: 'AI assistance that works inside the real operating context.',
+      },
+    ],
     capabilities: [
       {
         icon: Gauge,
         signal: 'Executive view',
+        buyer: 'For managers',
+        outcome: 'Live status and owners',
         title: 'Operational command centers',
         description: 'Dashboards that show status, risk, progress and owners without waiting for manual reports.',
       },
       {
         icon: Workflow,
         signal: 'Workflow',
+        buyer: 'For operations',
+        outcome: 'Fewer handoff gaps',
         title: 'Connected execution flows',
         description: 'Tasks, approvals, alerts and handoffs connected to the way the team already works.',
       },
       {
         icon: FileSearch,
         signal: 'Documents',
+        buyer: 'For compliance',
+        outcome: 'Evidence before risk',
         title: 'Document intelligence',
         description: 'Classification, extraction, comparison and evidence tracking for PDFs, contracts and permits.',
       },
       {
         icon: Database,
         signal: 'Data',
+        buyer: 'For IT and data',
+        outcome: 'Cleaner operational source',
         title: 'Integrations and clean data',
         description: 'ERP, CRM, spreadsheets, email, Supabase, APIs and legacy tools organized into one useful layer.',
       },
       {
         icon: Network,
         signal: 'Agents',
+        buyer: 'For daily teams',
+        outcome: 'Answers with context',
         title: 'AI agents with context',
         description: 'Assistants that answer, summarize and trigger next steps from real company knowledge.',
       },
       {
         icon: ShieldCheck,
         signal: 'Control',
+        buyer: 'For governance',
+        outcome: 'Safe escalation paths',
         title: 'Governance and traceability',
         description: 'Roles, permissions, audit trails and escalation paths so AI becomes operationally safe.',
       },
@@ -303,40 +344,74 @@ const content: Record<Locale, PageContent> = {
     capabilitiesTitle: 'Una capa operativa práctica para equipos bajo presión',
     capabilitiesSubtitle:
       'No es automatización genérica. Es arquitectura práctica para equipos que necesitan control, velocidad y trazabilidad.',
+    capabilityLenses: [
+      {
+        label: 'Control',
+        title: 'Para líderes',
+        description: 'Visibilidad, prioridades y responsables sin esperar reportes manuales.',
+      },
+      {
+        label: 'Automatización',
+        title: 'Para operaciones',
+        description: 'Flujos, alertas y traspasos que reducen seguimiento manual.',
+      },
+      {
+        label: 'Datos',
+        title: 'Para TI y datos',
+        description: 'Fuentes más limpias, integraciones y acceso gobernado.',
+      },
+      {
+        label: 'Agentes',
+        title: 'Para usuarios diarios',
+        description: 'Asistencia IA dentro del contexto real de la operación.',
+      },
+    ],
     capabilities: [
       {
         icon: Gauge,
         signal: 'Vista ejecutiva',
+        buyer: 'Para gerencia',
+        outcome: 'Estado vivo y responsables',
         title: 'Centros de control operacional',
         description: 'Tableros que muestran estado, riesgo, avance y responsables sin esperar reportes manuales.',
       },
       {
         icon: Workflow,
         signal: 'Flujo',
+        buyer: 'Para operaciones',
+        outcome: 'Menos brechas de traspaso',
         title: 'Ejecución conectada',
         description: 'Tareas, aprobaciones, alertas y traspasos conectados a la forma real de trabajo.',
       },
       {
         icon: FileSearch,
         signal: 'Documentos',
+        buyer: 'Para cumplimiento',
+        outcome: 'Evidencia antes del riesgo',
         title: 'Inteligencia documental',
         description: 'Clasificación, extracción, comparación y evidencia para PDFs, contratos y permisos.',
       },
       {
         icon: Database,
         signal: 'Datos',
+        buyer: 'Para TI y datos',
+        outcome: 'Fuente operativa más limpia',
         title: 'Integraciones y datos limpios',
         description: 'ERP, CRM, planillas, correo, Supabase, APIs y herramientas legacy en una capa útil.',
       },
       {
         icon: Network,
         signal: 'Agentes',
+        buyer: 'Para equipos diarios',
+        outcome: 'Respuestas con contexto',
         title: 'Agentes IA con contexto',
         description: 'Asistentes que responden, resumen y activan siguientes pasos desde conocimiento real.',
       },
       {
         icon: ShieldCheck,
         signal: 'Control',
+        buyer: 'Para gobernanza',
+        outcome: 'Escalamiento seguro',
         title: 'Gobernanza y trazabilidad',
         description: 'Roles, permisos, auditoría y escalamiento para que la IA sea segura en la operación.',
       },
@@ -670,10 +745,22 @@ export default function HomePage({ params }: PageProps) {
 
       <section id="capabilities" className="scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-14 max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Capacidades' : 'Capabilities'}</p>
-            <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.capabilitiesTitle}</h2>
+          <div className="mb-12 grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Capacidades' : 'Capabilities'}</p>
+              <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.capabilitiesTitle}</h2>
+            </div>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.capabilitiesSubtitle}</p>
+          </div>
+
+          <div className="mb-8 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] md:grid-cols-2 xl:grid-cols-4">
+            {page.capabilityLenses.map((lens) => (
+              <article key={lens.label} className="bg-[#f7faf8] p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{lens.label}</p>
+                <h3 className="mt-4 text-xl font-light leading-tight text-[#173634]">{lens.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#65706d]">{lens.description}</p>
+              </article>
+            ))}
           </div>
 
           <div className="grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] md:grid-cols-2 xl:grid-cols-3">
@@ -684,6 +771,14 @@ export default function HomePage({ params }: PageProps) {
                   <div className="mb-8 flex items-center justify-between gap-5">
                     <span className="text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">{item.signal}</span>
                     <Icon className="h-6 w-6 text-[#789b96] transition-colors group-hover:text-[#173634]" />
+                  </div>
+                  <div className="mb-5 flex flex-wrap gap-2">
+                    <span className="border border-[#d8e5e2] bg-[#fbfbfa] px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#526e69]">
+                      {item.buyer}
+                    </span>
+                    <span className="border border-[#d8e5e2] bg-[#f1f6f4] px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#789b96]">
+                      {item.outcome}
+                    </span>
                   </div>
                   <h3 className="text-2xl font-light leading-tight text-[#173634]">{item.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-[#65706d]">{item.description}</p>
