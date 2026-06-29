@@ -23,6 +23,11 @@ type Metric = TextBlock & {
   phase: string
 }
 
+type FlowSignal = TextBlock & {
+  icon: typeof Gauge
+  label: string
+}
+
 type Capability = TextBlock & {
   icon: typeof Gauge
   signal: string
@@ -54,6 +59,7 @@ type PageContent = {
   metrics: Metric[]
   flowTitle: string
   flowSubtitle: string
+  flowSignals: FlowSignal[]
   capabilitiesTitle: string
   capabilitiesSubtitle: string
   capabilities: Capability[]
@@ -94,6 +100,32 @@ const content: Record<Locale, PageContent> = {
     flowTitle: 'From scattered signals to an operating layer',
     flowSubtitle:
       'N3uralia connects documents, field updates, management needs and AI assistance into one controlled workflow.',
+    flowSignals: [
+      {
+        icon: FileSearch,
+        label: 'Evidence',
+        title: 'Documents stop hiding risk',
+        description: 'Contracts, permits, PDFs and renewals become searchable status, owners and evidence.',
+      },
+      {
+        icon: Workflow,
+        label: 'Execution',
+        title: 'Alerts become accountable work',
+        description: 'Warnings turn into tasks, handoffs, deadlines and escalation paths the team can follow.',
+      },
+      {
+        icon: Gauge,
+        label: 'Management',
+        title: 'Indicators explain what to do next',
+        description: 'Dashboards show status, blockers and priority without waiting for another manual report.',
+      },
+      {
+        icon: Network,
+        label: 'Agents',
+        title: 'AI works inside the operation',
+        description: 'Agents answer with real context, sources, permissions and next steps, not generic prompts.',
+      },
+    ],
     capabilitiesTitle: 'A practical operating layer for teams under pressure',
     capabilitiesSubtitle:
       'This is not generic automation. It is a practical architecture for teams that need control, speed and traceability.',
@@ -242,6 +274,32 @@ const content: Record<Locale, PageContent> = {
     flowTitle: 'De señales dispersas a una capa operativa',
     flowSubtitle:
       'N3uralia conecta documentos, terreno, necesidades gerenciales y asistencia IA en un flujo controlado.',
+    flowSignals: [
+      {
+        icon: FileSearch,
+        label: 'Evidencia',
+        title: 'Los documentos dejan de esconder riesgo',
+        description: 'Contratos, permisos, PDFs y vencimientos se convierten en estado, responsables y evidencia.',
+      },
+      {
+        icon: Workflow,
+        label: 'Ejecución',
+        title: 'Las alertas se vuelven trabajo responsable',
+        description: 'Las señales se transforman en tareas, traspasos, fechas y rutas de escalamiento claras.',
+      },
+      {
+        icon: Gauge,
+        label: 'Gerencia',
+        title: 'Los indicadores muestran el siguiente paso',
+        description: 'Los tableros muestran estado, bloqueos y prioridad sin esperar otro reporte manual.',
+      },
+      {
+        icon: Network,
+        label: 'Agentes',
+        title: 'La IA trabaja dentro de la operación',
+        description: 'Los agentes responden con contexto, fuentes, permisos y próximos pasos, no prompts genéricos.',
+      },
+    ],
     capabilitiesTitle: 'Una capa operativa práctica para equipos bajo presión',
     capabilitiesSubtitle:
       'No es automatización genérica. Es arquitectura práctica para equipos que necesitan control, velocidad y trazabilidad.',
@@ -544,30 +602,60 @@ export default function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section id="flow" className="border-b border-[#d8e5e2] bg-white px-5 py-20 sm:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
+      <section id="flow" className="border-b border-[#d8e5e2] bg-white px-5 py-24 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'La conexión' : 'The connection'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.flowTitle}</h2>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.flowSubtitle}</p>
-            <div className="mt-8 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
+
+            <div className="mt-9 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
+              {page.flowSignals.map((signal, index) => {
+                const Icon = signal.icon
+                return (
+                  <article key={signal.title} className="group grid gap-4 bg-[#fbfbfa] p-5 transition-colors hover:bg-white sm:grid-cols-[48px_1fr]">
+                    <div className="flex items-start justify-between gap-4 sm:block">
+                      <span className="grid h-12 w-12 place-items-center border border-[#d8e5e2] bg-white text-[#789b96] transition-colors group-hover:border-[#789b96] group-hover:text-[#173634]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="font-mono text-xs text-[#a7b9b4] sm:mt-5 sm:block">0{index + 1}</span>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">{signal.label}</p>
+                      <h3 className="mt-2 text-xl font-light leading-tight text-[#173634]">{signal.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-[#65706d]">{signal.description}</p>
+                    </div>
+                  </article>
+                )
+              })}
+            </div>
+          </div>
+
+          <div className="border border-[#d8e5e2] bg-[#edf4f1] p-4 shadow-[0_35px_100px_-82px_#173634]">
+            <div className="mb-4 grid gap-px border border-[#c8d8d4] bg-[#c8d8d4] md:grid-cols-3">
               {[
-                locale === 'es' ? 'Documentos y permisos' : 'Documents and permissions',
-                locale === 'es' ? 'Alertas y responsables' : 'Alerts and owners',
-                locale === 'es' ? 'Indicadores ejecutivos' : 'Executive indicators',
-                locale === 'es' ? 'Agentes con contexto' : 'Context-aware agents',
-              ].map((item, index) => (
-                <div key={item} className="grid grid-cols-[44px_1fr] items-center gap-4 bg-[#fbfbfa] px-4 py-3">
-                  <span className="text-sm font-semibold text-[#789b96]">0{index + 1}</span>
-                  <span className="text-sm font-semibold text-[#173634]">{item}</span>
+                locale === 'es' ? 'Capturar' : 'Capture',
+                locale === 'es' ? 'Ordenar' : 'Structure',
+                locale === 'es' ? 'Actuar' : 'Act',
+              ].map((step, index) => (
+                <div key={step} className="bg-white px-4 py-3">
+                  <p className="font-mono text-xs text-[#a7b9b4]">0{index + 1}</p>
+                  <p className="mt-2 text-sm font-semibold text-[#173634]">{step}</p>
                 </div>
               ))}
             </div>
-          </div>
-          <div className="border border-[#d8e5e2] bg-[#102624] p-4 shadow-[0_35px_100px_-82px_#173634]">
-            <div className="relative aspect-[1.75] overflow-hidden border border-white/10">
+
+            <div className="relative aspect-[1.75] overflow-hidden border border-white/10 bg-[#102624]">
               <Image src="/n3uralia-brand/operational-dashboard.png" alt="Executive operational dashboard" fill sizes="(min-width: 1024px) 58vw, 92vw" className="object-cover opacity-88" />
-              <div className="absolute right-4 top-4 border border-[#8fb2aa]/45 bg-[#102624]/88 px-5 py-4 text-right backdrop-blur">
+              <div className="absolute left-4 top-4 border border-[#8fb2aa]/45 bg-[#102624]/88 px-5 py-4 backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#8fb2aa]">
+                  {locale === 'es' ? 'capa unificada' : 'unified layer'}
+                </p>
+                <p className="mt-2 max-w-[16rem] text-sm leading-6 text-white/80">
+                  {locale === 'es' ? 'Una vista para riesgo, avance, responsables y evidencia.' : 'One view for risk, progress, owners and evidence.'}
+                </p>
+              </div>
+              <div className="absolute right-4 top-4 hidden border border-[#8fb2aa]/45 bg-[#102624]/88 px-5 py-4 text-right backdrop-blur sm:block">
                 <p className="text-4xl font-semibold leading-none text-white">86%</p>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#8fb2aa]">{locale === 'es' ? 'cumplimiento' : 'compliance'}</p>
               </div>
