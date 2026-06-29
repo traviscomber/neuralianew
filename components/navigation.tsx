@@ -25,9 +25,9 @@ const NAV_COPY = {
     projects: 'Proyectos',
     method: 'Metodo',
     why: 'Por que',
-    cta: 'Agendar diagnostico',
-    open: 'Abrir menu',
-    close: 'Cerrar menu',
+    cta: 'Agendar diagnóstico',
+    open: 'Abrir menú',
+    close: 'Cerrar menú',
   },
   en: {
     capabilities: 'Capabilities',

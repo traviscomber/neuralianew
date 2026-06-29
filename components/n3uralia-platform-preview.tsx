@@ -78,7 +78,7 @@ const modules: Record<Locale, PlatformModule[]> = {
       image: '/n3uralia-brand/client-repository.png',
       metric: '38.080',
       metricLabel: 'registros ordenados',
-      signal: 'Busqueda, responsables y siguientes acciones',
+      signal: 'Búsqueda, responsables y siguientes acciones',
     },
     {
       id: 'plant',
@@ -87,18 +87,18 @@ const modules: Record<Locale, PlatformModule[]> = {
       description: 'Convierte datos industriales en una capa operativa simple con ahorro visible en moneda local.',
       image: '/n3uralia-brand/food-plant.png',
       metric: '5-10%',
-      metricLabel: 'meta de reduccion de merma',
-      signal: 'Pilotos rapidos para presion operativa concreta',
+      metricLabel: 'meta de reducción de merma',
+      signal: 'Pilotos rápidos para presión operativa concreta',
     },
     {
       id: 'mining',
       label: 'Flujo minero',
       title: 'Trazabilidad de terreno a gerencia',
-      description: 'Conecta produccion, mantenimiento, bodega, HSE y gerencia en un solo flujo.',
+      description: 'Conecta producción, mantenimiento, bodega, HSE y gerencia en un solo flujo.',
       image: '/n3uralia-brand/mining-platform.png',
       metric: '1',
       metricLabel: 'capa operativa trazable',
-      signal: 'Produccion, HSE, documentos y decisiones',
+      signal: 'Producción, HSE, documentos y decisiones',
     },
   ],
 }
@@ -122,7 +122,7 @@ const copy = {
     eyebrow: 'Vista de plataforma',
     title: 'El comprador debe ver el sistema antes de leer el pitch.',
     description:
-      'Cada modulo muestra como N3uralia convierte una operacion desordenada en una interfaz que el equipo puede usar.',
+      'Cada módulo muestra cómo N3uralia convierte una operación desordenada en una interfaz que el equipo puede usar.',
     cta: 'Conectar con soluciones',
   },
 }

@@ -29,6 +29,11 @@ type Project = TextBlock & {
   stats: string[]
 }
 
+type StartPath = TextBlock & {
+  label: string
+  outcome: string
+}
+
 type PageContent = {
   title: string
   description: string
@@ -46,6 +51,9 @@ type PageContent = {
   projectsTitle: string
   projectsSubtitle: string
   projects: Project[]
+  startTitle: string
+  startSubtitle: string
+  startPaths: StartPath[]
   methodTitle: string
   methodSubtitle: string
   method: TextBlock[]
@@ -141,6 +149,29 @@ const content: Record<Locale, PageContent> = {
         stats: ['38,080 clients', 'Maps and files', 'Advanced search'],
       },
     ],
+    startTitle: 'Choose the entry point that matches your operational pressure',
+    startSubtitle:
+      'The site should make one thing clear: N3uralia can begin small, prove value quickly, and grow into a production system when the problem deserves it.',
+    startPaths: [
+      {
+        label: '01',
+        title: 'Operational diagnosis',
+        description: 'Map the current process, data sources, documents, teams and automation opportunities.',
+        outcome: 'Best when the problem is visible but the architecture is not clear yet.',
+      },
+      {
+        label: '02',
+        title: 'Prototype sprint',
+        description: 'Build one dashboard, flow, agent or portal around a concrete workflow and real users.',
+        outcome: 'Best when the team needs proof before committing to a larger system.',
+      },
+      {
+        label: '03',
+        title: 'Production operating layer',
+        description: 'Connect integrations, permissions, monitoring, roles and ongoing improvement into one system.',
+        outcome: 'Best when the operation needs durable software, not another temporary tool.',
+      },
+    ],
     methodTitle: 'How we enter without turning the company upside down',
     methodSubtitle:
       'We keep the work concrete: diagnose, architect, build, integrate and improve with real usage evidence.',
@@ -159,24 +190,24 @@ const content: Record<Locale, PageContent> = {
     title: 'N3uralia | IA y software para operaciones que no pueden fallar',
     description:
       'N3uralia construye software operativo, agentes IA, tableros y flujos conectados para equipos complejos en Chile y LATAM.',
-    primaryCta: 'Iniciar diagnostico',
+    primaryCta: 'Iniciar diagnóstico',
     secondaryCta: 'Ver soluciones',
     heroTitle: 'IA y software para operaciones que no pueden fallar',
     heroSubtitle:
-      'Disenamos sistemas operativos, agentes IA y plataformas internas para equipos que ya superaron las planillas, los chats y las herramientas desconectadas.',
-    heroNote: 'Construido para Chile y LATAM: mineria, terreno, logistica, cumplimiento, inmobiliaria y equipos con presion diaria de ejecucion.',
+      'Diseñamos sistemas operativos, agentes IA y plataformas internas para equipos que ya superaron las planillas, los chats y las herramientas desconectadas.',
+    heroNote: 'Construido para Chile y LATAM: minería, terreno, logística, cumplimiento, inmobiliaria y equipos con presión diaria de ejecución.',
     metrics: [
-      { title: '30 dias', description: 'para validar un flujo operativo con usuarios reales.' },
-      { title: '90 dias', description: 'para desplegar una capa conectada en produccion.' },
-      { title: '4 capas', description: 'tablero, flujo, agente e integracion.' },
-      { title: '1 sistema', description: 'para visibilidad, responsabilidad y accion mas rapida.' },
+      { title: '30 días', description: 'para validar un flujo operativo con usuarios reales.' },
+      { title: '90 días', description: 'para desplegar una capa conectada en producción.' },
+      { title: '4 capas', description: 'tablero, flujo, agente e integración.' },
+      { title: '1 sistema', description: 'para visibilidad, responsabilidad y acción más rápida.' },
     ],
-    flowTitle: 'De senales dispersas a una capa operativa',
+    flowTitle: 'De señales dispersas a una capa operativa',
     flowSubtitle:
       'N3uralia conecta documentos, terreno, necesidades gerenciales y asistencia IA en un flujo controlado.',
-    capabilitiesTitle: 'Una capa operativa practica para equipos bajo presion',
+    capabilitiesTitle: 'Una capa operativa práctica para equipos bajo presión',
     capabilitiesSubtitle:
-      'No es automatizacion generica. Es arquitectura practica para equipos que necesitan control, velocidad y trazabilidad.',
+      'No es automatización genérica. Es arquitectura práctica para equipos que necesitan control, velocidad y trazabilidad.',
     capabilities: [
       {
         icon: Gauge,
@@ -187,20 +218,20 @@ const content: Record<Locale, PageContent> = {
       {
         icon: Workflow,
         signal: 'Flujo',
-        title: 'Ejecucion conectada',
+        title: 'Ejecución conectada',
         description: 'Tareas, aprobaciones, alertas y traspasos conectados a la forma real de trabajo.',
       },
       {
         icon: FileSearch,
         signal: 'Documentos',
         title: 'Inteligencia documental',
-        description: 'Clasificacion, extraccion, comparacion y evidencia para PDFs, contratos y permisos.',
+        description: 'Clasificación, extracción, comparación y evidencia para PDFs, contratos y permisos.',
       },
       {
         icon: Database,
         signal: 'Datos',
         title: 'Integraciones y datos limpios',
-        description: 'ERP, CRM, planillas, correo, Supabase, APIs y herramientas legacy en una capa util.',
+        description: 'ERP, CRM, planillas, correo, Supabase, APIs y herramientas legacy en una capa útil.',
       },
       {
         icon: Network,
@@ -212,24 +243,24 @@ const content: Record<Locale, PageContent> = {
         icon: ShieldCheck,
         signal: 'Control',
         title: 'Gobernanza y trazabilidad',
-        description: 'Roles, permisos, auditoria y escalamiento para que la IA sea segura en la operacion.',
+        description: 'Roles, permisos, auditoría y escalamiento para que la IA sea segura en la operación.',
       },
     ],
-    projectsTitle: 'Prueba de que el sistema puede verse y funcionar como la operacion',
+    projectsTitle: 'Prueba de que el sistema puede verse y funcionar como la operación',
     projectsSubtitle:
-      'Interfaces empresariales sobrias, imagenes reales y tableros disenados para ser utiles antes que decorativos.',
+      'Interfaces empresariales sobrias, imágenes reales y tableros diseñados para ser útiles antes que decorativos.',
     projects: [
       {
-        label: 'Operacion minera',
+        label: 'Operación minera',
         title: 'Centro de control tipo Motil',
-        description: 'Produccion, mantenimiento, bodega, HSE, documentos y gerencia en un flujo trazable.',
+        description: 'Producción, mantenimiento, bodega, HSE, documentos y gerencia en un flujo trazable.',
         image: '/n3uralia-brand/mining-platform.png',
-        stats: ['Terreno a gerencia', 'Modulos vivos', 'Control operativo'],
+        stats: ['Terreno a gerencia', 'Módulos vivos', 'Control operativo'],
       },
       {
         label: 'Control documental',
         title: 'Logica DocuFleet / LABBE',
-        description: 'Contratistas, conductores, vehiculos y documentos de cumplimiento con alertas y visibilidad.',
+        description: 'Contratistas, conductores, vehículos y documentos de cumplimiento con alertas y visibilidad.',
         image: '/n3uralia-brand/operational-dashboard.png',
         stats: ['86% cumplimiento', '583 riesgos abiertos', '50 alertas'],
       },
@@ -238,21 +269,44 @@ const content: Record<Locale, PageContent> = {
         title: 'Repositorio Sur-Realista',
         description: 'Clientes, propiedades, tareas, mapas, archivos y pipeline para equipos de alto volumen.',
         image: '/n3uralia-brand/client-repository.png',
-        stats: ['38.080 clientes', 'Mapas y archivos', 'Busqueda avanzada'],
+        stats: ['38.080 clientes', 'Mapas y archivos', 'Búsqueda avanzada'],
       },
     ],
-    methodTitle: 'Como entramos sin dar vuelta la empresa',
+    startTitle: 'Elige una entrada proporcional a tu presión operativa',
+    startSubtitle:
+      'La ruta debe sentirse concreta: N3uralia puede partir pequeño, probar valor rápido y crecer a un sistema en producción cuando el problema lo merece.',
+    startPaths: [
+      {
+        label: '01',
+        title: 'Diagnóstico operacional',
+        description: 'Mapeamos proceso actual, fuentes de datos, documentos, equipos y oportunidades de automatización.',
+        outcome: 'Ideal cuando el problema es visible, pero la arquitectura todavía no está clara.',
+      },
+      {
+        label: '02',
+        title: 'Sprint de prototipo',
+        description: 'Construimos un tablero, flujo, agente o portal alrededor de un proceso concreto y usuarios reales.',
+        outcome: 'Ideal cuando el equipo necesita evidencia antes de comprometerse con un sistema mayor.',
+      },
+      {
+        label: '03',
+        title: 'Capa operativa en producción',
+        description: 'Conectamos integraciones, permisos, monitoreo, roles y mejora continua en un solo sistema.',
+        outcome: 'Ideal cuando la operación necesita software durable, no otra herramienta temporal.',
+      },
+    ],
+    methodTitle: 'Cómo entramos sin dar vuelta la empresa',
     methodSubtitle:
       'Mantenemos el trabajo concreto: diagnosticar, arquitectar, construir, integrar y mejorar con evidencia de uso real.',
     method: [
       { title: 'Diagnosticar', description: 'Mapeamos flujos, datos, documentos, equipos y cuellos de botella.' },
-      { title: 'Arquitectar', description: 'Definimos que debe ser tablero, flujo, agente, portal o integracion.' },
-      { title: 'Construir', description: 'Lanzamos el primer sistema util con responsables claros y resultados visibles.' },
+      { title: 'Arquitectar', description: 'Definimos qué debe ser tablero, flujo, agente, portal o integración.' },
+      { title: 'Construir', description: 'Lanzamos el primer sistema útil con responsables claros y resultados visibles.' },
       { title: 'Integrar', description: 'Lo conectamos con herramientas, permisos y rutinas que el equipo ya usa.' },
     ],
-    ctaTitle: 'Muevete mas rapido. Opera mas seguro. Controla mas.',
+    ctaTitle: 'Muévete más rápido. Opera más seguro. Controla más.',
     ctaSubtitle:
-      'Parte con una friccion operativa y conviertela en un sistema que tu equipo pueda usar de verdad.',
+      'Parte con una fricción operativa y conviértela en un sistema que tu equipo pueda usar de verdad.',
     ctaButton: 'Abrir soluciones',
   },
 }
@@ -389,7 +443,7 @@ export default function HomePage({ params }: PageProps) {
               </div>
               <div className="absolute inset-x-0 bottom-0 bg-[#102624]/88 p-5 text-white backdrop-blur">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8fb2aa]">Dashboard layer</p>
-                <p className="mt-2 max-w-xl text-xl font-light">{locale === 'es' ? 'Riesgos, documentos y alertas visibles antes de que bloqueen la operacion.' : 'Risks, documents and alerts visible before they block the operation.'}</p>
+                <p className="mt-2 max-w-xl text-xl font-light">{locale === 'es' ? 'Riesgos, documentos y alertas visibles antes de que bloqueen la operación.' : 'Risks, documents and alerts visible before they block the operation.'}</p>
               </div>
             </div>
           </div>
@@ -427,6 +481,36 @@ export default function HomePage({ params }: PageProps) {
       <section id="solutions" className="scroll-mt-28 border-y border-[#d8e5e2] bg-[#edf4f1] px-5 py-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <N3uraliaLandingConsole locale={locale} />
+        </div>
+      </section>
+
+      <section id="start-paths" className="scroll-mt-28 border-b border-[#d8e5e2] bg-[#fbfbfa] px-5 py-24 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-14 grid gap-8 lg:grid-cols-[0.86fr_1.14fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Cómo empezar' : 'How to start'}</p>
+              <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.startTitle}</h2>
+            </div>
+            <p className="self-end text-base leading-8 text-[#65706d]">{page.startSubtitle}</p>
+          </div>
+
+          <div className="grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] lg:grid-cols-3">
+            {page.startPaths.map((path) => (
+              <article key={path.title} className="bg-white p-7">
+                <p className="text-6xl font-light leading-none text-[#c7d3cf]">{path.label}</p>
+                <h3 className="mt-10 text-2xl font-light leading-tight text-[#173634]">{path.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[#65706d]">{path.description}</p>
+                <p className="mt-7 border-t border-[#d8e5e2] pt-5 text-sm font-semibold leading-6 text-[#526e69]">{path.outcome}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <Link href={solutionsHref} className="inline-flex items-center justify-center gap-2 bg-[#173634] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#244946]">
+              {locale === 'es' ? 'Ver soluciones por sector' : 'View sector solutions'}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
