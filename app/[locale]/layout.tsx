@@ -50,11 +50,20 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
 
 export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const skipLabel = locale === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <a
+        href="#main-content"
+        className="pointer-events-none fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] opacity-0 shadow-[0_22px_55px_-34px_#8fb2aa] outline-none ring-2 ring-transparent transition focus:pointer-events-auto focus:translate-y-0 focus:opacity-100 focus:ring-[#d9e3e0]"
+      >
+        {skipLabel}
+      </a>
       <Navigation locale={locale} />
-      {children}
+      <div id="main-content" tabIndex={-1} className="scroll-mt-28 outline-none">
+        {children}
+      </div>
       <ScrollToTop />
     </ThemeProvider>
   )
