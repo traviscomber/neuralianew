@@ -22,10 +22,12 @@ export function Footer() {
   const pageHref = (path: string) => `/${locale}${path}`
 
   const landingLinks = [
-    { href: homeHref("#explainer"), label: isES ? "En simple" : "In simple terms" },
-    { href: homeHref("#solutions"), label: isES ? "Sistemas" : "Systems" },
+    { href: homeHref("#flow"), label: isES ? "Cómo funciona" : "How it works" },
+    { href: homeHref("#role-map"), label: isES ? "Para quién" : "For whom" },
+    { href: homeHref("#platform-preview"), label: isES ? "Plataforma" : "Platform" },
+    { href: homeHref("#solutions"), label: isES ? "Soluciones" : "Solutions" },
     { href: homeHref("#case-studies"), label: isES ? "Proyectos" : "Projects" },
-    { href: homeHref("#how-we-work"), label: isES ? "Modelos" : "Models" },
+    { href: homeHref("#how-we-work"), label: isES ? "Método" : "Method" },
   ]
 
   const resourceLinks = [

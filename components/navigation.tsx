@@ -19,6 +19,7 @@ type NavItem = {
 
 const NAV_COPY = {
   es: {
+    roleMap: 'Para quién',
     capabilities: 'Capacidades',
     solutions: 'Soluciones',
     platform: 'Plataforma',
@@ -32,6 +33,7 @@ const NAV_COPY = {
     close: 'Cerrar menú',
   },
   en: {
+    roleMap: 'For whom',
     capabilities: 'Capabilities',
     solutions: 'Solutions',
     platform: 'Platform',
@@ -57,6 +59,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   const languageHref = locale === 'es' ? '/en' : '/es'
 
   const items: NavItem[] = [
+    { hash: '#role-map', label: copy.roleMap, href: localizedHash('#role-map') },
     { hash: '#capabilities', label: copy.capabilities, href: localizedHash('#capabilities') },
     { hash: '#platform-preview', label: copy.platform, href: localizedHash('#platform-preview') },
     { hash: '#solutions', label: copy.solutions, href: solutionsHref, external: true },
@@ -66,7 +69,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   ]
 
   useEffect(() => {
-    const sectionHashes = ['#top', '#flow', '#capabilities', '#platform-preview', '#solutions', '#case-studies', '#how-we-work', '#about']
+    const sectionHashes = ['#top', '#flow', '#role-map', '#capabilities', '#platform-preview', '#solutions', '#case-studies', '#how-we-work', '#about']
 
     function updateNavigationState() {
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight
@@ -119,7 +122,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
                 key={item.href}
                 href={item.href}
                 aria-current={active ? 'true' : undefined}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
+                className={`rounded-full px-3 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] xl:px-4 ${
                   active ? 'bg-[#8fb2aa] text-[#06100f] shadow-[0_18px_45px_-32px_#8fb2aa]' : 'text-[#9db7b1] hover:bg-[#142522] hover:text-white'
                 }`}
               >
