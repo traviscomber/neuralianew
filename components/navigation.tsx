@@ -89,9 +89,9 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   }, [])
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#dfe8e5]/80 bg-[#fbfbfa]/88 shadow-[0_18px_60px_-52px_#173634] backdrop-blur-xl">
-      <div className="absolute inset-x-0 bottom-0 h-px bg-[#d8e5e2]">
-        <div className="h-px bg-[#173634] transition-[width] duration-300" style={{ width: `${scrollProgress}%` }} />
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#1e3431] bg-[#06100f]/92 shadow-[0_18px_60px_-52px_#06100f] backdrop-blur-xl">
+      <div className="absolute inset-x-0 bottom-0 h-px bg-[#1e3431]">
+        <div className="h-px bg-[#8fb2aa] transition-[width] duration-300" style={{ width: `${scrollProgress}%` }} />
       </div>
 
       <div className="mx-auto grid h-[4.75rem] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-5 px-5 sm:px-8 lg:px-10">
@@ -102,7 +102,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
           <Image src="/n3uralia-brand/n3uralia-wordmark.png" alt="N3uralia" width={624} height={166} priority className="hidden h-auto w-32 sm:block" />
         </Link>
 
-        <div className="hidden items-center justify-center gap-1 rounded-full border border-[#d8e5e2] bg-white/70 px-2 py-2 lg:flex">
+        <div className="hidden items-center justify-center gap-1 rounded-full border border-[#1e3431] bg-[#0b1715]/80 px-2 py-2 lg:flex">
           {items.map((item) => {
             const active = !item.external && activeHash === item.hash
             return (
@@ -111,7 +111,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
                 href={item.href}
                 aria-current={active ? 'true' : undefined}
                 className={`rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
-                  active ? 'bg-[#173634] text-white shadow-[0_18px_45px_-32px_#173634]' : 'text-[#65706d] hover:bg-[#eef5f2] hover:text-[#173634]'
+                  active ? 'bg-[#8fb2aa] text-[#06100f] shadow-[0_18px_45px_-32px_#8fb2aa]' : 'text-[#9db7b1] hover:bg-[#142522] hover:text-white'
                 }`}
               >
                 {item.label}
@@ -123,14 +123,14 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
         <div className="flex items-center justify-end gap-3">
           <Link
             href={contactHref}
-            className="hidden rounded-full bg-[#173634] px-5 py-3 text-sm font-semibold text-white shadow-[0_22px_55px_-34px_#173634] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] md:inline-flex"
+            className="hidden rounded-full bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] shadow-[0_22px_55px_-34px_#8fb2aa] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] md:inline-flex"
           >
             {copy.cta}
           </Link>
 
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#d2dfdb] bg-white/70 text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#1e3431] bg-[#0b1715] text-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] lg:hidden"
             aria-label={open ? copy.close : copy.open}
             onClick={() => setOpen((value) => !value)}
           >
@@ -140,7 +140,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
       </div>
 
       {open ? (
-        <div className="border-t border-[#d9e4e1] bg-[#fbfbfa] px-5 pb-5 pt-3 lg:hidden">
+        <div className="border-t border-[#1e3431] bg-[#06100f] px-5 pb-5 pt-3 lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-1">
             {items.map((item) => {
               const active = !item.external && activeHash === item.hash
@@ -151,7 +151,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
                   aria-current={active ? 'true' : undefined}
                   onClick={() => setOpen(false)}
                   className={`rounded-2xl px-4 py-3 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
-                    active ? 'bg-[#173634] text-white' : 'text-[#52605d] hover:bg-[#eef5f2] hover:text-[#173634]'
+                    active ? 'bg-[#8fb2aa] text-[#06100f]' : 'text-[#9db7b1] hover:bg-[#142522] hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -161,7 +161,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
             <Link
               href={contactHref}
               onClick={() => setOpen(false)}
-              className="mt-3 inline-flex items-center justify-center rounded-full bg-[#173634] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+              className="mt-3 inline-flex items-center justify-center rounded-full bg-[#8fb2aa] px-4 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
             >
               {copy.cta}
             </Link>

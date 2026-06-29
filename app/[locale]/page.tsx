@@ -73,7 +73,7 @@ const content: Record<Locale, PageContent> = {
     flowTitle: 'From scattered signals to an operating layer',
     flowSubtitle:
       'N3uralia connects documents, field updates, management needs and AI assistance into one controlled workflow.',
-    capabilitiesTitle: 'What the landing must make clear in seconds',
+    capabilitiesTitle: 'A practical operating layer for teams under pressure',
     capabilitiesSubtitle:
       'This is not generic automation. It is a practical architecture for teams that need control, speed and traceability.',
     capabilities: [
@@ -116,7 +116,7 @@ const content: Record<Locale, PageContent> = {
     ],
     projectsTitle: 'Proof that the system can look and work like the operation',
     projectsSubtitle:
-      'The references point to a clear direction: quiet enterprise interfaces, real operational imagery and dashboards that feel useful before they feel decorative.',
+      'Quiet enterprise interfaces, real operational imagery and dashboards designed to be useful before they feel decorative.',
     projects: [
       {
         label: 'Mining operations',
@@ -173,7 +173,7 @@ const content: Record<Locale, PageContent> = {
     flowTitle: 'De senales dispersas a una capa operativa',
     flowSubtitle:
       'N3uralia conecta documentos, terreno, necesidades gerenciales y asistencia IA en un flujo controlado.',
-    capabilitiesTitle: 'Lo que la landing debe explicar en segundos',
+    capabilitiesTitle: 'Una capa operativa practica para equipos bajo presion',
     capabilitiesSubtitle:
       'No es automatizacion generica. Es arquitectura practica para equipos que necesitan control, velocidad y trazabilidad.',
     capabilities: [
@@ -216,7 +216,7 @@ const content: Record<Locale, PageContent> = {
     ],
     projectsTitle: 'Prueba de que el sistema puede verse y funcionar como la operacion',
     projectsSubtitle:
-      'Las referencias apuntan a una direccion clara: interfaces empresariales sobrias, imagenes reales y tableros utiles antes que decorativos.',
+      'Interfaces empresariales sobrias, imagenes reales y tableros disenados para ser utiles antes que decorativos.',
     projects: [
       {
         label: 'Operacion minera',
@@ -317,65 +317,80 @@ export default function HomePage({ params }: PageProps) {
 
   return (
     <main id="top" className="overflow-hidden bg-[#fbfbfa] text-[#52605d]">
-      <section className="relative min-h-[calc(100vh-24px)] border-b border-[#d8e5e2] bg-[#edf4f1] pt-24">
-        <div className="absolute inset-0">
-          <Image src="/n3uralia-brand/industrial-team.png" alt="" fill priority sizes="100vw" className="object-cover opacity-30 grayscale" />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,#fbfbfa_0%,rgba(251,251,250,0.92)_34%,rgba(237,244,241,0.66)_70%,rgba(237,244,241,0.84)_100%)]" />
-        </div>
+      <section className="relative min-h-[calc(100vh-20px)] overflow-hidden border-b border-[#1e3431] bg-[#06100f] pt-24 text-white">
+        <div className="absolute inset-x-0 top-0 h-px bg-[#789b96]/35" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,15,0)_0%,rgba(6,16,15,0.34)_58%,#06100f_100%)]" />
+        <Image src="/n3uralia-brand/n3uralia-mark.png" alt="" width={984} height={943} priority className="absolute -right-28 top-24 h-auto w-[36rem] opacity-[0.035] md:w-[52rem]" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-10 px-5 pb-12 pt-12 sm:px-8 lg:grid-cols-[0.95fr_1.05fr] lg:px-10 lg:pb-16 lg:pt-20">
-          <div className="max-w-3xl">
-            <LogoWordmark className="mb-10 h-auto w-52 md:w-64" />
-            <p className="mb-5 max-w-xl text-sm font-semibold uppercase tracking-[0.22em] text-[#789b96]">
-              {locale === 'es' ? 'Software operativo + agentes IA' : 'Operational software + AI agents'}
-            </p>
-            <h1 className="max-w-4xl text-balance text-5xl font-light leading-[0.95] text-[#173634] md:text-7xl lg:text-8xl">
-              {page.heroTitle}
-            </h1>
-            <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-[#52605d]">{page.heroSubtitle}</p>
-            <p className="mt-5 max-w-2xl border-l border-[#789b96] pl-5 text-sm font-medium leading-7 text-[#526e69]">{page.heroNote}</p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <PrimaryLink href={contactHref}>{page.primaryCta}</PrimaryLink>
-              <Link href={solutionsHref} className="inline-flex items-center justify-center gap-2 border border-[#b9d0cb] bg-white/75 px-5 py-3 text-sm font-semibold text-[#526e69] transition-colors hover:bg-white hover:text-[#173634]">
-                {page.secondaryCta}
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
+        <div className="relative mx-auto flex min-h-[calc(100vh-8rem)] max-w-7xl flex-col items-center justify-center px-5 pb-10 pt-12 text-center sm:px-8 lg:px-10">
+          <LogoWordmark className="mb-12 h-auto w-48 opacity-90 md:w-64" />
+          <div className="border border-[#789b96]/28 bg-[#10211f] px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#8fb2aa]">
+            {locale === 'es' ? 'Plataforma operacional inteligente' : 'Intelligent operational platform'}
+          </div>
+          <h1 className="mt-10 max-w-6xl text-balance text-5xl font-semibold leading-[0.98] text-[#f5fbfa] md:text-7xl lg:text-8xl">
+            {page.heroTitle}
+          </h1>
+          <p className="mt-8 max-w-3xl text-pretty text-lg leading-8 text-[#9db7b1] md:text-xl">{page.heroSubtitle}</p>
+          <p className="mt-5 max-w-3xl text-sm font-medium leading-7 text-[#789b96]">{page.heroNote}</p>
+
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+            <Link href={contactHref} className="inline-flex items-center justify-center gap-2 bg-[#8fb2aa] px-6 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0]">
+              {page.primaryCta}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href={solutionsHref} className="inline-flex items-center justify-center gap-2 border border-[#28413d] bg-[#0d1917] px-6 py-3 text-sm font-semibold text-[#e7eeee] transition-colors hover:border-[#789b96] hover:bg-[#142522]">
+              {page.secondaryCta}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
-          <div className="relative self-end">
-            <div className="border border-[#173634]/15 bg-white/72 p-5 shadow-[0_40px_120px_-85px_#173634] backdrop-blur">
-              <div className="relative aspect-[1.35] overflow-hidden border border-[#d8e5e2] bg-[#102624]">
-                <Image src="/n3uralia-brand/operational-dashboard.png" alt="N3uralia operational dashboard" fill sizes="(min-width: 1024px) 46vw, 92vw" className="object-cover opacity-90" />
-                <div className="absolute inset-x-0 bottom-0 bg-[#102624]/88 p-5 text-white">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b8d1cc]">Command layer</p>
-                  <p className="mt-2 text-xl font-light">{locale === 'es' ? 'Control operacional conectado' : 'Connected operational control'}</p>
-                </div>
-              </div>
-            </div>
-            <Image src="/n3uralia-brand/operations-graph-center.png" alt="" width={544} height={175} className="mx-auto mt-8 h-auto w-full max-w-md opacity-80" />
+          <div className="mt-14 w-full overflow-hidden border-y border-[#173634] py-7">
+            <Image src="/n3uralia-brand/operations-graph-wide.png" alt="N3uralia operational connection graph" width={1920} height={276} className="mx-auto h-auto min-w-[760px] max-w-6xl opacity-70" />
           </div>
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-px border-y border-[#d8e5e2] bg-[#d8e5e2] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="relative mx-auto grid max-w-7xl gap-px border-t border-[#1e3431] bg-[#1e3431] sm:grid-cols-2 lg:grid-cols-4">
           {page.metrics.map((metric) => (
-            <div key={metric.title} className="bg-[#fbfbfa]/92 px-6 py-6">
-              <p className="text-4xl font-light leading-none text-[#173634]">{metric.title}</p>
-              <p className="mt-3 text-sm leading-6 text-[#65706d]">{metric.description}</p>
+            <div key={metric.title} className="bg-[#071211] px-6 py-6">
+              <p className="text-4xl font-semibold leading-none text-[#f4faf8]">{metric.title}</p>
+              <p className="mt-3 text-sm leading-6 text-[#8fb2aa]">{metric.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section id="flow" className="border-b border-[#d8e5e2] bg-white px-5 py-20 sm:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'La conexion' : 'The connection'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.flowTitle}</h2>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.flowSubtitle}</p>
+            <div className="mt-8 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
+              {[
+                locale === 'es' ? 'Documentos y permisos' : 'Documents and permissions',
+                locale === 'es' ? 'Alertas y responsables' : 'Alerts and owners',
+                locale === 'es' ? 'Indicadores ejecutivos' : 'Executive indicators',
+                locale === 'es' ? 'Agentes con contexto' : 'Context-aware agents',
+              ].map((item, index) => (
+                <div key={item} className="grid grid-cols-[44px_1fr] items-center gap-4 bg-[#fbfbfa] px-4 py-3">
+                  <span className="text-sm font-semibold text-[#789b96]">0{index + 1}</span>
+                  <span className="text-sm font-semibold text-[#173634]">{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="overflow-hidden border border-[#d8e5e2] bg-[#f7faf8] py-8">
-            <Image src="/n3uralia-brand/operations-graph-wide.png" alt="N3uralia operational connection graph" width={1920} height={276} className="h-auto w-full min-w-[760px]" />
+          <div className="border border-[#d8e5e2] bg-[#102624] p-4 shadow-[0_35px_100px_-82px_#173634]">
+            <div className="relative aspect-[1.75] overflow-hidden border border-white/10">
+              <Image src="/n3uralia-brand/operational-dashboard.png" alt="Executive operational dashboard" fill sizes="(min-width: 1024px) 58vw, 92vw" className="object-cover opacity-88" />
+              <div className="absolute right-4 top-4 border border-[#8fb2aa]/45 bg-[#102624]/88 px-5 py-4 text-right backdrop-blur">
+                <p className="text-4xl font-semibold leading-none text-white">86%</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.22em] text-[#8fb2aa]">{locale === 'es' ? 'cumplimiento' : 'compliance'}</p>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 bg-[#102624]/88 p-5 text-white backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8fb2aa]">Dashboard layer</p>
+                <p className="mt-2 max-w-xl text-xl font-light">{locale === 'es' ? 'Riesgos, documentos y alertas visibles antes de que bloqueen la operacion.' : 'Risks, documents and alerts visible before they block the operation.'}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
