@@ -42,6 +42,9 @@ type CapabilityLens = TextBlock & {
 type Project = TextBlock & {
   image: string
   label: string
+  problem: string
+  system: string
+  value: string
   stats: string[]
 }
 
@@ -252,6 +255,9 @@ const content: Record<Locale, PageContent> = {
         title: 'Motil-style command center',
         description: 'Production, maintenance, warehouse, HSE, documents and management in one traceable flow.',
         image: '/n3uralia-brand/mining-platform.png',
+        problem: 'Critical field information was fragmented across teams, documents and late reports.',
+        system: 'A dark command interface organizes modules, responsibilities and operational status.',
+        value: 'Management sees the operation as it moves, not after the meeting.',
         stats: ['Field to management', 'Live modules', 'Operational control'],
       },
       {
@@ -259,6 +265,9 @@ const content: Record<Locale, PageContent> = {
         title: 'DocuFleet / LABBE logic',
         description: 'Contractors, drivers, vehicles and compliance documents with alerts and executive visibility.',
         image: '/n3uralia-brand/operational-dashboard.png',
+        problem: 'Compliance risk was hidden inside documents, renewals and disconnected ownership.',
+        system: 'A control panel turns documents into coverage, pending work, rejected items and alerts.',
+        value: 'Risk becomes visible early enough for the team to act.',
         stats: ['86% compliance', '583 open risks', '50 alerts'],
       },
       {
@@ -266,6 +275,9 @@ const content: Record<Locale, PageContent> = {
         title: 'Sur-Realista repository',
         description: 'Clients, properties, tasks, maps, files and pipeline views for high-volume teams.',
         image: '/n3uralia-brand/client-repository.png',
+        problem: 'High-volume customer and asset data was difficult to search, qualify and prioritize.',
+        system: 'A repository layer connects records, maps, files, tasks and pipeline actions.',
+        value: 'Teams work from a shared view instead of rebuilding context every time.',
         stats: ['38,080 clients', 'Maps and files', 'Advanced search'],
       },
     ],
@@ -468,6 +480,9 @@ const content: Record<Locale, PageContent> = {
         title: 'Centro de control tipo Motil',
         description: 'Producción, mantenimiento, bodega, HSE, documentos y gerencia en un flujo trazable.',
         image: '/n3uralia-brand/mining-platform.png',
+        problem: 'La información crítica de terreno estaba fragmentada entre equipos, documentos y reportes tardíos.',
+        system: 'Una interfaz de comando organiza módulos, responsables y estado operacional.',
+        value: 'La gerencia ve la operación mientras avanza, no después de la reunión.',
         stats: ['Terreno a gerencia', 'Módulos vivos', 'Control operativo'],
       },
       {
@@ -475,6 +490,9 @@ const content: Record<Locale, PageContent> = {
         title: 'Lógica DocuFleet / LABBE',
         description: 'Contratistas, conductores, vehículos y documentos de cumplimiento con alertas y visibilidad.',
         image: '/n3uralia-brand/operational-dashboard.png',
+        problem: 'El riesgo de cumplimiento estaba escondido en documentos, vencimientos y responsables dispersos.',
+        system: 'Un panel convierte documentos en cobertura, pendientes, rechazos y alertas.',
+        value: 'El riesgo aparece con tiempo suficiente para que el equipo actúe.',
         stats: ['86% cumplimiento', '583 riesgos abiertos', '50 alertas'],
       },
       {
@@ -482,6 +500,9 @@ const content: Record<Locale, PageContent> = {
         title: 'Repositorio Sur-Realista',
         description: 'Clientes, propiedades, tareas, mapas, archivos y pipeline para equipos de alto volumen.',
         image: '/n3uralia-brand/client-repository.png',
+        problem: 'Los datos de clientes y activos eran difíciles de buscar, calificar y priorizar.',
+        system: 'Una capa de repositorio conecta registros, mapas, archivos, tareas y pipeline.',
+        value: 'El equipo trabaja desde una vista compartida sin reconstruir contexto cada vez.',
         stats: ['38.080 clientes', 'Mapas y archivos', 'Búsqueda avanzada'],
       },
     ],
@@ -911,11 +932,30 @@ export default function HomePage({ params }: PageProps) {
               <article key={project.title} className="border border-[#d8e5e2] bg-[#fbfbfa]">
                 <div className="relative aspect-[1.55] overflow-hidden border-b border-[#d8e5e2] bg-[#102624]">
                   <Image src={project.image} alt={project.title} fill sizes="(min-width: 1024px) 31vw, 92vw" className="object-cover opacity-85 transition-transform duration-500 hover:scale-105" />
+                  <div className="absolute left-4 top-4 border border-white/15 bg-[#102624]/85 px-3 py-2 backdrop-blur">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8fb2aa]">
+                      {locale === 'es' ? 'Prueba de producto' : 'Product proof'}
+                    </p>
+                  </div>
                 </div>
                 <div className="p-6">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{project.label}</p>
                   <h3 className="mt-4 text-2xl font-light leading-tight text-[#173634]">{project.title}</h3>
                   <p className="mt-4 text-sm leading-7 text-[#65706d]">{project.description}</p>
+
+                  <div className="mt-6 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
+                    {[
+                      { label: locale === 'es' ? 'Problema' : 'Problem', text: project.problem },
+                      { label: locale === 'es' ? 'Sistema' : 'System', text: project.system },
+                      { label: locale === 'es' ? 'Valor' : 'Value', text: project.value },
+                    ].map((item) => (
+                      <div key={item.label} className="bg-white p-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#789b96]">{item.label}</p>
+                        <p className="mt-2 text-sm leading-6 text-[#52605d]">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+
                   <div className="mt-6 grid gap-2">
                     {project.stats.map((stat) => (
                       <div key={stat} className="flex items-center gap-2 text-sm font-medium text-[#526e69]">
