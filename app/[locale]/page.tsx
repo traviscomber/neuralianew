@@ -29,6 +29,15 @@ type FlowSignal = TextBlock & {
   label: string
 }
 
+type RolePath = TextBlock & {
+  cta: string
+  hrefKey: 'contact' | 'solutions'
+  pain: string
+  proof: string
+  signal: string
+  system: string
+}
+
 type Capability = TextBlock & {
   icon: typeof Gauge
   signal: string
@@ -80,6 +89,10 @@ type PageContent = {
   flowTitle: string
   flowSubtitle: string
   flowSignals: FlowSignal[]
+  roleEyebrow: string
+  roleTitle: string
+  roleSubtitle: string
+  rolePaths: RolePath[]
   capabilitiesTitle: string
   capabilitiesSubtitle: string
   capabilityLenses: CapabilityLens[]
@@ -146,6 +159,52 @@ const content: Record<Locale, PageContent> = {
         label: 'Agents',
         title: 'AI works inside the operation',
         description: 'Agents answer with real context, sources, permissions and next steps, not generic prompts.',
+      },
+    ],
+    roleEyebrow: 'Find your entry point',
+    roleTitle: 'Different teams feel the same operational drag in different ways',
+    roleSubtitle:
+      'Use this section as a quick map: who owns the pressure, what N3uralia turns it into, and where the first useful conversation should start.',
+    rolePaths: [
+      {
+        signal: 'Leadership',
+        title: 'I need control without waiting for another report',
+        description: 'For general managers, operations leaders and founders who need a live view of status, risk and owners.',
+        pain: 'Decisions depend on meetings, manual updates and late visibility.',
+        system: 'Executive control layer with priorities, alerts, accountable owners and operational evidence.',
+        proof: 'Status board, risk map and escalation rhythm.',
+        cta: 'Start diagnosis',
+        hrefKey: 'contact',
+      },
+      {
+        signal: 'Compliance',
+        title: 'Documents are hiding risk and slowing execution',
+        description: 'For compliance, HSE, legal and contractor teams managing permits, renewals, evidence and approvals.',
+        pain: 'Critical evidence lives in email, PDFs, folders and disconnected trackers.',
+        system: 'Document intelligence layer that extracts, classifies, alerts and keeps an audit trail.',
+        proof: 'Coverage dashboard, evidence trail and renewal alerts.',
+        cta: 'See solutions',
+        hrefKey: 'solutions',
+      },
+      {
+        signal: 'Operations',
+        title: 'The field moves faster than the system can see',
+        description: 'For teams coordinating tasks, incidents, shifts, assets, clients or field execution.',
+        pain: 'Updates arrive late, responsibilities blur and handoffs depend on personal follow-up.',
+        system: 'Connected workflow with mobile capture, assignments, alerts and management visibility.',
+        proof: 'Task flow, owner alerts and live operational status.',
+        cta: 'See solutions',
+        hrefKey: 'solutions',
+      },
+      {
+        signal: 'Technology',
+        title: 'AI pilots need to become governed production systems',
+        description: 'For technology, data and innovation teams that need integrations, permissions and safe adoption.',
+        pain: 'Prompts and prototypes are disconnected from data, users, permissions and daily process.',
+        system: 'Agentic layer with source material, roles, logs, integrations and human escalation.',
+        proof: 'Agent blueprint, permissions matrix and production rollout path.',
+        cta: 'Start diagnosis',
+        hrefKey: 'contact',
       },
     ],
     capabilitiesTitle: 'A practical operating layer for teams under pressure',
@@ -414,6 +473,52 @@ const content: Record<Locale, PageContent> = {
         label: 'Agentes',
         title: 'La IA trabaja dentro de la operación',
         description: 'Los agentes responden con contexto, fuentes, permisos y próximos pasos, no prompts genéricos.',
+      },
+    ],
+    roleEyebrow: 'Encuentra tu punto de entrada',
+    roleTitle: 'Cada equipo siente la misma fricción operacional de una forma distinta',
+    roleSubtitle:
+      'Úsalo como mapa rápido: quién vive la presión, en qué sistema lo convierte N3uralia y dónde conviene empezar la conversación.',
+    rolePaths: [
+      {
+        signal: 'Liderazgo',
+        title: 'Necesito control sin esperar otro reporte',
+        description: 'Para gerentes generales, líderes de operaciones y founders que necesitan ver estado, riesgo y responsables.',
+        pain: 'Las decisiones dependen de reuniones, actualizaciones manuales y visibilidad tardía.',
+        system: 'Capa ejecutiva con prioridades, alertas, responsables y evidencia operacional.',
+        proof: 'Tablero de estado, mapa de riesgo y ritmo de escalamiento.',
+        cta: 'Iniciar diagnóstico',
+        hrefKey: 'contact',
+      },
+      {
+        signal: 'Cumplimiento',
+        title: 'Los documentos esconden riesgo y frenan la ejecución',
+        description: 'Para cumplimiento, HSE, legal y contratistas que gestionan permisos, vencimientos, evidencia y aprobaciones.',
+        pain: 'La evidencia crítica vive en correo, PDFs, carpetas y planillas desconectadas.',
+        system: 'Capa de inteligencia documental que extrae, clasifica, alerta y deja trazabilidad.',
+        proof: 'Tablero de cobertura, evidencia y alertas de vencimiento.',
+        cta: 'Ver soluciones',
+        hrefKey: 'solutions',
+      },
+      {
+        signal: 'Operaciones',
+        title: 'El terreno se mueve más rápido que el sistema',
+        description: 'Para equipos que coordinan tareas, incidentes, turnos, activos, clientes o ejecución en terreno.',
+        pain: 'Las novedades llegan tarde, los responsables se diluyen y los traspasos dependen del seguimiento personal.',
+        system: 'Flujo conectado con captura móvil, asignaciones, alertas y visibilidad gerencial.',
+        proof: 'Flujo de tareas, alertas por responsable y estado vivo.',
+        cta: 'Ver soluciones',
+        hrefKey: 'solutions',
+      },
+      {
+        signal: 'Tecnología',
+        title: 'Los pilotos IA necesitan convertirse en producción gobernada',
+        description: 'Para tecnología, datos e innovación que necesitan integraciones, permisos y adopción segura.',
+        pain: 'Los prompts y prototipos quedan desconectados de datos, usuarios, permisos y proceso diario.',
+        system: 'Capa agentica con fuentes, roles, logs, integraciones y escalamiento humano.',
+        proof: 'Blueprint de agentes, matriz de permisos y ruta de producción.',
+        cta: 'Iniciar diagnóstico',
+        hrefKey: 'contact',
       },
     ],
     capabilitiesTitle: 'Una capa operativa práctica para equipos bajo presión',
@@ -892,6 +997,58 @@ export default function HomePage({ params }: PageProps) {
                 <p className="mt-2 max-w-xl text-xl font-light">{locale === 'es' ? 'Riesgos, documentos y alertas visibles antes de que bloqueen la operación.' : 'Risks, documents and alerts visible before they block the operation.'}</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="role-map" className="scroll-mt-28 border-b border-[#d8e5e2] bg-[#fbfbfa] px-5 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{page.roleEyebrow}</p>
+              <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.roleTitle}</h2>
+            </div>
+            <p className="max-w-3xl text-base leading-8 text-[#65706d] lg:justify-self-end">{page.roleSubtitle}</p>
+          </div>
+
+          <div className="mt-12 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] lg:grid-cols-2 xl:grid-cols-4">
+            {page.rolePaths.map((role, index) => {
+              const destination = role.hrefKey === 'contact' ? contactHref : solutionsHref
+
+              return (
+                <article key={role.title} className="group flex flex-col bg-white p-6 transition-colors hover:bg-[#f6faf8] xl:min-h-[34rem]">
+                  <div className="mb-10 flex items-center justify-between gap-4">
+                    <span className="border border-[#d8e5e2] bg-[#fbfbfa] px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">
+                      {role.signal}
+                    </span>
+                    <span className="font-mono text-sm text-[#a7b9b4]">0{index + 1}</span>
+                  </div>
+
+                  <h3 className="text-2xl font-light leading-tight text-[#173634]">{role.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#65706d]">{role.description}</p>
+
+                  <div className="mt-8 grid gap-4 text-sm leading-6">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9aa9a5]">{locale === 'es' ? 'Dolor' : 'Pain'}</p>
+                      <p className="mt-2 text-[#52605d]">{role.pain}</p>
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#9aa9a5]">{locale === 'es' ? 'Sistema' : 'System'}</p>
+                      <p className="mt-2 text-[#52605d]">{role.system}</p>
+                    </div>
+                    <div className="border-l border-[#8fb2aa] pl-4">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">{locale === 'es' ? 'Evidencia' : 'Evidence'}</p>
+                      <p className="mt-2 font-medium text-[#173634]">{role.proof}</p>
+                    </div>
+                  </div>
+
+                  <Link href={destination} className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold text-[#173634] transition-colors hover:text-[#789b96]">
+                    {role.cta}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </article>
+              )
+            })}
           </div>
         </div>
       </section>
