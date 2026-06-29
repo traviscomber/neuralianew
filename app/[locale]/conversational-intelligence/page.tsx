@@ -4,6 +4,7 @@ import { ArrowRight, BarChart3, Shield, TrendingUp, Users, Workflow, Zap } from 
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -180,17 +181,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/conversational-intelligence",
     title: page.metadataTitle,
     description: page.metadataDescription,
-    alternates: {
-      canonical: `https://www.n3uralia.com/${locale}/conversational-intelligence`,
-      languages: {
-        es: "https://www.n3uralia.com/es/conversational-intelligence",
-        en: "https://www.n3uralia.com/en/conversational-intelligence",
-      },
-    },
-  }
+  })
 }
 
 export default function ConversationalIntelligencePage({ params }: PageProps) {

@@ -4,6 +4,7 @@ import { getDict } from "@/content/dictionaries"
 import { Nav } from "@/components/Nav"
 import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string }
@@ -17,17 +18,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? "Automatización gobernable con human-in-the-loop, permisos, trazabilidad y control en producción."
     : "Governed automation with human-in-the-loop, permissions, traceability, and production control."
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/agentic-systems",
     title,
     description,
-    alternates: {
-      canonical: `https://www.n3uralia.com/${locale}/agentic-systems`,
-      languages: {
-        es: `https://www.n3uralia.com/es/agentic-systems`,
-        en: `https://www.n3uralia.com/en/agentic-systems`,
-      },
-    },
-  }
+  })
 }
 
 export default function AgenticSystemsPage({ params }: PageProps) {
