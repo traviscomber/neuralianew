@@ -52,6 +52,8 @@ type StartPath = TextBlock & {
 
 type TrustSignal = TextBlock & {
   value: string
+  proof: string
+  avoids: string
 }
 
 type PageContent = {
@@ -216,21 +218,29 @@ const content: Record<Locale, PageContent> = {
         value: '01',
         title: 'No template thinking',
         description: 'Each system starts from the real process, owners, documents, risks and business rules.',
+        proof: 'Process map, owners, exceptions and business rules before interface work.',
+        avoids: 'Prebuilt dashboards that ignore how the team actually operates.',
       },
       {
         value: '02',
         title: 'Production-minded AI',
         description: 'Agents are designed with context, permissions, traceability and escalation paths from the beginning.',
+        proof: 'Source material, permissions, logs and human escalation paths are defined early.',
+        avoids: 'Demo prompts disconnected from data, governance and daily work.',
       },
       {
         value: '03',
         title: 'Integration before replacement',
         description: 'We connect the tools already in use instead of forcing a full operational reset.',
+        proof: 'Spreadsheets, email, ERP, CRM, APIs and legacy systems can become part of the layer.',
+        avoids: 'Rip-and-replace projects that die before adoption.',
       },
       {
         value: '04',
         title: 'Designed for Chile and LATAM',
         description: 'The work respects local teams, compliance pressure, budgets and adoption realities.',
+        proof: 'Pilots, rollout pace and workflows are adjusted to real local constraints.',
+        avoids: 'Imported software playbooks that assume unlimited budget and perfect data.',
       },
     ],
     projectsTitle: 'Proof that the system can look and work like the operation',
@@ -424,21 +434,29 @@ const content: Record<Locale, PageContent> = {
         value: '01',
         title: 'Sin pensar en plantillas',
         description: 'Cada sistema parte del proceso real, responsables, documentos, riesgos y reglas del negocio.',
+        proof: 'Mapa de proceso, responsables, excepciones y reglas antes de diseñar interfaz.',
+        avoids: 'Tableros prefabricados que ignoran cómo opera realmente el equipo.',
       },
       {
         value: '02',
         title: 'IA pensada para producción',
         description: 'Los agentes se diseñan con contexto, permisos, trazabilidad y rutas de escalamiento desde el inicio.',
+        proof: 'Fuentes, permisos, logs y escalamiento humano se definen temprano.',
+        avoids: 'Prompts demo desconectados de datos, gobernanza y trabajo diario.',
       },
       {
         value: '03',
         title: 'Integrar antes que reemplazar',
         description: 'Conectamos las herramientas que ya existen en vez de forzar un reinicio operacional completo.',
+        proof: 'Planillas, correo, ERP, CRM, APIs y sistemas legacy pueden entrar a la capa.',
+        avoids: 'Proyectos de reemplazo total que mueren antes de lograr adopción.',
       },
       {
         value: '04',
         title: 'Diseñado para Chile y LATAM',
         description: 'El trabajo respeta equipos locales, presión de cumplimiento, presupuestos y adopción real.',
+        proof: 'Pilotos, ritmo de despliegue y flujos se ajustan a restricciones reales.',
+        avoids: 'Playbooks importados que asumen presupuesto infinito y datos perfectos.',
       },
     ],
     projectsTitle: 'Prueba de que el sistema puede verse y funcionar como la operación',
@@ -795,6 +813,22 @@ export default function HomePage({ params }: PageProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Criterios' : 'Trust criteria'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.trustTitle}</h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-[#65706d]">{page.trustSubtitle}</p>
+
+            <div className="mt-8 border border-[#c9d9d5] bg-white p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#789b96]">
+                {locale === 'es' ? 'Diferencia clave' : 'Key difference'}
+              </p>
+              <p className="mt-4 text-2xl font-light leading-tight text-[#173634]">
+                {locale === 'es'
+                  ? 'No vendemos IA aislada: diseñamos sistemas que sobreviven al uso diario.'
+                  : 'We do not sell isolated AI: we design systems that survive daily use.'}
+              </p>
+              <p className="mt-4 text-sm leading-7 text-[#65706d]">
+                {locale === 'es'
+                  ? 'El criterio no es verse moderno. Es reducir fricción, sostener control y dejar evidencia para operar mejor.'
+                  : 'The criterion is not looking modern. It is reducing friction, keeping control and leaving evidence for better operations.'}
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-px border border-[#c9d9d5] bg-[#c9d9d5] md:grid-cols-2">
@@ -806,6 +840,21 @@ export default function HomePage({ params }: PageProps) {
                 </div>
                 <h3 className="text-2xl font-light leading-tight text-[#173634]">{signal.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-[#65706d]">{signal.description}</p>
+
+                <div className="mt-6 grid gap-3 border-t border-[#d8e5e2] pt-5">
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#789b96]">
+                      {locale === 'es' ? 'Evidencia' : 'Evidence'}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[#526e69]">{signal.proof}</p>
+                  </div>
+                  <div className="bg-[#f7faf8] p-3">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#9a7468]">
+                      {locale === 'es' ? 'Evitamos' : 'We avoid'}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[#65706d]">{signal.avoids}</p>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
