@@ -7,6 +7,7 @@ import { N3uraliaHeroSystem } from '@/components/n3uralia-hero-system'
 import { N3uraliaLandingConsole } from '@/components/n3uralia-landing-console'
 import { N3uraliaPlatformPreview } from '@/components/n3uralia-platform-preview'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
+import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_TWITTER_HANDLE } from '@/lib/site'
 
 interface PageProps {
   params: {
@@ -652,19 +653,37 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: page.title,
     description: page.description,
     alternates: {
-      canonical: `https://www.n3uralia.com/${locale}`,
+      canonical: absoluteUrl(`/${locale}`),
       languages: {
-        es: 'https://www.n3uralia.com/es',
-        en: 'https://www.n3uralia.com/en',
+        es: absoluteUrl('/es'),
+        en: absoluteUrl('/en'),
+        'x-default': absoluteUrl('/en'),
       },
     },
     openGraph: {
       title: page.title,
       description: page.description,
-      url: `https://www.n3uralia.com/${locale}`,
-      siteName: 'N3uralia',
+      url: absoluteUrl(`/${locale}`),
+      siteName: SITE_NAME,
       locale: locale === 'es' ? 'es_CL' : 'en_US',
+      localeAlternate: locale === 'es' ? ['en_US'] : ['es_CL'],
       type: 'website',
+      images: [
+        {
+          url: absoluteUrl(OG_IMAGE_PATH),
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} - ${page.heroTitle}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: page.title,
+      description: page.description,
+      site: SITE_TWITTER_HANDLE,
+      creator: SITE_TWITTER_HANDLE,
+      images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
 }
