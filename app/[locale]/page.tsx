@@ -316,7 +316,7 @@ const content: Record<Locale, PageContent> = {
       },
       {
         label: 'Control documental',
-        title: 'Logica DocuFleet / LABBE',
+        title: 'Lógica DocuFleet / LABBE',
         description: 'Contratistas, conductores, vehículos y documentos de cumplimiento con alertas y visibilidad.',
         image: '/n3uralia-brand/operational-dashboard.png',
         stats: ['86% cumplimiento', '583 riesgos abiertos', '50 alertas'],
@@ -524,7 +524,7 @@ export default function HomePage({ params }: PageProps) {
       <section id="flow" className="border-b border-[#d8e5e2] bg-white px-5 py-20 sm:px-8 lg:px-10">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.76fr_1.24fr] lg:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'La conexion' : 'The connection'}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'La conexión' : 'The connection'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.flowTitle}</h2>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.flowSubtitle}</p>
             <div className="mt-8 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
@@ -679,7 +679,7 @@ export default function HomePage({ params }: PageProps) {
       <section id="how-we-work" className="scroll-mt-28 px-5 py-24 sm:px-8 lg:px-10">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.86fr_1.14fr]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Metodo' : 'Method'}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Método' : 'Method'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.methodTitle}</h2>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.methodSubtitle}</p>
             <div className="relative mt-10 aspect-[1.55] overflow-hidden border border-[#d8e5e2] bg-white">

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowRight, BarChart3, FileCheck2, Factory, UsersRound } from 'lucide-react'
 import type { Locale } from '@/lib/get-locale'
 
@@ -83,7 +84,7 @@ const modules: Record<Locale, PlatformModule[]> = {
     {
       id: 'plant',
       label: 'Inteligencia planta',
-      title: 'Mide merma, ahorro y adopcion en semanas',
+      title: 'Mide merma, ahorro y adopción en semanas',
       description: 'Convierte datos industriales en una capa operativa simple con ahorro visible en moneda local.',
       image: '/n3uralia-brand/food-plant.png',
       metric: '5-10%',
@@ -196,10 +197,10 @@ export function N3uraliaPlatformPreview({ locale }: { locale: Locale }) {
               <h3 className="text-3xl font-semibold leading-tight text-white">{active.title}</h3>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-[#9db7b1]">{active.description}</p>
             </div>
-            <a href="/es/soluciones" className="inline-flex items-center justify-center gap-2 bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0]">
+            <Link href="/es/soluciones" className="inline-flex items-center justify-center gap-2 bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0]">
               {text.cta}
               <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
