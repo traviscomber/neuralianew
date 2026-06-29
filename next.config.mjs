@@ -76,23 +76,20 @@ const nextConfig = {
     const locales = ['es', 'en']
     const redirects = []
 
-    // Legacy routes that existed before locale migration
-    // These redirect to Spanish version with 301 (permanent) redirects for SEO
+    // Legacy routes that existed before locale migration.
+    // Keep bare URLs useful while allowing localized pages to be indexed directly.
     const legacyRoutes = [
-      { source: '/para-empresas', destination: '/soluciones' },
-      { source: '/para-startups', destination: '/soluciones' },
-      { source: '/para-desarrolladores', destination: '/soluciones' },
-      { source: '/nuestro-enfoque', destination: '/como-trabajamos' },
+      { source: '/para-empresas', destination: '/es/para-empresas' },
+      { source: '/para-startups', destination: '/es/para-startups' },
+      { source: '/para-desarrolladores', destination: '/es/para-desarrolladores' },
+      { source: '/nuestro-enfoque', destination: '/es/nuestro-enfoque' },
     ]
 
-    // Add legacy route redirects for all locales
     legacyRoutes.forEach(({ source, destination }) => {
-      locales.forEach((locale) => {
-        redirects.push({
-          source: `/${locale}${source}`,
-          destination: `/${locale}${destination}`,
-          permanent: true, // 301 redirect for SEO
-        })
+      redirects.push({
+        source,
+        destination,
+        permanent: true,
       })
     })
 
