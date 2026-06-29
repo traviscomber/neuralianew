@@ -19,6 +19,10 @@ type TextBlock = {
   description: string
 }
 
+type Metric = TextBlock & {
+  phase: string
+}
+
 type Capability = TextBlock & {
   icon: typeof Gauge
   signal: string
@@ -47,7 +51,7 @@ type PageContent = {
   heroTitle: string
   heroSubtitle: string
   heroNote: string
-  metrics: TextBlock[]
+  metrics: Metric[]
   flowTitle: string
   flowSubtitle: string
   capabilitiesTitle: string
@@ -82,10 +86,10 @@ const content: Record<Locale, PageContent> = {
       'We design operational systems, AI agents and internal platforms for teams that have outgrown spreadsheets, chat threads and disconnected tools.',
     heroNote: 'Built for Chile and LATAM: mining, field operations, logistics, compliance, real estate and teams with daily execution pressure.',
     metrics: [
-      { title: '30 days', description: 'to validate one operational workflow with real users.' },
-      { title: '90 days', description: 'to ship a connected production layer.' },
-      { title: '4 layers', description: 'dashboard, workflow, agent and integration.' },
-      { title: '1 system', description: 'for visibility, accountability and faster action.' },
+      { phase: 'Validate', title: '30 days', description: 'to validate one operational workflow with real users.' },
+      { phase: 'Build', title: '90 days', description: 'to ship a connected production layer.' },
+      { phase: 'Connect', title: '4 layers', description: 'dashboard, workflow, agent and integration.' },
+      { phase: 'Operate', title: '1 system', description: 'for visibility, accountability and faster action.' },
     ],
     flowTitle: 'From scattered signals to an operating layer',
     flowSubtitle:
@@ -230,10 +234,10 @@ const content: Record<Locale, PageContent> = {
       'Diseñamos sistemas operativos, agentes IA y plataformas internas para equipos que ya superaron las planillas, los chats y las herramientas desconectadas.',
     heroNote: 'Construido para Chile y LATAM: minería, terreno, logística, cumplimiento, inmobiliaria y equipos con presión diaria de ejecución.',
     metrics: [
-      { title: '30 días', description: 'para validar un flujo operativo con usuarios reales.' },
-      { title: '90 días', description: 'para desplegar una capa conectada en producción.' },
-      { title: '4 capas', description: 'tablero, flujo, agente e integración.' },
-      { title: '1 sistema', description: 'para visibilidad, responsabilidad y acción más rápida.' },
+      { phase: 'Validar', title: '30 días', description: 'para validar un flujo operativo con usuarios reales.' },
+      { phase: 'Construir', title: '90 días', description: 'para desplegar una capa conectada en producción.' },
+      { phase: 'Conectar', title: '4 capas', description: 'tablero, flujo, agente e integración.' },
+      { phase: 'Operar', title: '1 sistema', description: 'para visibilidad, responsabilidad y acción más rápida.' },
     ],
     flowTitle: 'De señales dispersas a una capa operativa',
     flowSubtitle:
@@ -514,13 +518,29 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="relative mx-auto grid max-w-7xl gap-px border-t border-[#1e3431] bg-[#1e3431] sm:grid-cols-2 lg:grid-cols-4">
-          {page.metrics.map((metric) => (
-            <div key={metric.title} className="bg-[#071211] px-6 py-6">
-              <p className="text-4xl font-semibold leading-none text-[#f4faf8]">{metric.title}</p>
-              <p className="mt-3 text-sm leading-6 text-[#8fb2aa]">{metric.description}</p>
-            </div>
-          ))}
+        <div className="relative mx-auto max-w-7xl border-t border-[#1e3431] bg-[#071211] px-5 py-5 sm:px-8 lg:px-10">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">
+              {locale === 'es' ? 'Ritmo de implementación' : 'Implementation rhythm'}
+            </p>
+            <p className="text-xs font-medium text-[#789b96]">
+              {locale === 'es' ? 'De una fricción concreta a una capa operativa.' : 'From one concrete drag to an operating layer.'}
+            </p>
+          </div>
+
+          <div className="grid gap-px border border-[#1e3431] bg-[#1e3431] sm:grid-cols-2 lg:grid-cols-4">
+            {page.metrics.map((metric, index) => (
+              <div key={metric.title} className="group relative overflow-hidden bg-[#071211] px-6 py-6 transition-colors hover:bg-[#0d1917]">
+                <div className="absolute inset-x-0 top-0 h-1 bg-[#8fb2aa]/0 transition-colors group-hover:bg-[#8fb2aa]" />
+                <div className="mb-8 flex items-center justify-between gap-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{metric.phase}</p>
+                  <p className="font-mono text-xs text-[#46635d]">0{index + 1}</p>
+                </div>
+                <p className="text-4xl font-semibold leading-none text-[#f4faf8]">{metric.title}</p>
+                <p className="mt-3 text-sm leading-6 text-[#8fb2aa]">{metric.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
