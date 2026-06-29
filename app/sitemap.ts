@@ -7,8 +7,54 @@ const primaryRoutes = [
   "",
   "/contact",
   "/soluciones",
+  "/services",
+  "/platform",
+  "/capabilities",
+  "/como-trabajamos",
   "/case-studies",
   "/blog",
+  "/faq",
+  "/about",
+] as const
+
+const solutionRoutes = [
+  "/agentic-systems",
+  "/ai-infrastructure",
+  "/automatizacion-para-empresas",
+  "/automatizacion-ventas-leads",
+  "/conversational-intelligence",
+  "/integraciones-empresariales",
+  "/operaciones-autonomas",
+] as const
+
+const audienceRoutes = [
+  "/para-empresas",
+  "/para-startups",
+  "/para-desarrolladores",
+] as const
+
+const platformRoutes = [
+  "/platform/nodes",
+  "/platform/patterns",
+  "/platform/security",
+] as const
+
+const knowledgeRoutes = [
+  "/studies",
+  "/studies/agentic-ai",
+  "/studies/agentic-brainstorming",
+  "/studies/ai-memory",
+  "/studies/context-engineering",
+  "/studies/production-grade-agentic-systems",
+  "/studies/world-engine",
+  "/learning-hub",
+  "/living-agents",
+  "/nodes",
+  "/nuestro-enfoque",
+  "/outcomes",
+  "/patterns",
+  "/playbooks",
+  "/security",
 ] as const
 
 const blogRoutes = [
@@ -26,14 +72,19 @@ const caseStudyRoutes = [
 
 const allRoutes = [
   ...primaryRoutes,
+  ...solutionRoutes,
+  ...audienceRoutes,
+  ...platformRoutes,
+  ...knowledgeRoutes,
   ...blogRoutes,
   ...caseStudyRoutes,
 ] as const
 
 function getPriority(route: string) {
   if (route === "") return 1
-  if (["/soluciones", "/contact", "/case-studies", "/blog"].includes(route)) return 0.9
-  if (route.startsWith("/case-studies/") || route.startsWith("/blog/")) return 0.8
+  if (["/soluciones", "/contact", "/case-studies", "/blog", "/services", "/platform", "/capabilities"].includes(route)) return 0.9
+  if (route.startsWith("/case-studies/") || route.startsWith("/blog/") || route.startsWith("/studies/")) return 0.8
+  if (route.startsWith("/platform/")) return 0.75
   return 0.7
 }
 
