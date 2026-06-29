@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
   }
 
   const descriptions = {
-    es: 'Sistemas de IA, workflows agénticos y software en producción para equipos en Chile y LATAM.',
+    es: 'Sistemas de IA, workflows agenticos y software en produccion para equipos en Chile y LATAM.',
     en: 'Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.',
   }
 
@@ -52,7 +52,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   return (
-    <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Navigation locale={locale} />
       {children}
       <ScrollToTop />

@@ -137,7 +137,9 @@ export async function middleware(request: NextRequest) {
     redirectUrl.protocol = "https"
     redirectUrl.hostname = "www.n3uralia.com"
 
-    if (!pathname.startsWith("/api") && !isStaticAsset && !isRootMetadataFile && !getLocale(pathname)) {
+    if (pathname === "/") {
+      redirectUrl.pathname = "/en/"
+    } else if (!pathname.startsWith("/api") && !isStaticAsset && !isRootMetadataFile && !getLocale(pathname)) {
       const acceptLanguage = request.headers.get("accept-language") || ""
       const preferredLocale = acceptLanguage
         .split(",")[0]
@@ -158,6 +160,11 @@ export async function middleware(request: NextRequest) {
     const locale = getLocale(pathname)
 
     if (!locale) {
+      if (pathname === "/") {
+        request.nextUrl.pathname = "/en/"
+        return NextResponse.redirect(request.nextUrl)
+      }
+
       const acceptLanguage = request.headers.get("accept-language") || ""
       const preferredLocale = acceptLanguage
         .split(",")[0]
