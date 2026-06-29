@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle2, Database, FileSearch, Gauge, Network, ShieldC
 import { N3uraliaHeroSystem } from '@/components/n3uralia-hero-system'
 import { N3uraliaLandingConsole } from '@/components/n3uralia-landing-console'
 import { N3uraliaPlatformPreview } from '@/components/n3uralia-platform-preview'
+import { Footer } from '@/components/layout/footer'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
 import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_TWITTER_HANDLE } from '@/lib/site'
 
@@ -1364,6 +1365,8 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   )
 }
