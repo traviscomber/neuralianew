@@ -25,7 +25,9 @@ const NAV_COPY = {
     projects: 'Proyectos',
     method: 'Método',
     why: 'Por qué',
+    solutionCta: 'Ver soluciones',
     cta: 'Agendar diagnóstico',
+    language: 'EN',
     open: 'Abrir menú',
     close: 'Cerrar menú',
   },
@@ -36,7 +38,9 @@ const NAV_COPY = {
     projects: 'Projects',
     method: 'Method',
     why: 'Why',
+    solutionCta: 'Open solutions',
     cta: 'Book diagnosis',
+    language: 'ES',
     open: 'Open menu',
     close: 'Close menu',
   },
@@ -49,11 +53,13 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   const copy = NAV_COPY[locale]
   const localizedHash = (hash: string) => `/${locale}${hash}`
   const contactHref = `/${locale}/contact`
+  const solutionsHref = '/es/soluciones'
+  const languageHref = locale === 'es' ? '/en' : '/es'
 
   const items: NavItem[] = [
     { hash: '#capabilities', label: copy.capabilities, href: localizedHash('#capabilities') },
     { hash: '#platform-preview', label: copy.platform, href: localizedHash('#platform-preview') },
-    { hash: '#solutions', label: copy.solutions, href: '/es/soluciones', external: true },
+    { hash: '#solutions', label: copy.solutions, href: solutionsHref, external: true },
     { hash: '#case-studies', label: copy.projects, href: localizedHash('#case-studies') },
     { hash: '#how-we-work', label: copy.method, href: localizedHash('#how-we-work') },
     { hash: '#about', label: copy.why, href: localizedHash('#about') },
@@ -125,6 +131,21 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
 
         <div className="flex items-center justify-end gap-3">
           <Link
+            href={languageHref}
+            className="hidden h-11 items-center justify-center rounded-full border border-[#1e3431] bg-[#0b1715] px-4 text-xs font-semibold uppercase tracking-[0.18em] text-[#9db7b1] transition-colors hover:border-[#789b96] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] sm:inline-flex"
+            aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}
+          >
+            {copy.language}
+          </Link>
+
+          <Link
+            href={solutionsHref}
+            className="hidden rounded-full border border-[#28413d] bg-[#0b1715] px-5 py-3 text-sm font-semibold text-[#d9e3e0] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8fb2aa] hover:bg-[#142522] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] xl:inline-flex"
+          >
+            {copy.solutionCta}
+          </Link>
+
+          <Link
             href={contactHref}
             className="hidden rounded-full bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] shadow-[0_22px_55px_-34px_#8fb2aa] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] md:inline-flex"
           >
@@ -161,12 +182,30 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
                 </Link>
               )
             })}
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              <Link
+                href={solutionsHref}
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full border border-[#28413d] bg-[#0b1715] px-4 py-3 text-sm font-semibold text-[#d9e3e0] transition-colors hover:border-[#8fb2aa] hover:bg-[#142522] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+              >
+                {copy.solutionCta}
+              </Link>
+              <Link
+                href={contactHref}
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full bg-[#8fb2aa] px-4 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+              >
+                {copy.cta}
+              </Link>
+            </div>
+
             <Link
-              href={contactHref}
+              href={languageHref}
               onClick={() => setOpen(false)}
-              className="mt-3 inline-flex items-center justify-center rounded-full bg-[#8fb2aa] px-4 py-3 text-sm font-semibold text-[#06100f] transition-colors hover:bg-[#d9e3e0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+              className="mt-2 inline-flex items-center justify-center rounded-full border border-[#1e3431] px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#9db7b1] transition-colors hover:bg-[#142522] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] sm:hidden"
+              aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}
             >
-              {copy.cta}
+              {copy.language}
             </Link>
           </div>
         </div>
