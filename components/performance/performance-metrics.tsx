@@ -71,7 +71,7 @@ export function PerformanceMetrics() {
         ttfbObserver.observe({ entryTypes: ["navigation"] })
         observers.push(ttfbObserver)
       } catch (error) {
-        console.warn("[v0] Could not observe performance metrics:", error)
+        console.warn("[N3uralia] Could not observe performance metrics:", error)
       }
     }
 

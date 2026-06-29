@@ -38,7 +38,7 @@ Tu objetivo: entender el proyecto Y hacer que el usuario sea 80% más claro sobr
 
     if (!response.ok) {
       const error = await response.json()
-      console.error("[v0] OpenAI API Error:", error)
+      console.error("[N3uralia] OpenAI API Error:", error)
       return new Response(JSON.stringify({ error: error.error.message }), {
         status: response.status,
         headers: { "Content-Type": "application/json" },
@@ -94,7 +94,7 @@ Tu objetivo: entender el proyecto Y hacer que el usuario sea 80% más claro sobr
       },
     })
   } catch (error) {
-    console.error("[v0] Chat API Error:", error)
+    console.error("[N3uralia] Chat API Error:", error)
     return new Response(JSON.stringify({ error: "Error processing chat" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },

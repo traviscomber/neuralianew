@@ -42,7 +42,7 @@ export function OptimizedImage({
 
   const handleError = () => {
     setHasError(true)
-    console.warn(`[v0] Failed to load image: ${src}`)
+    console.warn(`[N3uralia] Failed to load image: ${src}`)
   }
 
   if (hasError) {
