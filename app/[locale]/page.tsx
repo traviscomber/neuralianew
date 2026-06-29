@@ -34,6 +34,10 @@ type StartPath = TextBlock & {
   outcome: string
 }
 
+type TrustSignal = TextBlock & {
+  value: string
+}
+
 type PageContent = {
   title: string
   description: string
@@ -48,6 +52,9 @@ type PageContent = {
   capabilitiesTitle: string
   capabilitiesSubtitle: string
   capabilities: Capability[]
+  trustTitle: string
+  trustSubtitle: string
+  trustSignals: TrustSignal[]
   projectsTitle: string
   projectsSubtitle: string
   projects: Project[]
@@ -123,6 +130,31 @@ const content: Record<Locale, PageContent> = {
         description: 'Roles, permissions, audit trails and escalation paths so AI becomes operationally safe.',
       },
     ],
+    trustTitle: 'Built for operations where the details matter',
+    trustSubtitle:
+      'N3uralia works best when the company needs real software discipline, not a generic AI wrapper.',
+    trustSignals: [
+      {
+        value: '01',
+        title: 'No template thinking',
+        description: 'Each system starts from the real process, owners, documents, risks and business rules.',
+      },
+      {
+        value: '02',
+        title: 'Production-minded AI',
+        description: 'Agents are designed with context, permissions, traceability and escalation paths from the beginning.',
+      },
+      {
+        value: '03',
+        title: 'Integration before replacement',
+        description: 'We connect the tools already in use instead of forcing a full operational reset.',
+      },
+      {
+        value: '04',
+        title: 'Designed for Chile and LATAM',
+        description: 'The work respects local teams, compliance pressure, budgets and adoption realities.',
+      },
+    ],
     projectsTitle: 'Proof that the system can look and work like the operation',
     projectsSubtitle:
       'Quiet enterprise interfaces, real operational imagery and dashboards designed to be useful before they feel decorative.',
@@ -151,7 +183,7 @@ const content: Record<Locale, PageContent> = {
     ],
     startTitle: 'Choose the entry point that matches your operational pressure',
     startSubtitle:
-      'The site should make one thing clear: N3uralia can begin small, prove value quickly, and grow into a production system when the problem deserves it.',
+      'Start with the smallest useful operating layer, prove value with real users, and scale only when the problem deserves it.',
     startPaths: [
       {
         label: '01',
@@ -246,6 +278,31 @@ const content: Record<Locale, PageContent> = {
         description: 'Roles, permisos, auditoría y escalamiento para que la IA sea segura en la operación.',
       },
     ],
+    trustTitle: 'Construido para operaciones donde los detalles importan',
+    trustSubtitle:
+      'N3uralia funciona mejor cuando la empresa necesita disciplina real de software, no una capa genérica de IA.',
+    trustSignals: [
+      {
+        value: '01',
+        title: 'Sin pensar en plantillas',
+        description: 'Cada sistema parte del proceso real, responsables, documentos, riesgos y reglas del negocio.',
+      },
+      {
+        value: '02',
+        title: 'IA pensada para producción',
+        description: 'Los agentes se diseñan con contexto, permisos, trazabilidad y rutas de escalamiento desde el inicio.',
+      },
+      {
+        value: '03',
+        title: 'Integrar antes que reemplazar',
+        description: 'Conectamos las herramientas que ya existen en vez de forzar un reinicio operacional completo.',
+      },
+      {
+        value: '04',
+        title: 'Diseñado para Chile y LATAM',
+        description: 'El trabajo respeta equipos locales, presión de cumplimiento, presupuestos y adopción real.',
+      },
+    ],
     projectsTitle: 'Prueba de que el sistema puede verse y funcionar como la operación',
     projectsSubtitle:
       'Interfaces empresariales sobrias, imágenes reales y tableros diseñados para ser útiles antes que decorativos.',
@@ -274,7 +331,7 @@ const content: Record<Locale, PageContent> = {
     ],
     startTitle: 'Elige una entrada proporcional a tu presión operativa',
     startSubtitle:
-      'La ruta debe sentirse concreta: N3uralia puede partir pequeño, probar valor rápido y crecer a un sistema en producción cuando el problema lo merece.',
+      'Parte con la capa operativa útil más pequeña, prueba valor con usuarios reales y escala solo cuando el problema lo merece.',
     startPaths: [
       {
         label: '01',
@@ -364,14 +421,64 @@ function PrimaryLink({ href, children, tone = 'dark' }: { href: string; children
   )
 }
 
+function buildJsonLd(locale: Locale, page: PageContent) {
+  const baseUrl = `https://www.n3uralia.com/${locale}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.n3uralia.com/#organization',
+        name: 'N3uralia',
+        url: 'https://www.n3uralia.com',
+        logo: 'https://www.n3uralia.com/n3uralia-brand/n3uralia-wordmark.png',
+        description: page.description,
+        areaServed: ['Chile', 'LATAM'],
+        knowsAbout: [
+          'Operational software',
+          'AI agents',
+          'Workflow automation',
+          'Document intelligence',
+          'Operational dashboards',
+        ],
+      },
+      {
+        '@type': 'SoftwareApplication',
+        '@id': `${baseUrl}#operating-layer`,
+        name: locale === 'es' ? 'Capa operativa N3uralia' : 'N3uralia Operating Layer',
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        description: page.heroSubtitle,
+        provider: {
+          '@id': 'https://www.n3uralia.com/#organization',
+        },
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${baseUrl}#webpage`,
+        url: baseUrl,
+        name: page.title,
+        description: page.description,
+        inLanguage: locale === 'es' ? 'es-CL' : 'en',
+        about: {
+          '@id': `${baseUrl}#operating-layer`,
+        },
+      },
+    ],
+  }
+}
+
 export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   const contactHref = href(locale, '/contact')
   const solutionsHref = '/es/soluciones'
+  const jsonLd = buildJsonLd(locale, page)
 
   return (
     <main id="top" className="overflow-hidden bg-[#fbfbfa] text-[#52605d]">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <section className="relative min-h-[calc(100vh-20px)] overflow-hidden border-b border-[#1e3431] bg-[#06100f] pt-24 text-white">
         <div className="absolute inset-x-0 top-0 h-px bg-[#789b96]/35" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,16,15,0)_0%,rgba(6,16,15,0.34)_58%,#06100f_100%)]" />
@@ -472,6 +579,29 @@ export default function HomePage({ params }: PageProps) {
                 </article>
               )
             })}
+          </div>
+        </div>
+      </section>
+
+      <section id="trust" className="scroll-mt-28 border-y border-[#d8e5e2] bg-[#f1f6f4] px-5 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.18fr]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Criterios' : 'Trust criteria'}</p>
+            <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.trustTitle}</h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-[#65706d]">{page.trustSubtitle}</p>
+          </div>
+
+          <div className="grid gap-px border border-[#c9d9d5] bg-[#c9d9d5] md:grid-cols-2">
+            {page.trustSignals.map((signal) => (
+              <article key={signal.title} className="bg-white p-6">
+                <div className="mb-8 flex items-center justify-between border-b border-[#d8e5e2] pb-5">
+                  <span className="text-sm font-semibold text-[#789b96]">{signal.value}</span>
+                  <CheckCircle2 className="h-5 w-5 text-[#789b96]" />
+                </div>
+                <h3 className="text-2xl font-light leading-tight text-[#173634]">{signal.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[#65706d]">{signal.description}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
