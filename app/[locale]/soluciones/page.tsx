@@ -133,7 +133,7 @@ const content = {
     ctaSubtitle:
       "La pregunta no es si tu industria es especial. La pregunta es si hoy tienes fricción, volumen y decisiones repetibles. Si la respuesta es sí, hay espacio para construir algo fuerte.",
     primaryCta: "Hablar con N3uralia",
-    secondaryCta: "Ver landing en simple",
+    secondaryCta: "Ver cómo funciona",
   },
   en: {
     metadataTitle: "Solutions | N3uralia",
@@ -241,7 +241,7 @@ const content = {
     ctaSubtitle:
       "The question is not whether your industry is special. The question is whether you already have friction, volume, and repeatable decisions. If yes, there is room to build something strong.",
     primaryCta: "Talk to N3uralia",
-    secondaryCta: "View simple landing",
+    secondaryCta: "See how it works",
   },
 } as const
 
@@ -404,7 +404,7 @@ export default function SolucionesPage({ params }: PageProps) {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
-                  href={href(locale, "/#explainer")}
+                  href={href(locale, "/#flow")}
                   className="inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
                 >
                   {page.secondaryCta}
