@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Footer } from '@/components/layout/footer'
 import { PersonalityRadar } from '@/components/living-agents/personality-radar'
+import type { Locale } from '@/lib/get-locale'
 
 const ARCHETYPES = [
   {
@@ -51,7 +52,11 @@ interface Message {
   timestamp: Date
 }
 
-export function DemoContent() {
+interface DemoContentProps {
+  locale: Locale
+}
+
+export function DemoContent({ locale }: DemoContentProps) {
   const [selectedAgent, setSelectedAgent] = useState(ARCHETYPES[0])
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -113,7 +118,7 @@ export function DemoContent() {
               className="gap-2 bg-transparent"
               asChild
             >
-              <Link href="/living-agents/evolution">
+              <Link href={`/${locale}/living-agents/evolution`}>
                 <BarChart3 className="w-4 h-4" />
                 Evolución
               </Link>

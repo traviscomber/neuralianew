@@ -22,10 +22,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function DemoPage() {
+export default function DemoPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <SectionBackground section="hero">
-      <DemoContent />
+      <DemoContent locale={locale} />
     </SectionBackground>
   )
 }
