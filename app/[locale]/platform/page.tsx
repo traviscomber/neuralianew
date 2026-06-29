@@ -19,19 +19,19 @@ const content = {
   es: {
     metadataTitle: "Plataforma | N3uralia",
     metadataDescription:
-      "La capa de plataforma de N3uralia: orquestacion, integraciones, memoria y control para sistemas de IA en produccion.",
+      "La capa de plataforma de N3uralia: orquestación, integraciones, memoria y control para sistemas de IA en producción.",
     title: "La plataforma no es un panel bonito. Es la capa que hace operable el sistema.",
     subtitle:
-      "Cuando hablamos de plataforma, hablamos de la arquitectura que conecta software, datos, agentes y decisiones sin dejar la operacion a la deriva.",
+      "Cuando hablamos de plataforma, hablamos de la arquitectura que conecta software, datos, agentes y decisiones sin dejar la operación a la deriva.",
     blocks: [
       {
-        title: "Orquestacion central",
-        description: "Una capa que coordina flujos, reglas, prioridades y handoffs entre componentes humanos y automaticos.",
+        title: "Orquestación central",
+        description: "Una capa que coordina flujos, reglas, prioridades y handoffs entre componentes humanos y automáticos.",
         icon: Workflow,
       },
       {
         title: "Datos e integraciones",
-        description: "Conexion con CRM, ERP, APIs y herramientas operativas para que el contexto real llegue donde tiene que llegar.",
+        description: "Conexión con CRM, ERP, APIs y herramientas operativas para que el contexto real llegue donde tiene que llegar.",
         icon: Database,
       },
       {
@@ -41,11 +41,11 @@ const content = {
       },
       {
         title: "Control y seguridad",
-        description: "Permisos, validaciones y observabilidad para que la automatizacion no quede fuera de gobierno.",
+        description: "Permisos, validaciones y observabilidad para que la automatización no quede fuera de gobierno.",
         icon: Shield,
       },
     ],
-    ctaTitle: "Si tu stack ya existe, la pregunta es como coordinamos mejor todo lo que ya vive ahi",
+    ctaTitle: "Si tu stack ya existe, la pregunta es cómo coordinamos mejor todo lo que ya vive ahí",
     primaryCta: "Ver integraciones",
     secondaryCta: "Hablar con N3uralia",
   },

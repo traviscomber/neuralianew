@@ -20,31 +20,31 @@ const content = {
   es: {
     metadataTitle: "Servicios | N3uralia",
     metadataDescription:
-      "Servicios de N3uralia: sistemas de IA, automatizacion y software full-stack para equipos en Chile y LATAM.",
+      "Servicios de N3uralia: sistemas de IA, automatización y software full-stack para equipos en Chile y LATAM.",
     badge: "Servicios N3uralia",
     title: "Lo que construimos para equipos que quieren salir del piloto eterno",
     subtitle:
-      "Trabajamos en tres frentes: sistemas de IA en produccion, automatizacion conectada a negocio y software full-stack para operaciones que necesitan una base mas fuerte.",
+      "Trabajamos en tres frentes: sistemas de IA en producción, automatización conectada a negocio y software full-stack para operaciones que necesitan una base más fuerte.",
     cards: [
       {
-        title: "Sistemas de IA en produccion",
+        title: "Sistemas de IA en producción",
         description:
-          "Agentes, memoria, flujos y control operacional para equipos que necesitan algo mas serio que un experimento.",
+          "Agentes, memoria, flujos y control operacional para equipos que necesitan algo más serio que un experimento.",
         icon: Bot,
         bullets: [
           "Arquitectura aplicada",
-          "Integracion con sistemas",
+          "Integración con sistemas",
           "Guardrails y monitoreo",
         ],
       },
       {
-        title: "Automatizacion operacional",
+        title: "Automatización operacional",
         description:
           "Procesos que dejan de depender de seguimiento manual y empiezan a correr con reglas, contexto y trazabilidad.",
         icon: Workflow,
         bullets: [
           "Workflows reales",
-          "Menos friccion humana",
+          "Menos fricción humana",
           "Impacto medible",
         ],
       },
@@ -60,16 +60,16 @@ const content = {
         ],
       },
     ],
-    processTitle: "Como lo aterrizamos",
+    processTitle: "Cómo lo aterrizamos",
     process: [
-      "Diagnostico tecnico y de negocio.",
+      "Diagnóstico técnico y de negocio.",
       "Arquitectura y plan de entrega.",
-      "Construccion por iteraciones visibles.",
-      "Validacion y handoff operacional.",
+      "Construcción por iteraciones visibles.",
+      "Validación y handoff operacional.",
     ],
     ctaTitle: "Si ya sabes que el problema importa, podemos ayudarte a construir la respuesta",
     ctaSubtitle:
-      "No hace falta partir por todo. Podemos definir si conviene un piloto, una integracion o un sistema completo.",
+      "No hace falta partir por todo. Podemos definir si conviene un piloto, una integración o un sistema completo.",
     primaryCta: "Hablar con el equipo",
     secondaryCta: "Ver soluciones",
   },
