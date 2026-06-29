@@ -50,6 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           es: absoluteUrl(`/es${route}`),
           en: absoluteUrl(`/en${route}`),
+          "x-default": absoluteUrl(`/en${route}`),
         },
       },
     })),
