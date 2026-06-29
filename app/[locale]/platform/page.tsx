@@ -4,6 +4,7 @@ import { ArrowRight, Database, GitBranch, Shield, Workflow } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -88,17 +89,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/platform",
     title: page.metadataTitle,
     description: page.metadataDescription,
-    alternates: {
-      canonical: `https://www.n3uralia.com/${locale}/platform`,
-      languages: {
-        es: "https://www.n3uralia.com/es/platform",
-        en: "https://www.n3uralia.com/en/platform",
-      },
-    },
-  }
+  })
 }
 
 export default function PlatformPage({ params }: PageProps) {
