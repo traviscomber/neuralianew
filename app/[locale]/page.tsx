@@ -62,6 +62,11 @@ type TrustSignal = TextBlock & {
   avoids: string
 }
 
+type MethodStep = TextBlock & {
+  deliverable: string
+  control: string
+}
+
 type PageContent = {
   title: string
   description: string
@@ -89,7 +94,7 @@ type PageContent = {
   startPaths: StartPath[]
   methodTitle: string
   methodSubtitle: string
-  method: TextBlock[]
+  method: MethodStep[]
   ctaTitle: string
   ctaSubtitle: string
   ctaButton: string
@@ -320,10 +325,30 @@ const content: Record<Locale, PageContent> = {
     methodSubtitle:
       'We keep the work concrete: diagnose, architect, build, integrate and improve with real usage evidence.',
     method: [
-      { title: 'Diagnose', description: 'Map flows, data, documents, teams and bottlenecks.' },
-      { title: 'Architect', description: 'Define what should be dashboard, workflow, agent, portal or integration.' },
-      { title: 'Build', description: 'Ship the first useful system with clear owners and visible outcomes.' },
-      { title: 'Integrate', description: 'Connect it with the tools, permissions and routines the team already uses.' },
+      {
+        title: 'Diagnose',
+        description: 'Map flows, data, documents, teams and bottlenecks.',
+        deliverable: 'Operational map and friction inventory.',
+        control: 'No build starts before owners, data sources and risks are visible.',
+      },
+      {
+        title: 'Architect',
+        description: 'Define what should be dashboard, workflow, agent, portal or integration.',
+        deliverable: 'System blueprint and rollout sequence.',
+        control: 'Every component has a job, owner and adoption reason.',
+      },
+      {
+        title: 'Build',
+        description: 'Ship the first useful system with clear owners and visible outcomes.',
+        deliverable: 'Working module with real users.',
+        control: 'Scope stays tied to one operational drag and measurable use.',
+      },
+      {
+        title: 'Integrate',
+        description: 'Connect it with the tools, permissions and routines the team already uses.',
+        deliverable: 'Connected layer with permissions and improvement rhythm.',
+        control: 'The system enters daily work without forcing a reset.',
+      },
     ],
     ctaTitle: 'Move faster. Operate safer. Control more.',
     ctaSubtitle:
@@ -554,10 +579,30 @@ const content: Record<Locale, PageContent> = {
     methodSubtitle:
       'Mantenemos el trabajo concreto: diagnosticar, arquitectar, construir, integrar y mejorar con evidencia de uso real.',
     method: [
-      { title: 'Diagnosticar', description: 'Mapeamos flujos, datos, documentos, equipos y cuellos de botella.' },
-      { title: 'Arquitectar', description: 'Definimos qué debe ser tablero, flujo, agente, portal o integración.' },
-      { title: 'Construir', description: 'Lanzamos el primer sistema útil con responsables claros y resultados visibles.' },
-      { title: 'Integrar', description: 'Lo conectamos con herramientas, permisos y rutinas que el equipo ya usa.' },
+      {
+        title: 'Diagnosticar',
+        description: 'Mapeamos flujos, datos, documentos, equipos y cuellos de botella.',
+        deliverable: 'Mapa operativo e inventario de fricciones.',
+        control: 'No se construye antes de ver responsables, fuentes de datos y riesgos.',
+      },
+      {
+        title: 'Arquitectar',
+        description: 'Definimos qué debe ser tablero, flujo, agente, portal o integración.',
+        deliverable: 'Blueprint del sistema y secuencia de despliegue.',
+        control: 'Cada componente tiene trabajo, responsable y razón de adopción.',
+      },
+      {
+        title: 'Construir',
+        description: 'Lanzamos el primer sistema útil con responsables claros y resultados visibles.',
+        deliverable: 'Módulo funcional con usuarios reales.',
+        control: 'El alcance se mantiene atado a una fricción operativa medible.',
+      },
+      {
+        title: 'Integrar',
+        description: 'Lo conectamos con herramientas, permisos y rutinas que el equipo ya usa.',
+        deliverable: 'Capa conectada con permisos y ritmo de mejora.',
+        control: 'El sistema entra al trabajo diario sin forzar un reinicio.',
+      },
     ],
     ctaTitle: 'Muévete más rápido. Opera más seguro. Controla más.',
     ctaSubtitle:
@@ -1017,6 +1062,18 @@ export default function HomePage({ params }: PageProps) {
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{locale === 'es' ? 'Método' : 'Method'}</p>
             <h2 className="mt-5 text-4xl font-light leading-tight text-[#173634] md:text-6xl">{page.methodTitle}</h2>
             <p className="mt-6 text-base leading-8 text-[#65706d]">{page.methodSubtitle}</p>
+            <div className="mt-8 grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] sm:grid-cols-3">
+              {[
+                locale === 'es' ? 'Entrar liviano' : 'Enter lightly',
+                locale === 'es' ? 'Probar con uso real' : 'Prove with real use',
+                locale === 'es' ? 'Escalar con control' : 'Scale with control',
+              ].map((principle, index) => (
+                <div key={principle} className="bg-white px-4 py-3">
+                  <p className="font-mono text-xs text-[#a7b9b4]">0{index + 1}</p>
+                  <p className="mt-2 text-sm font-semibold text-[#173634]">{principle}</p>
+                </div>
+              ))}
+            </div>
             <div className="relative mt-10 aspect-[1.55] overflow-hidden border border-[#d8e5e2] bg-white">
               <Image src="/n3uralia-brand/field-team.png" alt="Operational field team" fill sizes="(min-width: 1024px) 38vw, 92vw" className="object-cover grayscale" />
             </div>
@@ -1024,11 +1081,28 @@ export default function HomePage({ params }: PageProps) {
 
           <div className="grid gap-px border border-[#d8e5e2] bg-[#d8e5e2]">
             {page.method.map((step, index) => (
-              <div key={step.title} className="grid gap-5 bg-white p-7 md:grid-cols-[90px_1fr]">
-                <span className="text-6xl font-light leading-none text-[#c7d3cf]">0{index + 1}</span>
+              <div key={step.title} className="group grid gap-5 bg-white p-7 transition-colors hover:bg-[#f7faf8] md:grid-cols-[90px_1fr]">
+                <div>
+                  <span className="text-6xl font-light leading-none text-[#c7d3cf] transition-colors group-hover:text-[#8fb2aa]">0{index + 1}</span>
+                  <div className="mt-4 hidden h-full w-px bg-[#d8e5e2] md:block" />
+                </div>
                 <div>
                   <h3 className="text-2xl font-light text-[#173634]">{step.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-[#65706d]">{step.description}</p>
+                  <div className="mt-5 grid gap-3 lg:grid-cols-2">
+                    <div className="border border-[#d8e5e2] bg-[#fbfbfa] p-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#789b96]">
+                        {locale === 'es' ? 'Entregable' : 'Deliverable'}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[#52605d]">{step.deliverable}</p>
+                    </div>
+                    <div className="border border-[#d8e5e2] bg-[#f1f6f4] p-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#789b96]">
+                        {locale === 'es' ? 'Control' : 'Control'}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[#52605d]">{step.control}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
