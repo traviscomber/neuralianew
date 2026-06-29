@@ -74,7 +74,9 @@ const studies = [
   },
 ]
 
-export default function StudiesPage() {
+export default function StudiesPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
       <SectionBackground section="hero">
@@ -107,7 +109,7 @@ export default function StudiesPage() {
               return (
                 <Link
                   key={study.id}
-                  href={study.slug}
+                  href={`/${locale}${study.slug}`}
                   className="group p-8 border border-border rounded-lg hover:border-primary/40 hover:bg-primary/5 transition-all bg-card"
                 >
                   <Icon className="w-10 h-10 text-primary mb-4 group-hover:scale-110 transition-transform" />
@@ -136,7 +138,7 @@ export default function StudiesPage() {
           </p>
           <p className="text-sm text-muted-foreground">
             Para aplicaciones prácticas de estos conceptos, visita nuestra{" "}
-            <Link href="/capabilities" className="text-primary hover:text-primary/80 font-medium">
+            <Link href={`/${locale}/capabilities`} className="text-primary hover:text-primary/80 font-medium">
               sección de Capacidades
             </Link>
             .

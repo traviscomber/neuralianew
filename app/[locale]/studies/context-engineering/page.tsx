@@ -23,12 +23,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function ContextEngineeringPage() {
+export default function ContextEngineeringPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
       <section className="pt-32 pb-16 px-4 border-b border-border">
         <div className="max-w-3xl mx-auto">
-          <Link href="/studies" className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium">
+          <Link href={`/${locale}/studies`} className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium">
             <ArrowLeft className="w-4 h-4" />
             Volver a Estudios
           </Link>
@@ -107,15 +109,15 @@ export default function ContextEngineeringPage() {
           <div className="mb-16 p-8 border border-primary/20 bg-primary/5 rounded-lg">
             <h2 className="h3 text-foreground mb-4">Conceptos Relacionados</h2>
             <div className="space-y-3">
-              <Link href="/studies/agentic-ai" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/agentic-ai`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">Agentic AI</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/ai-memory" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/ai-memory`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">AI Memory</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/world-engine" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/world-engine`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">World Engine</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
@@ -128,7 +130,7 @@ export default function ContextEngineeringPage() {
               Nuestro Motor de Contexto Inteligente implementa estos principios. Cada proyecto comienza con ingeniería
               contextual profunda.
             </p>
-            <Link href="/capabilities" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+            <Link href={`/${locale}/capabilities`} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
               Ver Capacidades
               <ArrowRight className="w-4 h-4" />
             </Link>

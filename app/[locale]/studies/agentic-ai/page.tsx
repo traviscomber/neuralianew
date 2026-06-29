@@ -24,7 +24,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function AgenticAIPage() {
+export default function AgenticAIPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
       <SectionBackground section="blog" className="border-b border-border">
@@ -32,7 +34,7 @@ export default function AgenticAIPage() {
       <section className="pt-32 pb-16 px-4 border-b border-border">
         <div className="max-w-3xl mx-auto">
           <Link
-            href="/studies"
+            href={`/${locale}/studies`}
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -145,15 +147,15 @@ export default function AgenticAIPage() {
           <div className="mb-16 p-8 border border-primary/20 bg-primary/5 rounded-lg">
             <h2 className="h3 text-foreground mb-4">Conceptos Relacionados</h2>
             <div className="space-y-3">
-              <Link href="/studies/ai-memory" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/ai-memory`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">AI Memory - Sistema Operativo de Memoria</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/context-engineering" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/context-engineering`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">Context Engineering - Ingeniería del Contexto</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/world-engine" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/world-engine`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">World Engine - Motor de Mundo</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
@@ -167,7 +169,7 @@ export default function AgenticAIPage() {
               Agentic AI es el corazón de nuestra arquitectura Multi-Agente. Nuestro Consejo de Expertos demuestra cómo
               múltiples agentes pueden colaborar para tomar decisiones complejas.
             </p>
-            <Link href="/capabilities" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+            <Link href={`/${locale}/capabilities`} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
               Ver Arquitectura en Acción
               <ArrowRight className="w-4 h-4" />
             </Link>

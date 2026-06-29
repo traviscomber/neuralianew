@@ -24,13 +24,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function BlogPost() {
+export default function BlogPost({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <>
       <SectionBackground section="blog">
       <main className="min-h-screen bg-background">
         <article className="max-w-3xl mx-auto py-16 px-4">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
+          <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
             <ArrowLeft className="w-4 h-4" />
             Volver al Blog
           </Link>
@@ -150,7 +152,7 @@ export default function BlogPost() {
               ¿Quieres desplegar agentes orquestados en tu empresa?
             </p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Comenzar Conversación
