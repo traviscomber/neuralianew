@@ -97,6 +97,7 @@ type PageContent = {
   method: MethodStep[]
   ctaTitle: string
   ctaSubtitle: string
+  ctaSignals: TextBlock[]
   ctaButton: string
 }
 
@@ -353,6 +354,20 @@ const content: Record<Locale, PageContent> = {
     ctaTitle: 'Move faster. Operate safer. Control more.',
     ctaSubtitle:
       'Start with one operational drag and turn it into a system your team can actually use.',
+    ctaSignals: [
+      {
+        title: 'No full reset required',
+        description: 'We start from the tools, documents and routines your team already uses.',
+      },
+      {
+        title: 'One workflow is enough',
+        description: 'A useful first layer can begin with one concrete operational drag.',
+      },
+      {
+        title: 'Built to become production',
+        description: 'The path includes owners, permissions, monitoring and adoption evidence.',
+      },
+    ],
     ctaButton: 'Open solutions',
   },
   es: {
@@ -607,6 +622,20 @@ const content: Record<Locale, PageContent> = {
     ctaTitle: 'Muévete más rápido. Opera más seguro. Controla más.',
     ctaSubtitle:
       'Parte con una fricción operativa y conviértela en un sistema que tu equipo pueda usar de verdad.',
+    ctaSignals: [
+      {
+        title: 'No exige reiniciar todo',
+        description: 'Partimos desde herramientas, documentos y rutinas que tu equipo ya usa.',
+      },
+      {
+        title: 'Un flujo basta para empezar',
+        description: 'La primera capa útil puede nacer desde una fricción operativa concreta.',
+      },
+      {
+        title: 'Pensado para producción',
+        description: 'El camino incluye responsables, permisos, monitoreo y evidencia de adopción.',
+      },
+    ],
     ctaButton: 'Abrir soluciones',
   },
 }
@@ -1111,11 +1140,21 @@ export default function HomePage({ params }: PageProps) {
       </section>
 
       <section id="about" className="scroll-mt-28 bg-[#102624] px-5 py-24 text-white sm:px-8 lg:px-10">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.58fr] lg:items-stretch">
           <div>
             <LogoWordmark className="h-auto w-56 brightness-0 invert opacity-80" />
             <h2 className="mt-10 max-w-4xl text-4xl font-light leading-tight md:text-7xl">{page.ctaTitle}</h2>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-white/70">{page.ctaSubtitle}</p>
+
+            <div className="mt-9 grid gap-px border border-white/10 bg-white/10 md:grid-cols-3">
+              {page.ctaSignals.map((signal) => (
+                <article key={signal.title} className="bg-[#102624] p-5">
+                  <p className="text-sm font-semibold text-white">{signal.title}</p>
+                  <p className="mt-3 text-sm leading-6 text-white/60">{signal.description}</p>
+                </article>
+              ))}
+            </div>
+
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <PrimaryLink href={solutionsHref} tone="light">{page.ctaButton}</PrimaryLink>
               <Link href={contactHref} className="inline-flex items-center justify-center border border-white/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#173634]">
@@ -1123,7 +1162,30 @@ export default function HomePage({ params }: PageProps) {
               </Link>
             </div>
           </div>
-          <Image src="/n3uralia-brand/n3uralia-mark.png" alt="" width={984} height={943} className="hidden h-auto w-72 opacity-20 lg:block" />
+
+          <div className="relative overflow-hidden border border-white/10 bg-[#071211] p-6">
+            <Image src="/n3uralia-brand/n3uralia-mark.png" alt="" width={984} height={943} className="absolute -right-28 -top-24 h-auto w-80 opacity-10" />
+            <div className="relative">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8fb2aa]">
+                {locale === 'es' ? 'Siguiente paso' : 'Next step'}
+              </p>
+              <h3 className="mt-5 text-3xl font-light leading-tight text-white">
+                {locale === 'es' ? 'Elige una fricción. La convertimos en arquitectura.' : 'Choose one drag. We turn it into architecture.'}
+              </h3>
+              <div className="mt-8 grid gap-px border border-white/10 bg-white/10">
+                {[
+                  locale === 'es' ? 'Identificar el flujo' : 'Identify the workflow',
+                  locale === 'es' ? 'Definir el primer sistema útil' : 'Define the first useful system',
+                  locale === 'es' ? 'Conectar con soluciones por sector' : 'Connect it to sector solutions',
+                ].map((step, index) => (
+                  <div key={step} className="grid grid-cols-[42px_1fr] items-center gap-4 bg-[#071211] p-4">
+                    <span className="font-mono text-xs text-[#8fb2aa]">0{index + 1}</span>
+                    <span className="text-sm font-semibold leading-6 text-white/75">{step}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
