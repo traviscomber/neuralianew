@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { ArrowRight, CheckCircle2, Database, FileSearch, Gauge, Network, ShieldCheck, Workflow } from 'lucide-react'
 import { N3uraliaLandingConsole } from '@/components/n3uralia-landing-console'
+import { N3uraliaPlatformPreview } from '@/components/n3uralia-platform-preview'
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from '@/lib/get-locale'
 
 interface PageProps {
@@ -420,6 +421,8 @@ export default function HomePage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      <N3uraliaPlatformPreview locale={locale} />
 
       <section id="solutions" className="scroll-mt-28 border-y border-[#d8e5e2] bg-[#edf4f1] px-5 py-24 sm:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">

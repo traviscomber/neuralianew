@@ -21,6 +21,7 @@ const NAV_COPY = {
   es: {
     capabilities: 'Capacidades',
     solutions: 'Soluciones',
+    platform: 'Plataforma',
     projects: 'Proyectos',
     method: 'Metodo',
     why: 'Por que',
@@ -31,6 +32,7 @@ const NAV_COPY = {
   en: {
     capabilities: 'Capabilities',
     solutions: 'Solutions',
+    platform: 'Platform',
     projects: 'Projects',
     method: 'Method',
     why: 'Why',
@@ -50,6 +52,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
 
   const items: NavItem[] = [
     { hash: '#capabilities', label: copy.capabilities, href: localizedHash('#capabilities') },
+    { hash: '#platform-preview', label: copy.platform, href: localizedHash('#platform-preview') },
     { hash: '#solutions', label: copy.solutions, href: '/es/soluciones', external: true },
     { hash: '#case-studies', label: copy.projects, href: localizedHash('#case-studies') },
     { hash: '#how-we-work', label: copy.method, href: localizedHash('#how-we-work') },
@@ -57,7 +60,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   ]
 
   useEffect(() => {
-    const sectionHashes = ['#top', '#flow', '#capabilities', '#solutions', '#case-studies', '#how-we-work', '#about']
+    const sectionHashes = ['#top', '#flow', '#capabilities', '#platform-preview', '#solutions', '#case-studies', '#how-we-work', '#about']
 
     function updateNavigationState() {
       const documentHeight = document.documentElement.scrollHeight - window.innerHeight
