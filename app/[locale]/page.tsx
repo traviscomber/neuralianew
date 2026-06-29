@@ -50,6 +50,9 @@ type Project = TextBlock & {
 
 type StartPath = TextBlock & {
   label: string
+  bestFor: string
+  deliverable: string
+  decision: string
   outcome: string
 }
 
@@ -289,18 +292,27 @@ const content: Record<Locale, PageContent> = {
         label: '01',
         title: 'Operational diagnosis',
         description: 'Map the current process, data sources, documents, teams and automation opportunities.',
+        bestFor: 'You know the pain, but not the architecture.',
+        deliverable: 'Process map, risk areas and build recommendation.',
+        decision: 'Decide what is worth prototyping first.',
         outcome: 'Best when the problem is visible but the architecture is not clear yet.',
       },
       {
         label: '02',
         title: 'Prototype sprint',
         description: 'Build one dashboard, flow, agent or portal around a concrete workflow and real users.',
+        bestFor: 'You need evidence before a larger commitment.',
+        deliverable: 'Working module with users, feedback and adoption signals.',
+        decision: 'Decide whether to scale, adjust or stop.',
         outcome: 'Best when the team needs proof before committing to a larger system.',
       },
       {
         label: '03',
         title: 'Production operating layer',
         description: 'Connect integrations, permissions, monitoring, roles and ongoing improvement into one system.',
+        bestFor: 'You already need durable software in daily operation.',
+        deliverable: 'Connected layer with permissions, monitoring and improvement rhythm.',
+        decision: 'Decide the rollout sequence and operating ownership.',
         outcome: 'Best when the operation needs durable software, not another temporary tool.',
       },
     ],
@@ -514,18 +526,27 @@ const content: Record<Locale, PageContent> = {
         label: '01',
         title: 'Diagnóstico operacional',
         description: 'Mapeamos proceso actual, fuentes de datos, documentos, equipos y oportunidades de automatización.',
+        bestFor: 'Sabes dónde duele, pero no está clara la arquitectura.',
+        deliverable: 'Mapa de proceso, zonas de riesgo y recomendación de construcción.',
+        decision: 'Decidir qué vale la pena prototipar primero.',
         outcome: 'Ideal cuando el problema es visible, pero la arquitectura todavía no está clara.',
       },
       {
         label: '02',
         title: 'Sprint de prototipo',
         description: 'Construimos un tablero, flujo, agente o portal alrededor de un proceso concreto y usuarios reales.',
+        bestFor: 'Necesitas evidencia antes de comprometerte con algo mayor.',
+        deliverable: 'Módulo funcional con usuarios, feedback y señales de adopción.',
+        decision: 'Decidir si escalar, ajustar o detener.',
         outcome: 'Ideal cuando el equipo necesita evidencia antes de comprometerse con un sistema mayor.',
       },
       {
         label: '03',
         title: 'Capa operativa en producción',
         description: 'Conectamos integraciones, permisos, monitoreo, roles y mejora continua en un solo sistema.',
+        bestFor: 'Ya necesitas software durable dentro de la operación diaria.',
+        deliverable: 'Capa conectada con permisos, monitoreo y ritmo de mejora.',
+        decision: 'Decidir secuencia de despliegue y dueño operativo.',
         outcome: 'Ideal cuando la operación necesita software durable, no otra herramienta temporal.',
       },
     ],
@@ -902,11 +923,30 @@ export default function HomePage({ params }: PageProps) {
 
           <div className="grid gap-px border border-[#d8e5e2] bg-[#d8e5e2] lg:grid-cols-3">
             {page.startPaths.map((path) => (
-              <article key={path.title} className="bg-white p-7">
-                <p className="text-6xl font-light leading-none text-[#c7d3cf]">{path.label}</p>
+              <article key={path.title} className="group bg-white p-7 transition-colors hover:bg-[#f7faf8]">
+                <div className="flex items-start justify-between gap-5">
+                  <p className="text-6xl font-light leading-none text-[#c7d3cf] transition-colors group-hover:text-[#8fb2aa]">{path.label}</p>
+                  <span className="border border-[#d8e5e2] bg-[#fbfbfa] px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#789b96]">
+                    {locale === 'es' ? 'Entrada' : 'Entry'}
+                  </span>
+                </div>
                 <h3 className="mt-10 text-2xl font-light leading-tight text-[#173634]">{path.title}</h3>
                 <p className="mt-4 text-sm leading-7 text-[#65706d]">{path.description}</p>
-                <p className="mt-7 border-t border-[#d8e5e2] pt-5 text-sm font-semibold leading-6 text-[#526e69]">{path.outcome}</p>
+
+                <div className="mt-7 grid gap-3 border-t border-[#d8e5e2] pt-5">
+                  {[
+                    { label: locale === 'es' ? 'Ideal si' : 'Best if', text: path.bestFor },
+                    { label: locale === 'es' ? 'Entregable' : 'Deliverable', text: path.deliverable },
+                    { label: locale === 'es' ? 'Decisión' : 'Decision', text: path.decision },
+                  ].map((item) => (
+                    <div key={item.label} className="bg-[#fbfbfa] p-3">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#789b96]">{item.label}</p>
+                      <p className="mt-2 text-sm leading-6 text-[#52605d]">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-5 text-sm font-semibold leading-6 text-[#526e69]">{path.outcome}</p>
               </article>
             ))}
           </div>
