@@ -55,7 +55,7 @@ export default function Navigation({ locale = 'en' }: NavigationProps) {
   const copy = NAV_COPY[locale]
   const localizedHash = (hash: string) => `/${locale}${hash}`
   const contactHref = `/${locale}/contact`
-  const solutionsHref = '/es/soluciones'
+  const solutionsHref = `/${locale}/soluciones`
   const languageHref = locale === 'es' ? '/en' : '/es'
 
   const items: NavItem[] = [
