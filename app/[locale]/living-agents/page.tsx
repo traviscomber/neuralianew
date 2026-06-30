@@ -24,10 +24,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function LivingAgentsPage() {
+export default function LivingAgentsPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <SectionBackground section="hero">
-      <LivingAgentsContent />
+      <LivingAgentsContent locale={locale} />
     </SectionBackground>
   )
 }
