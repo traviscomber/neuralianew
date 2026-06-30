@@ -870,7 +870,7 @@ export default function HomePage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   const contactHref = href(locale, '/contact')
-  const solutionsHref = '/es/soluciones'
+  const solutionsHref = href(locale, '/soluciones')
   const jsonLd = buildJsonLd(locale, page)
 
   return (
