@@ -20,6 +20,10 @@ interface CartContextType {
   clearCart: () => void
   total: number
   itemCount: number
+  deployedAgents: string[]
+  deployAgent: (agentId: string) => void
+  isAgentDeployed: (agentId: string) => boolean
+  isAgentDeploying: (agentId: string) => boolean
 }
 
 const CartContext = createContext<CartContextType>({

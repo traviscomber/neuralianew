@@ -22,65 +22,34 @@ export type Dict = {
     h1: string;
     sub: string;
     trust: string;
-  };
-  pillars: {
-    platformTitle: string;
-    platformDesc: string;
-    agenticTitle: string;
-    agenticDesc: string;
-    infraTitle: string;
-    infraDesc: string;
-  };
-  outcomes: {
-    title: string;
-    subtitle: string;
-  };
-  caseStudies: {
-    title: string;
-    subtitle: string;
-    back: string;
-    industry: string;
-    status: string;
-    implementation: string;
-    scope: string;
-  };
-  agenticEngineering: {
-    headline: string;
-    subheadline: string;
-    humanInLoop: { title: string; description: string };
-    toolAware: { title: string; description: string };
-    vendorAgnostic: { title: string; description: string };
-    builtToShip: { title: string; description: string };
-    manifesto: string[];
-    cta: string;
-  };
-};
-
-export const DICTS: Record<Locale, Dict> = {
-  es: {
-    nav: {
-      platform: "Plataforma",
-      agentic: "Sistemas Agénticos",
-      infra: "Infraestructura IA",
-      playbooks: "Playbooks",
-      caseStudies: "Casos de Éxito",
-      labs: "Labs",
-      nodes: "Nodes",
-      patterns: "Patterns",
-      security: "Seguridad",
-      contact: "Contactar",
-    },
-    cta: {
-      requestReview: "Solicitar revisión de arquitectura",
-      bookCall: "Agendar llamada técnica",
-      viewCaseStudies: "Ver casos de éxito",
-    },
-    home: {
-      h1: "Sistemas Agénticos en Producción",
-      sub:
-        "Orquestación de sistemas agénticos que integran, escalan y evolucionan. Tu operación con inteligencia aumentada, lista para producción desde el día uno.",
-      trust:
-        "Ingeniería de IA para operaciones reales. Sistemas autónomos con gobernanza, observabilidad y fiabilidad.",
+      architecture: {
+        title: "Architecture for Production",
+        subtitle: "Every system we build is designed to operate, not just demonstrate.",
+        items: [
+          "Full observability from day one",
+          "Automated rollback and recovery",
+          "Load testing and continuous integration",
+          "Model governance and versioning",
+          "Security and compliance built-in",
+          "Horizontal scaling without redesign",
+        ],
+      },
+      closing: {
+        title: "Ready to operate on day one.",
+        subtitle: "No experiments. No endless pilots. Agentic systems that work in your real operation.",
+        ctaText: "Book a technical call",
+        microcopy: "No commitment. 30 minutes. Real architecture.",
+      },
+      faq: {
+        title: "Frequently asked questions",
+        subtitle: "What you need to know before getting started.",
+        items: [
+          { q: "How long does it take to implement an agentic system?", a: "Between 6 and 12 weeks depending on scope. We start with a 2-week diagnostic and a 4-week pilot before scaling." },
+          { q: "Do I need to replace my current tech stack?", a: "No. We build on what you have. Our systems integrate with your existing stack without disruption." },
+          { q: "How do you handle security and data privacy?", a: "SOC 2 Type II compliance, encryption in transit and at rest, and on-premise or private VPC deployment options." },
+          { q: "What happens if the system fails?", a: "Full observability, automatic alerts, one-click rollback, and a 99.9% uptime SLA." },
+        ],
+      },
     },
     pillars: {
       platformTitle: "Plataforma",
