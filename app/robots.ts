@@ -1,24 +1,14 @@
-import { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next"
+import { SITE_URL, absoluteUrl } from "@/lib/site"
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/api', '/admin', '/*.json$'],
-      },
-      {
-        userAgent: 'GPTBot',
-        disallow: '/',
-      },
-      {
-        userAgent: 'AdsBot-Google',
-        allow: '/',
-      },
-    ],
-    sitemap: [
-      'https://www.n3uralia.com/sitemap.xml',
-    ],
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/dashboard/", "/admin/"],
+    },
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: SITE_URL,
   }
 }

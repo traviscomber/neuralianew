@@ -54,23 +54,13 @@ const intensityMultiplier = {
  * Renders branded technical backgrounds with proper layering
  */
 export function SectionBackground({
-  section = 'hero',
+  section,
   children,
   className = '',
   animated = true,
   intensity = 'normal',
 }: SectionBackgroundProps) {
   const config = sectionConfig[section];
-  
-  // Fallback if invalid section is provided
-  if (!config) {
-    return (
-      <div className={`relative w-full overflow-hidden bg-background ${className}`}>
-        <div className="relative z-10">{children}</div>
-      </div>
-    );
-  }
-  
   const finalOpacity = Math.min(config.opacity * intensityMultiplier[intensity], 0.3);
 
   return (

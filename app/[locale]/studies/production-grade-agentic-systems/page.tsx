@@ -2,29 +2,37 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Production-Grade Agentic Systems | N3uralia Studies",
-  description:
-    "Deep dive into building agentic AI systems for production environments. Hybrid retrieval, agent orchestration, provenance, memory, and self-repair loops for real-world operations.",
-  keywords: "production agentic AI, agent orchestration, hybrid retrieval, provenance, self-repair loops, production systems, enterprise AI",
-  openGraph: {
-    title: "Production-Grade Agentic Systems | N3uralia",
-    description: "Engineering intelligent agents for production environments",
-    type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/production-grade-agentic-systems",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function ProductionGradeAgenticSystemsPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/production-grade-agentic-systems",
+    type: "article",
+    title: "Production-Grade Agentic Systems | N3uralia Studies",
+    description: "Deep dive into building agentic AI systems for production environments. Hybrid retrieval, agent orchestration, provenance, memory, and self-repair loops for real-world operations.",
+  })
+}
+
+export default function ProductionGradeAgenticSystemsPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
       <section className="pt-32 pb-16 px-4 border-b border-border">
         <div className="max-w-3xl mx-auto">
           <Link
-            href="/studies"
+            href={`/${locale}/studies`}
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -277,21 +285,21 @@ export default function ProductionGradeAgenticSystemsPage() {
             <h2 className="h3 text-foreground mb-4">Conceptos Relacionados</h2>
             <div className="space-y-3">
               <Link
-                href="/studies/agentic-ai"
+                href={`/${locale}/studies/agentic-ai`}
                 className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group"
               >
                 <span className="text-foreground font-medium group-hover:text-primary">Agentic AI - Inteligencia Autónoma</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
               <Link
-                href="/studies/ai-memory"
+                href={`/${locale}/studies/ai-memory`}
                 className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group"
               >
                 <span className="text-foreground font-medium group-hover:text-primary">AI Memory - Sistema de Memoria</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
               <Link
-                href="/studies/context-engineering"
+                href={`/${locale}/studies/context-engineering`}
                 className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group"
               >
                 <span className="text-foreground font-medium group-hover:text-primary">Context Engineering - Ingeniería del Contexto</span>
@@ -308,7 +316,7 @@ export default function ProductionGradeAgenticSystemsPage() {
               N3uralia incorpora estos patrones: hybrid retrieval, orchestration, provenance, memory y self-repair.
             </p>
             <Link
-              href="/capabilities"
+              href={`/${locale}/capabilities`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
             >
               Ver Arquitectura en Producción

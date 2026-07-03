@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Separator } from "@/components/ui/separator"
 import { Star, Users, Clock, CheckCircle, Zap, Brain, Shield, TrendingUp } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
+import { useToast } from "@/hooks/use-toast"
 
 interface Agent {
   id: string
@@ -47,6 +48,7 @@ interface AgentDetailsModalProps {
 export function AgentDetailsModal({ agent, isOpen, onClose, onAddToCart }: AgentDetailsModalProps) {
   const [isLoading, setIsLoading] = useState(false)
   const { items } = useCart()
+  const { toast } = useToast()
 
   const isInCart = items?.some((item) => item.id === agent.id) || false
 
@@ -54,6 +56,16 @@ export function AgentDetailsModal({ agent, isOpen, onClose, onAddToCart }: Agent
     setIsLoading(true)
     try {
       onAddToCart()
+      toast({
+        title: "Added to cart!",
+        description: `${agent.name} has been added to your cart.`,
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to add agent to cart. Please try again.",
+        variant: "destructive",
+      })
     } finally {
       setIsLoading(false)
     }

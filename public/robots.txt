@@ -1,49 +1,6 @@
-# N3uralia Robots Configuration
-# Allow all bots for maximum indexing
-
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /.next
-Disallow: /api/private
+Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-# AI Search Engine Bots - Allow for AI training/indexing
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: BingBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-# Sitemap configuration
-Sitemap: https://n3uralia.com/sitemap.xml
-
-# Crawl delay for respectful indexing
-Crawl-delay: 1
-Request-rate: 10/1s
+# Sitemap
+Sitemap: https://www.n3uralia.com/sitemap.xml

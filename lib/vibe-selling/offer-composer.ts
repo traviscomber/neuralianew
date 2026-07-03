@@ -7,7 +7,7 @@ import type { BuyerIntent } from "./intent-detector"
 
 export interface OfferScope {
   components: string[]
-  datasets: number | string
+  datasets: number
   timelineWeeks: number
   technology: string[]
   pricingModel: "fixed" | "monthly" | "revenue-share"
@@ -127,13 +127,13 @@ const offerTemplates: Record<string, OfferScope> = {
     deliverables: ["White-label", "Estrategia GTM", "División de ingresos"],
   },
   "partner-enterprise": {
-    components: ["Asociación estratégica", "Co-desarrollo", "Integración profunda", "Revenue share: 15-30%"],
-    datasets: 100,
+    components: ["Strategic Partnership", "Equity Option", "Exclusive Territory", "Co-development"],
+    datasets: 999,
     timelineWeeks: 12,
-    technology: ["Infraestructura compartida empresarial"],
+    technology: ["Full Stack Collaboration"],
     pricingModel: "revenue-share",
-    estimatedBudget: "desde 1 millón/mes",
-    deliverables: ["Plataforma co-desarrollada", "Acceso completo a APIs", "Soporte 24/7"],
+    estimatedBudget: "Negotiable - equity/revenue mix",
+    deliverables: ["Strategic Alliance", "Co-IP", "Exclusive Terms"],
   },
 }
 

@@ -123,7 +123,7 @@ export async function GET(request: NextRequest) {
     }, {})
 
     const sortedPages = Object.entries(topPages)
-      .sort(([, a], [, b]) => (b as number) - (a as number))
+      .sort(([, a], [, b]) => b - a)
       .slice(0, 10)
       .map(([url, count]) => ({ url, count }))
 
@@ -133,15 +133,11 @@ export async function GET(request: NextRequest) {
       return acc
     }, {})
 
-    // Conversion types breakdown - sort by count descending
-    const conversionTypesObj = conversions.reduce((acc: Record<string, number>, conversion) => {
+    // Conversion types breakdown
+    const conversionTypes = conversions.reduce((acc: Record<string, number>, conversion) => {
       acc[conversion.conversion_type] = (acc[conversion.conversion_type] || 0) + 1
       return acc
     }, {})
-
-    const conversionTypes = Object.entries(conversionTypesObj)
-      .sort(([, a], [, b]) => (b as number) - (a as number))
-      .reduce((acc, [type, count]) => ({ ...acc, [type]: count }), {})
 
     // Performance metrics breakdown
     const performanceMetrics = performance.reduce(

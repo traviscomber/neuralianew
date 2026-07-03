@@ -274,7 +274,7 @@ export function LivingAgentsContent() {
       </section>
 
       {/* FAQ Section */}
-      <FAQSection />
+      <FAQSection locale="es" />
 
       {/* CTA Section */}
       <section className="py-20 bg-background border-t border-border">

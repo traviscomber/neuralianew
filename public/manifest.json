@@ -1,16 +1,16 @@
 {
-  "name": "N3uralia - Agentes Conversacionales Inteligentes",
-  "short_name": "N3uralia IA",
-  "description": "Desarrollamos sistemas completos de IA full stack: desde agentes conversacionales hasta automatización empresarial. FULL STACK Engineering ■ Agentic Fleet + Custom AGENTS ■ Next Level AI TOOLS for Your Business",
+  "name": "N3uralia - AI and software for real operations",
+  "short_name": "N3uralia",
+  "description": "N3uralia builds operational software, AI agents, dashboards and connected workflows for complex teams in Chile and LATAM.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#3b82f6",
+  "background_color": "#071010",
+  "theme_color": "#173634",
   "orientation": "portrait-primary",
   "categories": ["business", "productivity", "technology"],
-  "lang": "es",
+  "lang": "en",
   "dir": "ltr",
-  "scope": "/",
   "icons": [
     {
       "src": "/n3uralia-logo-new.png",
@@ -27,47 +27,37 @@
   ],
   "screenshots": [
     {
-      "src": "/n3uralia-logo-horizontal.jpg",
+      "src": "/og-image.png",
       "sizes": "1200x630",
-      "type": "image/jpeg",
+      "type": "image/png",
       "platform": "wide",
-      "label": "N3uralia - Agentes Conversacionales Inteligentes Homepage"
+      "label": "N3uralia landing page"
     }
   ],
   "shortcuts": [
     {
-      "name": "Demo Interactivo",
-      "short_name": "Demo",
-      "description": "Prueba nuestros agentes conversacionales",
-      "url": "/test-chat",
+      "name": "Solutions",
+      "short_name": "Solutions",
+      "description": "See the operational AI systems N3uralia can build.",
+      "url": "/es/soluciones",
       "icons": [
         {
           "src": "/n3uralia-logo-new.png",
-          "sizes": "96x96"
+          "sizes": "96x96",
+          "type": "image/png"
         }
       ]
     },
     {
-      "name": "Casos de Éxito",
-      "short_name": "Casos",
-      "description": "Ve nuestros proyectos exitosos",
-      "url": "/#casos-de-uso",
+      "name": "Diagnosis",
+      "short_name": "Diagnosis",
+      "description": "Start an operational diagnosis with N3uralia.",
+      "url": "/es/contact",
       "icons": [
         {
           "src": "/n3uralia-logo-new.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "Contacto",
-      "short_name": "Contacto",
-      "description": "Contáctanos para tu proyecto",
-      "url": "/#contacto",
-      "icons": [
-        {
-          "src": "/n3uralia-logo-new.png",
-          "sizes": "96x96"
+          "sizes": "96x96",
+          "type": "image/png"
         }
       ]
     }
@@ -75,13 +65,13 @@
   "related_applications": [
     {
       "platform": "web",
-      "url": "https://n3uralia.com",
-      "id": "n3uralia-web-app"
+      "url": "https://www.n3uralia.com",
+      "id": "n3uralia-web"
     }
   ],
   "prefer_related_applications": false,
   "edge_side_panel": {
-    "preferred_width": 400
+    "preferred_width": 420
   },
   "launch_handler": {
     "client_mode": "navigate-existing"

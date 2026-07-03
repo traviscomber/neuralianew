@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Footer } from "@/components/layout/footer"
+import { Nav } from "@/components/Nav"
+import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string }
@@ -16,17 +18,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? "Seguridad y gobernanza en sistemas agénticos de producción."
     : "Security and governance in production agentic systems."
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/security",
     title,
     description,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/security`,
-      languages: {
-        es: `https://n3uralia.com/es/security`,
-        en: `https://n3uralia.com/en/security`,
-      },
-    },
-  }
+  })
 }
 
 export default function SecurityPage({ params }: PageProps) {
@@ -35,6 +32,7 @@ export default function SecurityPage({ params }: PageProps) {
 
   return (
     <>
+      <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
         <Section 
           title={d.nav.security} 
@@ -70,7 +68,7 @@ export default function SecurityPage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   )
 }

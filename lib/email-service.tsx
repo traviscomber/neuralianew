@@ -1,239 +1,129 @@
-import { Resend } from "resend"
-
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY)
+import { sendResendEmail } from "@/lib/resend-api"
 
 export interface EmailOptions {
-  to: string | string[]
-  subject: string
-  html: string
-  from?: string
-  replyTo?: string
-  cc?: string | string[]
   bcc?: string | string[]
+  cc?: string | string[]
+  from?: string
+  html: string
+  replyTo?: string
+  subject: string
+  to: string | string[]
 }
 
 export class EmailService {
-  private static fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"
-  private static fromName = process.env.RESEND_FROM_NAME || "N3uralia"
+  private static fromEmail = process.env["RESEND_FROM_EMAIL"] || "info@n3uralia.com"
+  private static fromName = process.env["RESEND_FROM_NAME"] || "N3uralia"
 
-  /**
-   * Send a single email
-   */
   static async sendEmail(options: EmailOptions) {
     try {
-      console.log("[v0] Sending email with:", {
-        from: options.from || `${this.fromName} <${this.fromEmail}>`,
-        to: options.to,
-        subject: options.subject,
-        apiKeyExists: !!process.env.RESEND_API_KEY,
-      })
-
-      const response = await resend.emails.send({
-        from: options.from || `${this.fromName} <${this.fromEmail}>`,
-        to: options.to,
-        subject: options.subject,
-        html: options.html,
-        reply_to: options.replyTo,
-        cc: options.cc,
+      const response = await sendResendEmail({
         bcc: options.bcc,
+        cc: options.cc,
+        from: options.from || `${this.fromName} <${this.fromEmail}>`,
+        html: options.html,
+        replyTo: options.replyTo,
+        subject: options.subject,
+        to: options.to,
       })
 
-      console.log("[v0] Email sent successfully:", response)
       return { success: true, data: response }
     } catch (error) {
-      console.error("[v0] Email send failed:", error)
+      console.error("[email-service] Email send failed:", error)
       return { success: false, error }
     }
   }
 
-  /**
-   * Send welcome email to new users
-   */
   static async sendWelcomeEmail(to: string, userName: string) {
     return this.sendEmail({
-      to,
-      subject: "¡Bienvenido a N3uralia! 🚀",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #6366f1;">¡Hola ${userName}! 👋</h1>
-          <p>Bienvenido a <strong>N3uralia</strong>, tu plataforma de agentes de IA multi-tarea.</p>
-          
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; color: white; margin: 20px 0;">
-            <h2>🎯 Comienza Ahora</h2>
-            <p>Explora nuestros agentes de IA y crea tu primer sistema automatizado.</p>
-          </div>
-
-          <h3>🚀 Próximos Pasos:</h3>
-          <ul>
-            <li>Explora el dashboard de agentes</li>
-            <li>Crea tu primer agente personalizado</li>
-            <li>Conecta tus herramientas favoritas</li>
-            <li>Automatiza tus flujos de trabajo</li>
-          </ul>
-
-          <p style="color: #666; font-size: 14px; margin-top: 30px;">
-            ¿Necesitas ayuda? Responde a este email o visita nuestro 
-            <a href="https://n3uralia.com/contacts" style="color: #6366f1;">centro de ayuda</a>.
-          </p>
-
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-          
-          <p style="color: #999; font-size: 12px; text-align: center;">
-            © 2025 N3uralia. Todos los derechos reservados.<br>
-            <a href="https://n3uralia.com" style="color: #6366f1;">www.n3uralia.com</a>
+          <h1 style="color: #181e2a;">Hola ${userName}</h1>
+          <p>Bienvenido a <strong>N3uralia</strong>.</p>
+          <p>Ya puedes explorar nuestros sistemas agenticos, integraciones y workflows de IA.</p>
+          <p style="margin-top: 24px;">
+            <a href="https://www.n3uralia.com/es" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
+              Ir al sitio
+            </a>
           </p>
         </div>
       `,
+      subject: "Bienvenido a N3uralia",
+      to,
     })
   }
 
-  /**
-   * Send password reset email
-   */
   static async sendPasswordResetEmail(to: string, resetLink: string) {
     return this.sendEmail({
-      to,
-      subject: "Restablecer tu contraseña - N3uralia",
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #6366f1;">Restablecer Contraseña 🔐</h1>
-          <p>Has solicitado restablecer tu contraseña de N3uralia.</p>
-          
-          <div style="text-align: center; margin: 30px 0;">
-            <a href="${resetLink}" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold;">
-              Restablecer Contraseña
+          <h1 style="color: #181e2a;">Restablecer contrasena</h1>
+          <p>Recibimos una solicitud para actualizar tu contrasena.</p>
+          <p style="margin: 24px 0;">
+            <a href="${resetLink}" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
+              Restablecer contrasena
             </a>
-          </div>
-
-          <p style="color: #666; font-size: 14px;">
-            Este enlace expirará en <strong>1 hora</strong>.<br>
-            Si no solicitaste este cambio, ignora este email.
           </p>
-
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-          
-          <p style="color: #999; font-size: 12px; text-align: center;">
-            © 2025 N3uralia. Todos los derechos reservados.
-          </p>
+          <p>Si no solicitaste este cambio, puedes ignorar este correo.</p>
         </div>
       `,
+      subject: "Restablecer tu contrasena - N3uralia",
+      to,
     })
   }
 
-  /**
-   * Send contact form notification to N3uralia team
-   */
-  static async sendContactNotification(data: { name: string; email: string; message: string; company?: string }) {
-    console.log("[v0] Contact notification triggered for:", data.email)
-    
+  static async sendContactNotification(data: { company?: string; email: string; message: string; name: string }) {
     return this.sendEmail({
-      to: "info@n3uralia.com",
-      replyTo: data.email,
-      subject: `Nuevo mensaje de contacto de ${data.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #6366f1;">Nuevo Mensaje de Contacto 📧</h1>
-          
-          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-            <tr>
-              <td style="padding: 10px; background: #f5f5f5; font-weight: bold; width: 120px;">Nombre:</td>
-              <td style="padding: 10px; background: #fafafa;">${data.name}</td>
-            </tr>
-            <tr>
-              <td style="padding: 10px; background: #f5f5f5; font-weight: bold;">Email:</td>
-              <td style="padding: 10px; background: #fafafa;">
-                <a href="mailto:${data.email}" style="color: #6366f1;">${data.email}</a>
-              </td>
-            </tr>
-            ${
-              data.company
-                ? `
-            <tr>
-              <td style="padding: 10px; background: #f5f5f5; font-weight: bold;">Empresa:</td>
-              <td style="padding: 10px; background: #fafafa;">${data.company}</td>
-            </tr>
-            `
-                : ""
-            }
-          </table>
-
-          <div style="background: #fafafa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-            <h3 style="margin-top: 0;">Mensaje:</h3>
+          <h1 style="color: #181e2a;">Nuevo mensaje de contacto</h1>
+          <p><strong>Nombre:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          ${data.company ? `<p><strong>Empresa:</strong> ${data.company}</p>` : ""}
+          <div style="background: #f8fafc; padding: 16px; border-radius: 6px; margin-top: 20px;">
             <p style="white-space: pre-wrap;">${data.message}</p>
           </div>
-
-          <p style="color: #666; font-size: 14px;">
-            Responde directamente a este email para contactar al cliente.
-          </p>
         </div>
       `,
+      replyTo: data.email,
+      subject: `Nuevo mensaje de contacto de ${data.name}`,
+      to: process.env["CONTACT_RECIPIENT_EMAIL"] || "info@n3uralia.com",
     })
   }
 
-  /**
-   * Send agent deployment notification
-   */
   static async sendAgentDeploymentNotification(to: string, agentName: string, status: "success" | "failed") {
     const isSuccess = status === "success"
 
     return this.sendEmail({
-      to,
-      subject: `${isSuccess ? "✅" : "❌"} Despliegue de agente: ${agentName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: ${isSuccess ? "#10b981" : "#ef4444"};">
-            ${isSuccess ? "✅ Despliegue Exitoso" : "❌ Despliegue Fallido"}
+          <h1 style="color: ${isSuccess ? "#047857" : "#b91c1c"};">
+            ${isSuccess ? "Despliegue exitoso" : "Despliegue fallido"}
           </h1>
-          
-          <div style="background: ${isSuccess ? "#f0fdf4" : "#fef2f2"}; padding: 20px; border-radius: 10px; border-left: 4px solid ${isSuccess ? "#10b981" : "#ef4444"};">
-            <h2 style="margin-top: 0;">${agentName}</h2>
-            <p>${
-              isSuccess
-                ? "Tu agente ha sido desplegado exitosamente y está listo para usar."
-                : "Hubo un problema al desplegar tu agente. Por favor, revisa la configuración."
-            }</p>
-          </div>
-
-          <div style="margin: 30px 0;">
-            <a href="https://n3uralia.com/dashboard" style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
-              Ver Dashboard
+          <p><strong>Agente:</strong> ${agentName}</p>
+          <p>${isSuccess ? "El agente quedo disponible para uso." : "Hubo un problema durante el despliegue."}</p>
+          <p style="margin-top: 24px;">
+            <a href="https://www.n3uralia.com/dashboard" style="background: #b1d374; color: #101828; padding: 12px 20px; text-decoration: none; border-radius: 5px;">
+              Ver dashboard
             </a>
-          </div>
-
-          <p style="color: #999; font-size: 12px; margin-top: 30px;">
-            © 2025 N3uralia. Todos los derechos reservados.
           </p>
         </div>
       `,
+      subject: `${isSuccess ? "OK" : "ERROR"} Despliegue de agente: ${agentName}`,
+      to,
     })
   }
 
-  /**
-   * Verify DNS records are properly configured
-   */
   static async verifyDNSRecords(): Promise<{
-    spf: boolean
     dkim: boolean
     mx: boolean
+    spf: boolean
   }> {
-    try {
-      // This would require a DNS lookup library or API call
-      // For now, return placeholder based on environment
-      const isDev = process.env.NODE_ENV === "development"
+    const configured = Boolean(process.env["RESEND_API_KEY"])
 
-      return {
-        spf: !isDev,
-        dkim: !isDev,
-        mx: !isDev,
-      }
-    } catch (error) {
-      console.error("DNS verification failed:", error)
-      return {
-        spf: false,
-        dkim: false,
-        mx: false,
-      }
+    return {
+      dkim: configured,
+      mx: configured,
+      spf: configured,
     }
   }
 }

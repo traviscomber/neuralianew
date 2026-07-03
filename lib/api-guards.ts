@@ -92,7 +92,8 @@ export function createApiRoute(config: {
       // Auth validation
       if (config.auth) {
         try {
-          requireAuth(req)
+          const user = requireAuth(req)
+          if (!user) throw new Error("Unauthorized")
         } catch (error) {
           captureException(error, { route: req.nextUrl.pathname, type: 'auth' })
           return NextResponse.json(
@@ -124,7 +125,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: (validation as { valid: false; error: string }).error,
+              message: (validation as any).error,
               code: 'VALIDATION_ERROR',
             },
             { status: 400 }
@@ -139,7 +140,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: (validation as { valid: false; error: string }).error,
+              message: (validation as any).error,
               code: 'QUERY_VALIDATION_ERROR',
             },
             { status: 400 }

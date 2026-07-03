@@ -24,7 +24,7 @@ export interface PerformanceTrend {
 export class PerformanceTracker {
   private static instance: PerformanceTracker
   private snapshots: PerformanceSnapshot[] = []
-  private isTracking = false
+  private _isTracking = false
   private trackingInterval: NodeJS.Timeout | null = null
 
   static getInstance(): PerformanceTracker {
@@ -35,12 +35,12 @@ export class PerformanceTracker {
   }
 
   startTracking(sessionId: string, intervalMs = 30000): void {
-    if (this.isTracking) {
+    if (this._isTracking) {
       console.warn("Performance tracking is already active")
       return
     }
 
-    this.isTracking = true
+    this._isTracking = true
     console.log(`Starting performance tracking for session: ${sessionId}`)
 
     const captureSnapshot = () => {
@@ -73,7 +73,7 @@ export class PerformanceTracker {
   }
 
   stopTracking(): void {
-    if (!this.isTracking) {
+    if (!this._isTracking) {
       console.warn("Performance tracking is not active")
       return
     }
@@ -83,7 +83,7 @@ export class PerformanceTracker {
       this.trackingInterval = null
     }
 
-    this.isTracking = false
+    this._isTracking = false
     console.log("Performance tracking stopped")
   }
 
@@ -383,8 +383,8 @@ export class PerformanceTracker {
     }
   }
 
-  getTrackingStatus(): boolean {
-    return this.isTracking
+  isTracking(): boolean {
+    return this._isTracking
   }
 
   getSnapshotCount(): number {

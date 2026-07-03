@@ -2,24 +2,57 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "What is Agentic AI? | N3uralia Studies",
-  description:
-    "Agentic AI is an architecture where autonomous agents plan, act, evaluate outcomes, and adapt using memory and tools. Complete explanation with real-world applications.",
-  keywords: "agentic ai, autonomous agents, agent architecture, intelligent systems, ai decision making",
-  openGraph: {
-    title: "What is Agentic AI? | N3uralia",
-    description: "Autonomous agents that plan, act, and adapt with memory and tools",
-    type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/agentic-ai",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function AgenticAIPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/agentic-ai",
+    type: "article",
+    title: "What is Agentic AI? | N3uralia Studies",
+    description: "Agentic AI is an architecture where autonomous agents plan, act, evaluate outcomes, and adapt using memory and tools. Complete explanation with real-world applications.",
+  })
+}
+
+export default function AgenticAIPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
+      <SectionBackground section="blog" className="border-b border-border">
+      {/* Header */}
+      <section className="pt-32 pb-16 px-4 border-b border-border">
+        <div className="max-w-3xl mx-auto">
+          <Link
+            href={`/${locale}/studies`}
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Volver a Estudios
+          </Link>
+
+          <span className="inline-block text-xs font-medium text-primary uppercase tracking-wide mb-4 bg-primary/10 px-3 py-1 rounded-full">
+            Concepto Fundamental
+          </span>
+
+          <h1 className="h1-light mb-6 text-foreground">Agentic AI</h1>
+          <p className="body-lg text-muted-foreground">
+            La arquitectura fundamental de sistemas que pueden operar autónomamente con inteligencia, memoria y
+            capacidad de adaptación.
+          </p>
+        </div>
+      </section>
+      </SectionBackground>
 
       {/* Content */}
       <section className="py-16 px-4">
@@ -114,15 +147,15 @@ export default function AgenticAIPage() {
           <div className="mb-16 p-8 border border-primary/20 bg-primary/5 rounded-lg">
             <h2 className="h3 text-foreground mb-4">Conceptos Relacionados</h2>
             <div className="space-y-3">
-              <Link href="/studies/ai-memory" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/ai-memory`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">AI Memory - Sistema Operativo de Memoria</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/context-engineering" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/context-engineering`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">Context Engineering - Ingeniería del Contexto</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/world-engine" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/world-engine`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">World Engine - Motor de Mundo</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
@@ -136,7 +169,7 @@ export default function AgenticAIPage() {
               Agentic AI es el corazón de nuestra arquitectura Multi-Agente. Nuestro Consejo de Expertos demuestra cómo
               múltiples agentes pueden colaborar para tomar decisiones complejas.
             </p>
-            <Link href="/capabilities" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+            <Link href={`/${locale}/capabilities`} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
               Ver Arquitectura en Acción
               <ArrowRight className="w-4 h-4" />
             </Link>

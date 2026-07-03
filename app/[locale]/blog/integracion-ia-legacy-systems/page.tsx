@@ -2,24 +2,37 @@ import Link from "next/link"
 import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
-import { buildSeo } from "@/lib/metadata-utils"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = buildSeo({
-  locale: "es",
-  path: "/es/blog/integracion-ia-legacy-systems",
-  title: "Integración AI Agents con Legacy Systems | N3uralia Blog",
-  description:
-    "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
-  keywords:
-    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad",
-})
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
 
-export default function BlogPost() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/blog/integracion-ia-legacy-systems",
+    type: "article",
+    title: "Integración AI Agents con Legacy Systems | N3uralia Blog - Neuralia",
+    description: "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
+  })
+}
+
+export default function BlogPost({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <>
+      <SectionBackground section="blog">
       <main className="min-h-screen bg-background">
         <article className="max-w-3xl mx-auto py-16 px-4">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
+          <Link href={`/${locale}/blog`} className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
             <ArrowLeft className="w-4 h-4" />
             Volver al Blog
           </Link>
@@ -181,7 +194,7 @@ export default function BlogPost() {
               ¿Tienes sistemas legacy que necesitan modernizarse con IA?
             </p>
             <Link
-              href="/contact"
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Conversar sobre tu Infraestructura
@@ -189,6 +202,7 @@ export default function BlogPost() {
           </div>
           </article>
         </main>
+      </SectionBackground>
       
       <Footer />
     </>

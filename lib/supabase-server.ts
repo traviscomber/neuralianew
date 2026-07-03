@@ -1,4 +1,5 @@
 import { createServerClient as createSupabaseServerClient } from "@supabase/ssr"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 import { cookies } from "next/headers"
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -38,28 +39,7 @@ export function createServerClient() {
     throw new Error("SUPABASE_SERVICE_ROLE_KEY is not set")
   }
 
-  const cookieStore = cookies()
-
-  return createSupabaseServerClient(supabaseUrl, serviceRoleKey, {
-    cookies: {
-      get(name: string) {
-        return cookieStore.get(name)?.value
-      },
-      set(name: string, value: string, options: any) {
-        try {
-          cookieStore.set({ name, value, ...options })
-        } catch (error) {
-          // Handle cookie errors in middleware/edge runtime
-        }
-      },
-      remove(name: string, options: any) {
-        try {
-          cookieStore.set({ name, value: "", ...options })
-        } catch (error) {
-          // Handle cookie errors in middleware/edge runtime
-        }
-      },
-    },
+  return createSupabaseClient(supabaseUrl, serviceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,

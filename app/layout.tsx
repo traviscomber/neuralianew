@@ -1,39 +1,62 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, Montserrat } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import Navigation from "@/components/navigation"
-import { ScrollToTop } from "@/components/scroll-to-top"
-import { StructuredData } from "@/components/structured-data"
+import { headers } from "next/headers"
+import { Montserrat } from "next/font/google"
 import "./globals.css"
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  variable: "--font-inter",
-})
+import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
+import { StructuredData } from "@/components/structured-data"
+import { absoluteUrl } from "@/lib/site"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
   preload: true,
   variable: "--font-montserrat",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400"],
 })
 
-// Static generation with ISR - revalidate every hour
-export const revalidate = 3600
-
-// Root metadata - basic defaults, locale layout overrides with locale-specific values
 export const metadata: Metadata = {
-  title: "N3uralia | Sistemas Agenticos en Produccion",
-  description: "N3uralia: Plataforma de sistemas agenticos listos para produccion.",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+  metadataBase: new URL(absoluteUrl("/")),
+  title: "N3uralia",
+  description:
+    "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
+  authors: [{ name: "N3uralia", url: absoluteUrl("/") }],
+  creator: "N3uralia",
+  openGraph: {
+    type: "website",
+    siteName: "N3uralia",
+    title: "N3uralia",
+    description:
+      "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
+    images: [
+      {
+        url: absoluteUrl("/og-image.png"),
+        width: 1200,
+        height: 630,
+        alt: "N3uralia",
+        type: "image/png",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@n3uralia",
+    site: "@n3uralia",
+    images: [absoluteUrl("/og-image.png")],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  referrer: "strict-origin-when-cross-origin",
+  category: "technology",
 }
 
 export const viewport: Viewport = {
@@ -44,46 +67,21 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const headerStore = await headers()
+  const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
+
   return (
-    <html lang="es" suppressHydrationWarning className="dark">
+    <html lang={locale} suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  // Set lang based on URL path
-                  var path = window.location.pathname;
-                  if (path.startsWith('/en')) {
-                    document.documentElement.lang = 'en';
-                  }
-                  // Handle theme
-                  var theme = localStorage.getItem('n3uralia-theme');
-                  if (theme === 'light') {
-                    document.documentElement.classList.remove('dark');
-                  } else {
-                    document.documentElement.classList.add('dark');
-                  }
-                } catch (e) {
-                  document.documentElement.classList.add('dark');
-                }
-              })();
-            `,
-          }}
-        />
-        <StructuredData locale="es" />
+        <StructuredData />
       </head>
-      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange storageKey="n3uralia-theme" themes={["light", "dark", "black"]}>
-          <Navigation />
-          {children}
-          <ScrollToTop />
-        </ThemeProvider>
+      <body className={`${montserrat.variable} antialiased`}>
+        <AnalyticsProvider>{children}</AnalyticsProvider>
       </body>
     </html>
   )

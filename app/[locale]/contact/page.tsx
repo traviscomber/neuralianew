@@ -1,209 +1,128 @@
-import type { Metadata } from 'next'
-import { ContactFormClient } from '@/components/contact/contact-form-client'
-import { Footer } from '@/components/layout/footer'
-import { isValidLocale, DEFAULT_LOCALE } from '@/lib/get-locale'
-import type { Locale } from '@/content/dictionaries'
-import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react'
-import Link from 'next/link'
+import type { Metadata } from "next"
+import { CheckCircle2, Clock, MessageCircle } from "lucide-react"
+import { BrandMark } from "@/components/brand"
+import { ContactPageClient } from "@/components/contact/contact-page-client"
+import { ContactPageFooter } from "@/components/contact/contact-page-footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
-}
-
-export function generateMetadata({ params }: PageProps): Metadata {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const isES = locale === 'es'
-
-  return {
-    title: isES ? 'Contactar - N3uralia' : 'Contact - N3uralia',
-    description: isES 
-      ? 'Ponte en contacto con el equipo de N3uralia para consultas sobre nuestros sistemas agénticos, living agents y soluciones de IA.'
-      : 'Get in touch with N3uralia team for inquiries about our agentic systems, living agents and AI solutions.',
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/contact`,
-      languages: {
-        es: 'https://n3uralia.com/es/contact',
-        en: 'https://n3uralia.com/en/contact',
-      },
-    },
-    openGraph: {
-      title: isES ? 'Contactar - N3uralia' : 'Contact - N3uralia',
-      description: isES 
-        ? 'Ponte en contacto con el equipo de N3uralia para consultas sobre sistemas agenticos.'
-        : 'Get in touch with N3uralia team for agentic systems inquiries.',
-      url: `https://n3uralia.com/${locale}/contact`,
-      type: 'website',
-    },
+  params: {
+    locale: string
   }
 }
 
+const content = {
+  es: {
+    metadataTitle: "Contacto | N3uralia",
+    metadataDescription:
+      "Hablemos de tu proyecto de IA, automatización o software. N3uralia responde con una propuesta técnica clara para operaciones reales.",
+    badge: "Diagnóstico operativo",
+    title: "Cuéntanos dónde se tranca la operación",
+    subtitle:
+      "Partimos por entender el proceso, las herramientas y la decisión que quieres mejorar. Luego proponemos el primer sistema posible: piloto, integración o plataforma.",
+    promise: "Respondemos con una lectura concreta, no con una demo genérica.",
+    checks: [
+      "Qué proceso consume más tiempo o genera más riesgo.",
+      "Qué datos, herramientas y personas ya participan.",
+      "Qué impacto se puede validar en 30 a 90 días.",
+    ],
+    response: "Respuesta habitual dentro de 1 día hábil.",
+    formTitle: "Diagnóstico guiado",
+    formText: "El asistente recoge lo esencial para que podamos responder con contexto.",
+  },
+  en: {
+    metadataTitle: "Contact | N3uralia",
+    metadataDescription:
+      "Talk to N3uralia about your AI, automation, or software project. We reply with a clear technical proposal for real operations.",
+    badge: "Operations diagnosis",
+    title: "Tell us where the operation gets stuck",
+    subtitle:
+      "We start by understanding the process, tools, and decision you want to improve. Then we propose the first possible system: pilot, integration, or platform.",
+    promise: "We reply with a concrete read, not a generic demo.",
+    checks: [
+      "Which process consumes the most time or creates the most risk.",
+      "Which data, tools, and people are already involved.",
+      "Which impact can be validated in 30 to 90 days.",
+    ],
+    response: "Typical response within 1 business day.",
+    formTitle: "Guided diagnosis",
+    formText: "The assistant gathers the essentials so we can respond with context.",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
+    locale,
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+    path: "/contact",
+  })
+}
+
 export default function ContactPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const isES = locale === 'es'
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
     <>
-      <main className="min-h-screen bg-background">
-        {/* Hero Section */}
-        <section className="py-24 pt-32 px-4 bg-gradient-to-b from-primary/5 to-background">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 text-balance">
-              {isES ? '¿Hablamos sobre tu operación?' : 'Let\'s talk about your operations'}
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              {isES 
-                ? 'Conecta con nuestro equipo para explorar cómo N3uralia puede transformar tus procesos críticos.'
-                : 'Connect with our team to explore how N3uralia can transform your critical processes.'}
-            </p>
-          </div>
-        </section>
-
-        {/* Contact Form Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-            {/* Form */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-8">
-                {isES ? 'Cuéntanos tu caso' : 'Tell us your case'}
-              </h2>
-              <ContactFormClient />
-            </div>
-
-            {/* Contact Info */}
-            <div className="space-y-8">
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="faq" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
               <div>
-                <h3 className="text-xl font-semibold text-foreground mb-6">
-                  {isES ? 'Información de contacto' : 'Contact information'}
-                </h3>
-              </div>
-
-              {/* Email */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <Mail className="w-6 h-6 text-primary mt-1" />
+                <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#d8e5e2] bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">
+                  <BrandMark className="h-8 w-8 rounded-xl text-[#789b96]" />
+                  {page.badge}
                 </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    {isES ? 'Correo electrónico' : 'Email'}
-                  </h4>
-                  <a href="mailto:contacto@n3uralia.com" className="text-primary hover:underline">
-                    contacto@n3uralia.com
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <Phone className="w-6 h-6 text-primary mt-1" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    {isES ? 'Teléfono' : 'Phone'}
-                  </h4>
-                  <a href="tel:+56995826127" className="text-primary hover:underline">
-                    +56 9 9582 6127
-                  </a>
-                </div>
-              </div>
-
-              {/* Location */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <MapPin className="w-6 h-6 text-primary mt-1" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    {isES ? 'Ubicación' : 'Location'}
-                  </h4>
-                  <p className="text-muted-foreground">
-                    {isES ? 'Santiago, Chile' : 'Santiago, Chile'}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {isES ? 'Atendemos empresas en LATAM' : 'Serving enterprises across LATAM'}
-                  </p>
-                </div>
-              </div>
-
-              {/* Response Time */}
-              <div className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <Clock className="w-6 h-6 text-primary mt-1" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground mb-1">
-                    {isES ? 'Tiempo de respuesta' : 'Response time'}
-                  </h4>
-                  <p className="text-muted-foreground">
-                    {isES ? 'Respondemos en 24 horas' : 'We respond within 24 hours'}
-                  </p>
-                </div>
-              </div>
-
-              {/* CTA Box */}
-              <div className="mt-12 p-6 border border-primary/30 rounded-lg bg-primary/5">
-                <h4 className="font-semibold text-foreground mb-2">
-                  {isES ? '¿Emergencia operacional?' : 'Operational emergency?'}
-                </h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {isES 
-                    ? 'Contáctanos directamente si necesitas soporte urgente.'
-                    : 'Contact us directly if you need urgent support.'}
+                <h1 className="max-w-4xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">
+                  {page.title}
+                </h1>
+                <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-[#65706d]">
+                  {page.subtitle}
                 </p>
-                <a href="tel:+56995826127" className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition">
-                  {isES ? 'Llamar ahora' : 'Call now'}
-                </a>
+
+                <div className="mt-8 rounded-[1.6rem] border border-[#d8e5e2] bg-white/80 p-6 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
+                  <div className="mb-5 flex items-center gap-3 text-sm font-semibold text-[#526e69]">
+                    <MessageCircle className="h-5 w-5 text-[#789b96]" />
+                    {page.promise}
+                  </div>
+                  <div className="space-y-3">
+                    {page.checks.map((item) => (
+                      <div key={item} className="flex items-start gap-3 rounded-[1.1rem] bg-[#f7faf8] p-4 text-sm leading-6 text-[#65706d]">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-5 flex items-center gap-2 text-sm text-[#7b8582]">
+                    <Clock className="h-4 w-4 text-[#789b96]" />
+                    {page.response}
+                  </p>
+                </div>
               </div>
+
+              <section className="rounded-[2rem] border border-[#cfe0dc] bg-white p-4 shadow-[0_34px_110px_-82px_#173634] md:p-5" aria-labelledby="contact-form-title">
+                <div className="rounded-[1.6rem] border border-[#d8e5e2] bg-[#fbfbfa] p-5 md:p-6">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{page.formTitle}</p>
+                  <h2 id="contact-form-title" className="text-3xl font-light leading-tight text-[#173634]">
+                    {page.formText}
+                  </h2>
+                </div>
+                <div className="mt-4 overflow-hidden rounded-[1.6rem] border border-[#d8e5e2] bg-white">
+                  <ContactPageClient locale={locale as Locale} />
+                </div>
+              </section>
             </div>
-          </div>
-        </section>
-
-        {/* Why Contact Us */}
-        <section className="py-24 px-4 bg-background border-t border-border">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
-              {isES ? '¿Por qué hablar con nosotros?' : 'Why talk to us?'}
-            </h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-4">12+</div>
-                <h3 className="font-semibold text-foreground mb-2">
-                  {isES ? 'Años implementando' : 'Years implementing'}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {isES 
-                    ? 'Experiencia en arquitectura de sistemas agenticos'
-                    : 'Experience in agentic systems architecture'}
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-4">50+</div>
-                <h3 className="font-semibold text-foreground mb-2">
-                  {isES ? 'Empresas en producción' : 'Companies in production'}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {isES 
-                    ? 'Desde retail hasta finanzas'
-                    : 'From retail to finance'}
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-4">100%</div>
-                <h3 className="font-semibold text-foreground mb-2">
-                  {isES ? 'Auditable' : 'Auditable'}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {isES 
-                    ? 'Cada decisión es verificable y reversible'
-                    : 'Every decision is verifiable and reversible'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        </SectionBackground>
       </main>
 
-      <Footer />
+      <ContactPageFooter />
     </>
   )
 }

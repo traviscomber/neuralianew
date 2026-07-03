@@ -1,15 +1,14 @@
 import { createClient } from "@supabase/supabase-js"
 
-// Create a function to get the Supabase client at runtime, not build time
-function getSupabaseClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+function getSupabase() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-  if (!url || !key) {
-    throw new Error("Supabase credentials not configured")
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error("Supabase environment variables are required at runtime")
   }
 
-  return createClient(url, key)
+  return createClient(supabaseUrl, serviceRoleKey)
 }
 
 export interface Agent {
@@ -56,7 +55,7 @@ export class LivingAgentsService {
     name: string,
     initialPersonality: Record<string, number>
   ): Promise<Agent> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("agents")
       .insert({
@@ -81,7 +80,7 @@ export class LivingAgentsService {
     agentResponse: string,
     context: Record<string, any> = {}
   ): Promise<Interaction> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("interactions")
       .insert({
@@ -97,7 +96,7 @@ export class LivingAgentsService {
     if (error) throw error
 
     // Update interaction count
-    await getSupabaseClient().rpc("increment_interaction_count", { agent_id: agentId })
+    await supabase.rpc("increment_interaction_count", { agent_id: agentId })
 
     return data as Interaction
   }
@@ -109,7 +108,7 @@ export class LivingAgentsService {
     insightType: string,
     impactScore: number
   ): Promise<Reflection> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("reflections")
       .insert({
@@ -133,7 +132,7 @@ export class LivingAgentsService {
     phase: string,
     trigger: string
   ): Promise<Evolution> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("evolution")
       .insert({
@@ -159,7 +158,7 @@ export class LivingAgentsService {
         }, {} as Record<string, number>),
       }
 
-      await getSupabaseClient()
+      await supabase
         .from("agents")
         .update({
           personality_score: newPersonality,
@@ -173,7 +172,7 @@ export class LivingAgentsService {
 
   // Get agent by ID
   static async getAgent(agentId: string): Promise<Agent | null> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("agents")
       .select("*")
@@ -186,7 +185,7 @@ export class LivingAgentsService {
 
   // Get all agents for an archetype
   static async getArchetypeAgents(archetypeId: string): Promise<Agent[]> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("agents")
       .select("*")
@@ -198,7 +197,7 @@ export class LivingAgentsService {
 
   // Get agent interactions
   static async getInteractions(agentId: string, limit = 50): Promise<Interaction[]> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("interactions")
       .select("*")
@@ -212,7 +211,7 @@ export class LivingAgentsService {
 
   // Get agent reflections
   static async getReflections(agentId: string, limit = 20): Promise<Reflection[]> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("reflections")
       .select("*")
@@ -226,7 +225,7 @@ export class LivingAgentsService {
 
   // Get evolution history
   static async getEvolutionHistory(agentId: string): Promise<Evolution[]> {
-    const supabase = getSupabaseClient()
+    const supabase = getSupabase()
     const { data, error } = await supabase
       .from("evolution")
       .select("*")

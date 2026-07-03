@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    // Removed: transitionIndicator, turbopackFileSystemCacheForDev are not valid in Next.js 14.2
+  },
   redirects: async () => {
     return [
       // www redirect (non-www -> www)
@@ -60,17 +63,6 @@ const nextConfig = {
         source: '/:locale/agentes-ia-logistica-chile',
         destination: '/:locale/soluciones',
         permanent: true,
-      },
-      // Spanish/English language redirect aliases
-      {
-        source: '/es',
-        destination: '/es/',
-        permanent: false,
-      },
-      {
-        source: '/en',
-        destination: '/en/',
-        permanent: false,
       },
     ];
   },

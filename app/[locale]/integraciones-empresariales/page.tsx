@@ -1,190 +1,243 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { ArrowRight, CheckCircle2, Zap, Shield, BarChart3, Clock } from 'lucide-react'
-import { Footer } from '@/components/layout/footer'
+import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight, BarChart3, Clock, Shield, Workflow, Zap } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-type Props = {
-  params: Promise<{ locale: string }>
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = await params
-  
-  const canonical = `https://n3uralia.com/${locale}/integraciones-empresariales`
-
-  return {
-    title: "Integraciones Empresariales N3uralia | Conectar Sistemas Legacy sin Disruption",
-    description:
-      "Conecta ERP, CRM, y sistemas heredados sin reemplazarlos. N3uralia orquesta comunicación inteligente entre plataformas antiguas y nuevas. Data flow automático, 24/7. Para banca, seguros, manufactura. Chile & LATAM.",
-    keywords:
-      "integración sistemas legacy, conectar ERP CRM, API integraciones, orquestación sistemas, enterprise integration, data flow automático, conectividad legacy, integraciones empresariales, Chile, LATAM",
-    alternates: {
-      canonical,
-    },
-    openGraph: {
-      url: canonical,
-      type: 'website',
-    },
+interface PageProps {
+  params: {
+    locale: string
   }
 }
 
-export default function IntegracionesPage() {
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Integraciones empresariales | N3uralia",
+    metadataDescription:
+      "Integramos ERP, CRM, operaciones y software legacy sin reescribirlo todo. Arquitectura e integracion para equipos en Chile y LATAM.",
+    badge: "Integraciones empresariales",
+    title: "Conecta sistemas legacy sin romper la operacion",
+    subtitle:
+      "Muchas empresas en Chile y LATAM no necesitan botar su stack. Necesitan una capa seria de integracion, sincronizacion y control para que los sistemas por fin trabajen juntos.",
+    problemTitle: "El problema real no es el software viejo",
+    problemSubtitle:
+      "El problema es la friccion entre sistemas, equipos y decisiones. Ahi es donde N3uralia entra.",
+    problems: [
+      "Datos repartidos entre ERP, CRM, planillas y procesos manuales.",
+      "Reingreso de informacion que consume tiempo y genera errores.",
+      "Integraciones lentas o inexistentes entre plataformas criticas.",
+      "Reportes incompletos porque cada sistema cuenta una historia distinta.",
+    ],
+    solutionTitle: "Que construimos en estos casos",
+    solutions: [
+      {
+        title: "Orquestacion entre sistemas",
+        description:
+          "Conectamos software legacy y herramientas modernas para que los datos fluyan sin depender de copiar y pegar.",
+        icon: Workflow,
+      },
+      {
+        title: "Sincronizacion con criterio",
+        description:
+          "Definimos que viaja, cuando viaja y como se valida para que la integracion ayude en vez de crear ruido nuevo.",
+        icon: BarChart3,
+      },
+      {
+        title: "Despliegue sin caos",
+        description:
+          "Construimos en paralelo a la operacion actual para reducir riesgo y evitar cortar procesos criticos.",
+        icon: Clock,
+      },
+      {
+        title: "Seguridad y trazabilidad",
+        description:
+          "Logs, permisos, validaciones y una capa de control que permita operar integraciones sin fe ciega.",
+        icon: Shield,
+      },
+    ],
+    outcomesTitle: "Lo que suele mejorar",
+    outcomes: [
+      "Menos reentrada manual y menos errores de coordinacion.",
+      "Mejor visibilidad entre equipos comerciales, operativos y financieros.",
+      "Menos tiempo perdido reconciliando datos.",
+      "Mas capacidad para automatizar encima de una base unificada.",
+    ],
+    ctaTitle: "Si tus sistemas no se hablan, ahi hay una oportunidad",
+    ctaSubtitle:
+      "Podemos ayudarte a definir si necesitas una integracion puntual, una capa de orquestacion o una modernizacion por etapas.",
+    primaryCta: "Hablar con N3uralia",
+    secondaryCta: "Ver soluciones",
+  },
+  en: {
+    metadataTitle: "Enterprise integrations | N3uralia",
+    metadataDescription:
+      "We integrate ERP, CRM, operations, and legacy software without rewriting everything. Architecture and integration for teams in Chile and LATAM.",
+    badge: "Enterprise integrations",
+    title: "Connect legacy systems without breaking operations",
+    subtitle:
+      "Many companies across Chile and LATAM do not need to throw their stack away. They need a serious integration, synchronization, and control layer so systems can finally work together.",
+    problemTitle: "The real problem is not old software",
+    problemSubtitle:
+      "The real problem is friction between systems, teams, and decisions. That is where N3uralia enters.",
+    problems: [
+      "Data spread across ERP, CRM, spreadsheets, and manual workflows.",
+      "Repeated data entry that wastes time and creates errors.",
+      "Slow or missing integrations between critical platforms.",
+      "Incomplete reporting because each system tells a different story.",
+    ],
+    solutionTitle: "What we build in these cases",
+    solutions: [
+      {
+        title: "Cross-system orchestration",
+        description:
+          "We connect legacy software and modern tools so data flows without relying on copy-paste work.",
+        icon: Workflow,
+      },
+      {
+        title: "Synchronization with discipline",
+        description:
+          "We define what moves, when it moves, and how it gets validated so integration reduces friction instead of adding more noise.",
+        icon: BarChart3,
+      },
+      {
+        title: "Low-chaos deployment",
+        description:
+          "We build in parallel to the current operation to reduce risk and avoid cutting critical workflows.",
+        icon: Clock,
+      },
+      {
+        title: "Security and traceability",
+        description:
+          "Logs, permissions, validations, and a control layer that lets teams operate integrations without blind trust.",
+        icon: Shield,
+      },
+    ],
+    outcomesTitle: "What usually improves",
+    outcomes: [
+      "Less manual re-entry and fewer coordination errors.",
+      "Better visibility across commercial, operational, and financial teams.",
+      "Less time wasted reconciling data.",
+      "More room to automate on top of a unified base.",
+    ],
+    ctaTitle: "If your systems do not talk to each other, there is an opportunity there",
+    ctaSubtitle:
+      "We can help define whether you need a point integration, an orchestration layer, or a phased modernization plan.",
+    primaryCta: "Talk to N3uralia",
+    secondaryCta: "View solutions",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/integraciones-empresariales",
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+  })
+}
+
+export default function IntegracionesPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
   return (
     <>
-      <main className="min-h-screen bg-background">
-          {/* Hero */}
-          <section className="py-24 px-4 border-b border-border">
+      <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-                <Shield className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Zero Downtime</span>
+                <Zap className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">{page.badge}</span>
               </div>
-
-              <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
-                Integraciones Empresariales Sin Disruption
-              </h1>
-
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Tu ERP de 20 años puede hablar con Salesforce Cloud. Sin reemplazo, sin datos duplicados, sin downtime. N3uralia orquesta la comunicación inteligentemente. La data fluye 24/7.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-                >
-                  Demo Técnica
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/automatizacion-para-empresas"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
-                >
-                  Ver Automatización
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
+              <h1 className="text-4xl sm:text-6xl font-bold mb-6 text-foreground">{page.title}</h1>
+              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
             </div>
           </section>
+        </SectionBackground>
 
-          {/* El Problema */}
-          <section className="py-24 px-4 border-b border-border">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold mb-4 text-foreground">El Desafío de Sistemas Legacy</h2>
-              <p className="text-lg text-muted-foreground mb-12">
-                Las empresas modernas usan múltiples sistemas. Pero no hablan entre sí.
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  {
-                    title: "Silos de Datos",
-                    desc: "Datos en SAP, más datos en Salesforce, más en Excel. La verdad única no existe. Análisis imposibles.",
-                  },
-                  {
-                    title: "Reentrada Manual de Datos",
-                    desc: "Un pedido entra en un sistema, alguien lo reescribe en otro. Errores garantizados. Horas wasted.",
-                  },
-                  {
-                    title: "Riesgo de Reemplazo Costoso",
-                    desc: "La solución 'fácil': reemplazar todo. Costo: millones. Riesgo: perder datos históricos. Timeline: 18+ meses.",
-                  },
-                  {
-                    title: "Decisiones sin Contexto",
-                    desc: "Reportes incompletos porque no integran todas las fuentes. El negocio opera a ciegas.",
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="border border-border rounded-lg p-6 bg-card">
-                    <h3 className="font-bold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
+        <section className="py-24 px-4 border-b border-border">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 text-foreground">{page.problemTitle}</h2>
+            <p className="text-muted-foreground mb-10">{page.problemSubtitle}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {page.problems.map((problem) => (
+                <div key={problem} className="border border-border rounded-lg p-6 bg-card">
+                  <p className="text-sm text-muted-foreground">{problem}</p>
+                </div>
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* La Solución */}
-          <section className="py-24 px-4 border-b border-border bg-muted/30">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold mb-4 text-foreground">Integraciones que Funcionan: El Enfoque N3uralia</h2>
-              <p className="text-lg text-muted-foreground mb-12">
-                No remplazamos. Orquestamos. Tus sistemas viejos conviven con los nuevos, hablando inteligentemente.
-              </p>
-
-              <div className="grid grid-cols-1 gap-8">
-                {[
-                  {
-                    icon: <Zap className="w-8 h-8 text-primary" />,
-                    title: "API-First Orchestration",
-                    desc: "Conectamos cualquier sistema via REST, SOAP, webhooks, o SQL directo. Si tiene interfaz, podemos hablarle.",
-                  },
-                  {
-                    icon: <BarChart3 className="w-8 h-8 text-primary" />,
-                    title: "Data Synchronization en Tiempo Real",
-                    desc: "Un cambio en SAP aparece en Salesforce en segundos. Sin batches nocturnos. Sin delays.",
-                  },
-                  {
-                    icon: <Clock className="w-8 h-8 text-primary" />,
-                    title: "Zero Downtime Deployment",
-                    desc: "La integración se construye en paralelo a tus sistemas actuales. Cero disruption.",
-                  },
-                  {
-                    icon: <Shield className="w-8 h-8 text-primary" />,
-                    title: "Seguridad Enterprise-Grade",
-                    desc: "Encriptación end-to-end, audit logs completos, acceso de rol, y cumplimiento regulatorio.",
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors">
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0">{item.icon}</div>
-                      <div>
-                        <h3 className="font-bold text-foreground mb-2 text-lg">{item.title}</h3>
-                        <p className="text-muted-foreground">{item.desc}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* ROI */}
-          <section className="py-24 px-4 border-b border-border">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl font-bold mb-12 text-foreground text-center">ROI Real en Integraciones</h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { metric: "70-80%", label: "Reducción de Reentrada Manual" },
-                  { metric: "6-8 meses", label: "Payback Period" },
-                  { metric: "99.9%", label: "Data Accuracy" },
-                ].map((item, i) => (
-                  <div key={i} className="text-center p-6 border border-border rounded-lg bg-card">
-                    <div className="text-4xl font-bold text-primary mb-2">{item.metric}</div>
-                    <p className="text-sm text-muted-foreground">{item.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* CTA Final */}
+        <SectionBackground section="workflow" className="border-b border-border">
           <section className="py-24 px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold mb-6 text-foreground">¿Tus Sistemas Necesitan Hablar?</h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Conectemos una demo. Mostraremos cómo tus sistemas pueden trabajar juntos sin reemplazo.
-              </p>
+            <div className="max-w-5xl mx-auto">
+              <h2 className="text-3xl font-bold mb-12 text-foreground text-center">{page.solutionTitle}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {page.solutions.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <div
+                      key={item.title}
+                      className="border border-border rounded-lg p-8 bg-card hover:border-primary/40 transition-colors"
+                    >
+                      <Icon className="w-8 h-8 text-primary mb-4" />
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                      <p className="text-muted-foreground">{item.description}</p>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-24 px-4 border-b border-border">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold mb-10 text-foreground text-center">{page.outcomesTitle}</h2>
+            <div className="space-y-4">
+              {page.outcomes.map((outcome) => (
+                <div key={outcome} className="flex gap-3 p-5 border border-border rounded-lg bg-card">
+                  <Shield className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-muted-foreground">{outcome}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-6 text-foreground">{page.ctaTitle}</h2>
+            <p className="text-lg text-muted-foreground mb-8">{page.ctaSubtitle}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/contact"
+                href={href(locale, "/contact")}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
               >
-                Agendar Demo
+                {page.primaryCta}
                 <ArrowRight className="w-4 h-4" />
               </Link>
+              <Link
+                href={href(locale, "/soluciones")}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
+              >
+                {page.secondaryCta}
+              </Link>
             </div>
-          </section>
-        </main>
+          </div>
+        </section>
+      </main>
       <Footer />
     </>
   )

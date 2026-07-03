@@ -1,12 +1,6 @@
 // Analytics Setup for N3uralia
 // Tracks audience segment engagement, conversion paths, and ROI by customer type
 
-declare global {
-  interface Window {
-    gtag?: (command: string, action: string, data?: Record<string, any>) => void
-  }
-}
-
 export function initializeAnalytics() {
   // GA4 Event Categories by Audience
   const audienceEvents = {
@@ -72,6 +66,12 @@ export const customMetrics = {
   engagement_score: 'metric1', // Weighted engagement calculation
   content_depth: 'metric2', // Pages viewed in session
   time_to_conversion: 'metric3', // Minutes from first visit to conversion
+}
+
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+  }
 }
 
 // Function to track audience-specific events

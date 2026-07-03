@@ -1,13 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server"
-import OpenAI from "openai"
+import { generateOpenAIText, streamOpenAIText } from "@/lib/openai-api"
+
+export const runtime = "edge"
 
 export async function POST(request: NextRequest) {
   try {
-    // Initialize OpenAI client inside the function with env var
-    const openaiClient = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    })
-
     const { message, scenario, messages } = await request.json()
 
     // Define scenario-specific system prompts
@@ -94,72 +91,51 @@ Responde como si fueras este coach de carrera con IA.`,
       Keep responses concise (2-3 sentences) for the hero section.`,
     }
 
-    if (scenario) {
-      // Direct OpenAI call for scenario-based responses
-      const systemPrompt =
-        systemPrompts[scenario as keyof typeof systemPrompts] ||
-        systemPrompts.ecosuelolab
+    let response, systemPrompt
 
-      const response = await openaiClient.chat.completions.create({
-        model: "gpt-4",
+    if (scenario) {
+      systemPrompt = systemPrompts[scenario as keyof typeof systemPrompts] || systemPrompts.ecosuelolab
+      const text = await generateOpenAIText({
+        maxTokens: 300,
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: message },
         ],
-        max_tokens: 300,
+        model: "gpt-4o",
         temperature: 0.7,
       })
-
-      return NextResponse.json({
-        response:
-          response.choices[0]?.message?.content ||
-          "No response generated",
+      response = NextResponse.json({
+        response: text,
         scenario: scenario,
         timestamp: new Date().toISOString(),
       })
     } else {
-      // Streaming response for chat
-      const chatCompletion = await openaiClient.chat.completions.create({
+      const chatMessages = Array.isArray(messages)
+        ? messages.filter(
+            (entry): entry is { role: "system" | "user" | "assistant"; content: string } =>
+              entry &&
+              typeof entry === "object" &&
+              typeof entry.role === "string" &&
+              typeof entry.content === "string",
+          )
+        : []
+
+      response = await streamOpenAIText({
+        messages:
+          chatMessages.length > 0
+            ? [{ role: "system", content: systemPrompts.n3uralia }, ...chatMessages]
+            : [
+                { role: "system", content: systemPrompts.n3uralia },
+                { role: "user", content: message || "" },
+              ],
         model: "gpt-4o",
-        messages: [
-          { role: "system", content: systemPrompts.n3uralia },
-          ...messages,
-        ],
-        stream: true,
-      })
-
-      // Convert OpenAI stream to ReadableStream for Next.js
-      const encoder = new TextEncoder()
-      const stream = new ReadableStream({
-        async start(controller) {
-          for await (const chunk of chatCompletion) {
-            const content =
-              chunk.choices[0]?.delta?.content || ""
-            if (content) {
-              controller.enqueue(
-                encoder.encode(
-                  `data: ${JSON.stringify({ content })}\n\n`
-                )
-              )
-            }
-          }
-          controller.close()
-        },
-      })
-
-      return new NextResponse(stream, {
-        headers: {
-          "Content-Type": "text/event-stream",
-          "Cache-Control": "no-cache",
-          Connection: "keep-alive",
-        },
+        temperature: 0.7,
       })
     }
+
+    return response
   } catch (error) {
     console.error("Error in hero-agent route:", error)
-    return NextResponse.json(
-      { error: "Error processing request" },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: "Error processing request" }, { status: 500 })
   }
 }

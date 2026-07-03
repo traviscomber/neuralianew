@@ -47,7 +47,7 @@ export function createServerClient() {
 }
 
 // Helper function to handle Supabase errors
-export function handleSupabaseError(error: any, context: string): null {
+export function handleSupabaseError(error: any, context: string) {
   console.error(`Supabase error in ${context}:`, error)
 
   if (error?.code === "PGRST116") {

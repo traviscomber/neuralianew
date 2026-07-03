@@ -149,7 +149,7 @@ export function generateOpenAPISpec() {
           tags: ["Living Agents"],
           summary: "Create living agent",
           description: "Creates a new living agent with specified archetype",
-          security: [{ bearerAuth: [] as string[] }],
+          security: [{ bearerAuth: [] }],
           requestBody: {
             required: true,
             content: {

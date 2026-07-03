@@ -10,9 +10,6 @@ interface PerformanceMetrics {
   ttfb: number | null
 }
 
-type PerformanceEntryWithStartTime = PerformanceEntry & { renderTime?: number; loadTime?: number }
-type PerformanceResourceTiming = PerformanceEntry & { responseStart?: number }
-
 export function PerformanceMetrics() {
   const [metrics, setMetrics] = useState<PerformanceMetrics>({
     fcp: null,
@@ -42,7 +39,7 @@ export function PerformanceMetrics() {
         // Largest Contentful Paint
         const lcpObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const lastEntry = entries[entries.length - 1] as PerformanceEntryWithStartTime
+          const lastEntry = entries[entries.length - 1] as any
           const lcp = lastEntry?.renderTime || lastEntry?.loadTime
           if (lcp) {
             setMetrics((prev) => ({ ...prev, lcp: Math.round(lcp) }))
@@ -67,8 +64,7 @@ export function PerformanceMetrics() {
         // Time to First Byte
         const ttfbObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const navEntry = entries[0] as PerformanceResourceTiming
-          const ttfb = navEntry?.responseStart
+          const ttfb = (entries[0] as any)?.responseStart
           if (ttfb) {
             setMetrics((prev) => ({ ...prev, ttfb: Math.round(ttfb) }))
           }
@@ -76,7 +72,7 @@ export function PerformanceMetrics() {
         ttfbObserver.observe({ entryTypes: ["navigation"] })
         observers.push(ttfbObserver)
       } catch (error) {
-        console.warn("[v0] Could not observe performance metrics:", error)
+        console.warn("[N3uralia] Could not observe performance metrics:", error)
       }
     }
 

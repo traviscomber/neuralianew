@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react'
-
-export default function Loading(): ReactNode {
+export default function Loading() {
   return null
 }
