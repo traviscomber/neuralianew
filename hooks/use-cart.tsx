@@ -33,10 +33,16 @@ const CartContext = createContext<CartContextType>({
   clearCart: () => {},
   total: 0,
   itemCount: 0,
+  deployedAgents: [],
+  deployAgent: () => {},
+  isAgentDeployed: () => false,
+  isAgentDeploying: () => false,
 })
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [deployedAgents, setDeployedAgents] = useState<string[]>([])
+  const [deployingAgents, setDeployingAgents] = useState<string[]>([])
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -58,9 +64,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addItem = (item: CartItem) => {
     setItems((prev) => {
       const exists = prev.find((i) => i.id === item.id)
-      if (exists) {
-        return prev // Don't add duplicates
-      }
+      if (exists) return prev
       return [...prev, item]
     })
   }
@@ -73,11 +77,35 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([])
   }
 
+  const deployAgent = (agentId: string) => {
+    setDeployingAgents((prev) => [...prev, agentId])
+    setTimeout(() => {
+      setDeployingAgents((prev) => prev.filter((id) => id !== agentId))
+      setDeployedAgents((prev) => [...prev, agentId])
+    }, 2000)
+  }
+
+  const isAgentDeployed = (agentId: string) => deployedAgents.includes(agentId)
+  const isAgentDeploying = (agentId: string) => deployingAgents.includes(agentId)
+
   const total = items.reduce((sum, item) => sum + item.price, 0)
   const itemCount = items.length
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, clearCart, total, itemCount }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addItem,
+        removeItem,
+        clearCart,
+        total,
+        itemCount,
+        deployedAgents,
+        deployAgent,
+        isAgentDeployed,
+        isAgentDeploying,
+      }}
+    >
       {children}
     </CartContext.Provider>
   )

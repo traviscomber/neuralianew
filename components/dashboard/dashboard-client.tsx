@@ -395,7 +395,7 @@ export default function DashboardClient() {
       {isChatOpen && (
         <ChatWidget
           isOpen={isChatOpen}
-          onClose={() => {
+          onToggle={() => {
             setIsChatOpen(false)
             setSpecificAgent(null)
           }}

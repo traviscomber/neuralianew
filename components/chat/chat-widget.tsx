@@ -93,7 +93,8 @@ const quickQuestions = [
 
 interface ChatWidgetProps {
   isOpen?: boolean
-  onToggle?: (isOpen: boolean) => void
+  onToggle?: (isOpen?: boolean) => void
+  specificAgent?: string | null
 }
 
 export function ChatWidget({ isOpen: externalIsOpen, onToggle }: ChatWidgetProps = {}) {

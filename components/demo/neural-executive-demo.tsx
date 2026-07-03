@@ -349,52 +349,53 @@ const getContextualQuestions = (
   }
 
   // Then fall back to contextual questions based on message content
+  const cq = config.contextualQuestions as any
   if (executive === "ceo") {
     if (lowerMessage.includes("strategy") || lowerMessage.includes("market") || lowerMessage.includes("competitive")) {
-      return config.contextualQuestions.strategy
+      return cq.strategy
     }
     if (lowerMessage.includes("crisis") || lowerMessage.includes("problem") || lowerMessage.includes("issue")) {
-      return config.contextualQuestions.crisis
+      return cq.crisis
     }
     if (lowerMessage.includes("growth") || lowerMessage.includes("expand") || lowerMessage.includes("scale")) {
-      return config.contextualQuestions.growth
+      return cq.growth
     }
     if (lowerMessage.includes("team") || lowerMessage.includes("culture") || lowerMessage.includes("leadership")) {
-      return config.contextualQuestions.leadership
+      return cq.leadership
     }
   } else if (executive === "cmo") {
     if (lowerMessage.includes("acquisition") || lowerMessage.includes("customer") || lowerMessage.includes("lead")) {
-      return config.contextualQuestions.acquisition
+      return cq.acquisition
     }
     if (lowerMessage.includes("retention") || lowerMessage.includes("churn") || lowerMessage.includes("loyalty")) {
-      return config.contextualQuestions.retention
+      return cq.retention
     }
     if (lowerMessage.includes("brand") || lowerMessage.includes("awareness") || lowerMessage.includes("social")) {
-      return config.contextualQuestions.branding
+      return cq.branding
     }
     if (lowerMessage.includes("roi") || lowerMessage.includes("analytics") || lowerMessage.includes("measure")) {
-      return config.contextualQuestions.analytics
+      return cq.analytics
     }
   } else if (executive === "cto") {
     if (lowerMessage.includes("architecture") || lowerMessage.includes("design") || lowerMessage.includes("system")) {
-      return config.contextualQuestions.architecture
+      return cq.architecture
     }
     if (
       lowerMessage.includes("security") ||
       lowerMessage.includes("compliance") ||
       lowerMessage.includes("protection")
     ) {
-      return config.contextualQuestions.security
+      return cq.security
     }
     if (
       lowerMessage.includes("innovation") ||
       lowerMessage.includes("technology") ||
       lowerMessage.includes("research")
     ) {
-      return config.contextualQuestions.innovation
+      return cq.innovation
     }
     if (lowerMessage.includes("operations") || lowerMessage.includes("devops") || lowerMessage.includes("monitoring")) {
-      return config.contextualQuestions.operations
+      return cq.operations
     }
   }
 
