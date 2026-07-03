@@ -284,7 +284,7 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
                 {Object.entries(comprehensiveAnalysis.dataAnalysis.currentMetrics).map(([key, value]) => (
                   <div key={key} className="text-center p-3 bg-slate-50 rounded-lg border">
                     <div className="text-lg font-bold text-slate-700">
-                      {typeof value === "number" ? value.toFixed(1) : value}
+                      {typeof value === "number" ? value.toFixed(1) : String(value ?? "")}
                     </div>
                     <div className="text-xs text-slate-600 capitalize">{key.replace(/([A-Z])/g, " $1")}</div>
                   </div>
@@ -384,7 +384,7 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
                   <div key={factor} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium capitalize">{factor.replace(/([A-Z])/g, " $1")}</span>
-                      <span className="text-sm font-bold">{score}%</span>
+                      <span className="text-sm font-bold">{String(score ?? "")}%</span>
                     </div>
                     <Progress value={score as number} className="h-2" />
                   </div>
@@ -859,7 +859,7 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
                   {recommendation.metric.replace(/([A-Z])/g, " $1")} Optimization
                 </h3>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge className={getPriorityColor(recommendation.priority)} size="sm">
+                  <Badge className={getPriorityColor(recommendation.priority)}>
                     {recommendation.priority} priority
                   </Badge>
                   <span className="text-sm text-muted-foreground">
@@ -870,11 +870,11 @@ export function AIReasoningExplorer({ recommendation, isOpen, onClose }: AIReaso
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={shareAnalysis}>
+              <Button variant="outline" onClick={shareAnalysis}>
                 <Share className="w-4 h-4 mr-2" />
                 Share
               </Button>
-              <Button variant="outline" size="sm" onClick={exportAnalysis}>
+              <Button variant="outline" onClick={exportAnalysis}>
                 <Download className="w-4 h-4 mr-2" />
                 Export
               </Button>

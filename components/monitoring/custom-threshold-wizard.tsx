@@ -840,7 +840,7 @@ export function CustomThresholdWizard() {
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <Checkbox checked={isSelected} readOnly />
+                    <Checkbox checked={isSelected} onCheckedChange={() => {}} />
                     <Icon className="w-5 h-5 text-blue-600" />
                     <div>
                       <div className="font-medium text-sm">{channel.name}</div>

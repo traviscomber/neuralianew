@@ -254,7 +254,7 @@ export function HighConfidenceAIPanel({ onRecommendationsApplied, className }: H
               <Badge className="bg-gold-100 text-gold-800 border-gold-200">90%+ Confidence</Badge>
             </CardTitle>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm" onClick={loadHighConfidenceRecommendations} disabled={isLoading}>
+              <Button variant="outline" onClick={loadHighConfidenceRecommendations} disabled={isLoading}>
                 <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
                 Refresh
               </Button>
@@ -338,7 +338,7 @@ export function HighConfidenceAIPanel({ onRecommendationsApplied, className }: H
                         <span className="font-semibold capitalize">
                           {recommendation.metric.replace(/([A-Z])/g, " $1")}
                         </span>
-                        <Badge className={getPriorityColor(recommendation.priority)} size="sm">
+                        <Badge className={getPriorityColor(recommendation.priority)}>
                           {recommendation.priority}
                         </Badge>
                       </div>
@@ -409,7 +409,7 @@ export function HighConfidenceAIPanel({ onRecommendationsApplied, className }: H
                     </div>
 
                     <Button
-                      size="sm"
+                     
                       onClick={() => applyIndividualRecommendation(recommendation)}
                       className="bg-green-600 hover:bg-green-700"
                     >
@@ -417,7 +417,7 @@ export function HighConfidenceAIPanel({ onRecommendationsApplied, className }: H
                       Apply Now
                     </Button>
                     <Button
-                      size="sm"
+                     
                       variant="outline"
                       onClick={() => {
                         setSelectedReasoningRec(recommendation)
@@ -452,7 +452,7 @@ export function HighConfidenceAIPanel({ onRecommendationsApplied, className }: H
                           <Badge variant="outline" className="text-xs">
                             {suggestion.confidence}%
                           </Badge>
-                          <Badge className={getImpactColor(suggestion.impact)} size="sm">
+                          <Badge className={getImpactColor(suggestion.impact)}>
                             {suggestion.impact} impact
                           </Badge>
                         </div>
