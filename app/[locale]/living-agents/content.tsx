@@ -22,7 +22,6 @@ const copy = {
     emergence: 'Es emergencia',
     emergenceBody:
       'La personalidad surge de iteración continua. Cada interacción las cambia. Cada reflexión las profundiza.',
-    archetypes: 'Basado en arquetipos',
     archetypesBody:
       'No empezamos de cero. Cinco arquetipos fundamentales, cada uno con su filosofía, valores y forma de ver el mundo.',
     five: 'Los cinco arquetipos',
@@ -221,7 +220,6 @@ const copy = {
   notAutomationBody: string
   emergence: string
   emergenceBody: string
-  archetypes: string
   archetypesBody: string
   five: string
   fiveBody: string
