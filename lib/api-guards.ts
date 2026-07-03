@@ -124,7 +124,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: validation.error,
+              message: (validation as any).error,
               code: 'VALIDATION_ERROR',
             },
             { status: 400 }
@@ -139,7 +139,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: validation.error,
+              message: (validation as any).error,
               code: 'QUERY_VALIDATION_ERROR',
             },
             { status: 400 }

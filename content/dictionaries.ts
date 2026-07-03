@@ -22,22 +22,18 @@ export type Dict = {
     h1: string;
     sub: string;
     trust: string;
-    architecture: {
-      title: string;
-      subtitle: string;
-      items: string[];
-    };
-    closing: {
-      title: string;
-      subtitle: string;
-      ctaText: string;
-      microcopy: string;
-    };
-    faq: {
-      title: string;
-      subtitle: string;
-      items: { q: string; a: string }[];
-    };
+    architecture: { title: string; subtitle: string; items: string[] };
+    closing: { title: string; subtitle: string; ctaText: string; microcopy: string };
+    faq: { title: string; subtitle: string; items: { q: string; a: string }[] };
+    differentiator: { title: string; statement1: string; statement2: string };
+    finalCta: { headline: string; subheadline: string; cta: string };
+    forWho: { title: string; description: string };
+    howWeThink: { title: string; description: string; insight: string };
+    positioning: { title: string; description: string };
+    quickTest: { title: string; subtitle: string; metrics: { label: string; value: string }[] };
+    security: { title: string; subtitle: string; pillars: { title: string; description: string }[] };
+    whatWeDo: { title: string; subtitle: string; items: { title: string; description: string }[] };
+    whyNow: { title: string; reasons: { title: string; description: string }[]; urgency: string };
   };
   pillars: {
     platformTitle: string;
@@ -122,6 +118,65 @@ const DICTS: Record<Locale, Dict> = {
           { q: "¿Cómo manejan la seguridad y privacidad de datos?", a: "Cumplimiento SOC 2 Type II, cifrado en tránsito y reposo, y opciones de despliegue on-premise o VPC privada." },
           { q: "¿Qué pasa si el sistema falla?", a: "Observabilidad completa, alertas automáticas, rollback en un clic y SLA de 99.9% de uptime." },
         ],
+      },
+      differentiator: {
+        title: "Por qué N3uralia es diferente",
+        statement1: "No vendemos demos. Construimos sistemas que operan.",
+        statement2: "Cada sistema que entregamos tiene observabilidad, rollback, gobernanza y SLA desde el día uno.",
+      },
+      finalCta: {
+        headline: "¿Listo para operar con inteligencia aumentada?",
+        subheadline: "30 minutos. Sin compromiso. Con arquitectura real.",
+        cta: "Agendar llamada técnica",
+      },
+      forWho: {
+        title: "Para quién construimos",
+        description: "Empresas medianas y grandes que necesitan automatización gobernable, no experimentos costosos.",
+      },
+      howWeThink: {
+        title: "Cómo pensamos",
+        description: "La IA sin gobernanza es un riesgo operacional.",
+        insight: "Construimos sistemas autónomos que tienen humanos en el bucle, trazabilidad completa y control en producción.",
+      },
+      positioning: {
+        title: "El gap que llenamos",
+        description: "Entre las consultoras lentas y los builders sin producción, existe un espacio para ingeniería agéntica real.",
+      },
+      quickTest: {
+        title: "Test rápido de madurez",
+        subtitle: "¿Dónde está tu operación hoy?",
+        metrics: [
+          { label: "Automatización actual", value: "Manual" },
+          { label: "Tiempo de decisión", value: "Horas" },
+          { label: "Observabilidad", value: "Limitada" },
+        ],
+      },
+      security: {
+        title: "Seguridad y control",
+        subtitle: "Gobernanza real para sistemas autónomos en producción.",
+        pillars: [
+          { title: "Human-in-the-loop", description: "Aprobación humana en decisiones críticas." },
+          { title: "Trazabilidad completa", description: "Audit trail de cada acción del agente." },
+          { title: "Rollback instantáneo", description: "Reversión en un clic ante comportamiento anómalo." },
+        ],
+      },
+      whatWeDo: {
+        title: "Qué construimos",
+        subtitle: "Sistemas agénticos listos para producción.",
+        items: [
+          { title: "Orquestación de agentes", description: "Coordinación de múltiples agentes especializados." },
+          { title: "Integración de stack", description: "Conexión con tus herramientas existentes." },
+          { title: "RAG en producción", description: "Recuperación aumentada con gobernanza y latencia controlada." },
+        ],
+      },
+      whyNow: {
+        title: "Por qué ahora",
+        reasons: [
+          { title: "Los modelos maduran", description: "GPT-4 y Claude 3 permiten agentes confiables en producción." },
+          { title: "La competencia actúa", description: "Tus competidores ya están automatizando operaciones críticas." },
+          { title: "El costo baja", description: "El costo por token cayó 80% en 12 meses." },
+        ],
+        urgency: "Cada mes sin automatización inteligente es ventaja competitiva perdida.",
       },
     },
     pillars: {
@@ -210,6 +265,65 @@ const DICTS: Record<Locale, Dict> = {
           { q: "How do you handle security and data privacy?", a: "SOC 2 Type II compliance, encryption in transit and at rest, and on-premise or private VPC deployment options." },
           { q: "What happens if the system fails?", a: "Full observability, automatic alerts, one-click rollback, and a 99.9% uptime SLA." },
         ],
+      },
+      differentiator: {
+        title: "Why N3uralia is different",
+        statement1: "We don't sell demos. We build systems that operate.",
+        statement2: "Every system we deliver has observability, rollback, governance, and SLA from day one.",
+      },
+      finalCta: {
+        headline: "Ready to operate with augmented intelligence?",
+        subheadline: "30 minutes. No commitment. Real architecture.",
+        cta: "Book a technical call",
+      },
+      forWho: {
+        title: "Who we build for",
+        description: "Mid-market and enterprise companies that need governed automation, not expensive experiments.",
+      },
+      howWeThink: {
+        title: "How we think",
+        description: "AI without governance is operational risk.",
+        insight: "We build autonomous systems that have humans in the loop, full traceability, and production control.",
+      },
+      positioning: {
+        title: "The gap we fill",
+        description: "Between slow consultancies and builders without production experience, there is space for real agentic engineering.",
+      },
+      quickTest: {
+        title: "Quick maturity test",
+        subtitle: "Where is your operation today?",
+        metrics: [
+          { label: "Current automation", value: "Manual" },
+          { label: "Decision time", value: "Hours" },
+          { label: "Observability", value: "Limited" },
+        ],
+      },
+      security: {
+        title: "Security and control",
+        subtitle: "Real governance for autonomous systems in production.",
+        pillars: [
+          { title: "Human-in-the-loop", description: "Human approval on critical decisions." },
+          { title: "Full traceability", description: "Audit trail of every agent action." },
+          { title: "Instant rollback", description: "One-click revert on anomalous behavior." },
+        ],
+      },
+      whatWeDo: {
+        title: "What we build",
+        subtitle: "Production-ready agentic systems.",
+        items: [
+          { title: "Agent orchestration", description: "Coordination of multiple specialized agents." },
+          { title: "Stack integration", description: "Connection with your existing tools." },
+          { title: "Production RAG", description: "Augmented retrieval with governance and controlled latency." },
+        ],
+      },
+      whyNow: {
+        title: "Why now",
+        reasons: [
+          { title: "Models are maturing", description: "GPT-4 and Claude 3 enable reliable production agents." },
+          { title: "Competition is moving", description: "Your competitors are already automating critical operations." },
+          { title: "Cost is dropping", description: "Cost per token dropped 80% in 12 months." },
+        ],
+        urgency: "Every month without intelligent automation is lost competitive advantage.",
       },
     },
     pillars: {

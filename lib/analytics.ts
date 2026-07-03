@@ -69,6 +69,23 @@ class AnalyticsService {
       console.error("❌ Event failed:", error)
     }
   }
+
+  getSessionId(): string | null {
+    return this.sessionId
+  }
+
+  async trackConversion(data: Record<string, any>): Promise<void> {
+    if (!this.sessionId || !this.supabase) return
+    try {
+      await this.supabase.from("conversions").insert({
+        session_id: this.sessionId,
+        ...data,
+        created_at: new Date().toISOString(),
+      })
+    } catch (error) {
+      console.error("❌ Conversion tracking failed:", error)
+    }
+  }
 }
 
 export const analytics = new AnalyticsService()

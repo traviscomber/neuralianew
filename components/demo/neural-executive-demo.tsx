@@ -603,7 +603,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       countryCode: finalCountry,
       region: selectedCountry?.region || "South America",
       city: detectedLocation?.city,
-      detectionMethod: profileForm.country ? "user_input" : websiteAnalysis?.detectedCountry ? "domain" : "ip",
+      detectionMethod: (profileForm.country ? "user_input" : websiteAnalysis?.detectedCountry ? "domain" : "ip") as "domain" | "ip" | "user_input",
     }
 
     const profile: UserProfile = {
@@ -984,7 +984,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
             isMinimized ? "h-16" : "h-[700px]"
           }`}
         >
-          <CardHeader className={`bg-gradient-to-r ${currentConfig.color} text-white rounded-t-lg p-4`}>
+          <CardHeader className={`bg-gradient-to-r ${currentConfig.bgColor} text-white rounded-t-lg p-4`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -1069,7 +1069,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                           <CardHeader className="pb-3">
                             <div className="flex items-center space-x-3">
                               <div
-                                className={`w-12 h-12 bg-gradient-to-r ${config.color} rounded-full flex items-center justify-center`}
+                                className={`w-12 h-12 bg-gradient-to-r ${config.bgColor} rounded-full flex items-center justify-center`}
                               >
                                 <config.icon className="h-6 w-6 text-white" />
                               </div>
@@ -1116,7 +1116,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
                             <Button
                               onClick={() => setDemoMode("chat")}
-                              className={`w-full bg-gradient-to-r ${config.color} hover:opacity-90`}
+                              className={`w-full bg-gradient-to-r ${config.bgColor} hover:opacity-90`}
                             >
                               <MessageCircle className="h-4 w-4 mr-2" />
                               Chatear con {key.toUpperCase()} Ahora
@@ -1172,7 +1172,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                             <div className="flex-shrink-0">
                               {message.sender === "agent" ? (
                                 <div
-                                  className={`w-8 h-8 bg-gradient-to-r ${currentConfig.color} rounded-full flex items-center justify-center`}
+                                  className={`w-8 h-8 bg-gradient-to-r ${currentConfig.bgColor} rounded-full flex items-center justify-center`}
                                 >
                                   <IconComponent className="h-4 w-4 text-white" />
                                 </div>
@@ -1187,7 +1187,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                               <div
                                 className={`rounded-lg px-4 py-2 ${
                                   message.sender === "user"
-                                    ? `bg-gradient-to-r ${currentConfig.color} text-white`
+                                    ? `bg-gradient-to-r ${currentConfig.bgColor} text-white`
                                     : "bg-gray-100 text-gray-900"
                                 }`}
                               >
@@ -1255,7 +1255,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       {isTyping && (
                         <div className="flex items-start space-x-3">
                           <div
-                            className={`w-8 h-8 bg-gradient-to-r ${currentConfig.color} rounded-full flex items-center justify-center`}
+                            className={`w-8 h-8 bg-gradient-to-r ${currentConfig.bgColor} rounded-full flex items-center justify-center`}
                           >
                             <IconComponent className="h-4 w-4 text-white" />
                           </div>
@@ -1347,7 +1347,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       <Button
                         onClick={() => handleSendMessage()}
                         disabled={!inputValue.trim() || isTyping}
-                        className={`bg-gradient-to-r ${currentConfig.color} hover:opacity-90 transition-all duration-200`}
+                        className={`bg-gradient-to-r ${currentConfig.bgColor} hover:opacity-90 transition-all duration-200`}
                       >
                         <Send className="h-4 w-4" />
                       </Button>

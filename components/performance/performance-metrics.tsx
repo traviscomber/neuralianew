@@ -39,7 +39,8 @@ export function PerformanceMetrics() {
         // Largest Contentful Paint
         const lcpObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const lcp = entries[entries.length - 1]?.renderTime || entries[entries.length - 1]?.loadTime
+          const lastEntry = entries[entries.length - 1] as any
+          const lcp = lastEntry?.renderTime || lastEntry?.loadTime
           if (lcp) {
             setMetrics((prev) => ({ ...prev, lcp: Math.round(lcp) }))
           }
@@ -63,7 +64,7 @@ export function PerformanceMetrics() {
         // Time to First Byte
         const ttfbObserver = new PerformanceObserver((list) => {
           const entries = list.getEntries()
-          const ttfb = entries[0]?.responseStart
+          const ttfb = (entries[0] as any)?.responseStart
           if (ttfb) {
             setMetrics((prev) => ({ ...prev, ttfb: Math.round(ttfb) }))
           }
