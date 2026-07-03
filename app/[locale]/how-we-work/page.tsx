@@ -309,7 +309,7 @@ export default async function HowWeWorkPage({ params }: Props) {
               {phases.map((phase, i) => (
                 <div key={i} className="border border-border rounded-lg p-6 bg-card/50 text-center hover:border-primary/50 transition-all">
                   <div className="text-3xl font-bold text-primary mb-2">{phase.num}</div>
-                  <h4 className="font-semibold text-foreground mb-1 text-sm">{phase.title.split("&")[0].trim()}</h4>
+                  <h4 className="font-semibold text-foreground mb-1 text-sm">{phase.title ? phase.title.split("&")[0].trim() : ""}</h4>
                   <p className="text-xs text-muted-foreground mb-3">{phase.duration}</p>
                   {i < phases.length - 1 && (
                     <div className="absolute left-full top-1/2 transform -translate-y-1/2 hidden md:block">
