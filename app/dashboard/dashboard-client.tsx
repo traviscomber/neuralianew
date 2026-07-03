@@ -1,27 +1,22 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import dynamic from "next/dynamic"
 
-export default function DashboardClientPage() {
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto py-8 px-4">
-        <div className="space-y-6">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">Dashboard</h1>
-            <p className="text-muted-foreground">Analytics and monitoring coming soon</p>
-          </div>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Welcome to Your Dashboard</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">Real-time analytics and monitoring tools will be available here soon.</p>
-            </CardContent>
-          </Card>
+// Lazy-load the client component with `ssr: false` so it never executes on the server.
+const DashboardClient = dynamic(() => import("@/components/dashboard/dashboard-client"), {
+  ssr: false,
+  loading: () => (
+    <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></div>
         </div>
+        <p className="text-muted-foreground">Loading your neural dashboard...</p>
       </div>
     </div>
-  )
+  ),
+})
+
+export default function DashboardClientPage() {
+  return <DashboardClient />
 }

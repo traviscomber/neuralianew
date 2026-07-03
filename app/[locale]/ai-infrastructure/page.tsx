@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Footer } from "@/components/layout/footer"
+import { Nav } from "@/components/Nav"
+import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string }
@@ -16,17 +18,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     ? "RAG y pipelines listos para producción: seguridad, latencia, costo y observabilidad."
     : "Production RAG and pipelines: security, latency, cost control, and observability."
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/ai-infrastructure",
     title,
     description,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/ai-infrastructure`,
-      languages: {
-        es: `https://n3uralia.com/es/ai-infrastructure`,
-        en: `https://n3uralia.com/en/ai-infrastructure`,
-      },
-    },
-  }
+  })
 }
 
 export default function AIInfrastructurePage({ params }: PageProps) {
@@ -35,6 +32,7 @@ export default function AIInfrastructurePage({ params }: PageProps) {
 
   return (
     <>
+      <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
         <Section title={d.pillars.infraTitle} subtitle={d.pillars.infraDesc}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginTop: "24px" }}>
@@ -65,7 +63,7 @@ export default function AIInfrastructurePage({ params }: PageProps) {
           </div>
         </Section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   )
 }

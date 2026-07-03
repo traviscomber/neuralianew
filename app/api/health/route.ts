@@ -1,17 +1,8 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { validateEnvironmentVariables, logValidationResults } from "@/lib/env"
 import { createServerClient } from "@/lib/supabase"
 
 export const runtime = "nodejs"
-
-// SECURITY: Check if request has admin token for detailed health info
-function isAuthorizedForDetails(request: NextRequest): boolean {
-  const authHeader = request.headers.get('authorization')
-  const adminToken = process.env.HEALTH_CHECK_TOKEN
-  
-  if (!adminToken) return false
-  return authHeader === `Bearer ${adminToken}`
-}
 
 async function checkDatabaseHealth(): Promise<{ status: "healthy" | "degraded" | "unhealthy"; message: string }> {
   try {
@@ -39,39 +30,21 @@ async function checkEnvironmentHealth(): Promise<{ status: "healthy" | "degraded
   }
 }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const timestamp = new Date().toISOString()
-    const isAuthorized = isAuthorizedForDetails(request)
-
-    // PUBLIC RESPONSE: Minimal health info only (no operational details)
-    // This prevents fingerprinting and information disclosure
-    if (!isAuthorized) {
-      const envHealth = await checkEnvironmentHealth()
-      let dbHealth: { status: "healthy" | "degraded" | "unhealthy" | "skipped"; message?: string } = { status: "skipped" }
-      
-      if (envHealth.status === "healthy") {
-        dbHealth = await checkDatabaseHealth()
-      }
-      
-      const allHealthy = envHealth.status === "healthy" && dbHealth.status === "healthy"
-      const overallStatus = allHealthy ? "healthy" : "degraded"
-      
-      return NextResponse.json({
-        status: overallStatus,
-        timestamp,
-      }, { status: overallStatus === "healthy" ? 200 : 503 })
-    }
-
-    // AUTHENTICATED RESPONSE: Full details for monitoring systems
     const environment = process.env.NODE_ENV || "development"
+
+    // Check environment variables
     const envHealth = await checkEnvironmentHealth()
 
-    let dbHealth: { status: "healthy" | "degraded" | "unhealthy" | "skipped"; message?: string } = { status: "skipped", message: "Skipped due to env errors" }
+    // Check database if env is healthy
+    let dbHealth = { status: "skipped" as const, message: "Skipped due to env errors" }
     if (envHealth.status === "healthy") {
       dbHealth = await checkDatabaseHealth()
     }
 
+    // Determine overall status
     const allHealthy = envHealth.status === "healthy" && dbHealth.status === "healthy"
     const overallStatus = allHealthy ? "healthy" : envHealth.status === "unhealthy" || dbHealth.status === "unhealthy" ? "unhealthy" : "degraded"
 
@@ -108,6 +81,10 @@ export async function GET(request: NextRequest) {
       {
         status: "unhealthy",
         timestamp: new Date().toISOString(),
+        error: errorMessage,
+        services: {
+          api: { status: "degraded", message: "Health check failed" },
+        },
       },
       { status: 503 },
     )

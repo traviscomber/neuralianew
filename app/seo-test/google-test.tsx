@@ -5,10 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, CheckCircle, AlertCircle, Copy, RefreshCw } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 
 export default function GoogleStructuredDataTest() {
   const [currentUrl, setCurrentUrl] = useState("")
   const [testStatus, setTestStatus] = useState<"idle" | "testing" | "success" | "error">("idle")
+  const { toast } = useToast()
 
   useEffect(() => {
     setCurrentUrl(window.location.origin)
@@ -16,7 +18,10 @@ export default function GoogleStructuredDataTest() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
-    // Toast notification removed - hook not available
+    toast({
+      title: "Copied to clipboard",
+      description: "URL copied successfully",
+    })
   }
 
   const openGoogleRichResultsTest = () => {
@@ -39,10 +44,10 @@ export default function GoogleStructuredDataTest() {
       es: "Soluciones de IA conversacional avanzada para empresas que transforman la manera en que interactúas con tus usuarios",
       en: "Advanced conversational AI solutions for businesses that transform how you interact with your users",
     },
-    url: "https://n3uralia.com",
+    url: "https://www.n3uralia.com",
     logo: {
       "@type": "ImageObject",
-      url: "https://n3uralia.com/n3uralia-logo-horizontal.jpg",
+      url: "https://www.n3uralia.com/n3uralia-logo-horizontal.jpg",
       width: 1200,
       height: 630,
     },

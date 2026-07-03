@@ -61,17 +61,6 @@ const nextConfig = {
         destination: '/:locale/soluciones',
         permanent: true,
       },
-      // Spanish/English language redirect aliases
-      {
-        source: '/es',
-        destination: '/es/',
-        permanent: false,
-      },
-      {
-        source: '/en',
-        destination: '/en/',
-        permanent: false,
-      },
     ];
   },
 };

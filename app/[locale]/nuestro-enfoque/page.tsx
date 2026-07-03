@@ -1,224 +1,205 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { ArrowRight, CheckCircle2, Compass, Shield, Target, Workflow } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Nuestro Enfoque - N3uralia | 5 Pasos hacia Inteligencia Aumentada",
-  description:
-    "Descubre el enfoque de 5 pasos de N3uralia: desde estrategia y arquitectura hasta operación y evolución. Ingeniería rigurosa en cada fase.",
-  keywords:
-    "enfoque N3uralia, metodología, arquitectura IA, sistemas agenticos, fases implementación",
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function EnfoquePage() {
-  const steps = [
-    {
-      number: "01",
-      title: "Estrategia & Arquitectura",
-      description:
-        "Entendemos profundamente tu problema. Analizamos contexto, objetivos y restricciones. Diseñamos la solución a nivel de sistemas—qué agentes necesitas, cómo coordinan, qué datos fluyen.",
-      details: [
-        "Análisis de procesos actuales",
-        "Diseño de arquitectura multi-agente",
-        "Definición de APIs y contratos",
-        "Mapeo de dependencias y riesgos",
-      ],
-    },
-    {
-      number: "02",
-      title: "Desarrollo e Integración",
-      description:
-        "Construimos sobre lo que ya funciona. Integración limpia con sistemas legacy. Desarrollo iterativo con feedback temprano. Documentación exhaustiva en cada fase.",
-      details: [
-        "Desarrollo de Living Agents especializados",
-        "Integración con sistemas existentes",
-        "Testing y validación incremental",
-        "Documentación técnica exhaustiva",
-      ],
-    },
-    {
-      number: "03",
-      title: "Infraestructura Cloud",
-      description:
-        "No solo código—también el lugar donde vive. Setup cloud completo, security by design, autoscaling, monitoring. Everything production-ready desde el primer deploy.",
-      details: [
-        "Infraestructura cloud escalable",
-        "Seguridad y compliance",
-        "Monitoreo y logging centralizado",
-        "Disaster recovery y backup",
-      ],
-    },
-    {
-      number: "04",
-      title: "Validación & Pruebas",
-      description:
-        "Testing en producción. Métricas claras sobre qué funciona y qué no. A/B testing para decisiones de agentes. Evolución guiada por datos reales.",
-      details: [
-        "Testing en entorno real",
-        "Métricas de impacto definidas",
-        "A/B testing de agentes",
-        "Retroalimentación estructurada",
-      ],
-    },
-    {
-      number: "05",
-      title: "Operación & Evolución",
-      description:
-        "Tu equipo opera. Nosotros evolucionamos el sistema según resultados. Living Agents aprenden. Documentación se actualiza. El sistema crece con tu organización.",
-      details: [
-        "Handoff a tu equipo de ops",
-        "Training y documentación",
-        "Evolución continua de agentes",
-        "Soporte y optimización ongoing",
-      ],
-    },
-  ]
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
 
-  const services = [
-    "Arquitectura de Software Agentica",
-    "Sistemas Multi-Agente en Producción",
-    "Automatización de Procesos Empresariales",
-    "Integración de Datos y Pipelines",
-    "Infraestructura Cloud Escalable",
-    "Living Agents (Agentes Inteligentes Vivos)",
-    "Operación y Monitoreo 24/7",
-  ]
+const content = {
+  es: {
+    metadataTitle: "Nuestro enfoque | N3uralia",
+    metadataDescription:
+      "Principios de trabajo de N3uralia para construir sistemas de IA, software e integraciones con criterio operacional en Chile y LATAM.",
+    badge: "Principios de trabajo",
+    title: "Nuestro enfoque: menos show, mas arquitectura operable",
+    subtitle:
+      "Este enfoque nace de una idea simple: la IA sirve cuando se integra bien, se mide bien y se deja operar por equipos reales bajo presion real.",
+    principlesTitle: "Cinco principios que guian el trabajo",
+    principles: [
+      {
+        title: "Partir por la friccion real",
+        description: "No empezamos por la tecnologia disponible. Empezamos por donde el negocio ya siente costo, atraso o desorden.",
+      },
+      {
+        title: "Disenar para produccion",
+        description: "Cada decision de arquitectura tiene que sobrevivir al uso diario, a las integraciones feas y a la operacion real.",
+      },
+      {
+        title: "Construir con trazabilidad",
+        description: "Preferimos sistemas que se puedan explicar, revisar y mejorar, antes que cajas negras dificiles de gobernar.",
+      },
+      {
+        title: "Medir con criterio",
+        description: "No basta con actividad o volumen. Buscamos mejores handoffs, menos retrabajo y decisiones mas rapidas.",
+      },
+      {
+        title: "Dejar una base mas fuerte",
+        description: "El proyecto tiene que dejar software, integraciones y criterio reutilizable para la siguiente etapa.",
+      },
+    ],
+    whatItLooksLikeTitle: "Como se ve esto en la practica",
+    whatItLooksLike: [
+      "Un problema acotado con una metrica clara antes de escalar scope.",
+      "Integraciones pensadas para convivir con el stack actual y no para resetearlo todo.",
+      "Capas de IA con reglas, monitoreo y ownership visible.",
+    ],
+    ctaTitle: "Si este enfoque te hace sentido, podemos trabajar bien juntos",
+    ctaSubtitle:
+      "Nos acomodamos mejor con equipos que quieren construir capacidad tecnica y no solo comprar una narrativa bonita.",
+    primaryCta: "Hablar con el equipo",
+    secondaryCta: "Ver como trabajamos",
+  },
+  en: {
+    metadataTitle: "Our approach | N3uralia",
+    metadataDescription:
+      "N3uralia's working principles for building AI systems, software, and integrations with operational discipline across Chile and LATAM.",
+    badge: "Working principles",
+    title: "Our approach: less theater, more operable architecture",
+    subtitle:
+      "This approach starts from one simple idea: AI matters when it integrates well, gets measured well, and can be operated by real teams under real pressure.",
+    principlesTitle: "Five principles that guide the work",
+    principles: [
+      {
+        title: "Start from real friction",
+        description: "We do not begin with available technology. We begin where the business already feels cost, delay, or operational mess.",
+      },
+      {
+        title: "Design for production",
+        description: "Every architecture decision has to survive daily use, ugly integrations, and real operations.",
+      },
+      {
+        title: "Build with traceability",
+        description: "We prefer systems that can be explained, reviewed, and improved over black boxes that are hard to govern.",
+      },
+      {
+        title: "Measure with judgment",
+        description: "Activity or volume alone is not enough. We look for better handoffs, less rework, and faster decisions.",
+      },
+      {
+        title: "Leave a stronger base behind",
+        description: "The project should leave reusable software, integrations, and operational judgment for the next stage.",
+      },
+    ],
+    whatItLooksLikeTitle: "What this looks like in practice",
+    whatItLooksLike: [
+      "A focused problem with a clear metric before scope expands.",
+      "Integrations designed to coexist with the current stack instead of forcing a total reset.",
+      "AI layers with rules, monitoring, and visible ownership.",
+    ],
+    ctaTitle: "If this approach resonates, we will likely work well together",
+    ctaSubtitle:
+      "We fit best with teams that want to build technical capacity, not just buy a polished story.",
+    primaryCta: "Talk to the team",
+    secondaryCta: "See how we work",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/nuestro-enfoque",
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+  })
+}
+
+export default function NuestroEnfoquePage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
     <>
-      <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="min-h-[50vh] flex items-center justify-center pt-32 pb-16 px-4">
-        <div className="max-w-4xl mx-auto text-center w-full">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">Metodología</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl font-bold mb-6 leading-tight text-balance">
-            Nuestro Enfoque en 5 Pasos
-          </h1>
-
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-            Desde estrategia hasta operación. Cada fase con métricas definidas, comunicación transparente y evolución continua. Esto es cómo construimos sistemas agenticos reales.
-          </p>
-        </div>
-      </section>
-
-      {/* Steps */}
-      <section className="py-24 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="space-y-20">
-            {steps.map((step, i) => (
-              <div key={i} className="grid md:grid-cols-2 gap-12 items-center">
-                <div className={`md:order-${i % 2 === 1 ? '2' : '1'}`}>
-                  <div className="text-6xl font-bold text-primary/20 mb-4">{step.number}</div>
-                  <h2 className="text-3xl font-bold mb-4 text-foreground">{step.title}</h2>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-6">{step.description}</p>
-
-                  <div className="space-y-3">
-                    {step.details.map((detail, j) => (
-                      <div key={j} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                        <span className="text-foreground">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className={`rounded-lg border border-border bg-muted/30 p-8 ${i % 2 === 1 ? 'md:order-1' : 'md:order-2'}`}>
-                  <div className="space-y-4">
-                    <p className="text-sm font-semibold text-primary uppercase">Entregables Clave</p>
-                    <ul className="space-y-2 text-muted-foreground">
-                      <li>✓ Documentación técnica</li>
-                      <li>✓ Código production-ready</li>
-                      <li>✓ Métricas y KPIs</li>
-                      <li>✓ Plan de evolución</li>
-                    </ul>
-                  </div>
-                </div>
+      <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
+                <Compass className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">{page.badge}</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6">{page.title}</h1>
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
+            </div>
+          </section>
+        </SectionBackground>
 
-      {/* Timeline visual */}
-      <section className="py-20 px-4 bg-muted/30 border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">El Viaje Completo</h2>
-
-          <div className="relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-primary/20" />
-
-            {/* Timeline items */}
-            <div className="space-y-12">
-              {steps.map((step, i) => (
-                <div key={i} className="relative">
-                  <div className="flex gap-8 items-center">
-                    <div className="hidden md:flex flex-col items-center flex-1">
-                      <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold z-10 relative bg-gradient-to-br from-primary to-primary/80">
-                        {step.number}
-                      </div>
-                    </div>
-
-                    <div className="flex-1 md:flex-1">
-                      <div className="p-6 rounded-lg border border-border bg-card hover:border-primary/50 transition-colors">
-                        <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                        <p className="text-muted-foreground text-sm">{step.description}</p>
-                      </div>
-                    </div>
+        <section className="py-24 px-4 border-b border-border">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-3xl font-bold text-foreground mb-4">{page.principlesTitle}</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {page.principles.map((item) => (
+                <div key={item.title} className="rounded-lg border border-border bg-card p-8">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                    <Target className="w-6 h-6 text-primary" />
                   </div>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services offered */}
-      <section className="py-20 px-4 border-t border-border">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4 text-center">Lo Que Hacemos</h2>
-          <p className="text-center text-muted-foreground mb-12">
-            Expertise integrado a lo largo de todas las fases. No servicios siloed.
-          </p>
-
-          <div className="grid sm:grid-cols-2 gap-4">
-            {services.map((service, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 p-4 rounded-lg border border-border/50 bg-card hover:border-primary/30 transition-colors"
-              >
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-foreground">{service}</span>
+        <SectionBackground section="workflow" className="border-b border-border">
+          <section className="py-24 px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-foreground mb-10 text-center">{page.whatItLooksLikeTitle}</h2>
+              <div className="space-y-4">
+                {page.whatItLooksLike.map((item, index) => (
+                  <div key={item} className="rounded-lg border border-border bg-background p-6 flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      0{index + 1}
+                    </div>
+                    <p className="text-muted-foreground">{item}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-20 px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
+              <Shield className="w-7 h-7 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-6">{page.ctaTitle}</h2>
+            <p className="text-muted-foreground mb-10">{page.ctaSubtitle}</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={href(locale, "/contact")}
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              >
+                {page.primaryCta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href={href(locale, "/como-trabajamos")}
+                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+              >
+                {page.secondaryCta}
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 px-4 bg-muted/30 border-t border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">¿Listo para Empezar?</h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Cuéntanos sobre tu proyecto. Analizaremos qué necesitas y crearemos un plan personalizado.
-          </p>
-
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Contactar
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
+        </section>
       </main>
+
       <Footer />
     </>
   )

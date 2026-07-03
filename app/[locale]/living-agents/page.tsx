@@ -1,16 +1,35 @@
 import type { Metadata } from "next"
 import { LivingAgentsContent } from "./content"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Living Agents de N3uralia (Neuralia) | Agentes con Personalidad Emergente",
-  description:
-    "N3uralia (Neuralia) Living Agents: Sistema de arquetipos que evolucionan. El Curador, La Tejedora, El Cronista, El Visionario, El Arquitecto. Agentes que desarrollan personalidad a través de interacciones.",
-  keywords:
-    "N3uralia, Living Agents, agentes inteligentes, personalidad emergente, arquetipos IA, Neuralia Chile",
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function LivingAgentsPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/living-agents",
+    title: "Living Agents | N3uralia",
+    description:
+      locale === "es"
+        ? "Sistema de agentes con memoria, arquetipos y evolucion contextual para equipos que exploran interaccion persistente y operable."
+        : "A system of agents with memory, archetypes, and contextual evolution for teams exploring persistent, operable interactions.",
+  })
+}
+
+export default function LivingAgentsPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
-    <LivingAgentsContent />
+    <SectionBackground section="hero">
+      <LivingAgentsContent locale={locale} />
+    </SectionBackground>
   )
 }

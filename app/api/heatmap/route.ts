@@ -75,26 +75,8 @@ export async function GET(request: NextRequest) {
   }
 }
 
-function processHeatmapData(data: any[]): {
-  clusters: any[]
-  density: any[]
-  maxIntensity: number
-  deviceBreakdown: Record<string, number>
-  viewportSizes: { size: string; count: number }[]
-  clicksByHour: { hour: number; count: number }[]
-  topElements: { selector: string; count: number }[]
-  totalClicks: number
-} {
-  if (!data.length) return { 
-    clusters: [], 
-    density: [], 
-    maxIntensity: 0,
-    deviceBreakdown: {},
-    viewportSizes: [],
-    clicksByHour: Array.from({ length: 24 }, (_, hour) => ({ hour, count: 0 })),
-    topElements: [],
-    totalClicks: 0,
-  }
+function processHeatmapData(data: any[]) {
+  if (!data.length) return { clusters: [], density: [], maxIntensity: 0 }
 
   // Group clicks by proximity (clustering)
   const clusters = clusterClicks(data, 50) // 50px radius
@@ -142,7 +124,7 @@ function processHeatmapData(data: any[]): {
   }, {})
 
   const topElements = Object.entries(elementClicks)
-    .sort(([, a], [, b]) => (b as number) - (a as number))
+    .sort(([, a], [, b]) => b - a)
     .slice(0, 10)
     .map(([selector, count]) => ({ selector, count }))
 
@@ -152,7 +134,7 @@ function processHeatmapData(data: any[]): {
     maxIntensity,
     deviceBreakdown,
     viewportSizes: Object.entries(viewportSizes)
-      .sort(([, a], [, b]) => (b as number) - (a as number))
+      .sort(([, a], [, b]) => b - a)
       .slice(0, 5)
       .map(([size, count]) => ({ size, count })),
     clicksByHour: Object.entries(clicksByHour)

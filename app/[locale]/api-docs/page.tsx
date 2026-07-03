@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { API_ENDPOINTS } from '@/lib/api-schema'
-import { Copy, Lock, Unlock } from 'lucide-react'
+import { Copy, ExternalLink, Lock, Unlock } from 'lucide-react'
+import { SectionBackground } from '@/components/section-background'
 
 export default function APIDocsPage() {
   const [copied, setCopied] = useState<string | null>(null)
@@ -17,6 +18,169 @@ export default function APIDocsPage() {
 
   return (
     <main className="min-h-screen bg-background">
+      <SectionBackground section="blog" className="border-b border-border">
+      {/* Hero */}
+      <section className="border-b border-border px-4 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl font-bold text-foreground mb-4">API Documentation</h1>
+          <p className="text-lg text-muted-foreground mb-8">
+            Production-ready endpoints for Living Agents and Agentic Systems
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-4 bg-card border border-border rounded-lg">
+              <h3 className="font-semibold text-foreground mb-2">Base URL</h3>
+              <code className="text-sm text-primary break-all">https://api.neuralia.ai/api/v1</code>
+            </div>
+            <div className="p-4 bg-card border border-border rounded-lg">
+              <h3 className="font-semibold text-foreground mb-2">Version</h3>
+              <code className="text-sm text-primary">v1</code>
+            </div>
+            <div className="p-4 bg-card border border-border rounded-lg">
+              <h3 className="font-semibold text-foreground mb-2">Format</h3>
+              <code className="text-sm text-primary">JSON</code>
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Authentication</h3>
+            <div className="p-4 bg-muted/50 border border-border rounded-lg font-mono text-sm">
+              <div className="text-muted-foreground">Authorization: Bearer YOUR_JWT_TOKEN</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Endpoints */}
+      <section className="px-4 py-16">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-12">Endpoints</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-4">
+                <div className="space-y-2">
+                  {Object.entries(API_ENDPOINTS).map(([category, endpoints]) => (
+                    <div key={category}>
+                      <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider px-3 py-2">
+                        {category.replace(/([A-Z])/g, ' $1').trim()}
+                      </h4>
+                      <div className="space-y-1">
+                        {Object.entries(endpoints).map(([name, endpoint]) => (
+                          <button
+                            key={`${category}-${name}`}
+                            onClick={() => setSelectedEndpoint(`${category}-${name}`)}
+                            className={`w-full text-left px-3 py-2 rounded text-sm transition-colors ${
+                              selectedEndpoint === `${category}-${name}`
+                                ? 'bg-primary text-primary-foreground'
+                                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                            }`}
+                          >
+                            <div className="font-mono text-xs">{endpoint.method}</div>
+                            <div className="truncate">{endpoint.description}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="lg:col-span-2">
+              {selectedEndpoint ? (
+                <EndpointDetail endpointId={selectedEndpoint} onCopy={copyToClipboard} copied={copied} />
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground mb-4">Select an endpoint to view details</p>
+                  <Link
+                    href="/docs/api/openapi.json"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                  >
+                    View OpenAPI Schema <ExternalLink className="w-4 h-4" />
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Examples */}
+      <section className="border-t border-border bg-muted/20 px-4 py-16">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold text-foreground mb-8">Usage Examples</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Health Check</h3>
+              <CodeBlock
+                code={`curl https://api.neuralia.ai/api/v1/health`}
+                language="bash"
+                onCopy={() => copyToClipboard('curl https://api.neuralia.ai/api/v1/health', 'health')}
+                copied={copied === 'health'}
+              />
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">List Living Agents</h3>
+              <CodeBlock
+                code={`curl -H "Authorization: Bearer TOKEN" \\
+  https://api.neuralia.ai/api/v1/living-agents`}
+                language="bash"
+                onCopy={() =>
+                  copyToClipboard(
+                    'curl -H "Authorization: Bearer TOKEN" https://api.neuralia.ai/api/v1/living-agents',
+                    'agents'
+                  )
+                }
+                copied={copied === 'agents'}
+              />
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Send Chat Message</h3>
+              <CodeBlock
+                code={`curl -X POST https://api.neuralia.ai/api/v1/chat \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "messages": [{
+      "role": "user",
+      "content": "Hola"
+    }]
+  }'`}
+                language="bash"
+                onCopy={() =>
+                  copyToClipboard(
+                    'curl -X POST https://api.neuralia.ai/api/v1/chat -H "Content-Type: application/json" -d \'{"messages": [{"role": "user", "content": "Hola"}]}\'',
+                    'chat'
+                  )
+                }
+                copied={copied === 'chat'}
+              />
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-foreground mb-4">Track Event</h3>
+              <CodeBlock
+                code={`curl -X POST https://api.neuralia.ai/api/v1/analytics \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "eventName": "agent_interaction",
+    "userId": "user123",
+    "properties": {}
+  }'`}
+                language="bash"
+                onCopy={() => copyToClipboard('curl -X POST https://api.neuralia.ai/api/v1/analytics', 'analytics')}
+                copied={copied === 'analytics'}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      </SectionBackground>
 
       {/* Resources */}
       <section className="border-t border-border px-4 py-16">
@@ -63,9 +227,14 @@ export default function APIDocsPage() {
 }
 
 function EndpointDetail({ endpointId, onCopy, copied }: { endpointId: string; onCopy: (text: string, id: string) => void; copied: string | null }) {
-  const [category, name] = endpointId.split('-')
+  const [category, ...nameParts] = endpointId.split('-')
+  const name = nameParts.join('-')
+
+  if (!category || !name) return null
+
   const categoryKey = category as keyof typeof API_ENDPOINTS
-  const endpoint = (API_ENDPOINTS[categoryKey] as any)?.[name]
+  const endpointGroup = API_ENDPOINTS[categoryKey] as Record<string, any> | undefined
+  const endpoint = endpointGroup?.[name]
 
   if (!endpoint) return null
 
@@ -120,7 +289,7 @@ function EndpointDetail({ endpointId, onCopy, copied }: { endpointId: string; on
   )
 }
 
-function CodeBlock({ code, language, onCopy, copied }: { code: string; language: string; onCopy: () => void; copied: boolean }) {
+function CodeBlock({ code, language: _language, onCopy, copied }: { code: string; language: string; onCopy: () => void; copied: boolean }) {
   return (
     <div className="relative">
       <pre className="p-4 bg-muted/50 border border-border rounded-lg overflow-x-auto text-xs text-muted-foreground">

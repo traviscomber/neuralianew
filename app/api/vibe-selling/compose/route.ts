@@ -1,4 +1,5 @@
 import { detectIntent, generateVibeMessage, type VibeSignals } from "@/lib/vibe-selling/intent-detector"
+import { generateOpenAIText } from "@/lib/openai-api"
 import { composeOffer } from "@/lib/vibe-selling/offer-composer"
 
 export async function POST(request: Request) {
@@ -39,8 +40,31 @@ Propone los entregables exactos que recibiría. Sé específico, no vago.`,
       const intent = detectIntent(signals as VibeSignals)
       const offer = composeOffer(intent)
 
+      const systemPrompt = `Eres N3uralia's Vibe Selling AI para el tipo de comprador ${intent.intent}.
+
+Oferta actual:
+${JSON.stringify(offer, null, 2)}
+
+Tu trabajo:
+1. Escucha lo que están diciendo
+2. Refina la oferta basándote en su entrada
+3. Nunca preguntes "¿Qué necesitas?" - ya nos lo dijeron navegando
+4. Muéstrale el alcance exacto, cronograma, tecnología y presupuesto
+5. Solo menciona los próximos pasos cuando estén listos
+
+Sé conciso. Sé confiado. Sé específico.`
+
+      const text = await generateOpenAIText({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: message },
+        ],
+        model: "gpt-4o",
+        temperature: 0.7,
+      })
+
       return Response.json({
-        message: "Vibe Selling conversation feature coming soon - powered by GPT-4 Turbo",
+        message: text,
         offer,
         nextSteps: offer.nextSteps,
       })

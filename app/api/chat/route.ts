@@ -1,80 +1,8 @@
 export const runtime = "nodejs"
 
-// Rate limiting map (simple in-memory, should use Redis in production)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
-
-function checkRateLimit(ip: string, limit: number = 10, windowMs: number = 60000): boolean {
-  const now = Date.now()
-  const record = rateLimitMap.get(ip)
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs })
-    return true
-  }
-
-  if (record.count < limit) {
-    record.count++
-    return true
-  }
-
-  return false
-}
-
-function getClientIp(req: Request): string {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    req.headers.get("x-real-ip") ||
-    "unknown"
-  )
-}
-
 export async function POST(req: Request) {
   try {
-    // Rate limiting check
-    const clientIp = getClientIp(req)
-    if (!checkRateLimit(clientIp, 10, 60000)) {
-      return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again later." }), {
-        status: 429,
-        headers: { "Content-Type": "application/json" },
-      })
-    }
-
-    // Input validation - MUST come before parsing to prevent 500 on invalid JSON
-    let messages: unknown
-    try {
-      const body = await req.json()
-      messages = body?.messages
-    } catch (e) {
-      // Invalid JSON
-      return new Response(JSON.stringify({ error: "Invalid JSON in request body" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      })
-    }
-
-    // Validate messages array
-    if (!Array.isArray(messages) || messages.length === 0) {
-      return new Response(JSON.stringify({ error: "messages must be a non-empty array" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      })
-    }
-
-    // Validate message structure
-    for (const msg of messages) {
-      if (!msg || typeof msg !== "object") {
-        return new Response(JSON.stringify({ error: "Each message must be an object" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        })
-      }
-      if (!msg.role || !msg.content) {
-        return new Response(JSON.stringify({ error: "Each message must have role and content" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        })
-      }
-    }
+    const { messages } = await req.json()
 
     const systemPrompt = `Eres un asistente de N3uralia que ayuda a empresas a entender si podemos construir su proyecto.
 
@@ -100,7 +28,7 @@ Tu objetivo: entender el proyecto Y hacer que el usuario sea 80% más claro sobr
             role: "system",
             content: systemPrompt,
           },
-          ...(messages as Array<{ role: string; content: string }>),
+          ...messages,
         ],
         temperature: 0.7,
         max_tokens: 500,
@@ -110,8 +38,8 @@ Tu objetivo: entender el proyecto Y hacer que el usuario sea 80% más claro sobr
 
     if (!response.ok) {
       const error = await response.json()
-      console.error("[v0] OpenAI API Error:", error)
-      return new Response(JSON.stringify({ error: error.error?.message || "External API error" }), {
+      console.error("[N3uralia] OpenAI API Error:", error)
+      return new Response(JSON.stringify({ error: error.error.message }), {
         status: response.status,
         headers: { "Content-Type": "application/json" },
       })
@@ -166,7 +94,7 @@ Tu objetivo: entender el proyecto Y hacer que el usuario sea 80% más claro sobr
       },
     })
   } catch (error) {
-    console.error("[v0] Chat API Error:", error)
+    console.error("[N3uralia] Chat API Error:", error)
     return new Response(JSON.stringify({ error: "Error processing chat" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },

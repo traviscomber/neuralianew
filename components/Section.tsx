@@ -1,19 +1,22 @@
-import React from "react";
+import React from "react"
 
 export function Section(props: {
-  title: string;
-  subtitle?: string;
-  children?: React.ReactNode;
+  title: string
+  subtitle?: string
+  children?: React.ReactNode
+  headingAs?: "h1" | "h2"
 }) {
+  const HeadingTag = props.headingAs ?? "h2"
+
   return (
-    <section className="py-10 border-t border-border/50">
-      <div className="max-w-4xl mx-auto px-5">
-        <h2 className="text-2xl font-semibold text-foreground">{props.title}</h2>
+    <section style={{ padding: "40px 0", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <div style={{ maxWidth: 1040, margin: "0 auto", padding: "0 20px" }}>
+        <HeadingTag style={{ fontSize: 28, margin: 0 }}>{props.title}</HeadingTag>
         {props.subtitle ? (
-          <p className="text-muted-foreground leading-relaxed mt-2">{props.subtitle}</p>
+          <p style={{ opacity: 0.85, lineHeight: 1.6, marginTop: 10 }}>{props.subtitle}</p>
         ) : null}
-        <div className="mt-4">{props.children}</div>
+        <div style={{ marginTop: 18 }}>{props.children}</div>
       </div>
     </section>
-  );
+  )
 }

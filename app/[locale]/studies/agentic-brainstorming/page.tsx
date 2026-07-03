@@ -2,29 +2,37 @@ import Link from "next/link"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
+import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export const metadata: Metadata = {
-  title: "Agentic AI Brainstorming | N3uralia Studies",
-  description:
-    "Creative intelligence meets agentic systems. Multiple creative agents collaborate to brainstorm, synthesize ideas, and generate breakthrough thinking. Powered by persistent memory and constellation workflows.",
-  keywords: "agentic ai, brainstorming, creative intelligence, ai creativity, ideation, thinking agents",
-  openGraph: {
-    title: "Agentic AI Brainstorming | N3uralia",
-    description: "Creative agents collaborating to generate breakthrough ideas",
-    type: "article",
-    locale: "es_CL",
-    url: "https://n3uralia.com/studies/agentic-brainstorming",
-  },
+interface PageProps {
+  params: {
+    locale: string
+  }
 }
 
-export default function AgenticBrainstormingPage() {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/studies/agentic-brainstorming",
+    type: "article",
+    title: "Agentic AI Brainstorming | N3uralia Studies",
+    description: "Creative intelligence meets agentic systems. Multiple creative agents collaborate to brainstorm, synthesize ideas, and generate breakthrough thinking. Powered by persistent memory and constellation workflows.",
+  })
+}
+
+export default function AgenticBrainstormingPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
       <section className="pt-32 pb-16 px-4 border-b border-border">
         <div className="max-w-3xl mx-auto">
           <Link
-            href="/studies"
+            href={`/${locale}/studies`}
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 mb-8 font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
@@ -274,15 +282,15 @@ export default function AgenticBrainstormingPage() {
           <div className="mb-16 p-8 border border-primary/20 bg-primary/5 rounded-lg">
             <h2 className="h3 text-foreground mb-4">Conceptos Relacionados</h2>
             <div className="space-y-3">
-              <Link href="/studies/agentic-ai" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/agentic-ai`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">Agentic AI - Inteligencia Autónoma</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/ai-memory" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/ai-memory`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">AI Memory - Memoria Persistente</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
-              <Link href="/studies/context-engineering" className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
+              <Link href={`/${locale}/studies/context-engineering`} className="flex items-center justify-between p-4 border border-border rounded hover:border-primary/40 transition-colors group">
                 <span className="text-foreground font-medium group-hover:text-primary">Context Engineering - Ingeniería de Contexto</span>
                 <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
               </Link>
@@ -295,7 +303,7 @@ export default function AgenticBrainstormingPage() {
             <p className="text-muted-foreground body mb-6">
               Agentic AI Brainstorming es una de nuestras aplicaciones de Living Agents. Demuestra cómo múltiples perspectivas pueden colaborar de manera inteligente y persistente para generar breakthrough thinking.
             </p>
-            <Link href="/living-agents/demo" className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
+            <Link href={`/${locale}/living-agents/demo`} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
               Ver Demo Interactiva
               <ArrowRight className="w-4 h-4" />
             </Link>

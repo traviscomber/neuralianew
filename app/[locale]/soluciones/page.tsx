@@ -1,251 +1,421 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, CheckCircle } from "lucide-react"
-import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
-import { enterpriseSolutions } from "@/app/constants/content"
+import {
+  ArrowRight,
+  Building2,
+  CheckCircle2,
+  Cpu,
+  Package,
+  TrendingUp,
+  Users,
+  Workflow,
+} from "lucide-react"
+import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
+  params: {
+    locale: string
+  }
 }
 
-export const metadata: Metadata = {
-  title: "Soluciones de IA y Software Operativo - Por Industria",
-  description:
-    "Soluciones de IA y software para operaciones reales en retail, manufactura, minería, turismo, logística y servicios. Reduce fricción operativa sin perder control.",
-  keywords:
-    "soluciones IA, software operativo, automatización empresarial, retail, manufactura, minería, turismo, logística, n3uralia",
-  alternates: {
-    canonical: `https://www.n3uralia.com/es/soluciones`,
-    languages: {
-      "es": "https://www.n3uralia.com/es/soluciones",
-      "en": "https://www.n3uralia.com/en/solutions",
-    },
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Soluciones | N3uralia",
+    metadataDescription:
+      "Soluciones de IA y software para retail, minería, manufactura, turismo, logística y equipos que operan en Chile y LATAM.",
+    badge: "Soluciones para operaciones reales",
+    title: "IA y software aplicados a sectores con presión operativa real",
+    subtitle:
+      "Partimos donde el volumen, la coordinación y las integraciones ya duelen: retail, minería, manufactura, turismo y logística. No vendemos un bot genérico. Diseñamos sistemas que viven dentro de una operación real.",
+    quickStats: ["Pilotos en 30 días", "Integraciones reales", "Arquitectura escalable"],
+    sectorsTitle: "Dónde vemos mejor fit comercial",
+    sectorsSubtitle:
+      "Cada vertical combina software, automatización e IA con una lógica distinta. Estas son las que hoy hacen más sentido para Chile y LATAM.",
+    sectors: [
+      {
+        title: "Retail y e-commerce",
+        description:
+          "Catálogo, operaciones comerciales, soporte y coordinación entre canales con más velocidad y menos trabajo manual.",
+        outcome: "Más conversión, menos fricción operativa.",
+        icon: Package,
+      },
+      {
+        title: "Minería y recursos",
+        description:
+          "Alertas, trazabilidad, monitoreo y coordinación de equipos donde la continuidad operacional importa más que la demo.",
+        outcome: "Más visibilidad, menos respuesta tardía.",
+        icon: TrendingUp,
+      },
+      {
+        title: "Manufactura",
+        description:
+          "Flujos de planta, calidad, documentación y handoffs entre áreas con procesos más claros y auditables.",
+        outcome: "Menos desorden, más continuidad.",
+        icon: Cpu,
+      },
+      {
+        title: "Turismo y hospitality",
+        description:
+          "Reservas, operaciones, respuesta a clientes y coordinación interna para equipos que viven de la experiencia y el tiempo.",
+        outcome: "Más velocidad y mejor servicio.",
+        icon: Users,
+      },
+      {
+        title: "Logística y supply chain",
+        description:
+          "Seguimiento, excepciones, handoffs y decisiones operativas para equipos que necesitan ver todo sin perder tiempo.",
+        outcome: "Más control, menos puntos ciegos.",
+        icon: Workflow,
+      },
+      {
+        title: "Servicios regulados",
+        description:
+          "Procesos con documentos, validaciones y trazabilidad donde la confianza y el control son parte del producto.",
+        outcome: "Más gobernanza, menos riesgo operacional.",
+        icon: Building2,
+      },
+    ],
+    deliveryTitle: "Cómo solemos entrar",
+    deliverySubtitle:
+      "No todos necesitan lo mismo. Hay equipos que parten por un piloto y otros por un sistema core. Estas son las tres entradas más comunes.",
+    deliveryModels: [
+      {
+        title: "Piloto operativo",
+        summary:
+          "Una línea de trabajo concreta, una integración prioritaria y una métrica clara para validar si esto mueve negocio.",
+        bullets: ["Alcance acotado", "Entrega rápida", "Riesgo controlado"],
+      },
+      {
+        title: "Sistema de producción",
+        summary:
+          "Cuando ya sabes que el problema importa y necesitas arquitectura, integraciones y una capa de operación sostenible.",
+        bullets: ["Arquitectura completa", "Guardrails y monitoreo", "Handoff operacional"],
+      },
+      {
+        title: "Modernización con IA",
+        summary:
+          "Para equipos que ya tienen software, pero necesitan agregar automatización, contexto y una capa mejor de coordinación.",
+        bullets: ["Sin reescribir todo", "Integración progresiva", "Impacto visible por etapas"],
+      },
+    ],
+    proofTitle: "Prueba en producción",
+    proofSubtitle:
+      "No hablamos solo de industria. Ya hemos construido sistemas que viven fuera del laboratorio.",
+    proofs: [
+      {
+        title: "Ecosuelolab",
+        description:
+          "Monitoreo agrícola y alertas operativas automatizadas con integraciones reales.",
+        href: "/case-studies/ecosuelolab",
+      },
+      {
+        title: "Despega Tu Carrera",
+        description:
+          "Producto full-stack con experiencias guiadas por IA y una operación pensada para escala.",
+        href: "/case-studies/despega-tu-carrera",
+      },
+      {
+        title: "Blackswan Facility Core",
+        description:
+          "Software operativo para equipos hospitality que necesitan coordinar mejor y responder más rápido.",
+        href: "/case-studies/blackswan-facility-core",
+      },
+    ],
+    ctaTitle: "Si tu sector no está aquí, igual conversemos",
+    ctaSubtitle:
+      "La pregunta no es si tu industria es especial. La pregunta es si hoy tienes fricción, volumen y decisiones repetibles. Si la respuesta es sí, hay espacio para construir algo fuerte.",
+    primaryCta: "Hablar con N3uralia",
+    secondaryCta: "Ver cómo funciona",
   },
-  openGraph: {
-    title: "Soluciones de IA y Software Operativo - Por Industria",
-    description: "IA y software para operaciones que no pueden fallar.",
-    url: "https://www.n3uralia.com/es/soluciones",
-    type: 'website',
+  en: {
+    metadataTitle: "Solutions | N3uralia",
+    metadataDescription:
+      "AI and software solutions for retail, mining, manufacturing, hospitality, logistics, and teams operating across Chile and LATAM.",
+    badge: "Solutions for real operations",
+    title: "AI and software for sectors with real operational pressure",
+    subtitle:
+      "We start where volume, coordination, and integrations already create drag: retail, mining, manufacturing, hospitality, and logistics. We do not sell a generic bot. We design systems that live inside a real operation.",
+    quickStats: ["Pilots in 30 days", "Real integrations", "Scalable architecture"],
+    sectorsTitle: "Where we see the strongest fit",
+    sectorsSubtitle:
+      "Each vertical combines software, automation, and AI differently. These are the ones that currently make the most sense for Chile and LATAM.",
+    sectors: [
+      {
+        title: "Retail and e-commerce",
+        description:
+          "Catalog operations, commercial workflows, support, and channel coordination with less manual work and faster execution.",
+        outcome: "More conversion, less operational drag.",
+        icon: Package,
+      },
+      {
+        title: "Mining and resources",
+        description:
+          "Alerts, traceability, monitoring, and team coordination where operational continuity matters more than a flashy demo.",
+        outcome: "More visibility, less delayed response.",
+        icon: TrendingUp,
+      },
+      {
+        title: "Manufacturing",
+        description:
+          "Plant workflows, quality, documentation, and cross-team handoffs with clearer and more auditable processes.",
+        outcome: "Less chaos, more continuity.",
+        icon: Cpu,
+      },
+      {
+        title: "Hospitality and tourism",
+        description:
+          "Reservations, operations, guest response, and internal coordination for teams that live on service speed and experience.",
+        outcome: "Faster response and stronger service.",
+        icon: Users,
+      },
+      {
+        title: "Logistics and supply chain",
+        description:
+          "Tracking, exceptions, handoffs, and operational decisions for teams that need visibility without wasting time.",
+        outcome: "More control, fewer blind spots.",
+        icon: Workflow,
+      },
+      {
+        title: "Regulated services",
+        description:
+          "Document-heavy processes, validations, and traceability where trust and control are part of the product.",
+        outcome: "More governance, less operational risk.",
+        icon: Building2,
+      },
+    ],
+    deliveryTitle: "How we usually enter",
+    deliverySubtitle:
+      "Not every team needs the same thing. Some start with a pilot, others need a core system. These are the three most common entry points.",
+    deliveryModels: [
+      {
+        title: "Operational pilot",
+        summary:
+          "One concrete workflow, one priority integration, and one clear metric to validate business impact quickly.",
+        bullets: ["Focused scope", "Fast delivery", "Controlled risk"],
+      },
+      {
+        title: "Production system",
+        summary:
+          "When you already know the problem matters and need architecture, integrations, and an operating layer that lasts.",
+        bullets: ["Full architecture", "Guardrails and monitoring", "Operational handoff"],
+      },
+      {
+        title: "AI-enabled modernization",
+        summary:
+          "For teams that already have software but need automation, context, and a stronger coordination layer on top.",
+        bullets: ["No full rewrite", "Progressive integration", "Visible wins by stage"],
+      },
+    ],
+    proofTitle: "Production proof",
+    proofSubtitle:
+      "We do not only talk about industries. We have already built systems that live outside the lab.",
+    proofs: [
+      {
+        title: "Ecosuelolab",
+        description:
+          "Agricultural monitoring and automated operational alerts with real integrations.",
+        href: "/case-studies/ecosuelolab",
+      },
+      {
+        title: "Despega Tu Carrera",
+        description:
+          "A full-stack product with AI-guided experiences and an operation designed for scale.",
+        href: "/case-studies/despega-tu-carrera",
+      },
+      {
+        title: "Blackswan Facility Core",
+        description:
+          "Operational software for hospitality teams that need better coordination and faster response times.",
+        href: "/case-studies/blackswan-facility-core",
+      },
+    ],
+    ctaTitle: "If your sector is not listed, we should still talk",
+    ctaSubtitle:
+      "The question is not whether your industry is special. The question is whether you already have friction, volume, and repeatable decisions. If yes, there is room to build something strong.",
+    primaryCta: "Talk to N3uralia",
+    secondaryCta: "See how it works",
   },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
+    locale,
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+    path: "/soluciones",
+  })
 }
 
 export default function SolucionesPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const isES = locale === "es"
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
-    <main className="min-h-screen bg-background pt-20">
-      {/* Hero */}
-      <section className="py-20 bg-background px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-6 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-sm font-medium text-primary">
-              {isES ? "Soluciones por Industria" : "Solutions by Industry"}
-            </span>
+    <>
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="solutions" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="container mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+              <div>
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+                  <span className="h-2 w-2 rounded-full bg-[#789b96]" />
+                  <span className="text-sm font-semibold text-[#526e69]">{page.badge}</span>
+                </div>
+                <h1 className="max-w-5xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">
+                  {page.title}
+                </h1>
+                <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">
+                  {page.subtitle}
+                </p>
+              </div>
+
+              <div className="rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
+                <div className="grid gap-3">
+                  {page.quickStats.map((stat, index) => (
+                    <div key={stat} className="flex items-center gap-4 rounded-[1.2rem] bg-[#eef5f2] p-4">
+                      <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-sm font-semibold text-[#789b96]">
+                        {index + 1}
+                      </span>
+                      <span className="text-sm font-semibold text-[#526e69]">{stat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <SolutionsFitExplorer locale={locale} />
+
+        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
+          <div className="container mx-auto max-w-7xl">
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Verticales</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.sectorsTitle}</h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.sectorsSubtitle}</p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {page.sectors.map((sector) => {
+                const Icon = sector.icon
+
+                return (
+                  <div
+                    key={sector.title}
+                    className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 shadow-[0_24px_80px_-70px_#173634] transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] hover:shadow-[0_34px_110px_-80px_#173634]"
+                  >
+                    <div className="mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96] transition-colors group-hover:bg-[#173634] group-hover:text-white">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-[#243331]">{sector.title}</h3>
+                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{sector.description}</p>
+                    <div className="mt-6 flex items-start gap-2 rounded-[1rem] bg-[#f7faf8] p-4">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
+                      <p className="text-sm font-medium text-[#526e69]">{sector.outcome}</p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 text-foreground">
-            {isES
-              ? "IA y Software para Tu Operación Real"
-              : "AI and Software for Your Real Operations"}
-          </h1>
-          <p className="body-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {isES
-              ? "Soluciones especializadas que reducen fricción operativa, integran sistemas y mantienen control. Para empresas en Chile y LATAM que no pueden fallar."
-              : "Specialized solutions that reduce operational friction, integrate systems, and maintain control. For enterprises in Chile and LATAM that can't afford to fail."}
-          </p>
-        </div>
-      </section>
+        </section>
 
-      {/* Segments Tabs/Cards */}
-      <section className="py-24 bg-background px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {enterpriseSolutions[locale].segments.map((segment, i) => (
-              <div
-                key={i}
-                className="border-2 border-primary/30 rounded-lg p-8 bg-card hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <h2 className="text-2xl font-bold text-foreground mb-6">{segment.title}</h2>
+        <SectionBackground section="workflow" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-24 sm:px-8 lg:px-10">
+            <div className="container mx-auto max-w-6xl">
+              <div className="mx-auto mb-16 max-w-3xl text-center">
+                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Entrada</p>
+                <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.deliveryTitle}</h2>
+                <p className="mt-5 text-base leading-8 text-[#65706d]">{page.deliverySubtitle}</p>
+              </div>
 
-                <div className="mb-6">
-                  <h3 className="text-sm font-semibold text-primary mb-3 uppercase tracking-wide">
-                    {isES ? "Desafíos" : "Challenges"}
-                  </h3>
-                  <ul className="space-y-2">
-                    {segment.painPoints.map((point, j) => (
-                      <li key={j} className="flex gap-2 items-start text-sm text-muted-foreground">
-                        <span className="text-primary font-bold">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+                {page.deliveryModels.map((model, index) => (
+                  <div key={model.title} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white/80 p-7 shadow-[0_24px_80px_-70px_#173634] backdrop-blur">
+                    <span className="mb-6 grid h-10 w-10 place-items-center rounded-full bg-[#173634] text-sm font-semibold text-white">
+                      {index + 1}
+                    </span>
+                    <h3 className="text-2xl font-light leading-tight text-[#173634]">{model.title}</h3>
+                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{model.summary}</p>
+                    <div className="mt-6 space-y-3">
+                      {model.bullets.map((bullet) => (
+                        <div key={bullet} className="flex items-start gap-2">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
+                          <span className="text-sm text-[#65706d]">{bullet}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
 
-                <div className="mb-6 p-4 rounded-lg bg-muted/50 border border-border/50">
-                  <p className="text-sm font-semibold text-foreground mb-2">
-                    {isES ? "Nuestro Enfoque" : "Our Approach"}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{segment.approach}</p>
-                </div>
+        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
+          <div className="container mx-auto max-w-6xl">
+            <div className="mx-auto mb-16 max-w-3xl text-center">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Evidencia</p>
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.proofTitle}</h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.proofSubtitle}</p>
+            </div>
 
-                <div className="mb-6 p-4 rounded-lg bg-primary/10 border border-primary/30">
-                  <p className="text-sm font-semibold text-primary mb-1">
-                    {isES ? "ROI Estimado" : "Estimated ROI"}
-                  </p>
-                  <p className="text-sm font-bold text-primary">{segment.roi}</p>
-                </div>
-
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {page.proofs.map((proof) => (
                 <Link
-                  href={`/${locale}/contact`}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                  key={proof.title}
+                  href={href(locale, proof.href)}
+                  className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]"
                 >
-                  {segment.cta}
-                  <ArrowRight className="w-4 h-4" />
+                  <h3 className="text-xl font-semibold text-[#243331] transition-colors group-hover:text-[#173634]">{proof.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[#65706d]">{proof.description}</p>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96]">
+                    {locale === "es" ? "Ver caso" : "View case"}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <SectionBackground section="hero">
+          <section className="px-4 py-20 sm:px-8 lg:px-10">
+            <div className="container mx-auto max-w-4xl rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-8 text-center shadow-[0_34px_110px_-82px_#173634] backdrop-blur md:p-12">
+              <h2 className="text-balance text-4xl font-light leading-tight text-[#173634] md:text-5xl">{page.ctaTitle}</h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#65706d]">{page.ctaSubtitle}</p>
+              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+                <Link
+                  href={href(locale, "/contact")}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+                >
+                  {page.primaryCta}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href={href(locale, "/#flow")}
+                  className="inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
+                >
+                  {page.secondaryCta}
                 </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Each */}
-      <section className="py-24 bg-muted/30 border-t border-border px-4">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-bold text-foreground mb-16 text-center">
-            {isES ? "¿Por qué cada segmento elige N3uralia?" : "Why each segment chooses N3uralia?"}
-          </h2>
-
-          <div className="space-y-12">
-            {/* Enterprises */}
-            <div>
-              <h3 className="text-xl font-bold text-foreground mb-6">
-                {isES ? "Empresas" : "Enterprises"}
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {(isES
-                  ? [
-                      "Production-ready desde día 1 con SLAs garantizados",
-                      "Escalabilidad integrada para millones de transacciones",
-                      "Seguridad y compliance empresarial",
-                      "ROI comprobado: 40-60% reducción de costos en 12 meses",
-                      "Integración limpia con sistemas legacy",
-                      "Equipo dedicado 24/7",
-                    ]
-                  : [
-                      "Production-ready from day 1 with guaranteed SLAs",
-                      "Built-in scalability for millions of transactions",
-                      "Enterprise security and compliance",
-                      "Proven ROI: 40-60% cost reduction in 12 months",
-                      "Clean integration with legacy systems",
-                      "Dedicated 24/7 team",
-                    ]
-                ).map((benefit, i) => (
-                  <div key={i} className="flex gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">{benefit}</p>
-                  </div>
-                ))}
-              </div>
             </div>
+          </section>
+        </SectionBackground>
+      </main>
 
-            {/* Startups */}
-            <div>
-              <h3 className="text-xl font-bold text-foreground mb-6">
-                {isES ? "Startups" : "Startups"}
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {(isES
-                  ? [
-                      "Arquitectura escalable desde el inicio",
-                      "Building blocks modulares, máxima flexibilidad",
-                      "IA como ventaja competitiva inmediata",
-                      "2x productividad sin aumentar headcount",
-                      "Pricing flexible para startups",
-                      "Comunidad activa y soporte rápido",
-                    ]
-                  : [
-                      "Scalable architecture from the start",
-                      "Modular building blocks, maximum flexibility",
-                      "AI as immediate competitive advantage",
-                      "2x productivity without increasing headcount",
-                      "Flexible pricing for startups",
-                      "Active community and fast support",
-                    ]
-                ).map((benefit, i) => (
-                  <div key={i} className="flex gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">{benefit}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Developers */}
-            <div>
-              <h3 className="text-xl font-bold text-foreground mb-6">
-                {isES ? "Desarrolladores" : "Developers"}
-              </h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                {(isES
-                  ? [
-                      "SDKs robustos y bien documentados",
-                      "APIs claras y predecibles",
-                      "Documentación exhaustiva con ejemplos",
-                      "50% menos tiempo en integración",
-                      "Comunidad técnica activa",
-                      "Herramientas de debugging avanzadas",
-                    ]
-                  : [
-                      "Robust and well-documented SDKs",
-                      "Clear and predictable APIs",
-                      "Comprehensive documentation with examples",
-                      "50% less integration time",
-                      "Active technical community",
-                      "Advanced debugging tools",
-                    ]
-                ).map((benefit, i) => (
-                  <div key={i} className="flex gap-3">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-muted-foreground">{benefit}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Next Steps CTA */}
-      <section className="py-20 bg-background border-t border-border px-4">
-        <div className="container mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold text-foreground mb-6">
-            {isES ? "¿Cuál es tu próximo paso?" : "What's Your Next Step?"}
-          </h2>
-          <p className="body text-muted-foreground mb-10">
-            {isES
-              ? "Independientemente de tu segmento, el primer paso es el mismo: una conversación clara sobre tus objetivos y restricciones."
-              : "Regardless of your segment, the first step is the same: a clear conversation about your goals and constraints."}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href={`/${locale}/learning-hub`}
-              className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
-            >
-              {isES ? "Aprender Más" : "Learn More"}
-            </Link>
-            <Link
-              href={`/${locale}/contact`}
-              className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-            >
-              {isES ? "Agendar Demo" : "Schedule Demo"}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-    </main>
+      <Footer />
+    </>
   )
 }

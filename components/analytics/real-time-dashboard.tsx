@@ -57,10 +57,8 @@ export function RealTimeDashboard() {
     fetchAnalytics()
   }, [timeRange])
 
-  useEffect((): (() => void) | undefined => {
-    if (!autoRefresh) {
-      return undefined
-    }
+  useEffect(() => {
+    if (!autoRefresh) return
 
     const interval = setInterval(fetchAnalytics, 30000) // Refresh every 30 seconds
     return () => clearInterval(interval)
