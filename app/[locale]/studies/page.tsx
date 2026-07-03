@@ -218,7 +218,7 @@ export default function StudiesPage({ params }: PageProps) {
         </section>
       </SectionBackground>
 
-      <Footer locale={locale} />
+      <Footer />
     </main>
   )
 }

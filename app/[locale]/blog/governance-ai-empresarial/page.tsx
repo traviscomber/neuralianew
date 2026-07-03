@@ -1,5 +1,5 @@
-﻿import Link from "next/link"
-import { ArrowLeft, Calendar, ShieldCheck, User } from "lucide-react"
+import Link from "next/link"
+import { ArrowLeft, ArrowRight, Calendar, ShieldCheck, User } from "lucide-react"
 import type { Metadata } from "next"
 
 import { SectionBackground } from "@/components/section-background"

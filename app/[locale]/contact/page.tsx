@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import { CheckCircle2, Clock, MessageCircle } from "lucide-react"
 import { BrandMark } from "@/components/brand"
 import { ContactPageClient } from "@/components/contact/contact-page-client"
@@ -112,7 +112,7 @@ export default function ContactPage({ params }: PageProps) {
                   </h2>
                 </div>
                 <div className="mt-4 overflow-hidden rounded-[1.6rem] border border-[#d8e5e2] bg-white">
-                  <ContactPageClient locale={locale as Locale} />
+                  <ContactPageClient />
                 </div>
               </section>
             </div>

@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next"
+import type { Metadata } from "next"
 import Script from "next/script"
 import { FaqPageClient } from "@/components/faq/faq-page-client"
 import { Footer } from "@/components/layout/footer"
@@ -82,7 +82,7 @@ export default function FaqPage({ params }: PageProps) {
       />
       <SectionBackground section="faq">
         <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
-          <FaqPageClient locale={locale} />
+          <FaqPageClient />
         </main>
       </SectionBackground>
       <Footer />

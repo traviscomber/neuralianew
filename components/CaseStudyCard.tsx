@@ -24,10 +24,10 @@ export function CaseStudyCard({ caseStudy, locale }: { caseStudy: CaseStudy; loc
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           
           <div className="relative z-10 flex flex-col h-full">
-            {/* Client name badge */}
+            {/* Vertical tag badge */}
             <div className="mb-3 inline-block">
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/15 text-primary">
-                {t2(locale, caseStudy.clientName)}
+                {t2(locale, caseStudy.verticalTag)}
               </span>
             </div>
 

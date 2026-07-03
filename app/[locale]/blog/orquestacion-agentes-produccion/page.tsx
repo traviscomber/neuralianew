@@ -1,5 +1,5 @@
 ﻿import Link from "next/link"
-import { ArrowLeft, Calendar, User } from "lucide-react"
+import { ArrowLeft, ArrowRight, Calendar, User } from "lucide-react"
 import type { Metadata } from "next"
 
 import { Footer } from "@/components/layout/footer"

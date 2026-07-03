@@ -217,27 +217,6 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
           <p className="text-muted-foreground font-mono text-sm leading-relaxed mb-8">
             {t2(locale, caseStudy.stackLine)}
           </p>
-          
-          {/* Tech Stack Badges */}
-          {caseStudy.techLogos && caseStudy.techLogos.length > 0 && (
-            <div>
-              <h4 className="text-sm font-semibold text-foreground mb-4">
-                {locale === "es" ? "Tecnologías Utilizadas" : "Technologies Used"}
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {caseStudy.techLogos.map((tech, idx) => (
-                  <div 
-                    key={idx} 
-                    className="px-3 py-1.5 rounded-full border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/50 transition-all"
-                  >
-                    <span className="text-xs font-medium text-primary">
-                      {tech.name}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </Section>
       </main>
       <Footer />
