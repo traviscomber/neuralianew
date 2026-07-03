@@ -278,7 +278,7 @@ export function LivingAgentsContent({ locale }: { locale: Locale }) {
               <p className="body text-muted-foreground">{text.emergenceBody}</p>
             </div>
             <div>
-              <h3 className="mb-3 text-lg font-semibold text-foreground">{text.archetypes}</h3>
+              <h3 className="mb-3 text-lg font-semibold text-foreground">Built on archetypes</h3>
               <p className="body text-muted-foreground">{text.archetypesBody}</p>
             </div>
           </div>
