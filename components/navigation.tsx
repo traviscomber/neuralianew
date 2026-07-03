@@ -1,146 +1,127 @@
 'use client'
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { Menu, X, Globe } from 'lucide-react'
-import { useState, useEffect } from 'react'
-import { useParams, usePathname, useRouter } from 'next/navigation'
-import { ThemeToggle } from '@/components/theme-toggle'
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { ArrowRight } from "lucide-react"
+import { buildLocalizedPath, type Locale } from "@/lib/get-locale"
 
-export default function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const params = useParams()
-  const pathname = usePathname()
-  const router = useRouter()
-  const locale = (params?.locale as string) || 'es'
-  const isES = locale === 'es'
+interface NavigationProps {
+  locale?: Locale
+}
 
-  // Ensure component is mounted before rendering interactive elements
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+type NavItem = {
+  href: string
+  label: string
+}
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false)
-  }, [pathname])
+const NAV_COPY = {
+  es: {
+    solutions: "Soluciones",
+    cases: "Casos",
+    contact: "Contacto",
+    cta: "Agendar diagnóstico",
+    language: "Idioma",
+  },
+  en: {
+    solutions: "Solutions",
+    cases: "Cases",
+    contact: "Contact",
+    cta: "Book diagnosis",
+    language: "Language",
+  },
+} as const
 
-  const href = (path: string) => `/${locale}${path}`
-  const otherLocale = isES ? 'en' : 'es'
-  const hrefLocale = (path: string) => `/${otherLocale}${path}`
+export default function Navigation({ locale = "en" }: NavigationProps) {
+  const pathname = usePathname() || "/"
+  const copy = NAV_COPY[locale]
+  const currentPath = pathname.startsWith(`/${locale}`) ? pathname : `/${locale}`
 
-  const closeMobileMenu = () => setMobileMenuOpen(false)
+  const items: NavItem[] = [
+    { href: `/${locale}`, label: locale === "es" ? "Inicio" : "Home" },
+    { href: `/${locale}/soluciones`, label: copy.solutions },
+    { href: `/${locale}/case-studies`, label: copy.cases },
+    { href: `/${locale}/contact`, label: copy.contact },
+  ]
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-background border-b border-border">
-      <div className="w-full max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link href={`/${locale}`} onClick={closeMobileMenu} className="flex items-center flex-shrink-0">
-          <Image src="/logo-n3uralia.png" alt="N3uralia" width={56} height={56} className="h-14 w-auto" priority />
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[#d8e5e2] bg-white/88 backdrop-blur-xl">
+      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
+        <Link
+          href={`/${locale}`}
+          className="inline-flex items-center gap-3 text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#789b96]"
+          aria-label="N3uralia"
+        >
+          <span className="grid h-11 w-11 place-items-center rounded-full border border-[#d8e5e2] bg-[#173634]">
+            <Image
+              src="/n3uralia-brand/n3uralia-mark.png"
+              alt=""
+              width={984}
+              height={943}
+              className="h-6 w-6 object-contain"
+            />
+          </span>
+          <span className="text-sm font-semibold uppercase tracking-[0.28em] text-[#526e69]">
+            N3uralia
+          </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex flex-1 justify-center items-center gap-1">
-          <Link href={href('/capabilities')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            {isES ? 'Capacidades' : 'Capabilities'}
-          </Link>
-          <Link href={href(isES ? '/soluciones' : '/solutions')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            {isES ? 'Soluciones' : 'Solutions'}
-          </Link>
+        <nav className="flex flex-1 flex-wrap items-center gap-2 text-sm font-medium text-[#526e69] lg:justify-center">
+          {items.map((item) => {
+            const active = currentPath === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={[
+                  "rounded-full px-4 py-2 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#789b96]",
+                  active
+                    ? "bg-[#173634] text-white"
+                    : "bg-transparent text-[#526e69] hover:bg-[#eef5f2] hover:text-[#173634]",
+                ].join(" ")}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
 
-          <Link href={href('/how-we-work')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            {isES ? 'Cómo trabajamos' : 'How We Work'}
-          </Link>
-
-          <Link href={href('/case-studies')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            {isES ? 'Casos de Éxito' : 'Case Studies'}
-          </Link>
-          <Link href={href('/faq')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            FAQ
-          </Link>
-          <Link href={href('/about')} className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition">
-            {isES ? 'Acerca de' : 'About'}
-          </Link>
-        </div>
-
-        {/* Desktop Actions */}
-        <div className="hidden md:flex gap-3 items-center flex-shrink-0">
-          <Link href={href('/contact')} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition">
-            {isES ? 'Agendar diagnóstico' : 'Schedule diagnosis'}
-          </Link>
-          
-          {/* Language Toggle */}
-          <button 
-            onClick={() => router.push(hrefLocale('/'))}
-            className="px-3 py-2 flex items-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 hover:bg-primary/5 transition"
-            title={isES ? 'Cambiar a English' : 'Cambiar a Español'}
-          >
-            <Globe className="w-4 h-4" />
-            {isES ? 'EN' : 'ES'}
-          </button>
-          
-          {/* Theme Toggle */}
-          {mounted && <ThemeToggle />}
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-foreground ml-auto p-2" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu - Only render when mounted to avoid hydration issues */}
-      {mounted && mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background px-4 py-4 space-y-1">
-          <Link href={href('/capabilities')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Capacidades' : 'Capabilities'}
-          </Link>
-          <Link href={href(isES ? '/soluciones' : '/solutions')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Soluciones' : 'Solutions'}
-          </Link>
-          <Link href={href('/how-we-work')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Cómo trabajamos' : 'How We Work'}
-          </Link>
-          <Link href={href('/case-studies')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Casos de Éxito' : 'Case Studies'}
-          </Link>
-          <Link href={href('/faq')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            FAQ
-          </Link>
-          <Link href={href('/about')} onClick={closeMobileMenu} className="block px-4 py-3 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded transition">
-            {isES ? 'Acerca de' : 'About'}
-          </Link>
-
-          <div className="pt-4 mt-4 border-t border-border space-y-2">
-            <Link href={href('/contact')} onClick={closeMobileMenu} className="block px-4 py-3 bg-primary text-primary-foreground rounded-lg text-sm font-medium text-center hover:bg-primary/90 transition">
-              {isES ? 'Agendar diagnóstico' : 'Schedule diagnosis'}
-            </Link>
-            
-            {/* Mobile Language Toggle */}
-            <button 
-              onClick={() => {
-                closeMobileMenu()
-                router.push(hrefLocale('/'))
-              }}
-              className="block w-full px-4 py-3 flex items-center justify-center gap-2 border border-primary/30 rounded-lg text-sm font-medium hover:border-primary/50 hover:bg-primary/5 transition"
-              title={isES ? 'Cambiar a English' : 'Cambiar a Español'}
+        <div className="flex items-center gap-2">
+          <span className="hidden text-xs font-semibold uppercase tracking-[0.24em] text-[#8aa39d] xl:block">
+            {copy.language}
+          </span>
+          <div className="inline-flex rounded-full border border-[#d8e5e2] bg-white p-1 shadow-sm">
+            <Link
+              href={buildLocalizedPath(currentPath, "es")}
+              className={[
+                "rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] transition-colors",
+                locale === "es" ? "bg-[#173634] text-white" : "text-[#526e69] hover:text-[#173634]",
+              ].join(" ")}
+              aria-current={locale === "es" ? "true" : undefined}
             >
-              <Globe className="w-4 h-4" />
-              {isES ? 'EN' : 'ES'}
-            </button>
-            
-            {/* Mobile Theme Toggle */}
-            <div className="flex items-center justify-center pt-2">
-              {mounted && <ThemeToggle />}
-            </div>
+              ES
+            </Link>
+            <Link
+              href={buildLocalizedPath(currentPath, "en")}
+              className={[
+                "rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] transition-colors",
+                locale === "en" ? "bg-[#173634] text-white" : "text-[#526e69] hover:text-[#173634]",
+              ].join(" ")}
+              aria-current={locale === "en" ? "true" : undefined}
+            >
+              EN
+            </Link>
           </div>
+          <Link
+            href={`/${locale}/contact`}
+            className="hidden items-center gap-2 rounded-full bg-[#8fb2aa] px-4 py-2 text-sm font-semibold text-[#06100f] transition-transform hover:-translate-y-0.5 sm:inline-flex"
+          >
+            {copy.cta}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
-      )}
-    </nav>
+      </div>
+    </header>
   )
 }

@@ -1,7 +1,9 @@
-import type { Metadata, Viewport } from "next"
+import type { Metadata } from "next"
 import type { ReactNode } from "react"
-import { notFound } from "next/navigation"
-import { isValidLocale, LOCALES, DEFAULT_LOCALE } from "@/lib/get-locale"
+import Navigation from "@/components/navigation"
+import { ScrollToTop } from "@/components/scroll-to-top"
+import { ThemeProvider } from "@/components/theme-provider"
+import { DEFAULT_LOCALE, isValidLocale, LOCALES } from "@/lib/get-locale"
 
 interface LocaleLayoutProps {
   children: ReactNode
@@ -14,111 +16,55 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({
-  params,
-}: LocaleLayoutProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
-    es: "N3uralia | Sistemas Agenticos en Produccion",
-    en: "N3uralia | Agentic Systems in Production",
+    es: "N3uralia | IA y software para operaciones reales",
+    en: "N3uralia | AI and software for real operations",
   }
 
   const descriptions = {
-    es: "Orquestacion de sistemas agenticos para empresas. Automatizacion inteligente lista para produccion.",
-    en: "Agentic systems orchestration for enterprises. Intelligent automation ready for production.",
+    es: "Sistemas de IA, flujos agénticos y software en producción para equipos en Chile y LATAM.",
+    en: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
   }
-
-  const ogDescriptions = {
-    es: "Arquitectura IA agentica diseñada para humanos. Agentes N3uralia en producción con gobernanza, memoria y orquestación.",
-    en: "Agentic AI architecture designed for humans. N3uralia AI agents in production with governance, memory, and orchestration.",
-  }
-
-  const canonicalUrl = `https://n3uralia.com/${locale}`
 
   return {
-    title: titles[locale as keyof typeof titles],
-    description: descriptions[locale as keyof typeof descriptions],
-    keywords: locale === 'es' 
-      ? "sistemas agenticos, IA en produccion, agentes inteligentes, agentes de IA, AI agents, agentes IA, automatizacion empresarial, arquitectura multiagente, inteligencia aumentada, n3uralia, orquestacion de agentes, IA Chile, LATAM, empresa AI"
-      : "agentic systems, AI in production, intelligent agents, AI agents, enterprise automation, multi-agent architecture, augmented intelligence, n3uralia, agent orchestration, enterprise AI",
-    authors: [{ name: "N3uralia", url: "https://n3uralia.com" }],
-    creator: "N3uralia",
-    icons: {
-      icon: "/favicon.ico",
-      shortcut: "/favicon.ico",
-      apple: "/favicon.ico",
-    },
+    title: titles[locale],
+    description: descriptions[locale],
     alternates: {
-      canonical: canonicalUrl,
+      canonical: `https://www.n3uralia.com/${locale}`,
       languages: {
-        'es': 'https://n3uralia.com/es',
-        'en': 'https://n3uralia.com/en',
+        es: "https://www.n3uralia.com/es",
+        en: "https://www.n3uralia.com/en",
       },
     },
     openGraph: {
-      locale: locale === 'es' ? 'es_CL' : 'en_US',
-      type: 'website',
-      siteName: 'N3uralia',
-      title: locale === 'es' 
-        ? "N3uralia - Sistemas Agenticos en Produccion" 
-        : "N3uralia - Agentic Systems in Production",
-      description: ogDescriptions[locale as keyof typeof ogDescriptions],
-      url: canonicalUrl,
-      images: [
-        {
-          url: "https://n3uralia.com/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: locale === 'es' ? "N3uralia - Sistemas Agenticos en Produccion" : "N3uralia - Agentic Systems in Production",
-          type: "image/png",
-        },
-      ],
+      title: titles[locale],
+      description: descriptions[locale],
+      locale: locale === "es" ? "es_CL" : "en_US",
+      type: "website",
     },
-    twitter: {
-      card: "summary_large_image",
-      title: titles[locale as keyof typeof titles],
-      description: descriptions[locale as keyof typeof descriptions],
-      creator: "@n3uralia",
-      site: "@n3uralia",
-    },
-    robots: {
-      index: true,
-      follow: true,
-      nocache: false,
-      googleBot: {
-        index: true,
-        follow: true,
-        "max-image-preview": "large",
-        "max-snippet": -1,
-        "max-video-preview": -1,
-      },
-    },
-    generator: "v0.app",
-    referrer: "strict-origin-when-cross-origin",
-    category: "technology",
   }
 }
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  viewportFit: "cover",
-}
-
-// Locale layout - validates locale and passes children through
-// HTML structure is handled by root layout with dynamic lang attribute via script
 export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  // Validate locale - if invalid, return 404
-  if (!isValidLocale(params.locale)) {
-    notFound()
-  }
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const skipLabel = locale === "es" ? "Saltar al contenido principal" : "Skip to main content"
 
   return (
-    <main role="main">
-      {children}
-    </main>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <a
+        href="#main-content"
+        className="pointer-events-none fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] opacity-0 shadow-[0_22px_55px_-34px_#8fb2aa] outline-none ring-2 ring-transparent transition focus:pointer-events-auto focus:translate-y-0 focus:opacity-100 focus:ring-[#d9e3e0]"
+      >
+        {skipLabel}
+      </a>
+      <Navigation locale={locale} />
+      <div id="main-content" tabIndex={-1} className="scroll-mt-28 outline-none">
+        {children}
+      </div>
+      <ScrollToTop />
+    </ThemeProvider>
   )
 }

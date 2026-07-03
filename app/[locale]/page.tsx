@@ -1,371 +1,366 @@
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+﻿import Link from "next/link"
 import type { Metadata } from "next"
-import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale, Dict } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
-import { Footer } from "@/components/layout/footer"
-import { HeroBackground } from "@/components/section-background"
-import { PainPointsSection } from "@/components/pain-points-section"
-import { SolutionSection } from "@/components/solution-section"
-import { ProofSection } from "@/components/proof-section"
-import { HowWeWorkSection } from "@/components/how-we-work-simplified-section"
-import { QuickTestBar } from "@/components/quick-test-bar"
-import { IndustriesGrid } from "@/components/industries-grid"
-import { SecurityControl } from "@/components/security-control"
-import { CommercialFAQ } from "@/components/commercial-faq"
-import { FinalCTASection } from "@/components/final-cta-section"
-import { WhyNowSection } from "@/components/why-now-section"
-import { AgentMatrixShowcase } from "@/components/agent-matrix-showcase"
+import { ArrowRight, Blocks, BrainCircuit, CircuitBoard, Layers3, ShieldCheck, Sparkles, Workflow } from "lucide-react"
 
-// VERCEL CACHE BUSTER: v41.0.0-5-production-patches-final
-// 5 Comprehensive SEO + CTA Patches Implemented 2026-05-24:
-// 1. ✅ 404 Real: Catch-all route + not-found.tsx properly return 404 status
-// 2. ✅ buildSeo() Utility: New reusable function for self-canonical URLs per page
-// 3. ✅ Blog Posts Fixed: All 3 blog posts now use buildSeo() with self-canonical + og:url
-// 4. ✅ Sitemap Cleaned: 34 verified routes only, no duplicates, no non-existent routes
-// 5. ✅ CTA Global Constants: lib/constants.ts with PRIMARY="Agendar diagnóstico (30 min)"
-// Build: 131 pages compiled, all SEO signals correct
+import { BrandMark, BrandWordmark } from "@/components/brand"
+import { Footer } from "@/components/layout/footer"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
+  params: {
+    locale: string
+  }
 }
 
-export const metadata: Metadata = {
-  title: "N3uralia | IA y Software para Operaciones Reales - Chile y LATAM",
-  description:
-    "N3uralia construye sistemas de IA y software operativo para empresas en Chile y LATAM. Infraestructura, no truco. Automatización con control, trazabilidad y resultado real.",
-  keywords:
-    "IA en producción, software operativo, automatización empresarial, sistemas agenticos, operaciones reales, n3uralia, Chile",
-  alternates: {
-    canonical: "https://www.n3uralia.com",
-    languages: {
-      "es-CL": "https://www.n3uralia.com/es",
-      "es": "https://www.n3uralia.com/es",
-      "en": "https://www.n3uralia.com/en",
-      "en-US": "https://www.n3uralia.com/en",
-    },
+type LocalePageCopy = {
+  badge: string
+  heroTitle: string
+  heroBody: string
+  heroPrimary: string
+  heroSecondary: string
+  routeTitle: string
+  routeSubtitle: string
+  routeLabel: string
+  problemTitle: string
+  problemIntro: string
+  problems: Array<{ title: string; description: string }>
+  capabilitiesTitle: string
+  capabilitiesIntro: string
+  capabilities: Array<{ title: string; description: string }>
+  solutionsTitle: string
+  solutionsIntro: string
+  routes: Array<{ title: string; description: string; href: string }>
+  casesTitle: string
+  casesIntro: string
+  cases: Array<{ title: string; description: string; href: string }>
+  methodTitle: string
+  methodIntro: string
+  methodSteps: Array<{ title: string; description: string }>
+  ctaTitle: string
+  ctaBody: string
+  ctaPrimary: string
+  ctaSecondary: string
+}
+
+const pageCopy: Record<Locale, LocalePageCopy> = {
+  es: {
+    badge: "IA y software para operaciones reales",
+    heroTitle: "Construimos sistemas que el equipo puede entender, operar y ampliar.",
+    heroBody: "Partimos de la operación y la convertimos en un sistema claro.",
+    heroPrimary: "Ver capacidades",
+    heroSecondary: "Hablar con N3uralia",
+    routeTitle: "Recorrido simple",
+    routeSubtitle: "Lee la página en este orden.",
+    routeLabel: "Ir a la sección",
+    problemTitle: "Qué intentamos resolver",
+    problemIntro: "Primero identificamos la fricción antes de pensar en pantallas.",
+    problems: [
+      { title: "Silos operativos", description: "La información vive en chats, documentos y herramientas aisladas." },
+      { title: "Poca trazabilidad", description: "No siempre queda claro quién hizo qué, cuándo y por qué." },
+      { title: "Automatización débil", description: "Hay tareas repetitivas que siguen dependiendo de trabajo manual." },
+    ],
+    capabilitiesTitle: "Capacidades principales",
+    capabilitiesIntro: "Bloques listos para diseño visual y navegación simple.",
+    capabilities: [
+      { title: "Arquitectura agéntica", description: "Agentes con memoria, herramientas y reglas de operación." },
+      { title: "Living agents", description: "Sistemas que aprenden del uso y mejoran con contexto." },
+      { title: "Integración", description: "Conexión con CRM, ERP, documentos y flujos existentes." },
+      { title: "Conversación", description: "Interfaces claras para operar con menos fricción." },
+      { title: "Observabilidad", description: "Estado, métricas y trazabilidad en un mismo lugar." },
+      { title: "Gobernanza", description: "Permisos, límites y control de decisiones sensibles." },
+    ],
+    solutionsTitle: "Rutas de solución",
+    solutionsIntro: "Tres puertas de entrada simples para ubicar el tipo de trabajo.",
+    routes: [
+      { title: "Diagnóstico", description: "Mapeamos la operación y detectamos el primer problema resoluble.", href: "/contact" },
+      { title: "Diseño del sistema", description: "Definimos módulos, flujos y criterio de implementación.", href: "/capabilities" },
+      { title: "Ejecución", description: "Pasamos a casos concretos, entregables y validación con negocio.", href: "/soluciones" },
+    ],
+    casesTitle: "Casos de referencia",
+    casesIntro: "Pruebas cortas para mostrar contexto y resultado.",
+    cases: [
+      { title: "EcoSuelosLab", description: "Automatización aplicada a educación y trazabilidad.", href: "/case-studies/ecosuelolab" },
+      { title: "Despega tu Carrera", description: "Soporte conversacional y gestión de aprendizaje.", href: "/case-studies/despega-tu-carrera" },
+      { title: "BlackSwan Facility Core", description: "Operación crítica con control y visibilidad.", href: "/case-studies/blackswan-facility-core" },
+    ],
+    methodTitle: "Método de trabajo",
+    methodIntro: "Una secuencia mínima para pasar de diagnóstico a producción.",
+    methodSteps: [
+      { title: "1. Diagnosticar", description: "Entender el flujo real, el volumen y el riesgo operativo." },
+      { title: "2. Diseñar", description: "Definir sistema, información, permisos y prioridades." },
+      { title: "3. Construir", description: "Llevarlo a producción con validación continua." },
+    ],
+    ctaTitle: "La landing ya tiene una base clara",
+    ctaBody: "Cuando quieras, pasamos al diseño visual y al refinamiento de marca.",
+    ctaPrimary: "Ver soluciones",
+    ctaSecondary: "Agendar diagnóstico",
   },
-  openGraph: {
-    title: "N3uralia - IA y Software para Operaciones Reales",
-    description: "Construimos sistemas de IA y software que reducen fricción operativa sin perder control. Desde Chile para operaciones reales en LATAM.",
-    type: "website",
-    locale: "es_CL",
-    url: "https://www.n3uralia.com",
-    siteName: "N3uralia",
+  en: {
+    badge: "AI and software for real operations",
+    heroTitle: "We build systems the team can understand, operate, and extend.",
+    heroBody: "We start from the operation and turn it into a clear system.",
+    heroPrimary: "View capabilities",
+    heroSecondary: "Talk to N3uralia",
+    routeTitle: "Simple route",
+    routeSubtitle: "Read the page in this order.",
+    routeLabel: "Go to section",
+    problemTitle: "What we are solving",
+    problemIntro: "We identify friction before thinking about screens.",
+    problems: [
+      { title: "Operational silos", description: "Information lives in chats, documents, and disconnected tools." },
+      { title: "Low traceability", description: "It is not always clear who did what, when, and why." },
+      { title: "Weak automation", description: "Repetitive work still depends on manual execution." },
+    ],
+    capabilitiesTitle: "Main capabilities",
+    capabilitiesIntro: "Blocks ready for visual design and simple navigation.",
+    capabilities: [
+      { title: "Agentic architecture", description: "Agents with memory, tools, and operating rules." },
+      { title: "Living agents", description: "Systems that learn from use and improve with context." },
+      { title: "Integration", description: "Connection to CRM, ERP, documents, and existing flows." },
+      { title: "Conversation", description: "Clear interfaces that reduce operational friction." },
+      { title: "Observability", description: "State, metrics, and traceability in one place." },
+      { title: "Governance", description: "Permissions, limits, and control over sensitive decisions." },
+    ],
+    solutionsTitle: "Solution paths",
+    solutionsIntro: "Three simple entry points that clarify the type of work.",
+    routes: [
+      { title: "Diagnosis", description: "We map the operation and surface the first solvable problem.", href: "/contact" },
+      { title: "System design", description: "We define modules, flows, and implementation criteria.", href: "/capabilities" },
+      { title: "Execution", description: "We move into concrete cases, deliverables, and business validation.", href: "/soluciones" },
+    ],
+    casesTitle: "Reference cases",
+    casesIntro: "Short proofs that show context and outcome.",
+    cases: [
+      { title: "EcoSuelosLab", description: "Automation applied to education and traceability.", href: "/case-studies/ecosuelolab" },
+      { title: "Despega tu Carrera", description: "Conversational support and learning management.", href: "/case-studies/despega-tu-carrera" },
+      { title: "BlackSwan Facility Core", description: "Critical operations with control and visibility.", href: "/case-studies/blackswan-facility-core" },
+    ],
+    methodTitle: "Working method",
+    methodIntro: "A minimal sequence from diagnosis to production.",
+    methodSteps: [
+      { title: "1. Diagnose", description: "Understand the real flow, volume, and operational risk." },
+      { title: "2. Design", description: "Define system, information, permissions, and priorities." },
+      { title: "3. Build", description: "Take it to production with continuous validation." },
+    ],
+    ctaTitle: "The landing now has a clear base",
+    ctaBody: "When you are ready, we can move to visual design and brand refinement.",
+    ctaPrimary: "View solutions",
+    ctaSecondary: "Book diagnosis",
   },
+}
+
+const sectionAnchors = [
+  { href: "#problema", label: { es: "Problema", en: "Problem" } },
+  { href: "#capacidades", label: { es: "Capacidades", en: "Capabilities" } },
+  { href: "#soluciones", label: { es: "Soluciones", en: "Solutions" } },
+  { href: "#contacto", label: { es: "Contacto", en: "Contact" } },
+] as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const title = locale === "es" ? "N3uralia | IA y software para operaciones reales" : "N3uralia | AI and software for real operations"
+  const description = locale === "es" ? "Landing principal de N3uralia, estructurada para explicar la propuesta, las capacidades y los siguientes pasos." : "N3uralia's main landing page, structured to explain the proposal, capabilities, and next steps."
+
+  return buildLocalizedMetadata({ locale, path: "/", title, description })
+}
+
+function SectionHeader({ title, intro, locale }: { title: string; intro: string; locale: Locale }) {
+  return (
+    <div className="max-w-3xl">
+      <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8aa39d]">{locale === "es" ? "Sección" : "Section"}</p>
+      <h2 className="mt-3 text-3xl font-light leading-tight tracking-[-0.04em] text-[#173634] md:text-5xl">{title}</h2>
+      <p className="mt-4 text-base leading-8 text-[#65706d]">{intro}</p>
+    </div>
+  )
 }
 
 export default function HomePage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d: Dict = getDict(locale)
-  const isES = locale === "es"
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const copy = pageCopy[locale]
 
   return (
-    <>
-      <main className="min-h-screen bg-background">
-        {/* HERO Section */}
-        <HeroBackground className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-          <section className="min-h-screen flex items-center justify-center pt-32 pb-16 px-4">
-            <div className="max-w-4xl mx-auto text-center w-full">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-sm font-medium text-primary">
-                  {isES ? "Desde Chile para operaciones reales en LATAM" : "From Chile for real operations in LATAM"}
+    <main className="min-h-screen bg-[#fbfbfa] pt-28 text-[#243331]">
+      <section id="top" className="px-4 pb-16 sm:px-8 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch">
+          <div className="rounded-[2.5rem] border border-[#d8e5e2] bg-white p-8 shadow-[0_40px_140px_-96px_#173634] md:p-12">
+            <div className="inline-flex items-center gap-3 rounded-full border border-[#d8e5e2] bg-[#fbfbfa] px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">
+              <BrandMark className="h-6 w-6 rounded-lg text-[#789b96]" />
+              {copy.badge}
+            </div>
+            <h1 className="mt-8 max-w-4xl text-balance text-5xl font-light leading-[0.96] tracking-[-0.05em] text-[#173634] md:text-7xl">{copy.heroTitle}</h1>
+            <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-[#65706d]">{copy.heroBody}</p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href={`/${locale}/capabilities`} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5">
+                {copy.heroPrimary}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={`/${locale}/contact`} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e5e2] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-transform hover:-translate-y-0.5 hover:border-[#789b96] hover:text-[#173634]">
+                {copy.heroSecondary}
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[1.4rem] border border-[#d8e5e2] bg-[#f7faf8] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8aa39d]">{locale === "es" ? "Foco" : "Focus"}</p>
+                <p className="mt-2 text-sm leading-6 text-[#526e69]">{locale === "es" ? "Operación, claridad y control." : "Operations, clarity, and control."}</p>
+              </div>
+              <div className="rounded-[1.4rem] border border-[#d8e5e2] bg-[#f7faf8] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8aa39d]">{locale === "es" ? "Entrega" : "Delivery"}</p>
+                <p className="mt-2 text-sm leading-6 text-[#526e69]">{locale === "es" ? "Bloques listos para diseñar." : "Blocks ready for design."}</p>
+              </div>
+              <div className="rounded-[1.4rem] border border-[#d8e5e2] bg-[#f7faf8] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8aa39d]">{locale === "es" ? "Idioma" : "Language"}</p>
+                <p className="mt-2 text-sm leading-6 text-[#526e69]">{locale === "es" ? "ES en /es y EN en /en." : "ES on /es and EN on /en."}</p>
+              </div>
+            </div>
+          </div>
+
+          <aside className="rounded-[2.5rem] border border-[#d8e5e2] bg-[#173634] p-8 text-white shadow-[0_40px_140px_-96px_#173634] md:p-10">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8fb2aa]">{copy.routeTitle}</p>
+                <h2 className="mt-3 text-3xl font-light leading-tight">{copy.routeSubtitle}</h2>
+              </div>
+              <BrandWordmark className="hidden h-10 text-[#8fb2aa] md:block" />
+            </div>
+            <div className="mt-8 grid gap-3">
+              {sectionAnchors.map((item) => (
+                <a key={item.href} href={item.href} className="group flex items-center justify-between rounded-[1.1rem] border border-white/10 bg-white/6 px-4 py-3 text-sm transition-colors hover:bg-white/10">
+                  <span>{item.label[locale]}</span>
+                  <span className="text-xs uppercase tracking-[0.18em] text-[#8fb2aa]">{copy.routeLabel}</span>
+                </a>
+              ))}
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="problema" className="border-y border-[#d8e5e2] bg-white px-4 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader title={copy.problemTitle} intro={copy.problemIntro} locale={locale} />
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {copy.problems.map((item) => (
+              <article key={item.title} className="rounded-[1.8rem] border border-[#d8e5e2] bg-[#fbfbfa] p-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8aa39d]">{locale === "es" ? "Señal" : "Signal"}</p>
+                <h3 className="mt-3 text-2xl font-semibold text-[#173634]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#65706d]">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="capacidades" className="px-4 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader title={copy.capabilitiesTitle} intro={copy.capabilitiesIntro} locale={locale} />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {copy.capabilities.map((item) => {
+              const iconMap = {
+                "Arquitectura agéntica": Blocks,
+                "Living agents": BrainCircuit,
+                Integration: CircuitBoard,
+                Integración: CircuitBoard,
+                Conversation: Sparkles,
+                Conversación: Sparkles,
+                Observability: Workflow,
+                Observabilidad: Workflow,
+                Governance: ShieldCheck,
+                Gobernanza: ShieldCheck,
+              } as const
+              const Icon = iconMap[item.title as keyof typeof iconMap] ?? Layers3
+
+              return (
+                <article key={item.title} className="rounded-[1.8rem] border border-[#d8e5e2] bg-white p-6 shadow-[0_22px_80px_-72px_#173634]">
+                  <Icon className="h-6 w-6 text-[#789b96]" />
+                  <h3 className="mt-4 text-2xl font-semibold text-[#173634]">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#65706d]">{item.description}</p>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section id="soluciones" className="border-y border-[#d8e5e2] bg-[#edf4f1] px-4 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader title={copy.solutionsTitle} intro={copy.solutionsIntro} locale={locale} />
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {copy.routes.map((item) => (
+              <Link key={item.title} href={`/${locale}${item.href}`} className="group rounded-[1.8rem] border border-[#d8e5e2] bg-white p-6 transition-transform hover:-translate-y-1">
+                <h3 className="text-2xl font-semibold text-[#173634]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#65706d]">{item.description}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96]">
+                  {locale === "es" ? "Abrir sección" : "Open section"}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="casos" className="px-4 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeader title={copy.casesTitle} intro={copy.casesIntro} locale={locale} />
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {copy.cases.map((item) => (
+              <Link key={item.title} href={`/${locale}${item.href}`} className="group rounded-[1.8rem] border border-[#d8e5e2] bg-white p-6 transition-transform hover:-translate-y-1 hover:border-[#b8d1cc]">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8aa39d]">{locale === "es" ? "Caso" : "Case"}</p>
+                <h3 className="mt-3 text-2xl font-semibold text-[#173634]">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-[#65706d]">{item.description}</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96]">
+                  {locale === "es" ? "Ver referencia" : "View reference"}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="metodo" className="border-y border-[#d8e5e2] bg-[#173634] px-4 py-20 text-white sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8fb2aa]">{locale === "es" ? "Sección" : "Section"}</p>
+            <h2 className="mt-3 text-3xl font-light leading-tight tracking-[-0.04em] text-white md:text-5xl">{copy.methodTitle}</h2>
+            <p className="mt-4 text-base leading-8 text-white/75">{copy.methodIntro}</p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {copy.methodSteps.map((item) => (
+              <article key={item.title} className="rounded-[1.8rem] border border-white/10 bg-white/6 p-6">
+                <h3 className="text-2xl font-semibold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-white/75">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" className="px-4 py-20 sm:px-8 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="rounded-[2.2rem] border border-[#d8e5e2] bg-white p-8 shadow-[0_32px_120px_-90px_#173634] md:p-10">
+            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8aa39d]">{locale === "es" ? "Siguiente paso" : "Next step"}</p>
+                <h2 className="mt-4 text-4xl font-light leading-tight tracking-[-0.04em] text-[#173634] md:text-6xl">{copy.ctaTitle}</h2>
+                <p className="mt-5 max-w-2xl text-base leading-8 text-[#65706d]">{copy.ctaBody}</p>
               </div>
-
-              <h1 className="text-5xl sm:text-6xl font-bold mb-8 leading-tight text-balance text-foreground">
-                {isES ? "IA y software para operaciones que no pueden fallar" : "AI and software for operations that cannot fail"}
-              </h1>
-
-              <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-                {isES 
-                  ? "Diseñamos sistemas que integran datos, procesos y decisiones para reducir fricción operativa sin perder control." 
-                  : "We design systems that integrate data, processes, and decisions to reduce operational friction without losing control."}
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 w-full">
-                <Link
-                  href={`/${locale}/contact`}
-                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 flex items-center justify-center gap-2"
-                >
-                  {isES ? "Agendar diagnóstico" : "Schedule diagnosis"}
-                  <ArrowRight className="w-4 h-4" />
+              <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
+                <Link href={`/${locale}/soluciones`} className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5">
+                  {copy.ctaPrimary}
                 </Link>
-                <Link
-                  href={`/${locale}/soluciones`}
-                  className="px-8 py-3 border border-primary/30 text-foreground rounded-lg font-semibold hover:bg-muted transition-all flex items-center justify-center gap-2"
-                >
-                  {isES ? "Ver soluciones" : "View solutions"}
+                <Link href={`/${locale}/contact`} className="inline-flex items-center justify-center gap-2 rounded-full border border-[#d8e5e2] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-transform hover:-translate-y-0.5 hover:border-[#789b96] hover:text-[#173634]">
+                  {copy.ctaSecondary}
                 </Link>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4 sm:gap-8 border-t border-primary/20 pt-8 sm:pt-12">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">-60%</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Costos operacionales" : "Operating costs"}</p>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">4w</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Hasta producción" : "to production"}</p>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">99.9%</div>
-                  <p className="text-xs sm:text-sm text-muted-foreground">{isES ? "Disponibilidad" : "uptime"}</p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </HeroBackground>
-
-        {/* PAIN POINTS Section */}
-        <PainPointsSection locale={locale} />
-
-        {/* SOLUTION Section */}
-        <SolutionSection locale={locale} />
-
-        {/* WHY NOW Section - Talent Crisis + Urgency */}
-        <WhyNowSection locale={locale} />
-
-        {/* PROOF Section */}
-        <ProofSection locale={locale} />
-
-        {/* HOW WE WORK Section */}
-        <HowWeWorkSection locale={locale} />
-
-        {/* AGENT MATRIX SHOWCASE Section */}
-        <AgentMatrixShowcase locale={locale} />
-
-        {/* SOCIAL PROOF Section */}
-        <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-          <div className="max-w-4xl mx-auto w-full">
-            <h2 className="text-3xl font-bold mb-12 text-center text-foreground">
-              {isES ? "Lo que dicen nuestros clientes" : "What our clients say"}
-            </h2>
-
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Testimonial 1 */}
-              <div className="p-6 bg-background border border-primary/20 rounded-lg">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-lg text-primary">★</span>
-                  ))}
-                </div>
-                <p className="text-foreground mb-4 leading-relaxed italic">
-                  {isES 
-                    ? "Redujimos nuestros costos de operación en 45% en los primeros 3 meses. El equipo de N3uralia entiende realmente cómo funciona el negocio en Chile."
-                    : "We reduced our operating costs by 45% in the first 3 months. N3uralia's team truly understands how business works in Chile."}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-primary font-bold">JM</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-foreground">
-                      {isES ? "Juan Martínez" : "Juan Martinez"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {isES ? "Gerente Operaciones, Retail" : "Operations Manager, Retail"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 2 */}
-              <div className="p-6 bg-background border border-primary/20 rounded-lg">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-lg text-primary">★</span>
-                  ))}
-                </div>
-                <p className="text-foreground mb-4 leading-relaxed italic">
-                  {isES 
-                    ? "De 4 horas de respuesta a 15 minutos. Los clientes están más felices, mi equipo tiene menos trabajo manual. Fue increíble."
-                    : "From 4-hour response time to 15 minutes. Customers are happier, my team does less manual work. It was incredible."}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-primary font-bold">CR</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-foreground">
-                      {isES ? "Carla Rodríguez" : "Carla Rodriguez"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {isES ? "Directora Comercial, Hotelería" : "Sales Director, Hospitality"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial 3 */}
-              <div className="p-6 bg-background border border-primary/20 rounded-lg">
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-lg text-primary">★</span>
-                  ))}
-                </div>
-                <p className="text-foreground mb-4 leading-relaxed italic">
-                  {isES 
-                    ? "No solo entregaron un sistema, nos enseñaron a operarlo. Mi equipo está completamente independiente. Eso es lo que buscaba."
-                    : "They didn't just deliver a system, they taught us to operate it. My team is completely independent. That's exactly what I needed."}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-primary font-bold">PL</span>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm text-foreground">
-                      {isES ? "Pablo López" : "Pablo Lopez"}
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {isES ? "CTO, Logística" : "CTO, Logistics"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Stats below testimonials */}
-            <div className="grid md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-primary/20">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">15+</div>
-                <p className="text-sm text-muted-foreground">{isES ? "Empresas en producción" : "Companies in production"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">8-12m</div>
-                <p className="text-sm text-muted-foreground">{isES ? "ROI promedio" : "Average ROI"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">99.9%</div>
-                <p className="text-sm text-muted-foreground">{isES ? "Satisfacción cliente" : "Client satisfaction"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-1">6</div>
-                <p className="text-sm text-muted-foreground">{isES ? "Industrias atendidas" : "Industries served"}</p>
               </div>
             </div>
           </div>
-        </section>
-
-        {/* CLIENTS Section */}
-        <section className="py-24 px-4 border-t border-border bg-background">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{d.home.clients.title}</h2>
-              <p className="text-lg text-muted-foreground">
-                {d.home.clients.description}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* Ecosuelolab */}
-              <Link href={`/${locale}/case-studies/ecosuelolab`} className="group">
-                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
-                    <Image 
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Logo-Ecosuelo-Lab-YhDOpB1n3bU46r024IudPBQGVbR9bP.png" 
-                      alt="Ecosuelolab logo" 
-                      width={100}
-                      height={30}
-                      className="h-28 w-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {d.home.clients.ecosuelolab.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {d.home.clients.ecosuelolab.desc}
-                  </p>
-                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-
-              {/* Despega Tu Carrera */}
-              <Link href={`/${locale}/case-studies/despega-tu-carrera`} className="group">
-                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
-                    <Image 
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20Feb%2026%2C%202026%2C%2009_54_59%20PM-fWTmMDI0CLW6YpTRKICd8gEvwzZHI0.png" 
-                      alt="Despega Tu Carrera logo" 
-                      width={150}
-                      height={150}
-                      className="h-28 w-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {d.home.clients.despega.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {d.home.clients.despega.desc}
-                  </p>
-                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-
-              {/* Blackswan */}
-              <Link href={`/${locale}/case-studies/blackswan-facility-core`} className="group">
-                <div className="h-full p-8 rounded-lg border border-border/50 bg-card hover:border-primary/60 hover:bg-primary/5 transition-all hover:shadow-md">
-                  <div className="w-full h-28 bg-transparent rounded-lg flex items-center justify-center mb-6 group-hover:bg-muted/30 transition-colors p-4">
-                    <Image 
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bslogo-4dAYU7iH5JIRxGvWqE5k75H5ciyXQ8.png" 
-                      alt="Blackswan logo" 
-                      width={120}
-                      height={100}
-                      className="h-28 w-auto object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                    {d.home.clients.blackswan.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {d.home.clients.blackswan.desc}
-                  </p>
-                  <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:translate-x-1 transition-transform">
-                    {isES ? "Ver Caso" : "View Case"} <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            <div className="text-center mt-16">
-              <Link
-                href={`/${locale}/case-studies`}
-                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-semibold transition-colors"
-              >
-                {d.home.clients.viewAll}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* QUICK TEST BAR Section */}
-        <QuickTestBar locale={locale} />
-
-        {/* INDUSTRIES Grid Section */}
-        <IndustriesGrid locale={locale} />
-
-        {/* SECURITY & CONTROL Section */}
-        <SecurityControl locale={locale} />
-
-        {/* COMMERCIAL FAQ Section */}
-        <CommercialFAQ locale={locale} />
-
-        {/* FINAL CTA Section */}
-        <FinalCTASection locale={locale} />
-      </main>
+        </div>
+      </section>
 
       <Footer />
-    </>
+    </main>
   )
 }

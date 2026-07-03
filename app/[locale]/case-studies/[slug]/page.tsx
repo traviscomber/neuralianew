@@ -42,6 +42,28 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const d = getDict(locale)
   const caseStudy = getCaseStudy(params.slug)
+  const quickRead = [
+    {
+      label: locale === "es" ? "Problema" : "Problem",
+      value: t2(locale, caseStudy?.sections[0]?.heading ?? { es: "", en: "" }),
+      detail: locale === "es" ? "Qué estaba frenando la operación." : "What was slowing the operation down.",
+    },
+    {
+      label: locale === "es" ? "Solución" : "Solution",
+      value: t2(locale, caseStudy?.sections[1]?.heading ?? { es: "", en: "" }),
+      detail: locale === "es" ? "Qué se construyó para resolverlo." : "What was built to solve it.",
+    },
+    {
+      label: locale === "es" ? "Impacto" : "Impact",
+      value: t2(locale, caseStudy?.sections[2]?.heading ?? { es: "", en: "" }),
+      detail: locale === "es" ? "Qué cambió una vez en producción." : "What changed once it was live.",
+    },
+    {
+      label: locale === "es" ? "Stack" : "Stack",
+      value: locale === "es" ? "Arquitectura" : "Architecture",
+      detail: locale === "es" ? "Capas y sistemas involucrados." : "Layers and systems involved.",
+    },
+  ]
 
   if (!caseStudy) {
     return (
@@ -106,6 +128,21 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
           </div>
         </div>
 
+        {/* Quick read */}
+        <div style={{ padding: "24px 20px 16px" }}>
+          <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+              {quickRead.map((item) => (
+                <div key={item.label} style={{ padding: "18px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px", background: "rgba(255,255,255,0.03)" }}>
+                  <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "8px" }}>{item.label}</div>
+                  <div style={{ fontSize: "18px", fontWeight: 700, marginBottom: "6px" }}>{item.value}</div>
+                  <div style={{ opacity: 0.8, fontSize: "14px", lineHeight: 1.6 }}>{item.detail}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Metadata */}
         <div className="border-b border-border py-12 px-4">
           <div className="max-w-4xl mx-auto">
@@ -125,6 +162,27 @@ export default function CaseStudyDetailPage({ params }: PageProps) {
             </div>
           </div>
         </div>
+
+        <Section
+          title={locale === "es" ? "Lectura rápida" : "Quick read"}
+          subtitle={
+            locale === "es"
+              ? "Si solo quieres entender el caso en un vistazo, esta es la ruta."
+              : "If you only want the case at a glance, this is the path."
+          }
+        >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "18px" }}>
+            {caseStudy.sections.map((section, idx) => (
+              <div key={section.id} style={{ padding: "18px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "10px" }}>
+                <div style={{ fontSize: "12px", opacity: 0.6, marginBottom: "10px" }}>
+                  {locale === "es" ? "Paso" : "Step"} 0{idx + 1}
+                </div>
+                <div style={{ fontSize: "18px", fontWeight: 700, marginBottom: "8px" }}>{t2(locale, section.heading)}</div>
+                <div style={{ fontSize: "14px", lineHeight: 1.6, opacity: 0.85 }}>{t2(locale, section.body)}</div>
+              </div>
+            ))}
+          </div>
+        </Section>
 
         {/* Sections */}
         {caseStudy.sections.map((section) => (

@@ -1,155 +1,238 @@
-import { VibeAnalyticsDashboard } from "@/components/vibe-selling/vibe-analytics-dashboard"
+﻿import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight, Brain } from "lucide-react"
+import { Footer } from "@/components/layout/footer"
+import Navigation from "@/components/navigation"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export default function ViebeSellingPage() {
+interface PageProps {
+  params: {
+    locale: string
+  }
+}
+
+const copy = {
+  es: {
+    title: "Vibe Selling Dashboard",
+    subtitle: "Señales en tiempo real sobre intención, engagement y conversión.",
+    introTitle: "Como funciona",
+    introSubtitle: "Leemos el uso para ajustar el mensaje y la siguiente accion.",
+    profilesTitle: "Perfiles de intencion",
+    profilesSubtitle: "Cada perfil recibe una propuesta distinta segun su momento.",
+    budgetTitle: "Inferencia de presupuesto",
+    budgetSubtitle: "Las señales ayudan a estimar tamaño y urgencia.",
+    ctaTitle: "Listo para vender con mas contexto?",
+    ctaSubtitle: "Convierte señales de navegación en mejores conversaciones y mas conversiones.",
+    ctaButton: "Iniciar conversacion",
+    steps: [
+      {
+        title: "Deteccion silenciosa",
+        description: "Analizamos scroll, tiempo y clicks para detectar intencion sin friccion.",
+      },
+      {
+        title: "Mapeo de intencion",
+        description: "Las señales se traducen en perfiles claros y faciles de usar.",
+      },
+      {
+        title: "Composicion de valor",
+        description: "La IA ajusta scope, timeline y pricing al contexto del visitante.",
+      },
+    ],
+    profiles: [
+      {
+        label: "Explorador",
+        summary: "Curioso y comparando opciones.",
+        vibe: "Vamos a explorar lo posible",
+      },
+      {
+        label: "Builder",
+        summary: "Quiere entender como funciona.",
+        vibe: "Aqui esta el stack tecnico",
+      },
+      {
+        label: "Comprador",
+        summary: "Listo para decidir y avanzar.",
+        vibe: "Aqui esta tu solucion",
+      },
+      {
+        label: "Partner",
+        summary: "Piensa a largo plazo.",
+        vibe: "Construyamos juntos",
+      },
+    ],
+  },
+  en: {
+    title: "Vibe Selling Dashboard",
+    subtitle: "Real-time signals on intent, engagement, and conversion.",
+    introTitle: "How it works",
+    introSubtitle: "We read usage signals to adjust the message and next action.",
+    profilesTitle: "Intent profiles",
+    profilesSubtitle: "Each profile gets a different proposition based on timing.",
+    budgetTitle: "Budget inference",
+    budgetSubtitle: "Signals help estimate size and urgency.",
+    ctaTitle: "Ready to sell with more context?",
+    ctaSubtitle: "Turn browsing signals into better conversations and more conversions.",
+    ctaButton: "Start conversation",
+    steps: [
+      {
+        title: "Silent detection",
+        description: "We analyze scroll, time, and clicks to detect intent without friction.",
+      },
+      {
+        title: "Intent mapping",
+        description: "Signals become clear profiles that are easy to use.",
+      },
+      {
+        title: "Value composition",
+        description: "AI adjusts scope, timeline, and pricing to the visitor context.",
+      },
+    ],
+    profiles: [
+      {
+        label: "Explorer",
+        summary: "Curious and comparing options.",
+        vibe: "Let's explore what is possible",
+      },
+      {
+        label: "Builder",
+        summary: "Wants to understand how it works.",
+        vibe: "Here is the technical stack",
+      },
+      {
+        label: "Buyer",
+        summary: "Ready to decide and move.",
+        vibe: "Here is your solution",
+      },
+      {
+        label: "Partner",
+        summary: "Thinking long term.",
+        vibe: "Let's build together",
+      },
+    ],
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  return buildLocalizedMetadata({
+    locale,
+    title: locale === "es" ? "Vibe Selling | N3uralia" : "Vibe Selling | N3uralia",
+    description: locale === "es" ? "Dashboard de señales de intención y conversión." : "Intent and conversion signal dashboard.",
+    path: "/vibe-selling",
+  })
+}
+
+export default function VibeSellingPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = copy[locale]
+  const readingGuide = [
+    {
+      title: locale === "es" ? "Que detecta" : "What it detects",
+      description: locale === "es" ? "Nivel de interes y urgencia." : "Interest level and urgency.",
+    },
+    {
+      title: locale === "es" ? "Que interpreta" : "What it interprets",
+      description: locale === "es" ? "El perfil del visitante." : "The visitor profile.",
+    },
+    {
+      title: locale === "es" ? "Que devuelve" : "What it returns",
+      description: locale === "es" ? "Mensaje y siguiente accion." : "Message and next action.",
+    },
+  ]
+
   return (
     <>
-      <main className="min-h-screen pt-32 pb-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Vibe Selling Dashboard</h1>
-          <p className="text-lg text-muted-foreground">
-            Real-time insights on buyer intent, engagement, and conversion across your entire platform.
-          </p>
-        </div>
-
-        <VibeAnalyticsDashboard />
-
-        {/* Implementation Details */}
-        <div className="mt-16 pt-16 border-t border-gray-200">
-          <h2 className="text-3xl font-bold text-foreground mb-8">How Vibe Selling Works</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                1
+      <Navigation locale={locale} />
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="blog" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-16 sm:px-8 lg:px-10">
+            <div className="mx-auto max-w-6xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+                <Brain className="h-4 w-4 text-[#789b96]" />
+                <span className="text-sm font-semibold text-[#526e69]">
+                  {locale === "es" ? "Lectura de intencion" : "Intent reading"}
+                </span>
               </div>
-              <h3 className="font-bold text-foreground mb-3">Silent Detection</h3>
-              <p className="text-sm text-muted-foreground">
-                We analyze scroll depth, time on each vertical, assets clicked, and session duration to detect buyer intent invisibly.
-              </p>
+              <h1 className="mt-6 text-5xl font-light leading-[0.98] tracking-[-0.05em] text-[#173634] md:text-7xl">
+                {page.title}
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-[#65706d]">{page.subtitle}</p>
+
+              <div className="mt-8 grid gap-4 md:grid-cols-3">
+                {readingGuide.map((item) => (
+                  <article
+                    key={item.title}
+                    className="rounded-[1.4rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_16px_70px_-64px_#173634]"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8aa39d]">
+                      {locale === "es" ? "Guia rapida" : "Quick guide"}
+                    </p>
+                    <h2 className="mt-3 text-lg font-semibold text-[#173634]">{item.title}</h2>
+                    <p className="mt-2 text-sm leading-6 text-[#65706d]">{item.description}</p>
+                  </article>
+                ))}
+              </div>
             </div>
+          </section>
+        </SectionBackground>
 
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                2
-              </div>
-              <h3 className="font-bold text-foreground mb-3">Dynamic Intent Mapping</h3>
-              <p className="text-sm text-muted-foreground">
-                Signals translate into buyer profiles: Explorer, Builder, Buyer, or Partner. Each gets personalized value propositions.
-              </p>
-            </div>
-
-            <div className="border border-gray-200 p-6 rounded-lg">
-              <div className="w-10 h-10 bg-primary text-primary-foreground rounded-lg flex items-center justify-center font-bold mb-4">
-                3
-              </div>
-              <h3 className="font-bold text-foreground mb-3">Live Value Composition</h3>
-              <p className="text-sm text-muted-foreground">
-                AI generates custom scope, timeline, tech stack, and pricing - no generic proposals, only what matches their intent.
-              </p>
-            </div>
-          </div>
-
-          {/* Intent Profiles */}
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Intent Profiles</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="border-l-4 border-primary p-6 bg-primary/5 rounded">
-                <p className="text-sm font-medium text-primary mb-2">🔍 EXPLORER</p>
-                <p className="font-semibold text-foreground mb-3">Curious, researching options</p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Long scrolls, checks multiple verticals, clicks demos & visuals. Not ready to buy yet.
-                </p>
-                <p className="text-xs font-mono text-primary bg-white px-2 py-1 rounded w-fit">
-                  Vibe: "Let's explore what's possible"
-                </p>
-              </div>
-
-              <div className="border-l-4 border-primary p-6 bg-primary/5 rounded">
-                <p className="text-sm font-medium text-primary mb-2">🔨 BUILDER</p>
-                <p className="font-semibold text-foreground mb-3">Technical, wants to understand</p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Digs into APIs, code, infrastructure. Wants to know "how" not just "what."
-                </p>
-                <p className="text-xs font-mono text-primary bg-white px-2 py-1 rounded w-fit">
-                  Vibe: "Here's the tech stack"
-                </p>
-              </div>
-
-              <div className="border-l-4 border-primary p-6 bg-primary/5 rounded">
-                <p className="text-sm font-medium text-primary mb-2">💰 BUYER</p>
-                <p className="font-semibold text-foreground mb-3">Ready, wants results fast</p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  High time on results/outcomes pages. Ready to decide. Wants clear scope, timeline, price.
-                </p>
-                <p className="text-xs font-mono text-primary bg-white px-2 py-1 rounded w-fit">
-                  Vibe: "Here's your solution"
-                </p>
-              </div>
-
-              <div className="border-l-4 border-primary p-6 bg-primary/5 rounded">
-                <p className="text-sm font-medium text-primary mb-2">🤝 PARTNER</p>
-                <p className="font-semibold text-foreground mb-3">Strategic, thinking long-term</p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Deep engagement, long sessions, checks about us, considers multiple use cases.
-                </p>
-                <p className="text-xs font-mono text-primary bg-white px-2 py-1 rounded w-fit">
-                  Vibe: "Let's build together"
-                </p>
-              </div>
+        <section className="px-4 py-16 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-8 lg:grid-cols-3">
+              {page.steps.map((step, index) => (
+                <article key={step.title} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-6">
+                  <div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96] font-semibold">
+                    {index + 1}
+                  </div>
+                  <h2 className="mt-6 text-2xl font-semibold text-[#173634]">{step.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-[#65706d]">{step.description}</p>
+                </article>
+              ))}
             </div>
           </div>
+        </section>
 
-          {/* Budget Mapping */}
-          <div>
-            <h3 className="text-2xl font-bold text-foreground mb-6">Budget Inference</h3>
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
-              <table className="w-full text-sm">
-                <thead className="bg-gray-50 border-b border-gray-200">
-                  <tr>
-                    <th className="px-6 py-3 text-left font-semibold text-foreground">Signal</th>
-                    <th className="px-6 py-3 text-left font-semibold text-foreground">Startup</th>
-                    <th className="px-6 py-3 text-left font-semibold text-foreground">Mid-Market</th>
-                    <th className="px-6 py-3 text-left font-semibold text-foreground">Enterprise</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="px-6 py-3 text-muted-foreground">Assets Clicked</td>
-                    <td className="px-6 py-3">&lt; 2 assets</td>
-                    <td className="px-6 py-3">2-4 assets</td>
-                    <td className="px-6 py-3">5+ assets (includes visuals)</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-3 text-muted-foreground">Session Duration</td>
-                    <td className="px-6 py-3">&lt; 60 min</td>
-                    <td className="px-6 py-3">60-180 min</td>
-                    <td className="px-6 py-3">&gt; 300 min</td>
-                  </tr>
-                  <tr>
-                    <td className="px-6 py-3 text-muted-foreground">Typical Budget</td>
-                    <td className="px-6 py-3 font-semibold text-primary">$1K-5K/month</td>
-                    <td className="px-6 py-3 font-semibold text-primary">$5K-50K/month</td>
-                    <td className="px-6 py-3 font-semibold text-primary">$50K-500K+</td>
-                  </tr>
-                </tbody>
-              </table>
+        <section className="px-4 py-16 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-6xl rounded-[2rem] border border-[#d8e5e2] bg-white p-8">
+            <h2 className="text-3xl font-semibold text-[#173634]">{page.budgetTitle}</h2>
+            <p className="mt-3 text-sm leading-7 text-[#65706d]">{page.budgetSubtitle}</p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {page.profiles.map((profile) => (
+                <div key={profile.label} className="rounded-2xl border border-[#e5eeeb] bg-[#fbfbfa] p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8aa39d]">{profile.label}</p>
+                  <p className="mt-3 text-sm leading-7 text-[#173634]">{profile.summary}</p>
+                  <p className="mt-4 text-sm font-semibold text-[#526e69]">{profile.vibe}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-6">Ready to experience Vibe Selling?</p>
-          <a
-            href="/contact"
-            className="inline-flex px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            Start a Conversation
-          </a>
-        </div>
-      </div>
+        <section className="border-t border-[#d8e5e2] bg-[#173634] px-4 py-16 text-white sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-5xl text-center">
+            <h2 className="text-4xl font-light leading-tight tracking-[-0.04em] md:text-6xl">{page.ctaTitle}</h2>
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/72">{page.ctaSubtitle}</p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Link
+                href={`/${locale}/contact`}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#173634] transition-colors hover:bg-[#eef5f2]"
+              >
+                {page.ctaButton}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={`/${locale}/soluciones`}
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {locale === "es" ? "Ver soluciones" : "View solutions"}
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
+      <Footer />
     </>
   )
 }

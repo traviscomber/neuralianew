@@ -1,196 +1,153 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { ArrowLeft, Calendar, User } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
-import { buildSeo } from "@/lib/metadata-utils"
 
-export const metadata: Metadata = buildSeo({
-  locale: "es",
-  path: "/es/blog/integracion-ia-legacy-systems",
-  title: "Integración AI Agents con Legacy Systems | N3uralia Blog",
-  description:
-    "Estrategias probadas de N3uralia para integrar AI agents y sistemas agenticos con infraestructura existente. Modernización fullstack sin disrupciones. Patrones en producción para empresas.",
-  keywords:
-    "integración AI, n3uralia agents, legacy systems, modernización, sistemas agenticos, fullstack, compatibilidad",
-})
+import { Footer } from "@/components/layout/footer"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-export default function BlogPost() {
+interface PageProps {
+  params: { locale: string }
+}
+
+type Copy = {
+  title: string
+  description: string
+  backLabel: string
+  badge: string
+  heading: string
+  intro: string
+  date: string
+  readTime: string
+  section1Title: string
+  section1Body: string
+  section2Title: string
+  section2Body: string
+  section3Title: string
+  section3Body: string
+  caseTitle: string
+  caseIntro: string
+  caseSystem: string
+  caseSolution: string
+  caseResult: string
+  errorTitle: string
+  errorItems: string[]
+  closingTitle: string
+  closingBody: string
+  ctaText: string
+}
+
+const pageCopy: Record<Locale, Copy> = {
+  es: {
+    title: "Integracion IA con sistemas legacy | N3uralia Blog",
+    description: "Modernizar sin romper lo que ya funciona.",
+    backLabel: "Volver al blog",
+    badge: "Integracion",
+    heading: "Integracion IA con sistemas legacy",
+    intro: "La mayoria de las empresas no parte desde cero. El reto es modernizar sin romper lo que ya funciona.",
+    date: "8 de febrero, 2026",
+    readTime: "7 min lectura",
+    section1Title: "El problema real",
+    section1Body: "Migrar todo no suele ser viable. La respuesta practica es integrar IA con el stack existente.",
+    section2Title: "Tres capas",
+    section2Body: "Adaptadores, orquestacion asincrona y una capa espejo de datos.",
+    section3Title: "Como se implementa",
+    section3Body: "Mapeamos, priorizamos flujos, pilotamos y luego escalamos con control.",
+    caseTitle: "Caso real: seguros",
+    caseIntro: "Una aseguradora con COBOL, DB2 y documentos escaneados necesitaba automatizar reclamos.",
+    caseSystem: "Sistema",
+    caseSolution: "Solucion N3uralia",
+    caseResult: "Resultado en 3 meses",
+    errorTitle: "Errores comunes",
+    errorItems: [
+      "Conectar directo al mainframe sin una capa intermedia.",
+      "Confiar en APIs viejas sin validar cada respuesta.",
+      "Reescribir el sistema antiguo en vez de construir encima.",
+      "Ignorar la calidad de datos y la trazabilidad.",
+    ],
+    closingTitle: "Integrar no es invadir",
+    closingBody: "La mejor arquitectura vuelve utilizable el legado sin sacrificar estabilidad.",
+    ctaText: "Conversar sobre tu infraestructura",
+  },
+  en: {
+    title: "AI integration with legacy systems | N3uralia Blog",
+    description: "Modernize without breaking what already works.",
+    backLabel: "Back to blog",
+    badge: "Integration",
+    heading: "AI integration with legacy systems",
+    intro: "Most companies do not start from zero. The challenge is modernizing without breaking what works.",
+    date: "February 8, 2026",
+    readTime: "7 min read",
+    section1Title: "The real problem",
+    section1Body: "Migrating everything is usually not viable. The practical answer is to integrate AI with the existing stack.",
+    section2Title: "Three layers",
+    section2Body: "Adapters, asynchronous orchestration, and a mirror data layer.",
+    section3Title: "How it is implemented",
+    section3Body: "Map, prioritize workflows, pilot, and then scale with control.",
+    caseTitle: "Real case: insurance",
+    caseIntro: "An insurer with COBOL, DB2, and scanned documents needed to automate claims.",
+    caseSystem: "System",
+    caseSolution: "N3uralia solution",
+    caseResult: "3-month result",
+    errorTitle: "Common mistakes",
+    errorItems: [
+      "Connecting directly to the mainframe without an intermediate layer.",
+      "Trusting old APIs without validating each response.",
+      "Rewriting the old system instead of building on top of it.",
+      "Ignoring data quality and traceability.",
+    ],
+    closingTitle: "Integration is not invasion",
+    closingBody: "The best architecture makes legacy usable without sacrificing stability.",
+    ctaText: "Discuss your infrastructure",
+  },
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const copy = pageCopy[locale]
+  return buildLocalizedMetadata({ locale, path: "/blog/integracion-ia-legacy-systems", type: "article", title: copy.title, description: copy.description })
+}
+
+export default function BlogPost({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const copy = pageCopy[locale]
+  const href = (path: string) => `/${locale}${path}`
+
   return (
-    <>
-      <main className="min-h-screen bg-background">
-        <article className="max-w-3xl mx-auto py-16 px-4">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold mb-8 hover:gap-3 transition-all">
-            <ArrowLeft className="w-4 h-4" />
-            Volver al Blog
-          </Link>
-
-          <div className="mb-8">
-            <div className="inline-block px-3 py-1 rounded-full bg-primary/10 mb-4">
-              <span className="text-xs font-semibold text-primary">Caso de Estudio</span>
-            </div>
-            <h1 className="h1-light mb-4">Integración IA con Legacy Systems</h1>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground border-t border-border/50 pt-6">
-              <div className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                8 de Febrero, 2026
-              </div>
-              <div className="flex items-center gap-1">
-                <User className="w-4 h-4" />
-                N3uralia Team
-              </div>
-              <div>7 min lectura</div>
+    <SectionBackground section="blog">
+      <main className="min-h-screen bg-background pt-32 pb-20">
+        <article className="mx-auto max-w-3xl px-4">
+          <Link href={href("/blog")} className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-all hover:gap-3"><ArrowLeft className="h-4 w-4" />{copy.backLabel}</Link>
+          <div className="mb-10">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs text-primary"><span className="font-semibold">{copy.badge}</span></div>
+            <h1 className="mb-4 text-4xl font-light tracking-tight text-foreground md:text-5xl">{copy.heading}</h1>
+            <div className="flex flex-wrap items-center gap-5 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5"><Calendar className="h-4 w-4" />{copy.date}</span>
+              <span className="inline-flex items-center gap-1.5"><User className="h-4 w-4" />N3uralia Team</span>
+              <span>{copy.readTime}</span>
             </div>
           </div>
-
-          <div className="prose prose-invert max-w-none mb-16">
-            <p>
-              El 90% de las empresas chilenas con más de 500 empleados usan sistemas legacy. Migrar a "nativo cloud" no es opción. 
-              Deben integrar IA CON lo que ya tienen. Este artículo cuenta cómo.
-            </p>
-
-            <h2>El Desafío Real</h2>
-            <p>
-              Imagina una aseguradora con:
-            </p>
-            <ul>
-              <li>Mainframe de 20 años para procesos de pólizas</li>
-              <li>Sistema ERP custom de 2005 para finanzas</li>
-              <li>Documentos en PDF, Excel, papel</li>
-              <li>APIs inexistentes o documentación perdida</li>
-              <li>Equipos que conocen el sistema pero no saben cómo "hablar" con IA</li>
-            </ul>
-
-            <p>
-              Aquí es donde falla la mayoría de "soluciones IA". Asumen infraestructura moderna. No existe.
-            </p>
-
-            <h2>Estrategia: Capas de Integración</h2>
-
-            <h3>Capa 1: Adaptadores (Glue Code)</h3>
-            <p>
-              Construimos traductores entre systems antiguos y la IA:
-            </p>
-            <ul>
-              <li>COBOL ↔ REST API (con queue intermediario)</li>
-              <li>Base de datos legacy ↔ LLM-compatible format</li>
-              <li>Reportes PDF ↔ Structured data</li>
-            </ul>
-
-            <h3>Capa 2: Orquestación Asíncrona</h3>
-            <p>
-              No conectamos directamente. Usamos colas de mensajes (RabbitMQ, Kafka).
-            </p>
-            <ul>
-              <li>El sistema legacy publica evento: "Se creó nueva póliza"</li>
-              <li>El agente IA consume el evento, procesa, y publica resultado</li>
-              <li>Sistema legacy vuelve a consumir y actúa</li>
-            </ul>
-
-            <h3>Capa 3: Datos Espejo</h3>
-            <p>
-              Mantenemos una copia sincronizada (datamart) de datos legacy en formato moderno. 
-              Así los agentes leen datos limpios sin tocar sistemas críticos.
-            </p>
-
-            <h2>Implementación Paso a Paso</h2>
-
-            <h3>Fase 1: Mapping (Semanas 1-2)</h3>
-            <p>
-              ¿Qué sistemas existen? ¿Qué datos tienen? ¿Cuáles son los "puntos de dolor" donde IA agregará valor?
-            </p>
-
-            <h3>Fase 2: Adaptadores (Semanas 3-6)</h3>
-            <p>
-              Construir traductores para los primeros 2-3 sistemas críticos.
-            </p>
-
-            <h3>Fase 3: Pilot (Semanas 7-10)</h3>
-            <p>
-              Un agente piloto opera en shadow. Valida datos, aprende el contexto, mide ROI potencial.
-            </p>
-
-            <h3>Fase 4: Go Live (Semana 11+)</h3>
-            <p>
-              El agente comienza a tomar decisiones reales. Monitoreamos 24/7 durante 30 días.
-            </p>
-
-            <h2>Caso Real: Empresa de Seguros</h2>
-
-            <p>
-              <strong>Desafío:</strong> Procesar reclamaciones manuales. 80% es trabajo rutinario.
-            </p>
-
-            <p>
-              <strong>Sistema:</strong> Mainframe COBOL + DB2 + archivos TIFF scaneados.
-            </p>
-
-            <p>
-              <strong>Solución N3uralia:</strong>
-            </p>
-            <ul>
-              <li>Adaptador que lee tablas DB2 de reclamaciones</li>
-              <li>OCR pipeline para TIFF → texto estructurado</li>
-              <li>Agente que valida completitud, calcula riesgo, recomienda aceptación/rechazo</li>
-              <li>Resultado se escribe en tabla de staging en mainframe</li>
-              <li>Sistema legacy procesa automáticamente</li>
-            </ul>
-
-            <p>
-              <strong>Resultado en 3 meses:</strong>
-            </p>
-            <ul>
-              <li>60% de reclamaciones procesadas automáticamente</li>
-              <li>Tiempo promedio: 4 horas → 12 minutos</li>
-              <li>Equipos redimensionados (no despedidos, reasignados a tareas complejas)</li>
-              <li>Cero disrupciones al sistema core</li>
-            </ul>
-
-            <h2>Patrones de Error Comunes (y cómo evitarlos)</h2>
-
-            <h3>Error 1: Conectar Directamente</h3>
-            <p>
-              "¡Hagamos query directa al mainframe!" No. Usas colas. Siempre.
-            </p>
-
-            <h3>Error 2: Confiar en "APIs Legacy"</h3>
-            <p>
-              Las APIs viejas a menudo son unstable. Valida CADA respuesta.
-            </p>
-
-            <h3>Error 3: Cambiar el Sistema Antiguo</h3>
-            <p>
-              No. Construye capas encima. El legacy es sagrado.
-            </p>
-
-            <h3>Error 4: Ignorar Data Quality</h3>
-            <p>
-              Los datos legacy son sucios. Limpiar y validar es 40% del trabajo.
-            </p>
-
-            <h2>Conclusión</h2>
-            <p>
-              Integrar IA con sistemas legacy no es imposible. Es diferente. Requiere arquitectura en capas, 
-              paciencia y respeto por lo que ya funciona. Los mejores resultados vienen cuando tratas al legacy 
-              como una fortaleza (es estable, confiable), no como un enemigo.
-            </p>
+          <div className="space-y-8 text-base leading-7 text-muted-foreground">
+            <p>{copy.intro}</p>
+            <section className="space-y-4"><h2 className="text-2xl font-light text-foreground">{copy.section1Title}</h2><p>{copy.section1Body}</p></section>
+            <section className="space-y-4"><h2 className="text-2xl font-light text-foreground">{copy.section2Title}</h2><p>{copy.section2Body}</p></section>
+            <section className="space-y-4"><h2 className="text-2xl font-light text-foreground">{copy.section3Title}</h2><p>{copy.section3Body}</p></section>
+            <section className="space-y-4">
+              <h2 className="text-2xl font-light text-foreground">{copy.caseTitle}</h2>
+              <p>{copy.caseIntro}</p>
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="rounded-lg border border-border bg-card p-4"><p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{copy.caseSystem}</p><p className="mt-2 text-sm text-foreground">{locale === "es" ? "COBOL + DB2 + TIFF escaneados" : "COBOL + DB2 + scanned TIFF files"}</p></div>
+                <div className="rounded-lg border border-border bg-card p-4"><p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{copy.caseSolution}</p><p className="mt-2 text-sm text-foreground">{locale === "es" ? "Adaptadores, OCR, validacion y staging" : "Adapters, OCR, validation, and staging"}</p></div>
+                <div className="rounded-lg border border-border bg-card p-4"><p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">{copy.caseResult}</p><p className="mt-2 text-sm text-foreground">{locale === "es" ? "60% automatizado y sin disrupcion al core" : "60% automated with no core disruption"}</p></div>
+              </div>
+            </section>
+            <section className="space-y-4"><h2 className="text-2xl font-light text-foreground">{copy.errorTitle}</h2><ul className="space-y-2 pl-5">{copy.errorItems.map((item) => <li key={item} className="list-disc">{item}</li>)}</ul></section>
+            <section className="space-y-4"><h2 className="text-2xl font-light text-foreground">{copy.closingTitle}</h2><p>{copy.closingBody}</p></section>
           </div>
-
-          {/* CTA */}
-          <div className="border-t border-border pt-8">
-            <p className="text-muted-foreground mb-4">
-              ¿Tienes sistemas legacy que necesitan modernizarse con IA?
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-            >
-              Conversar sobre tu Infraestructura
-            </Link>
-          </div>
-          </article>
-        </main>
-      
-      <Footer />
-    </>
+          <div className="mt-12 border-t border-border pt-8"><Link href={href("/contact")} className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90">{copy.ctaText}<ArrowRight className="h-4 w-4" /></Link></div>
+        </article>
+      </main>
+    </SectionBackground>
   )
 }

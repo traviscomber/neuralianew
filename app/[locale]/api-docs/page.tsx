@@ -1,137 +1,156 @@
-'use client'
+﻿import type { Metadata } from "next"
+import Link from "next/link"
+import { API_ENDPOINTS } from "@/lib/api-schema"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
+import { SectionBackground } from "@/components/section-background"
+import { Footer } from "@/components/layout/footer"
+import Navigation from "@/components/navigation"
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { API_ENDPOINTS } from '@/lib/api-schema'
-import { Copy, Lock, Unlock } from 'lucide-react'
-
-export default function APIDocsPage() {
-  const [copied, setCopied] = useState<string | null>(null)
-  const [selectedEndpoint, setSelectedEndpoint] = useState<string | null>(null)
-
-  const copyToClipboard = (text: string, id: string) => {
-    navigator.clipboard.writeText(text)
-    setCopied(id)
-    setTimeout(() => setCopied(null), 2000)
+interface PageProps {
+  params: {
+    locale: string
   }
-
-  return (
-    <main className="min-h-screen bg-background">
-
-      {/* Resources */}
-      <section className="border-t border-border px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-foreground mb-8">Resources</h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/docs/api/openapi.json"
-              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <h3 className="font-semibold text-foreground mb-2">OpenAPI Specification</h3>
-              <p className="text-sm text-muted-foreground">Full OpenAPI 3.0.0 schema</p>
-            </Link>
-
-            <Link
-              href="/api/v1/health"
-              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <h3 className="font-semibold text-foreground mb-2">Health Status</h3>
-              <p className="text-sm text-muted-foreground">Current system health</p>
-            </Link>
-
-            <a
-              href="https://github.com/neuralia/api-client"
-              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <h3 className="font-semibold text-foreground mb-2">JavaScript Client</h3>
-              <p className="text-sm text-muted-foreground">Official SDK for JavaScript</p>
-            </a>
-
-            <a
-              href="https://github.com/neuralia/api-client-python"
-              className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-            >
-              <h3 className="font-semibold text-foreground mb-2">Python Client</h3>
-              <p className="text-sm text-muted-foreground">Official SDK for Python</p>
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
 }
 
-function EndpointDetail({ endpointId, onCopy, copied }: { endpointId: string; onCopy: (text: string, id: string) => void; copied: string | null }) {
-  const [category, name] = endpointId.split('-')
-  const categoryKey = category as keyof typeof API_ENDPOINTS
-  const endpoint = (API_ENDPOINTS[categoryKey] as any)?.[name]
+const copy = {
+  es: {
+    title: "Documentación API",
+    subtitle: "Referencia breve para Living Agents y sistemas agénticos.",
+    baseUrl: "URL base",
+    version: "Versión",
+    format: "Formato",
+    auth: "Autenticación",
+    endpoints: "Endpoints",
+    selectHint: "Selecciona una ruta para ver su contrato.",
+    schema: "Esquema OpenAPI",
+    examples: "Ejemplos",
+    health: "Health check",
+    agents: "Listar Living Agents",
+    chat: "Enviar mensaje al chat",
+    note: "La documentación técnica se mantiene en inglés cuando corresponda.",
+  },
+  en: {
+    title: "API Documentation",
+    subtitle: "Brief endpoint reference for Living Agents and agentic systems.",
+    baseUrl: "Base URL",
+    version: "Version",
+    format: "Format",
+    auth: "Authentication",
+    endpoints: "Endpoints",
+    selectHint: "Select a route to inspect the contract.",
+    schema: "OpenAPI schema",
+    examples: "Examples",
+    health: "Health check",
+    agents: "List Living Agents",
+    chat: "Send a chat message",
+    note: "Technical documentation stays in English when needed.",
+  },
+} as const
 
-  if (!endpoint) return null
-
-  return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-2xl font-bold text-foreground mb-2">{endpoint.description}</h3>
-        <div className="flex items-center gap-4 flex-wrap">
-          <div className="px-3 py-1 bg-blue-500/10 text-blue-600 rounded font-mono text-sm font-semibold">
-            {endpoint.method}
-          </div>
-          <code className="text-sm text-muted-foreground break-all">{endpoint.path}</code>
-        </div>
-      </div>
-
-      <div>
-        <h4 className="font-semibold text-foreground mb-2">Authentication</h4>
-        <div className="flex items-center gap-2">
-          {endpoint.authentication === 'required' ? (
-            <Lock className="w-4 h-4 text-red-500" />
-          ) : (
-            <Unlock className="w-4 h-4 text-green-500" />
-          )}
-          <span className="text-sm text-muted-foreground">{endpoint.authentication}</span>
-        </div>
-      </div>
-
-      <div>
-        <h4 className="font-semibold text-foreground mb-2">Tags</h4>
-        <div className="flex flex-wrap gap-2">
-          {endpoint.tags.map((tag: string) => (
-            <span key={tag} className="px-2 py-1 bg-muted text-muted-foreground rounded text-xs font-medium">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="p-4 bg-muted/50 border border-border rounded-lg">
-        <div className="flex justify-between items-center mb-2">
-          <h4 className="font-mono text-sm">Example cURL</h4>
-          <button
-            onClick={() => onCopy(`curl ${endpoint.path}`, endpointId)}
-            className="text-xs text-primary hover:underline flex items-center gap-1"
-          >
-            {copied === endpointId ? 'Copied!' : 'Copy'} <Copy className="w-3 h-3" />
-          </button>
-        </div>
-        <code className="text-xs text-muted-foreground break-all">{`curl ${endpoint.path}`}</code>
-      </div>
-    </div>
-  )
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  return buildLocalizedMetadata({
+    locale,
+    title: locale === "es" ? "Documentación API | N3uralia" : "API Documentation | N3uralia",
+    description:
+      locale === "es"
+        ? "Referencia breve de endpoints para Living Agents y sistemas agénticos."
+        : "Brief endpoint reference for Living Agents and agentic systems.",
+    path: "/api-docs",
+  })
 }
 
-function CodeBlock({ code, language, onCopy, copied }: { code: string; language: string; onCopy: () => void; copied: boolean }) {
+export default function APIDocsPage({ params }: PageProps) {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = copy[locale]
+  const endpointGroups = Object.entries(API_ENDPOINTS)
+
   return (
-    <div className="relative">
-      <pre className="p-4 bg-muted/50 border border-border rounded-lg overflow-x-auto text-xs text-muted-foreground">
-        <code>{code}</code>
-      </pre>
-      <button
-        onClick={onCopy}
-        className="absolute top-2 right-2 text-xs text-primary hover:underline flex items-center gap-1 bg-background px-2 py-1 rounded border border-border"
-      >
-        {copied ? 'Copied!' : 'Copy'} <Copy className="w-3 h-3" />
-      </button>
-    </div>
+    <>
+      <Navigation locale={locale} />
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <SectionBackground section="blog" className="border-b border-[#d8e5e2]">
+          <section className="px-4 py-16 sm:px-8 lg:px-10">
+            <div className="mx-auto max-w-6xl">
+              <div className="max-w-3xl">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">
+                  {locale === "es" ? "Referencia técnica" : "Technical reference"}
+                </p>
+                <h1 className="mt-4 text-5xl font-light leading-[0.98] tracking-[-0.05em] text-[#173634] md:text-7xl">
+                  {page.title}
+                </h1>
+                <p className="mt-6 text-lg leading-8 text-[#65706d]">{page.subtitle}</p>
+              </div>
+
+              <p className="mt-6 max-w-3xl text-sm leading-7 text-[#65706d]">{page.note}</p>
+
+              <div className="mt-8 rounded-[1.6rem] border border-[#d8e5e2] bg-[#edf4f1] p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#8aa39d]">{page.auth}</p>
+                <code className="mt-3 block rounded-2xl border border-[#e5eeeb] bg-white px-4 py-3 text-sm text-[#173634]">
+                  Authorization: Bearer YOUR_JWT_TOKEN
+                </code>
+              </div>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="px-4 py-16 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+              <div>
+                <h2 className="text-3xl font-semibold text-[#173634]">{page.endpoints}</h2>
+                <p className="mt-3 text-sm leading-7 text-[#65706d]">{page.selectHint}</p>
+              </div>
+
+              <div className="space-y-6">
+                {endpointGroups.map(([category, endpoints]) => (
+                  <div key={category} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-5">
+                    <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#789b96]">
+                      {category.replace(/([A-Z])/g, " $1").trim()}
+                    </h3>
+                    <div className="mt-4 grid gap-3 md:grid-cols-2">
+                      {Object.entries(endpoints).map(([name, endpoint]) => (
+                        <div key={`${category}-${name}`} className="rounded-2xl border border-[#e5eeeb] bg-[#fbfbfa] p-4">
+                          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#8aa39d]">{endpoint.method}</p>
+                          <p className="mt-2 text-sm font-semibold text-[#173634]">{endpoint.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-y border-[#d8e5e2] bg-[#edf4f1] px-4 py-16 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="text-3xl font-semibold text-[#173634]">{page.examples}</h2>
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              <pre className="overflow-x-auto rounded-[1.4rem] border border-[#d8e5e2] bg-white p-5 text-sm text-[#173634]">
+{`curl /api/v1/health`}
+              </pre>
+              <pre className="overflow-x-auto rounded-[1.4rem] border border-[#d8e5e2] bg-white p-5 text-sm text-[#173634]">
+{`curl -H "Authorization: Bearer TOKEN" \\
+  /api/v1/living-agents`}
+              </pre>
+              <pre className="overflow-x-auto rounded-[1.4rem] border border-[#d8e5e2] bg-white p-5 text-sm text-[#173634]">
+{`curl -X POST /api/v1/chat \\
+  -H "Content-Type: application/json" \\
+  -d '{"messages":[{"role":"user","content":"Hola"}]}'`}
+              </pre>
+            </div>
+
+            <div className="mt-8">
+              <Link href="/docs/api/openapi.json" className="text-sm font-semibold text-[#173634] underline decoration-[#789b96]/40 underline-offset-4">
+                {page.schema}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   )
 }

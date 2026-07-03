@@ -1,8 +1,10 @@
 ﻿import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Footer } from "@/components/layout/footer"
+import { Nav } from "@/components/Nav"
+import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: { locale: string }
@@ -11,46 +13,42 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = params.locale as Locale
   const isES = locale === "es"
-  const title = isES ? "Infraestructura IA | N3uralia" : "AI Infrastructure | N3uralia"
+  const title = isES ? "Sistemas Agenticos | N3uralia" : "Agentic Systems | N3uralia"
   const description = isES
-    ? "RAG y pipelines listos para produccion: seguridad, latencia, costo y observabilidad."
-    : "Production RAG and pipelines: security, latency, cost control, and observability."
+    ? "Automatizacion gobernable con control humano, permisos, trazabilidad y produccion."
+    : "Governed automation with human control, permissions, traceability, and production."
 
-  return {
+  return buildLocalizedMetadata({
+    locale,
+    path: "/agentic-systems",
     title,
     description,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/ai-infrastructure`,
-      languages: {
-        es: `https://n3uralia.com/es/ai-infrastructure`,
-        en: `https://n3uralia.com/en/ai-infrastructure`,
-      },
-    },
-  }
+  })
 }
 
-export default function AIInfrastructurePage({ params }: PageProps) {
+export default function AgenticSystemsPage({ params }: PageProps) {
   const locale = params.locale as Locale
   const d = getDict(locale)
   const readingGuide = [
     {
-      title: locale === "es" ? "Que resuelve" : "What it solves",
-      description: locale === "es" ? "Conecta contexto, datos y respuestas." : "Connects context, data, and responses.",
+      title: locale === "es" ? "Que protege" : "What it protects",
+      description: locale === "es" ? "Decisiones criticas y permisos." : "Critical decisions and permissions.",
     },
     {
-      title: locale === "es" ? "Que necesita" : "What it needs",
-      description: locale === "es" ? "Pipelines, permisos y latencia controlada." : "Pipelines, permissions, and controlled latency.",
+      title: locale === "es" ? "Como se controla" : "How it is controlled",
+      description: locale === "es" ? "Limites, contexto y gobierno." : "Limits, context, and governance.",
     },
     {
       title: locale === "es" ? "Que validar" : "What to validate",
-      description: locale === "es" ? "Que aguante produccion, no solo demos." : "That it survives production, not just demos.",
+      description: locale === "es" ? "Auditoria y control antes de escalar." : "Auditability and control before scaling.",
     },
   ]
 
   return (
     <>
+      <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
-        <Section title={d.pillars.infraTitle} subtitle={d.pillars.infraDesc}>
+        <Section title={d.pillars.agenticTitle} subtitle={d.pillars.agenticDesc}>
           <div
             style={{
               display: "grid",
@@ -88,32 +86,32 @@ export default function AIInfrastructurePage({ params }: PageProps) {
           >
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "RAG produccion" : "Production RAG"}
+                {locale === "es" ? "Control humano" : "Human-in-the-Loop"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Recuperacion y generacion con baja latencia." : "Retrieval and generation with low latency."}
+                {locale === "es" ? "Los humanos mantienen el control de decisiones criticas." : "Humans stay in control of critical decisions."}
               </p>
             </div>
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "Seguridad" : "Security"}
+                {locale === "es" ? "Trazabilidad" : "Full Traceability"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Encriptacion, aislamiento y compliance." : "Encryption, isolation, and compliance."}
+                {locale === "es" ? "Auditoria y logs de cada decision." : "Audit and logs of every decision made."}
               </p>
             </div>
             <div style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
               <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>
-                {locale === "es" ? "Observabilidad" : "Observability"}
+                {locale === "es" ? "Control granular" : "Granular Control"}
               </h3>
               <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>
-                {locale === "es" ? "Metricas, logs y trazas por operacion." : "Metrics, logs, and traces for every operation."}
+                {locale === "es" ? "Permisos y politicas por agente y operacion." : "Permissions and policies per agent and operation."}
               </p>
             </div>
           </div>
         </Section>
       </main>
-      <Footer />
+      <Footer locale={locale} />
     </>
   )
 }

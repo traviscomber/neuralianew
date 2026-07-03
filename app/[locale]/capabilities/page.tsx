@@ -1,8 +1,7 @@
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale } from "@/content/dictionaries"
 import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-page-client"
-import { generatePageMetadata } from "@/lib/metadata-utils"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
   params: {
@@ -10,26 +9,28 @@ interface PageProps {
   }
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const isES = locale === "es"
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
-  return generatePageMetadata({
-    title: isES 
-      ? "IA Conversacional Responsable - Capacidades N3uralia" 
-      : "Responsible Conversational AI - N3uralia Capabilities",
-    description: isES
-      ? "Sistemas de IA conductualmente seguros, culturalmente adaptados y medibles en impacto humano. Agentes inteligentes con arquitectura agentica, living agents, orquestación multi-agente, síntesis de conocimiento. Listo para producción."
-      : "Behaviorally safe, culturally adapted AI systems measurable in real human impact. Intelligent agents with agentic architecture, living agents, multi-agent orchestration, knowledge synthesis. Production-ready.",
-    keywords: isES
-      ? "IA responsable, agentes conversacionales, arquitectura agentica, seguridad conductual, living agents, orquestación multi-agente, inteligencia conversacional, sistemas agenticos, IA Chile"
-      : "responsible AI, conversational agents, agentic architecture, behavioral safety, living agents, multi-agent orchestration, conversational intelligence, agentic systems",
-    canonical: `https://n3uralia.com/${locale}/capabilities`,
+  const titles = {
+    es: "Capacidades técnicas N3uralia | Arquitectura agéntica en producción",
+    en: "N3uralia capabilities | Agentic architecture in production",
+  }
+
+  const descriptions = {
+    es: "Cuatro pilares técnicos: arquitectura agéntica, living agents, coordinación multiagente e inteligencia conversacional.",
+    en: "Four technical pillars: agentic architecture, living agents, multi-agent coordination, and conversational intelligence.",
+  }
+
+  return buildLocalizedMetadata({
     locale,
+    title: titles[locale],
+    description: descriptions[locale],
+    path: "/capabilities",
   })
 }
 
 export default function CapabilitiesPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return <CapabilitiesPageClient locale={locale} />
 }

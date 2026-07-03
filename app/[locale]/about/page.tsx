@@ -1,264 +1,223 @@
-import { Zap, Shield, Users, Target, TrendingUp, Lightbulb, CheckCircle2, ArrowRight } from "lucide-react"
-import type { Metadata } from "next"
+﻿import type { Metadata } from "next"
 import Link from "next/link"
-import { isValidLocale, DEFAULT_LOCALE } from "@/lib/get-locale"
-import type { Locale } from "@/content/dictionaries"
-import { getDict } from "@/content/dictionaries"
-import { BillingualSection, SectionHeader, ValueCard, PhilosophyItem } from "@/components/bilingual-section"
+import { ArrowRight, Shield, Target, Users, Zap } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { generatePageMetadata } from "@/lib/metadata-utils"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
+  params: {
+    locale: string
+  }
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const isES = locale === "es"
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
 
-  return generatePageMetadata({
-    title: isES ? "Acerca de N3uralia - Plataforma de Sistemas Agenticos en Producción" : "About N3uralia - Agentic Systems Platform for Production",
-    description: isES
-      ? "Conoce la filosofía de N3uralia: por qué construimos una plataforma diferente de sistemas agenticos. Nuestra misión, visión y valores. Inteligencia aumentada para empresas."
-      : "Discover N3uralia's philosophy: why we built a different agentic systems platform. Our mission, vision, and values. Augmented intelligence for enterprises.",
-    keywords: isES
-      ? "acerca de n3uralia, misión, visión, valores, sistemas agenticos, IA aumentada, inteligencia artificial, agentes inteligentes, Chile LATAM"
-      : "about n3uralia, mission, vision, values, agentic systems, augmented AI, artificial intelligence, intelligent agents",
-    canonical: `https://n3uralia.com/${locale}/about`,
+const content = {
+  es: {
+    metadataTitle: "Acerca de | N3uralia",
+    metadataDescription:
+      "N3uralia construye sistemas de IA y software desde Chile para equipos que necesitan arquitectura, integración y operación real.",
+    badge: "Acerca de N3uralia",
+    title: "Construimos IA y software como infraestructura, no como truco",
+    subtitle:
+      "N3uralia nace desde Santiago con una obsesión simple: llevar inteligencia aplicada a operaciones reales en Chile y LATAM. Menos humo, menos piloto infinito, menos software aislado. Más arquitectura, más integración y más sistemas que realmente funcionan.",
+    storyTitle: "Qué clase de empresa queremos ser",
+    storyParagraphs: [
+      "No nos interesa competir por la demo más llamativa. Nos interesa construir sistemas que sobrevivan al uso diario, a las integraciones feas y a la realidad de los equipos operativos.",
+      "Creemos que la ventaja en Chile y LATAM no va a venir solo de usar modelos. Va a venir de saber combinar software, datos, automatización y criterio operacional con mucha más disciplina que el promedio.",
+    ],
+    pillarsTitle: "En qué creemos",
+    pillars: [
+      {
+        title: "Arquitectura antes que hype",
+        description:
+          "La IA sirve cuando se integra bien, se monitorea bien y tiene un lugar claro dentro de la operación.",
+        icon: Zap,
+      },
+      {
+        title: "Contexto local importa",
+        description:
+          "Construimos desde Chile para equipos que operan en Chile y LATAM, con tiempos, restricciones y oportunidades reales.",
+        icon: Users,
+      },
+      {
+        title: "Impacto medible",
+        description:
+          "No basta con decir que algo usa IA. Tiene que reducir fricción, acelerar respuesta o abrir una capacidad nueva de negocio.",
+        icon: Target,
+      },
+    ],
+    fitTitle: "Con quién encajamos mejor",
+    fitItems: [
+      "Equipos que ya sienten fricción operacional y no necesitan que se la expliquen.",
+      "Líderes que quieren construir software y automatización con criterio, no comprar una promesa vaga.",
+    ],
+    ctaTitle: "Si te importa construir algo serio, hablemos",
+    ctaSubtitle:
+      "Nos gusta trabajar con equipos que quieren llegar a producción, aprender rápido y dejar una base técnica más fuerte que antes.",
+    primaryCta: "Contactar a N3uralia",
+    secondaryCta: "Ver como trabajamos",
+  },
+  en: {
+    metadataTitle: "About | N3uralia",
+    metadataDescription:
+      "N3uralia builds AI systems and software from Chile for teams that need architecture, integration, and real operations.",
+    badge: "About N3uralia",
+    title: "We build AI and software like infrastructure, not like a trick",
+    subtitle:
+      "N3uralia is built from Santiago around one simple obsession: bring applied intelligence into real operations across Chile and LATAM. Less hype, fewer endless pilots, less isolated software. More architecture, more integration, and more systems that actually work.",
+    storyTitle: "What kind of company we want to be",
+    storyParagraphs: [
+      "No nos interesa competir por la demo más llamativa. Nos interesa construir sistemas que sobrevivan al uso diario, a las integraciones feas y a la realidad de los equipos operativos.",
+      "Creemos que la ventaja en Chile y LATAM no va a venir solo de usar modelos. Va a venir de saber combinar software, datos, automatización y criterio operacional con mucha más disciplina que el promedio.",
+    ],
+    pillarsTitle: "What we believe",
+    pillars: [
+      {
+        title: "Arquitectura antes que hype",
+        description:
+          "La IA sirve cuando se integra bien, se monitorea bien y tiene un lugar claro dentro de la operación.",
+        icon: Zap,
+      },
+      {
+        title: "Contexto local importa",
+        description:
+          "Construimos desde Chile para equipos que operan en Chile y LATAM, con tiempos, restricciones y oportunidades reales.",
+        icon: Users,
+      },
+      {
+        title: "Impacto medible",
+        description:
+          "No basta con decir que algo usa IA. Tiene que reducir fricción, acelerar respuesta o abrir una capacidad nueva de negocio.",
+        icon: Target,
+      },
+    ],
+    fitTitle: "Who we fit best",
+    fitItems: [
+      "Equipos que ya sienten fricción operacional y no necesitan que se la expliquen.",
+      "Líderes que quieren construir software y automatización con criterio, no comprar una promesa vaga.",
+    ],
+    ctaTitle: "If you care about building something serious, let's talk",
+    ctaSubtitle:
+      "We like working with teams that want to reach production, learn fast, and leave with a stronger technical base than they started with.",
+    primaryCta: "Contact N3uralia",
+    secondaryCta: "See how we work",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
     locale,
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+    path: "/about",
   })
 }
 
 export default function AboutPage({ params }: PageProps) {
-  const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
-  const d = getDict(locale)
-  const about = d.about
-  const isES = locale === "es"
-
-  const iconArray = [Zap, Users, Shield, Target]
-
-  const team = isES ? [
-    {
-      name: "Equipo con 12+ años",
-      desc: "Implementando sistemas de IA en operaciones críticas. No es nuestro primer rodeo—es nuestra especialidad."
-    },
-    {
-      name: "100% local",
-      desc: "Santiago, Chile. Entendemos LATAM, fusoshorarios, regulaciones y realidades de empresas en la región."
-    },
-    {
-      name: "Sin dependencias",
-      desc: "Te entregamos el código fuente, la documentación y el conocimiento. Tu equipo es dueño del sistema."
-    },
-  ] : [
-    {
-      name: "Team with 12+ years",
-      desc: "Implementing AI systems in critical operations. It's not our first rodeo—it's our specialty."
-    },
-    {
-      name: "100% local",
-      desc: "Santiago, Chile. We understand LATAM, timezones, regulations and realities of enterprises in the region."
-    },
-    {
-      name: "No dependencies",
-      desc: "We deliver you the source code, documentation and knowledge. Your team owns the system."
-    },
-  ]
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
     <>
-      <main className="min-h-screen pt-16 bg-background">
-        {/* Hero */}
-        <section className="py-24 pt-32 px-4 bg-gradient-to-b from-primary/5 to-background">
-          <div className="container mx-auto px-4 text-center max-w-3xl">
-            <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
-              {about.whoWeAre}
-            </p>
-            <h1 className="text-5xl md:text-6xl font-bold mb-8 text-foreground text-balance">{about.title}</h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {about.description}
-            </p>
-          </div>
-        </section>
+      <main className="min-h-screen pt-20 bg-background">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="container mx-auto text-center max-w-4xl">
+              <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
+                {page.badge}
+              </p>
+              <h1 className="text-4xl sm:text-6xl font-bold mb-8 text-foreground">{page.title}</h1>
+              <p className="body-lg text-muted-foreground leading-relaxed">{page.subtitle}</p>
+            </div>
+          </section>
+        </SectionBackground>
 
-        {/* Why We Exist */}
-        <section className="py-24 px-4 bg-background border-t border-border">
+        <section className="py-24 px-4 border-b border-border">
           <div className="container mx-auto max-w-3xl">
-            <SectionHeader 
-              tag={isES ? "Nuestra Misión" : "Our Mission"}
-              title={isES ? "¿Por qué existimos?" : "Why do we exist?"}
-            />
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              {isES
-                ? "Porque el mundo confunde agentes IA con chatbots. Porque hace falta una plataforma que REALMENTE integre datos, procesos y decisiones. Porque las empresas merecen IA que funciona en producción, no en demos."
-                : "Because the world confuses AI agents with chatbots. Because we need a platform that TRULY integrates data, processes and decisions. Because enterprises deserve AI that works in production, not in demos."}
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-6 border border-primary/30 rounded-lg bg-primary/5">
-                <Lightbulb className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">
-                  {isES ? "El Problema" : "The Problem"}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {isES
-                    ? "La IA está fragmentada. Agentes aquí, LLMs allá, datos en otro lado. Ninguno habla con el otro. El resultado: soluciones hermosas que no funcionan en producción."
-                    : "AI is fragmented. Agents here, LLMs there, data somewhere else. None talk to each other. Result: beautiful solutions that don't work in production."}
+            <h2 className="text-3xl font-bold text-foreground mb-8">{page.storyTitle}</h2>
+            <div className="space-y-6">
+              {page.storyParagraphs.map((paragraph) => (
+                <p key={paragraph} className="text-muted-foreground leading-relaxed">
+                  {paragraph}
                 </p>
-              </div>
-              <div className="p-6 border border-primary/30 rounded-lg bg-primary/5">
-                <Zap className="w-8 h-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">
-                  {isES ? "Nuestra Respuesta" : "Our Answer"}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {isES
-                    ? "Infraestructura integrada. Agentes vivos que recuerdan, sistemas conectados, decisiones auditables. Desde el día 1, tus procesos críticos funcionan."
-                    : "Integrated infrastructure. Living agents that remember, connected systems, auditable decisions. From day 1, your critical processes work."}
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Vision Section */}
-        <BillingualSection section="workflow">
-          <section className="py-24 bg-background border-t border-border px-4">
-            <div className="container mx-auto max-w-3xl">
-              <div className="mb-20">
-                <SectionHeader tag={about.ourWhy} title={about.visionTitle} />
-                <p className="text-base text-muted-foreground leading-relaxed mb-6">
-                  {about.visionP1}
-                </p>
-                <p className="text-base text-muted-foreground leading-relaxed mb-6">
-                  {about.visionP2}
-                </p>
-                <p className="text-base text-muted-foreground leading-relaxed">
-                  {about.visionP3}
-                </p>
+        <SectionBackground section="capabilities" className="border-b border-border">
+          <section className="py-24 px-4">
+            <div className="container mx-auto max-w-6xl">
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h2 className="text-3xl font-bold text-foreground mb-4">{page.pillarsTitle}</h2>
               </div>
-            </div>
-          </section>
-        </BillingualSection>
-
-        {/* Philosophy Section */}
-        <BillingualSection section="solutions">
-          <section className="py-24 px-4 bg-background border-t border-border">
-            <div className="container mx-auto max-w-3xl">
-              <div className="mb-20">
-                <SectionHeader tag={about.ourPhilosophy} title={about.howWethinkDifferent} />
-                <div className="space-y-8">
-                  {about.philosophy.map((item, i) => (
-                    <PhilosophyItem key={i} title={item.num} description={item.desc} />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        </BillingualSection>
-
-        {/* Values Section */}
-        <BillingualSection section="capabilities" borderPosition="border-t">
-          <section className="py-24 px-4 bg-background">
-            <div className="container mx-auto">
-              <div className="text-center mb-16 max-w-3xl mx-auto">
-                <SectionHeader
-                  tag={about.ourApproach}
-                  title={about.howWeWork}
-                  subtitle={about.workingDaily}
-                />
-              </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {about.values.map((value, i) => {
-                  const Icon = iconArray[i] || Zap
+                {page.pillars.map((pillar) => {
+                  const Icon = pillar.icon
+
                   return (
-                    <ValueCard
-                      key={i}
-                      icon={<Icon className="w-10 h-10" />}
-                      title={value.title}
-                      description={value.desc}
-                    />
+                    <div
+                      key={pillar.title}
+                      className="bg-card border border-border rounded-lg p-8 h-full hover:border-primary/40 transition-colors"
+                    >
+                      <Icon className="w-10 h-10 text-primary mb-6" />
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{pillar.title}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {pillar.description}
+                      </p>
+                    </div>
                   )
                 })}
               </div>
             </div>
           </section>
-        </BillingualSection>
+        </SectionBackground>
 
-        {/* Team Section */}
-        <section className="py-24 px-4 bg-background border-t border-border">
-          <div className="container mx-auto max-w-3xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                {isES ? "Quiénes somos" : "Who we are"}
-              </h2>
-              <p className="text-muted-foreground">
-                {isES
-                  ? "Un equipo que construye infraestructura operativa, no ilusiones de IA."
-                  : "A team that builds operational infrastructure, not AI illusions."}
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {team.map((item, i) => (
-                <div key={i} className="p-6 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all">
-                  <h3 className="font-semibold text-foreground mb-2 text-lg">{item.name}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+        <section className="py-24 px-4 border-b border-border">
+          <div className="container mx-auto max-w-4xl">
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">{page.fitTitle}</h2>
+            <div className="space-y-4">
+              {page.fitItems.map((item) => (
+                <div key={item} className="rounded-lg border border-border bg-card p-6 flex gap-3">
+                  <ArrowRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-muted-foreground">{item}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Impact Section */}
-        <section className="py-24 px-4 bg-primary/5 border-t border-border">
-          <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                {isES ? "Nuestro Impacto" : "Our Impact"}
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">50+</div>
-                <p className="text-sm font-medium text-foreground">{isES ? "Empresas" : "Companies"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "En producción" : "In production"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">12+</div>
-                <p className="text-sm font-medium text-foreground">{isES ? "Años" : "Years"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "Implementando IA" : "Implementing AI"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">100%</div>
-                <p className="text-sm font-medium text-foreground">{isES ? "Auditable" : "Auditable"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "Decisiones verificables" : "Verifiable decisions"}</p>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-primary mb-2">0</div>
-                <p className="text-sm font-medium text-foreground">{isES ? "Downtime" : "Downtime"}</p>
-                <p className="text-xs text-muted-foreground">{isES ? "Sistemas 24/7" : "24/7 Systems"}</p>
+        <SectionBackground section="workflow">
+          <section className="py-20 px-4">
+            <div className="container mx-auto text-center max-w-3xl">
+              <h2 className="text-3xl font-bold text-foreground mb-6">{page.ctaTitle}</h2>
+              <p className="text-muted-foreground mb-10">{page.ctaSubtitle}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href={href(locale, "/contact")}
+                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                >
+                  {page.primaryCta}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href={href(locale, "/como-trabajamos")}
+                  className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+                >
+                  {page.secondaryCta}
+                </Link>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Closing Section */}
-        <section className="py-24 px-4 bg-background border-t border-border">
-          <div className="container mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-foreground mb-6">
-              {isES ? "¿Te suena familiar?" : "Does this sound familiar?"}
-            </h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              {about.closing}
-            </p>
-            <Link href={isES ? "/es/contact" : "/en/contact"} className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:shadow-lg hover:-translate-y-1 transition-all font-medium">
-              {isES ? "Hablemos de tu operación" : "Let's talk about your operations"}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </section>
+          </section>
+        </SectionBackground>
       </main>
 
       <Footer />

@@ -1,56 +1,159 @@
-import type { Metadata } from "next"
-import type { Locale } from "@/content/dictionaries"
+﻿import type { Metadata } from "next"
+import Link from "next/link"
+import { ArrowRight, Database, GitBranch, Shield, Workflow } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
-import { PlatformClient } from "@/components/platform/platform-client"
+import { SectionBackground } from "@/components/section-background"
+import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
+import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = params.locale as Locale
-  const isES = locale === "es"
-  const title = isES ? "Plataforma | N3uralia" : "Platform | N3uralia"
-  const description = isES
-    ? "La arquitectura central que coordina agentes especializados e integra tu stack existente."
-    : "The central architecture that coordinates specialized agents and integrates your existing stack."
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `https://n3uralia.com/${locale}/platform`,
-      languages: {
-        es: `https://n3uralia.com/es/platform`,
-        en: `https://n3uralia.com/en/platform`,
-      },
-    },
+  params: {
+    locale: string
   }
 }
 
+function href(locale: Locale, path: string) {
+  return `/${locale}${path}`
+}
+
+const content = {
+  es: {
+    metadataTitle: "Plataforma | N3uralia",
+    metadataDescription:
+      "La capa de plataforma de N3uralia: orquestación, integraciones, memoria y control para sistemas de IA en producción.",
+    title: "La plataforma hace operable el sistema.",
+    subtitle:
+      "Cuando hablamos de plataforma, hablamos de la arquitectura que conecta software, datos, agentes y decisiones sin dejar la operación a la deriva.",
+    blocks: [
+      {
+        title: "Orquestación central",
+        description: "Una capa que coordina flujos, reglas, prioridades y handoffs entre componentes humanos y automáticos.",
+        icon: Workflow,
+      },
+      {
+        title: "Datos e integraciones",
+        description: "Conexión con CRM, ERP, APIs y herramientas operativas para que el contexto real llegue donde tiene que llegar.",
+        icon: Database,
+      },
+      {
+        title: "Memoria y estado",
+        description: "Historial y contexto para no responder desde cero.",
+        icon: GitBranch,
+      },
+      {
+        title: "Control y seguridad",
+        description: "Permisos, validaciones y observabilidad para que la automatización no quede fuera de gobierno.",
+        icon: Shield,
+      },
+    ],
+    ctaTitle: "Si tu stack ya existe, la pregunta es cómo coordinamos mejor todo lo que ya vive ahí",
+    primaryCta: "Ver integraciones",
+    secondaryCta: "Hablar con N3uralia",
+  },
+  en: {
+    metadataTitle: "Platform | N3uralia",
+    metadataDescription:
+      "N3uralia's platform layer: orchestration, integrations, memory, and control.",
+    title: "The platform makes the system operable.",
+    subtitle:
+      "It connects software, data, agents, and decisions.",
+    blocks: [
+      {
+        title: "Orchestration",
+        description: "Coordinates workflows, rules, and priorities.",
+        icon: Workflow,
+      },
+      {
+        title: "Data and integrations",
+        description: "Connections to CRM, ERP, APIs, and tools.",
+        icon: Database,
+      },
+      {
+        title: "Memory and state",
+        description: "System history and context, not zero every time.",
+        icon: GitBranch,
+      },
+      {
+        title: "Control and security",
+        description: "Permissions, validations, and observability.",
+        icon: Shield,
+      },
+    ],
+    ctaTitle: "If your stack already exists, coordinate it better",
+    primaryCta: "View integrations",
+    secondaryCta: "Talk to N3uralia",
+  },
+} as const
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
+
+  return buildLocalizedMetadata({
+    locale,
+    path: "/platform",
+    title: page.metadataTitle,
+    description: page.metadataDescription,
+  })
+}
+
 export default function PlatformPage({ params }: PageProps) {
-  const locale = params.locale as Locale
-  const isES = locale === "es"
+  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const page = content[locale]
 
   return (
     <>
-      <main className="min-h-screen">
-        {/* Hero */}
-        <section className="py-20 px-4 bg-gradient-to-b from-primary/10 to-transparent border-b border-border">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-4">
-              {isES ? "Plataforma N3uralia" : "N3uralia Platform"}
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {isES
-                ? "Arquitectura central que coordina agentes especializados e integra tu stack existente sin fricción."
-                : "Central architecture that coordinates specialized agents and integrates your existing stack seamlessly."}
-            </p>
+      <main className="min-h-screen bg-background pt-20">
+        <SectionBackground section="hero" className="border-b border-border">
+          <section className="py-20 px-4">
+            <div className="container mx-auto max-w-4xl text-center">
+              <h1 className="text-4xl sm:text-6xl font-bold text-foreground mb-6">{page.title}</h1>
+              <p className="body-lg text-muted-foreground max-w-3xl mx-auto">{page.subtitle}</p>
+            </div>
+          </section>
+        </SectionBackground>
+
+        <section className="py-24 px-4 border-b border-border">
+          <div className="container mx-auto max-w-6xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {page.blocks.map((block) => {
+                const Icon = block.icon
+                return (
+                  <div key={block.title} className="rounded-lg border border-border bg-card p-8">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                      <Icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground mb-3">{block.title}</h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{block.description}</p>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </section>
 
-        <PlatformClient locale={locale} />
+        <section className="py-20 px-4">
+          <div className="container mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-bold text-foreground mb-8">{page.ctaTitle}</h2>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href={href(locale, "/integraciones-empresariales")}
+                className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
+              >
+                {page.primaryCta}
+              </Link>
+              <Link
+                href={href(locale, "/contact")}
+                className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+              >
+                {page.secondaryCta}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </>
   )

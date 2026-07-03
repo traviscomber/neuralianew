@@ -1,267 +1,300 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, TrendingUp, Clock, Users } from "lucide-react"
+import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 
 interface CapabilitiesPageClientProps {
-  locale: 'es' | 'en'
+  locale: "es" | "en"
 }
 
+type Pillar = {
+  titleES: string
+  titleEN: string
+  descES: string
+  descEN: string
+  featuresES: string[]
+  featuresEN: string[]
+}
+
+const pillars: Pillar[] = [
+  {
+    titleES: "Arquitectura agéntica",
+    titleEN: "Agentic architecture",
+    descES: "Agentes autónomos con memoria y reglas claras.",
+    descEN: "Autonomous agents with memory and clear rules.",
+    featuresES: ["Planificación", "Herramientas", "Contexto", "Control"],
+    featuresEN: ["Planning", "Tools", "Context", "Control"],
+  },
+  {
+    titleES: "Living agents",
+    titleEN: "Living agents",
+    descES: "Agentes que aprenden y mejoran con el uso.",
+    descEN: "Agents that learn and improve with use.",
+    featuresES: ["Aprendizaje", "Adaptación", "Seguimiento"],
+    featuresEN: ["Learning", "Adaptation", "Tracking"],
+  },
+  {
+    titleES: "Orquestación multiagente",
+    titleEN: "Multi-agent coordination",
+    descES: "Coordinación de varios agentes trabajando juntos.",
+    descEN: "Coordination of multiple agents working together.",
+    featuresES: ["Distribución", "Colaboración", "Resolución"],
+    featuresEN: ["Distribution", "Collaboration", "Resolution"],
+  },
+  {
+    titleES: "Inteligencia conversacional",
+    titleEN: "Conversational intelligence",
+    descES: "Interacciones claras y útiles con contexto.",
+    descEN: "Clear, useful interactions with context.",
+    featuresES: ["Contexto", "Tono", "Intención"],
+    featuresEN: ["Context", "Tone", "Intent"],
+  },
+]
+
+const livingAgents = [
+  {
+    titleES: "Memoria persistente",
+    titleEN: "Persistent memory",
+    descES: "Los agentes recuerdan interacciones previas y aprenden en cada ciclo.",
+    descEN: "Agents remember previous interactions and learn every cycle.",
+  },
+  {
+    titleES: "Auto-optimización",
+    titleEN: "Self-optimization",
+    descES: "Mejora continua basada en feedback y resultados medibles.",
+    descEN: "Continuous improvement based on feedback and measurable results.",
+  },
+  {
+    titleES: "Comportamiento adaptivo",
+    titleEN: "Adaptive behavior",
+    descES: "Cambian de estrategia según contexto, usuario y objetivos.",
+    descEN: "They change strategy based on context, user, and objectives.",
+  },
+]
+
+const conversational = [
+  {
+    titleES: "Comprensión de contexto",
+    titleEN: "Context understanding",
+    descES: "Comprende matices y trasfondo de cada conversación.",
+    descEN: "Understands nuances and background in each conversation.",
+  },
+  {
+    titleES: "Diálogos naturales",
+    titleEN: "Natural dialogues",
+    descES: "Respuestas fluidas que generan confianza y conexión.",
+    descEN: "Fluid responses that build trust and connection.",
+  },
+  {
+    titleES: "Conversaciones multi-turno",
+    titleEN: "Multi-turn conversations",
+    descES: "Mantiene coherencia en conversaciones largas.",
+    descEN: "Maintains coherence in long conversations.",
+  },
+]
+
+const production = [
+  {
+    titleES: "99.9% disponibilidad",
+    titleEN: "99.9% uptime",
+    descES: "Infraestructura redundante y monitoreo 24/7.",
+    descEN: "Redundant infrastructure and 24/7 monitoring.",
+  },
+  {
+    titleES: "Seguridad empresarial",
+    titleEN: "Enterprise security",
+    descES: "Encriptación, compliance y auditoría completa.",
+    descEN: "Encryption, compliance, and complete auditing.",
+  },
+  {
+    titleES: "Analítica en tiempo real",
+    titleEN: "Real-time analytics",
+    descES: "Métricas e insights en tiempo real.",
+    descEN: "Metrics and insights in real time.",
+  },
+]
+
 export function CapabilitiesPageClient({ locale }: CapabilitiesPageClientProps) {
-  const isES = locale === 'es'
+  const isES = locale === "es"
   const href = (path: string) => `/${locale}${path}`
 
-  const outcomes = [
-    {
-      titleES: "Operación Hotelera",
-      titleEN: "Hotel Operations",
-      problem: { es: "4 horas de espera en reservas", en: "4 hours booking wait time" },
-      result: { es: "15 minutos", en: "15 minutes" },
-      impact: { es: "Satisfacción de cliente: 40% mejor", en: "Customer satisfaction: 40% improvement" },
-      metric: "-86%",
-    },
-    {
-      titleES: "Retail & E-commerce",
-      titleEN: "Retail & E-commerce",
-      problem: { es: "Falta de reabastecimiento = pérdida de ventas", en: "Stockouts = lost sales" },
-      result: { es: "Reabastecimiento automático", en: "Automated replenishment" },
-      impact: { es: "Conversión: +14% | Costos: -8%", en: "Conversion: +14% | Costs: -8%" },
-      metric: "+$2.1M",
-    },
-    {
-      titleES: "Minería",
-      titleEN: "Mining Operations",
-      problem: { es: "Paradas no planificadas = pérdida de $500K/día", en: "Unplanned downtime = $500K/day loss" },
-      result: { es: "Mantenimiento predictivo", en: "Predictive maintenance" },
-      impact: { es: "Disponibilidad: 99.2% → 99.8%", en: "Uptime: 99.2% → 99.8%" },
-      metric: "-$1.8M",
-    },
-    {
-      titleES: "Logística",
-      titleEN: "Supply Chain",
-      problem: { es: "Incidencias de SLA sin visibilidad", en: "No visibility into SLA incidents" },
-      result: { es: "Control tower con alertas",  en: "Control tower with alerts" },
-      impact: { es: "OTIF mejorado | Costos operacionales: -12%", en: "OTIF improved | Operating costs: -12%" },
-      metric: "-18.2%",
-    },
-  ]
-
-  const capabilities = [
-    {
-      titleES: "Automatización Conversacional",
-      titleEN: "Conversational Automation",
-      descES: "Diálogos naturales que resuelven problemas sin intervención manual",
-      descEN: "Natural conversations that solve problems without manual intervention",
-      exampleES: "Cliente reserva sin llenar formularios. Sistema entiende necesidades, propone opciones.",
-      exampleEN: "Customer books without forms. System understands needs, proposes options.",
-      icon: Users,
-    },
-    {
-      titleES: "Toma de Decisiones Inteligente",
-      titleEN: "Intelligent Decision Making",
-      descES: "Analiza contexto, datos históricos y predicciones para decidir en tiempo real",
-      descEN: "Analyzes context, historical data and predictions to decide in real-time",
-      exampleES: "Sistema decide: ¿Es cliente VIP? ¿Es primavera? ¿Hay stock? → Ofrece descuento dinámico.",
-      exampleEN: "System decides: VIP customer? Spring season? Stock available? → Offers dynamic discount.",
-      icon: TrendingUp,
-    },
-    {
-      titleES: "Escalamiento Inteligente a Humanos",
-      titleEN: "Smart Human Escalation",
-      descES: "Solo llama a un humano cuando realmente es necesario, con contexto completo",
-      descEN: "Only involves a human when truly necessary, with complete context",
-      exampleES: "Cliente furioso requiere gerente: sistema prepara dossier, resuelve en 2 minutos.",
-      exampleEN: "Angry customer needs manager: system prepares briefing, resolves in 2 minutes.",
-      icon: Clock,
-    },
-    {
-      titleES: "Aprendizaje Continuo",
-      titleEN: "Continuous Learning",
-      descES: "Cada interacción mejora el sistema. Se adapta a tu negocio específico.",
-      descEN: "Every interaction improves the system. Adapts to your specific business.",
-      exampleES: "Después de 1000 chats: entiende jerga local, detecta patrones ocultos, anticipa problemas.",
-      exampleEN: "After 1000 chats: understands local language, detects hidden patterns, anticipates issues.",
-      icon: CheckCircle2,
-    },
-  ]
-
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 flex items-center justify-center px-4 pt-32 pb-16">
-        <div className="max-w-5xl mx-auto w-full text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/5">
-            <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="text-sm font-medium text-primary">{isES ? "Cómo Funcionamos" : "How We Work"}</span>
-          </div>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-balance text-foreground">
-            {isES 
-              ? "Capacidades que Transforman tu Operación" 
-              : "Capabilities That Transform Your Operations"}
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            {isES 
-              ? "No es sobre tecnología. Es sobre resultados medibles: menos costos, más ingresos, clientes más felices."
-              : "It's not about technology. It's about measurable results: lower costs, more revenue, happier customers."}
-          </p>
-          <Link href={href("/contact")} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
-            {isES ? "Ver caso de éxito" : "See success story"}
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </section>
-
-      {/* Outcomes Section */}
-      <section className="py-16 px-4 bg-background">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {isES ? "Lo Que Sucede en Producción" : "Real Results in Production"}
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              {isES 
-                ? "Empresas chilenas que ya ven el impacto"
-                : "Chilean companies already seeing the impact"}
+    <>
+      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
+        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-5xl text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
+              <span className="h-2 w-2 rounded-full bg-[#789b96]" />
+              <span className="text-sm font-semibold text-[#526e69]">
+                {isES ? "Capacidades técnicas" : "Technical capabilities"}
+              </span>
+            </div>
+            <h1 className="mt-6 text-balance text-5xl font-light leading-[0.98] tracking-[-0.05em] text-[#173634] md:text-7xl">
+              {isES ? "Capacidades para sistemas inteligentes en producción" : "Capabilities for intelligent systems in production"}
+            </h1>
+            <p className="mx-auto mt-6 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">
+              {isES
+                ? "Arquitectura modular para conectar agentes, contexto y operación real."
+                : "Modular architecture to connect agents, context, and real operations."
+              }
             </p>
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              <Link
+                href={href("/soluciones")}
+                className="inline-flex items-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#244946]"
+              >
+                {isES ? "Ver soluciones" : "View solutions"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={href("/contact")}
+                className="inline-flex items-center gap-2 rounded-full border border-[#d8e5e2] bg-white px-6 py-3 text-sm font-semibold text-[#173634] transition-colors hover:border-[#b8d1cc] hover:bg-[#f5faf8]"
+              >
+                {isES ? "Hablar con N3uralia" : "Talk to N3uralia"}
+              </Link>
+            </div>
           </div>
+        </section>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {outcomes.map((outcome, idx) => (
-              <div key={idx} className="p-8 rounded-lg bg-primary/5 border border-primary/20 hover:border-primary/40 transition-all">
-                <h3 className="font-bold text-lg mb-6 text-foreground">{isES ? outcome.titleES : outcome.titleEN}</h3>
-                
-                {/* Before → After */}
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="flex-1">
-                    <p className="text-xs text-muted-foreground mb-1">{isES ? "Problema" : "Problem"}</p>
-                    <p className="text-sm font-semibold text-foreground">{isES ? outcome.problem.es : outcome.problem.en}</p>
-                  </div>
-                  <ArrowRight className="w-5 h-5 text-primary flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-xs text-muted-foreground mb-1">{isES ? "Resultado" : "Result"}</p>
-                    <p className="text-sm font-semibold text-primary">{outcome.result.es || outcome.result.en}</p>
-                  </div>
-                </div>
+        <section className="px-4 py-24 sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">
+                {isES ? "Cuatro pilares" : "Four pillars"}
+              </p>
+              <h2 className="mt-4 text-4xl font-light leading-tight tracking-[-0.04em] text-[#173634] md:text-6xl">
+                {isES ? "La base técnica que usamos para construir" : "The technical base we use to build"}
+              </h2>
+            </div>
 
-                {/* Impact */}
-                <div className="pt-4 border-t border-primary/20">
-                  <p className="text-xs text-muted-foreground mb-2">{isES ? "Impacto" : "Impact"}</p>
-                  <div className="flex items-baseline gap-2">
-                    <p className="text-2xl font-bold text-primary">{outcome.metric}</p>
-                    <p className="text-sm text-foreground">{isES ? outcome.impact.es : outcome.impact.en}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {pillars.map((pillar) => (
+                <article key={pillar.titleEN} className="rounded-[1.8rem] border border-[#d8e5e2] bg-white p-6">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8aa39d]">
+                    {isES ? "Pilar" : "Pillar"}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-semibold text-[#173634]">
+                    {isES ? pillar.titleES : pillar.titleEN}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-[#65706d]">
+                    {isES ? pillar.descES : pillar.descEN}
+                  </p>
+                  <ul className="mt-6 space-y-3">
+                    {(isES ? pillar.featuresES : pillar.featuresEN).map((feature) => (
+                      <li key={feature} className="flex items-start gap-3 text-sm text-[#243331]">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#789b96]" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Core Capabilities Section */}
-      <section className="py-16 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {isES ? "4 Capacidades Clave" : "4 Core Capabilities"}
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              {isES 
-                ? "Esto es lo que hace N3uralia diferente en Chile"
-                : "This is what makes N3uralia different in Chile"}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {capabilities.map((cap, idx) => {
-              const Icon = cap.icon
-              return (
-                <div key={idx} className="p-8 bg-background border border-primary/20 rounded-lg hover:shadow-lg transition-all">
-                  <div className="flex items-start gap-4 mb-6">
-                    <Icon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                      <h3 className="font-bold text-lg text-foreground mb-2">{isES ? cap.titleES : cap.titleEN}</h3>
-                      <p className="text-sm text-muted-foreground">{isES ? cap.descES : cap.descEN}</p>
-                    </div>
-                  </div>
-                  <div className="pl-10 pt-4 border-l-2 border-primary/20">
-                    <p className="text-sm italic text-muted-foreground">
-                      {isES ? cap.exampleES : cap.exampleEN}
-                    </p>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Why N3uralia for Chile */}
-      <section className="py-16 px-4 bg-background">
-        <div className="max-w-6xl mx-auto w-full">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
-            {isES ? "¿Por Qué N3uralia en Chile?" : "Why N3uralia in Chile?"}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5">
-              <CheckCircle2 className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold mb-2 text-foreground">
-                {isES ? "Entiende el Contexto Local" : "Understands Local Context"}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {isES 
-                  ? "Adaptado a regulaciones chilenas, horarios, comportamientos y jerga local"
-                  : "Adapted to Chilean regulations, schedules, behaviors and local terminology"}
+        <section className="border-y border-[#d8e5e2] bg-[#edf4f1] px-4 py-24 sm:px-8 lg:px-10">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">
+                {isES ? "Living agents" : "Living agents"}
+              </p>
+              <h2 className="mt-4 text-4xl font-light leading-tight tracking-[-0.04em] text-[#173634] md:text-6xl">
+                {isES ? "Agentes que mejoran con el uso" : "Agents that improve with use"}
+              </h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">
+                {isES
+                  ? "Los agentes aprenden, se adaptan y siguen siendo útiles cuando cambia la operación."
+                  : "Agents learn, adapt, and stay useful when the operation changes."
+                }
               </p>
             </div>
 
-            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5">
-              <TrendingUp className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold mb-2 text-foreground">
-                {isES ? "Resultados Medibles" : "Measurable Results"}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {isES 
-                  ? "No promesas. Vemos los números: costos, ingresos, satisfacción de clientes"
-                  : "Not promises. We see the numbers: costs, revenue, customer satisfaction"}
-              </p>
+            <div className="grid gap-5 sm:grid-cols-2">
+              {livingAgents.map((item) => (
+                <article key={item.titleEN} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-5">
+                  <h3 className="text-lg font-semibold text-[#173634]">{isES ? item.titleES : item.titleEN}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#65706d]">{isES ? item.descES : item.descEN}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-24 sm:px-8 lg:px-10">
+          <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="grid gap-5 sm:grid-cols-2">
+              {conversational.map((item) => (
+                <article key={item.titleEN} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white p-5">
+                  <h3 className="text-lg font-semibold text-[#173634]">{isES ? item.titleES : item.titleEN}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#65706d]">{isES ? item.descES : item.descEN}</p>
+                </article>
+              ))}
             </div>
 
-            <div className="p-6 rounded-lg border border-primary/20 bg-primary/5">
-              <Clock className="w-8 h-8 text-primary mb-4" />
-              <h3 className="font-bold mb-2 text-foreground">
-                {isES ? "4 Semanas en Producción" : "4 Weeks to Production"}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {isES 
-                  ? "No años de implementación. Vemos valor en el mes 1, mejora continua después"
-                  : "Not years of implementation. See value in month 1, continuous improvement after"}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">
+                {isES ? "Inteligencia conversacional" : "Conversational intelligence"}
+              </p>
+              <h2 className="mt-4 text-4xl font-light leading-tight tracking-[-0.04em] text-[#173634] md:text-6xl">
+                {isES ? "Conversación que entiende contexto" : "Conversation that understands context"}
+              </h2>
+              <p className="mt-5 text-base leading-8 text-[#65706d]">
+                {isES
+                  ? "La conversación activa la operación con menos fricción."
+                  : "Conversation activates the operation with less friction."
+                }
               </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Final CTA */}
-      <section className="py-24 px-4 bg-primary/5 border-t border-primary/20">
-        <div className="max-w-4xl mx-auto w-full text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            {isES ? "¿Tu operación es la próxima?" : "Could your operation be next?"}
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            {isES 
-              ? "Descubre en 30 minutos cómo N3uralia puede transformar tu negocio" 
-              : "Discover in 30 minutes how N3uralia can transform your business"}
-          </p>
-          <Link href={href("/contact")} className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all hover:shadow-lg hover:-translate-y-1 inline-flex items-center gap-2">
-            {isES ? "Agendar llamada" : "Schedule call"}
-            <ArrowRight className="w-5 h-5" />
-          </Link>
-        </div>
-      </section>
+        <section className="border-t border-[#d8e5e2] bg-[#173634] px-4 py-24 text-white sm:px-8 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <div className="max-w-3xl">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#8fb2aa]">
+                {isES ? "Producción" : "Production"}
+              </p>
+              <h2 className="mt-4 text-4xl font-light leading-tight tracking-[-0.04em] md:text-6xl">
+                {isES ? "Guardrails para operar con confianza" : "Guardrails to operate with confidence"}
+              </h2>
+              <p className="mt-5 text-base leading-8 text-white/72">
+                {isES
+                  ? "En producción importan disponibilidad, seguridad, trazabilidad y observabilidad."
+                  : "In production, availability, security, traceability, and observability matter most."
+                }
+              </p>
+            </div>
 
+            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {production.map((item) => (
+                <article key={item.titleEN} className="rounded-[1.6rem] border border-white/10 bg-white/6 p-5">
+                  <h3 className="text-lg font-semibold">{isES ? item.titleES : item.titleEN}</h3>
+                  <p className="mt-3 text-sm leading-7 text-white/72">{isES ? item.descES : item.descEN}</p>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link
+                href={href("/soluciones")}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#173634] transition-colors hover:bg-[#eef5f2]"
+              >
+                {isES ? "Ver soluciones" : "View solutions"}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href={href("/case-studies")}
+                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+              >
+                {isES ? "Ver casos" : "View cases"}
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
       <Footer />
-    </main>
+    </>
   )
 }
