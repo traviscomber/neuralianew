@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    // Removed: transitionIndicator, turbopackFileSystemCacheForDev are not valid in Next.js 14.2
+  },
   redirects: async () => {
     return [
       // www redirect (non-www -> www)

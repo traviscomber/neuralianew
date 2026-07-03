@@ -108,7 +108,7 @@ export default function BlogPage({ params }: PageProps) {
   ]
 
   const featured = blogPosts.find((post) => post.featured) ?? blogPosts[0]
-  const rest = blogPosts.filter((post) => post.slug !== featured.slug)
+  const rest = featured ? blogPosts.filter((post) => post.slug !== featured.slug) : blogPosts
 
   const readingPath = isES
     ? ["1. Entiende la operación", "2. Diseña la arquitectura", "3. Integra con guardrails", "4. Mide y mejora"]
@@ -156,15 +156,15 @@ export default function BlogPage({ params }: PageProps) {
                     </div>
                   ))}
                 </div>
-              </div>
             </div>
+          </div>
           </section>
-        </SectionBackground>
 
-        <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
-          <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-            <Link
-              href={href(`/blog/${featured.slug}`)}
+        {featured && (
+          <section className="border-b border-[#d8e5e2] px-4 py-20 sm:px-8 lg:px-10">
+            <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+              <Link
+                href={href(`/blog/${featured.slug}`)}
               className="group relative overflow-hidden rounded-[2rem] bg-[#173634] p-7 text-white shadow-[0_44px_130px_-82px_#173634] transition-all duration-300 hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#789b96] md:p-9"
             >
               <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#8fb2aa]/30 blur-3xl" />
@@ -243,6 +243,8 @@ export default function BlogPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+        )}
+        </SectionBackground>
 
         <section className="px-4 py-20 sm:px-8 lg:px-10">
           <div className="mx-auto max-w-7xl">
