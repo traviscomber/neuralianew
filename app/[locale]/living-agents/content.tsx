@@ -122,7 +122,6 @@ const copy = {
     emergence: 'It is emergence',
     emergenceBody:
       'Personality emerges through continuous iteration. Each interaction changes them. Each reflection deepens them.',
-    archetypes: 'Built on archetypes',
     archetypesBody:
       'We do not start from zero. Five foundational archetypes, each with its own philosophy, values, and worldview.',
     five: 'The five archetypes',
