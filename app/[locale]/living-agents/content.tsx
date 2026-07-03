@@ -6,7 +6,7 @@ import { Footer } from '@/components/layout/footer'
 import { FAQSection } from '@/components/living-agents/faq-section'
 import type { Locale } from '@/lib/get-locale'
 
-type TextMap = Record<Locale, string>
+type TextMap = Record<Locale, any>
 
 const copy = {
   es: {
