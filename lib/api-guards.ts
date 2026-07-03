@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z, ZodSchema } from 'zod'
-import { withAuth } from './api-auth'
+import { requireAuth } from './api-auth'
 import { withErrorBoundary } from './sentry-middleware'
 import { captureException } from './sentry'
 
@@ -92,7 +92,8 @@ export function createApiRoute(config: {
       // Auth validation
       if (config.auth) {
         try {
-          await withAuth(req)
+          const user = requireAuth(req)
+          if (!user) throw new Error("Unauthorized")
         } catch (error) {
           captureException(error, { route: req.nextUrl.pathname, type: 'auth' })
           return NextResponse.json(
@@ -124,7 +125,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: validation.error,
+              message: (validation as any).error,
               code: 'VALIDATION_ERROR',
             },
             { status: 400 }
@@ -139,7 +140,7 @@ export function createApiRoute(config: {
           return NextResponse.json(
             {
               status: 'error',
-              message: validation.error,
+              message: (validation as any).error,
               code: 'QUERY_VALIDATION_ERROR',
             },
             { status: 400 }

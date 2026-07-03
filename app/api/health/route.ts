@@ -39,7 +39,7 @@ export async function GET() {
     const envHealth = await checkEnvironmentHealth()
 
     // Check database if env is healthy
-    let dbHealth = { status: "skipped" as const, message: "Skipped due to env errors" }
+    let dbHealth: { status: "healthy" | "degraded" | "unhealthy" | "skipped"; message: string } = { status: "skipped", message: "Skipped due to env errors" }
     if (envHealth.status === "healthy") {
       dbHealth = await checkDatabaseHealth()
     }

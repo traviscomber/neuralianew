@@ -28,7 +28,7 @@ export function SecurityControl({ locale }: { locale: Locale }) {
                 <h3 className="text-lg font-semibold text-foreground mb-2">
                   {pillar.title}
                 </h3>
-                <p className="text-muted-foreground text-sm">{pillar.desc}</p>
+                <p className="text-muted-foreground text-sm">{pillar.description}</p>
               </div>
             </div>
           ))}

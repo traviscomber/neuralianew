@@ -99,12 +99,15 @@ export function EnhancedThresholdWizard() {
     setDataQuality({ status, message, score })
   }
 
-  const handleApplyRecommendation = (recommendation: AIThresholdRecommendation) => {
-    setAppliedRecommendations((prev) => [...prev, recommendation])
-    toast({
-      title: "AI Recommendation Applied! 🤖",
-      description: `Smart threshold for ${recommendation.metric.replace(/([A-Z])/g, " $1")} is now active.`,
-    })
+  const handleApplyRecommendation = (recommendations: AIThresholdRecommendation[]) => {
+    setAppliedRecommendations((prev) => [...prev, ...recommendations])
+    const recommendation = recommendations[0]
+    if (recommendation) {
+      toast({
+        title: "AI Recommendation Applied!",
+        description: `Smart threshold for ${recommendation.metric.replace(/([A-Z])/g, " $1")} is now active.`,
+      })
+    }
   }
 
   const startMonitoring = () => {

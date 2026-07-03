@@ -124,7 +124,7 @@ function processHeatmapData(data: any[]) {
   }, {})
 
   const topElements = Object.entries(elementClicks)
-    .sort(([, a], [, b]) => b - a)
+    .sort(([, a], [, b]) => (b as number) - (a as number))
     .slice(0, 10)
     .map(([selector, count]) => ({ selector, count }))
 
@@ -134,7 +134,7 @@ function processHeatmapData(data: any[]) {
     maxIntensity,
     deviceBreakdown,
     viewportSizes: Object.entries(viewportSizes)
-      .sort(([, a], [, b]) => b - a)
+      .sort(([, a], [, b]) => (b as number) - (a as number))
       .slice(0, 5)
       .map(([size, count]) => ({ size, count })),
     clicksByHour: Object.entries(clicksByHour)

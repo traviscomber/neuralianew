@@ -349,52 +349,53 @@ const getContextualQuestions = (
   }
 
   // Then fall back to contextual questions based on message content
+  const cq = config.contextualQuestions as any
   if (executive === "ceo") {
     if (lowerMessage.includes("strategy") || lowerMessage.includes("market") || lowerMessage.includes("competitive")) {
-      return config.contextualQuestions.strategy
+      return cq.strategy
     }
     if (lowerMessage.includes("crisis") || lowerMessage.includes("problem") || lowerMessage.includes("issue")) {
-      return config.contextualQuestions.crisis
+      return cq.crisis
     }
     if (lowerMessage.includes("growth") || lowerMessage.includes("expand") || lowerMessage.includes("scale")) {
-      return config.contextualQuestions.growth
+      return cq.growth
     }
     if (lowerMessage.includes("team") || lowerMessage.includes("culture") || lowerMessage.includes("leadership")) {
-      return config.contextualQuestions.leadership
+      return cq.leadership
     }
   } else if (executive === "cmo") {
     if (lowerMessage.includes("acquisition") || lowerMessage.includes("customer") || lowerMessage.includes("lead")) {
-      return config.contextualQuestions.acquisition
+      return cq.acquisition
     }
     if (lowerMessage.includes("retention") || lowerMessage.includes("churn") || lowerMessage.includes("loyalty")) {
-      return config.contextualQuestions.retention
+      return cq.retention
     }
     if (lowerMessage.includes("brand") || lowerMessage.includes("awareness") || lowerMessage.includes("social")) {
-      return config.contextualQuestions.branding
+      return cq.branding
     }
     if (lowerMessage.includes("roi") || lowerMessage.includes("analytics") || lowerMessage.includes("measure")) {
-      return config.contextualQuestions.analytics
+      return cq.analytics
     }
   } else if (executive === "cto") {
     if (lowerMessage.includes("architecture") || lowerMessage.includes("design") || lowerMessage.includes("system")) {
-      return config.contextualQuestions.architecture
+      return cq.architecture
     }
     if (
       lowerMessage.includes("security") ||
       lowerMessage.includes("compliance") ||
       lowerMessage.includes("protection")
     ) {
-      return config.contextualQuestions.security
+      return cq.security
     }
     if (
       lowerMessage.includes("innovation") ||
       lowerMessage.includes("technology") ||
       lowerMessage.includes("research")
     ) {
-      return config.contextualQuestions.innovation
+      return cq.innovation
     }
     if (lowerMessage.includes("operations") || lowerMessage.includes("devops") || lowerMessage.includes("monitoring")) {
-      return config.contextualQuestions.operations
+      return cq.operations
     }
   }
 
@@ -602,7 +603,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
       countryCode: finalCountry,
       region: selectedCountry?.region || "South America",
       city: detectedLocation?.city,
-      detectionMethod: profileForm.country ? "user_input" : websiteAnalysis?.detectedCountry ? "domain" : "ip",
+      detectionMethod: (profileForm.country ? "user_input" : websiteAnalysis?.detectedCountry ? "domain" : "ip") as "domain" | "ip" | "user_input",
     }
 
     const profile: UserProfile = {
@@ -983,7 +984,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
             isMinimized ? "h-16" : "h-[700px]"
           }`}
         >
-          <CardHeader className={`bg-gradient-to-r ${currentConfig.color} text-white rounded-t-lg p-4`}>
+          <CardHeader className={`bg-gradient-to-r ${currentConfig.bgColor} text-white rounded-t-lg p-4`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -1068,7 +1069,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                           <CardHeader className="pb-3">
                             <div className="flex items-center space-x-3">
                               <div
-                                className={`w-12 h-12 bg-gradient-to-r ${config.color} rounded-full flex items-center justify-center`}
+                                className={`w-12 h-12 bg-gradient-to-r ${config.bgColor} rounded-full flex items-center justify-center`}
                               >
                                 <config.icon className="h-6 w-6 text-white" />
                               </div>
@@ -1115,7 +1116,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
 
                             <Button
                               onClick={() => setDemoMode("chat")}
-                              className={`w-full bg-gradient-to-r ${config.color} hover:opacity-90`}
+                              className={`w-full bg-gradient-to-r ${config.bgColor} hover:opacity-90`}
                             >
                               <MessageCircle className="h-4 w-4 mr-2" />
                               Chatear con {key.toUpperCase()} Ahora
@@ -1171,7 +1172,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                             <div className="flex-shrink-0">
                               {message.sender === "agent" ? (
                                 <div
-                                  className={`w-8 h-8 bg-gradient-to-r ${currentConfig.color} rounded-full flex items-center justify-center`}
+                                  className={`w-8 h-8 bg-gradient-to-r ${currentConfig.bgColor} rounded-full flex items-center justify-center`}
                                 >
                                   <IconComponent className="h-4 w-4 text-white" />
                                 </div>
@@ -1186,7 +1187,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                               <div
                                 className={`rounded-lg px-4 py-2 ${
                                   message.sender === "user"
-                                    ? `bg-gradient-to-r ${currentConfig.color} text-white`
+                                    ? `bg-gradient-to-r ${currentConfig.bgColor} text-white`
                                     : "bg-gray-100 text-gray-900"
                                 }`}
                               >
@@ -1254,7 +1255,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       {isTyping && (
                         <div className="flex items-start space-x-3">
                           <div
-                            className={`w-8 h-8 bg-gradient-to-r ${currentConfig.color} rounded-full flex items-center justify-center`}
+                            className={`w-8 h-8 bg-gradient-to-r ${currentConfig.bgColor} rounded-full flex items-center justify-center`}
                           >
                             <IconComponent className="h-4 w-4 text-white" />
                           </div>
@@ -1346,7 +1347,7 @@ export function NeuralExecutiveDemo({ isOpen = false, onToggle }: NeuralExecutiv
                       <Button
                         onClick={() => handleSendMessage()}
                         disabled={!inputValue.trim() || isTyping}
-                        className={`bg-gradient-to-r ${currentConfig.color} hover:opacity-90 transition-all duration-200`}
+                        className={`bg-gradient-to-r ${currentConfig.bgColor} hover:opacity-90 transition-all duration-200`}
                       >
                         <Send className="h-4 w-4" />
                       </Button>

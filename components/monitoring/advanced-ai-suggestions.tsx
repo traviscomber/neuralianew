@@ -473,20 +473,20 @@ export function AdvancedAISuggestions({ className }: AdvancedAISuggestionsProps)
                   <div>
                     <h3 className="font-semibold text-lg">{insight.title}</h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <Badge className={getImpactColor(insight.impact)} size="sm">
+                      <Badge className={getImpactColor(insight.impact)}>
                         {insight.impact} impact
                       </Badge>
-                      <Badge variant="outline" size="sm">
+                      <Badge variant="outline">
                         {insight.confidence}% confidence
                       </Badge>
-                      <Badge variant="outline" size="sm" className="capitalize">
+                      <Badge variant="outline" className="capitalize">
                         {insight.timeframe}
                       </Badge>
                     </div>
                   </div>
                 </div>
                 {insight.actionable && (
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                  <Button className="bg-blue-600 hover:bg-blue-700">
                     <Rocket className="w-3 h-3 mr-1" />
                     Take Action
                   </Button>
@@ -917,7 +917,7 @@ export function AdvancedAISuggestions({ className }: AdvancedAISuggestionsProps)
             <Sparkles className="w-4 h-4 text-yellow-500" />
           </CardTitle>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={loadAdvancedAnalysis} disabled={isLoading}>
+            <Button variant="outline" onClick={loadAdvancedAnalysis} disabled={isLoading}>
               <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
               Refresh
             </Button>

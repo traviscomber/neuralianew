@@ -180,7 +180,7 @@ class AIThresholdAnalyzer {
     if (context.businessContext.environment === "production") {
       recommendedValue = Math.min(recommendedValue + 2, 99)
       confidence += 5
-      priority = priority === "low" ? "medium" : priority === "medium" ? "high" : "critical"
+      priority = (priority as string) === "low" ? "medium" : (priority as string) === "medium" ? "high" : "critical"
     }
 
     // Adjust for criticality

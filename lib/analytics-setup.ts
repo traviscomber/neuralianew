@@ -68,6 +68,12 @@ export const customMetrics = {
   time_to_conversion: 'metric3', // Minutes from first visit to conversion
 }
 
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void
+  }
+}
+
 // Function to track audience-specific events
 export function trackAudienceEvent(audienceType: 'cto' | 'founder' | 'operations', eventName: string, data?: Record<string, any>) {
   if (typeof window === 'undefined' || !window.gtag) return

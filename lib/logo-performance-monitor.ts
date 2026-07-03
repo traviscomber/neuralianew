@@ -527,7 +527,6 @@ class LogoPerformanceMonitor {
         badge: "/n3uralia-logo.png",
         tag: `logo-performance-${alert.severity}`,
         requireInteraction: alert.severity === "critical",
-        timestamp: alert.timestamp.getTime(),
       })
 
       notification.onclick = () => {
@@ -610,7 +609,7 @@ class LogoPerformanceMonitor {
       id: `channel_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     }
 
-    this.notificationChannels.push(newChannel)
+    this.notificationChannels.push(newChannel as any)
     this.saveConfiguration()
     return newChannel
   }

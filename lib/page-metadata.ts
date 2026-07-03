@@ -45,7 +45,7 @@ export function buildLocalizedMetadata({
       type,
       siteName: SITE_NAME,
       locale: openGraphLocale,
-      localeAlternate: alternateLocale,
+      alternateLocale: alternateLocale,
       images: [
         {
           url: absoluteUrl(OG_IMAGE_PATH),
