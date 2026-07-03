@@ -7,6 +7,9 @@ import { ArrowLeft, Building2, Clock, Users, Target, CheckCircle, ArrowRight, Aw
 import Link from "next/link"
 import { useParams } from "next/navigation"
 import { useState } from "react"
+import { useLanguage } from "@/lib/language-context"
+import Navigation from "@/components/navigation"
+import { Footer } from "@/components/layout/footer"
 
 const caseStudyData: Record<string, any> = {
   "retail-automation": {

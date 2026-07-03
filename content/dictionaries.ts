@@ -1,6 +1,6 @@
 export type Locale = "es" | "en";
 
-type Dict = {
+export type Dict = {
   nav: {
     platform: string;
     agentic: string;
@@ -43,6 +43,16 @@ type Dict = {
     status: string;
     implementation: string;
     scope: string;
+  };
+  agenticEngineering: {
+    headline: string;
+    subheadline: string;
+    humanInLoop: { title: string; description: string };
+    toolAware: { title: string; description: string };
+    vendorAgnostic: { title: string; description: string };
+    builtToShip: { title: string; description: string };
+    manifesto: string[];
+    cta: string;
   };
 };
 
@@ -96,6 +106,21 @@ export const DICTS: Record<Locale, Dict> = {
       implementation: "Implementación",
       scope: "Scope",
     },
+    agenticEngineering: {
+      headline: "Ingeniería Agéntica, No Solo Automatización",
+      subheadline: "Construimos sistemas que piensan, actúan y mejoran. Agentes con gobernanza real, no scripts glorificados.",
+      humanInLoop: { title: "Humano en el Bucle", description: "Control real en cada decisión crítica. Los agentes proponen, los humanos aprueban." },
+      toolAware: { title: "Consciente de Herramientas", description: "Integración nativa con tus herramientas existentes. Sin fricciones, sin reemplazos forzados." },
+      vendorAgnostic: { title: "Sin Lock-in de Proveedor", description: "Arquitectura abierta. Cambia de modelo, proveedor o stack sin reescribir todo." },
+      builtToShip: { title: "Listo para Producción", description: "Observabilidad, pruebas, rollback y monitoreo desde el día uno." },
+      manifesto: [
+        "Los agentes deben ser auditables, no cajas negras.",
+        "La automatización sin control es un riesgo operacional.",
+        "El mejor sistema es el que tu equipo puede mantener.",
+        "Producción primero, prototipo después.",
+      ],
+      cta: "Explorar Sistemas Agénticos",
+    },
   },
   en: {
     nav: {
@@ -145,6 +170,21 @@ export const DICTS: Record<Locale, Dict> = {
       status: "Status",
       implementation: "Implementation",
       scope: "Scope",
+    },
+    agenticEngineering: {
+      headline: "Agentic Engineering, Not Just Automation",
+      subheadline: "We build systems that think, act, and improve. Agents with real governance, not glorified scripts.",
+      humanInLoop: { title: "Human in the Loop", description: "Real control at every critical decision. Agents propose, humans approve." },
+      toolAware: { title: "Tool-Aware", description: "Native integration with your existing tools. No friction, no forced replacements." },
+      vendorAgnostic: { title: "Vendor Agnostic", description: "Open architecture. Change model, provider, or stack without rewriting everything." },
+      builtToShip: { title: "Built to Ship", description: "Observability, testing, rollback, and monitoring from day one." },
+      manifesto: [
+        "Agents must be auditable, not black boxes.",
+        "Automation without control is operational risk.",
+        "The best system is one your team can maintain.",
+        "Production first, prototype second.",
+      ],
+      cta: "Explore Agentic Systems",
     },
   },
 };
