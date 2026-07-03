@@ -92,7 +92,7 @@ class UpstashRateLimitStore implements RateLimitStore {
     this.baseUrl = upstashRedisRestUrl
   }
 
-  private async executeCommand<T>(command: string[]): Promise<T> {
+  private async executeCommand<T>(command: string[][] | string[]): Promise<T> {
     const response = await fetch(`${this.baseUrl}/multi`, {
       method: 'POST',
       headers: {
@@ -116,7 +116,7 @@ class UpstashRateLimitStore implements RateLimitStore {
     try {
       // Use ZCOUNT to count requests in the window
       const countResult = await this.executeCommand<{ result: [number] }>([
-        ['ZCOUNT', key, windowStart, now],
+        ['ZCOUNT', key, String(windowStart), String(now)],
       ])
 
       const current = countResult.result[0] || 0
@@ -126,8 +126,8 @@ class UpstashRateLimitStore implements RateLimitStore {
       if (allowed) {
         // Add current request to the sorted set
         await this.executeCommand([
-          ['ZADD', key, now, `${now}-${Math.random()}`],
-          ['EXPIRE', key, Math.ceil(config.windowMs / 1000)],
+          ['ZADD', key, String(now), `${now}-${Math.random()}`],
+          ['EXPIRE', key, String(Math.ceil(config.windowMs / 1000))],
         ])
       }
 
