@@ -772,7 +772,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: absoluteUrl(`/${locale}`),
       siteName: SITE_NAME,
       locale: locale === 'es' ? 'es_CL' : 'en_US',
-      localeAlternate: locale === 'es' ? ['en_US'] : ['es_CL'],
+      alternateLocale: locale === 'es' ? ['en_US'] : ['es_CL'],
       type: 'website',
       images: [
         {
