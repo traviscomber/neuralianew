@@ -1,4 +1,5 @@
-Contact: security@n3uralia.com
-Expires: 2027-02-25T00:00:00Z
-Preferred-Languages: es, en
+Contact: mailto:n3uralia@gmail.com
+Expires: 2027-07-04T00:00:00Z
+Preferred-Languages: en
+Policy: https://n3uralia.com/security-policy
 Canonical: https://n3uralia.com/.well-known/security.txt
