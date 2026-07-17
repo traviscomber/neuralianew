@@ -1,5 +1,19 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { escapeHtml, sendResendEmail } from "@/lib/resend-api"
+import { z } from "zod"
+import { checkRateLimit } from "@/lib/rate-limit"
+
+const requestSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  email: z.string().email().max(254),
+  company: z.string().trim().max(150).optional(),
+  message: z.string().trim().min(10).max(4000),
+  website: z.string().max(0).optional(),
+})
+
+function getClientIp(request: NextRequest) {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+}
 
 export const runtime = "edge"
 
@@ -106,14 +120,33 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, company, message } = await request.json()
+    const contentLength = Number(request.headers.get("content-length") || "0")
+    if (contentLength > 20_000) {
+      return NextResponse.json({ success: false, error: "Request too large" }, { status: 413 })
+    }
 
-    if (!name || !email || !message) {
+    const parsed = requestSchema.safeParse(await request.json())
+    if (!parsed.success) {
+      return NextResponse.json({ success: false, error: "Invalid form data" }, { status: 400 })
+    }
+
+    if (parsed.data.website) {
+      return NextResponse.json({ success: true })
+    }
+
+    const limit = await checkRateLimit(getClientIp(request), {
+      keyPrefix: "rl:contact:",
+      maxRequests: 5,
+      windowMs: 60_000,
+    })
+    if (!limit.allowed) {
       return NextResponse.json(
-        { success: false, error: "Missing required fields: name, email, message" },
-        { status: 400 },
+        { success: false, error: "Too many requests" },
+        { status: 429, headers: { "Retry-After": String(limit.retryAfter || 60) } },
       )
     }
+
+    const { name, email, company, message } = parsed.data
 
     const safeName = escapeHtml(String(name))
     const safeEmail = escapeHtml(String(email))
@@ -162,7 +195,6 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: "Failed to send contact email",
-        details: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 },
     )
