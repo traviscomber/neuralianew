@@ -215,6 +215,35 @@
 @media(max-width:900px){.catalog-project{grid-template-columns:50px 1fr}.catalog-image{grid-column:1/-1}.catalog-products{grid-template-columns:1fr}}
 @media(max-width:560px){.catalog-project{grid-template-columns:1fr}.catalog-copy dl>div{grid-template-columns:1fr}.catalog-product{padding:24px}.catalog-hero{padding-top:130px}}
 
+/* Global brandbook compliance layer — applies to legacy and current routes. */
+html body { font-family:var(--font-montserrat),Montserrat,sans-serif; font-weight:400; }
+html body h1,html body h2,html body h3,html body h4,html body h5,html body h6 {
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-weight:400!important;
+}
+html body .font-thin,html body .font-extralight,html body .font-light,html body .font-normal { font-weight:400!important; }
+html body .font-semibold,html body .font-bold,html body .font-extrabold,html body strong,html body b { font-weight:500!important; }
+
+/* Icons should read as quiet interface signals, never as luminous decoration. */
+html body svg.lucide { opacity:.62; stroke-width:1.45px; filter:saturate(.52) brightness(.84); transition:opacity .2s ease,filter .2s ease; }
+html body a:hover svg.lucide,html body button:hover svg.lucide { opacity:.82; filter:saturate(.7) brightness(.94); }
+html body .retro-page svg.lucide { color:var(--n3-text-muted); }
+html body .retro-light svg.lucide { color:var(--n3-light-muted); }
+
+/* Square interaction and content surfaces. Circular status dots and avatars remain valid. */
+html body button.rounded-full,html body a.rounded-full,
+html body .rounded,html body .rounded-md,html body .rounded-lg,
+html body .rounded-xl,html body .rounded-2xl,
+html body [class*="rounded-[1"],html body [class*="rounded-[2"] { border-radius:0!important; }
+
+/* Decorative gradients are outside the N3uralia system. Photography overlays are exempt. */
+html body [class*="bg-gradient"] { background-image:none!important; }
+
+/* Normalize legacy decorative SaaS colors while retaining red/amber semantic alerts. */
+html body [class*="text-purple-"],html body [class*="text-pink-"],html body [class*="text-indigo-"] { color:#5d8384!important; }
+html body [class*="bg-purple-"],html body [class*="bg-pink-"],html body [class*="bg-indigo-"] { background-color:rgba(69,209,207,.09)!important; }
+html body [class*="border-purple-"],html body [class*="border-pink-"],html body [class*="border-indigo-"] { border-color:rgba(118,214,214,.28)!important; }
+
 @layer base {
   html {
     scroll-behavior: smooth;

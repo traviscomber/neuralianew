@@ -12,14 +12,14 @@ const montserrat = Montserrat({
   display: "swap",
   preload: true,
   variable: "--font-montserrat",
-  weight: ["300", "400"],
+  weight: ["400", "500"],
 })
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-rajdhani",
-  weight: ["300", "400"],
+  weight: ["400"],
 })
 
 export const metadata: Metadata = {
