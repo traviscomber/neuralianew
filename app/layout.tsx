@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { headers } from "next/headers"
-import { Montserrat } from "next/font/google"
+import { Montserrat, Rajdhani } from "next/font/google"
 import "./globals.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
@@ -12,6 +12,13 @@ const montserrat = Montserrat({
   display: "swap",
   preload: true,
   variable: "--font-montserrat",
+  weight: ["300", "400"],
+})
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-rajdhani",
   weight: ["300", "400"],
 })
 
@@ -80,7 +87,7 @@ export default async function RootLayout({
       <head>
         <StructuredData />
       </head>
-      <body className={`${montserrat.variable} antialiased`}>
+      <body className={`${montserrat.variable} ${rajdhani.variable} antialiased`}>
         <AnalyticsProvider>{children}</AnalyticsProvider>
       </body>
     </html>
