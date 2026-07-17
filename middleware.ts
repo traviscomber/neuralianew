@@ -21,14 +21,8 @@ const PUBLIC_API_ROUTES = [
   "/api/health",
   "/api/chat",
   "/api/deployment-status",
-  "/api/email/test",
   "/api/send-email",
 ]
-
-const rateLimitCache = new Map<string, { count: number; resetTime: number }>()
-
-const RATE_LIMIT_WINDOW_MS = 60 * 1000
-const RATE_LIMIT_MAX_REQUESTS = 100
 
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
@@ -41,52 +35,6 @@ const CONTENT_SECURITY_POLICY = [
   "base-uri 'self'",
   "form-action 'self'",
 ].join('; ')
-
-function getClientIp(request: NextRequest): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  )
-}
-
-function checkRateLimit(clientIp: string): boolean {
-  const now = Date.now()
-  const data = rateLimitCache.get(clientIp)
-
-  if (!data || now > data.resetTime) {
-    rateLimitCache.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS })
-    return true
-  }
-
-  if (data.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return false
-  }
-
-  data.count++
-  return true
-}
-
-function validateEnvironmentVariables(): { valid: boolean; errors: string[] } {
-  const errors: string[] = []
-  const requiredVars = [
-    "NEXT_PUBLIC_SUPABASE_URL",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "SUPABASE_SERVICE_ROLE_KEY",
-    "OPENAI_API_KEY",
-  ]
-
-  for (const varName of requiredVars) {
-    if (!process.env[varName]) {
-      errors.push(`Missing required environment variable: ${varName}`)
-    }
-  }
-
-  return {
-    valid: errors.length === 0,
-    errors,
-  }
-}
 
 function getLocale(pathname: string): string | null {
   const parts = pathname.split("/")
@@ -174,32 +122,6 @@ export async function middleware(request: NextRequest) {
       const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
       request.nextUrl.pathname = `/${validLocale}${pathname}`
       return NextResponse.redirect(request.nextUrl)
-    }
-  }
-
-  const clientIp = getClientIp(request)
-  if (!checkRateLimit(clientIp)) {
-    return NextResponse.json(
-      {
-        error: "Too many requests. Please try again later.",
-        retryAfter: RATE_LIMIT_WINDOW_MS / 1000,
-      },
-      { status: 429, headers: { "Retry-After": String(RATE_LIMIT_WINDOW_MS / 1000) } },
-    )
-  }
-
-  if (pathname.startsWith("/api")) {
-    const envValidation = validateEnvironmentVariables()
-    if (!envValidation.valid) {
-      console.error("[MIDDLEWARE] Environment validation failed:", envValidation.errors)
-      return NextResponse.json(
-        {
-          error: "Server configuration error",
-          timestamp: new Date().toISOString(),
-          details: process.env.NODE_ENV === "development" ? envValidation.errors : undefined,
-        },
-        { status: 503 },
-      )
     }
   }
 
