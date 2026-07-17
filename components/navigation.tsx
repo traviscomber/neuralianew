@@ -10,8 +10,8 @@ export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
   const [open, setOpen] = useState(false)
   const links = [
     [locale === 'es' ? 'Expertise' : 'Expertise', `/${locale}/soluciones`],
-    [locale === 'es' ? 'Proyectos' : 'Projects', `/${locale}/proyectos`],
-    [locale === 'es' ? 'Productos' : 'Products', `/${locale}/productos`],
+    [locale === 'es' ? 'Proyectos' : 'Projects', `/${locale}/${locale === 'es' ? 'proyectos' : 'projects'}`],
+    [locale === 'es' ? 'Productos' : 'Products', `/${locale}/${locale === 'es' ? 'productos' : 'products'}`],
     [locale === 'es' ? 'Diagnóstico' : 'Diagnosis', `/${locale}/diagnostico`],
     [locale === 'es' ? 'Nosotros' : 'About', `/${locale}/about`],
   ]
