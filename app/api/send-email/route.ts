@@ -1,5 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import { escapeHtml, sendResendEmail } from "@/lib/resend-api"
+import { z } from "zod"
+import { checkRateLimit } from "@/lib/rate-limit"
+
+const requestSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  email: z.string().email().max(254),
+  message: z.string().trim().max(4000).optional(),
+  website: z.string().max(0).optional(),
+})
+
+function getClientIp(request: NextRequest) {
+  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+}
 
 function buildTeamEmailHtml(name: string, email: string, message?: string) {
   return `
@@ -99,14 +112,33 @@ function buildUserEmailHtml(firstName: string, email: string) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, message } = await request.json()
+    const contentLength = Number(request.headers.get("content-length") || "0")
+    if (contentLength > 20_000) {
+      return NextResponse.json({ success: false, error: "Request too large" }, { status: 413 })
+    }
 
-    if (!name || !email) {
+    const parsed = requestSchema.safeParse(await request.json())
+    if (!parsed.success) {
+      return NextResponse.json({ success: false, error: "Invalid form data" }, { status: 400 })
+    }
+
+    if (parsed.data.website) {
+      return NextResponse.json({ success: true })
+    }
+
+    const limit = await checkRateLimit(getClientIp(request), {
+      keyPrefix: "rl:email:",
+      maxRequests: 5,
+      windowMs: 60_000,
+    })
+    if (!limit.allowed) {
       return NextResponse.json(
-        { success: false, error: "Name and email are required" },
-        { status: 400 },
+        { success: false, error: "Too many requests" },
+        { status: 429, headers: { "Retry-After": String(limit.retryAfter || 60) } },
       )
     }
+
+    const { name, email, message } = parsed.data
 
     if (!process.env["RESEND_API_KEY"]) {
       return NextResponse.json(
@@ -147,7 +179,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("[send-email] API route error:", error)
     return NextResponse.json(
-      { success: false, error: error instanceof Error ? error.message : "Unknown error" },
+      { success: false, error: "Failed to send email" },
       { status: 500 },
     )
   }
