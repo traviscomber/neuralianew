@@ -1,7 +1,28 @@
 import type { MetadataRoute } from 'next'
 import { absoluteUrl } from '@/lib/site'
+import { coreSitemapRoutes } from '@/lib/sitemap-routes-core'
+import { solutionSitemapRoutes } from '@/lib/sitemap-routes-solutions'
+import { knowledgeSitemapRoutes } from '@/lib/sitemap-routes-knowledge'
+import { contentSitemapRoutes } from '@/lib/sitemap-routes-content'
 
-const locales = ['es','en'] as const
+const locales = ['es', 'en'] as const
 const updated = new Date('2026-07-18T00:00:00.000Z')
-const routes = [
-  ['',1,'weekly'],['/soluciones',.95,'weekly'],['/proyectos',.9,'weekly'],['/productos',.9,'weekly'],['/contact',.9,'monthly'],['/services',.85,'monthly'],['/platform',.85,'monthly'],['/capabilities',.8,'monthly
+const routes = [...coreSitemapRoutes, ...solutionSitemapRoutes, ...knowledgeSitemapRoutes, ...contentSitemapRoutes]
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return routes.flatMap(([route, priority, changeFrequency]) =>
+    locales.map((locale) => ({
+      url: absoluteUrl(`/${locale}${route}`),
+      lastModified: updated,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: {
+          es: absoluteUrl(`/es${route}`),
+          en: absoluteUrl(`/en${route}`),
+          'x-default': absoluteUrl(`/es${route}`),
+        },
+      },
+    })),
+  )
+}
