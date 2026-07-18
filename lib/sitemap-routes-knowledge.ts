@@ -1,0 +1,17 @@
+export const knowledgeSitemapRoutes = [
+  ['/studies', 0.8, 'weekly'],
+  ['/studies/agentic-ai', 0.75, 'monthly'],
+  ['/studies/agentic-brainstorming', 0.75, 'monthly'],
+  ['/studies/ai-memory', 0.75, 'monthly'],
+  ['/studies/context-engineering', 0.75, 'monthly'],
+  ['/studies/production-grade-agentic-systems', 0.75, 'monthly'],
+  ['/studies/world-engine', 0.75, 'monthly'],
+  ['/learning-hub', 0.75, 'weekly'],
+  ['/living-agents', 0.75, 'monthly'],
+  ['/nodes', 0.7, 'monthly'],
+  ['/nuestro-enfoque', 0.7, 'monthly'],
+  ['/outcomes', 0.7, 'monthly'],
+  ['/patterns', 0.7, 'monthly'],
+  ['/playbooks', 0.7, 'monthly'],
+  ['/security', 0.7, 'monthly'],
+] as const
