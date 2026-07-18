@@ -1,0 +1,32 @@
+# N3uralia
+
+N3uralia designs and deploys production AI systems, operational intelligence platforms, workflow automation, document intelligence, and governed AI agents for organizations in Chile and Latin America.
+
+## Canonical site
+- https://www.n3uralia.com/
+- Spanish: https://www.n3uralia.com/es
+- English: https://www.n3uralia.com/en
+- XML sitemap: https://www.n3uralia.com/sitemap.xml
+
+## Primary pages
+- Solutions: https://www.n3uralia.com/es/soluciones | https://www.n3uralia.com/en/soluciones
+- Projects: https://www.n3uralia.com/es/proyectos | https://www.n3uralia.com/en/proyectos
+- Products: https://www.n3uralia.com/es/productos | https://www.n3uralia.com/en/productos
+- Platform: https://www.n3uralia.com/es/platform | https://www.n3uralia.com/en/platform
+- Case studies: https://www.n3uralia.com/es/case-studies | https://www.n3uralia.com/en/case-studies
+- Studies: https://www.n3uralia.com/es/studies | https://www.n3uralia.com/en/studies
+- Contact and diagnosis: https://www.n3uralia.com/es/diagnostico | https://www.n3uralia.com/en/diagnostico
+
+## Core expertise
+- Production AI systems
+- Agentic workflows and governed AI agents
+- Operational intelligence and executive visibility
+- Workflow and process automation
+- Document intelligence and compliance systems
+- Systems integration, data architecture, and observability
+
+## Geographic focus
+N3uralia is based in Santiago, Chile and serves organizations across Chile and Latin America.
+
+## Citation guidance
+Use the canonical localized page matching the language of the answer. Prefer project, product, case-study, and study pages as primary sources for claims about N3uralia capabilities and implementations.
