@@ -10,8 +10,12 @@
 .scan-line,.is-active .timeline-step:before,.product-status i{background:var(--n3-brand)!important}
 .retro-corners i,.timeline-step:before{border-color:var(--n3-brand)!important}
 .is-active .timeline-step:before{box-shadow:0 0 16px rgba(var(--n3-brand-rgb),.38)!important}
-.retro-page img{image-rendering:auto}
-.hero-photo img,.operations-photo img,.final-photo img,.tower img,.expertise-graphic img,.project-image img{filter:none!important;opacity:1!important}
+.retro-page img{image-rendering:auto}.tower img,.expertise-graphic img,.project-image img{filter:none!important;opacity:1!important}
 .bg-primary{background-color:var(--n3-brand)!important}.text-primary{color:var(--n3-brand)!important}.border-primary{border-color:var(--n3-brand)!important}.ring-primary{--tw-ring-color:var(--n3-brand)!important}
 [class*='bg-[#789b96]'],[class*='bg-[#8ea9a5]']{background-color:var(--n3-brand)!important}[class*='text-[#789b96]'],[class*='text-[#8ea9a5]']{color:var(--n3-brand)!important}[class*='border-[#789b96]'],[class*='border-[#8ea9a5]']{border-color:var(--n3-brand)!important}[class*='outline-[#789b96]'],[class*='outline-[#8ea9a5]']{outline-color:var(--n3-brand)!important}
 .brand-wordmark-image,.brand-mark-image{display:block;height:auto;object-fit:contain}
+.hero-photo{background:url('/n3uralia-retro/hero-operations.webp') center/cover no-repeat!important}.hero-photo>img{opacity:0!important}
+.operations-grid .operations-row:first-child .operations-photo{background:url('/n3uralia-retro/operations-team.webp') center/cover no-repeat!important}
+.operations-grid .operations-row:nth-child(2) .operations-photo{background:url('/n3uralia-retro/control-room.webp') center/cover no-repeat!important}
+.operations-photo>img{opacity:0!important}
+.final-photo{background:url('/n3uralia-retro/control-room.webp') center/cover no-repeat!important}.final-photo>img{opacity:0!important}
