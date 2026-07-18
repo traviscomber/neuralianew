@@ -1,15 +1,20 @@
+import Image from 'next/image'
+
 type BrandMarkProps = {
   className?: string
 }
 
-export function BrandMark({ className = 'h-10 w-10 text-[#8ea9a5]' }: BrandMarkProps) {
+export function BrandMark({ className = 'h-10 w-10' }: BrandMarkProps) {
   return (
-    <div
-      aria-hidden='true'
-      className={`grid place-items-center border border-current bg-white ${className}`.trim()}
-    >
-      <span className='text-[0.48em] font-medium leading-none text-current'>N3</span>
-    </div>
+    <span className={`relative inline-block overflow-hidden ${className}`.trim()} aria-hidden='true'>
+      <Image
+        src='/n3uralia-brand/n3uralia-mark-new.webp'
+        alt=''
+        fill
+        sizes='48px'
+        className='brand-mark-image object-contain'
+      />
+    </span>
   )
 }
 
@@ -21,11 +26,21 @@ type BrandWordmarkProps = {
 }
 
 export function BrandWordmark({
-  className = 'text-4xl text-[#8ea9a5]',
+  className = 'h-8 w-40',
+  imageClassName = '',
+  priority = false,
+  sizes = '160px',
 }: BrandWordmarkProps) {
   return (
-    <div className={`font-light leading-none text-current ${className}`.trim()} aria-label='N3uralia'>
-      N3uralia
-    </div>
+    <span className={`relative inline-block ${className}`.trim()} aria-label='N3uralia'>
+      <Image
+        src='/n3uralia-brand/n3uralia-wordmark-new.webp'
+        alt='N3uralia'
+        fill
+        priority={priority}
+        sizes={sizes}
+        className={`brand-wordmark-image object-contain object-left ${imageClassName}`.trim()}
+      />
+    </span>
   )
 }

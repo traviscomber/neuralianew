@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { headers } from "next/headers"
 import { Montserrat, Rajdhani } from "next/font/google"
 import "./globals.css"
+import "./brand-refresh.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
 import { absoluteUrl } from "@/lib/site"
@@ -29,6 +30,11 @@ export const metadata: Metadata = {
     "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
   authors: [{ name: "N3uralia", url: absoluteUrl("/") }],
   creator: "N3uralia",
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "64x64" }],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     siteName: "N3uralia",
