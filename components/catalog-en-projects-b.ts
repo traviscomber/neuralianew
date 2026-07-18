@@ -1,0 +1,5 @@
+export const projectEnB = [
+['Agriculture','Soil and land-health information needed a usable operational layer.','A soil intelligence platform for analysis and precision agriculture.','Environmental signals become visible recommendations and follow-up.',['Soil','Environment','Intelligence']],
+['Education','Career development resources were difficult to personalize and navigate.','A guided platform connecting profiles, learning paths and opportunities.','Users move from scattered information to a clearer development path.',['Education','Guidance','Platform']],
+['Facilities','Critical facility signals were separated across infrastructure systems.','A unified operations hub for infrastructure, security and environment.','Operators see system state and exceptions from one controlled layer.',['Facilities','Infrastructure','Control']]
+] as const
