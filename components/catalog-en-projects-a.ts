@@ -1,0 +1,6 @@
+export const projectEnA = [
+['Transport operations','Operational information was fragmented across assets, maintenance and risk.','A connected operations platform for transport asset reliability and execution.','A shared operational view for maintenance, risk and daily decisions.',['Operations','Assets','Maintenance']],
+['Transportation','Fleet compliance evidence was distributed across files and manual trackers.','A document and compliance layer for vehicles, contractors and equipment.','Earlier visibility into missing, rejected and expiring documentation.',['Documents','Compliance','Fleet']],
+['Security','Critical security signals were difficult to prioritize and coordinate.','AI-assisted monitoring and incident detection across critical infrastructure.','A clearer flow from detection to accountable response.',['Security','Monitoring','Incidents']],
+['Real estate','Client, property and geospatial context lived in disconnected systems.','A repository connecting maps, records, assets, files and actions.','Teams recover context quickly and prioritize work from one interface.',['Geospatial','Repository','Workflow']]
+] as const
