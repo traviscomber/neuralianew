@@ -37,12 +37,12 @@
 .catalog-link,
 button,
 [role='button'] {
-  font-weight: 400 !important;
+  font-weight: 500 !important;
 }
 .retro-button {
   border-color: rgba(var(--n3-brand-rgb), .58) !important;
   color: var(--n3-brand) !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
 }
 .retro-button:hover,
 .retro-button:focus-visible {
@@ -55,7 +55,7 @@ button,
   background: var(--n3-brand) !important;
   border-color: var(--n3-brand) !important;
   color: #071010 !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
 }
 .retro-button-primary:hover,
 .retro-button-primary:focus-visible,
@@ -95,9 +95,32 @@ a[class*='button'],
 .text-primary { color: var(--n3-brand) !important; }
 .border-primary { border-color: var(--n3-brand) !important; }
 .ring-primary { --tw-ring-color: var(--n3-brand) !important; }
+[class*='bg-[#789b96]'], [class*='bg-[#8ea9a5]'] { background-color: var(--n3-brand) !important; }
+[class*='text-[#789b96]'], [class*='text-[#8ea9a5]'] { color: var(--n3-brand) !important; }
+[class*='border-[#789b96]'], [class*='border-[#8ea9a5]'] { border-color: var(--n3-brand) !important; }
+[class*='outline-[#789b96]'], [class*='outline-[#8ea9a5]'] { outline-color: var(--n3-brand) !important; }
 .brand-wordmark-image,
 .brand-mark-image {
   display: block;
   height: auto;
   object-fit: contain;
 }
+.landscape {
+  background-image: url('/n3uralia-brand/landing-landscape.webp') !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+.expertise-scan .retro-shell > .focus-item:nth-child(1) .expertise-graphic {
+  background: url('/n3uralia-brand/landing-stack.webp') center / contain no-repeat;
+}
+.expertise-scan .retro-shell > .focus-item:nth-child(2) .expertise-graphic {
+  background: url('/n3uralia-brand/landing-orchestrator.webp') center / contain no-repeat;
+}
+.expertise-scan .retro-shell > .focus-item:nth-child(3) .expertise-graphic {
+  background: url('/n3uralia-brand/landing-core.webp') center / contain no-repeat;
+}
+.expertise-scan .expertise-graphic > img { opacity: 0 !important; }
+.operations-grid .operations-row:nth-child(2) .operations-photo {
+  background: url('/n3uralia-brand/landing-control-room.webp') center / cover no-repeat;
+}
+.operations-grid .operations-row:nth-child(2) .operations-photo > img { opacity: 0 !important; }
