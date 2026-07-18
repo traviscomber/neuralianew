@@ -1,0 +1,16 @@
+export const coreSitemapRoutes = [
+  ['', 1, 'weekly'],
+  ['/soluciones', 0.95, 'weekly'],
+  ['/proyectos', 0.9, 'weekly'],
+  ['/productos', 0.9, 'weekly'],
+  ['/contact', 0.9, 'monthly'],
+  ['/diagnostico', 0.9, 'monthly'],
+  ['/services', 0.85, 'monthly'],
+  ['/platform', 0.85, 'monthly'],
+  ['/capabilities', 0.8, 'monthly'],
+  ['/como-trabajamos', 0.8, 'monthly'],
+  ['/case-studies', 0.85, 'weekly'],
+  ['/blog', 0.85, 'weekly'],
+  ['/faq', 0.75, 'monthly'],
+  ['/about', 0.75, 'monthly'],
+] as const
