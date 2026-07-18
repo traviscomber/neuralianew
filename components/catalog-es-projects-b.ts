@@ -1,0 +1,5 @@
+export const projectEsB = [
+['Agricultura','La información de suelo y salud territorial necesitaba una capa operativa usable.','Una plataforma de inteligencia de suelos para análisis y agricultura de precisión.','Las señales ambientales se convierten en recomendaciones y seguimiento.',['Suelo','Medioambiente','Inteligencia']],
+['Educación','Los recursos de desarrollo profesional eran difíciles de personalizar y navegar.','Una plataforma guiada que conecta perfiles, rutas de aprendizaje y oportunidades.','Los usuarios pasan de información dispersa a una ruta de desarrollo clara.',['Educación','Orientación','Plataforma']],
+['Instalaciones','Las señales críticas estaban separadas entre sistemas de infraestructura.','Un centro operativo unificado para infraestructura, seguridad y medioambiente.','Los operadores ven estado y excepciones desde una capa controlada.',['Instalaciones','Infraestructura','Control']]
+] as const
