@@ -1,2 +1,0 @@
-export const projectDataEs = [
-  { id:'motil', name:'Motil', industry:'Operaciones de transporte', image:'/n3uralia-retro/project-motil.webp', problem:'La información operativa estaba fragmentada entre activos, mantenimiento y riesgo.', system:'Una plataforma conectada para confiabilidad, mantenimiento y ejecución de activos de transporte.', value:'Una vista operativa compartida para mantenimiento, riesgo y decisiones diarias.', tags:['Operaciones','Activos','Mantenimiento'] },
