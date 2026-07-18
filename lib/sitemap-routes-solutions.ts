@@ -1,0 +1,15 @@
+export const solutionSitemapRoutes = [
+  ['/agentic-systems', 0.8, 'monthly'],
+  ['/ai-infrastructure', 0.8, 'monthly'],
+  ['/automatizacion-para-empresas', 0.8, 'monthly'],
+  ['/automatizacion-ventas-leads', 0.8, 'monthly'],
+  ['/conversational-intelligence', 0.8, 'monthly'],
+  ['/integraciones-empresariales', 0.8, 'monthly'],
+  ['/operaciones-autonomas', 0.8, 'monthly'],
+  ['/para-empresas', 0.75, 'monthly'],
+  ['/para-startups', 0.75, 'monthly'],
+  ['/para-desarrolladores', 0.75, 'monthly'],
+  ['/platform/nodes', 0.75, 'monthly'],
+  ['/platform/patterns', 0.75, 'monthly'],
+  ['/platform/security', 0.75, 'monthly'],
+] as const
