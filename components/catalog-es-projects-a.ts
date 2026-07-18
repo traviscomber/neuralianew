@@ -1,0 +1,6 @@
+export const projectEsA = [
+['Operaciones de transporte','La información estaba fragmentada entre activos, mantenimiento y riesgo.','Una plataforma conectada para confiabilidad, mantenimiento y ejecución.','Una vista compartida para mantenimiento, riesgo y decisiones diarias.',['Operaciones','Activos','Mantenimiento']],
+['Transporte','La evidencia de cumplimiento estaba repartida entre archivos y controles manuales.','Una capa documental y de cumplimiento para vehículos, contratistas y equipos.','Visibilidad temprana de documentos faltantes, rechazados o por vencer.',['Documentos','Cumplimiento','Flota']],
+['Seguridad','Las señales críticas eran difíciles de priorizar y coordinar.','Monitoreo asistido por IA y detección de incidentes en infraestructura crítica.','Un flujo más claro desde la detección hasta la respuesta responsable.',['Seguridad','Monitoreo','Incidentes']],
+['Bienes raíces','El contexto de clientes, propiedades y territorio vivía en sistemas separados.','Un repositorio que conecta mapas, registros, activos, archivos y acciones.','Los equipos recuperan contexto y priorizan desde una sola interfaz.',['Geoespacial','Repositorio','Flujo']]
+] as const
