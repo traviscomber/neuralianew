@@ -38,7 +38,7 @@ export function useImagePreloader(images: string[]) {
         return new Promise<string>((resolve, reject) => {
           const img = new Image()
           img.onload = () => resolve(src)
-          img.onerror = () => reject(src)
+          img.onerror = () => reject(new Error(`Failed to load image: ${src}`))
           img.src = src
         })
       })
