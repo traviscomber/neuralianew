@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    // Removed: transitionIndicator, turbopackFileSystemCacheForDev are not valid in Next.js 14.2
+    // Keep Supabase's dependency graph external on the server. This prevents
+    // Next 14 dev rebuilds from referencing partially emitted vendor chunks.
+    serverComponentsExternalPackages: [
+      '@supabase/ssr',
+      '@supabase/supabase-js',
+      '@supabase/auth-js',
+    ],
   },
   redirects: async () => {
     return [
