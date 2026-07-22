@@ -85,18 +85,9 @@ export async function middleware(request: NextRequest) {
     redirectUrl.protocol = "https"
     redirectUrl.hostname = "www.n3uralia.com"
 
-    if (pathname === "/") {
-      redirectUrl.pathname = "/en/"
-    } else if (!pathname.startsWith("/api") && !isStaticAsset && !isRootMetadataFile && !getLocale(pathname)) {
-      const acceptLanguage = request.headers.get("accept-language") || ""
-      const preferredLocale = acceptLanguage
-        .split(",")[0]
-        .split("-")[0]
-        .toLowerCase()
-      const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
-      redirectUrl.pathname = `/${validLocale}${pathname}`
-    }
-
+    // Always redirect non-www → www preserving the full path as-is.
+    // Do NOT inject a locale here — let the www host handle locale logic below.
+    // This ensures a single clean 308 with no double-redirect chain.
     return NextResponse.redirect(redirectUrl, 308)
   }
 
@@ -188,6 +179,14 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|public).*)",
+    /*
+     * Match all request paths EXCEPT:
+     * - _next/static  (static files)
+     * - _next/image   (image optimisation)
+     * - favicon.ico
+     * - public folder files (images, fonts, etc.)
+     * - Known static extensions served from /public
+     */
+    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js|woff2?|ttf|otf|mp4|pdf)).*)",
   ],
 }
