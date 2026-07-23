@@ -14,6 +14,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getChatHistory, sendWhatsAppMessage } from "@/lib/green-api"
 import { checkRateLimit } from "@/lib/rate-limit"
+import { N3URALIA_TECH_KNOWLEDGE, TRAVIS_TECH_CONTEXT_FOR_SALES } from "./tech-knowledge"
 import type { TravisConfig, WebhookPayload, TravisReply } from "./types"
 
 const HANDOFF_MARKER = "#HANDOFF"
@@ -48,7 +49,16 @@ async function generateReply(
 
   const nameHint = chatName ? `\n\nEl nombre de contacto de WhatsApp es "${chatName}" (úsalo solo si suena natural).` : ""
 
-  const systemPrompt = config.systemPromptPrefix + config.catalogMarkdown + config.pricingApproach
+  // Rich system prompt: combine sales config + technical knowledge + sales tactics
+  const systemPrompt = `${config.systemPromptPrefix}
+
+${config.catalogMarkdown}
+
+${config.pricingApproach}
+
+${N3URALIA_TECH_KNOWLEDGE}
+
+${TRAVIS_TECH_CONTEXT_FOR_SALES}`
 
   const historyTurns = chronological.map((h) => ({
     role: h.type === "incoming" ? ("user" as const) : ("assistant" as const),
