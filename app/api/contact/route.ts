@@ -117,6 +117,74 @@ function buildUserEmailHtml(params: { email: string; message: string; name: stri
 
 
 
+function buildWhatsAppMessage(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  return [
+    "Nuevo diagnostico N3uralia",
+    `Nombre: ${params.name}`,
+    `Email: ${params.email}`,
+    params.company ? `Empresa: ${params.company}` : "",
+    params.whatsapp ? `WhatsApp: +${params.whatsapp}` : "",
+    `Mensaje: ${params.message.slice(0, 300)}`,
+  ]
+    .filter(Boolean)
+    .join("\n")
+}
+
+async function sendWhatsAppNotification(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  const text = buildWhatsAppMessage(params)
+  const notifyPhone = (process.env["WHATSAPP_NOTIFY_PHONE"] || "56993826127").replace(/[^\d]/g, "")
+
+  // Green-API instance ID (not secret - it appears in the request URL).
+  // Hardcoded to the verified N3uralia instance (710722691570) because the
+  // stored env var contained a data-entry typo. Only the token stays in env.
+  const greenInstance = "710722691570"
+  const greenToken = process.env["GREEN_API_TOKEN"]
+
+  if (!greenToken) {
+    console.warn("[v0] Green-API token not configured")
+    return { sent: false, reason: "not_configured" }
+  }
+
+  // Green-API uses instance-specific subdomains: the first digits of the
+  // instance ID form the subdomain (e.g. 7107 -> https://7107.api.greenapi.com).
+  // The generic api.green-api.com domain returns 403 Forbidden.
+  const subdomain = greenInstance.slice(0, 4)
+  const url = `https://${subdomain}.api.greenapi.com/waInstance${greenInstance}/sendMessage/${greenToken}`
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chatId: `${notifyPhone}@c.us`, message: text }),
+      signal: AbortSignal.timeout(10_000),
+    })
+
+    const responseText = await res.text()
+    console.log("[v0] Green-API response:", res.status, responseText.slice(0, 200))
+
+    if (res.ok) {
+      return { sent: true, provider: "green-api" }
+    }
+    console.error("[v0] Green-API HTTP error:", res.status, responseText)
+    return { sent: false, reason: `http_${res.status}` }
+  } catch (error) {
+    console.error("[v0] Green-API fetch failed:", error instanceof Error ? error.message : String(error))
+    return { sent: false, reason: "network_error" }
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!process.env["RESEND_API_KEY"]) {
