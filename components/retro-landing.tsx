@@ -57,6 +57,7 @@ const projects = [
   ['EcoSueloLab','Agriculture & agtech','/n3uralia-retro/project-ecosuelo-new.png','ecosuelolab'],
   ['Despega Tu Carrera','Career development','/n3uralia-retro/project-despega.png','despega-tu-carrera'],
   ['Black Swan FS','Facility management','/n3uralia-retro/project-blackswan-new.png','blackswan-facility-core'],
+  ['Parrotfy','ERP & business workflow','/n3uralia-retro/project-parrotfy.png','parrotfy'],
 ]
 
 function Corners(){return <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>}

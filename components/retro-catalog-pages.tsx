@@ -11,6 +11,7 @@ const projects = [
   { id: 'ecosuelolab',         name: 'EcoSueloLab',        img: '/n3uralia-retro/project-ecosuelo-new.png' },
   { id: 'despega-tu-carrera',  name: 'Despega Tu Carrera', img: '/n3uralia-retro/project-despega.png' },
   { id: 'blackswan-facility-core', name: 'Black Swan FS',  img: '/n3uralia-retro/project-blackswan-new.png' },
+  { id: 'parrotfy',             name: 'Parrotfy',           img: '/n3uralia-retro/project-parrotfy.png' },
 ]
 
 const projectData: Record<Locale, {sector:string;problem:string;system:string;value:string;tags:string[]}[]> = {
@@ -22,6 +23,7 @@ const projectData: Record<Locale, {sector:string;problem:string;system:string;va
     { sector:'Agricultura', problem:'Cultivos sin información satelital diaria para tomar decisiones de riego y nutrición a tiempo.', system:'Plataforma de monitoreo satelital agrícola con plan de riego, estimación de nitrógeno y materia seca.', value:'10–20% de ahorro de agua, proyección de cosecha con 2 meses de anticipación y decisiones basadas en datos.', tags:['Agtech','Satélite','Riego','Nutrición'] },
     { sector:'Desarrollo profesional', problem:'Profesionales sin ruta clara ni acompañamiento estructurado para alcanzar metas en 90 días.', system:'Plataforma de coaching con IA, diseño de ruta personalizada, asistente de voz y seguimiento de progreso.', value:'Estructura de desarrollo profesional acelerado con acompañamiento continuo e inteligente.', tags:['Coaching','IA','Carrera','Aprendizaje'] },
     { sector:'Gestión de instalaciones', problem:'Instalaciones sin trazabilidad operativa, control por usuario ni acceso seguro diferenciado.', system:'Sistema de control operativo con acceso seguro por usuario, trazabilidad y gestión de instalaciones.', value:'Control operativo con acceso restringido, trazabilidad completa y seguridad por rol.', tags:['Facilities','Control','Acceso','Trazabilidad'] },
+    { sector:'ERP & Negocios', problem:'PYMEs sin un sistema unificado para gestionar clientes, órdenes de trabajo, facturas y cobros.', system:'ERP simple para negocios: gestión de clientes, órdenes de trabajo, facturación online y cobro en un solo lugar.', value:'Flujo completo desde captar el cliente hasta cobrar, sin experiencia técnica requerida.', tags:['ERP','Facturación','Workflow','PYMEs'] },
   ],
   en: [
     { sector:'Transportation', problem:'Transport operations without document visibility or compliance traceability.', system:'Document management platform with operational control, subcontractors and real-time alerts.', value:'86% document coverage, reduced operational risk and full fleet visibility.', tags:['DocuFleet','Documents','Transport','Compliance'] },
@@ -31,6 +33,7 @@ const projectData: Record<Locale, {sector:string;problem:string;system:string;va
     { sector:'Agriculture', problem:'Crops without daily satellite data to make timely irrigation and nutrition decisions.', system:'Agricultural satellite monitoring platform with irrigation plan, nitrogen estimation and dry matter.', value:'10–20% water savings, harvest projection 2 months in advance and data-driven decisions.', tags:['Agtech','Satellite','Irrigation','Nutrition'] },
     { sector:'Career development', problem:'Professionals without a clear path or structured guidance to reach goals in 90 days.', system:'AI-powered coaching platform with personalized route design, voice assistant and progress tracking.', value:'Accelerated professional development with continuous intelligent guidance.', tags:['Coaching','AI','Career','Learning'] },
     { sector:'Facility management', problem:'Facilities without operational traceability, per-user control or differentiated secure access.', system:'Operational control system with secure per-user access, traceability and facility management.', value:'Operational control with restricted access, full traceability and role-based security.', tags:['Facilities','Control','Access','Traceability'] },
+    { sector:'ERP & Business', problem:'SMBs without a unified system to manage clients, work orders, invoices and collections.', system:'Simple business ERP: client management, work orders, online billing and collections in one place.', value:'Complete flow from getting the client to getting paid, no software experience required.', tags:['ERP','Billing','Workflow','SMBs'] },
   ],
 }
 
