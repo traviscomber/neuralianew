@@ -55,7 +55,7 @@ const projects = [
   ['Sur-Realista','Territorial operations & real estate platform','/n3uralia-retro/project-surrealista.png','sur-realista'],
   ['La Patagua','Mining operations','/n3uralia-retro/project-lapatagua.png','la-patagua'],
   ['EcoSueloLab','Satellite data via WhatsApp AI agent','/n3uralia-retro/project-ecosuelo-new.png','ecosuelolab'],
-  ['Despega Tu Carrera','Career development','/n3uralia-retro/project-despega.png','despega-tu-carrera'],
+  ['Despega Tu Carrera','AI-first personal development platform','/n3uralia-retro/project-despega.png','despega-tu-carrera'],
   ['Black Swan FS','Facility management','/n3uralia-retro/project-blackswan-new.png','blackswan-facility-core'],
   ['Parrotfy','WhatsApp AI connector for ERP','/n3uralia-retro/project-parrotfy.png','parrotfy'],
 ]
