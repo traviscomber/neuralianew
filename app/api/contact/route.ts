@@ -148,20 +148,30 @@ async function sendWhatsAppNotification(params: {
   const greenToken = process.env["GREEN_API_TOKEN"]
   if (greenInstance && greenToken) {
     try {
-      const res = await fetch(
-        `https://api.green-api.com/waInstance${greenInstance}/sendMessage/${greenToken}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chatId: `${notifyPhone}@c.us`, message: text }),
-          signal: AbortSignal.timeout(10_000),
-        },
-      )
-      if (res.ok) return { sent: true, provider: "green-api" }
-      console.error("[contact] Green-API error:", res.status, await res.text().catch(() => ""))
+      const url = `https://api.green-api.com/waInstance${greenInstance}/sendMessage/${greenToken}`
+      const payload = { chatId: `${notifyPhone}@c.us`, message: text }
+      console.log("[contact] Sending via Green-API to", notifyPhone, "instance:", greenInstance?.slice(0, 8) + "...")
+      
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(10_000),
+      })
+      
+      const responseText = await res.text()
+      console.log("[contact] Green-API response:", res.status, responseText.slice(0, 200))
+      
+      if (res.ok) {
+        console.log("[contact] Green-API success")
+        return { sent: true, provider: "green-api" }
+      }
+      console.error("[contact] Green-API HTTP error:", res.status, responseText)
     } catch (error) {
-      console.error("[contact] Green-API fetch failed:", error)
+      console.error("[contact] Green-API fetch failed:", error instanceof Error ? error.message : String(error))
     }
+  } else {
+    console.warn("[contact] Green-API not configured:", { hasInstance: !!greenInstance, hasToken: !!greenToken })
   }
 
   // Provider 2: CallMeBot (fallback)
