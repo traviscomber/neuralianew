@@ -171,11 +171,14 @@ export async function travisWebhookHandler(
 
     // Rate limit per chat
     const clientPhone = sender?.replace(/[^\d]/g, "") || ""
-    const rl = await checkRateLimit(`whatsapp:${clientPhone}`, 1, 60)
+    const rl = await checkRateLimit(`whatsapp:${clientPhone}`, {
+      maxRequests: 15,
+      windowMs: 60_000,
+    })
     if (!rl.allowed) {
       return NextResponse.json(
         { error: "Rate limit exceeded" },
-        { status: 429, headers: rl.headers }
+        { status: 429 }
       )
     }
 
