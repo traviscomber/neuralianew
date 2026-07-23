@@ -8,6 +8,7 @@ const requestSchema = z.object({
   email: z.string().email().max(254),
   company: z.string().trim().max(150).optional(),
   message: z.string().trim().min(10).max(4000),
+  whatsapp: z.string().trim().max(20).optional(),
   website: z.string().max(0).optional(),
 })
 
@@ -22,6 +23,7 @@ function buildAdminEmailHtml(params: {
   email: string
   message: string
   name: string
+  whatsapp?: string
 }) {
   return `
     <!DOCTYPE html>
@@ -50,6 +52,7 @@ function buildAdminEmailHtml(params: {
               <p><strong>Nombre:</strong> ${params.name}</p>
               <p><strong>Email:</strong> <a href="mailto:${params.email}">${params.email}</a></p>
               ${params.company ? `<p><strong>Empresa:</strong> ${params.company}</p>` : ""}
+              ${params.whatsapp ? `<p><strong>WhatsApp:</strong> <a href="https://wa.me/${params.whatsapp}">+${params.whatsapp}</a></p>` : ""}
             </div>
             <div class="message-box">
               <p><strong>Mensaje:</strong></p>
@@ -111,6 +114,76 @@ function buildUserEmailHtml(params: { email: string; message: string; name: stri
   `
 }
 
+function buildWhatsAppMessage(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  return [
+    "Nuevo diagnostico N3uralia",
+    `Nombre: ${params.name}`,
+    `Email: ${params.email}`,
+    params.company ? `Empresa: ${params.company}` : "",
+    params.whatsapp ? `WhatsApp: +${params.whatsapp}` : "",
+    `Mensaje: ${params.message.slice(0, 300)}`,
+  ]
+    .filter(Boolean)
+    .join("\n")
+}
+
+async function sendWhatsAppNotification(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  const text = buildWhatsAppMessage(params)
+  const notifyPhone = (process.env["WHATSAPP_NOTIFY_PHONE"] || "56993826127").replace(/[^\d]/g, "")
+
+  // Provider 1: Green-API (links your own WhatsApp via QR)
+  const greenInstance = process.env["GREEN_API_INSTANCE_ID"]
+  const greenToken = process.env["GREEN_API_TOKEN"]
+  if (greenInstance && greenToken) {
+    try {
+      const res = await fetch(
+        `https://api.green-api.com/waInstance${greenInstance}/sendMessage/${greenToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId: `${notifyPhone}@c.us`, message: text }),
+          signal: AbortSignal.timeout(10_000),
+        },
+      )
+      if (res.ok) return { sent: true, provider: "green-api" }
+      console.error("[contact] Green-API error:", res.status, await res.text().catch(() => ""))
+    } catch (error) {
+      console.error("[contact] Green-API fetch failed:", error)
+    }
+  }
+
+  // Provider 2: CallMeBot (fallback)
+  const callmebotKey = process.env["CALLMEBOT_API_KEY"]
+  if (callmebotKey) {
+    try {
+      const url = `https://api.callmebot.com/whatsapp.php?phone=%2B${notifyPhone}&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(callmebotKey)}`
+      const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
+      if (res.ok) return { sent: true, provider: "callmebot" }
+      console.error("[contact] CallMeBot error:", res.status)
+    } catch (error) {
+      console.error("[contact] CallMeBot fetch failed:", error)
+    }
+  }
+
+  if (!greenInstance && !callmebotKey) {
+    console.log("[contact] No WhatsApp provider configured, skipping notification")
+    return { sent: false, reason: "not_configured" }
+  }
+  return { sent: false, reason: "all_providers_failed" }
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!process.env["RESEND_API_KEY"]) {
@@ -146,12 +219,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, company, message } = parsed.data
+    const { name, email, company, message, whatsapp } = parsed.data
 
     const safeName = escapeHtml(String(name))
     const safeEmail = escapeHtml(String(email))
     const safeCompany = company ? escapeHtml(String(company)) : ""
     const safeMessage = escapeHtml(String(message))
+    const safeWhatsapp = whatsapp ? escapeHtml(String(whatsapp)) : ""
 
     const fromName = process.env["RESEND_FROM_NAME"] || "N3uralia"
     const fromEmail = process.env["RESEND_FROM_EMAIL"] || "info@n3uralia.com"
@@ -164,22 +238,32 @@ export async function POST(request: NextRequest) {
         email: safeEmail,
         message: safeMessage,
         name: safeName,
+        whatsapp: safeWhatsapp,
       }),
       replyTo: email,
       subject: `Nuevo contacto de ${name}`,
       to: adminRecipient,
     })
 
-    const userResult = await sendResendEmail({
-      from: `${fromName} <${fromEmail}>`,
-      html: buildUserEmailHtml({
-        email: safeEmail,
-        message: safeMessage,
-        name: safeName,
+    const [userResult, whatsappResult] = await Promise.all([
+      sendResendEmail({
+        from: `${fromName} <${fromEmail}>`,
+        html: buildUserEmailHtml({
+          email: safeEmail,
+          message: safeMessage,
+          name: safeName,
+        }),
+        subject: "Recibimos tu mensaje - N3uralia",
+        to: email,
       }),
-      subject: "Recibimos tu mensaje - N3uralia",
-      to: email,
-    })
+      sendWhatsAppNotification({
+        company: company || undefined,
+        email,
+        message,
+        name,
+        whatsapp: whatsapp || undefined,
+      }),
+    ])
 
     return NextResponse.json({
       success: true,
@@ -187,6 +271,7 @@ export async function POST(request: NextRequest) {
       data: {
         adminEmail: adminResult,
         userEmail: userResult,
+        whatsapp: whatsappResult,
       },
     })
   } catch (error) {

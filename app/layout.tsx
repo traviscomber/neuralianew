@@ -21,8 +21,13 @@ export const metadata: Metadata = {
   description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
   authors: [{ name: "N3uralia", url: absoluteUrl("/") }], creator: "N3uralia",
   icons: {
-    icon: [{ url: "/favicon.png", type: "image/png", sizes: "64x64" }],
-    shortcut: "/favicon.png", apple: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", type: "image/png", sizes: "64x64" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.png", type: "image/png", sizes: "16x16" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
     type: "website", siteName: "N3uralia", title: "N3uralia",
