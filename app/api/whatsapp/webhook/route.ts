@@ -88,6 +88,24 @@ interface ReplyResult {
   handoff: boolean
 }
 
+// Outgoing messages that are internal team notifications (not part of the
+// customer conversation). These must never enter the model context, or the
+// bot reads its own alerts (e.g. "Ultimo mensaje: quiero hablar con un humano")
+// and gets confused about what the customer actually said.
+function isInternalNotification(text: string): boolean {
+  const t = text.trim().toLowerCase()
+  return (
+    t.startsWith("handoff solicitado") ||
+    t.startsWith("nuevo diagnostico") ||
+    t.startsWith("nuevo diagnóstico") ||
+    t.startsWith("test instance") ||
+    t.startsWith("test de") ||
+    t.startsWith("prueba de") ||
+    t.startsWith("verificacion final") ||
+    t.startsWith("verificación final")
+  )
+}
+
 async function generateReply(chatId: string, chatName?: string): Promise<ReplyResult> {
   // Rebuild recent conversation context from Green-API's own history.
   const history = await getChatHistory(chatId, 16)
@@ -96,6 +114,8 @@ async function generateReply(chatId: string, chatName?: string): Promise<ReplyRe
     .slice()
     .reverse()
     .filter((h) => h.textMessage?.trim())
+    // Drop the bot's own internal team-notification messages.
+    .filter((h) => !(h.type === "outgoing" && isInternalNotification(h.textMessage!)))
 
   const nameHint = chatName ? `\n\nEl nombre de contacto de WhatsApp es "${chatName}" (úsalo solo si suena natural).` : ""
 
