@@ -16,7 +16,8 @@ function getClientIp(request: NextRequest) {
   return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
 }
 
-export const runtime = "edge"
+// Use Node.js runtime to access environment variables properly
+export const runtime = "nodejs"
 
 function buildAdminEmailHtml(params: {
   company?: string
