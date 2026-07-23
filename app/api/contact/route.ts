@@ -114,6 +114,25 @@ function buildUserEmailHtml(params: { email: string; message: string; name: stri
   `
 }
 
+function buildWhatsAppMessage(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  return [
+    "Nuevo diagnostico N3uralia",
+    `Nombre: ${params.name}`,
+    `Email: ${params.email}`,
+    params.company ? `Empresa: ${params.company}` : "",
+    params.whatsapp ? `WhatsApp: +${params.whatsapp}` : "",
+    `Mensaje: ${params.message.slice(0, 300)}`,
+  ]
+    .filter(Boolean)
+    .join("\n")
+}
+
 async function sendWhatsAppNotification(params: {
   company?: string
   email: string
@@ -121,35 +140,48 @@ async function sendWhatsAppNotification(params: {
   name: string
   whatsapp?: string
 }) {
-  const apiKey = process.env["CALLMEBOT_API_KEY"]
-  const phone = process.env["CALLMEBOT_PHONE"] || "+56993826127"
-  if (!apiKey) {
-    console.log("[contact] CALLMEBOT_API_KEY not set, skipping WhatsApp notification")
+  const text = buildWhatsAppMessage(params)
+  const notifyPhone = (process.env["WHATSAPP_NOTIFY_PHONE"] || "56993826127").replace(/[^\d]/g, "")
+
+  // Provider 1: Green-API (links your own WhatsApp via QR)
+  const greenInstance = process.env["GREEN_API_INSTANCE_ID"]
+  const greenToken = process.env["GREEN_API_TOKEN"]
+  if (greenInstance && greenToken) {
+    try {
+      const res = await fetch(
+        `https://api.green-api.com/waInstance${greenInstance}/sendMessage/${greenToken}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId: `${notifyPhone}@c.us`, message: text }),
+          signal: AbortSignal.timeout(10_000),
+        },
+      )
+      if (res.ok) return { sent: true, provider: "green-api" }
+      console.error("[contact] Green-API error:", res.status, await res.text().catch(() => ""))
+    } catch (error) {
+      console.error("[contact] Green-API fetch failed:", error)
+    }
+  }
+
+  // Provider 2: CallMeBot (fallback)
+  const callmebotKey = process.env["CALLMEBOT_API_KEY"]
+  if (callmebotKey) {
+    try {
+      const url = `https://api.callmebot.com/whatsapp.php?phone=%2B${notifyPhone}&text=${encodeURIComponent(text)}&apikey=${encodeURIComponent(callmebotKey)}`
+      const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
+      if (res.ok) return { sent: true, provider: "callmebot" }
+      console.error("[contact] CallMeBot error:", res.status)
+    } catch (error) {
+      console.error("[contact] CallMeBot fetch failed:", error)
+    }
+  }
+
+  if (!greenInstance && !callmebotKey) {
+    console.log("[contact] No WhatsApp provider configured, skipping notification")
     return { sent: false, reason: "not_configured" }
   }
-
-  const lines = [
-    "Nuevo diagnostico N3uralia",
-    `Nombre: ${params.name}`,
-    `Email: ${params.email}`,
-    params.company ? `Empresa: ${params.company}` : "",
-    params.whatsapp ? `WhatsApp: +${params.whatsapp}` : "",
-    `Mensaje: ${params.message.slice(0, 300)}`,
-  ].filter(Boolean)
-
-  const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(lines.join("\n"))}&apikey=${encodeURIComponent(apiKey)}`
-
-  try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
-    if (!res.ok) {
-      console.error("[contact] CallMeBot error:", res.status, await res.text().catch(() => ""))
-      return { sent: false, reason: `http_${res.status}` }
-    }
-    return { sent: true }
-  } catch (error) {
-    console.error("[contact] CallMeBot fetch failed:", error)
-    return { sent: false, reason: "network_error" }
-  }
+  return { sent: false, reason: "all_providers_failed" }
 }
 
 export async function POST(request: NextRequest) {
