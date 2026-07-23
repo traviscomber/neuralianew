@@ -52,7 +52,7 @@ const text: Record<Locale, Text> = {
 const projects = [
   ['LABBE','Transport operations','/n3uralia-retro/project-labbe.png','labbe'],
   ['SegurIA','Security & smart properties','/n3uralia-retro/project-seguria-new.png','seguria'],
-  ['Sur-Realista','Real estate CRM','/n3uralia-retro/project-surrealista.png','sur-realista'],
+  ['Sur-Realista','Territorial operations & real estate platform','/n3uralia-retro/project-surrealista.png','sur-realista'],
   ['La Patagua','Mining operations','/n3uralia-retro/project-lapatagua.png','la-patagua'],
   ['EcoSueloLab','Satellite data via WhatsApp AI agent','/n3uralia-retro/project-ecosuelo-new.png','ecosuelolab'],
   ['Despega Tu Carrera','Career development','/n3uralia-retro/project-despega.png','despega-tu-carrera'],
