@@ -114,6 +114,44 @@ function buildUserEmailHtml(params: { email: string; message: string; name: stri
   `
 }
 
+async function sendWhatsAppNotification(params: {
+  company?: string
+  email: string
+  message: string
+  name: string
+  whatsapp?: string
+}) {
+  const apiKey = process.env["CALLMEBOT_API_KEY"]
+  const phone = process.env["CALLMEBOT_PHONE"] || "+56993826127"
+  if (!apiKey) {
+    console.log("[contact] CALLMEBOT_API_KEY not set, skipping WhatsApp notification")
+    return { sent: false, reason: "not_configured" }
+  }
+
+  const lines = [
+    "Nuevo diagnostico N3uralia",
+    `Nombre: ${params.name}`,
+    `Email: ${params.email}`,
+    params.company ? `Empresa: ${params.company}` : "",
+    params.whatsapp ? `WhatsApp: +${params.whatsapp}` : "",
+    `Mensaje: ${params.message.slice(0, 300)}`,
+  ].filter(Boolean)
+
+  const url = `https://api.callmebot.com/whatsapp.php?phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(lines.join("\n"))}&apikey=${encodeURIComponent(apiKey)}`
+
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) })
+    if (!res.ok) {
+      console.error("[contact] CallMeBot error:", res.status, await res.text().catch(() => ""))
+      return { sent: false, reason: `http_${res.status}` }
+    }
+    return { sent: true }
+  } catch (error) {
+    console.error("[contact] CallMeBot fetch failed:", error)
+    return { sent: false, reason: "network_error" }
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     if (!process.env["RESEND_API_KEY"]) {
@@ -175,16 +213,25 @@ export async function POST(request: NextRequest) {
       to: adminRecipient,
     })
 
-    const userResult = await sendResendEmail({
-      from: `${fromName} <${fromEmail}>`,
-      html: buildUserEmailHtml({
-        email: safeEmail,
-        message: safeMessage,
-        name: safeName,
+    const [userResult, whatsappResult] = await Promise.all([
+      sendResendEmail({
+        from: `${fromName} <${fromEmail}>`,
+        html: buildUserEmailHtml({
+          email: safeEmail,
+          message: safeMessage,
+          name: safeName,
+        }),
+        subject: "Recibimos tu mensaje - N3uralia",
+        to: email,
       }),
-      subject: "Recibimos tu mensaje - N3uralia",
-      to: email,
-    })
+      sendWhatsAppNotification({
+        company: company || undefined,
+        email,
+        message,
+        name,
+        whatsapp: whatsapp || undefined,
+      }),
+    ])
 
     return NextResponse.json({
       success: true,
@@ -192,6 +239,7 @@ export async function POST(request: NextRequest) {
       data: {
         adminEmail: adminResult,
         userEmail: userResult,
+        whatsapp: whatsappResult,
       },
     })
   } catch (error) {
