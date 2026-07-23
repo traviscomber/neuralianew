@@ -126,12 +126,14 @@
 .project-copy p { font-size:12px; }
 .project-copy small { color:#50686a; display:block; margin-top:14px; }
 .project-image { aspect-ratio:2.55; background:#071010; overflow:hidden; position:relative; }
+.project-image img, .project-image [style] { object-position:top center !important; }
 .products { border-top:1px solid var(--n3-border-light); padding:55px 0 70px; }
 .products-head { align-items:end; display:grid; gap:60px; grid-template-columns:1.2fr .8fr; }
 .product-grid { display:grid; gap:18px; grid-template-columns:repeat(4,1fr); margin-top:30px; }
 .product-card { background:rgba(255,255,255,.32); border:1px solid transparent; padding:8px 8px 22px; transition:.25s; }
 .product-card:hover { border-color:#9fb2b3; }
 .product-visual { aspect-ratio:1.35; filter:grayscale(.35); position:relative; }
+.product-visual img, .product-visual [style] { object-position:top center !important; }
 .product-card h3 { display:flex; font-size:18px; justify-content:space-between; margin:18px 8px 10px; }
 .product-card p { font-size:12px; margin-inline:8px; }
 .center-button { display:flex; justify-content:center; margin-top:30px; }

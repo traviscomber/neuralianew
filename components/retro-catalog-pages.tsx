@@ -108,7 +108,7 @@ export function ProjectsPage({locale}:{locale:Locale}){
                   </Link>
                 </div>
                 <div className="catalog-image">
-                  <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover object-center"/>
+                  <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover" style={{objectPosition:'top center'}}/>
                 </div>
               </article>
             )
@@ -152,7 +152,7 @@ export function ProductsPage({locale}:{locale:Locale}){
                   )}
                 </div>
                 <div className="catalog-image">
-                  <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover object-center"/>
+                  <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover" style={{objectPosition:'top center'}}/>
                 </div>
               </article>
             )
@@ -162,3 +162,4 @@ export function ProductsPage({locale}:{locale:Locale}){
     </main>
   )
 }
+
