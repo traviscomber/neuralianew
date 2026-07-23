@@ -106,7 +106,7 @@ function isInternalNotification(text: string): boolean {
   )
 }
 
-async function generateReply(chatId: string, chatName?: string): Promise<ReplyResult> {
+async function generateReply(chatId: string, currentText: string, chatName?: string): Promise<ReplyResult> {
   // Rebuild recent conversation context from Green-API's own history.
   const history = await getChatHistory(chatId, 16)
 
@@ -119,12 +119,24 @@ async function generateReply(chatId: string, chatName?: string): Promise<ReplyRe
 
   const nameHint = chatName ? `\n\nEl nombre de contacto de WhatsApp es "${chatName}" (úsalo solo si suena natural).` : ""
 
+  const historyTurns = chronological.map((h) => ({
+    role: h.type === "incoming" ? ("user" as const) : ("assistant" as const),
+    content: h.textMessage!.slice(0, 1500),
+  }))
+
+  // Always include the message that triggered this webhook as the final user
+  // turn. Green-API's getChatHistory can lag behind the webhook, so relying on
+  // history alone risks answering without the latest message. Dedupe if the
+  // last history turn is already this same incoming message.
+  const trimmed = currentText.trim()
+  const last = historyTurns[historyTurns.length - 1]
+  if (!(last && last.role === "user" && last.content.trim() === trimmed)) {
+    historyTurns.push({ role: "user" as const, content: trimmed.slice(0, 1500) })
+  }
+
   const messages = [
     { role: "system" as const, content: SYSTEM_PROMPT + nameHint },
-    ...chronological.map((h) => ({
-      role: h.type === "incoming" ? ("user" as const) : ("assistant" as const),
-      content: h.textMessage!.slice(0, 1500),
-    })),
+    ...historyTurns,
   ]
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -244,7 +256,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true })
     }
 
-    const { reply, handoff } = await generateReply(chatId, chatName)
+    const { reply, handoff } = await generateReply(chatId, text, chatName)
     await sendWhatsAppMessage(chatId, reply)
 
     if (handoff) {
