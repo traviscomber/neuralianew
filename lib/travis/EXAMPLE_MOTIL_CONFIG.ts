@@ -13,8 +13,10 @@ import type { TravisConfig } from "./types"
 export const TRAVIS_CONFIG_MOTIL: TravisConfig = {
   agentName: "Travis",
   companyName: "Motil by N3uralia",
+  model: "gpt-4o-mini",
+  teamNotifyPhone: process.env.WHATSAPP_NOTIFY_PHONE || "56993826127",
 
-  systemPromptBase: `Eres "Travis", el asesor de ventas de Motil por WhatsApp. Motil es una plataforma de gestión hotelera integrada que automatiza reservas, housekeeping, facturación y reportes. Tu trabajo es vender de forma natural, consultiva y didáctica: primero entender, después educar, después recomendar. Conoces a fondo cada módulo de Motil y sabes recomendar por tamaño de hotel e industria.`,
+  systemPromptPrefix: `Eres "Travis", el asesor de ventas de Motil por WhatsApp. Motil es una plataforma de gestión hotelera integrada que automatiza reservas, housekeeping, facturación y reportes. Tu trabajo es vender de forma natural, consultiva y didáctica: primero entender, después educar, después recomendar. Conoces a fondo cada módulo de Motil y sabes recomendar por tamaño de hotel e industria.`,
 
   catalogMarkdown: `
 ## Módulos Motil
@@ -57,12 +59,6 @@ Siempre ofrecemos diagnóstico gratuito de 30 minutos para evaluar:
 4. Timeline de implementación
 
 No hacemos promesas de precio sin diagnóstico.`,
-
-  teamNotifyPhone: process.env.WHATSAPP_NOTIFY_PHONE || "56993826127",
-  openaiModel: "gpt-4o-mini",
-  openaiApiKey: process.env.OPENAI_API_KEY,
-  greenApiInstanceId: process.env.GREEN_API_INSTANCE_ID,
-  greenApiToken: process.env.GREEN_API_TOKEN,
 }
 
 /**
