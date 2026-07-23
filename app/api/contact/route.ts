@@ -8,6 +8,7 @@ const requestSchema = z.object({
   email: z.string().email().max(254),
   company: z.string().trim().max(150).optional(),
   message: z.string().trim().min(10).max(4000),
+  whatsapp: z.string().trim().max(20).optional(),
   website: z.string().max(0).optional(),
 })
 
@@ -22,6 +23,7 @@ function buildAdminEmailHtml(params: {
   email: string
   message: string
   name: string
+  whatsapp?: string
 }) {
   return `
     <!DOCTYPE html>
@@ -50,6 +52,7 @@ function buildAdminEmailHtml(params: {
               <p><strong>Nombre:</strong> ${params.name}</p>
               <p><strong>Email:</strong> <a href="mailto:${params.email}">${params.email}</a></p>
               ${params.company ? `<p><strong>Empresa:</strong> ${params.company}</p>` : ""}
+              ${params.whatsapp ? `<p><strong>WhatsApp:</strong> <a href="https://wa.me/${params.whatsapp}">+${params.whatsapp}</a></p>` : ""}
             </div>
             <div class="message-box">
               <p><strong>Mensaje:</strong></p>
@@ -146,12 +149,13 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, company, message } = parsed.data
+    const { name, email, company, message, whatsapp } = parsed.data
 
     const safeName = escapeHtml(String(name))
     const safeEmail = escapeHtml(String(email))
     const safeCompany = company ? escapeHtml(String(company)) : ""
     const safeMessage = escapeHtml(String(message))
+    const safeWhatsapp = whatsapp ? escapeHtml(String(whatsapp)) : ""
 
     const fromName = process.env["RESEND_FROM_NAME"] || "N3uralia"
     const fromEmail = process.env["RESEND_FROM_EMAIL"] || "info@n3uralia.com"
@@ -164,6 +168,7 @@ export async function POST(request: NextRequest) {
         email: safeEmail,
         message: safeMessage,
         name: safeName,
+        whatsapp: safeWhatsapp,
       }),
       replyTo: email,
       subject: `Nuevo contacto de ${name}`,

@@ -173,6 +173,12 @@ export function ContactConversation({ locale }: { locale: Locale }) {
 
         assistantResponse = copy.successBody(nextData.name || "", nextData.email || "", nextData.whatsapp)
         setSubmitted(true)
+
+        // Open WhatsApp Web automatically to notify the team
+        const waText = encodeURIComponent(
+          `🔔 Nuevo diagnóstico N3uralia\n👤 ${nextData.name}\n📧 ${nextData.email}${nextData.company ? `\n🏢 ${nextData.company}` : ""}${nextData.whatsapp ? `\n📱 +${nextData.whatsapp}` : ""}\n💬 ${nextData.message}`,
+        )
+        window.open(`https://wa.me/56993826127?text=${waText}`, "_blank", "noopener,noreferrer")
       } catch (error) {
         console.error("[contact] send error:", error)
         assistantResponse = copy.error
