@@ -51,9 +51,19 @@ Debes derivar a una persona del equipo cuando ocurra CUALQUIERA de estas situaci
 - Ya hubo varias idas y vueltas y el usuario sigue con dudas sin avanzar.
 - El usuario ya mostró interés claro y entregó o quiere entregar sus datos para el diagnóstico o cotización.
 
-Cuando decidas derivar: responde con un mensaje cálido diciendo que conectarás a la persona con alguien del equipo humano que le escribirá muy pronto por este mismo WhatsApp, y AL FINAL de tu mensaje, en una línea aparte, escribe exactamente ${HANDOFF_MARKER}. Ese marcador es interno y será eliminado antes de enviarlo. No lo menciones ni lo expliques.
+Cuando decidas derivar: escribe un mensaje cálido diciendo que conectarás a la persona con alguien del equipo humano que le escribirá muy pronto por este mismo WhatsApp, y marca handoff=true en tu respuesta.
 
 Tu meta: que cada conversación avance hacia un diagnóstico agendado, una cotización formal, o hacia un humano cuando corresponda, dejando al cliente con la sensación de haber hablado con un experto amable.`
+
+// Appended to the system prompt so the model always returns structured JSON.
+const JSON_OUTPUT_INSTRUCTION = `
+
+## FORMATO DE RESPUESTA (obligatorio)
+Responde SIEMPRE con un objeto JSON válido, sin texto adicional, con esta forma exacta:
+{"reply": "<tu mensaje para el cliente por WhatsApp>", "handoff": <true o false>}
+- "reply": el texto que se le enviará al cliente (aplica todas las reglas de estilo de arriba).
+- "handoff": true SOLO si corresponde derivar a un humano según la sección "CUÁNDO PASAR A UN HUMANO"; en cualquier otro caso, false.
+No incluyas el marcador ${HANDOFF_MARKER} dentro de "reply". No agregues nada fuera del JSON.`
 
 interface GreenApiWebhook {
   typeWebhook?: string
@@ -135,7 +145,7 @@ async function generateReply(chatId: string, currentText: string, chatName?: str
   }
 
   const messages = [
-    { role: "system" as const, content: SYSTEM_PROMPT + nameHint },
+    { role: "system" as const, content: SYSTEM_PROMPT + nameHint + JSON_OUTPUT_INSTRUCTION },
     ...historyTurns,
   ]
 
@@ -149,7 +159,10 @@ async function generateReply(chatId: string, currentText: string, chatName?: str
       model: OPENAI_MODEL,
       messages,
       temperature: 0.7,
-      max_tokens: 380,
+      max_tokens: 400,
+      // Structured output guarantees a reliable handoff flag instead of a
+      // fragile text marker the model sometimes forgets to append.
+      response_format: { type: "json_object" },
     }),
     signal: AbortSignal.timeout(20_000),
   })
@@ -164,19 +177,26 @@ async function generateReply(chatId: string, currentText: string, chatName?: str
   }
 
   const data = await res.json()
-  let reply: string = data?.choices?.[0]?.message?.content?.trim() || ""
+  const raw: string = data?.choices?.[0]?.message?.content?.trim() || ""
+
+  let reply = ""
+  let handoff = false
+  try {
+    const parsed = JSON.parse(raw) as { reply?: string; handoff?: boolean }
+    reply = (parsed.reply || "").trim()
+    handoff = parsed.handoff === true
+  } catch {
+    // If the model returned plain text despite instructions, use it as-is
+    // and fall back to the legacy marker detection.
+    reply = raw.replace(new RegExp(`\\n?\\s*${HANDOFF_MARKER}\\s*`, "g"), "").trim()
+    handoff = raw.includes(HANDOFF_MARKER)
+  }
 
   if (!reply) {
     return {
       reply: "Gracias por tu mensaje. En un momento te responde alguien del equipo.",
       handoff: true,
     }
-  }
-
-  // Detect and strip the internal handoff marker.
-  const handoff = reply.includes(HANDOFF_MARKER)
-  if (handoff) {
-    reply = reply.replace(new RegExp(`\\n?\\s*${HANDOFF_MARKER}\\s*`, "g"), "").trim()
   }
 
   return { reply, handoff }
