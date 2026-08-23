@@ -44,12 +44,12 @@ export const SECTORS: Sector[] = [
     link: "#",
   },
   {
-    titleES: "Legal",
-    titleEN: "Legal",
-    descES: "Revisión de contratos, investigación legal, cumplimiento normativo",
-    descEN: "Contract review, legal research, regulatory compliance",
+    titleES: "Legal Intelligence",
+    titleEN: "Legal Intelligence",
+    descES: "Una capa de inteligencia sobre los sistemas y workflows legales existentes: evidencia, monitoreo, riesgo y decisiones trazables.",
+    descEN: "An intelligence layer on top of existing legal systems and workflows: evidence, monitoring, risk, and traceable decisions.",
     icon: Building2,
-    link: "#",
+    link: "/legal-intelligence",
   },
   {
     titleES: "Logística",
