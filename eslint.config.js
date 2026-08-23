@@ -4,7 +4,7 @@ import typescriptParser from '@typescript-eslint/parser';
 
 export default [
   {
-    ignores: ['.next/**', 'node_modules/**', 'out/**'],
+    ignores: ['.next/**', 'node_modules/**', 'out/**', 'public/**'],
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -27,8 +27,6 @@ export default [
       '@typescript-eslint': typescriptPlugin,
     },
     rules: {
-      'react/no-unescaped-entities': 'warn',
-      'react/react-in-jsx-scope': 'off',
       '@next/next/no-html-link-for-pages': 'off',
       '@next/next/no-img-element': 'warn',
       '@next/next/no-sync-scripts': 'error',
