@@ -7,8 +7,8 @@
     "clean": "rm -rf node_modules .next package-lock.json",
     "dev": "next dev",
     "preinstall": "npm set legacy-peer-deps true",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
