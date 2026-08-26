@@ -5,6 +5,7 @@ import { Montserrat, Rajdhani } from "next/font/google"
 import "./globals.css"
 import "./brand-refresh.css"
 import "./final-cta-overrides.css"
+import "./portal-dark.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
 import { absoluteUrl } from "@/lib/site"
@@ -43,5 +44,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, maxi
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const headerStore = await headers()
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
-  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased`}><AnalyticsProvider>{children}</AnalyticsProvider></body></html>
+  const pathname = headerStore.get("x-pathname") || ""
+  const portalDark = /\/(soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
+  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}</AnalyticsProvider></body></html>
 }
