@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Locale } from '@/lib/get-locale'
+import { BrandWordmark } from '@/components/brand'
 
 type Text = {
   hero: [string,string,string,string,string]
@@ -17,6 +18,7 @@ type Text = {
   method: [string,string,string,string,string,string,string]
   diagnosis: [string,string,string,string,string]
   final: [string,string,string,string,string]
+  faq: [string,string,[string,string][]]
   footer: [string,string,string,string,string,string]
 }
 
@@ -32,6 +34,14 @@ const text: Record<Locale, Text> = {
     method:['Cómo trabajamos','Del diagnóstico a la ejecución.','Diagnosticar','Arquitectar','Construir','Integrar','Mejorar'],
     diagnosis:['Comienza con un diagnóstico','Claridad primero. El impacto sigue.','Un diagnóstico entrega una visión clara de lo posible y una ruta práctica.','Agendar diagnóstico','Contactarnos'],
     final:['¿Listos para transformar?','Construyamos el sistema detrás de tu próxima etapa de crecimiento.','Ayudamos a convertir señales dispersas en ejecución controlada.','Agendar diagnóstico','Contactarnos'],
+    faq:['Preguntas frecuentes','Lo esencial antes de comenzar.',[
+      ['¿Qué hace N3uralia?','Diseñamos e implementamos sistemas de IA, automatización y software que conectan datos, documentos, flujos y decisiones para mejorar la ejecución operacional.'],
+      ['¿Con qué tipo de empresas trabajan?','Trabajamos principalmente con organizaciones que operan procesos complejos, información fragmentada, alto volumen documental o decisiones críticas en Chile y LATAM.'],
+      ['¿Necesito reemplazar mis sistemas actuales?','No. Normalmente integramos la capa de inteligencia sobre el stack existente: ERP, CRM, correo, Drive, SharePoint, bases de datos, APIs y herramientas internas.'],
+      ['¿Cómo comienza un proyecto?','Partimos con un diagnóstico acotado para entender el proceso, los datos, los bloqueos y el impacto esperado. Desde ahí definimos una arquitectura y una hoja de ruta ejecutable.'],
+      ['¿La IA toma decisiones por nosotros?','No en procesos consecuenciales. Diseñamos sistemas con trazabilidad, controles y participación humana para que la IA asista, prepare y automatice sin eliminar el criterio profesional.'],
+      ['¿Pueden llevar una solución hasta producción?','Sí. N3uralia cubre arquitectura, desarrollo, integración, observabilidad, seguridad, adopción y despliegue en producción.']
+    ]],
     footer:['Construimos sistemas de IA y flujos inteligentes para operar con más claridad, velocidad y control.','Soluciones','Proyectos','Productos','Empresa','Todos los derechos reservados.'],
   },
   en: {
@@ -45,6 +55,14 @@ const text: Record<Locale, Text> = {
     method:['How we work','From diagnosis to execution.','Diagnose','Architect','Build','Integrate','Improve'],
     diagnosis:['Start with a diagnosis','Clarity first. Impact follows.','A diagnosis gives you a clear view of what is possible and a practical path forward.','Book a diagnosis','Contact us'],
     final:['Ready to transform?','Let’s build the system behind your next stage of growth.','We turn scattered signals into controlled execution.','Book a diagnosis','Contact us'],
+    faq:['Frequently asked questions','What to know before we start.',[
+      ['What does N3uralia do?','We design and implement AI, automation and software systems that connect data, documents, workflows and decisions to improve operational execution.'],
+      ['What kind of companies do you work with?','We primarily work with organizations running complex processes, fragmented information, document-heavy operations or critical decisions across Chile and LATAM.'],
+      ['Do we need to replace our existing systems?','No. We usually add an intelligence layer on top of your current stack: ERP, CRM, email, Drive, SharePoint, databases, APIs and internal tools.'],
+      ['How does an engagement start?','We begin with a focused diagnosis to understand the workflow, data, constraints and expected impact. From there we define the architecture and an executable roadmap.'],
+      ['Does AI make decisions for us?','Not in consequential processes. We design for traceability, controls and human oversight so AI can assist, prepare and automate without removing professional judgment.'],
+      ['Can you take a solution all the way to production?','Yes. N3uralia covers architecture, development, integration, observability, security, adoption and production deployment.']
+    ]],
     footer:['We build AI systems and intelligent workflows for more clarity, speed and control.','Expertise','Projects','Products','Company','All rights reserved.'],
   },
 }
@@ -67,7 +85,7 @@ function Focus({children,index}:{children:React.ReactNode;index:number}){const r
 export function RetroLanding({locale}:{locale:Locale}){
   const t=text[locale];const [open,setOpen]=useState<number|null>(null);const projectPath=locale==='es'?'proyectos':'projects';const productPath=locale==='es'?'productos':'products'
   return <main className="retro-page">
-    <section className="retro-hero retro-dark"><div className="retro-shell hero-grid"><div className="hero-copy"><small>{t.hero[0]}</small><h1>{t.hero[1]}</h1><p>{t.hero[2]}</p><div className="button-row"><Button href={`/${locale}/contact`} primary>{t.hero[3]}</Button><Button href={`/${locale}/soluciones`}>{t.hero[4]}</Button></div></div><div className="hero-photo"><Corners/><img src="/n3uralia-brand/l1hero.jpg" alt="Operational intelligence system" className="object-cover" style={{position: 'absolute', height: '100%', width: '100%', left: 0, top: 0, right: 0, bottom: 0, objectFit: 'cover', objectPosition: 'center center'}} fetchPriority="high" decoding="async"/><span className="scan-line"/></div></div></section>
+    <section className="retro-hero retro-dark"><div className="retro-shell hero-grid"><div className="hero-copy"><small>{t.hero[0]}</small><h1>{t.hero[1]}</h1><p>{t.hero[2]}</p><div className="button-row"><Button href={`/${locale}/contact`} primary>{t.hero[3]}</Button><Button href={`/${locale}/soluciones`}>{t.hero[4]}</Button></div></div><div className="hero-photo"><Corners/><img src="/n3uralia-brand/l1hero.jpg" alt="Operational intelligence system" className="object-cover" style={{position:'absolute',height:'100%',width:'100%',left:0,top:0,right:0,bottom:0,objectFit:'cover',objectPosition:'center center'}} fetchPriority="high" decoding="async"/><span className="scan-line"/></div></div></section>
     <section className="retro-dark expertise-scan"><div className="retro-shell">{t.expertise.map((item,i)=><Focus key={item[0]} index={i}><article className="expertise-row"><pre className="telemetry">{`SYS 0${i+1}\nSTATUS ACTIVE\nSYNCED`}</pre><div className="expertise-graphic"><Corners/><Image src={item[2]} alt="" fill sizes="360px" className="object-contain"/></div><div className="expertise-copy"><span>0{i+1} —</span><h2>{item[0]}</h2><p>{item[1]}</p><Button href={`/${locale}/soluciones`}>{t.learn}</Button></div></article></Focus>)}</div></section>
     <section className="retro-dark complexity"><div className="retro-shell complexity-grid"><div><small>{t.complexity[0]}</small><h2>{t.complexity[1]}</h2><p>{t.complexity[2]}</p></div><div className="landscape"><Corners/><span>N3 SYS // ACTIVE</span></div></div></section>
     <section className="retro-dark operations-grid">{t.operations.map((item,i)=><div className="operations-row" key={item[0]}><div className="operations-photo"><Corners/><Image src={i?'/n3uralia-brand/humancenteredimplementation.png':'/n3uralia-brand/builtaroundrealoperations.png'} alt="N3uralia operations" fill unoptimized sizes="(min-width:900px) 58vw,100vw" className="object-cover"/></div><div className="operations-copy"><small>{item[0]}</small><h2>{item[1]}</h2><p>{item[2]}</p><button className="retro-button plus-button" onClick={()=>setOpen(open===i?null:i)} aria-expanded={open===i}>{item[3]}<span>+</span></button><motion.div className="expand-panel" initial={false} animate={{height:open===i?'auto':0,opacity:open===i?1:0}}><p>{item[4]}</p><div className="panel-list">{item[5]}</div><Button href={`/${locale}/${i?'soluciones':'contact'}`}>{i?t.learn:t.hero[3]}</Button></motion.div></div></div>)}</section>
@@ -76,6 +94,7 @@ export function RetroLanding({locale}:{locale:Locale}){
     <section className="retro-dark method"><div className="retro-shell method-grid"><div><small>{t.method[0]}</small><h2>{t.method[1]}</h2><div className="radar"><Corners/></div></div><div className="timeline">{t.method.slice(2).map((s,i)=><Focus key={s} index={i}><div className="timeline-step"><span>0{i+1}</span><h3>{s}</h3></div></Focus>)}</div></div></section>
     <section className="retro-dark diagnosis"><div className="retro-shell diagnosis-grid"><div><small>{t.diagnosis[0]}</small><h2>{t.diagnosis[1]}</h2><p>{t.diagnosis[2]}</p><div className="button-row"><Button href={`/${locale}/contact`} primary>{t.diagnosis[3]}</Button><Button href={`/${locale}/contact`}>{t.diagnosis[4]}</Button></div></div><div className="tower"><Corners/><Image src="/n3uralia-brand/clarityfirstimpactfollows.png" alt="Diagnosis framework" fill quality={95} unoptimized className="object-contain"/></div></div></section>
     <section className="retro-dark final-cta"><div className="retro-shell final-grid"><div><small>{t.final[0]}</small><h2>{t.final[1]}</h2><p>{t.final[2]}</p><div className="button-row"><Button href={`/${locale}/contact`} primary>{t.final[3]}</Button><Button href={`/${locale}/contact`}>{t.final[4]}</Button></div></div><div className="final-photo"><Image src="/n3uralia-brand/letsbuildthesystembehind.png" alt="Operational command center" fill unoptimized className="object-cover"/></div></div></section>
-    <footer className="retro-footer"><div className="retro-shell footer-grid"><div><img src="/n3uralia-brand/n3uralia-wordmark-new.webp" alt="N3uralia" className="footer-logo" style={{maxWidth: '300px', height: 'auto'}}/><p>{t.footer[0]}</p></div>{[[t.footer[1],'soluciones'],[t.footer[2],projectPath],[t.footer[3],productPath],[t.footer[4],'about']].map(([label,path])=><div key={path}><small>{label}</small><Link href={`/${locale}/${path}`}>{label}</Link></div>)}<div><small>Contact</small><a href="mailto:juan@n3uralia.com">juan@n3uralia.com</a><a href="https://wa.me/56993826127">+56 9 9382 6127</a></div></div><div className="retro-shell footer-bottom">© {new Date().getFullYear()} N3uralia. {t.footer[5]}</div></footer>
+    <section className="retro-dark" aria-labelledby="landing-faq-title"><div className="retro-shell" style={{paddingTop:'72px',paddingBottom:'72px'}}><small>{t.faq[0]}</small><h2 id="landing-faq-title" style={{marginTop:'12px',marginBottom:'12px'}}>{t.faq[1]}</h2><div style={{marginTop:'36px',borderTop:'1px solid rgba(115,150,148,.24)'}}>{t.faq[2].map(([question,answer])=><details key={question} style={{borderBottom:'1px solid rgba(115,150,148,.24)',padding:'22px 0'}}><summary style={{cursor:'pointer',fontWeight:500,letterSpacing:'.04em'}}>{question}</summary><p style={{maxWidth:'820px',marginTop:'14px',color:'var(--n3-text-muted)'}}>{answer}</p></details>)}</div></div></section>
+    <footer className="retro-footer"><div className="retro-shell footer-grid"><div><BrandWordmark className="h-[52px] w-[190px]" priority sizes="190px"/><p>{t.footer[0]}</p></div>{[[t.footer[1],'soluciones'],[t.footer[2],projectPath],[t.footer[3],productPath],[t.footer[4],'about']].map(([label,path])=><div key={path}><small>{label}</small><Link href={`/${locale}/${path}`}>{label}</Link></div>)}<div><small>Contact</small><a href="mailto:juan@n3uralia.com">juan@n3uralia.com</a><a href="https://wa.me/56993826127">+56 9 9382 6127</a></div></div><div className="retro-shell footer-bottom">© {new Date().getFullYear()} N3uralia. {t.footer[5]}</div></footer>
   </main>
 }
