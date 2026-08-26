@@ -1,0 +1,15 @@
+.recognition-page{--r-cyan:#739694;--r-line2:rgba(115,150,148,.58)}
+.recognition-camera-frame{overflow:hidden;background:#020606 url('/recognition/recognition-flow.webp') center/cover no-repeat!important;isolation:isolate}
+.recognition-camera-frame:before{content:"";position:absolute;inset:0!important;width:auto!important;height:auto!important;border:0!important;background:linear-gradient(180deg,rgba(2,6,6,.08),rgba(2,6,6,.42)),linear-gradient(90deg,rgba(2,6,6,.18),transparent 34%,rgba(2,6,6,.12));z-index:1;pointer-events:none}
+.recognition-camera-frame:after{content:"";position:absolute;inset:7%!important;width:auto!important;height:auto!important;border:1px solid rgba(115,150,148,.38)!important;box-shadow:inset 0 0 34px rgba(115,150,148,.05);z-index:2;pointer-events:none}
+.recognition-camera-frame svg{opacity:0!important}
+.recognition-camera-frame span,.recognition-camera-frame i{z-index:3}
+.recognition-camera-frame span{color:#9bb5b3!important;text-shadow:0 1px 8px #020606}
+.recognition-camera-frame i{background:linear-gradient(transparent,rgba(115,150,148,.82),transparent)!important;opacity:.7}
+.recognition-screen{background:linear-gradient(145deg,#061011,#020505);box-shadow:0 0 70px rgba(115,150,148,.08),inset 0 0 60px rgba(115,150,148,.035)}
+.recognition-card-visual{background:radial-gradient(circle,rgba(115,150,148,.12),transparent 56%),#030909}
+.recognition-card-visual svg{color:#739694}
+.recognition-value{background:linear-gradient(rgba(3,8,8,.96),rgba(3,8,8,.96)),url('/recognition/recognition-flow.webp') center/cover fixed}
+.recognition-platform{background:radial-gradient(circle at 78% 50%,rgba(115,150,148,.055),transparent 30%),#020606}
+.recognition-stack-layer{border-color:rgba(115,150,148,.42);background:linear-gradient(90deg,rgba(115,150,148,.09),rgba(3,8,8,.72))}
+@media(max-width:900px){.recognition-value{background-attachment:scroll}}
