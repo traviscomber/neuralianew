@@ -7,8 +7,10 @@ import "./brand-refresh.css"
 import "./final-cta-overrides.css"
 import "./portal-dark.css"
 import "./recognition.css"
+import "./recognition-landing.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
+import { RecognitionLandingPortal } from "@/components/recognition-landing-portal"
 import { absoluteUrl } from "@/lib/site"
 
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["400", "500"] })
@@ -29,5 +31,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
   const pathname = headerStore.get("x-pathname") || ""
   const portalDark = /\/(soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
-  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}</AnalyticsProvider></body></html>
+  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
 }
