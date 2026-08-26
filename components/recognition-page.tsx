@@ -153,14 +153,18 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
       <div className="recognition-shell">
         <header className="recognition-section-head"><small>{t.casesEyebrow}</small><h2>{t.casesTitle}</h2></header>
         <div className="recognition-usecases">
-          {t.cases.map(([title, description], index) => <article className="recognition-card" key={title}>
-            <div className={`recognition-card-image recognition-card-image-${index + 1}`}>
-              <Image src={useCaseImages[index].src} alt={useCaseImages[index].alt} fill loading="lazy" sizes="(min-width: 1000px) 25vw, (min-width: 620px) 50vw, 100vw" className="recognition-cover" style={{ objectPosition: useCaseImages[index].position }}/>
-            </div>
-            <span className="recognition-card-index">0{index + 1}</span>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </article>)}
+          {t.cases.map((item, index) => {
+            const title = item[0]
+            const description = item[1]
+            return <article className="recognition-card" key={title}>
+              <div className={`recognition-card-image recognition-card-image-${index + 1}`}>
+                <Image src={useCaseImages[index].src} alt={useCaseImages[index].alt} fill loading="lazy" sizes="(min-width: 1000px) 25vw, (min-width: 620px) 50vw, 100vw" className="recognition-cover" style={{ objectPosition: useCaseImages[index].position }}/>
+              </div>
+              <span className="recognition-card-index">0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          })}
         </div>
       </div>
     </section>
@@ -170,12 +174,16 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
         <header className="recognition-section-head recognition-split"><div><small>{t.valueEyebrow}</small><h2>{t.valueTitle}</h2></div><p>{t.valueText}</p></header>
         <figure className="recognition-value-graphic" aria-label="Recognition workflow from detection to classification, scoring, record and action.">
           <div className="recognition-flow-line" aria-hidden/>
-          {t.flow.map(([label, detail], index) => <div className="recognition-flow-node" key={label}>
-            <div className="recognition-flow-icon"><Glyph name={flowGlyphs[index]}/></div>
-            <span>0{index + 1}</span>
-            <h3>{label}</h3>
-            <p>{detail}</p>
-          </div>)}
+          {t.flow.map((item, index) => {
+            const label = item[0]
+            const detail = item[1]
+            return <div className="recognition-flow-node" key={label}>
+              <div className="recognition-flow-icon"><Glyph name={flowGlyphs[index]}/></div>
+              <span>0{index + 1}</span>
+              <h3>{label}</h3>
+              <p>{detail}</p>
+            </div>
+          })}
           <div className="recognition-feedback" aria-hidden><span>↶</span><b>{t.trace}</b><span>↷</span></div>
         </figure>
       </div>
@@ -186,14 +194,23 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
         <div className="recognition-platform-intro"><small>{t.platformEyebrow}</small><h2>{t.platformTitle}</h2><p>{t.platformText}</p></div>
         <figure className="recognition-platform-graphic" aria-label="Layered architecture showing edge capture, vision intelligence, scoring, records and integrations.">
           <div className="recognition-platform-rays" aria-hidden/>
-          {t.layers.map(([number, label], index) => <div className={`recognition-platform-layer recognition-platform-layer-${index + 1}`} key={number}>
-            <Glyph name={platformGlyphs[index]}/><span>{label}</span><i>{number}</i>
-          </div>)}
+          {t.layers.map((item, index) => {
+            const number = item[0]
+            const label = item[1]
+            return <div className={`recognition-platform-layer recognition-platform-layer-${index + 1}`} key={number}>
+              <Glyph name={platformGlyphs[index]}/><span>{label}</span><i>{number}</i>
+            </div>
+          })}
         </figure>
         <div className="recognition-platform-list">
-          {t.layers.map(([number, label, description], index) => <div className="recognition-platform-item" key={number}>
-            <Glyph name={platformGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
-          </div>)}
+          {t.layers.map((item, index) => {
+            const number = item[0]
+            const label = item[1]
+            const description = item[2]
+            return <div className="recognition-platform-item" key={number}>
+              <Glyph name={platformGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
+            </div>
+          })}
         </div>
       </div>
     </section>
@@ -203,9 +220,14 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
         <div className="recognition-work-copy">
           <small>{t.workEyebrow}</small><h2>{t.workTitle}</h2><p>{t.workText}</p>
           <div className="recognition-work-steps">
-            {t.work.map(([number, label, description], index) => <article key={number}>
-              <Glyph name={workGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
-            </article>)}
+            {t.work.map((item, index) => {
+              const number = item[0]
+              const label = item[1]
+              const description = item[2]
+              return <article key={number}>
+                <Glyph name={workGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
+              </article>
+            })}
           </div>
           <div className="recognition-actions"><Link href={`/${locale}/diagnostico`} className="recognition-button recognition-button-primary">{t.primary}</Link><Link href={`/${locale}/contact`} className="recognition-button">{t.talk}</Link></div>
           <address className="recognition-contact"><a href="mailto:juan@n3uralia.com">juan@n3uralia.com</a><a href="https://wa.me/56993826127">+56 9 9382 6127</a><span>Santiago, Chile · LATAM</span></address>
