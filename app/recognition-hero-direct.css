@@ -1,0 +1,6 @@
+.recognition-hero-media{position:relative;overflow:hidden!important;background:#020606!important;aspect-ratio:16/9!important;min-height:0!important}
+.recognition-hero-media::before{content:"";position:absolute;inset:0;background:url('/assets/recognition/hero-command-center-cougar.webp') center/cover no-repeat!important;z-index:0}
+.recognition-hero-media>img,.recognition-hero-cougar,.recognition-scan{display:none!important}
+.recognition-hero-media::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(2,6,6,.14),transparent 34%),linear-gradient(180deg,rgba(2,6,6,.02),rgba(2,6,6,.16))!important;pointer-events:none}
+.recognition-card-image-3{background:#020606!important}
+.recognition-card-image-3>img{display:block!important;opacity:1!important;visibility:visible!important}
