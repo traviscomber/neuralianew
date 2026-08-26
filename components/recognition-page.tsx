@@ -1,83 +1,128 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
-import {
-  BellRing,
-  BrainCircuit,
-  Camera,
-  CheckCircle2,
-  CircleDot,
-  Crosshair,
-  Database,
-  Eye,
-  Layers3,
-  ScanLine,
-  ShieldCheck,
-  Sprout,
-  Workflow,
-} from 'lucide-react'
 import type { Locale } from '@/lib/get-locale'
 
-const content = {
+type GlyphName = 'camera' | 'recognition' | 'record' | 'alert' | 'action' | 'edge' | 'vision' | 'logic' | 'insights' | 'integrations' | 'diagnosis' | 'pilot' | 'scale'
+
+function Glyph({ name, className = '' }: { name: GlyphName; className?: string }) {
+  const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.35, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const }
+  if (name === 'camera') return <svg viewBox="0 0 32 32" className={className} aria-hidden><rect x="4" y="9" width="18" height="14" rx="1" {...common}/><path d="M22 13l6-3v12l-6-3zM9 9l2-4h6l2 4" {...common}/><circle cx="13" cy="16" r="4" {...common}/></svg>
+  if (name === 'recognition') return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M6 11V6h5M21 6h5v5M26 21v5h-5M11 26H6v-5" {...common}/><circle cx="16" cy="16" r="6" {...common}/><path d="M13 16h6M16 13v6" {...common}/></svg>
+  if (name === 'record') return <svg viewBox="0 0 32 32" className={className} aria-hidden><ellipse cx="16" cy="8" rx="9" ry="4" {...common}/><path d="M7 8v8c0 2.2 4 4 9 4s9-1.8 9-4V8M7 16v8c0 2.2 4 4 9 4s9-1.8 9-4v-8" {...common}/></svg>
+  if (name === 'alert') return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M9 23h14l-2-3v-6a5 5 0 00-10 0v6zM14 27h4" {...common}/><path d="M16 5V3M25 9l2-2M7 9L5 7" {...common}/></svg>
+  if (name === 'action') return <svg viewBox="0 0 32 32" className={className} aria-hidden><circle cx="16" cy="16" r="10" {...common}/><circle cx="16" cy="16" r="4" {...common}/><path d="M16 2v5M30 16h-5M16 30v-5M2 16h5M20 12l7-7" {...common}/><path d="M23 5h4v4" {...common}/></svg>
+  if (name === 'edge') return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M5 24h22M8 21V9h16v12" {...common}/><circle cx="16" cy="15" r="3" {...common}/><path d="M4 7l5-4M28 7l-5-4" {...common}/></svg>
+  if (name === 'vision') return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M3 16s5-8 13-8 13 8 13 8-5 8-13 8S3 16 3 16z" {...common}/><circle cx="16" cy="16" r="4" {...common}/><path d="M16 5V2M6 8L4 5M26 8l2-3" {...common}/></svg>
+  if (name === 'logic') return <svg viewBox="0 0 32 32" className={className} aria-hidden><circle cx="7" cy="8" r="3" {...common}/><circle cx="25" cy="8" r="3" {...common}/><circle cx="16" cy="24" r="3" {...common}/><path d="M10 8h12M9 11l5 10M23 11l-5 10" {...common}/></svg>
+  if (name === 'insights') return <svg viewBox="0 0 32 32" className={className} aria-hidden><rect x="4" y="5" width="24" height="22" {...common}/><path d="M8 22l5-6 4 3 7-9M8 10h6" {...common}/><circle cx="24" cy="10" r="1" fill="currentColor"/></svg>
+  if (name === 'integrations') return <svg viewBox="0 0 32 32" className={className} aria-hidden><circle cx="16" cy="16" r="4" {...common}/><circle cx="6" cy="7" r="3" {...common}/><circle cx="26" cy="7" r="3" {...common}/><circle cx="6" cy="25" r="3" {...common}/><circle cx="26" cy="25" r="3" {...common}/><path d="M9 9l4 4M23 9l-4 4M9 23l4-4M23 23l-4-4" {...common}/></svg>
+  if (name === 'diagnosis') return <svg viewBox="0 0 32 32" className={className} aria-hidden><circle cx="14" cy="14" r="8" {...common}/><path d="M20 20l7 7M10 14h8M14 10v8" {...common}/></svg>
+  if (name === 'pilot') return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M16 4l5 7-5 17-5-17zM11 11H7l-3 6h8M21 11h4l3 6h-8" {...common}/></svg>
+  return <svg viewBox="0 0 32 32" className={className} aria-hidden><path d="M4 24l7-7 5 4 12-14M21 7h7v7" {...common}/><path d="M4 28h24" {...common}/></svg>
+}
+
+const copy = {
   en: {
-    eyebrow:'Vision · Recognition · Workflows',
-    title:'Smart Recognition Systems.',
-    intro:'Computer vision systems for wildlife, production quality, agriculture, and security that convert detections into workflows across your operation.',
-    primary:'Book a diagnosis', secondary:'See use cases',
-    statement:'Recognition across real operations.',
-    useCases:[
-      ['Wildlife recognition','Detect cougar, pudú and conservation events in forests, parks and remote areas.'],
-      ['Cattle recognition','Count livestock, register feeding events and monitor herd movement.'],
-      ['Production quality recognition','Measure size, color, defects and premium quality across products and batches.'],
-      ['Security recognition','Detect people, vehicles, intrusion and perimeter events in critical areas.'],
+    eyebrow: 'Vision · Recognition · Workflows',
+    title: 'Smart Recognition Systems.',
+    intro: 'Computer vision systems for wildlife, production quality, agriculture and security that turn visual detections into trusted operational workflows.',
+    primary: 'Book a diagnosis',
+    secondary: 'See use cases',
+    heroSignal: 'Camera → Recognition → Record → Alert → Action',
+    casesEyebrow: '02 · Core use cases',
+    casesTitle: 'Recognition across real operations.',
+    cases: [
+      ['Wildlife recognition', 'Detect cougar, pudú and conservation events in forests, parks and remote areas.'],
+      ['Cattle recognition', 'Count livestock, register feeding events and monitor herd movement.'],
+      ['Production quality recognition', 'Measure size, color, defects and premium quality across products and batches.'],
+      ['Security recognition', 'Detect people, vehicles, intrusion and perimeter events in critical areas.'],
     ],
-    valueEyebrow:'03 · Value chain', valueTitle:'Detection becomes action.',
-    valueText:'Recognition is useful when every detection becomes a trusted operational event that can be classified, evaluated, recorded and turned into action.',
-    chain:[
-      ['Detect','Camera or sensor captures an event.'],['Identify / classify','AI identifies the object or event.'],['Evaluate / score','Rules and confidence determine relevance.'],['Register / record','The event becomes an operational record.'],['Trigger action','Alerts and workflows execute.']
+    valueEyebrow: '03 · Value chain',
+    valueTitle: 'Detection becomes action.',
+    valueText: 'A recognition system is useful only when a detection becomes a reliable record and the right operational response.',
+    flow: [
+      ['Detect', 'Camera input'], ['Identify / Classify', 'Vision model'], ['Evaluate / Score', 'Rules + confidence'], ['Register / Record', 'Operational record'], ['Trigger Action', 'Alert or workflow'],
     ],
-    loop:'Trace & improve',
-    platformEyebrow:'04 · Platform', platformTitle:'The system behind recognition.',
-    platformText:'Recognition is one layer inside an operational architecture designed to run from the edge to workflows, dashboards and integrations.',
-    layers:['Edge capture','Recognition services','Rules & orchestration','Operational records','Dashboards & analytics','Integrations & APIs'],
-    deliveryEyebrow:'05 · Way we work', deliveryTitle:'From diagnosis to pilot to scale.',
-    delivery:[['01','Diagnosis','We map the camera estate, operational events and desired actions.'],['02','Pilot','We validate recognition quality in one real workflow.'],['03','Scale','We expand models, sites, integrations and governance.']],
-    footerPrimary:'Book a diagnosis', footerSecondary:'Talk to us',
+    trace: 'Trace & improve',
+    platformEyebrow: '04 · Platform',
+    platformTitle: 'The system behind recognition.',
+    platformText: 'The visual model is only one layer. N3uralia connects capture, intelligence, decision logic, records and integrations into one operational architecture.',
+    layers: [
+      ['01', 'Edge Capture', 'Cameras, sensors and field devices.'],
+      ['02', 'Vision Intelligence', 'Classification of animals, people, vehicles and objects.'],
+      ['03', 'Logic & Scoring', 'Confidence thresholds, rules and decision paths.'],
+      ['04', 'Records & Insights', 'Structured events, dashboards and measurable history.'],
+      ['05', 'Integrations', 'ERP, MES, APIs, cloud and third-party systems.'],
+    ],
+    workEyebrow: '05 · Way we work',
+    workTitle: 'From diagnosis to pilot to scale.',
+    workText: 'Start with one operational problem, validate it in the real environment, then scale the system with controls and observability.',
+    work: [
+      ['01', 'Diagnosis', 'Map cameras, events, constraints and the action that should follow a detection.'],
+      ['02', 'Pilot', 'Validate recognition quality and workflow reliability in one real operating context.'],
+      ['03', 'Scale', 'Expand sites, models, integrations, monitoring and governance.'],
+    ],
+    talk: 'Talk to us',
   },
   es: {
-    eyebrow:'Visión · Reconocimiento · Flujos',
-    title:'Sistemas de reconocimiento inteligente.',
-    intro:'Sistemas de visión computacional para fauna, calidad de producción, agricultura y seguridad que convierten detecciones en flujos de trabajo dentro de la operación.',
-    primary:'Agendar diagnóstico', secondary:'Ver casos de uso',
-    statement:'Reconocimiento para operaciones reales.',
-    useCases:[
-      ['Reconocimiento de fauna','Detecta puma, pudú y eventos de conservación en bosques, parques y zonas remotas.'],
-      ['Reconocimiento ganadero','Cuenta animales, registra eventos de alimentación y monitorea movimiento del rebaño.'],
-      ['Reconocimiento de calidad','Mide tamaño, color, defectos y calidad premium en productos y lotes.'],
-      ['Reconocimiento de seguridad','Detecta personas, vehículos, intrusión y eventos perimetrales en áreas críticas.'],
+    eyebrow: 'Visión · Reconocimiento · Flujos',
+    title: 'Sistemas de reconocimiento inteligente.',
+    intro: 'Sistemas de visión computacional para fauna, calidad de producción, agricultura y seguridad que convierten detecciones visuales en flujos operacionales confiables.',
+    primary: 'Agendar diagnóstico',
+    secondary: 'Ver casos de uso',
+    heroSignal: 'Cámara → Reconocimiento → Registro → Alerta → Acción',
+    casesEyebrow: '02 · Casos de uso',
+    casesTitle: 'Reconocimiento para operaciones reales.',
+    cases: [
+      ['Reconocimiento de fauna', 'Detecta puma, pudú y eventos de conservación en bosques, parques y zonas remotas.'],
+      ['Reconocimiento ganadero', 'Cuenta animales, registra alimentación y monitorea movimiento del rebaño.'],
+      ['Reconocimiento de calidad', 'Mide tamaño, color, defectos y calidad premium en productos y lotes.'],
+      ['Reconocimiento de seguridad', 'Detecta personas, vehículos, intrusión y eventos perimetrales en áreas críticas.'],
     ],
-    valueEyebrow:'03 · Cadena de valor', valueTitle:'La detección se convierte en acción.',
-    valueText:'El reconocimiento genera valor cuando cada detección se transforma en un evento operacional confiable que puede clasificarse, evaluarse, registrarse y activar una acción.',
-    chain:[
-      ['Detectar','Una cámara o sensor captura un evento.'],['Identificar / clasificar','La IA identifica el objeto o evento.'],['Evaluar / puntuar','Reglas y confianza determinan relevancia.'],['Registrar','El evento se convierte en un registro operacional.'],['Activar acción','Alertas y flujos se ejecutan.']
+    valueEyebrow: '03 · Cadena de valor',
+    valueTitle: 'La detección se convierte en acción.',
+    valueText: 'Un sistema de reconocimiento genera valor cuando una detección se convierte en un registro confiable y en la respuesta operacional correcta.',
+    flow: [
+      ['Detectar', 'Entrada de cámara'], ['Identificar / Clasificar', 'Modelo de visión'], ['Evaluar / Puntuar', 'Reglas + confianza'], ['Registrar', 'Registro operacional'], ['Activar acción', 'Alerta o flujo'],
     ],
-    loop:'Trazar y mejorar',
-    platformEyebrow:'04 · Plataforma', platformTitle:'El sistema detrás del reconocimiento.',
-    platformText:'El reconocimiento es una capa dentro de una arquitectura operacional diseñada para funcionar desde el edge hasta flujos, tableros e integraciones.',
-    layers:['Captura en edge','Servicios de reconocimiento','Reglas y orquestación','Registros operacionales','Tableros y analítica','Integraciones y APIs'],
-    deliveryEyebrow:'05 · Cómo trabajamos', deliveryTitle:'Del diagnóstico al piloto y a escala.',
-    delivery:[['01','Diagnóstico','Mapeamos cámaras, eventos operacionales y acciones deseadas.'],['02','Piloto','Validamos la calidad del reconocimiento en un flujo real.'],['03','Escala','Expandimos modelos, sitios, integraciones y gobernanza.']],
-    footerPrimary:'Agendar diagnóstico', footerSecondary:'Hablar con nosotros',
+    trace: 'Trazar y mejorar',
+    platformEyebrow: '04 · Plataforma',
+    platformTitle: 'El sistema detrás del reconocimiento.',
+    platformText: 'El modelo visual es solo una capa. N3uralia conecta captura, inteligencia, lógica de decisión, registros e integraciones en una arquitectura operacional.',
+    layers: [
+      ['01', 'Captura en Edge', 'Cámaras, sensores y dispositivos de terreno.'],
+      ['02', 'Inteligencia Visual', 'Clasificación de animales, personas, vehículos y objetos.'],
+      ['03', 'Lógica y Scoring', 'Umbrales, reglas y rutas de decisión.'],
+      ['04', 'Registros e Insights', 'Eventos estructurados, tableros e historial medible.'],
+      ['05', 'Integraciones', 'ERP, MES, APIs, nube y sistemas de terceros.'],
+    ],
+    workEyebrow: '05 · Cómo trabajamos',
+    workTitle: 'Del diagnóstico al piloto y a escala.',
+    workText: 'Partimos con un problema operacional, lo validamos en el entorno real y luego escalamos el sistema con controles y observabilidad.',
+    work: [
+      ['01', 'Diagnóstico', 'Mapeamos cámaras, eventos, restricciones y la acción que debe seguir a cada detección.'],
+      ['02', 'Piloto', 'Validamos calidad de reconocimiento y confiabilidad del flujo en un contexto operacional real.'],
+      ['03', 'Escala', 'Expandimos sitios, modelos, integraciones, monitoreo y gobernanza.'],
+    ],
+    talk: 'Hablar con nosotros',
   },
 } as const
 
-const useIcons = [Eye, Sprout, ScanLine, ShieldCheck]
-const chainIcons = [Camera, BrainCircuit, CircleDot, Database, BellRing]
+const useCaseImages = [
+  { src: '/recognition/wildlife.webp', alt: 'Clean dark image of a Chilean cougar for wildlife recognition.', position: '50% 44%' },
+  { src: '/recognition/cattle.webp', alt: 'Clean dark image of a healthy cow for cattle recognition.', position: '50% 42%' },
+  { src: '/recognition/quality-urchin.webp', alt: 'Open sea urchin held in black gloves for premium production quality recognition.', position: '50% 50%' },
+  { src: '/recognition/security-human.webp', alt: 'Dark perimeter security scene with a person detected as an intruder.', position: '50% 50%' },
+]
 
-function Path({locale}:{locale:Locale}){return locale==='es'?'/es/reconocimiento':'/en/recognition'}
+const flowGlyphs: GlyphName[] = ['camera', 'recognition', 'logic', 'record', 'action']
+const platformGlyphs: GlyphName[] = ['edge', 'vision', 'logic', 'insights', 'integrations']
+const workGlyphs: GlyphName[] = ['diagnosis', 'pilot', 'scale']
 
-export function RecognitionPage({locale}:{locale:Locale}) {
-  const t = content[locale]
+export function RecognitionPage({ locale }: { locale: Locale }) {
+  const t = copy[locale]
   return <main className="recognition-page">
     <section className="recognition-hero">
       <div className="recognition-shell recognition-hero-grid">
@@ -89,49 +134,89 @@ export function RecognitionPage({locale}:{locale:Locale}) {
             <Link href={`/${locale}/diagnostico`} className="recognition-button recognition-button-primary">{t.primary}</Link>
             <a href="#use-cases" className="recognition-button">{t.secondary}</a>
           </div>
-          <div className="recognition-signal"><Crosshair/><span>{locale==='es'?'La inteligencia comienza en datos reales.':'Intelligence starts with real data.'}</span></div>
-        </div>
-        <div className="recognition-hero-visual" aria-hidden>
-          <div className="recognition-screen">
-            <div className="recognition-screen-top"><span>N3URALIA // VISION OPERATIONS</span><span>LIVE</span></div>
-            <div className="recognition-screen-body">
-              <div className="recognition-camera-frame"><Crosshair/><span>OBJECT 01</span><i/></div>
-              <div className="recognition-metrics"><span>CONFIDENCE <b>98.4%</b></span><span>STATUS <b>TRACKED</b></span><span>ACTION <b>READY</b></span></div>
-            </div>
+          <div className="recognition-hero-flow" aria-label={t.heroSignal}>
+            {flowGlyphs.map((glyph, index) => <div key={glyph} className="recognition-hero-flow-step"><Glyph name={glyph}/>{index < flowGlyphs.length - 1 && <span aria-hidden>→</span>}</div>)}
           </div>
+          <p className="recognition-hero-flow-label">{t.heroSignal}</p>
         </div>
+        <figure className="recognition-hero-media">
+          <Image src="/n3uralia-brand/letsbuildthesystembehind.png" alt="N3uralia command center detecting a cougar on a large vision intelligence screen." fill priority sizes="(min-width: 960px) 56vw, 100vw" className="recognition-cover"/>
+          <div className="recognition-hero-cougar" aria-hidden>
+            <Image src="/recognition/wildlife.webp" alt="" fill sizes="360px" className="recognition-cover"/>
+          </div>
+          <span className="recognition-scan" aria-hidden/>
+        </figure>
       </div>
     </section>
 
-    <section id="use-cases" className="recognition-section">
+    <section id="use-cases" className="recognition-section recognition-cases">
       <div className="recognition-shell">
-        <div className="recognition-section-head"><div><small>02 · CORE USE CASES</small><h2>{t.statement}</h2></div></div>
-        <div className="recognition-usecases">{t.useCases.map(([title,desc],i)=>{const Icon=useIcons[i];return <article key={title} className="recognition-card"><div className="recognition-card-visual"><Icon/><span>0{i+1}</span></div><small>{title}</small><p>{desc}</p></article>})}</div>
+        <header className="recognition-section-head"><small>{t.casesEyebrow}</small><h2>{t.casesTitle}</h2></header>
+        <div className="recognition-usecases">
+          {t.cases.map(([title, description], index) => <article className="recognition-card" key={title}>
+            <div className={`recognition-card-image recognition-card-image-${index + 1}`}>
+              <Image src={useCaseImages[index].src} alt={useCaseImages[index].alt} fill loading="lazy" sizes="(min-width: 1000px) 25vw, (min-width: 620px) 50vw, 100vw" className="recognition-cover" style={{ objectPosition: useCaseImages[index].position }}/>
+            </div>
+            <span className="recognition-card-index">0{index + 1}</span>
+            <h3>{title}</h3>
+            <p>{description}</p>
+          </article>)}
+        </div>
       </div>
     </section>
 
     <section className="recognition-section recognition-value">
       <div className="recognition-shell">
-        <div className="recognition-section-head recognition-split"><div><small>{t.valueEyebrow}</small><h2>{t.valueTitle}</h2></div><p>{t.valueText}</p></div>
-        <div className="recognition-chain">{t.chain.map(([title,desc],i)=>{const Icon=chainIcons[i];return <div className="recognition-chain-step" key={title}><div className="recognition-chain-icon"><Icon/></div><small>{String(i+1).padStart(2,'0')}</small><h3>{title}</h3><p>{desc}</p>{i<t.chain.length-1&&<span className="recognition-chain-line"/>}</div>})}</div>
-        <div className="recognition-loop"><Workflow/><span>{t.loop}</span></div>
+        <header className="recognition-section-head recognition-split"><div><small>{t.valueEyebrow}</small><h2>{t.valueTitle}</h2></div><p>{t.valueText}</p></header>
+        <figure className="recognition-value-graphic" aria-label="Recognition workflow from detection to classification, scoring, record and action.">
+          <div className="recognition-flow-line" aria-hidden/>
+          {t.flow.map(([label, detail], index) => <div className="recognition-flow-node" key={label}>
+            <div className="recognition-flow-icon"><Glyph name={flowGlyphs[index]}/></div>
+            <span>0{index + 1}</span>
+            <h3>{label}</h3>
+            <p>{detail}</p>
+          </div>)}
+          <div className="recognition-feedback" aria-hidden><span>↶</span><b>{t.trace}</b><span>↷</span></div>
+        </figure>
       </div>
     </section>
 
     <section className="recognition-section recognition-platform">
-      <div className="recognition-shell recognition-platform-grid">
-        <div><small>{t.platformEyebrow}</small><h2>{t.platformTitle}</h2><p>{t.platformText}</p><div className="recognition-layer-list">{t.layers.map((layer,i)=><div key={layer}><span>0{i+1}</span><p>{layer}</p></div>)}</div></div>
-        <div className="recognition-stack" aria-hidden>{t.layers.map((layer,i)=><div key={layer} className="recognition-stack-layer"><Layers3/><span>{layer}</span><i>{String(t.layers.length-i).padStart(2,'0')}</i></div>)}</div>
+      <div className="recognition-shell recognition-platform-layout">
+        <div className="recognition-platform-intro"><small>{t.platformEyebrow}</small><h2>{t.platformTitle}</h2><p>{t.platformText}</p></div>
+        <figure className="recognition-platform-graphic" aria-label="Layered architecture showing edge capture, vision intelligence, scoring, records and integrations.">
+          <div className="recognition-platform-rays" aria-hidden/>
+          {t.layers.map(([number, label], index) => <div className={`recognition-platform-layer recognition-platform-layer-${index + 1}`} key={number}>
+            <Glyph name={platformGlyphs[index]}/><span>{label}</span><i>{number}</i>
+          </div>)}
+        </figure>
+        <div className="recognition-platform-list">
+          {t.layers.map(([number, label, description], index) => <div className="recognition-platform-item" key={number}>
+            <Glyph name={platformGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
+          </div>)}
+        </div>
       </div>
     </section>
 
-    <section className="recognition-section recognition-delivery">
-      <div className="recognition-shell recognition-delivery-grid">
-        <div><small>{t.deliveryEyebrow}</small><h2>{t.deliveryTitle}</h2><div className="recognition-actions"><Link href={`/${locale}/diagnostico`} className="recognition-button recognition-button-primary">{t.footerPrimary}</Link><Link href={`/${locale}/contact`} className="recognition-button">{t.footerSecondary}</Link></div></div>
-        <div className="recognition-delivery-steps">{t.delivery.map(([n,title,desc])=><article key={n}><span>{n}</span><h3>{title}</h3><p>{desc}</p><CheckCircle2/></article>)}</div>
+    <section className="recognition-section recognition-work">
+      <div className="recognition-shell recognition-work-grid">
+        <div className="recognition-work-copy">
+          <small>{t.workEyebrow}</small><h2>{t.workTitle}</h2><p>{t.workText}</p>
+          <div className="recognition-work-steps">
+            {t.work.map(([number, label, description], index) => <article key={number}>
+              <Glyph name={workGlyphs[index]}/><span>{number}</span><div><h3>{label}</h3><p>{description}</p></div>
+            </article>)}
+          </div>
+          <div className="recognition-actions"><Link href={`/${locale}/diagnostico`} className="recognition-button recognition-button-primary">{t.primary}</Link><Link href={`/${locale}/contact`} className="recognition-button">{t.talk}</Link></div>
+          <address className="recognition-contact"><a href="mailto:juan@n3uralia.com">juan@n3uralia.com</a><a href="https://wa.me/56993826127">+56 9 9382 6127</a><span>Santiago, Chile · LATAM</span></address>
+        </div>
+        <figure className="recognition-work-media">
+          <Image src="/n3uralia-brand/letsbuildthesystembehind.png" alt="Operational command center monitoring recognition systems at scale." fill loading="lazy" sizes="(min-width: 960px) 52vw, 100vw" className="recognition-cover"/>
+          <div className="recognition-work-gridlines" aria-hidden/>
+        </figure>
       </div>
     </section>
   </main>
 }
 
-export function recognitionHref(locale:Locale){return Path({locale})}
+export function recognitionHref(locale: Locale) { return locale === 'es' ? '/es/reconocimiento' : '/en/recognition' }
