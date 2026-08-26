@@ -1,0 +1,137 @@
+.portal-dark-page {
+  --portal-bg: #030606;
+  --portal-bg-alt: #071010;
+  --portal-surface: #0b1516;
+  --portal-surface-2: #101c1d;
+  --portal-line: rgba(115, 150, 148, .24);
+  --portal-line-strong: rgba(115, 150, 148, .42);
+  --portal-text: #e8f0f0;
+  --portal-muted: #93a8a7;
+  --portal-brand: #739694;
+  min-height: 100vh;
+  background: var(--portal-bg);
+  color: var(--portal-text);
+}
+
+.portal-dark-page main {
+  background: var(--portal-bg) !important;
+  color: var(--portal-text) !important;
+}
+
+.portal-dark-page main > section,
+.portal-dark-page main > div > section {
+  background-color: var(--portal-bg) !important;
+  border-color: var(--portal-line) !important;
+}
+
+.portal-dark-page main > section:nth-of-type(even),
+.portal-dark-page main > div > section:nth-of-type(even) {
+  background-color: var(--portal-bg-alt) !important;
+}
+
+.portal-dark-page .bg-white,
+.portal-dark-page [class*="bg-white/"],
+.portal-dark-page [class*="bg-[#fbfbfa]"],
+.portal-dark-page [class*="bg-[#f7faf8]"],
+.portal-dark-page [class*="bg-[#f4f8f8]"],
+.portal-dark-page [class*="bg-[#eef5f2]"],
+.portal-dark-page [class*="bg-[#eaf1f1]"],
+.portal-dark-page [class*="bg-[#f8fbfa]"],
+.portal-dark-page [class*="bg-slate-50"],
+.portal-dark-page [class*="bg-gray-50"] {
+  background-color: var(--portal-surface) !important;
+}
+
+.portal-dark-page [class*="bg-[#173634]"],
+.portal-dark-page [class*="bg-[#243331]"],
+.portal-dark-page [class*="bg-slate-900"],
+.portal-dark-page [class*="bg-zinc-900"] {
+  background-color: var(--portal-surface-2) !important;
+}
+
+.portal-dark-page [class*="text-[#173634]"],
+.portal-dark-page [class*="text-[#243331]"],
+.portal-dark-page [class*="text-[#102326]"],
+.portal-dark-page [class*="text-slate-900"],
+.portal-dark-page [class*="text-gray-900"],
+.portal-dark-page [class*="text-zinc-900"] {
+  color: var(--portal-text) !important;
+}
+
+.portal-dark-page [class*="text-[#526e69]"],
+.portal-dark-page [class*="text-[#65706d]"],
+.portal-dark-page [class*="text-[#5d7073]"],
+.portal-dark-page [class*="text-[#50686a]"],
+.portal-dark-page [class*="text-[#687c7f]"],
+.portal-dark-page [class*="text-slate-500"],
+.portal-dark-page [class*="text-slate-600"],
+.portal-dark-page [class*="text-gray-500"],
+.portal-dark-page [class*="text-gray-600"] {
+  color: var(--portal-muted) !important;
+}
+
+.portal-dark-page [class*="text-[#789b96]"],
+.portal-dark-page [class*="text-[#739694]"] {
+  color: var(--portal-brand) !important;
+}
+
+.portal-dark-page [class*="border-[#d8e5e2]"],
+.portal-dark-page [class*="border-[#cfe0dc]"],
+.portal-dark-page [class*="border-[#b8d1cc]"],
+.portal-dark-page [class*="border-[#c9d8d8]"],
+.portal-dark-page [class*="border-slate-200"],
+.portal-dark-page [class*="border-gray-200"] {
+  border-color: var(--portal-line) !important;
+}
+
+.portal-dark-page [class*="shadow-["],
+.portal-dark-page .shadow-sm,
+.portal-dark-page .shadow-md,
+.portal-dark-page .shadow-lg,
+.portal-dark-page .shadow-xl,
+.portal-dark-page .shadow-2xl {
+  box-shadow: none !important;
+}
+
+.portal-dark-page input,
+.portal-dark-page textarea,
+.portal-dark-page select {
+  background: var(--portal-surface) !important;
+  border-color: var(--portal-line-strong) !important;
+  color: var(--portal-text) !important;
+}
+
+.portal-dark-page input::placeholder,
+.portal-dark-page textarea::placeholder {
+  color: #718583 !important;
+}
+
+.portal-dark-page article,
+.portal-dark-page [class*="rounded-[1."],
+.portal-dark-page [class*="rounded-2xl"],
+.portal-dark-page [class*="rounded-3xl"] {
+  border-color: var(--portal-line) !important;
+}
+
+.portal-dark-page a:focus-visible,
+.portal-dark-page button:focus-visible {
+  outline-color: var(--portal-brand) !important;
+}
+
+.portal-dark-page .retro-footer,
+.portal-dark-page footer {
+  background: #020404 !important;
+  border-color: var(--portal-line) !important;
+}
+
+@media (max-width: 900px) {
+  .portal-dark-page main > section,
+  .portal-dark-page main > div > section {
+    background-color: var(--portal-bg) !important;
+  }
+
+  .portal-dark-page main > section:nth-of-type(even),
+  .portal-dark-page main > div > section:nth-of-type(even) {
+    background-color: #050b0b !important;
+  }
+}
