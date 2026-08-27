@@ -1,5 +1,13 @@
 import Link from 'next/link'
 import type { Locale } from '@/lib/get-locale'
+import { recognitionHero } from './recognition-assets/section-1'
+import { recognitionWildlife } from './recognition-assets/section-2-wildlife'
+import { recognitionCattle } from './recognition-assets/section-2-cattle'
+import { recognitionUrchin } from './recognition-assets/section-2-urchin'
+import { recognitionSecurity } from './recognition-assets/section-2-security'
+import { recognitionValueChain } from './recognition-assets/section-3'
+import { recognitionPlatform } from './recognition-assets/section-4'
+import { recognitionScale } from './recognition-assets/section-5'
 import s from './recognition-page.module.css'
 
 const copy = {
@@ -69,13 +77,20 @@ const copy = {
   },
 } as const
 
+const useCaseAssets = [
+  [recognitionWildlife, 'Clean dark image of a Chilean cougar for wildlife recognition.'],
+  [recognitionCattle, 'Clean dark image of a healthy cow for livestock recognition.'],
+  [recognitionUrchin, 'Open sea urchin held in black gloves for premium production quality recognition.'],
+  [recognitionSecurity, 'Dark perimeter security scene with a person detected as an intruder.'],
+] as const
+
 export function RecognitionPage({ locale }: { locale: Locale }) {
   const t = copy[locale]
 
   return (
     <main className={s.page}>
       <section className={`${s.section} ${s.hero}`}>
-        <div className={s.shell}>
+        <div className={`${s.shell} ${s.heroGrid}`}>
           <div className={s.heroCopy}>
             <span className={s.eyebrow}>{t.heroEyebrow}</span>
             <h1>{t.heroTitle}</h1>
@@ -85,7 +100,9 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
               <Link href={`/${locale}/contact`} className={s.button}>{t.talk}</Link>
             </div>
           </div>
-          <div className={`${s.atlasFrame} ${s.frame1}`} role="img" aria-label="N3uralia command center detecting a cougar on a visual intelligence display." />
+          <figure className={`${s.mediaFrame} ${s.heroVisual}`}>
+            <img src={recognitionHero} alt="N3uralia command center detecting a cougar on a large visual intelligence display." className={s.visual} />
+          </figure>
         </div>
       </section>
 
@@ -95,17 +112,19 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
             <span className={s.eyebrow}>{t.useEyebrow}</span>
             <h2>{t.useTitle}</h2>
           </header>
-          <div className={s.useCaseVisual}>
-            <div className={`${s.atlasFrame} ${s.frame2}`} role="img" aria-label="Four recognition examples: cougar, cow, sea urchin and perimeter security person." />
-            <div className={s.useCaseLabels}>
-              {t.useCases.map((item, i) => (
-                <article key={item[0]} className={s.useCaseLabel}>
+          <div className={s.cardGrid}>
+            {t.useCases.map((item, i) => (
+              <article className={s.useCaseCard} key={item[0]}>
+                <div className={s.cardMedia}>
+                  <img src={useCaseAssets[i][0]} alt={useCaseAssets[i][1]} loading="lazy" className={s.visual} />
+                </div>
+                <div className={s.cardBody}>
                   <span>0{i + 1}</span>
                   <h3>{item[0]}</h3>
                   <p>{item[1]}</p>
-                </article>
-              ))}
-            </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -116,7 +135,9 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
             <div><span className={s.eyebrow}>{t.valueEyebrow}</span><h2>{t.valueTitle}</h2></div>
             <p>{t.valueBody}</p>
           </header>
-          <div className={`${s.atlasFrame} ${s.frame3} ${s.diagramFrame}`} role="img" aria-label="Recognition value chain from capture through action with a continuous feedback loop." />
+          <figure className={`${s.mediaFrame} ${s.diagramFrame}`}>
+            <img src={recognitionValueChain} alt="Recognition workflow from capture through detection, validation, management and action with a continuous feedback loop." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
+          </figure>
         </div>
       </section>
 
@@ -131,7 +152,9 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
               <p>{t.platformBody}</p>
               <Link href={`/${locale}/contact`} className={s.button}>{t.talk}</Link>
             </aside>
-            <div className={`${s.atlasFrame} ${s.frame4} ${s.platformVisual}`} role="img" aria-label="Layered N3uralia recognition platform architecture with sensors, vision models, logic, records and integrations." />
+            <figure className={`${s.mediaFrame} ${s.platformVisual}`}>
+              <img src={recognitionPlatform} alt="Layered N3uralia recognition platform architecture with sensors, visual models, logic, records and enterprise integrations." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
+            </figure>
             <div className={s.layerList}>
               {t.layers.map((layer) => (
                 <div key={layer[0]} className={s.layerItem}>
@@ -160,7 +183,9 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
                 <span>Santiago, Chile · LATAM</span>
               </div>
             </div>
-            <div className={`${s.atlasFrame} ${s.frame5} ${s.scaleVisual}`} role="img" aria-label="N3uralia operational command center monitoring recognition systems at scale." />
+            <figure className={`${s.mediaFrame} ${s.scaleVisual}`}>
+              <img src={recognitionScale} alt="N3uralia operational command center monitoring recognition systems at scale." loading="lazy" className={s.visual} />
+            </figure>
           </div>
         </div>
       </section>
