@@ -1,6 +1,0 @@
-.recognition-hero-media{background-image:url('/assets/recognition/hero-command-center-cougar.webp')!important;background-size:cover!important;background-position:center center!important;aspect-ratio:16/9;min-height:0!important}
-.recognition-hero-media>img{opacity:0!important}
-.recognition-hero-cougar,.recognition-scan{display:none!important}
-.recognition-hero-media:after{background:linear-gradient(90deg,rgba(2,6,6,.22),transparent 32%),linear-gradient(180deg,rgba(2,6,6,.03),rgba(2,6,6,.2))!important}
-@media(max-width:900px){.recognition-hero-media{aspect-ratio:16/9;min-height:0!important;background-position:52% center!important}}
-@media(max-width:600px){.recognition-hero-media{aspect-ratio:4/3;background-position:58% center!important}}
