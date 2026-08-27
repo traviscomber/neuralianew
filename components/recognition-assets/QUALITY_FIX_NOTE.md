@@ -1,0 +1,1 @@
+2026-08-27: Preview-grade embedded data URIs caused visible compression and a failed urchin asset. Replace them with normal high-resolution files and verify deployed rendering before sign-off.
