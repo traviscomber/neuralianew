@@ -34,7 +34,7 @@ const copy = {
 const images = [
   ['/recognition/wildlife.webp','Clean dark image of a Chilean cougar for wildlife recognition.'],
   ['/recognition/cattle.webp','Clean dark image of a healthy cow for cattle recognition.'],
-  ['/recognition/quality-urchin.webp','Open sea urchin held in black gloves for premium production quality recognition.'],
+  ['/recognition/quality-urchin.webp?v=20260827b','Open sea urchin held in black gloves for premium production quality recognition.'],
   ['/recognition/security-human.webp','Dark perimeter security scene with a person detected as an intruder.'],
 ] as const
 
@@ -71,7 +71,7 @@ export function RecognitionPage({locale}:{locale:Locale}){
           <div className={s.heroFlow}>{t.flow.map((f,i)=><div className={s.heroFlowItem} key={f[0]}><span className={s.heroFlowIcon}><FlowIcon i={i}/></span>{i<t.flow.length-1&&<span className={s.heroFlowArrow}>→</span>}<small>{f[0]}</small></div>)}</div>
           <div className={s.signal}><span className={s.signalDot}/>{t.signal}</div>
         </div>
-        <figure className={`${s.media} ${s.heroMedia}`}><img src="/assets/recognition/hero-command-center-cougar.webp" alt="N3uralia command center detecting a cougar on a large vision intelligence screen." className={s.image}/></figure>
+        <figure className={`${s.media} ${s.heroMedia}`}><img src="/assets/recognition/hero-command-center-cougar.webp?v=20260827b" alt="N3uralia command center detecting a cougar on a large vision intelligence screen." className={s.image}/></figure>
       </div>
     </section>
 
