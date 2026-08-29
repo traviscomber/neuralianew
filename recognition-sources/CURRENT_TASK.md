@@ -1,0 +1,1 @@
+Replace all embedded recognition imagery with real root-level /public WebP binaries and rebuild sections 01-05 to match mockup5sections.pdf.
