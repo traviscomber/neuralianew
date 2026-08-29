@@ -1,0 +1,76 @@
+name: Build recognition assets
+
+on:
+  push:
+    paths:
+      - 'assets-source/recognition-final/**'
+      - '.github/workflows/build-recognition-assets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci --legacy-peer-deps
+      - name: Reconstruct WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          assets=(
+            hero-command-center-cougar
+            usecase-cougar-clean
+            usecase-cow-clean
+            usecase-sea-urchin-clean
+            usecase-security-clean
+            value-chain-detection-action
+            platform-system-behind-recognition
+            command-center-scale
+          )
+          for name in "${assets[@]}"; do
+            dir="assets-source/recognition-final/$name"
+            test -d "$dir"
+            cat "$dir"/part-* | base64 --decode > "public/$name.webp"
+          done
+      - name: Validate assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const sharp = require('sharp');
+          const fs = require('fs');
+          const names = [
+            'hero-command-center-cougar.webp','usecase-cougar-clean.webp','usecase-cow-clean.webp','usecase-sea-urchin-clean.webp','usecase-security-clean.webp','value-chain-detection-action.webp','platform-system-behind-recognition.webp','command-center-scale.webp'
+          ];
+          (async () => {
+            for (const name of names) {
+              const p = `public/${name}`;
+              if (!fs.existsSync(p) || fs.statSync(p).size < 10000) throw new Error(`Invalid asset: ${name}`);
+              const m = await sharp(p).metadata();
+              if (m.format !== 'webp' || !m.width || !m.height) throw new Error(`Invalid WebP: ${name}`);
+              console.log(`${name}: ${m.width}x${m.height}, ${fs.statSync(p).size} bytes`);
+            }
+          })().catch(e => { console.error(e); process.exit(1); });
+          NODE
+      - name: Commit generated assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/*.webp
+          if git diff --cached --quiet; then
+            echo 'Assets already current.'
+            exit 0
+          fi
+          git commit -m 'build(recognition): generate production WebP assets'
+          git push
