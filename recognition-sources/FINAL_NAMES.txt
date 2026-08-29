@@ -1,0 +1,8 @@
+hero-command-center-cougar.webp
+usecase-cougar-clean.webp
+usecase-cow-clean.webp
+usecase-sea-urchin-clean.webp
+usecase-security-clean.webp
+value-chain-detection-action.webp
+platform-system-behind-recognition.webp
+command-center-scale.webp
