@@ -1,0 +1,98 @@
+/* Recognition hero visual layer. Deliberately does not alter copy or content geometry. */
+main[class*="recognition-page_page"] > section:first-child {
+  isolation: isolate;
+  overflow: hidden;
+  background-image:
+    linear-gradient(90deg,rgba(2,6,7,.99) 0%,rgba(2,6,7,.94) 28%,rgba(2,6,7,.69) 47%,rgba(2,6,7,.20) 70%,rgba(2,6,7,.08) 100%),
+    linear-gradient(180deg,rgba(2,6,7,.06),rgba(2,6,7,.22)),
+    url('/hero-recognition-clean.webp') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* HUD is live DOM/CSS rendering, not baked into the WebP. */
+main[class*="recognition-page_page"] > section:first-child::before {
+  content: "WILDLIFE MONITORING\A Torres del Paine NP, Chile\A\A DETECTION\A PUMA · CONFIRMED\A Confidence 98%\A\A SYSTEM STATUS\A ● ALL SYSTEMS OPERATIONAL\A\A LOCATION\A 50.9452° S · 72.6153° W\A Altitude 250 m\A\A ENVIRONMENT\A 8°C · 78% · SW 12 km/h";
+  white-space: pre;
+  position: absolute;
+  z-index: 1;
+  top: 12%;
+  right: 3.4%;
+  width: min(42vw, 590px);
+  height: 67%;
+  box-sizing: border-box;
+  padding: 4.8% 2.2% 2%;
+  border: 1px solid rgba(134,197,193,.42);
+  clip-path: polygon(3% 0,97% 0,100% 6%,100% 94%,97% 100%,3% 100%,0 94%,0 6%);
+  color: rgba(154,211,207,.72);
+  font: 500 clamp(7px,.56vw,10px)/1.7 var(--font-rajdhani),sans-serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(80,210,200,.22);
+  background:
+    linear-gradient(rgba(134,197,193,.58),rgba(134,197,193,.58)) 58% 36%/29% 1px no-repeat,
+    linear-gradient(rgba(134,197,193,.58),rgba(134,197,193,.58)) 58% 72%/29% 1px no-repeat,
+    linear-gradient(90deg,rgba(134,197,193,.58),rgba(134,197,193,.58)) 44% 36%/1px 36% no-repeat,
+    linear-gradient(90deg,rgba(134,197,193,.58),rgba(134,197,193,.58)) 73% 36%/1px 36% no-repeat,
+    radial-gradient(circle at 58% 54%,rgba(126,226,217,.12),transparent 30%),
+    rgba(0,10,12,.10);
+  pointer-events: none;
+  animation: recognitionHudPulse 4.8s ease-in-out infinite;
+}
+
+main[class*="recognition-page_page"] > section:first-child::after {
+  content: "98%   TARGET LOCK\A PUMA CONCOLOR   /   TRACK 01";
+  white-space: pre;
+  position: absolute;
+  z-index: 1;
+  left: 58%;
+  top: 34%;
+  width: 25%;
+  height: 36%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 12px;
+  border: 1px solid rgba(132,221,214,.72);
+  color: rgba(158,230,224,.86);
+  font: 500 clamp(7px,.58vw,10px)/1.45 var(--font-rajdhani),sans-serif;
+  letter-spacing: .12em;
+  text-align: right;
+  text-transform: uppercase;
+  background:
+    linear-gradient(90deg,transparent 0 47%,rgba(134,197,193,.16) 50%,transparent 53%) 0 0/100% 100%,
+    repeating-linear-gradient(0deg,transparent 0 14px,rgba(134,197,193,.035) 15px 16px);
+  box-shadow: inset 0 0 30px rgba(77,198,190,.04),0 0 18px rgba(77,198,190,.05);
+  pointer-events: none;
+  animation: recognitionTargetScan 3.6s ease-in-out infinite;
+}
+
+@keyframes recognitionHudPulse {
+  0%,100% { opacity:.66; filter:brightness(.9); }
+  45% { opacity:.92; filter:brightness(1.12); }
+  50% { opacity:.76; }
+  55% { opacity:.94; }
+}
+
+@keyframes recognitionTargetScan {
+  0%,100% { opacity:.70; transform:translateY(0); background-position:0 -40px,0 0; }
+  50% { opacity:1; transform:translateY(-2px); background-position:0 120px,0 0; }
+}
+
+@media (max-width: 900px) {
+  main[class*="recognition-page_page"] > section:first-child::before,
+  main[class*="recognition-page_page"] > section:first-child::after { opacity:.42; }
+  main[class*="recognition-page_page"] > section:first-child::before { right:-16%; width:65vw; }
+  main[class*="recognition-page_page"] > section:first-child::after { left:62%; width:31%; }
+}
+
+@media (max-width: 620px) {
+  main[class*="recognition-page_page"] > section:first-child::before,
+  main[class*="recognition-page_page"] > section:first-child::after { display:none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main[class*="recognition-page_page"] > section:first-child::before,
+  main[class*="recognition-page_page"] > section:first-child::after { animation:none; }
+}
