@@ -10,7 +10,7 @@ main[class*="recognition-page_page"] > section:first-child {
   background-position: center !important;
 }
 
-/* Live information panel. Kept entirely on the right side of the monitor area. */
+/* Right-side telemetry: text only, with no teal frame/lines behind it. */
 main[class*="recognition-page_page"] > section:first-child::before {
   content: "WILDLIFE MONITORING\A Torres del Paine NP, Chile\A\A DETECTION\A PUMA · CONFIRMED\A Confidence 98%\A\A SYSTEM STATUS\A ● ALL SYSTEMS OPERATIONAL\A\A LOCATION\A 50.9452° S · 72.6153° W\A Altitude 250 m\A\A ENVIRONMENT\A 8°C · 78% · SW 12 km/h\A\A\A 98%   TARGET LOCK\A PUMA CONCOLOR   /   TRACK 01";
   white-space: pre;
@@ -18,55 +18,52 @@ main[class*="recognition-page_page"] > section:first-child::before {
   z-index: 1;
   top: 9%;
   right: 3.2%;
-  width: min(14vw, 190px);
+  width: min(14vw,190px);
   height: 74%;
   box-sizing: border-box;
   padding: 18px 14px 14px;
-  border-left: 1px solid rgba(134,197,193,.28);
+  border: 0;
   color: rgba(154,211,207,.78);
   font: 500 clamp(7px,.54vw,10px)/1.68 var(--font-rajdhani),sans-serif;
   letter-spacing: .08em;
   text-transform: uppercase;
   text-align: left;
   text-shadow: 0 0 10px rgba(80,210,200,.22);
-  background:
-    linear-gradient(rgba(134,197,193,.32),rgba(134,197,193,.32)) 0 28%/100% 1px no-repeat,
-    linear-gradient(rgba(134,197,193,.32),rgba(134,197,193,.32)) 0 59%/100% 1px no-repeat,
-    linear-gradient(rgba(134,197,193,.30),rgba(134,197,193,.30)) 0 84%/100% 1px no-repeat,
-    rgba(0,10,12,.06);
+  background: transparent;
   pointer-events: none;
   animation: recognitionHudPulse 4.8s ease-in-out infinite;
 }
 
-/* Moving detection box tracks the cougar head rather than the full body. */
+/* Compact square target locked to the cougar head. The horizontal bright band scans vertically. */
 main[class*="recognition-page_page"] > section:first-child::after {
   content: "98%";
   position: absolute;
   z-index: 1;
-  left: 57%;
-  top: 8%;
-  width: 20%;
-  height: 47%;
+  left: 60%;
+  top: 13%;
+  width: 14vw;
+  max-width: 180px;
+  aspect-ratio: 1 / 1;
+  height: auto;
   box-sizing: border-box;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  padding: 10px;
-  border: 1px solid rgba(132,221,214,.76);
-  clip-path: polygon(0 0,18% 0,18% 1px,82% 1px,82% 0,100% 0,100% 18%,calc(100% - 1px) 18%,calc(100% - 1px) 82%,100% 82%,100% 100%,82% 100%,82% calc(100% - 1px),18% calc(100% - 1px),18% 100%,0 100%,0 82%,1px 82%,1px 18%,0 18%);
+  padding: 8px;
+  border: 1px solid rgba(132,221,214,.82);
   color: rgba(158,230,224,.92);
   font: 500 clamp(7px,.58vw,10px)/1.45 var(--font-rajdhani),sans-serif;
   letter-spacing: .12em;
   text-align: right;
   text-transform: uppercase;
   background:
-    linear-gradient(90deg,transparent 0 47%,rgba(134,197,193,.18) 50%,transparent 53%) 0 0/100% 100%,
-    repeating-linear-gradient(0deg,transparent 0 14px,rgba(134,197,193,.035) 15px 16px),
-    radial-gradient(circle at 50% 42%,rgba(126,226,217,.07),transparent 34%);
-  box-shadow: inset 0 0 30px rgba(77,198,190,.04),0 0 18px rgba(77,198,190,.07);
+    linear-gradient(180deg,transparent 0 45%,rgba(145,255,246,.10) 47%,rgba(165,255,248,.95) 49.5%,rgba(165,255,248,.95) 50.5%,rgba(145,255,246,.10) 53%,transparent 55%) 0 -100%/100% 42% no-repeat,
+    repeating-linear-gradient(0deg,transparent 0 13px,rgba(134,197,193,.028) 14px 15px),
+    radial-gradient(circle at 50% 45%,rgba(126,226,217,.06),transparent 38%);
+  box-shadow: inset 0 0 24px rgba(77,198,190,.035),0 0 14px rgba(77,198,190,.06);
   pointer-events: none;
   transform-origin:center;
-  animation: recognitionTargetScan 3.6s ease-in-out infinite;
+  animation: recognitionTargetScan 2.5s linear infinite;
 }
 
 @keyframes recognitionHudPulse {
@@ -77,37 +74,29 @@ main[class*="recognition-page_page"] > section:first-child::after {
 }
 
 @keyframes recognitionTargetScan {
-  0%,100% { opacity:.72; transform:translate(0,0) scale(1); background-position:0 -36px,0 0,0 0; }
-  25% { transform:translate(3px,-2px) scale(1.008); }
-  50% { opacity:1; transform:translate(-2px,2px) scale(.994); background-position:0 118px,0 0,0 0; }
-  75% { transform:translate(2px,1px) scale(1.004); }
+  0% { opacity:.78; transform:translate(0,0); background-position:0 -42%,0 0,0 0; }
+  50% { opacity:1; transform:translate(1px,-1px); background-position:0 92%,0 0,0 0; }
+  100% { opacity:.78; transform:translate(0,0); background-position:0 220%,0 0,0 0; }
 }
 
-@media (max-width: 1100px) {
-  main[class*="recognition-page_page"] > section:first-child::before {
-    right:2%;
-    width:17vw;
-    opacity:.62;
-  }
-  main[class*="recognition-page_page"] > section:first-child::after {
-    left:58%;
-    width:21%;
-  }
+@media (max-width:1100px) {
+  main[class*="recognition-page_page"] > section:first-child::before { right:2%; width:17vw; opacity:.62; }
+  main[class*="recognition-page_page"] > section:first-child::after { left:61%; width:15vw; }
 }
 
-@media (max-width: 900px) {
+@media (max-width:900px) {
   main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { opacity:.42; }
   main[class*="recognition-page_page"] > section:first-child::before { right:1%; width:20vw; }
-  main[class*="recognition-page_page"] > section:first-child::after { left:61%; top:10%; width:23%; height:43%; }
+  main[class*="recognition-page_page"] > section:first-child::after { left:63%; top:14%; width:17vw; }
 }
 
-@media (max-width: 620px) {
+@media (max-width:620px) {
   main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { display:none; }
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion:reduce) {
   main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { animation:none; }
 }
