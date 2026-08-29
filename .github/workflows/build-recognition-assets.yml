@@ -2,6 +2,7 @@ name: Build recognition assets
 
 on:
   push:
+    branches: [main]
     paths:
       - 'assets-source/recognition-final/**'
       - '.github/workflows/build-recognition-assets.yml'
@@ -48,15 +49,22 @@ jobs:
           node <<'NODE'
           const sharp = require('sharp');
           const fs = require('fs');
-          const names = [
-            'hero-command-center-cougar.webp','usecase-cougar-clean.webp','usecase-cow-clean.webp','usecase-sea-urchin-clean.webp','usecase-security-clean.webp','value-chain-detection-action.webp','platform-system-behind-recognition.webp','command-center-scale.webp'
-          ];
+          const expected = {
+            'hero-command-center-cougar.webp':[1672,941],
+            'usecase-cougar-clean.webp':[820,452],
+            'usecase-cow-clean.webp':[820,452],
+            'usecase-sea-urchin-clean.webp':[820,452],
+            'usecase-security-clean.webp':[820,452],
+            'value-chain-detection-action.webp':[1280,720],
+            'platform-system-behind-recognition.webp':[1280,720],
+            'command-center-scale.webp':[1280,720]
+          };
           (async () => {
-            for (const name of names) {
+            for (const [name,[width,height]] of Object.entries(expected)) {
               const p = `public/${name}`;
               if (!fs.existsSync(p) || fs.statSync(p).size < 10000) throw new Error(`Invalid asset: ${name}`);
               const m = await sharp(p).metadata();
-              if (m.format !== 'webp' || !m.width || !m.height) throw new Error(`Invalid WebP: ${name}`);
+              if (m.format !== 'webp' || m.width !== width || m.height !== height) throw new Error(`Unexpected ${name}: ${m.width}x${m.height}`);
               console.log(`${name}: ${m.width}x${m.height}, ${fs.statSync(p).size} bytes`);
             }
           })().catch(e => { console.error(e); process.exit(1); });
