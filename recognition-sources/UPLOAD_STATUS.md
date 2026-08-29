@@ -1,1 +1,0 @@
-Production WebP upload is in progress. The page must reference only root /public WebP paths after the binary commit lands.

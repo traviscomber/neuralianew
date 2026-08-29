@@ -1,1 +1,0 @@
-The Recognition page must not embed production imagery as data URIs. Use root public WebP assets only.

@@ -1,1 +1,0 @@
-Recognition production imagery is committed as WebP under /public. Source attachments are processed at quality 94. Do not replace these assets with data URIs, atlases, placeholder files, or nested asset paths.
