@@ -85,11 +85,14 @@ const copy = {
   },
 } as const
 
+// Every path below is already committed under /public. Keep the page free of
+// references to unmaterialized staging assets so production never renders an
+// empty media frame while the final Recognition WebPs are being synchronized.
 const useCaseAssets = [
   ['/usecase-cougar-clean.webp', 'Clean dark image of a Chilean cougar for wildlife recognition.'],
   ['/usecase-cow-clean.webp', 'Clean dark image of a healthy cow for cattle recognition.'],
-  ['/usecase-sea-urchin-clean.webp', 'Open sea urchin held in black gloves for premium production quality recognition.'],
-  ['/usecase-security-clean.webp', 'Dark perimeter security scene with a human silhouette.'],
+  ['/background-demo-capabilities.jpg', 'Technology inspection visual for production quality recognition.'],
+  ['/background-demo-workflow.jpg', 'Operational monitoring visual for security recognition.'],
 ] as const
 
 export function RecognitionPage({ locale }: { locale: Locale }) {
@@ -150,7 +153,7 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
             <p>{t.valueBody}</p>
           </header>
           <figure className={`${s.mediaFrame} ${s.diagramFrame}`}>
-            <img src="/value-chain-detection-action.webp" alt="Recognition workflow from detection to classification, scoring, record and action." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
+            <img src="/background-demo-workflow.jpg" alt="Recognition workflow from detection to classification, scoring, record and action." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
           </figure>
           <div className={s.flowLabels} aria-label={t.flow.join(' to ')}>
             {t.flow.map((label, index) => <div key={label}><span>0{index + 1}</span><b>{label}</b></div>)}
@@ -175,7 +178,7 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
             </div>
           </div>
           <figure className={`${s.mediaFrame} ${s.platformVisual}`}>
-            <img src="/platform-system-behind-recognition.webp" alt="Layered architecture showing edge capture, vision intelligence, scoring, records and integrations." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
+            <img src="/background-demo-capabilities.jpg" alt="Layered architecture showing edge capture, vision intelligence, scoring, records and integrations." loading="lazy" className={`${s.visual} ${s.containVisual}`} />
           </figure>
         </div>
       </section>
@@ -204,7 +207,7 @@ export function RecognitionPage({ locale }: { locale: Locale }) {
             </address>
           </div>
           <figure className={`${s.mediaFrame} ${s.workVisual}`}>
-            <img src="/command-center-scale.webp" alt="Operational command center monitoring recognition systems at scale." loading="lazy" className={s.visual} />
+            <img src="/background-demo-solutions.jpg" alt="Operational command center monitoring recognition systems at scale." loading="lazy" className={s.visual} />
           </figure>
         </div>
       </section>
