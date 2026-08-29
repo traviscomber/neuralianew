@@ -1,0 +1,1 @@
+Root-level WebP binaries only.
