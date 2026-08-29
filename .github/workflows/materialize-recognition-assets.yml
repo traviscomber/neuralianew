@@ -1,0 +1,58 @@
+name: Materialize Recognition Assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets-source/recognition-release/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reconstruct verified WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat assets-source/recognition-release/part-*.b64 > /tmp/recognition-assets.b64
+          base64 --decode /tmp/recognition-assets.b64 > /tmp/recognition-assets.tar
+          echo 'af790acf2f1718efc55081133a6c7e48c5b0facb80849085596d92fb689e5735  /tmp/recognition-assets.tar' | sha256sum -c -
+          tar -xf /tmp/recognition-assets.tar -C public
+
+          declare -A expected=(
+            [hero-command-center-cougar.webp]=f171b473e23238ccbdb2134bf6c0022086ee5f15
+            [usecase-cougar-clean.webp]=844c692c0514bd0b3340d2bcecf568e96698948f
+            [usecase-cow-clean.webp]=00d25a304cbdad5055c2317384ffcde1b5bf65a8
+            [usecase-sea-urchin-clean.webp]=a0ebefca92bb5803f575462b0cd5f23c36dd9c74
+            [usecase-security-clean.webp]=9e8b6407869b8f0d1c7333075d087a561802b9a1
+            [value-chain-detection-action.webp]=43a6d4b1877614cc8f2d2395f7d0426eb76a51b9
+            [platform-system-behind-recognition.webp]=83989192c3bcd2dea51a125ae374009349f9bef0
+            [command-center-scale.webp]=aba7c4ac0f1285b52c9906a68fb29fcdeb942615
+          )
+
+          for name in "${!expected[@]}"; do
+            test -s "public/$name"
+            file "public/$name" | grep -q 'Web/P image'
+            actual="$(git hash-object "public/$name")"
+            test "$actual" = "${expected[$name]}" || { echo "SHA mismatch for $name: $actual"; exit 1; }
+          done
+
+      - name: Commit production assets and remove transport chunks
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf assets-source/recognition-release assets-source/recognition-hero
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A public assets-source
+          git commit -m 'feat(recognition): materialize verified production WebP assets'
+          git push origin HEAD:main
