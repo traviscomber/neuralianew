@@ -1,0 +1,1 @@
+Do not ship compressed data URI assets.
