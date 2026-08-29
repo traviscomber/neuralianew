@@ -41,7 +41,7 @@ main[class*="recognition-page_page"] > section:first-child::after {
   position: absolute;
   z-index: 2;
   left: 57.4%;
-  top: 20%;
+  top: 22%;
   width: 15.5vw;
   max-width: 195px;
   aspect-ratio: 1 / 1;
@@ -82,14 +82,14 @@ main[class*="recognition-page_page"] > section:first-child::after {
 
 @media (max-width:1100px) {
   main[class*="recognition-page_page"] > section:first-child::before { right:1.6%; width:18vw; opacity:.72; }
-  main[class*="recognition-page_page"] > section:first-child::after { left:58.5%; top:20.5%; width:16.5vw; }
+  main[class*="recognition-page_page"] > section:first-child::after { left:58.5%; top:22.5%; width:16.5vw; }
 }
 
 @media (max-width:900px) {
   main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { opacity:.48; }
   main[class*="recognition-page_page"] > section:first-child::before { right:.8%; width:21vw; }
-  main[class*="recognition-page_page"] > section:first-child::after { left:60.5%; top:21%; width:18vw; }
+  main[class*="recognition-page_page"] > section:first-child::after { left:60.5%; top:23%; width:18vw; }
 }
 
 @media (max-width:620px) {
