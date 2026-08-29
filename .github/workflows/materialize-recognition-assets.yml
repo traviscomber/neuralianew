@@ -25,18 +25,18 @@ jobs:
           set -euo pipefail
           cat assets-source/recognition-release/part-*.b64 > /tmp/recognition-assets.b64
           base64 --decode /tmp/recognition-assets.b64 > /tmp/recognition-assets.tar
-          echo 'af790acf2f1718efc55081133a6c7e48c5b0facb80849085596d92fb689e5735  /tmp/recognition-assets.tar' | sha256sum -c -
+          echo '3afb1748636e7724acf37c64db68e23f9d1074d1c60fb7e8702d87122acdb10a  /tmp/recognition-assets.tar' | sha256sum -c -
           tar -xf /tmp/recognition-assets.tar -C public
 
           declare -A expected=(
             [hero-command-center-cougar.webp]=f171b473e23238ccbdb2134bf6c0022086ee5f15
-            [usecase-cougar-clean.webp]=844c692c0514bd0b3340d2bcecf568e96698948f
-            [usecase-cow-clean.webp]=00d25a304cbdad5055c2317384ffcde1b5bf65a8
-            [usecase-sea-urchin-clean.webp]=a0ebefca92bb5803f575462b0cd5f23c36dd9c74
-            [usecase-security-clean.webp]=9e8b6407869b8f0d1c7333075d087a561802b9a1
-            [value-chain-detection-action.webp]=43a6d4b1877614cc8f2d2395f7d0426eb76a51b9
-            [platform-system-behind-recognition.webp]=83989192c3bcd2dea51a125ae374009349f9bef0
-            [command-center-scale.webp]=aba7c4ac0f1285b52c9906a68fb29fcdeb942615
+            [usecase-cougar-clean.webp]=32317f5bffdf3390a331b06ea29744a72b2e3588
+            [usecase-cow-clean.webp]=a3df041e61d28ebbe094ac9dbeeee4bf00c40019
+            [usecase-sea-urchin-clean.webp]=f1dd88426375816e0ee01d04631dd43020d2a577
+            [usecase-security-clean.webp]=74baa433134bb7df8189b8cf072afb6fdd17ab40
+            [value-chain-detection-action.webp]=57b593b13697205181f1c0c409ad18bbba47cdd4
+            [platform-system-behind-recognition.webp]=791b55dd77231954fa11c80f389f1e969d8116ea
+            [command-center-scale.webp]=6ab088a21f81ac86fef14d73bd2082b6fbec9b90
           )
 
           for name in "${!expected[@]}"; do
