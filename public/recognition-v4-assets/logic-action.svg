@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" fill="none">
+  <rect x="1" y="1" width="638" height="208" rx="18" stroke="#75BDB9" stroke-opacity=".45"/>
+  <g font-family="Arial, sans-serif"><text x="28" y="26" fill="#78C8C3" font-size="15" letter-spacing="1.5">LOGIC &amp; ACTION</text></g>
+  <g transform="translate(30 52)"><rect width="170" height="120" rx="12" stroke="#75BDB9" stroke-opacity=".4"/><path d="M44 82 72 54l29 19 25-34 20 13" stroke="#79C9C4" stroke-width="2"/><g fill="#061112" stroke="#79C9C4" stroke-width="2"><circle cx="44" cy="82" r="5"/><circle cx="72" cy="54" r="5"/><circle cx="101" cy="73" r="5"/><circle cx="126" cy="39" r="5"/><circle cx="146" cy="52" r="5"/></g><text x="18" y="24" fill="#78C8C3" font-family="Arial, sans-serif" font-size="12">RULES &amp; SCORING</text><text x="112" y="103" fill="#9AD9D5" font-family="Arial, sans-serif" font-size="13">98.7%</text></g>
+  <path d="M216 112h45m-10-8 10 8-10 8" stroke="#74C7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(276 52)"><rect width="130" height="120" rx="12" stroke="#75BDB9" stroke-opacity=".4"/><circle cx="65" cy="54" r="31" stroke="#75E3DE" stroke-width="2"/><path d="m50 54 11 11 21-27" stroke="#75E3DE" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="38" y="105" fill="#78C8C3" font-family="Arial, sans-serif" font-size="12">DECISION</text></g>
+  <path d="M420 112h45m-10-8 10 8-10 8" stroke="#74C7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(480 52)"><rect width="130" height="120" rx="12" stroke="#75BDB9" stroke-opacity=".4"/><path d="m36 60 58-29-20 60-17-22-21-9Zm21 9 18-18" stroke="#75E3DE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="26" y="105" fill="#78C8C3" font-family="Arial, sans-serif" font-size="12">REPORT SENT</text></g>
+</svg>
