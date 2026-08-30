@@ -2,9 +2,12 @@ import type { Locale } from '@/lib/get-locale'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
 import artworkPart0 from './recognition-section04-reference-part0'
-import artworkPart1 from './recognition-section04-reference-part1'
+import artworkPart1a from './recognition-section04-reference-part1a'
+import artworkPart1b from './recognition-section04-reference-part1b'
+import artworkPart1c from './recognition-section04-reference-part1c'
+import artworkPart1d from './recognition-section04-reference-part1d'
 
-const artworkSrc = `data:image/webp;base64,${artworkPart0}${artworkPart1}`
+const artworkSrc = `data:image/webp;base64,${artworkPart0}${artworkPart1a}${artworkPart1b}${artworkPart1c}${artworkPart1d}`
 
 const copy = {
   en: {
