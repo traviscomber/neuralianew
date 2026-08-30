@@ -171,3 +171,42 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
   main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type { border-top: 0; }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 190px; }
 }
+
+/* Verified production imagery. These overrides intentionally replace the temporary placeholder sources without touching copy or layout. */
+main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] {
+  background-image: url('/usecase-operations-overview.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] > img {
+  opacity: 0;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] {
+  background-image:
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    url('/usecase-sea-urchin-clean.webp');
+  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,auto 132px;
+  background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),center center;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] {
+  background-image:
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
+    url('/usecase-security-clean.webp');
+  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,auto 132px;
+  background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),center center;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] > img,
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] > img {
+  opacity: 0;
+}
