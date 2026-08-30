@@ -138,7 +138,9 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
 
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(1) div[class*="cardMedia"] img { object-position: center 46%; }
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(2) div[class*="cardMedia"] img { object-position: center 48%; }
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { object-position: center; filter: saturate(.98) brightness(.88) contrast(1.06); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] { background:#020607 url('/usecase-sea-urchin-clean.webp') center/cover no-repeat; }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"]::before { content:""; position:absolute; inset:0; z-index:0; background:rgba(2,6,7,.38); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { object-position:center; object-fit:contain; transform:scale(.86); filter:saturate(.98) brightness(.91) contrast(1.06); }
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img { object-position: center 45%; filter: saturate(.52) brightness(.72) contrast(1.16); }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 104px; padding: 12px 20px 8px; border-top: 0; }
