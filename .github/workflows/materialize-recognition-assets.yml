@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'recognition-upload/*.ready'
+      - '.github/workflows/materialize-recognition-assets.yml'
 
 permissions:
   contents: write
@@ -34,7 +35,16 @@ jobs:
               echo "No chunks for $name" >&2
               exit 1
             fi
-            cat "${chunks[@]}" | tr -d '\n\r' | base64 -d > "public/$name"
+            python3 - "$name" "${chunks[@]}" <<'PY'
+          import base64, pathlib, re, sys
+          name = sys.argv[1]
+          chunks = [pathlib.Path(p) for p in sys.argv[2:]]
+          raw = b''.join(p.read_bytes() for p in chunks)
+          clean = re.sub(rb'[^A-Za-z0-9+/=]', b'', raw)
+          clean += b'=' * ((4 - len(clean) % 4) % 4)
+          data = base64.b64decode(clean, validate=False)
+          pathlib.Path('public', name).write_bytes(data)
+          PY
             expected="$(tr -d '\n\r ' < "$ready")"
             actual="$(git hash-object "public/$name")"
             if [ "$actual" != "$expected" ]; then
