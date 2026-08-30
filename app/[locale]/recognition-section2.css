@@ -103,20 +103,25 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
   background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px);
 }
 
+/* All four card images use the same full-bleed format behind the HUD corners. */
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] img {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  padding: 0;
+  opacity: 1;
+  object-fit: cover;
   object-position: center;
-  padding: 6px 18px 0;
-  filter: saturate(.76) brightness(.79) contrast(1.1);
-  transform: none;
+  filter: saturate(.86) brightness(.82) contrast(1.08);
+  transform: scale(1.03);
 }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { filter: saturate(.92) brightness(.86) contrast(1.08); }
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img { filter: saturate(.38) brightness(.68) contrast(1.18); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(1) div[class*="cardMedia"] img { object-position: center 46%; }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(2) div[class*="cardMedia"] img { object-position: center 48%; }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { object-position: center; filter: saturate(.98) brightness(.88) contrast(1.06); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img { object-position: center 45%; filter: saturate(.52) brightness(.72) contrast(1.16); }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 104px; padding: 12px 20px 8px; border-top: 0; }
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] > span { display: none; }
@@ -148,29 +153,3 @@ main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="us
   background-repeat: no-repeat;
 }
 main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] > img { opacity: 0; }
-
-/* Production quality: fill the same visual footprint as the other cards. */
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] {
-  background-image:
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    url('/usecase-sea-urchin-clean.webp');
-  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,cover;
-  background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),center center;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] {
-  background-image:
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
-    url('/usecase-security-clean.webp');
-  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,auto 132px;
-  background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),center center;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] > img,
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] > img { opacity: 0; }
