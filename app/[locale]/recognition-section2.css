@@ -83,14 +83,8 @@ main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="u
   transition: none;
 }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type {
-  border-left: 0;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:hover {
-  transform: none;
-  border-color: rgba(121,192,188,.16);
-}
+main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type { border-left: 0; }
+main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:hover { transform: none; border-color: rgba(121,192,188,.16); }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] {
   position: relative;
@@ -121,39 +115,13 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
   transform: none;
 }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img {
-  filter: saturate(.92) brightness(.86) contrast(1.08);
-}
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { filter: saturate(.92) brightness(.86) contrast(1.08); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img { filter: saturate(.38) brightness(.68) contrast(1.18); }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img {
-  filter: saturate(.38) brightness(.68) contrast(1.18);
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] {
-  min-height: 104px;
-  padding: 12px 20px 8px;
-  border-top: 0;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] > span {
-  display: none;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3 {
-  margin: 0 0 6px;
-  color: #77b8b4;
-  font-size: 12px;
-  line-height: 1.2;
-  letter-spacing: .08em;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p {
-  max-width: 245px;
-  margin: 0;
-  font-size: 9px;
-  line-height: 1.55;
-  color: #6f8583;
-}
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 104px; padding: 12px 20px 8px; border-top: 0; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] > span { display: none; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3 { margin: 0 0 6px; color: #77b8b4; font-size: 12px; line-height: 1.2; letter-spacing: .08em; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p { max-width: 245px; margin: 0; font-size: 9px; line-height: 1.55; color: #6f8583; }
 
 @media (max-width: 980px) {
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] { grid-template-columns: 1fr; }
@@ -172,18 +140,16 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 190px; }
 }
 
-/* Verified production imagery. These overrides intentionally replace the temporary placeholder sources without touching copy or layout. */
+/* Verified production imagery. */
 main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] {
   background-image: url('/usecase-operations-overview.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
+main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] > img { opacity: 0; }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] > img {
-  opacity: 0;
-}
-
+/* Production quality: fill the same visual footprint as the other cards. */
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] {
   background-image:
     linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
@@ -191,7 +157,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-ty
     linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
     linear-gradient(#75c7c2,#75c7c2),linear-gradient(#75c7c2,#75c7c2),
     url('/usecase-sea-urchin-clean.webp');
-  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,auto 132px;
+  background-size: 24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,24px 1px,1px 24px,cover;
   background-position: 16px 11px,16px 11px,calc(100% - 16px) 11px,calc(100% - 16px) 11px,16px calc(100% - 11px),16px calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px),center center;
 }
 
@@ -207,6 +173,4 @@ main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-ty
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] > img,
-main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] > img {
-  opacity: 0;
-}
+main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] > img { opacity: 0; }
