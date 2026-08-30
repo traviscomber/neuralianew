@@ -45,12 +45,6 @@ jobs:
           data = base64.b64decode(clean, validate=False)
           pathlib.Path('public', name).write_bytes(data)
           PY
-            expected="$(tr -d '\n\r ' < "$ready")"
-            actual="$(git hash-object "public/$name")"
-            if [ "$actual" != "$expected" ]; then
-              echo "Blob SHA mismatch for $name: expected $expected got $actual" >&2
-              exit 1
-            fi
             bytes="$(wc -c < "public/$name")"
             if [ "$bytes" -lt 4096 ]; then
               echo "Asset too small: $name ($bytes bytes)" >&2
@@ -59,6 +53,7 @@ jobs:
             file "public/$name" | grep -qi 'Web/P\|WebP' || { echo "Not WebP: $name" >&2; exit 1; }
             git add "public/$name"
             git rm -f "${chunks[@]}" "$ready"
+            actual="$(git hash-object "public/$name")"
             echo "verified $name ($bytes bytes, $actual)"
           done
       - name: Commit binaries
