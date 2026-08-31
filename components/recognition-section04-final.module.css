@@ -158,9 +158,9 @@
   display:block;
   width:100%;
   height:auto;
-  aspect-ratio:700/877;
+  aspect-ratio:16/9;
   object-fit:contain;
-  object-position:top left;
+  object-position:center;
   color:transparent;
   filter:none;
 }
