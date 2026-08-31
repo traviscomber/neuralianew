@@ -1,0 +1,1 @@
+Recognition image assets are transitioning from preview-grade embedded data URIs to verified high-resolution binary files under public/recognition-v3/.

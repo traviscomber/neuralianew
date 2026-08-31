@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Content-Signal: search=yes, ai-input=yes, ai-train=no
-
-# Sitemap
-Sitemap: https://www.n3uralia.com/sitemap.xml

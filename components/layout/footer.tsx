@@ -30,6 +30,7 @@ export function Footer() {
 
   const resourceLinks = [
     { href: pageHref("/soluciones"), label: isES ? "Soluciones por sector" : "Solutions by sector" },
+    { href: pageHref("/legal-intelligence"), label: "Legal Intelligence" },
     { href: pageHref("/case-studies"), label: isES ? "Casos de uso" : "Case studies" },
     { href: pageHref("/blog"), label: isES ? "Biblioteca" : "Library" },
     { href: pageHref("/contact"), label: isES ? "Contacto" : "Contact" },

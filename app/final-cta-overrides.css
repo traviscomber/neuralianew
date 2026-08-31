@@ -1,0 +1,67 @@
+.final-cta .final-grid {
+  position: relative;
+}
+
+.final-cta .final-grid > div:first-child .button-row {
+  position: absolute;
+  left: 47%;
+  right: 0;
+  top: 50%;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  transform: translateY(-50%);
+}
+
+.final-cta .final-grid > div:first-child .button-row .retro-button {
+  width: 100%;
+  min-height: 76px;
+  padding: 0 42px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.final-cta .final-grid > div:first-child .button-row .retro-button-primary {
+  background: rgba(115, 150, 148, .92);
+  border-color: rgba(115, 150, 148, .92);
+  color: #030606;
+}
+
+.final-cta .final-grid > div:first-child .button-row .retro-button:not(.retro-button-primary) {
+  background: rgba(3, 6, 6, .34);
+  border-color: rgba(115, 150, 148, .72);
+  color: #9fbcba;
+}
+
+.final-cta .final-photo img {
+  opacity: .34;
+  filter: brightness(.68) saturate(.82);
+}
+
+.final-cta .final-photo::after {
+  background: linear-gradient(90deg, #030606 0%, rgba(3,6,6,.48) 18%, rgba(3,6,6,.28) 72%, #030606 100%);
+}
+
+@media (max-width: 900px) {
+  .final-cta .final-grid > div:first-child .button-row {
+    position: static;
+    display: flex;
+    transform: none;
+    margin-top: 32px;
+  }
+
+  .final-cta .final-grid > div:first-child .button-row .retro-button {
+    width: auto;
+    min-height: 58px;
+    font-size: 13px;
+  }
+
+  .final-cta .final-photo img {
+    opacity: .55;
+  }
+}

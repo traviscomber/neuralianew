@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { CheckCircle2, Loader, MessageSquare, Send, X } from "lucide-react"
+import { CheckCircle2, Loader, MessageSquare, Send, X, MessageCircle } from "lucide-react"
 import type { Locale } from "@/lib/get-locale"
 
 interface Message {
@@ -60,8 +60,10 @@ function getCopy(locale: Locale) {
     successTitle: isES ? "Mensaje enviado" : "Message sent",
     successBody: (name: string, email: string, whatsapp?: string) =>
       isES
-        ? `Gracias, ${name}. Recibimos tu consulta y responderemos a ${email}.${whatsapp ? ` También podemos escribirte a ${whatsapp}.` : ""}`
-        : `Thanks, ${name}. We received your message and will reply to ${email}.${whatsapp ? ` We can also reach you at ${whatsapp}.` : ""}`,
+        ? `Gracias, ${name}. Recibimos tu consulta en ${email}. El equipo N3uralia recibirá una notificación automática por WhatsApp y se pondrá en contacto pronto.${whatsapp ? ` También podemos escribirte a +${whatsapp}.` : ""}`
+        : `Thanks, ${name}. We received your message at ${email}. The N3uralia team will receive an automatic WhatsApp notification and will be in touch shortly.${whatsapp ? ` We can also reach you at +${whatsapp}.` : ""}`,
+    contactWhatsapp: isES ? "Contactar por WhatsApp" : "Contact via WhatsApp",
+    whatsappUrl: "https://wa.me/56993826127",
     error: isES
       ? "No pudimos enviar tu mensaje. Intenta otra vez o escríbenos a info@n3uralia.com."
       : "We could not send your message. Please try again or email info@n3uralia.com.",
@@ -255,7 +257,19 @@ export function ContactConversation({ locale }: { locale: Locale }) {
               <p className="text-sm font-semibold text-[#173634]">{copy.successTitle}</p>
             </div>
 
+            <p className="text-sm text-[#526e69]">{copy.successBody(contactData.name || "", contactData.email || "", contactData.whatsapp)}</p>
+
             <div className="flex flex-col gap-2">
+              <a
+                href={copy.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1fa857]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                {copy.contactWhatsapp}
+              </a>
+
               <button
                 type="button"
                 onClick={resetConversation}

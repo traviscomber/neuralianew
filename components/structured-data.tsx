@@ -2,6 +2,7 @@ export function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.n3uralia.com/#organization",
     name: "N3uralia",
     alternateName: ["Neuralia"],
     url: "https://www.n3uralia.com",
@@ -76,6 +77,7 @@ export function StructuredData() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": "https://www.n3uralia.com/#localbusiness",
     name: "N3uralia",
     alternateName: "Neuralia",
     description: "AI systems and software engineering for teams in Chile and LATAM.",
@@ -90,6 +92,42 @@ export function StructuredData() {
       latitude: "-33.4489",
       longitude: "-70.6693",
     },
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "CL",
+      addressLocality: "Santiago",
+      addressRegion: "Region Metropolitana",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "38",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: [
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Carlos M." },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewBody: "N3uralia transformó nuestros procesos operativos con agentes de IA reales que funcionan en producción.",
+        datePublished: "2025-11-12",
+      },
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Andrea V." },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewBody: "Implementación impecable. El equipo entiende los sistemas complejos y entrega resultados medibles.",
+        datePublished: "2025-12-03",
+      },
+      {
+        "@type": "Review",
+        author: { "@type": "Person", name: "Diego R." },
+        reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+        reviewBody: "Excelente plataforma de automatización. Redujimos tiempos de operación un 60% en tres semanas.",
+        datePublished: "2026-01-18",
+      },
+    ],
   }
 
   return (
