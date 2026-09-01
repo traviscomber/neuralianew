@@ -2,7 +2,6 @@ import type { Locale } from '@/lib/get-locale'
 import Image from 'next/image'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
-import { recognitionPlatform } from './recognition-assets/section-4'
 
 const copy = {
   en: {
@@ -63,12 +62,11 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
 
           <figure className={p.artwork}>
             <Image
-              src={recognitionPlatform}
+              src="/platform-system-behind-recognition.webp"
               alt={t.artworkAlt}
               width={640}
               height={360}
               priority
-              unoptimized
               sizes="(max-width: 820px) 100vw, calc(100vw - 360px)"
             />
           </figure>
