@@ -17,27 +17,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Build and validate canonical WebP
+      - name: Extract and validate current production WebP
         shell: bash
         run: |
           set -euo pipefail
-          chunks=(recognition-upload/recognition-section04-platform-v7.webp.b64.*)
-          if [ ${#chunks[@]} -ne 4 ]; then
-            echo "Expected 4 Section 04 chunks, found ${#chunks[@]}" >&2
-            exit 1
-          fi
-          python3 - "${chunks[@]}" <<'PY'
+          python3 <<'PY'
           import base64
           import pathlib
           import re
-          import sys
 
-          chunks = [pathlib.Path(path) for path in sys.argv[1:]]
-          raw = b''.join(path.read_bytes() for path in chunks)
-          clean = re.sub(rb'[^A-Za-z0-9+/=]', b'', raw)
-          clean += b'=' * ((4 - len(clean) % 4) % 4)
-          data = base64.b64decode(clean, validate=False)
+          source = pathlib.Path('components/recognition-assets/section-4.ts').read_text()
+          match = re.search(r'data:image/webp;base64,([A-Za-z0-9+/=]+)', source)
+          if not match:
+              raise SystemExit('No embedded Section 04 WebP found')
 
+          data = base64.b64decode(match.group(1), validate=True)
           target = pathlib.Path('public/platform-system-behind-recognition.webp')
           target.write_bytes(data)
 
@@ -48,7 +42,7 @@ jobs:
 
           print(f'validated {target} ({len(data)} bytes)')
           PY
-      - name: Commit canonical asset and remove one-time staging
+      - name: Commit canonical asset and remove invalid one-time staging
         shell: bash
         run: |
           set -euo pipefail
