@@ -8,26 +8,26 @@ const copy = {
     eyebrow: '04 · Platform',
     title: ['The system', 'behind', 'recognition.'],
     body: 'N3uralia connects capture, vision intelligence, decision logic, operational records and enterprise integrations in one recognition stack.',
-    artworkAlt: 'N3uralia recognition platform: camera capture, cougar classification, operational alerting, event records, analytics and connected integrations.',
+    artworkAlt: 'Minimal N3uralia recognition architecture showing capture, comparison, action, records and intelligence.',
     layers: [
       ['01', 'Edge Capture', 'Camera scans the environment.'],
-      ['02', 'Visual Intelligence', 'Classifies and compares with confidence.'],
-      ['03', 'Logic & Action', 'Detection becomes an operational alert.'],
-      ['04', 'Records & Insights', 'Every event recorded. Insights that matter.'],
-      ['05', 'N3uralia Intelligence', 'One platform. Everything connected.'],
+      ['02', 'Visual Intelligence', 'Compares recognition patterns.'],
+      ['03', 'Logic & Action', 'Detection becomes an alert.'],
+      ['04', 'Records & Insights', 'Events become operational knowledge.'],
+      ['05', 'N3uralia Intelligence', 'One connected intelligence layer.'],
     ],
   },
   es: {
     eyebrow: '04 · Plataforma',
     title: ['El sistema', 'detrás del', 'reconocimiento.'],
     body: 'N3uralia conecta captura, inteligencia visual, lógica de decisión, registros operacionales e integraciones empresariales en una sola arquitectura.',
-    artworkAlt: 'Plataforma de reconocimiento N3uralia: captura por cámara, clasificación de puma, alertas operacionales, registros, analítica e integraciones conectadas.',
+    artworkAlt: 'Arquitectura minimalista N3uralia con captura, comparación, acción, registros e inteligencia.',
     layers: [
       ['01', 'Captura Edge', 'La cámara escanea el entorno.'],
-      ['02', 'Inteligencia Visual', 'Clasifica y compara con confianza.'],
-      ['03', 'Lógica y Acción', 'La detección se convierte en una alerta operacional.'],
-      ['04', 'Registros e Insights', 'Cada evento queda registrado. Insights que importan.'],
-      ['05', 'Inteligencia N3uralia', 'Una plataforma. Todo conectado.'],
+      ['02', 'Inteligencia Visual', 'Compara patrones de reconocimiento.'],
+      ['03', 'Lógica y Acción', 'La detección genera una alerta.'],
+      ['04', 'Registros e Insights', 'Los eventos generan conocimiento operacional.'],
+      ['05', 'Inteligencia N3uralia', 'Una capa conectada de inteligencia.'],
     ],
   },
 } as const
@@ -46,7 +46,6 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
           </div>
           <p>{t.body}</p>
         </header>
-
         <div className={p.layout}>
           <div className={p.rail} aria-label="Recognition platform stages">
             {t.layers.map((layer) => (
@@ -59,16 +58,8 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
               </article>
             ))}
           </div>
-
           <figure className={p.artwork}>
-            <Image
-              src="/platform-system-behind-recognition.webp"
-              alt={t.artworkAlt}
-              width={640}
-              height={360}
-              priority
-              sizes="(max-width: 820px) 100vw, calc(100vw - 360px)"
-            />
+            <Image src="/recognition-platform-minimal.svg" alt={t.artworkAlt} width={920} height={900} priority sizes="(max-width:820px) 100vw, 70vw" />
           </figure>
         </div>
       </div>
