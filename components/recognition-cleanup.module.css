@@ -1,0 +1,163 @@
+.section{
+  padding-top:112px!important;
+  padding-bottom:112px!important;
+  border-bottom-color:rgba(128,183,179,.14)!important;
+}
+
+.hero{
+  min-height:clamp(700px,86vh,900px)!important;
+}
+
+.heroContent{
+  padding-top:150px!important;
+  padding-bottom:104px!important;
+}
+
+.useCases{
+  background:#020708!important;
+}
+
+.useLead{
+  gap:64px!important;
+  margin-bottom:42px!important;
+}
+
+.feature{
+  height:360px!important;
+  border-color:rgba(128,183,179,.14)!important;
+  box-shadow:none!important;
+}
+
+.cardGrid{
+  gap:20px!important;
+  align-items:stretch;
+}
+
+.card{
+  display:flex;
+  flex-direction:column;
+  min-height:100%;
+  border-color:rgba(128,183,179,.14)!important;
+  background:#03090a!important;
+  transition:border-color .2s ease,transform .2s ease!important;
+}
+
+.card:hover{
+  transform:translateY(-2px)!important;
+  border-color:rgba(134,197,193,.28)!important;
+}
+
+.cardMedia{
+  aspect-ratio:16/10!important;
+  background:#020607!important;
+}
+
+.cardMedia img{
+  object-fit:cover!important;
+  object-position:center!important;
+  transform:none!important;
+  filter:saturate(.82) brightness(.83) contrast(1.03)!important;
+}
+
+.card:hover .cardMedia img{
+  transform:none!important;
+  filter:saturate(.88) brightness(.87) contrast(1.03)!important;
+}
+
+.cardBody{
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  padding:22px 20px 24px!important;
+  border-top-color:rgba(128,183,179,.12)!important;
+}
+
+.cardBody h3{
+  min-height:2.4em;
+  margin-top:10px!important;
+}
+
+.cardBody p{
+  margin-top:auto!important;
+  padding-top:4px;
+  font-size:11px!important;
+  line-height:1.65!important;
+}
+
+.value{
+  background:#020708!important;
+}
+
+.valueTop{
+  margin-bottom:52px;
+}
+
+.valueFlow{
+  position:relative;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.valueStep{
+  min-width:0;
+}
+
+.valueReturn{
+  margin-top:30px;
+}
+
+.valueFooter{
+  margin-top:46px;
+  opacity:.74;
+}
+
+.work{
+  padding-top:86px!important;
+  padding-bottom:92px!important;
+  background:#020708!important;
+}
+
+.workFigure{
+  position:relative;
+  margin:0;
+  overflow:hidden;
+  border:1px solid rgba(128,183,179,.12);
+  background:#020607;
+}
+
+.workImage{
+  display:block;
+  width:100%;
+  height:auto;
+  filter:saturate(.82) brightness(.78) contrast(1.02);
+}
+
+@media(max-width:1080px){
+  .section{padding-top:96px!important;padding-bottom:96px!important}
+  .useLead{gap:34px!important}
+  .feature{height:auto!important;aspect-ratio:16/9}
+  .cardGrid{gap:18px!important}
+}
+
+@media(max-width:760px){
+  .section{padding-top:78px!important;padding-bottom:82px!important}
+  .hero{min-height:700px!important}
+  .heroContent{padding-top:126px!important;padding-bottom:64px!important}
+  .useLead{margin-bottom:32px!important}
+  .cardGrid{grid-template-columns:1fr!important;gap:24px!important}
+  .cardMedia{aspect-ratio:16/10!important}
+  .cardBody{padding:22px!important}
+  .cardBody h3{min-height:0}
+  .valueTop{margin-bottom:36px}
+  .valueFlow{padding-top:0}
+  .valueFooter{margin-top:34px}
+  .work{padding-top:64px!important;padding-bottom:70px!important}
+}
+
+@media(max-width:520px){
+  .heroContent{padding-top:116px!important;padding-bottom:52px!important}
+  .feature{aspect-ratio:4/3}
+  .cardMedia{aspect-ratio:4/3!important}
+  .workFigure{border-left:0;border-right:0}
+  .workImage{width:118%;max-width:none;margin-left:-9%}
+}
