@@ -70,7 +70,7 @@
   z-index:0;
   left:29px;
   top:49px;
-  bottom:21%;
+  bottom:17.5%;
   width:2px;
   background:
     linear-gradient(180deg,rgba(38,216,207,.25),#26d8cf 16%,rgba(38,216,207,.72) 66%,rgba(38,216,207,.18));
@@ -87,7 +87,7 @@
   z-index:2;
   left:23px;
   top:49px;
-  bottom:21%;
+  bottom:17.5%;
   width:14px;
   pointer-events:none;
   background:
