@@ -45,16 +45,27 @@ jobs:
           data = base64.b64decode(clean, validate=False)
           pathlib.Path('public', name).write_bytes(data)
           PY
-            bytes="$(wc -c < "public/$name")"
-            if [ "$bytes" -lt 4096 ]; then
-              echo "Asset too small: $name ($bytes bytes)" >&2
+            bytes="$(wc -c < "public/$name" | tr -d ' ')"
+            sha256="$(sha256sum "public/$name" | awk '{print $1}')"
+            expected_bytes="$(sed -n 's/^bytes=//p' "$ready" | head -n1)"
+            expected_sha256="$(sed -n 's/^sha256=//p' "$ready" | head -n1)"
+            if [ -z "$expected_bytes" ] || [ -z "$expected_sha256" ]; then
+              echo "Missing verification metadata: $ready" >&2
+              exit 1
+            fi
+            if [ "$bytes" != "$expected_bytes" ]; then
+              echo "Asset size mismatch: $name ($bytes != $expected_bytes)" >&2
+              exit 1
+            fi
+            if [ "$sha256" != "$expected_sha256" ]; then
+              echo "Asset SHA-256 mismatch: $name ($sha256 != $expected_sha256)" >&2
               exit 1
             fi
             file "public/$name" | grep -qi 'Web/P\|WebP' || { echo "Not WebP: $name" >&2; exit 1; }
             git add "public/$name"
             git rm -f "${chunks[@]}" "$ready"
             actual="$(git hash-object "public/$name")"
-            echo "verified $name ($bytes bytes, $actual)"
+            echo "verified $name ($bytes bytes, sha256=$sha256, git=$actual)"
           done
       - name: Commit binaries
         shell: bash
