@@ -17,6 +17,15 @@
   justify-self:end;
 }
 
+.valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"] > p{
+  color:#a7b5b5!important;
+  font-family:var(--font-montserrat),Montserrat,sans-serif!important;
+  font-size:16px!important;
+  font-weight:300!important;
+  line-height:1.65!important;
+  letter-spacing:0!important;
+}
+
 .valueProcess{
   position:relative;
   padding:24px 18px 8px;
@@ -94,6 +103,10 @@
   .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"]{
     margin:0!important;
     justify-self:start;
+  }
+
+  .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"] > p{
+    font-size:15px!important;
   }
 
   .valueProcess{padding:18px 8px 4px}
