@@ -1,52 +1,120 @@
-/* Section 03 cleanup: preserve the five-step process, remove framing noise and ambient motion. */
-.valueChainSection .valueFlow {
-  border: 0 !important;
-  clip-path: none !important;
+/* Section 03 final process system: shared nodes, restrained glow, no framing noise. */
+.valueChainSection .valueFlow,
+.valueChainSection .valueFlowRail,
+.valueChainSection .valueFlowStep,
+.valueChainSection .valueReturn{display:none!important}
+
+.valueProcess{
+  position:relative;
+  padding:24px 18px 8px;
 }
 
-.valueChainSection .valueFlow::before,
-.valueChainSection .valueFlow::after,
-.valueChainSection .valueReturn::before {
-  content: none !important;
-  display: none !important;
-  border: 0 !important;
+.valueProcessMain{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:start;
+  gap:0;
 }
 
-.valueChainSection .valueFlowRail::after,
-.valueChainSection .valueFlowStep .valueIcon,
-.valueChainSection .valueFlowStep .valueArrow {
-  animation: none !important;
+.valueProcessSlot{
+  position:relative;
+  min-width:0;
+  padding-inline:14px;
 }
 
-.valueChainSection .valueFlowStep .valueIcon {
-  box-shadow: inset 0 0 0 7px #020607,
-              inset 0 0 0 8px rgba(126,197,192,.09),
-              0 0 0 1px rgba(126,197,192,.06) !important;
+.valueProcessConnector{
+  position:absolute;
+  z-index:0;
+  left:calc(50% + 46px);
+  right:calc(-50% + 46px);
+  top:51px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(134,197,193,.16),rgba(134,197,193,.5),rgba(134,197,193,.16));
+  overflow:hidden;
 }
 
-.valueChainSection .valueFlowStep:nth-of-type(5) .valueIcon > span::after {
-  border: 0 !important;
+.valueProcessConnector::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-18%;
+  width:18%;
+  height:1px;
+  background:rgba(190,246,241,.86);
+  filter:blur(.25px);
+  animation:valueConnectorSweep 8s ease-in-out infinite;
 }
 
-.valueChainSection .valueFlowStep h3 {
-  font-size: 12px !important;
+.valueProcessConnector::after{
+  content:"";
+  position:absolute;
+  right:1px;
+  top:-3px;
+  width:6px;
+  height:6px;
+  border-top:1px solid rgba(134,197,193,.72);
+  border-right:1px solid rgba(134,197,193,.72);
+  transform:rotate(45deg);
 }
 
-.valueChainSection .valueFlowStep p {
-  font-size: 10px !important;
-  line-height: 1.5 !important;
+.valueTrace{
+  display:flex;
+  justify-content:center;
+  margin-top:52px;
 }
 
-.valueChainSection .valueReturn strong {
-  font-size: 11px !important;
+.valueTrace article{max-width:240px}
+
+.valueChainSection .valueFooter{
+  margin-top:34px;
 }
 
-.valueChainSection .valueReturn p {
-  font-size: 9px !important;
-  line-height: 1.45 !important;
+.valueChainSection .valueFooter b{
+  font-size:8.5px!important;
+  line-height:1.55!important;
 }
 
-.valueChainSection .valueFooter b {
-  font-size: 8px !important;
-  line-height: 1.5 !important;
+@keyframes valueConnectorSweep{
+  0%,10%{left:-18%;opacity:0}
+  18%{opacity:.85}
+  68%{opacity:.85}
+  82%,100%{left:100%;opacity:0}
+}
+
+@media(max-width:900px){
+  .valueProcess{padding:18px 8px 4px}
+  .valueProcessMain{grid-template-columns:1fr;gap:24px}
+  .valueProcessSlot{padding:0 0 0 6px}
+  .valueProcessConnector{
+    left:33px;
+    right:auto;
+    top:56px;
+    bottom:-24px;
+    width:1px;
+    height:auto;
+    background:linear-gradient(180deg,rgba(134,197,193,.18),rgba(134,197,193,.45),rgba(134,197,193,.12));
+  }
+  .valueProcessConnector::before{
+    left:0;
+    top:-18%;
+    width:1px;
+    height:18%;
+    animation:valueConnectorSweepMobile 8s ease-in-out infinite;
+  }
+  .valueProcessConnector::after{
+    display:none;
+  }
+  .valueTrace{justify-content:flex-start;margin-top:30px;padding-left:6px}
+  .valueTrace article{max-width:360px}
+}
+
+@keyframes valueConnectorSweepMobile{
+  0%,10%{top:-18%;opacity:0}
+  18%{opacity:.85}
+  68%{opacity:.85}
+  82%,100%{top:100%;opacity:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .valueProcessConnector::before{animation:none!important;display:none!important}
 }
