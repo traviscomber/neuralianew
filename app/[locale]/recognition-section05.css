@@ -1,46 +1,141 @@
 .recognitionSection05{
   position:relative;
   overflow:hidden;
-  padding:104px 0 118px!important;
+  padding:118px 0 132px!important;
   background:#020607;
   border-top:1px solid rgba(121,192,188,.14);
 }
 
-.recognitionSection05Figure{
-  position:relative;
-  width:min(1160px,94%);
-  margin:0 auto;
-  background:#020607;
+.recognitionSection05Shell{
+  display:grid;
+  grid-template-columns:minmax(380px,.9fr) minmax(520px,1.1fr);
+  gap:clamp(52px,6vw,88px);
+  align-items:center;
 }
 
-.recognitionSection05Figure>img{
+.recognitionSection05Copy{
   position:relative;
-  z-index:0;
+  z-index:3;
+  min-width:0;
+}
+
+.recognitionSection05Eyebrow{
   display:block;
-  width:100%;
-  height:auto;
-  opacity:.76;
-  filter:brightness(.78) saturate(.92) contrast(1.01);
+  margin:0 0 12px;
+  color:#a8d9d8;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:11px;
+  font-weight:400;
+  line-height:1.2;
+  letter-spacing:.18em;
+  text-transform:uppercase;
 }
 
-/* Fade only the outer border of the artwork. The interior information and CTAs stay clear. */
-.recognitionSection05Figure::after{
+.recognitionSection05Rule{
+  display:block;
+  width:36px;
+  height:2px;
+  margin:0 0 22px;
+  background:#25d7ce;
+}
+
+.recognitionSection05Copy h2{
+  max-width:590px;
+  margin:0 0 24px;
+  color:#eef3f2;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:clamp(44px,4.55vw,62px);
+  font-weight:400;
+  line-height:1.055;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+
+.recognitionSection05Body{
+  max-width:540px;
+  margin:0;
+  color:#a7b5b5!important;
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-size:16px;
+  font-weight:300;
+  line-height:1.65!important;
+}
+
+.recognitionSection05Steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:26px;
+  margin-top:46px;
+}
+
+.recognitionSection05Step{
+  position:relative;
+  min-width:0;
+  padding:0 0 0 18px;
+  border-left:1px solid rgba(134,197,193,.22);
+}
+
+.recognitionSection05StepNum{
+  display:block;
+  margin:0 0 13px;
+  color:#8eaaa7;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:22px;
+  font-weight:400;
+  line-height:1;
+  letter-spacing:.08em;
+}
+
+.recognitionSection05Step h3{
+  margin:0 0 8px;
+  color:#9bc5c2;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.2;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+
+.recognitionSection05Step p{
+  margin:0;
+  color:#8ea09f!important;
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-size:12px;
+  font-weight:300;
+  line-height:1.6!important;
+}
+
+.recognitionSection05Visual{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  background:#020607;
+  isolation:isolate;
+}
+
+/* The existing composite artwork is now only a cropped background visual.
+   Its baked text/footer stay outside the visible crop. */
+.recognitionSection05Visual::before{
   content:"";
   position:absolute;
-  inset:0;
-  z-index:1;
+  inset:-10%;
+  z-index:0;
   pointer-events:none;
-  background:
-    linear-gradient(90deg,#020607 0%,rgba(2,6,7,.78) 38%,transparent 100%) left center/7% 100% no-repeat,
-    linear-gradient(270deg,#020607 0%,rgba(2,6,7,.78) 38%,transparent 100%) right center/7% 100% no-repeat,
-    linear-gradient(180deg,#020607 0%,rgba(2,6,7,.72) 38%,transparent 100%) center top/100% 7% no-repeat,
-    linear-gradient(0deg,#020607 0%,rgba(2,6,7,.72) 38%,transparent 100%) center bottom/100% 7% no-repeat;
+  background-image:url('/recognition-section05-diagnosis-pilot-scale.webp');
+  background-repeat:no-repeat;
+  background-size:250% auto;
+  background-position:84% 7%;
+  opacity:.54;
+  filter:brightness(.76) saturate(.82) contrast(1.04);
+  -webkit-mask-image:radial-gradient(ellipse at 58% 45%,#000 0%,#000 57%,rgba(0,0,0,.94) 67%,rgba(0,0,0,.58) 82%,transparent 100%);
+  mask-image:radial-gradient(ellipse at 58% 45%,#000 0%,#000 57%,rgba(0,0,0,.94) 67%,rgba(0,0,0,.58) 82%,transparent 100%);
 }
 
 .recognitionSection05Actions{
   position:absolute;
-  z-index:2;
-  left:54%;
+  z-index:3;
+  left:28%;
   right:5%;
   top:50%;
   display:grid;
@@ -51,11 +146,11 @@
 .recognitionSection05Button{
   display:grid;
   place-items:center;
-  min-height:78px;
+  min-height:82px;
   padding:0 42px;
-  border:1px solid rgba(115,150,148,.76);
-  background:rgba(3,6,6,.36);
-  color:#a9c5c3;
+  border:1px solid rgba(115,150,148,.78);
+  background:rgba(3,6,6,.42);
+  color:#b4cecc;
   font-family:var(--font-rajdhani),Rajdhani,sans-serif;
   font-size:15px;
   font-weight:500;
@@ -66,46 +161,66 @@
   text-decoration:none;
   backdrop-filter:blur(2px);
   -webkit-backdrop-filter:blur(2px);
-  transition:background .2s ease,border-color .2s ease,color .2s ease;
+  transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease;
 }
 
 .recognitionSection05ButtonPrimary{
-  background:rgba(115,150,148,.92);
-  border-color:rgba(115,150,148,.92);
+  background:rgba(156,187,184,.94);
+  border-color:rgba(156,187,184,.94);
   color:#030606;
 }
 
-.recognitionSection05Button:hover{border-color:rgba(159,217,213,.9);color:#d5e5e3}
-.recognitionSection05ButtonPrimary:hover{background:rgba(143,184,181,.96);color:#020607}
-.recognitionSection05Button:focus-visible{outline:2px solid #9fd9d5;outline-offset:3px}
-
-@media(max-width:980px){
-  .recognitionSection05{padding:88px 0 96px!important}
-  .recognitionSection05Figure{width:min(1160px,96%)}
-  .recognitionSection05Actions{left:52%;right:4%;gap:12px}
-  .recognitionSection05Button{min-height:68px;padding:0 30px;font-size:14px}
+.recognitionSection05Button:hover{
+  border-color:rgba(159,217,213,.92);
+  color:#e0ecea;
+  transform:translateY(-1px);
 }
 
-@media(max-width:760px){
-  .recognitionSection05Actions{
-    position:static;
-    display:flex;
-    gap:10px;
-    margin-top:28px;
-    transform:none;
-  }
-  .recognitionSection05Button{
-    flex:1 1 0;
-    min-height:60px;
-    padding:0 22px;
-    font-size:13px;
-  }
+.recognitionSection05ButtonPrimary:hover{
+  background:rgba(182,207,204,.98);
+  color:#020607;
 }
 
-@media(max-width:620px){
-  .recognitionSection05{padding:68px 0 78px!important}
-  .recognitionSection05Figure{width:100%}
-  .recognitionSection05Figure>img{opacity:.80;filter:brightness(.80) saturate(.92)}
-  .recognitionSection05Actions{flex-direction:column;margin-top:22px}
-  .recognitionSection05Button{width:100%}
+.recognitionSection05Button:focus-visible{
+  outline:2px solid #9fd9d5;
+  outline-offset:3px;
+}
+
+@media(max-width:1120px){
+  .recognitionSection05Shell{
+    grid-template-columns:minmax(340px,.92fr) minmax(440px,1.08fr);
+    gap:44px;
+  }
+  .recognitionSection05Steps{gap:18px}
+  .recognitionSection05Visual{min-height:480px}
+  .recognitionSection05Actions{left:22%;right:4%}
+}
+
+@media(max-width:900px){
+  .recognitionSection05{padding:94px 0 104px!important}
+  .recognitionSection05Shell{grid-template-columns:1fr;gap:48px}
+  .recognitionSection05Copy{max-width:760px}
+  .recognitionSection05Copy h2{max-width:680px}
+  .recognitionSection05Body{max-width:650px}
+  .recognitionSection05Visual{min-height:470px}
+  .recognitionSection05Visual::before{background-size:225% auto;background-position:83% 8%}
+  .recognitionSection05Actions{left:36%;right:6%}
+}
+
+@media(max-width:680px){
+  .recognitionSection05{padding:76px 0 84px!important}
+  .recognitionSection05Steps{grid-template-columns:1fr;gap:20px;margin-top:36px}
+  .recognitionSection05Step{padding-left:16px}
+  .recognitionSection05Visual{min-height:430px}
+  .recognitionSection05Visual::before{background-size:255% auto;background-position:84% 8%;opacity:.50}
+  .recognitionSection05Actions{left:18px;right:18px;top:auto;bottom:24px;transform:none}
+  .recognitionSection05Button{min-height:64px;padding:0 24px;font-size:14px}
+}
+
+@media(max-width:520px){
+  .recognitionSection05Copy h2{font-size:clamp(38px,11vw,50px)}
+  .recognitionSection05Body{font-size:15px}
+  .recognitionSection05Visual{min-height:390px}
+  .recognitionSection05Visual::before{background-size:285% auto;background-position:85% 8%}
+  .recognitionSection05Actions{gap:10px}
 }
