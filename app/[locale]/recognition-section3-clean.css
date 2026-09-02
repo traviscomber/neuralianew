@@ -1,21 +1,114 @@
-/* Section 03 cleanup: keep the process nodes and solid flow, remove framing noise. */
-.valueChainSection .valueFlow {
-  border: 0 !important;
-  clip-path: none !important;
+/* Section 03 final process system: shared nodes, restrained glow, no framing noise. */
+.valueChainSection .valueFlow,
+.valueChainSection .valueFlowRail,
+.valueChainSection .valueFlowStep,
+.valueChainSection .valueReturn{display:none!important}
+
+.valueProcess{
+  position:relative;
+  padding:24px 18px 8px;
 }
 
-.valueChainSection .valueFlow::before,
-.valueChainSection .valueFlow::after {
-  content: none !important;
-  display: none !important;
+.valueProcessMain{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  align-items:start;
+  gap:0;
 }
 
-.valueChainSection .valueReturn::before {
-  content: none !important;
-  display: none !important;
-  border: 0 !important;
+.valueProcessSlot{
+  position:relative;
+  min-width:0;
+  padding-inline:14px;
 }
 
-.valueChainSection .valueFlowStep:nth-of-type(5) .valueIcon > span::after {
-  border: 0 !important;
+/* Exact node-border to node-border segment. The node diameter is 64px. */
+.valueProcessConnector{
+  --connector-index:0;
+  position:absolute;
+  z-index:0;
+  left:calc(50% + 32px);
+  right:calc(-50% + 32px);
+  top:51px;
+  height:1px;
+  background:rgba(134,197,193,.30);
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.valueProcessConnector::before{
+  content:"";
+  position:absolute;
+  top:-1px;
+  left:-28%;
+  width:28%;
+  height:3px;
+  background:linear-gradient(90deg,transparent,rgba(194,251,246,.88),transparent);
+  filter:blur(.35px) drop-shadow(0 0 4px rgba(112,225,217,.30));
+  opacity:0;
+  animation:valueConnectorSequence 10s linear calc(var(--connector-index) * 1.35s) infinite;
+}
+
+.valueTrace{
+  display:flex;
+  justify-content:center;
+  margin-top:52px;
+}
+
+.valueTrace article{max-width:240px}
+
+.valueChainSection .valueFooter{
+  margin-top:34px;
+}
+
+.valueChainSection .valueFooter b{
+  font-size:8.5px!important;
+  line-height:1.55!important;
+}
+
+@keyframes valueConnectorSequence{
+  0%{left:-28%;opacity:0}
+  4%{opacity:.82}
+  15%{left:100%;opacity:.82}
+  19%,100%{left:100%;opacity:0}
+}
+
+@media(max-width:900px){
+  .valueProcess{padding:18px 8px 4px}
+  .valueProcessMain{grid-template-columns:1fr;gap:24px}
+  .valueProcessSlot{padding:0 0 0 6px}
+
+  /* On mobile, each segment starts at the lower node border and ends at the next upper border. */
+  .valueProcessConnector{
+    left:33px;
+    right:auto;
+    top:56px;
+    bottom:-24px;
+    width:1px;
+    height:auto;
+    background:rgba(134,197,193,.30);
+  }
+
+  .valueProcessConnector::before{
+    left:-1px;
+    top:-28%;
+    width:3px;
+    height:28%;
+    background:linear-gradient(180deg,transparent,rgba(194,251,246,.88),transparent);
+    animation:valueConnectorSequenceMobile 10s linear calc(var(--connector-index) * 1.35s) infinite;
+  }
+
+  .valueTrace{justify-content:flex-start;margin-top:30px;padding-left:6px}
+  .valueTrace article{max-width:360px}
+}
+
+@keyframes valueConnectorSequenceMobile{
+  0%{top:-28%;opacity:0}
+  4%{opacity:.82}
+  15%{top:100%;opacity:.82}
+  19%,100%{top:100%;opacity:0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .valueProcessConnector::before{animation:none!important;display:none!important}
 }

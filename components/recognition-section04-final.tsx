@@ -1,7 +1,9 @@
+import type { CSSProperties } from 'react'
 import type { Locale } from '@/lib/get-locale'
 import Image from 'next/image'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
+import { ProcessNode, type ProcessIconName } from './recognition-process-node'
 
 const copy = {
   en: {
@@ -32,6 +34,8 @@ const copy = {
   },
 } as const
 
+const platformIcons: ProcessIconName[] = ['capture', 'classify', 'decision', 'insights', 'intelligence']
+
 export function RecognitionSection04Final({ locale }: { locale: Locale }) {
   const t = copy[locale]
 
@@ -49,14 +53,24 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
 
         <div className={p.layout}>
           <div className={p.rail} aria-label="Recognition platform stages">
-            {t.layers.map((layer) => (
-              <article className={p.stage} key={layer[0]}>
-                <span className={p.stageNo}>{layer[0]}</span>
-                <div className={p.stageCopy}>
-                  <h3>{layer[1]}</h3>
-                  <p>{layer[2]}</p>
-                </div>
-              </article>
+            {t.layers.map((layer, index) => (
+              <div className={p.stageSlot} key={layer[0]}>
+                <ProcessNode
+                  index={layer[0]}
+                  icon={platformIcons[index]}
+                  title={layer[1]}
+                  description={layer[2]}
+                  orientation="vertical"
+                  emphasis={index === 4}
+                />
+                {index < t.layers.length - 1 ? (
+                  <span
+                    className={p.stageConnector}
+                    aria-hidden="true"
+                    style={{ '--connector-index': index } as CSSProperties}
+                  />
+                ) : null}
+              </div>
             ))}
           </div>
 

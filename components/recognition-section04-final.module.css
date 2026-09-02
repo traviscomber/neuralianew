@@ -1,8 +1,6 @@
 .section{
-  background:
-    radial-gradient(circle at 70% 38%,rgba(20,129,123,.055),transparent 42%),
-    #010607;
-  padding:44px 0 86px!important;
+  background:#010607;
+  padding:72px 0 96px!important;
 }
 
 .header,
@@ -16,7 +14,7 @@
   grid-template-columns:360px minmax(0,1fr);
   gap:56px;
   align-items:start;
-  margin-bottom:18px;
+  margin-bottom:34px;
 }
 
 .titleBlock h2{
@@ -38,188 +36,69 @@
   width:35px;
   height:2px;
   background:#25d7ce;
-  box-shadow:0 0 16px rgba(37,215,206,.22);
 }
 
 .header>p{
   max-width:500px;
   margin:94px 0 0;
-  color:#c2ccca;
-  font-size:13.5px;
+  color:#aebdba;
+  font-size:13px;
   line-height:1.72;
 }
 
 .layout{
   display:grid;
-  grid-template-columns:225px minmax(0,1fr);
-  gap:30px;
-  align-items:stretch;
+  grid-template-columns:250px minmax(0,1fr);
+  gap:44px;
+  align-items:start;
 }
 
 .rail{
+  --platform-node-size:64px;
+  --platform-gap:30px;
   position:relative;
   display:grid;
-  grid-template-rows:178fr 169fr 159fr 176fr 237fr;
-  gap:12px;
+  gap:var(--platform-gap);
+  min-width:0;
+  padding:10px 0;
+}
+
+.stageSlot{
+  position:relative;
   min-width:0;
 }
 
-.rail:before{
-  content:"";
+.stageConnector{
+  --connector-index:0;
   position:absolute;
   z-index:0;
-  left:29px;
-  top:49px;
-  bottom:17.5%;
-  width:2px;
-  background:
-    linear-gradient(180deg,rgba(38,216,207,.25),#26d8cf 16%,rgba(38,216,207,.72) 66%,rgba(38,216,207,.18));
-  box-shadow:
-    0 0 4px rgba(38,216,207,.82),
-    0 0 12px rgba(38,216,207,.34),
-    0 0 26px rgba(38,216,207,.16);
-  opacity:.92;
-}
-
-.rail:after{
-  content:"";
-  position:absolute;
-  z-index:2;
-  left:23px;
-  top:49px;
-  bottom:17.5%;
-  width:14px;
+  left:calc(var(--platform-node-size) / 2);
+  top:var(--platform-node-size);
+  width:1px;
+  height:var(--platform-gap);
+  background:rgba(134,197,193,.30);
+  overflow:hidden;
   pointer-events:none;
-  background:
-    radial-gradient(circle at 50% 50%,rgba(228,255,254,1) 0 11%,rgba(83,251,241,.95) 14% 23%,rgba(83,251,241,.18) 46%,transparent 68%) center -22px/14px 30px no-repeat,
-    linear-gradient(180deg,transparent 0%,rgba(84,248,239,.1) 23%,rgba(199,255,252,.95) 49%,rgba(84,248,239,.16) 71%,transparent 100%) center -154px/3px 154px no-repeat;
-  filter:
-    drop-shadow(0 0 5px rgba(87,247,237,.95))
-    drop-shadow(0 0 14px rgba(44,220,211,.55));
-  animation:recognitionRailFlow 4.6s cubic-bezier(.42,0,.58,1) infinite;
 }
 
-.stage{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:58px minmax(0,1fr);
-  gap:16px;
-  align-items:start;
-  min-width:0;
-  padding-top:20px;
-}
-
-.stage:nth-child(2),.stage:nth-child(3){padding-top:17px}
-.stage:nth-child(4){padding-top:24px}
-.stage:nth-child(5){padding-top:28px}
-
-.stage:after{
+.stageConnector::before{
   content:"";
   position:absolute;
-  z-index:0;
-  left:58px;
-  top:49px;
-  width:0;
-  height:1px;
-  background:linear-gradient(90deg,rgba(57,239,229,.88),rgba(57,239,229,0));
-  box-shadow:0 0 8px rgba(57,239,229,.48);
+  left:-1px;
+  top:-32%;
+  width:3px;
+  height:32%;
+  background:linear-gradient(180deg,transparent,rgba(194,251,246,.88),transparent);
+  filter:blur(.35px) drop-shadow(0 0 4px rgba(112,225,217,.30));
   opacity:0;
-  animation:recognitionBranchSignal 7.2s ease-in-out infinite;
+  animation:platformConnectorSequence 10s linear calc(var(--connector-index) * 1.35s) infinite;
 }
 
-.stage:nth-child(1):after{animation-delay:.3s}
-.stage:nth-child(2):after{animation-delay:2.2s}
-.stage:nth-child(3):after{animation-delay:4.7s}
-.stage:nth-child(4):after{animation-delay:1.15s}
-.stage:nth-child(5):after{animation-delay:5.8s}
-
-.stageNo{
-  position:relative;
-  display:grid;
-  place-items:center;
-  width:58px;
-  height:58px;
-  border:1px solid rgba(45,222,212,.9);
-  border-radius:50%;
-  background:
-    radial-gradient(circle at 50% 42%,rgba(33,104,101,.14),transparent 58%),
-    #020b0b;
-  box-shadow:
-    0 0 0 5px rgba(45,222,212,.028),
-    0 0 23px rgba(45,222,212,.2),
-    inset 0 0 17px rgba(31,155,148,.1);
-  color:#f4f7f6;
-  font:400 22px/1 var(--font-rajdhani),sans-serif;
-  isolation:isolate;
-}
-
-.stageNo:before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:-6px;
-  border-radius:50%;
-  background:conic-gradient(from 0deg,transparent 0 245deg,rgba(94,250,241,.8) 272deg,rgba(210,255,252,.96) 292deg,transparent 322deg 360deg);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 0);
-  mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 0);
-  opacity:.42;
-  filter:drop-shadow(0 0 5px rgba(66,238,228,.5));
-  animation:recognitionHaloSpin 8.6s linear infinite;
-}
-
-.stage:nth-child(1) .stageNo{animation:recognitionNodeBreath 5.4s ease-in-out infinite}
-.stage:nth-child(2) .stageNo{animation:recognitionNodeBreath 7.1s ease-in-out -2.1s infinite}
-.stage:nth-child(3) .stageNo{animation:recognitionNodeSpark 6.2s ease-in-out -4.3s infinite}
-.stage:nth-child(4) .stageNo{animation:recognitionNodeBreath 8.3s ease-in-out -1.2s infinite}
-.stage:nth-child(5) .stageNo{animation:recognitionNodeSpark 7.7s ease-in-out -5.1s infinite}
-
-.stage:nth-child(2) .stageNo:before{animation-duration:11.8s;animation-direction:reverse;opacity:.3}
-.stage:nth-child(3) .stageNo:before{animation-duration:6.9s;opacity:.56}
-.stage:nth-child(4) .stageNo:before{animation-duration:13.2s;animation-direction:reverse;opacity:.26}
-.stage:nth-child(5) .stageNo:before{animation-duration:9.4s;opacity:.48}
-
-.stage:not(:last-child) .stageNo:after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-17px;
-  width:7px;
-  height:7px;
-  transform:translateX(-50%);
-  border:1px solid #68f5ec;
-  border-radius:50%;
-  background:#071817;
-  box-shadow:
-    0 0 5px rgba(104,245,236,.9),
-    0 0 12px rgba(43,217,208,.5);
-  animation:recognitionJunction 3.8s ease-in-out infinite;
-}
-
-.stage:nth-child(2) .stageNo:after{animation-delay:-1.15s}
-.stage:nth-child(3) .stageNo:after{animation-delay:-2.5s}
-.stage:nth-child(4) .stageNo:after{animation-delay:-.6s}
-
-.stageCopy{min-width:0;padding-top:8px}
-
-.stage h3{
-  margin:0 0 8px;
-  color:#2bd9d0;
-  font:500 13px/1.08 var(--font-rajdhani),sans-serif;
-  letter-spacing:.045em;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
-.stage p{
-  max-width:160px;
+.artwork{
+  align-self:start;
+  min-width:0;
   margin:0;
-  color:#c4ccca;
-  font-size:11px;
-  line-height:1.52;
 }
-
-.artwork{align-self:start;min-width:0;margin:0}
 
 .artwork img{
   display:block;
@@ -229,85 +108,49 @@
   object-fit:contain;
   object-position:center;
   color:transparent;
-  filter:none;
+  filter:saturate(.78) brightness(.82) contrast(1.04);
+  opacity:.9;
 }
 
-@keyframes recognitionRailFlow{
-  0%{background-position:center -22px,center -154px;opacity:.12}
-  8%{opacity:1}
-  91%{opacity:1}
-  100%{background-position:center calc(100% + 22px),center calc(100% + 154px);opacity:.16}
-}
-
-@keyframes recognitionHaloSpin{to{transform:rotate(360deg)}}
-
-@keyframes recognitionNodeBreath{
-  0%,100%{transform:scale(1);border-color:rgba(45,222,212,.86)}
-  42%{transform:scale(1.025);border-color:rgba(99,249,240,.98);box-shadow:0 0 0 6px rgba(45,222,212,.04),0 0 31px rgba(58,237,227,.3),inset 0 0 20px rgba(31,155,148,.14)}
-  58%{transform:scale(1.01)}
-}
-
-@keyframes recognitionNodeSpark{
-  0%,36%,48%,100%{border-color:rgba(45,222,212,.88);box-shadow:0 0 0 5px rgba(45,222,212,.028),0 0 23px rgba(45,222,212,.2),inset 0 0 17px rgba(31,155,148,.1)}
-  40%{border-color:#c6fffb;box-shadow:0 0 0 7px rgba(78,243,233,.07),0 0 38px rgba(78,243,233,.46),inset 0 0 22px rgba(70,242,232,.18)}
-  44%{border-color:rgba(68,235,226,.9)}
-}
-
-@keyframes recognitionJunction{
-  0%,100%{transform:translateX(-50%) scale(.78);opacity:.55}
-  50%{transform:translateX(-50%) scale(1.28);opacity:1;box-shadow:0 0 6px rgba(164,255,249,1),0 0 17px rgba(43,217,208,.72)}
-}
-
-@keyframes recognitionBranchSignal{
-  0%,72%,100%{width:0;opacity:0}
-  77%{width:22px;opacity:.95}
-  87%{width:42px;opacity:.5}
-  93%{width:48px;opacity:0}
+@keyframes platformConnectorSequence{
+  0%{top:-32%;opacity:0}
+  4%{opacity:.84}
+  15%{top:100%;opacity:.84}
+  19%,100%{top:100%;opacity:0}
 }
 
 @media(max-width:1100px){
   .header,.layout{width:calc(100% - 32px);margin-inline:16px}
   .header{grid-template-columns:330px minmax(0,1fr);gap:42px}
-  .layout{grid-template-columns:215px minmax(0,1fr);gap:24px}
+  .layout{grid-template-columns:230px minmax(0,1fr);gap:34px}
   .titleBlock h2{font-size:clamp(42px,4.7vw,50px)}
   .header>p{margin-top:88px;font-size:12.5px}
-  .stage{grid-template-columns:56px minmax(0,1fr);gap:14px}
-  .stageNo{width:56px;height:56px;font-size:20px}
-  .rail:before{left:28px}
-  .rail:after{left:22px}
-  .stage:after{left:56px}
-  .stage h3{font-size:12px}
-  .stage p{font-size:10px}
 }
 
 @media(max-width:820px){
-  .section{padding:72px 0 96px!important}
+  .section{padding:72px 0 88px!important}
   .header,.layout{width:100%;margin-inline:0}
-  .header{grid-template-columns:1fr;gap:0;margin-bottom:36px}
+  .header{grid-template-columns:1fr;gap:0;margin-bottom:34px}
   .titleBlock h2{max-width:520px;font-size:clamp(42px,9vw,58px)}
   .titleBlock h2 span{white-space:normal}
   .header>p{max-width:590px;margin:28px 0 0;font-size:13px}
-  .layout{grid-template-columns:1fr;gap:34px}
-  .rail{grid-template-rows:none;gap:26px}
-  .rail:before{left:27px;top:48px;bottom:48px}
-  .rail:after{left:21px;top:48px;bottom:48px}
-  .stage,.stage:nth-child(n){grid-template-columns:54px 1fr;gap:16px;padding-top:0}
-  .stage:after{left:54px;top:27px}
-  .stageNo{width:54px;height:54px}
-  .stageCopy{padding-top:7px}
-  .stage p{max-width:300px;font-size:11px}
+  .layout{grid-template-columns:1fr;gap:38px}
+  .rail{--platform-gap:26px;gap:var(--platform-gap);max-width:560px}
   .artwork{width:100%;max-width:790px;margin-inline:auto}
 }
 
+@media(max-width:620px){
+  .rail{--platform-node-size:52px}
+}
+
 @media(max-width:520px){
-  .section{padding:62px 0 82px!important}
+  .section{padding:62px 0 78px!important}
   .titleBlock h2{font-size:clamp(38px,12vw,50px);letter-spacing:.065em}
   .header>p{font-size:12px}
-  .stage h3{white-space:normal}
-  .artwork{width:112%;margin-left:-6%}
+  .rail{--platform-gap:24px;gap:var(--platform-gap)}
+  .artwork{width:100%;margin-left:0}
 }
 
 @media(prefers-reduced-motion:reduce){
-  .section *{animation:none!important;transition:none!important}
-  .rail:after,.stage:after,.stageNo:before{display:none}
+  .stageConnector::before{animation:none!important;display:none!important}
 }

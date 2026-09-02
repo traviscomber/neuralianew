@@ -1,0 +1,8 @@
+.recognitionSection05{padding:40px 0!important}
+.recognitionSection05Figure{position:relative;margin:0}
+.recognitionSection05Figure>img{display:block;width:100%;height:auto}
+.recognitionSection05Cta{position:absolute;z-index:2;display:block;border:0;outline:none}
+.recognitionSection05CtaPrimary{left:4.5%;top:60.2%;width:17.5%;height:7%}
+.recognitionSection05CtaSecondary{left:22.7%;top:60.2%;width:13.5%;height:7%}
+.recognitionSection05Cta:focus-visible{outline:2px solid #9fd9d5;outline-offset:3px;background:rgba(159,217,213,.07)}
+@media(max-width:620px){.recognitionSection05{padding:28px 0!important}.recognitionSection05Cta:focus-visible{outline-offset:2px}}
