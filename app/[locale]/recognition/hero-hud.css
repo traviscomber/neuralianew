@@ -10,31 +10,6 @@ main[class*="recognition-page_page"] > section:first-child {
   background-position: center !important;
 }
 
-/* Right-side telemetry only. */
-main[class*="recognition-page_page"] > section:first-child::before {
-  content: "WILDLIFE MONITORING\A Torres del Paine NP, Chile\A\A DETECTION\A PUMA · CONFIRMED\A Confidence 98%\A\A SYSTEM STATUS\A ● ALL SYSTEMS OPERATIONAL\A\A LOCATION\A 50.9452° S · 72.6153° W\A Altitude 250 m\A\A ENVIRONMENT\A 8°C · 78% · SW 12 km/h\A\A TIME\A 11:42:07\A May 14, 2025";
-  white-space: pre;
-  position: absolute;
-  z-index: 1;
-  top: 7.5%;
-  right: 2.2%;
-  width: min(15.5vw,210px);
-  height: 78%;
-  box-sizing: border-box;
-  padding: 18px 14px 14px;
-  border: 0;
-  color: rgba(154,211,207,.82);
-  font: 500 clamp(7px,.54vw,10px)/1.68 var(--font-rajdhani),sans-serif;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  text-align: left;
-  text-shadow: 0 0 10px rgba(80,210,200,.22);
-  background: linear-gradient(90deg,rgba(2,7,8,.94),rgba(2,7,8,.89));
-  box-shadow: none;
-  pointer-events: none;
-  animation: recognitionHudPulse 4.8s ease-in-out infinite;
-}
-
 /* Detection target. Bright corner brackets stay visible; scanner activates only after focus contracts. */
 main[class*="recognition-page_page"] > section:first-child::after {
   content: "98%";
@@ -84,13 +59,6 @@ main[class*="recognition-page_page"] > section:first-child::after {
   pointer-events: none;
   transform-origin:center;
   animation: recognitionTargetScan 3.6s cubic-bezier(.22,.7,.24,1) infinite;
-}
-
-@keyframes recognitionHudPulse {
-  0%,100% { opacity:.76; filter:brightness(.96); }
-  45% { opacity:.96; filter:brightness(1.08); }
-  50% { opacity:.84; }
-  55% { opacity:.98; }
 }
 
 /* Large acquisition frame -> controlled contraction -> locked head scan -> release. */
@@ -143,23 +111,17 @@ main[class*="recognition-page_page"] > section:first-child::after {
 }
 
 @media (max-width:1100px) {
-  main[class*="recognition-page_page"] > section:first-child::before { right:1.6%; width:18vw; opacity:.72; }
   main[class*="recognition-page_page"] > section:first-child::after { left:59%; top:24.5%; width:16.5vw; }
 }
 
 @media (max-width:900px) {
-  main[class*="recognition-page_page"] > section:first-child::before,
-  main[class*="recognition-page_page"] > section:first-child::after { opacity:.48; }
-  main[class*="recognition-page_page"] > section:first-child::before { right:.8%; width:21vw; }
-  main[class*="recognition-page_page"] > section:first-child::after { left:61%; top:25%; width:18vw; }
+  main[class*="recognition-page_page"] > section:first-child::after { opacity:.48; left:61%; top:25%; width:18vw; }
 }
 
 @media (max-width:620px) {
-  main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { display:none; }
 }
 
 @media (prefers-reduced-motion:reduce) {
-  main[class*="recognition-page_page"] > section:first-child::before,
   main[class*="recognition-page_page"] > section:first-child::after { animation:none; }
 }
