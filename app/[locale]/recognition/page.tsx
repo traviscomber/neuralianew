@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { RecognitionPage } from '@/components/recognition-page'
+import { RecognitionFooter } from '@/components/recognition-footer'
 import { DEFAULT_LOCALE, isValidLocale } from '@/lib/get-locale'
 
 const SITE_URL = 'https://www.n3uralia.com'
@@ -43,5 +44,10 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
 
 export default function Page({ params }: { params: { locale: string } }) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  return <RecognitionPage locale={locale} />
+  return (
+    <>
+      <RecognitionPage locale={locale} />
+      <RecognitionFooter locale={locale} />
+    </>
+  )
 }
