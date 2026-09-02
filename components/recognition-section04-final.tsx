@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { Locale } from '@/lib/get-locale'
 import Image from 'next/image'
 import s from './recognition-page.module.css'
@@ -52,17 +53,24 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
 
         <div className={p.layout}>
           <div className={p.rail} aria-label="Recognition platform stages">
-            <span className={p.railCurrent} aria-hidden="true" />
             {t.layers.map((layer, index) => (
-              <ProcessNode
-                key={layer[0]}
-                index={layer[0]}
-                icon={platformIcons[index]}
-                title={layer[1]}
-                description={layer[2]}
-                orientation="vertical"
-                emphasis={index === 4}
-              />
+              <div className={p.stageSlot} key={layer[0]}>
+                <ProcessNode
+                  index={layer[0]}
+                  icon={platformIcons[index]}
+                  title={layer[1]}
+                  description={layer[2]}
+                  orientation="vertical"
+                  emphasis={index === 4}
+                />
+                {index < t.layers.length - 1 ? (
+                  <span
+                    className={p.stageConnector}
+                    aria-hidden="true"
+                    style={{ '--connector-index': index } as CSSProperties}
+                  />
+                ) : null}
+              </div>
             ))}
           </div>
 
