@@ -82,29 +82,46 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
   background-color: #020607;
 }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"]::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background-image:
-    linear-gradient(#8fe5df,#8fe5df),linear-gradient(#8fe5df,#8fe5df),
-    linear-gradient(#8fe5df,#8fe5df),linear-gradient(#8fe5df,#8fe5df),
-    linear-gradient(#8fe5df,#8fe5df),linear-gradient(#8fe5df,#8fe5df),
-    linear-gradient(#8fe5df,#8fe5df),linear-gradient(#8fe5df,#8fe5df);
-  background-repeat: no-repeat;
-  background-size:
-    28px 1px,1px 24px,
-    28px 1px,1px 24px,
-    28px 1px,1px 24px,
-    28px 1px,1px 24px;
-  background-position:
-    16px 11px,16px 11px,
-    calc(100% - 16px) 11px,calc(100% - 16px) 11px,
-    16px calc(100% - 11px),16px calc(100% - 11px),
-    calc(100% - 16px) calc(100% - 11px),calc(100% - 16px) calc(100% - 11px);
-  filter: drop-shadow(0 0 3px rgba(143,229,223,.18));
+/* Real border fragments replace the old 8-layer 1px gradient construction.
+   Keeping each L-shaped corner on one element prevents page zoom from rounding
+   its horizontal and vertical strokes onto different device-pixel boundaries. */
+main[class*="recognition-page_page"] > section[id="use-cases"] .recognitionMediaCorner {
+  position:absolute;
+  z-index:3;
+  width:29px;
+  height:25px;
+  box-sizing:border-box;
+  pointer-events:none;
+  color:#8fe5df;
+  filter:drop-shadow(0 0 3px rgba(143,229,223,.18));
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] .recognitionMediaCornerTL {
+  top:11px;
+  left:16px;
+  border-top:1px solid currentColor;
+  border-left:1px solid currentColor;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] .recognitionMediaCornerTR {
+  top:11px;
+  right:16px;
+  border-top:1px solid currentColor;
+  border-right:1px solid currentColor;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] .recognitionMediaCornerBL {
+  bottom:11px;
+  left:16px;
+  border-bottom:1px solid currentColor;
+  border-left:1px solid currentColor;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] .recognitionMediaCornerBR {
+  right:16px;
+  bottom:11px;
+  border-right:1px solid currentColor;
+  border-bottom:1px solid currentColor;
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] img {
