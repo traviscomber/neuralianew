@@ -1,38 +1,181 @@
 .recognitionSection05{
-  padding:92px 0 110px!important;
-}
-
-.recognitionSection05Figure{
   position:relative;
-  width:min(1120px,92%);
-  margin:0 auto;
+  overflow:hidden;
+  padding:108px 0 122px!important;
+  background:#020607;
+  border-top:1px solid rgba(121,192,188,.14);
 }
 
-.recognitionSection05Figure>img{
-  display:block;
-  width:100%;
-  height:auto;
+.recognitionSection05Layout{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(0,.92fr) minmax(520px,1.08fr);
+  gap:64px;
+  align-items:center;
 }
 
-.recognitionSection05Cta{
+.recognitionSection05Copy{min-width:0}
+.recognitionSection05Copy h2{
+  max-width:560px;
+  margin:22px 0 20px;
+  color:#f0f4f3;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:clamp(44px,4.6vw,64px);
+  font-weight:400;
+  line-height:1.02!important;
+  letter-spacing:.075em!important;
+  text-transform:uppercase;
+}
+
+.recognitionSection05Lead{
+  max-width:560px;
+  margin:0 0 34px;
+  color:#a7b5b5;
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-size:16px;
+  font-weight:300;
+  line-height:1.65;
+}
+
+.recognitionSection05Steps{
+  max-width:650px;
+  border-bottom:1px solid rgba(121,192,188,.16);
+}
+
+.recognitionSection05Step{
+  display:grid;
+  grid-template-columns:44px 124px minmax(0,1fr);
+  gap:18px;
+  align-items:start;
+  padding:19px 0 20px;
+  border-top:1px solid rgba(121,192,188,.16);
+}
+
+.recognitionSection05Step>span{
+  color:#7fc4bf;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:11px;
+  line-height:1.55;
+  letter-spacing:.16em;
+}
+
+.recognitionSection05Step h3{
+  margin:0;
+  color:#a8d9d8;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:15px;
+  font-weight:500;
+  line-height:1.25;
+  letter-spacing:.085em;
+  text-transform:uppercase;
+}
+
+.recognitionSection05Step p{
+  margin:0;
+  color:#8ea09f;
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-size:12px;
+  font-weight:300;
+  line-height:1.6;
+}
+
+.recognitionSection05Visual{
+  position:relative;
+  min-height:520px;
+  overflow:hidden;
+  border:1px solid rgba(121,192,188,.10);
+  background:#020607;
+}
+
+.recognitionSection05Visual>img{
   position:absolute;
-  z-index:2;
-  display:block;
-  border:0;
-  outline:none;
+  inset:-2%;
+  width:104%;
+  height:104%;
+  object-fit:cover;
+  object-position:72% center;
+  opacity:.30;
+  filter:brightness(.64) saturate(.78) contrast(1.04);
 }
 
-.recognitionSection05CtaPrimary{left:4.5%;top:60.2%;width:17.5%;height:7%}
-.recognitionSection05CtaSecondary{left:22.7%;top:60.2%;width:13.5%;height:7%}
-.recognitionSection05Cta:focus-visible{outline:2px solid #9fd9d5;outline-offset:3px;background:rgba(159,217,213,.07)}
+.recognitionSection05Visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,#020607 0%,rgba(2,6,7,.62) 18%,rgba(2,6,7,.22) 58%,rgba(2,6,7,.48) 100%),
+    linear-gradient(180deg,rgba(2,6,7,.42),transparent 28%,transparent 72%,rgba(2,6,7,.52));
+}
 
-@media(max-width:980px){
-  .recognitionSection05{padding:76px 0 88px!important}
-  .recognitionSection05Figure{width:min(1160px,96%)}
+.recognitionSection05Actions{
+  position:absolute;
+  z-index:3;
+  left:16%;
+  right:10%;
+  top:50%;
+  display:grid;
+  gap:14px;
+  transform:translateY(-50%);
+}
+
+.recognitionSection05Button{
+  display:grid;
+  place-items:center;
+  min-height:78px;
+  padding:0 40px;
+  border:1px solid rgba(115,150,148,.76);
+  background:rgba(3,6,6,.38);
+  color:#a9c5c3;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif;
+  font-size:15px;
+  font-weight:500;
+  line-height:1;
+  letter-spacing:.16em;
+  text-align:center;
+  text-transform:uppercase;
+  text-decoration:none;
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  transition:background .2s ease,border-color .2s ease,color .2s ease;
+}
+
+.recognitionSection05ButtonPrimary{
+  background:rgba(115,150,148,.92);
+  border-color:rgba(115,150,148,.92);
+  color:#030606;
+}
+
+.recognitionSection05Button:hover{border-color:rgba(159,217,213,.9);color:#d5e5e3}
+.recognitionSection05ButtonPrimary:hover{background:rgba(143,184,181,.96);color:#020607}
+.recognitionSection05Button:focus-visible{outline:2px solid #9fd9d5;outline-offset:3px}
+
+@media(max-width:1100px){
+  .recognitionSection05Layout{grid-template-columns:minmax(0,.95fr) minmax(460px,1.05fr);gap:42px}
+  .recognitionSection05Visual{min-height:480px}
+  .recognitionSection05Step{grid-template-columns:40px 110px minmax(0,1fr);gap:14px}
+}
+
+@media(max-width:900px){
+  .recognitionSection05{padding:90px 0 100px!important}
+  .recognitionSection05Layout{grid-template-columns:1fr;gap:48px}
+  .recognitionSection05Copy{max-width:760px}
+  .recognitionSection05Lead{margin-bottom:30px}
+  .recognitionSection05Visual{min-height:420px}
+  .recognitionSection05Actions{left:12%;right:12%}
 }
 
 @media(max-width:620px){
-  .recognitionSection05{padding:58px 0 68px!important}
-  .recognitionSection05Figure{width:100%}
-  .recognitionSection05Cta:focus-visible{outline-offset:2px}
+  .recognitionSection05{padding:72px 0 82px!important}
+  .recognitionSection05Layout{gap:38px}
+  .recognitionSection05Copy h2{font-size:clamp(38px,12vw,50px);letter-spacing:.065em!important}
+  .recognitionSection05Lead{font-size:15px;margin-bottom:26px}
+  .recognitionSection05Step{grid-template-columns:36px minmax(0,1fr);gap:10px 12px;padding:17px 0 18px}
+  .recognitionSection05Step h3{grid-column:2;font-size:14px}
+  .recognitionSection05Step p{grid-column:2;font-size:12px}
+  .recognitionSection05Visual{min-height:340px}
+  .recognitionSection05Visual>img{object-position:76% center;opacity:.34}
+  .recognitionSection05Actions{left:9%;right:9%;gap:10px}
+  .recognitionSection05Button{min-height:62px;padding:0 24px;font-size:13px}
 }
