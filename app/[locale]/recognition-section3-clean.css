@@ -7,14 +7,15 @@
 .valueChainSection .valueChainTop{
   grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr);
   gap:56px;
-  align-items:start;
+  align-items:end;
   margin-left:0!important;
   margin-right:0!important;
 }
 
 .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"]{
-  margin-top:34px!important;
+  margin-top:0!important;
   justify-self:end;
+  align-self:end;
 }
 
 .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"] > p{
@@ -42,18 +43,25 @@
   position:relative;
   min-width:0;
   padding-inline:14px;
+  isolation:isolate;
 }
 
-/* Exact node-border to node-border segment. The node diameter is 64px. */
+.valueProcessSlot > article{
+  position:relative;
+  z-index:2;
+}
+
+/* Exact node-border to node-border segment. */
 .valueProcessConnector{
   --connector-index:0;
   position:absolute;
-  z-index:0;
+  z-index:1;
   left:calc(50% + 32px);
   right:calc(-50% + 32px);
   top:51px;
   height:1px;
-  background:rgba(134,197,193,.30);
+  display:block!important;
+  background:rgba(134,197,193,.34);
   overflow:hidden;
   pointer-events:none;
 }
@@ -99,10 +107,12 @@
   .valueChainSection .valueChainTop{
     grid-template-columns:1fr;
     gap:22px;
+    align-items:start;
   }
   .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"]{
     margin:0!important;
     justify-self:start;
+    align-self:start;
   }
 
   .valueChainSection .valueChainTop > aside[class*="recognition-section-note_note"] > p{
@@ -113,7 +123,6 @@
   .valueProcessMain{grid-template-columns:1fr;gap:24px}
   .valueProcessSlot{padding:0 0 0 6px}
 
-  /* On mobile, each segment starts at the lower node border and ends at the next upper border. */
   .valueProcessConnector{
     left:33px;
     right:auto;
@@ -121,7 +130,7 @@
     bottom:-24px;
     width:1px;
     height:auto;
-    background:rgba(134,197,193,.30);
+    background:rgba(134,197,193,.34);
   }
 
   .valueProcessConnector::before{
