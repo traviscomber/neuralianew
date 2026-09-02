@@ -86,10 +86,10 @@
 }
 
 .copy h3{
-  margin:16px 0 6px;
+  margin:16px 0 7px;
   color:#79b8b4;
-  font:500 12px/1.2 var(--font-rajdhani),sans-serif;
-  letter-spacing:.09em;
+  font:500 14px/1.2 var(--font-rajdhani),sans-serif;
+  letter-spacing:.085em;
   text-transform:uppercase;
 }
 
@@ -122,7 +122,7 @@
 }
 .node[data-orientation="vertical"] .iconStage{grid-column:2}
 .node[data-orientation="vertical"] .copy{grid-column:3}
-.node[data-orientation="vertical"] .copy h3{margin:0 0 6px}
+.node[data-orientation="vertical"] .copy h3{margin:0 0 7px}
 .node[data-orientation="vertical"] .copy p{max-width:240px}
 
 .node[data-emphasis="true"] .ring{
@@ -162,7 +162,7 @@
     text-align:center;
     margin:0;
   }
-  .node[data-orientation="horizontal"] .copy h3{margin:0 0 6px}
+  .node[data-orientation="horizontal"] .copy h3{margin:0 0 7px}
   .node[data-orientation="horizontal"] .copy p{margin:0;max-width:360px}
 }
 
