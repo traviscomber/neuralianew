@@ -12,7 +12,7 @@ import { StructuredData } from "@/components/structured-data"
 import { RecognitionLandingPortal } from "@/components/recognition-landing-portal"
 import { absoluteUrl } from "@/lib/site"
 
-const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["400", "500"] })
+const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["300", "400", "500"] })
 const rajdhani = Rajdhani({ subsets: ["latin"], display: "swap", variable: "--font-rajdhani", weight: ["400", "500"] })
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl("/")), title: "N3uralia",
