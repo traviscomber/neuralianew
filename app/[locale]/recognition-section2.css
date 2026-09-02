@@ -12,7 +12,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCa
   display: grid;
   grid-template-columns: minmax(0,1.28fr) minmax(300px,.72fr);
   gap: 56px;
-  align-items: end;
+  align-items: center;
   margin-bottom: 30px;
 }
 
@@ -38,7 +38,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] aside[class*="rec
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
-  align-self: end;
+  align-self: center;
   margin-top: 0;
 }
 
@@ -65,7 +65,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardG
 main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"] {
   min-width: 0;
   border: 0;
-  border-left: 1px solid rgba(121,192,188,.16);
+  border-left: 1px solid rgba(121,183,179,.16);
   background: transparent;
   overflow: visible;
   transition: none;
