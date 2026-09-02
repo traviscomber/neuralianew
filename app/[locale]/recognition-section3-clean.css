@@ -56,20 +56,20 @@
   z-index:0;
   top:51px;
   height:1px;
-  background:rgba(134,197,193,.42);
-  box-shadow:0 0 5px rgba(84,187,180,.08);
+  background:rgba(134,197,193,.24);
+  box-shadow:0 0 2px rgba(84,187,180,.05);
 }
 
 .valueProcessMain::after{
   z-index:0;
-  top:50px;
-  height:3px;
-  background-image:linear-gradient(90deg,transparent,rgba(201,255,250,.92),transparent);
+  top:50.5px;
+  height:2px;
+  background-image:linear-gradient(90deg,transparent,rgba(201,255,250,.88),transparent);
   background-repeat:no-repeat;
   background-size:18% 100%;
   background-position:-22% 0;
-  filter:blur(.3px) drop-shadow(0 0 4px rgba(112,225,217,.26));
-  opacity:.86;
+  filter:blur(.2px) drop-shadow(0 0 2px rgba(112,225,217,.16));
+  opacity:.72;
   animation:valueRailFlow 8.4s linear infinite;
 }
 
@@ -108,8 +108,8 @@
 
 @keyframes valueRailFlow{
   0%{background-position:-22% 0;opacity:0}
-  5%{opacity:.82}
-  92%{opacity:.82}
+  5%{opacity:.72}
+  92%{opacity:.72}
   100%{background-position:122% 0;opacity:0}
 }
 
@@ -147,10 +147,10 @@
   }
 
   .valueProcessMain::after{
-    left:33px;
-    width:3px;
+    left:33.5px;
+    width:2px;
     height:auto;
-    background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.92),transparent);
+    background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.88),transparent);
     background-size:100% 18%;
     background-position:0 -22%;
     animation:valueRailFlowMobile 8.4s linear infinite;
@@ -162,8 +162,8 @@
 
 @keyframes valueRailFlowMobile{
   0%{background-position:0 -22%;opacity:0}
-  5%{opacity:.82}
-  92%{opacity:.82}
+  5%{opacity:.72}
+  92%{opacity:.72}
   100%{background-position:0 122%;opacity:0}
 }
 

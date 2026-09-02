@@ -55,6 +55,9 @@
 .rail{
   --platform-node-size:64px;
   --platform-gap:30px;
+  --platform-index-size:28px;
+  --platform-index-gap:14px;
+  --platform-node-center:calc(var(--platform-index-size) + var(--platform-index-gap) + var(--platform-node-size) / 2);
   position:relative;
   isolation:isolate;
   display:grid;
@@ -63,9 +66,7 @@
   padding:10px 0;
 }
 
-/* One continuous rail runs from the center of the first node to the center of
-   the last. Opaque node circles sit above it, so the visible line is strictly
-   border-to-border and never overlays a node. */
+/* Continuous thin rail behind the opaque node circles. */
 .rail::before,
 .rail::after{
   content:"";
@@ -77,22 +78,22 @@
 
 .rail::before{
   z-index:0;
-  left:calc(var(--platform-node-size) / 2);
+  left:var(--platform-node-center);
   width:1px;
-  background:rgba(134,197,193,.42);
-  box-shadow:0 0 5px rgba(84,187,180,.08);
+  background:rgba(134,197,193,.24);
+  box-shadow:0 0 2px rgba(84,187,180,.05);
 }
 
 .rail::after{
   z-index:0;
-  left:calc(var(--platform-node-size) / 2 - 1px);
-  width:3px;
-  background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.92),transparent);
+  left:calc(var(--platform-node-center) - .5px);
+  width:2px;
+  background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.88),transparent);
   background-repeat:no-repeat;
-  background-size:100% 16%;
+  background-size:100% 14%;
   background-position:0 -20%;
-  filter:blur(.3px) drop-shadow(0 0 4px rgba(112,225,217,.26));
-  opacity:.86;
+  filter:blur(.2px) drop-shadow(0 0 2px rgba(112,225,217,.16));
+  opacity:.72;
   animation:platformRailFlow 8.4s linear infinite;
 }
 
@@ -107,7 +108,6 @@
   z-index:2;
 }
 
-/* Replaced by the rail pseudo-elements above. */
 .stageConnector{display:none!important}
 
 .artwork{
@@ -130,8 +130,8 @@
 
 @keyframes platformRailFlow{
   0%{background-position:0 -20%;opacity:0}
-  5%{opacity:.84}
-  92%{opacity:.84}
+  5%{opacity:.72}
+  92%{opacity:.72}
   100%{background-position:0 120%;opacity:0}
 }
 
@@ -154,7 +154,7 @@
 }
 
 @media(max-width:620px){
-  .rail{--platform-node-size:52px}
+  .rail{--platform-node-size:52px;--platform-index-size:24px;--platform-index-gap:12px}
 }
 
 @media(max-width:520px){

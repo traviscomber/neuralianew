@@ -104,20 +104,24 @@
 .node[data-orientation="horizontal"]{display:grid;justify-items:center;text-align:center}
 .node[data-orientation="horizontal"] .copy p{margin-inline:auto}
 
+/* Vertical nodes are used by Section 04 only. Keep the stage number to the left
+   of the circle so the vertical rail never crosses the number. */
 .node[data-orientation="vertical"]{
   display:grid;
-  grid-template-columns:var(--node-size) minmax(0,1fr);
-  column-gap:18px;
+  grid-template-columns:28px var(--node-size) minmax(0,1fr);
+  column-gap:14px;
   align-items:center;
 }
 .node[data-orientation="vertical"] .index{
-  position:absolute;
-  left:0;
-  top:-12px;
-  width:var(--node-size);
-  text-align:center;
+  position:static;
+  width:28px;
   margin:0;
+  text-align:right;
+  align-self:center;
+  justify-self:start;
 }
+.node[data-orientation="vertical"] .iconStage{grid-column:2}
+.node[data-orientation="vertical"] .copy{grid-column:3}
 .node[data-orientation="vertical"] .copy h3{margin:0 0 6px}
 .node[data-orientation="vertical"] .copy p{max-width:220px}
 
@@ -165,7 +169,11 @@
 @media(max-width:620px){
   .node{--node-size:52px}
   .ring svg{width:24px;height:24px}
-  .node[data-orientation="vertical"]{column-gap:15px}
+  .node[data-orientation="vertical"]{
+    grid-template-columns:24px var(--node-size) minmax(0,1fr);
+    column-gap:12px;
+  }
+  .node[data-orientation="vertical"] .index{width:24px}
 }
 
 @media(prefers-reduced-motion:reduce){
