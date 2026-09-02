@@ -1,0 +1,116 @@
+/* Recognition typography normalization.
+   Mirrors the landing-page type system without changing Recognition geometry. */
+
+main[class*="recognition-page_page"]{
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-weight:300;
+}
+
+/* Section telemetry / eyebrows follow the landing-page micro-label system. */
+main[class*="recognition-page_page"] span[class*="recognition-page_eyebrow"]{
+  color:var(--n3-teal-soft,#a8d9d8)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase;
+}
+
+/* Keep existing responsive H2 sizes, but restore landing-page display rhythm. */
+main[class*="recognition-page_page"] h2{
+  line-height:1.06!important;
+  letter-spacing:.12em!important;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] h2,
+main[class*="recognition-page_page"] .valueChainTop h2,
+main[class*="recognition-page_page"] section[id="platform"] h2{
+  line-height:1.06!important;
+  letter-spacing:.12em!important;
+}
+
+/* Primary explanatory copy should carry the same authority as landing hero copy. */
+main[class*="recognition-page_page"] p[class*="recognition-page_heroBody"]{
+  color:#b1c0c0!important;
+  font-family:var(--font-montserrat),Montserrat,sans-serif!important;
+  font-size:16px!important;
+  font-weight:300!important;
+  line-height:1.65!important;
+}
+
+/* Recognition CTAs use the same readable Rajdhani treatment as landing CTAs. */
+main[class*="recognition-page_page"] a[class*="recognition-page_button"]{
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:.18em!important;
+}
+
+/* Hero supporting signal becomes quiet telemetry rather than miniature display copy. */
+main[class*="recognition-page_page"] div[class*="recognition-page_heroSignal"]{
+  color:var(--n3-text-muted,#8fa7a8)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:10px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:.16em!important;
+}
+
+/* Section 02: bring dense card copy up to the landing page's compact-content floor. */
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"]::before{
+  content:attr(data-label)!important;
+  color:#7eb7b6!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:10px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:.18em!important;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3{
+  color:var(--n3-teal-soft,#a8d9d8)!important;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
+  font-size:15px!important;
+  font-weight:400!important;
+  line-height:1.2!important;
+  letter-spacing:.085em!important;
+}
+
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p{
+  max-width:255px!important;
+  color:#879898!important;
+  font-family:var(--font-montserrat),Montserrat,sans-serif!important;
+  font-size:12px!important;
+  font-weight:300!important;
+  line-height:1.6!important;
+}
+
+/* Section 03 footer microcopy was below the landing page's readable minimum. */
+main[class*="recognition-page_page"] .valueChainSection .valueFooter b{
+  color:#718283!important;
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
+  font-size:11px!important;
+  font-weight:500!important;
+  line-height:1.55!important;
+  letter-spacing:.15em!important;
+}
+
+/* The hero confidence mark is telemetry too. */
+main[class*="recognition-page_page"] > section:first-child::after{
+  color:var(--n3-teal-soft,#a8d9d8)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:clamp(8px,.62vw,10px)!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:.18em!important;
+}
+
+@media(max-width:620px){
+  main[class*="recognition-page_page"] span[class*="recognition-page_eyebrow"]{font-size:10px!important}
+  main[class*="recognition-page_page"] p[class*="recognition-page_heroBody"]{font-size:15px!important}
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3{font-size:14px!important}
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p{font-size:11.5px!important}
+  main[class*="recognition-page_page"] .valueChainSection .valueFooter b{font-size:10px!important}
+}
