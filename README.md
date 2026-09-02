@@ -1,74 +1,96 @@
-# Neuralia - Vibe Coding AI Platform
+# N3uralia
 
-Transform your business with AI agents that understand your vibe. Create, deploy, and scale intelligent solutions with Neuralia's revolutionary vibe coding approach.
+> **Intelligence for complex operations.**
 
-## 🚀 Features
+[N3uralia](https://n3uralia.com) designs and builds vertical operating systems, decision-intelligence layers, physical-intelligence systems and production AI for real operations.
 
-- **Vibe Intelligence**: AI that learns and adapts to your unique communication style
-- **Instant Deployment**: Get AI agents running in 24-48 hours
-- **Natural Conversations**: Authentic, context-aware interactions
-- **Enterprise Security**: Bank-level security with full compliance
-- **Multi-language Support**: Maintain brand voice across languages and cultures
-- **Seamless Integration**: Works with your existing tools and platforms
+The company’s core architecture is:
 
-## 🛠 Tech Stack
+<p align="center"><strong>Evidence → Decision → Action → Traceability</strong></p>
 
-- **Framework**: Next.js 14 with App Router
-- **Styling**: Tailwind CSS + Framer Motion
-- **Components**: Radix UI primitives
-- **TypeScript**: Full type safety
-- **Deployment**: Static export ready
+AI is part of the operating system, not a decorative layer. Canonical data, deterministic rules, authorization, human authority and measurable outcomes remain the source of operational truth.
 
-## 🏃‍♂️ Quick Start
+---
 
-\`\`\`bash
-# Install dependencies
-npm install
+## What N3uralia builds
 
-# Run development server
-npm run dev
+### Vertical operating systems
 
-# Build for production
-npm run build
+Software that models an industry or operation end to end rather than reproducing a generic ERP/dashboard pattern.
 
-# Start production server
-npm start
-\`\`\`
+Current domains include:
 
-## 📁 Project Structure
+- real-estate intelligence and professional valuation;
+- mining operations;
+- transport compliance;
+- hospitality and facility operations;
+- privacy/compliance;
+- industrial-property intelligence;
+- agriculture;
+- seafood quality and traceability;
+- security and physical intelligence.
 
-\`\`\`
-├── app/                 # Next.js app directory
-├── components/          # Reusable components
-│   ├── ui/             # Base UI components
-│   └── landing/        # Landing page sections
-├── lib/                # Utility functions
-└── public/             # Static assets
-\`\`\`
+### Decision intelligence
 
-## 🎨 Vibe Coding Philosophy
+Systems that connect evidence, rules, analysis and human authority so that users can understand not only **what happened**, but **what requires action next**.
 
-Vibe coding goes beyond traditional AI training. Our technology:
+### Physical intelligence
 
-1. **Learns Your Style**: Understands communication patterns and brand personality
-2. **Adapts Contextually**: Responds appropriately to different situations
-3. **Maintains Consistency**: Preserves your authentic voice across all interactions
-4. **Evolves Continuously**: Improves through ongoing learning and feedback
+Camera, sensor and edge-device evidence converted into trusted observations, review workflows, datasets and measurable model lifecycles.
 
-## 🌟 Use Cases
+### Agentic operations
 
-- **Customer Support**: 24/7 empathetic assistance
-- **Sales Automation**: Personalized customer journeys
-- **Education**: Adaptive learning experiences
-- **Healthcare**: Compassionate patient interactions
-- **Creative**: AI creative collaboration
+Specialized agents that work inside governed business processes instead of operating as unconstrained chatbots.
 
-## 📞 Support
+---
 
-- **Email**: hello@neuralia.ai
-- **Phone**: +1 (555) 123-4567
-- **Website**: https://neuralia.ai
+## Selected systems
 
-## 📄 License
+| System | Operating domain |
+|---|---|
+| **Property Partners Intelligence** | Real Estate Intelligence OS |
+| **Black Swan Facility Core** | Facility & Hospitality OS |
+| **ChileFlota** | Transport Compliance OS |
+| **MOTIL** | Mining Operations OS |
+| **Kumplio** | Privacy Compliance OS |
+| **Videntia** | Industrial Property Intelligence OS |
+| **Clar1ty** | Visual Intelligence OS |
+| **N3uralia Edge Intelligence** | Physical Intelligence OS |
+| **Pescamar · UniGrade** | Seafood Quality OS |
+| **ANTEMANO** | Anticipatory Intelligence OS |
 
-© 2024 Neuralia. All rights reserved.
+The wider ecosystem also includes N3uralia360, VisionCraft, Sent1nels, EcoSueloLab, SegurIA, Cort3x and additional product/R&D lines.
+
+---
+
+## Engineering principles
+
+1. **Canonical data before AI.**
+2. **Missing information is not zero.**
+3. **Evidence remains visible.**
+4. **Deterministic rules stay deterministic.**
+5. **Consequential authority stays with authorized humans.**
+6. **Automation must be observable and recoverable.**
+7. **Decisions and actions remain traceable.**
+8. **Production systems require release gates and rollback readiness.**
+
+---
+
+## Stack
+
+N3uralia products commonly use modern TypeScript/React/Next.js application layers with PostgreSQL, server-side authorization, cloud deployment and domain-specific AI/automation components.
+
+The technology changes when the operation requires it. The durable architecture is the relationship between evidence, domain state, decisions and executable work.
+
+---
+
+## Ecosystem
+
+- [n3uralia.com](https://n3uralia.com) — N3uralia
+- [n3uralia360.art](https://n3uralia360.art) — immersive and spatial media
+- [v1sioncraft.art](https://v1sioncraft.art) — AI motion and video workflows
+- [clar1ty.art](https://clar1ty.art) — visual intelligence and restoration
+
+---
+
+**N3uralia builds systems that understand reality well enough to act on it.**
