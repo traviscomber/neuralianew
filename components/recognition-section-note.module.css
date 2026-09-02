@@ -10,6 +10,7 @@
   margin:0!important;
   padding:0!important;
   color:var(--n3-text-muted,#8fa7a8);
+  transform:translateX(-20%)!important;
 }
 
 .icon{
@@ -59,6 +60,7 @@
     justify-content:start!important;
     width:min(100%,620px)!important;
     grid-template-columns:30px 1px minmax(0,1fr)!important;
+    transform:none!important;
   }
   .note p{width:auto!important;max-width:520px!important}
 }
