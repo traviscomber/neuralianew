@@ -10,14 +10,14 @@ main[class*="recognition-page_page"] > section[id="use-cases"] > div {
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] {
   display: grid;
-  grid-template-columns: minmax(285px,.63fr) minmax(0,1.37fr);
-  gap: 34px;
+  grid-template-columns: 1fr;
+  gap: 0;
   align-items: stretch;
   margin-bottom: 30px;
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] {
-  min-height: 252px;
+  min-height: 0;
   padding: 10px 10px 0 8px;
   display: flex;
   flex-direction: column;
@@ -25,7 +25,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="se
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] h2 {
-  max-width: 330px;
+  max-width: 520px;
   margin-top: 22px;
   font-size: clamp(37px,3.55vw,55px);
   line-height: 1.04;
@@ -33,25 +33,10 @@ main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="se
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] p {
-  max-width: 320px;
+  max-width: 520px;
   margin-top: 8px;
   font-size: 10px;
   line-height: 1.65;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] {
-  height: 252px;
-  border: 1px solid rgba(121,192,188,.17);
-  background: #000;
-  box-shadow: none;
-}
-
-main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 48%;
-  filter: saturate(.54) brightness(.74) contrast(1.12);
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] {
@@ -95,7 +80,6 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
   background-color: #020607;
 }
 
-/* HUD corner brackets sit above every image, not behind it. */
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"]::after {
   content: "";
   position: absolute;
@@ -121,7 +105,6 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardM
   filter: drop-shadow(0 0 3px rgba(143,229,223,.18));
 }
 
-/* All four card images use the same full-bleed format behind the HUD corners. */
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] img {
   position: absolute;
   inset: 0;
@@ -148,8 +131,6 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p { max-width: 245px; margin: 0; font-size: 9px; line-height: 1.55; color: #6f8583; }
 
 @media (max-width: 980px) {
-  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] { grid-template-columns: 1fr; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] { min-height: 0; }
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] h2,
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] p { max-width: 620px; }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 24px; }
@@ -163,12 +144,3 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
   main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type { border-top: 0; }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 190px; }
 }
-
-/* Verified production imagery. */
-main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] {
-  background-image: url('/usecase-operations-overview.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-main[class*="recognition-page_page"] > section[id="use-cases"] figure[class*="useCaseFeature"] > img { opacity: 0; }
