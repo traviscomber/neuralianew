@@ -1,15 +1,3 @@
-/* Recognition hero visual layer. Deliberately does not alter copy or content geometry. */
-main[class*="recognition-page_page"] > section:first-child {
-  isolation: isolate;
-  overflow: hidden;
-  background-image:
-    linear-gradient(90deg,rgba(2,6,7,.99) 0%,rgba(2,6,7,.94) 28%,rgba(2,6,7,.69) 47%,rgba(2,6,7,.20) 70%,rgba(2,6,7,.08) 100%),
-    linear-gradient(180deg,rgba(2,6,7,.06),rgba(2,6,7,.22)),
-    url('/hero-recognition-clean.webp') !important;
-  background-size: cover !important;
-  background-position: center !important;
-}
-
 /* Detection target. Bright corner brackets stay visible; scanner activates only after focus contracts. */
 main[class*="recognition-page_page"] > section:first-child::after {
   content: "98%";
