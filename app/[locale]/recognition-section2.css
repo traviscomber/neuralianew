@@ -12,7 +12,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCa
   display: grid;
   grid-template-columns: minmax(0,1.28fr) minmax(300px,.72fr);
   gap: 56px;
-  align-items: start;
+  align-items: end;
   margin-bottom: 30px;
 }
 
@@ -38,7 +38,8 @@ main[class*="recognition-page_page"] > section[id="use-cases"] aside[class*="rec
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
-  margin-top: 34px;
+  align-self: end;
+  margin-top: 0;
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] {
@@ -136,6 +137,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] {
     grid-template-columns: 1fr;
     gap: 22px;
+    align-items: start;
   }
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] {
     grid-column: 1;
@@ -146,6 +148,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
     grid-row: 2;
     margin-top: 0;
     justify-self: start;
+    align-self: start;
   }
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] h2 { max-width: 620px; }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 24px; }
