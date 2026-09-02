@@ -10,14 +10,49 @@
   position:relative;
   width:min(1160px,94%);
   margin:0 auto;
+  background:#020607;
 }
 
 .recognitionSection05Figure>img{
+  position:relative;
+  z-index:0;
   display:block;
   width:100%;
   height:auto;
   opacity:.76;
   filter:brightness(.78) saturate(.92) contrast(1.01);
+}
+
+/* Blend the artwork into the section instead of presenting it as a framed rectangle. */
+.recognitionSection05Figure::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(90deg,
+      #020607 0%,
+      rgba(2,6,7,.92) 5%,
+      rgba(2,6,7,.58) 11%,
+      rgba(2,6,7,.18) 18%,
+      transparent 27%,
+      transparent 73%,
+      rgba(2,6,7,.18) 82%,
+      rgba(2,6,7,.58) 89%,
+      rgba(2,6,7,.92) 95%,
+      #020607 100%),
+    linear-gradient(180deg,
+      #020607 0%,
+      rgba(2,6,7,.84) 5%,
+      rgba(2,6,7,.42) 11%,
+      rgba(2,6,7,.12) 18%,
+      transparent 27%,
+      transparent 73%,
+      rgba(2,6,7,.12) 82%,
+      rgba(2,6,7,.42) 89%,
+      rgba(2,6,7,.84) 95%,
+      #020607 100%);
 }
 
 .recognitionSection05Actions{
