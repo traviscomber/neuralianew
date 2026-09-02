@@ -135,12 +135,13 @@
 .recognitionSection05Actions{
   position:absolute;
   z-index:3;
-  left:28%;
-  right:5%;
+  left:50%;
+  right:auto;
+  width:67%;
   top:50%;
   display:grid;
   gap:14px;
-  transform:translateY(-50%);
+  transform:translate(-50%,-50%);
 }
 
 .recognitionSection05Button{
@@ -193,7 +194,7 @@
   }
   .recognitionSection05Steps{gap:18px}
   .recognitionSection05Visual{min-height:480px}
-  .recognitionSection05Actions{left:22%;right:4%}
+  .recognitionSection05Actions{width:74%}
 }
 
 @media(max-width:900px){
@@ -204,7 +205,7 @@
   .recognitionSection05Body{max-width:650px}
   .recognitionSection05Visual{min-height:470px}
   .recognitionSection05Visual::before{background-size:225% auto;background-position:83% 8%}
-  .recognitionSection05Actions{left:36%;right:6%}
+  .recognitionSection05Actions{width:58%}
 }
 
 @media(max-width:680px){
@@ -213,7 +214,7 @@
   .recognitionSection05Step{padding-left:16px}
   .recognitionSection05Visual{min-height:430px}
   .recognitionSection05Visual::before{background-size:255% auto;background-position:84% 8%;opacity:.50}
-  .recognitionSection05Actions{left:18px;right:18px;top:auto;bottom:24px;transform:none}
+  .recognitionSection05Actions{left:18px;right:18px;width:auto;top:auto;bottom:24px;transform:none}
   .recognitionSection05Button{min-height:64px;padding:0 24px;font-size:14px}
 }
 
