@@ -10,7 +10,7 @@
   margin:0!important;
   padding:0!important;
   color:var(--n3-text-muted,#8fa7a8);
-  transform:translateX(-20%)!important;
+  transform:translate(-20%,-5%)!important;
 }
 
 .icon{
