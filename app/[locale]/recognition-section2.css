@@ -1,6 +1,6 @@
 /* Section 2 only — preserve hero and all copy. */
 main[class*="recognition-page_page"] > section[id="use-cases"] {
-  padding: 66px 0 72px;
+  padding: 92px 0 104px;
   background: #020607;
 }
 
@@ -11,9 +11,9 @@ main[class*="recognition-page_page"] > section[id="use-cases"] > div {
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] {
   display: grid;
   grid-template-columns: minmax(0,1.28fr) minmax(300px,.72fr);
-  gap: 56px;
+  gap: 64px;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 54px;
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] {
@@ -46,15 +46,16 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardG
   position: relative;
   display: grid;
   grid-template-columns: repeat(4,minmax(0,1fr));
-  gap: 0;
-  padding-top: 34px;
+  column-gap: 24px;
+  row-gap: 34px;
+  padding-top: 52px;
   border-top: 1px solid rgba(121,192,188,.14);
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"]::before {
   content: "CORE RECOGNITION AREAS";
   position: absolute;
-  top: 12px;
+  top: 16px;
   left: 8px;
   color: #5a918e;
   font: 500 9px/1 var(--font-rajdhani),sans-serif;
@@ -65,19 +66,17 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardG
 main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"] {
   min-width: 0;
   border: 0;
-  border-left: 1px solid rgba(121,183,179,.16);
   background: transparent;
   overflow: visible;
   transition: none;
 }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type { border-left: 0; }
-main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:hover { transform: none; border-color: rgba(121,192,188,.16); }
+main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:hover { transform: none; border-color: transparent; }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] {
   position: relative;
   width: 100%;
-  height: 142px;
+  height: 156px;
   aspect-ratio: auto;
   overflow: hidden;
   background-color: #020607;
@@ -128,16 +127,24 @@ main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-ty
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(3) div[class*="cardMedia"] img { opacity:0; }
 main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-type(4) div[class*="cardMedia"] img { object-position: center 45%; filter: saturate(.52) brightness(.72) contrast(1.16); }
 
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 104px; padding: 12px 20px 8px; border-top: 0; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] {
+  min-height: 128px;
+  padding: 20px 8px 14px;
+  border-top: 0;
+}
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] > span { display: none; }
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3 { margin: 0 0 6px; color: #77b8b4; font-size: 12px; line-height: 1.2; letter-spacing: .08em; }
-main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p { max-width: 245px; margin: 0; font-size: 9px; line-height: 1.55; color: #6f8583; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] h3 { margin: 0 0 10px; color: #77b8b4; font-size: 12px; line-height: 1.2; letter-spacing: .08em; }
+main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] p { max-width: 255px; margin: 0; font-size: 9px; line-height: 1.55; color: #6f8583; }
 
 @media (max-width: 980px) {
+  main[class*="recognition-page_page"] > section[id="use-cases"] {
+    padding: 82px 0 92px;
+  }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 28px;
     align-items: start;
+    margin-bottom: 46px;
   }
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] {
     grid-column: 1;
@@ -151,14 +158,26 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
     align-self: start;
   }
   main[class*="recognition-page_page"] > section[id="use-cases"] header[class*="sectionHead"] h2 { max-width: 620px; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] { grid-template-columns: repeat(2,minmax(0,1fr)); row-gap: 24px; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:nth-of-type(3) { border-left: 0; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    column-gap: 28px;
+    row-gap: 40px;
+  }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 178px; }
 }
 
 @media (max-width: 620px) {
+  main[class*="recognition-page_page"] > section[id="use-cases"] {
+    padding: 68px 0 80px;
+  }
   main[class*="recognition-page_page"] > section[id="use-cases"] > div { width: min(100% - 30px,1280px); }
-  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] { grid-template-columns: 1fr; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"] { border-left: 0; border-top: 1px solid rgba(121,192,188,.12); padding-top: 12px; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"]:first-of-type { border-top: 0; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 190px; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="useCaseLead"] { margin-bottom: 40px; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"] {
+    grid-template-columns: 1fr;
+    row-gap: 46px;
+    padding-top: 46px;
+  }
+  main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"] { border: 0; padding-top: 0; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 200px; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 0; padding: 18px 4px 0; }
 }
