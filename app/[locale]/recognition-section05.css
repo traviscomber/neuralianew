@@ -23,7 +23,7 @@
   filter:brightness(.78) saturate(.92) contrast(1.01);
 }
 
-/* Blend the artwork into the section instead of presenting it as a framed rectangle. */
+/* Fade only the outer border of the artwork. The interior information and CTAs stay clear. */
 .recognitionSection05Figure::after{
   content:"";
   position:absolute;
@@ -31,28 +31,10 @@
   z-index:1;
   pointer-events:none;
   background:
-    linear-gradient(90deg,
-      #020607 0%,
-      rgba(2,6,7,.92) 5%,
-      rgba(2,6,7,.58) 11%,
-      rgba(2,6,7,.18) 18%,
-      transparent 27%,
-      transparent 73%,
-      rgba(2,6,7,.18) 82%,
-      rgba(2,6,7,.58) 89%,
-      rgba(2,6,7,.92) 95%,
-      #020607 100%),
-    linear-gradient(180deg,
-      #020607 0%,
-      rgba(2,6,7,.84) 5%,
-      rgba(2,6,7,.42) 11%,
-      rgba(2,6,7,.12) 18%,
-      transparent 27%,
-      transparent 73%,
-      rgba(2,6,7,.12) 82%,
-      rgba(2,6,7,.42) 89%,
-      rgba(2,6,7,.84) 95%,
-      #020607 100%);
+    linear-gradient(90deg,#020607 0%,rgba(2,6,7,.78) 38%,transparent 100%) left center/7% 100% no-repeat,
+    linear-gradient(270deg,#020607 0%,rgba(2,6,7,.78) 38%,transparent 100%) right center/7% 100% no-repeat,
+    linear-gradient(180deg,#020607 0%,rgba(2,6,7,.72) 38%,transparent 100%) center top/100% 7% no-repeat,
+    linear-gradient(0deg,#020607 0%,rgba(2,6,7,.72) 38%,transparent 100%) center bottom/100% 7% no-repeat;
 }
 
 .recognitionSection05Actions{
