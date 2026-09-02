@@ -4,6 +4,7 @@ import Image from 'next/image'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
 import { ProcessNode, type ProcessIconName } from './recognition-process-node'
+import { RecognitionSectionNote } from './recognition-section-note'
 
 const copy = {
   en: {
@@ -48,7 +49,7 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
             <h2>{t.title.map((line) => <span key={line}>{line}</span>)}</h2>
             <i aria-hidden="true" />
           </div>
-          <p>{t.body}</p>
+          <RecognitionSectionNote icon="platform">{t.body}</RecognitionSectionNote>
         </header>
 
         <div className={p.layout}>
