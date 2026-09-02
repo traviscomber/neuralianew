@@ -1,0 +1,21 @@
+/* Section 03 cleanup: keep the process nodes and solid flow, remove framing noise. */
+.valueChainSection .valueFlow {
+  border: 0 !important;
+  clip-path: none !important;
+}
+
+.valueChainSection .valueFlow::before,
+.valueChainSection .valueFlow::after {
+  content: none !important;
+  display: none !important;
+}
+
+.valueChainSection .valueReturn::before {
+  content: none !important;
+  display: none !important;
+  border: 0 !important;
+}
+
+.valueChainSection .valueFlowStep:nth-of-type(5) .valueIcon > span::after {
+  border: 0 !important;
+}
