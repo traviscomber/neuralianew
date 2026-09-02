@@ -17,7 +17,6 @@ export interface RequiredEnvVar {
 }
 
 const ENV_VARS: RequiredEnvVar[] = [
-  // Core Supabase
   {
     name: 'NEXT_PUBLIC_SUPABASE_URL',
     required: true,
@@ -34,15 +33,11 @@ const ENV_VARS: RequiredEnvVar[] = [
     required: true,
     description: 'Supabase service role key (secret)',
   },
-
-  // OpenAI
   {
     name: 'OPENAI_API_KEY',
     required: true,
     description: 'OpenAI API key for chat and AI features',
   },
-
-  // Email Service (Resend)
   {
     name: 'RESEND_API_KEY',
     required: false,
@@ -52,7 +47,7 @@ const ENV_VARS: RequiredEnvVar[] = [
     name: 'RESEND_FROM_EMAIL',
     required: false,
     description: 'Email sender address',
-    example: 'noreply@neuralia.ai',
+    example: 'noreply@example.com',
   },
   {
     name: 'RESEND_FROM_NAME',
@@ -60,16 +55,12 @@ const ENV_VARS: RequiredEnvVar[] = [
     description: 'Email sender name',
     example: 'N3uralia',
   },
-
-  // Site Configuration
   {
     name: 'NEXT_PUBLIC_SITE_URL',
     required: true,
     description: 'Public site URL',
-    example: 'https://neuralia.ai',
+    example: 'https://n3uralia.com',
   },
-
-  // Analytics (optional)
   {
     name: 'NEXT_PUBLIC_GA_ID',
     required: false,
@@ -77,9 +68,6 @@ const ENV_VARS: RequiredEnvVar[] = [
   },
 ]
 
-/**
- * Validate all environment variables
- */
 export function validateEnvironmentVariables(
   environment: 'development' | 'production' = process.env.NODE_ENV as 'development' | 'production'
 ): EnvValidationResult {
@@ -89,17 +77,14 @@ export function validateEnvironmentVariables(
   for (const envVar of ENV_VARS) {
     const value = process.env[envVar.name]
 
-    // Check if required variable is missing
     if (envVar.required && !value) {
       errors.push(`Missing required environment variable: ${envVar.name} - ${envVar.description}`)
     }
 
-    // Check if optional variable is missing in production
     if (!envVar.required && !value && environment === 'production') {
       warnings.push(`Optional environment variable not set: ${envVar.name} - ${envVar.description}`)
     }
 
-    // Validate URL format for SUPABASE_URL and SITE_URL
     if ((envVar.name === 'NEXT_PUBLIC_SUPABASE_URL' || envVar.name === 'NEXT_PUBLIC_SITE_URL') && value) {
       try {
         new URL(value)
@@ -108,7 +93,6 @@ export function validateEnvironmentVariables(
       }
     }
 
-    // Validate email format for RESEND_FROM_EMAIL
     if (envVar.name === 'RESEND_FROM_EMAIL' && value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(value)) {
@@ -124,9 +108,6 @@ export function validateEnvironmentVariables(
   }
 }
 
-/**
- * Log validation results
- */
 export function logValidationResults(result: EnvValidationResult, context = 'Startup'): void {
   if (result.errors.length > 0) {
     console.error(`[${context}] Environment validation FAILED:`)
@@ -143,9 +124,6 @@ export function logValidationResults(result: EnvValidationResult, context = 'Sta
   }
 }
 
-/**
- * Assert environment variables (throws on error)
- */
 export function assertEnvironmentVariables(
   environment: 'development' | 'production' = process.env.NODE_ENV as 'development' | 'production'
 ): void {
@@ -159,9 +137,6 @@ export function assertEnvironmentVariables(
   }
 }
 
-/**
- * Get env variable with fallback
- */
 export function getEnv(name: string, fallback?: string): string {
   const value = process.env[name]
   if (!value) {
@@ -173,9 +148,6 @@ export function getEnv(name: string, fallback?: string): string {
   return value
 }
 
-/**
- * Get env variable safely (returns null if not set)
- */
 export function getEnvSafe(name: string): string | null {
   return process.env[name] || null
 }
