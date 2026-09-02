@@ -1,21 +1,52 @@
-/* Section 03 cleanup: keep the process nodes and solid flow, remove framing noise. */
+/* Section 03 cleanup: preserve the five-step process, remove framing noise and ambient motion. */
 .valueChainSection .valueFlow {
   border: 0 !important;
   clip-path: none !important;
 }
 
 .valueChainSection .valueFlow::before,
-.valueChainSection .valueFlow::after {
-  content: none !important;
-  display: none !important;
-}
-
+.valueChainSection .valueFlow::after,
 .valueChainSection .valueReturn::before {
   content: none !important;
   display: none !important;
   border: 0 !important;
 }
 
+.valueChainSection .valueFlowRail::after,
+.valueChainSection .valueFlowStep .valueIcon,
+.valueChainSection .valueFlowStep .valueArrow {
+  animation: none !important;
+}
+
+.valueChainSection .valueFlowStep .valueIcon {
+  box-shadow: inset 0 0 0 7px #020607,
+              inset 0 0 0 8px rgba(126,197,192,.09),
+              0 0 0 1px rgba(126,197,192,.06) !important;
+}
+
 .valueChainSection .valueFlowStep:nth-of-type(5) .valueIcon > span::after {
   border: 0 !important;
+}
+
+.valueChainSection .valueFlowStep h3 {
+  font-size: 12px !important;
+}
+
+.valueChainSection .valueFlowStep p {
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+}
+
+.valueChainSection .valueReturn strong {
+  font-size: 11px !important;
+}
+
+.valueChainSection .valueReturn p {
+  font-size: 9px !important;
+  line-height: 1.45 !important;
+}
+
+.valueChainSection .valueFooter b {
+  font-size: 8px !important;
+  line-height: 1.5 !important;
 }
