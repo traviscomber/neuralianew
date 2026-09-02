@@ -9,7 +9,7 @@
   display:grid;
   grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr);
   gap:56px;
-  align-items:end;
+  align-items:center;
   margin-bottom:34px;
 }
 
@@ -41,7 +41,7 @@
 
 .header > aside[class*="recognition-section-note_note"]{
   justify-self:end;
-  align-self:end;
+  align-self:center;
   margin-top:0;
 }
 
