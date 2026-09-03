@@ -7,7 +7,7 @@ const assetParts = [
   'lib/recognition-section04-asset/part1.ts',
   'lib/recognition-section04-asset/part2.ts',
 ]
-const canonicalSrc = '/recognition-section04-platform-canonical.webp'
+const canonicalSrc = '/recognition-section04-platform-canonical.webp?v=20260903-2'
 const forbiddenPaths = [
   'public/platform-system-behind-recognition.webp',
   'components/recognition-assets/section-4.ts',
@@ -51,8 +51,8 @@ if (bytes.subarray(0, 4).toString('ascii') !== 'RIFF' || bytes.subarray(8, 12).t
 }
 
 const source = readFileSync(component, 'utf8')
-if (!source.includes(`src="${canonicalSrc}"`)) {
-  throw new Error('Section 04 component does not reference the portrait canonical WebP route')
+if (!source.includes(`platformArtworkSrc = '${canonicalSrc}'`)) {
+  throw new Error('Section 04 component does not reference the cache-busted portrait canonical WebP route')
 }
 if (source.includes('/platform-system-behind-recognition.webp')) {
   throw new Error('Section 04 component still references the obsolete landscape artwork')
