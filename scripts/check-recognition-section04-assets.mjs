@@ -7,7 +7,7 @@ const assetParts = [
   'lib/recognition-section04-asset/part1.ts',
   'lib/recognition-section04-asset/part2.ts',
 ]
-const canonicalSrc = '/recognition-section04-platform-canonical.webp?v=20260903-2'
+const canonicalSrc = '/recognition-section04-platform-canonical.webp?v=20260903-3'
 const forbiddenPaths = [
   'public/platform-system-behind-recognition.webp',
   'components/recognition-assets/section-4.ts',
