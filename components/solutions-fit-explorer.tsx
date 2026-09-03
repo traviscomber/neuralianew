@@ -1,215 +1,286 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, CheckCircle2, Factory, Gauge, Package, ShieldCheck, Users, Workflow } from 'lucide-react'
+import {
+  ArrowRight,
+  Bot,
+  Eye,
+  FileText,
+  ScanLine,
+  ShieldCheck,
+  Workflow,
+} from 'lucide-react'
 import type { Locale } from '@/lib/get-locale'
 
-type FrictionKey = 'visibility' | 'manual' | 'response' | 'risk'
+type FrictionKey =
+  | 'visibility'
+  | 'manual'
+  | 'response'
+  | 'traceability'
+  | 'documents'
+  | 'vision'
 
 type Option = {
   key: FrictionKey
-  icon: typeof Gauge
+  icon: typeof Eye
   label: string
-  description: string
   recommendation: string
-  firstBuild: string
-  signal: string
+  layer: string
+  explanation: string
 }
 
-const content: Record<Locale, { eyebrow: string; title: string; subtitle: string; choose: string; next: string; output: string; options: Option[] }> = {
+type Copy = {
+  eyebrow: string
+  title: string
+  subtitle: string
+  recommended: string
+  layer: string
+  cta: string
+  options: Option[]
+}
+
+const content: Record<Locale, Copy> = {
   es: {
-    eyebrow: 'Selector rápido',
-    title: 'Elige la fricción y mira por dónde conviene partir',
+    eyebrow: '04 / SELECTOR RÁPIDO',
+    title: '¿Dónde empieza la fricción?',
     subtitle:
-      'Una buena implementación no empieza con “hagamos IA”. Empieza entendiendo qué parte de la operación está perdiendo velocidad, control o contexto.',
-    choose: 'Qué te duele hoy',
-    next: 'Siguiente movimiento recomendado',
-    output: 'Qué construiríamos primero',
+      'Elige el síntoma más cercano a tu operación. No define la solución final; solo ayuda a identificar el primer movimiento útil.',
+    recommended: 'Primer movimiento recomendado',
+    layer: 'Capa de solución',
+    cta: 'Validar este camino',
     options: [
       {
         key: 'visibility',
-        icon: Gauge,
-        label: 'No veo la operación completa',
-        description: 'Datos en planillas, correos y herramientas separadas. Mucha reunión solo para saber qué está pasando.',
-        recommendation: 'Mapa operativo + tablero conectado',
-        firstBuild: 'Un centro de control con datos clave, alertas y responsables claros para tomar decisiones sin perseguir información.',
-        signal: 'Ideal si hoy el equipo decide con capturas, reportes tardíos o versiones distintas de la verdad.',
+        icon: Eye,
+        label: 'No puedo ver la operación completa',
+        recommendation: 'Mapa operativo + dashboard conectado',
+        layer: 'Inteligencia Operacional',
+        explanation:
+          'Un centro de control con datos clave, alertas y responsables claros para decidir sin perseguir información.',
       },
       {
         key: 'manual',
         icon: Workflow,
-        label: 'Hay demasiado trabajo manual',
-        description: 'Copiar, pegar, validar, avisar y actualizar consume más tiempo que resolver el problema real.',
+        label: 'Demasiado trabajo es manual',
         recommendation: 'Piloto de automatización operacional',
-        firstBuild: 'Un flujo acotado que conecte herramientas, elimine pasos repetidos y deje trazabilidad desde el primer ciclo.',
-        signal: 'Ideal si puedes nombrar un proceso que ocurre todas las semanas y siempre se tranca en el mismo punto.',
+        layer: 'Automatización de Flujos',
+        explanation:
+          'Un flujo acotado que conecte herramientas, elimine pasos repetidos y deje trazabilidad desde el primer ciclo.',
       },
       {
         key: 'response',
-        icon: Users,
-        label: 'Respondemos tarde',
-        description: 'Clientes, equipos o proveedores esperan porque la información no llega al canal correcto a tiempo.',
-        recommendation: 'Capa de respuesta inteligente',
-        firstBuild: 'Un asistente o portal conectado a contexto real, permisos y canales como WhatsApp, email o sistemas internos.',
-        signal: 'Ideal si la oportunidad se pierde por demora, no por falta de demanda.',
+        icon: Bot,
+        label: 'Respondemos demasiado tarde',
+        recommendation: 'Capa de respuesta con contexto real',
+        layer: 'Asistentes de IA',
+        explanation:
+          'Un asistente conectado a datos, documentos, permisos y canales para acelerar respuestas sin perder control.',
       },
       {
-        key: 'risk',
+        key: 'traceability',
         icon: ShieldCheck,
-        label: 'Necesito más control y trazabilidad',
-        description: 'Hay decisiones, documentos o validaciones que requieren auditoría, permisos y menos dependencia de memoria humana.',
-        recommendation: 'Sistema gobernado de producción',
-        firstBuild: 'Una arquitectura con roles, historial, guardrails, monitoreo y checkpoints humanos donde haga sentido.',
-        signal: 'Ideal si compliance, continuidad o seguridad son parte central del negocio.',
+        label: 'Necesito control y trazabilidad',
+        recommendation: 'Flujo gobernado con historial y responsables',
+        layer: 'Plataformas Internas',
+        explanation:
+          'Una capa operativa con roles, estados, historial, excepciones y checkpoints humanos donde realmente importan.',
+      },
+      {
+        key: 'documents',
+        icon: FileText,
+        label: 'Tenemos documentos en todas partes',
+        recommendation: 'Inventario documental + extracción estructurada',
+        layer: 'Inteligencia Documental',
+        explanation:
+          'Clasificar, extraer, validar y conectar documentos para que la operación no dependa de búsqueda manual ni reingreso de datos.',
+      },
+      {
+        key: 'vision',
+        icon: ScanLine,
+        label: 'Necesitamos reconocer eventos visuales',
+        recommendation: 'Prueba de reconocimiento sobre evidencia real',
+        layer: 'Sistemas de Reconocimiento',
+        explanation:
+          'Validar visión computacional sobre imágenes o video reales antes de diseñar el sistema de producción completo.',
       },
     ],
   },
   en: {
-    eyebrow: 'Quick selector',
-    title: 'Choose the friction and see where to start',
+    eyebrow: '04 / QUICK SELECTOR',
+    title: 'Where does the friction start?',
     subtitle:
-      'A strong implementation does not start with “let’s add AI”. It starts by understanding which part of the operation is losing speed, control, or context.',
-    choose: 'What hurts today',
-    next: 'Recommended next move',
-    output: 'What we would build first',
+      'Choose the symptom closest to your operation. It does not define the final solution; it identifies a useful first move.',
+    recommended: 'Recommended first move',
+    layer: 'Solution layer',
+    cta: 'Validate this path',
     options: [
       {
         key: 'visibility',
-        icon: Gauge,
+        icon: Eye,
         label: 'I cannot see the full operation',
-        description: 'Data lives in spreadsheets, email, and disconnected tools. Meetings are needed just to understand what is happening.',
         recommendation: 'Operating map + connected dashboard',
-        firstBuild: 'A control center with key data, alerts, and clear owners so decisions do not depend on chasing information.',
-        signal: 'Best when the team decides from screenshots, late reports, or multiple versions of the truth.',
+        layer: 'Operational Intelligence',
+        explanation:
+          'A control center with key data, alerts and clear owners so decisions do not depend on chasing information.',
       },
       {
         key: 'manual',
         icon: Workflow,
         label: 'Too much work is manual',
-        description: 'Copying, validating, notifying, and updating takes more time than solving the real problem.',
         recommendation: 'Operational automation pilot',
-        firstBuild: 'A focused workflow that connects tools, removes repeated steps, and creates traceability from the first cycle.',
-        signal: 'Best when you can name a recurring process that gets stuck in the same place every week.',
+        layer: 'Workflow Automation',
+        explanation:
+          'A focused workflow that connects tools, removes repeated steps and creates traceability from the first cycle.',
       },
       {
         key: 'response',
-        icon: Users,
+        icon: Bot,
         label: 'We respond too late',
-        description: 'Customers, teams, or suppliers wait because information does not reach the right channel at the right time.',
-        recommendation: 'Intelligent response layer',
-        firstBuild: 'An assistant or portal connected to real context, permissions, and channels such as WhatsApp, email, or internal systems.',
-        signal: 'Best when opportunities are lost because of delay, not lack of demand.',
+        recommendation: 'Context-aware response layer',
+        layer: 'AI Assistants',
+        explanation:
+          'An assistant connected to data, documents, permissions and channels so teams can respond faster without losing control.',
       },
       {
-        key: 'risk',
+        key: 'traceability',
         icon: ShieldCheck,
         label: 'I need control and traceability',
-        description: 'Decisions, documents, or validations require auditability, permissions, and less dependency on human memory.',
-        recommendation: 'Governed production system',
-        firstBuild: 'An architecture with roles, history, guardrails, monitoring, and human checkpoints where they matter.',
-        signal: 'Best when compliance, continuity, or security are central to the business.',
+        recommendation: 'Governed workflow with history and owners',
+        layer: 'Internal Platforms',
+        explanation:
+          'An operating layer with roles, states, history, exceptions and human checkpoints where they actually matter.',
+      },
+      {
+        key: 'documents',
+        icon: FileText,
+        label: 'We have documents everywhere',
+        recommendation: 'Document inventory + structured extraction',
+        layer: 'Document Intelligence',
+        explanation:
+          'Classify, extract, validate and connect documents so operations do not depend on manual search or repeated data entry.',
+      },
+      {
+        key: 'vision',
+        icon: ScanLine,
+        label: 'We need to recognize visual events',
+        recommendation: 'Recognition test on real evidence',
+        layer: 'Recognition Systems',
+        explanation:
+          'Validate computer vision on real images or video before designing the complete production system.',
       },
     ],
   },
 }
 
-const sectors = [
-  { icon: Package, label: 'Retail' },
-  { icon: Factory, label: 'Industria' },
-  { icon: Workflow, label: 'Logística' },
-]
+function Recommendation({ option, copy, locale }: { option: Option; copy: Copy; locale: Locale }) {
+  return (
+    <div className="border-t border-[rgba(118,214,214,.16)] pt-5">
+      <div className="grid gap-5 sm:grid-cols-2">
+        <div>
+          <p className="telemetry">{copy.recommended}</p>
+          <p className="mt-3 font-[var(--font-rajdhani)] text-[19px] uppercase tracking-[.08em] text-[var(--n3-text-light)]">
+            {option.recommendation}
+          </p>
+        </div>
+        <div>
+          <p className="telemetry">{copy.layer}</p>
+          <p className="mt-3 font-[var(--font-rajdhani)] text-[19px] uppercase tracking-[.08em] text-[var(--n3-teal-soft)]">
+            {option.layer}
+          </p>
+        </div>
+      </div>
+      <p className="mt-5 max-w-2xl text-[13px] leading-6 text-[var(--n3-text-muted)]">{option.explanation}</p>
+      <a href={`/${locale}/diagnostico`} className="retro-button retro-button-primary mt-6 w-full gap-2 sm:w-auto">
+        {copy.cta}
+        <ArrowRight className="h-4 w-4" />
+      </a>
+    </div>
+  )
+}
 
 export function SolutionsFitExplorer({ locale }: { locale: Locale }) {
-  const page = content[locale]
+  const copy = content[locale]
   const [selectedKey, setSelectedKey] = useState<FrictionKey>('visibility')
-  const selected = page.options.find((option) => option.key === selectedKey) ?? page.options[0]
-  const SelectedIcon = selected.icon
+  const selected = copy.options.find((option) => option.key === selectedKey) ?? copy.options[0]
 
   return (
-    <section className="border-b border-[rgba(118,214,214,.16)] py-20">
-      <div className="retro-shell grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
-        <div>
-          <small>{page.eyebrow}</small>
-          <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.title}</h2>
-          <p className="mt-5 max-w-xl text-[14px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {sectors.map((sector) => {
-              const Icon = sector.icon
-              return (
-                <span key={sector.label} className="inline-flex min-h-11 items-center gap-2 border border-[rgba(168,217,216,.22)] px-4 text-[11px] uppercase tracking-[.14em] text-[var(--n3-text-muted)]">
-                  <Icon className="h-4 w-4 text-[var(--n3-teal-soft)]" />
-                  {sector.label}
-                </span>
-              )
-            })}
+    <section id="quick-selector" className="scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
+      <div className="retro-shell">
+        <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
+          <small>{copy.eyebrow}</small>
+          <div>
+            <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{copy.title}</h2>
+            <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{copy.subtitle}</p>
           </div>
         </div>
 
-        <div className="relative border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-4 md:p-5">
-          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
-          <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-[.9fr_1.1fr]">
-            <div className="bg-[var(--n3-black)] p-3">
-              <p className="telemetry px-2 pb-3 pt-1">{page.choose}</p>
-              <div role="tablist" aria-label={page.choose}>
-                {page.options.map((option, index) => {
-                  const Icon = option.icon
-                  const active = option.key === selectedKey
-                  return (
-                    <button
-                      key={option.key}
-                      type="button"
-                      role="tab"
-                      aria-selected={active}
-                      onClick={() => setSelectedKey(option.key)}
-                      className={`w-full border-t border-[rgba(118,214,214,.14)] p-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)] ${
-                        active
-                          ? 'bg-[rgba(168,217,216,.07)] text-[var(--n3-text-light)]'
-                          : 'bg-transparent text-[var(--n3-text-muted)] hover:bg-[rgba(168,217,216,.035)]'
-                      }`}
-                    >
-                      <span className="flex items-start gap-3">
-                        <span className={`mt-0.5 grid h-9 w-9 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
-                          <Icon className="h-4 w-4" />
-                        </span>
-                        <span>
-                          <span className="telemetry mb-1 block">0{index + 1}</span>
-                          <span className="block font-[var(--font-rajdhani)] text-[14px] tracking-[.08em] text-[var(--n3-text-light)] uppercase">{option.label}</span>
-                          <span className="mt-2 block text-[11px] leading-5 text-[var(--n3-text-muted)]">{option.description}</span>
-                        </span>
-                      </span>
-                    </button>
-                  )
-                })}
+        <div className="mt-10 md:hidden">
+          {copy.options.map((option, index) => {
+            const Icon = option.icon
+            const active = option.key === selectedKey
+            return (
+              <div key={option.key} className="border-t border-[rgba(118,214,214,.18)] last:border-b">
+                <button
+                  type="button"
+                  aria-expanded={active}
+                  onClick={() => setSelectedKey(option.key)}
+                  className="flex min-h-16 w-full items-center gap-4 px-1 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)]"
+                >
+                  <span className={`grid h-10 w-10 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="telemetry block">0{index + 1}</span>
+                    <span className="mt-1 block font-[var(--font-rajdhani)] text-[16px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
+                      {option.label}
+                    </span>
+                  </span>
+                  <span className="telemetry">{active ? '−' : '+'}</span>
+                </button>
+                {active ? <div className="pb-6 pl-14"><Recommendation option={option} copy={copy} locale={locale} /></div> : null}
               </div>
+            )
+          })}
+        </div>
+
+        <div className="relative mt-10 hidden border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-5 md:block lg:p-6">
+          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+          <div className="grid gap-px bg-[rgba(118,214,214,.16)] lg:grid-cols-[.82fr_1.18fr]">
+            <div className="bg-[var(--n3-black)] p-2" role="tablist" aria-label={copy.title}>
+              {copy.options.map((option, index) => {
+                const Icon = option.icon
+                const active = option.key === selectedKey
+                return (
+                  <button
+                    key={option.key}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setSelectedKey(option.key)}
+                    className={`flex min-h-16 w-full items-center gap-4 border-t border-[rgba(118,214,214,.14)] px-3 py-4 text-left transition-colors first:border-t-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)] ${active ? 'bg-[rgba(168,217,216,.07)]' : 'hover:bg-[rgba(168,217,216,.035)]'}`}
+                  >
+                    <span className={`grid h-10 w-10 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
+                      <Icon className="h-4 w-4" />
+                    </span>
+                    <span>
+                      <span className="telemetry block">0{index + 1}</span>
+                      <span className="mt-1 block font-[var(--font-rajdhani)] text-[15px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
+                        {option.label}
+                      </span>
+                    </span>
+                  </button>
+                )
+              })}
             </div>
 
-            <div className="relative overflow-hidden bg-[var(--n3-dark-surface)] p-6">
-              <div className="absolute left-0 right-0 top-24 h-px bg-gradient-to-r from-transparent via-[var(--n3-teal)] to-transparent opacity-30" />
-              <div className="relative">
-                <div className="mb-10 flex items-center justify-between gap-4">
-                  <div className="grid h-14 w-14 place-items-center border border-[rgba(168,217,216,.24)]">
-                    <SelectedIcon className="h-6 w-6 text-[var(--n3-teal-soft)]" />
-                  </div>
-                  <span className="telemetry">{locale === 'es' ? 'Fit inicial' : 'Initial fit'}</span>
-                </div>
-
-                <p className="telemetry">{page.next}</p>
-                <h3 className="mt-4 text-[clamp(28px,3vw,40px)]">{selected.recommendation}</h3>
-
-                <div className="mt-8 border-t border-[rgba(118,214,214,.16)] pt-6">
-                  <p className="telemetry">{page.output}</p>
-                  <p className="mt-4 text-[13px] text-[var(--n3-text-muted)]">{selected.firstBuild}</p>
-                </div>
-
-                <div className="mt-6 flex items-start gap-3 border-t border-[rgba(118,214,214,.16)] pt-5 text-[12px] text-[var(--n3-text-muted)]">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[var(--n3-teal-soft)]" />
-                  <span>{selected.signal}</span>
-                </div>
-
-                <a href={`/${locale}/contact`} className="retro-button retro-button-primary mt-8 gap-2">
-                  {locale === 'es' ? 'Validar este camino' : 'Validate this path'}
-                  <ArrowRight className="h-4 w-4" />
-                </a>
+            <div role="tabpanel" className="bg-[var(--n3-dark-surface)] p-6 lg:p-8">
+              <div className="flex items-center justify-between gap-4 border-b border-[rgba(118,214,214,.16)] pb-6">
+                <span className="telemetry">N3 / FIT PATH</span>
+                <span className="telemetry">{String(copy.options.findIndex((option) => option.key === selected.key) + 1).padStart(2, '0')} / 06</span>
+              </div>
+              <h3 className="mt-8 max-w-2xl text-[clamp(28px,3vw,42px)]">{selected.label}</h3>
+              <div className="mt-8">
+                <Recommendation option={selected} copy={copy} locale={locale} />
               </div>
             </div>
           </div>
