@@ -145,7 +145,7 @@ main[class*="recognition-page_page"] > section[id="use-cases"] article:nth-of-ty
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] {
   min-height: 128px;
-  padding: 20px 8px 14px;
+  padding: 32px 8px 14px;
   border-top: 0;
 }
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] > span { display: none; }
@@ -195,5 +195,5 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardB
   }
   main[class*="recognition-page_page"] > section[id="use-cases"] article[class*="useCaseCard"] { border: 0; padding-top: 0; }
   main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardMedia"] { height: 200px; }
-  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 0; padding: 18px 4px 0; }
+  main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardBody"] { min-height: 0; padding: 26px 4px 0; }
 }
