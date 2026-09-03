@@ -116,14 +116,14 @@
   align-self:start;
   justify-self:end;
   width:min(100%,640px);
-  aspect-ratio:640/1137;
+  aspect-ratio:560/995;
   min-width:0;
   margin:0;
   overflow:hidden;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
-  background:#020708!important;
+  background:transparent!important;
 }
 
 .artwork img{
