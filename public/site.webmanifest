@@ -1,0 +1,10 @@
+{
+  "name": "N3uralia",
+  "short_name": "N3uralia",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "theme_color": "#030606",
+  "background_color": "#030606",
+  "display": "standalone"
+}
