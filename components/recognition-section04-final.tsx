@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react'
 import type { Locale } from '@/lib/get-locale'
-import Image from 'next/image'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
 import { ProcessNode, type ProcessIconName } from './recognition-process-node'
@@ -76,13 +75,14 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
           </div>
 
           <figure className={p.artwork}>
-            <Image
-              src="/platform-system-behind-recognition.webp"
+            <img
+              src="/recognition-section04-platform-canonical.webp"
               alt={t.artworkAlt}
               width={640}
-              height={360}
-              priority
-              sizes="(max-width: 820px) 100vw, calc(100vw - 360px)"
+              height={1137}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
             />
           </figure>
         </div>
