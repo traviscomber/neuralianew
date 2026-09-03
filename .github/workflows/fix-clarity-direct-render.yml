@@ -1,0 +1,61 @@
+name: Fix Clar1ty direct product render
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.asset-staging/clarity-direct-render.marker'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Switch Clar1ty to normal product image path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          catalog = Path('components/retro-catalog-pages.tsx')
+          text = catalog.read_text()
+          old = "{ id: 'clarity',      name: 'Clar1ty',               img: '/n3uralia-retro/product-clarity.png' }"
+          new = "{ id: 'clarity',      name: 'Clar1ty',               img: '/n3uralia-retro/product-clarity-showcase.webp' }"
+          if old not in text:
+              raise SystemExit('Expected Clar1ty product entry not found')
+          catalog.write_text(text.replace(old, new, 1))
+
+          layout = Path('app/layout.tsx')
+          layout_text = layout.read_text()
+          layout_text = layout_text.replace('import "./product-visual-overrides.css"\n', '')
+          layout_text = layout_text.replace("import './product-visual-overrides.css'\n", '')
+          layout.write_text(layout_text)
+
+          override = Path('app/product-visual-overrides.css')
+          if override.exists():
+              override.unlink()
+          PY
+
+      - name: Remove one-shot migration files
+        run: |
+          rm -f .asset-staging/clarity-direct-render.marker
+          rm -f .github/workflows/fix-clarity-direct-render.yml
+
+      - name: Commit direct rendering fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "fix(products): render Clar1ty screenshot through canonical image component"
+          git pull --rebase origin main
+          git push origin HEAD:main
