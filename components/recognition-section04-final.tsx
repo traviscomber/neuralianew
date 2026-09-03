@@ -79,10 +79,10 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
             <Image
               src="/platform-system-behind-recognition.webp"
               alt={t.artworkAlt}
-              width={520}
-              height={924}
+              width={640}
+              height={360}
               priority
-              sizes="(max-width: 820px) 100vw, 485px"
+              sizes="(max-width: 820px) 100vw, calc(100vw - 360px)"
             />
           </figure>
         </div>
