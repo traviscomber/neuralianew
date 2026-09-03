@@ -20,16 +20,10 @@ jobs:
 
       - name: Materialize canonical Clar1ty PNG
         run: |
-          python -m pip install --quiet Pillow
-          python - <<'PY'
-          from PIL import Image
-          from pathlib import Path
-          src = Path('public/n3uralia-retro/product-clarity-showcase.webp')
-          dst = Path('public/n3uralia-retro/product-clarity.png')
-          with Image.open(src) as im:
-              im.convert('RGB').save(dst, format='PNG', optimize=True)
-          print('wrote', dst)
-          PY
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq webp
+          dwebp public/n3uralia-retro/product-clarity-showcase.webp -o public/n3uralia-retro/product-clarity.png
+          file public/n3uralia-retro/product-clarity.png
 
       - name: Restore canonical product image path
         run: |
