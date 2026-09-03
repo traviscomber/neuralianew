@@ -1,45 +1,53 @@
+@property --recognition-confidence {
+  syntax:"<integer>";
+  inherits:false;
+  initial-value:42;
+}
+
 /* Canonical Recognition hero: keep the cougar artwork as the only hero image. */
 main[class*="recognition-page_page"] > section:first-child {
-  isolation: isolate;
-  overflow: hidden;
+  isolation:isolate;
+  overflow:hidden;
   background-image:
     linear-gradient(90deg,rgba(2,6,7,.99) 0%,rgba(2,6,7,.94) 28%,rgba(2,6,7,.69) 47%,rgba(2,6,7,.20) 70%,rgba(2,6,7,.08) 100%),
     linear-gradient(180deg,rgba(2,6,7,.06),rgba(2,6,7,.22)),
-    url('/hero-recognition-clean.webp') !important;
-  background-size: cover !important;
-  background-position: center !important;
+    url('/hero-recognition-clean.webp')!important;
+  background-size:cover!important;
+  background-position:center!important;
 }
 
-main[class*="recognition-page_page"] > section:first-child::before {
-  content: none !important;
-  display: none !important;
-  background: none !important;
+main[class*="recognition-page_page"] > section:first-child::before{
+  content:none!important;
+  display:none!important;
+  background:none!important;
 }
 
-main[class*="recognition-page_page"] > section:first-child::after {
-  content: "98%";
-  position: absolute;
-  z-index: 2;
-  left: 57.9%;
-  top: 24%;
-  width: 15.5vw;
-  max-width: 195px;
-  aspect-ratio: 1 / 1;
-  height: auto;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding: 8px;
-  border: 1px solid rgba(132,221,214,.28);
-  color: rgba(158,230,224,.94);
-  font: 500 clamp(7px,.58vw,10px)/1.45 var(--font-rajdhani),sans-serif;
-  letter-spacing: .12em;
-  text-align: right;
-  text-transform: uppercase;
+/* Target frame + confidence. No scan line: confidence rises as the frame contracts. */
+main[class*="recognition-page_page"] > section:first-child::after{
+  --recognition-confidence:42;
+  counter-reset:recognition-confidence var(--recognition-confidence);
+  content:counter(recognition-confidence) "%";
+  position:absolute;
+  z-index:2;
+  left:57.9%;
+  top:24%;
+  width:15.5vw;
+  max-width:195px;
+  aspect-ratio:1/1;
+  height:auto;
+  box-sizing:border-box;
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-end;
+  padding:8px;
+  border:1px solid rgba(132,221,214,.28);
+  color:rgba(158,230,224,.72);
+  font:500 clamp(7px,.58vw,10px)/1.45 var(--font-rajdhani),sans-serif;
+  letter-spacing:.12em;
+  text-align:right;
+  text-transform:uppercase;
   background-repeat:no-repeat;
   background-image:
-    linear-gradient(180deg,transparent 0 43%,rgba(145,255,246,.08) 45%,rgba(186,255,251,1) 49%,rgba(186,255,251,1) 51%,rgba(145,255,246,.08) 55%,transparent 57%),
     linear-gradient(90deg,#bafffa,#bafffa),linear-gradient(#bafffa,#bafffa),
     linear-gradient(90deg,#bafffa,#bafffa),linear-gradient(#bafffa,#bafffa),
     linear-gradient(90deg,#bafffa,#bafffa),linear-gradient(#bafffa,#bafffa),
@@ -47,70 +55,67 @@ main[class*="recognition-page_page"] > section:first-child::after {
     repeating-linear-gradient(0deg,transparent 0 13px,rgba(134,197,193,.025) 14px 15px),
     radial-gradient(circle at 50% 45%,rgba(126,226,217,.05),transparent 38%);
   background-position:
-    0 -50%,
     0 0,0 0,
     100% 0,100% 0,
     0 100%,0 100%,
     100% 100%,100% 100%,
     0 0,0 0;
   background-size:
-    0% 34%,
     24% 3px,3px 24%,
     24% 3px,3px 24%,
     24% 3px,3px 24%,
     24% 3px,3px 24%,
     100% 100%,100% 100%;
-  box-shadow: inset 0 0 18px rgba(77,198,190,.025),0 0 10px rgba(77,198,190,.04);
-  pointer-events: none;
+  box-shadow:inset 0 0 18px rgba(77,198,190,.025),0 0 10px rgba(77,198,190,.04);
+  pointer-events:none;
   transform-origin:center;
+  text-shadow:none;
   animation:
     recognitionTargetScan 14.8s cubic-bezier(.22,.7,.24,1) infinite,
-    recognitionTargetDrift 19.6s ease-in-out infinite alternate;
+    recognitionTargetDrift 19.6s ease-in-out infinite alternate,
+    recognitionConfidence 14.8s linear infinite,
+    recognitionConfidenceGlow 14.8s ease-in-out infinite;
 }
 
-/* Slower, irregular acquisition cycle: search -> narrow -> lock -> inspect -> release. */
-@keyframes recognitionTargetScan {
-  0% {
-    opacity:.34;
-    transform:scale(1.50);
-    background-position:0 -50%,0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%,0 0,0 0;
-    background-size:0% 34%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,100% 100%,100% 100%;
-  }
-  11% {opacity:.48;transform:scale(1.42)}
-  24% {opacity:.64;transform:scale(1.29)}
-  36% {opacity:.82;transform:scale(1.16)}
-  47% {
-    opacity:.96;
-    transform:scale(1.06);
-    background-position:0 -42%,0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%,0 0,0 0;
-    background-size:100% 34%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,100% 100%,100% 100%;
-  }
-  58% {
-    opacity:1;
-    transform:scale(1.01);
-    background-position:0 25%,0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%,0 0,0 0;
-    box-shadow:inset 0 0 28px rgba(77,198,190,.05),0 0 20px rgba(151,255,248,.14);
-  }
-  70% {
-    opacity:1;
-    transform:scale(.99);
-    background-position:0 105%,0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%,0 0,0 0;
-    box-shadow:inset 0 0 30px rgba(77,198,190,.06),0 0 24px rgba(151,255,248,.18);
-  }
-  79% {
-    opacity:.98;
-    transform:scale(1.015);
-    background-position:0 185%,0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%,0 0,0 0;
-  }
-  91% {
-    opacity:.62;
-    transform:scale(1.24);
-    background-size:0% 34%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,24% 3px,3px 24%,100% 100%,100% 100%;
-  }
-  100% {opacity:.36;transform:scale(1.48)}
+/* Slow irregular acquisition: broad search -> contract -> final lock -> release. */
+@keyframes recognitionTargetScan{
+  0%{opacity:.34;transform:scale(1.50);box-shadow:inset 0 0 14px rgba(77,198,190,.02),0 0 8px rgba(77,198,190,.03)}
+  11%{opacity:.48;transform:scale(1.42)}
+  24%{opacity:.64;transform:scale(1.29)}
+  36%{opacity:.82;transform:scale(1.16)}
+  47%{opacity:.96;transform:scale(1.06)}
+  58%{opacity:1;transform:scale(1.01);box-shadow:inset 0 0 28px rgba(77,198,190,.05),0 0 20px rgba(151,255,248,.14)}
+  70%{opacity:1;transform:scale(.99);box-shadow:inset 0 0 34px rgba(77,198,190,.08),0 0 30px rgba(151,255,248,.24)}
+  79%{opacity:1;transform:scale(1.015);box-shadow:inset 0 0 30px rgba(77,198,190,.06),0 0 24px rgba(151,255,248,.18)}
+  91%{opacity:.62;transform:scale(1.24)}
+  100%{opacity:.36;transform:scale(1.48);box-shadow:inset 0 0 14px rgba(77,198,190,.02),0 0 8px rgba(77,198,190,.03)}
 }
 
-@keyframes recognitionTargetDrift {
+/* Confidence follows acquisition state: 42% at broad search, 98% at final lock. */
+@keyframes recognitionConfidence{
+  0%{--recognition-confidence:42}
+  8%{--recognition-confidence:43}
+  14%{--recognition-confidence:46}
+  20%{--recognition-confidence:52}
+  27%{--recognition-confidence:61}
+  34%{--recognition-confidence:71}
+  41%{--recognition-confidence:82}
+  47%{--recognition-confidence:90}
+  53%{--recognition-confidence:95}
+  58%,79%{--recognition-confidence:98}
+  86%{--recognition-confidence:84}
+  93%{--recognition-confidence:61}
+  100%{--recognition-confidence:42}
+}
+
+@keyframes recognitionConfidenceGlow{
+  0%,47%,100%{color:rgba(158,230,224,.68);text-shadow:none}
+  53%{color:rgba(184,245,240,.9);text-shadow:0 0 5px rgba(132,244,235,.18)}
+  58%,79%{color:#d4fffb;text-shadow:0 0 5px rgba(169,255,248,.72),0 0 14px rgba(93,232,222,.58),0 0 26px rgba(71,200,191,.28)}
+  86%{color:rgba(174,234,230,.82);text-shadow:0 0 6px rgba(123,230,222,.18)}
+}
+
+@keyframes recognitionTargetDrift{
   0%{translate:-3px 2px}
   18%{translate:2px -1px}
   41%{translate:-1px 3px}
@@ -184,18 +189,18 @@ main[class*="recognition-page_page"] > section:first-child::after {
 @keyframes recognitionMetricFlow{from{transform:translateX(-18%)}to{transform:translateX(18%)}}
 @keyframes recognitionMetricCursor{0%,100%{left:12%;opacity:.18}28%{left:47%;opacity:.78}61%{left:82%;opacity:.34}76%{left:68%;opacity:.72}}
 
-@media (max-width:1100px) {
-  main[class*="recognition-page_page"] > section:first-child::after { left:59%; top:24.5%; width:16.5vw; }
+@media(max-width:1100px){
+  main[class*="recognition-page_page"] > section:first-child::after{left:59%;top:24.5%;width:16.5vw}
   .recognitionHeroMetrics{right:24px;width:175px}
 }
-@media (max-width:900px) {
-  main[class*="recognition-page_page"] > section:first-child::after { opacity:.48; left:61%; top:25%; width:18vw; }
+@media(max-width:900px){
+  main[class*="recognition-page_page"] > section:first-child::after{opacity:.48;left:61%;top:25%;width:18vw}
   .recognitionHeroMetrics{display:none}
 }
-@media (max-width:620px) {
-  main[class*="recognition-page_page"] > section:first-child::after { display:none; }
+@media(max-width:620px){
+  main[class*="recognition-page_page"] > section:first-child::after{display:none}
 }
-@media (prefers-reduced-motion:reduce) {
-  main[class*="recognition-page_page"] > section:first-child::after { animation:none; }
+@media(prefers-reduced-motion:reduce){
+  main[class*="recognition-page_page"] > section:first-child::after{animation:none;--recognition-confidence:98;color:#d4fffb;text-shadow:0 0 7px rgba(169,255,248,.45)}
   .recognitionHeroMetric>strong,.recognitionHeroTrack::before,.recognitionHeroTrack::after{animation:none!important}
 }
