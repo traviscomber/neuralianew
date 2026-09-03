@@ -1,14 +1,12 @@
-/* Canonical product visual overrides. Keep product imagery independent from catalog data copy. */
+/* Clar1ty showcase: use the supplied real product screenshot as the visible asset. */
 #clarity .catalog-image {
-  background: #030303 url('/n3uralia-retro/product-clarity-showcase.webp') center center / cover no-repeat;
+  background-color: #030303;
+  background-image: url('/n3uralia-retro/product-clarity-showcase.webp');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #clarity .catalog-image img {
   opacity: 0;
-}
-
-@media (max-width: 899px) {
-  #clarity .catalog-image {
-    background-position: center center;
-  }
 }
