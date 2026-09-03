@@ -35,7 +35,7 @@ const copy = {
 } as const
 
 const platformIcons: ProcessIconName[] = ['capture', 'classify', 'decision', 'insights', 'intelligence']
-const platformArtworkSrc = '/recognition-section04-platform-canonical.webp?v=20260903-2'
+const platformArtworkSrc = '/recognition-section04-platform-canonical.webp?v=20260903-3'
 
 export function RecognitionSection04Final({ locale }: { locale: Locale }) {
   const t = copy[locale]
