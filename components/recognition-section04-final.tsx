@@ -5,7 +5,7 @@ import p from './recognition-section04-final.module.css'
 import { ProcessNode, type ProcessIconName } from './recognition-process-node'
 import { RecognitionSectionNote } from './recognition-section-note'
 
-const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp?v=20260903-5'
+const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp?v=20260903-6'
 
 const copy = {
   en: {
