@@ -201,28 +201,28 @@ export function ContactConversation({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="flex h-full min-h-[31rem] flex-col bg-white">
+    <div className="flex h-full min-h-[31rem] flex-col bg-[var(--n3-black)]">
       <div className="flex flex-1 flex-col overflow-hidden">
         <div ref={messagesContainerRef} className="flex-1 space-y-4 overflow-y-auto p-5 scroll-smooth md:p-6">
           {messages.map((message) => (
             <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
               <div
-                className={`max-w-xs rounded-[1.1rem] px-4 py-3 sm:max-w-md ${
+                className={`max-w-xs border px-4 py-3 sm:max-w-md ${
                   message.role === "user"
-                    ? "rounded-br-sm bg-[#173634] text-white"
-                    : "rounded-bl-sm bg-[#eef5f2] text-[#243331]"
+                    ? "border-[var(--n3-teal-soft)] bg-[rgba(168,217,216,.09)] text-[var(--n3-text-light)]"
+                    : "border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] text-[var(--n3-text-muted)]"
                 }`}
               >
-                <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>
+                <p className="whitespace-pre-wrap text-[12px] leading-6">{message.content}</p>
               </div>
             </div>
           ))}
 
           {isLoading ? (
             <div className="flex justify-start">
-              <div className="flex items-center gap-2 rounded-[1.1rem] rounded-bl-sm bg-[#eef5f2] px-4 py-2 text-[#243331]">
-                <Loader className="h-4 w-4 animate-spin text-[#789b96]" />
-                <p className="text-sm">{copy.loading}</p>
+              <div className="flex items-center gap-2 border border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] px-4 py-3 text-[var(--n3-text-muted)]">
+                <Loader className="h-4 w-4 animate-spin text-[var(--n3-teal-soft)]" />
+                <p className="text-[12px]">{copy.loading}</p>
               </div>
             </div>
           ) : null}
@@ -231,40 +231,40 @@ export function ContactConversation({ locale }: { locale: Locale }) {
         </div>
 
         {!submitted ? (
-          <form onSubmit={handleSubmit} className="flex gap-2 border-t border-[#d8e5e2] bg-[#fbfbfa] p-4">
+          <form onSubmit={handleSubmit} className="flex gap-2 border-t border-[rgba(118,214,214,.16)] bg-[var(--n3-deep)] p-4">
             <input
               type="text"
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder={copy.inputPlaceholder}
-              className="flex-1 rounded-full border border-[#d8e5e2] bg-white px-4 py-3 text-sm text-[#243331] placeholder:text-[#9ba5a2] transition-colors focus:border-[#789b96] focus:outline-none focus:ring-1 focus:ring-[#789b96]"
+              className="min-h-12 flex-1 border border-[rgba(168,217,216,.24)] bg-[var(--n3-black)] px-4 py-3 text-[13px] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] transition-colors focus:border-[var(--n3-teal)] focus:outline-none focus:ring-1 focus:ring-[var(--n3-teal)]"
               disabled={isLoading}
               autoFocus
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="grid h-12 w-12 place-items-center rounded-full bg-[#173634] text-white transition-colors hover:bg-[#244946] disabled:cursor-not-allowed disabled:opacity-50"
+              className="grid h-12 w-12 place-items-center border border-[var(--n3-teal-soft)] bg-[var(--n3-teal-soft)] text-[var(--n3-black)] transition-colors hover:bg-[#c5e8e7] disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={locale === "es" ? "Enviar respuesta" : "Send reply"}
             >
               <Send className="h-4 w-4" />
             </button>
           </form>
         ) : (
-          <div className="space-y-4 border-t border-[#d8e5e2] bg-[#fbfbfa] p-5">
-            <div className="flex items-center gap-3 rounded-[1.1rem] bg-[#eef5f2] p-4">
-              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[#789b96]" />
-              <p className="text-sm font-semibold text-[#173634]">{copy.successTitle}</p>
+          <div className="space-y-4 border-t border-[rgba(118,214,214,.16)] bg-[var(--n3-deep)] p-5">
+            <div className="flex items-center gap-3 border border-[rgba(168,217,216,.22)] bg-[var(--n3-dark-surface)] p-4">
+              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[var(--n3-teal-soft)]" />
+              <p className="font-[var(--font-rajdhani)] text-sm tracking-[.12em] text-[var(--n3-text-light)] uppercase">{copy.successTitle}</p>
             </div>
 
-            <p className="text-sm text-[#526e69]">{copy.successBody(contactData.name || "", contactData.email || "", contactData.whatsapp)}</p>
+            <p className="text-[12px] leading-6 text-[var(--n3-text-muted)]">{copy.successBody(contactData.name || "", contactData.email || "", contactData.whatsapp)}</p>
 
             <div className="flex flex-col gap-2">
               <a
                 href={copy.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#25d366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1fa857]"
+                className="retro-button retro-button-primary w-full gap-2"
               >
                 <MessageCircle className="h-4 w-4" />
                 {copy.contactWhatsapp}
@@ -273,16 +273,13 @@ export function ContactConversation({ locale }: { locale: Locale }) {
               <button
                 type="button"
                 onClick={resetConversation}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#173634] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#244946]"
+                className="retro-button w-full gap-2"
               >
                 <MessageSquare className="h-4 w-4" />
                 {copy.newProject}
               </button>
 
-              <Link
-                href={copy.homeHref}
-                className="flex w-full items-center justify-center gap-2 rounded-full border border-[#b9d0cb] bg-white px-4 py-3 text-center text-sm font-semibold text-[#526e69] transition-colors hover:bg-[#eef5f2]"
-              >
+              <Link href={copy.homeHref} className="retro-button w-full gap-2">
                 <X className="h-4 w-4" />
                 {copy.close}
               </Link>
