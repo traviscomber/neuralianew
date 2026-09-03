@@ -1,0 +1,2 @@
+Canonical favicon/sign source: public/n3uralia-brand/n3uralia-sign-canonical.svg
+Generated raster/browser variants must preserve transparency and the isolated circular mark with no background tile.
