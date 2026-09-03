@@ -86,6 +86,13 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
               decoding="async"
               draggable={false}
             />
+            <div className={p.fxLayer} aria-hidden="true">
+              <span className={p.scanField}><i /></span>
+              <span className={`${p.targetLock} ${p.targetCougar}`}><i/><i/><i/><i/></span>
+              <span className={`${p.targetLock} ${p.targetScore}`}><i/><i/><i/><i/></span>
+              <span className={p.scorePulse}><i /></span>
+              <span className={p.detectSweep} />
+            </div>
           </figure>
         </div>
       </div>
