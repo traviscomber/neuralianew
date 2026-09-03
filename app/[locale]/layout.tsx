@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import Navigation from '@/components/navigation'
+import { CanonicalFooter } from '@/components/canonical-footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
 import { ThemeProvider } from '@/components/theme-provider'
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from '@/lib/get-locale'
@@ -11,19 +12,15 @@ interface LocaleLayoutProps {
 }
 
 export async function generateStaticParams() {
-  return LOCALES.map((locale) => ({
-    locale,
-  }))
+  return LOCALES.map((locale) => ({ locale }))
 }
 
 export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-
   const titles = {
     es: 'N3uralia | IA y software para operaciones reales',
     en: 'N3uralia | AI and software for real operations',
   }
-
   const descriptions = {
     es: 'Sistemas de IA, flujos agénticos y software en producción para equipos en Chile y LATAM.',
     en: 'Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.',
@@ -34,10 +31,7 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
     description: descriptions[locale],
     alternates: {
       canonical: `https://www.n3uralia.com/${locale}`,
-      languages: {
-        es: 'https://www.n3uralia.com/es',
-        en: 'https://www.n3uralia.com/en',
-      },
+      languages: { es: 'https://www.n3uralia.com/es', en: 'https://www.n3uralia.com/en' },
     },
     openGraph: {
       title: titles[locale],
@@ -64,6 +58,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
       <div id="main-content" tabIndex={-1} className="scroll-mt-28 outline-none">
         {children}
       </div>
+      <CanonicalFooter locale={locale} />
       <ScrollToTop />
     </ThemeProvider>
   )
