@@ -19,6 +19,7 @@ import {
   Workflow,
 } from "lucide-react"
 import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
+import { SolutionsFocus } from "@/components/solutions-focus"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -30,6 +31,49 @@ interface PageProps {
 
 function href(locale: Locale, path: string) {
   return `/${locale}${path}`
+}
+
+function Corners() {
+  return <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+}
+
+function SectionIntro({ eyebrow, title, body }: { eyebrow: string; title: string; body?: string }) {
+  return (
+    <div className="grid gap-8 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-16 lg:items-start">
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <small>{eyebrow}</small>
+        <div className="mt-5 flex items-center gap-3" aria-hidden>
+          <span className="h-px w-10 bg-[rgba(118,214,214,.28)]" />
+          <span className="telemetry">N3 / ACTIVE SECTION</span>
+        </div>
+      </div>
+      <div>
+        <h2 className="max-w-4xl text-[clamp(36px,4.6vw,64px)]">{title}</h2>
+        {body ? <p className="mt-6 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{body}</p> : null}
+      </div>
+    </div>
+  )
+}
+
+function MediaPlaceholder({ label, code, className = "" }: { label: string; code: string; className?: string }) {
+  return (
+    <div aria-hidden className={`relative overflow-hidden border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] ${className}`.trim()}>
+      <Corners />
+      <div className="absolute inset-0 opacity-60" style={{ backgroundImage: "linear-gradient(rgba(118,214,214,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(118,214,214,.055) 1px, transparent 1px)", backgroundSize: "34px 34px" }} />
+      <div className="absolute left-5 right-5 top-5 flex items-center justify-between gap-4 border-b border-[rgba(118,214,214,.16)] pb-4">
+        <span className="telemetry">{code}</span>
+        <span className="telemetry">IMAGE PLACEHOLDER</span>
+      </div>
+      <div className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-5">
+        <div>
+          <span className="block h-2 w-2 rounded-full bg-[var(--n3-teal)] shadow-[0_0_16px_rgba(69,209,207,.36)]" />
+          <p className="mt-3 max-w-[280px] font-[var(--font-rajdhani)] text-[18px] uppercase tracking-[.12em] text-[var(--n3-text-light)]">{label}</p>
+        </div>
+        <span className="telemetry">POSITION / LOCKED</span>
+      </div>
+      <span className="scan-line" />
+    </div>
+  )
 }
 
 const content = {
@@ -229,6 +273,12 @@ const content = {
       "Cuéntanos dónde se está rompiendo la visibilidad, coordinación o control. Identificaremos el primer sistema que vale la pena validar.",
     finalPrimary: "Agendar diagnóstico",
     finalSecondary: "Hablar con N3uralia",
+    placeholders: {
+      layers: "Visual de capa de solución",
+      entry: "Arquitectura de entrada",
+      proof: "Evidencia de producción",
+      final: "Marco de diagnóstico",
+    },
   },
   en: {
     metadataTitle: "Solutions | N3uralia",
@@ -426,6 +476,12 @@ const content = {
       "Tell us where visibility, coordination or control is breaking down. We will identify the first system worth validating.",
     finalPrimary: "Book diagnosis",
     finalSecondary: "Talk to N3uralia",
+    placeholders: {
+      layers: "Solution-layer visual",
+      entry: "Entry architecture",
+      proof: "Production evidence",
+      final: "Diagnosis framework",
+    },
   },
 } as const
 
@@ -446,115 +502,113 @@ export default function SolucionesPage({ params }: PageProps) {
   const page = content[locale]
 
   return (
-    <main className="retro-page min-h-screen pt-20">
-      <section className="border-b border-[rgba(118,214,214,.16)]">
-        <div className="retro-shell grid gap-12 py-16 md:py-24 lg:grid-cols-[1.04fr_.96fr] lg:items-center">
-          <div>
+    <main className="retro-page min-h-screen">
+      <section className="retro-hero retro-dark border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell hero-grid">
+          <div className="hero-copy">
             <small>{page.heroEyebrow}</small>
-            <h1 className="mt-6 max-w-5xl text-[clamp(44px,6vw,82px)]">{page.heroTitle}</h1>
-            <p className="mt-7 max-w-3xl text-[16px] leading-8 text-[var(--n3-text-muted)]">{page.heroBody}</p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="#solution-layers" className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
+            <h1>{page.heroTitle}</h1>
+            <p>{page.heroBody}</p>
+            <div className="button-row">
+              <Link href="#solution-layers" className="retro-button retro-button-primary gap-2">
                 {page.heroPrimary}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href={href(locale, "/diagnostico")} className="retro-button w-full sm:w-auto">
+              <Link href={href(locale, "/diagnostico")} className="retro-button">
                 {page.heroSecondary}
               </Link>
             </div>
           </div>
 
-          <div className="relative border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-5 md:p-7">
-            <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
-            <div className="flex items-center justify-between gap-4 border-b border-[rgba(118,214,214,.16)] pb-5">
-              <span className="telemetry">N3 / OPERATIONAL SYSTEM MAP</span>
-              <span className="telemetry">LIVE PATH</span>
-            </div>
-            <div className="relative mt-6 grid gap-px bg-[rgba(118,214,214,.16)] sm:grid-cols-2">
+          <div className="hero-photo border border-[rgba(168,217,216,.2)] bg-[var(--n3-deep)]">
+            <Corners />
+            <div className="absolute inset-0 grid grid-cols-2 gap-px bg-[rgba(118,214,214,.14)] p-px">
               {page.heroMap.map((node, index) => {
                 const Icon = node.icon
                 return (
-                  <div key={node.label} className="min-h-[150px] bg-[var(--n3-black)] p-5">
-                    <div className="flex items-center justify-between gap-3">
+                  <div key={node.label} className="relative flex min-h-[180px] flex-col justify-between bg-[var(--n3-black)] p-5 md:p-6">
+                    <div className="flex items-center justify-between gap-4">
                       <Icon className="h-5 w-5 text-[var(--n3-teal-soft)]" />
                       <span className="telemetry">0{index + 1}</span>
                     </div>
-                    <p className="mt-9 font-[var(--font-rajdhani)] text-[19px] uppercase tracking-[.12em] text-[var(--n3-text-light)]">
-                      {node.label}
-                    </p>
-                    <p className="mt-2 text-[11px] leading-5 text-[var(--n3-text-muted)]">{node.note}</p>
+                    <div>
+                      <p className="font-[var(--font-rajdhani)] text-[19px] uppercase tracking-[.12em] text-[var(--n3-text-light)]">{node.label}</p>
+                      <p className="mt-2 text-[11px] leading-5 text-[var(--n3-text-muted)]">{node.note}</p>
+                    </div>
                   </div>
                 )
               })}
             </div>
-            <div className="mt-5 flex items-center gap-3">
-              <span className="h-px flex-1 bg-[rgba(118,214,214,.18)]" />
-              <span className="telemetry">DATA → WORKFLOW → INTELLIGENCE → ACTION</span>
-              <span className="h-px flex-1 bg-[rgba(118,214,214,.18)]" />
-            </div>
+            <span className="scan-line" />
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
         <div className="retro-shell">
-          <div className="grid gap-5 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
-            <small>{page.solveEyebrow}</small>
-            <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{page.solveTitle}</h2>
-          </div>
-          <div className="mt-12 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-4">
+          <SectionIntro eyebrow={page.solveEyebrow} title={page.solveTitle} />
+          <div className="mt-14 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-4">
             {page.problems.map((problem, index) => {
               const Icon = problem.icon
               return (
-                <article key={problem.title} className="min-h-[230px] bg-[var(--n3-dark-surface)] p-6 md:p-7">
-                  <div className="flex items-center justify-between">
-                    <Icon className="h-5 w-5 text-[var(--n3-teal-soft)]" />
-                    <span className="telemetry">0{index + 1}</span>
-                  </div>
-                  <h3 className="mt-12 text-[23px]">{problem.title}</h3>
-                  <p className="mt-5 text-[13px] leading-6 text-[var(--n3-text-muted)]">{problem.text}</p>
-                </article>
+                <SolutionsFocus key={problem.title} index={index} className="h-full">
+                  <article className="flex h-full min-h-[250px] flex-col bg-[var(--n3-dark-surface)] p-6 md:p-7">
+                    <div className="flex items-center justify-between">
+                      <span className="grid h-10 w-10 place-items-center border border-[rgba(168,217,216,.2)] text-[var(--n3-teal-soft)]"><Icon className="h-4 w-4" /></span>
+                      <span className="telemetry">NODE 0{index + 1}</span>
+                    </div>
+                    <h3 className="mt-12 text-[23px]">{problem.title}</h3>
+                    <p className="mt-5 text-[13px] leading-6 text-[var(--n3-text-muted)]">{problem.text}</p>
+                    <span aria-hidden className="mt-auto pt-7"><span className="block h-px w-full bg-[rgba(118,214,214,.14)]" /></span>
+                  </article>
+                </SolutionsFocus>
               )
             })}
           </div>
         </div>
       </section>
 
-      <section id="solution-layers" className="scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
+      <section id="solution-layers" className="retro-dark expertise-scan scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
         <div className="retro-shell">
-          <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
-            <small>{page.layersEyebrow}</small>
-            <div>
-              <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{page.layersTitle}</h2>
-              <p className="mt-5 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.layersBody}</p>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-3">
+          <SectionIntro eyebrow={page.layersEyebrow} title={page.layersTitle} body={page.layersBody} />
+          <div className="mt-10 border-t border-[rgba(118,214,214,.16)]">
             {page.layers.map((layer, index) => {
               const Icon = layer.icon
               return (
-                <article key={layer.title} className="flex min-h-[360px] flex-col bg-[var(--n3-dark-surface)] p-6 md:p-7">
-                  <div className="flex items-center justify-between">
-                    <Icon className="h-6 w-6 text-[var(--n3-teal-soft)]" />
-                    <span className="telemetry">0{index + 1}</span>
-                  </div>
-                  <h3 className="mt-10 text-[25px]">{layer.title}</h3>
-                  <p className="mt-5 text-[13px] leading-6 text-[var(--n3-text-muted)]">{layer.text}</p>
-                  <div className="mt-7 border-t border-[rgba(118,214,214,.16)] pt-5">
-                    <p className="telemetry">{page.bestWhen}</p>
-                    <p className="mt-3 text-[12px] leading-6 text-[var(--n3-text-muted)]">{layer.best}</p>
-                  </div>
-                  <div className="mt-auto flex flex-wrap gap-x-5 gap-y-3 border-t border-[rgba(118,214,214,.16)] pt-5">
-                    <Link href="#quick-selector" className="inline-flex min-h-11 items-center gap-2 font-[var(--font-rajdhani)] text-[12px] uppercase tracking-[.12em] text-[var(--n3-teal-soft)] hover:text-[var(--n3-text-light)]">
-                      {page.explore}
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                    <Link href={href(locale, "/diagnostico")} className="inline-flex min-h-11 items-center font-[var(--font-rajdhani)] text-[12px] uppercase tracking-[.12em] text-[var(--n3-text-muted)] hover:text-[var(--n3-text-light)]">
-                      {page.startDiagnosis}
-                    </Link>
-                  </div>
-                </article>
+                <SolutionsFocus key={layer.title} index={index}>
+                  <article className="expertise-row">
+                    <div className="hidden lg:block">
+                      <p className="telemetry">{`SYS 0${index + 1}`}</p>
+                      <p className="telemetry mt-2">STATUS ACTIVE</p>
+                      <p className="telemetry mt-2">SYNCED</p>
+                    </div>
+                    <div className="expertise-graphic">
+                      <MediaPlaceholder label={page.placeholders.layers} code={`LAYER / 0${index + 1}`} className="h-full" />
+                    </div>
+                    <div className="expertise-copy">
+                      <span>0{index + 1} —</span>
+                      <div className="mt-3 flex items-center gap-3 text-[var(--n3-teal-soft)]">
+                        <Icon className="h-5 w-5" />
+                        <span className="telemetry">SOLUTION LAYER</span>
+                      </div>
+                      <h2>{layer.title}</h2>
+                      <p>{layer.text}</p>
+                      <div className="border-t border-[rgba(118,214,214,.16)] pt-4">
+                        <span className="telemetry">{page.bestWhen}</span>
+                        <p className="!mb-0 !mt-3 text-[12px] leading-6 text-[var(--n3-text-muted)]">{layer.best}</p>
+                      </div>
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        <Link href="#quick-selector" className="retro-button gap-2">
+                          {page.explore}
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                        <Link href={href(locale, "/diagnostico")} className="retro-button">
+                          {page.startDiagnosis}
+                        </Link>
+                      </div>
+                    </div>
+                  </article>
+                </SolutionsFocus>
               )
             })}
           </div>
@@ -563,131 +617,129 @@ export default function SolucionesPage({ params }: PageProps) {
 
       <SolutionsFitExplorer locale={locale} />
 
-      <section className="border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
         <div className="retro-shell">
-          <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
-            <small>{page.sectorsEyebrow}</small>
-            <div>
-              <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{page.sectorsTitle}</h2>
-              <p className="mt-5 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.sectorsBody}</p>
-            </div>
-          </div>
-
-          <div className="mt-12 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-3">
+          <SectionIntro eyebrow={page.sectorsEyebrow} title={page.sectorsTitle} body={page.sectorsBody} />
+          <div className="mt-14 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-3">
             {page.sectors.map((sector, index) => {
               const Icon = sector.icon
               return (
-                <article key={sector.title} className="min-h-[315px] bg-[var(--n3-black)] p-6 md:p-7">
-                  <div className="flex items-center justify-between">
-                    <Icon className="h-5 w-5 text-[var(--n3-teal-soft)]" />
-                    <span className="telemetry">0{index + 1}</span>
-                  </div>
-                  <h3 className="mt-9 text-[23px]">{sector.title}</h3>
-                  <dl className="mt-6 space-y-4 border-t border-[rgba(118,214,214,.16)] pt-5">
-                    <div>
-                      <dt className="telemetry">{page.sectorLabels.friction}</dt>
-                      <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{sector.friction}</dd>
+                <SolutionsFocus key={sector.title} index={index} className="h-full">
+                  <article className="flex h-full min-h-[330px] flex-col bg-[var(--n3-black)] p-6 md:p-7">
+                    <div className="flex items-center justify-between">
+                      <span className="grid h-10 w-10 place-items-center border border-[rgba(168,217,216,.18)] text-[var(--n3-teal-soft)]"><Icon className="h-4 w-4" /></span>
+                      <span className="telemetry">0{index + 1}</span>
                     </div>
-                    <div>
-                      <dt className="telemetry">{page.sectorLabels.layer}</dt>
-                      <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{sector.layer}</dd>
-                    </div>
-                    <div>
-                      <dt className="telemetry">{page.sectorLabels.outcome}</dt>
-                      <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{sector.outcome}</dd>
-                    </div>
-                  </dl>
-                </article>
+                    <h3 className="mt-9 text-[23px]">{sector.title}</h3>
+                    <dl className="mt-6 space-y-4 border-t border-[rgba(118,214,214,.16)] pt-5">
+                      <div>
+                        <dt className="telemetry">{page.sectorLabels.friction}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{sector.friction}</dd>
+                      </div>
+                      <div>
+                        <dt className="telemetry">{page.sectorLabels.layer}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{sector.layer}</dd>
+                      </div>
+                      <div>
+                        <dt className="telemetry">{page.sectorLabels.outcome}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{sector.outcome}</dd>
+                      </div>
+                    </dl>
+                  </article>
+                </SolutionsFocus>
               )
             })}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
-        <div className="retro-shell">
-          <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
+      <section className="retro-dark method border-b border-[rgba(118,214,214,.16)] !py-24 md:!py-32">
+        <div className="retro-shell method-grid">
+          <div className="lg:sticky lg:top-28 lg:self-start">
             <small>{page.entryEyebrow}</small>
-            <div>
-              <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{page.entryTitle}</h2>
-              <p className="mt-5 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.entryBody}</p>
+            <h2>{page.entryTitle}</h2>
+            <p className="max-w-lg text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.entryBody}</p>
+            <div className="radar mt-8">
+              <MediaPlaceholder label={page.placeholders.entry} code="ENTRY / ARCH" className="h-full" />
             </div>
           </div>
-          <div className="mt-12 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-3">
+          <div className="timeline">
             {page.entries.map((entry, index) => (
-              <article key={entry.title} className="min-h-[280px] bg-[var(--n3-dark-surface)] p-7">
-                <span className="telemetry">0{index + 1}</span>
-                <h3 className="mt-10 text-[25px]">{entry.title}</h3>
-                <p className="mt-5 text-[13px] leading-6 text-[var(--n3-text-muted)]">{entry.text}</p>
-                <div className="mt-7 border-t border-[rgba(118,214,214,.16)] pt-5">
-                  <p className="telemetry">{page.bestFor}</p>
-                  <p className="mt-3 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{entry.best}</p>
-                </div>
-              </article>
+              <SolutionsFocus key={entry.title} index={index}>
+                <article className="timeline-step min-h-[190px]">
+                  <span>0{index + 1}</span>
+                  <h3>{entry.title}</h3>
+                  <p className="mt-4 max-w-xl !text-[13px] !leading-6">{entry.text}</p>
+                  <div className="mt-5 border-t border-[rgba(118,214,214,.14)] pt-4">
+                    <span className="telemetry">{page.bestFor}</span>
+                    <p className="mt-2 max-w-xl !text-[12px] !leading-6 !text-[var(--n3-teal-soft)]">{entry.best}</p>
+                  </div>
+                </article>
+              </SolutionsFocus>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
-        <div className="retro-shell">
-          <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
+        <div className="retro-shell grid gap-12 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-16">
+          <header className="light-intro">
             <small>{page.proofEyebrow}</small>
-            <div>
-              <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{page.proofTitle}</h2>
-              <p className="mt-5 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.proofBody}</p>
-            </div>
-          </div>
+            <h2 className="mt-6 text-[clamp(36px,4.6vw,64px)]">{page.proofTitle}</h2>
+            <p className="mt-6 text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.proofBody}</p>
+          </header>
 
-          <div className="mt-12 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2">
+          <div className="grid gap-0 border-t border-[rgba(118,214,214,.16)]">
             {page.proofs.map((proof, index) => (
-              <article key={proof.title} className="flex min-h-[340px] flex-col bg-[var(--n3-black)] p-6 md:p-7">
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-[25px]">{proof.title}</h3>
-                  <span className="telemetry">0{index + 1}</span>
-                </div>
-                <dl className="mt-7 space-y-5 border-t border-[rgba(118,214,214,.16)] pt-5">
+              <SolutionsFocus key={proof.title} index={index}>
+                <article className="grid gap-7 border-b border-[rgba(118,214,214,.16)] py-8 md:py-10 lg:grid-cols-[minmax(0,.78fr)_minmax(300px,1.22fr)] lg:items-center">
                   <div>
-                    <dt className="telemetry">{page.proofLabels.problem}</dt>
-                    <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{proof.problem}</dd>
+                    <span className="telemetry">0{index + 1} / LIVE SYSTEM</span>
+                    <h3 className="mt-4 text-[clamp(26px,3vw,40px)]">{proof.title}</h3>
+                    <dl className="mt-6 space-y-4">
+                      <div>
+                        <dt className="telemetry">{page.proofLabels.problem}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{proof.problem}</dd>
+                      </div>
+                      <div>
+                        <dt className="telemetry">{page.proofLabels.system}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-light)]">{proof.system}</dd>
+                      </div>
+                      <div>
+                        <dt className="telemetry">{page.proofLabels.outcome}</dt>
+                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{proof.outcome}</dd>
+                      </div>
+                    </dl>
+                    <Link href={href(locale, proof.path)} className="retro-button mt-6 gap-2">
+                      {page.proofLabels.view}
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </Link>
                   </div>
-                  <div>
-                    <dt className="telemetry">{page.proofLabels.system}</dt>
-                    <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-light)]">{proof.system}</dd>
-                  </div>
-                  <div>
-                    <dt className="telemetry">{page.proofLabels.outcome}</dt>
-                    <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{proof.outcome}</dd>
-                  </div>
-                </dl>
-                <Link href={href(locale, proof.path)} className="mt-auto inline-flex min-h-11 items-center gap-2 border-t border-[rgba(118,214,214,.16)] pt-5 font-[var(--font-rajdhani)] text-[12px] uppercase tracking-[.12em] text-[var(--n3-teal-soft)] hover:text-[var(--n3-text-light)]">
-                  {page.proofLabels.view}
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </article>
+                  <MediaPlaceholder label={page.placeholders.proof} code={`PROOF / 0${index + 1}`} className="aspect-[2.15/1] min-h-[220px]" />
+                </article>
+              </SolutionsFocus>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-24">
-        <div className="retro-shell border-y border-[rgba(118,214,214,.2)] py-12 md:py-16">
-          <small>{page.finalEyebrow}</small>
-          <div className="mt-5 grid gap-9 lg:grid-cols-[1fr_.8fr] lg:items-end">
-            <div>
-              <h2 className="max-w-4xl text-[clamp(36px,4.8vw,64px)]">{page.finalTitle}</h2>
-              <p className="mt-6 max-w-2xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.finalBody}</p>
-            </div>
-            <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link href={href(locale, "/diagnostico")} className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
+      <section className="retro-dark diagnosis !py-24 md:!py-32">
+        <div className="retro-shell diagnosis-grid items-center">
+          <div>
+            <small>{page.finalEyebrow}</small>
+            <h2>{page.finalTitle}</h2>
+            <p>{page.finalBody}</p>
+            <div className="button-row">
+              <Link href={href(locale, "/diagnostico")} className="retro-button retro-button-primary gap-2">
                 {page.finalPrimary}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href={href(locale, "/contact")} className="retro-button w-full sm:w-auto">
+              <Link href={href(locale, "/contact")} className="retro-button">
                 {page.finalSecondary}
               </Link>
             </div>
           </div>
+          <MediaPlaceholder label={page.placeholders.final} code="NEXT / DIAGNOSIS" className="min-h-[430px]" />
         </div>
       </section>
     </main>
