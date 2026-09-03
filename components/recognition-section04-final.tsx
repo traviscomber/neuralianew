@@ -4,6 +4,7 @@ import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
 import { ProcessNode, type ProcessIconName } from './recognition-process-node'
 import { RecognitionSectionNote } from './recognition-section-note'
+import { RecognitionSection04Artwork } from './recognition-section04-artwork'
 
 const copy = {
   en: {
@@ -35,7 +36,6 @@ const copy = {
 } as const
 
 const platformIcons: ProcessIconName[] = ['capture', 'classify', 'decision', 'insights', 'intelligence']
-const platformArtworkSrc = '/recognition-section04-platform-canonical.webp?v=20260903-3'
 
 export function RecognitionSection04Final({ locale }: { locale: Locale }) {
   const t = copy[locale]
@@ -76,15 +76,7 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
           </div>
 
           <figure className={p.artwork}>
-            <img
-              src={platformArtworkSrc}
-              alt={t.artworkAlt}
-              width={640}
-              height={1137}
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-            />
+            <RecognitionSection04Artwork label={t.artworkAlt} />
           </figure>
         </div>
       </div>
