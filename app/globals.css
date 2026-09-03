@@ -260,3 +260,144 @@ html body [class*="border-purple-"],html body [class*="border-pink-"],html body 
     letter-spacing: 0;
   }
 }
+
+/* Solutions / What We Solve — retro-futurist friction nodes */
+.retro-page > section:has(+ #solution-layers) .mt-14.grid {
+  gap:clamp(18px,1.8vw,26px)!important;
+  background:transparent!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item {
+  filter:none!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article {
+  isolation:isolate;
+  overflow:hidden;
+  position:relative;
+  min-height:390px!important;
+  border:1px solid rgba(118,214,214,.22);
+  background:var(--n3-deep)!important;
+  padding:28px!important;
+  transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease,background-color .3s ease;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article::before {
+  content:"";
+  position:absolute;
+  inset:12px;
+  z-index:-1;
+  pointer-events:none;
+  border-top:1px solid rgba(118,214,214,.035);
+  border-bottom:1px solid rgba(118,214,214,.035);
+  opacity:.55;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article::after {
+  content:"";
+  position:absolute;
+  z-index:4;
+  top:-8%;
+  left:16px;
+  right:16px;
+  height:1px;
+  background:var(--n3-teal);
+  box-shadow:0 0 10px rgba(69,209,207,.5),0 0 22px rgba(69,209,207,.16);
+  opacity:0;
+  pointer-events:none;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > div:first-child {
+  justify-content:flex-start!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > div:first-child > .telemetry {
+  display:none!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > div:first-child > span:first-child {
+  width:112px!important;
+  height:112px!important;
+  flex:0 0 112px;
+  border:1px solid rgba(168,217,216,.28)!important;
+  background-color:rgba(3,6,6,.62);
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:88px 88px;
+  transition:border-color .3s ease,filter .3s ease,transform .3s ease,background-color .3s ease;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > div:first-child > span:first-child svg {
+  opacity:0!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:nth-child(1) article > div:first-child > span:first-child {
+  background-image:url('/n3uralia-retro/icons/friction-visibility.svg');
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:nth-child(2) article > div:first-child > span:first-child {
+  background-image:url('/n3uralia-retro/icons/friction-coordination.svg');
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:nth-child(3) article > div:first-child > span:first-child {
+  background-image:url('/n3uralia-retro/icons/friction-response.svg');
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:nth-child(4) article > div:first-child > span:first-child {
+  background-image:url('/n3uralia-retro/icons/friction-traceability.svg');
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article h3 {
+  margin-top:40px!important;
+  font-size:clamp(24px,2.15vw,31px)!important;
+  letter-spacing:.13em!important;
+  line-height:1.12!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article p {
+  margin-top:22px!important;
+  max-width:30ch;
+  color:var(--n3-text-muted)!important;
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] {
+  padding-top:30px!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] > span {
+  position:relative;
+  height:1px!important;
+  background:rgba(118,214,214,.2)!important;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] > span::before,
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] > span::after {
+  content:"";
+  position:absolute;
+  top:-2px;
+  width:5px;
+  height:5px;
+  background:var(--n3-teal);
+  box-shadow:0 0 8px rgba(69,209,207,.35);
+}
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] > span::before { left:0; }
+.retro-page > section:has(+ #solution-layers) .focus-item article > span[aria-hidden] > span::after { right:0; opacity:.48; }
+.retro-page > section:has(+ #solution-layers) .focus-item:hover article {
+  transform:translateY(-3px);
+  border-color:rgba(168,217,216,.62);
+  background:#081313!important;
+  box-shadow:0 0 0 1px rgba(69,209,207,.08),0 0 30px rgba(69,209,207,.09),inset 0 0 34px rgba(69,209,207,.035);
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:hover article::after {
+  opacity:.46;
+  animation:n3-friction-scan 2.1s linear infinite;
+}
+.retro-page > section:has(+ #solution-layers) .focus-item:hover article > div:first-child > span:first-child {
+  border-color:rgba(168,217,216,.72)!important;
+  background-color:rgba(3,6,6,.82);
+  filter:drop-shadow(0 0 7px rgba(69,209,207,.34));
+  transform:translateY(-2px);
+}
+@keyframes n3-friction-scan {
+  from { transform:translateY(0); }
+  to { transform:translateY(430px); }
+}
+@media(max-width:900px){
+  .retro-page > section:has(+ #solution-layers) .focus-item article { min-height:350px!important; }
+}
+@media(max-width:560px){
+  .retro-page > section:has(+ #solution-layers) .mt-14.grid { gap:16px!important; }
+  .retro-page > section:has(+ #solution-layers) .focus-item article { min-height:330px!important; padding:24px!important; }
+  .retro-page > section:has(+ #solution-layers) .focus-item article > div:first-child > span:first-child { width:96px!important; height:96px!important; flex-basis:96px; background-size:76px 76px; }
+  .retro-page > section:has(+ #solution-layers) .focus-item article h3 { margin-top:30px!important; font-size:26px!important; }
+  .retro-page > section:has(+ #solution-layers) .focus-item article p { font-size:14px!important; line-height:1.7!important; }
+}
+@media(prefers-reduced-motion:reduce){
+  .retro-page > section:has(+ #solution-layers) .focus-item:hover article::after { animation:none!important; opacity:0!important; }
+  .retro-page > section:has(+ #solution-layers) .focus-item:hover article { transform:none!important; }
+}
