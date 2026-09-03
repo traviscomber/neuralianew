@@ -6,7 +6,7 @@ const route = 'app/recognition-section04-platform-final.webp/route.ts'
 const assetParts = [0, 1, 2, 3].map((index) => `lib/recognition-section04-final-asset/part${index}.ts`)
 const obsoleteInlineArtwork = 'components/recognition-section04-artwork.tsx'
 const obsoleteStaticAsset = 'public/recognition-section04-platform-final.webp'
-const expectedSha256 = '65ea93413cfbd999c1a0d1b05cf4facfdb603666818cbc23e4a17a6a0bbdef4a'
+const expectedSha256 = '2b24d74764936770841cbbaae2f4ebc83a4df673b420fb3e6ed0f7b30031c043'
 const legacyPaths = [
   'app/recognition-section04-platform-canonical.webp/route.ts',
   'lib/recognition-section04-asset/part0.ts',
@@ -40,7 +40,7 @@ if (existsSync(obsoleteInlineArtwork)) throw new Error(`Section 04 still contain
 if (existsSync(obsoleteStaticAsset)) throw new Error(`Section 04 contains an obsolete/truncated static asset: ${obsoleteStaticAsset}`)
 
 const componentSource = readFileSync(component, 'utf8')
-if (!componentSource.includes("const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp'")) {
+if (!componentSource.includes("const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp?v=20260903-5'")) {
   throw new Error('Section 04 does not use the canonical WebP URL')
 }
 if (!componentSource.includes('<img') || !componentSource.includes('src={PLATFORM_ARTWORK_SRC}')) {
@@ -59,7 +59,7 @@ const base64 = assetParts.map((path) => {
 }).join('')
 
 const assetBytes = Buffer.from(base64, 'base64')
-if (assetBytes.length !== 30482) throw new Error(`Section 04 WebP byte length mismatch: ${assetBytes.length}`)
+if (assetBytes.length !== 30410) throw new Error(`Section 04 WebP byte length mismatch: ${assetBytes.length}`)
 if (assetBytes.subarray(0, 4).toString('ascii') !== 'RIFF' || assetBytes.subarray(8, 12).toString('ascii') !== 'WEBP') {
   throw new Error('Section 04 payload is not a valid WebP container')
 }
