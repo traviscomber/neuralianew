@@ -26,7 +26,7 @@ type BrandWordmarkProps = {
 }
 
 export function BrandWordmark({
-  className = 'h-8 w-40',
+  className = 'h-[42px] w-[160px]',
   imageClassName = '',
   priority = false,
   sizes = '160px',
@@ -34,7 +34,7 @@ export function BrandWordmark({
   return (
     <span className={`relative inline-block ${className}`.trim()} aria-label='N3uralia'>
       <Image
-        src='/n3uralia-brand/n3uralia-wordmark-transparent.svg'
+        src='/n3uralia-brand/n3uralia-logo-canonical.svg'
         alt='N3uralia'
         fill
         priority={priority}
