@@ -49,7 +49,6 @@ main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardG
   column-gap: 24px;
   row-gap: 34px;
   padding-top: 52px;
-  border-top: 1px solid rgba(121,192,188,.14);
 }
 
 main[class*="recognition-page_page"] > section[id="use-cases"] div[class*="cardGrid"]::before {
