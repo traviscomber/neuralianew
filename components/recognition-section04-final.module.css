@@ -14,8 +14,13 @@
 }
 
 .layout{
+  --platform-visual-height:860px;
   width:calc(100% - 48px);
   margin-inline:24px;
+  display:grid;
+  grid-template-columns:300px minmax(0,1fr);
+  gap:56px;
+  align-items:center;
 }
 
 .titleBlock h2{
@@ -45,34 +50,28 @@
   margin-top:0;
 }
 
-.layout{
-  display:grid;
-  grid-template-columns:250px minmax(0,1fr);
-  gap:52px;
-  align-items:center;
-}
-
 .rail{
   --platform-node-size:64px;
-  --platform-gap:48px;
   --platform-index-size:28px;
   --platform-index-gap:14px;
   --platform-node-center:calc(var(--platform-index-size) + var(--platform-index-gap) + var(--platform-node-size) / 2);
   position:relative;
   isolation:isolate;
   display:grid;
-  gap:var(--platform-gap);
+  grid-template-rows:repeat(5,minmax(0,1fr));
   min-width:0;
-  padding:14px 0;
+  height:var(--platform-visual-height);
+  padding:0;
 }
 
-/* Continuous thin rail behind the opaque node circles. */
+/* One continuous thin rail. Five equal rows put node centers at 10/30/50/70/90%,
+   matching the five isolated visual bands in the canonical portrait artwork. */
 .rail::before,
 .rail::after{
   content:"";
   position:absolute;
-  top:calc(14px + var(--platform-node-size) / 2);
-  bottom:calc(14px + var(--platform-node-size) / 2);
+  top:10%;
+  bottom:10%;
   pointer-events:none;
 }
 
@@ -80,7 +79,7 @@
   z-index:0;
   left:var(--platform-node-center);
   width:1px;
-  background:rgba(134,197,193,.24);
+  background:rgba(134,197,193,.22);
   box-shadow:0 0 2px rgba(84,187,180,.05);
 }
 
@@ -88,12 +87,12 @@
   z-index:0;
   left:calc(var(--platform-node-center) - .5px);
   width:2px;
-  background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.88),transparent);
+  background-image:linear-gradient(180deg,transparent,rgba(201,255,250,.84),transparent);
   background-repeat:no-repeat;
   background-size:100% 12%;
   background-position:0 -20%;
-  filter:blur(.2px) drop-shadow(0 0 2px rgba(112,225,217,.16));
-  opacity:.72;
+  filter:blur(.2px) drop-shadow(0 0 2px rgba(112,225,217,.14));
+  opacity:.68;
   animation:platformRailFlow 9.2s linear infinite;
 }
 
@@ -101,11 +100,14 @@
   position:relative;
   z-index:1;
   min-width:0;
+  display:flex;
+  align-items:center;
 }
 
 .stageSlot > article{
   position:relative;
   z-index:2;
+  width:100%;
 }
 
 .stageConnector{display:none!important}
@@ -113,45 +115,45 @@
 .artwork{
   position:relative;
   align-self:center;
+  justify-self:center;
+  width:min(100%,485px);
+  height:var(--platform-visual-height);
   min-width:0;
   margin:0;
-  overflow:hidden;
+  overflow:visible;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
   background:transparent!important;
 }
 
-/* Borderless viewport: crop the baked outer frame instead of showing it as a panel. */
 .artwork img{
   display:block;
   width:100%;
-  height:auto;
-  aspect-ratio:16/9;
-  object-fit:cover;
+  height:100%;
+  object-fit:contain;
   object-position:center;
   color:transparent;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
-  filter:saturate(.78) brightness(.82) contrast(1.04);
-  opacity:.9;
-  transform:scale(1.045);
-  transform-origin:center;
+  filter:saturate(.82) brightness(.86) contrast(1.03);
+  opacity:.94;
+  transform:none!important;
 }
 
 @keyframes platformRailFlow{
   0%{background-position:0 -20%;opacity:0}
-  5%{opacity:.72}
-  92%{opacity:.72}
+  5%{opacity:.68}
+  92%{opacity:.68}
   100%{background-position:0 120%;opacity:0}
 }
 
 @media(max-width:1100px){
   .header{width:100%;margin-inline:0;grid-template-columns:minmax(0,1.28fr) minmax(280px,.72fr);gap:42px}
-  .layout{width:calc(100% - 32px);margin-inline:16px;grid-template-columns:230px minmax(0,1fr);gap:42px}
+  .layout{--platform-visual-height:760px;width:calc(100% - 32px);margin-inline:16px;grid-template-columns:270px minmax(0,1fr);gap:42px}
   .titleBlock h2{font-size:clamp(42px,4.7vw,50px)}
-  .rail{--platform-gap:42px}
+  .artwork{width:min(100%,430px)}
 }
 
 @media(max-width:820px){
@@ -161,21 +163,23 @@
   .titleBlock h2{max-width:520px;font-size:clamp(42px,9vw,58px)}
   .titleBlock h2 span{white-space:normal}
   .header > aside[class*="recognition-section-note_note"]{justify-self:start;align-self:start;margin-top:0}
-  .layout{grid-template-columns:1fr;gap:48px;align-items:start}
-  .rail{--platform-gap:38px;gap:var(--platform-gap);max-width:560px}
-  .artwork{width:100%;max-width:790px;margin-inline:auto}
+  .layout{display:grid;grid-template-columns:1fr;gap:52px;align-items:start}
+  .rail{height:auto;grid-template-rows:none;gap:38px;max-width:560px;padding:10px 0}
+  .rail::before,.rail::after{top:calc(10px + var(--platform-node-size)/2);bottom:calc(10px + var(--platform-node-size)/2)}
+  .stageSlot{display:block}
+  .artwork{width:min(100%,560px);height:auto;margin-inline:auto}
+  .artwork img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
 }
 
 @media(max-width:620px){
-  .rail{--platform-node-size:52px;--platform-index-size:24px;--platform-index-gap:12px;--platform-gap:34px}
+  .rail{--platform-node-size:52px;--platform-index-size:24px;--platform-index-gap:12px;gap:34px}
 }
 
 @media(max-width:520px){
   .section{padding:62px 0 78px!important}
   .titleBlock h2{font-size:clamp(38px,12vw,50px);letter-spacing:.065em}
-  .rail{--platform-gap:30px;gap:var(--platform-gap)}
+  .rail{gap:30px}
   .artwork{width:100%;margin-left:0}
-  .artwork img{transform:scale(1.035)}
 }
 
 @media(prefers-reduced-motion:reduce){
