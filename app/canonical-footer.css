@@ -1,0 +1,4 @@
+/* The locale layout owns the single canonical site footer. Legacy page-level footers remain in older routes temporarily but must not render. */
+#main-content footer {
+  display: none !important;
+}
