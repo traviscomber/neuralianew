@@ -105,26 +105,26 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl border-[#d8e5e2] bg-[#fbfbfa] text-[#243331]">
+      <DialogContent className="max-w-2xl border-[rgba(168,217,216,.24)] bg-[var(--n3-deep)] text-[var(--n3-text-light)] shadow-none">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-[#173634]">
-            <Mail className="h-5 w-5 text-[#789b96]" />
+          <DialogTitle className="flex items-center gap-3 font-[var(--font-rajdhani)] text-xl font-normal uppercase tracking-[.14em] text-[var(--n3-text-light)]">
+            <Mail className="h-5 w-5 text-[var(--n3-teal-soft)]" />
             Contacta con N3uralia
           </DialogTitle>
-          <DialogDescription className="text-[#65706d]">
+          <DialogDescription className="text-[13px] leading-6 text-[var(--n3-text-muted)]">
             Elige cómo prefieres escribirnos: envío directo o template para tu cliente de email.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5">
-          <div className="flex gap-2 border-b border-[#d8e5e2]">
+          <div className="flex gap-6 border-b border-[rgba(118,214,214,.16)]">
             <button
               type="button"
               onClick={() => setShowDirectSend(true)}
-              className={`px-4 pb-3 text-sm font-semibold transition-colors ${
+              className={`min-h-11 border-b px-1 pb-3 font-[var(--font-rajdhani)] text-xs uppercase tracking-[.14em] transition-colors ${
                 showDirectSend
-                  ? "border-b-2 border-[#789b96] text-[#173634]"
-                  : "text-[#7b8582] hover:text-[#173634]"
+                  ? "border-[var(--n3-teal)] text-[var(--n3-teal-soft)]"
+                  : "border-transparent text-[var(--n3-text-muted)] hover:text-[var(--n3-text-light)]"
               }`}
             >
               Envío directo
@@ -132,10 +132,10 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
             <button
               type="button"
               onClick={() => setShowDirectSend(false)}
-              className={`px-4 pb-3 text-sm font-semibold transition-colors ${
+              className={`min-h-11 border-b px-1 pb-3 font-[var(--font-rajdhani)] text-xs uppercase tracking-[.14em] transition-colors ${
                 !showDirectSend
-                  ? "border-b-2 border-[#789b96] text-[#173634]"
-                  : "text-[#7b8582] hover:text-[#173634]"
+                  ? "border-[var(--n3-teal)] text-[var(--n3-teal-soft)]"
+                  : "border-transparent text-[var(--n3-text-muted)] hover:text-[var(--n3-text-light)]"
               }`}
             >
               Template de email
@@ -144,10 +144,10 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
 
           {!showDirectSend ? (
             <>
-              <div className="rounded-[1.1rem] border border-[#d8e5e2] bg-white p-4">
-                <p className="mb-2 text-sm text-[#65706d]">Enviar a:</p>
+              <div className="border border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] p-4">
+                <p className="mb-2 text-[12px] text-[var(--n3-text-muted)]">Enviar a:</p>
                 <div className="flex items-center gap-2">
-                  <code className="flex-1 rounded-lg border border-[#d8e5e2] bg-[#f7faf8] p-2 font-mono text-sm text-[#243331]">
+                  <code className="flex-1 border border-[rgba(168,217,216,.18)] bg-[var(--n3-black)] p-3 font-mono text-[12px] text-[var(--n3-text-light)]">
                     info@n3uralia.com
                   </code>
                   <Button
@@ -158,7 +158,7 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
                       setCopied(true)
                       setTimeout(() => setCopied(false), 2000)
                     }}
-                    className="flex-shrink-0 border-[#b9d0cb] text-[#526e69] hover:bg-[#eef5f2]"
+                    className="h-11 flex-shrink-0 rounded-none border-[rgba(168,217,216,.28)] bg-transparent text-[var(--n3-teal-soft)] hover:bg-[rgba(168,217,216,.07)] hover:text-white"
                   >
                     <Copy className="h-4 w-4" />
                   </Button>
@@ -166,20 +166,20 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
               </div>
 
               <div className="space-y-2">
-                <p className="text-sm text-[#65706d]">Copia el siguiente mensaje:</p>
+                <p className="text-[12px] text-[var(--n3-text-muted)]">Copia el siguiente mensaje:</p>
                 <textarea
                   value={EMAIL_TEMPLATE}
                   readOnly
-                  className="h-52 w-full resize-none rounded-[1.1rem] border border-[#d8e5e2] bg-white p-4 font-mono text-sm text-[#243331]"
+                  className="h-52 w-full resize-none border border-[rgba(168,217,216,.2)] bg-[var(--n3-black)] p-4 font-mono text-[12px] leading-6 text-[var(--n3-text-light)] focus:border-[var(--n3-teal)] focus:outline-none"
                 />
               </div>
 
-              <div className="rounded-[1.1rem] border border-[#d8e5e2] bg-[#eef5f2] p-4">
-                <h4 className="mb-3 flex items-center gap-2 font-semibold text-[#173634]">
-                  <CheckCircle2 className="h-4 w-4 text-[#789b96]" />
+              <div className="border border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] p-4">
+                <h4 className="mb-3 flex items-center gap-2 font-[var(--font-rajdhani)] text-sm font-normal uppercase tracking-[.12em] text-[var(--n3-text-light)]">
+                  <CheckCircle2 className="h-4 w-4 text-[var(--n3-teal-soft)]" />
                   Pasos
                 </h4>
-                <ol className="space-y-2 text-sm leading-6 text-[#65706d] list-decimal list-inside">
+                <ol className="list-inside list-decimal space-y-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">
                   <li>Copia el mensaje.</li>
                   <li>Abre tu cliente de email.</li>
                   <li>Envía a info@n3uralia.com.</li>
@@ -187,53 +187,53 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
                 </ol>
               </div>
 
-              <div className="flex gap-2">
-                <Button onClick={handleCopy} className="flex-1 bg-[#173634] text-white hover:bg-[#244946]">
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <button type="button" onClick={handleCopy} className="retro-button retro-button-primary flex-1 gap-2">
                   {copied ? (
                     <>
-                      <CheckCircle2 className="mr-2 h-4 w-4" />
+                      <CheckCircle2 className="h-4 w-4" />
                       Copiado
                     </>
                   ) : (
                     <>
-                      <Copy className="mr-2 h-4 w-4" />
+                      <Copy className="h-4 w-4" />
                       Copiar mensaje
                     </>
                   )}
-                </Button>
-                <Button variant="outline" onClick={() => onOpenChange(false)} className="border-[#b9d0cb] text-[#526e69] hover:bg-[#eef5f2]">
+                </button>
+                <button type="button" onClick={() => onOpenChange(false)} className="retro-button flex-1">
                   Cerrar
-                </Button>
+                </button>
               </div>
             </>
           ) : (
             <div className="space-y-4">
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#243331]">Tu nombre</label>
+                <label className="mb-2 block font-[var(--font-rajdhani)] text-xs uppercase tracking-[.12em] text-[var(--n3-teal-soft)]">Tu nombre</label>
                 <Input
                   type="text"
                   placeholder="Nombre y apellido"
                   value={senderName}
                   onChange={(event) => setSenderName(event.target.value)}
                   disabled={sending}
-                  className="w-full border-[#d8e5e2] bg-white"
+                  className="h-12 w-full rounded-none border-[rgba(168,217,216,.22)] bg-[var(--n3-black)] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] focus-visible:ring-[var(--n3-teal)]"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#243331]">Tu email</label>
+                <label className="mb-2 block font-[var(--font-rajdhani)] text-xs uppercase tracking-[.12em] text-[var(--n3-teal-soft)]">Tu email</label>
                 <Input
                   type="email"
                   placeholder="tu.email@empresa.com"
                   value={senderEmail}
                   onChange={(event) => setSenderEmail(event.target.value)}
                   disabled={sending}
-                  className="w-full border-[#d8e5e2] bg-white"
+                  className="h-12 w-full rounded-none border-[rgba(168,217,216,.22)] bg-[var(--n3-black)] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] focus-visible:ring-[var(--n3-teal)]"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-[#243331]">
+                <label className="mb-2 block font-[var(--font-rajdhani)] text-xs uppercase tracking-[.12em] text-[var(--n3-teal-soft)]">
                   Cuéntanos tu proyecto
                 </label>
                 <textarea
@@ -241,41 +241,42 @@ export function EmailContactDialog({ open, onOpenChange }: EmailContactDialogPro
                   value={senderMessage}
                   onChange={(event) => setSenderMessage(event.target.value)}
                   disabled={sending}
-                  className="h-32 w-full resize-none rounded-lg border border-[#d8e5e2] bg-white p-3 text-sm text-[#243331] focus:outline-none focus:ring-2 focus:ring-[#789b96]"
+                  className="h-32 w-full resize-none border border-[rgba(168,217,216,.22)] bg-[var(--n3-black)] p-3 text-[13px] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] focus:border-[var(--n3-teal)] focus:outline-none focus:ring-1 focus:ring-[var(--n3-teal)]"
                 />
               </div>
 
               {sendResult ? (
                 <div
-                  className={`rounded-[1.1rem] border p-4 ${
+                  className={`border p-4 ${
                     sendResult.success
-                      ? "border-[#b8d1cc] bg-[#eef5f2]"
-                      : "border-[#e0c8c0] bg-[#fbf3f0]"
+                      ? "border-[rgba(168,217,216,.32)] bg-[rgba(168,217,216,.06)]"
+                      : "border-red-400/35 bg-red-950/15"
                   }`}
                 >
-                  <p className="text-sm font-semibold text-[#243331]">{sendResult.message}</p>
+                  <p className="text-[12px] font-medium text-[var(--n3-text-light)]">{sendResult.message}</p>
                 </div>
               ) : null}
 
-              <Button
+              <button
+                type="button"
                 onClick={handleDirectSend}
                 disabled={sending || !senderName || !senderEmail}
-                className="w-full bg-[#173634] text-white hover:bg-[#244946] disabled:opacity-50"
+                className="retro-button retro-button-primary w-full gap-2 disabled:opacity-50"
               >
                 {sending ? (
                   <>
-                    <Mail className="mr-2 h-4 w-4" />
+                    <Mail className="h-4 w-4" />
                     Enviando...
                   </>
                 ) : (
                   <>
-                    <Send className="mr-2 h-4 w-4" />
+                    <Send className="h-4 w-4" />
                     Enviar mensaje
                   </>
                 )}
-              </Button>
+              </button>
 
-              <p className="text-center text-xs text-[#7b8582]">
+              <p className="text-center text-[11px] text-[var(--n3-text-muted)]">
                 Respondemos normalmente dentro de 1 día hábil.
               </p>
             </div>
