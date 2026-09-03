@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import { CheckCircle2, Clock, MessageCircle } from "lucide-react"
 import { BrandMark } from "@/components/brand"
 import { ContactPageClient } from "@/components/contact/contact-page-client"
-import { ContactPageFooter } from "@/components/contact/contact-page-footer"
-import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -69,60 +67,56 @@ export default function ContactPage({ params }: PageProps) {
   const page = content[locale]
 
   return (
-    <>
-      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
-        <SectionBackground section="faq" className="border-b border-[#d8e5e2]">
-          <section className="px-4 py-20 sm:px-8 lg:px-10">
-            <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-              <div>
-                <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[#d8e5e2] bg-white/75 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#789b96]">
-                  <BrandMark className="h-8 w-8 rounded-xl text-[#789b96]" />
-                  {page.badge}
-                </div>
-                <h1 className="max-w-4xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">
-                  {page.title}
-                </h1>
-                <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-[#65706d]">
-                  {page.subtitle}
-                </p>
+    <main className="retro-page min-h-screen pt-20">
+      <section className="border-b border-[rgba(118,214,214,.16)] py-24">
+        <div className="retro-shell grid gap-14 lg:grid-cols-[.88fr_1.12fr] lg:items-start">
+          <div>
+            <div className="mb-6 flex items-center gap-3">
+              <BrandMark className="h-8 w-8 text-[var(--n3-teal-soft)]" />
+              <small>{page.badge}</small>
+            </div>
 
-                <div className="mt-8 rounded-[1.6rem] border border-[#d8e5e2] bg-white/80 p-6 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
-                  <div className="mb-5 flex items-center gap-3 text-sm font-semibold text-[#526e69]">
-                    <MessageCircle className="h-5 w-5 text-[#789b96]" />
-                    {page.promise}
-                  </div>
-                  <div className="space-y-3">
-                    {page.checks.map((item) => (
-                      <div key={item} className="flex items-start gap-3 rounded-[1.1rem] bg-[#f7faf8] p-4 text-sm leading-6 text-[#65706d]">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-5 flex items-center gap-2 text-sm text-[#7b8582]">
-                    <Clock className="h-4 w-4 text-[#789b96]" />
-                    {page.response}
-                  </p>
-                </div>
+            <h1 className="max-w-4xl text-[clamp(44px,5.4vw,76px)]">{page.title}</h1>
+            <p className="mt-7 max-w-2xl text-[16px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
+
+            <div className="relative mt-10 border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-6">
+              <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+              <div className="mb-6 flex items-start gap-3 text-[13px] text-[var(--n3-teal-soft)]">
+                <MessageCircle className="mt-0.5 h-5 w-5 flex-none" />
+                <span>{page.promise}</span>
               </div>
 
-              <section className="rounded-[2rem] border border-[#cfe0dc] bg-white p-4 shadow-[0_34px_110px_-82px_#173634] md:p-5" aria-labelledby="contact-form-title">
-                <div className="rounded-[1.6rem] border border-[#d8e5e2] bg-[#fbfbfa] p-5 md:p-6">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{page.formTitle}</p>
-                  <h2 id="contact-form-title" className="text-3xl font-light leading-tight text-[#173634]">
-                    {page.formText}
-                  </h2>
-                </div>
-                <div className="mt-4 overflow-hidden rounded-[1.6rem] border border-[#d8e5e2] bg-white">
-                  <ContactPageClient locale={locale as Locale} />
-                </div>
-              </section>
+              <div className="border-t border-[rgba(118,214,214,.16)]">
+                {page.checks.map((item, index) => (
+                  <div key={item} className="grid grid-cols-[44px_20px_1fr] items-start gap-3 border-b border-[rgba(118,214,214,.16)] py-4">
+                    <span className="telemetry">0{index + 1}</span>
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 text-[var(--n3-teal-soft)]" />
+                    <span className="text-[12px] leading-6 text-[var(--n3-text-muted)]">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-5 flex items-center gap-2 text-[12px] text-[var(--n3-text-muted)]">
+                <Clock className="h-4 w-4 text-[var(--n3-teal-soft)]" />
+                {page.response}
+              </p>
+            </div>
+          </div>
+
+          <section className="relative border border-[rgba(168,217,216,.22)] bg-[var(--n3-dark-surface)] p-4 md:p-5" aria-labelledby="contact-form-title">
+            <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+            <div className="border-b border-[rgba(118,214,214,.16)] bg-[var(--n3-black)] p-5 md:p-6">
+              <small>{page.formTitle}</small>
+              <h2 id="contact-form-title" className="mt-4 text-[clamp(28px,3.4vw,42px)]">
+                {page.formText}
+              </h2>
+            </div>
+            <div className="mt-4 overflow-hidden border border-[rgba(118,214,214,.16)] bg-[var(--n3-black)]">
+              <ContactPageClient locale={locale as Locale} />
             </div>
           </section>
-        </SectionBackground>
-      </main>
-
-      <ContactPageFooter />
-    </>
+        </div>
+      </section>
+    </main>
   )
 }
