@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   ArrowRight,
   Bot,
@@ -201,87 +202,134 @@ function Recommendation({ option, copy, locale }: { option: Option; copy: Copy; 
 export function SolutionsFitExplorer({ locale }: { locale: Locale }) {
   const copy = content[locale]
   const [selectedKey, setSelectedKey] = useState<FrictionKey>('visibility')
-  const selected = copy.options.find((option) => option.key === selectedKey) ?? copy.options[0]
+  const reducedMotion = useReducedMotion()
+  const selectedIndex = Math.max(0, copy.options.findIndex((option) => option.key === selectedKey))
+  const selected = copy.options[selectedIndex] ?? copy.options[0]
+
+  function moveSelection(direction: 1 | -1) {
+    const next = (selectedIndex + direction + copy.options.length) % copy.options.length
+    setSelectedKey(copy.options[next].key)
+  }
 
   return (
-    <section id="quick-selector" className="scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
-      <div className="retro-shell">
-        <div className="grid gap-6 lg:grid-cols-[.62fr_1.38fr] lg:items-end">
+    <section id="quick-selector" className="retro-dark scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
+      <div className="retro-shell grid gap-12 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-16">
+        <header className="light-intro">
           <small>{copy.eyebrow}</small>
-          <div>
-            <h2 className="max-w-4xl text-[clamp(34px,4.2vw,58px)]">{copy.title}</h2>
-            <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{copy.subtitle}</p>
+          <h2 className="mt-6 text-[clamp(36px,4.6vw,64px)]">{copy.title}</h2>
+          <p className="mt-6 max-w-md text-[14px] leading-7 text-[var(--n3-text-muted)]">{copy.subtitle}</p>
+          <div className="mt-7 flex items-center gap-3" aria-hidden>
+            <span className="h-px w-10 bg-[rgba(118,214,214,.28)]" />
+            <span className="telemetry">SELECT / VALIDATE / MOVE</span>
           </div>
-        </div>
+        </header>
 
-        <div className="mt-10 md:hidden">
-          {copy.options.map((option, index) => {
-            const Icon = option.icon
-            const active = option.key === selectedKey
-            return (
-              <div key={option.key} className="border-t border-[rgba(118,214,214,.18)] last:border-b">
-                <button
-                  type="button"
-                  aria-expanded={active}
-                  onClick={() => setSelectedKey(option.key)}
-                  className="flex min-h-16 w-full items-center gap-4 px-1 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)]"
-                >
-                  <span className={`grid h-10 w-10 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="telemetry block">0{index + 1}</span>
-                    <span className="mt-1 block font-[var(--font-rajdhani)] text-[16px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
-                      {option.label}
-                    </span>
-                  </span>
-                  <span className="telemetry">{active ? '−' : '+'}</span>
-                </button>
-                {active ? <div className="pb-6 pl-14"><Recommendation option={option} copy={copy} locale={locale} /></div> : null}
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="relative mt-10 hidden border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-5 md:block lg:p-6">
-          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
-          <div className="grid gap-px bg-[rgba(118,214,214,.16)] lg:grid-cols-[.82fr_1.18fr]">
-            <div className="bg-[var(--n3-black)] p-2" role="tablist" aria-label={copy.title}>
-              {copy.options.map((option, index) => {
-                const Icon = option.icon
-                const active = option.key === selectedKey
-                return (
+        <div>
+          <div className="md:hidden">
+            {copy.options.map((option, index) => {
+              const Icon = option.icon
+              const active = option.key === selectedKey
+              return (
+                <div key={option.key} className="border-t border-[rgba(118,214,214,.18)] last:border-b">
                   <button
-                    key={option.key}
                     type="button"
-                    role="tab"
-                    aria-selected={active}
+                    aria-expanded={active}
                     onClick={() => setSelectedKey(option.key)}
-                    className={`flex min-h-16 w-full items-center gap-4 border-t border-[rgba(118,214,214,.14)] px-3 py-4 text-left transition-colors first:border-t-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)] ${active ? 'bg-[rgba(168,217,216,.07)]' : 'hover:bg-[rgba(168,217,216,.035)]'}`}
+                    className="flex min-h-16 w-full items-center gap-4 px-1 py-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)]"
                   >
                     <span className={`grid h-10 w-10 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
                       <Icon className="h-4 w-4" />
                     </span>
-                    <span>
+                    <span className="min-w-0 flex-1">
                       <span className="telemetry block">0{index + 1}</span>
-                      <span className="mt-1 block font-[var(--font-rajdhani)] text-[15px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
+                      <span className="mt-1 block font-[var(--font-rajdhani)] text-[16px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
                         {option.label}
                       </span>
                     </span>
+                    <span className="telemetry">{active ? '−' : '+'}</span>
                   </button>
-                )
-              })}
-            </div>
+                  {active ? (
+                    <motion.div
+                      initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.28 }}
+                      className="pb-7 pl-14"
+                    >
+                      <Recommendation option={option} copy={copy} locale={locale} />
+                    </motion.div>
+                  ) : null}
+                </div>
+              )
+            })}
+          </div>
 
-            <div role="tabpanel" className="bg-[var(--n3-dark-surface)] p-6 lg:p-8">
-              <div className="flex items-center justify-between gap-4 border-b border-[rgba(118,214,214,.16)] pb-6">
-                <span className="telemetry">N3 / FIT PATH</span>
-                <span className="telemetry">{String(copy.options.findIndex((option) => option.key === selected.key) + 1).padStart(2, '0')} / 06</span>
+          <div className="relative hidden border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-5 md:block lg:p-6">
+            <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+            <div className="grid gap-px bg-[rgba(118,214,214,.16)] xl:grid-cols-[.82fr_1.18fr]">
+              <div
+                className="bg-[var(--n3-black)] p-2"
+                role="tablist"
+                aria-label={copy.title}
+                onKeyDown={(event) => {
+                  if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+                    event.preventDefault()
+                    moveSelection(1)
+                  }
+                  if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+                    event.preventDefault()
+                    moveSelection(-1)
+                  }
+                }}
+              >
+                {copy.options.map((option, index) => {
+                  const Icon = option.icon
+                  const active = option.key === selectedKey
+                  const tabId = `solution-fit-tab-${option.key}`
+                  return (
+                    <button
+                      key={option.key}
+                      id={tabId}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      aria-controls="solution-fit-panel"
+                      tabIndex={active ? 0 : -1}
+                      onClick={() => setSelectedKey(option.key)}
+                      className={`flex min-h-16 w-full items-center gap-4 border-t border-[rgba(118,214,214,.14)] px-3 py-4 text-left transition-colors first:border-t-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)] ${active ? 'bg-[rgba(168,217,216,.07)]' : 'hover:bg-[rgba(168,217,216,.035)]'}`}
+                    >
+                      <span className={`grid h-10 w-10 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span>
+                        <span className="telemetry block">0{index + 1}</span>
+                        <span className="mt-1 block font-[var(--font-rajdhani)] text-[15px] uppercase tracking-[.06em] text-[var(--n3-text-light)]">
+                          {option.label}
+                        </span>
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
-              <h3 className="mt-8 max-w-2xl text-[clamp(28px,3vw,42px)]">{selected.label}</h3>
-              <div className="mt-8">
-                <Recommendation option={selected} copy={copy} locale={locale} />
-              </div>
+
+              <motion.div
+                key={selected.key}
+                id="solution-fit-panel"
+                role="tabpanel"
+                aria-labelledby={`solution-fit-tab-${selected.key}`}
+                className="bg-[var(--n3-dark-surface)] p-6 lg:p-8"
+                initial={reducedMotion ? false : { opacity: 0.55, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.32, ease: 'easeOut' }}
+              >
+                <div className="flex items-center justify-between gap-4 border-b border-[rgba(118,214,214,.16)] pb-6">
+                  <span className="telemetry">N3 / FIT PATH</span>
+                  <span className="telemetry">{String(selectedIndex + 1).padStart(2, '0')} / 06</span>
+                </div>
+                <h3 className="mt-8 max-w-2xl text-[clamp(28px,3vw,42px)]">{selected.label}</h3>
+                <div className="mt-8">
+                  <Recommendation option={selected} copy={copy} locale={locale} />
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
