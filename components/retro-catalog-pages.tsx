@@ -42,7 +42,7 @@ const products = [
   { id: 'mermasapp',    name: 'MermasApp',             img: '/n3uralia-brand/client-repository.png' },
   { id: 'motil',        name: 'Motil',                 img: '/n3uralia-retro/project-lapatagua.png' },
   { id: 'docufleet',    name: 'DocuFleet',             img: '/n3uralia-retro/project-labbe.png' },
-  { id: 'clarity',      name: 'Clar1ty',               img: '/n3uralia-retro/product-clarity.png' },
+  { id: 'clarity',      name: 'Clar1ty',               img: '/n3uralia-retro/product-clarity-showcase.webp' },
   { id: 'nano-agents',  name: 'N3uralia Nano Agents',  img: '/n3uralia-retro/product-nanoagents.png' },
 ]
 
