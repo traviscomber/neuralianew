@@ -34,7 +34,7 @@ export function BrandWordmark({
   return (
     <span className={`relative inline-block ${className}`.trim()} aria-label='N3uralia'>
       <Image
-        src='/n3uralia-brand/n3uralia-wordmark-new.webp'
+        src='/n3uralia-brand/n3uralia-wordmark-transparent.svg'
         alt='N3uralia'
         fill
         priority={priority}
