@@ -65,7 +65,6 @@
   padding:0;
 }
 
-/* The five row centers track the five visual bands in the portrait artwork. */
 .rail::before,
 .rail::after{
   content:"";
@@ -117,27 +116,26 @@
   align-self:start;
   justify-self:end;
   width:min(100%,640px);
+  aspect-ratio:640/1137;
   min-width:0;
   margin:0;
-  overflow:visible;
+  overflow:hidden;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
-  background:transparent!important;
+  background:#020708!important;
 }
 
-.artwork img{
+.artwork svg{
   display:block;
   width:100%;
-  height:auto;
-  object-fit:contain;
-  object-position:center top;
+  height:100%;
+  overflow:visible;
   color:transparent;
   border:0!important;
   outline:0!important;
   box-shadow:none!important;
-  filter:saturate(.88) brightness(.9) contrast(1.02);
-  opacity:.96;
+  opacity:1;
   transform:none!important;
 }
 
