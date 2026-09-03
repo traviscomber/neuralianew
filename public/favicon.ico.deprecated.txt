@@ -1,0 +1,1 @@
+The legacy favicon.ico is deprecated. Canonical browser/search icon is /favicon.svg, sourced from /public/n3uralia-brand/n3uralia-sign-canonical.svg. Do not introduce backgrounds or tiles around the sign.
