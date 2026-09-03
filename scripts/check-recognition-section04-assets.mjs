@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs'
 
 const component = 'components/recognition-section04-final.tsx'
-const artwork = 'components/recognition-section04-artwork.tsx'
+const asset = 'public/recognition-section04-platform-final.webp'
+const obsoleteInlineArtwork = 'components/recognition-section04-artwork.tsx'
 const legacyPaths = [
   'app/recognition-section04-platform-canonical.webp/route.ts',
   'lib/recognition-section04-asset/part0.ts',
@@ -30,28 +31,27 @@ const legacyPaths = [
 ]
 
 if (!existsSync(component)) throw new Error(`Missing Section 04 component: ${component}`)
-if (!existsSync(artwork)) throw new Error(`Missing Section 04 inline artwork: ${artwork}`)
+if (!existsSync(asset)) throw new Error(`Missing Section 04 WebP: ${asset}`)
+if (existsSync(obsoleteInlineArtwork)) throw new Error(`Section 04 still contains obsolete inline SVG artwork: ${obsoleteInlineArtwork}`)
 
 const componentSource = readFileSync(component, 'utf8')
-if (!componentSource.includes("import { RecognitionSection04Artwork } from './recognition-section04-artwork'")) {
-  throw new Error('Section 04 does not import the inline artwork component')
+if (!componentSource.includes("const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp'")) {
+  throw new Error('Section 04 does not use the canonical static WebP asset')
 }
-if (!componentSource.includes('<RecognitionSection04Artwork label={t.artworkAlt} />')) {
-  throw new Error('Section 04 does not render the inline artwork component')
+if (!componentSource.includes('<img') || !componentSource.includes('src={PLATFORM_ARTWORK_SRC}')) {
+  throw new Error('Section 04 does not render the WebP with a native image element')
 }
-if (componentSource.includes('<img') || componentSource.includes('platformArtworkSrc')) {
-  throw new Error('Section 04 still depends on an external image asset')
+if (componentSource.includes('RecognitionSection04Artwork') || componentSource.includes('<svg')) {
+  throw new Error('Section 04 still depends on inline SVG artwork')
 }
 
-const artworkSource = readFileSync(artwork, 'utf8')
-if (!artworkSource.includes('viewBox="0 0 640 1137"')) {
-  throw new Error('Section 04 artwork does not use the canonical portrait viewBox')
-}
-for (const required of ['REAL-TIME DETECTION', 'COUGAR • 98.7%', 'DECISION', 'ALERT DELIVERY', 'NEW EVENT', 'ACTIVITY TREND', 'API', 'CLOUD', 'ANALYTICS', 'PARTNERS']) {
-  if (!artworkSource.includes(required)) throw new Error(`Section 04 artwork is missing required content: ${required}`)
+const assetBytes = readFileSync(asset)
+if (assetBytes.length < 20_000) throw new Error(`Section 04 WebP is unexpectedly small: ${assetBytes.length} bytes`)
+if (assetBytes.subarray(0, 4).toString('ascii') !== 'RIFF' || assetBytes.subarray(8, 12).toString('ascii') !== 'WEBP') {
+  throw new Error('Section 04 asset is not a valid WebP container')
 }
 
 const leftovers = legacyPaths.filter(existsSync)
 if (leftovers.length) throw new Error(`Legacy Section 04 asset paths still exist:\n${leftovers.join('\n')}`)
 
-console.log('Section 04 inline artwork workflow valid')
+console.log(`Section 04 WebP workflow valid (${assetBytes.length} bytes)`)

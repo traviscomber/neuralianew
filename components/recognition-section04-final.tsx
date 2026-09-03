@@ -4,7 +4,8 @@ import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
 import { ProcessNode, type ProcessIconName } from './recognition-process-node'
 import { RecognitionSectionNote } from './recognition-section-note'
-import { RecognitionSection04Artwork } from './recognition-section04-artwork'
+
+const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp'
 
 const copy = {
   en: {
@@ -76,7 +77,15 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
           </div>
 
           <figure className={p.artwork}>
-            <RecognitionSection04Artwork label={t.artworkAlt} />
+            <img
+              src={PLATFORM_ARTWORK_SRC}
+              alt={t.artworkAlt}
+              width={1280}
+              height={2274}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+            />
           </figure>
         </div>
       </div>
