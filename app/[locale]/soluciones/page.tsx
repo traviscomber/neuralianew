@@ -10,8 +10,6 @@ import {
   Users,
   Workflow,
 } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
-import { SectionBackground } from "@/components/section-background"
 import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
@@ -262,160 +260,145 @@ export default function SolucionesPage({ params }: PageProps) {
   const page = content[locale]
 
   return (
-    <>
-      <main className="min-h-screen bg-[#fbfbfa] pt-20 text-[#243331]">
-        <SectionBackground section="solutions" className="border-b border-[#d8e5e2]">
-          <section className="px-4 py-20 sm:px-8 lg:px-10">
-            <div className="container mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-              <div>
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#cfe0dc] bg-white/75 px-4 py-2">
-                  <span className="h-2 w-2 rounded-full bg-[#789b96]" />
-                  <span className="text-sm font-semibold text-[#526e69]">{page.badge}</span>
-                </div>
-                <h1 className="max-w-5xl text-balance text-5xl font-light leading-[0.98] tracking-[-0.04em] text-[#173634] md:text-7xl">
-                  {page.title}
-                </h1>
-                <p className="mt-7 max-w-3xl text-pretty text-lg leading-8 text-[#65706d]">
-                  {page.subtitle}
-                </p>
-              </div>
-
-              <div className="rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-5 shadow-[0_34px_110px_-82px_#173634] backdrop-blur">
-                <div className="grid gap-3">
-                  {page.quickStats.map((stat, index) => (
-                    <div key={stat} className="flex items-center gap-4 rounded-[1.2rem] bg-[#eef5f2] p-4">
-                      <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-sm font-semibold text-[#789b96]">
-                        {index + 1}
-                      </span>
-                      <span className="text-sm font-semibold text-[#526e69]">{stat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        </SectionBackground>
-
-        <SolutionsFitExplorer locale={locale} />
-
-        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
-          <div className="container mx-auto max-w-7xl">
-            <div className="mx-auto mb-16 max-w-3xl text-center">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Verticales</p>
-              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.sectorsTitle}</h2>
-              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.sectorsSubtitle}</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {page.sectors.map((sector) => {
-                const Icon = sector.icon
-
-                return (
-                  <div
-                    key={sector.title}
-                    className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 shadow-[0_24px_80px_-70px_#173634] transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] hover:shadow-[0_34px_110px_-80px_#173634]"
-                  >
-                    <div className="mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#eef5f2] text-[#789b96] transition-colors group-hover:bg-[#173634] group-hover:text-white">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-[#243331]">{sector.title}</h3>
-                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{sector.description}</p>
-                    <div className="mt-6 flex items-start gap-2 rounded-[1rem] bg-[#f7faf8] p-4">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
-                      <p className="text-sm font-medium text-[#526e69]">{sector.outcome}</p>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+    <main className="retro-page min-h-screen pt-20">
+      <section className="border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell grid gap-14 py-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+          <div>
+            <small>{page.badge}</small>
+            <h1 className="mt-6 max-w-5xl text-[clamp(44px,5.6vw,78px)]">{page.title}</h1>
+            <p className="mt-7 max-w-3xl text-[16px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
           </div>
-        </section>
 
-        <SectionBackground section="workflow" className="border-b border-[#d8e5e2]">
-          <section className="px-4 py-24 sm:px-8 lg:px-10">
-            <div className="container mx-auto max-w-6xl">
-              <div className="mx-auto mb-16 max-w-3xl text-center">
-                <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Entrada</p>
-                <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.deliveryTitle}</h2>
-                <p className="mt-5 text-base leading-8 text-[#65706d]">{page.deliverySubtitle}</p>
-              </div>
-
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-                {page.deliveryModels.map((model, index) => (
-                  <div key={model.title} className="rounded-[1.6rem] border border-[#d8e5e2] bg-white/80 p-7 shadow-[0_24px_80px_-70px_#173634] backdrop-blur">
-                    <span className="mb-6 grid h-10 w-10 place-items-center rounded-full bg-[#173634] text-sm font-semibold text-white">
-                      {index + 1}
-                    </span>
-                    <h3 className="text-2xl font-light leading-tight text-[#173634]">{model.title}</h3>
-                    <p className="mt-4 text-sm leading-7 text-[#65706d]">{model.summary}</p>
-                    <div className="mt-6 space-y-3">
-                      {model.bullets.map((bullet) => (
-                        <div key={bullet} className="flex items-start gap-2">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#789b96]" />
-                          <span className="text-sm text-[#65706d]">{bullet}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <div className="relative border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-7">
+            <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+            <div className="mb-7 flex items-center justify-between">
+              <span className="telemetry">N3 / EXPERTISE SIGNALS</span>
+              <span className="h-2 w-2 rounded-full bg-[var(--n3-teal)] shadow-[0_0_18px_var(--n3-teal-dim)]" />
             </div>
-          </section>
-        </SectionBackground>
-
-        <section className="border-b border-[#d8e5e2] px-4 py-24 sm:px-8 lg:px-10">
-          <div className="container mx-auto max-w-6xl">
-            <div className="mx-auto mb-16 max-w-3xl text-center">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">Evidencia</p>
-              <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.proofTitle}</h2>
-              <p className="mt-5 text-base leading-8 text-[#65706d]">{page.proofSubtitle}</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-              {page.proofs.map((proof) => (
-                <Link
-                  key={proof.title}
-                  href={href(locale, proof.href)}
-                  className="group rounded-[1.6rem] border border-[#d8e5e2] bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-[#b8d1cc] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]"
-                >
-                  <h3 className="text-xl font-semibold text-[#243331] transition-colors group-hover:text-[#173634]">{proof.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[#65706d]">{proof.description}</p>
-                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#789b96]">
-                    {locale === "es" ? "Ver caso" : "View case"}
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </Link>
+            <div className="border-t border-[rgba(118,214,214,.16)]">
+              {page.quickStats.map((stat, index) => (
+                <div key={stat} className="grid grid-cols-[52px_1fr] items-center gap-4 border-b border-[rgba(118,214,214,.16)] py-5">
+                  <span className="telemetry">0{index + 1}</span>
+                  <span className="font-[var(--font-rajdhani)] text-sm tracking-[.14em] text-[var(--n3-teal-soft)] uppercase">{stat}</span>
+                </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <SectionBackground section="hero">
-          <section className="px-4 py-20 sm:px-8 lg:px-10">
-            <div className="container mx-auto max-w-4xl rounded-[2rem] border border-[#d8e5e2] bg-white/80 p-8 text-center shadow-[0_34px_110px_-82px_#173634] backdrop-blur md:p-12">
-              <h2 className="text-balance text-4xl font-light leading-tight text-[#173634] md:text-5xl">{page.ctaTitle}</h2>
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-[#65706d]">{page.ctaSubtitle}</p>
-              <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link
-                  href={href(locale, "/contact")}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#173634] px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
-                >
-                  {page.primaryCta}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href={href(locale, "/#flow")}
-                  className="inline-flex items-center justify-center rounded-full border border-[#b9d0cb] bg-white px-6 py-3 text-sm font-semibold text-[#526e69] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#789b96] hover:bg-[#f7faf8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]"
-                >
-                  {page.secondaryCta}
-                </Link>
-              </div>
+      <SolutionsFitExplorer locale={locale} />
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-24">
+        <div className="retro-shell">
+          <div className="mb-14 grid gap-5 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
+            <small>{locale === "es" ? "01 / VERTICALES" : "01 / VERTICALS"}</small>
+            <div>
+              <h2 className="text-[clamp(36px,4.4vw,60px)]">{page.sectorsTitle}</h2>
+              <p className="mt-5 max-w-3xl text-[14px] text-[var(--n3-text-muted)]">{page.sectorsSubtitle}</p>
             </div>
-          </section>
-        </SectionBackground>
-      </main>
+          </div>
 
-      <Footer />
-    </>
+          <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-3">
+            {page.sectors.map((sector, index) => {
+              const Icon = sector.icon
+              return (
+                <article key={sector.title} className="group min-h-[330px] bg-[var(--n3-dark-surface)] p-7 transition-colors hover:bg-[#0e1d1e]">
+                  <div className="mb-10 flex items-center justify-between">
+                    <Icon className="h-7 w-7 text-[var(--n3-teal-soft)]" />
+                    <span className="telemetry">0{index + 1}</span>
+                  </div>
+                  <h3 className="text-[23px]">{sector.title}</h3>
+                  <p className="mt-5 text-[13px] text-[var(--n3-text-muted)]">{sector.description}</p>
+                  <div className="mt-7 flex items-start gap-3 border-t border-[rgba(118,214,214,.16)] pt-5">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[var(--n3-teal-soft)]" />
+                    <p className="text-[12px] text-[var(--n3-teal-soft)]">{sector.outcome}</p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-24">
+        <div className="retro-shell">
+          <div className="mb-14 grid gap-5 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
+            <small>{locale === "es" ? "02 / ENTRADA" : "02 / ENTRY"}</small>
+            <div>
+              <h2 className="text-[clamp(36px,4.4vw,60px)]">{page.deliveryTitle}</h2>
+              <p className="mt-5 max-w-3xl text-[14px] text-[var(--n3-text-muted)]">{page.deliverySubtitle}</p>
+            </div>
+          </div>
+
+          <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-3">
+            {page.deliveryModels.map((model, index) => (
+              <article key={model.title} className="relative min-h-[350px] bg-[var(--n3-black)] p-7">
+                <span className="telemetry">0{index + 1}</span>
+                <h3 className="mt-9 text-[24px]">{model.title}</h3>
+                <p className="mt-5 text-[13px] text-[var(--n3-text-muted)]">{model.summary}</p>
+                <div className="mt-7 space-y-3 border-t border-[rgba(118,214,214,.16)] pt-5">
+                  {model.bullets.map((bullet) => (
+                    <div key={bullet} className="flex items-start gap-3">
+                      <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-[var(--n3-teal)]" />
+                      <span className="text-[12px] text-[var(--n3-text-muted)]">{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-24">
+        <div className="retro-shell">
+          <div className="mb-14 grid gap-5 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
+            <small>{locale === "es" ? "03 / EVIDENCIA" : "03 / EVIDENCE"}</small>
+            <div>
+              <h2 className="text-[clamp(36px,4.4vw,60px)]">{page.proofTitle}</h2>
+              <p className="mt-5 max-w-3xl text-[14px] text-[var(--n3-text-muted)]">{page.proofSubtitle}</p>
+            </div>
+          </div>
+
+          <div className="border-t border-[rgba(118,214,214,.16)]">
+            {page.proofs.map((proof, index) => (
+              <Link
+                key={proof.title}
+                href={href(locale, proof.href)}
+                className="group grid gap-5 border-b border-[rgba(118,214,214,.16)] py-7 transition-colors hover:bg-[rgba(168,217,216,.03)] md:grid-cols-[70px_1fr_1.2fr_30px] md:items-center"
+              >
+                <span className="telemetry">0{index + 1}</span>
+                <h3 className="text-[22px]">{proof.title}</h3>
+                <p className="text-[13px] text-[var(--n3-text-muted)]">{proof.description}</p>
+                <ArrowRight className="h-4 w-4 text-[var(--n3-teal-soft)] transition-transform group-hover:translate-x-1" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24">
+        <div className="retro-shell relative border-y border-[rgba(118,214,214,.2)] py-16">
+          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+          <small>{locale === "es" ? "04 / SIGUIENTE MOVIMIENTO" : "04 / NEXT MOVE"}</small>
+          <div className="mt-5 grid gap-10 lg:grid-cols-[1fr_.8fr] lg:items-end">
+            <div>
+              <h2 className="max-w-4xl text-[clamp(36px,4.5vw,62px)]">{page.ctaTitle}</h2>
+              <p className="mt-6 max-w-2xl text-[14px] text-[var(--n3-text-muted)]">{page.ctaSubtitle}</p>
+            </div>
+            <div className="button-row lg:justify-end">
+              <Link href={href(locale, "/contact")} className="retro-button retro-button-primary gap-2">
+                {page.primaryCta}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={href(locale, "/#flow")} className="retro-button">
+                {page.secondaryCta}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
