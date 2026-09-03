@@ -126,95 +126,90 @@ export function SolutionsFitExplorer({ locale }: { locale: Locale }) {
   const SelectedIcon = selected.icon
 
   return (
-    <section className="px-4 py-20 border-b border-[#d8e5e2] bg-[#f7faf8]">
-      <div className="container mx-auto max-w-6xl">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
-          <div>
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.24em] text-[#789b96]">{page.eyebrow}</p>
-            <h2 className="text-balance text-4xl font-light leading-tight text-[#243331] md:text-5xl">{page.title}</h2>
-            <p className="mt-5 text-pretty text-base leading-8 text-[#65706d]">{page.subtitle}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {sectors.map((sector) => {
-                const Icon = sector.icon
-                return (
-                  <span key={sector.label} className="inline-flex items-center gap-2 rounded-full border border-[#d8e5e2] bg-white px-4 py-2 text-sm font-medium text-[#65706d]">
-                    <Icon className="h-4 w-4 text-[#789b96]" />
-                    {sector.label}
-                  </span>
-                )
-              })}
-            </div>
+    <section className="border-b border-[rgba(118,214,214,.16)] py-20">
+      <div className="retro-shell grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
+        <div>
+          <small>{page.eyebrow}</small>
+          <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.title}</h2>
+          <p className="mt-5 max-w-xl text-[14px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {sectors.map((sector) => {
+              const Icon = sector.icon
+              return (
+                <span key={sector.label} className="inline-flex min-h-11 items-center gap-2 border border-[rgba(168,217,216,.22)] px-4 text-[11px] uppercase tracking-[.14em] text-[var(--n3-text-muted)]">
+                  <Icon className="h-4 w-4 text-[var(--n3-teal-soft)]" />
+                  {sector.label}
+                </span>
+              )
+            })}
           </div>
+        </div>
 
-          <div className="rounded-[2rem] border border-[#cfe0dc] bg-white p-4 shadow-[0_34px_110px_-82px_#173634] md:p-5">
-            <div className="grid gap-4 md:grid-cols-[0.9fr_1.1fr]">
-              <div className="rounded-[1.5rem] border border-[#d8e5e2] bg-[#fbfbfa] p-3">
-                <p className="px-2 pb-3 pt-1 text-xs font-semibold uppercase tracking-[0.2em] text-[#789b96]">{page.choose}</p>
-                <div className="space-y-2" role="tablist" aria-label={page.choose}>
-                  {page.options.map((option) => {
-                    const Icon = option.icon
-                    const active = option.key === selectedKey
-                    return (
-                      <button
-                        key={option.key}
-                        type="button"
-                        role="tab"
-                        aria-selected={active}
-                        onClick={() => setSelectedKey(option.key)}
-                        className={`w-full rounded-[1.15rem] border p-4 text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96] ${
-                          active
-                            ? 'border-[#789b96] bg-[#eef5f2] text-[#173634] shadow-[0_20px_60px_-46px_#173634]'
-                            : 'border-transparent bg-transparent text-[#65706d] hover:border-[#d8e5e2] hover:bg-white'
-                        }`}
-                      >
-                        <span className="flex items-start gap-3">
-                          <span className={`mt-0.5 grid h-9 w-9 flex-none place-items-center rounded-2xl ${active ? 'bg-[#173634] text-white' : 'bg-white text-[#789b96]'}`}>
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          <span>
-                            <span className="block text-sm font-semibold">{option.label}</span>
-                            <span className="mt-1 block text-xs leading-5 text-[#7b8582]">{option.description}</span>
-                          </span>
+        <div className="relative border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-4 md:p-5">
+          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+          <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-[.9fr_1.1fr]">
+            <div className="bg-[var(--n3-black)] p-3">
+              <p className="telemetry px-2 pb-3 pt-1">{page.choose}</p>
+              <div role="tablist" aria-label={page.choose}>
+                {page.options.map((option, index) => {
+                  const Icon = option.icon
+                  const active = option.key === selectedKey
+                  return (
+                    <button
+                      key={option.key}
+                      type="button"
+                      role="tab"
+                      aria-selected={active}
+                      onClick={() => setSelectedKey(option.key)}
+                      className={`w-full border-t border-[rgba(118,214,214,.14)] p-4 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--n3-teal)] ${
+                        active
+                          ? 'bg-[rgba(168,217,216,.07)] text-[var(--n3-text-light)]'
+                          : 'bg-transparent text-[var(--n3-text-muted)] hover:bg-[rgba(168,217,216,.035)]'
+                      }`}
+                    >
+                      <span className="flex items-start gap-3">
+                        <span className={`mt-0.5 grid h-9 w-9 flex-none place-items-center border ${active ? 'border-[var(--n3-teal-soft)] text-[var(--n3-teal-soft)]' : 'border-[rgba(168,217,216,.18)] text-[var(--n3-text-muted)]'}`}>
+                          <Icon className="h-4 w-4" />
                         </span>
-                      </button>
-                    )
-                  })}
-                </div>
+                        <span>
+                          <span className="telemetry mb-1 block">0{index + 1}</span>
+                          <span className="block font-[var(--font-rajdhani)] text-[14px] tracking-[.08em] text-[var(--n3-text-light)] uppercase">{option.label}</span>
+                          <span className="mt-2 block text-[11px] leading-5 text-[var(--n3-text-muted)]">{option.description}</span>
+                        </span>
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
+            </div>
 
-              <div className="relative overflow-hidden rounded-[1.5rem] bg-[#173634] p-6 text-white">
-                <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-[#8fb2aa]/30 blur-3xl" />
-                <div className="relative">
-                  <div className="mb-8 flex items-center justify-between gap-4">
-                    <div className="grid h-14 w-14 place-items-center rounded-2xl border border-white/15 bg-white/10">
-                      <SelectedIcon className="h-6 w-6 text-[#dbe8e4]" />
-                    </div>
-                    <span className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-[#c6d7d3]">
-                      {locale === 'es' ? 'Fit inicial' : 'Initial fit'}
-                    </span>
+            <div className="relative overflow-hidden bg-[var(--n3-dark-surface)] p-6">
+              <div className="absolute left-0 right-0 top-24 h-px bg-gradient-to-r from-transparent via-[var(--n3-teal)] to-transparent opacity-30" />
+              <div className="relative">
+                <div className="mb-10 flex items-center justify-between gap-4">
+                  <div className="grid h-14 w-14 place-items-center border border-[rgba(168,217,216,.24)]">
+                    <SelectedIcon className="h-6 w-6 text-[var(--n3-teal-soft)]" />
                   </div>
-
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a9c0bb]">{page.next}</p>
-                  <h3 className="mt-3 text-3xl font-light leading-tight text-white">{selected.recommendation}</h3>
-
-                  <div className="mt-8 rounded-[1.2rem] border border-white/12 bg-white/[0.07] p-5">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a9c0bb]">{page.output}</p>
-                    <p className="mt-3 text-sm leading-7 text-[#e9f0ee]">{selected.firstBuild}</p>
-                  </div>
-
-                  <div className="mt-5 flex items-start gap-3 rounded-[1.2rem] border border-white/12 bg-white/[0.04] p-4 text-sm leading-6 text-[#d7e4e1]">
-                    <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-[#a9c0bb]" />
-                    <span>{selected.signal}</span>
-                  </div>
-
-                  <a
-                    href={`/${locale}/contact`}
-                    className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#173634] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#eef5f2] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  >
-                    {locale === 'es' ? 'Validar este camino' : 'Validate this path'}
-                    <ArrowRight className="h-4 w-4" />
-                  </a>
+                  <span className="telemetry">{locale === 'es' ? 'Fit inicial' : 'Initial fit'}</span>
                 </div>
+
+                <p className="telemetry">{page.next}</p>
+                <h3 className="mt-4 text-[clamp(28px,3vw,40px)]">{selected.recommendation}</h3>
+
+                <div className="mt-8 border-t border-[rgba(118,214,214,.16)] pt-6">
+                  <p className="telemetry">{page.output}</p>
+                  <p className="mt-4 text-[13px] text-[var(--n3-text-muted)]">{selected.firstBuild}</p>
+                </div>
+
+                <div className="mt-6 flex items-start gap-3 border-t border-[rgba(118,214,214,.16)] pt-5 text-[12px] text-[var(--n3-text-muted)]">
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[var(--n3-teal-soft)]" />
+                  <span>{selected.signal}</span>
+                </div>
+
+                <a href={`/${locale}/contact`} className="retro-button retro-button-primary mt-8 gap-2">
+                  {locale === 'es' ? 'Validar este camino' : 'Validate this path'}
+                  <ArrowRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
           </div>
