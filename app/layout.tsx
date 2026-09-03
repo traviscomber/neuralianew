@@ -21,11 +21,12 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   icons: {
     icon: [
+      { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
       { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
-      { url: "/favicon-fallback.svg", type: "image/svg+xml", sizes: "any" },
     ],
-    shortcut: "/favicon.svg",
-    apple: "/favicon.svg",
+    shortcut: "/favicon.ico",
+    apple: "/favicon-48.png",
   },
   openGraph: { type: "website", siteName: "N3uralia", title: "N3uralia", description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.", images: [{ url: absoluteUrl("/og-image.png"), width: 1200, height: 630, alt: "N3uralia", type: "image/png" }] },
   twitter: { card: "summary_large_image", creator: "@n3uralia", site: "@n3uralia", images: [absoluteUrl("/og-image.png")] },
