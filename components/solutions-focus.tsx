@@ -30,13 +30,21 @@ export function SolutionsFocus({
   }, [])
 
   return (
-    <motion.div
-      ref={ref}
-      className={`focus-item ${active || reducedMotion ? 'is-active' : ''} ${className}`.trim()}
-      animate={reducedMotion ? undefined : { opacity: active ? 1 : 0.5, scale: active ? 1 : 0.965 }}
-      transition={{ duration: 0.45, delay: index * 0.02, ease: 'easeOut' }}
-    >
-      {children}
-    </motion.div>
+    <>
+      <motion.div
+        ref={ref}
+        className={`focus-item ${active || reducedMotion ? 'is-active' : ''} ${className}`.trim()}
+        animate={reducedMotion ? undefined : { opacity: active ? 1 : 0.5, scale: active ? 1 : 0.965 }}
+        transition={{ duration: 0.45, delay: index * 0.02, ease: 'easeOut' }}
+      >
+        {children}
+      </motion.div>
+
+      <style jsx global>{`
+        .retro-page > section:has(+ #solution-layers) .focus-item article::after {
+          display: none !important;
+        }
+      `}</style>
+    </>
   )
 }
