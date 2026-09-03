@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, Shield, Target, Users, Zap } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
-import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -142,101 +140,115 @@ export default function AboutPage({ params }: PageProps) {
   const page = content[locale]
 
   return (
-    <>
-      <main className="min-h-screen pt-20 bg-background">
-        <SectionBackground section="hero" className="border-b border-border">
-          <section className="py-20 px-4">
-            <div className="container mx-auto text-center max-w-4xl">
-              <p className="text-primary font-semibold mb-4 text-sm uppercase tracking-wide">
-                {page.badge}
-              </p>
-              <h1 className="text-4xl sm:text-6xl font-bold mb-8 text-foreground">{page.title}</h1>
-              <p className="body-lg text-muted-foreground leading-relaxed">{page.subtitle}</p>
-            </div>
-          </section>
-        </SectionBackground>
-
-        <section className="py-24 px-4 border-b border-border">
-          <div className="container mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold text-foreground mb-8">{page.storyTitle}</h2>
-            <div className="space-y-6">
-              {page.storyParagraphs.map((paragraph) => (
-                <p key={paragraph} className="text-muted-foreground leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+    <main className="retro-page min-h-screen pt-20">
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell grid gap-14 py-24 lg:grid-cols-[.95fr_1.05fr] lg:items-center">
+          <div>
+            <small>{page.badge}</small>
+            <h1 className="mt-6 max-w-4xl text-[clamp(44px,5.5vw,78px)]">{page.title}</h1>
+            <p className="mt-7 max-w-2xl text-[16px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
           </div>
-        </section>
 
-        <SectionBackground section="capabilities" className="border-b border-border">
-          <section className="py-24 px-4">
-            <div className="container mx-auto max-w-6xl">
-              <div className="text-center max-w-3xl mx-auto mb-16">
-                <h2 className="text-3xl font-bold text-foreground mb-4">{page.pillarsTitle}</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {page.pillars.map((pillar) => {
-                  const Icon = pillar.icon
-
-                  return (
-                    <div
-                      key={pillar.title}
-                      className="bg-card border border-border rounded-lg p-8 h-full hover:border-primary/40 transition-colors"
-                    >
-                      <Icon className="w-10 h-10 text-primary mb-6" />
-                      <h3 className="text-xl font-semibold text-foreground mb-3">{pillar.title}</h3>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
-                        {pillar.description}
-                      </p>
-                    </div>
-                  )
-                })}
-              </div>
+          <div className="relative min-h-[360px] border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-8">
+            <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+            <div className="mb-10 flex items-center justify-between gap-4">
+              <span className="telemetry">N3 / OPERATING SYSTEM</span>
+              <span className="h-2 w-2 rounded-full bg-[var(--n3-teal)] shadow-[0_0_18px_var(--n3-teal-dim)]" />
             </div>
-          </section>
-        </SectionBackground>
-
-        <section className="py-24 px-4 border-b border-border">
-          <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">{page.fitTitle}</h2>
-            <div className="space-y-4">
-              {page.fitItems.map((item) => (
-                <div key={item} className="rounded-lg border border-border bg-card p-6 flex gap-3">
-                  <ArrowRight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                  <p className="text-muted-foreground">{item}</p>
+            <div className="grid min-h-[245px] grid-cols-2 gap-px bg-[rgba(118,214,214,.16)]">
+              {["ARCHITECTURE", "INTEGRATION", "OPERATIONS", "CONTROL"].map((label, index) => (
+                <div key={label} className="flex flex-col justify-between bg-[var(--n3-black)] p-6">
+                  <span className="telemetry">0{index + 1}</span>
+                  <div>
+                    <span className="mb-3 block h-px w-10 bg-[var(--n3-teal-soft)]" />
+                    <span className="font-[var(--font-rajdhani)] text-sm tracking-[.16em] text-[var(--n3-teal-soft)]">{label}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <SectionBackground section="workflow">
-          <section className="py-20 px-4">
-            <div className="container mx-auto text-center max-w-3xl">
-              <h2 className="text-3xl font-bold text-foreground mb-6">{page.ctaTitle}</h2>
-              <p className="text-muted-foreground mb-10">{page.ctaSubtitle}</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href={href(locale, "/contact")}
-                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
-                >
-                  {page.primaryCta}
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href={href(locale, "/como-trabajamos")}
-                  className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
-                >
-                  {page.secondaryCta}
-                </Link>
+      <section className="border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell grid gap-12 py-20 lg:grid-cols-[.6fr_1.4fr]">
+          <div>
+            <small>01 / POSITION</small>
+            <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.storyTitle}</h2>
+          </div>
+          <div className="space-y-7 border-l border-[rgba(118,214,214,.16)] pl-0 lg:pl-10">
+            {page.storyParagraphs.map((paragraph) => (
+              <p key={paragraph} className="max-w-3xl text-[15px] text-[var(--n3-text-muted)]">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-20">
+        <div className="retro-shell">
+          <div className="mb-12 grid gap-4 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
+            <small>02 / PRINCIPLES</small>
+            <h2 className="text-[clamp(34px,4vw,56px)]">{page.pillarsTitle}</h2>
+          </div>
+          <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-4">
+            {page.pillars.map((pillar, index) => {
+              const Icon = pillar.icon
+              return (
+                <article key={pillar.title} className="group relative min-h-[290px] bg-[var(--n3-dark-surface)] p-7 transition-colors hover:bg-[#0e1d1e]">
+                  <div className="mb-12 flex items-center justify-between">
+                    <Icon className="h-7 w-7 text-[var(--n3-teal-soft)]" />
+                    <span className="telemetry">0{index + 1}</span>
+                  </div>
+                  <h3 className="text-[22px] text-[var(--n3-text-light)]">{pillar.title}</h3>
+                  <p className="mt-5 text-[13px] text-[var(--n3-text-muted)]">{pillar.description}</p>
+                </article>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-20">
+        <div className="retro-shell grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
+          <div>
+            <small>03 / FIT</small>
+            <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.fitTitle}</h2>
+          </div>
+          <div className="border-t border-[rgba(118,214,214,.16)]">
+            {page.fitItems.map((item, index) => (
+              <div key={item} className="grid grid-cols-[56px_1fr_24px] items-start gap-4 border-b border-[rgba(118,214,214,.16)] py-7">
+                <span className="telemetry">0{index + 1}</span>
+                <p className="text-[14px] text-[var(--n3-text-muted)]">{item}</p>
+                <ArrowRight className="mt-1 h-4 w-4 text-[var(--n3-teal-soft)]" />
               </div>
-            </div>
-          </section>
-        </SectionBackground>
-      </main>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <Footer />
-    </>
+      <section className="py-24">
+        <div className="retro-shell relative border-y border-[rgba(118,214,214,.2)] py-16">
+          <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
+          <small>04 / NEXT MOVE</small>
+          <div className="mt-5 grid gap-10 lg:grid-cols-[1fr_.8fr] lg:items-end">
+            <div>
+              <h2 className="max-w-4xl text-[clamp(36px,4.5vw,62px)]">{page.ctaTitle}</h2>
+              <p className="mt-6 max-w-2xl text-[14px] text-[var(--n3-text-muted)]">{page.ctaSubtitle}</p>
+            </div>
+            <div className="button-row lg:justify-end">
+              <Link href={href(locale, "/contact")} className="retro-button retro-button-primary gap-2">
+                {page.primaryCta}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={href(locale, "/como-trabajamos")} className="retro-button">
+                {page.secondaryCta}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   )
 }
