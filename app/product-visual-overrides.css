@@ -1,6 +1,6 @@
 /* Canonical product visual overrides. Keep product imagery independent from catalog data copy. */
 #clarity .catalog-image {
-  background: #030303 url('/n3uralia-retro/product-clarity-portal.svg') center center / cover no-repeat;
+  background: #030303 url('/n3uralia-retro/product-clarity-showcase.webp') center center / cover no-repeat;
 }
 
 #clarity .catalog-image img {
