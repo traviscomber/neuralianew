@@ -8,7 +8,7 @@ export function BrandMark({ className = 'h-10 w-10' }: BrandMarkProps) {
   return (
     <span className={`relative inline-block overflow-hidden ${className}`.trim()} aria-hidden='true'>
       <Image
-        src='/n3uralia-brand/n3uralia-mark-new.webp'
+        src='/n3uralia-brand/n3uralia-sign-canonical.svg'
         alt=''
         fill
         sizes='48px'
