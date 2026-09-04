@@ -7,7 +7,6 @@ import {
   Building2,
   CheckCircle2,
   Database,
-  Eye,
   Factory,
   FileText,
   LayoutGrid,
@@ -42,10 +41,6 @@ function SectionIntro({ eyebrow, title, body }: { eyebrow: string; title: string
     <div className="grid gap-8 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-16 lg:items-start">
       <div className="lg:sticky lg:top-28 lg:self-start">
         <small>{eyebrow}</small>
-        <div className="mt-5 flex items-center gap-3" aria-hidden>
-          <span className="h-px w-10 bg-[rgba(118,214,214,.28)]" />
-          <span className="telemetry">N3 / ACTIVE SECTION</span>
-        </div>
       </div>
       <div>
         <h2 className="max-w-4xl text-[clamp(36px,4.6vw,64px)]">{title}</h2>
@@ -99,22 +94,22 @@ const content = {
       {
         title: "Vacíos de visibilidad",
         text: "Los datos viven en planillas, email, capturas y herramientas desconectadas.",
-        icon: Eye,
+        iconPath: "/n3uralia-retro/icons/friction-visibility.svg",
       },
       {
         title: "Coordinación manual",
         text: "Los equipos pierden tiempo copiando, validando, notificando y persiguiendo actualizaciones.",
-        icon: Workflow,
+        iconPath: "/n3uralia-retro/icons/friction-coordination.svg",
       },
       {
         title: "Respuesta lenta",
         text: "Clientes, operadores o proveedores esperan porque la información llega tarde al lugar correcto.",
-        icon: Users,
+        iconPath: "/n3uralia-retro/icons/friction-response.svg",
       },
       {
         title: "Falta de trazabilidad",
         text: "Aprobaciones, documentos, excepciones y decisiones son difíciles de auditar o reproducir.",
-        icon: ShieldCheck,
+        iconPath: "/n3uralia-retro/icons/friction-traceability.svg",
       },
     ],
     layersEyebrow: "03 / CAPAS DE SOLUCIÓN",
@@ -267,22 +262,22 @@ const content = {
       {
         title: "Visibility gaps",
         text: "Data lives in spreadsheets, email, screenshots and disconnected tools.",
-        icon: Eye,
+        iconPath: "/n3uralia-retro/icons/friction-visibility.svg",
       },
       {
         title: "Manual coordination",
         text: "Teams spend too much time copying, validating, notifying and chasing updates.",
-        icon: Workflow,
+        iconPath: "/n3uralia-retro/icons/friction-coordination.svg",
       },
       {
         title: "Slow response",
         text: "Customers, operators or suppliers wait because information reaches the right place too late.",
-        icon: Users,
+        iconPath: "/n3uralia-retro/icons/friction-response.svg",
       },
       {
         title: "Lack of traceability",
         text: "Approvals, documents, exceptions and decisions are hard to audit or reproduce.",
-        icon: ShieldCheck,
+        iconPath: "/n3uralia-retro/icons/friction-traceability.svg",
       },
     ],
     layersEyebrow: "03 / CORE SOLUTION LAYERS",
@@ -477,23 +472,24 @@ export default function SolucionesPage({ params }: PageProps) {
       <section className="retro-dark border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
         <div className="retro-shell">
           <SectionIntro eyebrow={page.solveEyebrow} title={page.solveTitle} />
-          <div className="mt-14 grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-4">
-            {page.problems.map((problem, index) => {
-              const Icon = problem.icon
-              return (
-                <SolutionsFocus key={problem.title} index={index} className="h-full">
-                  <article className="flex h-full min-h-[250px] flex-col bg-[var(--n3-dark-surface)] p-6 md:p-7">
-                    <div className="flex items-center justify-between">
-                      <span className="grid h-10 w-10 place-items-center border border-[rgba(168,217,216,.2)] text-[var(--n3-teal-soft)]"><Icon className="h-4 w-4" /></span>
-                      <span className="telemetry">NODE 0{index + 1}</span>
-                    </div>
-                    <h3 className="mt-12 text-[23px]">{problem.title}</h3>
-                    <p className="mt-5 text-[13px] leading-6 text-[var(--n3-text-muted)]">{problem.text}</p>
-                    <span aria-hidden className="mt-auto pt-7"><span className="block h-px w-full bg-[rgba(118,214,214,.14)]" /></span>
-                  </article>
-                </SolutionsFocus>
-              )
-            })}
+          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4 xl:gap-6">
+            {page.problems.map((problem, index) => (
+              <SolutionsFocus key={problem.title} index={index} className="h-full !filter-none">
+                <article className="group relative isolate flex h-full min-h-[330px] flex-col overflow-hidden border border-[rgba(118,214,214,.22)] bg-[var(--n3-deep)] p-6 transition duration-300 hover:-translate-y-[3px] hover:border-[rgba(168,217,216,.62)] hover:bg-[#081313] hover:shadow-[0_0_0_1px_rgba(69,209,207,.08),0_0_30px_rgba(69,209,207,.09),inset_0_0_34px_rgba(69,209,207,.035)] md:min-h-[390px] md:p-7">
+                  <span className="pointer-events-none absolute inset-3 border-y border-[rgba(118,214,214,.035)]" aria-hidden />
+                  <div className="relative z-[1] flex items-center">
+                    <span className="grid h-24 w-24 shrink-0 place-items-center border border-[rgba(168,217,216,.28)] bg-[rgba(3,6,6,.62)] transition duration-300 group-hover:-translate-y-0.5 group-hover:border-[rgba(168,217,216,.72)] group-hover:bg-[rgba(3,6,6,.82)] group-hover:drop-shadow-[0_0_7px_rgba(69,209,207,.34)] md:h-28 md:w-28">
+                      <img src={problem.iconPath} alt="" className="h-[76px] w-[76px] md:h-[88px] md:w-[88px]" />
+                    </span>
+                  </div>
+                  <h3 className="relative z-[1] mt-8 text-[26px] leading-[1.12] tracking-[.13em] md:mt-10 md:text-[clamp(24px,2.15vw,31px)]">{problem.title}</h3>
+                  <p className="relative z-[1] mt-5 max-w-[30ch] text-[14px] leading-[1.7] text-[var(--n3-text-muted)] md:mt-[22px] md:text-[13px] md:leading-[1.75]">{problem.text}</p>
+                  <span aria-hidden className="relative z-[1] mt-auto pt-7 md:pt-[30px]">
+                    <span className="relative block h-px w-full bg-[rgba(118,214,214,.2)] before:absolute before:-top-0.5 before:left-0 before:h-[5px] before:w-[5px] before:bg-[var(--n3-teal)] before:shadow-[0_0_8px_rgba(69,209,207,.35)] after:absolute after:-top-0.5 after:right-0 after:h-[5px] after:w-[5px] after:bg-[var(--n3-teal)] after:opacity-50 after:shadow-[0_0_8px_rgba(69,209,207,.35)]" />
+                  </span>
+                </article>
+              </SolutionsFocus>
+            ))}
           </div>
         </div>
       </section>
