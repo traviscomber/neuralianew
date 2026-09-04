@@ -44,6 +44,10 @@ export function SolutionsFocus({
         .retro-page > section:has(+ #solution-layers) .focus-item article::after {
           display: none !important;
         }
+
+        .retro-page .lg\\:sticky > .mt-5.flex.items-center.gap-3 {
+          display: none !important;
+        }
       `}</style>
     </>
   )
