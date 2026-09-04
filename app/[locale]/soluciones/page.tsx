@@ -233,41 +233,7 @@ const content = {
         best: "Integración progresiva, victorias visibles y menor disrupción.",
       },
     ],
-    proofEyebrow: "07 / PRUEBA EN PRODUCCIÓN",
-    proofTitle: "Prueba en producción.",
-    proofBody: "No hablamos solo de industrias. Construimos sistemas que viven fuera del laboratorio.",
-    proofLabels: { problem: "Problema", system: "Sistema", outcome: "Resultado", view: "Ver caso" },
-    proofs: [
-      {
-        title: "Ecosuelolab",
-        problem: "Datos y alertas agrícolas dispersos entre fuentes operativas.",
-        system: "Monitoreo conectado con alertas y automatización operacional.",
-        outcome: "La evidencia llega a una capa útil de seguimiento y respuesta.",
-        path: "/case-studies/ecosuelolab",
-      },
-      {
-        title: "Despega Tu Carrera",
-        problem: "Una experiencia de orientación necesitaba contexto, escala y recorridos guiados.",
-        system: "Producto full-stack con experiencias asistidas por IA.",
-        outcome: "Una operación digital estructurada para crecer con mayor consistencia.",
-        path: "/case-studies/despega-tu-carrera",
-      },
-      {
-        title: "Blackswan Facility Core",
-        problem: "Equipos hospitality necesitaban coordinar trabajo y responder más rápido.",
-        system: "Software operativo para tareas, estados y coordinación diaria.",
-        outcome: "Una capa común para organizar la operación y reducir fricción de handoff.",
-        path: "/case-studies/blackswan-facility-core",
-      },
-      {
-        title: "Recognition Systems",
-        problem: "La evidencia visual puede llegar más rápido de lo que un equipo puede revisarla manualmente.",
-        system: "Visión computacional conectada a workflows para fauna, calidad, agricultura y seguridad.",
-        outcome: "Las detecciones se convierten en señales operacionales utilizables.",
-        path: "/recognition",
-      },
-    ],
-    finalEyebrow: "08 / SIGUIENTE PASO",
+    finalEyebrow: "07 / SIGUIENTE PASO",
     finalTitle: "Empieza con la fricción que tu equipo ya siente.",
     finalBody:
       "Cuéntanos dónde se está rompiendo la visibilidad, coordinación o control. Identificaremos el primer sistema que vale la pena validar.",
@@ -276,7 +242,6 @@ const content = {
     placeholders: {
       layers: "Visual de capa de solución",
       entry: "Arquitectura de entrada",
-      proof: "Evidencia de producción",
       final: "Marco de diagnóstico",
     },
   },
@@ -436,41 +401,7 @@ const content = {
         best: "Progressive integration, visible wins and lower disruption.",
       },
     ],
-    proofEyebrow: "07 / PRODUCTION PROOF",
-    proofTitle: "Production proof.",
-    proofBody: "We do not only talk about industries. We build systems that live outside the lab.",
-    proofLabels: { problem: "Problem", system: "System built", outcome: "Outcome", view: "View case" },
-    proofs: [
-      {
-        title: "Ecosuelolab",
-        problem: "Agricultural data and alerts were scattered across operational sources.",
-        system: "Connected monitoring with alerts and operational automation.",
-        outcome: "Evidence reaches a usable layer for follow-up and response.",
-        path: "/case-studies/ecosuelolab",
-      },
-      {
-        title: "Despega Tu Carrera",
-        problem: "A career-guidance experience needed context, scale and guided journeys.",
-        system: "Full-stack product with AI-guided experiences.",
-        outcome: "A structured digital operation designed to scale with more consistency.",
-        path: "/case-studies/despega-tu-carrera",
-      },
-      {
-        title: "Blackswan Facility Core",
-        problem: "Hospitality teams needed to coordinate work and respond faster.",
-        system: "Operational software for tasks, states and daily coordination.",
-        outcome: "A common operating layer that reduces handoff friction.",
-        path: "/case-studies/blackswan-facility-core",
-      },
-      {
-        title: "Recognition Systems",
-        problem: "Visual evidence can arrive faster than a team can inspect it manually.",
-        system: "Computer vision connected to workflows for wildlife, quality, agriculture and security.",
-        outcome: "Detections become usable operational signals instead of isolated model outputs.",
-        path: "/recognition",
-      },
-    ],
-    finalEyebrow: "08 / NEXT MOVE",
+    finalEyebrow: "07 / NEXT MOVE",
     finalTitle: "Start with the friction your team already feels.",
     finalBody:
       "Tell us where visibility, coordination or control is breaking down. We will identify the first system worth validating.",
@@ -479,7 +410,6 @@ const content = {
     placeholders: {
       layers: "Solution-layer visual",
       entry: "Entry architecture",
-      proof: "Production evidence",
       final: "Diagnosis framework",
     },
   },
@@ -674,48 +604,6 @@ export default function SolucionesPage({ params }: PageProps) {
                     <span className="telemetry">{page.bestFor}</span>
                     <p className="mt-2 max-w-xl !text-[12px] !leading-6 !text-[var(--n3-teal-soft)]">{entry.best}</p>
                   </div>
-                </article>
-              </SolutionsFocus>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="retro-dark border-b border-[rgba(118,214,214,.16)] py-24 md:py-32">
-        <div className="retro-shell grid gap-12 lg:grid-cols-[310px_minmax(0,1fr)] lg:gap-16">
-          <header className="light-intro">
-            <small>{page.proofEyebrow}</small>
-            <h2 className="mt-6 text-[clamp(36px,4.6vw,64px)]">{page.proofTitle}</h2>
-            <p className="mt-6 text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.proofBody}</p>
-          </header>
-
-          <div className="grid gap-0 border-t border-[rgba(118,214,214,.16)]">
-            {page.proofs.map((proof, index) => (
-              <SolutionsFocus key={proof.title} index={index}>
-                <article className="grid gap-7 border-b border-[rgba(118,214,214,.16)] py-8 md:py-10 lg:grid-cols-[minmax(0,.78fr)_minmax(300px,1.22fr)] lg:items-center">
-                  <div>
-                    <span className="telemetry">0{index + 1} / LIVE SYSTEM</span>
-                    <h3 className="mt-4 text-[clamp(26px,3vw,40px)]">{proof.title}</h3>
-                    <dl className="mt-6 space-y-4">
-                      <div>
-                        <dt className="telemetry">{page.proofLabels.problem}</dt>
-                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-muted)]">{proof.problem}</dd>
-                      </div>
-                      <div>
-                        <dt className="telemetry">{page.proofLabels.system}</dt>
-                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-text-light)]">{proof.system}</dd>
-                      </div>
-                      <div>
-                        <dt className="telemetry">{page.proofLabels.outcome}</dt>
-                        <dd className="mt-2 text-[12px] leading-6 text-[var(--n3-teal-soft)]">{proof.outcome}</dd>
-                      </div>
-                    </dl>
-                    <Link href={href(locale, proof.path)} className="retro-button mt-6 gap-2">
-                      {page.proofLabels.view}
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </Link>
-                  </div>
-                  <MediaPlaceholder label={page.placeholders.proof} code={`PROOF / 0${index + 1}`} className="aspect-[2.15/1] min-h-[220px]" />
                 </article>
               </SolutionsFocus>
             ))}
