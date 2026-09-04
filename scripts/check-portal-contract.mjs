@@ -80,6 +80,48 @@ requireExcludes(structuredDataPath, structuredData, [
   'github.com/n3uralia',
 ])
 
+const robotsPath = 'app/robots.ts'
+const robots = read(robotsPath)
+requireIncludes(robotsPath, robots, ['OAI-SearchBot', 'GPTBot', '/sitemap.xml'])
+
+const sitemapPath = 'app/sitemap.ts'
+const sitemap = read(sitemapPath)
+requireIncludes(sitemapPath, sitemap, [
+  "es: '/proyectos', en: '/projects'",
+  "es: '/productos', en: '/products'",
+  "es: '/reconocimiento', en: '/recognition'",
+  "2026-09-04T00:00:00.000Z",
+])
+
+const solutionRoutesPath = 'lib/sitemap-routes-solutions.ts'
+const solutionRoutes = read(solutionRoutesPath)
+requireExcludes(solutionRoutesPath, solutionRoutes, [
+  '/agentes-ia-antofagasta-chile',
+  '/agentes-ia-valparaiso-chile',
+  '/agentes-ia-santiago-chile',
+  '/agentes-ia-mineria-chile',
+])
+
+const middlewarePath = 'middleware.ts'
+const middleware = read(middlewarePath)
+requireIncludes(middlewarePath, middleware, [
+  'X-Robots-Tag',
+  'noindex, follow',
+  '/agentes-ia-antofagasta-chile',
+  '/blog/agentes-ia-mineria-casos-exito',
+])
+
+const llmsPath = 'public/llms.txt'
+const llms = read(llmsPath)
+requireIncludes(llmsPath, llms, [
+  'AI and software systems for real operations',
+  '/es/proyectos | https://www.n3uralia.com/en/projects',
+  '/es/productos | https://www.n3uralia.com/en/products',
+  '/es/reconocimiento | https://www.n3uralia.com/en/recognition',
+  'Do not infer customer metrics, ROI, guarantees, awards or outcomes',
+])
+requireExcludes(llmsPath, llms, ['/es/platform |', '/es/studies |'])
+
 if (failures.length > 0) {
   console.error('Portal contract check failed:')
   for (const failure of failures) console.error(`- ${failure}`)
