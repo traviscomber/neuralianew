@@ -50,7 +50,7 @@ export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <a
         href="#main-content"
-        className="pointer-events-none fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-[#8fb2aa] px-5 py-3 text-sm font-semibold text-[#06100f] opacity-0 shadow-[0_22px_55px_-34px_#8fb2aa] outline-none ring-2 ring-transparent transition focus:pointer-events-auto focus:translate-y-0 focus:opacity-100 focus:ring-[#d9e3e0]"
+        className="pointer-events-none fixed left-4 top-4 z-[100] -translate-y-24 border border-[#a8d9d8] bg-[#030606] px-5 py-3 font-[var(--font-rajdhani)] text-xs uppercase tracking-[0.14em] text-[#d8e0df] opacity-0 outline-none transition focus:pointer-events-auto focus:translate-y-0 focus:opacity-100 focus:ring-2 focus:ring-[#a8d9d8] focus:ring-offset-2 focus:ring-offset-[#030606]"
       >
         {skipLabel}
       </a>
