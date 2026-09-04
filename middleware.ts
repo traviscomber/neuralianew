@@ -24,25 +24,6 @@ const PUBLIC_API_ROUTES = [
   "/api/send-email",
 ]
 
-// Legacy acquisition pages are kept reachable for compatibility while their
-// claims/content are audited. They must not compete with canonical commercial
-// routes or surface unsupported local/ROI positioning in search.
-const NOINDEX_LEGACY_ROUTE_SUFFIXES = [
-  "/agentes-ia-santiago-chile",
-  "/agentes-ia-valparaiso-chile",
-  "/agentes-ia-concepcion-chile",
-  "/agentes-ia-antofagasta-chile",
-  "/agentes-ia-temuco-chile",
-  "/agentes-ia-la-serena-chile",
-  "/agentes-ia-iquique-chile",
-  "/agentes-ia-rancagua-chile",
-  "/agentes-ia-talca-chile",
-  "/agentes-ia-puerto-montt-chile",
-  "/agentes-ia-punta-arenas-chile",
-  "/agentes-ia-mineria-chile",
-  "/blog/agentes-ia-mineria-casos-exito",
-]
-
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com https://vercel.live",
@@ -88,13 +69,6 @@ function addSecurityHeaders(response: NextResponse) {
   return response
 }
 
-function applyDiscoveryHeaders(response: NextResponse, pathname: string) {
-  if (NOINDEX_LEGACY_ROUTE_SUFFIXES.some((suffix) => pathname.endsWith(suffix))) {
-    response.headers.set("X-Robots-Tag", "noindex, follow")
-  }
-  return response
-}
-
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0].trim().toLowerCase()
@@ -110,10 +84,6 @@ export async function middleware(request: NextRequest) {
     const redirectUrl = request.nextUrl.clone()
     redirectUrl.protocol = "https"
     redirectUrl.hostname = "www.n3uralia.com"
-
-    // Always redirect non-www → www preserving the full path as-is.
-    // Do NOT inject a locale here — let the www host handle locale logic below.
-    // This ensures a single clean 308 with no double-redirect chain.
     return NextResponse.redirect(redirectUrl, 308)
   }
 
@@ -184,7 +154,7 @@ export async function middleware(request: NextRequest) {
         },
       })
 
-      return applyDiscoveryHeaders(addSecurityHeaders(protectedResponse), pathname)
+      return addSecurityHeaders(protectedResponse)
     } catch (error) {
       console.error("[MIDDLEWARE] Token validation error:", error)
       return NextResponse.json(
@@ -200,19 +170,11 @@ export async function middleware(request: NextRequest) {
     },
   })
 
-  return applyDiscoveryHeaders(addSecurityHeaders(response), pathname)
+  return addSecurityHeaders(response)
 }
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths EXCEPT:
-     * - _next/static  (static files)
-     * - _next/image   (image optimisation)
-     * - favicon.ico
-     * - public folder files (images, fonts, etc.)
-     * - Known static extensions served from /public
-     */
     "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js|woff2?|ttf|otf|mp4|pdf)).*)",
   ],
 }
