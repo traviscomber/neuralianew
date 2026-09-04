@@ -3,13 +3,13 @@
   "version": "0.1.2",
   "private": true,
   "scripts": {
-    "agent:check": "pnpm type-check && pnpm lint",
+    "agent:check": "pnpm portal:check && pnpm type-check && pnpm lint",
     "build": "next build",
     "clean": "rm -rf node_modules .next package-lock.json",
     "dev": "next dev",
-    "preinstall": "npm set legacy-peer-deps true",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "portal:check": "node scripts/check-portal-contract.mjs && node scripts/check-recognition-section04-assets.mjs",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
