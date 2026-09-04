@@ -24,6 +24,25 @@ const PUBLIC_API_ROUTES = [
   "/api/send-email",
 ]
 
+// Legacy acquisition pages are kept reachable for compatibility while their
+// claims/content are audited. They must not compete with canonical commercial
+// routes or surface unsupported local/ROI positioning in search.
+const NOINDEX_LEGACY_ROUTE_SUFFIXES = [
+  "/agentes-ia-santiago-chile",
+  "/agentes-ia-valparaiso-chile",
+  "/agentes-ia-concepcion-chile",
+  "/agentes-ia-antofagasta-chile",
+  "/agentes-ia-temuco-chile",
+  "/agentes-ia-la-serena-chile",
+  "/agentes-ia-iquique-chile",
+  "/agentes-ia-rancagua-chile",
+  "/agentes-ia-talca-chile",
+  "/agentes-ia-puerto-montt-chile",
+  "/agentes-ia-punta-arenas-chile",
+  "/agentes-ia-mineria-chile",
+  "/blog/agentes-ia-mineria-casos-exito",
+]
+
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com https://vercel.live",
@@ -66,6 +85,13 @@ function addSecurityHeaders(response: NextResponse) {
 
   response.headers.set("Content-Security-Policy", CONTENT_SECURITY_POLICY)
 
+  return response
+}
+
+function applyDiscoveryHeaders(response: NextResponse, pathname: string) {
+  if (NOINDEX_LEGACY_ROUTE_SUFFIXES.some((suffix) => pathname.endsWith(suffix))) {
+    response.headers.set("X-Robots-Tag", "noindex, follow")
+  }
   return response
 }
 
@@ -158,7 +184,7 @@ export async function middleware(request: NextRequest) {
         },
       })
 
-      return addSecurityHeaders(protectedResponse)
+      return applyDiscoveryHeaders(addSecurityHeaders(protectedResponse), pathname)
     } catch (error) {
       console.error("[MIDDLEWARE] Token validation error:", error)
       return NextResponse.json(
@@ -174,7 +200,7 @@ export async function middleware(request: NextRequest) {
     },
   })
 
-  return addSecurityHeaders(response)
+  return applyDiscoveryHeaders(addSecurityHeaders(response), pathname)
 }
 
 export const config = {
