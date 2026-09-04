@@ -12,10 +12,7 @@ export function StructuredData() {
     logo: canonicalLogoUrl,
     description:
       "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
-    sameAs: [
-      "https://twitter.com/n3uralia",
-      "https://linkedin.com/company/n3uralia",
-    ],
+    sameAs: ["https://linkedin.com/company/n3uralia"],
     contactPoint: [
       {
         "@type": "ContactPoint",
