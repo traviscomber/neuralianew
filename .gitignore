@@ -69,3 +69,7 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Temporary binary-transfer staging
+.asset-staging/
+recognition-upload/
