@@ -28,7 +28,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: node scripts/check-recognition-section04-assets.mjs
+      - run: pnpm portal:check
       - run: pnpm type-check
       - run: pnpm lint
       - run: pnpm build
