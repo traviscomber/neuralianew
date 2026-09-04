@@ -25,7 +25,13 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
       {
-        // Block GPTBot and other AI scrapers from training on content
+        // Keep public commercial/editorial content discoverable in ChatGPT Search.
+        userAgent: "OAI-SearchBot",
+        allow: "/",
+        disallow: ["/api/", "/dashboard/", "/admin/"],
+      },
+      {
+        // Training controls are intentionally separate from search discovery.
         userAgent: ["GPTBot", "Google-Extended", "CCBot", "anthropic-ai", "ClaudeBot"],
         disallow: "/",
       },
