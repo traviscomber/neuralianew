@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "private": true,
   "scripts": {
+    "agent:check": "pnpm type-check && pnpm lint",
     "build": "next build",
     "clean": "rm -rf node_modules .next package-lock.json",
     "dev": "next dev",
