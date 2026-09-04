@@ -2,15 +2,15 @@ import { BrandMark, BrandWordmark } from '@/components/brand'
 
 export default function Loading() {
   return (
-    <div className='grid min-h-screen place-items-center bg-[radial-gradient(circle_at_50%_26%,#d9e3e0_0,transparent_34%),#fbfbfa] px-6 text-[#173634]'>
+    <div className='retro-page grid min-h-screen place-items-center bg-[var(--n3-black)] px-6'>
       <div className='text-center'>
-        <div className='relative mx-auto grid h-24 w-24 place-items-center rounded-[2rem] border border-[#b8d1cc] bg-white shadow-[0_28px_80px_-58px_#173634]'>
-          <div className='absolute inset-0 rounded-[2rem] border border-[#789b96] opacity-40 animate-ping' />
-          <BrandMark className='h-14 w-14 rounded-2xl text-[#789b96]' />
+        <div className='relative mx-auto grid h-20 w-20 place-items-center border border-[rgba(168,217,216,.24)] bg-[var(--n3-dark-surface)]'>
+          <span className='absolute inset-0 border border-[var(--n3-teal)] opacity-30 animate-ping' />
+          <BrandMark className='h-12 w-12 text-[var(--n3-teal-soft)]' />
         </div>
-        <BrandWordmark className='mx-auto mt-8 text-4xl text-[#789b96]' />
-        <p className='mt-5 text-sm font-semibold uppercase tracking-[0.22em] text-[#789b96]'>Preparando sistema</p>
-        <p className='mt-3 text-base leading-7 text-[#65706d]'>Cargando N3uralia...</p>
+        <BrandWordmark className='mx-auto mt-7 text-4xl text-[var(--n3-teal-soft)]' />
+        <p className='telemetry mt-6'>N3 / SYSTEM PREPARATION</p>
+        <p className='mt-3 text-[14px] leading-7 text-[var(--n3-text-muted)]'>Loading N3uralia...</p>
       </div>
     </div>
   )
