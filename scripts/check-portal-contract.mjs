@@ -22,6 +22,25 @@ if (existsSync('.asset-staging/security.b64')) {
   failures.push('.asset-staging/security.b64: obsolete staging payload must not be committed')
 }
 
+const deletedAcquisitionRoutes = [
+  'app/[locale]/agentes-ia-santiago-chile/page.tsx',
+  'app/[locale]/agentes-ia-valparaiso-chile/page.tsx',
+  'app/[locale]/agentes-ia-concepcion-chile/page.tsx',
+  'app/[locale]/agentes-ia-antofagasta-chile/page.tsx',
+  'app/[locale]/agentes-ia-temuco-chile/page.tsx',
+  'app/[locale]/agentes-ia-la-serena-chile/page.tsx',
+  'app/[locale]/agentes-ia-iquique-chile/page.tsx',
+  'app/[locale]/agentes-ia-rancagua-chile/page.tsx',
+  'app/[locale]/agentes-ia-talca-chile/page.tsx',
+  'app/[locale]/agentes-ia-puerto-montt-chile/page.tsx',
+  'app/[locale]/agentes-ia-punta-arenas-chile/page.tsx',
+  'app/[locale]/agentes-ia-mineria-chile/page.tsx',
+  'app/[locale]/blog/agentes-ia-mineria-casos-exito/page.tsx',
+]
+for (const path of deletedAcquisitionRoutes) {
+  if (existsSync(path)) failures.push(`${path}: mock/unsupported acquisition route must remain deleted`)
+}
+
 const solutionsPath = 'app/[locale]/soluciones/page.tsx'
 const solutions = read(solutionsPath)
 requireIncludes(solutionsPath, solutions, [
@@ -100,15 +119,6 @@ requireExcludes(solutionRoutesPath, solutionRoutes, [
   '/agentes-ia-valparaiso-chile',
   '/agentes-ia-santiago-chile',
   '/agentes-ia-mineria-chile',
-])
-
-const middlewarePath = 'middleware.ts'
-const middleware = read(middlewarePath)
-requireIncludes(middlewarePath, middleware, [
-  'X-Robots-Tag',
-  'noindex, follow',
-  '/agentes-ia-antofagasta-chile',
-  '/blog/agentes-ia-mineria-casos-exito',
 ])
 
 const llmsPath = 'public/llms.txt'
