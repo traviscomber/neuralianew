@@ -5,6 +5,7 @@ const DEFAULT_LOCALE = "es"
 const ROOT_METADATA_PATHS = new Set([
   "/robots.txt",
   "/sitemap.xml",
+  "/site.webmanifest",
   "/favicon.ico",
 ])
 
@@ -78,7 +79,7 @@ export async function middleware(request: NextRequest) {
   const isStaticAsset =
     pathname.startsWith("/_next") ||
     pathname.startsWith("/public") ||
-    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp)$/.test(pathname)
+    /\.(js|css|png|jpg|jpeg|svg|gif|ico|webp|webmanifest)$/.test(pathname)
 
   if (host === "n3uralia.com") {
     const redirectUrl = request.nextUrl.clone()
@@ -175,6 +176,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js|woff2?|ttf|otf|mp4|pdf)).*)",
+    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:png|jpg|jpeg|gif|svg|webp|webmanifest|ico|css|js|woff2?|ttf|otf|mp4|pdf)).*)",
   ],
 }
