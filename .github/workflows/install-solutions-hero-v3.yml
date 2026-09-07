@@ -38,3 +38,5 @@ jobs:
           git add -A
           git commit -m 'fix(solutions): install high-quality canonical teal hero'
           git push origin HEAD:main
+
+# trigger after final chunk verification
