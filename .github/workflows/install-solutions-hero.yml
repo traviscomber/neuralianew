@@ -37,3 +37,5 @@ jobs:
           git add -A
           git commit -m 'fix(solutions): install canonical teal hero asset'
           git push origin HEAD:main
+
+# retry after verified staging
