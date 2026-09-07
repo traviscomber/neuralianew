@@ -4,16 +4,13 @@ import {
   Activity,
   ArrowRight,
   Boxes,
-  CircleDot,
   Clock3,
-  Database,
   Factory,
   FileSearch,
   Gauge,
   ListChecks,
   MessageSquareText,
   Network,
-  Package,
   Repeat2,
   ScanLine,
   ShieldCheck,
@@ -185,29 +182,10 @@ function HeroVisual({ locale }: { locale: Locale }) {
   )
 }
 
-function RecommendationVisual() {
-  return (
-    <div className={styles.recMap} aria-hidden="true">
-      <div className={styles.recPlane} />
-      <div className={styles.recTower} />
-      <div className={styles.recTower} />
-      <div className={styles.recTower} />
-      <span className={styles.recDot} style={{ left: "24%", top: "62%" }} />
-      <span className={styles.recDot} style={{ left: "49%", top: "48%" }} />
-      <span className={styles.recDot} style={{ right: "12%", top: "70%" }} />
-    </div>
-  )
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
-  return buildLocalizedMetadata({
-    locale,
-    path: "/soluciones",
-    title: page.metadataTitle,
-    description: page.metadataDescription,
-  })
+  return buildLocalizedMetadata({ locale, path: "/soluciones", title: page.metadataTitle, description: page.metadataDescription })
 }
 
 export default function SolutionsPage({ params }: PageProps) {
@@ -244,8 +222,7 @@ export default function SolutionsPage({ params }: PageProps) {
                 <SolutionsFocus key={title} index={index} className={styles.pressureCard}>
                   <article>
                     <div className={styles.iconStage}><Icon className={styles.neonIcon} strokeWidth={1.05} /></div>
-                    <h3>{title}</h3>
-                    <p>{text}</p>
+                    <h3>{title}</h3><p>{text}</p>
                   </article>
                 </SolutionsFocus>
               ))}
@@ -267,8 +244,7 @@ export default function SolutionsPage({ params }: PageProps) {
                 <article>
                   <div className={styles.layerNum}>0{index + 1} /</div>
                   <div className={styles.layerIcon}><Icon strokeWidth={1.15} /></div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
+                  <h3>{title}</h3><p>{text}</p>
                   <Link className={styles.explore} href={href(locale, "/diagnostico")}>{locale === "es" ? "Explorar" : "Explore"} →</Link>
                 </article>
               </SolutionsFocus>
@@ -277,12 +253,7 @@ export default function SolutionsPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section id="quick-selector" className={styles.stage}>
-        <div className={styles.shell}>
-          <SolutionsFitExplorer locale={locale} />
-          <div className="sr-only"><RecommendationVisual /></div>
-        </div>
-      </section>
+      <div className={styles.stage}><SolutionsFitExplorer locale={locale} /></div>
 
       <section className={styles.stage}>
         <div className={styles.shell}>
@@ -296,8 +267,7 @@ export default function SolutionsPage({ params }: PageProps) {
               <article className={styles.sectorCard} key={title}>
                 <div className={styles.layerNum}>0{index + 1}</div>
                 <div className={styles.sectorIcon}><Icon strokeWidth={1.1} /></div>
-                <h3>{title}</h3>
-                <p>{text}</p>
+                <h3>{title}</h3><p>{text}</p>
                 <Link className={styles.sectorMeta} href={href(locale, "/diagnostico")}>{locale === "es" ? "Explorar" : "Explore"} →</Link>
               </article>
             ))}
@@ -317,8 +287,7 @@ export default function SolutionsPage({ params }: PageProps) {
               <article className={styles.entryCard} key={title}>
                 <div className={styles.entryNum}>0{index + 1}</div>
                 <div className={styles.entryIcon}><Icon /></div>
-                <h3>{title}</h3>
-                <p>{text}</p>
+                <h3>{title}</h3><p>{text}</p>
                 <div className={styles.best}><strong>{locale === "es" ? "Mejor para:" : "Best for:"}</strong> {best}</div>
               </article>
             ))}
@@ -336,13 +305,9 @@ export default function SolutionsPage({ params }: PageProps) {
               <Link className={styles.cta} href={href(locale, "/diagnostico")}>{page.secondary}<ArrowRight className="ml-2 h-4 w-4" /></Link>
               <a className={styles.ghost} href="mailto:juan@n3uralia.com">{page.sales}</a>
             </div>
-            <div className={styles.path}>
-              {page.path.map((item) => <div className={styles.pathNode} key={item}><span>{item}</span></div>)}
-            </div>
+            <div className={styles.path}>{page.path.map((item) => <div className={styles.pathNode} key={item}><span>{item}</span></div>)}</div>
           </div>
-          <div className={styles.finalVisual} aria-hidden="true">
-            <span className={styles.wire} /><span className={styles.wire} /><span className={styles.wire} />
-          </div>
+          <div className={styles.finalVisual} aria-hidden="true"><span className={styles.wire}/><span className={styles.wire}/><span className={styles.wire}/></div>
         </div>
       </section>
     </main>
