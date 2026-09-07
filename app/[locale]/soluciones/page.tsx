@@ -3,186 +3,53 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
 import { SolutionsFocus } from "@/components/solutions-focus"
-import {
-  AssistantIcon,
-  DocumentIcon,
-  FinalWireframe,
-  HeroSystemMap,
-  HospitalityIcon,
-  IntelligenceIcon,
-  LogisticsIcon,
-  ManualIcon,
-  ManufacturingIcon,
-  MiningIcon,
-  ModernizeIconVisual,
-  PilotIcon,
-  PlatformIcon,
-  ProductionIcon,
-  RecognitionIcon,
-  RegulatedIcon,
-  RetailIcon,
-  SlowIcon,
-  TraceIcon,
-  VisibilityIcon,
-  WorkflowIconCustom,
-} from "@/components/solutions-visuals"
+import { AssistantIcon, DocumentIcon, HospitalityIcon, IntelligenceIcon, LogisticsIcon, ManualIcon, ManufacturingIcon, MiningIcon, ModernizeIconVisual, PilotIcon, PlatformIcon, ProductionIcon, RecognitionIcon, RegulatedIcon, RetailIcon, SlowIcon, TraceIcon, VisibilityIcon, WorkflowIconCustom } from "@/components/solutions-visuals"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 import styles from "./solutions-mockup.module.css"
 
 interface PageProps { params: { locale: string } }
-
 function href(locale: Locale, path: string) { return `/${locale}${path}` }
 
 const content = {
   en: {
-    metadataTitle: "Solutions | N3uralia",
-    metadataDescription: "AI and software systems for real operations: operational intelligence, automation, assistants, documents, recognition and internal platforms.",
-    heroTitleA: "AI and software systems for", heroTitleB: "real operations.",
-    heroBody: "N3uralia builds operational systems that connect data, workflows, documents, AI and people — so teams can see what is happening, act faster and scale with control.",
-    primary: "Find the right solution", secondary: "Book diagnosis",
-    pressureTitle: "Where operations lose control.",
-    pressureBody: "N3uralia helps teams regain visibility, coordination and control where operations become complex.",
-    problems: [
-      ["Visibility gaps", "Data lives in spreadsheets, email, screenshots and disconnected tools.", VisibilityIcon],
-      ["Manual coordination", "Teams spend too much time copying, validating, notifying and chasing updates.", ManualIcon],
-      ["Slow response", "Customers, operators or suppliers wait because information reaches the right place too late.", SlowIcon],
-      ["Lack of traceability", "Approvals, documents, exceptions and decisions are hard to audit or reproduce.", TraceIcon],
-    ],
+    metadataTitle: "Solutions | N3uralia", metadataDescription: "AI and software systems for real operations: operational intelligence, automation, assistants, documents, recognition and internal platforms.",
+    heroTitleA: "AI and software systems for", heroTitleB: "real operations.", heroBody: "N3uralia builds operational systems that connect data, workflows, documents, AI and people — so teams can see what is happening, act faster and scale with control.", primary: "Find the right solution", secondary: "Book diagnosis",
+    pressureTitle: "Where operations lose control.", pressureBody: "N3uralia helps teams regain visibility, coordination and control where operations become complex.",
+    problems: [["Visibility gaps", "Data lives in spreadsheets, email, screenshots and disconnected tools.", VisibilityIcon], ["Manual coordination", "Teams spend too much time copying, validating, notifying and chasing updates.", ManualIcon], ["Slow response", "Customers, operators or suppliers wait because information reaches the right place too late.", SlowIcon], ["Lack of traceability", "Approvals, documents, exceptions and decisions are hard to audit or reproduce.", TraceIcon]],
     layersTitleA: "Core solution", layersTitleB: "layers", layersBody: "Choose the layer your operation needs first.",
-    layers: [
-      ["Operational Intelligence", "Dashboards, command centers and visibility layers for teams that need one version of reality.", IntelligenceIcon],
-      ["Workflow Automation", "Approvals, alerts, handoffs and recurring processes so teams can move faster with less manual work.", WorkflowIconCustom],
-      ["AI Assistants", "Assistants trained on operational context, documents and data to answer, guide and accelerate teams.", AssistantIcon],
-      ["Document Intelligence", "Extraction, classification, validation and traceability for document-heavy operations.", DocumentIcon],
-      ["Recognition Systems", "Computer vision for quality, live production monitoring, security and visual operational signals.", RecognitionIcon],
-      ["Internal Platforms", "Custom portals and systems that connect users, data, permissions, workflows and reporting.", PlatformIcon],
-    ],
+    layers: [["Operational Intelligence", "Dashboards, command centers and visibility layers for teams that need one version of reality.", IntelligenceIcon], ["Workflow Automation", "Approvals, alerts, handoffs and recurring processes so teams can move faster with less manual work.", WorkflowIconCustom], ["AI Assistants", "Assistants trained on operational context, documents and data to answer, guide and accelerate teams.", AssistantIcon], ["Document Intelligence", "Extraction, classification, validation and traceability for document-heavy operations.", DocumentIcon], ["Recognition Systems", "Computer vision for quality, live production monitoring, security and visual operational signals.", RecognitionIcon], ["Internal Platforms", "Custom portals and systems that connect users, data, permissions, workflows and reporting.", PlatformIcon]],
     sectorTitleA: "Where we see the", sectorTitleB: "strongest fit.", sectorBody: "Same solution layers. Different operations.",
-    sectors: [
-      ["Retail & e-commerce", "Catalogs, support and channel coordination.", RetailIcon],
-      ["Mining & resources", "Alerts, traceability and operational continuity.", MiningIcon],
-      ["Manufacturing", "Plant workflows, quality and cross-team handoffs.", ManufacturingIcon],
-      ["Hospitality & tourism", "Reservations, service operations and guest response.", HospitalityIcon],
-      ["Logistics & supply chain", "Tracking, exceptions and operational decisions.", LogisticsIcon],
-      ["Regulated services", "Document-heavy processes, validations and control.", RegulatedIcon],
-    ],
-    entryTitleA: "Three ways to", entryTitleB: "start.", entryBody: "Different entry points. Same long-term value.",
-    entries: [
-      ["Operational pilot", "One concrete workflow, one priority integration and one clear metric.", "Focused scope, fast delivery, controlled risk.", PilotIcon],
-      ["Production system", "Architecture, integrations and an operating layer that lasts.", "Known high-value problems, operational continuity.", ProductionIcon],
-      ["AI-enabled modernization", "Automation and intelligence on top of existing software without a full rewrite.", "Progressive integration, visible wins, lower disruption.", ModernizeIconVisual],
-    ],
-    finalTitleA: "Start with one operational", finalTitleB: "pressure point.",
-    finalBody: "Tell us where visibility, coordination or control is breaking down. We will identify the first system worth validating.",
-    path: ["Problem", "Context", "System opportunity", "Pilot path"], sales: "Talk to N3uralia",
+    sectors: [["Retail & e-commerce", "Catalogs, support and channel coordination.", RetailIcon], ["Mining & resources", "Alerts, traceability and operational continuity.", MiningIcon], ["Manufacturing", "Plant workflows, quality and cross-team handoffs.", ManufacturingIcon], ["Hospitality & tourism", "Reservations, service operations and guest response.", HospitalityIcon], ["Logistics & supply chain", "Tracking, exceptions and operational decisions.", LogisticsIcon], ["Regulated services", "Document-heavy processes, validations and control.", RegulatedIcon]],
+    entryTitleA: "Three ways to", entryTitleB: "start.", entryBody: "Different entry points. Same long-term value.", entries: [["Operational pilot", "One concrete workflow, one priority integration and one clear metric.", "Focused scope, fast delivery, controlled risk.", PilotIcon], ["Production system", "Architecture, integrations and an operating layer that lasts.", "Known high-value problems, operational continuity.", ProductionIcon], ["AI-enabled modernization", "Automation and intelligence on top of existing software without a full rewrite.", "Progressive integration, visible wins, lower disruption.", ModernizeIconVisual]],
+    finalTitleA: "Start with one operational", finalTitleB: "pressure point.", finalBody: "Tell us where visibility, coordination or control is breaking down. We will identify the first system worth validating.", path: ["Problem", "Context", "System opportunity", "Pilot path"], sales: "Talk to N3uralia",
   },
   es: {
-    metadataTitle: "Soluciones | N3uralia",
-    metadataDescription: "Sistemas de IA y software para operaciones reales: inteligencia operacional, automatización, asistentes, documentos, reconocimiento y plataformas internas.",
-    heroTitleA: "Sistemas de IA y software para", heroTitleB: "operaciones reales.",
-    heroBody: "N3uralia construye sistemas operacionales que conectan datos, flujos, documentos, IA y personas — para que los equipos vean qué está pasando, actúen más rápido y escalen con control.",
-    primary: "Encontrar la solución correcta", secondary: "Agendar diagnóstico",
-    pressureTitle: "Dónde las operaciones pierden control.",
-    pressureBody: "N3uralia ayuda a los equipos a recuperar visibilidad, coordinación y control cuando la operación se vuelve compleja.",
-    problems: [
-      ["Vacíos de visibilidad", "Los datos viven en planillas, email, capturas y herramientas desconectadas.", VisibilityIcon],
-      ["Coordinación manual", "Los equipos pasan demasiado tiempo copiando, validando, notificando y persiguiendo actualizaciones.", ManualIcon],
-      ["Respuesta lenta", "Clientes, operadores o proveedores esperan porque la información llega demasiado tarde al lugar correcto.", SlowIcon],
-      ["Falta de trazabilidad", "Aprobaciones, documentos, excepciones y decisiones son difíciles de auditar o reproducir.", TraceIcon],
-    ],
+    metadataTitle: "Soluciones | N3uralia", metadataDescription: "Sistemas de IA y software para operaciones reales: inteligencia operacional, automatización, asistentes, documentos, reconocimiento y plataformas internas.",
+    heroTitleA: "Sistemas de IA y software para", heroTitleB: "operaciones reales.", heroBody: "N3uralia construye sistemas operacionales que conectan datos, flujos, documentos, IA y personas — para que los equipos vean qué está pasando, actúen más rápido y escalen con control.", primary: "Encontrar la solución correcta", secondary: "Agendar diagnóstico",
+    pressureTitle: "Dónde las operaciones pierden control.", pressureBody: "N3uralia ayuda a los equipos a recuperar visibilidad, coordinación y control cuando la operación se vuelve compleja.",
+    problems: [["Vacíos de visibilidad", "Los datos viven en planillas, email, capturas y herramientas desconectadas.", VisibilityIcon], ["Coordinación manual", "Los equipos pasan demasiado tiempo copiando, validando, notificando y persiguiendo actualizaciones.", ManualIcon], ["Respuesta lenta", "Clientes, operadores o proveedores esperan porque la información llega demasiado tarde al lugar correcto.", SlowIcon], ["Falta de trazabilidad", "Aprobaciones, documentos, excepciones y decisiones son difíciles de auditar o reproducir.", TraceIcon]],
     layersTitleA: "Capas centrales de", layersTitleB: "solución", layersBody: "Elige primero la capa que necesita tu operación.",
-    layers: [
-      ["Inteligencia Operacional", "Dashboards, centros de control y capas de visibilidad para equipos que necesitan una sola versión de la realidad.", IntelligenceIcon],
-      ["Automatización de Flujos", "Aprobaciones, alertas, handoffs y procesos recurrentes para avanzar con menos trabajo manual.", WorkflowIconCustom],
-      ["Asistentes de IA", "Asistentes entrenados con contexto operacional, documentos y datos para responder, guiar y acelerar equipos.", AssistantIcon],
-      ["Inteligencia Documental", "Extracción, clasificación, validación y trazabilidad para operaciones intensivas en documentos.", DocumentIcon],
-      ["Sistemas de Reconocimiento", "Visión computacional para calidad, monitoreo productivo, seguridad y señales visuales operacionales.", RecognitionIcon],
-      ["Plataformas Internas", "Portales y sistemas a medida que conectan usuarios, datos, permisos, workflows y reporting.", PlatformIcon],
-    ],
+    layers: [["Inteligencia Operacional", "Dashboards, centros de control y capas de visibilidad para equipos que necesitan una sola versión de la realidad.", IntelligenceIcon], ["Automatización de Flujos", "Aprobaciones, alertas, handoffs y procesos recurrentes para avanzar con menos trabajo manual.", WorkflowIconCustom], ["Asistentes de IA", "Asistentes entrenados con contexto operacional, documentos y datos para responder, guiar y acelerar equipos.", AssistantIcon], ["Inteligencia Documental", "Extracción, clasificación, validación y trazabilidad para operaciones intensivas en documentos.", DocumentIcon], ["Sistemas de Reconocimiento", "Visión computacional para calidad, monitoreo productivo, seguridad y señales visuales operacionales.", RecognitionIcon], ["Plataformas Internas", "Portales y sistemas a medida que conectan usuarios, datos, permisos, workflows y reporting.", PlatformIcon]],
     sectorTitleA: "Dónde vemos el", sectorTitleB: "mejor fit.", sectorBody: "Las mismas capas de solución. Operaciones distintas.",
-    sectors: [
-      ["Retail y e-commerce", "Catálogos, soporte y coordinación entre canales.", RetailIcon],
-      ["Minería y recursos", "Alertas, trazabilidad y continuidad operacional.", MiningIcon],
-      ["Manufactura", "Flujos de planta, calidad y handoffs entre equipos.", ManufacturingIcon],
-      ["Hospitality y turismo", "Reservas, operaciones de servicio y respuesta a huéspedes.", HospitalityIcon],
-      ["Logística y supply chain", "Tracking, excepciones y decisiones operativas.", LogisticsIcon],
-      ["Servicios regulados", "Procesos documentales, validaciones y control.", RegulatedIcon],
-    ],
-    entryTitleA: "Tres formas de", entryTitleB: "empezar.", entryBody: "Distintos puntos de entrada. El mismo valor a largo plazo.",
-    entries: [
-      ["Piloto operativo", "Un workflow concreto, una integración prioritaria y una métrica clara.", "Alcance acotado, entrega rápida y riesgo controlado.", PilotIcon],
-      ["Sistema de producción", "Arquitectura, integraciones y una capa operativa que permanece.", "Problemas de alto valor conocidos y continuidad operacional.", ProductionIcon],
-      ["Modernización con IA", "Automatización e inteligencia sobre el software existente sin reescribir todo.", "Integración progresiva, resultados visibles y menor disrupción.", ModernizeIconVisual],
-    ],
-    finalTitleA: "Empieza con un punto de", finalTitleB: "presión operacional.",
-    finalBody: "Cuéntanos dónde se está rompiendo la visibilidad, coordinación o control. Identificaremos el primer sistema que vale la pena validar.",
-    path: ["Problema", "Contexto", "Oportunidad de sistema", "Camino de piloto"], sales: "Hablar con N3uralia",
+    sectors: [["Retail y e-commerce", "Catálogos, soporte y coordinación entre canales.", RetailIcon], ["Minería y recursos", "Alertas, trazabilidad y continuidad operacional.", MiningIcon], ["Manufactura", "Flujos de planta, calidad y handoffs entre equipos.", ManufacturingIcon], ["Hospitality y turismo", "Reservas, operaciones de servicio y respuesta a huéspedes.", HospitalityIcon], ["Logística y supply chain", "Tracking, excepciones y decisiones operativas.", LogisticsIcon], ["Servicios regulados", "Procesos documentales, validaciones y control.", RegulatedIcon]],
+    entryTitleA: "Tres formas de", entryTitleB: "empezar.", entryBody: "Distintos puntos de entrada. El mismo valor a largo plazo.", entries: [["Piloto operativo", "Un workflow concreto, una integración prioritaria y una métrica clara.", "Alcance acotado, entrega rápida y riesgo controlado.", PilotIcon], ["Sistema de producción", "Arquitectura, integraciones y una capa operativa que permanece.", "Problemas de alto valor conocidos y continuidad operacional.", ProductionIcon], ["Modernización con IA", "Automatización e inteligencia sobre el software existente sin reescribir todo.", "Integración progresiva, resultados visibles y menor disrupción.", ModernizeIconVisual]],
+    finalTitleA: "Empieza con un punto de", finalTitleB: "presión operacional.", finalBody: "Cuéntanos dónde se está rompiendo la visibilidad, coordinación o control. Identificaremos el primer sistema que vale la pena validar.", path: ["Problema", "Contexto", "Oportunidad de sistema", "Camino de piloto"], sales: "Hablar con N3uralia",
   },
 } as const
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const page = content[locale]
-  return buildLocalizedMetadata({ locale, path: "/soluciones", title: page.metadataTitle, description: page.metadataDescription })
-}
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> { const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE; const page = content[locale]; return buildLocalizedMetadata({ locale, path: "/soluciones", title: page.metadataTitle, description: page.metadataDescription }) }
 
 export default function SolutionsPage({ params }: PageProps) {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
-  return (
-    <main className={styles.page}>
-      <section className={`${styles.stage} ${styles.heroStage}`}>
-        <div className={`${styles.shell} ${styles.hero}`}>
-          <div className={styles.heroCopy}>
-            <div className={styles.eyebrow}>01 / N3URALIA</div>
-            <h1>{page.heroTitleA} <span className={styles.accent}>{page.heroTitleB}</span></h1>
-            <p className={styles.lead}>{page.heroBody}</p>
-            <div className={styles.actions}>
-              <Link className={styles.cta} href="#quick-selector">{page.primary}<ArrowRight className="ml-2 h-4 w-4" /></Link>
-              <Link className={styles.ghost} href={href(locale, "/diagnostico")}>{page.secondary}</Link>
-            </div>
-          </div>
-          <div className={styles.heroVisualWrap}><HeroSystemMap className={styles.heroVisualSvg} /></div>
-        </div>
-      </section>
-
-      <section className={`${styles.stage} ${styles.consoleStage}`}>
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}><div className={styles.eyebrow}>02 / {locale === "es" ? "DÓNDE SE PIERDE EL CONTROL" : "WHERE OPERATIONS LOSE CONTROL"}</div><h2 className={styles.sectionTitle}>{page.pressureTitle}</h2><p className={styles.sectionIntro}>{page.pressureBody}</p></header>
-          <div className={styles.panelFrame}><div className={styles.pressureGrid}>{page.problems.map(([title, text, Icon], index) => <SolutionsFocus key={title} index={index} className={styles.pressureCard}><article><div className={styles.iconStage}><Icon className={styles.pressureVisual} /></div><h3>{title}</h3><p>{text}</p></article></SolutionsFocus>)}</div></div>
-        </div>
-      </section>
-
-      <section className={`${styles.stage} ${styles.denseStage}`}>
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}><div className={styles.eyebrow}>03 / CORE SOLUTION LAYERS</div><h2 className={styles.sectionTitle}>{page.layersTitleA} <span className={styles.accent}>{page.layersTitleB}</span></h2><p className={styles.sectionIntro}>{page.layersBody}</p></header>
-          <div className={styles.layersGrid}>{page.layers.map(([title, text, Icon], index) => <SolutionsFocus key={title} index={index} className={styles.layerCard}><article><div className={styles.layerNum}>0{index + 1} /</div><div className={styles.layerIcon}><Icon /></div><h3>{title}</h3><p>{text}</p><Link className={styles.explore} href={href(locale, "/diagnostico")}>{locale === "es" ? "Explorar" : "Explore"} →</Link></article></SolutionsFocus>)}</div>
-        </div>
-      </section>
-
-      <div className={`${styles.stage} ${styles.selectorStage}`}><SolutionsFitExplorer locale={locale} /></div>
-
-      <section className={`${styles.stage} ${styles.lightStage}`}>
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}><div className={styles.eyebrow}>05 / {locale === "es" ? "SOLUCIONES POR SECTOR" : "SOLUTIONS BY SECTOR"}</div><h2 className={styles.sectionTitle}>{page.sectorTitleA} <span className={styles.accent}>{page.sectorTitleB}</span></h2><p className={styles.sectionIntro}>{page.sectorBody}</p></header>
-          <div className={styles.sectorGrid}>{page.sectors.map(([title, text, Icon], index) => <SolutionsFocus key={title} index={index} className={styles.sectorCard}><article><div className={styles.sectorIcon}><Icon /></div><h3>{title}</h3><p>{text}</p><Link className={styles.sectorMeta} href={href(locale, "/diagnostico")}>{locale === "es" ? "Explorar" : "Explore"} →</Link></article></SolutionsFocus>)}</div>
-        </div>
-      </section>
-
-      <section className={`${styles.stage} ${styles.entryStage}`}>
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}><div className={styles.eyebrow}>06 / {locale === "es" ? "FORMAS DE ENTRADA" : "ENTRY PATHS"}</div><h2 className={styles.sectionTitle}>{page.entryTitleA} <span className={styles.accent}>{page.entryTitleB}</span></h2><p className={styles.sectionIntro}>{page.entryBody}</p></header>
-          <div className={styles.entryGrid}>{page.entries.map(([title, text, best, Icon], index) => <article key={title} className={styles.entryCard}><div className={styles.entryNum}>0{index + 1}</div><div className={styles.entryIcon}><Icon /></div><h3>{title}</h3><p>{text}</p><div className={styles.best}><strong>{locale === "es" ? "Mejor para:" : "Best for:"}</strong> {best}</div></article>)}</div>
-        </div>
-      </section>
-
-      <section className={`${styles.stage} ${styles.finalStage}`}>
-        <div className={`${styles.shell} ${styles.final}`}>
-          <div><div className={styles.eyebrow}>07 / {locale === "es" ? "SIGUIENTE PASO" : "NEXT MOVE"}</div><h2 className={styles.finalTitle}>{page.finalTitleA} <span className={styles.accent}>{page.finalTitleB}</span></h2><p className={styles.lead}>{page.finalBody}</p><div className={styles.actions}><Link className={styles.cta} href={href(locale, "/diagnostico")}>{page.secondary}<ArrowRight className="ml-2 h-4 w-4" /></Link><a className={styles.ghost} href="mailto:juan@n3uralia.com">{page.sales}</a></div><div className={styles.path}>{page.path.map((item) => <div key={item} className={styles.pathNode}><span>{item}</span></div>)}</div></div>
-          <div className={styles.finalVisual}><FinalWireframe className={styles.finalWireframe} /></div>
-        </div>
-      </section>
-    </main>
-  )
+  return <main className={styles.page}>
+    <section className={`${styles.stage} ${styles.heroStage}`}><div className={`${styles.shell} ${styles.hero}`}><div className={styles.heroCopy}><div className={styles.eyebrow}>01 / N3URALIA</div><h1>{page.heroTitleA} <span className={styles.accent}>{page.heroTitleB}</span></h1><p className={styles.lead}>{page.heroBody}</p><div className={styles.actions}><Link className={styles.cta} href="#quick-selector">{page.primary}<ArrowRight className="ml-2 h-4 w-4" /></Link><Link className={styles.ghost} href={href(locale, "/diagnostico")}>{page.secondary}</Link></div></div><div className={styles.heroVisualWrap}><img src="/images/solutions/hero-system.webp" width="440" height="248" alt="" aria-hidden="true" className={styles.heroVisualSvg} /></div></div></section>
+    <section className={`${styles.stage} ${styles.consoleStage}`}><div className={styles.shell}><header className={styles.sectionHead}><div className={styles.eyebrow}>02 / {locale === "es" ? "DÓNDE SE PIERDE EL CONTROL" : "WHERE OPERATIONS LOSE CONTROL"}</div><h2 className={styles.sectionTitle}>{page.pressureTitle}</h2><p className={styles.sectionIntro}>{page.pressureBody}</p></header><div className={styles.panelFrame}><div className={styles.pressureGrid}>{page.problems.map(([title,text,Icon],index)=><SolutionsFocus key={title} index={index} className={styles.pressureCard}><article><div className={styles.iconStage}><Icon className={styles.pressureVisual}/></div><h3>{title}</h3><p>{text}</p></article></SolutionsFocus>)}</div></div></div></section>
+    <section className={`${styles.stage} ${styles.denseStage}`}><div className={styles.shell}><header className={styles.sectionHead}><div className={styles.eyebrow}>03 / CORE SOLUTION LAYERS</div><h2 className={styles.sectionTitle}>{page.layersTitleA} <span className={styles.accent}>{page.layersTitleB}</span></h2><p className={styles.sectionIntro}>{page.layersBody}</p></header><div className={styles.layersGrid}>{page.layers.map(([title,text,Icon],index)=><SolutionsFocus key={title} index={index} className={styles.layerCard}><article><div className={styles.layerNum}>0{index+1} /</div><div className={styles.layerIcon}><Icon/></div><h3>{title}</h3><p>{text}</p><Link className={styles.explore} href={href(locale,"/diagnostico")}>{locale==="es"?"Explorar":"Explore"} →</Link></article></SolutionsFocus>)}</div></div></section>
+    <div className={`${styles.stage} ${styles.selectorStage}`}><SolutionsFitExplorer locale={locale}/></div>
+    <section className={`${styles.stage} ${styles.lightStage}`}><div className={styles.shell}><header className={styles.sectionHead}><div className={styles.eyebrow}>05 / {locale==="es"?"SOLUCIONES POR SECTOR":"SOLUTIONS BY SECTOR"}</div><h2 className={styles.sectionTitle}>{page.sectorTitleA} <span className={styles.accent}>{page.sectorTitleB}</span></h2><p className={styles.sectionIntro}>{page.sectorBody}</p></header><div className={styles.sectorGrid}>{page.sectors.map(([title,text,Icon],index)=><SolutionsFocus key={title} index={index} className={styles.sectorCard}><article><div className={styles.sectorIcon}><Icon/></div><h3>{title}</h3><p>{text}</p><Link className={styles.sectorMeta} href={href(locale,"/diagnostico")}>{locale==="es"?"Explorar":"Explore"} →</Link></article></SolutionsFocus>)}</div></div></section>
+    <section className={`${styles.stage} ${styles.entryStage}`}><div className={styles.shell}><header className={styles.sectionHead}><div className={styles.eyebrow}>06 / {locale==="es"?"FORMAS DE ENTRADA":"ENTRY PATHS"}</div><h2 className={styles.sectionTitle}>{page.entryTitleA} <span className={styles.accent}>{page.entryTitleB}</span></h2><p className={styles.sectionIntro}>{page.entryBody}</p></header><div className={styles.entryGrid}>{page.entries.map(([title,text,best,Icon],index)=><article key={title} className={styles.entryCard}><div className={styles.entryNum}>0{index+1}</div><div className={styles.entryIcon}><Icon/></div><h3>{title}</h3><p>{text}</p><div className={styles.best}><strong>{locale==="es"?"Mejor para:":"Best for:"}</strong> {best}</div></article>)}</div></div></section>
+    <section className={`${styles.stage} ${styles.finalStage}`}><div className={`${styles.shell} ${styles.final}`}><div><div className={styles.eyebrow}>07 / {locale==="es"?"SIGUIENTE PASO":"NEXT MOVE"}</div><h2 className={styles.finalTitle}>{page.finalTitleA} <span className={styles.accent}>{page.finalTitleB}</span></h2><p className={styles.lead}>{page.finalBody}</p><div className={styles.actions}><Link className={styles.cta} href={href(locale,"/diagnostico")}>{page.secondary}<ArrowRight className="ml-2 h-4 w-4"/></Link><a className={styles.ghost} href="mailto:juan@n3uralia.com">{page.sales}</a></div><div className={styles.path}>{page.path.map(item=><div key={item} className={styles.pathNode}><span>{item}</span></div>)}</div></div><div className={styles.finalVisual}><img src="/images/solutions/final-path.webp" width="460" height="259" alt="" aria-hidden="true" className={styles.finalWireframe}/></div></div></section>
+  </main>
 }
