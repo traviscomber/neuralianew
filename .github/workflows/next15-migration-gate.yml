@@ -1,0 +1,68 @@
+name: Next 15 Migration Gate
+
+on:
+  push:
+    branches:
+      - terminator/next15-safe-upgrade-2026-09-08
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: terminator/next15-safe-upgrade-2026-09-08
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Migrate async request APIs
+        run: pnpm dlx @next/codemod@latest next-async-request-api .
+
+      - name: Refresh canonical lockfile
+        run: pnpm install --lockfile-only --no-frozen-lockfile
+
+      - name: Install from refreshed lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Portal contracts
+        run: pnpm portal:check
+
+      - name: TypeScript
+        run: pnpm type-check
+
+      - name: ESLint
+        run: pnpm lint
+
+      - name: Production build
+        run: pnpm build
+
+      - name: Dependency audit
+        continue-on-error: true
+        run: pnpm audit --audit-level high
+
+      - name: Commit deterministic migration output
+        run: |
+          git status --short
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No generated changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore(next15): apply async API codemod and refresh lock [skip ci]"
+          git push origin HEAD:terminator/next15-safe-upgrade-2026-09-08
