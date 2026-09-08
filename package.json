@@ -5,7 +5,7 @@
   "scripts": {
     "agent:check": "pnpm portal:check && pnpm type-check && pnpm lint",
     "build": "next build",
-    "clean": "rm -rf node_modules .next package-lock.json",
+    "clean": "rm -rf node_modules .next",
     "dev": "next dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -16,7 +16,6 @@
   "dependencies": {
     "@ai-sdk/openai": "^2.0.53",
     "@emotion/is-prop-valid": "^1.2.2",
-    "@next/eslint-plugin-next": "^14.2.35",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -59,18 +58,17 @@
     "i18next": "^25.8.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.381.0",
-    "next": "^14.2.35",
+    "next": "15.5.25",
     "next-themes": "^0.2.1",
     "openai": "^4.52.0",
-    "postcss": "^8.4.35",
-    "react": "^18.2.0",
+    "react": "19.1.9",
     "react-day-picker": "^9.11.1",
-    "react-dom": "^18.2.0",
+    "react-dom": "19.1.9",
     "react-hook-form": "^7.65.0",
     "react-resizable-panels": "^3.0.6",
     "recharts": "^2.12.0",
     "resend": "^3.2.0",
-    "sharp": "^0.34.5",
+    "sharp": "0.35.4",
     "solid-js": "^1.8.17",
     "sonner": "^1.4.32",
     "tailwind-merge": "^2.2.2",
@@ -81,12 +79,12 @@
     "zod": "^3.25.8"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "15.5.25",
     "@types/node": "^20.10.6",
-    "@types/react": "^18.2.45",
-    "@types/react-dom": "^18.2.18",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "eslint": "^9.0.0",
-    "eslint-config-next": "^14.2.35",
-    "postcss": "^8.5",
+    "postcss": "8.5.28",
     "typescript": "^5.3.3"
   }
 }
