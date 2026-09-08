@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase-server"
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     const body = await request.json()
 
     const { data, error } = await supabase.from("conversions").insert(body)
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { searchParams } = new URL(request.url)
 
     const timeRange = searchParams.get("timeRange") || "24h"
