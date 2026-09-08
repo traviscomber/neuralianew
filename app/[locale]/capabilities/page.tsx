@@ -4,12 +4,13 @@ import { CapabilitiesPageClient } from "@/components/capabilities/capabilities-p
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function CapabilitiesPage({ params }: PageProps) {
+export default async function CapabilitiesPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return <CapabilitiesPageClient locale={locale} />
 }

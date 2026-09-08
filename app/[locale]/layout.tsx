@@ -8,14 +8,15 @@ import { isValidLocale, LOCALES, DEFAULT_LOCALE } from '@/lib/get-locale'
 
 interface LocaleLayoutProps {
   children: ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 export async function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
+export async function generateMetadata(props: LocaleLayoutProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const titles = {
     es: 'N3uralia | IA y software para operaciones reales',
@@ -42,7 +43,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
   }
 }
 
-export default function LocaleLayout({ children, params }: LocaleLayoutProps) {
+export default async function LocaleLayout(props: LocaleLayoutProps) {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const skipLabel = locale === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'
 

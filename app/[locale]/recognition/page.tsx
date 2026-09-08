@@ -5,7 +5,8 @@ import { DEFAULT_LOCALE, isValidLocale } from '@/lib/get-locale'
 
 const SITE_URL = 'https://www.n3uralia.com'
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const isSpanish = locale === 'es'
   const canonicalPath = isSpanish ? '/es/reconocimiento' : '/en/recognition'
@@ -42,7 +43,8 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
   }
 }
 
-export default function Page({ params }: { params: { locale: string } }) {
+export default async function Page(props: { params: Promise<{ locale: string }> }) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return (
     <>

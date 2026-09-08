@@ -6,10 +6,11 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = params.locale as Locale
   const isES = locale === "es"
   const title = isES ? "Operaciones Agénticas | N3uralia" : "Agent Operations | N3uralia"
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default function AgentOperationsPage({ params }: PageProps) {
+export default async function AgentOperationsPage(props: PageProps) {
+  const params = await props.params;
   const locale = params.locale as Locale
   const isES = locale === "es"
 

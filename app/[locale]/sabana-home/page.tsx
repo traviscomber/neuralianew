@@ -6,10 +6,11 @@ import type { Locale } from "@/content/dictionaries"
 import { Footer } from "@/components/layout/footer"
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const isES = locale === "es"
 
@@ -26,7 +27,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
   }
 }
 
-export default function SabanaHomePage({ params }: PageProps) {
+export default async function SabanaHomePage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const isES = locale === "es"
 

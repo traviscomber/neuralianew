@@ -4,9 +4,10 @@ import { ArrowRight, CheckCircle2, Zap, Brain, Moon, BarChart3, ShieldCheck } fr
 import { DEFAULT_LOCALE, isValidLocale } from '@/lib/get-locale'
 import { buildLocalizedMetadata } from '@/lib/page-metadata'
 
-interface PageProps { params: { locale: string } }
+interface PageProps { params: Promise<{ locale: string }> }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return buildLocalizedMetadata({
     locale,
@@ -18,7 +19,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function OperacionesAutonomasPage({ params }: PageProps) {
+export default async function OperacionesAutonomasPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const es = locale === 'es'
   const contact = `/${locale}/contact`

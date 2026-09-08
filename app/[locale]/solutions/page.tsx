@@ -41,4 +41,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export { default } from "../soluciones/page"
+export { /* @next-codemod-error `default` export is re-exported. Check if this component uses `params` or `searchParams`*/
+default } from "../soluciones/page"

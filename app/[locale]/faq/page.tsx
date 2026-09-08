@@ -7,9 +7,9 @@ import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
 function buildFaqSchema(locale: Locale) {
@@ -46,7 +46,8 @@ function buildFaqSchema(locale: Locale) {
   }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
@@ -67,7 +68,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function FaqPage({ params }: PageProps) {
+export default async function FaqPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const faqSchema = buildFaqSchema(locale)
 

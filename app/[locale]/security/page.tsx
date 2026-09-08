@@ -5,9 +5,10 @@ import { getDict } from "@/content/dictionaries"
 import { Section } from "@/components/Section"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-interface PageProps { params: { locale: string } }
+interface PageProps { params: Promise<{ locale: string }> }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = params.locale as Locale
   const isES = locale === "es"
   return buildLocalizedMetadata({
@@ -20,7 +21,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function SecurityPage({ params }: PageProps) {
+export default async function SecurityPage(props: PageProps) {
+  const params = await props.params;
   const locale = params.locale as Locale
   const d = getDict(locale)
   const es = locale === "es"

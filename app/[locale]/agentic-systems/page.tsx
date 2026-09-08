@@ -7,10 +7,11 @@ import { Section } from "@/components/Section"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = params.locale as Locale
   const isES = locale === "es"
   const title = isES ? "Sistemas Agénticos | N3uralia" : "Agentic Systems | N3uralia"
@@ -26,7 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function AgenticSystemsPage({ params }: PageProps) {
+export default async function AgenticSystemsPage(props: PageProps) {
+  const params = await props.params;
   const locale = params.locale as Locale
   const d = getDict(locale)
 

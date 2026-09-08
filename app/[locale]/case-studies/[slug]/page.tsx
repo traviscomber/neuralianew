@@ -10,10 +10,11 @@ import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: { locale: string; slug: string }
+  params: Promise<{ locale: string; slug: string }>
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const caseStudy = getCaseStudy(params.slug)
 
@@ -36,7 +37,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function CaseStudyDetailPage({ params }: PageProps) {
+export default async function CaseStudyDetailPage(props: PageProps) {
+  const params = await props.params;
   const locale = params.locale as Locale
   const d = getDict(locale)
   const caseStudy = getCaseStudy(params.slug)

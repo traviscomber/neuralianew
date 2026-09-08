@@ -5,12 +5,13 @@ import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface BlogLayoutProps {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
-export async function generateMetadata({ params }: BlogLayoutProps): Promise<Metadata> {
+export async function generateMetadata(props: BlogLayoutProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   return buildLocalizedMetadata({
