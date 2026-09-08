@@ -123,9 +123,7 @@ function getCopy(locale: Locale) {
     requiredAnswer: isES ? "Agrega una respuesta antes de continuar." : "Add an answer before continuing.",
     invalidName: isES ? "Ingresa tu nombre." : "Enter your name.",
     invalidEmail: isES ? "Ingresa un email válido." : "Enter a valid email.",
-    invalidWhatsapp: isES
-      ? "Revisa el número o déjalo vacío."
-      : "Check the number or leave it blank.",
+    invalidWhatsapp: isES ? "Revisa el número o déjalo vacío." : "Check the number or leave it blank.",
     submitError: isES
       ? "No pudimos enviar el diagnóstico. Intenta otra vez o escribe a info@n3uralia.com."
       : "We could not submit the diagnosis. Try again or email info@n3uralia.com.",
@@ -288,7 +286,7 @@ export function DiagnosisFunnelClient({ locale }: { locale: Locale }) {
       <section id="diagnosis-assistant" className="scroll-mt-28 border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
         <div className="retro-shell grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
           <div className="lg:sticky lg:top-28">
-            <small>04 / {copy.assistantLabel}</small>
+            <small>05 / {copy.assistantLabel}</small>
             <h2 className="mt-5 max-w-xl text-[clamp(34px,4vw,56px)]">{copy.assistantTitle}</h2>
             <p className="mt-6 max-w-lg text-[15px] leading-7 text-[var(--n3-text-muted)]">{copy.assistantIntro}</p>
 
@@ -363,7 +361,9 @@ export function DiagnosisFunnelClient({ locale }: { locale: Locale }) {
                         <button type="button" onClick={previousStep} className="retro-button w-full sm:w-auto">
                           {copy.previous}
                         </button>
-                      ) : <span />}
+                      ) : (
+                        <span />
+                      )}
                       <button type="button" onClick={continueStep} className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
                         {copy.next}
                         <ArrowRight className="h-4 w-4" />
@@ -472,7 +472,7 @@ export function DiagnosisFunnelClient({ locale }: { locale: Locale }) {
       <section className="border-b border-[rgba(118,214,214,.16)] py-20">
         <div className="retro-shell">
           <div className="grid gap-6 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
-            <small>05 / {copy.shortcutLabel}</small>
+            <small>06 / {copy.shortcutLabel}</small>
             <div>
               <h2 className="text-[clamp(34px,4vw,56px)]">{copy.shortcutTitle}</h2>
               <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{copy.shortcutText}</p>
