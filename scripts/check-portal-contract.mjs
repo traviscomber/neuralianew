@@ -44,10 +44,14 @@ for (const path of deletedAcquisitionRoutes) {
 const solutionsPath = 'app/[locale]/soluciones/page.tsx'
 const solutions = read(solutionsPath)
 requireIncludes(solutionsPath, solutions, [
-  '/n3uralia-retro/icons/friction-visibility.svg',
-  '/n3uralia-retro/icons/friction-coordination.svg',
-  '/n3uralia-retro/icons/friction-response.svg',
-  '/n3uralia-retro/icons/friction-traceability.svg',
+  'SolutionsFocus',
+  'Operational Intelligence',
+  'Workflow Automation',
+  'AI Assistants',
+  'Document Intelligence',
+  'Recognition Systems',
+  'Internal Platforms',
+  'Governance & Human-in-the-loop',
   '/diagnostico',
 ])
 requireExcludes(solutionsPath, solutions, [
