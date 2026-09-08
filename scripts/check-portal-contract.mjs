@@ -128,7 +128,7 @@ requireIncludes(llmsPath, llms, [
   '/es/proyectos | https://www.n3uralia.com/en/projects',
   '/es/productos | https://www.n3uralia.com/en/products',
   '/es/reconocimiento | https://www.n3uralia.com/en/recognition',
-  'Do not infer customer metrics, ROI, guarantees, awards or outcomes',
+  'Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes',
 ])
 requireExcludes(llmsPath, llms, ['/es/platform |', '/es/studies |'])
 
