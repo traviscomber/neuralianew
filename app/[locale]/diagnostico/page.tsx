@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, Database, Gauge, MessageCircle, Target, Workflow } from "lucide-react"
 import { DiagnosisFunnelClient } from "@/components/diagnosis/diagnosis-funnel-client"
+import { SolutionsFitExplorer } from "@/components/solutions-fit-explorer"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -49,18 +50,18 @@ const content = {
       },
       { title: "Ruta de piloto", text: "Qué se puede validar en 30–90 días con un alcance útil y controlado." },
     ],
-    whoLabel: "06 / PARA QUIÉN ES",
+    whoLabel: "07 / PARA QUIÉN ES",
     whoTitle: "Para empresas con complejidad operacional real.",
     whoText:
       "Datos dispersos, aprobaciones manuales, equipos en terreno, documentos, procesos productivos, evidencia visual o software desconectado: si el problema vive en la operación, el diagnóstico tiene sentido.",
-    howLabel: "07 / CÓMO FUNCIONA",
+    howLabel: "08 / CÓMO FUNCIONA",
     howTitle: "De un problema operativo a un piloto validable.",
     howSteps: [
       { title: "Entrega contexto", text: "Cuéntanos qué está trabado." },
       { title: "Recibe diagnóstico", text: "Identificamos la primera oportunidad de sistema." },
       { title: "Valida piloto", text: "Definimos la construcción útil más pequeña." },
     ],
-    finalLabel: "08 / SIGUIENTE PASO",
+    finalLabel: "09 / SIGUIENTE PASO",
     finalTitle: "Empieza con un problema operacional.",
     finalText:
       "No necesitas tener definida la solución. Si sabes dónde se pierde tiempo, control o visibilidad, ya tenemos un punto de partida.",
@@ -104,18 +105,18 @@ const content = {
       },
       { title: "Pilot path", text: "What can be validated in 30–90 days with a useful, controlled scope." },
     ],
-    whoLabel: "06 / WHO THIS IS FOR",
+    whoLabel: "07 / WHO THIS IS FOR",
     whoTitle: "For companies with real operational complexity.",
     whoText:
       "Scattered data, manual approvals, field teams, documents, production processes, visual evidence or disconnected software: if the problem lives in the operation, the diagnosis is a fit.",
-    howLabel: "07 / HOW IT WORKS",
+    howLabel: "08 / HOW IT WORKS",
     howTitle: "From one operational problem to a pilot you can validate.",
     howSteps: [
       { title: "Submit context", text: "Tell us what is stuck." },
       { title: "Receive diagnosis", text: "We identify the first system opportunity." },
       { title: "Validate pilot", text: "We define the smallest useful build." },
     ],
-    finalLabel: "08 / NEXT MOVE",
+    finalLabel: "09 / NEXT MOVE",
     finalTitle: "Start with one operational problem.",
     finalText:
       "You do not need to know the solution yet. If you know where time, control or visibility is being lost, we have enough to start.",
@@ -153,7 +154,7 @@ export default function DiagnosisPage({ params }: PageProps) {
             <p className="mt-7 max-w-2xl text-[16px] leading-8 text-[var(--n3-text-muted)]">{page.subtitle}</p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link href="#diagnosis-assistant" className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
+              <Link href="#quick-selector" className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
                 {page.startCta}
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -234,6 +235,7 @@ export default function DiagnosisPage({ params }: PageProps) {
         </div>
       </section>
 
+      <SolutionsFitExplorer locale={locale as Locale} />
       <DiagnosisFunnelClient locale={locale as Locale} />
 
       <section className="border-b border-[rgba(118,214,214,.16)] py-20 md:py-24">
@@ -278,7 +280,7 @@ export default function DiagnosisPage({ params }: PageProps) {
             </div>
 
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-              <Link href="#diagnosis-assistant" className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
+              <Link href="#quick-selector" className="retro-button retro-button-primary w-full gap-2 sm:w-auto">
                 {page.finalCta}
                 <ArrowRight className="h-4 w-4" />
               </Link>
