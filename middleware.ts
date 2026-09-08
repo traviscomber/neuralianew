@@ -5,6 +5,7 @@ const DEFAULT_LOCALE = "es"
 const ROOT_METADATA_PATHS = new Set([
   "/robots.txt",
   "/sitemap.xml",
+  "/google-sitemap.xml",
   "/llms.txt",
   "/site.webmanifest",
   "/favicon.ico",
