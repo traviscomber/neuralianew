@@ -36,7 +36,12 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    sitemap: absoluteUrl("/google-sitemap.xml"),
+    // Preserve the canonical sitemap contract and advertise the minimal
+    // fallback separately so crawlers can process either endpoint.
+    sitemap: [
+      absoluteUrl("/sitemap.xml"),
+      absoluteUrl("/google-sitemap.xml"),
+    ],
     host: SITE_URL,
   }
 }
