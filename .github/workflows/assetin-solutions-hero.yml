@@ -22,7 +22,11 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p public/images/solutions
-          cat .assetin/solutions-hero800/chunk-* > /tmp/hero.b64
+          : > /tmp/hero.b64
+          for part in 00 01 02 03; do
+            head -c 8000 ".assetin/solutions-hero800/chunk-${part}" >> /tmp/hero.b64
+          done
+          cat .assetin/solutions-hero800/chunk-04 >> /tmp/hero.b64
           base64 -d /tmp/hero.b64 > public/images/solutions/hero-system.webp
           test "$(sha256sum public/images/solutions/hero-system.webp | awk '{print $1}')" = "740d67bc305a5890656c66f3f2f0c99c72864481aa0dec35e69392ad1405fb13"
           file public/images/solutions/hero-system.webp | grep -qi 'webp'
