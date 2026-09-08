@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
-import { Footer } from "@/components/layout/footer"
 
 interface CapabilitiesPageClientProps { locale: 'es' | 'en' }
 
@@ -56,7 +55,6 @@ export function CapabilitiesPageClient({ locale }: CapabilitiesPageClientProps) 
       <section id="conversational" className="py-20 px-4 border-b border-border"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabConversational}</h2><div className="grid md:grid-cols-2 gap-8">{conversationalFeatures.map((feature) => <div key={feature.titleEN} className="p-6 bg-muted/50 border border-border rounded-lg"><h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3><p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p></div>)}</div></div></section>
       <section id="production" className="py-20 px-4 border-b border-border bg-muted/30"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabProduction}</h2><div className="grid md:grid-cols-2 gap-8">{productionFeatures.map((feature) => <div key={feature.titleEN} className="p-6 bg-background border border-border rounded-lg"><h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3><p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p></div>)}</div></div></section>
       <section className="py-20 px-4 bg-background"><div className="max-w-2xl mx-auto text-center"><h2 className="text-3xl font-bold mb-4">{isES ? "¿Listo para evaluar un caso?" : "Ready to evaluate a use case?"}</h2><p className="text-lg text-muted-foreground mb-8">{isES ? "Revisamos datos, arquitectura, riesgo y valor antes de definir el sistema." : "We review data, architecture, risk and value before defining the system."}</p><Link href={href("/contact")} className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">{isES ? "Contáctanos" : "Contact Us"}<ArrowRight className="w-4 h-4"/></Link></div></section>
-      <Footer />
     </main>
   )
 }
