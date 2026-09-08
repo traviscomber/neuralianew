@@ -5,12 +5,13 @@ import { HowWeWorkPageClient } from "@/components/how-we-work/how-we-work-page-c
 import { generatePageMetadata } from "@/lib/metadata-utils"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   const isES = locale === "es"
 
@@ -29,7 +30,8 @@ export function generateMetadata({ params }: PageProps): Metadata {
   })
 }
 
-export default function HowWeWorkPage({ params }: PageProps) {
+export default async function HowWeWorkPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? (params.locale as Locale) : (DEFAULT_LOCALE as Locale)
   return <HowWeWorkPageClient locale={locale} />
 }

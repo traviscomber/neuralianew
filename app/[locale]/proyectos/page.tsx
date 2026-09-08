@@ -6,7 +6,7 @@ import { buildLocalizedMetadata } from '@/lib/page-metadata'
 import { absoluteUrl } from '@/lib/site'
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 function projectsMetadata(locale: Locale): Metadata {
@@ -37,12 +37,14 @@ function projectsMetadata(locale: Locale): Metadata {
   }
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale: Locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return projectsMetadata(locale)
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page(props: PageProps) {
+  const params = await props.params;
   const locale: Locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   if (locale === 'en') permanentRedirect('/en/projects')
   return <ProjectsPage locale={locale} />

@@ -1,7 +1,7 @@
 {
-  "installCommand": "npm install --legacy-peer-deps --prefer-offline",
-  "buildCommand": "next build",
-  "devCommand": "next dev",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "functions": {

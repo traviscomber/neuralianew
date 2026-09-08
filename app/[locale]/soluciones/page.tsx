@@ -23,7 +23,7 @@ import { buildLocalizedMetadata } from "@/lib/page-metadata"
 import styles from "./solutions-mockup.module.css"
 
 interface PageProps {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 function href(locale: Locale, path: string) {
@@ -442,7 +442,8 @@ const section02Images = [
   "/images/solutions/section02/traceability.webp",
 ] as const
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   return buildLocalizedMetadata({
@@ -453,7 +454,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function SolutionsPage({ params }: PageProps) {
+export default async function SolutionsPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   const projectsPath = locale === "es" ? "/proyectos" : "/projects"

@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Database, Eye, LockKeyhole, RotateCcw, Shield
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
-interface PageProps { params: { locale: string } }
+interface PageProps { params: Promise<{ locale: string }> }
 
 const copy = {
   es: {
@@ -64,13 +64,15 @@ const copy = {
 
 function projectsPath(locale: Locale) { return `/${locale}/${locale === "es" ? "proyectos" : "projects"}` }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = copy[locale]
   return buildLocalizedMetadata({ locale, title: page.title, description: page.description, path: "/trust" })
 }
 
-export default function TrustPage({ params }: PageProps) {
+export default async function TrustPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = copy[locale]
   return <main className="retro-page min-h-screen pt-20">

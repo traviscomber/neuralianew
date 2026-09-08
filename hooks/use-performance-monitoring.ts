@@ -47,8 +47,8 @@ export function usePerformanceMonitoring() {
   const [alertsTriggered, setAlertsTriggered] = useState(0)
   const [alertsResolved, setAlertsResolved] = useState(0)
 
-  const monitoringInterval = useRef<NodeJS.Timeout>()
-  const sessionStartTime = useRef<Date>()
+  const monitoringInterval = useRef<NodeJS.Timeout | null>(null)
+  const sessionStartTime = useRef<Date | null>(null)
 
   // Initialize monitoring session
   const startMonitoring = useCallback((presetName = "SaaS High Performance") => {

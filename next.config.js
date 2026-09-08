@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    // Keep Supabase's dependency graph external on the server. This prevents
-    // Next 14 dev rebuilds from referencing partially emitted vendor chunks.
-    serverComponentsExternalPackages: [
-      '@supabase/ssr',
-      '@supabase/supabase-js',
-      '@supabase/auth-js',
-    ],
-  },
+  // Keep Supabase's dependency graph external on the server. This preserves
+  // the established runtime boundary using the stable Next 15 option.
+  serverExternalPackages: [
+    '@supabase/ssr',
+    '@supabase/supabase-js',
+    '@supabase/auth-js',
+  ],
   redirects: async () => {
     return [
       // Canonicalize legacy brand/icon endpoints so old browser/search caches

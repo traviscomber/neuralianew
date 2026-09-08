@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import { RetroLanding } from '@/components/retro-landing'
 import { DEFAULT_LOCALE, isValidLocale } from '@/lib/get-locale'
 
-interface PageProps { params: { locale: string } }
+interface PageProps { params: Promise<{ locale: string }> }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const title = locale === 'es' ? 'N3uralia | Inteligencia para operaciones complejas' : 'N3uralia | Intelligence for complex operations'
   const description = locale === 'es'
@@ -13,7 +14,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return { title, description, alternates: { canonical: `https://www.n3uralia.com/${locale}` } }
 }
 
-export default function LandingPage({ params }: PageProps) {
+export default async function LandingPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   return <RetroLanding locale={locale} />
 }

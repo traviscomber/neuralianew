@@ -5,9 +5,9 @@ import { buildLocalizedMetadata } from "@/lib/page-metadata"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
 function href(locale: Locale, path: string) {
@@ -85,7 +85,8 @@ const content = {
   },
 } as const
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
@@ -97,7 +98,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function NodesPage({ params }: PageProps) {
+export default async function NodesPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 

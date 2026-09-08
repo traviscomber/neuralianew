@@ -7,9 +7,9 @@ import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
 const pageCopy = {
@@ -131,7 +131,8 @@ const pageCopy = {
   },
 } as const
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata(props: PageProps): Promise<Metadata> {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const copy = pageCopy[locale as keyof typeof pageCopy]
 
@@ -144,7 +145,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   })
 }
 
-export default function GovernanceAiEmpresarialPage({ params }: PageProps) {
+export default async function GovernanceAiEmpresarialPage(props: PageProps) {
+  const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const copy = pageCopy[locale as keyof typeof pageCopy]
   const href = (path: string) => `/${locale}${path}`
