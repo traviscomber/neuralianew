@@ -1,4 +1,4 @@
-/* Section 03 — Areas of expertise. Rebuilt to approved 4x2 technical grid. */
+/* Section 03 — Areas of expertise. Canonical transparent raster technical visuals. */
 main > section:nth-of-type(3){background:var(--n3-black,#030606)!important;background-image:none!important;border-bottom:1px solid rgba(118,214,214,.14)!important}
 main > section:nth-of-type(3)::before{display:none!important}
 main > section:nth-of-type(3)>div{width:min(1240px,calc(100% - 40px))!important;margin:0 auto!important;padding:86px 0 90px!important}
@@ -11,16 +11,16 @@ main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:485px!importan
 main > section:nth-of-type(3) [class*="expertiseCard"]:hover{background:#031011!important;transform:none!important;box-shadow:none!important}
 main > section:nth-of-type(3) [class*="expertiseCard"] article{height:100%!important;display:flex!important;flex-direction:column!important}
 main > section:nth-of-type(3) [class*="layerNum"]{margin:0!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:10px!important;line-height:1!important;letter-spacing:.2em!important;color:#3d7875!important}
-main > section:nth-of-type(3) [class*="layerIcon"]{height:190px!important;margin:8px 0 16px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:88% auto!important;filter:brightness(.78) saturate(.9)!important;opacity:.98!important}
+main > section:nth-of-type(3) [class*="layerIcon"]{height:190px!important;margin:8px 0 16px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:88% auto!important;filter:none!important;opacity:.94!important}
 main > section:nth-of-type(3) [class*="layerIcon"] svg{display:none!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) [class*="layerIcon"]{background-image:url('/images/solutions/section03/operational-intelligence.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) [class*="layerIcon"]{background-image:url('/images/solutions/section03/workflow-automation.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(3) [class*="layerIcon"]{background-image:url('/images/solutions/section03/ai-assistants.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(4) [class*="layerIcon"]{background-image:url('/images/solutions/section03/document-intelligence.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) [class*="layerIcon"]{background-image:url('/images/solutions/section03/recognition-systems.svg')!important;background-size:94% auto!important;filter:brightness(.82) saturate(.92)!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(6) [class*="layerIcon"]{background-image:url('/images/solutions/section03/internal-platforms.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(7) [class*="layerIcon"]{background-image:url('/images/solutions/section03/data-integrations.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(8) [class*="layerIcon"]{background-image:url('/images/solutions/section03/governance-human-loop.svg')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) [class*="layerIcon"]{background-image:url('/images/solutions/section03/operational-intelligence.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) [class*="layerIcon"]{background-image:url('/images/solutions/section03/workflow-automation.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(3) [class*="layerIcon"]{background-image:url('/images/solutions/section03/ai-assistants.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(4) [class*="layerIcon"]{background-image:url('/images/solutions/section03/document-intelligence.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) [class*="layerIcon"]{background-image:url('/images/solutions/section03/recognition-systems.webp')!important;background-size:94% auto!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(6) [class*="layerIcon"]{background-image:url('/images/solutions/section03/internal-platforms.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(7) [class*="layerIcon"]{background-image:url('/images/solutions/section03/data-integrations.webp')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(8) [class*="layerIcon"]{background-image:url('/images/solutions/section03/governance-human-loop.webp')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"] h3{margin:0!important;max-width:260px!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:clamp(26px,1.85vw,30px)!important;font-weight:400!important;line-height:1.08!important;letter-spacing:.012em!important;text-transform:none!important;color:#edf4f3!important}
 main > section:nth-of-type(3) [class*="expertiseCard"] p{margin:18px 0 0!important;max-width:250px!important;font-size:13px!important;line-height:1.62!important;color:#94a8a6!important}
 main > section:nth-of-type(3) [class*="expertiseCard"] article::after{display:block!important;margin-top:auto!important;padding-top:28px!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:11px!important;line-height:1!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#45bebb!important}
