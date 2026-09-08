@@ -1,34 +1,39 @@
-/* Section 03 — Areas of expertise. Canonical transparent technical visuals. */
+/* Section 03 — Areas of expertise. Rebuilt to approved 4x2 technical grid. */
 main > section:nth-of-type(3){background:var(--n3-black,#030606)!important;background-image:none!important;border-bottom:1px solid rgba(118,214,214,.14)!important}
 main > section:nth-of-type(3)::before{display:none!important}
-main > section:nth-of-type(3)>div{width:min(1240px,calc(100% - 40px))!important;margin:0 auto!important;padding:82px 0 86px!important}
-main > section:nth-of-type(3) header{margin-bottom:30px!important}
-main > section:nth-of-type(3) [class*="expertiseGrid"]{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;border-top:1px solid rgba(118,214,214,.16)!important;border-left:1px solid rgba(118,214,214,.16)!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:410px!important;padding:18px 20px 20px!important;border:0!important;border-right:1px solid rgba(118,214,214,.16)!important;border-bottom:1px solid rgba(118,214,214,.16)!important;background:rgba(2,10,11,.54)!important;transform:none!important;box-shadow:none!important;transition:background 180ms ease,border-color 180ms ease!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:hover{background:rgba(5,18,19,.62)!important;transform:none!important;box-shadow:none!important}
+main > section:nth-of-type(3)>div{width:min(1240px,calc(100% - 40px))!important;margin:0 auto!important;padding:86px 0 90px!important}
+main > section:nth-of-type(3) header{margin:0 0 34px!important}
+main > section:nth-of-type(3) header [class*="eyebrow"]{font-size:10px!important;letter-spacing:.2em!important;color:#6eaaa7!important}
+main > section:nth-of-type(3) header h2{margin-top:16px!important;font-size:clamp(40px,4.6vw,62px)!important;font-weight:400!important;line-height:.98!important;letter-spacing:.015em!important;color:#e8f0f0!important}
+main > section:nth-of-type(3) header p{margin-top:12px!important;max-width:760px!important;font-size:15px!important;line-height:1.65!important;color:#8ea2a0!important}
+main > section:nth-of-type(3) [class*="expertiseGrid"]{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;border-top:1px solid rgba(118,214,214,.2)!important;border-left:1px solid rgba(118,214,214,.2)!important;background:#02090a!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:485px!important;padding:18px 22px 20px!important;border:0!important;border-right:1px solid rgba(118,214,214,.2)!important;border-bottom:1px solid rgba(118,214,214,.2)!important;background:#02090a!important;transform:none!important;box-shadow:none!important;transition:background 160ms ease,border-color 160ms ease!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:hover{background:#031011!important;transform:none!important;box-shadow:none!important}
 main > section:nth-of-type(3) [class*="expertiseCard"] article{height:100%!important;display:flex!important;flex-direction:column!important}
-main > section:nth-of-type(3) [class*="layerNum"]{font-size:9px!important;letter-spacing:.2em!important;color:#557b79!important;margin-bottom:6px!important}
-main > section:nth-of-type(3) [class*="layerIcon"]{height:158px!important;margin:0 0 10px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;filter:brightness(.74) saturate(.82)!important;opacity:.96!important}
+main > section:nth-of-type(3) [class*="layerNum"]{margin:0!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:10px!important;line-height:1!important;letter-spacing:.2em!important;color:#3d7875!important}
+main > section:nth-of-type(3) [class*="layerIcon"]{height:190px!important;margin:8px 0 16px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:88% auto!important;filter:brightness(.78) saturate(.9)!important;opacity:.98!important}
 main > section:nth-of-type(3) [class*="layerIcon"] svg{display:none!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) [class*="layerIcon"]{background-image:url('/images/solutions/section03/operational-intelligence.svg')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) [class*="layerIcon"]{background-image:url('/images/solutions/section03/workflow-automation.svg')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(3) [class*="layerIcon"]{background-image:url('/images/solutions/section03/ai-assistants.svg')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(4) [class*="layerIcon"]{background-image:url('/images/solutions/section03/document-intelligence.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) [class*="layerIcon"]{background-image:url('/images/solutions/section03/recognition-systems.svg')!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) [class*="layerIcon"]{background-image:url('/images/solutions/section03/recognition-systems.svg')!important;background-size:94% auto!important;filter:brightness(.82) saturate(.92)!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(6) [class*="layerIcon"]{background-image:url('/images/solutions/section03/internal-platforms.svg')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(7) [class*="layerIcon"]{background-image:url('/images/solutions/section03/data-integrations.svg')!important}
 main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(8) [class*="layerIcon"]{background-image:url('/images/solutions/section03/governance-human-loop.svg')!important}
-main > section:nth-of-type(3) [class*="expertiseCard"] h3{margin:0!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:clamp(24px,1.8vw,29px)!important;font-weight:400!important;line-height:1.03!important;letter-spacing:.02em!important;text-transform:none!important;color:#e8f0f0!important}
-main > section:nth-of-type(3) [class*="expertiseCard"] p{margin:16px 0 0!important;max-width:255px!important;font-size:13px!important;line-height:1.62!important;color:#94a8a6!important}
-main > section:nth-of-type(3) [class*="expertiseCard"] article::after{display:block!important;margin-top:auto!important;padding-top:26px!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:10px!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#668c89!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) article::after{content:'VISUALIZE'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) article::after{content:'AUTOMATE'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(3) article::after{content:'ASSIST'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(4) article::after{content:'STRUCTURE'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) article::after{content:'DETECT'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(6) article::after{content:'DEPLOY'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(7) article::after{content:'CONNECT'!important}
-main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(8) article::after{content:'TRUST'!important}
-main > section:nth-of-type(3) [class*="proofLinks"]{margin-top:20px!important}
-@media(max-width:1100px){main > section:nth-of-type(3) [class*="expertiseGrid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:390px!important}}
-@media(max-width:720px){main > section:nth-of-type(3)>div{width:min(100% - 28px,1240px)!important;padding:58px 0 62px!important}main > section:nth-of-type(3) [class*="expertiseGrid"]{grid-template-columns:1fr!important}main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:0!important}main > section:nth-of-type(3) [class*="layerIcon"]{height:180px!important}}
+main > section:nth-of-type(3) [class*="expertiseCard"] h3{margin:0!important;max-width:260px!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:clamp(26px,1.85vw,30px)!important;font-weight:400!important;line-height:1.08!important;letter-spacing:.012em!important;text-transform:none!important;color:#edf4f3!important}
+main > section:nth-of-type(3) [class*="expertiseCard"] p{margin:18px 0 0!important;max-width:250px!important;font-size:13px!important;line-height:1.62!important;color:#94a8a6!important}
+main > section:nth-of-type(3) [class*="expertiseCard"] article::after{display:block!important;margin-top:auto!important;padding-top:28px!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:11px!important;line-height:1!important;letter-spacing:.22em!important;text-transform:uppercase!important;color:#45bebb!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) article::after{content:'VISUALIZE  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) article::after{content:'AUTOMATE  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(3) article::after{content:'ASSIST  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(4) article::after{content:'STRUCTURE  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) article::after{content:'DETECT  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(6) article::after{content:'DEPLOY  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(7) article::after{content:'CONNECT  →'!important}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(8) article::after{content:'TRUST  →'!important}
+main > section:nth-of-type(3) [class*="proofLinks"]{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important;margin-top:28px!important}
+main > section:nth-of-type(3) [class*="proofLinks"] a{min-height:58px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 18px!important;border:1px solid rgba(118,214,214,.24)!important;background:transparent!important;font-family:var(--font-rajdhani),sans-serif!important;font-size:11px!important;letter-spacing:.14em!important;color:#a8bab8!important}
+main > section:nth-of-type(3) [class*="proofLinks"] a:hover{border-color:#45d1cf!important;color:#e8f0f0!important;background:rgba(69,209,207,.035)!important}
+@media(max-width:1100px){main > section:nth-of-type(3) [class*="expertiseGrid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:450px!important}main > section:nth-of-type(3) [class*="layerIcon"]{height:180px!important}}
+@media(max-width:720px){main > section:nth-of-type(3)>div{width:min(100% - 28px,1240px)!important;padding:62px 0 68px!important}main > section:nth-of-type(3) header{margin-bottom:26px!important}main > section:nth-of-type(3) header h2{font-size:40px!important}main > section:nth-of-type(3) [class*="expertiseGrid"]{grid-template-columns:1fr!important}main > section:nth-of-type(3) [class*="expertiseCard"]{min-height:0!important;padding:18px 18px 22px!important}main > section:nth-of-type(3) [class*="layerIcon"]{height:210px!important;margin:8px 0 14px!important;background-size:82% auto!important}main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(5) [class*="layerIcon"]{background-size:88% auto!important}main > section:nth-of-type(3) [class*="proofLinks"]{grid-template-columns:1fr!important;gap:10px!important;margin-top:20px!important}}
