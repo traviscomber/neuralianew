@@ -18,6 +18,7 @@ const copy = {
     recognition: 'Reconocimiento',
     diagnosis: 'Diagnóstico',
     about: 'Nosotros',
+    trust: 'Confianza y seguridad',
     labs: 'Labs',
     faq: 'Preguntas frecuentes',
     contactPage: 'Contactar',
@@ -38,6 +39,7 @@ const copy = {
     recognition: 'Recognition',
     diagnosis: 'Diagnosis',
     about: 'About',
+    trust: 'Trust & security',
     labs: 'Labs',
     faq: 'FAQ',
     contactPage: 'Contact',
@@ -65,6 +67,7 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
   const company = [
     [t.diagnosis, `/${locale}/diagnostico`],
     [t.about, `/${locale}/about`],
+    [t.trust, `/${locale}/trust`],
     [t.contactPage, `/${locale}/contact`],
   ] as const
 
