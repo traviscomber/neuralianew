@@ -21,6 +21,13 @@ type Text = {
   faq: [string,string,[string,string][]]
 }
 
+type Project = {
+  name: string
+  image: string
+  id: string
+  summary: Record<Locale, string>
+}
+
 const text: Record<Locale, Text> = {
   es: {
     hero:['Inteligencia · Automatización · Ejecución','Convierte la complejidad en ejecución inteligente.','N3uralia convierte datos, flujos, documentos e IA dispersos en sistemas que mejoran visibilidad, control y ejecución.','Agendar diagnóstico','Ver soluciones'],
@@ -28,7 +35,7 @@ const text: Record<Locale, Text> = {
     learn:'Conocer más',
     complexity:['Diseñado para la complejidad','Trabajamos donde los sistemas se vuelven difíciles.','Entornos complejos. Alto impacto. Ejecución real.'],
     operations:[['Experiencia operacional','Construido alrededor de operaciones reales.','Trabajamos con equipos de operaciones, ingeniería y liderazgo para diseñar sistemas que encajen.','Ver cómo trabajamos','Mapeamos personas, herramientas, documentos, decisiones, cuellos de botella y flujos repetitivos.','Mapeo de procesos · arquitectura de datos · automatización · agentes IA · tableros · despliegue'],['Centrado en personas','Implementación centrada en las personas.','Diseñamos adopción, capacitación, soporte y transferencia dentro de cada proyecto.','Nuestro enfoque','La tecnología funciona cuando las personas la adoptan y pueden operarla.','Centrado en personas · técnicamente estructurado · realista · productivo · medible']],
-    projects:['Nuestros proyectos','Sistemas reales. Impacto real.','Proyectos seleccionados que convierten complejidad en valor operacional medible.','Ver todos los proyectos'],
+    projects:['Nuestros proyectos','Sistemas reales. Impacto real.','Proyectos seleccionados que muestran sistemas construidos para operaciones reales.','Ver todos los proyectos'],
     products:['Nuestros productos','Sistemas que piensan. Flujos que escalan.','Productos para operaciones inteligentes en documentos, procesos y decisiones.','Explorar productos'],
     method:['Cómo trabajamos','Del diagnóstico a la ejecución.','Diagnosticar','Arquitectar','Construir','Integrar','Mejorar'],
     diagnosis:['Comienza con un diagnóstico','Claridad primero. El impacto sigue.','Un diagnóstico entrega una visión clara de lo posible y una ruta práctica.','Agendar diagnóstico','Contactarnos'],
@@ -48,7 +55,7 @@ const text: Record<Locale, Text> = {
     learn:'Learn more',
     complexity:['Built for complexity','We work where systems get hard.','Complex environments. High stakes. Real impact.'],
     operations:[['Built on experience','Built around real operations.','We partner with operations, engineering and leadership teams to design systems that fit.','See how we work','We map people, tools, documents, decisions, bottlenecks and repeated workflows.','Process mapping · data architecture · automation · AI agents · dashboards · deployment'],['Focused on people','Human-centered implementation.','We design adoption, training, support and handoff into every engagement.','Our approach','Technology works when people adopt it and can operate it.','Human-centered · technically structured · realistic · production-ready · measurable']],
-    projects:['Our projects','Real systems. Real impact.','Selected projects converting complexity into measurable operational value.','See all projects'],
+    projects:['Our projects','Real systems. Real impact.','Selected projects showing systems built for real operations.','See all projects'],
     products:['Our products','Systems that think. Workflows that scale.','Products powering intelligent operations across documents, processes and decisions.','Explore products'],
     method:['How we work','From diagnosis to execution.','Diagnose','Architect','Build','Integrate','Improve'],
     diagnosis:['Start with a diagnosis','Clarity first. Impact follows.','A diagnosis gives you a clear view of what is possible and a practical path forward.','Book a diagnosis','Contact us'],
@@ -64,15 +71,15 @@ const text: Record<Locale, Text> = {
   },
 }
 
-const projects = [
-  ['LABBE','AI document compliance for transport fleets','/n3uralia-retro/project-labbe.png','labbe'],
-  ['SegurIA','AI-powered operational security platform','/n3uralia-retro/project-seguria-new.png','seguria'],
-  ['Sur-Realista','Territorial operations & real estate platform','/n3uralia-retro/project-surrealista.png','sur-realista'],
-  ['La Patagua','Mining operations','/n3uralia-retro/project-lapatagua.png','la-patagua'],
-  ['EcoSueloLab','Satellite data via WhatsApp AI agent','/n3uralia-retro/project-ecosuelo-new.png','ecosuelolab'],
-  ['Despega Tu Carrera','AI-first personal development platform','/n3uralia-retro/project-despega.png','despega-tu-carrera'],
-  ['Black Swan FS','Fleet & subcontractor document operations','/n3uralia-retro/project-blackswan-new.png','blackswan-facility-core'],
-  ['Parrotfy','WhatsApp AI connector for ERP','/n3uralia-retro/project-parrotfy.png','parrotfy'],
+const projects: Project[] = [
+  { name:'LABBE', image:'/n3uralia-retro/project-labbe.png', id:'labbe', summary:{ es:'Cumplimiento documental con IA para flotas de transporte', en:'AI document compliance for transport fleets' } },
+  { name:'SegurIA', image:'/n3uralia-retro/project-seguria-new.png', id:'seguria', summary:{ es:'Plataforma de seguridad operacional con IA', en:'AI-powered operational security platform' } },
+  { name:'Sur-Realista', image:'/n3uralia-retro/project-surrealista.png', id:'sur-realista', summary:{ es:'Operaciones territoriales e inmobiliarias', en:'Territorial and real-estate operations platform' } },
+  { name:'La Patagua', image:'/n3uralia-retro/project-lapatagua.png', id:'la-patagua', summary:{ es:'Sistema operacional minero', en:'Mining operations system' } },
+  { name:'EcoSueloLab', image:'/n3uralia-retro/project-ecosuelo-new.png', id:'ecosuelolab', summary:{ es:'Datos satelitales vía agente IA en WhatsApp', en:'Satellite data through a WhatsApp AI agent' } },
+  { name:'Despega Tu Carrera', image:'/n3uralia-retro/project-despega.png', id:'despega-tu-carrera', summary:{ es:'Plataforma de desarrollo profesional con IA', en:'AI-first professional development platform' } },
+  { name:'Black Swan Facility Core', image:'/n3uralia-retro/project-blackswan-new.png', id:'blackswan-facility-core', summary:{ es:'Sistema operativo para facilities y hospitalidad', en:'Facility and hospitality operations system' } },
+  { name:'Parrotfy', image:'/n3uralia-retro/project-parrotfy.png', id:'parrotfy', summary:{ es:'Conector IA de WhatsApp para ERP', en:'WhatsApp AI connector for ERP' } },
 ]
 
 function Corners(){return <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>}
@@ -86,7 +93,7 @@ export function RetroLanding({locale}:{locale:Locale}){
     <section className="retro-dark expertise-scan"><div className="retro-shell">{t.expertise.map((item,i)=><Focus key={item[0]} index={i}><article className="expertise-row"><pre className="telemetry">{`SYS 0${i+1}\nSTATUS ACTIVE\nSYNCED`}</pre><div className="expertise-graphic"><Corners/><Image src={item[2]} alt="" fill sizes="360px" className="object-contain"/></div><div className="expertise-copy"><span>0{i+1} —</span><h2>{item[0]}</h2><p>{item[1]}</p><Button href={`/${locale}/soluciones`}>{t.learn}</Button></div></article></Focus>)}</div></section>
     <section className="retro-dark complexity"><div className="retro-shell complexity-grid"><div><small>{t.complexity[0]}</small><h2>{t.complexity[1]}</h2><p>{t.complexity[2]}</p></div><div className="landscape"><Corners/><span>N3 SYS // ACTIVE</span></div></div></section>
     <section className="retro-dark operations-grid">{t.operations.map((item,i)=><div className="operations-row" key={item[0]}><div className="operations-photo"><Corners/><Image src={i?'/n3uralia-brand/humancenteredimplementation.png':'/n3uralia-brand/builtaroundrealoperations.png'} alt="N3uralia operations" fill unoptimized sizes="(min-width:900px) 58vw,100vw" className="object-cover"/></div><div className="operations-copy"><small>{item[0]}</small><h2>{item[1]}</h2><p>{item[2]}</p><button className="retro-button plus-button" onClick={()=>setOpen(open===i?null:i)} aria-expanded={open===i}>{item[3]}<span>+</span></button><motion.div className="expand-panel" initial={false} animate={{height:open===i?'auto':0,opacity:open===i?1:0}}><p>{item[4]}</p><div className="panel-list">{item[5]}</div><Button href={`/${locale}/${i?'soluciones':'diagnostico'}`}>{i?t.learn:t.hero[3]}</Button></motion.div></div></div>)}</section>
-    <section className="retro-light"><div className="retro-shell project-shell"><header className="light-intro"><small>{t.projects[0]}</small><h2>{t.projects[1]}</h2><p>{t.projects[2]}</p></header><div className="project-list">{projects.map((p,i)=><Link key={p[0]} href={`/${locale}/${projectPath}#${p[3]}`} className="project-row"><div className="project-copy"><span>{String(i+1).padStart(2,'0')} —</span><h3>{p[0]}</h3><small>{p[1]}</small></div><div className="project-image"><Image src={p[2]} alt={`${p[0]} interface`} fill sizes="(min-width:900px) 52vw,100vw" className="object-cover" style={{objectPosition:'top center'}}/></div></Link>)}<Button href={`/${locale}/${projectPath}`}>{t.projects[3]}</Button></div></div></section>
+    <section className="retro-light"><div className="retro-shell project-shell"><header className="light-intro"><small>{t.projects[0]}</small><h2>{t.projects[1]}</h2><p>{t.projects[2]}</p></header><div className="project-list">{projects.map((project,i)=><Link key={project.id} href={`/${locale}/${projectPath}#${project.id}`} className="project-row"><div className="project-copy"><span>{String(i+1).padStart(2,'0')} —</span><h3>{project.name}</h3><small>{project.summary[locale]}</small></div><div className="project-image"><Image src={project.image} alt={`${project.name} interface`} fill sizes="(min-width:900px) 52vw,100vw" className="object-cover" style={{objectPosition:'top center'}}/></div></Link>)}<Button href={`/${locale}/${projectPath}`}>{t.projects[3]}</Button></div></div></section>
     <section className="retro-light products"><div className="retro-shell"><div className="products-head"><div><small>{t.products[0]}</small><h2>{t.products[1]}</h2></div><p>{t.products[2]}</p></div><div className="center-button"><Button href={`/${locale}/${productPath}`}>{t.products[3]}</Button></div></div></section>
     <LandingRecognitionBridge locale={locale} />
     <section className="retro-dark method"><div className="retro-shell method-grid"><div><small>{t.method[0]}</small><h2>{t.method[1]}</h2><div className="radar"><Corners/></div></div><div className="timeline">{t.method.slice(2).map((s,i)=><Focus key={s} index={i}><div className="timeline-step"><span>0{i+1}</span><h3>{s}</h3></div></Focus>)}</div></div></section>
