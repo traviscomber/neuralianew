@@ -18,34 +18,38 @@ const content = {
   es: {
     metadataTitle: "Seguridad y gobierno | N3uralia",
     metadataDescription:
-      "Seguridad y gobierno empresarial para sistemas agenticos: auditoria, control de acceso, cumplimiento y trazabilidad operacional.",
-    badge: "Seguridad empresarial",
+      "Seguridad y gobierno para sistemas agénticos: control de acceso, trazabilidad, auditoría y requisitos definidos por proyecto.",
+    badge: "Seguridad operacional",
     title: "Seguridad y gobierno",
-    subtitle: "Seguridad de nivel empresarial con gobierno, cumplimiento y auditoria incorporados desde la arquitectura.",
+    subtitle: "Controles de acceso, trazabilidad, recuperación y requisitos de cumplimiento definidos según arquitectura, datos y riesgo.",
     features: [
-      { title: "Control de acceso", desc: "Acceso basado en roles con permisos granulares.", icon: Lock },
-      { title: "Trazas de auditoria", desc: "Registros completos para todas las operaciones de agentes.", icon: Shield },
-      { title: "Listo para cumplimiento", desc: "Disenado para SOC 2, GDPR y estandares empresariales.", icon: CheckCircle2 },
+      { title: "Control de acceso", desc: "Roles y permisos granulares definidos según responsabilidades y necesidad operacional.", icon: Lock },
+      { title: "Trazas de auditoría", desc: "Acciones y evidencia relevantes pueden registrarse para revisión y atribución.", icon: Shield },
+      { title: "Compliance por contexto", desc: "Los requisitos regulatorios y contractuales se mapean para cada proyecto y proveedor.", icon: CheckCircle2 },
     ],
-    standardsTitle: "Cumplimiento y estandares",
-    ctaTitle: "Seguridad lista para empresa",
-    cta: "Hablar con ventas",
+    standardsTitle: "Cómo tratamos estándares y certificaciones",
+    standardsBody: "SOC 2, ISO 27001, HIPAA, GDPR y otros marcos pueden ser requisitos o referencias de arquitectura, pero no los presentamos como certificaciones de N3uralia salvo que exista evidencia corporativa verificable. La aplicabilidad se determina por proyecto.",
+    ctaTitle: "Revise los controles para su caso",
+    cta: "Hablar con N3uralia",
+    trust: "Ver política de confianza y evidencia",
   },
   en: {
     metadataTitle: "Security and governance | N3uralia",
     metadataDescription:
-      "Enterprise-grade security and governance for agentic systems with audit trails, access control, compliance, and operational traceability.",
-    badge: "Enterprise security",
+      "Security and governance for agentic systems with access control, traceability, auditing and project-specific requirements.",
+    badge: "Operational security",
     title: "Security and governance",
-    subtitle: "Enterprise-grade security with built-in governance, compliance, and audit capabilities.",
+    subtitle: "Access control, traceability, recovery and compliance requirements defined according to architecture, data and risk.",
     features: [
-      { title: "Access control", desc: "Role-based access with fine-grained permissions.", icon: Lock },
-      { title: "Audit trails", desc: "Complete audit logs for all agent operations.", icon: Shield },
-      { title: "Compliance ready", desc: "Built for SOC 2, GDPR, and enterprise standards.", icon: CheckCircle2 },
+      { title: "Access control", desc: "Granular roles and permissions defined by responsibility and operational need.", icon: Lock },
+      { title: "Audit trails", desc: "Relevant actions and evidence can be recorded for review and attribution.", icon: Shield },
+      { title: "Context-specific compliance", desc: "Regulatory and contractual requirements are mapped for each project and provider.", icon: CheckCircle2 },
     ],
-    standardsTitle: "Compliance and standards",
-    ctaTitle: "Enterprise-ready security",
-    cta: "Talk to sales",
+    standardsTitle: "How we handle standards and certifications",
+    standardsBody: "SOC 2, ISO 27001, HIPAA, GDPR and other frameworks can be project requirements or architectural references, but we do not present them as N3uralia certifications unless there is verifiable corporate evidence. Applicability is determined per project.",
+    ctaTitle: "Review controls for your use case",
+    cta: "Talk to N3uralia",
+    trust: "See our trust and evidence policy",
   },
 } as const
 
@@ -74,9 +78,7 @@ export default function SecurityPage({ params }: PageProps) {
             <span className="text-sm font-medium text-primary">{page.badge}</span>
           </div>
           <h1 className="text-5xl font-bold mb-6">{page.title}</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {page.subtitle}
-          </p>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{page.subtitle}</p>
         </div>
       </section>
 
@@ -97,14 +99,11 @@ export default function SecurityPage({ params }: PageProps) {
 
           <div className="space-y-6">
             <h2 className="text-3xl font-bold">{page.standardsTitle}</h2>
-            <div className="grid md:grid-cols-2 gap-4">
-              {["SOC 2 Type II", "GDPR", "HIPAA", "ISO 27001"].map((standard) => (
-                <div key={standard} className="flex items-center gap-3 p-4 border border-border/50 rounded-lg bg-card">
-                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="font-medium">{standard}</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-muted-foreground">{page.standardsBody}</p>
+            <Link href={href(locale, "/trust")} className="inline-flex items-center gap-2 text-primary font-medium">
+              {page.trust}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -112,10 +111,7 @@ export default function SecurityPage({ params }: PageProps) {
       <section className="py-20 px-4 border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-4">{page.ctaTitle}</h2>
-          <Link
-            href={href(locale, "/contact")}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all"
-          >
+          <Link href={href(locale, "/contact")} className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all">
             {page.cta}
             <ArrowRight className="w-4 h-4" />
           </Link>
