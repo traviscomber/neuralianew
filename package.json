@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "portal:check": "node scripts/check-portal-contract.mjs && node scripts/check-recognition-section04-assets.mjs",
+    "postinstall": "npm audit --json || true",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
