@@ -501,13 +501,6 @@ export default async function SolutionsPage(props: PageProps) {
               aria-hidden="true"
               className={styles.heroVisualSvg}
             />
-            <div className={styles.heroCubeLayer} aria-hidden="true">
-              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotA}`} />
-              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotB}`} />
-              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotC}`} />
-              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotD}`} />
-              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotE}`} />
-            </div>
           </div>
         </div>
       </section>
