@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
-import { Nav } from "@/components/Nav"
-import { Footer } from "@/components/Footer"
 import { Section } from "@/components/Section"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -37,25 +35,21 @@ export default function SecurityPage({ params }: PageProps) {
   ]
 
   return (
-    <>
-      <Nav locale={locale} />
-      <main style={{ minHeight: "100vh" }}>
-        <Section title={d.nav.security} subtitle={es ? "Seguridad y gobernanza basadas en arquitectura, datos y riesgo real." : "Security and governance based on architecture, data and real risk."}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginTop: "24px" }}>
-            {cards.map(([title, body]) => (
-              <div key={title} style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
-                <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>{title}</h3>
-                <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>{body}</p>
-              </div>
-            ))}
-          </div>
-          <p style={{ marginTop: "28px", fontSize: "14px", opacity: 0.8 }}>
-            {es ? "Para nuestra política pública de evidencia, límites y controles, consulta " : "For our public policy on evidence, limits and controls, see "}
-            <Link href={`/${locale}/trust`} style={{ textDecoration: "underline" }}>{es ? "Confianza y seguridad" : "Trust & security"}</Link>.
-          </p>
-        </Section>
-      </main>
-      <Footer locale={locale} />
-    </>
+    <main style={{ minHeight: "100vh" }}>
+      <Section title={d.nav.security} subtitle={es ? "Seguridad y gobernanza basadas en arquitectura, datos y riesgo real." : "Security and governance based on architecture, data and real risk."}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "24px", marginTop: "24px" }}>
+          {cards.map(([title, body]) => (
+            <div key={title} style={{ padding: "20px", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "8px" }}>
+              <h3 style={{ fontSize: "16px", fontWeight: 600, margin: "0 0 8px 0" }}>{title}</h3>
+              <p style={{ opacity: 0.8, margin: 0, fontSize: "14px" }}>{body}</p>
+            </div>
+          ))}
+        </div>
+        <p style={{ marginTop: "28px", fontSize: "14px", opacity: 0.8 }}>
+          {es ? "Para nuestra política pública de evidencia, límites y controles, consulta " : "For our public policy on evidence, limits and controls, see "}
+          <Link href={`/${locale}/trust`} style={{ textDecoration: "underline" }}>{es ? "Confianza y seguridad" : "Trust & security"}</Link>.
+        </p>
+      </Section>
+    </main>
   )
 }
