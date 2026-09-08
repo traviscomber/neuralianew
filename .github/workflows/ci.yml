@@ -1,27 +1,38 @@
 name: CI
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  cleanup:
+  verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
-      - name: Restore pre-hover hero
-        shell: bash
-        run: |
-          set -euo pipefail
-          python -c "from pathlib import Path; p=Path('app/[locale]/soluciones/page.tsx'); s=p.read_text(); a=s.index('            <div className={styles.heroCubeLayer}'); b=s.index('            </div>', a)+len('            </div>'); p.write_text(s[:a]+s[b+1:])"
-          python -c "from pathlib import Path; p=Path('app/[locale]/soluciones/solutions-mockup.module.css'); s=p.read_text(); a=s.index('\\n.heroCubeLayer{'); marker='\\n@media (max-width:900px){.heroCubeHotspot{width:16%}.heroCubeHotspotE{display:none}}\\n'; b=s.index(marker,a)+len(marker); p.write_text(s[:a]+s[b:])"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add 'app/[locale]/soluciones/page.tsx' 'app/[locale]/soluciones/solutions-mockup.module.css'
-          git commit -m "revert(solutions): restore pre-hover static hero"
-          git push origin HEAD:main
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: High-severity dependency audit
+        run: pnpm audit --audit-level high
+      - name: Portal contract
+        run: node scripts/check-portal-contract.mjs
+      - name: Recognition Section 04 asset contract
+        run: node scripts/check-recognition-section04-assets.mjs
+      - run: pnpm type-check
+      - run: pnpm lint
+      - run: pnpm build
