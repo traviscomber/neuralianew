@@ -148,10 +148,10 @@ importers:
         version: 1.42.0(react@19.1.9)
       next:
         specifier: 15.5.25
-        version: 15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.34)(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
+        version: 15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.43)(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
       next-themes:
         specifier: ^0.2.1
-        version: 0.2.1(next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.34)(react-dom@19.1.9(react@19.1.9))(react@19.1.9))(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
+        version: 0.2.1(next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.43)(react-dom@19.1.9(react@19.1.9))(react@19.1.9))(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
       openai:
         specifier: ^4.52.0
         version: 4.104.0(ws@8.21.0)(zod@3.25.76)
@@ -175,7 +175,7 @@ importers:
         version: 2.15.4(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
       sharp:
         specifier: 0.35.4
-        version: 0.35.4(@types/node@20.19.34)
+        version: 0.35.4(@types/node@20.19.43)
       sonner:
         specifier: ^1.4.32
         version: 1.7.4(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
@@ -199,8 +199,8 @@ importers:
         specifier: 15.5.25
         version: 15.5.25
       '@types/node':
-        specifier: ^20.10.6
-        version: 20.19.34
+        specifier: ^20.19.43
+        version: 20.19.43
       '@types/react':
         specifier: ^19.0.0
         version: 19.2.18
@@ -1268,8 +1268,8 @@ packages:
   '@types/node@18.19.130':
     resolution: {integrity: sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==}
 
-  '@types/node@20.19.34':
-    resolution: {integrity: sha512-by3/Z0Qp+L9cAySEsSNNwZ6WWw8ywgGLPQGgbQDhNRSitqYgkgp4pErd23ZSCavbtUA2CN4jQtoB3T8nk4j3Rg==}
+  '@types/node@20.19.43':
+    resolution: {integrity: sha512-6oYBAi5ikg4Pl+kGsoYtawUMBT2zZMCvPNF7pVLnHZfd1zf38DRiWn/gT01RYCdUqkv7Fhr+C9ot4/tb+2sVvA==}
 
   '@types/phoenix@1.6.7':
     resolution: {integrity: sha512-oN9ive//QSBkf19rfDv45M7eZPi0eEXylht2OLEXicu5b4KoQ1OzXIw+xDSGWxSxe1JmepRR/ZH283vsu518/Q==}
@@ -3521,14 +3521,14 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 20.19.34
+      '@types/node': 20.19.43
       form-data: 4.0.6
 
   '@types/node@18.19.130':
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@20.19.34':
+  '@types/node@20.19.43':
     dependencies:
       undici-types: 6.21.0
 
@@ -3544,7 +3544,7 @@ snapshots:
 
   '@types/ws@8.18.1':
     dependencies:
-      '@types/node': 20.19.34
+      '@types/node': 20.19.43
 
   '@typescript-eslint/eslint-plugin@8.62.1(@typescript-eslint/parser@8.62.1(eslint@9.39.3(jiti@1.21.7))(typescript@5.9.3))(eslint@9.39.3(jiti@1.21.7))(typescript@5.9.3)':
     dependencies:
@@ -4235,13 +4235,13 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-themes@0.2.1(next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.34)(react-dom@19.1.9(react@19.1.9))(react@19.1.9))(react-dom@19.1.9(react@19.1.9))(react@19.1.9):
+  next-themes@0.2.1(next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.43)(react-dom@19.1.9(react@19.1.9))(react@19.1.9))(react-dom@19.1.9(react@19.1.9))(react@19.1.9):
     dependencies:
-      next: 15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.34)(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
+      next: 15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.43)(react-dom@19.1.9(react@19.1.9))(react@19.1.9)
       react: 19.1.9
       react-dom: 19.1.9(react@19.1.9)
 
-  next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.34)(react-dom@19.1.9(react@19.1.9))(react@19.1.9):
+  next@15.5.25(@opentelemetry/api@1.9.0)(@types/node@20.19.43)(react-dom@19.1.9(react@19.1.9))(react@19.1.9):
     dependencies:
       '@next/env': 15.5.25
       '@swc/helpers': 0.5.15
@@ -4260,7 +4260,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 15.5.25
       '@next/swc-win32-x64-msvc': 15.5.25
       '@opentelemetry/api': 1.9.0
-      sharp: 0.35.4(@types/node@20.19.34)
+      sharp: 0.35.4(@types/node@20.19.43)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
@@ -4498,7 +4498,7 @@ snapshots:
 
   semver@7.8.5: {}
 
-  sharp@0.35.4(@types/node@20.19.34):
+  sharp@0.35.4(@types/node@20.19.43):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -4529,7 +4529,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.4
       '@img/sharp-win32-ia32': 0.35.4
       '@img/sharp-win32-x64': 0.35.4
-      '@types/node': 20.19.34
+      '@types/node': 20.19.43
 
   shebang-command@2.0.0:
     dependencies:
