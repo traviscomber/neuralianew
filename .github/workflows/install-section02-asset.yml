@@ -15,14 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: asset-section02-canonical
+          ref: main
           fetch-depth: 0
-      - name: Rebuild canonical WebP
+      - name: Rebuild canonical WebP from staging branch
         shell: bash
         run: |
           set -euo pipefail
+          git fetch origin asset-section02-canonical
           mkdir -p public/images/solutions
-          cat .asset-staging/section02/chunk-* | base64 -d > public/images/solutions/section02-control-icons.webp
+          git ls-tree -r --name-only origin/asset-section02-canonical .asset-staging/section02/ \
+            | grep '/chunk-' \
+            | sort \
+            | while read -r f; do git show "origin/asset-section02-canonical:$f"; done \
+            | base64 -d > public/images/solutions/section02-control-icons.webp
           echo "a234fe93c948f1a3491df0b814cb1bfbb4085343cbf6aa675447620c73209743  public/images/solutions/section02-control-icons.webp" | sha256sum -c -
           file public/images/solutions/section02-control-icons.webp
           ls -lh public/images/solutions/section02-control-icons.webp
@@ -30,8 +35,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          if git diff --quiet -- public/images/solutions/section02-control-icons.webp; then
+            echo "Canonical Section 02 asset is already installed."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/images/solutions/section02-control-icons.webp
           git commit -m "fix(solutions): install exact canonical section 02 asset"
-          git push origin HEAD:main
+          git push origin main
