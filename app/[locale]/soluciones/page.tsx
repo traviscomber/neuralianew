@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, Database, Fish, ShieldCheck, Sprout } from "lucide-react"
+import { ArrowRight, Fish, Sprout } from "lucide-react"
 import { SolutionsFocus } from "@/components/solutions-focus"
 import {
   AssistantIcon,
+  DataIntegrationIcon,
   DocumentIcon,
+  GovernanceIcon,
   HospitalityIcon,
   IntelligenceIcon,
   LogisticsIcon,
@@ -102,12 +104,12 @@ const content = {
       {
         title: "Data Integrations",
         text: "APIs, databases, legacy systems, spreadsheets, sensors, files and third-party tools.",
-        Icon: Database,
+        Icon: DataIntegrationIcon,
       },
       {
         title: "Governance & Human-in-the-loop",
         text: "Traceability, approvals, review states, exception handling and responsible AI workflows.",
-        Icon: ShieldCheck,
+        Icon: GovernanceIcon,
       },
     ],
 
@@ -303,12 +305,12 @@ const content = {
       {
         title: "Integraciones de Datos",
         text: "APIs, bases de datos, sistemas legacy, planillas, sensores, archivos y herramientas de terceros.",
-        Icon: Database,
+        Icon: DataIntegrationIcon,
       },
       {
         title: "Gobernanza & Human-in-the-loop",
         text: "Trazabilidad, aprobaciones, estados de revisión, excepciones y workflows de IA responsable.",
-        Icon: ShieldCheck,
+        Icon: GovernanceIcon,
       },
     ],
 

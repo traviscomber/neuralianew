@@ -63,12 +63,141 @@ export function ManualIcon(props: P) { return <BaseIcon {...props}><g stroke="cu
 export function SlowIcon(props: P) { return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}>{[18,31,44].map(r=><circle key={r} cx="60" cy="60" r={r} opacity=".5"/>)}<path d="M60 8v104M8 60h104" opacity=".24"/><path d="M60 60 91 42"/><circle cx="60" cy="60" r="4" fill="currentColor"/><circle cx="91" cy="42" r="3" fill="currentColor"/></g></BaseIcon> }
 export function TraceIcon(props: P) { return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.2" {...stroke}><rect x="20" y="22" width="70" height="72"/><rect x="30" y="12" width="70" height="72" opacity=".45"/><path d="M38 42h36M38 54h46M38 66h29"/><path d="m72 77 9 9 17-20" strokeWidth="1.6"/><circle cx="96" cy="31" r="4"/></g></BaseIcon> }
 
-export function IntelligenceIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><rect x="16" y="24" width="88" height="60" rx="1"/><path d="M24 74c12-18 22 2 32-18 11-22 19 18 31-10"/><path d="M26 38h31M26 47h20"/><path d="M44 93h32M60 84v9"/></g></BaseIcon>}
-export function WorkflowIconCustom(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><circle cx="60" cy="26" r="7"/><circle cx="26" cy="60" r="7"/><circle cx="94" cy="60" r="7"/><circle cx="60" cy="94" r="7"/><circle cx="60" cy="60" r="7" fill="currentColor" opacity=".15"/><path d="M60 33v20M33 60h20M67 60h20M60 67v20"/></g></BaseIcon>}
-export function AssistantIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><rect x="18" y="28" width="70" height="48" rx="2"/><path d="m34 76-10 14 24-14"/><path d="M32 44h42M32 55h30"/><circle cx="93" cy="66" r="11"/><path d="M89 66h8M93 62v8"/></g></BaseIcon>}
-export function DocumentIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><path d="M26 16h50l18 18v70H26z"/><path d="M76 16v18h18"/><path d="M38 46h38M38 58h32M38 70h25"/><circle cx="80" cy="80" r="15"/><path d="m91 91 12 12"/></g></BaseIcon>}
-export function RecognitionIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><path d="M23 40V23h17M80 23h17v17M97 80v17H80M40 97H23V80"/><path d="M38 63c5-18 39-22 44 0-6 21-37 24-44 0Z"/><circle cx="60" cy="61" r="8"/><path d="M60 34v8M60 82v8M34 60h8M78 60h8" opacity=".4"/></g></BaseIcon>}
-export function PlatformIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><path d="m60 15 20 11v22L60 59 40 48V26z"/><path d="m30 56 20 11v22L30 100 10 89V67zM90 56l20 11v22L90 100 70 89V67z"/><path d="M60 59v18M50 77H30M70 77h20" opacity=".5"/></g></BaseIcon>}
+export function IntelligenceIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M18 22h84l4 4v60l-4 4H18l-4-4V26z" />
+        <path d="M26 35h16M26 43h10M26 51h20" opacity=".38" />
+        <path d="M29 76c10-16 18-4 26-17 9-15 16 11 27-7 7-12 14-8 20-17" />
+        <path d="M55 29v54M82 29v54" opacity=".32" strokeDasharray="3 5" />
+        <circle cx="55" cy="59" r="3" fill="currentColor" />
+        <circle cx="82" cy="52" r="3" fill="currentColor" />
+        <path d="M31 90v8M45 90v8M59 90v8M73 90v8M87 90v8M20 98h80" opacity=".38" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function WorkflowIconCustom(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M18 32h16v16H18zM52 24h16v16H52zM86 36h16v16H86zM52 78h16v16H52z" />
+        <path d="M34 40h10c6 0 8-8 8-8M68 32h8c8 0 10 12 10 12M94 52v12c0 8-10 14-18 14h-8M52 86H40c-10 0-14-8-14-18V48" />
+        <path d="M44 32h8M76 32h10M94 64v8M40 86h12" opacity=".38" strokeDasharray="3 5" />
+        <circle cx="60" cy="59" r="10" />
+        <path d="M55 59h10M60 54v10" opacity=".55" />
+        <circle cx="26" cy="68" r="2.5" fill="currentColor" />
+        <circle cx="94" cy="66" r="2.5" fill="currentColor" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function AssistantIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M24 30h58l8 8v42H24z" />
+        <path d="M32 22h58l8 8v42M16 38h58v50H16z" opacity=".38" />
+        <path d="M34 49h28M34 58h20M34 67h30" />
+        <path d="M74 42h18v18H74z" />
+        <path d="m83 46 4 5-4 5-4-5z" fill="currentColor" opacity=".08" />
+        <path d="M55 80v12h21" />
+        <circle cx="80" cy="92" r="4" />
+        <path d="M84 92h17M92 86v12" opacity=".38" strokeDasharray="3 5" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function DocumentIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M28 18h48l16 16v60H28z" />
+        <path d="M76 18v16h16" />
+        <path d="M20 28h48l16 16v60H20z" opacity=".38" />
+        <path d="M35 48h34M35 58h26M35 68h30" />
+        <path d="M31 75h44" opacity=".38" strokeDasharray="3 5" />
+        <path d="M80 50h18M89 41v18" opacity=".38" />
+        <circle cx="86" cy="76" r="9" />
+        <path d="m82 76 3 3 6-7" />
+        <path d="M26 86h28" opacity=".38" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function RecognitionIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M18 40V20h20M82 20h20v20M102 80v20H82M38 100H18V80" />
+        <circle cx="60" cy="60" r="23" opacity=".38" />
+        <circle cx="60" cy="60" r="9" />
+        <circle cx="60" cy="60" r="3" fill="currentColor" />
+        <path d="M30 60h17M73 60h17M60 30v17M60 73v17" opacity=".38" strokeDasharray="3 5" />
+        <path d="M40 45c8-7 14-10 20-10 10 0 18 7 28 22M34 70c10 8 18 12 26 12 9 0 16-4 27-14" />
+        <circle cx="88" cy="57" r="3" fill="currentColor" />
+        <circle cx="34" cy="70" r="2.5" fill="currentColor" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function PlatformIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M60 18 86 32 60 46 34 32zM60 46 86 60 60 74 34 60zM60 74 86 88 60 102 34 88z" />
+        <path d="M34 32v28M86 32v28M34 60v28M86 60v28" opacity=".38" />
+        <path d="M19 48h15M86 48h15M19 76h15M86 76h15" opacity=".38" strokeDasharray="3 5" />
+        <path d="M14 43h5v10h-5zM101 43h5v10h-5zM14 71h5v10h-5zM101 71h5v10h-5z" />
+        <circle cx="60" cy="60" r="4" fill="currentColor" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function DataIntegrationIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M14 24h14v14H14z" />
+        <circle cx="21" cy="60" r="7" />
+        <path d="M14 85h14l7 7-7 7H14z" />
+        <path d="M28 31h14c8 0 11 10 18 18M28 60h16c8 0 10 0 16 0M35 92h8c10 0 11-14 17-20" />
+        <path d="M60 44h20l10 10v20L80 84H60L50 74V54z" />
+        <path d="M60 56h20M60 64h14M60 72h18" />
+        <path d="M90 60h14M90 68h14M45 52h8M45 68h8" opacity=".38" strokeDasharray="3 5" />
+        <circle cx="104" cy="60" r="3" fill="currentColor" />
+        <circle cx="104" cy="68" r="3" />
+      </g>
+    </BaseIcon>
+  )
+}
+
+export function GovernanceIcon(props: P) {
+  return (
+    <BaseIcon {...props}>
+      <g stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" strokeLinejoin="miter" {...stroke}>
+        <path d="M36 20h48l16 16v48L84 100H36L20 84V36z" opacity=".38" />
+        <path d="M28 45h18l8 8M28 61h22M28 77h18l8-8" />
+        <circle cx="61" cy="61" r="11" />
+        <circle cx="61" cy="61" r="3" fill="currentColor" />
+        <path d="M72 61h12c7 0 12-5 12-12v-8" />
+        <path d="M86 33h14v14M100 33 88 45" />
+        <path d="M61 72v16M45 90h32" opacity=".38" strokeDasharray="3 5" />
+        <path d="M34 90v8M46 90v8M58 90v8M70 90v8M82 90v8" opacity=".38" />
+        <circle cx="28" cy="45" r="2.3" fill="currentColor" />
+        <circle cx="28" cy="61" r="2.3" />
+        <circle cx="28" cy="77" r="2.3" />
+      </g>
+    </BaseIcon>
+  )
+}
 
 export function RetailIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.25" {...stroke}><path d="M15 28h14l9 45h48l12-32H36"/><circle cx="48" cy="88" r="7"/><circle cx="82" cy="88" r="7"/><path d="M45 50h39M54 38v33M70 38v33" opacity=".4"/></g></BaseIcon>}
 export function MiningIcon(props:P){return <BaseIcon {...props}><g stroke="currentColor" strokeWidth="1.2" {...stroke}><path d="m14 86 29-48 18 26 17-35 28 57Z"/><path d="M31 86 48 58l12 12 17-26 15 42" opacity=".45"/><circle cx="77" cy="29" r="3" fill="currentColor"/></g></BaseIcon>}
