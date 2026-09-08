@@ -4,259 +4,58 @@ import Link from "next/link"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 
-interface CapabilitiesPageClientProps {
-  locale: 'es' | 'en'
-}
+interface CapabilitiesPageClientProps { locale: 'es' | 'en' }
 
 export function CapabilitiesPageClient({ locale }: CapabilitiesPageClientProps) {
   const isES = locale === 'es'
   const href = (path: string) => `/${locale}${path}`
-
   const content = {
     heroTitle: isES ? "Capacidades Técnicas" : "Technical Capabilities",
-    heroDesc: isES ? "Arquitectura modular y escalable para sistemas inteligentes en producción" : "Modular and scalable architecture for intelligent systems in production",
-    
+    heroDesc: isES ? "Arquitectura modular para sistemas inteligentes en producción" : "Modular architecture for intelligent systems in production",
     tabPillars: isES ? "6 Pilares" : "6 Pillars",
-    tabLiving: isES ? "Living Agents" : "Living Agents",
+    tabLiving: "Living Agents",
     tabConversational: isES ? "Inteligencia Conversacional" : "Conversational Intelligence",
     tabProduction: isES ? "En Producción" : "In Production",
   }
 
   const sixPillars = [
-    {
-      titleES: "Arquitectura Agentica",
-      titleEN: "Agentic Architecture",
-      descES: "Agentes autónomos con memoria persistente y toma de decisiones mejorada",
-      descEN: "Autonomous agents with persistent memory and enhanced decision making",
-      features: isES 
-        ? ["Planificación & Reasoning", "Workflows Multi-paso", "Uso Dinámico de Herramientas", "Conciencia de Contexto"]
-        : ["Planning & Reasoning", "Multi-step Workflows", "Dynamic Tool Usage", "Context Awareness"],
-    },
-    {
-      titleES: "Living Agents",
-      titleEN: "Living Agents",
-      descES: "Agentes que evolucionan, aprenden y mejoran continuamente",
-      descEN: "Agents that evolve, learn and continuously improve",
-      features: isES 
-        ? ["Aprendizaje Continuo", "Auto-Optimización", "Adaptación de Comportamiento", "Seguimiento de Desempeño"]
-        : ["Continuous Learning", "Self-Optimization", "Behavior Adaptation", "Performance Tracking"],
-    },
-    {
-      titleES: "Orquestación Multi-Agente",
-      titleEN: "Multi-Agent Coordination",
-      descES: "Coordinación inteligente de múltiples agentes trabajando en paralelo",
-      descEN: "Intelligent coordination of multiple agents working in parallel",
-      features: isES 
-        ? ["Distribución de Tareas", "Optimización de Recursos", "Resolución de Conflictos", "Inteligencia Colectiva"]
-        : ["Task Distribution", "Resource Optimization", "Conflict Resolution", "Collective Intelligence"],
-    },
-    {
-      titleES: "Inteligencia Conversacional",
-      titleEN: "Conversational Intelligence",
-      descES: "Diálogos naturales con comprensión profunda del contexto",
-      descEN: "Natural dialogues with deep context understanding",
-      features: isES 
-        ? ["NLP Avanzado", "Preservación de Contexto", "Reconocimiento de Intención", "Respuestas Dinámicas"]
-        : ["Advanced NLP", "Context Preservation", "Intent Recognition", "Dynamic Responses"],
-    },
-    {
-      titleES: "Síntesis de Conocimiento",
-      titleEN: "Knowledge Synthesis",
-      descES: "Integración y procesamiento de múltiples fuentes de información",
-      descEN: "Integration and processing of multiple information sources",
-      features: isES 
-        ? ["Integración de Datos", "Reconocimiento de Patrones", "Gráficos de Conocimiento", "Procesamiento Real-time"]
-        : ["Data Integration", "Pattern Recognition", "Knowledge Graphs", "Real-time Processing"],
-    },
-    {
-      titleES: "Comunicación Empática",
-      titleEN: "Empathic Communication",
-      descES: "Comunicación personalizada que genera conexión y confianza",
-      descEN: "Personalized communication that builds connection and trust",
-      features: isES 
-        ? ["Análisis de Sentimiento", "Adaptación de Tono", "Matching de Personalidad", "Optimización de Engagement"]
-        : ["Sentiment Analysis", "Tone Adaptation", "Personality Matching", "Engagement Optimization"],
-    },
+    { titleES: "Arquitectura Agéntica", titleEN: "Agentic Architecture", descES: "Agentes con contexto, herramientas, memoria y límites definidos por el proceso", descEN: "Agents with context, tools, memory and boundaries defined by the process", features: isES ? ["Planificación & reasoning", "Workflows multi-paso", "Uso de herramientas", "Contexto operacional"] : ["Planning & reasoning", "Multi-step workflows", "Tool use", "Operational context"] },
+    { titleES: "Living Agents", titleEN: "Living Agents", descES: "Agentes que incorporan feedback y evolución controlada cuando el caso lo requiere", descEN: "Agents that incorporate feedback and controlled evolution when the use case requires it", features: isES ? ["Memoria persistente", "Feedback loops", "Versionado", "Seguimiento de desempeño"] : ["Persistent memory", "Feedback loops", "Versioning", "Performance tracking"] },
+    { titleES: "Orquestación Multi-Agente", titleEN: "Multi-Agent Coordination", descES: "Coordinación de especialistas con responsabilidades y handoffs explícitos", descEN: "Coordination of specialists with explicit responsibilities and handoffs", features: isES ? ["Distribución de tareas", "Permisos por rol", "Escalamiento", "Trazabilidad"] : ["Task distribution", "Role-based permissions", "Escalation", "Traceability"] },
+    { titleES: "Inteligencia Conversacional", titleEN: "Conversational Intelligence", descES: "Interfaces de lenguaje natural conectadas a contexto y datos autorizados", descEN: "Natural-language interfaces connected to authorized context and data", features: isES ? ["Comprensión de intención", "Contexto", "RAG", "Respuestas con evidencia"] : ["Intent understanding", "Context", "RAG", "Evidence-grounded responses"] },
+    { titleES: "Síntesis de Conocimiento", titleEN: "Knowledge Synthesis", descES: "Integración y procesamiento de fuentes operacionales con lineage visible", descEN: "Integration and processing of operational sources with visible lineage", features: isES ? ["Integración de datos", "Búsqueda semántica", "Grafos de conocimiento", "Validación"] : ["Data integration", "Semantic search", "Knowledge graphs", "Validation"] },
+    { titleES: "Interacción Adaptativa", titleEN: "Adaptive Interaction", descES: "Tono, formato y nivel de detalle adaptados al usuario y al contexto sin alterar la verdad canónica", descEN: "Tone, format and detail adapted to the user and context without changing canonical truth", features: isES ? ["Tono configurable", "Contexto de usuario", "Formatos estructurados", "Guardrails"] : ["Configurable tone", "User context", "Structured formats", "Guardrails"] },
   ]
 
   const livingAgentsFeatures = [
-    {
-      titleES: "Memoria Persistente",
-      titleEN: "Persistent Memory",
-      descES: "Los agentes recuerdan interacciones previas y aprenden continuamente",
-      descEN: "Agents remember previous interactions and learn continuously",
-    },
-    {
-      titleES: "Auto-Optimización",
-      titleEN: "Self-Optimization",
-      descES: "Mejora continua basada en feedback y resultados medibles",
-      descEN: "Continuous improvement based on feedback and measurable results",
-    },
-    {
-      titleES: "Comportamiento Adaptivo",
-      titleEN: "Adaptive Behavior",
-      descES: "Cambian estrategia según contexto, usuario y objetivos",
-      descEN: "Adapt strategy based on context, user and objectives",
-    },
-    {
-      titleES: "Inteligencia Predictiva",
-      titleEN: "Predictive Intelligence",
-      descES: "Anticipan necesidades y toman acciones proactivas",
-      descEN: "Anticipate needs and take proactive actions",
-    },
+    { titleES: "Memoria Persistente", titleEN: "Persistent Memory", descES: "Contexto histórico cuando el caso y las políticas de datos lo permiten", descEN: "Historical context when the use case and data policies allow it" },
+    { titleES: "Mejora Controlada", titleEN: "Controlled Improvement", descES: "Feedback y evaluación antes de promover cambios de comportamiento", descEN: "Feedback and evaluation before promoting behavioral changes" },
+    { titleES: "Comportamiento Adaptativo", titleEN: "Adaptive Behavior", descES: "Estrategias condicionadas por contexto, permisos y objetivos definidos", descEN: "Strategies conditioned by context, permissions and defined objectives" },
+    { titleES: "Señales Predictivas", titleEN: "Predictive Signals", descES: "Modelos predictivos cuando existen datos y validación suficientes", descEN: "Predictive models when sufficient data and validation exist" },
   ]
 
   const conversationalFeatures = [
-    {
-      titleES: "Comprensión de Contexto",
-      titleEN: "Context Understanding",
-      descES: "Comprende matices, implicaciones y trasfondo de cada conversación",
-      descEN: "Understands nuances, implications and context of every conversation",
-    },
-    {
-      titleES: "Diálogos Naturales",
-      titleEN: "Natural Dialogues",
-      descES: "Respuestas fluidas que generan confianza y conexión",
-      descEN: "Fluid responses that build trust and connection",
-    },
-    {
-      titleES: "Conversaciones Multi-turno",
-      titleEN: "Multi-turn Conversations",
-      descES: "Mantiene coherencia en conversaciones largas y complejas",
-      descEN: "Maintains coherence in long and complex conversations",
-    },
-    {
-      titleES: "Inteligencia Emocional",
-      titleEN: "Emotional Intelligence",
-      descES: "Reconoce y responde a estados emocionales del usuario",
-      descEN: "Recognizes and responds to user emotional states",
-    },
+    { titleES: "Comprensión de Contexto", titleEN: "Context Understanding", descES: "Conecta la conversación con datos y documentos autorizados", descEN: "Connects the conversation with authorized data and documents" },
+    { titleES: "Diálogos Naturales", titleEN: "Natural Dialogues", descES: "Interfaces conversacionales diseñadas para reducir fricción operacional", descEN: "Conversational interfaces designed to reduce operational friction" },
+    { titleES: "Conversaciones Multi-turno", titleEN: "Multi-turn Conversations", descES: "Mantiene estado y referencias relevantes durante el flujo", descEN: "Maintains relevant state and references throughout the workflow" },
+    { titleES: "Escalamiento Humano", titleEN: "Human Escalation", descES: "Deriva ambigüedad o decisiones de alto impacto a responsables autorizados", descEN: "Escalates ambiguity or high-impact decisions to authorized owners" },
   ]
 
   const productionFeatures = [
-    {
-      titleES: "99.9% Disponibilidad",
-      titleEN: "99.9% Uptime SLA",
-      descES: "Infraestructura redundante y monitoreo 24/7",
-      descEN: "Redundant infrastructure and 24/7 monitoring",
-    },
-    {
-      titleES: "Seguridad Empresarial",
-      titleEN: "Enterprise Security",
-      descES: "Encriptación, compliance (SOC 2, GDPR), auditoría completa",
-      descEN: "Encryption, compliance (SOC 2, GDPR), complete auditing",
-    },
-    {
-      titleES: "Escalabilidad",
-      titleEN: "Scalability",
-      descES: "Desde miles hasta millones de interacciones simultáneas",
-      descEN: "From thousands to millions of simultaneous interactions",
-    },
-    {
-      titleES: "Analítica Real-time",
-      titleEN: "Real-time Analytics",
-      descES: "Métricas, insights y dashboards en tiempo real",
-      descEN: "Metrics, insights and real-time dashboards",
-    },
+    { titleES: "Observabilidad y Recuperación", titleEN: "Observability & Recovery", descES: "Monitoreo, alertas, reintentos y rollback definidos según criticidad", descEN: "Monitoring, alerts, retries and rollback defined by criticality" },
+    { titleES: "Seguridad por Arquitectura", titleEN: "Architecture-led Security", descES: "Control de acceso, cifrado, secretos, auditoría y requisitos de compliance definidos por proyecto", descEN: "Access control, encryption, secrets, auditing and compliance requirements defined per project" },
+    { titleES: "Escala Medible", titleEN: "Measured Scale", descES: "Capacidad, límites y costos se validan con carga y patrones reales antes de prometer escala", descEN: "Capacity, limits and cost are validated with real load and usage patterns before scale is promised" },
+    { titleES: "Métricas Operacionales", titleEN: "Operational Metrics", descES: "Métricas y dashboards conectados a fuentes y definiciones trazables", descEN: "Metrics and dashboards connected to traceable sources and definitions" },
   ]
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="py-20 border-b border-border px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl font-bold mb-4">{content.heroTitle}</h1>
-          <p className="text-xl text-muted-foreground">{content.heroDesc}</p>
-        </div>
-      </section>
-
-      {/* 6 Pillars Section */}
-      <section id="pillars" className="py-20 px-4 border-b border-border">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{content.tabPillars}</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sixPillars.map((pillar, idx) => (
-              <div key={idx} className="p-6 border border-border rounded-lg hover:border-primary/50 hover:shadow-lg transition-all">
-                <h3 className="text-xl font-bold mb-3">{isES ? pillar.titleES : pillar.titleEN}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{isES ? pillar.descES : pillar.descEN}</p>
-                <ul className="space-y-2">
-                  {pillar.features.map((feature, i) => (
-                    <li key={i} className="text-sm flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Living Agents Section */}
-      <section id="living-agents" className="py-20 px-4 border-b border-border bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{content.tabLiving}</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {livingAgentsFeatures.map((feature, idx) => (
-              <div key={idx} className="p-6 bg-background border border-border rounded-lg">
-                <h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3>
-                <p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Conversational Intelligence Section */}
-      <section id="conversational" className="py-20 px-4 border-b border-border">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{content.tabConversational}</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {conversationalFeatures.map((feature, idx) => (
-              <div key={idx} className="p-6 bg-muted/50 border border-border rounded-lg">
-                <h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3>
-                <p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Production Ready Section */}
-      <section id="production" className="py-20 px-4 border-b border-border bg-muted/30">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center">{content.tabProduction}</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {productionFeatures.map((feature, idx) => (
-              <div key={idx} className="p-6 bg-background border border-border rounded-lg">
-                <h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3>
-                <p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 px-4 bg-background">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            {isES ? "¿Listo para implementar?" : "Ready to implement?"}
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            {isES ? "Descubre cómo N3uralia puede transformar tu negocio" : "Discover how N3uralia can transform your business"}
-          </p>
-          <Link
-            href={href("/contact")}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-          >
-            {isES ? "Contáctanos" : "Contact Us"}
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
-
+      <section className="py-20 border-b border-border px-4"><div className="max-w-4xl mx-auto text-center"><h1 className="text-5xl font-bold mb-4">{content.heroTitle}</h1><p className="text-xl text-muted-foreground">{content.heroDesc}</p></div></section>
+      <section id="pillars" className="py-20 px-4 border-b border-border"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabPillars}</h2><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">{sixPillars.map((pillar) => <div key={pillar.titleEN} className="p-6 border border-border rounded-lg hover:border-primary/50 hover:shadow-lg transition-all"><h3 className="text-xl font-bold mb-3">{isES ? pillar.titleES : pillar.titleEN}</h3><p className="text-sm text-muted-foreground mb-4">{isES ? pillar.descES : pillar.descEN}</p><ul className="space-y-2">{pillar.features.map((feature) => <li key={feature} className="text-sm flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5"/><span>{feature}</span></li>)}</ul></div>)}</div></div></section>
+      <section id="living-agents" className="py-20 px-4 border-b border-border bg-muted/30"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabLiving}</h2><div className="grid md:grid-cols-2 gap-8">{livingAgentsFeatures.map((feature) => <div key={feature.titleEN} className="p-6 bg-background border border-border rounded-lg"><h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3><p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p></div>)}</div></div></section>
+      <section id="conversational" className="py-20 px-4 border-b border-border"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabConversational}</h2><div className="grid md:grid-cols-2 gap-8">{conversationalFeatures.map((feature) => <div key={feature.titleEN} className="p-6 bg-muted/50 border border-border rounded-lg"><h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3><p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p></div>)}</div></div></section>
+      <section id="production" className="py-20 px-4 border-b border-border bg-muted/30"><div className="max-w-6xl mx-auto"><h2 className="text-3xl font-bold mb-12 text-center">{content.tabProduction}</h2><div className="grid md:grid-cols-2 gap-8">{productionFeatures.map((feature) => <div key={feature.titleEN} className="p-6 bg-background border border-border rounded-lg"><h3 className="text-lg font-bold mb-2">{isES ? feature.titleES : feature.titleEN}</h3><p className="text-sm text-muted-foreground">{isES ? feature.descES : feature.descEN}</p></div>)}</div></div></section>
+      <section className="py-20 px-4 bg-background"><div className="max-w-2xl mx-auto text-center"><h2 className="text-3xl font-bold mb-4">{isES ? "¿Listo para evaluar un caso?" : "Ready to evaluate a use case?"}</h2><p className="text-lg text-muted-foreground mb-8">{isES ? "Revisamos datos, arquitectura, riesgo y valor antes de definir el sistema." : "We review data, architecture, risk and value before defining the system."}</p><Link href={href("/contact")} className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">{isES ? "Contáctanos" : "Contact Us"}<ArrowRight className="w-4 h-4"/></Link></div></section>
       <Footer />
     </main>
   )
