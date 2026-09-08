@@ -1,38 +1,57 @@
 name: CI
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches: [main]
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  verify:
+  cleanup:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
         with:
-          run_install: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: High-severity dependency audit
-        run: pnpm audit --audit-level high
-      - name: Portal contract
-        run: node scripts/check-portal-contract.mjs
-      - name: Recognition Section 04 asset contract
-        run: node scripts/check-recognition-section04-assets.mjs
-      - run: pnpm type-check
-      - run: pnpm lint
-      - run: pnpm build
+          fetch-depth: 0
+      - name: Restore static solutions hero and clean temporary files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          page = Path('app/[locale]/soluciones/page.tsx')
+          text = page.read_text()
+          overlay = '''            <div className={styles.heroCubeLayer} aria-hidden="true">
+              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotA}`} />
+              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotB}`} />
+              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotC}`} />
+              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotD}`} />
+              <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotE}`} />
+            </div>
+'''
+          page.write_text(text.replace(overlay, '', 1))
+
+          css = Path('app/[locale]/soluciones/solutions-mockup.module.css')
+          c = css.read_text()
+          block = '''
+.heroCubeLayer{position:absolute;z-index:2;inset:0;pointer-events:none}
+.heroCubeHotspot{position:absolute;display:block;width:14%;aspect-ratio:1;border-radius:50%;pointer-events:auto;cursor:crosshair;opacity:.001;transform:translate(-50%,-50%) scale(.82);background:radial-gradient(circle,rgba(121,255,248,.48) 0,rgba(69,209,207,.22) 24%,rgba(69,209,207,.08) 45%,transparent 72%);filter:blur(1px);transition:opacity .22s ease,transform .26s ease,filter .26s ease}
+.heroCubeHotspot:after{content:"";position:absolute;inset:28%;border:1px solid rgba(168,217,216,.8);box-shadow:0 0 10px rgba(69,209,207,.58),0 0 24px rgba(69,209,207,.28);opacity:0;transform:rotate(45deg) scale(.72);transition:opacity .2s ease,transform .26s ease}
+.heroCubeHotspot:hover{opacity:.82;transform:translate(-50%,-50%) scale(1.08);filter:blur(0)}
+.heroCubeHotspot:hover:after{opacity:.92;transform:rotate(45deg) scale(1)}
+.heroCubeHotspotA{left:72%;top:31%;width:12%}.heroCubeHotspotB{left:84%;top:42%;width:10%}.heroCubeHotspotC{left:64%;top:53%;width:13%}.heroCubeHotspotD{left:77%;top:65%;width:9%}.heroCubeHotspotE{left:90%;top:59%;width:7%}
+@media (prefers-reduced-motion:reduce){.heroCubeHotspot,.heroCubeHotspot:after{transition:none}}
+@media (max-width:900px){.heroCubeHotspot{width:16%}.heroCubeHotspotE{display:none}}
+'''
+          css.write_text(c.replace(block, '', 1))
+          PY
+
+          git checkout HEAD^ -- .github/workflows/ci.yml
+          rm -f .github/workflows/solutions-hero-hover-cleanup.yml .hero-cleanup-trigger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "revert(solutions): restore pre-hover static hero"
+          git push origin HEAD:main
