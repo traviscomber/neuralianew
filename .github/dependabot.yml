@@ -7,39 +7,34 @@ updates:
       day: monday
       time: "09:00"
       timezone: America/Sao_Paulo
-    open-pull-requests-limit: 10
-    allow:
-      - dependency-type: production
-        update-types:
-          - version-update:semver-minor
-          - version-update:semver-patch
-      - dependency-type: development
-        update-types:
-          - version-update:semver-minor
-          - version-update:semver-patch
+    # Security-only mode: do not open routine version-update PRs.
+    open-pull-requests-limit: 0
     groups:
-      production-dependencies:
-        dependency-type: production
-        update-types:
-          - minor
-          - patch
-      development-dependencies:
-        dependency-type: development
-        update-types:
-          - minor
-          - patch
+      npm-security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
     labels:
       - dependencies
       - automated
+      - security
     commit-message:
-      prefix: chore(deps)
+      prefix: chore(security-deps)
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: monthly
+    # Keep Actions quiet unless GitHub surfaces a security update.
+    open-pull-requests-limit: 0
+    groups:
+      actions-security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
     labels:
       - dependencies
       - github-actions
+      - security
     commit-message:
-      prefix: chore(actions)
+      prefix: chore(security-actions)
