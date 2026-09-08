@@ -20,10 +20,8 @@ jobs:
           set -euo pipefail
           python -c "from pathlib import Path; p=Path('app/[locale]/soluciones/page.tsx'); s=p.read_text(); a=s.index('            <div className={styles.heroCubeLayer}'); b=s.index('            </div>', a)+len('            </div>'); p.write_text(s[:a]+s[b+1:])"
           python -c "from pathlib import Path; p=Path('app/[locale]/soluciones/solutions-mockup.module.css'); s=p.read_text(); a=s.index('\\n.heroCubeLayer{'); marker='\\n@media (max-width:900px){.heroCubeHotspot{width:16%}.heroCubeHotspotE{display:none}}\\n'; b=s.index(marker,a)+len(marker); p.write_text(s[:a]+s[b:])"
-          git checkout HEAD^ -- .github/workflows/ci.yml
-          rm -f .github/workflows/solutions-hero-hover-cleanup.yml .hero-cleanup-trigger
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add 'app/[locale]/soluciones/page.tsx' 'app/[locale]/soluciones/solutions-mockup.module.css'
           git commit -m "revert(solutions): restore pre-hover static hero"
           git push origin HEAD:main
