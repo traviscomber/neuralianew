@@ -24,7 +24,7 @@ jobs:
           git fetch origin asset-section02-canonical
           mkdir -p public/images/solutions
           git ls-tree -r --name-only origin/asset-section02-canonical .asset-staging/section02/ \
-            | grep '/chunk-' \
+            | grep '/part-' \
             | sort \
             | while read -r f; do git show "origin/asset-section02-canonical:$f"; done \
             | base64 -d > public/images/solutions/section02-control-icons.webp
