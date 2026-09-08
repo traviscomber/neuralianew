@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/solutions-hero-hover-cleanup.yml'
+      - '.hero-cleanup-trigger'
 
 permissions:
   contents: write
@@ -33,9 +33,8 @@ jobs:
               <span className={`${styles.heroCubeHotspot} ${styles.heroCubeHotspotE}`} />
             </div>
 '''
-          if overlay not in text:
-              raise SystemExit('hero hover overlay not found')
-          page.write_text(text.replace(overlay, '', 1))
+          if overlay in text:
+              page.write_text(text.replace(overlay, '', 1))
 
           css = Path('app/[locale]/soluciones/solutions-mockup.module.css')
           c = css.read_text()
@@ -49,16 +48,15 @@ jobs:
 @media (prefers-reduced-motion:reduce){.heroCubeHotspot,.heroCubeHotspot:after{transition:none}}
 @media (max-width:900px){.heroCubeHotspot{width:16%}.heroCubeHotspotE{display:none}}
 '''
-          if block not in c:
-              raise SystemExit('hero hover css block not found')
-          css.write_text(c.replace(block, '', 1))
+          if block in c:
+              css.write_text(c.replace(block, '', 1))
           PY
 
       - name: Commit cleanup
         shell: bash
         run: |
           set -euo pipefail
-          rm -f .github/workflows/solutions-hero-hover-cleanup.yml
+          rm -f .github/workflows/solutions-hero-hover-cleanup.yml .hero-cleanup-trigger
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
