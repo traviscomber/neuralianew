@@ -6,6 +6,7 @@ export const coreSitemapRoutes = [
   ['/blog', 0.8, 'weekly'],
   ['/faq', 0.75, 'monthly'],
   ['/about', 0.75, 'monthly'],
+  ['/trust', 0.75, 'monthly'],
   ['/contact', 0.6, 'monthly'],
   ['/capabilities', 0.6, 'monthly'],
   ['/como-trabajamos', 0.6, 'monthly'],
