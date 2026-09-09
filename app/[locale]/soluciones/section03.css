@@ -1,4 +1,4 @@
-/* Section 03 — canonical rebuild. Transparent PNG assets only. */
+/* Section 03 — canonical rebuild. Transparent assets only. */
 #expertise{
   position:relative;
   scroll-margin-top:96px;
@@ -102,6 +102,9 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   filter:none!important;
   opacity:1!important;
 }
+#expertise .section03-card:nth-child(1) .section03-asset{content:url('/images/solutions/section03/operational-intelligence-rebuilt.svg')!important}
+#expertise .section03-card:nth-child(2) .section03-asset{content:url('/images/solutions/section03/workflow-automation-rebuilt.svg')!important}
+#expertise .section03-card:nth-child(6) .section03-asset{content:url('/images/solutions/section03/internal-platforms-rebuilt.svg')!important}
 #expertise .section03-card h3{
   margin:0!important;
   max-width:270px!important;
