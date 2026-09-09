@@ -66,49 +66,65 @@ const content = {
       },
     ],
 
-    expertiseLabel: "AREAS OF EXPERTISE",
-    expertiseTitle: "Areas of expertise.",
+    expertiseLabel: "SOLUTIONS",
+    expertiseTitle: "Areas of expertise",
     expertiseBody:
       "The core disciplines we combine to build operational systems, from visibility and automation to AI, recognition and governance.",
     expertise: [
       {
         title: "Operational Intelligence",
         text: "Dashboards, command centers, operational visibility and executive control.",
+        action: "VISUALIZE",
+        image: "/images/solutions/section03/operational-intelligence.png",
         Icon: IntelligenceIcon,
       },
       {
         title: "Workflow Automation",
-        text: "Approvals, alerts, task routing, handoffs and recurring process automation.",
+        text: "Approvals, alerts, task routing and recurring process automation.",
+        action: "AUTOMATE",
+        image: "/images/solutions/section03/workflow-automation.png",
         Icon: WorkflowIconCustom,
       },
       {
         title: "AI Assistants",
-        text: "Role-aware assistants trained on operational context, documents and data.",
+        text: "Role-aware assistants trained on your operational context, documents and data.",
+        action: "ASSIST",
+        image: "/images/solutions/section03/ai-assistants.png",
         Icon: AssistantIcon,
       },
       {
         title: "Document Intelligence",
-        text: "Extraction, classification, validation, auditability and structured document workflows.",
+        text: "Extraction, classification, validation, auditability and structured workflows.",
+        action: "STRUCTURE",
+        image: "/images/solutions/section03/document-intelligence.png",
         Icon: DocumentIcon,
       },
       {
         title: "Recognition Systems",
         text: "Computer vision for visual events, quality signals, security, wildlife, livestock and production monitoring.",
+        action: "DETECT",
+        image: "/images/solutions/section03/recognition-systems.png",
         Icon: RecognitionIcon,
       },
       {
         title: "Internal Platforms",
         text: "Custom portals, permissions, user flows, operational modules and reporting layers.",
+        action: "DEPLOY",
+        image: "/images/solutions/section03/internal-platforms.png",
         Icon: PlatformIcon,
       },
       {
         title: "Data Integrations",
-        text: "APIs, databases, legacy systems, spreadsheets, sensors, files and third-party tools.",
+        text: "APIs, databases, legacy systems, sensors, files and third-party tools.",
+        action: "CONNECT",
+        image: "/images/solutions/section03/data-integrations.png",
         Icon: DataIntegrationIcon,
       },
       {
         title: "Governance & Human-in-the-loop",
-        text: "Traceability, approvals, review states, exception handling and responsible AI workflows.",
+        text: "Traceability, approvals, risk controls and responsible AI workflows.",
+        action: "TRUST",
+        image: "/images/solutions/section03/governance-human-loop.png",
         Icon: GovernanceIcon,
       },
     ],
@@ -267,49 +283,65 @@ const content = {
       },
     ],
 
-    expertiseLabel: "ÁREAS DE EXPERTISE",
-    expertiseTitle: "Áreas de expertise.",
+    expertiseLabel: "SOLUCIONES",
+    expertiseTitle: "Áreas de expertise",
     expertiseBody:
       "Las disciplinas centrales que combinamos para construir sistemas operacionales, desde visibilidad y automatización hasta IA, reconocimiento y gobernanza.",
     expertise: [
       {
         title: "Inteligencia Operacional",
         text: "Dashboards, centros de control, visibilidad operacional y control ejecutivo.",
+        action: "VISUALIZAR",
+        image: "/images/solutions/section03/operational-intelligence.png",
         Icon: IntelligenceIcon,
       },
       {
         title: "Automatización de Flujos",
-        text: "Aprobaciones, alertas, asignación de tareas, traspasos y automatización recurrente.",
+        text: "Aprobaciones, alertas, asignación de tareas y automatización recurrente.",
+        action: "AUTOMATIZAR",
+        image: "/images/solutions/section03/workflow-automation.png",
         Icon: WorkflowIconCustom,
       },
       {
         title: "Asistentes de IA",
-        text: "Asistentes por rol entrenados con contexto operacional, documentos y datos.",
+        text: "Asistentes por rol entrenados con tu contexto operacional, documentos y datos.",
+        action: "ASISTIR",
+        image: "/images/solutions/section03/ai-assistants.png",
         Icon: AssistantIcon,
       },
       {
         title: "Inteligencia Documental",
-        text: "Extracción, clasificación, validación, auditabilidad y workflows documentales estructurados.",
+        text: "Extracción, clasificación, validación, auditabilidad y workflows estructurados.",
+        action: "ESTRUCTURAR",
+        image: "/images/solutions/section03/document-intelligence.png",
         Icon: DocumentIcon,
       },
       {
         title: "Sistemas de Reconocimiento",
         text: "Visión computacional para eventos visuales, calidad, seguridad, fauna, ganado y monitoreo productivo.",
+        action: "DETECTAR",
+        image: "/images/solutions/section03/recognition-systems.png",
         Icon: RecognitionIcon,
       },
       {
         title: "Plataformas Internas",
         text: "Portales a medida, permisos, flujos de usuario, módulos operacionales y reporting.",
+        action: "DESPLEGAR",
+        image: "/images/solutions/section03/internal-platforms.png",
         Icon: PlatformIcon,
       },
       {
         title: "Integraciones de Datos",
-        text: "APIs, bases de datos, sistemas legacy, planillas, sensores, archivos y herramientas de terceros.",
+        text: "APIs, bases de datos, sistemas legacy, sensores, archivos y herramientas de terceros.",
+        action: "CONECTAR",
+        image: "/images/solutions/section03/data-integrations.png",
         Icon: DataIntegrationIcon,
       },
       {
         title: "Gobernanza & Human-in-the-loop",
-        text: "Trazabilidad, aprobaciones, estados de revisión, excepciones y workflows de IA responsable.",
+        text: "Trazabilidad, aprobaciones, controles de riesgo y workflows de IA responsable.",
+        action: "CONFIAR",
+        image: "/images/solutions/section03/governance-human-loop.png",
         Icon: GovernanceIcon,
       },
     ],
@@ -386,7 +418,7 @@ const content = {
       {
         title: "Agricultura / medioambiente",
         expertise: "Reconocimiento + Integraciones de Datos + Inteligencia Operacional",
-        system: "Monitoreo en terreno, evidencia visual, señales ambientales y registros operativos.",
+        system: "Monitoreo de campo, evidencia visual, señales ambientales y registros operativos.",
         Icon: Sprout,
       },
       {
@@ -410,22 +442,22 @@ const content = {
       },
       {
         title: "Sistema de workflow",
-        stack: "Estados de proceso + aprobaciones + automatización + audit trail",
-        outcome: "Un flujo gobernado que mueve el trabajo y preserva trazabilidad.",
+        stack: "Estados + aprobaciones + automatización + audit trail",
+        outcome: "Un flujo gobernado que hace avanzar el trabajo y conserva trazabilidad.",
         Icon: WorkflowIconCustom,
       },
       {
         title: "Sistema de inteligencia",
-        stack: "Asistente de IA + inteligencia documental + reconocimiento + validación humana",
+        stack: "Asistente IA + inteligencia documental + reconocimiento + validación humana",
         outcome: "Una capa contextual de decisión que combina inteligencia de máquina con revisión responsable.",
         Icon: AssistantIcon,
       },
     ],
 
     finalLabel: "DE SOLUCIÓN A DIAGNÓSTICO",
-    finalTitle: "¿No sabes qué área encaja?",
+    finalTitle: "¿No sabes qué área aplica?",
     finalBody:
-      "Envíanos la operación, workflow o sistema que quieres mejorar. Te ayudaremos a identificar el punto de partida correcto.",
+      "Cuéntanos la operación, workflow o sistema que quieres mejorar. Te ayudaremos a identificar el mejor punto de partida.",
     sales: "Hablar con N3uralia",
     proofLinks: {
       recognition: "Explorar sistemas de reconocimiento",
@@ -443,7 +475,7 @@ const section02Images = [
 ] as const
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   return buildLocalizedMetadata({
@@ -455,7 +487,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function SolutionsPage(props: PageProps) {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
   const projectsPath = locale === "es" ? "/proyectos" : "/projects"
@@ -541,34 +573,31 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section id="expertise" className={`${styles.stage} ${styles.denseStage}`}>
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}>
-            <div className={styles.eyebrow}>03 / {page.expertiseLabel}</div>
-            <h2 className={styles.sectionTitle}>{page.expertiseTitle}</h2>
-            <p className={styles.sectionIntro}>{page.expertiseBody}</p>
+      <section id="expertise">
+        <div>
+          <header>
+            <div className="section03-eyebrow">{page.expertiseLabel}</div>
+            <h2>{page.expertiseTitle}</h2>
+            <p>{page.expertiseBody}</p>
           </header>
-          <div className={styles.expertiseGrid}>
-            {page.expertise.map((item, index) => {
-              const Icon = item.Icon
-              return (
-                <SolutionsFocus key={item.title} index={index} className={styles.expertiseCard}>
-                  <article>
-                    <div className={styles.layerNum}>0{index + 1} /</div>
-                    <div className={styles.layerIcon}>
-                      <Icon />
-                    </div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </article>
-                </SolutionsFocus>
-              )
-            })}
-          </div>
-          <div className={styles.proofLinks}>
-            <Link href={href(locale, recognitionPath)}>{page.proofLinks.recognition} →</Link>
-            <Link href={href(locale, projectsPath)}>{page.proofLinks.projects} →</Link>
-            <Link href={href(locale, productsPath)}>{page.proofLinks.products} →</Link>
+          <div className="section03-grid">
+            {page.expertise.map((item, index) => (
+              <article className="section03-card" key={item.title}>
+                <div className="section03-num">0{index + 1} /</div>
+                <img
+                  className="section03-asset"
+                  src={item.image}
+                  width="640"
+                  height="400"
+                  loading="lazy"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+                <div className="section03-action">{item.action} <span>→</span></div>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -618,27 +647,23 @@ export default async function SolutionsPage(props: PageProps) {
             {page.domains.map((item, index) => {
               const Icon = item.Icon
               return (
-                <SolutionsFocus key={item.title} index={index} className={styles.domainCard}>
-                  <article>
-                    <div className={styles.domainTop}>
-                      <div className={styles.domainIcon}>
-                        <Icon />
-                      </div>
-                      <span>0{index + 1}</span>
+                <article key={item.title} className={styles.domainCard}>
+                  <div className={styles.domainTop}>
+                    <span>0{index + 1}</span>
+                    <div className={styles.domainIcon}><Icon /></div>
+                  </div>
+                  <h3>{item.title}</h3>
+                  <dl>
+                    <div>
+                      <dt>{page.relevant}</dt>
+                      <dd>{item.expertise}</dd>
                     </div>
-                    <h3>{item.title}</h3>
-                    <dl>
-                      <div>
-                        <dt>{page.relevant}</dt>
-                        <dd>{item.expertise}</dd>
-                      </div>
-                      <div>
-                        <dt>{page.typical}</dt>
-                        <dd>{item.system}</dd>
-                      </div>
-                    </dl>
-                  </article>
-                </SolutionsFocus>
+                    <div>
+                      <dt>{page.typical}</dt>
+                      <dd>{item.system}</dd>
+                    </div>
+                  </dl>
+                </article>
               )
             })}
           </div>
@@ -671,9 +696,9 @@ export default async function SolutionsPage(props: PageProps) {
             </div>
             <div className={styles.combineVisual}>
               <img
-                src="/images/solutions/final-path.webp"
-                width="920"
-                height="518"
+                src="/images/solutions/selector-decision-map.webp"
+                width="840"
+                height="472"
                 loading="lazy"
                 alt=""
                 aria-hidden="true"
@@ -684,26 +709,26 @@ export default async function SolutionsPage(props: PageProps) {
       </section>
 
       <section className={`${styles.stage} ${styles.finalStage}`}>
-        <div className={`${styles.shell} ${styles.final}`}> 
+        <div className={`${styles.shell} ${styles.final}`}>
           <div>
-            <div className={styles.eyebrow}>07 / {page.finalLabel}</div>
+            <div className={styles.eyebrow}>{page.finalLabel}</div>
             <h2 className={styles.finalTitle}>{page.finalTitle}</h2>
-            <p className={styles.lead}>{page.finalBody}</p>
+            <p className={styles.sectionIntro}>{page.finalBody}</p>
             <div className={styles.actions}>
               <Link className={styles.cta} href={href(locale, "/diagnostico")}>
                 {page.secondary}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <a className={styles.ghost} href="mailto:juan@n3uralia.com">
+              <Link className={styles.ghost} href={href(locale, "/contacto")}>
                 {page.sales}
-              </a>
+              </Link>
             </div>
           </div>
           <div className={styles.finalLinks}>
-            <span>N3 / EXPLORE</span>
-            <Link href={href(locale, recognitionPath)}>{page.proofLinks.recognition}</Link>
-            <Link href={href(locale, projectsPath)}>{page.proofLinks.projects}</Link>
-            <Link href={href(locale, productsPath)}>{page.proofLinks.products}</Link>
+            <span>PROOF</span>
+            <Link href={href(locale, recognitionPath)}>{page.proofLinks.recognition} →</Link>
+            <Link href={href(locale, projectsPath)}>{page.proofLinks.projects} →</Link>
+            <Link href={href(locale, productsPath)}>{page.proofLinks.products} →</Link>
           </div>
         </div>
       </section>
