@@ -1,0 +1,17 @@
+/* Final Section 03 asset render override. The first two visuals are real transparent WebP files with production-safe alpha. */
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(1) [class*="layerIcon"]{
+  background-image:url('/images/solutions/section03/operational-intelligence.webp')!important;
+  background-size:78% auto!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  filter:brightness(.92) saturate(.82) contrast(1.08)!important;
+  opacity:1!important;
+}
+main > section:nth-of-type(3) [class*="expertiseCard"]:nth-child(2) [class*="layerIcon"]{
+  background-image:url('/images/solutions/section03/workflow-automation.webp')!important;
+  background-size:80% auto!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  filter:brightness(.9) saturate(.82) contrast(1.08)!important;
+  opacity:1!important;
+}
