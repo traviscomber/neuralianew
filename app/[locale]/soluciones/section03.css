@@ -1,0 +1,149 @@
+/* Section 03 — rebuilt from zero. Transparent PNG technical assets only. */
+#expertise {
+  background:#02090a !important;
+  background-image:none !important;
+  border-bottom:1px solid rgba(118,214,214,.16) !important;
+}
+#expertise::before { display:none !important; }
+#expertise > div {
+  width:min(1428px,calc(100% - 56px)) !important;
+  margin:0 auto !important;
+  padding:72px 0 82px !important;
+}
+#expertise header {
+  position:relative !important;
+  margin:0 0 28px !important;
+  padding-right:340px !important;
+}
+#expertise header::after {
+  content:'EXPERTISE FOR A MORE RESILIENT TOMORROW' !important;
+  position:absolute !important;
+  top:8px !important;
+  right:4px !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  letter-spacing:.34em !important;
+  color:#6f8588 !important;
+  white-space:nowrap !important;
+}
+#expertise header .section03-eyebrow {
+  margin:0 !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  letter-spacing:.24em !important;
+  color:#45d1cf !important;
+}
+#expertise header h2 {
+  margin:17px 0 0 !important;
+  max-width:850px !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:clamp(42px,4.4vw,64px) !important;
+  font-weight:300 !important;
+  line-height:.96 !important;
+  letter-spacing:.085em !important;
+  text-transform:uppercase !important;
+  color:#edf4f3 !important;
+}
+#expertise header h2::after { content:'.'; color:#45d1cf; }
+#expertise header p {
+  margin:14px 0 0 !important;
+  max-width:700px !important;
+  font-size:14px !important;
+  line-height:1.55 !important;
+  color:#8fa2a4 !important;
+}
+#expertise .section03-grid {
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:0 !important;
+  border-top:1px solid rgba(69,209,207,.33) !important;
+  border-left:1px solid rgba(69,209,207,.33) !important;
+  background:#02090a !important;
+}
+#expertise .section03-card {
+  position:relative !important;
+  min-height:405px !important;
+  padding:20px 28px 24px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  border:0 !important;
+  border-right:1px solid rgba(69,209,207,.30) !important;
+  border-bottom:1px solid rgba(69,209,207,.30) !important;
+  background:#02090a !important;
+  box-shadow:none !important;
+  overflow:hidden !important;
+  transition:background .18s ease,border-color .18s ease !important;
+}
+#expertise .section03-card:hover {
+  background:#031112 !important;
+  border-color:rgba(69,209,207,.52) !important;
+}
+#expertise .section03-num {
+  margin:0 !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:10px !important;
+  line-height:1 !important;
+  letter-spacing:.22em !important;
+  color:#45d1cf !important;
+}
+#expertise .section03-asset {
+  width:100% !important;
+  height:164px !important;
+  margin:0 0 13px !important;
+  display:block !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  filter:none !important;
+  opacity:1 !important;
+}
+#expertise .section03-card h3 {
+  margin:0 !important;
+  max-width:260px !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:27px !important;
+  font-weight:400 !important;
+  line-height:1.04 !important;
+  letter-spacing:.025em !important;
+  text-transform:none !important;
+  color:#edf4f3 !important;
+}
+#expertise .section03-card p {
+  margin:14px 0 0 !important;
+  max-width:275px !important;
+  font-size:12.5px !important;
+  line-height:1.55 !important;
+  color:#91a4a6 !important;
+}
+#expertise .section03-action {
+  margin-top:auto !important;
+  padding-top:22px !important;
+  font-family:var(--font-rajdhani),sans-serif !important;
+  font-size:11px !important;
+  line-height:1 !important;
+  letter-spacing:.22em !important;
+  text-transform:uppercase !important;
+  color:#45d1cf !important;
+}
+#expertise .section03-action span {
+  margin-left:9px !important;
+  font-size:17px !important;
+  letter-spacing:0 !important;
+}
+@media(max-width:1100px){
+  #expertise > div{width:min(100% - 40px,1428px) !important;padding:64px 0 72px !important}
+  #expertise header{padding-right:0 !important}
+  #expertise header::after{display:none !important}
+  #expertise .section03-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+  #expertise .section03-card{min-height:390px !important}
+}
+@media(max-width:720px){
+  #expertise > div{width:min(100% - 28px,1428px) !important;padding:52px 0 58px !important}
+  #expertise header{margin-bottom:22px !important}
+  #expertise header h2{font-size:42px !important;letter-spacing:.06em !important}
+  #expertise .section03-grid{grid-template-columns:1fr !important}
+  #expertise .section03-card{min-height:0 !important;padding:18px 20px 22px !important}
+  #expertise .section03-asset{height:190px !important}
+  #expertise .section03-card h3{font-size:26px !important}
+}
