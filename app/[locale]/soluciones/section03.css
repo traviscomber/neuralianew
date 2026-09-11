@@ -1,5 +1,4 @@
-/* Section 03 — canonical rebuild. Transparent assets only. */
-/* production restore: visually verified asset set */
+/* Expertise — canonical Supabase-backed artwork. */
 #expertise{
   position:relative;
   scroll-margin-top:96px;
@@ -11,11 +10,11 @@
 #expertise>div{
   width:min(1428px,calc(100% - 56px))!important;
   margin:0 auto!important;
-  padding:62px 0 82px!important;
+  padding:68px 0 88px!important;
 }
 #expertise header{
   position:relative!important;
-  margin:0 32px 28px!important;
+  margin:0 32px 34px!important;
   padding-right:390px!important;
 }
 #expertise header::after{
@@ -53,10 +52,10 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 }
 #expertise header h2::after{content:'.';color:#45d1cf}
 #expertise header p{
-  margin:14px 0 0!important;
+  margin:15px 0 0!important;
   max-width:710px!important;
   font-size:14px!important;
-  line-height:1.55!important;
+  line-height:1.6!important;
   color:#8fa2a4!important;
 }
 #expertise .section03-grid{
@@ -69,8 +68,8 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 }
 #expertise .section03-card{
   position:relative!important;
-  min-height:405px!important;
-  padding:20px 28px 24px!important;
+  min-height:462px!important;
+  padding:20px 26px 26px!important;
   display:flex!important;
   flex-direction:column!important;
   border:0!important;
@@ -91,9 +90,9 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   color:#45d1cf!important;
 }
 #expertise .section03-asset{
-  width:100%!important;
-  height:164px!important;
-  margin:0 0 13px!important;
+  width:calc(100% + 20px)!important;
+  height:210px!important;
+  margin:5px -10px 18px!important;
   display:block!important;
   object-fit:contain!important;
   object-position:center!important;
@@ -105,9 +104,9 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 }
 #expertise .section03-card h3{
   margin:0!important;
-  max-width:270px!important;
+  max-width:280px!important;
   font-family:var(--font-rajdhani),sans-serif!important;
-  font-size:27px!important;
+  font-size:28px!important;
   font-weight:400!important;
   line-height:1.04!important;
   letter-spacing:.025em!important;
@@ -116,14 +115,14 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 }
 #expertise .section03-card p{
   margin:14px 0 0!important;
-  max-width:278px!important;
+  max-width:286px!important;
   font-size:12.5px!important;
-  line-height:1.55!important;
+  line-height:1.58!important;
   color:#91a4a6!important;
 }
 #expertise .section03-action{
   margin-top:auto!important;
-  padding-top:22px!important;
+  padding-top:24px!important;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
   font-size:10px!important;
   line-height:1!important;
@@ -134,20 +133,22 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 #expertise .section03-action span{margin-left:9px!important;font-size:17px!important;letter-spacing:0!important}
 @media(max-width:1100px){
   #expertise{scroll-margin-top:84px}
-  #expertise>div{width:min(100% - 40px,1100px)!important;padding:64px 0 72px!important}
-  #expertise header{margin:0 0 28px!important;padding-right:0!important}
+  #expertise>div{width:min(100% - 40px,1100px)!important;padding:64px 0 76px!important}
+  #expertise header{margin:0 0 30px!important;padding-right:0!important}
   #expertise header::after{display:none}
   #expertise .section03-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  #expertise .section03-card{min-height:390px!important}
+  #expertise .section03-card{min-height:450px!important;padding:20px 28px 26px!important}
+  #expertise .section03-asset{height:230px!important;max-width:460px!important;margin:4px auto 18px!important}
 }
 @media(max-width:720px){
   #expertise{scroll-margin-top:76px}
-  #expertise>div{width:min(100% - 28px,720px)!important;padding:52px 0 58px!important}
-  #expertise header{margin-bottom:22px!important}
+  #expertise>div{width:min(100% - 28px,720px)!important;padding:54px 0 62px!important}
+  #expertise header{margin-bottom:24px!important}
   #expertise header h2{font-size:42px!important;letter-spacing:.06em!important}
   #expertise header p{font-size:13px!important}
   #expertise .section03-grid{grid-template-columns:1fr!important}
-  #expertise .section03-card{min-height:0!important;padding:18px 20px 22px!important}
-  #expertise .section03-asset{height:190px!important}
-  #expertise .section03-card h3{font-size:26px!important}
+  #expertise .section03-card{min-height:0!important;padding:18px 20px 24px!important}
+  #expertise .section03-asset{width:100%!important;height:220px!important;max-width:420px!important;margin:8px auto 18px!important}
+  #expertise .section03-card h3{font-size:27px!important;max-width:none!important}
+  #expertise .section03-card p{max-width:none!important}
 }
