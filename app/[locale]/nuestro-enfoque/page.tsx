@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Compass, Shield, Target, Workflow } from "lucide-react"
+import { ArrowRight, Compass, Shield, Target } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
