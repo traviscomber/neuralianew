@@ -9,7 +9,6 @@ export const contentSitemapRoutes = [
   ['/blog/agentes-ia-finanzas-chile', 0.75, 'monthly'],
   ['/blog/agentes-ia-logistica-optimizacion-rutas', 0.75, 'monthly'],
   ['/blog/agentes-ia-manufactura-produccion', 0.75, 'monthly'],
-  ['/blog/agentes-ia-mineria-casos-exito', 0.75, 'monthly'],
   ['/blog/agentes-ia-predictive-analytics-chile', 0.75, 'monthly'],
   ['/blog/agentes-ia-recursos-humanos-chile', 0.75, 'monthly'],
   ['/blog/agentes-ia-retail-inventario', 0.75, 'monthly'],
