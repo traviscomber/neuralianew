@@ -1,47 +1,42 @@
 import type { MetadataRoute } from "next"
 import { SITE_URL, absoluteUrl } from "@/lib/site"
 
+const privatePaths = [
+  "/api/",
+  "/dashboard/",
+  "/admin/",
+  "/*/api-docs",
+  "/*/coordination",
+  "/*/error-tracking",
+  "/*/performance",
+  "/*/sabana-home",
+  "/*/vibe-selling",
+  "/*/living-agents/constellation-demo",
+  "/*/living-agents/demo",
+  "/*/living-agents/evolution",
+]
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/dashboard/",
-          "/admin/",
-          // Internal/utility pages — not for public indexing
-          "/*/api-docs",
-          "/*/coordination",
-          "/*/error-tracking",
-          "/*/performance",
-          "/*/sabana-home",
-          "/*/labs",
-          "/*/vibe-selling",
-          "/*/living-agents/constellation-demo",
-          "/*/living-agents/demo",
-          "/*/living-agents/evolution",
-        ],
+        disallow: privatePaths,
       },
       {
-        // Keep public commercial/editorial content discoverable in ChatGPT Search.
+        // Search discovery is separate from model-training permissions.
         userAgent: "OAI-SearchBot",
         allow: "/",
-        disallow: ["/api/", "/dashboard/", "/admin/"],
+        disallow: privatePaths,
       },
       {
-        // Training controls are intentionally separate from search discovery.
+        // Preserve the existing opt-out for training/data-collection crawlers.
         userAgent: ["GPTBot", "Google-Extended", "CCBot", "anthropic-ai", "ClaudeBot"],
         disallow: "/",
       },
     ],
-    // Preserve the canonical sitemap contract and advertise the minimal
-    // fallback separately so crawlers can process either endpoint.
-    sitemap: [
-      absoluteUrl("/sitemap.xml"),
-      absoluteUrl("/google-sitemap.xml"),
-    ],
+    sitemap: absoluteUrl("/sitemap.xml"),
     host: SITE_URL,
   }
 }
