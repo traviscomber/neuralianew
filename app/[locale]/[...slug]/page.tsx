@@ -11,6 +11,37 @@ interface PageProps {
   params: Promise<{ locale: string; slug: string[] }>
 }
 
+const industryEnglish: Record<string, string> = {
+  'logística fronteriza': 'border logistics',
+  comercio: 'commerce',
+  turismo: 'tourism',
+  servicios: 'services',
+  logística: 'logistics',
+  minería: 'mining',
+  energía: 'energy',
+  'servicios industriales': 'industrial services',
+  mantenimiento: 'maintenance',
+  contratistas: 'contractors',
+  'servicios técnicos': 'technical services',
+  agricultura: 'agriculture',
+  puerto: 'port operations',
+  pesca: 'fisheries',
+  puertos: 'ports',
+  retail: 'retail',
+  hospitalidad: 'hospitality',
+  transporte: 'transport',
+  distribución: 'distribution',
+  'servicios empresariales': 'business services',
+  finanzas: 'finance',
+  agroindustria: 'agribusiness',
+  alimentos: 'food production',
+  industria: 'industry',
+  forestal: 'forestry',
+  manufactura: 'manufacturing',
+  ganadería: 'livestock',
+  acuicultura: 'aquaculture',
+}
+
 function resolveCity(slug: string[]) {
   if (slug.length !== 1) return null
   return findChileCityRoute(slug[0])
@@ -42,6 +73,7 @@ export default async function ChileCityAgentPage(props: PageProps) {
 
   const isES = locale === 'es'
   const base = `/${locale}`
+  const industries = isES ? city.industries : city.industries.map((industry) => industryEnglish[industry] ?? industry)
   const capabilities = [
     {
       icon: Database,
@@ -109,7 +141,7 @@ export default async function ChileCityAgentPage(props: PageProps) {
             </p>
             <h2 className="mt-3 text-2xl font-medium">{city.city} · {city.region}</h2>
             <div className="mt-7 grid grid-cols-2 gap-px border border-[#739694]/15 bg-[#739694]/15">
-              {city.industries.map((industry) => (
+              {industries.map((industry) => (
                 <div key={industry} className="bg-[#07100f] px-4 py-4 text-sm text-[#b7c3c1]">{industry}</div>
               ))}
             </div>
