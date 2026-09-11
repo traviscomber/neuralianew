@@ -3,29 +3,28 @@
   position:relative;
   scroll-margin-top:96px;
   background:#02090a!important;
-  background-image:none!important;
   border-bottom:1px solid rgba(69,209,207,.16)!important;
 }
 #expertise::before{display:none!important}
 #expertise>div{
-  width:min(1428px,calc(100% - 56px))!important;
+  width:min(1320px,calc(100% - 56px))!important;
   margin:0 auto!important;
-  padding:68px 0 88px!important;
+  padding:84px 0 104px!important;
 }
 #expertise header{
   position:relative!important;
-  margin:0 32px 34px!important;
-  padding-right:390px!important;
+  margin:0 0 42px!important;
+  padding-right:360px!important;
 }
 #expertise header::after{
   content:'EXPERTISE FOR A MORE RESILIENT TOMORROW';
   position:absolute;
-  top:47px;
+  top:50px;
   right:0;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:10px;
   line-height:1;
-  letter-spacing:.31em;
+  letter-spacing:.28em;
   color:#70878a;
   white-space:nowrap;
 }
@@ -40,89 +39,107 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   color:#45d1cf!important;
 }
 #expertise header h2{
-  margin:17px 0 0!important;
-  max-width:900px!important;
+  margin:16px 0 0!important;
+  max-width:920px!important;
   font-family:var(--font-rajdhani),sans-serif!important;
-  font-size:clamp(44px,4.35vw,64px)!important;
+  font-size:clamp(48px,5vw,72px)!important;
   font-weight:300!important;
-  line-height:.96!important;
-  letter-spacing:.085em!important;
+  line-height:.94!important;
+  letter-spacing:.07em!important;
   text-transform:uppercase!important;
   color:#edf4f3!important;
 }
 #expertise header h2::after{content:'.';color:#45d1cf}
 #expertise header p{
-  margin:15px 0 0!important;
-  max-width:710px!important;
-  font-size:14px!important;
-  line-height:1.6!important;
+  margin:18px 0 0!important;
+  max-width:760px!important;
+  font-size:15px!important;
+  line-height:1.65!important;
   color:#8fa2a4!important;
 }
 #expertise .section03-grid{
   display:grid!important;
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  gap:0!important;
-  border-top:1px solid rgba(69,209,207,.34)!important;
-  border-left:1px solid rgba(69,209,207,.34)!important;
-  background:#02090a!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:22px!important;
+  border:0!important;
+  background:transparent!important;
 }
 #expertise .section03-card{
   position:relative!important;
-  min-height:462px!important;
-  padding:20px 26px 26px!important;
+  min-height:0!important;
+  padding:0 0 26px!important;
   display:flex!important;
   flex-direction:column!important;
-  border:0!important;
-  border-right:1px solid rgba(69,209,207,.30)!important;
-  border-bottom:1px solid rgba(69,209,207,.30)!important;
+  border:1px solid rgba(69,209,207,.24)!important;
   background:#02090a!important;
   box-shadow:none!important;
   overflow:hidden!important;
-  transition:background .18s ease,border-color .18s ease!important;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease!important;
 }
-#expertise .section03-card:hover{background:#031112!important;border-color:rgba(69,209,207,.52)!important}
+#expertise .section03-card:hover{
+  background:#031112!important;
+  border-color:rgba(69,209,207,.48)!important;
+  transform:translateY(-2px)!important;
+}
 #expertise .section03-num{
+  position:absolute!important;
+  top:18px!important;
+  left:22px!important;
+  z-index:2!important;
   margin:0!important;
+  padding:6px 8px!important;
+  border:1px solid rgba(69,209,207,.28)!important;
+  background:rgba(2,9,10,.78)!important;
+  backdrop-filter:blur(8px)!important;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
   font-size:10px!important;
   line-height:1!important;
-  letter-spacing:.22em!important;
+  letter-spacing:.2em!important;
   color:#45d1cf!important;
 }
 #expertise .section03-asset{
-  width:calc(100% + 20px)!important;
-  height:210px!important;
-  margin:5px -10px 18px!important;
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio:8/5!important;
+  margin:0 0 26px!important;
   display:block!important;
   object-fit:contain!important;
   object-position:center!important;
-  background:transparent!important;
+  background:#02090a!important;
   border:0!important;
+  border-bottom:1px solid rgba(69,209,207,.16)!important;
   box-shadow:none!important;
   filter:none!important;
   opacity:1!important;
 }
+#expertise .section03-card h3,
+#expertise .section03-card p,
+#expertise .section03-action{
+  margin-left:26px!important;
+  margin-right:26px!important;
+}
 #expertise .section03-card h3{
-  margin:0!important;
-  max-width:280px!important;
+  margin-top:0!important;
+  margin-bottom:0!important;
+  max-width:520px!important;
   font-family:var(--font-rajdhani),sans-serif!important;
-  font-size:28px!important;
+  font-size:clamp(30px,2.6vw,40px)!important;
   font-weight:400!important;
-  line-height:1.04!important;
-  letter-spacing:.025em!important;
+  line-height:1!important;
+  letter-spacing:.02em!important;
   text-transform:none!important;
   color:#edf4f3!important;
 }
 #expertise .section03-card p{
-  margin:14px 0 0!important;
-  max-width:286px!important;
-  font-size:12.5px!important;
-  line-height:1.58!important;
+  margin-top:14px!important;
+  max-width:540px!important;
+  font-size:13.5px!important;
+  line-height:1.62!important;
   color:#91a4a6!important;
 }
 #expertise .section03-action{
   margin-top:auto!important;
-  padding-top:24px!important;
+  padding-top:28px!important;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
   font-size:10px!important;
   line-height:1!important;
@@ -133,22 +150,26 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
 #expertise .section03-action span{margin-left:9px!important;font-size:17px!important;letter-spacing:0!important}
 @media(max-width:1100px){
   #expertise{scroll-margin-top:84px}
-  #expertise>div{width:min(100% - 40px,1100px)!important;padding:64px 0 76px!important}
-  #expertise header{margin:0 0 30px!important;padding-right:0!important}
+  #expertise>div{width:min(100% - 40px,1040px)!important;padding:72px 0 84px!important}
+  #expertise header{padding-right:0!important;margin-bottom:34px!important}
   #expertise header::after{display:none}
-  #expertise .section03-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  #expertise .section03-card{min-height:450px!important;padding:20px 28px 26px!important}
-  #expertise .section03-asset{height:230px!important;max-width:460px!important;margin:4px auto 18px!important}
+  #expertise .section03-grid{gap:18px!important}
+  #expertise .section03-card h3{font-size:32px!important}
 }
-@media(max-width:720px){
+@media(max-width:760px){
   #expertise{scroll-margin-top:76px}
-  #expertise>div{width:min(100% - 28px,720px)!important;padding:54px 0 62px!important}
-  #expertise header{margin-bottom:24px!important}
-  #expertise header h2{font-size:42px!important;letter-spacing:.06em!important}
-  #expertise header p{font-size:13px!important}
-  #expertise .section03-grid{grid-template-columns:1fr!important}
-  #expertise .section03-card{min-height:0!important;padding:18px 20px 24px!important}
-  #expertise .section03-asset{width:100%!important;height:220px!important;max-width:420px!important;margin:8px auto 18px!important}
-  #expertise .section03-card h3{font-size:27px!important;max-width:none!important}
+  #expertise>div{width:min(100% - 28px,720px)!important;padding:58px 0 68px!important}
+  #expertise header{margin-bottom:26px!important}
+  #expertise header h2{font-size:44px!important;letter-spacing:.055em!important}
+  #expertise header p{font-size:13.5px!important}
+  #expertise .section03-grid{grid-template-columns:1fr!important;gap:16px!important}
+  #expertise .section03-card{padding-bottom:22px!important}
+  #expertise .section03-num{top:14px!important;left:16px!important}
+  #expertise .section03-asset{margin-bottom:21px!important}
+  #expertise .section03-card h3,
+  #expertise .section03-card p,
+  #expertise .section03-action{margin-left:20px!important;margin-right:20px!important}
+  #expertise .section03-card h3{font-size:31px!important;max-width:none!important}
   #expertise .section03-card p{max-width:none!important}
+  #expertise .section03-action{padding-top:24px!important}
 }
