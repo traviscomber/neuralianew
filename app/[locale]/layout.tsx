@@ -15,36 +15,46 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(props: LocaleLayoutProps): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const titles = {
     es: 'N3uralia | IA y software para operaciones reales',
     en: 'N3uralia | AI and software for real operations',
   }
   const descriptions = {
-    es: 'Sistemas de IA, flujos agénticos y software en producción para equipos en Chile y LATAM.',
-    en: 'Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.',
+    es: 'Sistemas de IA, automatización, reconocimiento y software en producción para operaciones en Chile y LATAM.',
+    en: 'Production AI systems, automation, recognition and software for operations in Chile and Latin America.',
   }
+  const esUrl = 'https://www.n3uralia.com/es'
+  const enUrl = 'https://www.n3uralia.com/en'
 
   return {
     title: titles[locale],
     description: descriptions[locale],
     alternates: {
-      canonical: `https://www.n3uralia.com/${locale}`,
-      languages: { es: 'https://www.n3uralia.com/es', en: 'https://www.n3uralia.com/en' },
+      canonical: locale === 'es' ? esUrl : enUrl,
+      languages: {
+        'es-CL': esUrl,
+        es: esUrl,
+        en: enUrl,
+        'en-US': enUrl,
+        'x-default': esUrl,
+      },
     },
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],
+      url: locale === 'es' ? esUrl : enUrl,
       locale: locale === 'es' ? 'es_CL' : 'en_US',
+      alternateLocale: locale === 'es' ? ['en_US'] : ['es_CL'],
       type: 'website',
     },
   }
 }
 
 export default async function LocaleLayout(props: LocaleLayoutProps) {
-  const params = await props.params;
-  const { children } = props;
+  const params = await props.params
+  const { children } = props
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const skipLabel = locale === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'
 
