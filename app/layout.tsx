@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { headers } from "next/headers"
-import { Montserrat, Rajdhani } from "next/font/google"
+import { Montserrat } from "next/font/google"
 import "./globals.css"
 import "./brand-refresh.css"
 import "./final-cta-overrides.css"
@@ -14,7 +14,6 @@ import { RecognitionLandingPortal } from "@/components/recognition-landing-porta
 import { absoluteUrl } from "@/lib/site"
 
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["300", "400", "500"] })
-const rajdhani = Rajdhani({ subsets: ["latin"], display: "swap", variable: "--font-rajdhani", weight: ["400", "500"] })
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl("/")), title: "N3uralia",
   description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
@@ -40,6 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const headerStore = await headers()
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
   const pathname = headerStore.get("x-pathname") || ""
-  const portalDark = /\/(soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
-  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
+  const portalDark = /\/(solutions|soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
+  const rajdhaniVariable = { "--font-rajdhani": "'Rajdhani', sans-serif" } as React.CSSProperties
+  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500&display=swap" /><StructuredData /></head><body suppressHydrationWarning style={rajdhaniVariable} className={`${montserrat.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
 }

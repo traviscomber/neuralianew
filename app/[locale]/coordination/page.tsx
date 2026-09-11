@@ -3,27 +3,6 @@ import { Users, CheckCircle2, Zap, ArrowRight } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import { SectionBackground } from "@/components/section-background"
 
-const features = [
-  {
-    icon: Users,
-    title: "Salas de Decisión",
-    description: "Equipos + Agentes trabajando juntos en tiempo real. Contexto compartido. Sin email, sin Slack caótico.",
-    details: ["Contexto persistente", "Decisiones documentadas", "Ejecución automática"],
-  },
-  {
-    icon: CheckCircle2,
-    title: "Trazabilidad Total",
-    description: "Cada decisión: qué, por qué, quién, cuándo. Auditoría completa, trazabilidad imposible de romper.",
-    details: ["Historial inmutable", "Rationale capturado", "Cumplimiento incorporado"],
-  },
-  {
-    icon: Zap,
-    title: "Ejecución Automática",
-    description: "Decisión tomada = ejecución instantánea. Sin delays. Sin hand-off manual. Coordinación que funciona de verdad.",
-    details: ["Ejecución inmediata", "Integración total", "Menos fricción"],
-  },
-]
-
 export default function CoordinationPage() {
   const capabilities = [
     {
@@ -50,7 +29,6 @@ export default function CoordinationPage() {
     <>
       <main className="min-h-screen pt-16 bg-background">
         <SectionBackground section="workflow" className="border-b border-border">
-        {/* Hero Section */}
         <section className="py-20 bg-background border-b border-border">
           <div className="container mx-auto px-4 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 mb-8 bg-primary/10">
@@ -71,7 +49,6 @@ export default function CoordinationPage() {
         </SectionBackground>
 
         <SectionBackground section="capabilities" className="border-b border-border">
-        {/* Features Grid */}
         <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -114,7 +91,6 @@ export default function CoordinationPage() {
         </section>
         </SectionBackground>
 
-        {/* CTA Section */}
         <section className="py-24 bg-background border-t border-border">
           <div className="container mx-auto px-4 text-center">
             <h2 className="h2 text-foreground mb-4">

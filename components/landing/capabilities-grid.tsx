@@ -4,7 +4,7 @@ import { useState } from "react"
 import { motion, type Variants } from "framer-motion"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Brain, Cog, Palette, Settings, Database, Zap, X } from "lucide-react"
+import { ArrowRight, Brain, Cog, Palette, Settings, Zap, X } from "lucide-react"
 
 export function CapabilitiesGrid() {
   const [selectedCapability, setSelectedCapability] = useState<number | null>(null)

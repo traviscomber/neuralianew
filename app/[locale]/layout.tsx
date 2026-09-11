@@ -3,7 +3,6 @@ import type { ReactNode } from 'react'
 import Navigation from '@/components/navigation'
 import { CanonicalFooter } from '@/components/canonical-footer'
 import { ScrollToTop } from '@/components/scroll-to-top'
-import { ThemeProvider } from '@/components/theme-provider'
 import { isValidLocale, LOCALES, DEFAULT_LOCALE } from '@/lib/get-locale'
 
 interface LocaleLayoutProps {
@@ -45,16 +44,12 @@ export async function generateMetadata(props: LocaleLayoutProps): Promise<Metada
 
 export default async function LocaleLayout(props: LocaleLayoutProps) {
   const params = await props.params;
-
-  const {
-    children
-  } = props;
-
+  const { children } = props;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const skipLabel = locale === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <>
       <a
         href="#main-content"
         className="pointer-events-none fixed left-4 top-4 z-[100] -translate-y-24 border border-[#a8d9d8] bg-[#030606] px-5 py-3 font-[var(--font-rajdhani)] text-xs uppercase tracking-[0.14em] text-[#d8e0df] opacity-0 outline-none transition focus:pointer-events-auto focus:translate-y-0 focus:opacity-100 focus:ring-2 focus:ring-[#a8d9d8] focus:ring-offset-2 focus:ring-offset-[#030606]"
@@ -67,6 +62,6 @@ export default async function LocaleLayout(props: LocaleLayoutProps) {
       </div>
       <CanonicalFooter locale={locale} />
       <ScrollToTop />
-    </ThemeProvider>
+    </>
   )
 }

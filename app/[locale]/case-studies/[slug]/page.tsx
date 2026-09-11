@@ -69,7 +69,6 @@ export default async function CaseStudyDetailPage(props: PageProps) {
     <>
       <Nav locale={locale} />
       <main style={{ minHeight: "100vh" }}>
-        {/* Hero */}
         <div style={{ padding: "80px 20px 40px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
             <Link 
@@ -90,7 +89,6 @@ export default async function CaseStudyDetailPage(props: PageProps) {
           </div>
         </div>
 
-        {/* Highlights */}
         <div style={{ padding: "40px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px" }}>
@@ -108,7 +106,6 @@ export default async function CaseStudyDetailPage(props: PageProps) {
           </div>
         </div>
 
-        {/* Metadata */}
         <div style={{ padding: "40px 20px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ maxWidth: "1040px", margin: "0 auto" }}>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "24px" }}>
@@ -128,8 +125,7 @@ export default async function CaseStudyDetailPage(props: PageProps) {
           </div>
         </div>
 
-        {/* Sections */}
-        {caseStudy.sections.map((section, idx) => (
+        {caseStudy.sections.map((section) => (
           <Section key={section.id} title={t2(locale, section.heading)}>
             <p style={{ opacity: 0.85, lineHeight: 1.6, marginBottom: "16px" }}>
               {t2(locale, section.body)}
@@ -147,7 +143,6 @@ export default async function CaseStudyDetailPage(props: PageProps) {
           </Section>
         ))}
 
-        {/* Stack */}
         <Section title={locale === "es" ? "Stack Técnico" : "Tech Stack"}>
           <p style={{ opacity: 0.8, fontFamily: "monospace", fontSize: "14px", lineHeight: 1.8, margin: 0 }}>
             {t2(locale, caseStudy.stackLine)}
