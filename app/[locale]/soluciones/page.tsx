@@ -66,64 +66,64 @@ const content = {
       },
     ],
 
-    expertiseLabel: "SOLUTIONS",
+    expertiseLabel: "EXPERTISE",
     expertiseTitle: "Areas of expertise",
     expertiseBody:
-      "The core disciplines we combine to build operational systems, from visibility and automation to AI, recognition and governance.",
+      "Eight disciplines, one operating model. We combine the right layers to make complex operations visible, actionable and governable.",
     expertise: [
       {
         title: "Operational Intelligence",
         text: "Dashboards, command centers, operational visibility and executive control.",
-        action: "VISUALIZE",
+        action: "VISIBILITY",
         image: "/images/solutions/section03/operational-intelligence.png",
         Icon: IntelligenceIcon,
       },
       {
         title: "Workflow Automation",
         text: "Approvals, alerts, task routing and recurring process automation.",
-        action: "AUTOMATE",
+        action: "ORCHESTRATION",
         image: "/images/solutions/section03/workflow-automation.png",
         Icon: WorkflowIconCustom,
       },
       {
         title: "AI Assistants",
-        text: "Role-aware assistants trained on your operational context, documents and data.",
-        action: "ASSIST",
+        text: "Role-aware assistants grounded in your operational context, documents and data.",
+        action: "ASSISTANCE",
         image: "/images/solutions/section03/ai-assistants.png",
         Icon: AssistantIcon,
       },
       {
         title: "Document Intelligence",
-        text: "Extraction, classification, validation, auditability and structured workflows.",
+        text: "Extraction, classification, validation and auditable document workflows.",
         action: "STRUCTURE",
         image: "/images/solutions/section03/document-intelligence.png",
         Icon: DocumentIcon,
       },
       {
         title: "Recognition Systems",
-        text: "Computer vision for visual events, quality signals, security, wildlife, livestock and production monitoring.",
-        action: "DETECT",
+        text: "Computer vision for visual events, quality, security and production monitoring.",
+        action: "DETECTION",
         image: "/images/solutions/section03/recognition-systems.png",
         Icon: RecognitionIcon,
       },
       {
         title: "Internal Platforms",
-        text: "Custom portals, permissions, user flows, operational modules and reporting layers.",
-        action: "DEPLOY",
+        text: "Custom portals, permissions, operational modules and reporting layers.",
+        action: "PLATFORMS",
         image: "/images/solutions/section03/internal-platforms.png",
         Icon: PlatformIcon,
       },
       {
         title: "Data Integrations",
         text: "APIs, databases, legacy systems, sensors, files and third-party tools.",
-        action: "CONNECT",
+        action: "CONNECTIVITY",
         image: "/images/solutions/section03/data-integrations.png",
         Icon: DataIntegrationIcon,
       },
       {
-        title: "Governance & Human-in-the-loop",
-        text: "Traceability, approvals, risk controls and responsible AI workflows.",
-        action: "TRUST",
+        title: "Governance & Human Review",
+        text: "Traceability, approvals, risk controls and responsible AI review workflows.",
+        action: "GOVERNANCE",
         image: "/images/solutions/section03/governance-human-loop.png",
         Icon: GovernanceIcon,
       },
@@ -237,10 +237,10 @@ const content = {
       },
     ],
 
-    finalLabel: "FROM SOLUTION TO DIAGNOSIS",
-    finalTitle: "Not sure which area fits?",
+    finalLabel: "FROM EXPERTISE TO DIAGNOSIS",
+    finalTitle: "Not sure where to start?",
     finalBody:
-      "Send us the operation, workflow or system you want to improve. We will help identify the right starting point.",
+      "Describe the operation, workflow or system you want to improve. We will identify the highest-value starting point and the layers it requires.",
     sales: "Talk to N3uralia",
     proofLinks: {
       recognition: "Explore recognition systems",
@@ -255,10 +255,10 @@ const content = {
     heroTitleA: "Sistemas de IA y software para",
     heroTitleB: "operaciones reales.",
     heroBody:
-      "N3uralia ayuda a organizaciones a diseñar y construir sistemas operacionales inteligentes sobre datos, workflows, automatización, IA, reconocimiento y plataformas internas.",
+      "N3uralia ayuda a organizaciones a diseñar y construir sistemas operacionales inteligentes sobre datos, flujos, automatización, IA, reconocimiento y plataformas internas.",
     primary: "Explorar expertise",
     secondary: "Agendar diagnóstico",
-    heroFooter: ["Datos", "Workflow", "Inteligencia", "Acción"],
+    heroFooter: ["Datos", "Flujos", "Inteligencia", "Acción"],
 
     helpLabel: "CÓMO AYUDAMOS",
     helpTitle: "Cómo ayuda N3uralia.",
@@ -271,7 +271,7 @@ const content = {
       },
       {
         title: "Automatizar trabajo recurrente",
-        text: "Reducimos coordinación manual mediante workflows, alertas, aprobaciones y traspasos.",
+        text: "Reducimos coordinación manual mediante flujos, alertas, aprobaciones y traspasos.",
       },
       {
         title: "Agregar inteligencia a decisiones",
@@ -283,64 +283,64 @@ const content = {
       },
     ],
 
-    expertiseLabel: "SOLUCIONES",
+    expertiseLabel: "EXPERTISE",
     expertiseTitle: "Áreas de expertise",
     expertiseBody:
-      "Las disciplinas centrales que combinamos para construir sistemas operacionales, desde visibilidad y automatización hasta IA, reconocimiento y gobernanza.",
+      "Ocho disciplinas, un modelo operacional. Combinamos las capas correctas para hacer operaciones complejas visibles, accionables y gobernables.",
     expertise: [
       {
         title: "Inteligencia Operacional",
-        text: "Dashboards, centros de control, visibilidad operacional y control ejecutivo.",
-        action: "VISUALIZAR",
+        text: "Paneles, centros de control, visibilidad operacional y control ejecutivo.",
+        action: "VISIBILIDAD",
         image: "/images/solutions/section03/operational-intelligence.png",
         Icon: IntelligenceIcon,
       },
       {
         title: "Automatización de Flujos",
         text: "Aprobaciones, alertas, asignación de tareas y automatización recurrente.",
-        action: "AUTOMATIZAR",
+        action: "ORQUESTACIÓN",
         image: "/images/solutions/section03/workflow-automation.png",
         Icon: WorkflowIconCustom,
       },
       {
         title: "Asistentes de IA",
-        text: "Asistentes por rol entrenados con tu contexto operacional, documentos y datos.",
-        action: "ASISTIR",
+        text: "Asistentes por rol contextualizados con la operación, los documentos y los datos.",
+        action: "ASISTENCIA",
         image: "/images/solutions/section03/ai-assistants.png",
         Icon: AssistantIcon,
       },
       {
         title: "Inteligencia Documental",
-        text: "Extracción, clasificación, validación, auditabilidad y workflows estructurados.",
-        action: "ESTRUCTURAR",
+        text: "Extracción, clasificación, validación y flujos documentales auditables.",
+        action: "ESTRUCTURA",
         image: "/images/solutions/section03/document-intelligence.png",
         Icon: DocumentIcon,
       },
       {
         title: "Sistemas de Reconocimiento",
-        text: "Visión computacional para eventos visuales, calidad, seguridad, fauna, ganado y monitoreo productivo.",
-        action: "DETECTAR",
+        text: "Visión computacional para eventos visuales, calidad, seguridad y monitoreo productivo.",
+        action: "DETECCIÓN",
         image: "/images/solutions/section03/recognition-systems.png",
         Icon: RecognitionIcon,
       },
       {
         title: "Plataformas Internas",
-        text: "Portales a medida, permisos, flujos de usuario, módulos operacionales y reporting.",
-        action: "DESPLEGAR",
+        text: "Portales a medida, permisos, módulos operacionales y capas de reportes.",
+        action: "PLATAFORMAS",
         image: "/images/solutions/section03/internal-platforms.png",
         Icon: PlatformIcon,
       },
       {
         title: "Integraciones de Datos",
-        text: "APIs, bases de datos, sistemas legacy, sensores, archivos y herramientas de terceros.",
-        action: "CONECTAR",
+        text: "APIs, bases de datos, sistemas heredados, sensores, archivos y herramientas de terceros.",
+        action: "CONECTIVIDAD",
         image: "/images/solutions/section03/data-integrations.png",
         Icon: DataIntegrationIcon,
       },
       {
-        title: "Gobernanza & Human-in-the-loop",
-        text: "Trazabilidad, aprobaciones, controles de riesgo y workflows de IA responsable.",
-        action: "CONFIAR",
+        title: "Gobernanza y Revisión Humana",
+        text: "Trazabilidad, aprobaciones, controles de riesgo y revisión responsable de IA.",
+        action: "GOBERNANZA",
         image: "/images/solutions/section03/governance-human-loop.png",
         Icon: GovernanceIcon,
       },
@@ -353,11 +353,11 @@ const content = {
     capabilities: [
       {
         title: "Capa de datos",
-        items: ["Ingesta", "Normalización", "Registros canónicos", "Dashboards"],
+        items: ["Ingesta", "Normalización", "Registros canónicos", "Paneles"],
       },
       {
-        title: "Capa de workflow",
-        items: ["Estados", "Aprobaciones", "Alertas", "Asignaciones", "Escalamiento", "Audit trail"],
+        title: "Capa de flujos",
+        items: ["Estados", "Aprobaciones", "Alertas", "Asignaciones", "Escalamiento", "Trazabilidad"],
       },
       {
         title: "Capa de IA",
@@ -365,11 +365,11 @@ const content = {
       },
       {
         title: "Capa de reconocimiento",
-        items: ["Análisis de imagen / video", "Detección de eventos", "Inspección de calidad", "Registros visuales"],
+        items: ["Análisis de imagen y video", "Detección de eventos", "Inspección de calidad", "Registros visuales"],
       },
       {
         title: "Capa de plataforma",
-        items: ["Portales", "Permisos", "Módulos", "Reporting", "Integraciones", "Monitoreo de despliegue"],
+        items: ["Portales", "Permisos", "Módulos", "Reportes", "Integraciones", "Monitoreo de despliegue"],
       },
     ],
 
@@ -380,15 +380,15 @@ const content = {
     typical: "Sistema típico",
     domains: [
       {
-        title: "Retail y e-commerce",
+        title: "Retail y comercio electrónico",
         expertise: "Inteligencia Operacional + Automatización + Asistentes de IA",
-        system: "Operación de catálogo, dashboards de servicio y coordinación entre canales.",
+        system: "Operación de catálogo, paneles de servicio y coordinación entre canales.",
         Icon: RetailIcon,
       },
       {
         title: "Minería y recursos",
         expertise: "Inteligencia Operacional + Plataformas Internas + Automatización",
-        system: "Dashboards de control, alertas, registros operativos y workflows de mantenimiento o geología.",
+        system: "Paneles de control, alertas, registros operativos y flujos de mantenimiento o geología.",
         Icon: MiningIcon,
       },
       {
@@ -398,31 +398,31 @@ const content = {
         Icon: ManufacturingIcon,
       },
       {
-        title: "Hospitality y turismo",
+        title: "Hospitalidad y turismo",
         expertise: "Asistentes de IA + Automatización + Plataformas Internas",
         system: "Operación de reservas, coordinación de servicio y capas de respuesta a huéspedes.",
         Icon: HospitalityIcon,
       },
       {
-        title: "Logística y supply chain",
+        title: "Logística y cadena de suministro",
         expertise: "Integraciones de Datos + Inteligencia Operacional + Automatización",
-        system: "Tracking, gestión de excepciones, alertas y soporte a decisiones operativas.",
+        system: "Seguimiento, gestión de excepciones, alertas y soporte a decisiones operativas.",
         Icon: LogisticsIcon,
       },
       {
         title: "Servicios regulados",
         expertise: "Inteligencia Documental + Gobernanza + Plataformas Internas",
-        system: "Workflows documentales, validación, aprobaciones y registros auditables.",
+        system: "Flujos documentales, validación, aprobaciones y registros auditables.",
         Icon: RegulatedIcon,
       },
       {
-        title: "Agricultura / medioambiente",
+        title: "Agricultura y medioambiente",
         expertise: "Reconocimiento + Integraciones de Datos + Inteligencia Operacional",
         system: "Monitoreo de campo, evidencia visual, señales ambientales y registros operativos.",
         Icon: Sprout,
       },
       {
-        title: "Seafood / calidad productiva",
+        title: "Productos del mar y calidad productiva",
         expertise: "Reconocimiento + Automatización + Gobernanza",
         system: "Inspección de calidad, clasificación visual, registros productivos y revisión humana.",
         Icon: Fish,
@@ -432,17 +432,17 @@ const content = {
     combineLabel: "CÓMO SE COMBINAN LAS CAPAS",
     combineTitle: "Cómo las soluciones se convierten en sistemas.",
     combineBody:
-      "N3uralia no trata dashboards, automatización o IA como herramientas aisladas. Combinamos las capas correctas en un sistema operacional.",
+      "N3uralia no trata paneles, automatización o IA como herramientas aisladas. Combinamos las capas correctas en un sistema operacional.",
     systems: [
       {
         title: "Sistema de visibilidad",
-        stack: "Integraciones de datos + dashboards + alertas",
+        stack: "Integraciones de datos + paneles + alertas",
         outcome: "Una vista operacional compartida con datos actuales, excepciones y responsables claros.",
         Icon: IntelligenceIcon,
       },
       {
-        title: "Sistema de workflow",
-        stack: "Estados + aprobaciones + automatización + audit trail",
+        title: "Sistema de flujos",
+        stack: "Estados + aprobaciones + automatización + trazabilidad",
         outcome: "Un flujo gobernado que hace avanzar el trabajo y conserva trazabilidad.",
         Icon: WorkflowIconCustom,
       },
@@ -454,10 +454,10 @@ const content = {
       },
     ],
 
-    finalLabel: "DE SOLUCIÓN A DIAGNÓSTICO",
-    finalTitle: "¿No sabes qué área aplica?",
+    finalLabel: "DEL EXPERTISE AL DIAGNÓSTICO",
+    finalTitle: "¿No sabes por dónde empezar?",
     finalBody:
-      "Cuéntanos la operación, workflow o sistema que quieres mejorar. Te ayudaremos a identificar el mejor punto de partida.",
+      "Cuéntanos la operación, flujo o sistema que quieres mejorar. Identificaremos el punto de partida de mayor valor y las capas que necesita.",
     sales: "Hablar con N3uralia",
     proofLinks: {
       recognition: "Explorar sistemas de reconocimiento",
@@ -513,10 +513,10 @@ export default async function SolutionsPage(props: PageProps) {
                 {page.secondary}
               </Link>
             </div>
-            <div className={styles.heroFooter}>
+            <div className={styles.heroFooter} aria-label={locale === "es" ? "Capas del sistema" : "System layers"}>
               {page.heroFooter.map((item, index) => (
                 <span key={item}>
-                  {index > 0 ? <b>/</b> : null}
+                  {index > 0 ? <b aria-hidden="true">/</b> : null}
                   {item}
                 </span>
               ))}
@@ -537,12 +537,12 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section className={`${styles.stage} ${styles.consoleStage}`}>
+      <section className={`${styles.stage} ${styles.consoleStage}`} aria-labelledby="how-we-help-title">
         <div className={styles.shell}>
           <div className={styles.section02Frame}>
             <header className={styles.sectionHead}>
               <div className={styles.eyebrow}>02 / {page.helpLabel}</div>
-              <h2 className={styles.sectionTitle}>{page.helpTitle}</h2>
+              <h2 id="how-we-help-title" className={styles.sectionTitle}>{page.helpTitle}</h2>
               <p className={styles.sectionIntro}>{page.helpBody}</p>
             </header>
             <div className={styles.pressureGrid}>
@@ -573,17 +573,17 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section id="expertise">
+      <section id="expertise" aria-labelledby="expertise-title">
         <div>
           <header>
-            <div className="section03-eyebrow">{page.expertiseLabel}</div>
-            <h2>{page.expertiseTitle}</h2>
+            <div className="section03-eyebrow">03 / {page.expertiseLabel}</div>
+            <h2 id="expertise-title">{page.expertiseTitle}</h2>
             <p>{page.expertiseBody}</p>
           </header>
           <div className="section03-grid">
             {page.expertise.map((item, index) => (
               <article className="section03-card" key={item.title}>
-                <div className="section03-num">0{index + 1} /</div>
+                <div className="section03-num" aria-hidden="true">0{index + 1} /</div>
                 <img
                   className="section03-asset"
                   src={item.image}
@@ -595,19 +595,21 @@ export default async function SolutionsPage(props: PageProps) {
                 />
                 <h3>{item.title}</h3>
                 <p>{item.text}</p>
-                <div className="section03-action">{item.action} <span>→</span></div>
+                <div className="section03-action" aria-label={locale === "es" ? `Enfoque: ${item.action}` : `Focus: ${item.action}`}>
+                  {item.action}
+                </div>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className={`${styles.stage} ${styles.capabilitiesStage}`}>
+      <section className={`${styles.stage} ${styles.capabilitiesStage}`} aria-labelledby="capabilities-title">
         <div className={`${styles.shell} ${styles.capabilitiesShell}`}>
           <div>
             <header className={styles.sectionHead}>
               <div className={styles.eyebrow}>04 / {page.capabilitiesLabel}</div>
-              <h2 className={styles.sectionTitle}>{page.capabilitiesTitle}</h2>
+              <h2 id="capabilities-title" className={styles.sectionTitle}>{page.capabilitiesTitle}</h2>
               <p className={styles.sectionIntro}>{page.capabilitiesBody}</p>
             </header>
             <div className={styles.capabilityList}>
@@ -636,11 +638,11 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section className={`${styles.stage} ${styles.lightStage}`}>
+      <section className={`${styles.stage} ${styles.lightStage}`} aria-labelledby="domains-title">
         <div className={styles.shell}>
           <header className={styles.sectionHead}>
             <div className={styles.eyebrow}>05 / {page.domainsLabel}</div>
-            <h2 className={styles.sectionTitle}>{page.domainsTitle}</h2>
+            <h2 id="domains-title" className={styles.sectionTitle}>{page.domainsTitle}</h2>
             <p className={styles.sectionIntro}>{page.domainsBody}</p>
           </header>
           <div className={styles.domainGrid}>
@@ -670,11 +672,11 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section className={`${styles.stage} ${styles.combineStage}`}>
+      <section className={`${styles.stage} ${styles.combineStage}`} aria-labelledby="combine-title">
         <div className={styles.shell}>
           <header className={styles.sectionHead}>
             <div className={styles.eyebrow}>06 / {page.combineLabel}</div>
-            <h2 className={styles.sectionTitle}>{page.combineTitle}</h2>
+            <h2 id="combine-title" className={styles.sectionTitle}>{page.combineTitle}</h2>
             <p className={styles.sectionIntro}>{page.combineBody}</p>
           </header>
           <div className={styles.combineLayout}>
@@ -708,18 +710,18 @@ export default async function SolutionsPage(props: PageProps) {
         </div>
       </section>
 
-      <section className={`${styles.stage} ${styles.finalStage}`}>
+      <section className={`${styles.stage} ${styles.finalStage}`} aria-labelledby="expertise-cta-title">
         <div className={`${styles.shell} ${styles.final}`}>
           <div>
             <div className={styles.eyebrow}>{page.finalLabel}</div>
-            <h2 className={styles.finalTitle}>{page.finalTitle}</h2>
+            <h2 id="expertise-cta-title" className={styles.finalTitle}>{page.finalTitle}</h2>
             <p className={styles.sectionIntro}>{page.finalBody}</p>
             <div className={styles.actions}>
               <Link className={styles.cta} href={href(locale, "/diagnostico")}>
                 {page.secondary}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link className={styles.ghost} href={href(locale, "/contacto")}>
+              <Link className={styles.ghost} href={href(locale, "/contact")}>
                 {page.sales}
               </Link>
             </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { ArrowUpRight } from 'lucide-react'
 import { BrandWordmark } from '@/components/brand'
 import type { Locale } from '@/lib/get-locale'
@@ -26,6 +27,7 @@ const copy = {
     location: 'Santiago, Chile · LATAM',
     rights: 'Todos los derechos reservados.',
     language: 'English',
+    homeLabel: 'Inicio de N3uralia',
   },
   en: {
     tagline: 'AI systems, automation and software for real operations.',
@@ -47,16 +49,40 @@ const copy = {
     location: 'Santiago, Chile · LATAM',
     rights: 'All rights reserved.',
     language: 'Español',
+    homeLabel: 'N3uralia home',
   },
 } as const
 
+const localizedSegments: Record<string, string> = {
+  solutions: 'soluciones',
+  soluciones: 'solutions',
+  projects: 'proyectos',
+  proyectos: 'projects',
+  products: 'productos',
+  productos: 'products',
+  recognition: 'reconocimiento',
+  reconocimiento: 'recognition',
+  'how-we-work': 'como-trabajamos',
+  'como-trabajamos': 'how-we-work',
+}
+
+function getLocaleSwitchHref(pathname: string, locale: Locale) {
+  const targetLocale: Locale = locale === 'es' ? 'en' : 'es'
+  const segments = pathname.split('/').filter(Boolean)
+  if (segments.length === 0) return `/${targetLocale}`
+  segments[0] = targetLocale
+  if (segments[1] && localizedSegments[segments[1]]) segments[1] = localizedSegments[segments[1]]
+  return `/${segments.join('/')}`
+}
+
 export function CanonicalFooter({ locale }: { locale: Locale }) {
+  const pathname = usePathname()
   const t = copy[locale]
   const solutionsPath = locale === 'es' ? 'soluciones' : 'solutions'
   const projectsPath = locale === 'es' ? 'proyectos' : 'projects'
   const productsPath = locale === 'es' ? 'productos' : 'products'
   const recognitionPath = locale === 'es' ? 'reconocimiento' : 'recognition'
-  const otherLocale = locale === 'es' ? 'en' : 'es'
+  const languageHref = getLocaleSwitchHref(pathname, locale)
 
   const explore = [
     [t.expertise, `/${locale}/${solutionsPath}`],
@@ -75,17 +101,17 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
   const resources = [
     [t.labs, `/${locale}/labs`],
     [t.faq, `/${locale}/faq`],
-    [t.language, `/${otherLocale}`],
+    [t.language, languageHref],
   ] as const
 
-  const linkClass = 'w-fit text-[13px] leading-6 text-[#9eaaaa] transition-colors hover:text-[#739694] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#739694]'
+  const linkClass = 'w-fit min-h-11 inline-flex items-center text-[13px] leading-6 text-[#9eaaaa] transition-colors hover:text-[#739694] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#739694]'
 
   return (
     <footer className="n3-canonical-footer border-t border-[#739694]/20 bg-[#030606] text-[#d8e0df]">
       <div className="mx-auto max-w-[1240px] px-5 pb-6 pt-14 sm:px-8 lg:px-5 lg:pt-16">
         <div className="grid gap-12 border-b border-[#739694]/18 pb-12 md:grid-cols-2 lg:grid-cols-[1.6fr_0.7fr_0.7fr_0.8fr_1.15fr] lg:gap-8">
           <div className="max-w-sm">
-            <Link href={`/${locale}`} aria-label="N3uralia home" className="inline-block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#739694]">
+            <Link href={`/${locale}`} aria-label={t.homeLabel} className="inline-flex min-h-11 items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#739694]">
               <BrandWordmark className="h-[44px] w-[168px]" priority sizes="168px" />
             </Link>
             <p className="mt-5 text-sm leading-7 text-[#9eaaaa]">{t.tagline}</p>
@@ -98,13 +124,13 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
 
           <div>
             <p className="font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.18em] text-[#739694]">{t.contact}</p>
-            <div className="mt-5 flex flex-col gap-2.5">
+            <div className="mt-5 flex flex-col gap-1">
               <a className={linkClass} href="mailto:info@n3uralia.com">info@n3uralia.com</a>
               <a className={linkClass} href="tel:+56993826127">+56 9 9382 6127</a>
-              <a className={`${linkClass} inline-flex items-center gap-1.5`} href="https://linkedin.com/company/n3uralia" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight className="h-3.5 w-3.5" /></a>
+              <a className={`${linkClass} gap-1.5`} href="https://linkedin.com/company/n3uralia" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /></a>
             </div>
-            <Link href={`/${locale}/diagnostico`} className="mt-6 inline-flex items-center gap-2 border border-[#739694] px-4 py-3 font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.15em] text-[#d8e0df] transition-colors hover:bg-[#739694] hover:text-[#030606] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#739694]">
-              {t.book}<ArrowUpRight className="h-3.5 w-3.5" />
+            <Link href={`/${locale}/diagnostico`} className="mt-6 inline-flex min-h-11 items-center gap-2 border border-[#739694] px-4 py-3 font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.15em] text-[#d8e0df] transition-colors hover:bg-[#739694] hover:text-[#030606] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#739694]">
+              {t.book}<ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>
         </div>
@@ -122,7 +148,7 @@ function FooterColumn({ title, items, linkClass }: { title: string; items: reado
   return (
     <div>
       <p className="font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.18em] text-[#739694]">{title}</p>
-      <nav className="mt-5 flex flex-col gap-2.5" aria-label={title}>
+      <nav className="mt-4 flex flex-col gap-1" aria-label={title}>
         {items.map(([label, href]) => <Link key={href} href={href} className={linkClass}>{label}</Link>)}
       </nav>
     </div>

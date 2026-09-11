@@ -68,6 +68,13 @@ function getCopy(locale: Locale) {
       ? "No pudimos enviar tu mensaje. Intenta otra vez o escríbenos a info@n3uralia.com."
       : "We could not send your message. Please try again or email info@n3uralia.com.",
     inputPlaceholder: isES ? "Escribe tu respuesta..." : "Type your reply...",
+    inputLabels: {
+      name: isES ? "Tu nombre" : "Your name",
+      email: isES ? "Tu email" : "Your email",
+      company: isES ? "Tu empresa" : "Your company",
+      message: isES ? "Qué quieres construir, automatizar o mejorar" : "What you want to build, automate, or improve",
+      whatsapp: isES ? "Tu WhatsApp, opcional" : "Your WhatsApp, optional",
+    },
     newProject: isES ? "Iniciar nuevo proyecto" : "Start a new project",
     close: isES ? "Volver al inicio" : "Back to home",
     homeHref: `/${locale}`,
@@ -102,11 +109,12 @@ export function ContactConversation({ locale }: { locale: Locale }) {
   }, [copy.greeting])
 
   useEffect(() => {
-    setTimeout(() => {
+    const frame = window.requestAnimationFrame(() => {
       if (messagesEndRef.current && messagesContainerRef.current) {
         messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
       }
-    }, 0)
+    })
+    return () => window.cancelAnimationFrame(frame)
   }, [messages, isLoading])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -200,14 +208,33 @@ export function ContactConversation({ locale }: { locale: Locale }) {
     setCurrentStep("name")
   }
 
+  const inputType = currentStep === "email" ? "email" : "text"
+  const inputMode = currentStep === "whatsapp" ? "tel" : currentStep === "email" ? "email" : "text"
+  const autoComplete = currentStep === "name"
+    ? "name"
+    : currentStep === "email"
+      ? "email"
+      : currentStep === "company"
+        ? "organization"
+        : currentStep === "whatsapp"
+          ? "tel"
+          : "off"
+
   return (
-    <div className="flex h-full min-h-[31rem] flex-col bg-[var(--n3-black)]">
-      <div className="flex flex-1 flex-col overflow-hidden">
-        <div ref={messagesContainerRef} className="flex-1 space-y-4 overflow-y-auto p-5 scroll-smooth md:p-6">
+    <div className="flex h-full min-h-[31rem] min-w-0 flex-col bg-[var(--n3-black)]">
+      <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
+        <div
+          ref={messagesContainerRef}
+          className="flex-1 space-y-4 overflow-y-auto p-5 scroll-smooth md:p-6"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions text"
+          aria-busy={isLoading}
+        >
           {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+            <div key={message.id} className={`flex min-w-0 ${message.role === "user" ? "justify-end" : "justify-start"}`}>
               <div
-                className={`max-w-xs border px-4 py-3 sm:max-w-md ${
+                className={`max-w-full break-words border px-4 py-3 sm:max-w-md ${
                   message.role === "user"
                     ? "border-[var(--n3-teal-soft)] bg-[rgba(168,217,216,.09)] text-[var(--n3-text-light)]"
                     : "border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] text-[var(--n3-text-muted)]"
@@ -219,9 +246,9 @@ export function ContactConversation({ locale }: { locale: Locale }) {
           ))}
 
           {isLoading ? (
-            <div className="flex justify-start">
+            <div className="flex justify-start" role="status">
               <div className="flex items-center gap-2 border border-[rgba(118,214,214,.16)] bg-[var(--n3-dark-surface)] px-4 py-3 text-[var(--n3-text-muted)]">
-                <Loader className="h-4 w-4 animate-spin text-[var(--n3-teal-soft)]" />
+                <Loader className="h-4 w-4 animate-spin text-[var(--n3-teal-soft)]" aria-hidden />
                 <p className="text-[12px]">{copy.loading}</p>
               </div>
             </div>
@@ -231,29 +258,31 @@ export function ContactConversation({ locale }: { locale: Locale }) {
         </div>
 
         {!submitted ? (
-          <form onSubmit={handleSubmit} className="flex gap-2 border-t border-[rgba(118,214,214,.16)] bg-[var(--n3-deep)] p-4">
+          <form onSubmit={handleSubmit} className="flex min-w-0 gap-2 border-t border-[rgba(118,214,214,.16)] bg-[var(--n3-deep)] p-4">
             <input
-              type="text"
+              type={inputType}
+              inputMode={inputMode}
+              autoComplete={autoComplete}
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder={copy.inputPlaceholder}
-              className="min-h-12 flex-1 border border-[rgba(168,217,216,.24)] bg-[var(--n3-black)] px-4 py-3 text-[13px] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] transition-colors focus:border-[var(--n3-teal)] focus:outline-none focus:ring-1 focus:ring-[var(--n3-teal)]"
+              aria-label={copy.inputLabels[currentStep]}
+              className="min-h-12 min-w-0 flex-1 border border-[rgba(168,217,216,.24)] bg-[var(--n3-black)] px-4 py-3 text-[16px] text-[var(--n3-text-light)] placeholder:text-[var(--n3-text-muted)] transition-colors focus:border-[var(--n3-teal)] focus:outline-none focus:ring-1 focus:ring-[var(--n3-teal)] md:text-[13px]"
               disabled={isLoading}
-              autoFocus
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="grid h-12 w-12 place-items-center border border-[var(--n3-teal-soft)] bg-[var(--n3-teal-soft)] text-[var(--n3-black)] transition-colors hover:bg-[#c5e8e7] disabled:cursor-not-allowed disabled:opacity-50"
+              className="grid h-12 w-12 flex-none place-items-center border border-[var(--n3-teal-soft)] bg-[var(--n3-teal-soft)] text-[var(--n3-black)] transition-colors hover:bg-[#c5e8e7] disabled:cursor-not-allowed disabled:opacity-50"
               aria-label={locale === "es" ? "Enviar respuesta" : "Send reply"}
             >
-              <Send className="h-4 w-4" />
+              <Send className="h-4 w-4" aria-hidden />
             </button>
           </form>
         ) : (
           <div className="space-y-4 border-t border-[rgba(118,214,214,.16)] bg-[var(--n3-deep)] p-5">
             <div className="flex items-center gap-3 border border-[rgba(168,217,216,.22)] bg-[var(--n3-dark-surface)] p-4">
-              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[var(--n3-teal-soft)]" />
+              <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-[var(--n3-teal-soft)]" aria-hidden />
               <p className="font-[var(--font-rajdhani)] text-sm tracking-[.12em] text-[var(--n3-text-light)] uppercase">{copy.successTitle}</p>
             </div>
 
@@ -266,7 +295,7 @@ export function ContactConversation({ locale }: { locale: Locale }) {
                 rel="noopener noreferrer"
                 className="retro-button retro-button-primary w-full gap-2"
               >
-                <MessageCircle className="h-4 w-4" />
+                <MessageCircle className="h-4 w-4" aria-hidden />
                 {copy.contactWhatsapp}
               </a>
 
@@ -275,12 +304,12 @@ export function ContactConversation({ locale }: { locale: Locale }) {
                 onClick={resetConversation}
                 className="retro-button w-full gap-2"
               >
-                <MessageSquare className="h-4 w-4" />
+                <MessageSquare className="h-4 w-4" aria-hidden />
                 {copy.newProject}
               </button>
 
               <Link href={copy.homeHref} className="retro-button w-full gap-2">
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden />
                 {copy.close}
               </Link>
             </div>

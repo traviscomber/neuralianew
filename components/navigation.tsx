@@ -1,11 +1,38 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import type { Locale } from '@/lib/get-locale'
 import { BrandWordmark } from '@/components/brand'
+
+const localizedSegments: Record<string, string> = {
+  solutions: 'soluciones',
+  soluciones: 'solutions',
+  projects: 'proyectos',
+  proyectos: 'projects',
+  products: 'productos',
+  productos: 'products',
+  recognition: 'reconocimiento',
+  reconocimiento: 'recognition',
+  'how-we-work': 'como-trabajamos',
+  'como-trabajamos': 'how-we-work',
+}
+
+function getLocaleSwitchHref(pathname: string, locale: Locale) {
+  const targetLocale: Locale = locale === 'es' ? 'en' : 'es'
+  const segments = pathname.split('/').filter(Boolean)
+
+  if (segments.length === 0) return `/${targetLocale}`
+
+  segments[0] = targetLocale
+  if (segments[1] && localizedSegments[segments[1]]) {
+    segments[1] = localizedSegments[segments[1]]
+  }
+
+  return `/${segments.join('/')}`
+}
 
 export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
   const [open, setOpen] = useState(false)
@@ -19,6 +46,7 @@ export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
     [locale === 'es' ? 'Diagnóstico' : 'Diagnosis', `/${locale}/diagnostico`],
     [locale === 'es' ? 'Nosotros' : 'About', `/${locale}/about`],
   ]
+  const localeSwitchHref = useMemo(() => getLocaleSwitchHref(pathname, locale), [pathname, locale])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -27,6 +55,19 @@ export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
 
   return (
     <nav className="retro-nav" aria-label={locale === 'es' ? 'Navegación principal' : 'Primary navigation'}>
@@ -40,7 +81,12 @@ export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
               {label}
             </Link>
           ))}
-          <Link href={locale === 'es' ? '/en' : '/es'} onClick={() => setOpen(false)}>
+          <Link
+            href={localeSwitchHref}
+            onClick={() => setOpen(false)}
+            hrefLang={locale === 'es' ? 'en' : 'es'}
+            aria-label={locale === 'es' ? 'Cambiar a inglés' : 'Switch to Spanish'}
+          >
             {locale === 'es' ? 'EN' : 'ES'}
           </Link>
         </div>
@@ -53,7 +99,7 @@ export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
           aria-label={open ? (locale === 'es' ? 'Cerrar menú' : 'Close menu') : (locale === 'es' ? 'Abrir menú' : 'Open menu')}
           aria-expanded={open}
           aria-controls="primary-navigation"
-          onClick={() => setOpen(!open)}
+          onClick={() => setOpen((current) => !current)}
         >
           {open ? <X aria-hidden /> : <Menu aria-hidden />}
         </button>

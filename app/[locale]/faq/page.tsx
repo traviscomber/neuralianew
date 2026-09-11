@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import Script from "next/script"
 import { FaqPageClient } from "@/components/faq/faq-page-client"
-import { Footer } from "@/components/layout/footer"
-import { SectionBackground } from "@/components/section-background"
 import { DEFAULT_LOCALE, isValidLocale, type Locale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -23,18 +21,18 @@ function buildFaqSchema(locale: Locale) {
       {
         "@type": "Question",
         "@id": `${baseUrl}#q1`,
-        name: isES ? "Que hace N3uralia?" : "What does N3uralia build?",
+        name: isES ? "¿Qué hace N3uralia?" : "What does N3uralia build?",
         acceptedAnswer: {
           "@type": "Answer",
           text: isES
-            ? "N3uralia construye sistemas de IA, automatizacion y software para operaciones reales."
+            ? "N3uralia construye sistemas de IA, automatización y software para operaciones reales."
             : "N3uralia builds AI systems, automation, and software for real operations.",
         },
       },
       {
         "@type": "Question",
         "@id": `${baseUrl}#q2`,
-        name: isES ? "Necesito reemplazar mis sistemas?" : "Do we need to replace our systems?",
+        name: isES ? "¿Necesito reemplazar mis sistemas?" : "Do we need to replace our systems?",
         acceptedAnswer: {
           "@type": "Answer",
           text: isES
@@ -47,16 +45,16 @@ function buildFaqSchema(locale: Locale) {
 }
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
-    es: "FAQ | N3uralia",
+    es: "Preguntas frecuentes | N3uralia",
     en: "FAQ | N3uralia",
   }
 
   const descriptions = {
-    es: "Preguntas frecuentes sobre IA, automatizacion, arquitectura y despliegue de software con N3uralia.",
+    es: "Preguntas frecuentes sobre IA, automatización, arquitectura y despliegue de software con N3uralia.",
     en: "Frequently asked questions about AI, automation, architecture, and software delivery with N3uralia.",
   }
 
@@ -69,7 +67,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function FaqPage(props: PageProps) {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const faqSchema = buildFaqSchema(locale)
 
@@ -78,16 +76,11 @@ export default async function FaqPage(props: PageProps) {
       <Script
         id={`faq-schema-${locale}`}
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <SectionBackground section="faq">
-        <main className="min-h-screen pt-20 pb-20 px-4 md:px-6 lg:px-8 bg-background">
-          <FaqPageClient locale={locale} />
-        </main>
-      </SectionBackground>
-      <Footer />
+      <main className="retro-page min-h-screen pt-20">
+        <FaqPageClient locale={locale} />
+      </main>
     </>
   )
 }

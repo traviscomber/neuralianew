@@ -8,11 +8,39 @@ interface LocalizedMetadataOptions {
   path?: string
   title: string
   type?: "article" | "website"
+  alternatePaths?: Partial<Record<Locale, string>>
+}
+
+type LocalizedPathPair = Record<Locale, string>
+
+const localizedPathAliases: Record<string, LocalizedPathPair> = {
+  "/soluciones": { es: "/soluciones", en: "/solutions" },
+  "/solutions": { es: "/soluciones", en: "/solutions" },
+  "/proyectos": { es: "/proyectos", en: "/projects" },
+  "/projects": { es: "/proyectos", en: "/projects" },
+  "/productos": { es: "/productos", en: "/products" },
+  "/products": { es: "/productos", en: "/products" },
+  "/reconocimiento": { es: "/reconocimiento", en: "/recognition" },
+  "/recognition": { es: "/reconocimiento", en: "/recognition" },
+  "/como-trabajamos": { es: "/como-trabajamos", en: "/how-we-work" },
+  "/how-we-work": { es: "/como-trabajamos", en: "/how-we-work" },
+}
+
+function normalizePath(path = "/") {
+  if (!path || path === "/") return ""
+  return path.startsWith("/") ? path : `/${path}`
 }
 
 function buildLocalizedPath(locale: Locale, path = "/") {
-  const normalizedPath = !path || path === "/" ? "" : path.startsWith("/") ? path : `/${path}`
-  return `/${locale}${normalizedPath}`
+  return `/${locale}${normalizePath(path)}`
+}
+
+function resolveLocalizedPaths(path: string, alternatePaths?: Partial<Record<Locale, string>>): LocalizedPathPair {
+  const aliasPair = localizedPathAliases[normalizePath(path)]
+  return {
+    es: alternatePaths?.es ?? aliasPair?.es ?? path,
+    en: alternatePaths?.en ?? aliasPair?.en ?? path,
+  }
 }
 
 export function buildLocalizedMetadata({
@@ -21,10 +49,14 @@ export function buildLocalizedMetadata({
   path = "/",
   title,
   type = "website",
+  alternatePaths,
 }: LocalizedMetadataOptions): Metadata {
-  const currentPath = buildLocalizedPath(locale, path)
-  const spanishPath = buildLocalizedPath("es", path)
-  const englishPath = buildLocalizedPath("en", path)
+  const paths = resolveLocalizedPaths(path, alternatePaths)
+  const currentPath = buildLocalizedPath(locale, paths[locale])
+  const spanishPath = buildLocalizedPath("es", paths.es)
+  const englishPath = buildLocalizedPath("en", paths.en)
+  const spanishUrl = absoluteUrl(spanishPath)
+  const englishUrl = absoluteUrl(englishPath)
   const openGraphLocale = locale === "es" ? "es_CL" : "en_US"
   const alternateLocale = locale === "es" ? ["en_US"] : ["es_CL"]
 
@@ -34,8 +66,11 @@ export function buildLocalizedMetadata({
     alternates: {
       canonical: absoluteUrl(currentPath),
       languages: {
-        es: absoluteUrl(spanishPath),
-        en: absoluteUrl(englishPath),
+        "es-CL": spanishUrl,
+        es: spanishUrl,
+        en: englishUrl,
+        "en-US": englishUrl,
+        "x-default": spanishUrl,
       },
     },
     openGraph: {
@@ -45,7 +80,7 @@ export function buildLocalizedMetadata({
       type,
       siteName: SITE_NAME,
       locale: openGraphLocale,
-      alternateLocale: alternateLocale,
+      alternateLocale,
       images: [
         {
           url: absoluteUrl(OG_IMAGE_PATH),

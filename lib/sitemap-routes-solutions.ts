@@ -1,4 +1,5 @@
 export const solutionSitemapRoutes = [
+  ['/agentes-ia-chile', 0.9, 'weekly'],
   ['/agentic-systems', 0.85, 'monthly'],
   ['/ai-infrastructure', 0.85, 'monthly'],
   ['/automatizacion-para-empresas', 0.85, 'monthly'],

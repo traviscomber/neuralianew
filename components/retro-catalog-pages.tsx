@@ -87,7 +87,7 @@ export function ProjectsPage({locale}:{locale:Locale}){
         title={es ? 'Proyectos que convierten complejidad en sistemas.' : 'Projects that turn complexity into systems.'}
         body={es ? 'Sistemas reales diseñados alrededor de operaciones, personas, documentos y decisiones.' : 'Real systems designed around operations, people, documents and decisions.'}
       />
-      <section className="retro-light catalog-section">
+      <section className="retro-light catalog-section" aria-label={es ? 'Proyectos de N3uralia' : 'N3uralia projects'}>
         <div className="retro-shell catalog-list">
           {projects.map((p,i) => {
             const d = data[i]
@@ -103,7 +103,7 @@ export function ProjectsPage({locale}:{locale:Locale}){
                     <div><dt>{es ? 'Valor operativo' : 'Operational value'}</dt><dd>{d.value}</dd></div>
                   </dl>
                   <div className="catalog-tags">{d.tags.map(t => <span key={t}>{t}</span>)}</div>
-                  <Link className="catalog-link" href={`/${locale}/diagnostico#contacto`}>
+                  <Link className="catalog-link" href={`/${locale}/diagnostico#diagnosis-assistant`}>
                     {es ? 'Conversar sobre un sistema' : 'Discuss a system'} →
                   </Link>
                 </div>
@@ -130,7 +130,7 @@ export function ProductsPage({locale}:{locale:Locale}){
         title={es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}
         body={es ? 'Sistemas reutilizables que conectan documentos, procesos, datos, decisiones y agentes.' : 'Reusable systems connecting documents, processes, data, decisions and agents.'}
       />
-      <section className="retro-light catalog-section">
+      <section className="retro-light catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
         <div className="retro-shell catalog-list">
           {products.map((p,i) => {
             const d = data[i]
@@ -144,9 +144,9 @@ export function ProductsPage({locale}:{locale:Locale}){
                     <div><dt>{es ? 'Para quién' : 'For whom'}</dt><dd>{d.forWhom}</dd></div>
                     <div><dt>{es ? 'Módulos' : 'Modules'}</dt><dd>{d.modules.join(' · ')}</dd></div>
                   </dl>
-                  <div className="product-status" style={{margin:'1rem 0'}}><i/>{d.status}</div>
+                  <div className="product-status" style={{margin:'1rem 0'}}><i aria-hidden/>{d.status}</div>
                   {p.id !== 'to-be-continued' && (
-                    <Link className="catalog-link" href={`/${locale}/diagnostico#contacto`}>
+                    <Link className="catalog-link" href={`/${locale}/diagnostico#diagnosis-assistant`}>
                       {es ? 'Evaluar este producto' : 'Evaluate this product'} →
                     </Link>
                   )}

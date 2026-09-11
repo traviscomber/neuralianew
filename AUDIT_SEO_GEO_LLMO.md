@@ -1,179 +1,137 @@
-# 🔍 AUDIT COMPLETO SEO/GEO/LLMO - N3uralia
-# Fecha: 25/02/2026
+# N3uralia SEO / GEO / LLMO Audit
 
-## ✅ OPTIMIZACIONES IMPLEMENTADAS
+**Status:** current  
+**Audit date:** 2026-09-11  
+**Canonical domain:** `https://www.n3uralia.com`  
+**Scope:** technical SEO, bilingual canonicalization, geographic discovery, structured entity data, crawler policy, sitemap hygiene and LLM-facing source guidance.
 
-### 1. METADATA & SEO STRUCTURE
-- [x] Title tags únicos y descriptivos en todas las páginas principales
-- [x] Meta descriptions optimizadas con keywords y CTAs
-- [x] Canonical URLs configuradas
-- [x] Open Graph tags (og:title, og:description, og:image, og:locale)
-- [x] Twitter Card metadata
-- [x] Alternates languages (es-CL, es-ES, en-US)
-- [x] Robots meta tags configurados (index, follow, googleBot)
+## Executive result
 
-### 2. STRUCTURED DATA & SCHEMA
-- [x] StructuredData component en layout.tsx
-- [x] StructuredCitations para validación local
-- [x] JSON-LD para Organization, LocalBusiness
-- [x] FAQ Schema para /faq
-- [x] BreadcrumbList para navegación
-- [x] AggregateOffer para casos de estudio
+The September 2026 pass replaces the February audit. The previous document contained stale crawler assumptions, obsolete route references and unsupported example metrics. Those claims are intentionally removed.
 
-### 3. SITEMAP & ROBOTS
-- [x] robots.txt: Permite todos los bots (ChatGPT, Claude, Perplexity, Bing, Baidu)
-- [x] sitemap.xml: 30+ URLs con prioridades
-- [x] Crawl-delay: 1 segundo (óptimo para indexación)
-- [x] AI-specific paths: /llmo-content, /social-test-results
-- [x] Case studies URLs (ecosuelolab, despega-tu-carrera, blackswan)
-- [x] Anchor links a soluciones por industria (abogados, minería, seguridad, etc)
+The current implementation is designed around four rules:
 
-### 4. GEO-TARGETING
-- [x] Lang="es" en HTML por defecto
-- [x] hreflang alternates para es-CL, es-ES, en-US
-- [x] Viewport optimizado: device-width, initial-scale=1
-- [x] Localización clara en footer/about
-- [x] Contenido específico Chile/LATAM
+1. Index only canonical, useful public URLs.
+2. Keep Spanish and English pages connected through explicit hreflang pairs.
+3. Describe N3uralia and its geographic scope with verifiable entity data rather than fabricated local-office signals.
+4. Give search engines and language models a consistent source hierarchy without inventing customer outcomes, certifications or guarantees.
 
-### 5. LLMO OPTIMIZATION (Large Language Model)
-- [x] robots.txt permite ChatGPT-User, GPTBot, Claude-Web, Perplexity
-- [x] Contenido estructurado y legible para IA
-- [x] Datos estructurados (JSON-LD)
-- [x] Contenido descriptivo sin fluff
-- [x] Hechos medibles (100% automatización, 10K+ usuarios, 40% eficiencia)
-- [x] Casos de uso claros (Abogados, Minería, Seguridad, Agro, Retail, Arte)
-- [x] Security.txt y humans.txt para transparencia
+## Technical SEO
 
-### 6. PERFORMANCE & CORE WEB VITALS
-- [x] Image optimization: WebP, AVIF, lazy loading
-- [x] SWC minify habilitado
-- [x] Font optimization: display="swap" (Inter, Montserrat)
-- [x] Chunk splitting optimizado
-- [x] CSS optimization
-- [x] Remote pattern para blob storage
+- Canonical host is `www.n3uralia.com`; non-www redirects permanently to the canonical host.
+- Localized metadata uses canonical URLs plus `es-CL`, `es`, `en`, `en-US` and `x-default` alternates.
+- Translated commercial slugs are paired explicitly, including Solutions, Projects, Products, Recognition and Methodology.
+- Open Graph URLs use the same canonical localized URL model.
+- The public sitemap is generated from canonical route registries rather than from every build route.
+- Redirected URLs are excluded from the sitemap.
+- Duplicate locale variants of the methodology route are permanently redirected to the intended localized slug.
+- Public Labs is crawlable; internal demos, dashboards, APIs and utility surfaces remain excluded.
 
-### 7. CONTENIDO ACTUALIZADO
-- [x] Homepage: Seciones Hero, Capabilities, Soluciones, Clientes, CTA
-- [x] /soluciones: Desarrollos reales por industria (6 casos)
-- [x] /case-studies: 3 clientes con logos reales
-- [x] Navegación simplificada: Capacidades, Soluciones, Casos, Acerca, Contactar
-- [x] Mobile-first responsive design
+## Sitemap architecture
 
-### 8. REDIRECTS (301) PERMANENTES
-- /para-empresas → /soluciones#para-empresas
-- /para-startups → /soluciones#para-startups
-- /para-desarrolladores → /soluciones#para-desarrolladores
-- /nuestro-enfoque → /como-trabajamos
-- /living-agents → /capabilities#living-agents
+Primary sitemap: `https://www.n3uralia.com/sitemap.xml`
 
----
+The sitemap contains:
 
-## 📊 PÁGINAS CRÍTICAS OPTIMIZADAS
+- Spanish and English home pages.
+- Canonical commercial pages and conversion surfaces.
+- Canonical solution and knowledge pages.
+- Published blog and case-study URLs.
+- The Chile AI-agents pillar.
+- Geographic city landing pages generated from the canonical Chile city registry.
+- Reciprocal language alternates and `x-default` for every bilingual pair.
 
-### Homepage (/)
-- **Title**: "N3uralia | Sistemas Agenticos en Producción - IA Aumentada Chile"
-- **Priority**: 1.0
-- **Update**: 2026-02-13
-- **Sections**: Hero, Capabilities, Soluciones, Clientes, CTA
+The sitemap must not contain:
 
-### Case Studies (/case-studies)
-- **Title**: "Casos de Éxito - Sistemas Agenticos en Producción | N3uralia"
-- **Priority**: 0.92
-- **Update**: 2026-02-25
-- **Content**: Ecosuelolab, Despega Tu Carrera, Blackswan con logos
+- Redirect targets under an obsolete URL.
+- Private/API/dashboard paths.
+- Duplicate route aliases representing the same page.
+- Deleted acquisition pages.
 
-### Soluciones (/soluciones)
-- **Title**: "Soluciones de Sistemas Agenticos | Para B2B, Turismo, Eventos, Manufactura"
-- **Priority**: 0.90
-- **Update**: 2026-02-21
-- **Anchor Links**: #abogados, #mineria, #seguridad, #agricola, #retail, #arte
+## GEO strategy
 
-### Capacidades (/capabilities)
-- **Title**: "Capacidades Técnicas N3uralia | 6 Pilares de Sistemas Agenticos"
-- **Priority**: 0.95
-- **Content**: 6 pilares arquitectónicos
+N3uralia is represented as based in Santiago, Chile and serving Chile and Latin America. Geographic pages are context pages, not fake branch-office pages.
 
----
+The city-page system currently covers the cities defined in `lib/chile-city-pages.ts`. Each page states its city, region, relevant operating contexts and localized description, while explicitly avoiding an implication that N3uralia maintains a physical office in every city.
 
-## 🌍 GEO-TARGETING CONFIG
+Canonical geographic pillar:
 
-```
-Primary: es-CL (Chile)
-Secondary: es-ES, es (Spanish)
-Tertiary: en-US, en (English)
-```
+- `https://www.n3uralia.com/es/agentes-ia-chile`
+- `https://www.n3uralia.com/en/agentes-ia-chile`
 
-**Hreflang implementado:**
-- es-CL: https://n3uralia.com
-- es: https://n3uralia.com
-- en: https://n3uralia.com
-- en-US: https://n3uralia.com
+City pattern:
 
----
+- `https://www.n3uralia.com/es/agentes-ia-{city}-chile`
+- `https://www.n3uralia.com/en/agentes-ia-{city}-chile`
 
-## 🤖 LLMO-READY FEATURES
+## Structured data
 
-1. **Bot Allowance**: ChatGPT, Claude, Perplexity, Bing, Baidu
-2. **Structured Facts**:
-   - 3 casos de éxito reales
-   - 6 soluciones por industria
-   - 100% automatización en Ecosuelolab
-   - 10K+ usuarios en Despega Tu Carrera
-   - 40% eficiencia en Blackswan
-3. **Content Clarity**:
-   - Descripciones concisas
-   - Jerarquía clara (H1, H2, H3)
-   - Listas con bullets para facilidad de lectura
-4. **Transparency Files**:
-   - /security.txt
-   - /humans.txt
-   - Open Graph completo
+The global schema uses one connected `@graph` with:
 
----
+- `Organization` as the canonical N3uralia entity.
+- `WebSite` connected to that organization.
+- Canonical logo, website, verified public contact channels and LinkedIn identity.
+- Santiago / Chile location context and Chile / Latin America service area.
+- Spanish and English language support.
+- An `OfferCatalog` describing the current solution categories.
 
-## 🔧 URLS CLAVE INDEXADAS
+A generic `LocalBusiness` entity is deliberately not emitted because a city-level service presence should not be presented as a storefront or physical office without a verified street-level business location.
 
-| URL | Priority | Update | Type |
-|-----|----------|--------|------|
-| / | 1.0 | 2026-02-13 | Homepage |
-| /capacidades | 0.95 | 2026-02-13 | Main |
-| /soluciones | 0.90 | 2026-02-21 | Main |
-| /case-studies | 0.92 | 2026-02-25 | Social Proof |
-| /caso-studies/ecosuelolab | 0.85 | 2026-02-25 | Case |
-| /case-studies/despega-tu-carrera | 0.85 | 2026-02-25 | Case |
-| /case-studies/blackswan-facility-core | 0.85 | 2026-02-25 | Case |
-| /blog | 0.85 | Daily | Content |
-| /faq | 0.75 | Weekly | Support |
-| /contact | 0.80 | Weekly | CTA |
-| /about | 0.60 | Monthly | Company |
+## LLMO / AI discovery
 
----
+`/llms.txt` is maintained as a concise canonical briefing rather than as a ranking hack. It provides:
 
-## 🎯 RECOMENDACIONES FINALES
+- Canonical entity identity.
+- Canonical ES/EN URLs.
+- Core solution taxonomy.
+- Geographic scope.
+- Operating principles.
+- Evidence and citation hierarchy.
+- Explicit rules against inferring unsupported ROI, metrics, certifications, awards, SLAs or outcomes.
 
-### Próximos pasos para maximizar ranking:
-1. **Backlinks**: Buscar links desde blogs de IA, startups chilenas
-2. **Content**: Crear 3-5 posts de blog mensuales sobre:
-   - "Cómo orquestar sistemas agenticos"
-   - "Casos de uso reales de IA"
-   - "Comparativa: IA reemplazo vs. IA aumentada"
-3. **Local SEO**: Registrar en Google Business (Santiago, Chile)
-4. **Speed**: Monitorear Core Web Vitals mensualmente
-5. **Analytics**: Configurar GA4 para tracking de conversiones
+Search discovery and model-training permissions remain separate. Public search crawlers can access canonical public content under the general crawler policy, and `OAI-SearchBot` is explicitly allowed. Existing opt-outs for selected training/data-collection crawlers remain intact.
 
----
+## Current solution taxonomy
 
-## ✨ STATUS: LISTO PARA PRODUCCIÓN
+- Operational Intelligence
+- Workflow Automation
+- AI Assistants
+- Document Intelligence
+- Recognition Systems
+- Internal Platforms
+- Data Integrations
+- Governance and Human Review
 
-✅ SEO optimizado para ES/EN
-✅ GEO-targeting configurado
-✅ LLMO-friendly (bots permitidos)
-✅ Contenido único y valioso
-✅ Estructura limpia y navegable
-✅ Performance optimizado
-✅ Mobile-first responsive
-✅ Metadata completa
-✅ Schema markup implementado
-✅ Redirects permanentes
+These terms should remain consistent across Solutions, structured data and `llms.txt`.
 
-**Ahora N3uralia está listo para aparecer en primeros resultados en búsquedas de "sistemas agenticos", "IA en producción", "automatización empresarial" en ES y EN.**
+## Integrity gates
+
+`scripts/check-portal-contract.mjs` now checks SEO/LLMO invariants in addition to the existing portal contract. It verifies, among other things:
+
+- canonical bilingual sitemap pairs;
+- GEO city generation;
+- Labs crawlability;
+- exclusion of the redirected mining-blog URL;
+- canonical methodology redirects;
+- structured-data entity shape;
+- current solution taxonomy;
+- updated `llms.txt` evidence rules.
+
+The CI workflow runs the portal contract, type checking, linting and the production build before changes can be accepted on `main`.
+
+## Claims policy
+
+No SEO, GEO or LLMO implementation can guarantee a ranking or inclusion in a model/search result. N3uralia should not publish invented performance percentages, customer counts, rankings, certifications, availability guarantees or ROI figures. Material claims must be tied to a current canonical page, measurement source or contract.
+
+## Next review
+
+Re-run this audit when any of the following changes materially:
+
+- primary public navigation;
+- canonical domain or locale strategy;
+- sitemap route registry;
+- city-page registry;
+- solution taxonomy;
+- crawler policy;
+- structured data;
+- major project or product evidence.
