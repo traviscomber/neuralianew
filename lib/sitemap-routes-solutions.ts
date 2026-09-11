@@ -15,9 +15,9 @@ export const solutionSitemapRoutes = [
   ['/platform/nodes', 0.65, 'monthly'],
   ['/platform/patterns', 0.65, 'monthly'],
   ['/platform/security', 0.65, 'monthly'],
-  // Industry pages remain indexable where they provide substantive vertical context.
   ['/agentes-ia-logistica-chile', 0.7, 'monthly'],
   ['/agentes-ia-manufactura-chile', 0.7, 'monthly'],
   ['/agentes-ia-retail-chile', 0.7, 'monthly'],
   ['/agentes-ia-turismo-chile', 0.7, 'monthly'],
+  ['/agentes-ia-chile/ciudades', 0.75, 'monthly'],
 ] as const

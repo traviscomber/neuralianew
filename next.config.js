@@ -1,15 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Keep Supabase's dependency graph external on the server. This preserves
-  // the established runtime boundary using the stable Next 15 option.
   serverExternalPackages: [
     '@supabase/ssr',
     '@supabase/supabase-js',
     '@supabase/auth-js',
   ],
-  // Section 03 raster artwork is mutable production media. Keep the stable
-  // app-facing paths while resolving the bytes from the canonical Supabase
-  // Storage bucket before Next checks /public. Layout/cropping remains in CSS.
   async rewrites() {
     return {
       beforeFiles: [
@@ -18,6 +13,10 @@ const nextConfig = {
           destination:
             'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/:asset*.png',
         },
+        {
+          source: '/images/solutions/selector-decision-map.webp',
+          destination: '/images/solutions/selector-map.webp',
+        },
       ],
       afterFiles: [],
       fallback: [],
@@ -25,45 +24,18 @@ const nextConfig = {
   },
   redirects: async () => {
     return [
-      // Canonical locale routes for the Expertise page.
-      {
-        source: '/en/soluciones',
-        destination: '/en/solutions',
-        permanent: true,
-      },
-      {
-        source: '/es/solutions',
-        destination: '/es/soluciones',
-        permanent: true,
-      },
-      // Canonicalize legacy brand/icon endpoints so old browser/search caches
-      // resolve to the current source-of-truth assets instead of a locale route.
-      {
-        source: '/icon.svg',
-        destination: '/favicon.svg',
-        permanent: true,
-      },
-      {
-        source: '/apple-icon.png',
-        destination: '/apple-touch-icon.png',
-        permanent: true,
-      },
-      {
-        source: '/manifest.json',
-        destination: '/site.webmanifest',
-        permanent: true,
-      },
-      {
-        source: '/n3uralia-logo-new.png',
-        destination: '/n3uralia-brand/n3uralia-sign-canonical.svg',
-        permanent: true,
-      },
-      {
-        source: '/n3uralia-logo-horizontal.jpg',
-        destination: '/n3uralia-brand/n3uralia-logo-canonical.svg',
-        permanent: true,
-      },
-      // www redirect (non-www -> www) — handled in middleware too, belt-and-suspenders
+      { source: '/en/soluciones', destination: '/en/solutions', permanent: true },
+      { source: '/es/solutions', destination: '/es/soluciones', permanent: true },
+      { source: '/en/contacto', destination: '/en/contact', permanent: true },
+      { source: '/es/contacto', destination: '/es/contact', permanent: true },
+      { source: '/contacto', destination: '/es/contact', permanent: true },
+      { source: '/es/blog/agentes-ia-mineria-casos-exito', destination: '/es/agentes-ia-chile', permanent: true },
+      { source: '/en/blog/agentes-ia-mineria-casos-exito', destination: '/en/agentes-ia-chile', permanent: true },
+      { source: '/icon.svg', destination: '/favicon.svg', permanent: true },
+      { source: '/apple-icon.png', destination: '/apple-touch-icon.png', permanent: true },
+      { source: '/manifest.json', destination: '/site.webmanifest', permanent: true },
+      { source: '/n3uralia-logo-new.png', destination: '/n3uralia-brand/n3uralia-sign-canonical.svg', permanent: true },
+      { source: '/n3uralia-logo-horizontal.jpg', destination: '/n3uralia-brand/n3uralia-logo-canonical.svg', permanent: true },
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'n3uralia.com' }],

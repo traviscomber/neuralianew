@@ -1,6 +1,5 @@
 export const coreSitemapRoutes = [
   ['', 1, 'weekly'],
-  ['/soluciones', 0.95, 'weekly'],
   ['/diagnostico', 0.95, 'weekly'],
   ['/case-studies', 0.85, 'weekly'],
   ['/blog', 0.8, 'weekly'],
