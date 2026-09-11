@@ -11,8 +11,8 @@ const intentionalConsoleFiles = [
 ];
 
 const intentionalRawImageFiles = [
-  'app/[locale]/soluciones/page.tsx',
-  'app/case-studies/[id]/CaseStudyContent.tsx',
+  'app/**/soluciones/page.tsx',
+  'app/case-studies/**/CaseStudyContent.tsx',
   'components/recognition-page.tsx',
   'components/recognition-section04-final.tsx',
   'components/retro-landing.tsx',
@@ -42,12 +42,15 @@ export default [
       '@typescript-eslint': typescriptPlugin,
     },
     rules: {
+      ...nextPlugin.configs.recommended.rules,
+      ...nextPlugin.configs['core-web-vitals'].rules,
       '@next/next/no-html-link-for-pages': 'off',
       '@next/next/no-img-element': 'warn',
       '@next/next/no-sync-scripts': 'error',
       '@typescript-eslint/no-unused-vars': ['warn', {
-        argsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
+        args: 'none',
+        caughtErrors: 'none',
+        ignoreRestSiblings: true,
       }],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-eval': 'error',
