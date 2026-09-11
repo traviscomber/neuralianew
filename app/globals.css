@@ -62,11 +62,10 @@
   --n3-line: rgba(118,214,214,.28); --n3-text-light: #e8f0f0; --n3-text-muted: #8fa7a8;
   --n3-light-bg: #eaf1f1; --n3-light-surface: #f4f8f8; --n3-light-text: #102326;
   --n3-light-muted: #5d7073; --n3-border-light: #c9d8d8;
-  --font-rajdhani: var(--font-montserrat);
 }
 [id] { scroll-margin-top: 96px; }
 .retro-page { background: var(--n3-black); color: var(--n3-text-light); font-family: var(--font-montserrat), Montserrat, sans-serif; font-weight: 300; }
-.retro-page h1,.retro-page h2,.retro-page h3 { font-family: var(--font-rajdhani), Montserrat, sans-serif; font-weight: 300; letter-spacing: .14em; line-height: 1.08; text-transform: uppercase; }
+.retro-page h1,.retro-page h2,.retro-page h3 { font-family: var(--font-rajdhani), Rajdhani, sans-serif; font-weight: 300; letter-spacing: .14em; line-height: 1.08; text-transform: uppercase; }
 .retro-page p { line-height: 1.65; }
 .retro-dark { background: var(--n3-black); color: var(--n3-text-light); }
 .retro-light { background: var(--n3-light-bg); color: var(--n3-light-text); }
