@@ -16,7 +16,7 @@ const nextConfig = {
         {
           source: '/images/solutions/section03/:asset*.png',
           destination:
-            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section03/:asset*.png',
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/:asset*.png',
         },
       ],
       afterFiles: [],
