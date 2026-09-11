@@ -52,13 +52,14 @@ const copy = {
 
 export function CanonicalFooter({ locale }: { locale: Locale }) {
   const t = copy[locale]
+  const solutionsPath = locale === 'es' ? 'soluciones' : 'solutions'
   const projectsPath = locale === 'es' ? 'proyectos' : 'projects'
   const productsPath = locale === 'es' ? 'productos' : 'products'
   const recognitionPath = locale === 'es' ? 'reconocimiento' : 'recognition'
   const otherLocale = locale === 'es' ? 'en' : 'es'
 
   const explore = [
-    [t.expertise, `/${locale}/soluciones`],
+    [t.expertise, `/${locale}/${solutionsPath}`],
     [t.projects, `/${locale}/${projectsPath}`],
     [t.products, `/${locale}/${productsPath}`],
     [t.recognition, `/${locale}/${recognitionPath}`],
