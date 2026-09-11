@@ -7,6 +7,22 @@ const nextConfig = {
     '@supabase/supabase-js',
     '@supabase/auth-js',
   ],
+  // Section 03 raster artwork is mutable production media. Keep the stable
+  // app-facing paths while resolving the bytes from the canonical Supabase
+  // Storage bucket before Next checks /public. Layout/cropping remains in CSS.
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/images/solutions/section03/:asset*.png',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section03/:asset*.png',
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   redirects: async () => {
     return [
       // Canonicalize legacy brand/icon endpoints so old browser/search caches
