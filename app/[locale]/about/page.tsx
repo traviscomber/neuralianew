@@ -18,27 +18,31 @@ const content = {
   es: {
     metadataTitle: "Acerca de | N3uralia",
     metadataDescription:
-      "N3uralia construye sistemas de IA y software desde Chile para equipos que necesitan arquitectura, integracion y operacion real.",
+      "N3uralia construye sistemas de IA y software desde Chile para equipos que necesitan arquitectura, integración y operación real.",
     badge: "Acerca de N3uralia",
     title: "Construimos IA y software como infraestructura, no como truco",
     subtitle:
-      "N3uralia nace desde Santiago con una obsesion simple: llevar inteligencia aplicada a operaciones reales en Chile y LATAM. Menos humo, menos piloto infinito, menos software aislado. Mas arquitectura, mas integracion y mas sistemas que realmente funcionan.",
-    storyTitle: "Que clase de empresa queremos ser",
+      "N3uralia nace desde Santiago con una obsesión simple: llevar inteligencia aplicada a operaciones reales en Chile y LATAM. Menos humo, menos pilotos infinitos, menos software aislado. Más arquitectura, más integración y más sistemas que realmente funcionan.",
+    systemLabel: "N3 / SISTEMA OPERATIVO",
+    systemCells: ["ARQUITECTURA", "INTEGRACIÓN", "OPERACIONES", "CONTROL"],
+    storyLabel: "POSICIÓN",
+    storyTitle: "Qué clase de empresa queremos ser",
     storyParagraphs: [
-      "No nos interesa competir por la demo mas llamativa. Nos interesa construir sistemas que sobrevivan al uso diario, a las integraciones feas y a la realidad de los equipos operativos.",
-      "Creemos que la ventaja en Chile y LATAM no va a venir solo de usar modelos. Va a venir de saber combinar software, datos, automatizacion y criterio operacional con mucha mas disciplina que el promedio.",
-      "Por eso N3uralia no se vende como magia. Se vende como una forma seria de construir capacidad tecnica y mover negocio.",
+      "No nos interesa competir por la demo más llamativa. Nos interesa construir sistemas que sobrevivan al uso diario, a las integraciones difíciles y a la realidad de los equipos operativos.",
+      "Creemos que la ventaja en Chile y LATAM no va a venir solo de usar modelos. Va a venir de saber combinar software, datos, automatización y criterio operacional con mucha más disciplina que el promedio.",
+      "Por eso N3uralia no se vende como magia. Se presenta como una forma seria de construir capacidad técnica y mover el negocio.",
     ],
-    pillarsTitle: "En que creemos",
+    pillarsLabel: "PRINCIPIOS",
+    pillarsTitle: "En qué creemos",
     pillars: [
       {
         title: "Arquitectura antes que hype",
         description:
-          "La IA sirve cuando se integra bien, se monitorea bien y tiene un lugar claro dentro de la operacion.",
+          "La IA sirve cuando se integra bien, se monitorea bien y tiene un lugar claro dentro de la operación.",
         icon: Zap,
       },
       {
-        title: "Contexto local importa",
+        title: "El contexto local importa",
         description:
           "Construimos desde Chile para equipos que operan en Chile y LATAM, con sus tiempos, restricciones y oportunidades reales.",
         icon: Users,
@@ -52,21 +56,23 @@ const content = {
       {
         title: "Impacto medible",
         description:
-          "No basta con decir que algo usa IA. Tiene que reducir friccion, acelerar respuesta o abrir una capacidad nueva de negocio.",
+          "No basta con decir que algo usa IA. Tiene que reducir fricción, acelerar respuesta o abrir una capacidad nueva de negocio.",
         icon: Target,
       },
     ],
-    fitTitle: "Con quien encajamos mejor",
+    fitLabel: "ENCAJE",
+    fitTitle: "Con quién encajamos mejor",
     fitItems: [
-      "Equipos que ya sienten friccion operacional y no necesitan que se la expliquen.",
-      "Lideres que quieren construir software y automatizacion con criterio, no comprar una promesa vaga.",
-      "Empresas que entienden que la IA sin integracion, gobernanza y ownership termina en piloto eterno.",
+      "Equipos que ya sienten fricción operacional y no necesitan que se la expliquen.",
+      "Líderes que quieren construir software y automatización con criterio, no comprar una promesa vaga.",
+      "Empresas que entienden que la IA sin integración, gobernanza y ownership termina en un piloto eterno.",
     ],
+    nextLabel: "SIGUIENTE MOVIMIENTO",
     ctaTitle: "Si te importa construir algo serio, hablemos",
     ctaSubtitle:
-      "Nos gusta trabajar con equipos que quieren llegar a produccion, aprender rapido y dejar una base tecnica mas fuerte que antes.",
+      "Nos gusta trabajar con equipos que quieren llegar a producción, aprender rápido y dejar una base técnica más fuerte que antes.",
     primaryCta: "Contactar a N3uralia",
-    secondaryCta: "Ver como trabajamos",
+    secondaryCta: "Ver cómo trabajamos",
   },
   en: {
     metadataTitle: "About | N3uralia",
@@ -76,12 +82,16 @@ const content = {
     title: "We build AI and software like infrastructure, not like a trick",
     subtitle:
       "N3uralia is built from Santiago around one simple obsession: bring applied intelligence into real operations across Chile and LATAM. Less hype, fewer endless pilots, less isolated software. More architecture, more integration, and more systems that actually work.",
+    systemLabel: "N3 / OPERATING SYSTEM",
+    systemCells: ["ARCHITECTURE", "INTEGRATION", "OPERATIONS", "CONTROL"],
+    storyLabel: "POSITION",
     storyTitle: "What kind of company we want to be",
     storyParagraphs: [
       "We are not trying to win with the flashiest demo. We are trying to build systems that survive daily use, ugly integrations, and the reality of operational teams.",
       "In Chile and LATAM, the real advantage will not come from using models alone. It will come from combining software, data, automation, and operational judgment with more discipline than the average team.",
       "That is why N3uralia does not position itself as magic. We position it as a serious way to build technical capacity and move the business.",
     ],
+    pillarsLabel: "PRINCIPLES",
     pillarsTitle: "What we believe",
     pillars: [
       {
@@ -109,12 +119,14 @@ const content = {
         icon: Target,
       },
     ],
+    fitLabel: "FIT",
     fitTitle: "Who we fit best",
     fitItems: [
       "Teams that already feel operational friction and do not need a lecture to recognize it.",
       "Leaders who want to build software and automation with judgment, not buy a vague promise.",
       "Companies that understand AI without integration, governance, and ownership becomes an endless pilot.",
     ],
+    nextLabel: "NEXT MOVE",
     ctaTitle: "If you care about building something serious, let's talk",
     ctaSubtitle:
       "We like working with teams that want to reach production, learn fast, and leave with a stronger technical base than they started with.",
@@ -124,7 +136,7 @@ const content = {
 } as const
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
@@ -137,7 +149,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
 }
 
 export default async function AboutPage(props: PageProps) {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
 
@@ -154,16 +166,16 @@ export default async function AboutPage(props: PageProps) {
           <div className="relative min-h-[360px] border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-8">
             <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
             <div className="mb-10 flex items-center justify-between gap-4">
-              <span className="telemetry">N3 / OPERATING SYSTEM</span>
-              <span className="h-2 w-2 rounded-full bg-[var(--n3-teal)] shadow-[0_0_18px_var(--n3-teal-dim)]" />
+              <span className="telemetry">{page.systemLabel}</span>
+              <span aria-hidden className="h-2 w-2 rounded-full bg-[var(--n3-teal)] shadow-[0_0_18px_var(--n3-teal-dim)]" />
             </div>
             <div className="grid min-h-[245px] grid-cols-2 gap-px bg-[rgba(118,214,214,.16)]">
-              {["ARCHITECTURE", "INTEGRATION", "OPERATIONS", "CONTROL"].map((label, index) => (
-                <div key={label} className="flex flex-col justify-between bg-[var(--n3-black)] p-6">
+              {page.systemCells.map((label, index) => (
+                <div key={label} className="flex min-w-0 flex-col justify-between bg-[var(--n3-black)] p-6">
                   <span className="telemetry">0{index + 1}</span>
                   <div>
-                    <span className="mb-3 block h-px w-10 bg-[var(--n3-teal-soft)]" />
-                    <span className="font-[var(--font-rajdhani)] text-sm tracking-[.16em] text-[var(--n3-teal-soft)]">{label}</span>
+                    <span aria-hidden className="mb-3 block h-px w-10 bg-[var(--n3-teal-soft)]" />
+                    <span className="break-words font-[var(--font-rajdhani)] text-sm tracking-[.16em] text-[var(--n3-teal-soft)]">{label}</span>
                   </div>
                 </div>
               ))}
@@ -175,7 +187,7 @@ export default async function AboutPage(props: PageProps) {
       <section className="border-b border-[rgba(118,214,214,.16)]">
         <div className="retro-shell grid gap-12 py-20 lg:grid-cols-[.6fr_1.4fr]">
           <div>
-            <small>01 / POSITION</small>
+            <small>01 / {page.storyLabel}</small>
             <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.storyTitle}</h2>
           </div>
           <div className="space-y-7 border-l border-[rgba(118,214,214,.16)] pl-0 lg:pl-10">
@@ -191,7 +203,7 @@ export default async function AboutPage(props: PageProps) {
       <section className="border-b border-[rgba(118,214,214,.16)] py-20">
         <div className="retro-shell">
           <div className="mb-12 grid gap-4 lg:grid-cols-[.65fr_1.35fr] lg:items-end">
-            <small>02 / PRINCIPLES</small>
+            <small>02 / {page.pillarsLabel}</small>
             <h2 className="text-[clamp(34px,4vw,56px)]">{page.pillarsTitle}</h2>
           </div>
           <div className="grid gap-px bg-[rgba(118,214,214,.16)] md:grid-cols-2 lg:grid-cols-4">
@@ -200,7 +212,7 @@ export default async function AboutPage(props: PageProps) {
               return (
                 <article key={pillar.title} className="group relative min-h-[290px] bg-[var(--n3-dark-surface)] p-7 transition-colors hover:bg-[#0e1d1e]">
                   <div className="mb-12 flex items-center justify-between">
-                    <Icon className="h-7 w-7 text-[var(--n3-teal-soft)]" />
+                    <Icon className="h-7 w-7 text-[var(--n3-teal-soft)]" aria-hidden />
                     <span className="telemetry">0{index + 1}</span>
                   </div>
                   <h3 className="text-[22px] text-[var(--n3-text-light)]">{pillar.title}</h3>
@@ -215,15 +227,15 @@ export default async function AboutPage(props: PageProps) {
       <section className="border-b border-[rgba(118,214,214,.16)] py-20">
         <div className="retro-shell grid gap-12 lg:grid-cols-[.65fr_1.35fr]">
           <div>
-            <small>03 / FIT</small>
+            <small>03 / {page.fitLabel}</small>
             <h2 className="mt-5 text-[clamp(34px,4vw,56px)]">{page.fitTitle}</h2>
           </div>
           <div className="border-t border-[rgba(118,214,214,.16)]">
             {page.fitItems.map((item, index) => (
-              <div key={item} className="grid grid-cols-[56px_1fr_24px] items-start gap-4 border-b border-[rgba(118,214,214,.16)] py-7">
+              <div key={item} className="grid grid-cols-[56px_minmax(0,1fr)_24px] items-start gap-4 border-b border-[rgba(118,214,214,.16)] py-7">
                 <span className="telemetry">0{index + 1}</span>
                 <p className="text-[14px] text-[var(--n3-text-muted)]">{item}</p>
-                <ArrowRight className="mt-1 h-4 w-4 text-[var(--n3-teal-soft)]" />
+                <ArrowRight className="mt-1 h-4 w-4 text-[var(--n3-teal-soft)]" aria-hidden />
               </div>
             ))}
           </div>
@@ -233,7 +245,7 @@ export default async function AboutPage(props: PageProps) {
       <section className="py-24">
         <div className="retro-shell relative border-y border-[rgba(118,214,214,.2)] py-16">
           <span aria-hidden className="retro-corners"><i/><i/><i/><i/></span>
-          <small>04 / NEXT MOVE</small>
+          <small>04 / {page.nextLabel}</small>
           <div className="mt-5 grid gap-10 lg:grid-cols-[1fr_.8fr] lg:items-end">
             <div>
               <h2 className="max-w-4xl text-[clamp(36px,4.5vw,62px)]">{page.ctaTitle}</h2>
@@ -242,7 +254,7 @@ export default async function AboutPage(props: PageProps) {
             <div className="button-row lg:justify-end">
               <Link href={href(locale, "/contact")} className="retro-button retro-button-primary gap-2">
                 {page.primaryCta}
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
               <Link href={href(locale, "/como-trabajamos")} className="retro-button">
                 {page.secondaryCta}
