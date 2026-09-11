@@ -1,0 +1,154 @@
+/* N3uralia sitewide quality layer.
+ * Safe, shared guardrails only: accessibility, responsive containment,
+ * motion preferences and canonical interaction states.
+ */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  min-width: 320px;
+}
+
+#main-content,
+main,
+section,
+article,
+header,
+footer,
+nav,
+.retro-shell {
+  min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+::selection {
+  background: rgba(115, 150, 148, 0.34);
+  color: #f4f8f8;
+}
+
+:where(a, button, input, textarea, select, summary, [role="button"]):focus-visible {
+  outline: 2px solid var(--n3-brand, #739694);
+  outline-offset: 4px;
+}
+
+:where(a, button, [role="button"]) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(115, 150, 148, 0.14);
+}
+
+.retro-page h1,
+.retro-page h2,
+.retro-page h3 {
+  text-wrap: balance;
+}
+
+.retro-page p,
+.portal-dark-page p {
+  text-wrap: pretty;
+}
+
+.retro-nav-links a {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+}
+
+.retro-nav-links a[aria-current="page"] {
+  color: var(--n3-brand, #739694) !important;
+}
+
+.retro-nav-links a[aria-current="page"]::after {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: "";
+  opacity: 0.72;
+}
+
+.retro-nav-toggle {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.n3-canonical-footer a {
+  min-height: 44px;
+}
+
+.n3-canonical-footer nav a,
+.n3-canonical-footer [href^="mailto:"],
+.n3-canonical-footer [href^="tel:"] {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .retro-nav-links {
+    max-height: calc(100dvh - 82px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .retro-nav-links a {
+    width: min(100%, 440px);
+    min-height: 48px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .retro-page h1 {
+    max-width: 100% !important;
+    font-size: clamp(36px, 11vw, 42px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: 0.085em !important;
+    overflow-wrap: anywhere;
+  }
+
+  .retro-page h2 {
+    max-width: 100%;
+    line-height: 1.08 !important;
+    letter-spacing: 0.095em !important;
+  }
+
+  .retro-page h3 {
+    letter-spacing: 0.08em !important;
+  }
+
+  .retro-page p,
+  .portal-dark-page p {
+    overflow-wrap: break-word;
+  }
+
+  .n3-canonical-footer {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
