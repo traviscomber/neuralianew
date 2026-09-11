@@ -25,6 +25,17 @@ const nextConfig = {
   },
   redirects: async () => {
     return [
+      // Canonical locale routes for the Expertise page.
+      {
+        source: '/en/soluciones',
+        destination: '/en/solutions',
+        permanent: true,
+      },
+      {
+        source: '/es/solutions',
+        destination: '/es/soluciones',
+        permanent: true,
+      },
       // Canonicalize legacy brand/icon endpoints so old browser/search caches
       // resolve to the current source-of-truth assets instead of a locale route.
       {
