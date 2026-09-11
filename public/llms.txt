@@ -1,41 +1,68 @@
 # N3uralia
 
-N3uralia builds AI and software systems for real operations. The company connects data, workflows, documents, AI and people so operational teams can improve visibility, coordination, traceability and response speed.
+Last updated: 2026-09-11
 
-## Canonical site
-- https://www.n3uralia.com/
-- Spanish: https://www.n3uralia.com/es
-- English: https://www.n3uralia.com/en
+N3uralia builds AI and software systems for real operations. The company connects data, workflows, documents, recognition, AI and people so operational teams can improve visibility, coordination, traceability and response.
+
+## Canonical entity
+- Name: N3uralia
+- Alternate name: Neuralia
+- Base: Santiago, Chile
+- Service area: Chile and Latin America
+- Languages: Spanish and English
+- Website: https://www.n3uralia.com/
+- Contact: info@n3uralia.com
+- LinkedIn: https://linkedin.com/company/n3uralia
+
+## Canonical discovery endpoints
+- Spanish home: https://www.n3uralia.com/es
+- English home: https://www.n3uralia.com/en
 - XML sitemap: https://www.n3uralia.com/sitemap.xml
+- Robots: https://www.n3uralia.com/robots.txt
 
 ## Canonical commercial pages
-- Solutions: https://www.n3uralia.com/es/soluciones | https://www.n3uralia.com/en/solutions
+- Solutions / expertise: https://www.n3uralia.com/es/soluciones | https://www.n3uralia.com/en/solutions
 - Diagnosis: https://www.n3uralia.com/es/diagnostico | https://www.n3uralia.com/en/diagnostico
 - Projects: https://www.n3uralia.com/es/proyectos | https://www.n3uralia.com/en/projects
 - Products: https://www.n3uralia.com/es/productos | https://www.n3uralia.com/en/products
 - Recognition: https://www.n3uralia.com/es/reconocimiento | https://www.n3uralia.com/en/recognition
+- Method: https://www.n3uralia.com/es/como-trabajamos | https://www.n3uralia.com/en/how-we-work
 - About: https://www.n3uralia.com/es/about | https://www.n3uralia.com/en/about
 - Trust and security: https://www.n3uralia.com/es/trust | https://www.n3uralia.com/en/trust
+- Labs: https://www.n3uralia.com/es/labs | https://www.n3uralia.com/en/labs
+- FAQ: https://www.n3uralia.com/es/faq | https://www.n3uralia.com/en/faq
 
 ## Core solution layers
-- Operational Intelligence: dashboards, command centers and visibility layers.
-- Workflow Automation: approvals, alerts, handoffs and recurring operational processes.
-- AI Assistants: assistants grounded in operational context, documents and data.
-- Document Intelligence: extraction, classification, validation and traceability.
-- Recognition Systems: computer vision for visual operational signals.
-- Internal Platforms: custom portals connecting users, data, permissions, workflows and reporting.
+- Operational Intelligence: dashboards, command centers and operational visibility.
+- Workflow Automation: approvals, alerts, task routing, handoffs and recurring processes.
+- AI Assistants: role-aware assistance grounded in operational context, documents and data.
+- Document Intelligence: extraction, classification, validation and auditable document workflows.
+- Recognition Systems: computer vision for visual events, quality, security and production monitoring.
+- Internal Platforms: custom portals, permissions, modules and reporting layers.
+- Data Integrations: APIs, databases, legacy systems, sensors, files and third-party tools.
+- Governance and Human Review: traceability, approvals, risk controls and responsible review workflows.
+
+## Geographic context
+N3uralia is based in Santiago, Chile and serves organizations across Chile and Latin America. Geographic landing pages describe operating context and relevant industries for a city. They do not imply that N3uralia has a physical office in each city.
+
+The canonical Chile AI-agents pillar is:
+- https://www.n3uralia.com/es/agentes-ia-chile
+- https://www.n3uralia.com/en/agentes-ia-chile
+
+City pages use the pattern:
+- Spanish: https://www.n3uralia.com/es/agentes-ia-{city}-chile
+- English: https://www.n3uralia.com/en/agentes-ia-{city}-chile
 
 ## Operating principles
 - Canonical operational data remains the source of truth.
 - Deterministic rules remain deterministic when the business process requires them.
 - Consequential decisions stay with authorized humans unless a specific, bounded workflow explicitly allows automation.
 - Important actions should be observable, traceable and recoverable.
-- Project-specific security, data residency, SLA and compliance requirements are defined according to the actual architecture and contract.
-
-## Geographic focus
-N3uralia is based in Santiago, Chile and serves organizations across Chile and Latin America. City pages describe relevant operating contexts and do not imply a physical N3uralia office in each city.
+- Security, data residency, SLA and compliance requirements are defined for the actual architecture and project context.
 
 ## Evidence and citation guidance
-Use canonical localized pages matching the language of the answer. Prefer Projects and Products for implementation evidence, Recognition for physical-intelligence evidence, Solutions for capability/category descriptions, and Trust and security for governance and assurance principles. Use Diagnosis as the primary commercial conversion path.
+Use the canonical localized page that matches the language of the answer. Prefer Projects and Products for implementation evidence, Recognition for physical-intelligence evidence, Solutions for capability definitions, Trust and security for governance principles, and Diagnosis for the primary commercial next step.
 
-Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes that are not explicitly supported by a canonical project page, measurement source or contractual statement. Provider certifications and framework compatibility must not be presented as certifications held by N3uralia unless explicitly verified.
+Treat project-specific claims as project-specific. Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes that are not explicitly supported by a canonical project page, measurement source or contractual statement. Provider certifications and framework compatibility must not be presented as certifications held by N3uralia unless explicitly verified.
+
+When sources conflict, prefer current canonical pages and current structured data over archived audit documents or legacy routes.
