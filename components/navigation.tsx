@@ -10,8 +10,9 @@ import { BrandWordmark } from '@/components/brand'
 export default function Navigation({ locale = 'en' }: { locale?: Locale }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const solutionsHref = locale === 'es' ? '/es/soluciones' : '/en/solutions'
   const links = [
-    ['Expertise', `/${locale}/soluciones`],
+    ['Expertise', solutionsHref],
     [locale === 'es' ? 'Proyectos' : 'Projects', `/${locale}/${locale === 'es' ? 'proyectos' : 'projects'}`],
     [locale === 'es' ? 'Productos' : 'Products', `/${locale}/${locale === 'es' ? 'productos' : 'products'}`],
     [locale === 'es' ? 'Reconocimiento' : 'Recognition', `/${locale}/${locale === 'es' ? 'reconocimiento' : 'recognition'}`],
