@@ -1,5 +1,3 @@
-import Link from "next/link"
-import { ArrowLeft, Calendar, User } from "lucide-react"
 import { Footer } from "@/components/layout/footer"
 import type { Metadata } from "next"
 import { buildSeo } from "@/lib/metadata-utils"
@@ -15,9 +13,5 @@ export const metadata: Metadata = buildSeo({
 })
 
 export default function BlogPost() {
-  return (
-    <>
-      <Footer />
-    </>
-  )
+  return <Footer />
 }
