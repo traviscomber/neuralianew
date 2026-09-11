@@ -24,7 +24,7 @@ export default [
     ignores: ['.next/**', 'node_modules/**', 'out/**', 'public/**'],
   },
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -73,6 +73,13 @@ export default [
       // These surfaces intentionally preserve direct canonical asset URLs and exact image behavior.
       // Next/Image optimization would alter delivery semantics for these existing assets.
       '@next/next/no-img-element': 'off',
+    },
+  },
+  {
+    files: ['app/layout.tsx'],
+    rules: {
+      // App Router root layout is the correct global location for the Rajdhani stylesheet.
+      '@next/next/no-page-custom-font': 'off',
     },
   },
 ];
