@@ -5,15 +5,14 @@ import { getDict } from "@/content/dictionaries"
 
 export function ClosingSection({ locale }: { locale: Locale }) {
   const d = getDict(locale)
-  const isES = locale === "es"
-  
+
   return (
     <section className="py-24 px-4 border-t border-border/50 bg-background">
       <div className="max-w-2xl mx-auto text-center">
         <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
           {d.home.closing.title}
         </h2>
-        
+
         <p className="text-lg text-muted-foreground mb-12 leading-relaxed">
           {d.home.closing.subtitle}
         </p>
