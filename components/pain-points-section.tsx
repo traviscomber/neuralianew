@@ -1,10 +1,8 @@
 import type { Locale } from "@/lib/get-locale"
-import { getDict } from "@/content/dictionaries"
 import { AlertCircle, DollarSign, Zap } from "lucide-react"
 
 export function PainPointsSection({ locale }: { locale: Locale }) {
   const isES = locale === "es"
-  const d = getDict(locale)
 
   const industryBreakdown = isES 
     ? [
@@ -87,7 +85,6 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
   return (
     <section className="py-24 px-4 border-t border-border bg-background">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <div className="mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-destructive/30 mb-6 bg-destructive/5">
             <AlertCircle className="w-4 h-4 text-destructive" />
@@ -95,7 +92,6 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
               {isES ? "Análisis de Costos Ocultos" : "Hidden Cost Analysis"}
             </span>
           </div>
-          
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 text-balance">
             {isES 
               ? "¿Cuánto te está costando realmente funcionar manualmente?"
@@ -108,16 +104,12 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
           </p>
         </div>
 
-        {/* Industry Cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {industryBreakdown.map((ind, i) => (
             <div key={i} className="border border-border/50 rounded-lg overflow-hidden hover:border-destructive/30 transition-colors">
-              {/* Header */}
               <div className="bg-destructive/5 border-b border-destructive/20 p-4">
                 <h3 className="font-semibold text-foreground">{ind.industry}</h3>
               </div>
-              
-              {/* Breakdown Items */}
               <div className="p-4 space-y-3">
                 {ind.breakdown.map((item, idx) => (
                   <div key={idx} className="flex items-start gap-3">
@@ -129,8 +121,6 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
                   </div>
                 ))}
               </div>
-              
-              {/* Total */}
               <div className="bg-primary/5 border-t border-primary/20 p-4">
                 <div className="flex justify-between items-center">
                   <span className="text-sm font-medium text-foreground">
@@ -143,7 +133,6 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        {/* Key Insight */}
         <div className="bg-primary/10 border border-primary/30 rounded-lg p-8">
           <div className="flex gap-4">
             <Zap className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
@@ -160,7 +149,6 @@ export function PainPointsSection({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        {/* Source */}
         <p className="text-xs text-muted-foreground mt-6 text-center">
           {isES 
             ? "Datos basados en análisis de 50+ empresas chilenas en Retail, Manufactura, Logística y Finanzas (2024-2025)"
