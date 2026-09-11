@@ -6,10 +6,11 @@ import { knowledgeSitemapRoutes } from '@/lib/sitemap-routes-knowledge'
 import { contentSitemapRoutes } from '@/lib/sitemap-routes-content'
 
 const locales = ['es', 'en'] as const
-const updated = new Date('2026-09-04T00:00:00.000Z')
+const updated = new Date('2026-09-11T00:00:00.000Z')
 const routes = [...coreSitemapRoutes, ...solutionSitemapRoutes, ...knowledgeSitemapRoutes, ...contentSitemapRoutes]
 
 const localizedCommercialRoutes = [
+  { es: '/soluciones', en: '/solutions', priority: 0.95, changeFrequency: 'weekly' },
   { es: '/proyectos', en: '/projects', priority: 0.95, changeFrequency: 'weekly' },
   { es: '/productos', en: '/products', priority: 0.95, changeFrequency: 'weekly' },
   { es: '/reconocimiento', en: '/recognition', priority: 0.9, changeFrequency: 'monthly' },
@@ -38,26 +39,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: updated,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
-      alternates: {
-        languages: {
-          es: absoluteUrl(`/es${route.es}`),
-          en: absoluteUrl(`/en${route.en}`),
-          'x-default': absoluteUrl(`/es${route.es}`),
-        },
-      },
+      alternates: { languages: { es: absoluteUrl(`/es${route.es}`), en: absoluteUrl(`/en${route.en}`), 'x-default': absoluteUrl(`/es${route.es}`) } },
     },
     {
       url: absoluteUrl(`/en${route.en}`),
       lastModified: updated,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
-      alternates: {
-        languages: {
-          es: absoluteUrl(`/es${route.es}`),
-          en: absoluteUrl(`/en${route.en}`),
-          'x-default': absoluteUrl(`/es${route.es}`),
-        },
-      },
+      alternates: { languages: { es: absoluteUrl(`/es${route.es}`), en: absoluteUrl(`/en${route.en}`), 'x-default': absoluteUrl(`/es${route.es}`) } },
     },
   ])
 
