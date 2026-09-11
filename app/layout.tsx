@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { headers } from "next/headers"
-import { Montserrat } from "next/font/google"
+import { Montserrat, Rajdhani } from "next/font/google"
 import "./globals.css"
 import "./brand-refresh.css"
 import "./final-cta-overrides.css"
@@ -14,6 +14,7 @@ import { RecognitionLandingPortal } from "@/components/recognition-landing-porta
 import { absoluteUrl } from "@/lib/site"
 
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["300", "400", "500"] })
+const rajdhani = Rajdhani({ subsets: ["latin"], display: "swap", variable: "--font-rajdhani", weight: ["400", "500"] })
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl("/")), title: "N3uralia",
   description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
@@ -40,5 +41,5 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
   const pathname = headerStore.get("x-pathname") || ""
   const portalDark = /\/(solutions|soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
-  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><StructuredData /></head><body suppressHydrationWarning className={`${montserrat.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
+  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><StructuredData /></head><body suppressHydrationWarning className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
 }
