@@ -62,6 +62,8 @@ const localizedSegments: Record<string, string> = {
   productos: 'products',
   recognition: 'reconocimiento',
   reconocimiento: 'recognition',
+  'how-we-work': 'como-trabajamos',
+  'como-trabajamos': 'how-we-work',
 }
 
 function getLocaleSwitchHref(pathname: string, locale: Locale) {
