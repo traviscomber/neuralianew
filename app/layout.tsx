@@ -40,6 +40,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const headerStore = await headers()
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
   const pathname = headerStore.get("x-pathname") || ""
-  const portalDark = /\/(soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
-  return <html lang={locale} suppressHydrationWarning><head><StructuredData /></head><body className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
+  const portalDark = /\/(solutions|soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
+  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><StructuredData /></head><body suppressHydrationWarning className={`${montserrat.variable} ${rajdhani.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
 }
