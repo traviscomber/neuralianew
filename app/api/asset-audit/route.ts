@@ -16,9 +16,15 @@ const STORAGE_BASE =
   "https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02"
 
 function bitsToHex(bits: boolean[]) {
-  let value = 0n
-  for (const bit of bits) value = (value << 1n) | (bit ? 1n : 0n)
-  return value.toString(16).padStart(Math.ceil(bits.length / 4), "0")
+  let hex = ""
+  for (let i = 0; i < bits.length; i += 4) {
+    let nibble = 0
+    for (let j = 0; j < 4; j += 1) {
+      nibble = (nibble << 1) | (bits[i + j] ? 1 : 0)
+    }
+    hex += nibble.toString(16)
+  }
+  return hex
 }
 
 async function perceptualHashes(bytes: Buffer) {
