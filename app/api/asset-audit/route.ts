@@ -15,6 +15,36 @@ const ASSETS = new Set([
 const STORAGE_BASE =
   "https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02"
 
+function bitsToHex(bits: boolean[]) {
+  let value = 0n
+  for (const bit of bits) value = (value << 1n) | (bit ? 1n : 0n)
+  return value.toString(16).padStart(Math.ceil(bits.length / 4), "0")
+}
+
+async function perceptualHashes(bytes: Buffer) {
+  const base = sharp(bytes, { failOn: "error" })
+    .flatten({ background: { r: 0, g: 0, b: 0 } })
+    .greyscale()
+
+  const [averagePixels, differencePixels] = await Promise.all([
+    base.clone().resize(8, 8, { fit: "fill" }).raw().toBuffer(),
+    base.clone().resize(9, 8, { fit: "fill" }).raw().toBuffer(),
+  ])
+
+  const mean = averagePixels.reduce((sum, value) => sum + value, 0) / averagePixels.length
+  const aHash = bitsToHex(Array.from(averagePixels, (value) => value >= mean))
+
+  const dBits: boolean[] = []
+  for (let y = 0; y < 8; y += 1) {
+    const row = y * 9
+    for (let x = 0; x < 8; x += 1) {
+      dBits.push(differencePixels[row + x] > differencePixels[row + x + 1])
+    }
+  }
+
+  return { aHash, dHash: bitsToHex(dBits) }
+}
+
 export async function GET(request: NextRequest) {
   const name = request.nextUrl.searchParams.get("name") || ""
   const offset = Math.max(0, Number(request.nextUrl.searchParams.get("offset") || "0") || 0)
@@ -35,7 +65,7 @@ export async function GET(request: NextRequest) {
 
   const bytes = Buffer.from(await response.arrayBuffer())
   const image = sharp(bytes, { failOn: "error" })
-  const [metadata, stats, sample] = await Promise.all([
+  const [metadata, stats, sample, perceptual] = await Promise.all([
     image.metadata(),
     image.stats(),
     image
@@ -44,6 +74,7 @@ export async function GET(request: NextRequest) {
       .resize(16, 10, { fit: "fill" })
       .raw()
       .toBuffer(),
+    perceptualHashes(bytes),
   ])
 
   let visibleSamples = 0
@@ -74,6 +105,7 @@ export async function GET(request: NextRequest) {
     contentType: response.headers.get("content-type"),
     byteLength: bytes.length,
     sha256: createHash("sha256").update(bytes).digest("hex"),
+    perceptual,
     metadata: {
       width: metadata.width,
       height: metadata.height,
