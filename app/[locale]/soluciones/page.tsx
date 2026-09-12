@@ -468,10 +468,10 @@ const content = {
 } as const
 
 const section02Images = [
-  "/images/solutions/section02/visibility.webp",
-  "/images/solutions/section02/manual-coordination.webp",
-  "/images/solutions/section02/slow-response.webp",
-  "/images/solutions/section02/traceability.webp",
+  "/images/solutions/section02/visibility.png",
+  "/images/solutions/section02/workflow-automation.png",
+  "/images/solutions/section02/decision-intelligence.png",
+  "/images/solutions/section02/durable-systems.png",
 ] as const
 
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
