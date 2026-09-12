@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto"
 import { NextRequest, NextResponse } from "next/server"
+import sharp from "sharp"
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -33,6 +34,38 @@ export async function GET(request: NextRequest) {
   }
 
   const bytes = Buffer.from(await response.arrayBuffer())
+  const image = sharp(bytes, { failOn: "error" })
+  const [metadata, stats, sample] = await Promise.all([
+    image.metadata(),
+    image.stats(),
+    image
+      .clone()
+      .ensureAlpha()
+      .resize(16, 10, { fit: "fill" })
+      .raw()
+      .toBuffer(),
+  ])
+
+  let visibleSamples = 0
+  let opaqueSamples = 0
+  let chromaticSamples = 0
+  let alphaSum = 0
+  const sampleHex: string[] = []
+
+  for (let i = 0; i < sample.length; i += 4) {
+    const r = sample[i]
+    const g = sample[i + 1]
+    const b = sample[i + 2]
+    const a = sample[i + 3]
+    alphaSum += a
+    if (a > 12) visibleSamples += 1
+    if (a > 242) opaqueSamples += 1
+    if (a > 12 && Math.max(r, g, b) - Math.min(r, g, b) > 18) chromaticSamples += 1
+    sampleHex.push(
+      `${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}${a.toString(16).padStart(2, "0")}`,
+    )
+  }
+
   const end = Math.min(bytes.length, offset + length)
   const chunk = bytes.subarray(offset, end)
 
@@ -41,6 +74,34 @@ export async function GET(request: NextRequest) {
     contentType: response.headers.get("content-type"),
     byteLength: bytes.length,
     sha256: createHash("sha256").update(bytes).digest("hex"),
+    metadata: {
+      width: metadata.width,
+      height: metadata.height,
+      format: metadata.format,
+      space: metadata.space,
+      channels: metadata.channels,
+      hasAlpha: metadata.hasAlpha,
+      isProgressive: metadata.isProgressive,
+    },
+    stats: {
+      entropy: stats.entropy,
+      sharpness: stats.sharpness,
+      isOpaque: stats.isOpaque,
+      dominant: stats.dominant,
+      channels: stats.channels.map((channel) => ({
+        min: channel.min,
+        max: channel.max,
+        mean: channel.mean,
+        stdev: channel.stdev,
+      })),
+    },
+    sample16x10: {
+      visibleFraction: visibleSamples / 160,
+      opaqueFraction: opaqueSamples / 160,
+      chromaticFraction: chromaticSamples / 160,
+      meanAlpha: alphaSum / (160 * 255),
+      rgbaHex: sampleHex,
+    },
     offset,
     end,
     done: end >= bytes.length,
