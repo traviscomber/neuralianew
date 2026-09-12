@@ -5,7 +5,7 @@ const SOURCE_URL = "https://raw.githubusercontent.com/traviscomber/neuralianew/f
 const BUCKET = "site-assets"
 const OBJECT_PATH = "solutions/operational-intelligence.png"
 
-export async function POST() {
+async function syncCard01() {
   if (process.env.VERCEL_ENV !== "preview") {
     return new NextResponse("Not found", { status: 404 })
   }
@@ -29,4 +29,12 @@ export async function POST() {
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(OBJECT_PATH)
   return NextResponse.json({ ok: true, object: `${BUCKET}/${OBJECT_PATH}`, publicUrl: data.publicUrl, size: bytes.byteLength })
+}
+
+export async function GET() {
+  return syncCard01()
+}
+
+export async function POST() {
+  return syncCard01()
 }
