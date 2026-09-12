@@ -14,6 +14,31 @@ const nextConfig = {
             'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/:asset*.png',
         },
         {
+          source: '/images/solutions/section02/:asset*.png',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/:asset*.png',
+        },
+        {
+          source: '/images/solutions/section02/visibility.webp',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/visibility.png',
+        },
+        {
+          source: '/images/solutions/section02/manual-coordination.webp',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/workflow-automation.png',
+        },
+        {
+          source: '/images/solutions/section02/slow-response.webp',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/decision-intelligence.png',
+        },
+        {
+          source: '/images/solutions/section02/traceability.webp',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/durable-systems.png',
+        },
+        {
           source: '/images/solutions/selector-decision-map.webp',
           destination: '/images/solutions/selector-map.webp',
         },
