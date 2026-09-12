@@ -62,8 +62,7 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   display:grid!important;
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
   gap:0!important;
-  border-top:1px solid rgba(69,209,207,.3)!important;
-  border-left:1px solid rgba(69,209,207,.3)!important;
+  border:0!important;
   background:transparent!important;
 }
 #expertise .section03-card{
@@ -73,16 +72,13 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   display:flex!important;
   flex-direction:column!important;
   border:0!important;
-  border-right:1px solid rgba(69,209,207,.3)!important;
-  border-bottom:1px solid rgba(69,209,207,.3)!important;
   background:#02090a!important;
   box-shadow:none!important;
   overflow:hidden!important;
-  transition:background .18s ease,border-color .18s ease!important;
+  transition:background .18s ease!important;
 }
 #expertise .section03-card:hover{
   background:#031011!important;
-  border-color:rgba(69,209,207,.5)!important;
 }
 #expertise .section03-num{
   position:absolute!important;
@@ -110,10 +106,9 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   object-position:center!important;
   background:linear-gradient(180deg,#031011 0%,#02090a 100%)!important;
   border:0!important;
-  border-bottom:1px solid rgba(69,209,207,.16)!important;
   box-shadow:none!important;
   filter:none!important;
-  opacity:1!important;
+  opacity:.8!important;
 }
 #expertise .section03-card h3,
 #expertise .section03-card p,
