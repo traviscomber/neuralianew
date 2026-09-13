@@ -19,6 +19,11 @@ const nextConfig = {
             'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/:asset*.png',
         },
         {
+          source: '/images/solutions/section04/:asset*.png',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section04/:asset*.png',
+        },
+        {
           source: '/images/solutions/section02/visibility.webp',
           destination:
             'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/section02/visibility.png',
