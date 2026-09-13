@@ -81,6 +81,10 @@ main > section:nth-of-type(2) [class*="pressureVisualWrap"]{
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
+  transition:background .18s ease!important;
+}
+main > section:nth-of-type(2) [class*="pressureCard"]:hover [class*="pressureVisualWrap"]{
+  background:#031011!important;
 }
 main > section:nth-of-type(2) [class*="pressureVisualWrap"]::after{display:none!important;content:none!important}
 main > section:nth-of-type(2) [class*="pressureVisualWrap"] img,
