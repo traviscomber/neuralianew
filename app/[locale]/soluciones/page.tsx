@@ -615,9 +615,9 @@ export default async function SolutionsPage(props: PageProps) {
             <div className={styles.capabilityVisual}>
               <div className={styles.visualLabel}>N3 / OPERATIONS HUB</div>
               <img
-                src="/images/solutions/selector-map.webp"
-                width="840"
-                height="472"
+                src="/images/solutions/section04/system-capabilities.png"
+                width="1536"
+                height="1024"
                 loading="lazy"
                 alt=""
                 aria-hidden="true"
