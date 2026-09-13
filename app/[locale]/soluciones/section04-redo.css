@@ -3,7 +3,7 @@ main > section[class*="capabilitiesStage"]{
   overflow:hidden!important;
   background:#02090a!important;
   background-image:none!important;
-  border-top:1px solid rgba(69,209,207,.10)!important;
+  border-top:0!important;
   border-bottom:1px solid rgba(69,209,207,.16)!important;
 }
 
@@ -62,7 +62,7 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]{
   width:100%!important;
   display:flex!important;
   align-items:center!important;
-  gap:20px!important;
+  gap:36px!important;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
   font-size:13px!important;
   line-height:1!important;
@@ -75,7 +75,7 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]:after{
   flex:1 1 auto!important;
   width:auto!important;
   height:1px!important;
-  background:rgba(69,209,207,.28)!important;
+  background:rgba(69,209,207,.24)!important;
   opacity:1!important;
 }
 
@@ -308,7 +308,7 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   }
 
   main > section[class*="capabilitiesStage"] [class*="eyebrow"]{
-    gap:12px!important;
+    gap:20px!important;
     font-size:10px!important;
     letter-spacing:.08em!important;
   }
