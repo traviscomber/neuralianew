@@ -24,6 +24,11 @@ main > section[class*="capabilitiesStage"] [class*="capabilityList"]::before{
   left:8px!important;
 }
 
+/* Lock every capability node center to the same x-axis as the spine/CTA node. */
+main > section[class*="capabilitiesStage"] [class*="capabilityNum"]{
+  transform:translateX(-1px)!important;
+}
+
 main > section[class*="capabilitiesStage"] a[class*="cta"]::after{
   content:none!important;
   display:none!important;
