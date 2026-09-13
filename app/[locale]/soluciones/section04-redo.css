@@ -81,7 +81,7 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]:after{
 
 main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]{
   margin:0!important;
-  max-width:610px!important;
+  max-width:520px!important;
   font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
   font-size:clamp(54px,5vw,78px)!important;
   font-weight:300!important;
@@ -110,7 +110,7 @@ html[lang="es"] main > section[class*="capabilitiesStage"] h2[class*="sectionTit
 
 main > section[class*="capabilitiesStage"] p[class*="sectionIntro"]{
   margin:24px 0 0!important;
-  max-width:620px!important;
+  max-width:500px!important;
   font-size:18px!important;
   line-height:1.55!important;
   color:#a5b4b5!important;
