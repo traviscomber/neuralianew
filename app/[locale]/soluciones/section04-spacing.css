@@ -1,0 +1,30 @@
+/* Section 04 boundary/eyebrow spacing refinement. */
+#expertise{
+  border-bottom:0!important;
+}
+
+main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"]{
+  padding-top:96px!important;
+}
+
+main > section[class*="capabilitiesStage"] [class*="eyebrow"]{
+  width:auto!important;
+  display:block!important;
+}
+
+main > section[class*="capabilitiesStage"] [class*="eyebrow"]::after{
+  content:none!important;
+  display:none!important;
+}
+
+@media(max-width:980px){
+  main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"]{
+    padding-top:84px!important;
+  }
+}
+
+@media(max-width:760px){
+  main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"]{
+    padding-top:76px!important;
+  }
+}
