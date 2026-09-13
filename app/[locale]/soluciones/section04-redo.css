@@ -237,6 +237,7 @@ main > section[class*="capabilitiesStage"] [class*="capabilityRow"] p{
 }
 
 main > section[class*="capabilitiesStage"] a[class*="cta"]{
+  position:relative!important;
   align-self:flex-start!important;
   width:fit-content!important;
   margin:30px 0 0 46px!important;
@@ -368,7 +369,6 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
 
   main > section[class*="capabilitiesStage"] a[class*="cta"]{
     margin:24px 0 0 40px!important;
-    min-width:0!important;
   }
 }
 
@@ -404,5 +404,74 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:nth-child(2){
     width:calc(100% + 80px)!important;
     margin-left:-80px!important;
+  }
+}
+
+@keyframes n3CapabilityNodePulse{
+  0%,100%{box-shadow:0 0 0 3px rgba(32,231,223,.07),0 0 8px rgba(32,231,223,.14)}
+  50%{box-shadow:0 0 0 5px rgba(32,231,223,.12),0 0 22px rgba(32,231,223,.42)}
+}
+
+@keyframes n3CapabilityCorePulse{
+  0%,100%{opacity:.72;box-shadow:0 0 8px rgba(32,231,223,.35)}
+  50%{opacity:1;box-shadow:0 0 18px rgba(32,231,223,.72)}
+}
+
+main > section[class*="capabilitiesStage"] [class*="capabilityNum"]{
+  animation:n3CapabilityNodePulse 2.8s ease-in-out infinite!important;
+}
+
+main > section[class*="capabilitiesStage"] [class*="capabilityNum"]:after{
+  animation:n3CapabilityCorePulse 2.8s ease-in-out infinite!important;
+}
+
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(1) [class*="capabilityNum"],
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(1) [class*="capabilityNum"]:after{animation-delay:-.35s!important}
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(2) [class*="capabilityNum"],
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(2) [class*="capabilityNum"]:after{animation-delay:-.7s!important}
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(3) [class*="capabilityNum"],
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(3) [class*="capabilityNum"]:after{animation-delay:-1.05s!important}
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(4) [class*="capabilityNum"],
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(4) [class*="capabilityNum"]:after{animation-delay:-1.4s!important}
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(5) [class*="capabilityNum"],
+main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(5) [class*="capabilityNum"]:after{animation-delay:-1.75s!important}
+
+main > section[class*="capabilitiesStage"] a[class*="cta"]:before{
+  content:""!important;
+  position:absolute!important;
+  left:-47px!important;
+  top:50%!important;
+  width:18px!important;
+  height:18px!important;
+  transform:translateY(-50%)!important;
+  border:1px solid #20e7df!important;
+  border-radius:50%!important;
+  background:radial-gradient(circle,#20e7df 0 3px,#02090a 4px 7px,transparent 8px)!important;
+  animation:n3CapabilityNodePulse 2.8s ease-in-out infinite!important;
+  animation-delay:-2.1s!important;
+  pointer-events:none!important;
+}
+
+main > section[class*="capabilitiesStage"] a[class*="cta"]:after{
+  content:""!important;
+  position:absolute!important;
+  left:-38px!important;
+  top:-30px!important;
+  width:1px!important;
+  height:calc(50% + 30px)!important;
+  background:linear-gradient(180deg,rgba(24,232,223,.34),rgba(24,232,223,.72))!important;
+  pointer-events:none!important;
+}
+
+@media(max-width:760px){
+  main > section[class*="capabilitiesStage"] a[class*="cta"]:before{left:-41px!important}
+  main > section[class*="capabilitiesStage"] a[class*="cta"]:after{left:-32px!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  main > section[class*="capabilitiesStage"] [class*="capabilityNum"],
+  main > section[class*="capabilitiesStage"] [class*="capabilityNum"]:after,
+  main > section[class*="capabilitiesStage"] a[class*="cta"]:before{
+    animation:none!important;
   }
 }
