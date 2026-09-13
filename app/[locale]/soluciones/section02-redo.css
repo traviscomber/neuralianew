@@ -50,15 +50,13 @@ main > section:nth-of-type(2) [class*="pressureGrid"]{
   display:grid!important;
   grid-template-columns:repeat(4,minmax(0,1fr))!important;
   gap:0!important;
-  border-top:1px solid rgba(69,209,207,.14)!important;
-  border-bottom:1px solid rgba(69,209,207,.14)!important;
+  border:0!important;
   background:transparent!important;
 }
 main > section:nth-of-type(2) [class*="pressureCard"]{
   min-height:500px!important;
   padding:0!important;
   border:0!important;
-  border-left:1px solid rgba(69,209,207,.12)!important;
   background:#02090a!important;
   box-shadow:none!important;
   transform:none!important;
@@ -66,7 +64,6 @@ main > section:nth-of-type(2) [class*="pressureCard"]{
   filter:none!important;
   transition:background .18s ease!important;
 }
-main > section:nth-of-type(2) [class*="pressureCard"]:first-child{border-left:0!important}
 main > section:nth-of-type(2) [class*="pressureCard"]:hover{background:#031011!important}
 main > section:nth-of-type(2) [class*="pressureCard"] article{
   display:flex!important;
@@ -80,7 +77,6 @@ main > section:nth-of-type(2) [class*="pressureVisualWrap"]{
   padding:8px 14px 0!important;
   overflow:hidden!important;
   border:0!important;
-  border-bottom:1px solid rgba(69,209,207,.08)!important;
   background:linear-gradient(180deg,#031011 0%,#02090a 100%)!important;
   display:flex!important;
   align-items:center!important;
@@ -139,7 +135,6 @@ main > section:nth-of-type(2) [class*="pressureCard"] p{
 @media(max-width:1180px){
   main > section:nth-of-type(2)>div{width:min(100% - 40px,1100px)!important;padding:72px 0 78px!important}
   main > section:nth-of-type(2) [class*="pressureGrid"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  main > section:nth-of-type(2) [class*="pressureCard"]:nth-child(odd){border-left:0!important}
   main > section:nth-of-type(2) [class*="pressureVisualWrap"]{height:260px!important}
 }
 @media(max-width:760px){
@@ -148,8 +143,7 @@ main > section:nth-of-type(2) [class*="pressureCard"] p{
   main > section:nth-of-type(2) h2{font-size:44px!important;letter-spacing:.04em!important}
   main > section:nth-of-type(2) header>p{font-size:13.5px!important}
   main > section:nth-of-type(2) [class*="pressureGrid"]{grid-template-columns:1fr!important}
-  main > section:nth-of-type(2) [class*="pressureCard"]{min-height:0!important;border-left:0!important;border-top:1px solid rgba(69,209,207,.1)!important}
-  main > section:nth-of-type(2) [class*="pressureCard"]:first-child{border-top:0!important}
+  main > section:nth-of-type(2) [class*="pressureCard"]{min-height:0!important;border:0!important}
   main > section:nth-of-type(2) [class*="pressureVisualWrap"]{height:240px!important}
   main > section:nth-of-type(2) [class*="pressureContent"]{padding:20px 20px 26px!important}
   main > section:nth-of-type(2) [class*="pressureCard"] h3{font-size:30px!important;max-width:none!important}
