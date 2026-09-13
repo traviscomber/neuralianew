@@ -374,6 +374,10 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
 
 /* Desktop refinement: keep the right edge anchored and expand the complete layers block to the left. */
 @media(min-width:981px){
+  main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:first-child{
+    width:min(100%,600px)!important;
+  }
+
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:nth-child(2){
     width:calc(100% + 160px)!important;
     margin-left:-160px!important;
@@ -393,6 +397,10 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
 }
 
 @media(min-width:981px) and (max-width:1180px){
+  main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:first-child{
+    width:min(100%,540px)!important;
+  }
+
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:nth-child(2){
     width:calc(100% + 80px)!important;
     margin-left:-80px!important;
