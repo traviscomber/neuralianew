@@ -77,14 +77,10 @@ main > section:nth-of-type(2) [class*="pressureVisualWrap"]{
   padding:8px 14px 0!important;
   overflow:hidden!important;
   border:0!important;
-  background:linear-gradient(180deg,#031011 0%,#02090a 100%)!important;
+  background:transparent!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
-  transition:background .18s ease!important;
-}
-main > section:nth-of-type(2) [class*="pressureCard"]:hover [class*="pressureVisualWrap"]{
-  background:#031011!important;
 }
 main > section:nth-of-type(2) [class*="pressureVisualWrap"]::after{display:none!important;content:none!important}
 main > section:nth-of-type(2) [class*="pressureVisualWrap"] img,
