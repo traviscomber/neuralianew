@@ -173,6 +173,7 @@ main > section[class*="capabilitiesStage"] [class*="capabilityList"]:before{
   left:-16px;
   width:1px;
   background:linear-gradient(180deg,rgba(24,232,223,.82),rgba(24,232,223,.34));
+  box-shadow:0 0 6px rgba(32,231,223,.12);
 }
 
 main > section[class*="capabilitiesStage"] [class*="capabilityRow"]{
@@ -456,10 +457,11 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]:after{
   content:""!important;
   position:absolute!important;
   left:-38px!important;
-  top:-30px!important;
+  top:-58px!important;
   width:1px!important;
-  height:calc(50% + 30px)!important;
+  height:calc(50% + 58px)!important;
   background:linear-gradient(180deg,rgba(24,232,223,.34),rgba(24,232,223,.72))!important;
+  box-shadow:0 0 7px rgba(32,231,223,.28)!important;
   pointer-events:none!important;
 }
 
@@ -468,9 +470,48 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]:after{
   main > section[class*="capabilitiesStage"] a[class*="cta"]:after{left:-32px!important}
 }
 
+@property --n3-node-scroll-blur{
+  syntax:"<length>";
+  inherits:true;
+  initial-value:2px;
+}
+
+@property --n3-node-scroll-alpha{
+  syntax:"<number>";
+  inherits:true;
+  initial-value:.12;
+}
+
+@keyframes n3CapabilityScrollEnergy{
+  0%,100%{
+    --n3-node-scroll-blur:2px;
+    --n3-node-scroll-alpha:.12;
+  }
+  42%,58%{
+    --n3-node-scroll-blur:13px;
+    --n3-node-scroll-alpha:.78;
+  }
+}
+
+@supports (animation-timeline:view()){
+  main > section[class*="capabilitiesStage"] [class*="capabilityRow"],
+  main > section[class*="capabilitiesStage"] a[class*="cta"]{
+    animation:n3CapabilityScrollEnergy linear both!important;
+    animation-timeline:view()!important;
+    animation-range:entry 0% exit 100%!important;
+  }
+
+  main > section[class*="capabilitiesStage"] [class*="capabilityNum"],
+  main > section[class*="capabilitiesStage"] a[class*="cta"]:before{
+    filter:drop-shadow(0 0 var(--n3-node-scroll-blur) rgba(32,231,223,var(--n3-node-scroll-alpha)))!important;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
+  main > section[class*="capabilitiesStage"] [class*="capabilityRow"],
   main > section[class*="capabilitiesStage"] [class*="capabilityNum"],
   main > section[class*="capabilitiesStage"] [class*="capabilityNum"]:after,
+  main > section[class*="capabilitiesStage"] a[class*="cta"],
   main > section[class*="capabilitiesStage"] a[class*="cta"]:before{
     animation:none!important;
   }
