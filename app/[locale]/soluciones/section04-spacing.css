@@ -17,6 +17,18 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]::after{
   display:none!important;
 }
 
+/* One continuous capability spine: first layer node through CTA node. */
+main > section[class*="capabilitiesStage"] [class*="capabilityList"]::before{
+  top:28px!important;
+  bottom:-53px!important;
+  left:8px!important;
+}
+
+main > section[class*="capabilitiesStage"] a[class*="cta"]::after{
+  content:none!important;
+  display:none!important;
+}
+
 @media(max-width:980px){
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"]{
     padding-top:84px!important;
@@ -26,5 +38,9 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]::after{
 @media(max-width:760px){
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"]{
     padding-top:76px!important;
+  }
+
+  main > section[class*="capabilitiesStage"] [class*="capabilityList"]::before{
+    bottom:-47px!important;
   }
 }
