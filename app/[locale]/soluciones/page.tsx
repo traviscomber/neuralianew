@@ -612,6 +612,19 @@ export default async function SolutionsPage(props: PageProps) {
               <h2 id="capabilities-title" className={styles.sectionTitle}>{page.capabilitiesTitle}</h2>
               <p className={styles.sectionIntro}>{page.capabilitiesBody}</p>
             </header>
+            <div className={styles.capabilityVisual}>
+              <div className={styles.visualLabel}>N3 / OPERATIONS HUB</div>
+              <img
+                src="/images/solutions/selector-map.webp"
+                width="840"
+                height="472"
+                loading="lazy"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+          <div>
             <div className={styles.capabilityList}>
               {page.capabilities.map((item, index) => (
                 <article key={item.title} className={styles.capabilityRow}>
@@ -623,17 +636,10 @@ export default async function SolutionsPage(props: PageProps) {
                 </article>
               ))}
             </div>
-          </div>
-          <div className={styles.capabilityVisual}>
-            <div className={styles.visualLabel}>N3 / OPERATIONS HUB</div>
-            <img
-              src="/images/solutions/selector-map.webp"
-              width="840"
-              height="472"
-              loading="lazy"
-              alt=""
-              aria-hidden="true"
-            />
+            <Link className={styles.cta} href="#combine-title">
+              {locale === "es" ? "Ver cómo funciona" : "See how it works"}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>
