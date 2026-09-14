@@ -17,6 +17,15 @@ main > section[class*="capabilitiesStage"] [class*="eyebrow"]::after{
   display:none!important;
 }
 
+/* Keep the Section 04 system illustration 30% smaller and anchored to the left edge. */
+main > section[class*="capabilitiesStage"] [class*="capabilityVisual"] img{
+  width:70%!important;
+  max-width:532px!important;
+  margin-left:0!important;
+  margin-right:auto!important;
+  object-position:left center!important;
+}
+
 /* One continuous capability spine: first layer node through CTA node. */
 main > section[class*="capabilitiesStage"] [class*="capabilityList"]::before{
   top:28px!important;
