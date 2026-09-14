@@ -1,0 +1,110 @@
+/*
+ * N3uralia public portal grid
+ * Canonical source: landing page .retro-shell.
+ *
+ * Outer page geometry only. Inner editorial measures, cards, media and
+ * component-specific max-widths remain intentionally independent.
+ */
+:root {
+  --n3-portal-shell-max: 1240px;
+  --n3-portal-gutter: 20px;
+  --n3-portal-gutter-mobile: 14px;
+}
+
+/* Landing + shared footer: one exact portal axis. */
+.n3-public-portal .retro-shell,
+.n3-public-portal .n3-canonical-footer > div {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  max-width: var(--n3-portal-shell-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.n3-public-portal .n3-canonical-footer > div {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/*
+ * Localized route shells already designed around a single outer wrapper.
+ * Normalize the wrapper without flattening each section's internal layout.
+ */
+.n3-public-portal main > section > div[class*="max-w-[1240px]"],
+.n3-public-portal main > .container,
+.n3-public-portal main > section > .container {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  max-width: var(--n3-portal-shell-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Tailwind max-w-7xl is 1280px; make top-level public sections use 1240px. */
+.n3-public-portal main > section:has(> .max-w-7xl) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.n3-public-portal main > section > .max-w-7xl,
+.n3-public-portal main > .max-w-7xl {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  max-width: var(--n3-portal-shell-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Recognition: replace the legacy 1260/1280 axes with the landing axis. */
+.n3-public-portal main[class*="recognition-page_page"] > section > div[class*="recognition-page_shell"],
+.n3-public-portal main[class*="recognition-page_page"] > section[id="use-cases"] > div {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  max-width: var(--n3-portal-shell-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.n3-public-portal main[class*="recognition-page_page"] > section:first-child::before {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+}
+
+.n3-public-portal main[class*="recognition-page_page"] .recognitionHeroMetrics {
+  right: max(var(--n3-portal-gutter), calc((100vw - var(--n3-portal-shell-max)) / 2)) !important;
+}
+
+/*
+ * Solutions had local 1428px overrides in Sections 02/03/04.
+ * Every direct section shell now shares the landing width and left/right axis.
+ */
+.n3-public-portal main[class*="solutions-mockup_page"] > section > div[class*="solutions-mockup_shell"],
+.n3-public-portal main[class*="solutions-mockup_page"] > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"],
+.n3-public-portal main[class*="solutions-mockup_page"] #expertise > div {
+  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  max-width: var(--n3-portal-shell-max) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (max-width: 560px) {
+  .n3-public-portal .retro-shell,
+  .n3-public-portal .n3-canonical-footer > div,
+  .n3-public-portal main > section > div[class*="max-w-[1240px]"],
+  .n3-public-portal main > .container,
+  .n3-public-portal main > section > .container,
+  .n3-public-portal main > section > .max-w-7xl,
+  .n3-public-portal main > .max-w-7xl,
+  .n3-public-portal main[class*="recognition-page_page"] > section > div[class*="recognition-page_shell"],
+  .n3-public-portal main[class*="recognition-page_page"] > section[id="use-cases"] > div,
+  .n3-public-portal main[class*="solutions-mockup_page"] > section > div[class*="solutions-mockup_shell"],
+  .n3-public-portal main[class*="solutions-mockup_page"] > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"],
+  .n3-public-portal main[class*="solutions-mockup_page"] #expertise > div {
+    width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter-mobile) * 2))) !important;
+  }
+
+  .n3-public-portal main[class*="recognition-page_page"] > section:first-child::before {
+    width: calc(100% - (var(--n3-portal-gutter-mobile) * 2)) !important;
+  }
+
+  .n3-public-portal main[class*="recognition-page_page"] .recognitionHeroMetrics {
+    right: var(--n3-portal-gutter-mobile) !important;
+  }
+}
