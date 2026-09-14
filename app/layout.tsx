@@ -9,6 +9,7 @@ import "./portal-dark.css"
 import "./recognition-landing.css"
 import "./canonical-footer.css"
 import "./site-quality.css"
+import "./portal-grid.css"
 import { AnalyticsProvider } from "@/components/analytics/analytics-provider"
 import { StructuredData } from "@/components/structured-data"
 import { RecognitionLandingPortal } from "@/components/recognition-landing-portal"
@@ -40,7 +41,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const headerStore = await headers()
   const locale = headerStore.get("x-n3uralia-locale") === "en" ? "en" : "es"
   const pathname = headerStore.get("x-pathname") || ""
+  const publicPortal = headerStore.has("x-n3uralia-locale")
   const portalDark = /\/(solutions|soluciones|projects|proyectos|products|productos|diagnostico|about)(\/|$)/.test(pathname)
   const rajdhaniVariable = { "--font-rajdhani": "'Rajdhani', sans-serif" } as React.CSSProperties
-  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500&display=swap" /><StructuredData /></head><body suppressHydrationWarning style={rajdhaniVariable} className={`${montserrat.variable} antialiased ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
+  return <html lang={locale} className="dark" style={{ colorScheme: "dark" }} suppressHydrationWarning><head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500&display=swap" /><StructuredData /></head><body suppressHydrationWarning style={rajdhaniVariable} className={`${montserrat.variable} antialiased ${publicPortal ? 'n3-public-portal' : ''} ${portalDark ? 'portal-dark-page' : ''}`}><AnalyticsProvider>{children}<RecognitionLandingPortal /></AnalyticsProvider></body></html>
 }
