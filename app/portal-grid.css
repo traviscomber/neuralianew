@@ -8,13 +8,15 @@
 :root {
   --n3-portal-shell-max: 1240px;
   --n3-portal-gutter: 20px;
+  --n3-portal-gutter-total: 40px;
   --n3-portal-gutter-mobile: 14px;
+  --n3-portal-gutter-mobile-total: 28px;
 }
 
 /* Landing + shared footer: one exact portal axis. */
 .n3-public-portal .retro-shell,
 .n3-public-portal .n3-canonical-footer > div {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -32,7 +34,7 @@
 .n3-public-portal main > section > div[class*="max-w-[1240px]"],
 .n3-public-portal main > .container,
 .n3-public-portal main > section > .container {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -48,7 +50,7 @@
 
 .n3-public-portal main > section > .max-w-7xl,
 .n3-public-portal main > .max-w-7xl {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -57,14 +59,14 @@
 /* Recognition: replace the legacy 1260/1280 axes with the landing axis. */
 .n3-public-portal main[class*="recognition-page_page"] > section > div[class*="recognition-page_shell"],
 .n3-public-portal main[class*="recognition-page_page"] > section[id="use-cases"] > div {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
 }
 
 .n3-public-portal main[class*="recognition-page_page"] > section:first-child::before {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
 }
 
 .n3-public-portal main[class*="recognition-page_page"] .recognitionHeroMetrics {
@@ -78,7 +80,7 @@
 .n3-public-portal main[class*="solutions-mockup_page"] > section > div[class*="solutions-mockup_shell"],
 .n3-public-portal main[class*="solutions-mockup_page"] > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"],
 .n3-public-portal main[class*="solutions-mockup_page"] #expertise > div {
-  width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter) * 2))) !important;
+  width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -97,11 +99,11 @@
   .n3-public-portal main[class*="solutions-mockup_page"] > section > div[class*="solutions-mockup_shell"],
   .n3-public-portal main[class*="solutions-mockup_page"] > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"],
   .n3-public-portal main[class*="solutions-mockup_page"] #expertise > div {
-    width: min(var(--n3-portal-shell-max), calc(100% - (var(--n3-portal-gutter-mobile) * 2))) !important;
+    width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-mobile-total))) !important;
   }
 
   .n3-public-portal main[class*="recognition-page_page"] > section:first-child::before {
-    width: calc(100% - (var(--n3-portal-gutter-mobile) * 2)) !important;
+    width: calc(100% - var(--n3-portal-gutter-mobile-total)) !important;
   }
 
   .n3-public-portal main[class*="recognition-page_page"] .recognitionHeroMetrics {
