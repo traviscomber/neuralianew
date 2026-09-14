@@ -13,7 +13,7 @@
   --n3-portal-gutter-mobile-total: 28px;
 }
 
-/* Landing + shared footer: one exact portal axis. */
+/* Landing + canonical footer: one exact portal axis. */
 .n3-public-portal .retro-shell,
 .n3-public-portal .n3-canonical-footer > div {
   width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
@@ -31,9 +31,9 @@
  * Localized route shells already designed around a single outer wrapper.
  * Normalize the wrapper without flattening each section's internal layout.
  */
-.n3-public-portal main > section > div[class*="max-w-[1240px]"],
+.n3-public-portal section > div[class*="max-w-[1240px]"],
 .n3-public-portal main > .container,
-.n3-public-portal main > section > .container {
+.n3-public-portal section > .container {
   width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
@@ -42,14 +42,16 @@
   padding-right: 0 !important;
 }
 
-/* Tailwind max-w-7xl is 1280px; make top-level public sections use 1240px. */
-.n3-public-portal main > section:has(> .max-w-7xl) {
+/* Tailwind max-w-7xl is 1280px; public section shells use the 1240px landing grid. */
+.n3-public-portal section:has(> .max-w-7xl),
+.n3-public-portal footer:has(> .max-w-7xl) {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
 
-.n3-public-portal main > section > .max-w-7xl,
-.n3-public-portal main > .max-w-7xl {
+.n3-public-portal section > .max-w-7xl,
+.n3-public-portal main > .max-w-7xl,
+.n3-public-portal footer > .max-w-7xl {
   width: min(var(--n3-portal-shell-max), calc(100% - var(--n3-portal-gutter-total))) !important;
   max-width: var(--n3-portal-shell-max) !important;
   margin-left: auto !important;
@@ -89,11 +91,12 @@
 @media (max-width: 560px) {
   .n3-public-portal .retro-shell,
   .n3-public-portal .n3-canonical-footer > div,
-  .n3-public-portal main > section > div[class*="max-w-[1240px]"],
+  .n3-public-portal section > div[class*="max-w-[1240px]"],
   .n3-public-portal main > .container,
-  .n3-public-portal main > section > .container,
-  .n3-public-portal main > section > .max-w-7xl,
+  .n3-public-portal section > .container,
+  .n3-public-portal section > .max-w-7xl,
   .n3-public-portal main > .max-w-7xl,
+  .n3-public-portal footer > .max-w-7xl,
   .n3-public-portal main[class*="recognition-page_page"] > section > div[class*="recognition-page_shell"],
   .n3-public-portal main[class*="recognition-page_page"] > section[id="use-cases"] > div,
   .n3-public-portal main[class*="solutions-mockup_page"] > section > div[class*="solutions-mockup_shell"],
