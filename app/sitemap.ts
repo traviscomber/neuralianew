@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next'
-import { chileCityPages, cityRouteSlug } from '@/lib/chile-city-pages'
 import { absoluteUrl } from '@/lib/site'
 import { coreSitemapRoutes } from '@/lib/sitemap-routes-core'
 import { solutionSitemapRoutes } from '@/lib/sitemap-routes-solutions'
@@ -15,13 +14,25 @@ type LocalizedRoute = {
   changeFrequency: ChangeFrequency
 }
 
-const updated = new Date('2026-09-11T00:00:00.000Z')
+const updated = new Date('2026-09-15T00:00:00.000Z')
+
+// Keep the public sitemap intentionally conservative. Pages with legacy SEO
+// copy, unsupported quantified claims, or highly templated geographic content
+// remain crawlable through internal links, but are not proactively submitted
+// until their content and metadata pass the current quality bar.
+const temporarilyExcludedSamePathRoutes = new Set([
+  '/agentes-ia-logistica-chile',
+  '/agentes-ia-manufactura-chile',
+  '/agentes-ia-retail-chile',
+  '/agentes-ia-turismo-chile',
+])
+
 const samePathRoutes = [
   ...coreSitemapRoutes,
   ...solutionSitemapRoutes,
   ...knowledgeSitemapRoutes,
   ...contentSitemapRoutes,
-]
+].filter(([path]) => !temporarilyExcludedSamePathRoutes.has(path))
 
 const localizedRoutes: LocalizedRoute[] = [
   { es: '/soluciones', en: '/solutions', priority: 0.95, changeFrequency: 'weekly' },
@@ -30,11 +41,6 @@ const localizedRoutes: LocalizedRoute[] = [
   { es: '/reconocimiento', en: '/recognition', priority: 0.9, changeFrequency: 'monthly' },
   { es: '/como-trabajamos', en: '/how-we-work', priority: 0.75, changeFrequency: 'monthly' },
 ]
-
-const cityRoutes: LocalizedRoute[] = chileCityPages.map((city) => {
-  const path = `/${cityRouteSlug(city)}`
-  return { es: path, en: path, priority: 0.68, changeFrequency: 'monthly' }
-})
 
 function normalizePath(path: string) {
   if (!path || path === '/') return ''
@@ -86,7 +92,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const canonicalPairs = [
     ...samePathRoutes.map((route) => toPair(route)),
     ...localizedRoutes,
-    ...cityRoutes,
   ]
 
   const seen = new Set<string>()
