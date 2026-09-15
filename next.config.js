@@ -58,6 +58,8 @@ const nextConfig = {
       { source: '/es/solutions', destination: '/es/soluciones', permanent: true },
       { source: '/en/como-trabajamos', destination: '/en/how-we-work', permanent: true },
       { source: '/es/how-we-work', destination: '/es/como-trabajamos', permanent: true },
+      { source: '/en/como-funcionamos', destination: '/en/how-we-work', permanent: true },
+      { source: '/es/como-funcionamos', destination: '/es/como-trabajamos', permanent: true },
       { source: '/en/contacto', destination: '/en/contact', permanent: true },
       { source: '/es/contacto', destination: '/es/contact', permanent: true },
       { source: '/contacto', destination: '/es/contact', permanent: true },

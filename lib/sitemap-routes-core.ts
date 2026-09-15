@@ -9,5 +9,4 @@ export const coreSitemapRoutes = [
   ['/labs', 0.75, 'monthly'],
   ['/contact', 0.7, 'monthly'],
   ['/capabilities', 0.7, 'monthly'],
-  ['/como-funcionamos', 0.55, 'monthly'],
 ] as const
