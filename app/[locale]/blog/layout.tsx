@@ -2,7 +2,7 @@ import React from "react"
 import type { Metadata } from "next"
 import { headers } from "next/headers"
 import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
-import { buildLocalizedMetadata } from "@/lib/page-metadata"
+import { absoluteUrl } from "@/lib/site"
 
 interface BlogLayoutProps {
   children: React.ReactNode
@@ -22,15 +22,25 @@ export async function generateMetadata(props: BlogLayoutProps): Promise<Metadata
     ? pathname.slice(localePrefix.length)
     : "/blog"
 
-  return buildLocalizedMetadata({
-    locale,
-    path,
-    title: locale === "es" ? "Blog | N3uralia" : "Blog | N3uralia",
-    description:
-      locale === "es"
-        ? "Articulos tecnicos y recursos sobre IA en produccion."
-        : "Technical articles and resources about AI in production.",
-  })
+  const esUrl = absoluteUrl(`/es${path}`)
+  const enUrl = absoluteUrl(`/en${path}`)
+  const canonical = locale === "es" ? esUrl : enUrl
+
+  // The layout owns only URL identity. Article pages own their title,
+  // description and social metadata so generic Blog metadata cannot overwrite
+  // article-specific Open Graph/Twitter signals.
+  return {
+    alternates: {
+      canonical,
+      languages: {
+        "es-CL": esUrl,
+        es: esUrl,
+        en: enUrl,
+        "en-US": enUrl,
+        "x-default": enUrl,
+      },
+    },
+  }
 }
 
 export default function BlogLayout({ children }: BlogLayoutProps) {
