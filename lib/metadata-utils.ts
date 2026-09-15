@@ -1,9 +1,52 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
+import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_TWITTER_HANDLE, SITE_URL } from "@/lib/site"
+
+function normalizeCanonical(canonical: string | undefined, locale: Locale) {
+  if (!canonical) return absoluteUrl(`/${locale}`)
+
+  try {
+    const url = new URL(canonical, SITE_URL)
+    if (url.hostname === "n3uralia.com" || url.hostname === "www.n3uralia.com") {
+      url.protocol = "https:"
+      url.hostname = "www.n3uralia.com"
+      url.port = ""
+    }
+    return url.toString().replace(/\/$/, "")
+  } catch {
+    return absoluteUrl(canonical).replace(/\/$/, "")
+  }
+}
+
+function localizedUrl(url: string, targetLocale: "es" | "en") {
+  const parsed = new URL(url)
+  const segments = parsed.pathname.split("/")
+
+  if (segments[1] === "es" || segments[1] === "en") {
+    segments[1] = targetLocale
+    parsed.pathname = segments.join("/")
+  } else {
+    parsed.pathname = `/${targetLocale}${parsed.pathname === "/" ? "" : parsed.pathname}`
+  }
+
+  return parsed.toString().replace(/\/$/, "")
+}
+
+function languageAlternates(canonicalUrl: string) {
+  const esUrl = localizedUrl(canonicalUrl, "es")
+  const enUrl = localizedUrl(canonicalUrl, "en")
+
+  return {
+    "es-CL": esUrl,
+    es: esUrl,
+    en: enUrl,
+    "en-US": enUrl,
+    "x-default": enUrl,
+  }
+}
 
 /**
- * Simple self-canonical SEO builder
- * Usage: buildSeo({ locale: "es", path: "/es/faq", title: "FAQ", description: "..." })
+ * Simple self-canonical SEO builder.
  */
 export function buildSeo({
   locale,
@@ -18,13 +61,7 @@ export function buildSeo({
   description: string
   keywords?: string
 }): Metadata {
-  const SITE_URL = "https://n3uralia.com"
-  const url = `${SITE_URL}${path}`
-  
-  // Build alternate paths (swap locale prefix)
-  const altPath = path.startsWith("/en") 
-    ? path.replace(/^\/en/, "/es") 
-    : path.replace(/^\/es/, "/en")
+  const url = absoluteUrl(path).replace(/\/$/, "")
 
   return {
     title,
@@ -32,23 +69,25 @@ export function buildSeo({
     keywords,
     alternates: {
       canonical: url,
-      languages: {
-        es: path.startsWith("/es") ? url : `${SITE_URL}${path.replace(/^\/en/, "/es")}`,
-        en: path.startsWith("/en") ? url : `${SITE_URL}${path.replace(/^\/es/, "/en")}`,
-      },
+      languages: languageAlternates(url),
     },
     openGraph: {
       title,
       description,
       url,
-      siteName: "N3uralia",
+      siteName: SITE_NAME,
       locale: locale === "es" ? "es_CL" : "en_US",
+      alternateLocale: locale === "es" ? ["en_US"] : ["es_CL"],
       type: "website",
+      images: [absoluteUrl(OG_IMAGE_PATH)],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      site: SITE_TWITTER_HANDLE,
+      creator: SITE_TWITTER_HANDLE,
+      images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
 }
@@ -60,78 +99,72 @@ interface MetadataConfig {
   canonical?: string
   locale?: Locale
   geo?: {
-    region?: string // e.g., "CL", "AR", "MX", "global"
-    country?: string // e.g., "Chile", "Argentina"
+    region?: string
+    country?: string
     latitude?: number
     longitude?: number
   }
 }
 
 /**
- * GEO/LLMO Enhanced metadata generation
- * Supports regional variants with Chile as primary market
+ * GEO/LLMO metadata generation with one canonical host and reciprocal locale alternates.
  */
 export function generatePageMetadata(config: MetadataConfig): Metadata {
   const { title, description, keywords, canonical, locale = "es", geo } = config
+  const canonicalUrl = normalizeCanonical(canonical, locale)
 
-  // Determine regional locale code
   const getRegionalLocale = () => {
     if (locale === "es" && geo?.region === "CL") return "es_CL"
     if (locale === "es" && geo?.region === "AR") return "es_AR"
     if (locale === "es" && geo?.region === "MX") return "es_MX"
-    if (locale === "es") return "es_ES"
+    if (locale === "es") return "es_CL"
     return "en_US"
   }
 
-  // Build alternate language URLs with region support
-  const buildAlternates = () => {
-    const alternates: Record<string, string> = {
-      es: canonical?.replace("/en/", "/es/") || `https://n3uralia.com/es`,
-      en: canonical?.replace("/es/", "/en/") || `https://n3uralia.com/en`,
-    }
-
-    // Add regional variants if geo-targeting is needed
-    if (geo?.region) {
-      alternates[`es-${geo.region}`] = canonical || `https://n3uralia.com/es`
-    }
-
-    return alternates
+  const alternates = languageAlternates(canonicalUrl)
+  if (geo?.region && locale === "es") {
+    alternates[`es-${geo.region}` as keyof typeof alternates] = localizedUrl(canonicalUrl, "es")
   }
 
   return {
-    title: `${title} | N3uralia`,
+    title: `${title} | ${SITE_NAME}`,
     description,
     keywords,
     alternates: {
-      languages: buildAlternates(),
+      canonical: canonicalUrl,
+      languages: alternates,
     },
     openGraph: {
-      title: `${title} | N3uralia`,
+      title: `${title} | ${SITE_NAME}`,
       description,
       type: "website",
       locale: getRegionalLocale(),
-      url: canonical || `https://n3uralia.com/${locale}`,
-      siteName: "N3uralia",
+      alternateLocale: locale === "es" ? ["en_US"] : ["es_CL"],
+      url: canonicalUrl,
+      siteName: SITE_NAME,
+      images: [absoluteUrl(OG_IMAGE_PATH)],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | N3uralia`,
+      title: `${title} | ${SITE_NAME}`,
       description,
+      site: SITE_TWITTER_HANDLE,
+      creator: SITE_TWITTER_HANDLE,
+      images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
 }
 
 export function getAlternateUrls(path: string) {
   return {
-    es: `https://n3uralia.com/es${path}`,
-    en: `https://n3uralia.com/en${path}`,
-    esCL: `https://n3uralia.com/es-CL${path}`,
+    es: absoluteUrl(`/es${path}`),
+    en: absoluteUrl(`/en${path}`),
+    esCL: absoluteUrl(`/es${path}`),
   }
 }
 
 /**
- * Generates schema.org structured data with GEO support
- * Supports WebPage, Organization, LocalBusiness, BreadcrumbList, and Article types
+ * Generates schema.org structured data with GEO support.
  */
 export function generateStructuredData(config: {
   type: "WebPage" | "Organization" | "LocalBusiness" | "BreadcrumbList" | "Article"
@@ -157,19 +190,13 @@ export function generateStructuredData(config: {
     }
   }
 }) {
-  // Base organization schema with headquarters in Chile
   const baseOrganization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "N3uralia",
-    url: "https://n3uralia.com",
-    description: "Agentic Systems Platform for Enterprise Automation",
-    sameAs: [
-      "https://twitter.com/n3uralia",
-      "https://linkedin.com/company/n3uralia",
-      "https://github.com/n3uralia",
-    ],
-    // Headquarters location
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: "AI systems, automation and software for real operations.",
+    sameAs: ["https://linkedin.com/company/n3uralia"],
     foundingLocation: {
       "@type": "Place",
       name: "Santiago, Chile",
@@ -180,26 +207,8 @@ export function generateStructuredData(config: {
       },
     },
     areaServed: [
-      {
-        "@type": "Country",
-        name: "Chile",
-      },
-      {
-        "@type": "Country",
-        name: "Argentina",
-      },
-      {
-        "@type": "Country",
-        name: "Mexico",
-      },
-      {
-        "@type": "Country",
-        name: "Colombia",
-      },
-      {
-        "@type": "Country",
-        name: "World",
-      },
+      { "@type": "Country", name: "Chile" },
+      { "@type": "Place", name: "Latin America" },
     ],
   }
 
@@ -210,7 +219,7 @@ export function generateStructuredData(config: {
         "@type": "WebPage",
         name: config.title,
         description: config.description,
-        url: config.url,
+        url: normalizeCanonical(config.url, "es"),
         image: config.image,
         author: baseOrganization,
         ...(config.geo && {
@@ -221,9 +230,7 @@ export function generateStructuredData(config: {
               ...(config.geo.latitude && config.geo.longitude && {
                 box: `${config.geo.latitude} ${config.geo.longitude} ${config.geo.latitude} ${config.geo.longitude}`,
               }),
-              ...(config.geo.region && {
-                areaServed: config.geo.region,
-              }),
+              ...(config.geo.region && { areaServed: config.geo.region }),
             },
           },
         }),
@@ -233,9 +240,9 @@ export function generateStructuredData(config: {
       return {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        name: "N3uralia",
-        description: config.description || "Agentic Systems Platform",
-        url: config.url,
+        name: SITE_NAME,
+        description: config.description || "AI systems and software for operations",
+        url: normalizeCanonical(config.url, "es"),
         address: {
           "@type": "PostalAddress",
           ...config.geo?.address,
@@ -247,7 +254,6 @@ export function generateStructuredData(config: {
           longitude: config.geo.longitude,
         } : undefined,
         areaServed: config.geo?.country || "Chile",
-        priceRange: "$$",
         image: config.image,
       }
 
@@ -262,7 +268,7 @@ export function generateStructuredData(config: {
           "@type": "ListItem",
           position: index + 1,
           name: item.name,
-          item: item.url,
+          item: normalizeCanonical(item.url, "es"),
         })),
       }
 
@@ -272,7 +278,7 @@ export function generateStructuredData(config: {
         "@type": "Article",
         headline: config.title,
         description: config.description,
-        url: config.url,
+        url: normalizeCanonical(config.url, "es"),
         datePublished: config.datePublished,
         dateModified: config.dateModified,
         author: config.author,
