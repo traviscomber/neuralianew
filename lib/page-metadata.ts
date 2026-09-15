@@ -70,7 +70,7 @@ export function buildLocalizedMetadata({
         es: spanishUrl,
         en: englishUrl,
         "en-US": englishUrl,
-        "x-default": spanishUrl,
+        "x-default": englishUrl,
       },
     },
     openGraph: {
