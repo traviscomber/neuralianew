@@ -61,7 +61,7 @@ function createEntries(route: LocalizedRoute): MetadataRoute.Sitemap {
     es: esUrl,
     en: enUrl,
     'en-US': enUrl,
-    'x-default': esUrl,
+    'x-default': enUrl,
   }
 
   return [
