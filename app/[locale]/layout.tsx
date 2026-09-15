@@ -25,26 +25,13 @@ export async function generateMetadata(props: LocaleLayoutProps): Promise<Metada
     es: 'Sistemas de IA, automatización, reconocimiento y software en producción para operaciones en Chile y LATAM.',
     en: 'Production AI systems, automation, recognition and software for operations in Chile and Latin America.',
   }
-  const esUrl = 'https://www.n3uralia.com/es'
-  const enUrl = 'https://www.n3uralia.com/en'
 
   return {
     title: titles[locale],
     description: descriptions[locale],
-    alternates: {
-      canonical: locale === 'es' ? esUrl : enUrl,
-      languages: {
-        'es-CL': esUrl,
-        es: esUrl,
-        en: enUrl,
-        'en-US': enUrl,
-        'x-default': esUrl,
-      },
-    },
     openGraph: {
       title: titles[locale],
       description: descriptions[locale],
-      url: locale === 'es' ? esUrl : enUrl,
       locale: locale === 'es' ? 'es_CL' : 'en_US',
       alternateLocale: locale === 'es' ? ['en_US'] : ['es_CL'],
       type: 'website',
