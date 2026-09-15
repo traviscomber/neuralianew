@@ -36,10 +36,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: "/",
       },
     ],
-    // Cloudflare currently blocks public *.xml paths on the canonical domain.
-    // Keep /sitemap.xml for framework compatibility, but advertise the same
-    // valid XML sitemap from a crawler-safe path without an .xml suffix.
-    sitemap: absoluteUrl("/search-index"),
+    sitemap: absoluteUrl("/sitemap.xml"),
     host: SITE_URL,
   }
 }
