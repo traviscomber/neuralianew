@@ -47,9 +47,10 @@ function getLocale(pathname: string): string | null {
   return null
 }
 
-function buildRequestHeaders(request: NextRequest, locale: string) {
+function buildRequestHeaders(request: NextRequest, locale: string, pathname: string) {
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set("x-n3uralia-locale", locale)
+  requestHeaders.set("x-n3uralia-pathname", pathname)
   return requestHeaders
 }
 
@@ -116,7 +117,7 @@ export async function middleware(request: NextRequest) {
   }
 
   const locale = getLocale(pathname) ?? DEFAULT_LOCALE
-  const requestHeaders = buildRequestHeaders(request, locale)
+  const requestHeaders = buildRequestHeaders(request, locale, pathname)
 
   const isProtectedRoute = PROTECTED_API_ROUTES.some((route) => pathname.startsWith(route))
   const isPublicRoute = PUBLIC_API_ROUTES.some((route) => pathname.startsWith(route))

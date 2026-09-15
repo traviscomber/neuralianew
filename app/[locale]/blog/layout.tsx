@@ -1,5 +1,6 @@
 import React from "react"
 import type { Metadata } from "next"
+import { headers } from "next/headers"
 import { DEFAULT_LOCALE, isValidLocale } from "@/lib/get-locale"
 import { buildLocalizedMetadata } from "@/lib/page-metadata"
 
@@ -11,12 +12,19 @@ interface BlogLayoutProps {
 }
 
 export async function generateMetadata(props: BlogLayoutProps): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
+  const requestHeaders = await headers()
+  const pathname = requestHeaders.get("x-n3uralia-pathname")
+  const localePrefix = `/${locale}`
+  const localizedBlogPrefix = `${localePrefix}/blog`
+  const path = pathname?.startsWith(localizedBlogPrefix)
+    ? pathname.slice(localePrefix.length)
+    : "/blog"
 
   return buildLocalizedMetadata({
     locale,
-    path: "/blog",
+    path,
     title: locale === "es" ? "Blog | N3uralia" : "Blog | N3uralia",
     description:
       locale === "es"
