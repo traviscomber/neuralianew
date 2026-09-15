@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { absoluteUrl } from "@/lib/site"
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -8,35 +9,37 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const isES = locale === 'es'
-  
-  // Spanish users accessing /es/solutions should be canonicalized to /es/soluciones
-  const canonical = isES 
-    ? 'https://n3uralia.com/es/soluciones'
-    : 'https://n3uralia.com/en/solutions'
-  
+  const esUrl = absoluteUrl('/es/soluciones')
+  const enUrl = absoluteUrl('/en/solutions')
+  const canonical = isES ? esUrl : enUrl
+
   return {
-    title: isES 
-      ? "Soluciones de Sistemas Agenticos - Automatización para Múltiples Industrias"
+    title: isES
+      ? "Soluciones de Sistemas Agénticos - Automatización para Múltiples Industrias"
       : "Agentic Systems Solutions - Automation for Every Industry",
     description: isES
-      ? "Soluciones especializadas de sistemas agenticos para cada industria: retail, manufactura, turismo, finanzas, gobierno."
-      : "Industry-specific agentic system solutions: retail & e-commerce, manufacturing, hospitality & tourism, financial services, government.",
+      ? "Soluciones especializadas de sistemas agénticos para operaciones reales en retail, manufactura, turismo, minería, logística y otros sectores."
+      : "AI and software systems for real operations across retail, manufacturing, hospitality, mining, logistics and other sectors.",
     alternates: {
       canonical,
       languages: {
-        "es": "https://n3uralia.com/es/soluciones",
-        "en": "https://n3uralia.com/en/solutions",
+        'es-CL': esUrl,
+        es: esUrl,
+        en: enUrl,
+        'en-US': enUrl,
+        'x-default': enUrl,
       },
     },
     openGraph: {
-      title: isES 
-        ? "Soluciones de Sistemas Agenticos"
+      title: isES
+        ? "Soluciones de Sistemas Agénticos"
         : "Agentic Systems Solutions",
       description: isES
-        ? "Soluciones especializadas para automatización inteligente."
-        : "Industry-specific solutions for intelligent automation.",
+        ? "Sistemas de IA, automatización y software para operaciones reales."
+        : "AI, automation and software systems for real operations.",
       url: canonical,
       type: 'website',
+      locale: isES ? 'es_CL' : 'en_US',
     },
   }
 }
