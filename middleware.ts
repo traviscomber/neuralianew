@@ -6,6 +6,7 @@ const ROOT_METADATA_PATHS = new Set([
   "/robots.txt",
   "/sitemap.xml",
   "/google-sitemap.xml",
+  "/search-index",
   "/llms.txt",
   "/site.webmanifest",
   "/favicon.ico",
