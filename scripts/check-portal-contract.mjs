@@ -46,6 +46,33 @@ for (const path of retiredRoutes) {
   if (existsSync(path)) failures.push(`${path}: retired residual route must remain deleted`)
 }
 
+const retiredDeadScaffolding = [
+  'app/accessibility-test/loading.tsx',
+  'app/advanced-metrics/loading.tsx',
+  'app/ai-confidence-monitoring/loading.tsx',
+  'app/ai-learning/loading.tsx',
+  'app/ai-reasoning-explorer/loading.tsx',
+  'app/ai-response-verification/loading.tsx',
+  'app/ai-search-simulation/loading.tsx',
+  'app/ai-suggestions/loading.tsx',
+  'app/analytics-dashboard/loading.tsx',
+  'components/monitoring/advanced-ai-suggestions.tsx',
+  'components/monitoring/ai-learning-dashboard.tsx',
+  'components/monitoring/ai-reasoning-explorer.tsx',
+  'components/monitoring/ai-recommendations-panel.tsx',
+  'components/monitoring/custom-threshold-wizard.tsx',
+  'components/monitoring/enhanced-threshold-wizard.tsx',
+  'components/monitoring/high-confidence-ai-panel.tsx',
+  'components/monitoring/logo-performance-dashboard.tsx',
+  'components/monitoring/performance-alerts-dashboard.tsx',
+  'lib/ai-learning-system.ts',
+  'lib/ai-threshold-analyzer.ts',
+  'lib/logo-performance-monitor.ts',
+]
+for (const path of retiredDeadScaffolding) {
+  if (existsSync(path)) failures.push(`${path}: retired dead scaffolding must remain deleted`)
+}
+
 const retiredStudyRoutes = [
   'agentic-ai',
   'agentic-brainstorming',
@@ -150,8 +177,8 @@ requireIncludes(sitemapPath, sitemap, [
   "es: '/productos', en: '/products'",
   "es: '/reconocimiento', en: '/recognition'",
   "es: '/como-trabajamos', en: '/how-we-work'",
-  '"es-CL"',
-  '"x-default"',
+  "'es-CL'",
+  "'x-default'",
   "2026-09-16T00:00:00.000Z",
 ])
 requireExcludes(sitemapPath, sitemap, ['chileCityPages', 'cityRouteSlug', 'temporarilyExcludedSamePathRoutes'])

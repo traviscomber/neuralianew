@@ -6,7 +6,6 @@ const intentionalConsoleFiles = [
   'app/actions/**/*.{js,jsx,ts,tsx}',
   'app/api/**/*.{js,jsx,ts,tsx}',
   'components/chat/chat-test.tsx',
-  'components/monitoring/**/*.{js,jsx,ts,tsx}',
   'lib/**/*.{js,jsx,ts,tsx}',
 ];
 
@@ -31,18 +30,11 @@ const retainedLegacyScaffoldingFiles = [
   'components/living-agents/constellation-workshop.tsx',
   'components/living-agents/personality-radar.tsx',
   'components/metrics/real-time-dashboard.tsx',
-  'components/monitoring/advanced-ai-suggestions.tsx',
-  'components/monitoring/ai-reasoning-explorer.tsx',
-  'components/monitoring/ai-recommendations-panel.tsx',
-  'components/monitoring/custom-threshold-wizard.tsx',
-  'components/monitoring/high-confidence-ai-panel.tsx',
-  'components/monitoring/performance-alerts-dashboard.tsx',
   'components/performance/performance-metrics.tsx',
   'components/platform/platform-client.tsx',
   'components/solution-section.tsx',
   'components/vibe-selling/vibe-analytics-dashboard.tsx',
   'lib/agent-personality.ts',
-  'lib/ai-threshold-analyzer.ts',
   'lib/i18n.tsx',
   'lib/language-context.tsx',
   'lib/metadata-utils.ts',
@@ -95,7 +87,7 @@ export default [
   {
     files: intentionalConsoleFiles,
     rules: {
-      // These modules are diagnostics, monitoring, API handlers, and explicit test utilities.
+      // These modules are diagnostics, API handlers, and explicit test utilities.
       // Their console output is intentional operational telemetry rather than stray UI logging.
       'no-console': 'off',
     },
