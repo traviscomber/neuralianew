@@ -24,13 +24,13 @@ export function Footer({ locale }: { locale: Locale }) {
             <Link href={`/${locale}/case-studies`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
               {d.nav.caseStudies}
             </Link>
-            <Link href={`/${locale}/security`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
+            <Link href={`/${locale}/platform/security`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
               {d.nav.security}
             </Link>
-            <Link href={`/${locale}/nodes`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
+            <Link href={`/${locale}/platform/nodes`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
               {d.nav.nodes}
             </Link>
-            <Link href={`/${locale}/patterns`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
+            <Link href={`/${locale}/platform/patterns`} style={{ color: "white", textDecoration: "none", opacity: 0.85 }}>
               {d.nav.patterns}
             </Link>
           </div>

@@ -1,9 +1,8 @@
 export const contentSitemapRoutes = [
-  // Legacy blog articles remain crawlable through the blog index and internal
-  // links, but are temporarily excluded from sitemap submission until each
-  // ES/EN pair passes localization and evidence-quality review.
-
-  // Case studies are validated bilingual canonical pages.
+  // Only validated case studies are proactively submitted. The four curated
+  // library articles remain accessible from /blog but stay out of the sitemap
+  // until bilingual evidence/localization review is complete. Legacy SEO
+  // articles have been removed from the route tree entirely.
   ['/case-studies/blackswan-facility-core', 0.8, 'monthly'],
   ['/case-studies/despega-tu-carrera', 0.8, 'monthly'],
   ['/case-studies/ecosuelolab', 0.8, 'monthly'],

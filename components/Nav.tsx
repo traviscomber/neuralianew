@@ -42,8 +42,8 @@ export function Nav({ locale }: { locale: Locale }) {
           <Link href={`/${locale}/ai-infrastructure`} style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>
             {d.nav.infra}
           </Link>
-          <Link href={`/${locale}/playbooks`} style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>
-            {d.nav.playbooks}
+          <Link href={`/${locale}/learning-hub`} style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>
+            {locale === "es" ? "Biblioteca" : "Library"}
           </Link>
           <Link href={`/${locale}/case-studies`} style={{ color: "white", textDecoration: "none", opacity: 0.9 }}>
             {d.nav.caseStudies}
