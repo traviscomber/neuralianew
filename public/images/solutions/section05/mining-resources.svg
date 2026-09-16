@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <g stroke="#45d1cf" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vector-effect="non-scaling-stroke">
+    <path d="M12 92 38 52l13 19 21-38 36 59H12Z"/>
+    <path d="m28 92 17-26 11 15 16-28 24 39" opacity=".42"/>
+    <path d="M74 21v18M65 30h18" opacity=".34"/>
+    <circle cx="74" cy="30" r="4" fill="#45d1cf" stroke="none"/>
+    <path d="M20 99h80M33 99v7M60 99v7M87 99v7" opacity=".34"/>
+  </g>
+</svg>
