@@ -1,0 +1,124 @@
+/* Section 05 — approved visual treatment.
+   Uses semantic/substring selectors so both /solutions and /soluciones routes share the same result. */
+
+section[aria-labelledby="domains-title"] [class*="domainTop"] {
+  position: relative !important;
+  min-height: 252px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  background: radial-gradient(circle at 50% 57%, rgba(48, 239, 232, .075), transparent 46%) !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainTop"]::before,
+section[aria-labelledby="domains-title"] [class*="domainTop"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  z-index: 4;
+  width: 3px;
+  height: 24px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(94, 255, 248, .95) 0 1.35px, transparent 1.55px) center / 3px 7px repeat-y;
+  filter: drop-shadow(0 0 5px rgba(75, 247, 239, .6));
+  pointer-events: none;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainTop"]::before { top: 8px; }
+section[aria-labelledby="domains-title"] [class*="domainTop"]::after { bottom: 4px; }
+
+section[aria-labelledby="domains-title"] [class*="domainIcon"] {
+  position: relative !important;
+  width: min(292px, 100%) !important;
+  height: 244px !important;
+  display: grid !important;
+  place-items: center !important;
+  isolation: isolate !important;
+  background-position: center 45% !important;
+  background-repeat: no-repeat !important;
+  background-size: 176px 176px !important;
+  filter:
+    drop-shadow(0 0 4px rgba(77, 255, 248, .28))
+    drop-shadow(0 0 12px rgba(31, 205, 198, .12)) !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainIcon"]::before,
+section[aria-labelledby="domains-title"] [class*="domainIcon"]::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 50% !important;
+  pointer-events: none !important;
+  background: linear-gradient(135deg, rgba(74, 245, 237, .035), rgba(28, 130, 128, .012)) !important;
+  transform: translateX(-50%) rotate(45deg) scaleY(.52) !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainIcon"]::before {
+  top: 71px !important;
+  width: 218px !important;
+  height: 218px !important;
+  border: 1px solid rgba(67, 230, 223, .48) !important;
+  box-shadow:
+    0 0 13px rgba(53, 241, 233, .12),
+    inset 0 0 20px rgba(30, 192, 185, .025) !important;
+  opacity: .88 !important;
+  z-index: -1 !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainIcon"]::after {
+  top: 58px !important;
+  width: 246px !important;
+  height: 246px !important;
+  border: 1px solid rgba(58, 192, 188, .22) !important;
+  opacity: .52 !important;
+  z-index: -2 !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainIcon"] svg {
+  display: none !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainCard"] {
+  min-height: 455px !important;
+  padding-top: 24px !important;
+}
+
+section[aria-labelledby="domains-title"] [class*="domainCard"] h3 {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 1180px) {
+  section[aria-labelledby="domains-title"] [class*="domainIcon"] {
+    width: min(280px, 100%) !important;
+    height: 236px !important;
+    background-size: 168px 168px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  section[aria-labelledby="domains-title"] [class*="domainTop"] {
+    min-height: 236px !important;
+  }
+
+  section[aria-labelledby="domains-title"] [class*="domainIcon"] {
+    width: min(286px, 100%) !important;
+    height: 226px !important;
+    background-size: 166px 166px !important;
+  }
+
+  section[aria-labelledby="domains-title"] [class*="domainIcon"]::before {
+    width: 208px !important;
+    height: 208px !important;
+    top: 67px !important;
+  }
+
+  section[aria-labelledby="domains-title"] [class*="domainIcon"]::after {
+    width: 232px !important;
+    height: 232px !important;
+    top: 56px !important;
+  }
+
+  section[aria-labelledby="domains-title"] [class*="domainCard"] {
+    min-height: 0 !important;
+  }
+}
