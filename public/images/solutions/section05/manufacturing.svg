@@ -1,8 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
-  <g stroke="#45d1cf" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" vector-effect="non-scaling-stroke">
-    <path d="M17 96V55l24 12V51l24 13V46l21 12V27h12v69H17Z"/>
-    <path d="M29 77h12v11H29zM53 77h12v11H53zM77 77h12v11H77z"/>
-    <path d="M92 20v18M84 29h16" opacity=".34"/>
-    <path d="M13 103h94" opacity=".34"/>
+  <defs>
+    <linearGradient id="n3" x1="18" y1="18" x2="104" y2="102" gradientUnits="userSpaceOnUse"><stop stop-color="#91fbf6"/><stop offset=".48" stop-color="#45d1cf"/><stop offset="1" stop-color="#159b99"/></linearGradient>
+    <filter id="g" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation=".7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <g stroke="url(#n3)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#g)">
+    <path d="M18 89V53l22 12V50l22 13V47l21 12V29h12v60H18Z"/>
+    <path d="M83 59V29h12v60" opacity=".86"/>
+    <path d="M30 72h13v12H30zM53 72h13v12H53zM76 72h13v12H76z"/>
+    <path d="M24 89h77" opacity=".5"/>
+  </g>
+  <g stroke="#45d1cf" stroke-width=".8" opacity=".28">
+    <path d="M24 60v29M47 57v32M70 55v34M89 37h6"/>
+    <path d="M60 13v10M57 18h6M60 98v10M57 103h6"/>
   </g>
 </svg>
