@@ -54,15 +54,42 @@ const nextConfig = {
   },
   redirects: async () => {
     return [
+      // Canonical bilingual route aliases.
       { source: '/en/soluciones', destination: '/en/solutions', permanent: true },
       { source: '/es/solutions', destination: '/es/soluciones', permanent: true },
       { source: '/en/como-trabajamos', destination: '/en/how-we-work', permanent: true },
       { source: '/es/how-we-work', destination: '/es/como-trabajamos', permanent: true },
       { source: '/en/como-funcionamos', destination: '/en/how-we-work', permanent: true },
       { source: '/es/como-funcionamos', destination: '/es/como-trabajamos', permanent: true },
+      { source: '/en/nuestro-enfoque', destination: '/en/how-we-work', permanent: true },
+      { source: '/es/nuestro-enfoque', destination: '/es/como-trabajamos', permanent: true },
       { source: '/en/contacto', destination: '/en/contact', permanent: true },
       { source: '/es/contacto', destination: '/es/contact', permanent: true },
       { source: '/contacto', destination: '/es/contact', permanent: true },
+
+      // Collapse duplicate knowledge architecture into the canonical platform tree.
+      { source: '/:locale(en|es)/nodes', destination: '/:locale/platform/nodes', permanent: true },
+      { source: '/:locale(en|es)/patterns', destination: '/:locale/platform/patterns', permanent: true },
+      { source: '/:locale(en|es)/security', destination: '/:locale/platform/security', permanent: true },
+
+      // Retire unsupported legacy acquisition surfaces into their real canonical parents.
+      { source: '/en/automatizacion-para-empresas', destination: '/en/solutions', permanent: true },
+      { source: '/es/automatizacion-para-empresas', destination: '/es/soluciones', permanent: true },
+      { source: '/en/automatizacion-ventas-leads', destination: '/en/solutions', permanent: true },
+      { source: '/es/automatizacion-ventas-leads', destination: '/es/soluciones', permanent: true },
+      { source: '/:locale(en|es)/automatizacion-ia-empresas-chile', destination: '/:locale/agentes-ia-chile', permanent: true },
+      { source: '/:locale(en|es)/soluciones-agenticas-chile', destination: '/:locale/agentic-systems', permanent: true },
+
+      // Remove thin geographic doorway pages while preserving the canonical Chile pillar.
+      { source: '/:locale(en|es)/agentes-ia-chile/ciudades', destination: '/:locale/agentes-ia-chile', permanent: true },
+      { source: '/:locale(en|es)/agentes-ia-:scope-chile', destination: '/:locale/agentes-ia-chile', permanent: true },
+
+      // Studies and Playbooks were withheld for evidence/localization gaps. Consolidate them now.
+      { source: '/:locale(en|es)/studies', destination: '/:locale/learning-hub', permanent: true },
+      { source: '/:locale(en|es)/studies/:path*', destination: '/:locale/learning-hub', permanent: true },
+      { source: '/:locale(en|es)/playbooks', destination: '/:locale/learning-hub', permanent: true },
+
+      // Historic content/assets.
       { source: '/es/blog/agentes-ia-mineria-casos-exito', destination: '/es/agentes-ia-chile', permanent: true },
       { source: '/en/blog/agentes-ia-mineria-casos-exito', destination: '/en/agentes-ia-chile', permanent: true },
       { source: '/icon.svg', destination: '/favicon.svg', permanent: true },

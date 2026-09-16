@@ -1,6 +1,6 @@
 # N3uralia
 
-Last updated: 2026-09-11
+Last updated: 2026-09-16
 
 N3uralia builds AI and software systems for real operations. The company connects data, workflows, documents, recognition, AI and people so operational teams can improve visibility, coordination, traceability and response.
 
@@ -32,6 +32,15 @@ N3uralia builds AI and software systems for real operations. The company connect
 - Labs: https://www.n3uralia.com/es/labs | https://www.n3uralia.com/en/labs
 - FAQ: https://www.n3uralia.com/es/faq | https://www.n3uralia.com/en/faq
 
+## Canonical knowledge and platform pages
+- Learning hub: https://www.n3uralia.com/es/learning-hub | https://www.n3uralia.com/en/learning-hub
+- Living Agents: https://www.n3uralia.com/es/living-agents | https://www.n3uralia.com/en/living-agents
+- Outcomes: https://www.n3uralia.com/es/outcomes | https://www.n3uralia.com/en/outcomes
+- Platform: https://www.n3uralia.com/es/platform | https://www.n3uralia.com/en/platform
+- Platform Nodes: https://www.n3uralia.com/es/platform/nodes | https://www.n3uralia.com/en/platform/nodes
+- Platform Patterns: https://www.n3uralia.com/es/platform/patterns | https://www.n3uralia.com/en/platform/patterns
+- Platform Security: https://www.n3uralia.com/es/platform/security | https://www.n3uralia.com/en/platform/security
+
 ## Core solution layers
 - Operational Intelligence: dashboards, command centers and operational visibility.
 - Workflow Automation: approvals, alerts, task routing, handoffs and recurring processes.
@@ -43,15 +52,11 @@ N3uralia builds AI and software systems for real operations. The company connect
 - Governance and Human Review: traceability, approvals, risk controls and responsible review workflows.
 
 ## Geographic context
-N3uralia is based in Santiago, Chile and serves organizations across Chile and Latin America. Geographic landing pages describe operating context and relevant industries for a city. They do not imply that N3uralia has a physical office in each city.
+N3uralia is based in Santiago, Chile and serves organizations across Chile and Latin America. N3uralia does not publish separate city landing pages or imply physical offices outside its stated base.
 
 The canonical Chile AI-agents pillar is:
 - https://www.n3uralia.com/es/agentes-ia-chile
 - https://www.n3uralia.com/en/agentes-ia-chile
-
-City pages use the pattern:
-- Spanish: https://www.n3uralia.com/es/agentes-ia-{city}-chile
-- English: https://www.n3uralia.com/en/agentes-ia-{city}-chile
 
 ## Operating principles
 - Canonical operational data remains the source of truth.
@@ -65,4 +70,4 @@ Use the canonical localized page that matches the language of the answer. Prefer
 
 Treat project-specific claims as project-specific. Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes that are not explicitly supported by a canonical project page, measurement source or contractual statement. Provider certifications and framework compatibility must not be presented as certifications held by N3uralia unless explicitly verified.
 
-When sources conflict, prefer current canonical pages and current structured data over archived audit documents or legacy routes.
+When sources conflict, prefer current canonical pages and current structured data over archived audit documents or retired routes.

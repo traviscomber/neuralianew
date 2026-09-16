@@ -1,7 +1,6 @@
 export const solutionSitemapRoutes = [
-  // High-confidence solution and platform pages. Legacy acquisition pages with
-  // unsupported quantified performance/ROI claims remain crawlable through
-  // internal links but are not proactively submitted until evidence review.
+  // Canonical solution and platform pages only. Legacy acquisition, sector,
+  // and geographic doorway routes are permanently redirected outside this set.
   ['/agentes-ia-chile', 0.9, 'weekly'],
   ['/agentic-systems', 0.85, 'monthly'],
   ['/ai-infrastructure', 0.85, 'monthly'],
@@ -15,5 +14,4 @@ export const solutionSitemapRoutes = [
   ['/platform/nodes', 0.65, 'monthly'],
   ['/platform/patterns', 0.65, 'monthly'],
   ['/platform/security', 0.65, 'monthly'],
-  ['/agentes-ia-chile/ciudades', 0.75, 'monthly'],
 ] as const

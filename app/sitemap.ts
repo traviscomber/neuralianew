@@ -14,25 +14,17 @@ type LocalizedRoute = {
   changeFrequency: ChangeFrequency
 }
 
-const updated = new Date('2026-09-15T00:00:00.000Z')
+const updated = new Date('2026-09-16T00:00:00.000Z')
 
-// Keep the public sitemap intentionally conservative. Pages with legacy SEO
-// copy, unsupported quantified claims, or highly templated geographic content
-// remain crawlable through internal links, but are not proactively submitted
-// until their content and metadata pass the current quality bar.
-const temporarilyExcludedSamePathRoutes = new Set([
-  '/agentes-ia-logistica-chile',
-  '/agentes-ia-manufactura-chile',
-  '/agentes-ia-retail-chile',
-  '/agentes-ia-turismo-chile',
-])
-
+// The public sitemap contains canonical, review-ready pages only. Retired route
+// families are handled by permanent redirects or 404s rather than being left as
+// alternate crawl surfaces.
 const samePathRoutes = [
   ...coreSitemapRoutes,
   ...solutionSitemapRoutes,
   ...knowledgeSitemapRoutes,
   ...contentSitemapRoutes,
-].filter(([path]) => !temporarilyExcludedSamePathRoutes.has(path))
+]
 
 const localizedRoutes: LocalizedRoute[] = [
   { es: '/soluciones', en: '/solutions', priority: 0.95, changeFrequency: 'weekly' },

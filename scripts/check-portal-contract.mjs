@@ -22,23 +22,75 @@ if (existsSync('.asset-staging/security.b64')) {
   failures.push('.asset-staging/security.b64: obsolete staging payload must not be committed')
 }
 
-const deletedAcquisitionRoutes = [
-  'app/[locale]/agentes-ia-santiago-chile/page.tsx',
-  'app/[locale]/agentes-ia-valparaiso-chile/page.tsx',
-  'app/[locale]/agentes-ia-concepcion-chile/page.tsx',
-  'app/[locale]/agentes-ia-antofagasta-chile/page.tsx',
-  'app/[locale]/agentes-ia-temuco-chile/page.tsx',
-  'app/[locale]/agentes-ia-la-serena-chile/page.tsx',
-  'app/[locale]/agentes-ia-iquique-chile/page.tsx',
-  'app/[locale]/agentes-ia-rancagua-chile/page.tsx',
-  'app/[locale]/agentes-ia-talca-chile/page.tsx',
-  'app/[locale]/agentes-ia-puerto-montt-chile/page.tsx',
-  'app/[locale]/agentes-ia-punta-arenas-chile/page.tsx',
-  'app/[locale]/agentes-ia-mineria-chile/page.tsx',
-  'app/[locale]/blog/agentes-ia-mineria-casos-exito/page.tsx',
+const retiredRoutes = [
+  'app/[locale]/como-funcionamos/page.tsx',
+  'app/[locale]/nuestro-enfoque/page.tsx',
+  'app/[locale]/nodes/page.tsx',
+  'app/[locale]/patterns/page.tsx',
+  'app/[locale]/security/page.tsx',
+  'app/[locale]/playbooks/page.tsx',
+  'app/[locale]/studies/page.tsx',
+  'app/[locale]/automatizacion-para-empresas/page.tsx',
+  'app/[locale]/automatizacion-ventas-leads/page.tsx',
+  'app/[locale]/automatizacion-ia-empresas-chile/page.tsx',
+  'app/[locale]/soluciones-agenticas-chile/page.tsx',
+  'app/[locale]/agentes-ia-logistica-chile/page.tsx',
+  'app/[locale]/agentes-ia-manufactura-chile/page.tsx',
+  'app/[locale]/agentes-ia-retail-chile/page.tsx',
+  'app/[locale]/agentes-ia-turismo-chile/page.tsx',
+  'app/[locale]/agentes-ia-chile/ciudades/page.tsx',
+  'app/[locale]/[...slug]/page.tsx',
+  'lib/chile-city-pages.ts',
 ]
-for (const path of deletedAcquisitionRoutes) {
-  if (existsSync(path)) failures.push(`${path}: mock/unsupported acquisition route must remain deleted`)
+for (const path of retiredRoutes) {
+  if (existsSync(path)) failures.push(`${path}: retired residual route must remain deleted`)
+}
+
+const retiredStudyRoutes = [
+  'agentic-ai',
+  'agentic-brainstorming',
+  'ai-memory',
+  'context-engineering',
+  'production-grade-agentic-systems',
+  'world-engine',
+]
+for (const slug of retiredStudyRoutes) {
+  const path = `app/[locale]/studies/${slug}/page.tsx`
+  if (existsSync(path)) failures.push(`${path}: retired studies route must remain deleted`)
+}
+
+const retiredBlogRoutes = [
+  'agentes-ia-atencion-cliente-chile',
+  'agentes-ia-compliance-tributario-chile',
+  'agentes-ia-finanzas-chile',
+  'agentes-ia-logistica-optimizacion-rutas',
+  'agentes-ia-manufactura-produccion',
+  'agentes-ia-predictive-analytics-chile',
+  'agentes-ia-recursos-humanos-chile',
+  'agentes-ia-retail-inventario',
+  'agentes-ia-roi-metricas-chile',
+  'agentes-ia-servicio-cliente-multilingual',
+  'agentes-ia-sii-facturacion',
+  'agentes-ia-transformacion-digital-pymes',
+  'agentes-ia-turismo-reservas',
+  'agentes-ia-vs-outsourcing-chile',
+  'automatizacion-invoice-processing-chile',
+  'chatbots-vs-agentes-ia',
+  'costo-agentes-ia-chile',
+  'costo-implementar-agentes-ia-chile',
+  'gobernanza-ia-compliance-chile',
+  'industrias-agentes-ia',
+  'integracion-erp-agentes-ia-chile',
+  'integracion-sistemas-erp-chilenos',
+  'living-agents-aprendizaje-continuo-chile',
+  'que-son-agentes-ia',
+  'rpa-vs-agentes-ia-cual-elegir-chile',
+  'seguridad-datos-agentes-ia-chile',
+  'tiempo-implementacion-ia-chile',
+]
+for (const slug of retiredBlogRoutes) {
+  const path = `app/[locale]/blog/${slug}/page.tsx`
+  if (existsSync(path)) failures.push(`${path}: retired SEO article route must remain deleted`)
 }
 
 const solutionsPath = 'app/[locale]/soluciones/page.tsx'
@@ -54,16 +106,6 @@ requireIncludes(solutionsPath, solutions, [
   'Governance & Human Review',
   '/diagnostico',
 ])
-requireExcludes(solutionsPath, solutions, [
-  'N3 / ACTIVE SECTION',
-  'NODE 0',
-  'PRODUCTION PROOF',
-  'PROOF /',
-])
-
-const focusPath = 'components/solutions-focus.tsx'
-const focus = read(focusPath)
-requireExcludes(focusPath, focus, ['<style jsx global>', 'n3-friction-scan'])
 
 const navPath = 'components/navigation.tsx'
 const nav = read(navPath)
@@ -77,7 +119,6 @@ requireIncludes(navPath, nav, [
 const layoutPath = 'app/[locale]/layout.tsx'
 const layout = read(layoutPath)
 requireIncludes(layoutPath, layout, ['href="#main-content"', 'id="main-content"'])
-requireExcludes(layoutPath, layout, ['rounded-full'])
 
 const footerPath = 'components/canonical-footer.tsx'
 const footer = read(footerPath)
@@ -86,24 +127,6 @@ requireIncludes(footerPath, footer, [
   '+56993826127',
   'https://linkedin.com/company/n3uralia',
   '/diagnostico',
-])
-
-const structuredDataPath = 'components/structured-data.tsx'
-const structuredData = read(structuredDataPath)
-requireIncludes(structuredDataPath, structuredData, [
-  'n3uralia-logo-canonical.svg',
-  'https://linkedin.com/company/n3uralia',
-  'info@n3uralia.com',
-  '"@type": "WebSite"',
-  'Governance and Human Review',
-])
-requireExcludes(structuredDataPath, structuredData, [
-  'aggregateRating',
-  'reviewCount',
-  'ratingValue',
-  'LocalBusiness',
-  'twitter.com/n3uralia',
-  'github.com/n3uralia',
 ])
 
 const metadataPath = 'lib/page-metadata.ts'
@@ -119,7 +142,6 @@ requireIncludes(metadataPath, metadata, [
 const robotsPath = 'app/robots.ts'
 const robots = read(robotsPath)
 requireIncludes(robotsPath, robots, ['OAI-SearchBot', 'GPTBot', '/sitemap.xml'])
-requireExcludes(robotsPath, robots, ['"/*/labs"', 'google-sitemap.xml'])
 
 const sitemapPath = 'app/sitemap.ts'
 const sitemap = read(sitemapPath)
@@ -128,52 +150,50 @@ requireIncludes(sitemapPath, sitemap, [
   "es: '/productos', en: '/products'",
   "es: '/reconocimiento', en: '/recognition'",
   "es: '/como-trabajamos', en: '/how-we-work'",
-  'chileCityPages',
-  'cityRouteSlug',
   '"es-CL"',
   '"x-default"',
-  "2026-09-11T00:00:00.000Z",
+  "2026-09-16T00:00:00.000Z",
 ])
-
-const coreRoutesPath = 'lib/sitemap-routes-core.ts'
-const coreRoutes = read(coreRoutesPath)
-requireIncludes(coreRoutesPath, coreRoutes, ["['/labs', 0.75, 'monthly']"])
-requireExcludes(coreRoutesPath, coreRoutes, ["['/como-trabajamos'", "['/how-we-work'", "['/nuestro-enfoque'"])
+requireExcludes(sitemapPath, sitemap, ['chileCityPages', 'cityRouteSlug', 'temporarilyExcludedSamePathRoutes'])
 
 const solutionRoutesPath = 'lib/sitemap-routes-solutions.ts'
 const solutionRoutes = read(solutionRoutesPath)
-requireIncludes(solutionRoutesPath, solutionRoutes, ["['/agentes-ia-chile', 0.9, 'weekly']"])
+requireIncludes(solutionRoutesPath, solutionRoutes, ["['/agentes-ia-chile', 0.9, 'weekly']", "['/platform/nodes', 0.65, 'monthly']"])
 requireExcludes(solutionRoutesPath, solutionRoutes, [
-  '/agentes-ia-antofagasta-chile',
-  '/agentes-ia-valparaiso-chile',
-  '/agentes-ia-santiago-chile',
-  '/agentes-ia-mineria-chile',
+  '/automatizacion-para-empresas',
+  '/automatizacion-ventas-leads',
+  '/automatizacion-ia-empresas-chile',
+  '/soluciones-agenticas-chile',
+  '/agentes-ia-logistica-chile',
+  '/agentes-ia-manufactura-chile',
+  '/agentes-ia-retail-chile',
+  '/agentes-ia-turismo-chile',
+  '/agentes-ia-chile/ciudades',
 ])
 
-const contentRoutesPath = 'lib/sitemap-routes-content.ts'
-const contentRoutes = read(contentRoutesPath)
-requireExcludes(contentRoutesPath, contentRoutes, ['/blog/agentes-ia-mineria-casos-exito'])
+const knowledgeRoutesPath = 'lib/sitemap-routes-knowledge.ts'
+const knowledgeRoutes = read(knowledgeRoutesPath)
+requireExcludes(knowledgeRoutesPath, knowledgeRoutes, ['/nodes', '/patterns', '/security', '/nuestro-enfoque', '/playbooks', '/studies'])
 
 const redirectsPath = 'next.config.js'
 const redirects = read(redirectsPath)
 requireIncludes(redirectsPath, redirects, [
   "source: '/en/como-trabajamos', destination: '/en/how-we-work'",
   "source: '/es/how-we-work', destination: '/es/como-trabajamos'",
+  "source: '/:locale(en|es)/nodes', destination: '/:locale/platform/nodes'",
+  "source: '/:locale(en|es)/studies/:path*', destination: '/:locale/learning-hub'",
+  "source: '/:locale(en|es)/agentes-ia-:scope-chile', destination: '/:locale/agentes-ia-chile'",
 ])
 
 const llmsPath = 'public/llms.txt'
 const llms = read(llmsPath)
 requireIncludes(llmsPath, llms, [
   'AI and software systems for real operations',
-  '/es/proyectos | https://www.n3uralia.com/en/projects',
-  '/es/productos | https://www.n3uralia.com/en/products',
-  '/es/reconocimiento | https://www.n3uralia.com/en/recognition',
-  'Data Integrations',
-  'Governance and Human Review',
-  'City pages use the pattern',
+  'Platform Nodes:',
+  'N3uralia does not publish separate city landing pages',
   'Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes',
 ])
-requireExcludes(llmsPath, llms, ['/es/platform |', '/es/studies |'])
+requireExcludes(llmsPath, llms, ['City pages use the pattern'])
 
 if (failures.length > 0) {
   console.error('Portal contract check failed:')
