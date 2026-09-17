@@ -9,9 +9,14 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
+          source: '/images/solutions/section03/governance-human-loop.png',
+          destination:
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/governance-human-review.png?v=section03-approved-20260917',
+        },
+        {
           source: '/images/solutions/section03/:asset*.png',
           destination:
-            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/:asset*.png',
+            'https://dptblcvifavtbvngivkb.supabase.co/storage/v1/object/public/site-assets/solutions/:asset*.png?v=section03-approved-20260917',
         },
         {
           source: '/images/solutions/section02/:asset*.png',
