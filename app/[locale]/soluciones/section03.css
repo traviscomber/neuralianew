@@ -104,13 +104,13 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   display:block!important;
   object-fit:contain!important;
   object-position:center!important;
-  background:linear-gradient(180deg,#031011 0%,#02090a 100%)!important;
+  background:transparent!important;
   border:0!important;
   box-shadow:none!important;
   filter:none!important;
-  opacity:.82!important;
+  opacity:1!important;
 }
-/* SVG artwork is the canonical Section 03 visual set; existing PNG src values remain as graceful fallbacks. */
+/* Render the approved SVG artwork directly: no synthetic gradient, tint, filter, or presentation opacity. */
 #expertise .section03-card:nth-child(1) .section03-asset{content:url('/images/solutions/section03/operational-intelligence.svg')!important}
 #expertise .section03-card:nth-child(2) .section03-asset{content:url('/images/solutions/section03/workflow-automation.svg')!important}
 #expertise .section03-card:nth-child(3) .section03-asset{content:url('/images/solutions/section03/ai-assistants.svg')!important}
