@@ -1,4 +1,4 @@
-/* Expertise — canonical N3uralia vector artwork. */
+/* Expertise — canonical N3uralia artwork. */
 #expertise{
   position:relative;
   scroll-margin-top:96px;
@@ -110,15 +110,7 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   filter:none!important;
   opacity:1!important;
 }
-/* Render the approved SVG artwork directly: no synthetic gradient, tint, filter, or presentation opacity. */
-#expertise .section03-card:nth-child(1) .section03-asset{content:url('/images/solutions/section03/operational-intelligence.svg')!important}
-#expertise .section03-card:nth-child(2) .section03-asset{content:url('/images/solutions/section03/workflow-automation.svg')!important}
-#expertise .section03-card:nth-child(3) .section03-asset{content:url('/images/solutions/section03/ai-assistants.svg')!important}
-#expertise .section03-card:nth-child(4) .section03-asset{content:url('/images/solutions/section03/document-intelligence.svg')!important}
-#expertise .section03-card:nth-child(5) .section03-asset{content:url('/images/solutions/section03/recognition-systems.svg')!important}
-#expertise .section03-card:nth-child(6) .section03-asset{content:url('/images/solutions/section03/internal-platforms.svg')!important}
-#expertise .section03-card:nth-child(7) .section03-asset{content:url('/images/solutions/section03/data-integrations.svg')!important}
-#expertise .section03-card:nth-child(8) .section03-asset{content:url('/images/solutions/section03/governance-human-loop.svg')!important}
+/* Keep the <img src> as the single source of truth. Section 03 PNGs are proxied to the Supabase asset bucket by next.config.js. */
 #expertise .section03-card h3,
 #expertise .section03-card p,
 #expertise .section03-action{
