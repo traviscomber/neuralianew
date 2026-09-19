@@ -32,7 +32,6 @@ export function StructuredData() {
           "N3uralia builds AI systems, workflow automation, recognition systems, data integrations and software for real operations in Chile and Latin America.",
         email: "info@n3uralia.com",
         telephone: "+56-9-9382-6127",
-        sameAs: ["https://linkedin.com/company/n3uralia"],
         address: {
           "@type": "PostalAddress",
           addressCountry: "CL",
