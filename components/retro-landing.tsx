@@ -30,7 +30,7 @@ type Project = {
 
 const text: Record<Locale, Text> = {
   es: {
-    hero:['Inteligencia · Automatización · Ejecución','Convierte la complejidad en ejecución inteligente.','N3uralia convierte datos, flujos, documentos e IA dispersos en sistemas que mejoran visibilidad, control y ejecución.','Agendar diagnóstico','Ver soluciones'],
+    hero:['Sistemas operativos verticales · IA · Operaciones','Sistemas operativos con IA para industrias reales.','N3uralia conecta datos, flujos, documentos, software, reconocimiento e IA en una capa operacional diseñada para cada vertical.','Agendar diagnóstico','Ver soluciones'],
     expertise:[['Inteligencia operacional','Unifica datos y contexto para revelar lo importante y actuar con claridad.','/n3uralia-brand/fromdiagnosistoexecution.png'],['Automatización de flujos','Diseña, automatiza y gobierna procesos que escalan con precisión.','/n3uralia-brand/02workflowautomation.png'],['Sistemas de IA en producción','Construye sistemas seguros y observables que generan impacto real.','/n3uralia-brand/03productionaisystems.png']],
     learn:'Conocer más',
     complexity:['Diseñado para la complejidad','Trabajamos donde los sistemas se vuelven difíciles.','Entornos complejos. Alto impacto. Ejecución real.'],
@@ -41,7 +41,7 @@ const text: Record<Locale, Text> = {
     diagnosis:['Comienza con un diagnóstico','Claridad primero. El impacto sigue.','Un diagnóstico entrega una visión clara de lo posible y una ruta práctica.','Agendar diagnóstico','Contactarnos'],
     final:['¿Listos para transformar?','Construyamos el sistema detrás de tu próxima etapa de crecimiento.','Ayudamos a convertir señales dispersas en ejecución controlada.','Agendar diagnóstico','Contactarnos'],
     faq:['Preguntas frecuentes','Lo esencial antes de comenzar.',[
-      ['¿Qué hace N3uralia?','Diseñamos e implementamos sistemas de IA, automatización y software que conectan datos, documentos, flujos y decisiones para mejorar la ejecución operacional.'],
+      ['¿Qué hace N3uralia?','Construimos sistemas operativos verticales con IA: una capa operacional que integra datos, flujos, software, documentos, reconocimiento, agentes y control humano para una industria o proceso específico.'],
       ['¿Con qué tipo de empresas trabajan?','Trabajamos principalmente con organizaciones que operan procesos complejos, información fragmentada, alto volumen documental o decisiones críticas en Chile y LATAM.'],
       ['¿Necesito reemplazar mis sistemas actuales?','No. Normalmente integramos la capa de inteligencia sobre el stack existente: ERP, CRM, correo, Drive, SharePoint, bases de datos, APIs y herramientas internas.'],
       ['¿Cómo comienza un proyecto?','Partimos con un diagnóstico acotado para entender el proceso, los datos, los bloqueos y el impacto esperado. Desde ahí definimos una arquitectura y una hoja de ruta ejecutable.'],
@@ -50,7 +50,7 @@ const text: Record<Locale, Text> = {
     ]],
   },
   en: {
-    hero:['Intelligence · Automation · Execution','Turn complexity into intelligent execution.','N3uralia turns scattered data, workflows, documents and AI into systems that improve visibility, control and execution.','Book a diagnosis','See solutions'],
+    hero:['Vertical Operating Systems · AI · Operations','AI-native operating systems for real-world industries.','N3uralia connects data, workflows, documents, software, recognition and AI into an operational layer designed for each vertical.','Book a diagnosis','See solutions'],
     expertise:[['Operational Intelligence','Unify data and context to reveal what matters and act with clarity.','/n3uralia-brand/fromdiagnosistoexecution.png'],['Workflow Automation','Design, automate and govern workflows that scale with precision.','/n3uralia-brand/02workflowautomation.png'],['Production AI Systems','Build secure, observable systems that deliver real impact.','/n3uralia-brand/03productionaisystems.png']],
     learn:'Learn more',
     complexity:['Built for complexity','We work where systems get hard.','Complex environments. High stakes. Real impact.'],
@@ -61,7 +61,7 @@ const text: Record<Locale, Text> = {
     diagnosis:['Start with a diagnosis','Clarity first. Impact follows.','A diagnosis gives you a clear view of what is possible and a practical path forward.','Book a diagnosis','Contact us'],
     final:['Ready to transform?','Let’s build the system behind your next stage of growth.','We turn scattered signals into controlled execution.','Book a diagnosis','Contact us'],
     faq:['Frequently asked questions','What to know before we start.',[
-      ['What does N3uralia do?','We design and implement AI, automation and software systems that connect data, documents, workflows and decisions to improve operational execution.'],
+      ['What does N3uralia do?','We build AI-native vertical operating systems: an operational layer combining data, workflows, software, documents, recognition, agents and human control for a specific industry or process.'],
       ['What kind of companies do you work with?','We primarily work with organizations running complex processes, fragmented information, document-heavy operations or critical decisions across Chile and LATAM.'],
       ['Do we need to replace our existing systems?','No. We usually add an intelligence layer on top of your current stack: ERP, CRM, email, Drive, SharePoint, databases, APIs and internal tools.'],
       ['How does an engagement start?','We begin with a focused diagnosis to understand the workflow, data, constraints and expected impact. From there we define the architecture and an executable roadmap.'],

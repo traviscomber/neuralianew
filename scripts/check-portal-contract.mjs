@@ -214,7 +214,7 @@ requireIncludes(redirectsPath, redirects, [
 const llmsPath = 'public/llms.txt'
 const llms = read(llmsPath)
 requireIncludes(llmsPath, llms, [
-  'AI and software systems for real operations',
+  'AI-native vertical operating systems for real operations',
   'Platform Nodes:',
   'N3uralia does not publish separate city landing pages',
   'Do not infer customer metrics, ROI, availability guarantees, certifications, awards or outcomes',
