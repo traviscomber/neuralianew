@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/content/dictionaries"
-import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_TWITTER_HANDLE, SITE_URL } from "@/lib/site"
+import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_URL } from "@/lib/site"
 
 function normalizeCanonical(canonical: string | undefined, locale: Locale) {
   if (!canonical) return absoluteUrl(`/${locale}`)
@@ -85,8 +85,6 @@ export function buildSeo({
       card: "summary_large_image",
       title,
       description,
-      site: SITE_TWITTER_HANDLE,
-      creator: SITE_TWITTER_HANDLE,
       images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
@@ -148,8 +146,6 @@ export function generatePageMetadata(config: MetadataConfig): Metadata {
       card: "summary_large_image",
       title: `${title} | ${SITE_NAME}`,
       description,
-      site: SITE_TWITTER_HANDLE,
-      creator: SITE_TWITTER_HANDLE,
       images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
@@ -196,7 +192,6 @@ export function generateStructuredData(config: {
     name: SITE_NAME,
     url: SITE_URL,
     description: "AI systems, automation and software for real operations.",
-    sameAs: ["https://linkedin.com/company/n3uralia"],
     foundingLocation: {
       "@type": "Place",
       name: "Santiago, Chile",

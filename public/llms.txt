@@ -15,7 +15,6 @@ N3uralia builds AI and software systems for real operations. The company connect
 - Languages: Spanish and English
 - Website: https://www.n3uralia.com/
 - Contact: info@n3uralia.com
-- LinkedIn: https://linkedin.com/company/n3uralia
 
 ## Canonical discovery endpoints
 - Spanish home: https://www.n3uralia.com/es

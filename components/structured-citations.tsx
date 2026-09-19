@@ -12,10 +12,6 @@ export function StructuredCitations() {
             "alternateName": "Neuralia",
             "url": "https://www.n3uralia.com",
             "logo": "https://www.n3uralia.com/logo.png",
-            "sameAs": [
-              "https://twitter.com/n3uralia",
-              "https://linkedin.com/company/n3uralia"
-            ],
             "description": "N3uralia es una plataforma de IA production-ready para empresas chilenas. Sistemas de agentes inteligentes, arquitectura multi-agente, y automatización empresarial que escala.",
             "areaServed": "CL",
             "foundingDate": "2024",
