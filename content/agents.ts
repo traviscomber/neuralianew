@@ -108,8 +108,8 @@ export const AGENTS: AgentDefinition[] = [
     id: "customer-support",
     name: { es: "Customer Support", en: "Customer Support" },
     description: {
-      es: "Atiende 24/7 preguntas de clientes en WhatsApp, Telegram, Email",
-      en: "Handles 24/7 customer support on WhatsApp, Telegram, Email"
+      es: "Atiende preguntas de clientes en WhatsApp, Telegram y Email según el flujo configurado",
+      en: "Handles customer questions on WhatsApp, Telegram and Email according to the configured workflow"
     },
     icon: "💬",
     capabilities: [
