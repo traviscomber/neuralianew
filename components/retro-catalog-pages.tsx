@@ -186,6 +186,28 @@ export function ProductsPage({locale}:{locale:Locale}){
           </div>
         </div>
       </section>
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell py-14">
+          <small>{es ? 'ECOSISTEMA PÚBLICO' : 'PUBLIC ECOSYSTEM'}</small>
+          <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">
+            {es
+              ? 'Algunos productos N3uralia operan con dominios propios y una identidad especializada. Estos enlaces conectan el catálogo con sus superficies públicas canónicas.'
+              : 'Some N3uralia products operate on their own domains with specialized identities. These links connect the catalog to their canonical public surfaces.'}
+          </p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            {[
+              ['Kumplio', 'https://www.kumplio.app'],
+              ['VIDENTIA', 'https://videntia.app'],
+              ['Clar1ty', 'https://www.clar1ty.art'],
+              ['LicitRadar', 'https://www.licitradar.app'],
+            ].map(([name, href]) => (
+              <a key={name} className="retro-button" href={href} target="_blank" rel="noopener noreferrer">
+                {name} ↗
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="retro-light catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
         <div className="retro-shell catalog-list">
           {products.map((p,i) => {

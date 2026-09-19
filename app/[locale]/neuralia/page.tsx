@@ -31,6 +31,10 @@ const content = {
     products: "Ver productos",
     solutions: "Ver capacidades",
     contact: "Contactar",
+    ecosystemEyebrow: "ECOSISTEMA PÚBLICO",
+    ecosystemTitle: "Productos de N3uralia con presencia propia.",
+    ecosystemBody: "Estas plataformas públicas mantienen su propia identidad y dominio, y declaran su relación de desarrollo o tecnología con N3uralia.",
+    visitProduct: "Visitar producto",
     legalLabel: "Relación corporativa",
     legalPoints: [
       "Entidad legal: Neuralia.",
@@ -61,6 +65,10 @@ const content = {
     products: "View products",
     solutions: "Explore capabilities",
     contact: "Contact",
+    ecosystemEyebrow: "PUBLIC ECOSYSTEM",
+    ecosystemTitle: "N3uralia products with their own public presence.",
+    ecosystemBody: "These public platforms keep their own identity and domain while declaring their development or technology relationship with N3uralia.",
+    visitProduct: "Visit product",
     legalLabel: "Corporate relationship",
     legalPoints: [
       "Legal entity: Neuralia.",
@@ -164,6 +172,39 @@ export default async function NeuraliaPage(props: PageProps) {
                 </article>
               )
             })}
+          </div>
+        </section>
+
+        <section className="border-b border-[rgba(118,214,214,.16)] py-20">
+          <div className="retro-shell">
+            <small>{page.ecosystemEyebrow}</small>
+            <div className="mt-5 grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
+              <div>
+                <h2 className="max-w-xl text-[clamp(32px,4vw,52px)]">{page.ecosystemTitle}</h2>
+                <p className="mt-5 max-w-2xl text-[14px] leading-7 text-[var(--n3-text-muted)]">{page.ecosystemBody}</p>
+              </div>
+              <div className="grid gap-px bg-[rgba(118,214,214,.16)] sm:grid-cols-2">
+                {[
+                  ["Kumplio", "https://www.kumplio.app"],
+                  ["VIDENTIA", "https://videntia.app"],
+                  ["Clar1ty", "https://www.clar1ty.art"],
+                  ["LicitRadar", "https://www.licitradar.app"],
+                ].map(([name, href]) => (
+                  <a
+                    key={name}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-[var(--n3-dark-surface)] p-6 transition-colors hover:bg-[var(--n3-deep)]"
+                  >
+                    <span className="telemetry">{name}</span>
+                    <p className="mt-8 text-[12px] uppercase tracking-[.12em] text-[var(--n3-teal-soft)]">
+                      {page.visitProduct} ↗
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
