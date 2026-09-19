@@ -25,8 +25,8 @@ function buildFaqSchema(locale: Locale) {
         acceptedAnswer: {
           "@type": "Answer",
           text: isES
-            ? "N3uralia construye sistemas de IA, automatización y software para operaciones reales."
-            : "N3uralia builds AI systems, automation, and software for real operations.",
+            ? "N3uralia construye sistemas operativos verticales con IA que integran datos, flujos, software, documentos, reconocimiento, agentes y control humano para operaciones reales."
+            : "N3uralia builds AI-native vertical operating systems that integrate data, workflows, software, documents, recognition, agents and human control for real operations.",
         },
       },
       {
@@ -54,8 +54,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   }
 
   const descriptions = {
-    es: "Preguntas frecuentes sobre IA, automatización, arquitectura y despliegue de software con N3uralia.",
-    en: "Frequently asked questions about AI, automation, architecture, and software delivery with N3uralia.",
+    es: "Preguntas frecuentes sobre sistemas operativos verticales, IA, automatización, arquitectura y software con N3uralia.",
+    en: "Frequently asked questions about vertical operating systems, AI, automation, architecture and software delivery with N3uralia.",
   }
 
   return buildLocalizedMetadata({
