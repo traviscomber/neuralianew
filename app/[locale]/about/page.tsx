@@ -73,6 +73,15 @@ const content = {
       "Nos gusta trabajar con equipos que quieren llegar a producción, aprender rápido y dejar una base técnica más fuerte que antes.",
     primaryCta: "Contactar a N3uralia",
     secondaryCta: "Ver cómo trabajamos",
+    evidenceLabel: "EVIDENCIA",
+    evidenceTitle: "Explorar sistemas, productos y capacidades",
+    evidenceLinks: {
+      solutions: "Soluciones",
+      projects: "Proyectos",
+      products: "Productos",
+      neuralia: "Neuralia",
+      diagnosis: "Diagnóstico",
+    },
     legalIdentity: "N3uralia es la marca tecnológica y comercial operada por Neuralia en Chile.",
   },
   en: {
@@ -133,6 +142,15 @@ const content = {
       "We like working with teams that want to reach production, learn fast, and leave with a stronger technical base than they started with.",
     primaryCta: "Contact N3uralia",
     secondaryCta: "See how we work",
+    evidenceLabel: "EVIDENCE",
+    evidenceTitle: "Explore systems, products and capabilities",
+    evidenceLinks: {
+      solutions: "Solutions",
+      projects: "Projects",
+      products: "Products",
+      neuralia: "Neuralia",
+      diagnosis: "Diagnosis",
+    },
     legalIdentity: "N3uralia is the technology and commercial brand operated by Neuralia in Chile.",
   },
 } as const
@@ -241,6 +259,20 @@ export default async function AboutPage(props: PageProps) {
                 <ArrowRight className="mt-1 h-4 w-4 text-[var(--n3-teal-soft)]" aria-hidden />
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-[rgba(118,214,214,.16)] py-16">
+        <div className="retro-shell">
+          <small>{page.evidenceLabel}</small>
+          <h2 className="mt-5 max-w-3xl text-[clamp(30px,3.5vw,48px)]">{page.evidenceTitle}</h2>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link className="retro-button" href={href(locale, locale === "es" ? "/soluciones" : "/solutions")}>{page.evidenceLinks.solutions}</Link>
+            <Link className="retro-button" href={href(locale, locale === "es" ? "/proyectos" : "/projects")}>{page.evidenceLinks.projects}</Link>
+            <Link className="retro-button" href={href(locale, locale === "es" ? "/productos" : "/products")}>{page.evidenceLinks.products}</Link>
+            <Link className="retro-button" href={href(locale, "/neuralia")}>{page.evidenceLinks.neuralia}</Link>
+            <Link className="retro-button" href={href(locale, "/diagnostico")}>{page.evidenceLinks.diagnosis}</Link>
           </div>
         </div>
       </section>
