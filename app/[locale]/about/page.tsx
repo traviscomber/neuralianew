@@ -16,7 +16,7 @@ function href(locale: Locale, path: string) {
 
 const content = {
   es: {
-    metadataTitle: "Acerca de | N3uralia",
+    metadataTitle: "N3uralia | Empresa de IA y software en Chile",
     metadataDescription:
       "N3uralia construye sistemas de IA y software desde Chile para equipos que necesitan arquitectura, integración y operación real.",
     badge: "Acerca de N3uralia",
@@ -85,7 +85,7 @@ const content = {
     legalIdentity: "N3uralia es la marca tecnológica y comercial operada por Neuralia en Chile.",
   },
   en: {
-    metadataTitle: "About | N3uralia",
+    metadataTitle: "About N3uralia | AI and software company from Chile",
     metadataDescription:
       "N3uralia builds AI systems and software from Chile for teams that need architecture, integration, and real operations.",
     badge: "About N3uralia",

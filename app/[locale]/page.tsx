@@ -7,9 +7,9 @@ interface PageProps { params: Promise<{ locale: string }> }
 export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
-  const title = locale === 'es' ? 'N3uralia | Inteligencia para operaciones complejas' : 'N3uralia | Intelligence for complex operations'
+  const title = locale === 'es' ? 'N3uralia | IA, automatización y software para empresas en Chile' : 'N3uralia | AI, automation and software for real operations'
   const description = locale === 'es'
-    ? 'Convertimos datos, flujos, documentos e IA en sistemas que mejoran visibilidad, control y ejecución.'
+    ? 'N3uralia diseña sistemas de IA, automatización y software para empresas en Chile: operaciones, documentos, datos, reconocimiento e integraciones.'
     : 'We turn data, workflows, documents and AI into systems that improve visibility, control and execution.'
   const esUrl = 'https://www.n3uralia.com/es'
   const enUrl = 'https://www.n3uralia.com/en'

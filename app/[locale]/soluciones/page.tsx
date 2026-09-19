@@ -32,7 +32,7 @@ function href(locale: Locale, path: string) {
 
 const content = {
   en: {
-    metadataTitle: "Solutions | N3uralia",
+    metadataTitle: "AI, automation and software solutions | N3uralia",
     metadataDescription:
       "N3uralia expertise across operational intelligence, workflow automation, AI, recognition, document intelligence, integrations and internal platforms.",
     heroTitleA: "AI and software systems for",
@@ -249,7 +249,7 @@ const content = {
     },
   },
   es: {
-    metadataTitle: "Soluciones | N3uralia",
+    metadataTitle: "Soluciones de IA, automatización y software | N3uralia",
     metadataDescription:
       "Expertise de N3uralia en inteligencia operacional, automatización de flujos, IA, reconocimiento, inteligencia documental, integraciones y plataformas internas.",
     heroTitleA: "Sistemas de IA y software para",
