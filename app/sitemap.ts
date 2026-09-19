@@ -14,7 +14,7 @@ type LocalizedRoute = {
   changeFrequency: ChangeFrequency
 }
 
-const updated = new Date('2026-09-16T00:00:00.000Z')
+const updated = new Date('2026-09-19T00:00:00.000Z')
 
 // The public sitemap contains canonical, review-ready pages only. Retired route
 // families are handled by permanent redirects or 404s rather than being left as
