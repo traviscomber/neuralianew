@@ -25,7 +25,7 @@ export const corePillars = [
   {
     icon: "Zap",
     title: "Todo Incluido",
-    description: "No vendemos software aislado. Incluimos infraestructura cloud, monitoreo 24/7 y soporte operacional. Todo listo para que funcione inmediatamente.",
+    description: "No vendemos software aislado. Incluimos infraestructura cloud, observabilidad y soporte operacional definido según el proyecto. Todo listo para que funcione inmediatamente.",
   },
   {
     icon: "Target",
@@ -114,7 +114,7 @@ export const toolsVsArchitecture = {
     },
     {
       label: "Sistemas Agenticos N3uralia",
-      description: "Coordinan múltiples especialistas, recuerdan todo, trabajan 24/7, mejoran continuamente. Para operaciones complejas.",
+      description: "Coordinan múltiples especialistas, usan contexto gobernado, ejecutan tareas de forma continua cuando corresponde y permiten evaluación controlada. Para operaciones complejas.",
     },
   ],
   beliefs: [

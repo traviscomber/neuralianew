@@ -72,8 +72,8 @@ export function AgentMatrixShowcase({ locale = "es" }: AgentMatrixShowcaseProps)
           
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
             {isES
-              ? "No reemplazamos tu equipo. Ampliamos su capacidad con redes de agentes especializados que trabajan 24/7, observable y bajo tu control total."
-              : "We don't replace your team. We extend their capacity with specialized agent networks working 24/7, observable and under your total control."}
+              ? "No reemplazamos tu equipo. Ampliamos su capacidad con redes de agentes especializados que pueden ejecutar trabajo de forma continua, con observabilidad, permisos y escalamiento humano."
+              : "We don't replace your team. We extend their capacity with specialized agent networks that can execute work continuously, with observability, permissions and human escalation."}
           </p>
         </div>
 

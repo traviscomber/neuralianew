@@ -113,16 +113,16 @@ const DICTS: Record<Locale, Dict> = {
         title: "Preguntas frecuentes",
         subtitle: "Lo que necesitas saber antes de empezar.",
         items: [
-          { q: "¿Cuánto tiempo toma implementar un sistema agéntico?", a: "Entre 6 y 12 semanas dependiendo del alcance. Comenzamos con un diagnóstico de 2 semanas y un piloto de 4 semanas antes de escalar." },
+          { q: "¿Cuánto tiempo toma implementar un sistema agéntico?", a: "Depende del alcance, las integraciones y la calidad de los datos. Primero acotamos el problema y definimos un piloto o primera entrega verificable." },
           { q: "¿Necesito reemplazar mi stack tecnológico actual?", a: "No. Construimos sobre lo que tienes. Nuestros sistemas se integran con tu stack existente sin disrupciones." },
-          { q: "¿Cómo manejan la seguridad y privacidad de datos?", a: "Cumplimiento SOC 2 Type II, cifrado en tránsito y reposo, y opciones de despliegue on-premise o VPC privada." },
-          { q: "¿Qué pasa si el sistema falla?", a: "Observabilidad completa, alertas automáticas, rollback en un clic y SLA de 99.9% de uptime." },
+          { q: "¿Cómo manejan la seguridad y privacidad de datos?", a: "Definimos acceso, cifrado, secretos, aislamiento, auditoría y requisitos de despliegue según el proyecto y las obligaciones aplicables." },
+          { q: "¿Qué pasa si el sistema falla?", a: "Diseñamos monitoreo, alertas, reintentos, recuperación y escalamiento según la criticidad. Los SLA se acuerdan sólo cuando existe un compromiso contractual específico." },
         ],
       },
       differentiator: {
         title: "Por qué N3uralia es diferente",
         statement1: "No vendemos demos. Construimos sistemas que operan.",
-        statement2: "Cada sistema que entregamos tiene observabilidad, rollback, gobernanza y SLA desde el día uno.",
+        statement2: "Diseñamos observabilidad, recuperación y gobernanza según la criticidad y los requisitos reales de cada sistema.",
       },
       finalCta: {
         headline: "¿Listo para operar con inteligencia aumentada?",
@@ -157,7 +157,7 @@ const DICTS: Record<Locale, Dict> = {
         pillars: [
           { title: "Human-in-the-loop", description: "Aprobación humana en decisiones críticas." },
           { title: "Trazabilidad completa", description: "Audit trail de cada acción del agente." },
-          { title: "Rollback instantáneo", description: "Reversión en un clic ante comportamiento anómalo." },
+          { title: "Recuperación controlada", description: "Rutas de recuperación, reintento o rollback definidas según el sistema." },
         ],
       },
       whatWeDo: {
@@ -172,11 +172,11 @@ const DICTS: Record<Locale, Dict> = {
       whyNow: {
         title: "Por qué ahora",
         reasons: [
-          { title: "Los modelos maduran", description: "GPT-4 y Claude 3 permiten agentes confiables en producción." },
-          { title: "La competencia actúa", description: "Tus competidores ya están automatizando operaciones críticas." },
-          { title: "El costo baja", description: "El costo por token cayó 80% en 12 meses." },
+          { title: "Los modelos evolucionan", description: "La capacidad cambia rápido; evaluamos modelos según el caso, costo, latencia y riesgo." },
+          { title: "La tecnología ya es utilizable", description: "Existen casos donde IA y automatización pueden integrarse a procesos reales con control y medición." },
+          { title: "La arquitectura importa", description: "El costo total depende de modelos, volumen, integraciones, datos y nivel de control requerido." },
         ],
-        urgency: "Cada mes sin automatización inteligente es ventaja competitiva perdida.",
+        urgency: "La decisión correcta no es automatizar todo: es identificar dónde existe suficiente valor, evidencia y control.",
       },
     },
     pillars: {
@@ -260,16 +260,16 @@ const DICTS: Record<Locale, Dict> = {
         title: "Frequently asked questions",
         subtitle: "What you need to know before getting started.",
         items: [
-          { q: "How long does it take to implement an agentic system?", a: "Between 6 and 12 weeks depending on scope. We start with a 2-week diagnostic and a 4-week pilot before scaling." },
+          { q: "How long does it take to implement an agentic system?", a: "It depends on scope, integrations and data quality. We first narrow the problem and define a verifiable pilot or first delivery." },
           { q: "Do I need to replace my current tech stack?", a: "No. We build on what you have. Our systems integrate with your existing stack without disruption." },
-          { q: "How do you handle security and data privacy?", a: "SOC 2 Type II compliance, encryption in transit and at rest, and on-premise or private VPC deployment options." },
-          { q: "What happens if the system fails?", a: "Full observability, automatic alerts, one-click rollback, and a 99.9% uptime SLA." },
+          { q: "How do you handle security and data privacy?", a: "We define access, encryption, secrets, isolation, auditing and deployment requirements according to the project and applicable obligations." },
+          { q: "What happens if the system fails?", a: "We design monitoring, alerts, retries, recovery and escalation according to criticality. SLAs are stated only when a specific contractual commitment exists." },
         ],
       },
       differentiator: {
         title: "Why N3uralia is different",
         statement1: "We don't sell demos. We build systems that operate.",
-        statement2: "Every system we deliver has observability, rollback, governance, and SLA from day one.",
+        statement2: "We design observability, recovery and governance according to each system’s criticality and real requirements.",
       },
       finalCta: {
         headline: "Ready to operate with augmented intelligence?",
@@ -304,7 +304,7 @@ const DICTS: Record<Locale, Dict> = {
         pillars: [
           { title: "Human-in-the-loop", description: "Human approval on critical decisions." },
           { title: "Full traceability", description: "Audit trail of every agent action." },
-          { title: "Instant rollback", description: "One-click revert on anomalous behavior." },
+          { title: "Controlled recovery", description: "Recovery, retry or rollback paths are defined according to the system." },
         ],
       },
       whatWeDo: {
@@ -319,11 +319,11 @@ const DICTS: Record<Locale, Dict> = {
       whyNow: {
         title: "Why now",
         reasons: [
-          { title: "Models are maturing", description: "GPT-4 and Claude 3 enable reliable production agents." },
-          { title: "Competition is moving", description: "Your competitors are already automating critical operations." },
-          { title: "Cost is dropping", description: "Cost per token dropped 80% in 12 months." },
+          { title: "Models keep evolving", description: "Capabilities change quickly; we evaluate models according to use case, cost, latency and risk." },
+          { title: "The technology is usable", description: "There are cases where AI and automation can be integrated into real processes with control and measurement." },
+          { title: "Architecture drives cost", description: "Total cost depends on models, volume, integrations, data and the required level of control." },
         ],
-        urgency: "Every month without intelligent automation is lost competitive advantage.",
+        urgency: "The right decision is not to automate everything; it is to identify where value, evidence and control are sufficient.",
       },
     },
     pillars: {

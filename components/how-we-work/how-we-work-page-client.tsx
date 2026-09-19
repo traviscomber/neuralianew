@@ -65,7 +65,7 @@ export function HowWeWorkPageClient({ locale }: HowWeWorkPageClientProps) {
     },
     {
       week: isES ? "Semana 4" : "Week 4",
-      title: { es: "Launch + 24/7", en: "Launch + 24/7" },
+      title: { es: "Launch + operación", en: "Launch + operations" },
       subtitle: { es: "Ir a producción", en: "Go live" },
       icon: Rocket,
       activities: isES 

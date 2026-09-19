@@ -15,7 +15,7 @@ const content = {
   es: {
     title: 'IA que acelera el crecimiento',
     intro:
-      'N3uralia te da acceso a tecnología de IA de próxima generación sin la complejidad enterprise. Automatización inteligente, agentes que trabajan 24/7 y crecimiento exponencial.',
+      'N3uralia te da acceso a tecnología de IA de próxima generación sin la complejidad enterprise. Automatización inteligente, agentes conectados a procesos reales y una arquitectura que puede crecer con el producto.',
     primaryCta: 'Empezar hoy',
     secondaryCta: 'Probar demo',
     whyTitle: '¿Por qué startups eligen N3uralia?',
@@ -62,13 +62,13 @@ const content = {
     pricingIntro: 'Pago por uso. Sin contratos anuales. Crece con nosotros: pagas solo por lo que usas.',
     pricingCta: 'Consultar planes personalizados',
     finalTitle: '¿Listo para escalar?',
-    finalIntro: 'Únete a startups que ya usan N3uralia para crecer sin límites.',
-    finalCta: 'Empezar gratis',
+    finalIntro: 'Evalúa dónde IA, automatización o integración pueden reducir fricción en tu producto u operación.',
+    finalCta: 'Evaluar proyecto',
   },
   en: {
     title: 'AI that accelerates growth',
     intro:
-      'N3uralia gives startups access to next-generation AI without enterprise complexity. Smart automation, agents that work 24/7, and exponential growth without unnecessary headcount.',
+      'N3uralia gives startups access to next-generation AI without enterprise complexity. Smart automation, agents connected to real workflows, and architecture that can grow with the product.',
     primaryCta: 'Start today',
     secondaryCta: 'Try the demo',
     whyTitle: 'Why startups choose N3uralia',
@@ -116,7 +116,7 @@ const content = {
     pricingCta: 'Ask about custom plans',
     finalTitle: 'Ready to scale?',
     finalIntro: 'Join startups already using N3uralia to grow without limits.',
-    finalCta: 'Start free',
+    finalCta: 'Evaluate project',
   },
 } as const
 
