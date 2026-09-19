@@ -115,6 +115,13 @@ const content = {
       "En 30 minutos podemos decirte si esto amerita piloto, sistema completo o simplemente no hacerlo todavia.",
     primaryCta: "Hablar con el equipo",
     secondaryCta: "Ver soluciones",
+    evidenceTitle: "Ver sistemas y evidencia",
+    evidenceLinks: {
+      projects: "Proyectos",
+      products: "Productos",
+      recognition: "Reconocimiento",
+      diagnosis: "Diagnóstico",
+    },
   },
   en: {
     metadataTitle: "How we work | N3uralia",
@@ -214,6 +221,13 @@ const content = {
       "In 30 minutes we can tell you whether this deserves a pilot, a full system, or simply a later revisit.",
     primaryCta: "Talk to the team",
     secondaryCta: "View solutions",
+    evidenceTitle: "Explore systems and evidence",
+    evidenceLinks: {
+      projects: "Projects",
+      products: "Products",
+      recognition: "Recognition",
+      diagnosis: "Diagnosis",
+    },
   },
 } as const
 
@@ -234,6 +248,10 @@ export default async function ComoTrabajamosPage(props: PageProps) {
   const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
+  const solutionsPath = locale === "es" ? "/soluciones" : "/solutions"
+  const projectsPath = locale === "es" ? "/proyectos" : "/projects"
+  const productsPath = locale === "es" ? "/productos" : "/products"
+  const recognitionPath = locale === "es" ? "/reconocimiento" : "/recognition"
 
   return (
     <>
@@ -314,6 +332,15 @@ export default async function ComoTrabajamosPage(props: PageProps) {
                   </div>
                 </div>
               </div>
+              <div className="mt-10 border-t border-border pt-8">
+                <p className="mb-4 text-sm font-medium text-foreground">{page.evidenceTitle}</p>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <Link href={href(locale, projectsPath)} className="text-sm text-primary underline underline-offset-4">{page.evidenceLinks.projects}</Link>
+                  <Link href={href(locale, productsPath)} className="text-sm text-primary underline underline-offset-4">{page.evidenceLinks.products}</Link>
+                  <Link href={href(locale, recognitionPath)} className="text-sm text-primary underline underline-offset-4">{page.evidenceLinks.recognition}</Link>
+                  <Link href={href(locale, "/diagnostico")} className="text-sm text-primary underline underline-offset-4">{page.evidenceLinks.diagnosis}</Link>
+                </div>
+              </div>
             </div>
           </section>
         </SectionBackground>
@@ -332,7 +359,7 @@ export default async function ComoTrabajamosPage(props: PageProps) {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link
-                  href={href(locale, "/soluciones")}
+                  href={href(locale, solutionsPath)}
                   className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors text-center"
                 >
                   {page.secondaryCta}
