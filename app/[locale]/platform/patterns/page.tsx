@@ -40,6 +40,8 @@ const content = {
       { title: "Patron de escalamiento", desc: "Escalamiento horizontal de instancias de agentes." },
       { title: "Patron de integracion", desc: "Conexion fluida con sistemas legacy y herramientas existentes." },
     ],
+    relatedTitle: "Conecta estos patrones con sistemas reales",
+    relatedLinks: { platform: "Plataforma", agentic: "Sistemas agénticos", capabilities: "Capacidades", projects: "Proyectos" },
     ctaTitle: "Listo para aplicar los patrones?",
     cta: "Solicitar acceso",
   },
@@ -68,6 +70,8 @@ const content = {
       { title: "Scaling pattern", desc: "Horizontal scaling of agent instances." },
       { title: "Integration pattern", desc: "Seamless integration with legacy systems." },
     ],
+    relatedTitle: "Connect these patterns to real systems",
+    relatedLinks: { platform: "Platform", agentic: "Agentic Systems", capabilities: "Capabilities", projects: "Projects" },
     ctaTitle: "Ready to learn the patterns?",
     cta: "Get access",
   },
@@ -134,6 +138,18 @@ export default async function PatternsPage(props: PageProps) {
                 <p className="text-sm text-muted-foreground">{pattern.desc}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border px-4 py-16">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-semibold text-foreground">{page.relatedTitle}</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link href={href(locale, "/platform")} className="border border-border px-5 py-3 text-foreground hover:border-primary/50">{page.relatedLinks.platform}</Link>
+            <Link href={href(locale, "/agentic-systems")} className="border border-border px-5 py-3 text-foreground hover:border-primary/50">{page.relatedLinks.agentic}</Link>
+            <Link href={href(locale, "/capabilities")} className="border border-border px-5 py-3 text-foreground hover:border-primary/50">{page.relatedLinks.capabilities}</Link>
+            <Link href={href(locale, locale === "es" ? "/proyectos" : "/projects")} className="border border-border px-5 py-3 text-foreground hover:border-primary/50">{page.relatedLinks.projects}</Link>
           </div>
         </div>
       </section>
