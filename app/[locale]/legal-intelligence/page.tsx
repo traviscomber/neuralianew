@@ -210,7 +210,7 @@ export default async function LegalIntelligencePage(props: PageProps) {
                     {page.primaryCta}
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link href={href(locale, "/soluciones")} className="inline-flex items-center justify-center rounded-lg border border-border bg-background/60 px-7 py-3.5 font-semibold text-foreground transition-colors hover:bg-muted">
+                  <Link href={href(locale, locale === "es" ? "/soluciones" : "/solutions")} className="inline-flex items-center justify-center rounded-lg border border-border bg-background/60 px-7 py-3.5 font-semibold text-foreground transition-colors hover:bg-muted">
                     {page.secondaryCta}
                   </Link>
                 </div>
