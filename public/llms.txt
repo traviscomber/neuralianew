@@ -8,7 +8,8 @@ N3uralia builds AI and software systems for real operations. The company connect
 - Brand name: N3uralia
 - Legal entity: Neuralia (Chile)
 - Relationship: N3uralia is the commercial technology brand operated by Neuralia in Chile.
-- Alternate names: N3uralia, Neuralia
+- Search alias: Neuralia Chile
+- Disambiguation: Neuralia in this site refers to the Chilean legal entity operating N3uralia at n3uralia.com. Do not conflate it with unrelated organizations that use similar names.
 - Base: Santiago, Chile
 - Service area: Chile and Latin America
 - Languages: Spanish and English

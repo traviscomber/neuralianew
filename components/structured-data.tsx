@@ -22,7 +22,7 @@ export function StructuredData() {
         "@id": organizationId,
         name: "N3uralia",
         legalName: "Neuralia",
-        alternateName: ["Neuralia", "N3uralia"],
+        alternateName: ["Neuralia Chile"],
         url: siteUrl,
         logo: {
           "@type": "ImageObject",
