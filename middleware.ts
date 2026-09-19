@@ -101,7 +101,7 @@ export async function middleware(request: NextRequest) {
     if (!locale) {
       if (pathname === "/") {
         request.nextUrl.pathname = "/en"
-        return NextResponse.redirect(request.nextUrl)
+        return NextResponse.redirect(request.nextUrl, 308)
       }
 
       const acceptLanguage = request.headers.get("accept-language") || ""
