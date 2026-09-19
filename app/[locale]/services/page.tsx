@@ -227,7 +227,7 @@ export default async function ServicesPage(props: PageProps) {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href={href(locale, "/soluciones")}
+                href={href(locale, locale === "es" ? "/soluciones" : "/solutions")}
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/5 transition-colors"
               >
                 {page.secondaryCta}

@@ -197,7 +197,7 @@ export default async function CaseStudiesPage(props: PageProps) {
                 {page.primaryCta}
                 <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link href={href(locale, "/soluciones")} className="retro-button">
+              <Link href={href(locale, locale === "es" ? "/soluciones" : "/solutions")} className="retro-button">
                 {page.secondaryCta}
               </Link>
             </div>
