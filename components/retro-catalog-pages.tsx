@@ -85,8 +85,36 @@ export function ProjectsPage({locale}:{locale:Locale}){
       <Header
         eyebrow={es ? 'Proyectos' : 'Projects'}
         title={es ? 'Proyectos que convierten complejidad en sistemas.' : 'Projects that turn complexity into systems.'}
-        body={es ? 'Sistemas reales diseñados alrededor de operaciones, personas, documentos y decisiones.' : 'Real systems designed around operations, people, documents and decisions.'}
+        body={es ? 'Implementaciones reales de IA, automatización y software construidas alrededor de operaciones, personas, documentos y decisiones.' : 'Real AI, automation and software implementations built around operations, people, documents and decisions.'}
       />
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell grid gap-10 py-16 md:py-20 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <small>{es ? 'EVIDENCIA DE IMPLEMENTACIÓN' : 'IMPLEMENTATION EVIDENCE'}</small>
+            <h2 className="mt-5 max-w-xl text-[clamp(32px,4vw,52px)]">
+              {es ? 'Del problema operacional al sistema en producción.' : 'From operational problem to production system.'}
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-[15px] leading-8 text-[var(--n3-text-muted)]">
+              {es
+                ? 'Estos proyectos muestran cómo N3uralia conecta datos, documentos, flujos, personas e IA para resolver problemas operacionales concretos. Cada caso describe el problema, el sistema construido y el valor operativo que organiza.'
+                : 'These projects show how N3uralia connects data, documents, workflows, people and AI to solve concrete operational problems. Each case explains the problem, the system built and the operational value it creates.'}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link className="retro-button" href={`/${locale}/${es ? 'soluciones' : 'solutions'}`}>
+                {es ? 'Ver capacidades' : 'Explore capabilities'}
+              </Link>
+              <Link className="retro-button" href={`/${locale}/${es ? 'productos' : 'products'}`}>
+                {es ? 'Explorar productos' : 'Explore products'}
+              </Link>
+              <Link className="retro-button" href={`/${locale}/${es ? 'reconocimiento' : 'recognition'}`}>
+                {es ? 'Ver reconocimiento' : 'Explore recognition'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="retro-light catalog-section" aria-label={es ? 'Proyectos de N3uralia' : 'N3uralia projects'}>
         <div className="retro-shell catalog-list">
           {projects.map((p,i) => {

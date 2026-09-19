@@ -16,10 +16,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const metadata = buildLocalizedMetadata({
     locale,
     path: locale === 'es' ? '/proyectos' : '/projects',
-    title: locale === 'es' ? 'Proyectos de IA y software | N3uralia' : 'AI and software projects | N3uralia',
+    title: locale === 'es' ? 'Proyectos de IA, automatización y software | N3uralia' : 'AI, automation and software projects | N3uralia',
     description: locale === 'es'
       ? 'Proyectos de N3uralia en operaciones, minería, transporte, facilities, agtech, seguridad y software empresarial.'
-      : 'N3uralia projects across operations, mining, transport, facilities, agtech, security and enterprise software.',
+      : 'Real N3uralia implementations across AI, workflow automation, mining, transport, facilities, agtech, security and enterprise software.',
   })
 
   return {
@@ -42,5 +42,39 @@ export default async function Page(props: PageProps) {
   const params = await props.params;
   const locale: Locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   if (locale === 'es') permanentRedirect('/es/proyectos')
-  return <ProjectsPage locale={locale} />
+  const canonical = absoluteUrl('/en/projects')
+  const schema = locale === 'en' ? {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${canonical}#collection`,
+        url: canonical,
+        name: 'N3uralia AI, automation and software projects',
+        description: 'Real N3uralia implementations across AI, workflow automation, mining, transport, facilities, agtech, security and enterprise software.',
+        isPartOf: { '@id': 'https://www.n3uralia.com/#website' },
+        about: [
+          'Operational intelligence',
+          'Workflow automation',
+          'Production AI systems',
+          'Recognition systems',
+          'Enterprise software'
+        ],
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'N3uralia', item: 'https://www.n3uralia.com/en' },
+          { '@type': 'ListItem', position: 2, name: 'Projects', item: canonical },
+        ],
+      },
+    ],
+  } : null
+
+  return (
+    <>
+      {schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} /> : null}
+      <ProjectsPage locale={locale} />
+    </>
+  )
 }
