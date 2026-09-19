@@ -39,7 +39,7 @@ export const translations = {
     viewDemo: "View Demo",
     companies: "Companies",
     availability: "Availability",
-    support: "24/7 Support",
+    support: "Support by agreement",
 
     // What We Do
     whatWeDo: "What We Do",
