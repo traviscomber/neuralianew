@@ -23,6 +23,15 @@ const content = {
     title: "Patrones para sistemas agenticos",
     subtitle: "Practicas probadas para construir sistemas agenticos robustos, escalables y operables.",
     libraryTitle: "Biblioteca de patrones",
+    memoryLabel: "MEMORIA DE IA",
+    memoryTitle: "Memoria persistente sin perder control.",
+    memoryBody: "La memoria de un sistema de IA no debe ser un historial infinito. Debe conservar sólo el contexto útil, autorizado y revisable que permite continuidad entre interacciones sin convertir errores pasados en verdad.",
+    memoryPoints: [
+      "Memoria de sesión para mantener contexto durante una tarea.",
+      "Memoria persistente cuando el caso y la política de datos lo permiten.",
+      "Fuentes, estado y decisiones separadas para preservar trazabilidad.",
+      "Versionado y revisión antes de promover aprendizaje o cambios de comportamiento.",
+    ],
     patterns: [
       { title: "Patron de orquestacion", desc: "Coordina multiples agentes con flujos de control centralizados." },
       { title: "Patron de memoria", desc: "Memoria persistente y contextual para aprendizaje y continuidad operacional." },
@@ -42,6 +51,15 @@ const content = {
     title: "Agentic system patterns",
     subtitle: "Proven design patterns and best practices for building robust, scalable agentic systems.",
     libraryTitle: "Pattern library",
+    memoryLabel: "AI MEMORY",
+    memoryTitle: "Persistent memory without losing control.",
+    memoryBody: "AI memory should not be an unlimited conversation archive. It should retain only useful, authorized and reviewable context that preserves continuity without turning past errors into canonical truth.",
+    memoryPoints: [
+      "Session memory to preserve context during a task.",
+      "Persistent memory when the use case and data policy allow it.",
+      "Sources, state and decisions kept separate to preserve traceability.",
+      "Versioning and review before promoting learned behavior or changes.",
+    ],
     patterns: [
       { title: "Orchestration pattern", desc: "Coordinate multiple agents with centralized control flow." },
       { title: "Memory pattern", desc: "Persistent and contextual memory for agent learning." },
@@ -85,6 +103,23 @@ export default async function PatternsPage(props: PageProps) {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             {page.subtitle}
           </p>
+        </div>
+      </section>
+
+      <section id="ai-memory" className="py-20 px-4 border-b border-border">
+        <div className="max-w-5xl mx-auto grid gap-10 lg:grid-cols-[.8fr_1.2fr]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">{page.memoryLabel}</p>
+            <h2 className="mt-4 text-3xl font-bold text-foreground">{page.memoryTitle}</h2>
+          </div>
+          <div>
+            <p className="text-base leading-8 text-muted-foreground">{page.memoryBody}</p>
+            <ul className="mt-6 grid gap-3">
+              {page.memoryPoints.map((point) => (
+                <li key={point} className="border-l-2 border-primary/50 pl-4 text-sm leading-6 text-muted-foreground">{point}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
