@@ -196,7 +196,6 @@ export function generateStructuredData(config: {
     name: SITE_NAME,
     url: SITE_URL,
     description: "AI systems, automation and software for real operations.",
-    sameAs: ["https://linkedin.com/company/n3uralia"],
     foundingLocation: {
       "@type": "Place",
       name: "Santiago, Chile",
