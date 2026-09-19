@@ -96,7 +96,6 @@ export function RecognitionFooter({ locale }: { locale: Locale }) {
           <a href="mailto:info@n3uralia.com">info@n3uralia.com</a>
           <a href="tel:+56993826127">+56 9 9382 6127</a>
           <span>Santiago, Chile</span>
-          <a href="https://linkedin.com/company/n3uralia" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
       <div className="retro-shell footer-bottom">© {new Date().getFullYear()} N3uralia. {t.rights}</div>
