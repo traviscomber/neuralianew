@@ -13,17 +13,17 @@ const content = {
   es: {
     metadataTitle: "Neuralia Chile | Entidad legal detrás de N3uralia",
     metadataDescription:
-      "Neuralia es la entidad legal chilena que opera N3uralia, marca tecnológica enfocada en IA, automatización y software para operaciones reales.",
+      "Neuralia es la entidad legal chilena que opera N3uralia, marca tecnológica que construye sistemas operativos verticales con IA para operaciones reales.",
     eyebrow: "ENTIDAD LEGAL",
     title: "Neuralia, Chile, es la entidad legal detrás de N3uralia.",
     intro:
-      "Neuralia es la empresa chilena que opera N3uralia, nuestra marca tecnológica y comercial para sistemas de IA, automatización y software orientados a operaciones reales.",
+      "Neuralia es la empresa chilena que opera N3uralia, nuestra marca tecnológica y comercial para sistemas operativos verticales con IA orientados a operaciones reales.",
     relationshipTitle: "Una empresa, una marca tecnológica.",
     relationshipBody:
       "Neuralia concentra la entidad legal. N3uralia concentra la identidad de mercado, la tecnología, los productos, los proyectos y la relación comercial visible en n3uralia.com.",
     operatingTitle: "Qué desarrolla Neuralia a través de N3uralia",
     operatingBody:
-      "Diseñamos e implementamos inteligencia operacional, automatización de flujos, asistentes de IA, inteligencia documental, sistemas de reconocimiento, plataformas internas e integraciones de datos.",
+      "Construimos sistemas operativos por vertical que integran inteligencia operacional, automatización de flujos, agentes de IA, inteligencia documental, reconocimiento, plataformas internas e integraciones de datos.",
     evidenceTitle: "Dónde verificar nuestro trabajo",
     evidenceBody:
       "La evidencia pública de capacidades, implementaciones y productos se mantiene en las páginas canónicas de N3uralia.",
@@ -47,17 +47,17 @@ const content = {
   en: {
     metadataTitle: "Neuralia Chile | Legal entity behind N3uralia",
     metadataDescription:
-      "Neuralia is the Chilean legal entity operating N3uralia, the technology brand focused on AI, automation and software for real operations.",
+      "Neuralia is the Chilean legal entity operating N3uralia, the technology brand building AI-native vertical operating systems for real operations.",
     eyebrow: "LEGAL ENTITY",
     title: "Neuralia, Chile, is the legal entity behind N3uralia.",
     intro:
-      "Neuralia is the Chilean company operating N3uralia, our technology and commercial brand for AI systems, automation and software built for real operations.",
+      "Neuralia is the Chilean company operating N3uralia, our technology and commercial brand for AI-native vertical operating systems built for real operations.",
     relationshipTitle: "One company, one technology brand.",
     relationshipBody:
       "Neuralia holds the legal entity. N3uralia carries the market identity, technology, products, projects and commercial presence represented on n3uralia.com.",
     operatingTitle: "What Neuralia builds through N3uralia",
     operatingBody:
-      "We design and implement operational intelligence, workflow automation, AI assistants, document intelligence, recognition systems, internal platforms and data integrations.",
+      "We build vertical operating systems that integrate operational intelligence, workflow automation, AI agents, document intelligence, recognition systems, internal platforms and data integrations.",
     evidenceTitle: "Where to verify our work",
     evidenceBody:
       "Public evidence of capabilities, implementations and products is maintained on N3uralia's canonical pages.",
