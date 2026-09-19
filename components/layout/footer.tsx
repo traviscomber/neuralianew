@@ -93,7 +93,6 @@ export function Footer() {
               <ul className="mt-5 space-y-3 text-sm text-[#65706d]">
                 <li><a href="mailto:info@n3uralia.com" className="transition-colors hover:text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]">info@n3uralia.com</a></li>
                 <li><a href="https://wa.me/56993826127" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]">WhatsApp: +56 9 9382 6127</a></li>
-                <li><a href="https://linkedin.com/company/n3uralia" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#173634] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#789b96]">LinkedIn</a></li>
               </ul>
               <Link href={pageHref("/contact")} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#173634] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#244946] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#789b96]">
                 {isES ? "Agendar diagnóstico" : "Book diagnosis"}
