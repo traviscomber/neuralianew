@@ -20,6 +20,7 @@ const copy = {
     diagnosis: 'Diagnóstico',
     method: 'Cómo trabajamos',
     about: 'Nosotros',
+    legal: 'Neuralia · entidad legal',
     trust: 'Confianza y seguridad',
     labs: 'Labs',
     faq: 'Preguntas frecuentes',
@@ -44,6 +45,7 @@ const copy = {
     diagnosis: 'Diagnosis',
     method: 'How we work',
     about: 'About',
+    legal: 'Neuralia · legal entity',
     trust: 'Trust & security',
     labs: 'Labs',
     faq: 'FAQ',
@@ -99,6 +101,7 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
     [t.diagnosis, `/${locale}/diagnostico`],
     [t.method, `/${locale}/${locale === 'es' ? 'como-trabajamos' : 'how-we-work'}`],
     [t.about, `/${locale}/about`],
+    [t.legal, `/${locale}/neuralia`],
     [t.trust, `/${locale}/trust`],
     [t.contactPage, `/${locale}/contact`],
   ] as const

@@ -32,6 +32,7 @@ const localizedRoutes: LocalizedRoute[] = [
   { es: '/productos', en: '/products', priority: 0.95, changeFrequency: 'weekly' },
   { es: '/reconocimiento', en: '/recognition', priority: 0.9, changeFrequency: 'monthly' },
   { es: '/como-trabajamos', en: '/how-we-work', priority: 0.75, changeFrequency: 'monthly' },
+  { es: '/neuralia', en: '/neuralia', priority: 0.7, changeFrequency: 'monthly' },
 ]
 
 function normalizePath(path: string) {

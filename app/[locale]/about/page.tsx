@@ -163,7 +163,7 @@ export default async function AboutPage(props: PageProps) {
             <small>{page.badge}</small>
             <h1 className="mt-6 max-w-4xl text-[clamp(44px,5.5vw,78px)]">{page.title}</h1>
             <p className="mt-7 max-w-2xl text-[16px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
-            <p className="mt-4 max-w-2xl font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.14em] text-[var(--n3-teal-soft)]">{page.legalIdentity}</p>
+            <p className="mt-4 max-w-2xl font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.14em] text-[var(--n3-teal-soft)]">{page.legalIdentity} <Link href={href(locale, "/neuralia")} className="underline underline-offset-4">Neuralia</Link></p>
           </div>
 
           <div className="relative min-h-[360px] border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-8">
