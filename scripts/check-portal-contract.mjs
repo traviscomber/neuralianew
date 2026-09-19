@@ -179,7 +179,7 @@ requireIncludes(sitemapPath, sitemap, [
   "es: '/como-trabajamos', en: '/how-we-work'",
   "'es-CL'",
   "'x-default'",
-  "2026-09-16T00:00:00.000Z",
+  "2026-09-19T00:00:00.000Z",
 ])
 requireExcludes(sitemapPath, sitemap, ['chileCityPages', 'cityRouteSlug', 'temporarilyExcludedSamePathRoutes'])
 
