@@ -135,7 +135,6 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
             <div className="mt-5 flex flex-col gap-1">
               <a className={linkClass} href="mailto:info@n3uralia.com">info@n3uralia.com</a>
               <a className={linkClass} href="tel:+56993826127">+56 9 9382 6127</a>
-              <a className={`${linkClass} gap-1.5`} href="https://linkedin.com/company/n3uralia" target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight className="h-3.5 w-3.5" aria-hidden /></a>
             </div>
             <Link href={`/${locale}/diagnostico`} className="mt-6 inline-flex min-h-11 items-center gap-2 border border-[#739694] px-4 py-3 font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.15em] text-[#d8e0df] transition-colors hover:bg-[#739694] hover:text-[#030606] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#739694]">
               {t.book}<ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
