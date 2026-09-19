@@ -2,6 +2,8 @@
 
 > **Intelligence for complex operations.**
 
+**N3uralia is the technology and commercial brand operated by Neuralia, Chile.**
+
 [N3uralia](https://n3uralia.com) designs and builds vertical operating systems, decision-intelligence layers, physical-intelligence systems and production AI for real operations.
 
 The company’s core architecture is:
