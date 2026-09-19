@@ -18,7 +18,7 @@ function href(locale: Locale, path: string) {
 
 const content = {
   es: {
-    metadataTitle: "Plataforma | N3uralia",
+    metadataTitle: "Plataforma de IA para operaciones | N3uralia",
     metadataDescription:
       "La capa de plataforma de N3uralia: orquestación, integraciones, memoria y control para sistemas de IA en producción.",
     title: "La plataforma no es un panel bonito. Es la capa que hace operable el sistema.",
@@ -49,9 +49,11 @@ const content = {
     ctaTitle: "Si tu stack ya existe, la pregunta es cómo coordinamos mejor todo lo que ya vive ahí",
     primaryCta: "Ver integraciones",
     secondaryCta: "Hablar con N3uralia",
+    evidenceTitle: "Explorar evidencia y capacidades",
+    evidenceLinks: { solutions: "Soluciones", projects: "Proyectos", products: "Productos", neuralia: "Neuralia" },
   },
   en: {
-    metadataTitle: "Platform | N3uralia",
+    metadataTitle: "AI operations platform | N3uralia",
     metadataDescription:
       "N3uralia's platform layer: orchestration, integrations, memory, and control for production AI systems.",
     title: "The platform is not a pretty dashboard. It is the layer that makes the system operable.",
@@ -82,6 +84,8 @@ const content = {
     ctaTitle: "If your stack already exists, the question is how we coordinate everything living there more effectively",
     primaryCta: "View integrations",
     secondaryCta: "Talk to N3uralia",
+    evidenceTitle: "Explore evidence and capabilities",
+    evidenceLinks: { solutions: "Solutions", projects: "Projects", products: "Products", neuralia: "Neuralia" },
   },
 } as const
 
@@ -102,6 +106,9 @@ export default async function PlatformPage(props: PageProps) {
   const params = await props.params;
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const page = content[locale]
+  const solutionsPath = locale === "es" ? "/soluciones" : "/solutions"
+  const projectsPath = locale === "es" ? "/proyectos" : "/projects"
+  const productsPath = locale === "es" ? "/productos" : "/products"
 
   return (
     <>
@@ -130,6 +137,18 @@ export default async function PlatformPage(props: PageProps) {
                   </div>
                 )
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-border px-4 py-16">
+          <div className="container mx-auto max-w-5xl">
+            <h2 className="text-2xl font-semibold text-foreground">{page.evidenceTitle}</h2>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link href={href(locale, solutionsPath)} className="px-5 py-3 border border-border text-foreground hover:border-primary/50">{page.evidenceLinks.solutions}</Link>
+              <Link href={href(locale, projectsPath)} className="px-5 py-3 border border-border text-foreground hover:border-primary/50">{page.evidenceLinks.projects}</Link>
+              <Link href={href(locale, productsPath)} className="px-5 py-3 border border-border text-foreground hover:border-primary/50">{page.evidenceLinks.products}</Link>
+              <Link href={href(locale, "/neuralia")} className="px-5 py-3 border border-border text-foreground hover:border-primary/50">{page.evidenceLinks.neuralia}</Link>
             </div>
           </div>
         </section>
