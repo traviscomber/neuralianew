@@ -85,6 +85,7 @@ const nextConfig = {
       { source: '/:locale(en|es)/agentes-ia-:scope-chile', destination: '/:locale/agentes-ia-chile', permanent: true },
 
       // Studies and Playbooks were withheld for evidence/localization gaps. Consolidate them now.
+      { source: '/:locale(en|es)/studies/ai-memory', destination: '/:locale/platform/patterns', permanent: true },
       { source: '/:locale(en|es)/studies', destination: '/:locale/learning-hub', permanent: true },
       { source: '/:locale(en|es)/studies/:path*', destination: '/:locale/learning-hub', permanent: true },
       { source: '/:locale(en|es)/playbooks', destination: '/:locale/learning-hub', permanent: true },
