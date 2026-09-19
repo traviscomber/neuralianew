@@ -29,7 +29,7 @@ export function StructuredData() {
           url: canonicalLogoUrl,
         },
         description:
-          "N3uralia builds AI systems, workflow automation, recognition systems, data integrations and software for real operations in Chile and Latin America.",
+          "N3uralia is the technology and commercial brand operated by Neuralia in Chile, building AI systems, workflow automation, recognition systems, data integrations and software for real operations in Chile and Latin America.",
         email: "info@n3uralia.com",
         telephone: "+56-9-9382-6127",
         address: {

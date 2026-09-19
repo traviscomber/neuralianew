@@ -11,11 +11,11 @@ interface PageProps {
 
 const content = {
   es: {
-    metadataTitle: "Neuralia | Entidad legal de N3uralia",
+    metadataTitle: "Neuralia Chile | Entidad legal detrás de N3uralia",
     metadataDescription:
       "Neuralia es la entidad legal chilena que opera N3uralia, marca tecnológica enfocada en IA, automatización y software para operaciones reales.",
     eyebrow: "ENTIDAD LEGAL",
-    title: "Neuralia es la entidad legal detrás de N3uralia.",
+    title: "Neuralia, Chile, es la entidad legal detrás de N3uralia.",
     intro:
       "Neuralia es la empresa chilena que opera N3uralia, nuestra marca tecnológica y comercial para sistemas de IA, automatización y software orientados a operaciones reales.",
     relationshipTitle: "Una empresa, una marca tecnológica.",
@@ -41,11 +41,11 @@ const content = {
     ],
   },
   en: {
-    metadataTitle: "Neuralia | Legal entity behind N3uralia",
+    metadataTitle: "Neuralia Chile | Legal entity behind N3uralia",
     metadataDescription:
       "Neuralia is the Chilean legal entity operating N3uralia, the technology brand focused on AI, automation and software for real operations.",
     eyebrow: "LEGAL ENTITY",
-    title: "Neuralia is the legal entity behind N3uralia.",
+    title: "Neuralia, Chile, is the legal entity behind N3uralia.",
     intro:
       "Neuralia is the Chilean company operating N3uralia, our technology and commercial brand for AI systems, automation and software built for real operations.",
     relationshipTitle: "One company, one technology brand.",
@@ -110,7 +110,7 @@ export default async function NeuraliaPage(props: PageProps) {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "N3uralia", item: absoluteUrl(`/${locale}`) },
-          { "@type": "ListItem", position: 2, name: "Neuralia", item: url },
+          { "@type": "ListItem", position: 2, name: "Neuralia Chile", item: url },
         ],
       },
     ],
