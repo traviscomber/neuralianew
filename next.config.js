@@ -54,6 +54,10 @@ const nextConfig = {
   },
   redirects: async () => {
     return [
+      // Canonical sitemap aliases retained for legacy Search Console submissions.
+      { source: '/en/sitemap.xml', destination: '/sitemap.xml', permanent: true },
+      { source: '/es/sitemap.xml', destination: '/sitemap.xml', permanent: true },
+
       // Canonical bilingual route aliases.
       { source: '/en/soluciones', destination: '/en/solutions', permanent: true },
       { source: '/es/solutions', destination: '/es/soluciones', permanent: true },
