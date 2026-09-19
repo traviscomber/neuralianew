@@ -32,13 +32,13 @@ function href(locale: Locale, path: string) {
 
 const content = {
   en: {
-    metadataTitle: "AI, automation and software solutions | N3uralia",
+    metadataTitle: "AI-native vertical operating systems | N3uralia",
     metadataDescription:
-      "N3uralia expertise across operational intelligence, workflow automation, AI, recognition, document intelligence, integrations and internal platforms.",
-    heroTitleA: "AI and software systems for",
-    heroTitleB: "real operations.",
+      "Vertical operating systems built from operational intelligence, workflow automation, AI, recognition, document intelligence, integrations and internal platforms.",
+    heroTitleA: "Vertical operating systems for",
+    heroTitleB: "real industries.",
     heroBody:
-      "N3uralia helps organizations design and build intelligent operational systems across data, workflow, automation, AI, recognition and internal platforms.",
+      "N3uralia builds industry-specific operating systems by combining data, workflow automation, AI, recognition, documents, integrations and internal platforms into one governed operational layer.",
     primary: "Explore expertise",
     secondary: "Book diagnosis",
     heroFooter: ["Data", "Workflow", "Intelligence", "Action"],
@@ -249,13 +249,13 @@ const content = {
     },
   },
   es: {
-    metadataTitle: "Soluciones de IA, automatización y software | N3uralia",
+    metadataTitle: "Sistemas operativos verticales con IA | N3uralia",
     metadataDescription:
-      "Expertise de N3uralia en inteligencia operacional, automatización de flujos, IA, reconocimiento, inteligencia documental, integraciones y plataformas internas.",
-    heroTitleA: "Sistemas de IA y software para",
-    heroTitleB: "operaciones reales.",
+      "Sistemas operativos verticales construidos con inteligencia operacional, automatización de flujos, IA, reconocimiento, inteligencia documental, integraciones y plataformas internas.",
+    heroTitleA: "Sistemas operativos verticales para",
+    heroTitleB: "industrias reales.",
     heroBody:
-      "N3uralia ayuda a organizaciones a diseñar y construir sistemas operacionales inteligentes sobre datos, flujos, automatización, IA, reconocimiento y plataformas internas.",
+      "N3uralia construye sistemas operativos específicos por industria combinando datos, automatización, IA, reconocimiento, documentos, integraciones y plataformas internas en una sola capa operacional gobernada.",
     primary: "Explorar expertise",
     secondary: "Agendar diagnóstico",
     heroFooter: ["Datos", "Flujos", "Inteligencia", "Acción"],
