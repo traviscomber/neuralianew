@@ -152,7 +152,6 @@ const footer = read(footerPath)
 requireIncludes(footerPath, footer, [
   'info@n3uralia.com',
   '+56993826127',
-  'https://linkedin.com/company/n3uralia',
   '/diagnostico',
 ])
 
