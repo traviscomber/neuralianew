@@ -73,6 +73,7 @@ const content = {
       "Nos gusta trabajar con equipos que quieren llegar a producción, aprender rápido y dejar una base técnica más fuerte que antes.",
     primaryCta: "Contactar a N3uralia",
     secondaryCta: "Ver cómo trabajamos",
+    legalIdentity: "N3uralia es la marca tecnológica y comercial operada por Neuralia en Chile.",
   },
   en: {
     metadataTitle: "About | N3uralia",
@@ -132,6 +133,7 @@ const content = {
       "We like working with teams that want to reach production, learn fast, and leave with a stronger technical base than they started with.",
     primaryCta: "Contact N3uralia",
     secondaryCta: "See how we work",
+    legalIdentity: "N3uralia is the technology and commercial brand operated by Neuralia in Chile.",
   },
 } as const
 
@@ -161,6 +163,7 @@ export default async function AboutPage(props: PageProps) {
             <small>{page.badge}</small>
             <h1 className="mt-6 max-w-4xl text-[clamp(44px,5.5vw,78px)]">{page.title}</h1>
             <p className="mt-7 max-w-2xl text-[16px] text-[var(--n3-text-muted)]">{page.subtitle}</p>
+            <p className="mt-4 max-w-2xl font-[var(--font-rajdhani)] text-[11px] uppercase tracking-[0.14em] text-[var(--n3-teal-soft)]">{page.legalIdentity}</p>
           </div>
 
           <div className="relative min-h-[360px] border border-[rgba(168,217,216,.22)] bg-[var(--n3-deep)] p-8">
