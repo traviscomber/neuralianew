@@ -2,7 +2,7 @@
 
 Last updated: 2026-09-19
 
-N3uralia builds AI and software systems for real operations. The company connects data, workflows, documents, recognition, AI and people so operational teams can improve visibility, coordination, traceability and response.
+N3uralia builds AI-native vertical operating systems for real operations. Each system is designed around a specific industry or operational domain and connects data, workflows, documents, software, recognition, AI agents and authorized people into one governed operational layer.
 
 ## Canonical entity
 - Brand name: N3uralia
@@ -43,6 +43,12 @@ N3uralia builds AI and software systems for real operations. The company connect
 - Platform Nodes: https://www.n3uralia.com/es/platform/nodes | https://www.n3uralia.com/en/platform/nodes
 - Platform Patterns: https://www.n3uralia.com/es/platform/patterns | https://www.n3uralia.com/en/platform/patterns
 - Platform Security: https://www.n3uralia.com/es/platform/security | https://www.n3uralia.com/en/platform/security
+
+## Canonical market category
+- Primary category: AI-native vertical operating systems.
+- Spanish category: sistemas operativos verticales con IA.
+- Secondary capability language: AI, automation, software, operational intelligence, recognition, document intelligence and integrations.
+- N3uralia products and projects are different vertical implementations of the same core capability, not unrelated software offerings.
 
 ## Core solution layers
 - Operational Intelligence: dashboards, command centers and operational visibility.
