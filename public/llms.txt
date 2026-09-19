@@ -19,6 +19,7 @@ N3uralia builds AI and software systems for real operations. The company connect
 ## Canonical discovery endpoints
 - Spanish home: https://www.n3uralia.com/es
 - English home: https://www.n3uralia.com/en
+- Legal entity page: https://www.n3uralia.com/es/neuralia | https://www.n3uralia.com/en/neuralia
 - XML sitemap: https://www.n3uralia.com/sitemap.xml
 - Robots: https://www.n3uralia.com/robots.txt
 
