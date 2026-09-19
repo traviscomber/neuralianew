@@ -193,7 +193,7 @@ export function N3uraliaLandingConsole({ locale }: { locale: Locale }) {
             <h3 className="mt-2 text-3xl font-light leading-tight">{scenario.label}</h3>
           </div>
           <Link
-            href={`/${locale}/soluciones`}
+            href={`/${locale}/${locale === "es" ? "soluciones" : "solutions"}`}
             className="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-sm font-semibold text-[#e8efed] transition-colors hover:bg-white hover:text-[#173634]"
           >
             {page.cta}
