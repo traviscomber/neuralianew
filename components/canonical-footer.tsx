@@ -8,7 +8,7 @@ import type { Locale } from '@/lib/get-locale'
 
 const copy = {
   es: {
-    tagline: 'Sistemas de IA, automatización y software para operaciones reales.',
+    tagline: 'Sistemas operativos verticales con IA para operaciones reales.',
     explore: 'Explorar',
     company: 'Empresa',
     resources: 'Recursos',
@@ -33,7 +33,7 @@ const copy = {
     legalEntity: 'N3uralia es una marca de Neuralia, Chile.',
   },
   en: {
-    tagline: 'AI systems, automation and software for real operations.',
+    tagline: 'AI-native vertical operating systems for real operations.',
     explore: 'Explore',
     company: 'Company',
     resources: 'Resources',
