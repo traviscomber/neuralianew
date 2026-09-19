@@ -29,7 +29,7 @@ export function StructuredData() {
           url: canonicalLogoUrl,
         },
         description:
-          "N3uralia is the technology and commercial brand operated by Neuralia in Chile, building AI systems, workflow automation, recognition systems, data integrations and software for real operations in Chile and Latin America.",
+          "N3uralia is the technology and commercial brand operated by Neuralia in Chile, building AI-native vertical operating systems that integrate data, workflows, software, recognition, documents, agents and human governance for real operations in Chile and Latin America.",
         email: "info@n3uralia.com",
         telephone: "+56-9-9382-6127",
         address: {
@@ -62,7 +62,7 @@ export function StructuredData() {
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "N3uralia AI and software systems",
+          name: "N3uralia vertical operating systems and AI capabilities",
           itemListElement: serviceNames.map((name) => ({
             "@type": "Offer",
             itemOffered: {
