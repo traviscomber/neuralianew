@@ -66,7 +66,7 @@ export function RecognitionFooter({ locale }: { locale: Locale }) {
         <div>
           <small>{t.solutions}</small>
           <Link href={`/${locale}/${recognitionPath}`}>{t.recognition}</Link>
-          <Link href={`/${locale}/soluciones`}>{t.sectorSolutions}</Link>
+          <Link href={`/${locale}/${locale === "es" ? "soluciones" : "solutions"}`}>{t.sectorSolutions}</Link>
           <Link href={`/${locale}/diagnostico`}>{t.diagnosis}</Link>
         </div>
 
