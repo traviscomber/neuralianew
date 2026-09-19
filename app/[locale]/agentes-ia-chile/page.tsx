@@ -17,10 +17,10 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
     locale,
     path: '/agentes-ia-chile',
     title: isES
-      ? 'Agentes de IA para empresas en Chile | N3uralia'
+      ? 'Agentes y sistemas de IA para empresas en Chile | N3uralia'
       : 'AI agents for businesses in Chile | N3uralia',
     description: isES
-      ? 'Diseño e integración de agentes de IA para operaciones reales en Chile: documentos, datos, aprobaciones, asistentes e integraciones con sistemas existentes.'
+      ? 'N3uralia, marca tecnológica operada por Neuralia en Chile, diseña agentes y sistemas de IA para documentos, datos, aprobaciones, asistentes e integraciones operacionales.'
       : 'Design and integration of AI agents for real operations in Chile: documents, data, approvals, assistants and integrations with existing systems.',
   })
 }
@@ -30,6 +30,10 @@ export default async function AgentesIAChilePage(props: PageProps) {
   const locale: Locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const isES = locale === 'es'
   const href = (path: string) => `/${locale}${path}`
+  const solutionsPath = isES ? '/soluciones' : '/solutions'
+  const projectsPath = isES ? '/proyectos' : '/projects'
+  const productsPath = isES ? '/productos' : '/products'
+  const canonicalUrl = `https://www.n3uralia.com/${locale}/agentes-ia-chile`
 
   const valueProps = [
     {
@@ -104,8 +108,43 @@ export default async function AgentesIAChilePage(props: PageProps) {
         ['Do we need to replace our current systems?', 'Usually not. A central part of the work is integrating with systems that already hold canonical truth and improving the workflow around them.'],
       ]
 
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Service',
+        '@id': `${canonicalUrl}#service`,
+        url: canonicalUrl,
+        name: isES ? 'Agentes y sistemas de IA para empresas en Chile' : 'AI agents and systems for businesses in Chile',
+        description: isES
+          ? 'Diseño e integración de agentes y sistemas de IA conectados a procesos, documentos y datos reales.'
+          : 'Design and integration of AI agents and systems connected to real processes, documents and data.',
+        provider: { '@id': 'https://www.n3uralia.com/#organization' },
+        areaServed: { '@type': 'Country', name: 'Chile' },
+        serviceType: isES ? 'Desarrollo e integración de inteligencia artificial' : 'AI development and integration',
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqs.map(([question, answer]) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: { '@type': 'Answer', text: answer },
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'N3uralia', item: `https://www.n3uralia.com/${locale}` },
+          { '@type': 'ListItem', position: 2, name: isES ? 'Agentes de IA en Chile' : 'AI agents in Chile', item: canonicalUrl },
+        ],
+      },
+    ],
+  }
+
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <main className="min-h-screen bg-background">
       <section className="px-4 pb-20 pt-40 border-b border-border">
         <div className="mx-auto max-w-5xl text-center">
           <p className="mb-6 font-[var(--font-rajdhani)] text-xs uppercase tracking-[0.18em] text-primary">
@@ -116,8 +155,8 @@ export default async function AgentesIAChilePage(props: PageProps) {
           </h1>
           <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-muted-foreground">
             {isES
-              ? 'Construimos agentes y asistentes conectados a procesos, documentos y datos reales. El objetivo no es agregar otro chatbot: es mejorar una operación sin perder control, trazabilidad ni fuente de verdad.'
-              : 'We build agents and assistants connected to real processes, documents and data. The goal is not to add another chatbot; it is to improve an operation without losing control, traceability or canonical truth.'}
+              ? 'N3uralia es la marca tecnológica operada por Neuralia en Chile. Construimos agentes, asistentes y sistemas de IA conectados a procesos, documentos y datos reales. El objetivo no es agregar otro chatbot: es mejorar una operación sin perder control, trazabilidad ni fuente de verdad.'
+              : 'N3uralia is the technology brand operated by Neuralia in Chile. We build agents, assistants and AI systems connected to real processes, documents and data. The goal is not to add another chatbot; it is to improve an operation without losing control, traceability or canonical truth.'}
           </p>
           <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
             <Link href={href('/diagnostico')} className="inline-flex items-center justify-center gap-2 bg-primary px-7 py-3 font-semibold text-primary-foreground transition-colors hover:bg-primary/90">
@@ -196,6 +235,31 @@ export default async function AgentesIAChilePage(props: PageProps) {
         </div>
       </section>
 
+      <section className="border-t border-border px-4 py-16">
+        <div className="mx-auto max-w-5xl">
+          <p className="font-[var(--font-rajdhani)] text-xs uppercase tracking-[0.18em] text-primary">
+            {isES ? 'EVIDENCIA Y CAPACIDADES' : 'EVIDENCE AND CAPABILITIES'}
+          </p>
+          <h2 className="mt-4 text-3xl font-bold text-foreground">
+            {isES ? 'Revisa cómo se traduce esta capacidad en sistemas reales.' : 'See how this capability becomes real systems.'}
+          </h2>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href={href(solutionsPath)} className="border border-border px-5 py-3 font-semibold text-foreground hover:border-primary/50">
+              {isES ? 'Soluciones' : 'Solutions'}
+            </Link>
+            <Link href={href(projectsPath)} className="border border-border px-5 py-3 font-semibold text-foreground hover:border-primary/50">
+              {isES ? 'Proyectos' : 'Projects'}
+            </Link>
+            <Link href={href(productsPath)} className="border border-border px-5 py-3 font-semibold text-foreground hover:border-primary/50">
+              {isES ? 'Productos' : 'Products'}
+            </Link>
+            <Link href={href('/neuralia')} className="border border-border px-5 py-3 font-semibold text-foreground hover:border-primary/50">
+              Neuralia
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="border-t border-border px-4 py-20">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl font-bold text-foreground">
@@ -212,6 +276,7 @@ export default async function AgentesIAChilePage(props: PageProps) {
           </Link>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   )
 }
