@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import type { Locale } from "@/lib/get-locale"
-import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME, SITE_TWITTER_HANDLE } from "@/lib/site"
+import { absoluteUrl, OG_IMAGE_PATH, SITE_NAME } from "@/lib/site"
 
 interface LocalizedMetadataOptions {
   description: string
@@ -94,8 +94,6 @@ export function buildLocalizedMetadata({
       card: "summary_large_image",
       title,
       description,
-      site: SITE_TWITTER_HANDLE,
-      creator: SITE_TWITTER_HANDLE,
       images: [absoluteUrl(OG_IMAGE_PATH)],
     },
   }
