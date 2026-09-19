@@ -21,7 +21,8 @@ export function StructuredData() {
         "@type": "Organization",
         "@id": organizationId,
         name: "N3uralia",
-        alternateName: ["Neuralia"],
+        legalName: "Neuralia",
+        alternateName: ["Neuralia", "N3uralia"],
         url: siteUrl,
         logo: {
           "@type": "ImageObject",
