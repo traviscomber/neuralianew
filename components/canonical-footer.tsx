@@ -29,6 +29,7 @@ const copy = {
     rights: 'Todos los derechos reservados.',
     language: 'English',
     homeLabel: 'Inicio de N3uralia',
+    legalEntity: 'N3uralia es una marca de Neuralia, Chile.',
   },
   en: {
     tagline: 'AI systems, automation and software for real operations.',
@@ -52,6 +53,7 @@ const copy = {
     rights: 'All rights reserved.',
     language: 'Español',
     homeLabel: 'N3uralia home',
+    legalEntity: 'N3uralia is a brand of Neuralia, Chile.',
   },
 } as const
 
@@ -140,6 +142,7 @@ export function CanonicalFooter({ locale }: { locale: Locale }) {
 
         <div className="flex flex-col gap-2 pt-6 font-[var(--font-rajdhani)] text-[10px] uppercase tracking-[0.13em] text-[#667573] sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} N3uralia. {t.rights}</p>
+          <p>{t.legalEntity}</p>
           <p>n3uralia.com</p>
         </div>
       </div>
