@@ -29,6 +29,7 @@ const content = {
     response: "Respuesta habitual dentro de 1 día hábil.",
     formTitle: "Diagnóstico guiado",
     formText: "El asistente recoge lo esencial para que podamos responder con contexto.",
+    legalIdentity: "N3uralia · marca operada por Neuralia, Chile",
   },
   en: {
     metadataTitle: "Contact | N3uralia",
@@ -47,6 +48,7 @@ const content = {
     response: "Typical response within 1 business day.",
     formTitle: "Guided diagnosis",
     formText: "The assistant gathers the essentials so we can respond with context.",
+    legalIdentity: "N3uralia · brand operated by Neuralia, Chile",
   },
 } as const
 
@@ -102,6 +104,7 @@ export default async function ContactPage(props: PageProps) {
                 <Clock className="h-4 w-4 text-[var(--n3-teal-soft)]" />
                 {page.response}
               </p>
+              <p className="mt-3 font-[var(--font-rajdhani)] text-[10px] uppercase tracking-[0.14em] text-[#667573]">{page.legalIdentity}</p>
             </div>
           </div>
 
