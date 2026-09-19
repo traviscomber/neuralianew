@@ -14,8 +14,8 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
 
   const titles = {
-    es: "Capacidades tecnicas N3uralia | Arquitectura agentica en produccion",
-    en: "N3uralia capabilities | Agentic architecture in production",
+    es: "Capacidades técnicas de IA y software | N3uralia",
+    en: "AI and software technical capabilities | N3uralia",
   }
 
   const descriptions = {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import type { Locale } from "@/content/dictionaries"
 import { getDict } from "@/content/dictionaries"
 import { Nav } from "@/components/Nav"
@@ -14,7 +15,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   const params = await props.params;
   const locale = params.locale as Locale
   const isES = locale === "es"
-  const title = isES ? "Sistemas Agénticos | N3uralia" : "Agentic Systems | N3uralia"
+  const title = isES ? "Sistemas agénticos gobernables | N3uralia" : "Governed agentic systems | N3uralia"
   const description = isES
     ? "Automatización gobernable con human-in-the-loop, permisos, trazabilidad y control en producción."
     : "Governed automation with human-in-the-loop, permissions, traceability, and production control."
@@ -64,6 +65,14 @@ export default async function AgenticSystemsPage(props: PageProps) {
             </div>
           </div>
         </Section>
+        <section style={{ padding: "48px 24px", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <div style={{ maxWidth: "960px", margin: "0 auto", display: "flex", flexWrap: "wrap", gap: "12px" }}>
+            <Link href={`/${locale}/agentes-ia-chile`}>{locale === "es" ? "Agentes de IA en Chile" : "AI agents in Chile"}</Link>
+            <Link href={`/${locale}/${locale === "es" ? "soluciones" : "solutions"}`}>{locale === "es" ? "Soluciones" : "Solutions"}</Link>
+            <Link href={`/${locale}/platform`}>{locale === "es" ? "Plataforma" : "Platform"}</Link>
+            <Link href={`/${locale}/diagnostico`}>{locale === "es" ? "Diagnóstico" : "Diagnosis"}</Link>
+          </div>
+        </section>
       </main>
       <Footer locale={locale} />
     </>
