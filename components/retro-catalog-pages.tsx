@@ -156,8 +156,36 @@ export function ProductsPage({locale}:{locale:Locale}){
       <Header
         eyebrow={es ? 'Productos' : 'Products'}
         title={es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}
-        body={es ? 'Sistemas reutilizables que conectan documentos, procesos, datos, decisiones y agentes.' : 'Reusable systems connecting documents, processes, data, decisions and agents.'}
+        body={es ? 'Productos construidos desde problemas operacionales reales para conectar documentos, procesos, datos, decisiones y agentes.' : 'Products built from real operational problems to connect documents, processes, data, decisions and agents.'}
       />
+      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+        <div className="retro-shell grid gap-10 py-16 md:py-20 lg:grid-cols-[.75fr_1.25fr]">
+          <div>
+            <small>{es ? 'SISTEMAS REUTILIZABLES' : 'REUSABLE SYSTEMS'}</small>
+            <h2 className="mt-5 max-w-xl text-[clamp(32px,4vw,52px)]">
+              {es ? 'Productos nacidos de operaciones reales.' : 'Products built from real operations.'}
+            </h2>
+          </div>
+          <div>
+            <p className="max-w-3xl text-[15px] leading-8 text-[var(--n3-text-muted)]">
+              {es
+                ? 'Cada producto concentra capacidades reutilizables desarrolladas alrededor de necesidades operacionales concretas: cumplimiento documental, minería, inteligencia visual, agentes especializados y automatización de flujos.'
+                : 'Each product concentrates reusable capabilities developed around concrete operational needs: document compliance, mining operations, visual intelligence, specialized agents and workflow automation.'}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link className="retro-button" href={`/${locale}/${es ? 'proyectos' : 'projects'}`}>
+                {es ? 'Ver implementaciones' : 'View implementations'}
+              </Link>
+              <Link className="retro-button" href={`/${locale}/${es ? 'soluciones' : 'solutions'}`}>
+                {es ? 'Ver capacidades' : 'Explore capabilities'}
+              </Link>
+              <Link className="retro-button" href={`/${locale}/diagnostico`}>
+                {es ? 'Evaluar encaje' : 'Evaluate fit'}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="retro-light catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
         <div className="retro-shell catalog-list">
           {products.map((p,i) => {
