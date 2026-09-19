@@ -100,7 +100,7 @@ export async function middleware(request: NextRequest) {
 
     if (!locale) {
       if (pathname === "/") {
-        request.nextUrl.pathname = "/en/"
+        request.nextUrl.pathname = "/en"
         return NextResponse.redirect(request.nextUrl)
       }
 
