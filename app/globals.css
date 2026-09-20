@@ -470,7 +470,10 @@
   overflow:hidden!important;
   min-height:640px!important;
   padding:154px 0 72px!important;
-  background:#02090a!important;
+  background:
+    radial-gradient(circle at 74% 34%,rgba(32,231,223,.07),transparent 30%),
+    radial-gradient(circle at 18% 72%,rgba(32,231,223,.045),transparent 27%),
+    #02090a!important;
   border:0!important;
 }
 
@@ -486,54 +489,51 @@
 }
 
 .products-catalog-page .products-hero::before{
-  opacity:.48;
+  opacity:.72;
   background-image:
-    radial-gradient(circle,rgba(95,236,229,.28) 0 1px,transparent 1.45px),
-    radial-gradient(circle,rgba(83,199,195,.19) 0 .85px,transparent 1.25px),
-    radial-gradient(circle,rgba(126,255,247,.13) 0 .7px,transparent 1.08px),
-    radial-gradient(circle,rgba(62,171,168,.16) 0 .75px,transparent 1.1px);
+    radial-gradient(circle,rgba(118,255,247,.48) 0 1.35px,transparent 1.75px),
+    radial-gradient(circle,rgba(82,223,216,.34) 0 1.05px,transparent 1.45px),
+    radial-gradient(circle,rgba(151,255,249,.24) 0 .9px,transparent 1.3px),
+    radial-gradient(circle,rgba(65,191,187,.28) 0 1px,transparent 1.4px);
   background-size:
-    137px 173px,
-    211px 149px,
-    173px 239px,
-    263px 191px;
+    131px 167px,
+    199px 143px,
+    167px 227px,
+    247px 181px;
   background-position:
     19px 11px,
     74px 52px,
     131px 97px,
     37px 128px;
-  filter:drop-shadow(0 0 4px rgba(32,231,223,.12));
+  filter:drop-shadow(0 0 7px rgba(32,231,223,.22));
   animation:
-    n3ProductsStarsDriftA 24s linear infinite,
-    n3ProductsStarsPulseA 3.8s steps(8,end) infinite;
+    n3ProductsStarsDriftA 22s linear infinite,
+    n3ProductsStarsPulseA 3.4s steps(8,end) infinite;
 }
 
 .products-catalog-page .products-hero::after{
-  opacity:.3;
+  opacity:.48;
   background-image:
-    radial-gradient(circle,rgba(112,244,237,.2) 0 .9px,transparent 1.25px),
-    radial-gradient(circle,rgba(67,186,182,.14) 0 .65px,transparent 1px),
-    radial-gradient(circle,rgba(154,255,248,.1) 0 .55px,transparent .9px);
+    radial-gradient(circle,rgba(128,255,248,.34) 0 1.1px,transparent 1.5px),
+    radial-gradient(circle,rgba(78,207,201,.24) 0 .85px,transparent 1.2px),
+    radial-gradient(circle,rgba(169,255,250,.2) 0 .75px,transparent 1.1px);
   background-size:
-    181px 223px,
-    307px 211px,
-    251px 271px;
+    173px 211px,
+    293px 199px,
+    239px 257px;
   background-position:
     43px 79px,
     163px 21px,
     91px 151px;
-  filter:drop-shadow(0 0 5px rgba(32,231,223,.1));
+  filter:drop-shadow(0 0 8px rgba(32,231,223,.18));
   animation:
-    n3ProductsStarsDriftB 31s linear infinite reverse,
-    n3ProductsStarsPulseB 5.1s steps(10,end) -.9s infinite;
+    n3ProductsStarsDriftB 29s linear infinite reverse,
+    n3ProductsStarsPulseB 4.6s steps(10,end) -.9s infinite;
 }
 
 .products-catalog-page .products-hero-grid{
   position:relative!important;
   z-index:1!important;
-}
-
-.products-catalog-page .products-hero-grid{
   display:grid!important;
   grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr)!important;
   gap:clamp(44px,7vw,108px)!important;
@@ -601,18 +601,18 @@
 }
 
 @keyframes n3ProductsStarsPulseA{
-  0%,100%{opacity:.32;filter:drop-shadow(0 0 2px rgba(32,231,223,.07))}
-  19%{opacity:.46;filter:drop-shadow(0 0 5px rgba(32,231,223,.12))}
-  41%{opacity:.35;filter:drop-shadow(0 0 3px rgba(32,231,223,.08))}
-  63%{opacity:.5;filter:drop-shadow(0 0 6px rgba(32,231,223,.14))}
-  84%{opacity:.37;filter:drop-shadow(0 0 3px rgba(32,231,223,.09))}
+  0%,100%{opacity:.48;filter:drop-shadow(0 0 4px rgba(32,231,223,.12))}
+  19%{opacity:.72;filter:drop-shadow(0 0 9px rgba(32,231,223,.24))}
+  41%{opacity:.54;filter:drop-shadow(0 0 5px rgba(32,231,223,.15))}
+  63%{opacity:.78;filter:drop-shadow(0 0 11px rgba(32,231,223,.27))}
+  84%{opacity:.58;filter:drop-shadow(0 0 6px rgba(32,231,223,.17))}
 }
 
 @keyframes n3ProductsStarsPulseB{
-  0%,100%{opacity:.2;filter:drop-shadow(0 0 2px rgba(32,231,223,.05))}
-  24%{opacity:.31;filter:drop-shadow(0 0 4px rgba(32,231,223,.09))}
-  49%{opacity:.23;filter:drop-shadow(0 0 2px rgba(32,231,223,.06))}
-  72%{opacity:.34;filter:drop-shadow(0 0 5px rgba(32,231,223,.1))}
+  0%,100%{opacity:.3;filter:drop-shadow(0 0 3px rgba(32,231,223,.08))}
+  24%{opacity:.5;filter:drop-shadow(0 0 7px rgba(32,231,223,.17))}
+  49%{opacity:.36;filter:drop-shadow(0 0 4px rgba(32,231,223,.1))}
+  72%{opacity:.56;filter:drop-shadow(0 0 8px rgba(32,231,223,.19))}
 }
 
 @media(max-width:900px){
