@@ -219,21 +219,18 @@ const content = {
     systems: [
       {
         title: "Visibility system",
-        stack: "Data integrations + dashboards + alerts",
-        outcome: "A shared operational view with current data, exceptions and clear ownership.",
-        Icon: IntelligenceIcon,
+        description:
+          "Connects operational data, dashboards and alerts into one shared view of current state, exceptions and ownership.",
       },
       {
         title: "Workflow system",
-        stack: "Process states + approvals + automation + audit trail",
-        outcome: "A governed flow that moves work forward and preserves traceability.",
-        Icon: WorkflowIconCustom,
+        description:
+          "Turns process states, approvals and automation into governed flows with clear handoffs and full traceability.",
       },
       {
         title: "Intelligence system",
-        stack: "AI assistant + document intelligence + recognition + human validation",
-        outcome: "A contextual decision layer that combines machine intelligence with responsible review.",
-        Icon: AssistantIcon,
+        description:
+          "Combines AI, document intelligence, recognition and human review into a contextual layer for faster, governed decisions.",
       },
     ],
 
@@ -436,21 +433,18 @@ const content = {
     systems: [
       {
         title: "Sistema de visibilidad",
-        stack: "Integraciones de datos + paneles + alertas",
-        outcome: "Una vista operacional compartida con datos actuales, excepciones y responsables claros.",
-        Icon: IntelligenceIcon,
+        description:
+          "Conecta datos operacionales, paneles y alertas en una vista compartida del estado actual, las excepciones y los responsables.",
       },
       {
         title: "Sistema de flujos",
-        stack: "Estados + aprobaciones + automatización + trazabilidad",
-        outcome: "Un flujo gobernado que hace avanzar el trabajo y conserva trazabilidad.",
-        Icon: WorkflowIconCustom,
+        description:
+          "Convierte estados, aprobaciones y automatización en flujos gobernados con traspasos claros y trazabilidad completa.",
       },
       {
         title: "Sistema de inteligencia",
-        stack: "Asistente IA + inteligencia documental + reconocimiento + validación humana",
-        outcome: "Una capa contextual de decisión que combina inteligencia de máquina con revisión responsable.",
-        Icon: AssistantIcon,
+        description:
+          "Combina IA, inteligencia documental, reconocimiento y revisión humana en una capa contextual para decisiones más rápidas y gobernadas.",
       },
     ],
 
@@ -668,38 +662,25 @@ export default async function SolutionsPage(props: PageProps) {
       </section>
 
       <section className={`${styles.stage} ${styles.combineStage}`} aria-labelledby="combine-title">
-        <div className={styles.shell}>
-          <header className={styles.sectionHead}>
-            <div className={styles.eyebrow}>06 / {page.combineLabel}</div>
-            <h2 id="combine-title" className={styles.sectionTitle}>{page.combineTitle}</h2>
-            <p className={styles.sectionIntro}>{page.combineBody}</p>
-          </header>
-          <div className={styles.combineLayout}>
-            <div className={styles.systemGrid}>
-              {page.systems.map((item, index) => {
-                const Icon = item.Icon
-                return (
-                  <article key={item.title} className={styles.systemCard}>
-                    <div className={styles.systemHead}>
-                      <span>0{index + 1}</span>
-                      <Icon />
-                    </div>
+        <div className={`${styles.shell} ${styles.capabilitiesShell}`}>
+          <div>
+            <header className={styles.sectionHead}>
+              <div className={styles.eyebrow}>06 / {page.combineLabel}</div>
+              <h2 id="combine-title" className={styles.sectionTitle}>{page.combineTitle}</h2>
+              <p className={styles.sectionIntro}>{page.combineBody}</p>
+            </header>
+          </div>
+          <div>
+            <div className={styles.capabilityList}>
+              {page.systems.map((item, index) => (
+                <article key={item.title} className={styles.capabilityRow}>
+                  <span className={styles.capabilityNum}>0{index + 1}</span>
+                  <div>
                     <h3>{item.title}</h3>
-                    <p className={styles.systemStack}>{item.stack}</p>
-                    <p className={styles.systemOutcome}>{item.outcome}</p>
-                  </article>
-                )
-              })}
-            </div>
-            <div className={styles.combineVisual}>
-              <img
-                src="/images/solutions/selector-decision-map.webp"
-                width="840"
-                height="472"
-                loading="lazy"
-                alt=""
-                aria-hidden="true"
-              />
+                    <p>{item.description}</p>
+                  </div>
+                </article>
+              ))}
             </div>
           </div>
         </div>
