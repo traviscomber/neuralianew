@@ -162,8 +162,8 @@ main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
 main > section[class*="capabilitiesStage"] [class*="capabilityList"]:before{
   opacity:.58;
   background:
-    radial-gradient(circle,rgba(178,255,251,.62) 0 .95px,transparent 1.25px) 9px -14px/18px 83px repeat-y,
-    radial-gradient(circle,rgba(92,244,236,.42) 0 .75px,transparent 1.05px) 9px 27px/18px 119px repeat-y;
+    radial-gradient(circle,rgba(178,255,251,.62) 0 .95px,transparent 1.25px) 0 -14px/18px 83px repeat-y,
+    radial-gradient(circle,rgba(92,244,236,.42) 0 .75px,transparent 1.05px) 0 27px/18px 119px repeat-y;
   filter:drop-shadow(0 0 1.5px rgba(32,231,223,.13));
   animation:
     n3CapabilityDotsVerticalFast 12.5s linear infinite,
@@ -173,8 +173,8 @@ main > section[class*="capabilitiesStage"] [class*="capabilityList"]:before{
 main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
   opacity:.66;
   background:
-    radial-gradient(circle,rgba(184,255,251,.68) 0 1px,transparent 1.3px) 9px -8px/18px 97px repeat-y,
-    radial-gradient(circle,rgba(116,255,248,.48) 0 .82px,transparent 1.12px) 9px 43px/18px 137px repeat-y;
+    radial-gradient(circle,rgba(184,255,251,.68) 0 1px,transparent 1.3px) 0 -8px/18px 97px repeat-y,
+    radial-gradient(circle,rgba(116,255,248,.48) 0 .82px,transparent 1.12px) 0 43px/18px 137px repeat-y;
   filter:drop-shadow(0 0 2px rgba(32,231,223,.15));
   animation:
     n3CapabilityDotsVerticalSlow 18.5s linear infinite,
@@ -427,26 +427,26 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
 @keyframes n3CapabilityDotsVerticalFast{
   0%{
     background-position:
-      9px -14px,
-      9px 27px;
+      0 -14px,
+      0 27px;
   }
   100%{
     background-position:
-      9px 420px,
-      9px 548px;
+      0 420px,
+      0 548px;
   }
 }
 
 @keyframes n3CapabilityDotsVerticalSlow{
   0%{
     background-position:
-      9px -8px,
-      9px 43px;
+      0 -8px,
+      0 43px;
   }
   100%{
     background-position:
-      9px 360px,
-      9px 505px;
+      0 360px,
+      0 505px;
   }
 }
 
