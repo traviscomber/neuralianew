@@ -325,6 +325,146 @@
   }
 }
 
+/* Products catalog — mirror the Projects page visual system. */
+.products-catalog-page,
+.products-catalog-page .catalog-hero,
+.products-catalog-page .products-catalog-intro,
+.products-catalog-section{
+  background:#02090a!important;
+  color:#e8f0f0!important;
+}
+
+.products-catalog-page .catalog-hero,
+.products-catalog-page .products-catalog-intro,
+.products-catalog-section{
+  border-top:0!important;
+  border-bottom:0!important;
+}
+
+.products-catalog-page .products-catalog-intro{
+  box-shadow:none!important;
+}
+
+.products-catalog-section .catalog-list{
+  background:#02090a!important;
+}
+
+.products-catalog-section .catalog-project{
+  background:#02090a!important;
+  border:0!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)!important;
+  gap:30px!important;
+  padding:34px 20px!important;
+  transition:background .34s ease!important;
+}
+
+.products-catalog-section .catalog-project.is-center-active{
+  background:#031011!important;
+}
+
+.products-catalog-section .catalog-project-label{
+  display:flex!important;
+  align-items:center!important;
+  gap:.72em!important;
+  margin:0!important;
+  color:var(--n3-teal-soft,#a8d9d8)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+}
+
+.products-catalog-section .product-description{
+  margin:22px 0 20px!important;
+  color:#9aacaf!important;
+  font-size:12px!important;
+  line-height:1.65!important;
+}
+
+.products-catalog-section .catalog-copy dt{
+  color:#7eb7b6!important;
+}
+
+.products-catalog-section .catalog-copy dd{
+  color:#9aacaf!important;
+}
+
+.products-catalog-section .catalog-tags{
+  margin-top:0!important;
+}
+
+.products-catalog-section .catalog-tags span{
+  border:0!important;
+  background:#082425!important;
+  color:#9cc7c6!important;
+  box-shadow:none!important;
+}
+
+.products-catalog-section .product-status{
+  margin:18px 0 0!important;
+  color:#7eb7b6!important;
+}
+
+.products-catalog-section .product-status i{
+  background:#45d1cf!important;
+}
+
+.products-catalog-section .catalog-link{
+  color:#65dfdc!important;
+}
+
+.products-catalog-section .catalog-link:hover{
+  color:#a8d9d8!important;
+}
+
+.products-catalog-section .catalog-image{
+  background:#02090a!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.products-catalog-section .catalog-image img{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+.products-catalog-page .products-catalog-intro .retro-button{
+  border-color:rgba(168,217,216,.42)!important;
+  color:var(--n3-teal-soft)!important;
+}
+
+.products-catalog-page .products-catalog-intro .retro-button:hover{
+  border-color:var(--n3-teal-soft)!important;
+  background:rgba(168,217,216,.07)!important;
+  color:#fff!important;
+}
+
+@media(max-width:900px){
+  .products-catalog-section .catalog-project{
+    grid-template-columns:1fr!important;
+  }
+
+  .products-catalog-section .catalog-image{
+    grid-column:auto!important;
+  }
+}
+
+@media(max-width:560px){
+  .products-catalog-section .catalog-project{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+
+  .products-catalog-section .catalog-project-label{
+    font-size:11px!important;
+    gap:.66em!important;
+  }
+}
+
 /* Global brandbook compliance layer — applies to legacy and current routes. */
 html body { font-family:var(--font-montserrat),Montserrat,sans-serif; font-weight:400; }
 html body h1,html body h2,html body h3,html body h4,html body h5,html body h6 {

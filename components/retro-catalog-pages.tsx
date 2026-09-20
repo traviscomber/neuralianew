@@ -128,13 +128,13 @@ export function ProductsPage({locale}:{locale:Locale}){
   const es = locale === 'es'
   const data = productData[locale]
   return (
-    <main className="retro-page catalog-page">
+    <main className="retro-page catalog-page products-catalog-page">
       <Header
         eyebrow={es ? 'Productos' : 'Products'}
         title={es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}
         body={es ? 'Productos construidos desde problemas operacionales reales para conectar documentos, procesos, datos, decisiones y agentes.' : 'Products built from real operational problems to connect documents, processes, data, decisions and agents.'}
       />
-      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+      <section className="retro-dark products-catalog-intro">
         <div className="retro-shell grid gap-10 py-16 md:py-20 lg:grid-cols-[.75fr_1.25fr]">
           <div>
             <small>{es ? 'SISTEMAS REUTILIZABLES' : 'REUSABLE SYSTEMS'}</small>
@@ -162,7 +162,7 @@ export function ProductsPage({locale}:{locale:Locale}){
           </div>
         </div>
       </section>
-      <section className="retro-dark border-b border-[rgba(118,214,214,.16)]">
+      <section className="retro-dark products-catalog-intro">
         <div className="retro-shell py-14">
           <small>{es ? 'ECOSISTEMA PÚBLICO' : 'PUBLIC ECOSYSTEM'}</small>
           <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">
@@ -184,21 +184,31 @@ export function ProductsPage({locale}:{locale:Locale}){
           </div>
         </div>
       </section>
-      <section className="retro-light catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
+      <section className="catalog-section products-catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
         <div className="retro-shell catalog-list">
           {products.map((p,i) => {
             const d = data[i]
             return (
-              <article id={p.id} key={p.id} className="catalog-project">
-                <div className="catalog-number">{String(i+1).padStart(2,'0')} —</div>
+              <CatalogProjectFocus id={p.id} key={p.id}>
                 <div className="catalog-copy">
-                  <h2>{p.name}</h2>
-                  <p style={{marginBottom:'1rem'}}>{d.desc}</p>
+                  <div className="catalog-project-label">
+                    <span>{String(i+1).padStart(2,'0')}</span>
+                    <span aria-hidden="true">/</span>
+                    <span>{p.name}</span>
+                  </div>
+                  <p className="product-description">{d.desc}</p>
                   <dl>
                     <div><dt>{es ? 'Para quién' : 'For whom'}</dt><dd>{d.forWhom}</dd></div>
-                    <div><dt>{es ? 'Módulos' : 'Modules'}</dt><dd>{d.modules.join(' · ')}</dd></div>
+                    <div>
+                      <dt>{es ? 'Módulos' : 'Modules'}</dt>
+                      <dd>
+                        <div className="catalog-tags product-module-tags">
+                          {d.modules.map(module => <span key={module}>{module}</span>)}
+                        </div>
+                      </dd>
+                    </div>
                   </dl>
-                  <div className="product-status" style={{margin:'1rem 0'}}><i aria-hidden/>{d.status}</div>
+                  <div className="product-status"><i aria-hidden/>{d.status}</div>
                   {p.id !== 'to-be-continued' && (
                     <Link className="catalog-link" href={`/${locale}/diagnostico#diagnosis-assistant`}>
                       {es ? 'Evaluar este producto' : 'Evaluate this product'} →
@@ -208,7 +218,7 @@ export function ProductsPage({locale}:{locale:Locale}){
                 <div className="catalog-image">
                   <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover" style={{objectPosition:'top center'}}/>
                 </div>
-              </article>
+              </CatalogProjectFocus>
             )
           })}
         </div>
