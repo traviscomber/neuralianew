@@ -11,7 +11,7 @@
 
 ## 1. Brand Positioning
 
-N3uralia builds production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.
+N3uralia builds AI-native vertical operating systems for real-world industries. These operational layers connect data, workflows, documents, software, recognition, automation, AI agents and human control around the needs of a specific industry or process.
 
 The brand should feel:
 
@@ -249,9 +249,11 @@ Preferred motifs:
 
 Lead with production outcomes and operational control:
 
+- AI-native vertical operating systems
+- Operational intelligence
+- Workflow automation
 - Production AI systems
-- Agentic workflows
-- Software automation
+- Recognition and connected software
 - Human oversight
 - Measurable operational impact
 - Chile and LATAM relevance
