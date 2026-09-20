@@ -198,7 +198,7 @@ export function ProductsPage({locale}:{locale:Locale}){
                   </div>
                   <h2>{p.name}</h2>
                   <dl>
-                    <div><dt>{es ? 'Soluciones' : 'Solutions'}</dt><dd>{d.desc}</dd></div>
+                    <div><dt>{es ? 'Solución' : 'Solution'}</dt><dd>{d.desc}</dd></div>
                     <div><dt>{es ? 'Para quién' : 'For whom'}</dt><dd>{d.forWhom}</dd></div>
                     <div>
                       <dt>{es ? 'Módulos' : 'Modules'}</dt>
