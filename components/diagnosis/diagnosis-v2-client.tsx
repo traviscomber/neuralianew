@@ -641,7 +641,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           </div>
         </div>
         <div className="diagnosis-hero-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/hero-art.webp" alt="" fill priority sizes="60vw" />
+          <Image src="/images/diagnosis-v2/hero-art.webp" alt="" fill priority sizes="(min-width:1101px) 720px, 100vw" />
         </div>
       </section>
 
@@ -657,7 +657,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           {t.gives.map((item, index) => (
             <article key={item[0]} className="diagnosis-invisible-card">
               <div className="diagnosis-card-art" aria-hidden="true">
-                <Image src={visualAssets[index]} alt="" fill sizes="25vw" />
+                <Image src={visualAssets[index]} alt="" fill sizes="(min-width:1101px) 260px, 50vw" />
               </div>
               <span className="diagnosis-card-number">0{index + 1}</span>
               <h3>{item[0]}</h3>
@@ -860,7 +860,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
 
       <section className="diagnosis-section diagnosis-direct" aria-labelledby="diagnosis-direct-title">
         <div className="diagnosis-direct-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/manager-art.webp" alt="" fill sizes="100vw" />
+          <Image src="/images/diagnosis-v2/manager-art.webp" alt="" fill sizes="(min-width:1101px) 1240px, 100vw" />
         </div>
         <div className="diagnosis-direct-panel">
           <span className="diagnosis-kicker">{t.directLabel}</span>
@@ -895,7 +895,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
 
       <section className="diagnosis-section diagnosis-contact" aria-labelledby="diagnosis-contact-title">
         <div className="diagnosis-contact-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/contact-art.webp" alt="" fill sizes="100vw" />
+          <Image src="/images/diagnosis-v2/contact-art.webp" alt="" fill sizes="(min-width:1101px) 1240px, 100vw" />
         </div>
         <div className="diagnosis-contact-panel">
           <div className="diagnosis-contact-head">
