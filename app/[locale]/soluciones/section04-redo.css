@@ -396,20 +396,22 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
     content:"";
     position:absolute;
-    z-index:3;
+    z-index:0;
     top:28px;
-    left:-4px;
-    width:26px;
+    left:0;
+    width:18px;
     height:452px;
     pointer-events:none;
-    opacity:.82;
+    opacity:.68;
     background:
-      radial-gradient(circle,rgba(184,255,251,.95) 0 1.4px,transparent 1.8px) 11px 4px/26px 74px repeat-y,
-      radial-gradient(circle,rgba(92,244,236,.72) 0 1.15px,transparent 1.55px) 15px 31px/26px 91px repeat-y,
-      radial-gradient(circle,rgba(128,255,248,.66) 0 1px,transparent 1.45px) 7px 55px/26px 103px repeat-y,
-      radial-gradient(circle,rgba(48,224,216,.62) 0 1.3px,transparent 1.75px) 17px 79px/26px 86px repeat-y;
-    filter:drop-shadow(0 0 4px rgba(32,231,223,.26));
-    animation:n3CapabilityDotsChaos 16s linear infinite;
+      radial-gradient(circle,rgba(178,255,251,.72) 0 1.05px,transparent 1.35px) 9px -12px/18px 79px repeat-y,
+      radial-gradient(circle,rgba(94,244,236,.52) 0 .9px,transparent 1.2px) 9px 18px/18px 101px repeat-y,
+      radial-gradient(circle,rgba(122,255,248,.46) 0 .8px,transparent 1.1px) 9px 43px/18px 127px repeat-y,
+      radial-gradient(circle,rgba(48,224,216,.42) 0 .95px,transparent 1.25px) 9px 71px/18px 91px repeat-y;
+    filter:drop-shadow(0 0 2px rgba(32,231,223,.16));
+    animation:
+      n3CapabilityDotsVertical 16s linear infinite,
+      n3CapabilityDotsFlicker 1.85s steps(7,end) infinite;
   }
 
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:first-child{
@@ -445,78 +447,51 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   }
 }
 
-@keyframes n3CapabilityDotsChaos{
+@keyframes n3CapabilityDotsVertical{
   0%{
     background-position:
-      11px 4px,
-      15px 31px,
-      7px 55px,
-      17px 79px;
-    transform:translateX(0);
-    opacity:.5;
-  }
-  13%{
-    background-position:
-      8px 40px,
-      18px 66px,
-      11px 93px,
-      13px 119px;
-    transform:translateX(-1px);
-    opacity:.86;
-  }
-  27%{
-    background-position:
-      14px 84px,
-      10px 108px,
-      16px 139px,
-      18px 165px;
-    transform:translateX(1.5px);
-    opacity:.68;
-  }
-  41%{
-    background-position:
-      7px 130px,
-      17px 154px,
-      8px 184px,
-      14px 210px;
-    transform:translateX(-2px);
-    opacity:.94;
-  }
-  56%{
-    background-position:
-      16px 178px,
-      11px 202px,
-      15px 231px,
-      9px 257px;
-    transform:translateX(1.5px);
-    opacity:.7;
-  }
-  72%{
-    background-position:
-      9px 230px,
-      18px 254px,
-      8px 284px,
-      16px 311px;
-    transform:translateX(-1px);
-    opacity:.88;
-  }
-  86%{
-    background-position:
-      13px 276px,
-      8px 302px,
-      17px 332px,
-      11px 357px;
-    transform:translateX(1px);
-    opacity:.62;
+      9px -12px,
+      9px 18px,
+      9px 43px,
+      9px 71px;
   }
   100%{
     background-position:
-      11px 336px,
-      15px 361px,
-      7px 391px,
-      17px 417px;
-    transform:translateX(0);
+      9px 330px,
+      9px 470px,
+      9px 550px,
+      9px 680px;
+  }
+}
+
+@keyframes n3CapabilityDotsFlicker{
+  0%,100%{
     opacity:.46;
+    filter:drop-shadow(0 0 1px rgba(32,231,223,.08));
+  }
+  14%{
+    opacity:.72;
+    filter:drop-shadow(0 0 3px rgba(32,231,223,.2));
+  }
+  29%{
+    opacity:.54;
+    filter:drop-shadow(0 0 1px rgba(32,231,223,.1));
+  }
+  43%{
+    opacity:.78;
+    filter:drop-shadow(0 0 3px rgba(32,231,223,.22));
+  }
+  57%{
+    opacity:.49;
+    filter:drop-shadow(0 0 1px rgba(32,231,223,.08));
+  }
+  71%{
+    opacity:.7;
+    filter:drop-shadow(0 0 2px rgba(32,231,223,.18));
+  }
+  86%{
+    opacity:.56;
+    filter:drop-shadow(0 0 1px rgba(32,231,223,.1));
   }
 }
 
