@@ -470,6 +470,45 @@
   }
 }
 
+/* Canonical portal paragraph typography.
+   Reference: landing hero paragraph (.hero-copy p). */
+:root{
+  --n3-paragraph-font-size:16px;
+  --n3-paragraph-line-height:1.65;
+  --n3-paragraph-color:#b1c0c0;
+  --n3-paragraph-weight:300;
+}
+
+/* Keep the landing page as the visual source of truth; normalize the rest of the portal to it. */
+html body main.retro-page:not(.landing-page) :is(section,article,div) p,
+html body main[class*="page"]:not(.landing-page) section[class] [class] p,
+html body main[class*="page"]:not(.landing-page) article[class] [class] p,
+html body main.retro-page:not(.landing-page) .catalog-copy dd,
+html body main[class*="page"]:not(.landing-page) .catalog-copy dd{
+  font-family:var(--font-montserrat),Montserrat,sans-serif!important;
+  font-size:var(--n3-paragraph-font-size)!important;
+  font-weight:var(--n3-paragraph-weight)!important;
+  line-height:var(--n3-paragraph-line-height)!important;
+  letter-spacing:0!important;
+  color:var(--n3-paragraph-color)!important;
+}
+
+/* Section 03 previously used an ID-scoped card rule with !important declarations. */
+html body main #expertise .section03-card p{
+  font-family:var(--font-montserrat),Montserrat,sans-serif!important;
+  font-size:var(--n3-paragraph-font-size)!important;
+  font-weight:var(--n3-paragraph-weight)!important;
+  line-height:var(--n3-paragraph-line-height)!important;
+  letter-spacing:0!important;
+  color:var(--n3-paragraph-color)!important;
+}
+
+/* Preserve readable contrast anywhere a legacy light surface still exists. */
+html body main.retro-page:not(.landing-page) .retro-light p,
+html body main.retro-page:not(.landing-page) .retro-light dd{
+  color:var(--n3-light-muted)!important;
+}
+
 /* Global brandbook compliance layer — applies to legacy and current routes. */
 html body { font-family:var(--font-montserrat),Montserrat,sans-serif; font-weight:400; }
 html body h1,html body h2,html body h3,html body h4,html body h5,html body h6 {
