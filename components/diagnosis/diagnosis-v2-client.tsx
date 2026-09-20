@@ -98,6 +98,7 @@ const copy = {
       "Answer a few operational questions. Receive an immediate preliminary operational read. If it makes sense, submit it for a reviewed recommendation from N3uralia.",
     start: "Start diagnosis",
     talk: "Talk to a manager",
+    directCta: "Contact team",
     givesLabel: "02 / WHAT THE DIAGNOSIS GIVES YOU",
     givesTitle: "What the diagnosis gives you.",
     givesBody:
@@ -244,6 +245,7 @@ const copy = {
       "Responde algunas preguntas operacionales. Recibe una lectura operacional preliminar inmediata. Si hace sentido, envíala para una recomendación revisada por N3uralia.",
     start: "Iniciar diagnóstico",
     talk: "Hablar con un manager",
+    directCta: "Contactar equipo",
     givesLabel: "02 / QUÉ TE ENTREGA EL DIAGNÓSTICO",
     givesTitle: "Qué te entrega el diagnóstico.",
     givesBody:
@@ -914,14 +916,14 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
 
       <section className="diagnosis-section diagnosis-direct" aria-labelledby="diagnosis-direct-title">
         <div className="diagnosis-direct-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/manager-art.webp" alt="" fill sizes="(min-width:1101px) 1240px, 100vw" />
+          <Image src="/api/diagnosis-manager" alt="" fill unoptimized sizes="(min-width:1101px) 1240px, 100vw" />
         </div>
         <div className="diagnosis-direct-panel">
           <span className="diagnosis-kicker">{t.directLabel}</span>
           <h2 id="diagnosis-direct-title">{t.directTitleA} <span>{t.directTitleB}</span></h2>
           <p>{t.directBody}</p>
           <a className="retro-button retro-button-primary" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">
-            {t.talk}
+            {t.directCta}
           </a>
           <div className="diagnosis-direct-shortcuts">
             {t.contactShortcuts.map(([kind, title, body]) => (
