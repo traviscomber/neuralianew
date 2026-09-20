@@ -397,24 +397,19 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
     content:"";
     position:absolute;
     z-index:3;
-    top:36px;
-    left:9px;
-    width:2px;
-    height:64px;
-    transform:translateX(-1px);
-    border-radius:999px;
-    background:linear-gradient(180deg,
-      rgba(100,255,248,0) 0%,
-      rgba(100,255,248,.18) 16%,
-      rgba(112,255,249,.86) 48%,
-      rgba(220,255,253,1) 58%,
-      rgba(64,246,238,.5) 74%,
-      rgba(64,246,238,0) 100%);
-    box-shadow:
-      0 0 5px rgba(64,246,238,.55),
-      0 0 12px rgba(64,246,238,.26);
-    opacity:0;
-    animation:n3CapabilityRailFlow 18s linear infinite;
+    top:28px;
+    left:-4px;
+    width:26px;
+    height:452px;
+    pointer-events:none;
+    opacity:.82;
+    background:
+      radial-gradient(circle,rgba(184,255,251,.95) 0 1.4px,transparent 1.8px) 11px 4px/26px 74px repeat-y,
+      radial-gradient(circle,rgba(92,244,236,.72) 0 1.15px,transparent 1.55px) 15px 31px/26px 91px repeat-y,
+      radial-gradient(circle,rgba(128,255,248,.66) 0 1px,transparent 1.45px) 7px 55px/26px 103px repeat-y,
+      radial-gradient(circle,rgba(48,224,216,.62) 0 1.3px,transparent 1.75px) 17px 79px/26px 86px repeat-y;
+    filter:drop-shadow(0 0 4px rgba(32,231,223,.26));
+    animation:n3CapabilityDotsChaos 16s linear infinite;
   }
 
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:first-child{
@@ -450,20 +445,78 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   }
 }
 
-@keyframes n3CapabilityRailFlow{
+@keyframes n3CapabilityDotsChaos{
   0%{
-    top:36px;
-    opacity:0;
+    background-position:
+      11px 4px,
+      15px 31px,
+      7px 55px,
+      17px 79px;
+    transform:translateX(0);
+    opacity:.5;
   }
-  5%{
-    opacity:.9;
+  13%{
+    background-position:
+      8px 40px,
+      18px 66px,
+      11px 93px,
+      13px 119px;
+    transform:translateX(-1px);
+    opacity:.86;
   }
-  92%{
-    opacity:.9;
+  27%{
+    background-position:
+      14px 84px,
+      10px 108px,
+      16px 139px,
+      18px 165px;
+    transform:translateX(1.5px);
+    opacity:.68;
+  }
+  41%{
+    background-position:
+      7px 130px,
+      17px 154px,
+      8px 184px,
+      14px 210px;
+    transform:translateX(-2px);
+    opacity:.94;
+  }
+  56%{
+    background-position:
+      16px 178px,
+      11px 202px,
+      15px 231px,
+      9px 257px;
+    transform:translateX(1.5px);
+    opacity:.7;
+  }
+  72%{
+    background-position:
+      9px 230px,
+      18px 254px,
+      8px 284px,
+      16px 311px;
+    transform:translateX(-1px);
+    opacity:.88;
+  }
+  86%{
+    background-position:
+      13px 276px,
+      8px 302px,
+      17px 332px,
+      11px 357px;
+    transform:translateX(1px);
+    opacity:.62;
   }
   100%{
-    top:424px;
-    opacity:0;
+    background-position:
+      11px 336px,
+      15px 361px,
+      7px 391px,
+      17px 417px;
+    transform:translateX(0);
+    opacity:.46;
   }
 }
 
