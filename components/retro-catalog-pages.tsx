@@ -194,8 +194,9 @@ export function ProductsPage({locale}:{locale:Locale}){
                   <div className="catalog-project-label">
                     <span>{String(i+1).padStart(2,'0')}</span>
                     <span aria-hidden="true">/</span>
-                    <span>{p.name}</span>
+                    <span>{es ? 'Producto' : 'Product'}</span>
                   </div>
+                  <h2>{p.name}</h2>
                   <p className="product-description">{d.desc}</p>
                   <dl>
                     <div><dt>{es ? 'Para quién' : 'For whom'}</dt><dd>{d.forWhom}</dd></div>
