@@ -481,54 +481,59 @@
 .products-catalog-page .products-hero::after{
   content:"";
   position:absolute;
-  inset:-12%;
   z-index:0;
   pointer-events:none;
-  background-repeat:repeat;
-  will-change:transform,opacity,filter;
+  border-radius:50%;
+  filter:blur(2px);
+  opacity:.26;
 }
 
 .products-catalog-page .products-hero::before{
-  opacity:.72;
-  background-image:
-    radial-gradient(circle,rgba(118,255,247,.48) 0 1.35px,transparent 1.75px),
-    radial-gradient(circle,rgba(82,223,216,.34) 0 1.05px,transparent 1.45px),
-    radial-gradient(circle,rgba(151,255,249,.24) 0 .9px,transparent 1.3px),
-    radial-gradient(circle,rgba(65,191,187,.28) 0 1px,transparent 1.4px);
-  background-size:
-    131px 167px,
-    199px 143px,
-    167px 227px,
-    247px 181px;
-  background-position:
-    19px 11px,
-    74px 52px,
-    131px 97px,
-    37px 128px;
-  filter:drop-shadow(0 0 7px rgba(32,231,223,.22));
-  animation:
-    n3ProductsStarsDriftA 22s linear infinite,
-    n3ProductsStarsPulseA 3.4s steps(8,end) infinite;
+  width:36vw;
+  height:36vw;
+  min-width:360px;
+  min-height:360px;
+  top:2%;
+  right:-10%;
+  background:radial-gradient(circle,rgba(32,231,223,.11) 0,rgba(32,231,223,.035) 34%,transparent 70%);
+  animation:n3ProductsAmbientA 18s ease-in-out infinite alternate;
 }
 
 .products-catalog-page .products-hero::after{
-  opacity:.48;
-  background-image:
-    radial-gradient(circle,rgba(128,255,248,.34) 0 1.1px,transparent 1.5px),
-    radial-gradient(circle,rgba(78,207,201,.24) 0 .85px,transparent 1.2px),
-    radial-gradient(circle,rgba(169,255,250,.2) 0 .75px,transparent 1.1px);
-  background-size:
-    173px 211px,
-    293px 199px,
-    239px 257px;
-  background-position:
-    43px 79px,
-    163px 21px,
-    91px 151px;
-  filter:drop-shadow(0 0 8px rgba(32,231,223,.18));
+  width:30vw;
+  height:30vw;
+  min-width:300px;
+  min-height:300px;
+  left:-8%;
+  bottom:-16%;
+  background:radial-gradient(circle,rgba(32,231,223,.08) 0,rgba(32,231,223,.025) 36%,transparent 72%);
+  animation:n3ProductsAmbientB 23s ease-in-out -7s infinite alternate;
+}
+
+.products-catalog-page .products-hero-particles{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.products-catalog-page .products-hero-particles span{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background:rgba(112,255,247,.9);
+  opacity:var(--particle-opacity);
+  box-shadow:
+    0 0 4px rgba(32,231,223,.34),
+    0 0 10px rgba(32,231,223,.18);
   animation:
-    n3ProductsStarsDriftB 29s linear infinite reverse,
-    n3ProductsStarsPulseB 4.6s steps(10,end) -.9s infinite;
+    n3ProductsParticleDrift var(--duration) ease-in-out var(--delay) infinite,
+    n3ProductsParticleGlow var(--pulse) ease-in-out var(--delay) infinite alternate;
+  will-change:transform,opacity,box-shadow;
 }
 
 .products-catalog-page .products-hero-grid{
@@ -584,35 +589,42 @@
   padding:0 22px!important;
 }
 
-@keyframes n3ProductsStarsDriftA{
-  0%{transform:translate3d(0,0,0) rotate(0.001deg)}
-  22%{transform:translate3d(14px,24px,0) rotate(.08deg)}
-  47%{transform:translate3d(-9px,51px,0) rotate(-.06deg)}
-  73%{transform:translate3d(18px,78px,0) rotate(.04deg)}
-  100%{transform:translate3d(-5px,112px,0) rotate(0.001deg)}
-}
-
-@keyframes n3ProductsStarsDriftB{
+@keyframes n3ProductsParticleDrift{
   0%{transform:translate3d(0,0,0)}
-  28%{transform:translate3d(-16px,31px,0)}
-  54%{transform:translate3d(11px,64px,0)}
-  79%{transform:translate3d(-7px,93px,0)}
-  100%{transform:translate3d(13px,128px,0)}
+  31%{transform:translate3d(var(--dx1),var(--dy1),0)}
+  67%{transform:translate3d(var(--dx2),var(--dy2),0)}
+  100%{transform:translate3d(var(--dx3),var(--dy3),0)}
 }
 
-@keyframes n3ProductsStarsPulseA{
-  0%,100%{opacity:.48;filter:drop-shadow(0 0 4px rgba(32,231,223,.12))}
-  19%{opacity:.72;filter:drop-shadow(0 0 9px rgba(32,231,223,.24))}
-  41%{opacity:.54;filter:drop-shadow(0 0 5px rgba(32,231,223,.15))}
-  63%{opacity:.78;filter:drop-shadow(0 0 11px rgba(32,231,223,.27))}
-  84%{opacity:.58;filter:drop-shadow(0 0 6px rgba(32,231,223,.17))}
+@keyframes n3ProductsParticleGlow{
+  0%{
+    opacity:calc(var(--particle-opacity) * .62);
+    box-shadow:
+      0 0 3px rgba(32,231,223,.2),
+      0 0 7px rgba(32,231,223,.1);
+  }
+  52%{
+    opacity:var(--particle-opacity);
+    box-shadow:
+      0 0 6px rgba(32,231,223,.46),
+      0 0 14px rgba(32,231,223,.22);
+  }
+  100%{
+    opacity:calc(var(--particle-opacity) * .78);
+    box-shadow:
+      0 0 4px rgba(32,231,223,.3),
+      0 0 10px rgba(32,231,223,.15);
+  }
 }
 
-@keyframes n3ProductsStarsPulseB{
-  0%,100%{opacity:.3;filter:drop-shadow(0 0 3px rgba(32,231,223,.08))}
-  24%{opacity:.5;filter:drop-shadow(0 0 7px rgba(32,231,223,.17))}
-  49%{opacity:.36;filter:drop-shadow(0 0 4px rgba(32,231,223,.1))}
-  72%{opacity:.56;filter:drop-shadow(0 0 8px rgba(32,231,223,.19))}
+@keyframes n3ProductsAmbientA{
+  0%{transform:translate3d(-12px,6px,0) scale(.96);opacity:.18}
+  100%{transform:translate3d(18px,-14px,0) scale(1.08);opacity:.3}
+}
+
+@keyframes n3ProductsAmbientB{
+  0%{transform:translate3d(10px,-8px,0) scale(1.04);opacity:.14}
+  100%{transform:translate3d(-16px,16px,0) scale(.94);opacity:.27}
 }
 
 @media(max-width:900px){
@@ -659,7 +671,8 @@
 
 @media(prefers-reduced-motion:reduce){
   .products-catalog-page .products-hero::before,
-  .products-catalog-page .products-hero::after{
+  .products-catalog-page .products-hero::after,
+  .products-catalog-page .products-hero-particles span{
     animation:none!important;
     transform:none!important;
   }
