@@ -1,8 +1,6 @@
-import type { CSSProperties } from 'react'
 import type { Locale } from '@/lib/get-locale'
 import s from './recognition-page.module.css'
 import p from './recognition-section04-final.module.css'
-import { ProcessNode, type ProcessIconName } from './recognition-process-node'
 import { RecognitionSectionNote } from './recognition-section-note'
 
 const PLATFORM_ARTWORK_SRC = '/recognition-section04-platform-final.webp?v=20260903-7'
@@ -36,8 +34,6 @@ const copy = {
   },
 } as const
 
-const platformIcons: ProcessIconName[] = ['capture', 'classify', 'decision', 'insights', 'intelligence']
-
 export function RecognitionSection04Final({ locale }: { locale: Locale }) {
   const t = copy[locale]
 
@@ -55,23 +51,16 @@ export function RecognitionSection04Final({ locale }: { locale: Locale }) {
 
         <div className={p.layout}>
           <div className={p.rail} aria-label="Recognition platform stages">
-            {t.layers.map((layer, index) => (
+            {t.layers.map((layer) => (
               <div className={p.stageSlot} key={layer[0]}>
-                <ProcessNode
-                  index={layer[0]}
-                  icon={platformIcons[index]}
-                  title={layer[1]}
-                  description={layer[2]}
-                  orientation="vertical"
-                  emphasis={index === 4}
-                />
-                {index < t.layers.length - 1 ? (
-                  <span
-                    className={p.stageConnector}
-                    aria-hidden="true"
-                    style={{ '--connector-index': index } as CSSProperties}
-                  />
-                ) : null}
+                <article className={p.stageNode}>
+                  <span className={p.stageDot} aria-hidden="true" />
+                  <div className={p.stageCopy}>
+                    <span className={p.stageIndex}>{layer[0]}</span>
+                    <h3>{layer[1]}</h3>
+                    <p>{layer[2]}</p>
+                  </div>
+                </article>
               </div>
             ))}
           </div>
