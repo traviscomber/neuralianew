@@ -1807,3 +1807,74 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     animation:none!important;
   }
 }
+
+
+/* Diagnosis V2 canonical landing-page heading hierarchy. */
+.diagnosis-v2 .diagnosis-kicker{
+  color:var(--n3-teal-soft)!important;
+  font:400 11px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+}
+
+.diagnosis-v2 h1,
+.diagnosis-v2 h2,
+.diagnosis-v2 h3{
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
+  font-weight:300!important;
+  line-height:1.08!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  color:var(--n3-text-light)!important;
+}
+
+.diagnosis-v2 .diagnosis-hero-copy h1{
+  font-size:clamp(43px,5.2vw,78px)!important;
+}
+
+.diagnosis-v2 .diagnosis-split-heading h2,
+.diagnosis-v2 .diagnosis-console-intro h2,
+.diagnosis-v2 .diagnosis-next-copy h2,
+.diagnosis-v2 .diagnosis-direct-panel h2,
+.diagnosis-v2 .diagnosis-contact-head h2{
+  font-size:clamp(40px,5vw,68px)!important;
+}
+
+.diagnosis-v2 .diagnosis-invisible-card h3,
+.diagnosis-v2 .diagnosis-question h3,
+.diagnosis-v2 .diagnosis-read-state h3,
+.diagnosis-v2 .diagnosis-review-state h3,
+.diagnosis-v2 .diagnosis-confirmation h3,
+.diagnosis-v2 .diagnosis-next-node h3,
+.diagnosis-v2 .diagnosis-contact-grid h3{
+  font-size:25px!important;
+}
+
+.diagnosis-v2 .diagnosis-hero-copy h1 span,
+.diagnosis-v2 .diagnosis-direct-panel h2 span{
+  color:inherit!important;
+}
+
+@media(max-width:560px){
+  .diagnosis-v2 .diagnosis-hero-copy h1{
+    font-size:42px!important;
+  }
+
+  .diagnosis-v2 .diagnosis-split-heading h2,
+  .diagnosis-v2 .diagnosis-console-intro h2,
+  .diagnosis-v2 .diagnosis-next-copy h2,
+  .diagnosis-v2 .diagnosis-direct-panel h2,
+  .diagnosis-v2 .diagnosis-contact-head h2{
+    font-size:40px!important;
+  }
+
+  .diagnosis-v2 .diagnosis-invisible-card h3,
+  .diagnosis-v2 .diagnosis-question h3,
+  .diagnosis-v2 .diagnosis-read-state h3,
+  .diagnosis-v2 .diagnosis-review-state h3,
+  .diagnosis-v2 .diagnosis-confirmation h3,
+  .diagnosis-v2 .diagnosis-next-node h3,
+  .diagnosis-v2 .diagnosis-contact-grid h3{
+    font-size:24px!important;
+  }
+}
