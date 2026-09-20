@@ -612,17 +612,6 @@ export default async function SolutionsPage(props: PageProps) {
               <h2 id="capabilities-title" className={styles.sectionTitle}>{page.capabilitiesTitle}</h2>
               <p className={styles.sectionIntro}>{page.capabilitiesBody}</p>
             </header>
-            <div className={styles.capabilityVisual}>
-              <div className={styles.visualLabel}>N3 / OPERATIONS HUB</div>
-              <img
-                src="/images/solutions/section04/system-capabilities.png"
-                width="1536"
-                height="1024"
-                loading="lazy"
-                alt=""
-                aria-hidden="true"
-              />
-            </div>
           </div>
           <div>
             <div className={styles.capabilityList}>
