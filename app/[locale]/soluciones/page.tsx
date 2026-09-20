@@ -577,7 +577,7 @@ export default async function SolutionsPage(props: PageProps) {
           <div className="section03-grid">
             {page.expertise.map((item, index) => (
               <article className="section03-card" key={item.title}>
-                <div className="section03-num" aria-hidden="true">0{index + 1} /</div>
+                <div className="section03-num" aria-hidden="true">0{index + 1}</div>
                 <img
                   className="section03-asset"
                   src={item.image}
