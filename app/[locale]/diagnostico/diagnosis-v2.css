@@ -899,3 +899,313 @@
   }
   .diagnosis-mobile-whatsapp svg{width:26px;height:26px}
 }
+
+
+/* Diagnosis V2 geometry correction.
+   Match the canonical landing-page 1240px shell and keep every desktop composition 16:9. */
+.diagnosis-v2{
+  width:min(var(--n3-portal-shell-max,1240px),calc(100% - var(--n3-portal-gutter-total,40px)));
+  max-width:var(--n3-portal-shell-max,1240px);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.diagnosis-section{
+  width:100%;
+}
+
+@media (min-width:1101px){
+  .diagnosis-section{
+    aspect-ratio:16 / 9;
+    min-height:0!important;
+    height:auto!important;
+  }
+
+  .diagnosis-hero{
+    padding-top:0;
+  }
+
+  .diagnosis-hero-copy,
+  .diagnosis-hero-art{
+    min-height:0!important;
+    height:100%;
+  }
+
+  .diagnosis-hero-copy{
+    padding:54px 58px;
+  }
+
+  .diagnosis-hero-copy h1{
+    margin-top:24px;
+    font-size:clamp(54px,5vw,78px);
+  }
+
+  .diagnosis-hero-copy p{
+    margin-top:24px;
+    font-size:14px;
+    line-height:1.65;
+  }
+
+  .diagnosis-hero-copy .diagnosis-actions{
+    margin-top:28px;
+  }
+
+  .diagnosis-gives,
+  .diagnosis-next{
+    padding:44px 48px;
+  }
+
+  .diagnosis-split-heading{
+    gap:56px;
+  }
+
+  .diagnosis-split-heading h2{
+    margin-top:18px;
+    font-size:clamp(42px,4vw,60px);
+  }
+
+  .diagnosis-split-heading > p{
+    font-size:14px;
+    line-height:1.65;
+  }
+
+  .diagnosis-gives-grid{
+    margin-top:38px;
+    gap:28px;
+  }
+
+  .diagnosis-invisible-card{
+    min-height:300px;
+  }
+
+  .diagnosis-card-art{
+    height:150px;
+    margin-bottom:20px;
+  }
+
+  .diagnosis-card-number{
+    font-size:14px;
+  }
+
+  .diagnosis-invisible-card h3{
+    margin-top:10px;
+    font-size:23px;
+  }
+
+  .diagnosis-invisible-card p{
+    margin-top:12px;
+    font-size:12px;
+    line-height:1.55;
+  }
+
+  .diagnosis-console-section{
+    padding:38px 48px;
+  }
+
+  .diagnosis-console-intro{
+    grid-template-columns:minmax(0,.78fr) minmax(340px,.9fr);
+    gap:60px;
+    margin-bottom:26px;
+  }
+
+  .diagnosis-console-intro h2{
+    margin-top:16px;
+    font-size:clamp(44px,4.2vw,62px);
+  }
+
+  .diagnosis-console-intro > p{
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .diagnosis-console-frame{
+    width:min(1040px,100%);
+    min-height:450px;
+    height:450px;
+  }
+
+  .diagnosis-console-state{
+    min-height:450px;
+    height:450px;
+    padding:28px 32px;
+  }
+
+  .diagnosis-question{
+    width:min(760px,100%);
+    padding:26px 0 18px;
+  }
+
+  .diagnosis-question h3,
+  .diagnosis-read-state h3,
+  .diagnosis-review-state h3,
+  .diagnosis-confirmation h3{
+    font-size:clamp(34px,3.2vw,46px);
+  }
+
+  .diagnosis-question > p{
+    margin-top:10px;
+    font-size:12px;
+  }
+
+  .diagnosis-option-list{
+    margin-top:22px;
+    gap:7px;
+  }
+
+  .diagnosis-option-list button{
+    min-height:45px;
+    padding:9px 14px;
+  }
+
+  .diagnosis-question textarea{
+    margin-top:22px;
+    padding:14px;
+    font-size:14px;
+  }
+
+  .diagnosis-console-actions{
+    padding-top:18px;
+  }
+
+  .diagnosis-read-grid{
+    margin-top:22px;
+  }
+
+  .diagnosis-read-grid > div{
+    min-height:86px;
+    padding:16px;
+  }
+
+  .diagnosis-review-grid{
+    margin-top:22px;
+    gap:12px;
+  }
+
+  .diagnosis-review-grid input{
+    min-height:42px;
+  }
+
+  .diagnosis-next-grid{
+    margin-top:48px;
+    gap:36px;
+  }
+
+  .diagnosis-next-grid article{
+    min-height:220px;
+    padding-top:18px;
+  }
+
+  .diagnosis-next-grid h3{
+    margin-top:22px;
+    font-size:24px;
+  }
+
+  .diagnosis-next-grid p{
+    margin-top:14px;
+    font-size:12px;
+    line-height:1.55;
+  }
+
+  .diagnosis-direct,
+  .diagnosis-contact{
+    min-height:0!important;
+  }
+
+  .diagnosis-direct-panel,
+  .diagnosis-contact-panel{
+    min-height:0!important;
+    height:100%;
+  }
+
+  .diagnosis-direct-panel{
+    width:48%;
+    padding:48px 50px;
+  }
+
+  .diagnosis-direct-panel h2{
+    margin-top:18px;
+    font-size:clamp(48px,4.6vw,68px);
+  }
+
+  .diagnosis-direct-panel > p{
+    margin-top:20px;
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .diagnosis-direct-panel > .diagnosis-button{
+    margin-top:24px;
+  }
+
+  .diagnosis-direct-shortcuts{
+    margin-top:34px;
+  }
+
+  .diagnosis-direct-shortcuts a{
+    min-height:105px;
+    padding:0 14px;
+  }
+
+  .diagnosis-direct-shortcuts svg,
+  .diagnosis-contact-grid svg{
+    width:24px;
+    height:24px;
+    margin-bottom:10px;
+  }
+
+  .diagnosis-direct-shortcuts strong{
+    font-size:16px;
+  }
+
+  .diagnosis-direct-shortcuts span{
+    margin-top:5px;
+    font-size:10px;
+  }
+
+  .diagnosis-contact-panel{
+    padding:48px 52px;
+  }
+
+  .diagnosis-contact-head{
+    gap:58px;
+  }
+
+  .diagnosis-contact-head h2{
+    margin-top:18px;
+    font-size:clamp(48px,4.6vw,68px);
+  }
+
+  .diagnosis-contact-head > p{
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  .diagnosis-contact-grid{
+    margin-top:38px;
+    max-width:100%;
+  }
+
+  .diagnosis-contact-grid a{
+    min-height:138px;
+    padding:10px 18px;
+  }
+
+  .diagnosis-contact-grid h3{
+    font-size:21px;
+  }
+
+  .diagnosis-contact-grid p{
+    margin-top:8px;
+    font-size:11px;
+  }
+
+  .diagnosis-contact-actions{
+    margin-top:26px;
+  }
+}
+
+@media (max-width:560px){
+  .diagnosis-v2{
+    width:min(var(--n3-portal-shell-max,1240px),calc(100% - var(--n3-portal-gutter-mobile-total,28px)));
+  }
+}
