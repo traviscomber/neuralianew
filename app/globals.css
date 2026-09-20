@@ -598,19 +598,19 @@
 
 @keyframes n3ProductsParticleGlow{
   0%{
-    opacity:calc(var(--particle-opacity) * .62);
+    opacity:.22;
     box-shadow:
       0 0 3px rgba(32,231,223,.2),
       0 0 7px rgba(32,231,223,.1);
   }
   52%{
-    opacity:var(--particle-opacity);
+    opacity:.58;
     box-shadow:
       0 0 6px rgba(32,231,223,.46),
       0 0 14px rgba(32,231,223,.22);
   }
   100%{
-    opacity:calc(var(--particle-opacity) * .78);
+    opacity:.34;
     box-shadow:
       0 0 4px rgba(32,231,223,.3),
       0 0 10px rgba(32,231,223,.15);
