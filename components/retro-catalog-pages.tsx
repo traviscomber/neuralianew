@@ -143,17 +143,6 @@ export function ProductsPage({locale}:{locale:Locale}){
                 ? 'Convertimos problemas operacionales reales en productos reutilizables que conectan datos, documentos, flujos e IA. Cada producto ayuda a los equipos a entender qué está pasando, actuar más rápido y mantener el control.'
                 : 'We turn real operational problems into reusable products that connect data, documents, workflows and AI. Each product helps teams see what is happening, act faster and stay in control.'}
             </p>
-            <div className="products-hero-actions">
-              <Link className="retro-button" href={`/${locale}/${es ? 'proyectos' : 'projects'}`}>
-                {es ? 'Ver implementaciones' : 'View implementations'}
-              </Link>
-              <Link className="retro-button" href={`/${locale}/${es ? 'soluciones' : 'solutions'}`}>
-                {es ? 'Ver capacidades' : 'Explore capabilities'}
-              </Link>
-              <Link className="retro-button" href={`/${locale}/diagnostico`}>
-                {es ? 'Evaluar encaje' : 'Evaluate fit'}
-              </Link>
-            </div>
           </div>
 
           <div className="products-hero-ecosystem">

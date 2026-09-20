@@ -465,10 +465,72 @@
 
 /* Products hero — consolidated catalog introduction. */
 .products-catalog-page .products-hero{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
   min-height:640px!important;
   padding:154px 0 72px!important;
   background:#02090a!important;
   border:0!important;
+}
+
+.products-catalog-page .products-hero::before,
+.products-catalog-page .products-hero::after{
+  content:"";
+  position:absolute;
+  inset:-12%;
+  z-index:0;
+  pointer-events:none;
+  background-repeat:repeat;
+  will-change:transform,opacity,filter;
+}
+
+.products-catalog-page .products-hero::before{
+  opacity:.48;
+  background-image:
+    radial-gradient(circle,rgba(95,236,229,.28) 0 1px,transparent 1.45px),
+    radial-gradient(circle,rgba(83,199,195,.19) 0 .85px,transparent 1.25px),
+    radial-gradient(circle,rgba(126,255,247,.13) 0 .7px,transparent 1.08px),
+    radial-gradient(circle,rgba(62,171,168,.16) 0 .75px,transparent 1.1px);
+  background-size:
+    137px 173px,
+    211px 149px,
+    173px 239px,
+    263px 191px;
+  background-position:
+    19px 11px,
+    74px 52px,
+    131px 97px,
+    37px 128px;
+  filter:drop-shadow(0 0 4px rgba(32,231,223,.12));
+  animation:
+    n3ProductsStarsDriftA 24s linear infinite,
+    n3ProductsStarsPulseA 3.8s steps(8,end) infinite;
+}
+
+.products-catalog-page .products-hero::after{
+  opacity:.3;
+  background-image:
+    radial-gradient(circle,rgba(112,244,237,.2) 0 .9px,transparent 1.25px),
+    radial-gradient(circle,rgba(67,186,182,.14) 0 .65px,transparent 1px),
+    radial-gradient(circle,rgba(154,255,248,.1) 0 .55px,transparent .9px);
+  background-size:
+    181px 223px,
+    307px 211px,
+    251px 271px;
+  background-position:
+    43px 79px,
+    163px 21px,
+    91px 151px;
+  filter:drop-shadow(0 0 5px rgba(32,231,223,.1));
+  animation:
+    n3ProductsStarsDriftB 31s linear infinite reverse,
+    n3ProductsStarsPulseB 5.1s steps(10,end) -.9s infinite;
+}
+
+.products-catalog-page .products-hero-grid{
+  position:relative!important;
+  z-index:1!important;
 }
 
 .products-catalog-page .products-hero-grid{
@@ -492,13 +554,6 @@
 .products-catalog-page .products-hero-secondary > p{
   max-width:620px!important;
   margin:20px 0 0!important;
-}
-
-.products-catalog-page .products-hero-actions{
-  display:flex!important;
-  flex-wrap:wrap!important;
-  gap:12px!important;
-  margin-top:30px!important;
 }
 
 .products-catalog-page .products-hero-ecosystem{
@@ -527,6 +582,37 @@
 .products-catalog-page .products-hero .retro-button{
   min-height:42px!important;
   padding:0 22px!important;
+}
+
+@keyframes n3ProductsStarsDriftA{
+  0%{transform:translate3d(0,0,0) rotate(0.001deg)}
+  22%{transform:translate3d(14px,24px,0) rotate(.08deg)}
+  47%{transform:translate3d(-9px,51px,0) rotate(-.06deg)}
+  73%{transform:translate3d(18px,78px,0) rotate(.04deg)}
+  100%{transform:translate3d(-5px,112px,0) rotate(0.001deg)}
+}
+
+@keyframes n3ProductsStarsDriftB{
+  0%{transform:translate3d(0,0,0)}
+  28%{transform:translate3d(-16px,31px,0)}
+  54%{transform:translate3d(11px,64px,0)}
+  79%{transform:translate3d(-7px,93px,0)}
+  100%{transform:translate3d(13px,128px,0)}
+}
+
+@keyframes n3ProductsStarsPulseA{
+  0%,100%{opacity:.32;filter:drop-shadow(0 0 2px rgba(32,231,223,.07))}
+  19%{opacity:.46;filter:drop-shadow(0 0 5px rgba(32,231,223,.12))}
+  41%{opacity:.35;filter:drop-shadow(0 0 3px rgba(32,231,223,.08))}
+  63%{opacity:.5;filter:drop-shadow(0 0 6px rgba(32,231,223,.14))}
+  84%{opacity:.37;filter:drop-shadow(0 0 3px rgba(32,231,223,.09))}
+}
+
+@keyframes n3ProductsStarsPulseB{
+  0%,100%{opacity:.2;filter:drop-shadow(0 0 2px rgba(32,231,223,.05))}
+  24%{opacity:.31;filter:drop-shadow(0 0 4px rgba(32,231,223,.09))}
+  49%{opacity:.23;filter:drop-shadow(0 0 2px rgba(32,231,223,.06))}
+  72%{opacity:.34;filter:drop-shadow(0 0 5px rgba(32,231,223,.1))}
 }
 
 @media(max-width:900px){
@@ -561,7 +647,6 @@
     font-size:46px!important;
   }
 
-  .products-catalog-page .products-hero-actions,
   .products-catalog-page .products-hero-links{
     flex-direction:column!important;
     align-items:stretch!important;
@@ -569,6 +654,14 @@
 
   .products-catalog-page .products-hero .retro-button{
     width:100%!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .products-catalog-page .products-hero::before,
+  .products-catalog-page .products-hero::after{
+    animation:none!important;
+    transform:none!important;
   }
 }
 
