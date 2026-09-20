@@ -115,6 +115,8 @@ html[lang='es'] #expertise header::after{content:'EXPERTISE PARA UN MAÑANA MÁS
   opacity:.72!important;
   mix-blend-mode:normal!important;
   pointer-events:auto!important;
+  transform:scale(.5)!important;
+  transform-origin:center center!important;
 }
 #expertise .section03-card h3,
 #expertise .section03-card p,
