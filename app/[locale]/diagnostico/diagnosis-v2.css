@@ -16,9 +16,17 @@
 .diagnosis-v2 *::before,
 .diagnosis-v2 *::after{box-sizing:border-box}
 
-.diagnosis-v2 button,
 .diagnosis-v2 input,
 .diagnosis-v2 textarea{font:inherit}
+
+.diagnosis-v2 .retro-button{
+  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
+  font-size:12px!important;
+  font-weight:400!important;
+  line-height:1!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+}
 
 .diagnosis-section{
   position:relative;
@@ -350,6 +358,10 @@
 }
 
 .diagnosis-option-list button{
+  font-family:var(--font-montserrat),Montserrat,sans-serif;
+  font-size:14px;
+  font-weight:300;
+  line-height:1.45;
   min-height:56px;
   width:100%;
   display:grid;
