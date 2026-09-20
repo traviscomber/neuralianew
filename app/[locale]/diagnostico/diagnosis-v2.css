@@ -1233,3 +1233,185 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     margin-right:0;
   }
 }
+
+
+/* Diagnosis V2 final 16:9 composition lock. */
+@media (min-width:1101px){
+  body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
+    width:min(var(--n3-portal-shell-max,1240px),calc(100% - var(--n3-portal-gutter-total,40px)))!important;
+    max-width:var(--n3-portal-shell-max,1240px)!important;
+    aspect-ratio:16 / 9!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    overflow:hidden!important;
+    background:#020707!important;
+  }
+
+  .diagnosis-console-section{
+    display:grid!important;
+    grid-template-columns:minmax(285px,.42fr) minmax(0,1fr)!important;
+    grid-template-rows:1fr!important;
+    gap:42px!important;
+    align-items:center!important;
+    padding:48px!important;
+  }
+
+  .diagnosis-console-intro{
+    grid-column:1!important;
+    grid-row:1!important;
+    display:block!important;
+    align-self:center!important;
+    max-width:310px!important;
+    margin:0!important;
+  }
+
+  .diagnosis-console-intro > div{
+    display:block!important;
+  }
+
+  .diagnosis-console-intro h2{
+    max-width:300px!important;
+    margin-top:18px!important;
+    font-size:54px!important;
+    line-height:.94!important;
+  }
+
+  .diagnosis-console-intro > p{
+    max-width:300px!important;
+    margin-top:24px!important;
+    padding:0!important;
+    font-size:13px!important;
+    line-height:1.62!important;
+  }
+
+  .diagnosis-console-frame{
+    grid-column:2!important;
+    grid-row:1!important;
+    align-self:center!important;
+    width:100%!important;
+    height:590px!important;
+    min-height:590px!important;
+    margin:0!important;
+    overflow:hidden!important;
+  }
+
+  .diagnosis-console-state{
+    height:590px!important;
+    min-height:590px!important;
+    padding:24px 28px!important;
+    overflow:hidden!important;
+  }
+
+  .diagnosis-console-top{
+    font-size:9px!important;
+  }
+
+  .diagnosis-progress{
+    margin-top:18px!important;
+    gap:8px!important;
+  }
+
+  .diagnosis-question{
+    width:100%!important;
+    margin:auto 0!important;
+    padding:18px 0 12px!important;
+  }
+
+  .diagnosis-question-label{
+    font-size:9px!important;
+  }
+
+  .diagnosis-question h3{
+    margin-top:12px!important;
+    font-size:36px!important;
+    line-height:1!important;
+  }
+
+  .diagnosis-question > p{
+    margin-top:8px!important;
+    font-size:11px!important;
+    line-height:1.5!important;
+  }
+
+  .diagnosis-option-list{
+    margin-top:16px!important;
+    gap:6px!important;
+  }
+
+  .diagnosis-option-list button{
+    min-height:38px!important;
+    padding:7px 12px!important;
+    grid-template-columns:18px 1fr!important;
+    gap:10px!important;
+    font-size:12px!important;
+  }
+
+  .diagnosis-option-list i{
+    width:12px!important;
+    height:12px!important;
+  }
+
+  .diagnosis-question textarea{
+    min-height:190px!important;
+    max-height:220px!important;
+    margin-top:16px!important;
+    padding:12px!important;
+    font-size:13px!important;
+  }
+
+  .diagnosis-console-actions{
+    padding-top:12px!important;
+  }
+
+  .diagnosis-read-state h3,
+  .diagnosis-review-state h3,
+  .diagnosis-confirmation h3{
+    font-size:40px!important;
+  }
+
+  .diagnosis-read-note,
+  .diagnosis-confirmation > p{
+    margin-top:12px!important;
+    font-size:12px!important;
+    line-height:1.55!important;
+  }
+
+  .diagnosis-read-grid{
+    margin-top:18px!important;
+  }
+
+  .diagnosis-read-grid > div{
+    min-height:76px!important;
+    padding:13px!important;
+  }
+
+  .diagnosis-read-grid dd{
+    margin-top:7px!important;
+    font-size:12px!important;
+    line-height:1.45!important;
+  }
+
+  .diagnosis-review-grid{
+    margin-top:18px!important;
+    gap:10px!important;
+  }
+
+  .diagnosis-review-grid input{
+    min-height:38px!important;
+    margin-top:7px!important;
+  }
+
+  .diagnosis-review-grid textarea{
+    max-height:88px!important;
+    margin-top:7px!important;
+    padding:10px!important;
+  }
+
+  .diagnosis-upload input{
+    min-height:38px!important;
+    padding:7px!important;
+  }
+}
