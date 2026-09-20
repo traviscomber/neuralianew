@@ -197,8 +197,8 @@ export function ProductsPage({locale}:{locale:Locale}){
                     <span>{es ? 'Producto' : 'Product'}</span>
                   </div>
                   <h2>{p.name}</h2>
-                  <p className="product-description">{d.desc}</p>
                   <dl>
+                    <div><dt>{es ? 'Soluciones' : 'Solutions'}</dt><dd>{d.desc}</dd></div>
                     <div><dt>{es ? 'Para quién' : 'For whom'}</dt><dd>{d.forWhom}</dd></div>
                     <div>
                       <dt>{es ? 'Módulos' : 'Modules'}</dt>
