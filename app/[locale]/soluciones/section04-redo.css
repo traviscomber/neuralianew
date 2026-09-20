@@ -152,6 +152,11 @@ main > section[class*="capabilitiesStage"] [class*="capabilityList"]:before{
   display:none!important;
 }
 
+main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
+  content:none;
+  pointer-events:none;
+}
+
 main > section[class*="capabilitiesStage"] [class*="capabilityRow"]{
   position:relative!important;
   z-index:1!important;
@@ -387,6 +392,31 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
     box-sizing:border-box!important;
   }
 
+
+  main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
+    content:"";
+    position:absolute;
+    z-index:3;
+    top:36px;
+    left:9px;
+    width:2px;
+    height:64px;
+    transform:translateX(-1px);
+    border-radius:999px;
+    background:linear-gradient(180deg,
+      rgba(100,255,248,0) 0%,
+      rgba(100,255,248,.18) 16%,
+      rgba(112,255,249,.86) 48%,
+      rgba(220,255,253,1) 58%,
+      rgba(64,246,238,.5) 74%,
+      rgba(64,246,238,0) 100%);
+    box-shadow:
+      0 0 5px rgba(64,246,238,.55),
+      0 0 12px rgba(64,246,238,.26);
+    opacity:0;
+    animation:n3CapabilityRailFlow 18s linear infinite;
+  }
+
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:first-child{
     width:min(100%,600px)!important;
   }
@@ -417,6 +447,23 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > div:nth-child(2){
     width:calc(100% + 80px)!important;
     margin-left:-80px!important;
+  }
+}
+
+@keyframes n3CapabilityRailFlow{
+  0%{
+    top:36px;
+    opacity:0;
+  }
+  5%{
+    opacity:.9;
+  }
+  92%{
+    opacity:.9;
+  }
+  100%{
+    top:424px;
+    opacity:0;
   }
 }
 
@@ -487,7 +534,12 @@ main > section[class*="capabilitiesStage"] [class*="capabilityRow"]:nth-child(5)
 @media(prefers-reduced-motion:reduce){
   main > section[class*="capabilitiesStage"] [class*="capabilityRow"],
   main > section[class*="capabilitiesStage"] [class*="capabilityNum"],
-  main > section[class*="capabilitiesStage"] [class*="capabilityNum"]:after{
+  main > section[class*="capabilitiesStage"] [class*="capabilityNum"]:after,
+  main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
     animation:none!important;
+  }
+
+  main > section[class*="capabilitiesStage"] [class*="capabilityList"]:after{
+    display:none!important;
   }
 }
