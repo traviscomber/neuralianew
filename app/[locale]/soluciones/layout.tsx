@@ -5,6 +5,7 @@ import "./section03.css"
 import "./section04-redo.css"
 import "./section04-spacing.css"
 import "./section05-approved.css"
+import "./section-labels.css"
 
 export default function SolutionsLayout({ children }: { children: ReactNode }) {
   return (

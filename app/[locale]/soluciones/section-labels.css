@@ -1,0 +1,51 @@
+/* Canonical Solutions section labels.
+   Mirrors the landing-page eyebrow treatment: one typographic system,
+   no decorative rules, and a consistent 22px gap before the section title. */
+
+main[class*="page"] > section [class*="eyebrow"],
+#expertise .section03-eyebrow{
+  position:static!important;
+  top:auto!important;
+  left:auto!important;
+  width:auto!important;
+  margin:0!important;
+  display:block!important;
+  gap:0!important;
+  color:var(--n3-teal-soft,#a8d9d8)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  line-height:1.55!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+}
+
+main[class*="page"] > section [class*="eyebrow"]::after,
+#expertise .section03-eyebrow::after{
+  content:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  background:none!important;
+}
+
+#expertise header::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Section 04 previously positioned its eyebrow outside normal flow.
+   Normalize only the left header so it follows the same landing-page rhythm. */
+main > section[aria-labelledby="capabilities-title"] header[class*="sectionHead"]{
+  padding:0!important;
+}
+
+main > section:first-of-type [class*="heroCopy"] > h1,
+main > section[aria-labelledby="how-we-help-title"] h2,
+#expertise header h2,
+main > section[aria-labelledby="capabilities-title"] h2,
+main > section[aria-labelledby="domains-title"] h2,
+main > section[aria-labelledby="combine-title"] h2,
+main > section[aria-labelledby="expertise-cta-title"] h2{
+  margin-top:22px!important;
+}
