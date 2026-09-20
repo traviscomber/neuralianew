@@ -114,8 +114,7 @@
 }
 
 .diagnosis-hero-art::after,
-.diagnosis-direct-art::after,
-.diagnosis-contact-art::after{
+.diagnosis-direct-art::after{
   content:"";
   position:absolute;
   inset:0;
@@ -124,8 +123,7 @@
 }
 
 .diagnosis-hero-art img,
-.diagnosis-direct-art img,
-.diagnosis-contact-art img{
+.diagnosis-direct-art img{
   object-fit:cover;
   filter:saturate(.55) contrast(1.06) brightness(.64);
 }
@@ -623,8 +621,7 @@
   min-height:clamp(720px,56.25vw,1080px);
 }
 
-.diagnosis-direct-art,
-.diagnosis-contact-art{
+.diagnosis-direct-art{
   position:absolute;
   inset:0;
   z-index:0;
@@ -708,11 +705,6 @@
   color:var(--diag-muted);
   font-size:11px;
   line-height:1.5;
-}
-
-.diagnosis-contact-art img{
-  object-position:center center;
-  filter:saturate(.38) contrast(1.08) brightness(.46);
 }
 
 .diagnosis-contact-panel{
