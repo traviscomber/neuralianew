@@ -901,6 +901,17 @@
 }
 
 
+/* Diagnosis route uses the landing canvas: full-bleed solid black outside the 1240px compositions. */
+body.portal-dark-page:has(main.diagnosis-v2),
+body.portal-dark-page:has(main.diagnosis-v2) #__next,
+body.portal-dark-page main.diagnosis-v2{
+  background:#020707!important;
+}
+
+body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
+  background-color:#020707!important;
+}
+
 /* Diagnosis V2 geometry correction.
    Match the canonical landing-page 1240px shell and keep every desktop composition 16:9. */
 .diagnosis-v2{
