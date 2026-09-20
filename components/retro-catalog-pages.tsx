@@ -209,12 +209,6 @@ export function ProductsPage({locale}:{locale:Locale}){
                       </dd>
                     </div>
                   </dl>
-                  <div className="product-status"><i aria-hidden/>{d.status}</div>
-                  {p.id !== 'to-be-continued' && (
-                    <Link className="catalog-link" href={`/${locale}/diagnostico#diagnosis-assistant`}>
-                      {es ? 'Evaluar este producto' : 'Evaluate this product'} →
-                    </Link>
-                  )}
                 </div>
                 <div className="catalog-image">
                   <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover" style={{objectPosition:'top center'}}/>
