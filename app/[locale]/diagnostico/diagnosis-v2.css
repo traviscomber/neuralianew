@@ -224,6 +224,38 @@
   background:#03090a;
 }
 
+.diagnosis-console-particles{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.diagnosis-console-particles span{
+  position:absolute;
+  left:var(--x);
+  top:var(--y);
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  background:rgba(112,255,247,.9);
+  opacity:var(--particle-opacity);
+  box-shadow:
+    0 0 4px rgba(32,231,223,.28),
+    0 0 10px rgba(32,231,223,.12);
+  animation:
+    n3ProductsParticleDrift var(--duration) ease-in-out var(--delay) infinite,
+    n3ProductsParticleGlow var(--pulse) ease-in-out var(--delay) infinite alternate;
+  will-change:transform,opacity,box-shadow;
+}
+
+.diagnosis-console-intro,
+.diagnosis-console-frame{
+  position:relative;
+  z-index:1;
+}
+
 .diagnosis-console-section::before{
   content:"";
   position:absolute;
@@ -748,6 +780,13 @@
 
 .diagnosis-mobile-whatsapp{
   display:none;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .diagnosis-console-particles span{
+    animation:none!important;
+    transform:none!important;
+  }
 }
 
 @media (max-width:1100px){
