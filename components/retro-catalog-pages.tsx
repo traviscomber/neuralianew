@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Locale } from '@/lib/get-locale'
+import { CatalogProjectFocus } from '@/components/catalog-project-focus'
 
 // ─── Projects ────────────────────────────────────────────────────────────────
 const projects = [
@@ -81,18 +82,18 @@ export function ProjectsPage({locale}:{locale:Locale}){
   const es = locale === 'es'
   const data = projectData[locale]
   return (
-    <main className="retro-page catalog-page">
+    <main className="retro-page catalog-page projects-catalog-page">
       <Header
         eyebrow={es ? 'Proyectos' : 'Projects'}
         title={es ? 'Proyectos que convierten complejidad en sistemas.' : 'Projects that turn complexity into systems.'}
         body={es ? 'Implementaciones reales de IA, automatización y software construidas alrededor de operaciones, personas, documentos y decisiones.' : 'Real AI, automation and software implementations built around operations, people, documents and decisions.'}
       />
-      <section className="retro-light catalog-section" aria-label={es ? 'Proyectos de N3uralia' : 'N3uralia projects'}>
+      <section className="catalog-section projects-catalog-section" aria-label={es ? 'Proyectos de N3uralia' : 'N3uralia projects'}>
         <div className="retro-shell catalog-list">
           {projects.map((p,i) => {
             const d = data[i]
             return (
-              <article id={p.id} key={p.id} className="catalog-project">
+              <CatalogProjectFocus id={p.id} key={p.id}>
                 <div className="catalog-number">{String(i+1).padStart(2,'0')} —</div>
                 <div className="catalog-copy">
                   <small>{d.sector}</small>
@@ -110,7 +111,7 @@ export function ProjectsPage({locale}:{locale:Locale}){
                 <div className="catalog-image">
                   <Image src={p.img} alt={`${p.name} interface`} fill sizes="(min-width:900px) 48vw, 100vw" className="object-cover" style={{objectPosition:'top center'}}/>
                 </div>
-              </article>
+              </CatalogProjectFocus>
             )
           })}
         </div>
