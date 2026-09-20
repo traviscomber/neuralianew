@@ -3,12 +3,19 @@ import { escapeHtml, sendResendEmail } from "@/lib/resend-api"
 import { z } from "zod"
 import { checkRateLimit } from "@/lib/rate-limit"
 
+const attachmentSchema = z.object({
+  filename: z.string().trim().min(1).max(180),
+  content: z.string().min(1).max(3_000_000),
+  contentType: z.string().trim().max(120).optional(),
+})
+
 const requestSchema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.string().email().max(254),
   company: z.string().trim().max(150).optional(),
-  message: z.string().trim().min(10).max(4000),
+  message: z.string().trim().min(10).max(8000),
   whatsapp: z.string().trim().max(20).optional(),
+  attachment: attachmentSchema.optional(),
   website: z.string().max(0).optional(),
 })
 
@@ -194,7 +201,7 @@ export async function POST(request: NextRequest) {
     }
 
     const contentLength = Number(request.headers.get("content-length") || "0")
-    if (contentLength > 20_000) {
+    if (contentLength > 3_500_000) {
       return NextResponse.json({ success: false, error: "Request too large" }, { status: 413 })
     }
 
@@ -219,7 +226,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, company, message, whatsapp } = parsed.data
+    const { name, email, company, message, whatsapp, attachment } = parsed.data
 
     const safeName = escapeHtml(String(name))
     const safeEmail = escapeHtml(String(email))
@@ -232,6 +239,9 @@ export async function POST(request: NextRequest) {
     const adminRecipient = process.env["CONTACT_RECIPIENT_EMAIL"] || "n3uralia@gmail.com"
 
     const adminResult = await sendResendEmail({
+      attachments: attachment
+        ? [{ filename: attachment.filename.replace(/[^a-zA-Z0-9._ -]/g, "_"), content: attachment.content }]
+        : undefined,
       from: `${fromName} <${fromEmail}>`,
       html: buildAdminEmailHtml({
         company: safeCompany,
