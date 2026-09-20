@@ -53,52 +53,6 @@
   color:var(--diag-muted);
 }
 
-.diagnosis-button{
-  min-height:48px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:18px;
-  padding:0 24px;
-  border:1px solid rgba(121,201,198,.5);
-  background:#050b0c;
-  color:var(--diag-warm);
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:10px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  transition:background .22s ease,color .22s ease,border-color .22s ease,box-shadow .22s ease;
-  cursor:pointer;
-  text-decoration:none;
-}
-
-.diagnosis-button:hover,
-.diagnosis-button:focus-visible{
-  border-color:var(--diag-teal);
-  background:#071718;
-  box-shadow:0 0 24px rgba(46,219,214,.09);
-  outline:none;
-}
-
-.diagnosis-button-primary{
-  background:var(--diag-teal-soft);
-  color:#031011;
-  border-color:var(--diag-teal-soft);
-}
-
-.diagnosis-button-primary:hover,
-.diagnosis-button-primary:focus-visible{
-  background:#93d5d2;
-  color:#020707;
-  border-color:#93d5d2;
-  box-shadow:0 0 26px rgba(46,219,214,.16);
-}
-
-.diagnosis-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-}
-
 .diagnosis-actions{
   display:flex;
   flex-wrap:wrap;
@@ -673,7 +627,7 @@
   line-height:1.75;
 }
 
-.diagnosis-direct-panel > .diagnosis-button{
+.diagnosis-direct-panel > .retro-button{
   margin-top:34px;
   align-self:flex-start;
 }
@@ -809,7 +763,7 @@
 
 @media (max-width:720px){
   .diagnosis-kicker{font-size:9px}
-  .diagnosis-button{width:100%;min-height:54px}
+  .diagnosis-v2 .retro-button{width:100%;min-height:46px}
   .diagnosis-actions{width:100%;flex-direction:column}
 
   .diagnosis-hero-copy{
@@ -1148,7 +1102,7 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     line-height:1.6;
   }
 
-  .diagnosis-direct-panel > .diagnosis-button{
+  .diagnosis-direct-panel > .retro-button{
     margin-top:24px;
   }
 
