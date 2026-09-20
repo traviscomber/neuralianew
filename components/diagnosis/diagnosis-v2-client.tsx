@@ -640,7 +640,14 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           </div>
         </div>
         <div className="diagnosis-hero-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/hero-art.webp" alt="" fill priority sizes="(min-width:1101px) 720px, 100vw" />
+          <Image
+            src="/n3uralia-brand/l1hero.jpg"
+            alt=""
+            fill
+            priority
+            quality={95}
+            sizes="(min-width:1101px) 720px, 100vw"
+          />
         </div>
       </section>
 
