@@ -36,10 +36,10 @@ const WHATSAPP_PHONE = "56993826127"
 const WHATSAPP_BASE = `https://wa.me/${WHATSAPP_PHONE}`
 
 const visualAssets = [
-  "/images/solutions/section03/operational-intelligence.png",
-  "/images/solutions/section03/internal-platforms.png",
-  "/images/solutions/section03/workflow-automation.png",
-  "/images/solutions/section03/governance-human-loop.png",
+  "/images/diagnosis-v2/give-pattern.webp",
+  "/images/diagnosis-v2/give-layer.webp",
+  "/images/diagnosis-v2/give-validation.webp",
+  "/images/diagnosis-v2/give-review.webp",
 ] as const
 
 const copy = {
@@ -641,7 +641,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           </div>
         </div>
         <div className="diagnosis-hero-art" aria-hidden="true">
-          <Image src="/n3uralia-retro/hero-operations.webp" alt="" fill priority sizes="60vw" />
+          <Image src="/images/diagnosis-v2/hero-art.webp" alt="" fill priority sizes="60vw" />
         </div>
       </section>
 
@@ -860,7 +860,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
 
       <section className="diagnosis-section diagnosis-direct" aria-labelledby="diagnosis-direct-title">
         <div className="diagnosis-direct-art" aria-hidden="true">
-          <Image src="/n3uralia-retro/operations-team.webp" alt="" fill sizes="100vw" />
+          <Image src="/images/diagnosis-v2/manager-art.webp" alt="" fill sizes="100vw" />
         </div>
         <div className="diagnosis-direct-panel">
           <span className="diagnosis-kicker">{t.directLabel}</span>
@@ -895,7 +895,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
 
       <section className="diagnosis-section diagnosis-contact" aria-labelledby="diagnosis-contact-title">
         <div className="diagnosis-contact-art" aria-hidden="true">
-          <Image src="/n3uralia-retro/final-command.webp" alt="" fill sizes="100vw" />
+          <Image src="/images/diagnosis-v2/contact-art.webp" alt="" fill sizes="100vw" />
         </div>
         <div className="diagnosis-contact-panel">
           <div className="diagnosis-contact-head">
