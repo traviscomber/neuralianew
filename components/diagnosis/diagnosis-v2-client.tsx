@@ -641,11 +641,11 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
         </div>
         <div className="diagnosis-hero-art" aria-hidden="true">
           <Image
-            src="/n3uralia-brand/l1hero.jpg"
+            src="/api/diagnosis-hero"
             alt=""
             fill
             priority
-            quality={95}
+            unoptimized
             sizes="(min-width:1101px) 720px, 100vw"
           />
         </div>
