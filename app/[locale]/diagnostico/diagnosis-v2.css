@@ -1462,3 +1462,24 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     padding-right:14px!important;
   }
 }
+
+
+/* Diagnosis V2 hero exact 16:9 lock. */
+@media (min-width:1101px){
+  body.portal-dark-page main.diagnosis-v2 > section.diagnosis-hero{
+    aspect-ratio:16 / 9!important;
+    height:min(697.5px,calc((100vw - var(--n3-portal-gutter-total,40px)) * .5625))!important;
+    min-height:min(697.5px,calc((100vw - var(--n3-portal-gutter-total,40px)) * .5625))!important;
+    max-height:min(697.5px,calc((100vw - var(--n3-portal-gutter-total,40px)) * .5625))!important;
+    grid-template-rows:minmax(0,1fr)!important;
+    align-items:stretch!important;
+    overflow:hidden!important;
+  }
+
+  .diagnosis-hero-copy,
+  .diagnosis-hero-art{
+    min-height:0!important;
+    height:100%!important;
+    max-height:100%!important;
+  }
+}
