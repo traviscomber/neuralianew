@@ -267,7 +267,7 @@
   width:min(1180px,92vw);
   min-height:600px;
   margin:0 auto;
-  border:1px solid rgba(121,201,198,.52);
+  border:0;
   background:#071011;
   box-shadow:
     0 0 34px rgba(46,219,214,.08),
@@ -275,15 +275,7 @@
 }
 
 .diagnosis-console-frame::after{
-  content:"";
-  position:absolute;
-  pointer-events:none;
-  width:8px;
-  height:8px;
-  top:-4px;
-  right:12%;
-  background:var(--diag-teal);
-  box-shadow:0 0 18px rgba(46,219,214,.55);
+  content:none;
 }
 
 .diagnosis-console-state{
@@ -1231,7 +1223,7 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     grid-column:1!important;
     grid-row:1!important;
     display:block!important;
-    align-self:center!important;
+    align-self:start!important;
     max-width:310px!important;
     margin:0!important;
   }
@@ -1258,7 +1250,7 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
   .diagnosis-console-frame{
     grid-column:2!important;
     grid-row:1!important;
-    align-self:center!important;
+    align-self:start!important;
     width:100%!important;
     height:590px!important;
     min-height:590px!important;
