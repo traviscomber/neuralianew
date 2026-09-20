@@ -40,19 +40,12 @@ main > section[class*="capabilitiesStage"] header[class*="sectionHead"]{
   display:flex!important;
   flex-direction:column!important;
   margin:0!important;
-  padding:104px 0 0!important;
+  padding:52px 0 0!important;
 }
 
 main > section[class*="capabilitiesStage"] header[class*="sectionHead"]:before{
-  content:"N3URALIA";
-  position:absolute;
-  top:58px;
-  left:0;
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:13px;
-  line-height:1;
-  letter-spacing:.18em;
-  color:#dce6e5;
+  content:none!important;
+  display:none!important;
 }
 
 main > section[class*="capabilitiesStage"] [class*="eyebrow"]{
@@ -91,21 +84,10 @@ main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]{
   color:#edf4f3!important;
 }
 
-main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]:before{
-  content:"Capabilities";
-  display:block;
-  margin:0 0 30px!important;
-  font-family:var(--font-rajdhani),Rajdhani,sans-serif!important;
-  font-size:16px!important;
-  font-weight:400!important;
-  line-height:1!important;
-  letter-spacing:.015em!important;
-  text-transform:none!important;
-  color:#b8c7c6!important;
-}
-
+main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]:before,
 html[lang="es"] main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]:before{
-  content:"Capacidades";
+  content:none!important;
+  display:none!important;
 }
 
 main > section[class*="capabilitiesStage"] p[class*="sectionIntro"]{
@@ -274,7 +256,7 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   }
 
   main > section[class*="capabilitiesStage"] header[class*="sectionHead"]{
-    padding:98px 0 0!important;
+    padding:48px 0 0!important;
   }
 
   main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"],
@@ -319,7 +301,7 @@ main > section[class*="capabilitiesStage"] a[class*="cta"]{
   }
 
   main > section[class*="capabilitiesStage"] header[class*="sectionHead"]{
-    padding-top:88px!important;
+    padding-top:44px!important;
   }
 
   main > section[class*="capabilitiesStage"] h2[class*="sectionTitle"]{
