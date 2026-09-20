@@ -891,21 +891,24 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
       </section>
 
       <section className="diagnosis-section diagnosis-next" aria-labelledby="diagnosis-next-title">
-        <header className="diagnosis-split-heading">
-          <div>
-            <span className="diagnosis-kicker">{t.nextLabel}</span>
-            <h2 id="diagnosis-next-title">{t.nextTitle}</h2>
-          </div>
+        <div className="diagnosis-next-copy">
+          <span className="diagnosis-kicker">{t.nextLabel}</span>
+          <h2 id="diagnosis-next-title">{t.nextTitle}</h2>
           <p>{t.nextBody}</p>
-        </header>
-        <div className="diagnosis-next-grid">
-          {t.next.map((item, index) => (
-            <article key={item[0]}>
-              <span>0{index + 1}</span>
-              <h3>{item[0]}</h3>
-              <p>{item[1]}</p>
-            </article>
-          ))}
+        </div>
+
+        <div className="diagnosis-next-nodes">
+          <div className="diagnosis-next-list">
+            {t.next.map((item) => (
+              <article key={item[0]} className="diagnosis-next-node">
+                <span className="diagnosis-next-dot" aria-hidden="true" />
+                <div>
+                  <h3>{item[0]}</h3>
+                  <p>{item[1]}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
