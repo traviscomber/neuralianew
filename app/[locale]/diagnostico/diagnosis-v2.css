@@ -1524,12 +1524,12 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
     display:grid!important;
     grid-template-columns:minmax(0,.78fr) minmax(420px,.72fr)!important;
     gap:clamp(68px,8vw,120px)!important;
-    align-items:center!important;
+    align-items:start!important;
     padding:48px 0!important;
   }
 
   .diagnosis-next-copy{
-    align-self:center;
+    align-self:start;
     max-width:420px;
   }
 
@@ -1553,7 +1553,7 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
   }
 
   .diagnosis-next-nodes{
-    align-self:center;
+    align-self:start;
     width:100%;
   }
 
