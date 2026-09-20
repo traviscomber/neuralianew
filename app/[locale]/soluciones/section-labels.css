@@ -49,3 +49,9 @@ main > section[aria-labelledby="combine-title"] h2,
 main > section[aria-labelledby="expertise-cta-title"] h2{
   margin-top:22px!important;
 }
+
+/* Section 04 needs a little more breathing room because its title begins with a tall
+   mixed-case wordform; keep the label styling identical and only increase the gap. */
+main > section[aria-labelledby="capabilities-title"] h2{
+  margin-top:34px!important;
+}
