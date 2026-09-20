@@ -134,19 +134,14 @@ export function ProductsPage({locale}:{locale:Locale}){
           <div className="products-hero-primary">
             <small>{es ? 'PRODUCTOS' : 'PRODUCTS'}</small>
             <h1>{es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}</h1>
-            <p>
-              {es
-                ? 'Productos construidos desde problemas operacionales reales para conectar documentos, procesos, datos, decisiones y agentes.'
-                : 'Products built from real operational problems to connect documents, processes, data, decisions and agents.'}
-            </p>
           </div>
 
           <div className="products-hero-secondary">
             <small>{es ? 'SISTEMAS REUTILIZABLES' : 'REUSABLE SYSTEMS'}</small>
             <p>
               {es
-                ? 'Cada producto concentra capacidades reutilizables desarrolladas alrededor de necesidades operacionales concretas: cumplimiento documental, minería, inteligencia visual, agentes especializados y automatización de flujos.'
-                : 'Each product concentrates reusable capabilities developed around concrete operational needs: document compliance, mining operations, visual intelligence, specialized agents and workflow automation.'}
+                ? 'Convertimos problemas operacionales reales en productos reutilizables que conectan datos, documentos, flujos e IA. Cada producto ayuda a los equipos a entender qué está pasando, actuar más rápido y mantener el control.'
+                : 'We turn real operational problems into reusable products that connect data, documents, workflows and AI. Each product helps teams see what is happening, act faster and stay in control.'}
             </p>
             <div className="products-hero-actions">
               <Link className="retro-button" href={`/${locale}/${es ? 'proyectos' : 'projects'}`}>
