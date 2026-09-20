@@ -724,7 +724,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
                   {questionIndex > 0 ? (
                     <button type="button" className="diagnosis-text-action" onClick={previousQuestion}>{t.back}</button>
                   ) : null}
-                  <a className="diagnosis-text-action" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">{t.manager}</a>
+                  <a className="retro-button" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">{t.manager}</a>
                 </div>
                 <button type="button" className="retro-button retro-button-primary" onClick={nextQuestion}>
                   {questionIndex === t.questions.length - 1 ? t.generate : t.continue}
@@ -749,7 +749,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
               <div className="diagnosis-console-actions diagnosis-read-actions">
                 <div>
                   <button type="button" className="diagnosis-text-action" onClick={() => { setConsoleState("questions"); setQuestionIndex(0) }}>{t.edit}</button>
-                  <a className="diagnosis-text-action" href={diagnosisWhatsapp(locale, answers, read)} target="_blank" rel="noopener noreferrer">{t.viaWhatsapp}</a>
+                  <a className="retro-button" href={diagnosisWhatsapp(locale, answers, read)} target="_blank" rel="noopener noreferrer">{t.viaWhatsapp}</a>
                 </div>
                 <button type="button" className="retro-button retro-button-primary" onClick={() => setConsoleState("review")}>
                   {t.sendReview}
