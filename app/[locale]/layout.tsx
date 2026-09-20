@@ -18,12 +18,12 @@ export async function generateMetadata(props: LocaleLayoutProps): Promise<Metada
   const params = await props.params
   const locale = isValidLocale(params.locale) ? params.locale : DEFAULT_LOCALE
   const titles = {
-    es: 'N3uralia | IA y software para operaciones reales',
-    en: 'N3uralia | AI and software for real operations',
+    es: 'N3uralia | Sistemas operativos verticales con IA',
+    en: 'N3uralia | AI-native vertical operating systems',
   }
   const descriptions = {
-    es: 'Sistemas de IA, automatización, reconocimiento y software en producción para operaciones en Chile y LATAM.',
-    en: 'Production AI systems, automation, recognition and software for operations in Chile and Latin America.',
+    es: 'Sistemas operativos verticales con IA que conectan datos, flujos, software, reconocimiento y control humano para operaciones reales.',
+    en: 'AI-native vertical operating systems connecting data, workflows, software, recognition and human control for real-world operations.',
   }
 
   return {

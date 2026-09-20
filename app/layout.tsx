@@ -18,7 +18,7 @@ import { absoluteUrl } from "@/lib/site"
 const montserrat = Montserrat({ subsets: ["latin"], display: "swap", preload: true, variable: "--font-montserrat", weight: ["300", "400", "500"] })
 export const metadata: Metadata = {
   metadataBase: new URL(absoluteUrl("/")), title: "N3uralia",
-  description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.",
+  description: "AI-native vertical operating systems for real-world industries, connecting data, workflows, software, recognition, automation and human control.",
   authors: [{ name: "N3uralia", url: absoluteUrl("/") }], creator: "N3uralia",
   manifest: "/site.webmanifest",
   icons: {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: [{ url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" }],
   },
-  openGraph: { type: "website", siteName: "N3uralia", title: "N3uralia", description: "Production AI systems, agentic workflows, and software automation for teams in Chile and LATAM.", images: [{ url: absoluteUrl("/og-image.png"), width: 1200, height: 630, alt: "N3uralia", type: "image/png" }] },
+  openGraph: { type: "website", siteName: "N3uralia", title: "N3uralia", description: "AI-native vertical operating systems for real-world industries, connecting data, workflows, software, recognition, automation and human control.", images: [{ url: absoluteUrl("/og-image.png"), width: 1200, height: 630, alt: "N3uralia", type: "image/png" }] },
   twitter: { card: "summary_large_image", creator: "@n3uralia", site: "@n3uralia", images: [absoluteUrl("/og-image.png")] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   referrer: "strict-origin-when-cross-origin", category: "technology",
