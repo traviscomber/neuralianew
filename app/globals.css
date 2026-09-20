@@ -376,8 +376,13 @@
   text-transform:uppercase!important;
 }
 
-.products-catalog-section .product-description{
+.products-catalog-section .catalog-copy h2{
   margin:22px 0 20px!important;
+  color:#f1f6f5!important;
+}
+
+.products-catalog-section .product-description{
+  margin:0 0 20px!important;
   color:#9aacaf!important;
   font-size:12px!important;
   line-height:1.65!important;
