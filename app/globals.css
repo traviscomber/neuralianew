@@ -217,6 +217,84 @@
 @media(max-width:900px){.catalog-project{grid-template-columns:50px 1fr}.catalog-image{grid-column:1/-1}.catalog-products{grid-template-columns:1fr}}
 @media(max-width:560px){.catalog-project{grid-template-columns:1fr}.catalog-copy dl>div{grid-template-columns:1fr}.catalog-product{padding:24px}.catalog-hero{padding-top:130px}}
 
+/* Projects catalog — Section 02 color system with viewport-center focus. */
+.projects-catalog-page,
+.projects-catalog-page .catalog-hero,
+.projects-catalog-section{
+  background:#02090a!important;
+  color:#e8f0f0!important;
+}
+
+.projects-catalog-section{
+  border-top:0!important;
+  border-bottom:1px solid rgba(69,209,207,.14)!important;
+}
+
+.projects-catalog-section .catalog-list{
+  background:#02090a!important;
+}
+
+.projects-catalog-section .catalog-project{
+  background:#02090a!important;
+  border-bottom:1px solid rgba(69,209,207,.14)!important;
+  padding:34px 20px!important;
+  transition:background .34s ease,border-color .34s ease!important;
+}
+
+.projects-catalog-section .catalog-project.is-center-active{
+  background:#031011!important;
+  border-bottom-color:rgba(69,209,207,.22)!important;
+}
+
+.projects-catalog-section .catalog-number{
+  color:#65dfdc!important;
+}
+
+.projects-catalog-section .catalog-copy small{
+  color:#65dfdc!important;
+}
+
+.projects-catalog-section .catalog-copy h2{
+  color:#f1f6f5!important;
+}
+
+.projects-catalog-section .catalog-copy dt{
+  color:#7eb7b6!important;
+}
+
+.projects-catalog-section .catalog-copy dd{
+  color:#9aacaf!important;
+}
+
+.projects-catalog-section .catalog-tags span{
+  border-color:rgba(118,214,214,.28)!important;
+  color:#8fa7a8!important;
+}
+
+.projects-catalog-section .catalog-link{
+  color:#65dfdc!important;
+}
+
+.projects-catalog-section .catalog-link:hover{
+  color:#a8d9d8!important;
+}
+
+.projects-catalog-section .catalog-image{
+  background:#02090a!important;
+  border-color:rgba(118,214,214,.28)!important;
+}
+
+.projects-catalog-section .catalog-project.is-center-active .catalog-image{
+  border-color:rgba(118,214,214,.42)!important;
+}
+
+@media(max-width:560px){
+  .projects-catalog-section .catalog-project{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+}
+
 /* Global brandbook compliance layer — applies to legacy and current routes. */
 html body { font-family:var(--font-montserrat),Montserrat,sans-serif; font-weight:400; }
 html body h1,html body h2,html body h3,html body h4,html body h5,html body h6 {
