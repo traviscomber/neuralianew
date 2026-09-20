@@ -276,8 +276,10 @@
 }
 
 .projects-catalog-section .catalog-tags span{
-  border-color:rgba(118,214,214,.28)!important;
-  color:#8fa7a8!important;
+  border:0!important;
+  background:#082425!important;
+  color:#9cc7c6!important;
+  box-shadow:none!important;
 }
 
 .projects-catalog-section .catalog-link{
