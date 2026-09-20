@@ -786,3 +786,45 @@ html body [class*="border-purple-"],html body [class*="border-pink-"],html body 
     letter-spacing: 0;
   }
 }
+
+
+/* Canonical portal heading scale — 2026-09-20.
+   One source of truth for semantic H1/H2/H3 across every localized portal page.
+   The #main-content scope deliberately excludes navigation, footer, dialogs and utility UI. */
+body.n3-public-portal{
+  --n3-heading-h1-size:64px;
+  --n3-heading-h2-size:48px;
+  --n3-heading-h3-size:25px;
+}
+
+html body.n3-public-portal #main-content h1{
+  font-size:var(--n3-heading-h1-size)!important;
+}
+
+html body.n3-public-portal #main-content h2,
+html body.n3-public-portal .landing-recognition h2{
+  font-size:var(--n3-heading-h2-size)!important;
+}
+
+html body.n3-public-portal #main-content h3,
+html body.n3-public-portal .landing-recognition h3{
+  font-size:var(--n3-heading-h3-size)!important;
+}
+
+/* Tablet: preserve hierarchy while reducing line pressure. */
+@media(max-width:1023px){
+  body.n3-public-portal{
+    --n3-heading-h1-size:52px;
+    --n3-heading-h2-size:40px;
+    --n3-heading-h3-size:23px;
+  }
+}
+
+/* Mobile: compact canonical scale. */
+@media(max-width:639px){
+  body.n3-public-portal{
+    --n3-heading-h1-size:42px;
+    --n3-heading-h2-size:34px;
+    --n3-heading-h3-size:22px;
+  }
+}
