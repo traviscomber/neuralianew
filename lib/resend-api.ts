@@ -1,6 +1,10 @@
 const RESEND_EMAILS_URL = "https://api.resend.com/emails"
 
 export interface ResendEmailPayload {
+  attachments?: Array<{
+    content: string
+    filename: string
+  }>
   bcc?: string | string[]
   cc?: string | string[]
   from: string
@@ -45,6 +49,7 @@ export async function sendResendEmail(payload: ResendEmailPayload) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      attachments: payload.attachments,
       bcc: normalizeRecipients(payload.bcc),
       cc: normalizeRecipients(payload.cc),
       from: payload.from,
