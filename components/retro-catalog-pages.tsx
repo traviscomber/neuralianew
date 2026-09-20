@@ -56,6 +56,44 @@ const productHeroParticlePositions = [
 ] as const
 
 
+function CatalogHeroParticles({className}:{className:string}){
+  return (
+    <div className={className} aria-hidden="true">
+      {productHeroParticlePositions.map(([x,y], index) => {
+        const size = 1.1 + ((index * 7) % 15) / 10
+        const duration = 11 + ((index * 7) % 17)
+        const pulse = 2.8 + ((index * 11) % 31) / 10
+        const delay = -((index * 13) % 19)
+        const dx1 = ((index * 13) % 25) - 12
+        const dy1 = ((index * 17) % 27) - 13
+        const dx2 = ((index * 19 + 7) % 33) - 16
+        const dy2 = ((index * 11 + 5) % 35) - 17
+        const dx3 = ((index * 23 + 3) % 29) - 14
+        const dy3 = ((index * 5 + 9) % 31) - 15
+        const opacity = .34 + ((index * 9) % 31) / 100
+        const style = {
+          '--x': `${x}%`,
+          '--y': `${y}%`,
+          '--size': `${size}px`,
+          '--duration': `${duration}s`,
+          '--pulse': `${pulse}s`,
+          '--delay': `${delay}s`,
+          '--dx1': `${dx1}px`,
+          '--dy1': `${dy1}px`,
+          '--dx2': `${dx2}px`,
+          '--dy2': `${dy2}px`,
+          '--dx3': `${dx3}px`,
+          '--dy3': `${dy3}px`,
+          '--particle-opacity': String(opacity),
+        } as CSSProperties
+
+        return <span key={index} style={style} />
+      })}
+    </div>
+  )
+}
+
+
 const productData: Record<Locale, {desc:string;forWhom:string;modules:string[];status:string}[]> = {
   es: [
     { desc:'Plataforma para hacer visible y gestionar merma en plantas de alimentos, conectando registros operativos, costos, análisis explicable y alertas por WhatsApp. La implementación y el impacto se miden contra el baseline real de cada planta.', forWhom:'Plantas de alimentos y lecherías que necesitan entender dónde, cuándo y por qué ocurre la merma y convertir esa señal en acciones operativas.', modules:['Merma en CLP','Alertas WhatsApp','IA explicable','Reglas HACCP/MINSAL/SAG','Modo Pyme','Reportes de auditoría'], status:'Disponible para diagnóstico' },
@@ -76,7 +114,8 @@ const productData: Record<Locale, {desc:string;forWhom:string;modules:string[];s
 // ─── Shared ───────────────────────────────────────────────────────────────────
 function Header({eyebrow,title,body}:{eyebrow:string;title:string;body:string}){
   return (
-    <header className="catalog-hero">
+    <header className="catalog-hero projects-hero">
+      <CatalogHeroParticles className="projects-hero-particles" />
       <div className="retro-shell">
         <small>{eyebrow}</small>
         <h1>{title}</h1>
@@ -139,38 +178,7 @@ export function ProductsPage({locale}:{locale:Locale}){
   return (
     <main className="retro-page catalog-page products-catalog-page">
       <header className="catalog-hero products-hero">
-        <div className="products-hero-particles" aria-hidden="true">
-          {productHeroParticlePositions.map(([x,y], index) => {
-            const size = 1.1 + ((index * 7) % 15) / 10
-            const duration = 11 + ((index * 7) % 17)
-            const pulse = 2.8 + ((index * 11) % 31) / 10
-            const delay = -((index * 13) % 19)
-            const dx1 = ((index * 13) % 25) - 12
-            const dy1 = ((index * 17) % 27) - 13
-            const dx2 = ((index * 19 + 7) % 33) - 16
-            const dy2 = ((index * 11 + 5) % 35) - 17
-            const dx3 = ((index * 23 + 3) % 29) - 14
-            const dy3 = ((index * 5 + 9) % 31) - 15
-            const opacity = .34 + ((index * 9) % 31) / 100
-            const style = {
-              '--x': `${x}%`,
-              '--y': `${y}%`,
-              '--size': `${size}px`,
-              '--duration': `${duration}s`,
-              '--pulse': `${pulse}s`,
-              '--delay': `${delay}s`,
-              '--dx1': `${dx1}px`,
-              '--dy1': `${dy1}px`,
-              '--dx2': `${dx2}px`,
-              '--dy2': `${dy2}px`,
-              '--dx3': `${dx3}px`,
-              '--dy3': `${dy3}px`,
-              '--particle-opacity': String(opacity),
-            } as CSSProperties
-
-            return <span key={index} style={style} />
-          })}
-        </div>
+        <CatalogHeroParticles className="products-hero-particles" />
         <div className="retro-shell products-hero-grid">
           <div className="products-hero-primary">
             <small>{es ? 'PRODUCTOS' : 'PRODUCTS'}</small>

@@ -463,6 +463,23 @@
   }
 }
 
+/* Projects hero — same chaotic particle field as Products. */
+.projects-catalog-page .projects-hero{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 74% 34%,rgba(32,231,223,.07),transparent 30%),
+    radial-gradient(circle at 18% 72%,rgba(32,231,223,.045),transparent 27%),
+    #02090a!important;
+  border:0!important;
+}
+
+.projects-catalog-page .projects-hero > .retro-shell{
+  position:relative!important;
+  z-index:1!important;
+}
+
 /* Products hero — consolidated catalog introduction. */
 .products-catalog-page .products-hero{
   position:relative!important;
@@ -478,7 +495,9 @@
 }
 
 .products-catalog-page .products-hero::before,
-.products-catalog-page .products-hero::after{
+.products-catalog-page .products-hero::after,
+.projects-catalog-page .projects-hero::before,
+.projects-catalog-page .projects-hero::after{
   content:"";
   position:absolute;
   z-index:0;
@@ -488,7 +507,8 @@
   opacity:.26;
 }
 
-.products-catalog-page .products-hero::before{
+.products-catalog-page .products-hero::before,
+.projects-catalog-page .projects-hero::before{
   width:36vw;
   height:36vw;
   min-width:360px;
@@ -499,7 +519,8 @@
   animation:n3ProductsAmbientA 18s ease-in-out infinite alternate;
 }
 
-.products-catalog-page .products-hero::after{
+.products-catalog-page .products-hero::after,
+.projects-catalog-page .projects-hero::after{
   width:30vw;
   height:30vw;
   min-width:300px;
@@ -510,7 +531,8 @@
   animation:n3ProductsAmbientB 23s ease-in-out -7s infinite alternate;
 }
 
-.products-catalog-page .products-hero-particles{
+.products-catalog-page .products-hero-particles,
+.projects-catalog-page .projects-hero-particles{
   position:absolute;
   inset:0;
   z-index:0;
@@ -518,7 +540,8 @@
   pointer-events:none;
 }
 
-.products-catalog-page .products-hero-particles span{
+.products-catalog-page .products-hero-particles span,
+.projects-catalog-page .projects-hero-particles span{
   position:absolute;
   left:var(--x);
   top:var(--y);
@@ -672,7 +695,10 @@
 @media(prefers-reduced-motion:reduce){
   .products-catalog-page .products-hero::before,
   .products-catalog-page .products-hero::after,
-  .products-catalog-page .products-hero-particles span{
+  .products-catalog-page .products-hero-particles span,
+  .projects-catalog-page .projects-hero::before,
+  .projects-catalog-page .projects-hero::after,
+  .projects-catalog-page .projects-hero-particles span{
     animation:none!important;
     transform:none!important;
   }
