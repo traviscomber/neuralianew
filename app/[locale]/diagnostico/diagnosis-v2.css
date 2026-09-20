@@ -1825,7 +1825,7 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
   line-height:1.08!important;
   letter-spacing:.14em!important;
   text-transform:uppercase!important;
-  color:var(--n3-text-light)!important;
+  /* Color intentionally remains section/component-owned so teal accents survive. */
 }
 
 .diagnosis-v2 .diagnosis-hero-copy h1{
@@ -1850,10 +1850,6 @@ body.portal-dark-page main.diagnosis-v2 > section.diagnosis-section{
   font-size:25px!important;
 }
 
-.diagnosis-v2 .diagnosis-hero-copy h1 span,
-.diagnosis-v2 .diagnosis-direct-panel h2 span{
-  color:inherit!important;
-}
 
 @media(max-width:560px){
   .diagnosis-v2 .diagnosis-hero-copy h1{
