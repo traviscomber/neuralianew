@@ -130,6 +130,17 @@
   filter:saturate(.55) contrast(1.06) brightness(.64);
 }
 
+.diagnosis-hero-art{
+  justify-self:end;
+  width:100%;
+}
+
+.diagnosis-hero-art img{
+  object-position:right center!important;
+  image-rendering:auto;
+  filter:saturate(.62) contrast(1.04) brightness(.72);
+}
+
 .diagnosis-gives,
 .diagnosis-next{
   padding:clamp(80px,7vw,132px) clamp(28px,6vw,112px);
