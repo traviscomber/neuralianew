@@ -949,9 +949,6 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
       </section>
 
       <section className="diagnosis-section diagnosis-contact" aria-labelledby="diagnosis-contact-title">
-        <div className="diagnosis-contact-art" aria-hidden="true">
-          <Image src="/images/diagnosis-v2/contact-art.webp" alt="" fill sizes="(min-width:1101px) 1240px, 100vw" />
-        </div>
         <div className="diagnosis-contact-panel">
           <div className="diagnosis-contact-head">
             <div>
