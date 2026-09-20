@@ -32,7 +32,7 @@ main > section[class*="capabilitiesStage"] > div[class*="capabilitiesShell"] > d
   min-width:0!important;
   display:flex!important;
   flex-direction:column!important;
-  padding-top:108px!important;
+  padding-top:15px!important;
 }
 
 main > section[class*="capabilitiesStage"] header[class*="sectionHead"]{
