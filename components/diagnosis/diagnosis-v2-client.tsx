@@ -631,11 +631,10 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           </h1>
           <p>{t.heroBody}</p>
           <div className="diagnosis-actions">
-            <button type="button" className="diagnosis-button diagnosis-button-primary" onClick={jumpToConsole}>
+            <button type="button" className="retro-button retro-button-primary" onClick={jumpToConsole}>
               {t.start}
-              <span aria-hidden="true">→</span>
             </button>
-            <a className="diagnosis-button" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">
+            <a className="retro-button" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">
               {t.talk}
             </a>
           </div>
@@ -727,9 +726,8 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
                   ) : null}
                   <a className="diagnosis-text-action" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">{t.manager}</a>
                 </div>
-                <button type="button" className="diagnosis-button diagnosis-button-primary" onClick={nextQuestion}>
+                <button type="button" className="retro-button retro-button-primary" onClick={nextQuestion}>
                   {questionIndex === t.questions.length - 1 ? t.generate : t.continue}
-                  <span aria-hidden="true">→</span>
                 </button>
               </div>
             </div>
@@ -753,9 +751,8 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
                   <button type="button" className="diagnosis-text-action" onClick={() => { setConsoleState("questions"); setQuestionIndex(0) }}>{t.edit}</button>
                   <a className="diagnosis-text-action" href={diagnosisWhatsapp(locale, answers, read)} target="_blank" rel="noopener noreferrer">{t.viaWhatsapp}</a>
                 </div>
-                <button type="button" className="diagnosis-button diagnosis-button-primary" onClick={() => setConsoleState("review")}>
+                <button type="button" className="retro-button retro-button-primary" onClick={() => setConsoleState("review")}>
                   {t.sendReview}
-                  <span aria-hidden="true">→</span>
                 </button>
               </div>
             </div>
@@ -813,9 +810,8 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
               {error ? <p className="diagnosis-error">{error}</p> : null}
               <div className="diagnosis-console-actions">
                 <button type="button" className="diagnosis-text-action" onClick={() => setConsoleState("read")}>{t.back}</button>
-                <button type="submit" className="diagnosis-button diagnosis-button-primary" disabled={submitting}>
+                <button type="submit" className="retro-button retro-button-primary" disabled={submitting}>
                   {submitting ? t.sending : t.sendRequest}
-                  <span aria-hidden="true">→</span>
                 </button>
               </div>
             </form>
@@ -827,10 +823,10 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
               <h3>{t.receivedTitle}</h3>
               <p>{t.receivedBody}</p>
               <div className="diagnosis-actions">
-                <a className="diagnosis-button diagnosis-button-primary" href={diagnosisWhatsapp(locale, answers, read)} target="_blank" rel="noopener noreferrer">
+                <a className="retro-button retro-button-primary" href={diagnosisWhatsapp(locale, answers, read)} target="_blank" rel="noopener noreferrer">
                   WhatsApp
                 </a>
-                <Link className="diagnosis-button" href={`/${locale}/${locale === "es" ? "soluciones" : "solutions"}`}>
+                <Link className="retro-button" href={`/${locale}/${locale === "es" ? "soluciones" : "solutions"}`}>
                   {t.explore}
                 </Link>
               </div>
@@ -866,9 +862,8 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
           <span className="diagnosis-kicker">{t.directLabel}</span>
           <h2 id="diagnosis-direct-title">{t.directTitleA} <span>{t.directTitleB}</span></h2>
           <p>{t.directBody}</p>
-          <a className="diagnosis-button diagnosis-button-primary" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">
+          <a className="retro-button retro-button-primary" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">
             {t.talk}
-            <span aria-hidden="true">→</span>
           </a>
           <div className="diagnosis-direct-shortcuts">
             {t.contactShortcuts.map(([kind, title, body]) => (
@@ -925,8 +920,8 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
             })}
           </div>
           <div className="diagnosis-contact-actions">
-            <button type="button" className="diagnosis-button diagnosis-button-primary" onClick={jumpToConsole}>{t.startAgain}</button>
-            <a className="diagnosis-button" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">{t.talk}</a>
+            <button type="button" className="retro-button retro-button-primary" onClick={jumpToConsole}>{t.startAgain}</button>
+            <a className="retro-button" href={genericWhatsapp(locale)} target="_blank" rel="noopener noreferrer">{t.talk}</a>
           </div>
         </div>
       </section>
