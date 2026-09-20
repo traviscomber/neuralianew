@@ -904,14 +904,18 @@
 /* Diagnosis V2 geometry correction.
    Match the canonical landing-page 1240px shell and keep every desktop composition 16:9. */
 .diagnosis-v2{
+  width:100%;
+  max-width:none;
+  margin:0;
+  background:#020707;
+}
+
+.diagnosis-section{
   width:min(var(--n3-portal-shell-max,1240px),calc(100% - var(--n3-portal-gutter-total,40px)));
   max-width:var(--n3-portal-shell-max,1240px);
   margin-left:auto;
   margin-right:auto;
-}
-
-.diagnosis-section{
-  width:100%;
+  background:#020707;
 }
 
 @media (min-width:1101px){
@@ -1206,6 +1210,15 @@
 
 @media (max-width:560px){
   .diagnosis-v2{
-    width:min(var(--n3-portal-shell-max,1240px),calc(100% - var(--n3-portal-gutter-mobile-total,28px)));
+    width:100%;
+    max-width:none;
+    margin:0;
+  }
+
+  .diagnosis-section{
+    width:100%;
+    max-width:none;
+    margin-left:0;
+    margin-right:0;
   }
 }
