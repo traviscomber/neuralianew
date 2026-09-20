@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { FormEvent, useMemo, useState } from "react"
+import type { CSSProperties } from "react"
 import type { Locale } from "@/lib/get-locale"
 
 type AnswerKey = "operationState" | "operation" | "happening" | "information" | "impact" | "priority"
@@ -41,6 +42,52 @@ const visualAssets = [
   "/images/diagnosis-v2/give-validation.webp",
   "/images/diagnosis-v2/give-review.webp",
 ] as const
+
+
+const diagnosisParticlePositions = [
+  [3,8],[8,41],[5,79],[12,21],[15,64],[19,91],[23,34],[26,13],[29,58],[32,83],
+  [35,45],[39,6],[42,72],[46,27],[49,94],[52,51],[55,17],[58,76],[61,38],[64,88],
+  [68,12],[71,61],[74,31],[77,82],[81,47],[84,5],[87,67],[90,25],[93,91],[96,54],
+  [17,49],[37,89],[57,3],[72,95],[98,17],[1,57],[44,12],[66,49],[24,71],[53,85],
+] as const
+
+function DiagnosisParticleField() {
+  return (
+    <div className="diagnosis-console-particles" aria-hidden="true">
+      {diagnosisParticlePositions.map(([x,y], index) => {
+        const size = 1.1 + ((index * 7) % 15) / 10
+        const duration = 11 + ((index * 7) % 17)
+        const pulse = 2.8 + ((index * 11) % 31) / 10
+        const delay = -((index * 13) % 19)
+        const dx1 = ((index * 13) % 25) - 12
+        const dy1 = ((index * 17) % 27) - 13
+        const dx2 = ((index * 19 + 7) % 33) - 16
+        const dy2 = ((index * 11 + 5) % 35) - 17
+        const dx3 = ((index * 23 + 3) % 29) - 14
+        const dy3 = ((index * 5 + 9) % 31) - 15
+        const opacity = .22 + ((index * 9) % 24) / 100
+
+        const style = {
+          '--x': `${x}%`,
+          '--y': `${y}%`,
+          '--size': `${size}px`,
+          '--duration': `${duration}s`,
+          '--pulse': `${pulse}s`,
+          '--delay': `${delay}s`,
+          '--dx1': `${dx1}px`,
+          '--dy1': `${dy1}px`,
+          '--dx2': `${dx2}px`,
+          '--dy2': `${dy2}px`,
+          '--dx3': `${dx3}px`,
+          '--dy3': `${dy3}px`,
+          '--particle-opacity': String(opacity),
+        } as CSSProperties
+
+        return <span key={index} style={style} />
+      })}
+    </div>
+  )
+}
 
 const copy = {
   en: {
@@ -674,6 +721,7 @@ export function DiagnosisV2Client({ locale }: { locale: Locale }) {
       </section>
 
       <section id="diagnostic-console" className="diagnosis-section diagnosis-console-section" aria-labelledby="diagnosis-console-title">
+        <DiagnosisParticleField />
         <div className="diagnosis-console-intro">
           <div>
             <span className="diagnosis-kicker">{t.consoleLabel}</span>
