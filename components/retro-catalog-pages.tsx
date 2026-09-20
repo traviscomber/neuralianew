@@ -94,9 +94,12 @@ export function ProjectsPage({locale}:{locale:Locale}){
             const d = data[i]
             return (
               <CatalogProjectFocus id={p.id} key={p.id}>
-                <div className="catalog-number">{String(i+1).padStart(2,'0')} —</div>
                 <div className="catalog-copy">
-                  <small>{d.sector}</small>
+                  <div className="catalog-project-label">
+                    <span>{String(i+1).padStart(2,'0')}</span>
+                    <span aria-hidden="true">/</span>
+                    <span>{d.sector}</span>
+                  </div>
                   <h2>{p.name}</h2>
                   <dl>
                     <div><dt>{es ? 'Problema' : 'Problem'}</dt><dd>{d.problem}</dd></div>
