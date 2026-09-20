@@ -611,6 +611,10 @@ export default async function SolutionsPage(props: PageProps) {
               <div className={styles.eyebrow}>04 / {page.capabilitiesLabel}</div>
               <h2 id="capabilities-title" className={styles.sectionTitle}>{page.capabilitiesTitle}</h2>
               <p className={styles.sectionIntro}>{page.capabilitiesBody}</p>
+              <Link className={styles.cta} href="#combine-title">
+                {locale === "es" ? "Ver cómo funciona" : "See how it works"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </header>
           </div>
           <div>
@@ -625,10 +629,6 @@ export default async function SolutionsPage(props: PageProps) {
                 </article>
               ))}
             </div>
-            <Link className={styles.cta} href="#combine-title">
-              {locale === "es" ? "Ver cómo funciona" : "See how it works"}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
           </div>
         </div>
       </section>
