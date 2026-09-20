@@ -463,6 +463,120 @@
   }
 }
 
+/* Products hero — consolidated catalog introduction. */
+.products-catalog-page .products-hero{
+  min-height:640px!important;
+  padding:154px 0 72px!important;
+  background:#02090a!important;
+  border:0!important;
+}
+
+.products-catalog-page .products-hero-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr)!important;
+  gap:clamp(44px,7vw,108px)!important;
+  align-items:start!important;
+}
+
+.products-catalog-page .products-hero-primary h1{
+  max-width:760px!important;
+  margin:24px 0 22px!important;
+  font-size:clamp(52px,6.2vw,84px)!important;
+  line-height:.98!important;
+}
+
+.products-catalog-page .products-hero-primary p{
+  max-width:640px!important;
+  margin:0!important;
+}
+
+.products-catalog-page .products-hero-secondary{
+  padding-top:34px!important;
+}
+
+.products-catalog-page .products-hero-secondary > p{
+  max-width:620px!important;
+  margin:20px 0 0!important;
+}
+
+.products-catalog-page .products-hero-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:12px!important;
+  margin-top:30px!important;
+}
+
+.products-catalog-page .products-hero-ecosystem{
+  grid-column:1 / -1!important;
+  display:grid!important;
+  grid-template-columns:minmax(240px,.7fr) minmax(0,1.3fr)!important;
+  gap:40px!important;
+  align-items:end!important;
+  margin-top:24px!important;
+  padding-top:32px!important;
+  border-top:1px solid rgba(118,214,214,.12)!important;
+}
+
+.products-catalog-page .products-hero-ecosystem p{
+  max-width:500px!important;
+  margin:12px 0 0!important;
+}
+
+.products-catalog-page .products-hero-links{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:10px!important;
+  justify-content:flex-start!important;
+}
+
+.products-catalog-page .products-hero .retro-button{
+  min-height:42px!important;
+  padding:0 22px!important;
+}
+
+@media(max-width:900px){
+  .products-catalog-page .products-hero{
+    min-height:auto!important;
+    padding:132px 0 64px!important;
+  }
+
+  .products-catalog-page .products-hero-grid{
+    grid-template-columns:1fr!important;
+    gap:34px!important;
+  }
+
+  .products-catalog-page .products-hero-secondary{
+    padding-top:0!important;
+  }
+
+  .products-catalog-page .products-hero-ecosystem{
+    grid-column:auto!important;
+    grid-template-columns:1fr!important;
+    gap:22px!important;
+    margin-top:8px!important;
+  }
+}
+
+@media(max-width:560px){
+  .products-catalog-page .products-hero{
+    padding-top:118px!important;
+  }
+
+  .products-catalog-page .products-hero-primary h1{
+    font-size:46px!important;
+  }
+
+  .products-catalog-page .products-hero-actions,
+  .products-catalog-page .products-hero-links{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+
+  .products-catalog-page .products-hero .retro-button{
+    width:100%!important;
+  }
+}
+
 /* Canonical portal paragraph typography.
    Reference: landing hero paragraph (.hero-copy p). */
 :root{

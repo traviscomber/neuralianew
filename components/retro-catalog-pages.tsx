@@ -129,26 +129,26 @@ export function ProductsPage({locale}:{locale:Locale}){
   const data = productData[locale]
   return (
     <main className="retro-page catalog-page products-catalog-page">
-      <Header
-        eyebrow={es ? 'Productos' : 'Products'}
-        title={es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}
-        body={es ? 'Productos construidos desde problemas operacionales reales para conectar documentos, procesos, datos, decisiones y agentes.' : 'Products built from real operational problems to connect documents, processes, data, decisions and agents.'}
-      />
-      <section className="retro-dark products-catalog-intro">
-        <div className="retro-shell grid gap-10 py-16 md:py-20 lg:grid-cols-[.75fr_1.25fr]">
-          <div>
-            <small>{es ? 'SISTEMAS REUTILIZABLES' : 'REUSABLE SYSTEMS'}</small>
-            <h2 className="mt-5 max-w-xl text-[clamp(32px,4vw,52px)]">
-              {es ? 'Productos nacidos de operaciones reales.' : 'Products built from real operations.'}
-            </h2>
+      <header className="catalog-hero products-hero">
+        <div className="retro-shell products-hero-grid">
+          <div className="products-hero-primary">
+            <small>{es ? 'PRODUCTOS' : 'PRODUCTS'}</small>
+            <h1>{es ? 'Productos construidos desde operaciones reales.' : 'Products built from real operations.'}</h1>
+            <p>
+              {es
+                ? 'Productos construidos desde problemas operacionales reales para conectar documentos, procesos, datos, decisiones y agentes.'
+                : 'Products built from real operational problems to connect documents, processes, data, decisions and agents.'}
+            </p>
           </div>
-          <div>
-            <p className="max-w-3xl text-[15px] leading-8 text-[var(--n3-text-muted)]">
+
+          <div className="products-hero-secondary">
+            <small>{es ? 'SISTEMAS REUTILIZABLES' : 'REUSABLE SYSTEMS'}</small>
+            <p>
               {es
                 ? 'Cada producto concentra capacidades reutilizables desarrolladas alrededor de necesidades operacionales concretas: cumplimiento documental, minería, inteligencia visual, agentes especializados y automatización de flujos.'
                 : 'Each product concentrates reusable capabilities developed around concrete operational needs: document compliance, mining operations, visual intelligence, specialized agents and workflow automation.'}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="products-hero-actions">
               <Link className="retro-button" href={`/${locale}/${es ? 'proyectos' : 'projects'}`}>
                 {es ? 'Ver implementaciones' : 'View implementations'}
               </Link>
@@ -160,30 +160,31 @@ export function ProductsPage({locale}:{locale:Locale}){
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="retro-dark products-catalog-intro">
-        <div className="retro-shell py-14">
-          <small>{es ? 'ECOSISTEMA PÚBLICO' : 'PUBLIC ECOSYSTEM'}</small>
-          <p className="mt-4 max-w-3xl text-[14px] leading-7 text-[var(--n3-text-muted)]">
-            {es
-              ? 'Algunos productos N3uralia operan con dominios propios y una identidad especializada. Estos enlaces conectan el catálogo con sus superficies públicas canónicas.'
-              : 'Some N3uralia products operate on their own domains with specialized identities. These links connect the catalog to their canonical public surfaces.'}
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            {[
-              ['Kumplio', 'https://www.kumplio.app'],
-              ['VIDENTIA', 'https://videntia.app'],
-              ['Clar1ty', 'https://www.clar1ty.art'],
-              ['LicitRadar', 'https://www.licitradar.app'],
-            ].map(([name, href]) => (
-              <a key={name} className="retro-button" href={href} target="_blank" rel="noopener noreferrer">
-                {name} ↗
-              </a>
-            ))}
+
+          <div className="products-hero-ecosystem">
+            <div>
+              <small>{es ? 'ECOSISTEMA PÚBLICO' : 'PUBLIC ECOSYSTEM'}</small>
+              <p>
+                {es
+                  ? 'Productos especializados con superficies públicas propias.'
+                  : 'Specialized products with their own public surfaces.'}
+              </p>
+            </div>
+            <div className="products-hero-links">
+              {[
+                ['Kumplio', 'https://www.kumplio.app'],
+                ['VIDENTIA', 'https://videntia.app'],
+                ['Clar1ty', 'https://www.clar1ty.art'],
+                ['LicitRadar', 'https://www.licitradar.app'],
+              ].map(([name, href]) => (
+                <a key={name} className="retro-button" href={href} target="_blank" rel="noopener noreferrer">
+                  {name} ↗
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </header>
       <section className="catalog-section products-catalog-section" aria-label={es ? 'Productos de N3uralia' : 'N3uralia products'}>
         <div className="retro-shell catalog-list">
           {products.map((p,i) => {
