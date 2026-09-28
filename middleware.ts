@@ -99,11 +99,6 @@ export async function middleware(request: NextRequest) {
     const locale = getLocale(pathname)
 
     if (!locale) {
-      if (pathname === "/") {
-        request.nextUrl.pathname = "/en"
-        return NextResponse.redirect(request.nextUrl, 308)
-      }
-
       const acceptLanguage = request.headers.get("accept-language") || ""
       const preferredLocale = acceptLanguage
         .split(",")[0]
@@ -111,8 +106,9 @@ export async function middleware(request: NextRequest) {
         .toLowerCase()
 
       const validLocale = LOCALES.includes(preferredLocale) ? preferredLocale : DEFAULT_LOCALE
-      request.nextUrl.pathname = `/${validLocale}${pathname}`
-      return NextResponse.redirect(request.nextUrl)
+      request.nextUrl.pathname =
+        pathname === "/" ? `/${validLocale}` : `/${validLocale}${pathname}`
+      return NextResponse.redirect(request.nextUrl, 308)
     }
   }
 

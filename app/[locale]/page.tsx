@@ -25,7 +25,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
         es: esUrl,
         en: enUrl,
         'en-US': enUrl,
-        'x-default': enUrl,
+        'x-default': esUrl,
       },
     },
     openGraph: {
