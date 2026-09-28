@@ -41,7 +41,7 @@ function languageAlternates(canonicalUrl: string) {
     es: esUrl,
     en: enUrl,
     "en-US": enUrl,
-    "x-default": enUrl,
+    "x-default": esUrl,
   }
 }
 
