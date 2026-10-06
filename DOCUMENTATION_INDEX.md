@@ -1,14 +1,15 @@
 # N3uralia Documentation
 
-Last reviewed: 2026-09-16
+Last reviewed: 2026-10-06
 
 This repository contains the production N3uralia web application. Keep active documentation small, current, and operational. Historical audits, implementation summaries, and one-off delivery reports belong in Git history rather than the active repository tree.
 
 ## Canonical documents
 
 - `README.md` — product and repository overview.
-- `AGENTS.md` — engineering and agent operating rules.
-- `ARCHITECTURE.md` — application architecture and system boundaries.
+- `AGENTS.md` — engineering and coding-agent operating rules.
+- `N3URALIA_AGENT_ARCHITECTURE.md` — organizational standard for role-aware assistants, specialized operational agents, governed execution, evidence, autonomy and measurable outcomes across N3uralia products.
+- `ARCHITECTURE.md` — application architecture and system boundaries for this repository.
 - `DEVELOPMENT.md` — local development workflow.
 - `ENVIRONMENT_SETUP.md` — environment configuration guidance.
 - `DATABASE_SETUP.md` — database and Supabase setup notes.
